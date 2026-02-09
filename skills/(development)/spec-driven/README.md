@@ -8,10 +8,7 @@ Structured workflow for building software with clarity and traceability:
 
 ```mermaid
 flowchart LR
-    A[Initialize] --> B{Clarify needed?}
-    B -->|Yes| C[Clarify]
-    B -->|No| D[Plan]
-    C --> D
+    A[Initialize] --> D[Plan]
     D --> E[Tasks]
     E --> F[Implement]
     F --> G{Validate}
@@ -22,8 +19,7 @@ flowchart LR
 
 | Phase | Purpose |
 | ----- | ------- |
-| **Initialize** | Create feature spec (greenfield or brownfield), detect ambiguities |
-| **Clarify** | Resolve `[NEEDS CLARIFICATION]` markers from initialize |
+| **Initialize** | Create feature spec (greenfield or brownfield), resolve ambiguities inline |
 | **Plan** | Technical architecture, codebase exploration, research |
 | **Tasks** | Granular, atomic tasks with dependencies |
 | **Implement** | Execute tasks against the spec |
@@ -84,9 +80,6 @@ refactor user registration
 ### Development Workflow
 
 ```
-# Clarify - resolve ambiguities marked in spec
-clarify requirements for auth
-
 # Create technical plan (includes codebase exploration + research)
 create technical plan
 
@@ -113,12 +106,9 @@ archive auth feature
 
 create new feature for user authentication
 
-# Agent asks for requirements, creates:
-# .specs/features/001-user-auth/spec.md (status: draft)
+# Agent asks for requirements, resolves ambiguities inline (up to 2 Q&A rounds)
+# Creates: .specs/features/001-user-auth/spec.md (status: draft)
 # Type: greenfield
-
-# Clarify - only if initialize marked items with [NEEDS CLARIFICATION]
-clarify requirements for auth
 
 # Create technical plan
 create technical plan
@@ -160,7 +150,7 @@ modify existing auth flow to add 2FA
 # Creates .specs/features/002-add-2fa/spec.md
 # Includes Baseline section with current auth behavior
 
-# Continue with clarify → plan → tasks → implement → validate → archive
+# Continue with plan -> tasks -> implement -> validate -> archive
 ```
 
 ### Example 3: Feature with Research
@@ -191,7 +181,6 @@ initialize feature @docs/prd-auth.md
 ```
 # Just planning, no implementation yet
 create new feature for notifications
-clarify requirements
 create technical plan
 create tasks
 
@@ -204,19 +193,18 @@ archive
 ## Details
 
 ### Initialize
-Creates the feature specification. Detects greenfield vs brownfield, generates spec.md with:
-- User stories
+Creates the feature specification. Detects greenfield vs brownfield, resolves ambiguities through inline Q&A (up to 2 rounds of 3-5 questions).
+Defines WHAT to build. Generates spec.md with:
+- User stories with priority levels (P1/P2/P3)
 - Functional requirements
-- Acceptance criteria
-- `[NEEDS CLARIFICATION]` markers for ambiguities (if any)
-
-### Clarify
-Resolves ambiguities marked with `[NEEDS CLARIFICATION]` during initialize. Only needed if initialize detected unclear requirements. Updates spec.md with resolved answers.
+- Acceptance criteria (WHEN/THEN format)
+- Open questions section (for unresolved items)
 
 ### Plan
 Defines HOW to build. Creates plan.md with:
 - Architecture decisions
 - Codebase exploration (similar features, patterns)
+- Data model (entities, relationships, API contracts)
 - Research for new technologies (cached in .specs/research/)
 - Component breakdown
 
@@ -228,15 +216,17 @@ Defines WHEN to build. Creates tasks.md with:
 
 ### Implement
 Executes tasks from tasks.md:
+- Loads coding principles before writing code
 - Implements each task following the spec
 - Updates task checkboxes
-- Status: in-progress → to-review
+- Status: in-progress -> to-review
 
 ### Validate
 Verifies implementation against spec:
+- Adaptive: checks whatever artifacts exist
+- Edge case verification (errors, boundaries, concurrency)
 - Checks acceptance criteria are met
-- Validates code quality
-- Status: to-review → done
+- Status: to-review -> done
 
 ### Archive
 Generates consolidated documentation:
@@ -247,7 +237,7 @@ Generates consolidated documentation:
 ## State Management
 
 Features track status in spec.md frontmatter:
-- **draft**: Created, needs clarification
+- **draft**: Created, may have open questions
 - **ready**: Spec complete, ready for plan
 - **in-progress**: Implementation started
 - **to-review**: All tasks done, needs validation
@@ -259,7 +249,6 @@ STATE.md persists decisions and blockers across sessions.
 ## Requirements
 
 - Git (for branch association)
-- MCP memory bank (optional, enhances STATE.md)
 
 Works with any agent supporting standard skill format.
 

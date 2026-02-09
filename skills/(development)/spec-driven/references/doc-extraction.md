@@ -108,7 +108,7 @@ After extraction, populate spec.md sections:
 - **File not found**: Inform user, ask for correct path
 - **Directory empty**: Inform user no .md files found
 - **No relevant items**: Note in spec that docs were reviewed but no applicable requirements
-- **Conflicting requirements**: Mark with [NEEDS CLARIFICATION]
+- **Conflicting requirements**: Add to "Open Questions" section in spec.md
 
 ## Examples
 

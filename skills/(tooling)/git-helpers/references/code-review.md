@@ -45,12 +45,7 @@ git diff $BASE...HEAD
 
 Analyze the diff for real issues. Read full files when needed for context.
 
-#### MCP Tools (if available)
-
-Check if MCP tools like Serena are available:
-
-- **If available**: Use symbol search to understand code structure and trace impact
-- **If not available**: Use `grep` to find references and `read` to analyze code
+Use available semantic analysis tools to understand code structure and trace impact of changes.
 
 ### Step 6: Perform Guidelines Audit
 

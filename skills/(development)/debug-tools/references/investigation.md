@@ -24,28 +24,8 @@ Based on user's description, identify:
 
 ### Step 2: Analyze Code
 
-#### MCP Tools Strategy
-
-Check which MCP tools are available and adapt:
-
-**If console-ninja available:**
-- Use for runtime values, test status, coverage
-
-**If chrome-devtools available:**
-- Use for browser console, network inspection, DOM state
-
-**If serena MCP available:**
-- Use for semantic code analysis, find symbol references
-
-**If NOT available (fallback):**
-- Use grep to find references
-- Use read to analyze code
-
-**If context7 MCP available:**
-- Use to search debugging patterns and library docs
-
-**If NOT available (fallback):**
-- Use webfetch for external documentation
+Use available runtime inspection, browser debugging, semantic analysis, and documentation tools
+to investigate the issue. The agent discovers and uses whatever tools are available in the environment.
 
 #### Focus Areas
 

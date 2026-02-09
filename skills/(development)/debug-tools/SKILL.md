@@ -53,7 +53,7 @@ log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 - Never log sensitive data (passwords, tokens, PII)
 - Minimal fix: smallest change that resolves the issue
 - Cleanup is automatic after fix is verified
-- MCP tools are optional - workflow works with native tools only
+- Uses whatever debugging tools are available in the environment
 
 ## Error Handling
 

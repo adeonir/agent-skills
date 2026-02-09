@@ -4,7 +4,7 @@ Create technical plan from specification.
 
 ## When to Use
 
-- Spec is complete (no [NEEDS CLARIFICATION])
+- Spec is complete (no open questions blocking progress)
 - Ready to define HOW to build
 
 ## Process
@@ -19,9 +19,9 @@ Create technical plan from specification.
 
 Read `.specs/features/{ID}-{name}/spec.md`.
 
-If clarifications pending:
+If spec has critical open questions that block architecture decisions:
 - List items
-- Suggest `clarify` first
+- Ask user to resolve them
 - Exit
 
 ### Step 3: Research Phase
@@ -47,18 +47,15 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-### Step 4b: MCP Strategy
+### Step 5: Data Model Definition
 
-**If serena MCP available:**
-- Use `find_symbol` for precise symbol location
-- Use `find_referencing_symbols` for impact analysis
+Define the data model before component design:
 
-**If NOT available (fallback):**
-- Use grep to find symbol references
-- Use glob to find files
-- Use read to analyze code
+- **Entities**: Key domain objects and their attributes
+- **Relationships**: How entities relate (one-to-many, many-to-many)
+- **API contracts**: Request/response shapes for new endpoints
 
-### Step 5: Generate plan.md
+### Step 6: Generate plan.md
 
 **Structure:**
 
@@ -108,6 +105,24 @@ Focus areas:
 | Error handling | {approach} | {anti-pattern} | {file:line} |
 | API calls | {pattern} | {anti-pattern} | {file:line} |
 
+## Data Model
+
+### Entities
+
+| Entity | Key Attributes | Purpose |
+|--------|---------------|---------|
+| {name} | {attributes} | {role in feature} |
+
+### Relationships
+
+{Describe entity relationships. Use a mermaid erDiagram when relationships are non-trivial.}
+
+### API Contracts
+
+| Endpoint | Method | Request | Response |
+|----------|--------|---------|----------|
+| {path} | {verb} | {shape} | {shape} |
+
 ## Architecture Decision
 
 {chosen approach with rationale - be decisive, pick ONE approach}
@@ -119,6 +134,8 @@ Focus areas:
 | {name} | {path} | {what} |
 
 ## Data Flow
+
+{Use a mermaid sequenceDiagram or flowchart when the flow involves 3+ steps or multiple actors.}
 
 1. {Entry point}
 2. {Transform}
@@ -174,11 +191,11 @@ Focus areas:
 - [ ] {question}
 ```
 
-### Step 6: Update Status
+### Step 7: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 7: Report
+### Step 8: Report
 
 Inform user:
 - Created: `plan.md`
@@ -189,5 +206,5 @@ Inform user:
 ## Error Handling
 
 - Spec not found: Suggest `initialize`
-- Clarifications found: Suggest `clarify`
+- Open questions blocking architecture: Ask user to resolve them
 - Codebase unclear: Ask for guidance

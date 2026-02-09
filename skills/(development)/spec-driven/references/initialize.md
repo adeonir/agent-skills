@@ -89,7 +89,21 @@ Load [doc-extraction.md](doc-extraction.md) and:
 **If input is empty:**
 - Ask user for feature description
 
-### Step 5: Baseline Discovery (Brownfield)
+### Step 5: Resolve Ambiguities (Inline Q&A)
+
+After drafting the initial requirements, identify any unclear or ambiguous items.
+
+**Process:**
+1. Batch 3-5 questions together and ask the user in a single round
+2. Maximum 2 rounds of questions
+3. Questions unanswered after 2 rounds go to the "Open Questions" section in spec.md
+4. Never block spec creation on unresolved questions
+
+**Question format:**
+- Be specific: "Should password reset require email verification?" not "How should reset work?"
+- Offer options when possible: "Should the session timeout be (a) 30 minutes, (b) 1 hour, or (c) configurable?"
+
+### Step 6: Baseline Discovery (Brownfield)
 
 If type is `brownfield`:
 
@@ -104,12 +118,12 @@ If `.specs/codebase/` doesn't exist:
 - Suggest running "map codebase" for better context
 - Or proceed with limited codebase understanding
 
-### Step 6: Generate Feature Name
+### Step 7: Generate Feature Name
 
 Convert description to kebab-case:
-- "Add user authentication" → `add-user-auth`
+- "Add user authentication" -> `add-user-auth`
 
-### Step 7: Ask About Branch
+### Step 8: Ask About Branch
 
 ```
 Associate this feature with a branch?
@@ -121,13 +135,13 @@ If option 2:
 - Create branch: `git checkout -b feature/{name}`
 - Store branch name in frontmatter
 
-### Step 8: Create Feature Directory
+### Step 9: Create Feature Directory
 
 ```bash
 mkdir -p .specs/features/{ID}-{name}
 ```
 
-### Step 9: Generate spec.md
+### Step 10: Generate spec.md
 
 **Frontmatter:**
 
@@ -153,7 +167,7 @@ created: {YYYY-MM-DD}
 
 ## User Stories
 
-- As a {user}, I want {goal} so that {benefit}
+- [P1] As a {user}, I want {goal} so that {benefit}
 
 ## Functional Requirements
 
@@ -161,7 +175,11 @@ created: {YYYY-MM-DD}
 
 ## Acceptance Criteria
 
-- [ ] AC-001: {criterion}
+- [ ] AC-001: WHEN {trigger} THEN {expected behavior}
+
+## Open Questions
+
+- {Any unresolved questions from Step 5, or "None" if all resolved}
 
 ## Notes
 
@@ -184,17 +202,18 @@ Same structure plus **Baseline** section:
 - {What's missing or problematic}
 ```
 
-### Step 10: Update ROADMAP.md
+### Step 11: Update ROADMAP.md
 
 Add feature to roadmap.
 
-### Step 11: Report
+### Step 12: Report
 
 Inform user:
 - Created: `.specs/features/{ID}-{name}/`
 - Type: {greenfield|brownfield}
 - Branch: {name}
-- Next: Run `clarify` or `plan`
+- Open questions: {count, if any}
+- Next: Run `plan`
 
 ## Codebase Mapping Note
 

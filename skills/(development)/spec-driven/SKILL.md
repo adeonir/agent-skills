@@ -1,25 +1,25 @@
 ---
 name: spec-driven
 description: >-
-  Specification-driven development with 4 phases: Clarify, Plan, Tasks, Implement+Validate.
+  Specification-driven development with structured phases: Initialize, Plan, Tasks, Implement+Validate.
   Creates structured feature specs with traceability to requirements.
   Use when: starting projects, planning features, implementing with verification,
   or tracking decisions across sessions. Triggers on "map codebase", "initialize",
-  "initialize project", "create feature", "clarify", "plan", "tasks", "implement"
+  "initialize project", "create feature", "plan", "tasks", "implement",
   "validate", "archive".
 metadata:
   author: github.com/adeonir
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Spec-Driven Development
 
-Structured development workflow: Clarify → Plan → Tasks → Implement+Validate.
+Structured development workflow: Initialize -> Plan -> Tasks -> Implement+Validate.
 
 ## Workflow
 
 ```
-clarify --> plan --> tasks --> implement --> validate --> archive
+initialize --> plan --> tasks --> implement --> validate --> archive
 ```
 
 ## Project Structure
@@ -83,7 +83,6 @@ docs/
 |-----------------|-----------|
 | Create new feature, new feature | [initialize.md](references/initialize.md) (greenfield) |
 | Modify feature, improve feature | [initialize.md](references/initialize.md) (brownfield) |
-| Clarify requirements | [clarify.md](references/clarify.md) |
 | Create technical plan | [plan.md](references/plan.md) |
 | Research technology, cache research | [research.md](references/research.md) |
 | Create tasks | [tasks.md](references/tasks.md) |
@@ -101,18 +100,18 @@ docs/
 | Research patterns | [research.md](references/research.md) |
 | Baseline discovery | [baseline-discovery.md](references/baseline-discovery.md) |
 | Extract from PRD/docs | [doc-extraction.md](references/doc-extraction.md) |
+| Coding principles | [coding-principles.md](references/coding-principles.md) |
 
 ## Cross-References
 
 ```
 project-init.md ----> roadmap.md
 project-init.md ----> codebase-mapping.md
-initialize.md ------> clarify.md (if ambiguities)
 initialize.md ------> plan.md (when spec complete)
-clarify.md ---------> plan.md
 plan.md ------------> tasks.md
 plan.md ------------> research.md (if new tech)
 tasks.md -----------> implement.md
+implement.md -------> coding-principles.md (loaded before coding)
 implement.md -------> validate.md
 validate.md --------> implement.md (if issues)
 validate.md --------> archive.md (if passed)
@@ -121,16 +120,16 @@ validate.md --------> archive.md (if passed)
 ## Guidelines
 
 - Content separation: spec=WHAT, plan=HOW, tasks=WHEN
-- Status flow: draft → ready → in-progress → to-review → done → archived
+- Status flow: draft -> ready -> in-progress -> to-review -> done -> archived
 - Feature IDs: sequential (001, 002), never reused
 - Research cache: Reusable across features in .specs/research/
-- STATE.md: Populated from MCP memory bank if available
+- STATE.md: Populated from persistent storage if available
 - Archive generates: docs/features/{name}.md (no ID)
 
 ## Error Handling
 
 - No .specs/: Suggest initialize project first
 - Spec not found: List available features
-- Clarifications pending: Suggest clarify before plan
+- Open questions blocking architecture: Resolve before planning
 - Plan not found: Suggest plan before tasks
 - Tasks not found: Suggest tasks before implement

@@ -1,27 +1,23 @@
 # Session State Management
 
-Manage persistent memory across sessions using STATE.md and optional MCP memory bank.
+Manage persistent memory across sessions using STATE.md.
 
 ## When to Use
 
 - Recording decisions
 - Logging blockers
 - Capturing learnings
-- Syncing with MCP memory bank
+- Syncing with persistent storage
 
 ## Process
 
 ### Step 1: Load Current State
 
-Read `.specs/project/STATE.md`:
+Read `.specs/project/STATE.md`.
 
-```bash
-cat .specs/project/STATE.md
-```
+### Step 2: Load Existing Context
 
-### Step 2: Check MCP Memory Bank
-
-If MCP memory bank is available:
+If persistent storage is available (memory files, project context, prior session data):
 - Query for relevant context
 - Merge with local STATE.md
 - Identify new entries to sync
@@ -48,10 +44,10 @@ Based on user input, update appropriate section:
 | {YYYY-MM-DD} | {Learning} | {Source feature} |
 ```
 
-### Step 4: Sync to MCP Memory Bank
+### Step 4: Sync to Persistent Storage
 
-If MCP available:
-- Push new entries to memory bank
+If persistent storage is available:
+- Push new entries
 - Tag with project context
 
 ### Step 5: Save STATE.md
@@ -82,17 +78,17 @@ Write updated content back to file.
 | 2024-01-14 | Next.js middleware needs special config | 001-auth |
 ```
 
-## MCP Memory Bank Integration
+## Persistent Storage Integration
 
 When available, STATE.md acts as local cache:
 
-1. Query memory bank first
+1. Query persistent storage first
 2. Merge with local state
 3. Update both sources
-4. Local file for portability
+4. Local file ensures portability
 
 ## Error Handling
 
 - File not found: Create from template
-- MCP unavailable: Use local file only
+- Storage unavailable: Use local file only
 - Sync conflict: Prioritize newer timestamps

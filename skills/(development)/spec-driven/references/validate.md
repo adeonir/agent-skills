@@ -2,16 +2,10 @@
 
 Validate artifacts and implementation.
 
-## Modes
+## Adaptive Mode
 
-Detected automatically based on artifacts:
-
-| Artifacts | Mode | Validates |
-|-----------|------|-----------|
-| spec only | Spec | Structure |
-| spec+plan | Plan | + documentation compliance |
-| spec+plan+tasks | Tasks | + requirements coverage |
-| all + code | Full | + implementation |
+Validation adapts automatically based on which artifacts exist. A single pass checks
+everything available, from spec structure to code implementation.
 
 ## Process
 
@@ -21,64 +15,38 @@ Detected automatically based on artifacts:
 2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
-### Step 2: Detect Mode
+### Step 2: Detect Available Artifacts
 
-Check which files exist in `.specs/features/{ID}-{name}/`.
+Check which files exist in `.specs/features/{ID}-{name}/` and determine scope:
+
+| Artifacts Found | Validation Scope |
+|-----------------|------------------|
+| spec only | Structure, completeness |
+| spec + plan | + documentation compliance, data model |
+| spec + plan + tasks | + requirements coverage, dependencies |
+| all + code changes | + implementation, acceptance criteria, patterns |
 
 ### Step 3: Run Validation
 
-**Spec Mode:**
-- Structure complete
-- No clarifications pending
+#### Spec Checks
 
-**Plan Mode:**
-- + Documentation compliance
-
-**Tasks Mode:**
-- + Requirements coverage
-- + Task dependencies valid
-
-**Full Mode:**
-- + Git diff comparison with plan.md
-- + Pattern compliance check
-- + Code implements spec
-- + Acceptance criteria pass
-- + Only report findings with confidence >= 80
-
-### Step 4: Determine Outcome
-
-**If valid:**
-- Update status:
-  - Spec mode: `ready` → suggest `plan`
-  - Plan mode: stay `ready` → suggest `tasks`
-  - Tasks mode: stay `ready` → suggest `implement`
-  - Full mode: `to-review` → `done` → suggest `archive`
-
-**If issues:**
-- List what needs fixing
-- Suggest appropriate command
-
-## Validation Checklists
-
-### Spec Validation
-
-- [ ] Has overview
-- [ ] Has user stories
+- [ ] Has overview section
+- [ ] Has user stories with priority levels (P1/P2/P3)
 - [ ] Has functional requirements (FR-xxx)
-- [ ] Has acceptance criteria (AC-xxx)
-- [ ] No [NEEDS CLARIFICATION] markers
+- [ ] Has acceptance criteria (AC-xxx) in WHEN/THEN format
 - [ ] For brownfield: has baseline section
+- [ ] Open questions are documented (not blocking)
 
-### Plan Validation
+#### Plan Checks (if plan.md exists)
 
 - [ ] References spec requirements
-- [ ] Has architecture section
-- [ ] Has implementation approach
+- [ ] Has architecture decision with rationale
+- [ ] Has data model (entities, relationships, API contracts)
 - [ ] Lists files to create/modify
 - [ ] Documents key decisions
 - [ ] Follows codebase conventions
 
-### Tasks Validation
+#### Tasks Checks (if tasks.md exists)
 
 - [ ] All FRs covered by tasks
 - [ ] All ACs addressed
@@ -86,141 +54,82 @@ Check which files exist in `.specs/features/{ID}-{name}/`.
 - [ ] Dependencies are valid [P] or [B:Txxx]
 - [ ] Has quality gates defined
 
-### Full Validation (Code)
+#### Code Checks (if implementation exists)
 
 - [ ] All tasks implemented
 - [ ] Acceptance criteria pass
 - [ ] Follows plan architecture
 - [ ] Quality gates pass (lint, typecheck, tests)
-- [ ] No TODO/FIXME comments
-- [ ] Edge cases handled
+- [ ] No TODO/FIXME comments left
+- [ ] Edge cases handled (see checklist below)
 
-## Output Formats
+### Step 4: Edge Case Verification
 
-### Spec Mode Output
+When validating code, check for:
 
-```markdown
-## Validation: {ID}-{feature}
+| Category | What to Verify |
+|----------|---------------|
+| Error states | Error paths return meaningful messages, no silent failures |
+| Boundaries | Empty arrays, zero values, max lengths, off-by-one |
+| Concurrency | Race conditions in async operations, state mutations |
+| Permissions | Authorization checks on protected operations |
+| Network | Timeout handling, retry logic, offline behavior |
+| Invalid input | Null/undefined, wrong types, malformed data |
 
-### Mode: Spec
+### Step 5: Determine Outcome
 
-### Structure Check
+**If valid:**
+- Update status based on scope:
+  - Spec only: `ready` -> suggest `plan`
+  - With plan: stay `ready` -> suggest `tasks`
+  - With tasks: stay `ready` -> suggest `implement`
+  - With code: `to-review` -> `done` -> suggest `archive`
 
-| Check | Status |
-|-------|--------|
-| Overview | ✅ |
-| User Stories | ✅ |
-| Functional Requirements | ✅ |
-| Acceptance Criteria | ✅ |
+**If issues:**
+- List what needs fixing
+- Suggest appropriate next step
 
-### Clarifications
-
-- [ ] None found, ready for planning
-- [x] 2 items need clarification (run `clarify`)
-
-### Summary
-
-- Status: **Ready for plan** or **Needs clarification**
-```
-
-### Plan Mode Output
+## Output Format
 
 ```markdown
 ## Validation: {ID}-{feature}
 
-### Mode: Plan
+### Checks
 
-### Documentation Compliance
+| Category | Check | Status | Issue |
+|----------|-------|--------|-------|
+| Spec | Overview present | ok | - |
+| Spec | User stories with priorities | ok | - |
+| Spec | Functional requirements | ok | - |
+| Spec | Acceptance criteria (WHEN/THEN) | warning | AC-003 missing THEN clause |
+| Plan | Architecture decision | ok | - |
+| Plan | Data model defined | fail | No entities section |
+| Tasks | All FRs covered | ok | - |
+| Tasks | Dependencies valid | ok | - |
+| Code | All tasks implemented | ok | - |
+| Code | AC-001 satisfied | ok | src/api.ts:45 |
+| Code | AC-002 satisfied | fail | No implementation found |
+| Code | Edge case: error states | warning | Missing error handling in src/service.ts:23 |
 
-| Guideline | Status | Issue |
-|-----------|--------|-------|
-| Architecture documented | ✅ | - |
-| Files listed | ⚠️ | Missing entry points |
+### Edge Cases (code only)
 
-### Summary
-
-- Status: **Ready for tasks** or **Needs corrections**
-```
-
-### Tasks Mode Output
-
-```markdown
-## Validation: {ID}-{feature}
-
-### Mode: Tasks
-
-### Coverage
-
-| Requirement | Tasks | Status |
-|-------------|-------|--------|
-| FR-001 | T001, T002 | ✅ Covered |
-| FR-002 | T003 | ⚠️ Partial |
-
-### Dependencies
-
-- ✅ All valid [P] or [B:Txxx]
-- ⚠️ T005 blocks non-existent task
-
-### Summary
-
-- Status: **Ready for implement** or **Needs fixes**
-```
-
-### Full Mode Output
-
-```markdown
-## Validation: {ID}-{feature}
-
-### Mode: Full
-
-### Implementation Coverage
-
-| Planned | Status | Issue |
-|---------|--------|-------|
-| src/api.ts | Modified | - |
-| src/utils.ts | NOT MODIFIED | **GAP** |
-
-### Requirements
-
-| Req | Status | Evidence | Issue |
-|-----|--------|----------|-------|
-| FR-001 | Implemented | src/api.ts:45 | - |
-| FR-002 | Partial | src/service.ts:23 | Missing error handling |
-| FR-003 | **Missing** | - | **No implementation** |
-
-### Acceptance Criteria
-
-| AC | Status | Test | Issue |
-|----|--------|------|-------|
-| AC-001 | Satisfied | src/test.ts:34 | - |
-| AC-002 | **Missing** | - | **No test found** |
-
-### Pattern Compliance
-
-| Expected | Found | Status |
-|----------|-------|--------|
-| Custom Error class | Raw throw | **VIOLATION** |
-| API wrapper with retry | Direct fetch | **VIOLATION** |
+| Category | Status | Detail |
+|----------|--------|--------|
+| Error states | warning | Empty catch block at src/service.ts:30 |
+| Boundaries | ok | - |
+| Invalid input | fail | No null check on user input at src/handler.ts:12 |
 
 ### Gaps Found
 
-1. **Missing File Modifications**
-   - `src/utils.ts` - Planned but not modified
-
-2. **Missing Requirements**
-   - FR-003: User validation not implemented
-
-3. **Missing Tests**
-   - AC-002: No error scenario test
-
-4. **Pattern Violations**
-   - Using raw throw instead of custom Error class (see src/service.ts:23)
+1. {description of gap with file:line reference}
+2. {description of gap}
 
 ### Summary
 
-- Status: **Needs fixes** (5 issues found)
+- Status: **{Ready for plan | Ready for tasks | Ready for implement | Needs fixes | Done}**
+- Issues: {count by severity}
 - Confidence: Only findings >= 80 reported
-- Suggested: Run `implement` to fix gaps
+- Next: {suggested action}
 ```
 
 ## Error Handling

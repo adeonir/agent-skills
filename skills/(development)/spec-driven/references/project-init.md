@@ -126,12 +126,12 @@ Create `.specs/project/STATE.md`:
 | | | |
 ```
 
-### Step 7: Check MCP Memory Bank
+### Step 7: Load Existing Context
 
-If MCP memory bank is available:
-- Load existing memory
-- Populate STATE.md with relevant context
-- Sync periodically
+If persistent storage is available (memory files, project context, prior session data):
+- Load existing context
+- Populate STATE.md with relevant decisions and learnings
+- Keep STATE.md as the canonical local source
 
 ### Step 8: Report
 

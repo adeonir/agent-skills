@@ -76,14 +76,11 @@ console.log("[DEBUG] [api.ts:20] response data", { data: await res.json() });
 | 50-69 | Medium (50-69) | Suggest logs to confirm |
 | < 50 | Low (< 50) | Do not report |
 
-## MCP Integration (Optional)
+## Tool Integration
 
-| MCP | Provides |
-|-----|----------|
-| console-ninja | Runtime values, test status, coverage |
-| chrome-devtools | Network inspection, browser console, DOM state |
-| serena | Semantic code analysis, symbol references |
-| context7 | Documentation search, debugging patterns |
+Use available debugging tools (runtime inspection, browser devtools, semantic analysis,
+documentation lookup) to enhance the debugging process. The agent discovers and adapts
+to whatever tools are available in the environment.
 
 ## When to Debug vs When NOT to
 

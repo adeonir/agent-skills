@@ -2,15 +2,10 @@
 
 Research technologies and cache findings for reuse across features.
 
-## MCP Strategy
+## Tools
 
-**If context7 MCP available:**
-- Use `resolve-library-id` to find library documentation
-- Use `query-docs` to search for specific information
-
-**If NOT available (fallback):**
-- Use webfetch for external documentation
-- Search official documentation sites directly
+Use available documentation lookup and web search tools to research technologies.
+The agent discovers and uses whatever tools are available in the environment.
 
 ## Cache Location
 

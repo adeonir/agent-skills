@@ -19,16 +19,10 @@ Patterns for analyzing existing code for a specific feature.
 
 For **general codebase mapping**, see [codebase-mapping.md](codebase-mapping.md) (creates .specs/codebase/ docs).
 
-## MCP Strategy
+## Tools
 
-**If serena MCP available:**
-- Use `find_symbol` to locate specific functions/classes
-- Use `find_referencing_symbols` to trace callers and dependencies
-
-**If NOT available (fallback):**
-- Use grep to find references
-- Use glob to find files by pattern
-- Use read to analyze code content
+Use available semantic analysis, code search, and file reading tools to explore the codebase.
+The agent discovers and uses whatever tools are available in the environment.
 
 ## Process
 

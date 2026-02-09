@@ -14,17 +14,24 @@ Guidelines for writing clear specifications.
 
 Format:
 ```
-As a {user}, I want {goal} so that {benefit}
+[P1|P2|P3] As a {user}, I want {goal} so that {benefit}
 ```
+
+Priority levels:
+- **P1** (Must deliver): Core functionality, blocking requirements
+- **P2** (Should have): Important but not blocking launch
+- **P3** (Nice to have): Enhancements, can be deferred
 
 Good:
 ```
-As a user, I want to reset my password via email so that I can regain access
+[P1] As a user, I want to reset my password via email so that I can regain access
+[P2] As a user, I want to see password strength feedback so that I choose a strong password
 ```
 
 Bad:
 ```
 As a user, I want a POST /reset-password endpoint (implementation detail)
+As a user, I want to reset my password (no priority, no benefit)
 ```
 
 ## Functional Requirements
@@ -42,23 +49,31 @@ Rules:
 
 ## Acceptance Criteria
 
-Verifiable conditions:
+Use WHEN/THEN format for verifiable conditions:
+
 ```markdown
-- [ ] AC-001: User receives email within 1 minute
-- [ ] AC-002: Reset link works only once
+- [ ] AC-001: WHEN user requests password reset THEN system sends email within 1 minute
+- [ ] AC-002: WHEN user clicks reset link a second time THEN system rejects the request
+```
+
+Good:
+```markdown
+- [ ] AC-003: WHEN reset link is older than 24 hours THEN system SHALL display "Link expired" message
+- [ ] AC-004: WHEN user submits new password THEN system SHALL enforce minimum 8 characters
+```
+
+Bad:
+```markdown
+- [ ] AC-005: Password reset works correctly (not testable)
+- [ ] AC-006: System should handle errors (vague, no WHEN/THEN)
 ```
 
 Rules:
-- Must be testable (yes/no)
+- Must be testable (yes/no outcome)
+- Use WHEN/THEN to define trigger and expected behavior
+- Use SHALL for mandatory behavior
 - Include edge cases
 - Map to functional requirements
-
-## Handling Ambiguity
-
-Mark unclear items:
-```markdown
-- [ ] FR-004: [NEEDS CLARIFICATION: Should reset require verification?]
-```
 
 ## Brownfield Baseline
 

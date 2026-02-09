@@ -2,6 +2,42 @@
 
 All notable changes to this skill will be documented in this file.
 
+## v1.0.1 (2026-02-08)
+
+### Added
+
+- **coding-principles.md**: Behavioral principles loaded before implementation (simplicity, surgical changes, anti-patterns)
+- **Acceptance criteria format**: WHEN/THEN/SHALL pattern in spec-writing.md
+- **Priority levels**: P1/P2/P3 on user stories (P1=must deliver, P2=should have, P3=nice to have)
+- **Data Model Definition**: Entities, relationships, API contracts in plan.md
+- **Mermaid diagram recommendations**: In Data Flow and Relationships sections of plan.md
+- **Pre-implementation checklist**: Assumptions, files, success criteria, risk check in implement.md
+- **Edge case verification**: Error states, boundaries, concurrency, permissions in validate.md
+- **Inline Q&A**: Ambiguity resolution during initialization (3-5 questions, max 2 rounds)
+- **Open Questions section**: Replaces [NEEDS CLARIFICATION] markers in spec.md template
+
+### Changed
+
+- **validate.md**: Simplified from 4 separate modes to single adaptive validation
+- **validate.md**: Unified output format with categorized checks table
+- **initialize.md**: Ambiguities resolved inline during init, not in separate clarify phase
+- **plan.md**: Added Step 5 (Data Model Definition) before component design
+- **implement.md**: Loads coding-principles.md in Before (Preparation) step
+- **session-state.md**: Storage-agnostic (no longer references specific MCP memory banks)
+- **project-init.md**: "Load Existing Context" replaces "Check MCP Memory Bank"
+- **doc-extraction.md**: Conflicting requirements go to "Open Questions" instead of markers
+
+### Removed
+
+- **clarify.md**: Entire file deleted (clarifications happen inline during initialization)
+- **clarify phase**: Removed from workflow, triggers table, cross-references, and examples
+- **[NEEDS CLARIFICATION] markers**: Replaced with inline Q&A and Open Questions section
+- **MCP Strategy sections**: Removed from plan.md, implement.md, codebase-exploration.md, research.md
+- **MCP tool names**: Removed Serena/Context7 references from all references (tool-agnostic)
+- **MCP memory bank references**: Removed from session-state.md and project-init.md
+
+---
+
 ## v1.0.0 (2026-02-08)
 
 ### Added

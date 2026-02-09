@@ -9,17 +9,6 @@ Execute tasks from task list.
 - `[--all]` - All pending
 - Empty - Next pending task
 
-## MCP Strategy
-
-**If serena MCP available:**
-- Use `insert_after_symbol` for precise code insertion
-- Reduces token usage vs full file rewrites
-
-**If NOT available (fallback):**
-- Use read to find insertion points
-- Use edit for modifications
-- Use write for new files
-
 ## Process
 
 ### Step 1: Resolve Feature
@@ -52,8 +41,20 @@ For each task, follow the 3-phase process:
 
 #### Before (Preparation)
 
+- Load [coding-principles.md](coding-principles.md)
 - Read the relevant reference files from plan.md (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
+- Run pre-implementation checklist:
+
+**Pre-Implementation Checklist:**
+
+| Check | Question |
+|-------|----------|
+| Assumptions | What am I assuming about the existing code? Verify. |
+| Files | Which files will I touch? Are they listed in the plan? |
+| Success criteria | What acceptance criteria does this task satisfy? |
+| Risk | Could this change break existing functionality? |
+
 - Understand the scope: what files to create/modify
 - Note specific patterns to match
 

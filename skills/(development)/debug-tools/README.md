@@ -106,7 +106,7 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 
 ### Investigation
 
-Code analysis with confidence scoring. Uses available MCPs (console-ninja, chrome-devtools, serena) or falls back to native tools.
+Code analysis with confidence scoring. Uses available runtime inspection, browser debugging, and semantic analysis tools.
 
 ### Log Injection
 
@@ -119,9 +119,8 @@ Removes all `[DEBUG]` logs automatically after fix is verified.
 ## Requirements
 
 - Git (for code analysis)
-- MCP tools are optional (console-ninja, chrome-devtools, serena, context7)
 
-Works with any agent that supports the standard skill format.
+Works with any agent that supports the standard skill format. Adapts to whatever debugging tools are available in the environment.
 
 ## FAQ
 
@@ -134,8 +133,8 @@ A: The workflow loops back to investigation. New logs may be added, or a differe
 **Q: Are debug logs left in my code?**
 A: No. Cleanup is automatic after fix verification. You can also request cleanup anytime.
 
-**Q: Do I need MCP tools for this to work?**
-A: No. MCP tools enhance the experience (runtime values, network inspection), but the skill works with native tools only.
+**Q: Do I need specific tools for this to work?**
+A: No. The skill adapts to whatever tools are available. Runtime inspection and browser debugging tools enhance the experience, but are not required.
 
 **Q: What confidence score is considered "good enough" to propose a fix?**
 A: >= 70 confidence with clear evidence. Lower scores suggest adding logs to gather more data.
