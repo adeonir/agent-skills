@@ -77,11 +77,24 @@ prd-writer ------> copy.md (product context)
 prd-writer ------> design.md (product context)
 ```
 
+## Required Skills
+
+The `frontend-design` skill is required for **variant generation**, **frontend building**,
+and **design export**. It provides design principles to avoid generic AI aesthetics.
+
+Before running any **building** trigger (frontend, variants, export), check if the skill
+is installed by looking for files in `~/.claude/skills/frontend-design/`. If not found,
+warn the user and suggest installing it:
+
+```
+The frontend-design skill is required but not installed.
+Install it: npx skills add https://github.com/anthropics/skills/tree/main/frontend-design
+```
+
+Extraction triggers (copy, design) do NOT require this skill.
+
 ## Guidelines
 
-- **Design quality**: For frontend code quality, consider installing the official
-  `frontend-design` skill from [github.com/anthropics/skills](https://github.com/anthropics/skills).
-  It provides design principles to avoid generic AI aesthetics.
 - **Project naming**: Ask user for project name. Use kebab-case for directory names.
 - **Existing artifacts**: Always check for existing copy.yaml, design.json, and PRD
   before starting. Use them as context when available.
@@ -93,4 +106,5 @@ prd-writer ------> design.md (product context)
 - No copy.yaml: Proceed without it, or suggest running extract copy first
 - No design.json: Required for frontend/variants/export -- suggest running extract design
 - No PRD: Optional at every step, never block on it
+- No frontend-design skill: Required for frontend/variants/export -- warn and suggest install
 - WebFetch fails: Ask user to paste a screenshot instead

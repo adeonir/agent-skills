@@ -44,6 +44,7 @@ Extract from each image:
 - Component styles (buttons, cards, badges, inputs)
 - Animation and interaction patterns
 - Background treatments (gradients, textures, patterns)
+- **Layout structure** (hero composition, section flow, grid patterns, decorative elements)
 
 ### Step 4: Generate design.json
 
@@ -318,6 +319,30 @@ Save to `.specs/docs/{project-name}/design.json`. Create directories if needed.
     }
   },
 
+  "layout": {
+    "hero": {
+      "type": "image-overlay | split | centered-text | fullscreen",
+      "composition": "Description of how elements are arranged in the hero",
+      "hasImage": true,
+      "hasBadge": true,
+      "hasOverlay": true
+    },
+    "sectionFlow": [
+      {
+        "id": "section-id",
+        "bg": "dark-gradient | white | alternate | accent",
+        "layout": "centered | 2-col | 3-col-cards | horizontal-strip",
+        "description": "Brief description of the section's visual structure"
+      }
+    ],
+    "patterns": {
+      "cardStyle": "rounded-with-shadow | flat-bordered | image-thumbnail | icon-top",
+      "sectionTransitions": "How sections transition visually (alternating bgs, dividers, etc.)",
+      "decorativeElements": ["List of decorative patterns: floating badges, gradient overlays, dot grids, glow effects, etc."],
+      "imagePlacement": "Where and how images appear (hero bg, card thumbnails, section illustrations, etc.)"
+    }
+  },
+
   "responsive": {
     "breakpoints": {
       "sm": "640px",
@@ -341,6 +366,7 @@ Save to `.specs/docs/{project-name}/design.json`. Create directories if needed.
 3. **Capture ALL states** -- hover, focus, active, disabled
 4. **Document anti-patterns** -- in `principles.avoid`, list what NOT to do
 5. **Be specific** -- values in px, rem, hex. Nothing generic.
+6. **Capture layout structure** -- the `layout` block is critical for downstream variant generation. Document hero composition, section flow order, grid patterns, card styles, and decorative elements exactly as they appear in the reference.
 
 ## What to AVOID in design.json
 

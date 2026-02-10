@@ -2,11 +2,18 @@
 
 Generate 4 HTML+CSS layout variants for visual comparison before building React.
 
+## Prerequisites
+
+- **design.json** (required) -- must include the `layout` block with hero type, section flow, and patterns
+- **reference image** (required) -- the original image used to extract design tokens
+- **copy.yaml** (optional) -- structured content for all sections
+- **frontend-design skill** (required) -- use it for all design decisions. It provides typography, color, motion, spatial composition, and background guidelines. Follow its rules to avoid generic AI aesthetics.
+
 ## When to Use
 
-- User wants to preview different layout approaches before committing
+- User wants to preview different visual treatments before committing
 - User wants to compare design directions side-by-side
-- User wants to explore how design tokens look with different structures
+- User wants to explore how design tokens look with different aesthetics
 
 ## Process
 
@@ -14,24 +21,54 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 
 1. Locate **design.json** (required) at `.specs/docs/{project-name}/design.json`
 2. Locate **copy.yaml** (optional) at `.specs/docs/{project-name}/copy.yaml`
-3. If no design.json exists, suggest running extract design first
-4. If no copy.yaml exists, ask user for brief project description
+3. Locate **reference image** (required) at `.specs/docs/reference.*`
+4. If no design.json exists, suggest running extract design first
+5. If no copy.yaml exists, ask user for brief project description
 
-### Step 2: Generate All Presets
+### Step 2: Read Layout + Reference
 
-Generate all 4 fixed presets plus any custom preset requested by the user.
+Read both sources to build a complete picture:
 
-### Step 3: Generate Comparison Page
+1. **Reference image**: re-read it to understand the full visual composition -- hero arrangement, section flow, card layouts, decorative elements, image placements, background treatments
+2. **design.json `layout` block**: read hero type, sectionFlow, and patterns
+3. **design.json tokens**: colors, typography, spacing, components, effects, animations, backgrounds
+
+The reference image + layout block define the **structural skeleton**. The tokens define the **visual vocabulary**. Both are inputs for every variant.
+
+### Step 3: Generate All Presets
+
+Generate all 4 presets. Each one uses the same structural skeleton (from reference + layout) but applies a unique mix of visual properties.
+
+Every preset must define its own combination across ALL of these dimensions:
+
+| Dimension | Description |
+|-----------|-------------|
+| Typography | Font pairing, size scale, weight contrast |
+| Color | 60-30-10 distribution, saturation, contrast |
+| Spacing | Density -- generous to compact |
+| Backgrounds | Section background treatments, gradients, textures |
+| Decorative | Which elements are shown, their intensity |
+| Motion | Animation style, speed, stagger |
+| Hero | Visual treatment of the hero (overlay, gradient, text size) |
+| Cards | Shadow, border, background, radius, hover effect |
+| Sections | How alternating backgrounds are applied |
+| 60-30-10 | How the dominant/secondary/accent ratio shifts |
+| Hierarchy | How visual importance is communicated |
+| Rhythm | Vertical spacing pattern, repetition vs breaks |
+
+### Step 4: Generate Comparison Page
 
 Create the side-by-side comparison page.
 
-### Step 4: Serve
+### Step 5: Serve
 
 ```bash
 npx http-server .specs/docs/{project-name}/variants -o -p 8080
 ```
 
 Inform user: "Open http://localhost:8080 to compare variants. Tell me which one you prefer (e.g., 'use editorial') and I'll build the full React application."
+
+Ask this in the user's preferred language (detect from copy.yaml language field or conversation context).
 
 ## Output Structure
 
@@ -45,84 +82,112 @@ Inform user: "Open http://localhost:8080 to compare variants. Tell me which one 
   index.html                 # Side-by-side comparison
 ```
 
+## How Presets Work
+
+All presets share the **same structural skeleton**:
+
+- Same sections (from `copy.yaml` if available, otherwise from `layout.sectionFlow`)
+- Same grid columns per section (from `layout.sectionFlow`)
+- Same hero composition type (from `layout.hero`)
+- Same content placement (copy in same positions)
+- Same image/placeholder positions (from `layout.patterns.imagePlacement`)
+
+The reference image is re-read only for **validation** -- to confirm the generated variants match the original visual structure.
+
+What changes is the **visual treatment** -- each preset is a unique mix across the 12 dimensions listed above.
+
 ## 4 Fixed Presets
 
-### minimal -- Ultra clean, content focused
+### minimal -- Refined restraint
 
-- **Hero**: Large centered text, no background image
-- **Spacing**: Extra generous (lots of whitespace)
-- **Cards**: No border, no shadow, typography as highlight
-- **Sections**: Uniform white background
-- **60-30-10**: 70% white, 20% neutral text, 10% accent
+A stripped-back interpretation that lets content breathe:
+
+- **Typography**: Distinctive serif/sans pairing, font size as primary hierarchy
+- **Color**: Near-monochrome. Accent color only on CTAs and hover states
+- **Spacing**: Extra generous whitespace between all elements
+- **Backgrounds**: Uniform or very subtle alternation (almost no contrast between sections)
+- **Decorative**: Strip to minimum -- thin rules only, remove ornaments and floating elements
+- **Motion**: Subtle, slow fade-ins only
+- **Hero**: Same composition but lighter treatment -- reduce overlay, mute gradient
+- **Cards**: Remove shadows and borders, let typography carry hierarchy
+- **Sections**: Minimal background variation, near-uniform
+- **60-30-10**: 70% white/neutral, 20% text colors, 10% accent on CTAs only
 - **Hierarchy**: Font size as only differentiation
-- **Rhythm**: Wide vertical spacing, simple grid
+- **Rhythm**: Wide vertical spacing, maximum breathing room
 
-### editorial -- Magazine feel, elegant and readable
+### editorial -- Magazine sophistication
 
-- **Hero**: Split 50/50, image on left
-- **Spacing**: Generous (ample whitespace)
-- **Cards**: Flat, no shadow
-- **Sections**: Uniform background
-- **60-30-10**: 60% neutral, 30% primary, 10% accent
-- **Hierarchy**: Dramatic typography (high contrast between H1 and body)
-- **Rhythm**: Consistent vertical rhythm, 12-column grid
+An editorial interpretation with strong typographic character:
 
-### startup -- Modern SaaS, conversion focused
+- **Typography**: High-contrast serif headings (large/heavy) vs refined sans body
+- **Color**: Warm neutrals dominant, accent used sparingly as editorial highlight
+- **Spacing**: Generous with consistent vertical rhythm
+- **Backgrounds**: Warm white/cream base, dark footer, thin rules as dividers
+- **Decorative**: Section numbers (01, 02, 03), vertical accent bars, thin horizontal rules
+- **Motion**: Measured, elegant transitions with editorial pacing
+- **Hero**: Same composition but with editorial grid feel -- asymmetric text alignment
+- **Cards**: Flat with thin borders, editorial grid divisions
+- **Sections**: Warm alternation (white/cream), dark accent on footer
+- **60-30-10**: 60% warm neutral, 30% primary for headings, 10% accent highlights
+- **Hierarchy**: Dramatic typography contrast (size + weight extremes)
+- **Rhythm**: Consistent vertical rhythm, grid-based alignment
 
-- **Hero**: Centered, prominent CTA
-- **Spacing**: Balanced
-- **Cards**: Soft shadows, rounded borders
-- **Sections**: Alternating backgrounds (white/gray)
-- **60-30-10**: 60% white, 30% primary, 10% CTA color
-- **Hierarchy**: Larger and more saturated CTAs, subtle secondary text
-- **Rhythm**: Repeating patterns (icon + title + desc), uniform spacing
+### startup -- Premium SaaS polish
 
-### bold -- High impact, strong visual statement
+A modern tech interpretation with conversion-focused energy:
 
-- **Hero**: Fullscreen, text over image/gradient
-- **Spacing**: Compact (high density)
-- **Cards**: Strong borders, solid backgrounds
-- **Sections**: Gradients or solid colors
-- **60-30-10**: 60% primary dark, 30% accent, 10% white
-- **Hierarchy**: Extreme sizes (giant hero text), heavy weights
+- **Typography**: Geometric sans-serif, clean and confident
+- **Color**: Dark hero with glowing accents, bright white content sections
+- **Spacing**: Balanced, optimized for conversion flow
+- **Backgrounds**: Dark hero/CTA sections with glow effects, alternating white/lavender between
+- **Decorative**: Badges/pills, glass-morphism, subtle grid/dot patterns, glow effects behind CTAs
+- **Motion**: Micro-interactions on hover (lift, glow), staggered scroll reveals
+- **Hero**: Same composition with gradient glow enhancement, glass-morphism on floating elements
+- **Cards**: Soft shadows, rounded borders, gradient border on hover (background-clip trick)
+- **Sections**: Strong alternation (dark/white/lavender), clear visual separation
+- **60-30-10**: 60% white sections, 30% primary for dark sections, 10% gradient CTAs
+- **Hierarchy**: Color saturation and size for CTAs, subtle secondary text
+- **Rhythm**: Repeating component patterns, uniform spacing
+
+### bold -- High-impact statement
+
+A dramatic interpretation with maximum visual intensity:
+
+- **Typography**: Display font with extreme size contrast (hero 6rem+)
+- **Color**: Primarily dark palette, accent color used aggressively
+- **Spacing**: Compact, high-density information, less breathing room
+- **Backgrounds**: Dark gradients throughout, solid dark colors, minimal white
+- **Decorative**: Marquee ticker, text glow/shadow effects, gradient dividers, noise textures
+- **Motion**: Confident, quick transitions with visual impact
+- **Hero**: Same composition but dark and intense -- strong glow, large text shadow
+- **Cards**: Strong borders, solid colored backgrounds (not white), inverted text
+- **Sections**: Dark gradients or solid colors, almost no white sections
+- **60-30-10**: 60% dark primary, 30% accent/lighter shades, 10% white for contrast
+- **Hierarchy**: Extreme scale differences (giant headlines vs small body)
 - **Rhythm**: Intentional asymmetry, pattern breaks for emphasis
 
 ### Custom Presets
 
 Users can request a custom preset by describing what they want. Generate it
-alongside the 4 fixed presets using the same design.json tokens.
+alongside the 4 fixed presets using the same structural skeleton and a custom
+mix of the 12 visual dimensions.
 
-## Design Principles
+## Design Quality (frontend-design skill)
 
-### 60-30-10 Color Rule
+**CRITICAL**: Use the `frontend-design` skill guidelines when generating each variant. Specifically:
 
-Map colors from design.json according to each preset:
+- **Typography**: Choose distinctive, non-generic font pairings for each variant. Each variant MUST use a different font combination. Never use Inter, Roboto, Arial, or system fonts as primary choice.
+- **Color**: Commit to the preset's color approach. Dominant colors with sharp accents, not timid evenly-distributed palettes.
+- **Motion**: Focus on one well-orchestrated page load with staggered reveals (animation-delay). Use scroll-triggering and hover states that surprise.
+- **Spatial Composition**: Follow the reference layout structure but bring the preset's spatial philosophy.
+- **Backgrounds**: Create atmosphere. Gradient meshes, noise textures, geometric patterns, layered transparencies as appropriate for each preset. Never default to flat solid colors unless that IS the design statement (minimal).
 
-- **60%**: Dominant color (backgrounds, large areas)
-- **30%**: Secondary color (headers, key elements)
-- **10%**: Accent color (CTAs, highlights)
-
-Each preset distributes these differently -- see the preset definitions above.
-
-### Visual Hierarchy
-
-Each preset applies hierarchy differently:
-
-| Preset | Technique |
-|--------|-----------|
-| minimal | Font size only |
-| editorial | Typography contrast (size + weight) |
-| startup | Color saturation for CTAs |
-| bold | Extreme scale differences |
-
-### Rhythm and Repetition
-
-| Preset | Approach |
-|--------|----------|
-| minimal | Maximum whitespace, minimal elements |
-| editorial | Consistent vertical rhythm, grid-based |
-| startup | Repeating component patterns |
-| bold | Intentional breaks for emphasis |
+**Anti-patterns to avoid across all variants and NEVER use generic AI-generated aesthetics**:
+- Overused font families (Inter, Roboto, Space Grotesk used in multiple variants)
+- Layouts that ignore the reference structure
+- Missing hover states on interactive elements
+- Icons floating without visual context (use icon containers, colored backgrounds)
+- Identical visual treatment between variants -- each must feel distinctly different
 
 ## Comparison Page Template
 
@@ -188,9 +253,9 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
     <div class="variant-info">
       <div class="variant-title"><h2>{Preset Name}</h2></div>
       <div class="badges">
-        <span class="badge">{Hero Style}</span>
-        <span class="badge">{Spacing}</span>
-        <span class="badge">{Card Style}</span>
+        <span class="badge">{Font Pairing}</span>
+        <span class="badge">{Color Approach}</span>
+        <span class="badge">{Density}</span>
       </div>
     </div>
     <a href="./{preset-name}/index.html" target="_blank">Open</a>
@@ -199,31 +264,31 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 </div>
 ```
 
-**Badge values per preset:**
-
-| Preset | Hero | Spacing | Cards |
-|--------|------|---------|-------|
-| minimal | Text Hero | Extra Generous | No Cards |
-| editorial | Split Hero | Generous | Flat Cards |
-| startup | Centered Hero | Balanced | Shadow Cards |
-| bold | Fullscreen Hero | Compact | Bordered Cards |
-
 ## Rules
 
 1. **Always 4+ variants**: Generate all 4 fixed presets (plus custom if requested)
 2. **Simple HTML+CSS**: No frameworks, no build tools -- just static files
-3. **Preserve tokens**: All variants use the same design.json (colors, fonts, spacing base)
-4. **Identical copy**: Same textual content across all variants
-5. **Comment headers**: Each file starts with variant identifier comment
-6. **Validation**: If design.json doesn't exist, suggest running extract design first
+3. **Preserve tokens**: All variants use the same design.json (colors, fonts base, spacing base)
+4. **Preserve layout skeleton**: All variants follow the same structural skeleton from reference image + `design.json > layout`
+5. **Identical copy**: Same textual content across all variants
+6. **Comment headers**: Each file starts with variant identifier comment
+7. **Validation**: If design.json doesn't exist, suggest running extract design first
+8. **Use frontend-design skill**: Follow its guidelines for typography, color, motion, and spatial composition in every variant
+9. **Distinct font pairings**: Each variant MUST use a different font combination
+10. **Reference validation**: Re-read the reference image to validate structural fidelity
+11. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
 
 ## Checklist
 
-- [ ] design.json located and read
+- [ ] design.json located and read (including `layout` block)
 - [ ] copy.yaml located (or user provided description)
-- [ ] All 4 presets generated
+- [ ] Reference image re-read for structural validation (if available)
+- [ ] All 4 presets generated following layout skeleton
+- [ ] Each preset varies all 12 visual dimensions
+- [ ] Each preset has a distinct font pairing
+- [ ] frontend-design skill guidelines applied
 - [ ] Custom preset generated (if requested)
-- [ ] All presets use same tokens, different structure
+- [ ] All presets use same structure, different visual treatment
 - [ ] Comparison index.html generated
 - [ ] http-server started
 - [ ] User informed to compare and choose

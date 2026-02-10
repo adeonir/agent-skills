@@ -2,6 +2,12 @@
 
 Build production-grade React components from design tokens.
 
+## Prerequisites
+
+- **design.json** (required) -- must include the `layout` block
+- **copy.yaml** (optional) -- structured content
+- **frontend-design skill** (required) -- use it for all design decisions. It provides typography, color, motion, spatial composition, and background guidelines. Follow its rules to avoid generic AI aesthetics.
+
 ## When to Use
 
 - User wants to generate frontend code from design.json
@@ -94,10 +100,11 @@ When building from a variant:
 4. Apply design.json tokens
 5. Populate with copy.yaml content
 
-## Design Quality
+## Design Quality (frontend-design skill)
 
-For production-grade design quality, consider installing the official
-`frontend-design` skill from [github.com/anthropics/skills](https://github.com/anthropics/skills).
+**CRITICAL**: The `frontend-design` skill is required for generating production-grade code.
+Follow its guidelines for typography, color, motion, spatial composition, and backgrounds.
+Never generate code without applying these principles.
 
 ### DO
 
