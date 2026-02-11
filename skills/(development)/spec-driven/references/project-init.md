@@ -47,24 +47,11 @@ Generate ROADMAP.md following the template structure with Current Sprint and Bac
 
 Generate CHANGELOG.md following the template structure with Unreleased and versioned sections (Added, Changed, Fixed).
 
-### Step 6: Generate STATE.md
-
-**USE TEMPLATE:** `templates/STATE.md`
-
-Generate STATE.md following the template structure with Decisions, Blockers, and Learnings tables.
-
-### Step 7: Load Existing Context
-
-If persistent storage is available (memory files, project context, prior session data):
-- Load existing context
-- Populate STATE.md with relevant decisions and learnings
-- Keep STATE.md as the canonical local source
-
-### Step 8: Report
+### Step 6: Report
 
 Inform user:
 - Created .specs/ structure
-- Project initialized with PROJECT.md, ROADMAP.md, CHANGELOG.md, STATE.md
+- Project initialized with PROJECT.md, ROADMAP.md, CHANGELOG.md
 - Next steps:
   - Create features: "create new feature for..."
   - Map existing codebase: "map codebase" (if brownfield)

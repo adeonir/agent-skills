@@ -23,7 +23,6 @@ All notable changes to this skill will be documented in this file.
 - **initialize.md**: Ambiguities resolved inline during init, not in separate clarify phase
 - **plan.md**: Added Step 5 (Data Model Definition) before component design
 - **implement.md**: Loads coding-principles.md in Before (Preparation) step
-- **session-state.md**: Storage-agnostic (no longer references specific MCP memory banks)
 - **project-init.md**: "Load Existing Context" replaces "Check MCP Memory Bank"
 - **doc-extraction.md**: Conflicting requirements go to "Open Questions" instead of markers
 
@@ -34,7 +33,6 @@ All notable changes to this skill will be documented in this file.
 - **[NEEDS CLARIFICATION] markers**: Replaced with inline Q&A and Open Questions section
 - **MCP Strategy sections**: Removed from plan.md, implement.md, codebase-exploration.md, research.md
 - **MCP tool names**: Removed Serena/Context7 references from all references (tool-agnostic)
-- **MCP memory bank references**: Removed from session-state.md and project-init.md
 
 ---
 
@@ -46,7 +44,6 @@ All notable changes to this skill will be documented in this file.
 - **New References**:
   - `project-init.md`: Project initialization workflow
   - `roadmap.md`: Feature planning and milestones
-  - `session-state.md`: Persistent memory across sessions
   - `codebase-mapping.md`: Comprehensive codebase analysis
   - `baseline-discovery.md`: Brownfield baseline analysis
   - `doc-extraction.md`: PRD/document extraction

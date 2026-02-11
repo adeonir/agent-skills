@@ -33,8 +33,7 @@ flowchart LR
 ├── project/
 │   ├── PROJECT.md               # Vision, goals
 │   ├── ROADMAP.md               # Planned features
-│   ├── CHANGELOG.md             # Completed features
-│   └── STATE.md                 # Session memory
+│   └── CHANGELOG.md             # Completed features
 ├── codebase/                    # Code analysis (optional)
 ├── research/                    # Research cache (optional)
 └── features/                    # Active features
@@ -56,7 +55,7 @@ initialize project
 setup project for my app
 ```
 
-Creates `.specs/project/` with PROJECT.md, ROADMAP.md, CHANGELOG.md, STATE.md.
+Creates `.specs/project/` with PROJECT.md, ROADMAP.md, CHANGELOG.md.
 
 ### Create a Feature (Greenfield)
 
@@ -243,8 +242,6 @@ Features track status in spec.md frontmatter:
 - **to-review**: All tasks done, needs validation
 - **done**: Validated and complete
 - **archived**: Moved to docs/
-
-STATE.md persists decisions and blockers across sessions.
 
 ## Requirements
 

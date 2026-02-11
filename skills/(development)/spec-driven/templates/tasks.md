@@ -2,7 +2,14 @@
 
 ## Summary
 
-Total: {{count}} tasks
+Total: {{count}} | Completed: 0 | Remaining: {{count}}
+
+## Quality Gates
+
+Run after each implementation batch (1 or more tasks):
+
+- {{lint command}}
+- {{typecheck command}}
 
 ## Tasks
 
@@ -13,12 +20,6 @@ Total: {{count}} tasks
 
 ## Requirements Coverage
 
-| Requirement | Tasks |
-|-------------|-------|
-| FR-001 | T001, T002 |
-
-## Quality Gates
-
-Run after each implementation batch (1 or more tasks):
-- {{lint command}}
-- {{typecheck command}}
+| Requirement | Tasks      |
+| ----------- | ---------- |
+| FR-001      | T001, T002 |

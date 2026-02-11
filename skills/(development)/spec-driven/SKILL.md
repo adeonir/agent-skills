@@ -29,8 +29,7 @@ initialize --> plan --> tasks --> implement --> validate --> archive
 ├── project/
 │   ├── PROJECT.md          # Vision, goals, constraints
 │   ├── ROADMAP.md          # Planned features, milestones
-│   ├── CHANGELOG.md        # Feature implementation history
-│   └── STATE.md            # Persistent memory (decisions, blockers)
+│   └── CHANGELOG.md        # Feature implementation history
 ├── codebase/               # Brownfield analysis (optional)
 │   ├── STACK.md
 │   ├── ARCHITECTURE.md
@@ -55,7 +54,6 @@ docs/
 
 **Base load (~15k tokens):**
 - PROJECT.md (context)
-- STATE.md (persistent memory)
 - Current feature spec.md
 
 **On-demand:**
@@ -76,7 +74,6 @@ docs/
 | Initialize project, setup project | [project-init.md](references/project-init.md) |
 | Create roadmap, plan features | [roadmap.md](references/roadmap.md) |
 | Map codebase, analyze codebase | [codebase-mapping.md](references/codebase-mapping.md) |
-| Record decision, log blocker | [session-state.md](references/session-state.md) |
 
 ### Feature-Level
 | Trigger Pattern | Reference |
@@ -124,7 +121,6 @@ validate.md --------> archive.md (if passed)
 - Status flow: draft -> ready -> in-progress -> to-review -> done -> archived
 - Feature IDs: sequential (001, 002), never reused
 - Research cache: Reusable across features in .specs/research/
-- STATE.md: Populated from persistent storage if available
 - Archive generates: docs/features/{name}.md (no ID)
 
 ## Error Handling
