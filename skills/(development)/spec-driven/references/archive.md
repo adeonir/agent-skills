@@ -25,31 +25,16 @@ Read:
 
 ### Step 3: Generate Consolidated Doc
 
-Create `docs/features/{name}.md` (no ID):
+**USE TEMPLATE:** `templates/archive.md`
 
-```markdown
-# Feature: {Title}
+Generate archive doc following the template structure:
+- Summary
+- What Was Built
+- Technical Decisions
+- Implementation Notes
+- Lessons Learned
 
-## Summary
-{What was built}
-
-## What Was Built
-- {Item 1}
-- {Item 2}
-
-## Technical Decisions
-| Decision | Rationale |
-|----------|-----------|
-| | |
-
-## Implementation Notes
-- Files created/modified
-- Integration points
-
-## Lessons Learned
-- What worked
-- What to avoid
-```
+Create at `docs/features/{name}.md` (no ID in filename).
 
 ### Step 4: Update CHANGELOG.md
 

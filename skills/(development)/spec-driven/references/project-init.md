@@ -31,100 +31,27 @@ mkdir -p .specs/features
 
 ### Step 3: Generate PROJECT.md
 
-Create `.specs/project/PROJECT.md`:
+**USE TEMPLATE:** `templates/PROJECT.md`
 
-```markdown
----
-name: {project-name}
-created: {YYYY-MM-DD}
----
-
-# Project: {Name}
-
-## Vision
-
-{What we're building and why}
-
-## Goals
-
-- Goal 1
-- Goal 2
-
-## Constraints
-
-- Technical constraints
-- Business constraints
-
-## Stack (Initial)
-
-- Framework: {framework}
-- Language: {language}
-- Database: {database}
-```
+Generate PROJECT.md following the template structure with project name, vision, goals, constraints, and tech stack.
 
 ### Step 4: Generate ROADMAP.md
 
-Create `.specs/project/ROADMAP.md`:
+**USE TEMPLATE:** `templates/ROADMAP.md`
 
-```markdown
-# Roadmap
-
-## Current Sprint
-
-| Feature | Status | Priority |
-|---------|--------|----------|
-| {name} | planned | P1 |
-
-## Backlog
-
-| Feature | Priority |
-|---------|----------|
-| {name} | P2 |
-```
+Generate ROADMAP.md following the template structure with Current Sprint and Backlog tables.
 
 ### Step 5: Generate CHANGELOG.md
 
-Create `.specs/project/CHANGELOG.md`:
+**USE TEMPLATE:** `templates/CHANGELOG.md`
 
-```markdown
-# Changelog
-
-## [Unreleased]
-
-### Added
-- 
-
-## [Version] - YYYY-MM-DD
-
-### Added
-- Feature: {name}
-```
+Generate CHANGELOG.md following the template structure with Unreleased and versioned sections (Added, Changed, Fixed).
 
 ### Step 6: Generate STATE.md
 
-Create `.specs/project/STATE.md`:
+**USE TEMPLATE:** `templates/STATE.md`
 
-```markdown
-# State
-
-## Decisions
-
-| Date | Decision | Context |
-|------|----------|---------|
-| | | |
-
-## Blockers
-
-| Date | Blocker | Status |
-|------|---------|--------|
-| | | |
-
-## Learnings
-
-| Date | Learning | Source |
-|------|----------|--------|
-| | | |
-```
+Generate STATE.md following the template structure with Decisions, Blockers, and Learnings tables.
 
 ### Step 7: Load Existing Context
 

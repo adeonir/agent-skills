@@ -2,6 +2,8 @@
 
 Create a new feature specification.
 
+> **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
+
 ## Content Separation (CRITICAL)
 
 Each artifact has a distinct purpose. Never mix these concerns.
@@ -143,64 +145,12 @@ mkdir -p .specs/features/{ID}-{name}
 
 ### Step 10: Generate spec.md
 
-**Frontmatter:**
+**USE TEMPLATE:** `templates/spec.md`
 
-```yaml
----
-id: {ID}
-feature: {name}
-type: {greenfield|brownfield}
-status: draft
-branch: {branch-name or main}
-created: {YYYY-MM-DD}
----
-```
-
-**Content (Greenfield):**
-
-```markdown
-# Feature: {Title}
-
-## Overview
-
-{description}
-
-## User Stories
-
-- [P1] As a {user}, I want {goal} so that {benefit}
-
-## Functional Requirements
-
-- [ ] FR-001: {requirement}
-
-## Acceptance Criteria
-
-- [ ] AC-001: WHEN {trigger} THEN {expected behavior}
-
-## Open Questions
-
-- {Any unresolved questions from Step 5, or "None" if all resolved}
-
-## Notes
-
-{additional context}
-```
-
-**Content (Brownfield):**
-
-Same structure plus **Baseline** section:
-
-```markdown
-## Baseline
-
-### Current Behavior
-
-- {What system currently does}
-
-### Gaps / Limitations
-
-- {What's missing or problematic}
-```
+Generate the spec following the template structure:
+- Frontmatter with ID, feature name, type, status, branch, created date
+- Greenfield: Overview, User Stories, Functional Requirements, Acceptance Criteria, Open Questions, Notes
+- Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 
 ### Step 11: Update ROADMAP.md
 

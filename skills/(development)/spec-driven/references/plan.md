@@ -2,6 +2,8 @@
 
 Create technical plan from specification.
 
+> **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
+
 ## When to Use
 
 - Spec is complete (no open questions blocking progress)
@@ -57,139 +59,23 @@ Define the data model before component design:
 
 ### Step 6: Generate plan.md
 
-**Structure:**
+**USE TEMPLATE:** `templates/plan.md`
 
-```markdown
-# Technical Plan: {Feature}
-
-## Context
-
-- Feature: {ID}-{feature}
-- Created: {date}
-- Spec: .specs/features/{ID}-{feature}/spec.md
-
-## Research Summary
-
-(If external research done)
-
-> From .specs/research/{topic}.md
-
-- {key finding 1}
-- {key finding 2}
-
-## Critical Files
-
-### Reference Files
-
-| File | Purpose |
-|------|---------|
-| {path} | {why relevant} |
-
-### Files to Modify
-
-| File | Reason |
-|------|--------|
-| {path} | {what changes} |
-
-### Files to Create
-
-| File | Purpose |
-|------|---------|
-| {path} | {responsibility} |
-
-## Codebase Patterns
-
-| Pattern | Project Uses | Avoid | Reference |
-|---------|-------------|-------|-----------|
-| Naming | {convention} | {anti-pattern} | {file:line} |
-| Error handling | {approach} | {anti-pattern} | {file:line} |
-| API calls | {pattern} | {anti-pattern} | {file:line} |
-
-## Data Model
-
-### Entities
-
-| Entity | Key Attributes | Purpose |
-|--------|---------------|---------|
-| {name} | {attributes} | {role in feature} |
-
-### Relationships
-
-{Describe entity relationships. Use a mermaid erDiagram when relationships are non-trivial.}
-
-### API Contracts
-
-| Endpoint | Method | Request | Response |
-|----------|--------|---------|----------|
-| {path} | {verb} | {shape} | {shape} |
-
-## Architecture Decision
-
-{chosen approach with rationale - be decisive, pick ONE approach}
-
-## Component Design
-
-| Component | File | Responsibility |
-|-----------|------|----------------|
-| {name} | {path} | {what} |
-
-## Data Flow
-
-{Use a mermaid sequenceDiagram or flowchart when the flow involves 3+ steps or multiple actors.}
-
-1. {Entry point}
-2. {Transform}
-3. {Output}
-
-## Requirements Traceability
-
-| Requirement | Component | File | Status |
-|-------------|-----------|------|--------|
-| FR-001 | {comp} | {path} | Planned |
-| FR-002 | {comp} | {path} | Planned |
-
-## Test Strategy
-
-### Infrastructure
-
-| Aspect | Detail |
-|--------|--------|
-| Framework | {jest/vitest/etc} |
-| Command | {npm test/etc} |
-| Location | {test directory pattern} |
-
-### Reference Tests
-
-| File | What It Tests |
-|------|---------------|
-| {existing test} | {pattern to follow} |
-
-### New Tests
-
-| Component | Test File | Scenarios |
-|-----------|-----------|-----------|
-| {comp} | {path} | {what to test} |
-
-## Considerations
-
-### Error Handling
-
-- {approach matching project patterns}
-
-### Security
-
-- {concerns if applicable}
-
-## Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| | |
-
-## Open Questions
-
-- [ ] {question}
-```
+Generate the plan following the template structure:
+- Context (feature reference)
+- Scope (what is in scope and out of scope)
+- Research Summary (if applicable)
+- Critical Files (Reference, Modify, Create)
+- Codebase Patterns
+- Data Model (Entities, Relationships, API Contracts)
+- Architecture Decision
+- Component Design
+- Data Flow (use mermaid for complex flows)
+- Requirements Traceability
+- Test Strategy
+- Considerations (Error Handling, Security)
+- Decisions
+- Open Questions
 
 ### Step 7: Update Status
 

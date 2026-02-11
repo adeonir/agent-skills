@@ -2,6 +2,8 @@
 
 Execute tasks from task list.
 
+> **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
+
 ## Arguments
 
 - `[T001]` - Single task

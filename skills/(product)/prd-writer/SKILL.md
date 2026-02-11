@@ -57,6 +57,8 @@ Synthesize user inputs into structured findings:
 
 ### Phase 3: Drafting
 
+**USE TEMPLATE:** `templates/prd.md`
+
 Generate the PRD using the schema below. Present draft to user for review.
 
 ## PRD Schema

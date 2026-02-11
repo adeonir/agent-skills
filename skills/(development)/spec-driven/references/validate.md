@@ -2,6 +2,8 @@
 
 Validate artifacts and implementation.
 
+> **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
+
 ## Adaptive Mode
 
 Validation adapts automatically based on which artifacts exist. A single pass checks

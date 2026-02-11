@@ -9,12 +9,12 @@ description: >-
   "validate", "archive".
 metadata:
   author: github.com/adeonir
-  version: "1.0.1"
+  version: "1.0.0"
 ---
 
 # Spec-Driven Development
 
-Structured development workflow: Initialize -> Plan -> Tasks -> Implement+Validate.
+Structured development workflow: Initialize -> Plan -> Tasks -> Implement + Validate.
 
 ## Workflow
 
@@ -101,6 +101,7 @@ docs/
 | Baseline discovery | [baseline-discovery.md](references/baseline-discovery.md) |
 | Extract from PRD/docs | [doc-extraction.md](references/doc-extraction.md) |
 | Coding principles | [coding-principles.md](references/coding-principles.md) |
+| Status workflow, when to update status | [status-workflow.md](references/status-workflow.md) |
 
 ## Cross-References
 

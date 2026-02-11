@@ -41,34 +41,13 @@ Generate tasks following natural order:
 
 ### Step 5: Generate tasks.md
 
-**Structure:**
+**USE TEMPLATE:** `templates/tasks.md`
 
-```markdown
-# Tasks: {Feature}
-
-## Summary
-
-Total: {count} tasks
-
-## Tasks
-
-### {Component}
-
-- [ ] T001 [P] {verb} {what} in {where}
-- [ ] T002 [B:T001] {dependent task}
-
-## Requirements Coverage
-
-| Requirement | Tasks |
-|-------------|-------|
-| FR-001 | T001, T002 |
-
-## Quality Gates
-
-Run before marking complete:
-- {lint command}
-- {typecheck command}
-```
+Generate tasks following the template structure:
+- Summary (total count)
+- Tasks grouped by component (T001 [P] for parallel, T002 [B:T001] for dependent)
+- Requirements Coverage (mapping FRs to tasks)
+- Quality Gates (lint, typecheck, test commands)
 
 ### Step 6: Report
 

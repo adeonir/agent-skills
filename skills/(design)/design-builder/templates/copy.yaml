@@ -1,0 +1,29 @@
+# Copy Extraction: {{project-name}}
+
+metadata:
+  source: "{{url or file}}"
+  extraction_date: "{{YYYY-MM-DD}}"
+  version: "1.0.0"
+
+project:
+  name: "{{project-name}}"
+  type: "{{landing|website|web-app|mobile-app}}"
+  language: "{{en|pt|es|etc}}"
+  industry: "{{fintech|health|saas|ecommerce|etc}}"
+  description: "{{Brief project description}}"
+
+sections:
+  "{{section_id}}":
+    headline: "{{main heading}}"
+    subheadline: "{{supporting text}}"
+    body:
+      - "{{paragraph 1}}"
+      - "{{paragraph 2}}"
+    cta:
+      text: "{{call to action text}}"
+      link: "{{url or #anchor}}"
+
+notes: |
+  {{extraction notes}}
+  {{missing content}}
+  {{ambiguities}}
