@@ -1,6 +1,5 @@
 ---
 name: {{story-name}}
-type: user-story
 status: backlog
 priority: {{must-have/should-have/could-have/wont-have}}
 story_points: {{points}}

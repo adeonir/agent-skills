@@ -1,11 +1,25 @@
+---
+name: spec-driven
+---
+
 # Changelog
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.1 (2026-02-08)
+## v1.0.0 (2026-02-08)
 
 ### Added
 
+- **Skills Format Migration**: Migrated from plugin format to unified skills format
+- **New References**:
+  - `project-init.md`: Project initialization workflow
+  - `roadmap.md`: Feature planning and milestones
+  - `codebase-mapping.md`: Comprehensive codebase analysis
+  - `baseline-discovery.md`: Brownfield baseline analysis
+  - `doc-extraction.md`: PRD/document extraction
+  - `research.md`: Research caching with MCP support
+- **Content Separation**: Enforced CRITICAL separation between spec/plan/tasks
+- **Feature Resolution**: Consistent feature lookup by ID or branch in all references
 - **coding-principles.md**: Behavioral principles loaded before implementation (simplicity, surgical changes, anti-patterns)
 - **Acceptance criteria format**: WHEN/THEN/SHALL pattern in spec-writing.md
 - **Priority levels**: P1/P2/P3 on user stories (P1=must deliver, P2=should have, P3=nice to have)
@@ -18,6 +32,13 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Expanded `plan.md` with Requirements Traceability, Test Strategy, Codebase Patterns
+- Expanded `codebase-exploration.md` with 4-phase process and output template
+- Expanded `validate.md` Full Mode with Pattern Compliance and gap categories
+- Expanded `implement.md` with 3-phase per-task process (Before/During/After)
+- Task size guidelines (Small/Medium/Large) added to `tasks.md`
+- Archive changelog entries now use dates only (no feature IDs)
+- Research cache location changed to `.specs/research/`
 - **validate.md**: Simplified from 4 separate modes to single adaptive validation
 - **validate.md**: Unified output format with categorized checks table
 - **initialize.md**: Ambiguities resolved inline during init, not in separate clarify phase
@@ -36,34 +57,6 @@ All notable changes to this skill will be documented in this file.
 
 ---
 
-## v1.0.0 (2026-02-08)
-
-### Added
-
-- **Skills Format Migration**: Migrated from plugin format to unified skills format
-- **New References**:
-  - `project-init.md`: Project initialization workflow
-  - `roadmap.md`: Feature planning and milestones
-  - `codebase-mapping.md`: Comprehensive codebase analysis
-  - `baseline-discovery.md`: Brownfield baseline analysis
-  - `doc-extraction.md`: PRD/document extraction
-  - `research.md`: Research caching with MCP support
-- **Content Separation**: Enforced CRITICAL separation between spec/plan/tasks
-- **Feature Resolution**: Consistent feature lookup by ID or branch in all references
-- **MCP Strategy**: Serena and Context7 with explicit fallbacks
-
-### Changed
-
-- Expanded `plan.md` with Requirements Traceability, Test Strategy, Codebase Patterns
-- Expanded `codebase-exploration.md` with 4-phase process and output template
-- Expanded `validate.md` Full Mode with Pattern Compliance and gap categories
-- Expanded `implement.md` with 3-phase per-task process (Before/During/After)
-- Task size guidelines (Small/Medium/Large) added to `tasks.md`
-- Archive changelog entries now use dates only (no feature IDs)
-- Research cache location changed to `.specs/research/`
-
----
-
 ## v2.8.0 (2026-02-04)
 
 ### Added
@@ -73,6 +66,11 @@ All notable changes to this skill will be documented in this file.
   - `output-templates`: Pre-defined templates for plan.md and tasks.md
   - `validation-checklists`: Structured checklists by validation mode
   - `research-cache`: Caching strategies with TTL and automatic invalidation
+- **Optional MCP Support**:
+  - `serena`: Semantic code analysis and symbol navigation
+  - Automatic MCP detection in `/spec-plan` command
+  - Fallback to native tools (grep, read, glob) when MCPs unavailable
+  - Updated `spec-explorer` and `spec-implementer` agents to use MCPs when available
 
 ### Changed
 
@@ -92,14 +90,6 @@ All notable changes to this skill will be documented in this file.
 ### Fixed
 
 - Status workflow consistency across all commands
-
-### Added
-
-- **Optional MCP Support**:
-  - `serena`: Semantic code analysis and symbol navigation
-  - Automatic MCP detection in `/spec-plan` command
-  - Fallback to native tools (grep, read, glob) when MCPs unavailable
-  - Updated `spec-explorer` and `spec-implementer` agents to use MCPs when available
 
 ## v2.7.0 (2026-02-03)
 

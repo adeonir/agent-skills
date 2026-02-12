@@ -1,3 +1,9 @@
+---
+id: {{ID}}
+feature: {{name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Tasks: {{Feature}}
 
 ## Summary

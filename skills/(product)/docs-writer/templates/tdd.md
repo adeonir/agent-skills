@@ -1,6 +1,5 @@
 ---
 name: {{tdd-name}}
-type: tdd
 status: draft
 author: {{author}}
 created: {{YYYY-MM-DD}}

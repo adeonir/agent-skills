@@ -1,6 +1,5 @@
 ---
 name: {{rfc-name}}
-type: rfc
 status: draft
 author: {{author}}
 created: {{YYYY-MM-DD}}

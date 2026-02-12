@@ -1,6 +1,10 @@
+---
+name: {{PROJECT_NAME}}
+---
+
 # Changelog
 
-## [{{Version}}] - {{YYYY-MM-DD}}
+## v{{Version}} ({{YYYY-MM-DD}})
 
 ### Added
 - Feature: {{name}}

@@ -1,6 +1,5 @@
 ---
 name: {{issue-name}}
-type: issue
 subtype: {{bug/enhancement/chore/spike}}
 status: open
 priority: {{critical/high/medium/low}}

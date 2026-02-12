@@ -1,9 +1,10 @@
+---
+id: {{ID}}
+feature: {{name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Technical Plan: {{Feature}}
-
-## Context
-
-- Feature: {{ID}}-{{feature}}
-- Created: {{date}}
 
 ## Scope
 

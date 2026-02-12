@@ -1,3 +1,7 @@
+---
+name: {{PROJECT_NAME}}
+---
+
 # Roadmap
 
 ## Current Sprint

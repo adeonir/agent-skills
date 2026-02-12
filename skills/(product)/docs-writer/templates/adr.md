@@ -1,6 +1,5 @@
 ---
 name: {{adr-name}}
-type: adr
 number: {{number}}
 status: proposed
 created: {{YYYY-MM-DD}}

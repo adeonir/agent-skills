@@ -1,6 +1,5 @@
 ---
 name: {{project-name}}
-type: prd
 status: draft
 created: {{YYYY-MM-DD}}
 last_updated: {{YYYY-MM-DD}}

@@ -1,6 +1,5 @@
 ---
 name: {{task-name}}
-type: task
 status: todo
 priority: {{critical/high/medium/low}}
 assignee: {{assignee}}
