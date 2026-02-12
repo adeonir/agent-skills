@@ -41,7 +41,7 @@ Analyze the structure and extract all content:
 
 ### Step 4: Generate copy.yaml
 
-**USE TEMPLATE:** `templates/copy.yaml`
+**USE TEMPLATE:** `templates/copy.md`
 
 Generate structured content following the template schema. The schema adapts to project type:
 - **Landing page**: sections (hero, features, testimonials, cta)

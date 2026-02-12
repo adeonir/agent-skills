@@ -48,7 +48,7 @@ Extract from each image:
 
 ### Step 4: Generate design.json
 
-**USE TEMPLATE:** `templates/design.json`
+**USE TEMPLATE:** `templates/design.md`
 
 Generate design tokens following the template schema. Key sections:
 - **principles**: overall vision, keywords, anti-patterns to avoid

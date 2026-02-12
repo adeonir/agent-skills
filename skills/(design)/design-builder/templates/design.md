@@ -1,3 +1,18 @@
+---
+name: {{project-name}}
+source: {{image path, url, or "description-based"}}
+created: {{YYYY-MM-DD}}
+---
+
+# Design Extraction: {{Project Name}}
+
+## Output
+
+Save as `.specs/docs/{{project-name}}/design.json` using the schema below.
+
+## Schema
+
+```json
 {
   "metadata": {
     "source": "{{image-path or url}}",
@@ -99,7 +114,8 @@
     }
   },
   "notes": {
-    "extraction": "{{notes about extraction process}}",
-    "uncertainties": "{{unclear or ambiguous tokens}}"
+    "extraction": "{{Notes about extraction process}}",
+    "uncertainties": "{{Unclear or ambiguous tokens that need confirmation}}"
   }
 }
+```
