@@ -92,7 +92,7 @@ Generates clean HTML with inline CSS at http://localhost:8081, optimized for imp
 
 ```
 .specs/docs/
-├── prd-{project}.md           # Optional PRD (from prd-writer)
+├── prd-{project}.md           # Optional PRD
 └── {project}/
     ├── copy.yaml              # Structured content
     ├── design.json            # Design tokens
@@ -119,10 +119,10 @@ src/                           # Generated React components
 4. use editorial
 ```
 
-### From Scratch (with prd-writer)
+### From Scratch (with docs-writer)
 
 ```
-1. create PRD for my project          # prd-writer skill
+1. create PRD for my project          # docs-writer skill
 2. extract design                     # describe style, no images needed
 3. build frontend
 ```
@@ -138,7 +138,7 @@ src/                           # Generated React components
 
 | Skill | Relationship |
 | ----- | ------------ |
-| **prd-writer** | PRD provides product context for copy and design extraction |
+| **docs-writer** | PRD provides product context for copy and design extraction |
 | **spec-driven** | Use after design-builder to plan implementation of complex features |
 | **frontend-design** | Optional skill for enhanced design quality guidelines |
 

@@ -22,10 +22,9 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 |-------|----------|-------------|
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
-| **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
+| **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
 | **[design-builder](skills/(design)/design-builder)** | Design | Design-to-code pipeline: extract copy from URLs, design tokens from images, build React components |
-| ~~[prd-writer](skills/(product)/prd-writer)~~ | Product | Deprecated -- superseded by docs-writer |
 
 ## Installation
 

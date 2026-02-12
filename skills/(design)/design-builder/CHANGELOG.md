@@ -19,7 +19,7 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Product planning separated into standalone `prd-writer` skill
+- Product planning separated into standalone `docs-writer` skill
 - `figma.md` renamed to `export.md` (supports Figma, Penpot, and future tools)
 - frontend-design skill referenced as external dependency instead of bundled fork
 - Output location changed from `./docs/` and `./outputs/` to `.specs/docs/{project-name}/`

@@ -23,13 +23,13 @@ copy --> design --> frontend / variants / export
 ```
 
 Each step is independent. Can run isolated or chained.
-PRD (from prd-writer skill) is optional input at any step.
+PRD is optional input at any step.
 
 ## Artifacts
 
 ```
 .specs/docs/
-├── prd-{project-name}.md              # PRD (optional, from prd-writer)
+├── prd-{project-name}.md              # PRD (optional)
 └── {project-name}/
     ├── copy.yaml                      # Structured content
     ├── design.json                    # Design tokens
@@ -73,8 +73,8 @@ design.md -------> export.md (tokens required)
 variants.md -----> frontend.md (user picks variant, then builds React)
 
 External inputs (optional):
-prd-writer ------> copy.md (product context)
-prd-writer ------> design.md (product context)
+docs-writer -----> copy.md (product context)
+docs-writer -----> design.md (product context)
 ```
 
 ## Required Skills
