@@ -10,26 +10,38 @@ Extract structured content from URLs and organize into copy.yaml.
 
 ## Process
 
-### Step 1: Get Project Context
+### Step 1: Establish Context
+
+1. Ask user for the project name (kebab-case for directories)
+2. Check for existing context in `.specs/docs/`:
+   - `prd-{project-name}.md` -- read and extract purpose, audience, tone
+   - `brief-{project-name}.md` -- read and extract purpose, audience, tone
+3. If neither exists, ask up to 4 context questions:
+   - What is the project purpose? (landing page, app, tool)
+   - Who is the target audience?
+   - What tone should the copy follow? (professional, casual, bold)
+   - Any content constraints? (word count, mandatory sections)
+4. Summarize understanding before proceeding
+
+### Step 2: Get Source URL
 
 1. Ask user for the URL to analyze
-2. Ask user for the project name (kebab-case for directories)
-3. Check for existing PRD at `.specs/docs/prd-{project-name}.md` -- use as context if available
+2. Fetch the URL using WebFetch
+3. If fetch fails, ask user to paste a screenshot instead
 
-### Step 2: Fetch and Analyze
+### Step 3: Identify Project Type
 
-1. Fetch the URL using WebFetch
-2. If fetch fails, ask user to paste a screenshot instead
-3. Identify the project type by analyzing the content:
-   - Landing page: single page with hero, features, CTA, footer
-   - Website: multi-page site with navigation between pages
-   - Web app: interactive application with screens, widgets, auth
-   - Mobile app: screens, tabs, gestures, native features
-4. Confirm project type with user if unclear
+Analyze the content and identify the project type:
+
+- Landing page: single page with hero, features, CTA, footer
+- Website: multi-page site with navigation between pages
+- Web app: interactive application with screens, widgets, auth
+- Mobile app: screens, tabs, gestures, native features
 
 Do not use prefixed types. Ask the user and adapt the schema to match what they are building.
+Confirm project type with user if unclear.
 
-### Step 3: Extract Content
+### Step 4: Extract Content
 
 Analyze the structure and extract all content:
 
@@ -39,7 +51,7 @@ Analyze the structure and extract all content:
 - Visual placeholders with descriptions for image generation
 - Copywriting patterns (tone, power words, CTA style)
 
-### Step 4: Generate copy.yaml
+### Step 5: Generate copy.yaml
 
 **USE TEMPLATE:** `templates/copy.md`
 

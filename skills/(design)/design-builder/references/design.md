@@ -10,13 +10,19 @@ Extract design tokens from reference images and generate design.json.
 
 ## Process
 
-### Step 1: Get Project Context
+### Step 1: Establish Context
 
 1. Ask user for the project name (if not already established)
-2. Check for existing artifacts:
-   - `.specs/docs/{project-name}/copy.yaml` -- content context
-   - `.specs/docs/prd-{project-name}.md` -- product context
-3. Use available artifacts to inform design decisions
+2. Check for existing context in `.specs/docs/`:
+   - `prd-{project-name}.md` -- read and extract purpose, audience, tone, features
+   - `brief-{project-name}.md` -- read and extract purpose, audience, tone
+   - `{project-name}/copy.yaml` -- content context
+3. If no PRD/Brief exists, ask up to 4 context questions:
+   - What is the project purpose? (landing page, app, tool)
+   - Who is the target audience?
+   - What is the visual reference? (URLs, screenshots, descriptions)
+   - Any brand or style constraints? (colors, fonts, existing guidelines)
+4. Summarize understanding before proceeding
 
 ### Step 2: Get Reference Input
 
@@ -51,18 +57,33 @@ Extract from each image:
 **USE TEMPLATE:** `templates/design.md`
 
 Generate design tokens following the template schema. Key sections:
-- **principles**: overall vision, keywords, anti-patterns to avoid
-- **colors**: primary, accent, neutral, semantic palettes with usage guidelines
-- **typography**: fonts, scale (hero, h2, h3, body, small, label), emphasis techniques
+- **principles**: vision, keywords, follow (guidelines), avoid (anti-patterns)
+- **colors**: primary, secondary, background, text, semantic palettes
+- **typography**: fonts, scale (hero, h2, h3, body, small, label)
 - **spacing**: section padding, container max-width, grid, component gaps
-- **components**: button, card, badge, input, icon specs with states
-- **effects**: shadows, transitions
-- **animations**: fadeInUp, fadeIn, hoverLift, stagger patterns
-- **backgrounds**: patterns, gradients, section backgrounds
-- **layout**: hero composition, section flow, patterns, decorative elements
+- **components**: button, card, badge, input, icon specs with all states
+- **layout**: hero composition, section flow, grid patterns, decorative elements
+- **animations**: entrance types, interaction effects, transition defaults
+- **backgrounds**: hero treatment, section backgrounds, gradient definitions
 - **responsive**: breakpoints, mobile adaptations
 
 Save to `.specs/docs/{project-name}/design.json`. Create directories if needed.
+
+### Step 5: Validate Output
+
+Run the validation checklist before presenting the result:
+
+- [ ] All semantic colors defined (primary, secondary, background, text)
+- [ ] Font families resolved with Google Fonts equivalents
+- [ ] Layout block filled (hero composition, at least 2 sections)
+- [ ] Hover states defined for all interactive components
+- [ ] `principles.avoid` has at least 2 anti-patterns
+- [ ] `principles.follow` has at least 2 guidelines
+- [ ] Animations defined (entrance + interaction)
+- [ ] Backgrounds defined for hero and at least one section
+- [ ] Typography scale includes hero, body, and label sizes
+
+If any item fails, fix it before saving. Report remaining gaps in `notes.uncertainties`.
 
 ## Rules
 

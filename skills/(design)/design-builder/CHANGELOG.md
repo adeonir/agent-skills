@@ -6,6 +6,22 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## v1.0.1 (2026-02-13)
+
+### Fixed
+
+- Decision tree now separates extraction and building into independent phases
+- Variants no longer forced as mandatory step before frontend/export
+
+### Changed
+
+- Templates migrated from yaml/json to markdown format
+- Standardized frontmatter metadata across references and templates
+
+### Added
+
+- Prompt generation for external tools (v0, aura.build, replit) as valid building path
+
 ## v1.0.0 (2026-02-08)
 
 ### Added

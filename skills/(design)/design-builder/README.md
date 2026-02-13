@@ -6,19 +6,15 @@ Design-to-code pipeline: extract copy from URLs, extract design tokens from imag
 
 ```mermaid
 flowchart TD
-    subgraph Extraction
-        A[URL] -->|extract copy| B[copy.yaml]
-        C[Images] -->|extract design| D[design.json]
-    end
-
+    A[URL] -->|extract copy| B[copy.yaml]
+    C[Images] -->|extract design| D[design.json]
     B --> D
-
-    subgraph Building
-        D -->|build frontend| E[React App]
-        D -->|generate variants| F[4 HTML Previews]
-        D -->|export design| G[Figma/Penpot]
-        F -->|user picks one| E
-    end
+    D -->|build directly| E[React App]
+    D -->|preview first| F[4 HTML Previews]
+    D -->|import to tools| G[Figma/Penpot]
+    D -->|external tool| H[Prompt for v0/aura/replit]
+    F -->|user picks one| E
+    F -->|user picks one| G
 ```
 
 | Step | Trigger | Output |
@@ -132,6 +128,13 @@ src/                           # Generated React components
 ```
 1. extract design from [paste image]
 2. build frontend
+```
+
+### External Tool
+
+```
+1. extract design from [paste image]
+2. generate prompt for v0
 ```
 
 ## Integration
