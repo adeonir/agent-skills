@@ -3,54 +3,78 @@
 ## Workflow
 
 ```
-discovery --> analysis --> drafting
+discovery --> validation --> synthesis --> drafting
 ```
 
-3 sequential phases. Never skip discovery -- always interview the user first.
+4 sequential phases. Never skip discovery -- always interview the user first.
 
 ## Phase 1: Discovery (Interview)
 
-**LOAD:** [discovery.md](discovery.md) for shared interview patterns.
+**LOAD:** [discovery.md](discovery.md) for shared interview patterns and critical posture.
 
-Never assume context. Ask questions in stages, not all at once.
+Never assume context. Ask questions in stages, not all at once. Challenge weak ideas and ask for evidence.
 
-**Stage 1 -- Problem & Audience:**
+**Stage 1 -- Problem:**
 - What problem are you solving?
-- Who is the target audience?
-- What pain points do they have?
+- How do you know this problem exists? (evidence, data, user feedback)
+- How do people solve this today? (existing tools, workarounds, competitors)
+- What is the cost of not solving it? (time, money, frustration)
 
-**Stage 2 -- Solution & Features:**
-- What is your proposed solution?
-- What are the key features?
+**Stage 2 -- Users:**
+- Who specifically will use this?
+- What is their job to be done?
+- What does their ideal outcome look like?
+- Why would they pay for / switch to this? (or: why would they use this over the status quo?)
+
+**Stage 3 -- Business & Scope:**
+- What type of thing is this? (product, feature, internal tool, platform)
+- How does it generate value? (monetization, cost reduction, efficiency)
 - What makes it different from alternatives?
+- How urgent is this? What happens if it ships 6 months late?
 
-**Stage 3 -- Structure & Scope:**
-- What is the product structure? (pages, screens, sections)
-- What are the success criteria?
-- Any known technical constraints?
+Minimum 2 question stages before moving to validation. Ask follow-ups as needed.
 
-Minimum 2 question stages before moving to analysis. Ask follow-ups as needed.
+## Phase 2: Validation
 
-## Phase 2: Analysis & Scoping
+Challenge what was learned. This phase exists to prevent building the wrong thing.
 
-Synthesize user inputs into structured findings:
+1. **Challenge viability**: Point out risks and weak spots identified during discovery
+2. **Question scope**: Is the scope realistic for a first version? If not, push back
+3. **Suggest simplifications**: Propose cuts when scope is ambitious. "Do you need X for launch, or can it wait?"
+4. **Propose pivots**: If the idea seems fragile after discovery, suggest alternative approaches
+5. **Define MVP scope**: Categorize features into must/should/could priorities
+6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
+7. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
 
-1. Identify dependencies and risks
-2. Define non-goals (what is out of scope)
-3. Surface unknowns (mark as TBD)
-4. Present synthesis to user for feedback before drafting
+Do not proceed to synthesis until the user confirms scope and priorities.
 
-## Phase 3: Drafting
+## Phase 3: Synthesis
 
-**USE TEMPLATE:** `templates/prd.md`
+Synthesize everything from discovery and validation into a structured summary.
 
-Generate the PRD using the schema below. Present draft to user for review.
+1. Summarize what was learned across all discovery stages
+2. Present the agreed scope (must/should/could)
+3. List risks and hypotheses identified during validation
+4. Identify gaps and mark as TBD
+5. Surface assumptions made (distinguish from validated facts)
+6. Present synthesis to user for confirmation
+7. Only proceed to drafting after user confirms
+
+## Phase 4: Drafting
+
+**USE TEMPLATES:**
+- PRD: `templates/prd.md`
+- Brief: `templates/brief.md`
+
+**LOAD:** [brief.md](brief.md) for brief generation rules.
+
+Generate both documents using the confirmed synthesis. Present drafts to user for review before saving.
 
 ## PRD Schema
 
 ### 1. Executive Summary
 
-- **Problem Statement**: What problem exists and for whom
+- **Problem Statement**: What problem exists and for whom, with evidence
 - **Proposed Solution**: High-level description of what will be built
 - **Success Criteria**: Measurable KPIs (concrete numbers, not vague goals)
 
@@ -64,24 +88,35 @@ Generate the PRD using the schema below. Present draft to user for review.
   - Personas: who uses this
   - Pain Points: what problems they face
   - Goals: what they want to achieve
+- **Competitive Landscape**:
+  - How the problem is solved today
+  - Existing tools/workarounds/competitors
+  - Gaps that remain
 
-### 3. User Experience & Functionality
+### 3. Scope Definition
+
+- **Must Have**: Core features required for launch
+- **Should Have**: Important but not launch-blocking
+- **Could Have**: Nice-to-have for future iterations
+- **Non-Goals**: What is explicitly out of scope and why
+
+### 4. User Experience & Functionality
 
 - **User Stories**: "As a [user], I want [action], so that [benefit]"
 - **Acceptance Criteria**: When/Then/Shall format
 - **Features List**: with descriptions
-- **Non-Goals**: what is explicitly out of scope
 
-### 4. Technical Specifications
+### 5. Technical Specifications
 
 - **Architecture Overview**: high-level system design
 - **Integration Points**: APIs, databases, auth
 - **Security & Privacy**: requirements and constraints
 
-### 5. Risks & Roadmap
+### 6. Risks, Assumptions & Validation
 
 - **Phased Rollout**: v1.0, v1.1, v2.0 (never frame as MVP)
 - **Technical Risks**: known challenges
+- **Hypotheses to Validate**: assumptions that need evidence before or during implementation
 - **Unknowns**: marked as TBD
 
 ## Quality Standards
@@ -98,22 +133,26 @@ Requirements must be concrete and measurable.
 
 **DO:**
 - Always complete discovery before drafting
+- Challenge ideas during discovery and validation -- do not be a yes-man
 - Present draft for user feedback
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Keep phased rollout realistic (v1.0/v1.1/v2.0, not MVP framing)
+- Generate Brief alongside PRD during drafting
 
 **DON'T:**
 - Skip discovery with fewer than 2 question stages
 - Assume project type -- discover it
 - Include visual/design direction (that belongs in design-builder)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
+- Proceed past validation without user confirmation on scope
 
 ## Output
 
-Save to: `.specs/docs/prd-{name}.md`
+- PRD: `.specs/docs/prd-{name}.md`
+- Brief: `.specs/docs/brief-{name}.md`
 
 ## Integration
 
-- **design-builder**: PRD informs copy extraction and design extraction (sections 1, 2, 3)
-- **spec-driven**: PRD informs feature initialization (sections 1, 3, 4, 5)
+- **design-builder**: PRD informs copy extraction and design extraction (sections 1-5: problem, goals, value prop, competitive landscape, personas)
+- **spec-driven**: PRD informs feature initialization (sections 1, 6, 7, 9: problem, scope, user stories, technical specs)

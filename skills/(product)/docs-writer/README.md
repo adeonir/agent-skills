@@ -10,6 +10,7 @@ Routes document creation requests to type-specific workflows, each with appropri
 flowchart LR
     T[Trigger] --> R{Router}
     R --> PRD[PRD]
+    R --> B[Brief]
     R --> I[Issue]
     R --> TK[Task]
     R --> US[User Story]
@@ -21,6 +22,7 @@ flowchart LR
 | Type | Workflow | Output |
 |------|----------|--------|
 | **PRD** | discovery -> analysis -> drafting | `prd-{name}.md` |
+| **Brief** | discovery -> drafting | `brief-{name}.md` |
 | **Issue** | classification -> drafting | `issue-{name}.md` |
 | **Task** | direct drafting | `task-{name}.md` |
 | **User Story** | discovery -> drafting | `story-{name}.md` |
@@ -32,6 +34,7 @@ flowchart LR
 
 ```
 create PRD for my project
+create brief for my product
 report bug in the login flow
 create task to update dependencies
 write user story for checkout

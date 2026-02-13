@@ -6,6 +6,18 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## v1.0.1 (2026-02-13)
+
+### Added
+
+- **Brief**: Lightweight project brief document type (reference + template)
+- Document count updated from 7 to 8 types
+
+### Changed
+
+- Refined discovery questions and PRD reference structure
+- Updated PRD template with improved frontmatter metadata
+
 ## v1.0.0 (2026-02-11)
 
 ### Added

@@ -30,7 +30,7 @@ Ask questions in stages, not all at once. Each stage should build on the previou
 
 | Type | Minimum Stages | Focus |
 |------|---------------|-------|
-| PRD | 3 stages | Problem, solution, scope |
+| PRD | 3 stages | Problem, users, business & scope |
 | Issue (feature) | 1-2 stages | Problem, proposed solution |
 | Issue (discussion) | 1 stage | Topic, context |
 | User Story | 1-2 stages | Persona, action, benefit |
@@ -50,6 +50,27 @@ After discovery is complete, synthesize before drafting:
 4. Present synthesis to user for confirmation
 5. Only proceed to drafting after user confirms
 
+## Critical Posture
+
+Discovery is not a formality. Challenge ideas with respect, but never be a yes-man.
+
+### Principles
+
+- **Ask for evidence.** When the user claims a problem exists, ask: "How do you know this problem exists? What evidence do you have?" Accept anecdotal evidence but distinguish it from data.
+- **Challenge weak ideas.** If an idea sounds like a solution looking for a problem, say so. "This sounds like you already decided the solution -- can we go back to the problem?"
+- **Suggest pivots.** If the problem is real but the proposed approach seems fragile, propose alternatives. "Have you considered X instead?" Frame pivots as questions, not demands.
+- **Flag scope creep.** If the user keeps adding features or expanding scope during discovery, pause and realign. "We started with X -- this is now X + Y + Z. Should we narrow down?"
+- **Gate advancement.** Only move from discovery to the next phase when you have confidence that the problem is understood. If something feels off, ask one more question rather than proceeding with uncertainty.
+
+### What This Looks Like
+
+| Situation | Passive Response | Critical Response |
+|-----------|-----------------|-------------------|
+| User describes vague problem | "Okay, let's proceed" | "Who specifically has this problem? How often?" |
+| User jumps to solution | "Got it, I'll include that" | "Before we define the solution -- what problem does this solve?" |
+| User adds scope mid-discovery | "I'll add that too" | "This changes the scope significantly. Should we focus on the core first?" |
+| User has no evidence | "Noted" | "Without evidence, this is an assumption. Should we mark it as a hypothesis to validate?" |
+
 ## Quality Gate
 
 Before moving from discovery to drafting, verify:
@@ -58,3 +79,4 @@ Before moving from discovery to drafting, verify:
 - [ ] Unknowns are explicitly marked as TBD
 - [ ] User has confirmed the synthesis
 - [ ] No critical ambiguity remains (ask if unclear)
+- [ ] Problem is understood with evidence or explicitly marked as hypothesis

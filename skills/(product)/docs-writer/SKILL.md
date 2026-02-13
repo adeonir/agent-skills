@@ -2,7 +2,7 @@
 name: docs-writer
 description: >-
   Generate structured product and technical documents through guided discovery.
-  7 document types: PRD, Issue, Task, User Story, RFC, ADR, TDD.
+  8 document types: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD.
   Use when: defining products, reporting bugs, planning sprints, writing stories,
   proposing changes, recording decisions, designing systems.
   Triggers on "create PRD", "create issue", "report bug", "feature request",
@@ -10,12 +10,12 @@ description: >-
   "create document", "write doc".
 metadata:
   author: github.com/adeonir
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Docs Writer
 
-Generate structured documents through guided discovery. 7 document types, each with its own workflow depth.
+Generate structured documents through guided discovery. 8 document types, each with its own workflow depth.
 
 ## Workflow
 
@@ -29,7 +29,8 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 
 | Type | Workflow | Reference | Template |
 |------|----------|-----------|----------|
-| PRD | discovery -> analysis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
+| PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
+| Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
 | Issue | classification -> drafting | [issue.md](references/issue.md) | [issue.md](templates/issue.md) |
 | Task | direct drafting | [task.md](references/task.md) | [task.md](templates/task.md) |
 | User Story | discovery -> drafting | [user-story.md](references/user-story.md) | [user-story.md](templates/user-story.md) |
@@ -55,7 +56,7 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 **LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
 
 Discovery applies to: PRD, Issue (feature/discussion subtypes), User Story, RFC, ADR, TDD.
-Discovery does NOT apply to: Task, Issue (bug subtype -- uses structured reproduction instead).
+Discovery does NOT apply to: Task, Issue (bug subtype -- uses structured reproduction instead), Brief (generated as part of PRD workflow).
 
 ## Output
 
@@ -64,6 +65,7 @@ All documents save to `.specs/docs/`. Create the directory if it doesn't exist.
 | Type | Filename Pattern |
 |------|-----------------|
 | PRD | `prd-{name}.md` |
+| Brief | `brief-{name}.md` |
 | Issue | `issue-{name}.md` |
 | Task | `task-{name}.md` |
 | User Story | `story-{name}.md` |
@@ -110,7 +112,7 @@ TDD -------------> ADR            (references relevant decisions)
 
 ## Integration with Other Skills
 
-- **design-builder**: PRD sections 1, 2, 3 inform copy extraction and design extraction
+- **design-builder**: PRD sections 1-5 (problem, goals, value prop, competitive landscape, personas) inform copy extraction and design extraction
 - **spec-driven**: Any document can be input for feature initialization when implementation is complex
 
 ## Error Handling
