@@ -40,14 +40,16 @@ git diff {base}...HEAD
 
 ```bash
 git push -u origin $(git branch --show-current)
-gh pr create --title "type: description" --body "$(cat <<'EOF'
-Brief summary of what this PR does (2-3 sentences max).
+gh pr create --title "type: concise description" --body "$(cat <<'EOF'
+Brief summary of what this PR does (1-2 sentences max).
 
 ## Changes
 
-- Key change 1
+- Key change 1 (imperative mood)
 - Key change 2
 - Key change 3
+
+Closes #N
 EOF
 )"
 ```
@@ -58,24 +60,29 @@ Output the PR URL when done.
 
 Load [conventional-commits.md](conventional-commits.md) for commit types and message format rules.
 
-**Title:** `type: concise description` or `type(scope): concise description`
+**Title:** `type: concise description` or `type(scope): concise description` (lowercase)
 
 **Body:**
 
 ```markdown
-Brief summary of what this PR does (2-3 sentences max).
+Brief summary of what this PR does (1-2 sentences max).
 
 ## Changes
 
-- Key change 1
+- Key change 1 (imperative mood)
 - Key change 2
 - Key change 3
+
+Closes #N
 ```
 
 **Additional Guidelines:**
 
-- Keep changes list to 3-5 key items
-- No risk assessment or testing instructions in PR body
+- Everything in English
+- Title follows conventional commits format, lowercase
+- Body summary is a concise description of what was done
+- Changes list in imperative mood, 3-7 key items
+- Include `Closes #N` when there is a related issue to close
 - Scope in title is allowed - both `feat:` and `feat(scope):` are valid
 
 ## Task

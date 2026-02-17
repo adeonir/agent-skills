@@ -1,13 +1,4 @@
----
-name: {{adr-name}}
-number: {{number}}
-status: proposed
-created: {{YYYY-MM-DD}}
-decision_makers: {{names}}
-supersedes: {{ADR-n, or "None"}}
----
-
-# ADR-{{number}}: {{Title}}
+# ADR
 
 ## Context
 

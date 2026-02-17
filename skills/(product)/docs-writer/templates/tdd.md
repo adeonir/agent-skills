@@ -1,14 +1,4 @@
----
-name: {{tdd-name}}
-status: draft
-author: {{author}}
-created: {{YYYY-MM-DD}}
-last_updated: {{YYYY-MM-DD}}
-prd_reference: {{link to PRD, or "None"}}
-reviewers: {{reviewers}}
----
-
-# TDD: {{Title}}
+# TDD
 
 ## 1. Overview
 

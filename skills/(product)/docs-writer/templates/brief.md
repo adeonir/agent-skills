@@ -1,13 +1,4 @@
----
-name: {{project-name}}
-status: draft
-created: {{YYYY-MM-DD}}
-last_updated: {{YYYY-MM-DD}}
-author: {{author}}
-related_prd: prd-{{project-name}}.md
----
-
-# Brief: {{Title}}
+# Brief
 
 ## Problem
 

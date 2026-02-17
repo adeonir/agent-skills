@@ -1,13 +1,4 @@
----
-name: {{rfc-name}}
-status: draft
-author: {{author}}
-created: {{YYYY-MM-DD}}
-discussion_deadline: {{YYYY-MM-DD}}
-tracking_issue: {{link to tracking issue, or "None"}}
----
-
-# RFC: {{Title}}
+# RFC
 
 ## Summary
 

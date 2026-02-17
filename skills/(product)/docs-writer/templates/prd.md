@@ -1,13 +1,4 @@
----
-name: {{project-name}}
-status: draft
-created: {{YYYY-MM-DD}}
-last_updated: {{YYYY-MM-DD}}
-author: {{author}}
-stakeholders: {{stakeholders}}
----
-
-# PRD: {{Title}}
+# PRD
 
 ## 1. Problem Statement
 
