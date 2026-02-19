@@ -25,7 +25,7 @@ Then:
 
 - Describe what the code DOES, not what was discussed
 - Determine appropriate commit type based on actual changes
-- **CRITICAL**: Message must describe STAGED FILES only, never conversation context
+- **CRITICAL**: Message must describe STAGED FILES only — never conversation context, prior discussion, or assumptions about what was done
 
 ### Step 3: Stage Files
 

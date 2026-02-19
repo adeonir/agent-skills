@@ -30,22 +30,22 @@ type: concise description in imperative mood
 
 1. **Use imperative mood**: "add", "fix", "implement" (not "added", "fixes")
 2. **Be concise**: First line under 72 characters
-3. **Focus on WHAT**: Describe the change, not the implementation
+3. **Focus on WHAT**: Describe the change and the observable behavior from the user's perspective
 4. **Follow project conventions**: Check `git log --oneline -10` for the project's preferred format (with or without scope)
 5. **No file names**: Don't mention specific files in the message
 6. **No versions**: Don't mention package versions
 7. **No attribution**: Never add Co-Authored-By or similar lines
 8. **No future references**: Don't mention upcoming work or architectural reasoning
+9. **Diff only**: Base the message exclusively on the actual diff — never on conversation context, prior discussion, or assumptions
 
 ## Body Guidelines
 
-Include a body only when:
+Optional. When included, explain HOW the change was implemented from a developer's perspective.
 
-- Change spans 3+ functional areas
+- 1 to 5 bullet points
 - Complex change needs explanation
 - Breaking change needs documentation
-
-Keep body to 3-4 concise list items.
+- No file names or paths
 
 ## Examples
 

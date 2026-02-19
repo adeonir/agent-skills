@@ -17,7 +17,7 @@ If not available, stop and inform user to install `gh` cli.
 If not specified:
 
 ```bash
-for branch in development develop main master; do
+for branch in development main; do
   git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
 done
 ```
