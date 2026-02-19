@@ -14,8 +14,8 @@ Extract structured content from URLs and organize into copy.yaml.
 
 1. Ask user for the project name (kebab-case for directories)
 2. Check for existing context in `.specs/docs/`:
-   - `prd-{project-name}.md` -- read and extract purpose, audience, tone
-   - `brief-{project-name}.md` -- read and extract purpose, audience, tone
+   - `prd.md` -- read and extract purpose, audience, tone
+   - `brief.md` -- read and extract purpose, audience, tone
 3. If neither exists, ask up to 4 context questions:
    - What is the project purpose? (landing page, app, tool)
    - Who is the target audience?

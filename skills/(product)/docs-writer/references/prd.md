@@ -149,8 +149,8 @@ Requirements must be concrete and measurable.
 
 ## Output
 
-- PRD: `.specs/docs/prd-{name}.md`
-- Brief: `.specs/docs/brief-{name}.md`
+- PRD: `.specs/docs/prd.md`
+- Brief: `.specs/docs/brief.md`
 
 ## Integration
 

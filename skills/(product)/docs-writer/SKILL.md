@@ -62,18 +62,18 @@ Discovery does NOT apply to: Task, Issue (bug subtype -- uses structured reprodu
 
 All documents save to `.specs/docs/`. Create the directory if it doesn't exist.
 
-| Type | Filename Pattern |
-|------|-----------------|
-| PRD | `prd-{name}.md` |
-| Brief | `brief-{name}.md` |
-| Issue | `issue-{name}.md` |
-| Task | `task-{name}.md` |
-| User Story | `story-{name}.md` |
-| RFC | `rfc-{name}.md` |
+| Type | Filename |
+|------|----------|
+| PRD | `prd.md` |
+| Brief | `brief.md` |
+| Issue | `issue.md` |
+| Task | `task.md` |
+| User Story | `story.md` |
+| RFC | `rfc.md` |
 | ADR | `adr-{number}-{name}.md` |
-| TDD | `tdd-{name}.md` |
+| TDD | `tdd.md` |
 
-Use kebab-case for `{name}`. For ADR, auto-detect the next sequential number from existing files in `.specs/docs/`.
+For ADR, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in `.specs/docs/`.
 
 ## Quality Standards
 
@@ -92,7 +92,7 @@ Requirements must be concrete and measurable across all document types.
 - Present draft for user feedback before saving
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Ask for document name in kebab-case
+- Use fixed filenames per type (ADR keeps `{name}` suffix in kebab-case)
 
 **DON'T:**
 - Skip discovery for types that require it

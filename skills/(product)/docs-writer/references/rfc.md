@@ -112,4 +112,4 @@ draft --> under-review --> accepted / rejected / withdrawn
 
 ## Output
 
-Save to: `.specs/docs/rfc-{name}.md`
+Save to: `.specs/docs/rfc.md`

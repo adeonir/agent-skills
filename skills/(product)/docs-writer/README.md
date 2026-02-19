@@ -21,14 +21,14 @@ flowchart LR
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery -> analysis -> drafting | `prd-{name}.md` |
-| **Brief** | discovery -> drafting | `brief-{name}.md` |
-| **Issue** | classification -> drafting | `issue-{name}.md` |
-| **Task** | direct drafting | `task-{name}.md` |
-| **User Story** | discovery -> drafting | `story-{name}.md` |
-| **RFC** | discovery -> analysis -> drafting | `rfc-{name}.md` |
+| **PRD** | discovery -> analysis -> drafting | `prd.md` |
+| **Brief** | discovery -> drafting | `brief.md` |
+| **Issue** | classification -> drafting | `issue.md` |
+| **Task** | direct drafting | `task.md` |
+| **User Story** | discovery -> drafting | `story.md` |
+| **RFC** | discovery -> analysis -> drafting | `rfc.md` |
 | **ADR** | discovery -> drafting | `adr-{number}-{name}.md` |
-| **TDD** | discovery -> analysis -> drafting | `tdd-{name}.md` |
+| **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
 ## Usage
 
@@ -50,7 +50,7 @@ The agent detects the document type from the trigger and loads the appropriate w
 All documents are saved to:
 
 ```
-.specs/docs/{type}-{name}.md
+.specs/docs/{type}.md
 ```
 
 ## Integration

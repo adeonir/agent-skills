@@ -169,7 +169,7 @@ create new feature for stripe payments
 
 ```
 # Initialize with PRD document
-initialize feature @docs/prd-auth.md
+initialize feature @docs/prd.md
 
 # Agent reads PRD, extracts requirements
 # Creates spec.md with mapped FRs and ACs

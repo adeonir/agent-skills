@@ -43,4 +43,4 @@ Fill in fields from user input. For optional fields not provided, use defaults. 
 
 ## Output
 
-Save to: `.specs/docs/task-{name}.md`
+Save to: `.specs/docs/task.md`

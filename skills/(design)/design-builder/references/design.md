@@ -14,8 +14,8 @@ Extract design tokens from reference images and generate design.json.
 
 1. Ask user for the project name (if not already established)
 2. Check for existing context in `.specs/docs/`:
-   - `prd-{project-name}.md` -- read and extract purpose, audience, tone, features
-   - `brief-{project-name}.md` -- read and extract purpose, audience, tone
+   - `prd.md` -- read and extract purpose, audience, tone, features
+   - `brief.md` -- read and extract purpose, audience, tone
    - `{project-name}/copy.yaml` -- content context
 3. If no PRD/Brief exists, ask up to 4 context questions:
    - What is the project purpose? (landing page, app, tool)

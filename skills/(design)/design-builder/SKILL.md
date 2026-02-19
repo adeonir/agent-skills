@@ -33,8 +33,8 @@ Before any operation, establish project context.
 
 Look for existing documents in `.specs/docs/`:
 
-- `prd-{project-name}.md` -- PRD
-- `brief-{project-name}.md` -- Brief
+- `prd.md` -- PRD
+- `brief.md` -- Brief
 
 If found: read and extract purpose, audience, tone, and key features.
 Skip to the relevant trigger operation.
@@ -84,8 +84,8 @@ Valid paths after design.json:
 
 ```
 .specs/docs/
-├── prd-{project-name}.md              # PRD (optional)
-├── brief-{project-name}.md            # Brief (optional)
+├── prd.md                             # PRD (optional)
+├── brief.md                           # Brief (optional)
 └── {project-name}/
     ├── copy.yaml                      # Structured content
     ├── design.json                    # Design tokens

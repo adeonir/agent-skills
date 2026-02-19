@@ -111,4 +111,4 @@ Generate the TDD using the schema below. Present draft to user for review.
 
 ## Output
 
-Save to: `.specs/docs/tdd-{name}.md`
+Save to: `.specs/docs/tdd.md`

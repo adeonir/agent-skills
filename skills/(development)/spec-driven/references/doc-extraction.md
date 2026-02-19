@@ -114,11 +114,11 @@ After extraction, populate spec.md sections:
 
 **PRD Input:**
 ```
-initialize feature @docs/prd-auth.md
+initialize feature @docs/prd.md
 ```
 
 **Extraction Process:**
-1. Read docs/prd-auth.md
+1. Read docs/prd.md
 2. Find: "Users must verify email before accessing dashboard"
 3. Find: "Verification link expires in 1 hour"
 4. Map to spec:
@@ -134,5 +134,5 @@ initialize feature @docs/prd-auth.md
 - [ ] AC-001: Verification link must expire after 1 hour
 
 ## Notes
-Extracted from: docs/prd-auth.md
+Extracted from: docs/prd.md
 ```

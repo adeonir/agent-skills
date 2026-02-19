@@ -39,9 +39,7 @@ All Brief sections map directly to information gathered during PRD discovery and
 
 ## Output
 
-Save to: `.specs/docs/brief-{name}.md`
-
-Use the same `{name}` as the companion PRD (`prd-{name}.md`).
+Save to: `.specs/docs/brief.md`
 
 ## Guidelines
 

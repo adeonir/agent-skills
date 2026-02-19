@@ -88,7 +88,7 @@ Generates clean HTML with inline CSS at http://localhost:8081, optimized for imp
 
 ```
 .specs/docs/
-├── prd-{project}.md           # Optional PRD
+├── prd.md                     # Optional PRD
 └── {project}/
     ├── copy.yaml              # Structured content
     ├── design.json            # Design tokens
