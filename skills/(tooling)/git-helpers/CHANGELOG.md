@@ -6,7 +6,23 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.0 (2026-02-08)
+## 2026-02-19
+
+### Changed
+
+- Restrict base branch detection to `development` and `main` only
+- Subject line focuses on user-observable behavior
+- Body guidelines rewritten as HOW from developer perspective, 1-5 items
+- Enforce diff-only rule to prevent conversation context leaking into messages
+
+## 2026-02-17
+
+### Changed
+
+- Add closes reference and imperative mood guidelines to PR template
+- Expand PR changes list from 3-5 to 3-7 items
+
+## 2026-02-08
 
 ### Added
 
@@ -28,7 +44,7 @@ All notable changes to this skill will be documented in this file.
 
 ---
 
-## v1.4.0 (2026-02-04)
+## 2026-02-04
 
 ### Added
 
@@ -49,7 +65,7 @@ All notable changes to this skill will be documented in this file.
 - Improved token efficiency by 30-40%
 - Better consistency between agents and skills
 
-## v1.3.0 (2026-02-03)
+## 2026-02-03
 
 ### Added
 
@@ -69,7 +85,7 @@ All notable changes to this skill will be documented in this file.
 - Installation now includes `skills/` directory
 - Updated README with skills documentation
 
-## v1.2.3 (2026-02-03)
+## 2026-02-03
 
 ### Changed
 
@@ -78,14 +94,14 @@ All notable changes to this skill will be documented in this file.
 - Invocation now uses `/git-commit` and `@git-code-reviewer` instead of `/git/commit` and `@git/code-reviewer`
 - Simplified installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
 
-## v1.2.2 (2026-01-22)
+## 2026-01-22
 
 ### Changed
 
 - Rename `/details` command to `/summary` for clarity
 - Rename `/code-review` command to `/review` for simplicity
 
-## v1.2.1 (2026-01-07)
+## 2026-01-07
 
 ### Changed
 
@@ -94,7 +110,7 @@ All notable changes to this skill will be documented in this file.
 - `/push-pr`: allow scope in PR title (`feat:` or `feat(scope):` both valid)
 - `/push-pr`: never add Co-Authored-By or similar attribution lines
 
-## v1.2.0 (2026-01-03)
+## 2026-01-03
 
 ### Added
 
@@ -115,7 +131,7 @@ All notable changes to this skill will be documented in this file.
 
 - README.md URL references (claude-code-plugins -> claude-code-extras)
 
-## v1.1.1 (2025-12-14)
+## 2025-12-14
 
 ### Fixed
 
@@ -123,7 +139,7 @@ All notable changes to this skill will be documented in this file.
 - Remove command substitution that caused permission errors
 - Add detection for staged and unstaged changes when on main branch
 
-## v1.1.0 (2025-12-11)
+## 2025-12-11
 
 ### Changed
 
@@ -132,7 +148,7 @@ All notable changes to this skill will be documented in this file.
 - Include Technical Flow, Impact Assessment, Priority Review Areas
 - Add pre-execution validation for branch checks
 
-## v1.0.0 (2025-12-02)
+## 2025-12-02
 
 ### Added
 

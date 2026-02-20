@@ -6,7 +6,25 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.0 (2026-02-08)
+## 2026-02-11
+
+### Removed
+
+- Session state management (STATE.md template and session-state.md reference)
+- State generation steps from project initialization
+
+## 2026-02-11
+
+### Added
+
+- Templates for all artifacts (PROJECT, ROADMAP, CHANGELOG, spec, plan, tasks, archive)
+- `status-workflow.md` reference with exact status values
+
+### Changed
+
+- References simplified by extracting output schemas into templates
+
+## 2026-02-08
 
 ### Added
 
@@ -57,7 +75,7 @@ All notable changes to this skill will be documented in this file.
 
 ---
 
-## v2.8.0 (2026-02-04)
+## 2026-02-04
 
 ### Added
 
@@ -91,7 +109,7 @@ All notable changes to this skill will be documented in this file.
 
 - Status workflow consistency across all commands
 
-## v2.7.0 (2026-02-03)
+## 2026-02-03
 
 ### Added
 
@@ -116,7 +134,7 @@ All notable changes to this skill will be documented in this file.
 - Installation now includes `skills/` directory
 - Updated README with skills documentation and new commands
 
-## v2.6.1 (2026-02-03)
+## 2026-02-03
 
 ### Changed
 
@@ -126,7 +144,7 @@ All notable changes to this skill will be documented in this file.
 - Updated all internal references in commands and agents
 - Simplified installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
 
-## v2.6.0 (2026-01-31)
+## 2026-01-31
 
 ### Added
 
@@ -155,7 +173,7 @@ All notable changes to this skill will be documented in this file.
 - Category-based task sections (Foundation, Implementation, Documentation)
 - Generic "Testing: {strategy}" field from architect Considerations
 
-## v2.5.3 (2026-01-25)
+## 2026-01-25
 
 ### Changed
 
@@ -173,7 +191,7 @@ All notable changes to this skill will be documented in this file.
 - spec.md was including implementation details (file paths, code, technology choices)
 - Tasks were being separated from related work (e.g., component far from its tests)
 
-## v2.5.2 (2026-01-18)
+## 2026-01-18
 
 ### Added
 
@@ -186,7 +204,7 @@ All notable changes to this skill will be documented in this file.
 
 - `/tasks` command now reads package.json to detect quality gate commands
 
-## v2.5.1 (2026-01-18)
+## 2026-01-18
 
 ### Added
 
@@ -200,7 +218,7 @@ All notable changes to this skill will be documented in this file.
 
 - Rule 4 in explorer now emphasizes explicit documentation of conventions
 
-## v2.5.0 (2026-01-12)
+## 2026-01-12
 
 ### Added
 
@@ -233,7 +251,7 @@ All notable changes to this skill will be documented in this file.
 - `plan-validator` agent (merged into `validator`)
 - `spec-validator` agent (merged into `validator`)
 
-## v2.4.0 (2026-01-12)
+## 2026-01-12
 
 ### Added
 
@@ -246,7 +264,7 @@ All notable changes to this skill will be documented in this file.
 
 - `/plan` command now has 10 steps (was 9)
 
-## v2.3.3 (2026-01-12)
+## 2026-01-12
 
 ### Fixed
 
@@ -255,13 +273,13 @@ All notable changes to this skill will be documented in this file.
 - `code-architect` re-reads referenced docs before implementation decisions
 - `code-architect` marks undocumented decisions as `[NOT DOCUMENTED - needs verification]`
 
-## v2.3.2 (2026-01-07)
+## 2026-01-07
 
 ### Fixed
 
 - Status update timing in `/plan` command: now sets `ready` only after plan is generated
 
-## v2.3.1 (2026-01-07)
+## 2026-01-07
 
 ### Changed
 
@@ -270,7 +288,7 @@ All notable changes to this skill will be documented in this file.
   - `review` -> `to-review`
 - Status lifecycle: `draft` -> `ready` -> `in-progress` -> `to-review` -> `done` -> `archived`
 
-## v2.3.0 (2026-01-05)
+## 2026-01-05
 
 ### Changed
 
@@ -278,7 +296,7 @@ All notable changes to this skill will be documented in this file.
 - Feature docs (`docs/features/*.md`) no longer include changelog section
 - Changelog uses Keep a Changelog format (Added/Changed/Removed/Fixed/Deprecated/Security)
 
-## v2.2.0 (2026-01-05)
+## 2026-01-05
 
 ### Added
 
@@ -301,7 +319,7 @@ All notable changes to this skill will be documented in this file.
 - `code-architect` must map every FR-xxx to components
 - `task-generator` must ensure every FR-xxx has at least one task
 
-## v2.1.0 (2026-01-03)
+## 2026-01-03
 
 ### Added
 
@@ -323,7 +341,7 @@ All notable changes to this skill will be documented in this file.
 - `code-architect` verifies files against discovered documentation
 - `spec-validator` reports planning gaps (non-blocking feedback)
 
-## v2.0.0 (2026-01-03)
+## 2026-01-03
 
 ### Added
 
@@ -357,7 +375,7 @@ All notable changes to this skill will be documented in this file.
 - Feature-specific research.md (now shared in docs/research/)
 - Templates folder (formats defined in agents/commands)
 
-## v1.2.0 (2025-12-19)
+## 2025-12-19
 
 ### Added
 
@@ -375,7 +393,7 @@ All notable changes to this skill will be documented in this file.
 - code-reviewer validates against acceptance criteria and architectural decisions
 - task-generator includes file refs only for complex tasks
 
-## v1.1.0 (2025-12-15)
+## 2025-12-15
 
 ### Added
 
@@ -388,7 +406,7 @@ All notable changes to this skill will be documented in this file.
 - Disable Serena web UI auto-open
 - Add color attribute to agent frontmatter
 
-## v1.0.0 (2025-12-05)
+## 2025-12-05
 
 ### Added
 

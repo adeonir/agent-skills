@@ -6,7 +6,19 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.1 (2026-02-13)
+## 2026-02-19
+
+### Changed
+
+- Output filenames simplified from `{type}-{project-name}` to `{type}` only
+
+## 2026-02-17
+
+### Changed
+
+- Remove frontmatter and title placeholders from document templates
+
+## 2026-02-13
 
 ### Added
 
@@ -18,7 +30,7 @@ All notable changes to this skill will be documented in this file.
 - Refined discovery questions and PRD reference structure
 - Updated PRD template with improved frontmatter metadata
 
-## v1.0.0 (2026-02-11)
+## 2026-02-11
 
 ### Added
 

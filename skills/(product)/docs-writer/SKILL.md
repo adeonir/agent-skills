@@ -10,7 +10,7 @@ description: >-
   "create document", "write doc".
 metadata:
   author: github.com/adeonir
-  version: "1.0.1"
+  version: "1.0.0"
 ---
 
 # Docs Writer
