@@ -109,4 +109,4 @@ If any item fails, fix it before saving. Report remaining gaps in `notes.uncerta
 After generating design.json, suggest:
 - "Run build frontend to generate React components"
 - "Run generate variants to preview 4 layout options before building"
-- "Run export design to generate HTML for Figma/Penpot import"
+- "Run export to Figma to send the design for refinement"

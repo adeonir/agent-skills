@@ -66,7 +66,7 @@ Create the side-by-side comparison page.
 npx http-server .specs/docs/{project-name}/variants -o -p 8080
 ```
 
-Inform user: "Open http://localhost:8080 to compare variants. Tell me which one you prefer (e.g., 'use editorial') and I'll build the full React application."
+Inform user: "Open http://localhost:8080 to compare variants. Tell me which one you prefer (e.g., 'use editorial') and I'll build the React application, or say 'send to Figma' to export for refinement."
 
 Ask this in the user's preferred language (detect from copy.yaml language field or conversation context).
 

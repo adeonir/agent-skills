@@ -2,11 +2,11 @@
 name: design-builder
 description: >-
   Design-to-code pipeline: extract copy from URLs, extract design tokens
-  from images, then build React components, HTML preview variants, or
-  design-tool-optimized HTML. Use when: extracting content from websites,
-  extracting design systems, generating frontend code, previewing design
-  variants, exporting to Figma/Penpot. Triggers on "extract copy",
-  "extract design", "build frontend", "generate variants", "export design".
+  from images, then build React components or HTML preview variants.
+  Use when: extracting content from websites, extracting design systems,
+  generating frontend code, previewing design variants, sending to Figma
+  via MCP. Triggers on "extract copy", "extract design", "build frontend",
+  "generate variants", "export design", "send to Figma".
 metadata:
   author: github.com/adeonir
   version: "1.0.1"
@@ -69,7 +69,7 @@ Has URL reference?
 design.json exists --> What to build?
   Preview first    --> Variants --> Frontend or Export
   Build directly   --> Frontend
-  Import to tools  --> Export
+  Send to Figma    --> Variants --> Export
   External tool    --> Generate prompt (v0, aura.build, replit, etc.)
 ```
 
@@ -77,7 +77,6 @@ Valid paths after design.json:
 - design --> variants --> frontend
 - design --> variants --> export
 - design --> frontend (directly)
-- design --> export (directly)
 - design --> prompt for external tool
 
 ## Artifacts
@@ -96,9 +95,6 @@ Valid paths after design.json:
     │   ├── bold/index.html
     │   ├── {custom}/index.html        # Custom variant (if requested)
     │   └── index.html                 # Comparison page
-    └── export/
-        └── index.html                 # HTML optimized for design tools
-
 src/                                   # React components (frontend)
 ```
 
@@ -117,7 +113,7 @@ src/                                   # React components (frontend)
 |-----------------|-----------|
 | Build frontend, create components, generate React | [frontend.md](references/frontend.md) |
 | Generate variants, preview designs, HTML variants | [variants.md](references/variants.md) |
-| Export design, export to Figma, export to Penpot | [export.md](references/export.md) |
+| Export design, export to Figma, send to Figma | [export.md](references/export.md) |
 
 ## Cross-References
 
@@ -125,16 +121,16 @@ src/                                   # React components (frontend)
 copy.md ---------> design.md (content informs design)
 design.md -------> frontend.md (tokens required)
 design.md -------> variants.md (tokens required)
-design.md -------> export.md (tokens required)
 variants.md -----> frontend.md (user picks variant, then builds React)
+variants.md -----> export.md (variants required for Figma export)
 ```
 
 ## Required Skills
 
-The `frontend-design` skill is required for **variant generation**, **frontend building**,
-and **design export**. It provides design principles to avoid generic AI aesthetics.
+The `frontend-design` skill is required for **variant generation** and **frontend building**.
+It provides design principles to avoid generic AI aesthetics.
 
-Before running any **building** trigger (frontend, variants, export), check if the skill
+Before running any **building** trigger (frontend, variants), check if the skill
 is installed by looking for files in `~/.claude/skills/frontend-design/`. If not found,
 warn the user and suggest installing it:
 
@@ -160,7 +156,7 @@ Extraction triggers (copy, design) do NOT require this skill.
 After completing any operation, suggest next steps without coupling to specific skills:
 
 - If no PRD/Brief existed: "For more complete product documentation, consider creating a PRD or Brief before the next iteration."
-- If variants were generated: "To import into Figma or Penpot, consider generating the design export."
+- If variants were generated: "To send a variant to Figma for refinement, run export to Figma."
 - Standard next steps per operation (already defined in each reference file).
 
 ## Error Handling
@@ -168,5 +164,5 @@ After completing any operation, suggest next steps without coupling to specific 
 - No PRD/Brief: Run lightweight discovery, never block on it
 - No copy.yaml: Proceed without it, or suggest running extract copy first
 - No design.json: Required for frontend/variants/export -- suggest running extract design
-- No frontend-design skill: Required for frontend/variants/export -- warn and suggest install
+- No frontend-design skill: Required for frontend/variants -- warn and suggest install
 - WebFetch fails: Ask user to paste a screenshot instead

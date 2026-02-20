@@ -1,6 +1,6 @@
 # Design Builder
 
-Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma/Penpot.
+Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma.
 
 ## What It Does
 
@@ -11,10 +11,9 @@ flowchart TD
     B --> D
     D -->|build directly| E[React App]
     D -->|preview first| F[4 HTML Previews]
-    D -->|import to tools| G[Figma/Penpot]
     D -->|external tool| H[Prompt for v0/aura/replit]
-    F -->|user picks one| E
-    F -->|user picks one| G
+    F -->|build React| E
+    F -->|send to Figma| G[Figma]
 ```
 
 | Step | Trigger | Output |
@@ -23,7 +22,7 @@ flowchart TD
 | **Design Extraction** | Extract design from images | `.specs/docs/{project}/design.json` |
 | **Frontend Building** | Build frontend / use {variant} | `./src/` (React components) |
 | **Variant Generation** | Generate variants | `.specs/docs/{project}/variants/` |
-| **Design Export** | Export to Figma | `.specs/docs/{project}/export/index.html` |
+| **Design Export** | Send to Figma | Figma editable frame |
 
 ## Usage
 
@@ -75,14 +74,14 @@ Opens http://localhost:8080 for side-by-side comparison. Choose a variant and bu
 
 Custom presets are also supported -- describe what you want.
 
-### Export to Design Tools
+### Export to Figma
 
 ```
 export to Figma
-export design
+send to Figma
 ```
 
-Generates clean HTML with inline CSS at http://localhost:8081, optimized for import via YashiTech (Figma) or Penpot.
+Sends variants to Figma as editable frames. Can send one, some, or all.
 
 ## Artifacts
 
@@ -98,9 +97,6 @@ Generates clean HTML with inline CSS at http://localhost:8081, optimized for imp
     │   ├── startup/
     │   ├── bold/
     │   └── index.html         # Comparison page
-    └── export/
-        └── index.html         # Design tool import
-
 src/                           # Generated React components
 ```
 
@@ -148,6 +144,6 @@ src/                           # Generated React components
 ## Requirements
 
 - Node.js (for `npx http-server` in variants and export)
-- For Figma export: YashiTech Chrome Extension + Figma Plugin
+- For Figma export: Figma Desktop with Dev Mode + Figma MCP server
 
 Works with any agent supporting standard skill format.
