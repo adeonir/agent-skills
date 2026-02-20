@@ -73,4 +73,4 @@ Each story should have 2-5 acceptance criteria. Each criterion must be independe
 
 ## Output
 
-Save to: `.specs/docs/story.md`
+Save to: `.artifacts/docs/story.md`

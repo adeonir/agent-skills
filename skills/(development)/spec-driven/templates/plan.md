@@ -13,7 +13,7 @@ created: {{YYYY-MM-DD}}
 ## Research Summary
 
 {{#if research}}
-> From .specs/research/{{topic}}.md
+> From .artifacts/research/{{topic}}.md
 
 - {{key finding 1}}
 - {{key finding 2}}

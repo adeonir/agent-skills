@@ -11,7 +11,7 @@ Break plan into implementable tasks.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.specs/features/{ID}-{name}/`
+1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
 2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 

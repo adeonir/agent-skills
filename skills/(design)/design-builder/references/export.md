@@ -22,7 +22,7 @@ Do not proceed until MCP is confirmed available.
 
 ### Step 2: Select Variants
 
-Locate variants at `.specs/docs/{project-name}/variants/`. Ask the user which variants to send -- one, some, or all.
+Locate variants at `.artifacts/design/variants/`. Ask the user which variants to send -- one, some, or all.
 
 If no variants exist, suggest running generate variants first.
 
@@ -30,7 +30,7 @@ If no variants exist, suggest running generate variants first.
 
 For each selected variant:
 
-1. Serve locally: `npx http-server .specs/docs/{project-name}/variants/{variant} -o -p 8081`
+1. Serve locally: `npx http-server .artifacts/design/variants/{variant} -o -p 8081`
 2. Confirm the page is rendering in the browser
 3. Send to Figma via MCP -- each variant becomes a separate editable frame
 

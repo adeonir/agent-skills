@@ -1,6 +1,6 @@
 # Project Initialization
 
-Initialize the .specs/ directory structure for a new project.
+Initialize the .artifacts/ directory structure for a new project.
 
 ## When to Use
 
@@ -12,10 +12,10 @@ Initialize the .specs/ directory structure for a new project.
 
 ### Step 1: Check Existing Structure
 
-Check if .specs/ already exists:
+Check if .artifacts/ already exists:
 
 ```bash
-ls -la .specs/ 2>/dev/null
+ls -la .artifacts/ 2>/dev/null
 ```
 
 If exists, skip to Step 4 (update check).
@@ -25,8 +25,8 @@ If exists, skip to Step 4 (update check).
 Create base directories:
 
 ```bash
-mkdir -p .specs/project
-mkdir -p .specs/features
+mkdir -p .artifacts/project
+mkdir -p .artifacts/features
 ```
 
 ### Step 3: Generate PROJECT.md
@@ -50,7 +50,7 @@ Generate CHANGELOG.md following the template structure with Unreleased and versi
 ### Step 6: Report
 
 Inform user:
-- Created .specs/ structure
+- Created .artifacts/ structure
 - Project initialized with PROJECT.md, ROADMAP.md, CHANGELOG.md
 - Next steps:
   - Create features: "create new feature for..."

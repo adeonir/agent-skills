@@ -17,7 +17,7 @@ Patterns for analyzing existing code for a specific feature.
 - Integration patterns
 - Testing approaches
 
-For **general codebase mapping**, see [codebase-mapping.md](codebase-mapping.md) (creates .specs/codebase/ docs).
+For **general codebase mapping**, see [codebase-mapping.md](codebase-mapping.md) (creates .artifacts/codebase/ docs).
 
 ## Tools
 

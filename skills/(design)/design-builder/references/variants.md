@@ -19,9 +19,9 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 
 ### Step 1: Gather Context
 
-1. Locate **design.json** (required) at `.specs/docs/{project-name}/design.json`
-2. Locate **copy.yaml** (optional) at `.specs/docs/{project-name}/copy.yaml`
-3. Locate **reference image** (required) at `.specs/docs/reference.*`
+1. Locate **design.json** (required) at `.artifacts/design/design.json`
+2. Locate **copy.yaml** (optional) at `.artifacts/design/copy.yaml`
+3. Locate **reference image** (required) at `.artifacts/docs/reference.*`
 4. If no design.json exists, suggest running extract design first
 5. If no copy.yaml exists, ask user for brief project description
 
@@ -63,7 +63,7 @@ Create the side-by-side comparison page.
 ### Step 5: Serve
 
 ```bash
-npx http-server .specs/docs/{project-name}/variants -o -p 8080
+npx http-server .artifacts/design/variants -o -p 8080
 ```
 
 Inform user: "Open http://localhost:8080 to compare variants. Tell me which one you prefer (e.g., 'use editorial') and I'll build the React application, or say 'send to Figma' to export for refinement."
@@ -73,7 +73,7 @@ Ask this in the user's preferred language (detect from copy.yaml language field 
 ## Output Structure
 
 ```
-.specs/docs/{project-name}/variants/
+.artifacts/design/variants/
   minimal/index.html
   editorial/index.html
   startup/index.html

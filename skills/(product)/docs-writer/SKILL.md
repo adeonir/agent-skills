@@ -60,7 +60,7 @@ Discovery does NOT apply to: Task, Issue (bug subtype -- uses structured reprodu
 
 ## Output
 
-All documents save to `.specs/docs/`. Create the directory if it doesn't exist.
+All documents save to `.artifacts/docs/`. Create the directory if it doesn't exist.
 
 | Type | Filename |
 |------|----------|
@@ -73,7 +73,7 @@ All documents save to `.specs/docs/`. Create the directory if it doesn't exist.
 | ADR | `adr-{number}-{name}.md` |
 | TDD | `tdd.md` |
 
-For ADR, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in `.specs/docs/`.
+For ADR, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in `.artifacts/docs/`.
 
 ## Quality Standards
 
@@ -117,7 +117,7 @@ TDD -------------> ADR            (references relevant decisions)
 
 ## Error Handling
 
-- No `.specs/docs/`: Create the directory
+- No `.artifacts/docs/`: Create the directory
 - Ambiguous trigger: Ask user which document type
 - Missing context for discovery: Ask questions, never assume
 - ADR numbering conflict: Scan existing files and use next available number

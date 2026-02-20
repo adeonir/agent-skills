@@ -13,10 +13,10 @@ Extract design tokens from reference images and generate design.json.
 ### Step 1: Establish Context
 
 1. Ask user for the project name (if not already established)
-2. Check for existing context in `.specs/docs/`:
-   - `prd.md` -- read and extract purpose, audience, tone, features
-   - `brief.md` -- read and extract purpose, audience, tone
-   - `{project-name}/copy.yaml` -- content context
+2. Check for existing context in `.artifacts/`:
+   - `docs/prd.md` -- read and extract purpose, audience, tone, features
+   - `docs/brief.md` -- read and extract purpose, audience, tone
+   - `design/copy.yaml` -- content context
 3. If no PRD/Brief exists, ask up to 4 context questions:
    - What is the project purpose? (landing page, app, tool)
    - Who is the target audience?
@@ -67,7 +67,7 @@ Generate design tokens following the template schema. Key sections:
 - **backgrounds**: hero treatment, section backgrounds, gradient definitions
 - **responsive**: breakpoints, mobile adaptations
 
-Save to `.specs/docs/{project-name}/design.json`. Create directories if needed.
+Save to `.artifacts/design/design.json`. Create directories if needed.
 
 ### Step 5: Validate Output
 

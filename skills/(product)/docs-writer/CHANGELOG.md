@@ -6,6 +6,13 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-20
+
+### Changed
+
+- Output directory migrated from `.specs/docs/` to `.artifacts/docs/`
+- All document types now save to unified `.artifacts/docs/` location
+
 ## 2026-02-19
 
 ### Changed

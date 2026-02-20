@@ -13,13 +13,13 @@ everything available, from spec structure to code implementation.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.specs/features/{ID}-{name}/`
+1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
 2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
 ### Step 2: Detect Available Artifacts
 
-Check which files exist in `.specs/features/{ID}-{name}/` and determine scope:
+Check which files exist in `.artifacts/features/{ID}-{name}/` and determine scope:
 
 | Artifacts Found | Validation Scope |
 |-----------------|------------------|

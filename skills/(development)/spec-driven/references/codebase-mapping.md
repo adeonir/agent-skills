@@ -7,7 +7,7 @@ Analyze existing codebase for brownfield development.
 - Starting work on existing project
 - Need general codebase understanding
 - Creating first brownfield feature
-- `.specs/codebase/` doesn't exist yet
+- `.artifacts/codebase/` doesn't exist yet
 
 ## Scope
 
@@ -24,7 +24,7 @@ For **feature-specific exploration**, see [codebase-exploration.md](codebase-exp
 
 ### Step 1: Check Existing Mapping
 
-If `.specs/codebase/` exists:
+If `.artifacts/codebase/` exists:
 - Check age of files
 - Ask if refresh needed
 
@@ -105,7 +105,7 @@ Generate:
 
 ### Step 3: Save
 
-Create `.specs/codebase/` with generated docs.
+Create `.artifacts/codebase/` with generated docs.
 
 ### Step 4: Report
 

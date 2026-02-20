@@ -31,7 +31,7 @@ Before any operation, establish project context.
 
 ### Step 1: Check Existing Context
 
-Look for existing documents in `.specs/docs/`:
+Look for existing documents in `.artifacts/docs/`:
 
 - `prd.md` -- PRD
 - `brief.md` -- Brief
@@ -82,19 +82,16 @@ Valid paths after design.json:
 ## Artifacts
 
 ```
-.specs/docs/
-├── prd.md                             # PRD (optional)
-├── brief.md                           # Brief (optional)
-└── {project-name}/
-    ├── copy.yaml                      # Structured content
-    ├── design.json                    # Design tokens
-    ├── variants/
-    │   ├── minimal/index.html         # Variant preview
-    │   ├── editorial/index.html
-    │   ├── startup/index.html
-    │   ├── bold/index.html
-    │   ├── {custom}/index.html        # Custom variant (if requested)
-    │   └── index.html                 # Comparison page
+.artifacts/design/
+├── copy.yaml                          # Structured content
+├── design.json                        # Design tokens
+└── variants/
+    ├── minimal/index.html             # Variant preview
+    ├── editorial/index.html
+    ├── startup/index.html
+    ├── bold/index.html
+    ├── {custom}/index.html            # Custom variant (if requested)
+    └── index.html                     # Comparison page
 src/                                   # React components (frontend)
 ```
 

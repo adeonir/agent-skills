@@ -6,6 +6,14 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-20
+
+### Changed
+
+- Output directory migrated from `.specs/` to `.artifacts/specs/`
+- Research cache location updated to `.artifacts/specs/research/`
+- All references and templates updated with new paths
+
 ## 2026-02-11
 
 ### Removed
@@ -56,7 +64,7 @@ All notable changes to this skill will be documented in this file.
 - Expanded `implement.md` with 3-phase per-task process (Before/During/After)
 - Task size guidelines (Small/Medium/Large) added to `tasks.md`
 - Archive changelog entries now use dates only (no feature IDs)
-- Research cache location changed to `.specs/research/`
+- Research cache location changed to `.artifacts/research/`
 - **validate.md**: Simplified from 4 separate modes to single adaptive validation
 - **validate.md**: Unified output format with categorized checks table
 - **initialize.md**: Ambiguities resolved inline during init, not in separate clarify phase
@@ -362,7 +370,7 @@ All notable changes to this skill will be documented in this file.
 - Renamed `/spec` to `/init`
 - Renamed `/review` to `/validate`
 - Renamed `code-reviewer` agent to `spec-validator`
-- Artifacts now in `.specs/{ID}-{feature}/` instead of `.specs/{branch}/`
+- Artifacts now in `.artifacts/{ID}-{feature}/` instead of `.artifacts/{branch}/`
 - Research output to `docs/research/{topic}.md` (shared, committed)
 - `/implement` auto-marks as `review` when all tasks complete
 - `/validate` auto-marks as `done` if all checks pass

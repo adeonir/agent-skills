@@ -91,4 +91,4 @@ The template adapts based on subtype. Fill in the fields collected during classi
 
 ## Output
 
-Save to: `.specs/docs/issue.md`
+Save to: `.artifacts/docs/issue.md`

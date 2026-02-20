@@ -13,7 +13,7 @@ Extract structured content from URLs and organize into copy.yaml.
 ### Step 1: Establish Context
 
 1. Ask user for the project name (kebab-case for directories)
-2. Check for existing context in `.specs/docs/`:
+2. Check for existing context in `.artifacts/docs/`:
    - `prd.md` -- read and extract purpose, audience, tone
    - `brief.md` -- read and extract purpose, audience, tone
 3. If neither exists, ask up to 4 context questions:
@@ -60,7 +60,7 @@ Generate structured content following the template schema. The schema adapts to 
 - **Web app**: screens (auth, dashboard, widgets)
 - **Mobile app**: screens + native features (gestures, biometric)
 
-Save to `.specs/docs/{project-name}/copy.yaml`. Create directories if needed.
+Save to `.artifacts/design/copy.yaml`. Create directories if needed.
 
 ## Rules
 

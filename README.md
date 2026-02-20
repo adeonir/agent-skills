@@ -26,6 +26,27 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
 | **[design-builder](skills/(design)/design-builder)** | Design | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
 
+## Output Structure
+
+Skills write artifacts to `.artifacts/` organized by domain:
+
+```
+.artifacts/
+├── specs/          # spec-driven outputs
+│   ├── project/    # PROJECT.md, ROADMAP.md, CHANGELOG.md
+│   ├── codebase/   # Brownfield analysis
+│   ├── research/   # Research cache
+│   └── features/   # Feature specs, plans, tasks
+├── docs/           # docs-writer outputs
+│   └── *.md        # PRD, Brief, RFC, ADR, TDD, Issues, Tasks, Stories
+└── design/         # design-builder outputs
+    ├── copy.yaml
+    ├── design.json
+    └── variants/
+```
+
+This directory is gitignored by default but can be committed for team collaboration.
+
 ## Installation
 
 Install any skill with a single command using the [Skills CLI](https://skills.sh):

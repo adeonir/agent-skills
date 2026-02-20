@@ -18,10 +18,10 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Copy Extraction** | Extract copy from URL | `.specs/docs/{project}/copy.yaml` |
-| **Design Extraction** | Extract design from images | `.specs/docs/{project}/design.json` |
+| **Copy Extraction** | Extract copy from URL | `.artifacts/design/copy.yaml` |
+| **Design Extraction** | Extract design from images | `.artifacts/design/design.json` |
 | **Frontend Building** | Build frontend / use {variant} | `./src/` (React components) |
-| **Variant Generation** | Generate variants | `.specs/docs/{project}/variants/` |
+| **Variant Generation** | Generate variants | `.artifacts/design/variants/` |
 | **Design Export** | Send to Figma | Figma editable frame |
 
 ## Usage
@@ -86,17 +86,18 @@ Sends variants to Figma as editable frames. Can send one, some, or all.
 ## Artifacts
 
 ```
-.specs/docs/
-├── prd.md                     # Optional PRD
-└── {project}/
+.artifacts/
+├── docs/
+│   └── prd.md                 # Optional PRD
+└── design/
     ├── copy.yaml              # Structured content
     ├── design.json            # Design tokens
-    ├── variants/              # HTML preview variants
-    │   ├── minimal/
-    │   ├── editorial/
-    │   ├── startup/
-    │   ├── bold/
-    │   └── index.html         # Comparison page
+    └── variants/              # HTML preview variants
+        ├── minimal/
+        ├── editorial/
+        ├── startup/
+        ├── bold/
+        └── index.html         # Comparison page
 src/                           # Generated React components
 ```
 

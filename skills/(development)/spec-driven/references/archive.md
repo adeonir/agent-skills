@@ -11,7 +11,7 @@ Consolidate feature documentation and cleanup.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.specs/features/{ID}-{name}/`
+1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
 2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
@@ -38,7 +38,7 @@ Create at `docs/features/{name}.md` (no ID in filename).
 
 ### Step 4: Update CHANGELOG.md
 
-Add entry to `.specs/project/CHANGELOG.md`:
+Add entry to `.artifacts/project/CHANGELOG.md`:
 
 ```markdown
 ## {YYYY-MM-DD}
@@ -67,12 +67,12 @@ Add entry to `.specs/project/CHANGELOG.md`:
 
 ```
 Archive complete. Remove working directory?
-- Yes: Delete .specs/features/{ID}-{name}/
+- Yes: Delete .artifacts/features/{ID}-{name}/
 - No: Keep for reference
 ```
 
 If yes:
-- Remove `.specs/features/{ID}-{name}/`
+- Remove `.artifacts/features/{ID}-{name}/`
 - Update ROADMAP.md status
 
 ### Step 6: Report

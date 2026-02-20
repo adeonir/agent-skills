@@ -22,7 +22,7 @@ status of auth feature
 
 ### List Features
 
-1. Scan `.specs/features/`
+1. Scan `.artifacts/features/`
 2. Read spec.md frontmatter from each
 3. Group by status
 4. Display table

@@ -8,7 +8,7 @@ created: {{YYYY-MM-DD}}
 
 ## Output
 
-Save as `.specs/docs/{{project-name}}/design.json` using the schema below.
+Save as `.artifacts/design/design.json` using the schema below.
 
 ## Schema
 

@@ -26,7 +26,7 @@ When called without a variant reference:
 ### Mode 2: Build from Variant
 
 When user says "use editorial" (or another variant name):
-1. Read chosen variant HTML from `.specs/docs/{project-name}/variants/{variant}/index.html`
+1. Read chosen variant HTML from `.artifacts/design/variants/{variant}/index.html`
 2. Use the variant HTML as layout reference
 3. Generate React components matching the variant structure
 
@@ -35,8 +35,8 @@ When user says "use editorial" (or another variant name):
 ### Step 1: Gather Context
 
 1. Check for variant reference (if user mentioned a variant name)
-2. Locate **design.json** (required) at `.specs/docs/{project-name}/design.json`
-3. Locate **copy.yaml** (optional) at `.specs/docs/{project-name}/copy.yaml`
+2. Locate **design.json** (required) at `.artifacts/design/design.json`
+3. Locate **copy.yaml** (optional) at `.artifacts/design/copy.yaml`
 4. If no design.json exists, suggest running extract design first
 
 ### Step 2: Detect Stack

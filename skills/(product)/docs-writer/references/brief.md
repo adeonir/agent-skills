@@ -39,7 +39,7 @@ All Brief sections map directly to information gathered during PRD discovery and
 
 ## Output
 
-Save to: `.specs/docs/brief.md`
+Save to: `.artifacts/docs/brief.md`
 
 ## Guidelines
 

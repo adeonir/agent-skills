@@ -44,16 +44,16 @@ These belong in plan.md, created during the `plan` phase.
 
 ### Step 1: Ensure Project Structure
 
-Check if `.specs/project/` exists. If not:
+Check if `.artifacts/project/` exists. If not:
 - Load [project-init.md](project-init.md)
 - Initialize project first
 
 ### Step 2: Generate Feature ID
 
-Scan `.specs/features/` for highest ID:
+Scan `.artifacts/features/` for highest ID:
 
 ```bash
-ls .specs/features/ | sort -V | tail -1
+ls .artifacts/features/ | sort -V | tail -1
 ```
 
 Next ID = highest + 1 (padded: 001, 002...)
@@ -116,7 +116,7 @@ Load [baseline-discovery.md](baseline-discovery.md) and:
 3. Document gaps and limitations
 4. Add Baseline section to spec.md
 
-If `.specs/codebase/` doesn't exist:
+If `.artifacts/codebase/` doesn't exist:
 - Suggest running "map codebase" for better context
 - Or proceed with limited codebase understanding
 
@@ -140,7 +140,7 @@ If option 2:
 ### Step 9: Create Feature Directory
 
 ```bash
-mkdir -p .specs/features/{ID}-{name}
+mkdir -p .artifacts/features/{ID}-{name}
 ```
 
 ### Step 10: Generate spec.md
@@ -159,7 +159,7 @@ Add feature to roadmap.
 ### Step 12: Report
 
 Inform user:
-- Created: `.specs/features/{ID}-{name}/`
+- Created: `.artifacts/features/{ID}-{name}/`
 - Type: {greenfield|brownfield}
 - Branch: {name}
 - Open questions: {count, if any}
@@ -167,7 +167,7 @@ Inform user:
 
 ## Codebase Mapping Note
 
-**codebase-mapping.md** creates `.specs/codebase/` (6 docs) for general codebase understanding.
+**codebase-mapping.md** creates `.artifacts/codebase/` (6 docs) for general codebase understanding.
 
 **Baseline in initialize** captures specific current behavior relevant to this feature (from spec perspective, not deep code analysis).
 

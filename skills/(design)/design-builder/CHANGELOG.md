@@ -6,6 +6,14 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-20
+
+### Changed
+
+- Output directory migrated from `.specs/docs/{project-name}/` to `.artifacts/design/`
+- Removed project-specific subdirectories (copy.yaml, design.json, variants/ now directly under .artifacts/design/)
+- All references and templates updated with simplified paths
+
 ## 2026-02-19
 
 ### Added

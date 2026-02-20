@@ -28,7 +28,7 @@ Minimum 1 stage. If the user already has the decision and rationale, move direct
 
 ADRs are numbered sequentially. Before creating a new ADR:
 
-1. Scan `.specs/docs/` for existing files matching `adr-*-*.md`
+1. Scan `.artifacts/docs/` for existing files matching `adr-*-*.md`
 2. Extract the highest number
 3. Use the next number (e.g., if `adr-003-*` exists, use `004`)
 4. If no ADRs exist, start at `001`
@@ -105,4 +105,4 @@ proposed --> accepted --> deprecated / superseded
 
 ## Output
 
-Save to: `.specs/docs/adr-{number}-{name}.md`
+Save to: `.artifacts/docs/adr-{number}-{name}.md`

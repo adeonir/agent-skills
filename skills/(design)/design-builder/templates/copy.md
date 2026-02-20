@@ -11,7 +11,7 @@ created: {{YYYY-MM-DD}}
 
 ## Output
 
-Save as `.specs/docs/{{project-name}}/copy.yaml` using the schema below.
+Save as `.artifacts/design/copy.yaml` using the schema below.
 
 ## Schema
 

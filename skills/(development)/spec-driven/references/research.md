@@ -9,7 +9,7 @@ The agent discovers and uses whatever tools are available in the environment.
 
 ## Cache Location
 
-Research files are stored at `.specs/research/{topic}.md`.
+Research files are stored at `.artifacts/research/{topic}.md`.
 
 ## Cache File Structure
 
@@ -34,9 +34,9 @@ keywords:
 Before researching, always check for existing cache:
 
 ```bash
-if [ -f ".specs/research/{topic}.md" ]; then
-  researched_at=$(grep "researched_at:" .specs/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
-  ttl_days=$(grep "ttl_days:" .specs/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
+if [ -f ".artifacts/research/{topic}.md" ]; then
+  researched_at=$(grep "researched_at:" .artifacts/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
+  ttl_days=$(grep "ttl_days:" .artifacts/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
   # Calculate age and check if still valid
 fi
 ```
@@ -72,7 +72,7 @@ No relevant cache exists:
 
 ## Research Process
 
-1. **Check Cache** - Look for `.specs/research/{topic}.md`
+1. **Check Cache** - Look for `.artifacts/research/{topic}.md`
 2. **Extract Topics** - From spec.md: technologies, APIs, services
 3. **Research** - Official docs first, best practices, gotchas
 4. **Synthesize** - Organize: must-know, architectural impact, warnings
@@ -126,7 +126,7 @@ keywords:
 
 ## Rules
 
-1. **Always check cache first**: Before webfetch, check .specs/research/
+1. **Always check cache first**: Before webfetch, check .artifacts/research/
 2. **Include metadata**: Every research file must have YAML frontmatter
 3. **Respect TTL**: Don't use expired cache without verification
 4. **Version matters**: If spec mentions version, verify cache matches

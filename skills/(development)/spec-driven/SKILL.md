@@ -25,7 +25,7 @@ initialize --> plan --> tasks --> implement --> validate --> archive
 ## Project Structure
 
 ```
-.specs/
+.artifacts/
 ├── project/
 │   ├── PROJECT.md          # Vision, goals, constraints
 │   ├── ROADMAP.md          # Planned features, milestones
@@ -120,12 +120,12 @@ validate.md --------> archive.md (if passed)
 - Content separation: spec=WHAT, plan=HOW, tasks=WHEN
 - Status flow: draft -> ready -> in-progress -> to-review -> done -> archived
 - Feature IDs: sequential (001, 002), never reused
-- Research cache: Reusable across features in .specs/research/
+- Research cache: Reusable across features in .artifacts/research/
 - Archive generates: docs/features/{name}.md (no ID)
 
 ## Error Handling
 
-- No .specs/: Suggest initialize project first
+- No .artifacts/: Suggest initialize project first
 - Spec not found: List available features
 - Open questions blocking architecture: Resolve before planning
 - Plan not found: Suggest plan before tasks

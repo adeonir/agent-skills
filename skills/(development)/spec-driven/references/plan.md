@@ -13,13 +13,13 @@ Create technical plan from specification.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.specs/features/{ID}-{name}/`
+1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
 2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
 ### Step 2: Load Spec
 
-Read `.specs/features/{ID}-{name}/spec.md`.
+Read `.artifacts/features/{ID}-{name}/spec.md`.
 
 If spec has critical open questions that block architecture decisions:
 - List items
@@ -35,7 +35,7 @@ Check for new technologies in spec:
 - External services
 
 For each new tech:
-- Check `.specs/research/{topic}.md`
+- Check `.artifacts/research/{topic}.md`
 - If exists: use cached research
 - If not: research and create cache
 

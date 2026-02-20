@@ -50,7 +50,7 @@ The agent detects the document type from the trigger and loads the appropriate w
 All documents are saved to:
 
 ```
-.specs/docs/{type}.md
+.artifacts/docs/{type}.md
 ```
 
 ## Integration

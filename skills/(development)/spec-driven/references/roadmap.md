@@ -12,7 +12,7 @@ Manage project roadmap and feature planning.
 
 ### Step 1: Load Current Roadmap
 
-Read `.specs/project/ROADMAP.md`.
+Read `.artifacts/project/ROADMAP.md`.
 
 ### Step 2: Parse Input
 
