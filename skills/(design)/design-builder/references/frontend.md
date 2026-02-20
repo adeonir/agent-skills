@@ -6,7 +6,7 @@ Build production-grade React components from design tokens.
 
 - **design.json** (required) -- must include the `layout` block
 - **copy.yaml** (optional) -- structured content
-- **frontend-design skill** (required) -- use it for all design decisions. It provides typography, color, motion, spatial composition, and background guidelines. Follow its rules to avoid generic AI aesthetics.
+- **[aesthetics.md](aesthetics.md)** (required) -- design principles for typography, color, motion, spatial composition, and backgrounds. Follow its rules to avoid generic AI aesthetics.
 
 ## When to Use
 
@@ -100,30 +100,33 @@ When building from a variant:
 4. Apply design.json tokens
 5. Populate with copy.yaml content
 
-## Design Quality (frontend-design skill)
+## Design Quality
 
-**CRITICAL**: The `frontend-design` skill is required for generating production-grade code.
-Follow its guidelines for typography, color, motion, spatial composition, and backgrounds.
-Never generate code without applying these principles.
+**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles to every component.
+Read it before generating code -- it defines typography, color, motion, spatial composition, backgrounds, visual hierarchy, and anti-patterns.
 
-### DO
+## Implementation Concerns
 
-1. **Typography extremes**: weights 100/200 vs 800/900, size jumps 3x+
-2. **Dominant colors**: sharp accents, not evenly distributed
-3. **One animation moment**: well-orchestrated page load with stagger
-4. **Atmospheric backgrounds**: gradients, noise, patterns
-5. **Generous whitespace**: match design.json spacing
-6. **All hover states**: every interactive element
-7. **Alternate sections**: different backgrounds between sections
+### Accessibility
 
-### NEVER
+- **Semantic HTML**: use `nav`, `main`, `section`, `article`, `header`, `footer` -- never build page structure with `div` alone.
+- **`prefers-reduced-motion`**: wrap all animations in a media query. Users who opt out get instant transitions, not frozen mid-states.
+- **Focus management**: include a skip-to-content link as the first focusable element. Trap focus inside modals when open.
+- **Color independence**: never rely on color alone to communicate state. Pair with an icon, text label, or pattern.
 
-1. Inter, Roboto, Arial as primary fonts (unless design.json specifies them)
-2. Purple gradients on white
-3. Predictable centered layouts only
-4. Missing hover states
-5. Icons only without context
-6. Cramped spacing
+### Responsive Implementation
+
+- **Mobile-first CSS**: write base styles for mobile, expand with `min-width` media queries.
+- **Baseline width**: 375px (iPhone SE). Nothing should break or scroll horizontally below this.
+- **Breakpoints**: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px -- or follow the project's framework defaults.
+- **Touch targets**: minimum 44x44px tap area on mobile for buttons, links, and interactive elements.
+- **No horizontal scroll**: verify at every breakpoint. Overflow is always a bug, not a feature.
+
+### Theme Tokens
+
+- **Semantic naming**: organize CSS custom properties by purpose (`--color-surface`, `--color-on-surface`, `--color-primary`, `--color-border`), not by raw value.
+- **Dark mode**: support via `prefers-color-scheme` media query or a `.dark` class toggle on `html`/`body`.
+- **Smooth transitions**: apply `transition: background-color 0.2s, color 0.2s` to themed elements for seamless theme switching.
 
 ## Image Handling
 

@@ -7,7 +7,7 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 - **design.json** (required) -- must include the `layout` block with hero type, section flow, and patterns
 - **reference image** (required) -- the original image used to extract design tokens
 - **copy.yaml** (optional) -- structured content for all sections
-- **frontend-design skill** (required) -- use it for all design decisions. It provides typography, color, motion, spatial composition, and background guidelines. Follow its rules to avoid generic AI aesthetics.
+- **[aesthetics.md](aesthetics.md)** (required) -- design principles for typography, color, motion, spatial composition, and backgrounds. Follow its rules to avoid generic AI aesthetics.
 
 ## When to Use
 
@@ -172,22 +172,10 @@ Users can request a custom preset by describing what they want. Generate it
 alongside the 4 fixed presets using the same structural skeleton and a custom
 mix of the 12 visual dimensions.
 
-## Design Quality (frontend-design skill)
+## Design Quality
 
-**CRITICAL**: Use the `frontend-design` skill guidelines when generating each variant. Specifically:
-
-- **Typography**: Choose distinctive, non-generic font pairings for each variant. Each variant MUST use a different font combination. Never use Inter, Roboto, Arial, or system fonts as primary choice.
-- **Color**: Commit to the preset's color approach. Dominant colors with sharp accents, not timid evenly-distributed palettes.
-- **Motion**: Focus on one well-orchestrated page load with staggered reveals (animation-delay). Use scroll-triggering and hover states that surprise.
-- **Spatial Composition**: Follow the reference layout structure but bring the preset's spatial philosophy.
-- **Backgrounds**: Create atmosphere. Gradient meshes, noise textures, geometric patterns, layered transparencies as appropriate for each preset. Never default to flat solid colors unless that IS the design statement (minimal).
-
-**Anti-patterns to avoid across all variants and NEVER use generic AI-generated aesthetics**:
-- Overused font families (Inter, Roboto, Space Grotesk used in multiple variants)
-- Layouts that ignore the reference structure
-- Missing hover states on interactive elements
-- Icons floating without visual context (use icon containers, colored backgrounds)
-- Identical visual treatment between variants -- each must feel distinctly different
+**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles to every variant.
+Read it before generating -- it defines typography, color, motion, spatial composition, backgrounds, visual hierarchy, and anti-patterns. Each variant must feel like a different designer made it.
 
 ## Comparison Page Template
 
@@ -273,7 +261,7 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 5. **Identical copy**: Same textual content across all variants
 6. **Comment headers**: Each file starts with variant identifier comment
 7. **Validation**: If design.json doesn't exist, suggest running extract design first
-8. **Use frontend-design skill**: Follow its guidelines for typography, color, motion, and spatial composition in every variant
+8. **Apply aesthetics.md**: Follow its guidelines for typography, color, motion, and spatial composition in every variant
 9. **Distinct font pairings**: Each variant MUST use a different font combination
 10. **Reference validation**: Re-read the reference image to validate structural fidelity
 11. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
@@ -286,7 +274,7 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 - [ ] All 4 presets generated following layout skeleton
 - [ ] Each preset varies all 12 visual dimensions
 - [ ] Each preset has a distinct font pairing
-- [ ] frontend-design skill guidelines applied
+- [ ] aesthetics.md principles applied
 - [ ] Custom preset generated (if requested)
 - [ ] All presets use same structure, different visual treatment
 - [ ] Comparison index.html generated

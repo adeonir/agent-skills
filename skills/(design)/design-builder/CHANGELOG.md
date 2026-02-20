@@ -6,7 +6,27 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.1 (2026-02-13)
+## 2026-02-19
+
+### Added
+
+- `aesthetics.md` reference with unified design principles (typography, color, motion, spatial composition, backgrounds, visual hierarchy, anti-patterns, responsive behavior, component states, depth and elevation)
+- `frontend.md` section: Implementation Concerns (Accessibility, Responsive Implementation, Theme Tokens)
+
+### Removed
+
+- External `frontend-design` skill dependency absorbed into `aesthetics.md`
+- "Required Skills" section and install-check logic from SKILL.md
+
+## 2026-02-19
+
+### Changed
+
+- Export workflow now uses Figma MCP server directly instead of HTML intermediary
+- Export requires variants as input instead of allowing direct export
+- Penpot support and YashiTech extension dependency removed
+
+## 2026-02-13
 
 ### Fixed
 
@@ -22,7 +42,7 @@ All notable changes to this skill will be documented in this file.
 
 - Prompt generation for external tools (v0, aura.build, replit) as valid building path
 
-## v1.0.0 (2026-02-08)
+## 2026-02-08
 
 ### Added
 

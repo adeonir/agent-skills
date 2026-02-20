@@ -9,7 +9,7 @@ description: >-
   "generate variants", "export design", "send to Figma".
 metadata:
   author: github.com/adeonir
-  version: "1.0.1"
+  version: "1.0.0"
 ---
 
 # Design Builder
@@ -121,25 +121,11 @@ src/                                   # React components (frontend)
 copy.md ---------> design.md (content informs design)
 design.md -------> frontend.md (tokens required)
 design.md -------> variants.md (tokens required)
+aesthetics.md ---> frontend.md (design principles)
+aesthetics.md ---> variants.md (design principles)
 variants.md -----> frontend.md (user picks variant, then builds React)
 variants.md -----> export.md (variants required for Figma export)
 ```
-
-## Required Skills
-
-The `frontend-design` skill is required for **variant generation** and **frontend building**.
-It provides design principles to avoid generic AI aesthetics.
-
-Before running any **building** trigger (frontend, variants), check if the skill
-is installed by looking for files in `~/.claude/skills/frontend-design/`. If not found,
-warn the user and suggest installing it:
-
-```
-The frontend-design skill is required but not installed.
-Install it: npx skills add https://github.com/anthropics/skills/tree/main/frontend-design
-```
-
-Extraction triggers (copy, design) do NOT require this skill.
 
 ## Guidelines
 
@@ -164,5 +150,4 @@ After completing any operation, suggest next steps without coupling to specific 
 - No PRD/Brief: Run lightweight discovery, never block on it
 - No copy.yaml: Proceed without it, or suggest running extract copy first
 - No design.json: Required for frontend/variants/export -- suggest running extract design
-- No frontend-design skill: Required for frontend/variants -- warn and suggest install
 - WebFetch fails: Ask user to paste a screenshot instead

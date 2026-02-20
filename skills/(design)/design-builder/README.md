@@ -139,7 +139,6 @@ src/                           # Generated React components
 | ----- | ------------ |
 | **docs-writer** | PRD provides product context for copy and design extraction |
 | **spec-driven** | Use after design-builder to plan implementation of complex features |
-| **frontend-design** | Optional skill for enhanced design quality guidelines |
 
 ## Requirements
 
