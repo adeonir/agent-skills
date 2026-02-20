@@ -6,6 +6,14 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-20
+
+### Changed
+
+- Prioritize AGENTS.md/CLAUDE.md for commit conventions before inferring from git log
+- Filter merge commits when analyzing git history with `--no-merges` flag
+- Clarify scope usage rule: only use if explicitly required by project guidelines
+
 ## 2026-02-19
 
 ### Changed

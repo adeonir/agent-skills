@@ -31,7 +31,7 @@ type: concise description in imperative mood
 1. **Use imperative mood**: "add", "fix", "implement" (not "added", "fixes")
 2. **Be concise**: First line under 72 characters
 3. **Focus on WHAT**: Describe the change and the observable behavior from the user's perspective
-4. **Follow project conventions**: Check `git log --oneline -10` for the project's preferred format (with or without scope)
+4. **Follow project conventions**: Check AGENTS.md or CLAUDE.md for explicit commit rules first. Only fall back to `git log --oneline -10 --no-merges` if no rules are documented. When analyzing the log, distinguish between regular commits and PR/merge commits, as they may follow different conventions. Only use scope if the project's guidelines explicitly require it for regular commits
 5. **No file names**: Don't mention specific files in the message
 6. **No versions**: Don't mention package versions
 7. **No attribution**: Never add Co-Authored-By or similar lines

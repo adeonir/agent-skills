@@ -6,12 +6,17 @@ Create a commit with a well-formatted conventional commit message based on actua
 
 ### Step 1: Gather Context
 
-Run to understand current state:
+First, check for explicit commit conventions:
+
+- Read AGENTS.md or CLAUDE.md if present in project root
+- Look for commit format rules, scope requirements, or type preferences
+
+Then run to understand current state:
 
 ```bash
 git status
 git diff HEAD
-git log --oneline -5
+git log --oneline -10 --no-merges
 ```
 
 ### Step 2: Analyze Changes
