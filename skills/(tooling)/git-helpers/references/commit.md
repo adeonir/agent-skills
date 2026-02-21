@@ -21,16 +21,18 @@ git log --oneline -10 --no-merges
 
 ### Step 2: Analyze Changes
 
+**The diff is the single source of truth.** Discard all prior conversation context before writing the commit message. Pretend you are seeing these changes for the first time.
+
 Determine which diff to analyze based on staging approach:
 
 - If using staged files only: Run `git diff --cached`
 - Otherwise: Run `git diff HEAD`
 
-Then:
+Read the diff output. Based ONLY on what the diff shows:
 
-- Describe what the code DOES, not what was discussed
-- Determine appropriate commit type based on actual changes
-- **CRITICAL**: Message must describe STAGED FILES only — never conversation context, prior discussion, or assumptions about what was done
+- Identify what changed structurally (additions, removals, modifications)
+- Determine the commit type from the nature of the changes
+- Write the message describing the observable effect of the diff
 
 ### Step 3: Stage Files
 

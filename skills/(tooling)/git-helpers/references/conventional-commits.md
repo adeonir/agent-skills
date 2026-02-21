@@ -26,6 +26,10 @@ type: concise description in imperative mood
 - Optional: key change 2
 ```
 
+## Source of Truth
+
+The staged diff (`git diff --cached` or `git diff HEAD`) is the ONLY input for the commit message. Ignore all conversation context, prior discussion, and task descriptions. Read the diff as if seeing it for the first time.
+
 ## Format Rules
 
 1. **Use imperative mood**: "add", "fix", "implement" (not "added", "fixes")
@@ -36,7 +40,6 @@ type: concise description in imperative mood
 6. **No versions**: Don't mention package versions
 7. **No attribution**: Never add Co-Authored-By or similar lines
 8. **No future references**: Don't mention upcoming work or architectural reasoning
-9. **Diff only**: Base the message exclusively on the actual diff — never on conversation context, prior discussion, or assumptions
 
 ## Body Guidelines
 
