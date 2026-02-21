@@ -72,9 +72,35 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 2. **No metadata** - No Files:/Reference:/Commit: lines in task descriptions
 3. **Respect dependencies** - Same component = sequential
 4. **Enable parallelization** - Mark independent tasks as [P]
-5. **Group by component** - Related tasks adjacent
+5. **Group by commit boundary** - Each group of tasks must form a complete, self-contained unit of work that results in one atomic commit
 6. **Cover all FRs** - Every FR-xxx has task(s)
 7. **Quality gates separate** - Not tasks, run after each task
+
+## Commit Boundary Grouping
+
+Tasks are grouped so each group = one atomic commit. A group must be:
+- **Self-contained**: The codebase compiles and works after the group is done
+- **Logically cohesive**: All tasks in the group serve the same purpose
+- **Minimal but complete**: No half-implemented features left behind
+
+### Dependencies
+
+Never create a dedicated "install all dependencies" task. Each dependency is installed in the task that first needs it, as part of its implementation. This keeps each commit group self-contained with only the deps it actually uses.
+
+Example:
+```markdown
+### Authentication Setup
+
+- [ ] T001 [P] Create auth types in types/auth.ts
+- [ ] T002 [B:T001] Implement AuthService in services/auth.ts
+
+### Auth Middleware
+
+- [ ] T003 [B:T002] Add auth middleware in middleware.ts
+- [ ] T004 [B:T003] Protect routes with auth middleware
+```
+
+After completing all tasks in a group, the code is in a stable, committable state.
 
 ## Error Handling
 

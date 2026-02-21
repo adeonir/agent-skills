@@ -19,10 +19,14 @@ Run after each implementation batch (1 or more tasks):
 
 ## Tasks
 
-### {{Component}}
+### {{Logical group description}}
 
 - [ ] T001 [P] {{verb}} {{what}} in {{where}}
 - [ ] T002 [B:T001] {{dependent task}}
+
+### {{Next logical group}}
+
+- [ ] T003 [B:T002] {{verb}} {{what}} in {{where}}
 
 ## Requirements Coverage
 

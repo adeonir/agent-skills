@@ -26,24 +26,36 @@ Sequential, zero-padded, never reused.
 | [B:T001] | Blocked by T001 |
 | [B:T001,T002] | Blocked by multiple |
 
-## Component Grouping
+## Commit Boundary Grouping
 
-Group by component:
+Group tasks by logical commit boundaries. Each group must be self-contained -- after completing all tasks in a group, the codebase is stable and committable. The group heading describes the commit scope.
+
 ```markdown
-### Authentication
+### Auth types and service
 
 - [ ] T001 [P] Create auth types
 - [ ] T002 [B:T001] Implement AuthService
+
+### Auth middleware
+
 - [ ] T003 [B:T002] Add auth middleware
+- [ ] T004 [B:T003] Protect routes with auth middleware
 ```
+
+Criteria for a good group:
+- **Cohesive**: All tasks serve the same logical purpose
+- **Complete**: No half-implemented features -- the group leaves the code in a working state
+- **Minimal**: Don't bundle unrelated changes just to reduce commits
 
 ## Natural Order
 
-1. Setup (config, deps)
+1. Setup (config)
 2. Types (interfaces)
 3. Implementation (core logic)
 4. Integration (connect)
 5. Tests
+
+Dependencies (packages) are installed within the task that first requires them, not in a separate setup task. This keeps each commit group self-contained.
 
 ## Task Description Format
 
