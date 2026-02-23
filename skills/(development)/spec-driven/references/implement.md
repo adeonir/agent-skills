@@ -111,16 +111,28 @@ Show:
 - Remaining tasks (if any)
 - Suggested commit message
 
-## Commit Suggestion Format
+## Commit Suggestion
+
+After completing a task or range, suggest a commit message based on what was actually changed.
+
+**Follow git-helpers conventions:**
+
+- Use conventional commit types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`, `ci`, `build`
+- Format: `type: concise description in imperative mood`
+- Imperative mood: "add", "fix", "implement" (not "added", "fixes")
+- First line under 72 characters
+- Focus on WHAT changed from the user's perspective
+- No scope, no file names, no versions, no attribution, no future references
+- Optional body: 1-5 bullet points explaining HOW (no file paths)
 
 ```
-feat: {description of what was implemented}
+type: what changed from the user's perspective
 
-- {key change 1}
-- {key change 2}
+- Optional: how it was implemented 1
+- Optional: how it was implemented 2
 ```
 
-Suggest atomic, logical commits at natural checkpoints.
+Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 
 ## Error Handling
 
