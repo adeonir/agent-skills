@@ -6,7 +6,13 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
-## v1.0.0 (2026-02-08)
+## 2026-02-25
+
+### Changed
+
+- Remove MCP tool references from SKILL.md and debugging references
+
+## 2026-02-08
 
 ### Added
 
@@ -19,7 +25,7 @@ All notable changes to this skill will be documented in this file.
 
 ---
 
-## v1.4.0 (2026-02-04)
+## 2026-02-04
 
 ### Added
 
@@ -47,14 +53,14 @@ All notable changes to this skill will be documented in this file.
 - MCP servers are optional but enhance debugging capabilities
 - All functionality works without MCPs using native tools
 
-## v1.3.1 (2026-01-11)
+## 2026-01-11
 
 ### Added
 
 - YAML frontmatter to debugging skill with name and description
 - `context: fork` to debugging skill for conversation context access
 
-## v1.3.0 (2026-01-03)
+## 2026-01-03
 
 ### Added
 
@@ -73,14 +79,14 @@ All notable changes to this skill will be documented in this file.
 - Updated SKILL.md with confidence scoring patterns
 - Command prefix changed to `/debug-tools:debug`
 
-## v1.2.1 (2025-12-15)
+## 2025-12-15
 
 ### Changed
 
 - Remove Serena MCP to avoid duplication with spec-driven plugin
 - Update documentation to reference spec-driven for LSP features
 
-## v1.2.0 (2025-12-12)
+## 2025-12-12
 
 ### Changed
 
@@ -88,13 +94,13 @@ All notable changes to this skill will be documented in this file.
 - Remove hypothesis generation approach in favor of direct investigation
 - Reduce total lines from 736 to 320 (56% reduction)
 
-## v1.1.0 (2025-12-11)
+## 2025-12-11
 
 ### Added
 
 - Serena MCP integration for semantic code analysis
 
-## v1.0.0 (2025-12-11)
+## 2025-12-11
 
 ### Added
 

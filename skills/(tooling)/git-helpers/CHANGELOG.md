@@ -6,6 +6,13 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-25
+
+### Changed
+
+- Reinforce diff as single source of truth for commit message generation
+- Remove MCP tool references from code-review reference
+
 ## 2026-02-20
 
 ### Changed

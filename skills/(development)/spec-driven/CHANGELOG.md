@@ -6,6 +6,15 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-25
+
+### Changed
+
+- Task grouping now uses commit boundaries instead of component-based grouping
+- Align commit suggestions in implement reference with git-helpers conventions
+- Update doc-extraction reference for simplified output filenames
+- Standardize frontmatter metadata across templates
+
 ## 2026-02-20
 
 ### Changed

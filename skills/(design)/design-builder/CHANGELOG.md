@@ -6,6 +6,13 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-25
+
+### Changed
+
+- Update copy and design references for simplified output filenames
+- Enhance layout extraction with visual dimension system in design, frontend, and variants references
+
 ## 2026-02-20
 
 ### Changed

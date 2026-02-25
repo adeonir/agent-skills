@@ -6,6 +6,13 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-25
+
+### Changed
+
+- Replace fixed discovery stages with adaptive deepening across all document types
+- Apply adaptive discovery to remaining types (adr, issue, rfc, tdd, user-story)
+
 ## 2026-02-20
 
 ### Changed
