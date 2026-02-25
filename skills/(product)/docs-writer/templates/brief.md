@@ -1,50 +1,23 @@
 # Brief
 
-## Problem
+## What
 
-{{One sentence describing the problem being solved and who has it.}}
+{{One paragraph: what is being built and what problem it solves. Include who has the problem and what evidence supports it.}}
 
-## Proposed Solution
+## Why
 
-{{2-3 sentences describing what will be built and how it solves the problem.}}
+{{One paragraph: why this matters now. What gap exists in current solutions, what makes this approach different, and how it generates value.}}
 
-## Target Audience
+## Who
 
-{{Who will use this, what is their primary job to be done, and what outcome do they expect.}}
+{{One paragraph: the primary user, their job to be done, and why they would switch from the status quo.}}
 
-## Competitive Landscape
+## Scope
 
-{{How the problem is currently solved -- existing tools, workarounds, competitors. What gap remains.}}
+- {{Core deliverable that defines this product}}
+- {{Another must-have capability}}
 
-## Differentiator
+## Open Risks
 
-{{What makes this approach different or better than current alternatives. Why now.}}
-
-## Business Model
-
-{{How this generates value -- monetization strategy, cost reduction, or internal efficiency gain. Write "N/A" if not applicable.}}
-
-## Success Metrics
-
-| Metric | Target | How Measured |
-|--------|--------|-------------|
-| {{metric}} | {{concrete number or threshold}} | {{measurement method}} |
-
-## Scope (MVP)
-
-**Must Have:**
-- {{Core capability that defines the product}}
-
-**Should Have:**
-- {{Important but not launch-blocking}}
-
-**Could Have:**
-- {{Nice-to-have for future iteration}}
-
-## Key Risks
-
-- {{Top 1-3 risks that could derail the project}}
-
-## Hypotheses to Validate
-
-- {{Assumption that needs evidence before or during implementation}}
+- {{Top risk or unvalidated assumption that could change the direction}}
+- {{Another risk or hypothesis that needs evidence}}

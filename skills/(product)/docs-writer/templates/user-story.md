@@ -2,7 +2,6 @@
 name: {{story-name}}
 status: backlog
 priority: {{must-have/should-have/could-have/wont-have}}
-story_points: {{points}}
 epic: {{epic name}}
 assignee: {{assignee}}
 ---

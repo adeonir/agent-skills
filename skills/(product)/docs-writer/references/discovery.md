@@ -8,35 +8,50 @@ Never assume context. Always ask before drafting. The depth of discovery varies 
 
 ## Interview Strategy
 
-Ask questions in stages, not all at once. Each stage should build on the previous answers.
+Discovery is adaptive, not scripted. Each document type defines topics with opening questions. The agent decides when to deepen and when to move on based on the quality of answers received.
 
-### Stage Flow
+### How It Works
 
-1. Ask 2-4 questions per stage
-2. Wait for user response
-3. Ask follow-up questions based on answers
-4. Move to next stage when sufficient context is gathered
-5. Minimum stages before drafting depends on document type
+1. Start each topic with its opening questions (2-4 per topic)
+2. Evaluate answers against the topic's sufficiency criteria
+3. If criteria are not met, deepen -- ask follow-ups targeting the gap
+4. If criteria are met, move to the next topic
+5. Summarize understanding before advancing
+
+### Adaptive Deepening
+
+Probe further when answers are:
+
+- **Vague**: "users want something better" → ask for specifics
+- **Assumed**: stated as fact without evidence → ask for evidence or mark as hypothesis
+- **Conflated**: multiple concepts mixed in one answer → separate and explore each
+- **Solution-first**: describes what to build before why → redirect to the problem
+- **Overly broad**: "everyone", "all cases" → narrow down to the most important
+
+Move on when:
+
+- The topic's sufficiency criteria are met
+- The user explicitly says "I don't know" (mark as TBD)
+- Further questioning would not yield new information
 
 ### Question Principles
 
 - Open-ended first, specific later
 - Never suggest answers in the question (avoid leading questions)
-- If the user gives a vague answer, ask for specifics
-- If the user says "I don't know", mark it as TBD and move on
-- Summarize understanding before moving to the next stage
+- Build follow-ups on what the user actually said, not on a script
+- Summarize understanding before moving to the next topic
 
 ## Discovery Depth by Type
 
-| Type | Minimum Stages | Focus |
-|------|---------------|-------|
-| PRD | 3 stages | Problem, users, business & scope |
-| Issue (feature) | 1-2 stages | Problem, proposed solution |
-| Issue (discussion) | 1 stage | Topic, context |
-| User Story | 1-2 stages | Persona, action, benefit |
-| RFC | 2-3 stages | Problem, proposal, alternatives |
-| ADR | 1-2 stages | Context, decision drivers |
-| TDD | 2-3 stages | Requirements, constraints, architecture |
+| Type | Topics | Focus |
+|------|--------|-------|
+| PRD | 4 topics | Problem, users, market, scope |
+| Issue (feature) | 1-2 topics | Problem, proposed solution |
+| Issue (discussion) | 1 topic | Topic, context |
+| User Story | 1-2 topics | Persona, action, benefit |
+| RFC | 2-3 topics | Problem, proposal, alternatives |
+| ADR | 1-2 topics | Context, decision drivers |
+| TDD | 2-3 topics | Requirements, constraints, architecture |
 
 Types that skip discovery: Task, Issue (bug -- uses structured reproduction instead).
 
@@ -75,7 +90,7 @@ Discovery is not a formality. Challenge ideas with respect, but never be a yes-m
 
 Before moving from discovery to drafting, verify:
 
-- [ ] Core questions for the document type have been answered
+- [ ] All topics have met their sufficiency criteria or gaps are marked as TBD
 - [ ] Unknowns are explicitly marked as TBD
 - [ ] User has confirmed the synthesis
 - [ ] No critical ambiguity remains (ask if unclear)

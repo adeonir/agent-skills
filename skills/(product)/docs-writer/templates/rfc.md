@@ -42,7 +42,7 @@
 
 ### Team Impact
 
-{{Which teams or developers are affected? What effort is required?}}
+{{Which teams or developers are affected? What changes are required on their side?}}
 
 ## Drawbacks
 

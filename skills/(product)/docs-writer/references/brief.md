@@ -18,20 +18,15 @@ The Brief is always generated alongside the PRD. Both are presented to the user 
 
 ## Content Source
 
-All Brief sections map directly to information gathered during PRD discovery and validation:
+The Brief distills the PRD into a narrative. Each section pulls from multiple discovery topics:
 
-| Brief Section | Source Phase |
-|---------------|-------------|
-| Problem | Discovery Stage 1 |
-| Proposed Solution | Discovery Stage 2 |
-| Target Audience | Discovery Stage 2 |
-| Competitive Landscape | Discovery Stage 1 + Validation |
-| Differentiator | Discovery Stage 2 + Validation |
-| Business Model | Discovery Stage 3 |
-| Success Metrics | Discovery Stage 3 + Synthesis |
-| Scope (MVP) | Validation |
-| Key Risks | Validation |
-| Hypotheses to Validate | Validation |
+| Brief Section | Source |
+|---------------|--------|
+| What | Problem + Value & Scope (what is being built and why) |
+| Why | Market & Differentiation + Value & Scope (gap, differentiator, value model) |
+| Who | Users (persona, job to be done, switching motivation) |
+| Scope | Value & Scope (must-haves only) |
+| Open Risks | Validation (risks and unvalidated hypotheses) |
 
 ## Template
 
@@ -44,6 +39,8 @@ Save to: `.artifacts/docs/brief.md`
 ## Guidelines
 
 - Keep it to 1 page equivalent -- concise and scannable
-- Every section should be 1-3 sentences max (except tables)
-- If a section has no data from discovery, write "TBD" rather than omitting it
-- The Brief is a summary, not a lite PRD -- avoid duplicating detail
+- What, Why, Who are narrative paragraphs, not bullet lists
+- Scope lists only must-haves -- the full MoSCoW breakdown lives in the PRD
+- Open Risks surfaces what could change the direction, not an exhaustive risk register
+- If something has no data from discovery, omit it rather than writing TBD -- the brief should only contain what is known
+- The Brief tells the story of the product. The PRD provides the specification. Never duplicate structure between them

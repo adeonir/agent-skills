@@ -60,7 +60,6 @@ Each story should have 2-5 acceptance criteria. Each criterion must be independe
 - **Story**: "As a [persona], I want [action], so that [benefit]"
 - **Acceptance Criteria**: WHEN/THEN/SHALL conditions
 - **Priority**: P1 / P2 / P3
-- **Estimate**: Story points or time (optional)
 - **Dependencies**: Related stories or prerequisites
 - **Notes**: Additional context
 

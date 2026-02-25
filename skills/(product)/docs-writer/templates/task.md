@@ -3,8 +3,6 @@ name: {{task-name}}
 status: todo
 priority: {{critical/high/medium/low}}
 assignee: {{assignee}}
-estimate: {{hours or story points}}
-due_date: {{YYYY-MM-DD}}
 parent: {{link to user story, epic, or issue}}
 ---
 

@@ -3,7 +3,7 @@ name: docs-writer
 description: >-
   Generate structured product and technical documents through guided discovery.
   8 document types: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD.
-  Use when: defining products, reporting bugs, planning sprints, writing stories,
+  Use when: defining products, reporting bugs, planning tasks, writing stories,
   proposing changes, recording decisions, designing systems.
   Triggers on "create PRD", "create issue", "report bug", "feature request",
   "create task", "create user story", "create RFC", "create ADR", "create TDD",
@@ -44,7 +44,7 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 |-----------------|------|-----------|
 | Create PRD, define product, product requirements, write PRD | PRD | [prd.md](references/prd.md) |
 | Create issue, report bug, feature request, create discussion | Issue | [issue.md](references/issue.md) |
-| Create task, sprint task, new task | Task | [task.md](references/task.md) |
+| Create task, new task | Task | [task.md](references/task.md) |
 | Create user story, write story, new story | User Story | [user-story.md](references/user-story.md) |
 | Create RFC, propose change, request for comments | RFC | [rfc.md](references/rfc.md) |
 | Create ADR, record decision, architecture decision | ADR | [adr.md](references/adr.md) |

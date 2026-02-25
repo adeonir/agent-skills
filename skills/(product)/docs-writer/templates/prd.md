@@ -99,10 +99,10 @@
 
 ## 10. Milestones
 
-| Milestone | Features | Target Date | Status |
-|-----------|----------|-------------|--------|
-| {{milestone_1}} | {{key features included}} | {{YYYY-MM-DD}} | Not Started |
-| {{milestone_2}} | {{key features included}} | {{YYYY-MM-DD}} | Not Started |
+| Milestone | Deliverables |
+|-----------|-------------|
+| {{milestone_1}} | {{key features and capabilities included}} |
+| {{milestone_2}} | {{key features and capabilities included}} |
 
 ## 11. Risks & Assumptions
 

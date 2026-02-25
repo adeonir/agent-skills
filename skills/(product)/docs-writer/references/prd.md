@@ -12,27 +12,80 @@ discovery --> validation --> synthesis --> drafting
 
 **LOAD:** [discovery.md](discovery.md) for shared interview patterns and critical posture.
 
-Never assume context. Ask questions in stages, not all at once. Challenge weak ideas and ask for evidence.
+Never assume context. Discovery is adaptive -- deepen topics based on the quality of answers, not a fixed script. Each topic has opening questions, signals for when to probe further, and criteria for when to move on.
 
-**Stage 1 -- Problem:**
+### Topic 1: Problem
+
+**Opening questions:**
 - What problem are you solving?
 - How do you know this problem exists? (evidence, data, user feedback)
+- What is the cost of not solving it?
+
+**Deepen when:**
+- User describes symptoms, not root cause → "Why does this happen? What causes it?"
+- No evidence → "What would convince you this is real? Have you talked to users?"
+- Multiple problems mixed → "These sound like separate problems. Which one is primary?"
+- User starts with solution → "What problem does this solution address? Let's start there."
+
+**Sufficient when:**
+- Problem can be stated in one clear sentence
+- Evidence exists or is explicitly marked as hypothesis
+- Single primary problem identified (secondary problems noted separately)
+
+### Topic 2: Users
+
+**Opening questions:**
+- Who specifically has this problem?
+- What are they trying to accomplish? (job to be done)
+- Why would they use this over the status quo?
+
+**Deepen when:**
+- "Everyone" or too broad → "Who is the *most* affected? Describe one specific person."
+- Multiple user types → "Which persona is primary? What happens when their needs conflict?"
+- Vague motivation → "Walk me through a concrete scenario. What does their day look like?"
+- Can't articulate why they'd switch → "What would they have to give up? What's the switching cost?"
+
+**Sufficient when:**
+- At least one concrete persona with clear motivation
+- Job to be done is specific enough to derive features from
+- If multiple personas, priority between them is understood
+
+### Topic 3: Market & Differentiation
+
+**Opening questions:**
 - How do people solve this today? (existing tools, workarounds, competitors)
-- What is the cost of not solving it? (time, money, frustration)
+- What makes your approach different or better?
+- Why hasn't this been solved yet? (timing, technology, market gap)
 
-**Stage 2 -- Users:**
-- Who specifically will use this?
-- What is their job to be done?
-- What does their ideal outcome look like?
-- Why would they pay for / switch to this? (or: why would they use this over the status quo?)
+**Deepen when:**
+- "Nothing like this exists" → "How do people cope today? Even manual workarounds count."
+- Crowded market → "With X, Y, Z already out there, why would someone switch to this?"
+- Weak differentiator → "If a competitor copied this feature tomorrow, what would you still have?"
+- Unaware of alternatives → surface known alternatives and ask how this compares
 
-**Stage 3 -- Business & Scope:**
+**Sufficient when:**
+- Clear picture of how the problem is currently solved
+- Differentiator is articulated beyond feature comparison
+- User understands the competitive context
+
+### Topic 4: Value & Scope
+
+**Opening questions:**
 - What type of thing is this? (product, feature, internal tool, platform)
 - How does it generate value? (monetization, cost reduction, efficiency)
-- What makes it different from alternatives?
-- How urgent is this? What happens if it ships 6 months late?
+- What must exist at launch vs. what can wait?
 
-Minimum 2 question stages before moving to validation. Ask follow-ups as needed.
+**Deepen when:**
+- Everything is "must have" → "If you could only ship 3 features, which 3?"
+- Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
+- Features without clear user connection → "Which persona needs this? What problem does it solve for them?"
+- No clear value model → "Who pays? How? What justifies the cost?"
+
+**Sufficient when:**
+- Clear must/should/could prioritization
+- Each must-have connects to the primary problem and persona
+- Value generation model is understood or marked as TBD
+- Boundaries are defined (what is explicitly out of scope)
 
 ## Phase 2: Validation
 
@@ -42,7 +95,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. **Question scope**: Is the scope realistic for a first version? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "Do you need X for launch, or can it wait?"
 4. **Propose pivots**: If the idea seems fragile after discovery, suggest alternative approaches
-5. **Define MVP scope**: Categorize features into must/should/could priorities
+5. **Define scope**: Categorize features into must/should/could priorities
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 7. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
 
@@ -52,7 +105,7 @@ Do not proceed to synthesis until the user confirms scope and priorities.
 
 Synthesize everything from discovery and validation into a structured summary.
 
-1. Summarize what was learned across all discovery stages
+1. Summarize what was learned across all discovery topics
 2. Present the agreed scope (must/should/could)
 3. List risks and hypotheses identified during validation
 4. Identify gaps and mark as TBD
@@ -114,7 +167,6 @@ Generate both documents using the confirmed synthesis. Present drafts to user fo
 
 ### 6. Risks, Assumptions & Validation
 
-- **Phased Rollout**: v1.0, v1.1, v2.0 (never frame as MVP)
 - **Technical Risks**: known challenges
 - **Hypotheses to Validate**: assumptions that need evidence before or during implementation
 - **Unknowns**: marked as TBD
@@ -137,11 +189,10 @@ Requirements must be concrete and measurable.
 - Present draft for user feedback
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Keep phased rollout realistic (v1.0/v1.1/v2.0, not MVP framing)
 - Generate Brief alongside PRD during drafting
 
 **DON'T:**
-- Skip discovery with fewer than 2 question stages
+- Skip discovery topics or advance without meeting sufficiency criteria
 - Assume project type -- discover it
 - Include visual/design direction (that belongs in design-builder)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")

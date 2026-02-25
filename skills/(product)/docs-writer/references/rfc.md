@@ -24,7 +24,6 @@ discovery --> analysis --> drafting
 
 **Stage 3 -- Scope & Impact (if needed):**
 - What systems or teams are affected?
-- What is the expected timeline?
 - Are there migration concerns?
 
 Minimum 2 stages before moving to analysis.
@@ -47,7 +46,6 @@ For each alternative (including the proposed solution):
 |----------|--------------|--------------|----------|
 | Complexity | | | |
 | Risk | | | |
-| Timeline | | | |
 | Trade-offs | | | |
 
 ## Phase 3: Drafting
