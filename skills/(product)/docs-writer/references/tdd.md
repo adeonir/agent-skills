@@ -12,22 +12,56 @@ discovery --> analysis --> drafting
 
 **LOAD:** [discovery.md](discovery.md) for shared interview patterns.
 
-**Stage 1 -- Requirements & Context:**
-- What is being built? (high-level overview)
-- What are the functional requirements?
-- What are the non-functional requirements? (performance, scalability, security)
+### Topic 1: Requirements
 
-**Stage 2 -- Constraints & Dependencies:**
-- What are the technical constraints? (stack, infrastructure, existing systems)
-- What external dependencies exist?
+**Opening questions:**
+- What is being built? (high-level overview)
+- What must it do? (functional requirements)
+- What are the quality constraints? (performance, scalability, security)
+
+**Deepen when:**
+- Only functional requirements → "What about performance, security, reliability?"
+- Requirements are vague → "What does 'fast' mean? What numbers are acceptable?"
+- Missing boundaries → "What does this NOT need to do?"
+
+**Sufficient when:**
+- Functional requirements are concrete and enumerable
+- Non-functional requirements have measurable targets
+- Scope boundaries are defined
+
+### Topic 2: Constraints & Dependencies
+
+**Opening questions:**
+- What technical constraints exist? (stack, infrastructure, existing systems)
+- What does this integrate with?
 - Are there related ADRs or RFCs?
 
-**Stage 3 -- Architecture Preferences (if needed):**
-- Are there architectural patterns to follow?
-- What are the scalability expectations?
-- What are the failure modes to handle?
+**Deepen when:**
+- "Standard stack" → "Which specific versions, frameworks, infrastructure?"
+- No dependencies mentioned → "Does this read from or write to any existing system?"
+- Ignoring prior decisions → "Are there architectural decisions that constrain this?"
 
-Minimum 2 stages before moving to analysis.
+**Sufficient when:**
+- Stack and infrastructure constraints are concrete
+- Integration points identified
+- Prior architectural decisions accounted for
+
+### Topic 3: Architecture Preferences (if needed)
+
+**Opening questions:**
+- Are there architectural patterns to follow?
+- How should this scale?
+- What are the critical failure scenarios?
+
+**Deepen when:**
+- No pattern preference → "How does the rest of the system handle similar problems?"
+- Scalability hand-waved → "What's the expected load? What happens at 10x?"
+- Failure modes ignored → "What happens when [dependency] goes down?"
+
+**Sufficient when:**
+- Architectural direction is clear (or explicitly open for exploration in analysis)
+- Scale expectations have concrete numbers
+- Critical failure scenarios identified
 
 ## Phase 2: Analysis
 

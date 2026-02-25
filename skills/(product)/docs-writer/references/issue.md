@@ -34,24 +34,55 @@ Skip interview. Collect structured fields directly:
 5. **Severity** (critical / high / medium / low)
 6. **Screenshots or logs?** (optional)
 
-### Feature (1-2 discovery stages)
+### Feature (1-2 topics)
 
-**Stage 1 -- Problem:**
+#### Topic 1: Problem
+
+**Opening questions:**
 - What problem does this feature solve?
 - Who is affected?
 - How are they currently working around it?
 
-**Stage 2 -- Solution (optional, if user has ideas):**
+**Deepen when:**
+- Solution disguised as problem → "That sounds like a solution. What's the underlying pain?"
+- Unclear who is affected → "Is this one person's request or a pattern you're seeing?"
+- No workaround described → "How do people handle this today without the feature?"
+
+**Sufficient when:**
+- Clear problem with identified affected users
+- Current workaround (or lack thereof) understood
+
+#### Topic 2: Solution Direction (optional, if user has ideas)
+
+**Opening questions:**
 - What is the proposed solution?
-- Are there alternatives?
-- What is the expected impact?
+- What changes for the user if this is built?
+- Are there alternatives you've considered?
 
-### Discussion (1 discovery stage)
+**Deepen when:**
+- Only one approach considered → "What else could solve this?"
+- Impact unclear beyond the feature → "Who else benefits? What second-order effects?"
 
-**Stage 1 -- Context:**
+**Sufficient when:**
+- At least one approach described with expected impact
+- Or user has no preference (mark as open for design)
+
+### Discussion (1 topic)
+
+#### Topic 1: Context
+
+**Opening questions:**
 - What is the topic?
 - What context is needed to understand it?
 - What specific questions or decisions need to be addressed?
+
+**Deepen when:**
+- Topic too broad → "Can we narrow this down? What's the most important aspect?"
+- No clear questions → "What decisions need to come out of this discussion?"
+
+**Sufficient when:**
+- Topic is scoped and context is clear
+- Specific questions or decisions are identified
 
 ## Phase 3: Drafting
 

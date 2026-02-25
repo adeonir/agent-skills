@@ -12,17 +12,37 @@ discovery --> drafting
 
 **LOAD:** [discovery.md](discovery.md) for shared interview patterns.
 
-**Stage 1 -- Persona & Need:**
+### Topic 1: Persona & Need
+
+**Opening questions:**
 - Who is the user? (role, persona, or user type)
 - What do they want to accomplish?
 - Why is this valuable to them?
 
-**Stage 2 -- Acceptance (if Stage 1 answers are clear enough):**
+**Deepen when:**
+- Generic "user" → "What role or context are they in? Describe a specific person."
+- Action too broad → "Can you break this down? What's the specific interaction?"
+- Benefit is implementation detail → "That's how, not why. What value does the user get?"
+
+**Sufficient when:**
+- Persona is specific enough to distinguish from other user types
+- Action is a single, clear interaction
+- Benefit describes user value, not system behavior
+
+### Topic 2: Acceptance (if Topic 1 answers are clear enough)
+
+**Opening questions:**
 - How will we know this is done?
-- What are the edge cases?
+- What does the ideal outcome look like for the user?
 - Any constraints or dependencies?
 
-Minimum 1 stage. Move to drafting when persona, action, and benefit are clear.
+**Deepen when:**
+- Criteria too vague → "What does 'working' look like? Walk me through the scenario."
+- Missing edge cases → "What happens when [boundary condition]?"
+
+**Sufficient when:**
+- 2-5 verifiable acceptance criteria exist
+- Key edge cases identified or noted as TBD
 
 ## Phase 2: Drafting
 

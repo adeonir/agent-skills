@@ -12,21 +12,52 @@ discovery --> analysis --> drafting
 
 **LOAD:** [discovery.md](discovery.md) for shared interview patterns.
 
-**Stage 1 -- Problem & Motivation:**
+### Topic 1: Problem & Motivation
+
+**Opening questions:**
 - What problem or opportunity is this addressing?
 - Why is the current state insufficient?
 - Who is affected?
 
-**Stage 2 -- Proposed Solution:**
+**Deepen when:**
+- Change without clear motivation → "What breaks or degrades if we don't do this?"
+- Scope of impact unclear → "Who else is affected by the current state?"
+- Assumed consensus → "Does everyone agree this is a problem? What's the evidence?"
+
+**Sufficient when:**
+- Current state and desired state are clearly different
+- Impact of inaction is understood
+
+### Topic 2: Proposed Solution
+
+**Opening questions:**
 - What is the proposed change?
 - What are the key design decisions?
 - What are the constraints?
 
-**Stage 3 -- Scope & Impact (if needed):**
+**Deepen when:**
+- Solution is hand-wavy → "Walk me through how this would work in practice."
+- No constraints acknowledged → "What limits what we can do here?"
+- Single option presented as obvious → "What alternatives did you consider?"
+
+**Sufficient when:**
+- Solution is concrete enough to evaluate trade-offs
+- Key constraints are identified
+
+### Topic 3: Impact (if needed)
+
+**Opening questions:**
 - What systems or teams are affected?
+- Are there breaking changes?
 - Are there migration concerns?
 
-Minimum 2 stages before moving to analysis.
+**Deepen when:**
+- "Just our system" → "Does anything consume our API/data? Any downstream effects?"
+- Breaking changes mentioned casually → "Who needs to change and what's the migration path?"
+
+**Sufficient when:**
+- Affected systems and teams identified
+- Breaking changes documented or confirmed as none
 
 ## Phase 2: Analysis
 

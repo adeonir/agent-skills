@@ -12,17 +12,41 @@ discovery --> drafting
 
 **LOAD:** [discovery.md](discovery.md) for shared interview patterns.
 
-**Stage 1 -- Context & Drivers:**
+### Topic 1: Context & Drivers
+
+**Opening questions:**
 - What decision needs to be made?
 - What is the context? (technical, business, organizational)
 - What are the decision drivers? (forces that influence the decision)
 
-**Stage 2 -- Options (if not already clear):**
+**Deepen when:**
+- Decision not clearly framed → "Frame it as a choice: 'We need to decide between X and Y.'"
+- Context missing non-technical dimension → "What business or team forces influence this?"
+- Drivers not prioritized → "Which of these forces matters most?"
+
+**Sufficient when:**
+- Decision is stated as a clear choice between options
+- Context includes technical and non-technical factors
+- Decision drivers are identified
+
+### Topic 2: Options (if not already clear)
+
+**Opening questions:**
 - What options were considered?
 - What are the trade-offs of each?
 - Which option was chosen and why?
 
-Minimum 1 stage. If the user already has the decision and rationale, move directly to drafting.
+**Deepen when:**
+- Only one option → "What else was considered? Every decision has alternatives."
+- Trade-offs one-sided → "What are the downsides of the chosen option?"
+- No rejection rationale → "Why not option X? What specifically ruled it out?"
+
+**Sufficient when:**
+- At least 2 genuine options documented with pros/cons
+- Chosen option has clear rationale
+- Rejected options have clear rejection reasons
+
+If the user already has the decision and full rationale, move directly to drafting.
 
 ## Numbering
 
