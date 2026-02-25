@@ -4,13 +4,7 @@
 
 {{Describe the problem being solved. What pain point exists? Who is affected? What evidence supports this?}}
 
-## 2. Goals & Success Metrics
-
-| Goal | Metric | Target |
-|------|--------|--------|
-| {{goal}} | {{how it will be measured}} | {{concrete number or threshold}} |
-
-## 3. Value Proposition
+## 2. Value Proposition
 
 **Headline:**
 {{Main benefit in 1 line}}
@@ -22,6 +16,12 @@
 - {{Benefit 1}}
 - {{Benefit 2}}
 - {{Benefit 3}}
+
+## 3. Goals & Success Metrics
+
+| Goal | Metric | Target |
+|------|--------|--------|
+| {{goal}} | {{how it will be measured}} | {{concrete number or threshold}} |
 
 ## 4. Competitive Landscape
 
@@ -80,7 +80,14 @@
 | NFR-001 | Performance | {{e.g., page load < 2s}} |
 | NFR-002 | Accessibility | {{e.g., WCAG 2.1 AA}} |
 
-## 9. Technical Specifications
+## 9. Milestones
+
+| Milestone | Deliverables |
+|-----------|-------------|
+| {{milestone_1}} | {{key features and capabilities included}} |
+| {{milestone_2}} | {{key features and capabilities included}} |
+
+## 10. Technical Specifications
 
 ### Architecture Overview
 
@@ -96,13 +103,6 @@
 
 - {{Security requirement}}
 - {{Privacy constraint}}
-
-## 10. Milestones
-
-| Milestone | Deliverables |
-|-----------|-------------|
-| {{milestone_1}} | {{key features and capabilities included}} |
-| {{milestone_2}} | {{key features and capabilities included}} |
 
 ## 11. Risks & Assumptions
 
