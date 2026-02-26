@@ -34,8 +34,11 @@ Check which files exist in `.artifacts/features/{ID}-{name}/` and determine scop
 
 - [ ] Has overview section
 - [ ] Has user stories with priority levels (P1/P2/P3)
+- [ ] P1 stories have independent test descriptions
 - [ ] Has functional requirements (FR-xxx)
 - [ ] Has acceptance criteria (AC-xxx) in WHEN/THEN format
+- [ ] Has edge cases (boundary conditions, error scenarios)
+- [ ] Has success criteria (measurable outcomes)
 - [ ] For brownfield: has baseline section
 - [ ] Open questions are documented (not blocking)
 
@@ -104,6 +107,8 @@ When validating code, check for:
 | Spec | User stories with priorities | ok | - |
 | Spec | Functional requirements | ok | - |
 | Spec | Acceptance criteria (WHEN/THEN) | warning | AC-003 missing THEN clause |
+| Spec | Edge cases defined | ok | - |
+| Spec | Success criteria measurable | ok | - |
 | Plan | Architecture decision | ok | - |
 | Plan | Data model defined | fail | No entities section |
 | Tasks | All FRs covered | ok | - |

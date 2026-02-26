@@ -6,6 +6,23 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-26
+
+### Changed
+
+- Replace inline Q&A with structured feature discovery (2 topics: Problem & Context, Scope & Success) with adaptive deepening and critical posture
+- Redefine P1/P2/P3 as implementation order (core, increment, polish) instead of product-level must/should/could
+- Doc extraction now transforms requirements instead of copying (filter to feature scope, make measurable, derive edge cases)
+- P1 stories require Independent Test (vertical slice, demo-able end-to-end)
+
+### Added
+
+- Edge Cases section in spec template (boundary conditions, error scenarios)
+- Success Criteria section in spec template (measurable outcomes)
+- Quality gate before spec drafting (sufficiency criteria, synthesis confirmation)
+- Edge cases and success criteria validation checks
+- Writing guidelines for edge cases and success criteria in spec-writing reference
+
 ## 2026-02-25
 
 ### Changed

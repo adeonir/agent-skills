@@ -15,7 +15,18 @@ created: {{YYYY-MM-DD}}
 
 ## User Stories
 
-- [P1] As a {{user}}, I want {{goal}} so that {{benefit}}
+### P1: {{Story Title}}
+
+- As a {{user}}, I want {{goal}} so that {{benefit}}
+- **Independent Test:** {{How to verify this story works alone -- e.g., "Can demo by doing X and seeing Y"}}
+
+### P2: {{Story Title}}
+
+- As a {{user}}, I want {{goal}} so that {{benefit}}
+
+### P3: {{Story Title}}
+
+- As a {{user}}, I want {{goal}} so that {{benefit}}
 
 ## Functional Requirements
 
@@ -24,6 +35,17 @@ created: {{YYYY-MM-DD}}
 ## Acceptance Criteria
 
 - [ ] AC-001: WHEN {{trigger}} THEN {{expected behavior}}
+
+## Edge Cases
+
+- WHEN {{boundary condition}} THEN system SHALL {{behavior}}
+- WHEN {{error scenario}} THEN system SHALL {{graceful handling}}
+- WHEN {{unexpected input}} THEN system SHALL {{validation response}}
+
+## Success Criteria
+
+- [ ] {{Measurable outcome -- e.g., "User can complete X in under 2 minutes"}}
+- [ ] {{Measurable outcome -- e.g., "Zero errors in Y scenario"}}
 
 ## Out of Scope
 
