@@ -1,6 +1,6 @@
 # Design Builder
 
-Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma.
+Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma. Generated code follows web accessibility, performance, and semantic HTML standards.
 
 ## What It Does
 

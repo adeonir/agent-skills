@@ -8,6 +8,7 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 - **reference image** (required) -- the original image used to extract design tokens
 - **copy.yaml** (optional) -- structured content for all sections
 - **[aesthetics.md](aesthetics.md)** (required) -- design principles for typography, color, motion, spatial composition, and backgrounds. Follow its rules to avoid generic AI aesthetics.
+- **[web-standards.md](web-standards.md)** (required) -- implementation rules for accessibility, forms, performance, touch, and anti-patterns. Follow its rules for technically correct HTML output.
 
 ## When to Use
 
@@ -174,8 +175,8 @@ mix of the 12 visual dimensions.
 
 ## Design Quality
 
-**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles to every variant.
-Read it before generating -- it defines typography, color, motion, spatial composition, backgrounds, visual hierarchy, and anti-patterns. Each variant must feel like a different designer made it.
+**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles and [web-standards.md](web-standards.md) rules to every variant.
+Read both before generating -- aesthetics defines visual direction, web-standards defines technical correctness. Each variant must feel like a different designer made it.
 
 ## Comparison Page Template
 
@@ -262,9 +263,10 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 6. **Comment headers**: Each file starts with variant identifier comment
 7. **Validation**: If design.json doesn't exist, suggest running extract design first
 8. **Apply aesthetics.md**: Follow its guidelines for typography, color, motion, and spatial composition in every variant
-9. **Distinct font pairings**: Each variant MUST use a different font combination
-10. **Reference validation**: Re-read the reference image to validate structural fidelity
-11. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
+9. **Apply web-standards.md**: Follow its rules for accessibility, animation, images, and anti-patterns in every variant
+10. **Distinct font pairings**: Each variant MUST use a different font combination
+11. **Reference validation**: Re-read the reference image to validate structural fidelity
+12. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
 
 ## Checklist
 
@@ -275,6 +277,7 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 - [ ] Each preset varies all 12 visual dimensions
 - [ ] Each preset has a distinct font pairing
 - [ ] aesthetics.md principles applied
+- [ ] web-standards.md rules applied (accessibility, images, animation, anti-patterns)
 - [ ] Custom preset generated (if requested)
 - [ ] All presets use same structure, different visual treatment
 - [ ] Comparison index.html generated

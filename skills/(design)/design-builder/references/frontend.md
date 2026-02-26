@@ -7,6 +7,7 @@ Build production-grade React components from design tokens.
 - **design.json** (required) -- must include the `layout` block
 - **copy.yaml** (optional) -- structured content
 - **[aesthetics.md](aesthetics.md)** (required) -- design principles for typography, color, motion, spatial composition, and backgrounds. Follow its rules to avoid generic AI aesthetics.
+- **[web-standards.md](web-standards.md)** (required) -- implementation rules for accessibility, forms, performance, touch, hydration, and anti-patterns. Follow its rules for technically correct output.
 
 ## When to Use
 
@@ -102,17 +103,18 @@ When building from a variant:
 
 ## Design Quality
 
-**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles to every component.
-Read it before generating code -- it defines typography, color, motion, spatial composition, backgrounds, visual hierarchy, and anti-patterns.
+**CRITICAL**: Apply [aesthetics.md](aesthetics.md) principles and [web-standards.md](web-standards.md) rules to every component.
+Read both before generating code -- aesthetics defines visual direction, web-standards defines technical correctness.
 
 ## Implementation Concerns
 
-### Accessibility
+### Accessibility and Web Standards
 
-- **Semantic HTML**: use `nav`, `main`, `section`, `article`, `header`, `footer` -- never build page structure with `div` alone.
-- **`prefers-reduced-motion`**: wrap all animations in a media query. Users who opt out get instant transitions, not frozen mid-states.
-- **Focus management**: include a skip-to-content link as the first focusable element. Trap focus inside modals when open.
+Follow [web-standards.md](web-standards.md) for all accessibility, forms, performance, touch, hydration, and anti-pattern rules.
+
+Key design-specific points:
 - **Color independence**: never rely on color alone to communicate state. Pair with an icon, text label, or pattern.
+- **Focus management**: trap focus inside modals when open.
 
 ### Responsive Implementation
 
@@ -125,8 +127,8 @@ Read it before generating code -- it defines typography, color, motion, spatial 
 ### Theme Tokens
 
 - **Semantic naming**: organize CSS custom properties by purpose (`--color-surface`, `--color-on-surface`, `--color-primary`, `--color-border`), not by raw value.
-- **Dark mode**: support via `prefers-color-scheme` media query or a `.dark` class toggle on `html`/`body`.
-- **Smooth transitions**: apply `transition: background-color 0.2s, color 0.2s` to themed elements for seamless theme switching.
+- **Dark mode**: support via `prefers-color-scheme` media query or a `.dark` class toggle on `html`/`body`. See web-standards.md for `color-scheme` and `<meta name="theme-color">` rules.
+- **Smooth transitions**: list properties explicitly (`transition: background-color 0.2s, color 0.2s`) -- never `transition: all`.
 
 ## Image Handling
 
@@ -146,6 +148,7 @@ For images referenced in copy.yaml:
 - [ ] Hover states on all interactive elements
 - [ ] Animations implemented
 - [ ] Responsive breakpoints
+- [ ] web-standards.md rules applied (accessibility, forms, images, anti-patterns)
 
 ## Error Handling
 

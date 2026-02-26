@@ -6,6 +6,19 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-26
+
+### Added
+
+- `web-standards.md` reference with implementation rules for accessibility, forms, performance, touch, images, hydration, dark mode, i18n, and anti-patterns
+- Cross-references from frontend.md and variants.md to web-standards.md
+- Checklist items for web-standards compliance in frontend.md and variants.md
+
+### Changed
+
+- frontend.md accessibility section now delegates to web-standards.md, keeping only design-specific points
+- frontend.md theme tokens section updated with explicit transition property rule
+
 ## 2026-02-25
 
 ### Changed
