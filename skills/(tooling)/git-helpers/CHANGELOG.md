@@ -41,19 +41,18 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **Skills Format Migration**: Migrated from plugin format to unified skills format
-- **New References**:
-  - `commit.md`: Commit message conventions and rules
-  - `code-review.md`: Code review scoring and guidelines
-  - `guidelines-audit.md`: CLAUDE.md compliance checking
-  - `summary.md`: PR description generation
-  - `push-pr.md`: Branch push and PR creation workflow
-  - `workflow-patterns.md`: Git diff analysis and workflow optimization
+- Migrate from plugin format to unified skills format
+- `commit.md` reference for commit message conventions and rules
+- `code-review.md` reference for code review scoring and guidelines
+- `guidelines-audit.md` reference for CLAUDE.md compliance checking
+- `summary.md` reference for PR description generation
+- `push-pr.md` reference for branch push and PR creation workflow
+- `workflow-patterns.md` reference for git diff analysis and workflow optimization
 
 ### Changed
 
 - Base branch detection now prefers main over master
-- Added no-future-references rule to commit guidelines
+- Add no-future-references rule to commit guidelines
 - Push before create in PR workflow
 - Scope rule relaxed for PR titles
 
@@ -63,42 +62,40 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **New Skill**:
-  - `git-workflow-patterns`: Standardized patterns for git diff analysis and workflow optimization
+- `git-workflow-patterns` skill for standardized git diff analysis and workflow optimization
 
 ### Changed
 
-- **Performance Optimizations**:
-  - `git-code-reviewer`: Reduced steps from 25 to 15, consolidated guidelines
-  - `git-guidelines-auditor`: Reduced steps from 20 to 12, streamlined prompts
-- **Command Improvements**:
-  - `git-commit`: More concise prompts, removed redundancy
-  - `git-push-pr`: More concise prompts, streamlined guidelines
+- Reduce `git-code-reviewer` steps from 25 to 15, consolidate guidelines
+- Reduce `git-guidelines-auditor` steps from 20 to 12, streamline prompts
+- `/spec-plan` reduced from 2-3 parallel explorers to 1 comprehensive explorer
+- Add automatic stage detection and filtered git diff in `/spec-validate`
+- Enhance context passing in `/spec-implement`
 
 ### Fixed
 
-- Improved token efficiency by 30-40%
+- Improve token efficiency by 30-40%
 - Better consistency between agents and skills
 
 ## 2026-02-03
 
 ### Added
 
-- **Skills**: New reusable instruction files
-  - `conventional-commits`: Commit message guidelines and rules
-  - `code-review-guidelines`: Code review best practices and scoring
-- **Agent improvements**:
-  - Added `temperature: 0.1` for deterministic output
-  - Added `steps` limit (20-25) to control cost
-  - Added granular `permission.bash` restrictions (only git, find, cat allowed)
-- **Command improvements**:
-  - Added `agent: build` to `/git-commit`, `/git-push-pr`, `/git-summary`
-  - Added `agent: plan` and `subtask: true` to `/git-review`
+- `conventional-commits` skill for commit message guidelines and rules
+- `code-review-guidelines` skill for code review best practices and scoring
+- `/spec-branch` command for creating feature branch from spec
+- `/spec-status` command for detailed status with task progress and next steps
+- Agent `temperature` (0.1-0.2) for deterministic output
+- Agent `steps` limit (20-25) to control cost
+- Granular `permission.bash` restrictions (only git, find, cat allowed)
+- `permission.webfetch: allow` for researcher agent
+- `agent: build` to `/git-commit`, `/git-push-pr`, `/git-summary`
+- `agent: plan` and `subtask: true` to `/git-review`
 
 ### Changed
 
 - Installation now includes `skills/` directory
-- Updated README with skills documentation
+- Update README with skills documentation
 
 ## 2026-02-03
 
@@ -107,7 +104,7 @@ All notable changes to this skill will be documented in this file.
 - Commands renamed with prefix: `git-commit.md`, `git-review.md`, `git-push-pr.md`, `git-summary.md`
 - Agents renamed with prefix: `git-code-reviewer.md`, `git-guidelines-auditor.md`
 - Invocation now uses `/git-commit` and `@git-code-reviewer` instead of `/git/commit` and `@git/code-reviewer`
-- Simplified installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
+- Simplify installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
 
 ## 2026-01-22
 

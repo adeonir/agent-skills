@@ -10,14 +10,14 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- `web-standards.md` reference with implementation rules for accessibility, forms, performance, touch, images, hydration, dark mode, i18n, and anti-patterns
+- `web-standards.md` reference with implementation rules for accessibility, forms, performance, touch, images, hydration, dark mode, and i18n
 - Cross-references from frontend.md and variants.md to web-standards.md
 - Checklist items for web-standards compliance in frontend.md and variants.md
 
 ### Changed
 
-- frontend.md accessibility section now delegates to web-standards.md, keeping only design-specific points
-- frontend.md theme tokens section updated with explicit transition property rule
+- `frontend.md` accessibility section now delegates to web-standards.md, keeping only design-specific points
+- `frontend.md` theme tokens section updated with explicit transition property rule
 
 ## 2026-02-25
 
@@ -31,7 +31,7 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - Output directory migrated from `.specs/docs/{project-name}/` to `.artifacts/design/`
-- Removed project-specific subdirectories (copy.yaml, design.json, variants/ now directly under .artifacts/design/)
+- Remove project-specific subdirectories (copy.yaml, design.json, variants/ now directly under .artifacts/design/)
 - All references and templates updated with simplified paths
 
 ## 2026-02-19
@@ -39,7 +39,7 @@ All notable changes to this skill will be documented in this file.
 ### Added
 
 - `aesthetics.md` reference with unified design principles (typography, color, motion, spatial composition, backgrounds, visual hierarchy, anti-patterns, responsive behavior, component states, depth and elevation)
-- `frontend.md` section: Implementation Concerns (Accessibility, Responsive Implementation, Theme Tokens)
+- Implementation Concerns section in `frontend.md` (Accessibility, Responsive Implementation, Theme Tokens)
 
 ### Removed
 
@@ -64,7 +64,7 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - Templates migrated from yaml/json to markdown format
-- Standardized frontmatter metadata across references and templates
+- Standardize frontmatter metadata across references and templates
 
 ### Added
 
@@ -74,22 +74,21 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **Skills Format Migration**: Migrated from plugin format to unified skills format
-- **New References**:
-  - `copy.md`: Content extraction from URLs (from copy-extractor agent + copy command)
-  - `design.md`: Design token extraction from images (from design-extractor agent + design command)
-  - `frontend.md`: React component generation (from frontend-builder agent + frontend command)
-  - `variants.md`: 4 HTML+CSS layout previews (from variants-builder agent + frontend --variants)
-  - `export.md`: Design tool export (from figma-builder agent + figma command, renamed for multi-tool support)
-- **Custom Presets**: Variants now support user-defined custom presets alongside the 4 fixed ones
-- **Style from Description**: Design extraction works without images by asking about visual direction
-- **Design Principles**: 60-30-10, visual hierarchy, and rhythm rules incorporated into variants.md
+- Migrate from plugin format to unified skills format
+- `copy.md` reference for content extraction from URLs
+- `design.md` reference for design token extraction from images
+- `frontend.md` reference for React component generation
+- `variants.md` reference for 4 HTML+CSS layout previews
+- `export.md` reference for design tool export (supports Figma, Penpot, and future tools)
+- Custom presets support in variants alongside the 4 fixed ones
+- Design extraction from description without images by asking about visual direction
+- Design principles (60-30-10, visual hierarchy, rhythm rules) incorporated into variants reference
 
 ### Changed
 
 - Product planning separated into standalone `docs-writer` skill
-- `figma.md` renamed to `export.md` (supports Figma, Penpot, and future tools)
-- frontend-design skill referenced as external dependency instead of bundled fork
+- Rename `figma.md` to `export.md` (multi-tool support)
+- Reference `frontend-design` skill as external dependency instead of bundled fork
 - Output location changed from `./docs/` and `./outputs/` to `.specs/docs/{project-name}/`
 - Project types discovered through conversation instead of prefixed
 - Variant generation is a separate trigger instead of `--variants` flag on frontend

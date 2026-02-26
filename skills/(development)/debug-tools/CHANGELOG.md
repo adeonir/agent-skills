@@ -16,12 +16,11 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **Skills Format Migration**: Migrated from plugin format to unified skills format
-- **New References**:
-  - `debugging-patterns.md`: Framework-specific debugging patterns (expanded)
-  - `log-injection.md`: Targeted log injection patterns (expanded)
-  - `log-cleanup.md`: Debug log cleanup (promoted to standalone reference)
-- **MCP Strategy**: Runtime detection with explicit fallbacks for console-ninja, chrome-devtools, serena, and context7
+- Migrate from plugin format to unified skills format
+- `debugging-patterns.md` reference for framework-specific debugging patterns
+- `log-injection.md` reference for targeted log injection patterns
+- `log-cleanup.md` reference for debug log cleanup (promoted to standalone reference)
+- MCP Strategy with runtime detection and explicit fallbacks for console-ninja, chrome-devtools, serena, and context7
 
 ---
 
@@ -29,29 +28,18 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **OpenCode Support**: Full migration from Claude Code to OpenCode
-- **MCP Integration**: Support for optional MCP servers with automatic fallback
-  - console-ninja: Runtime values capture
-  - chrome-devtools: Browser inspection
-  - serena: Semantic code analysis
-  - context7: Documentation search
-- **Agent Optimizations**:
-  - debug-investigator: 15 steps, MCP-aware with fallback
-  - debug-logger: 12 steps, streamlined log injection
-- **Automatic MCP Detection**: Command detects available MCPs and adapts workflow
+- Full migration from Claude Code to OpenCode
+- Optional MCP integration with automatic fallback (console-ninja, chrome-devtools, serena, context7)
+- Automatic MCP detection in command with adapted workflow
+- `debug-investigator` agent (15 steps, MCP-aware with fallback)
+- `debug-logger` agent (12 steps, streamlined log injection)
 
 ### Changed
 
-- **Workflow**: Enhanced 5-phase workflow with MCP support
-- **Tools**: Agents use bash/read/grep/webfetch as fallback when MCPs unavailable
-- **Documentation**: Updated README with MCP configuration examples
-- **Naming**: Commands and agents use opencode conventions (`/debug`, `@debug-investigator`)
-
-### Migration Notes
-
-- Plugin now requires OpenCode CLI instead of Claude Code
-- MCP servers are optional but enhance debugging capabilities
-- All functionality works without MCPs using native tools
+- Enhance 5-phase workflow with MCP support
+- Agents use bash/read/grep/webfetch as fallback when MCPs unavailable
+- Update documentation with MCP configuration examples
+- Commands and agents use opencode conventions (`/debug`, `@debug-investigator`)
 
 ## 2026-01-11
 
@@ -73,10 +61,10 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- bug-investigator now uses confidence scoring
-- log-injector handles both injection and cleanup phases
-- debug command includes full workflow documentation
-- Updated SKILL.md with confidence scoring patterns
+- `bug-investigator` now uses confidence scoring
+- `log-injector` handles both injection and cleanup phases
+- Debug command includes full workflow documentation
+- Update SKILL.md with confidence scoring patterns
 - Command prefix changed to `/debug-tools:debug`
 
 ## 2025-12-15
@@ -93,12 +81,6 @@ All notable changes to this skill will be documented in this file.
 - Simplify agents to role-based style
 - Remove hypothesis generation approach in favor of direct investigation
 - Reduce total lines from 736 to 320 (56% reduction)
-
-## 2025-12-11
-
-### Added
-
-- Serena MCP integration for semantic code analysis
 
 ## 2025-12-11
 

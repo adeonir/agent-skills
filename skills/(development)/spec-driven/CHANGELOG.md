@@ -45,50 +45,49 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **Skills Format Migration**: Migrated from plugin format to unified skills format
-- **New References**:
-  - `project-init.md`: Project initialization workflow
-  - `roadmap.md`: Feature planning and milestones
-  - `codebase-mapping.md`: Comprehensive codebase analysis
-  - `baseline-discovery.md`: Brownfield baseline analysis
-  - `doc-extraction.md`: PRD/document extraction
-  - `research.md`: Research caching with MCP support
-- **Content Separation**: Enforced CRITICAL separation between spec/plan/tasks
-- **Feature Resolution**: Consistent feature lookup by ID or branch in all references
-- **coding-principles.md**: Behavioral principles loaded before implementation (simplicity, surgical changes, anti-patterns)
-- **Acceptance criteria format**: WHEN/THEN/SHALL pattern in spec-writing.md
-- **Priority levels**: P1/P2/P3 on user stories (P1=must deliver, P2=should have, P3=nice to have)
-- **Data Model Definition**: Entities, relationships, API contracts in plan.md
-- **Mermaid diagram recommendations**: In Data Flow and Relationships sections of plan.md
-- **Pre-implementation checklist**: Assumptions, files, success criteria, risk check in implement.md
-- **Edge case verification**: Error states, boundaries, concurrency, permissions in validate.md
-- **Inline Q&A**: Ambiguity resolution during initialization (3-5 questions, max 2 rounds)
-- **Open Questions section**: Replaces [NEEDS CLARIFICATION] markers in spec.md template
+- Migrate from plugin format to unified skills format
+- `project-init.md` reference for project initialization workflow
+- `roadmap.md` reference for feature planning and milestones
+- `codebase-mapping.md` reference for comprehensive codebase analysis
+- `baseline-discovery.md` reference for brownfield baseline analysis
+- `doc-extraction.md` reference for PRD/document extraction
+- `research.md` reference for research caching with MCP support
+- Enforce content separation between spec/plan/tasks
+- Consistent feature lookup by ID or branch in all references
+- `coding-principles.md` with behavioral principles loaded before implementation
+- WHEN/THEN/SHALL acceptance criteria format in spec-writing reference
+- P1/P2/P3 priority levels on user stories
+- Data model definition (entities, relationships, API contracts) in plan reference
+- Mermaid diagram recommendations in Data Flow and Relationships sections
+- Pre-implementation checklist (assumptions, files, success criteria, risk) in implement reference
+- Edge case verification (error states, boundaries, concurrency, permissions) in validate reference
+- Inline Q&A for ambiguity resolution during initialization (3-5 questions, max 2 rounds)
+- Open Questions section replacing [NEEDS CLARIFICATION] markers in spec template
 
 ### Changed
 
-- Expanded `plan.md` with Requirements Traceability, Test Strategy, Codebase Patterns
-- Expanded `codebase-exploration.md` with 4-phase process and output template
-- Expanded `validate.md` Full Mode with Pattern Compliance and gap categories
-- Expanded `implement.md` with 3-phase per-task process (Before/During/After)
-- Task size guidelines (Small/Medium/Large) added to `tasks.md`
+- Expand `plan.md` with Requirements Traceability, Test Strategy, Codebase Patterns
+- Expand `codebase-exploration.md` with 4-phase process and output template
+- Expand `validate.md` with Pattern Compliance and gap categories
+- Expand `implement.md` with 3-phase per-task process (Before/During/After)
+- Task size guidelines (Small/Medium/Large) added to tasks reference
 - Archive changelog entries now use dates only (no feature IDs)
 - Research cache location changed to `.artifacts/research/`
-- **validate.md**: Simplified from 4 separate modes to single adaptive validation
-- **validate.md**: Unified output format with categorized checks table
-- **initialize.md**: Ambiguities resolved inline during init, not in separate clarify phase
-- **plan.md**: Added Step 5 (Data Model Definition) before component design
-- **implement.md**: Loads coding-principles.md in Before (Preparation) step
-- **project-init.md**: "Load Existing Context" replaces "Check MCP Memory Bank"
-- **doc-extraction.md**: Conflicting requirements go to "Open Questions" instead of markers
+- Simplify `validate.md` from 4 separate modes to single adaptive validation
+- Unify validate output format with categorized checks table
+- Resolve ambiguities inline during init instead of separate clarify phase
+- Add Data Model Definition step before component design in plan reference
+- Load `coding-principles.md` in Before (Preparation) step of implement reference
+- Replace "Check MCP Memory Bank" with "Load Existing Context" in project-init reference
+- Move conflicting requirements to "Open Questions" instead of markers in doc-extraction reference
 
 ### Removed
 
-- **clarify.md**: Entire file deleted (clarifications happen inline during initialization)
-- **clarify phase**: Removed from workflow, triggers table, cross-references, and examples
-- **[NEEDS CLARIFICATION] markers**: Replaced with inline Q&A and Open Questions section
-- **MCP Strategy sections**: Removed from plan.md, implement.md, codebase-exploration.md, research.md
-- **MCP tool names**: Removed Serena/Context7 references from all references (tool-agnostic)
+- `clarify.md` reference (clarifications happen inline during initialization)
+- Clarify phase from workflow, triggers table, cross-references, and examples
+- [NEEDS CLARIFICATION] markers (replaced with inline Q&A and Open Questions section)
+- MCP Strategy sections from plan, implement, codebase-exploration, and research references
+- MCP tool name references (Serena/Context7) from all references (tool-agnostic)
 
 ---
 
@@ -96,31 +95,24 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **New Skills**:
-  - `codebase-exploration`: Standardized patterns for codebase analysis
-  - `output-templates`: Pre-defined templates for plan.md and tasks.md
-  - `validation-checklists`: Structured checklists by validation mode
-  - `research-cache`: Caching strategies with TTL and automatic invalidation
-- **Optional MCP Support**:
-  - `serena`: Semantic code analysis and symbol navigation
-  - Automatic MCP detection in `/spec-plan` command
-  - Fallback to native tools (grep, read, glob) when MCPs unavailable
-  - Updated `spec-explorer` and `spec-implementer` agents to use MCPs when available
+- `codebase-exploration` skill for standardized codebase analysis patterns
+- `output-templates` skill for pre-defined plan.md and tasks.md templates
+- `validation-checklists` skill for structured checklists by validation mode
+- `research-cache` skill for caching strategies with TTL and automatic invalidation
+- Optional MCP support with `serena` for semantic code analysis and symbol navigation
+- Automatic MCP detection in `/spec-plan` command with fallback to native tools
 
 ### Changed
 
-- **Performance Optimizations**:
-  - `spec-explorer`: Reduced steps from 30 to 25, with directive prompts and explicit file content reading
-  - `spec-architect`: Reduced steps from 30 to 20, removed redundancies
-  - `spec-tasker`: Reduced steps from 15 to 10, streamlined process
-  - `spec-implementer`: Reduced steps from 50 to 35, optimized quality gates
-  - `spec-validator`: Reduced steps from 25 to 15, added automatic mode detection
-  - `spec-researcher`: Added YAML metadata for cache management
-
-- **Command Improvements**:
-  - `/spec-plan`: Reduced from 2-3 parallel explorers to 1 comprehensive explorer
-  - `/spec-validate`: Added automatic stage detection and filtered git diff
-  - `/spec-implement`: Enhanced context passing
+- Reduce `spec-explorer` steps from 30 to 25 with directive prompts and explicit file content reading
+- Reduce `spec-architect` steps from 30 to 20, remove redundancies
+- Reduce `spec-tasker` steps from 15 to 10, streamline process
+- Reduce `spec-implementer` steps from 50 to 35, optimize quality gates
+- Reduce `spec-validator` steps from 25 to 15, add automatic mode detection
+- Add YAML metadata for cache management in `spec-researcher`
+- Reduce `/spec-plan` from 2-3 parallel explorers to 1 comprehensive explorer
+- Add automatic stage detection and filtered git diff in `/spec-validate`
+- Enhance context passing in `/spec-implement`
 
 ### Fixed
 
@@ -130,26 +122,22 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- **Skills**: New reusable instruction files
-  - `spec-writing`: Specification writing guidelines
-  - `task-decomposition`: Task breakdown and dependency mapping
-- **New commands**:
-  - `/spec-branch`: Create feature branch from spec and link them together
-  - `/spec-status`: Show detailed status with task progress and next steps
-- **Agent improvements**:
-  - Added `temperature` (0.1-0.2) for deterministic output
-  - Added `steps` limit (10-50 depending on agent) to control cost
-  - Added granular `permission.bash` restrictions where applicable
-  - Added `permission.webfetch: allow` for researcher agent
-- **Command improvements**:
-  - Added `agent: build` to `/spec-init`, `/spec-implement`, `/spec-archive`
-  - Added `agent: plan` to `/spec-clarify`, `/spec-plan`, `/spec-tasks`, `/spec-specs`, `/spec-status`
-  - Added `subtask: true` to `/spec-validate` for isolated context
+- `spec-writing` skill for specification writing guidelines
+- `task-decomposition` skill for task breakdown and dependency mapping
+- `/spec-branch` command for creating feature branch from spec
+- `/spec-status` command for detailed status with task progress and next steps
+- Agent `temperature` (0.1-0.2) for deterministic output
+- Agent `steps` limit (10-50 depending on agent) to control cost
+- Granular `permission.bash` restrictions where applicable
+- `permission.webfetch: allow` for researcher agent
+- `agent: build` to `/spec-init`, `/spec-implement`, `/spec-archive`
+- `agent: plan` to `/spec-clarify`, `/spec-plan`, `/spec-tasks`, `/spec-specs`, `/spec-status`
+- `subtask: true` to `/spec-validate` for isolated context
 
 ### Changed
 
 - Installation now includes `skills/` directory
-- Updated README with skills documentation and new commands
+- Update README with skills documentation and new commands
 
 ## 2026-02-03
 
@@ -158,30 +146,21 @@ All notable changes to this skill will be documented in this file.
 - Commands renamed with prefix: `spec-init.md`, `spec-plan.md`, `spec-tasks.md`, etc.
 - Agents renamed with prefix: `spec-researcher.md`, `spec-explorer.md`, `spec-architect.md`, etc.
 - Invocation now uses `/spec-init` and `@spec-architect` instead of `/spec/init` and `@spec/architect`
-- Updated all internal references in commands and agents
-- Simplified installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
+- Update all internal references in commands and agents
+- Simplify installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
 
 ## 2026-01-31
 
 ### Added
 
-- Test Infrastructure Discovery step in `explorer` agent
-  - Discovers test framework via config files (jest, vitest, pytest, etc.)
-  - Locates test directories, shared utilities, fixtures, helpers, and mocks
-  - Documents how to run tests and finds reference tests for similar features
-- Test Strategy section in `architect` plan output
-  - Existing Infrastructure table (framework, directory, utilities, run command)
-  - Reference Tests table (patterns to follow from similar features)
-  - New Tests table (components, files, scenarios)
+- Test Infrastructure Discovery step in `explorer` agent (framework detection, test directories, shared utilities, fixtures, helpers, mocks)
+- Test Strategy section in `architect` plan output (Existing Infrastructure, Reference Tests, New Tests tables)
 
 ### Changed
 
-- Task grouping is now a flat list with adjacency-based grouping (blank lines between groups)
-  - No more section headers (Foundation, Implementation, etc.)
-  - Related tasks (types, implementation, tests) are always adjacent
-  - Component-specific deps belong next to the code that uses them
-- `/plan` command no longer runs inline validation (removed Step 8)
-  - Suggests `/spec-driven:validate` as optional step in the report
+- Task grouping is now a flat list with adjacency-based grouping (blank lines between groups, no section headers)
+- Related tasks (types, implementation, tests) are always adjacent with component-specific deps next to the code that uses them
+- `/plan` command no longer runs inline validation, suggests `/spec-driven:validate` as optional step
 - `architect` process now analyzes test patterns from explorer output
 
 ### Removed
@@ -194,14 +173,11 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- `/init` now enforces strict content separation between spec.md and plan.md
-  - spec.md: WHAT to build (requirements, acceptance criteria)
-  - plan.md: HOW to build (architecture, files, implementation)
-  - tasks.md: WHEN to build (ordered tasks with dependencies)
+- `/init` now enforces strict content separation between spec.md and plan.md (spec=WHAT, plan=HOW, tasks=WHEN)
 - Brownfield baseline now describes behavior only, no file paths or code
-- Task grouping by component: related tasks (types, implementation, tests if any) are grouped together for atomic commits
+- Task grouping by component for atomic commits (types, implementation, tests grouped together)
 - Quality gates run after each task, not as separate final tasks
-- Removed assumption that all projects have tests
+- Remove assumption that all projects have tests
 
 ### Fixed
 
@@ -212,76 +188,37 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- Quality Gates in tasks.md output
-  - Detects lint/typecheck scripts from package.json
-  - Adds instruction to run quality checks after each task
-- Implementer now runs quality gates after each task, tries `--fix` flag first, then fixes remaining manually
-
-### Changed
-
-- `/tasks` command now reads package.json to detect quality gate commands
-
-## 2026-01-18
-
-### Added
-
-- Project Conventions Discovery step in `explorer` agent
-  - Identifies wrapper libraries/abstractions the project uses
-  - Documents patterns that MUST be followed (with reference files)
-  - Documents what to avoid (e.g., direct access when abstraction exists)
+- Quality Gates in tasks.md output (detects lint/typecheck scripts from package.json)
+- Implementer runs quality gates after each task, tries `--fix` flag first
+- Project Conventions Discovery step in `explorer` agent (wrapper libraries, patterns, conventions with reference files)
 - "Project conventions" as mandatory output item in explorer analysis
 
 ### Changed
 
+- `/tasks` command now reads package.json to detect quality gate commands
 - Rule 4 in explorer now emphasizes explicit documentation of conventions
 
 ## 2026-01-12
 
 ### Added
 
-- Brownfield support in `/init` command
-  - Auto-detects greenfield vs brownfield based on keywords and codebase analysis
-  - Generates Baseline section for brownfield specs (related files, current behavior, modification points)
-  - New `type: greenfield | brownfield` field in spec.md frontmatter
-- Multi-mode validation in `/validate` command
-  - Mode Spec: validates spec structure (after /init)
-  - Mode Plan: + documentation compliance (after /plan)
-  - Mode Tasks: + requirements coverage (after /tasks)
-  - Mode Full: + code validation (after /implement)
-  - Auto-detects mode based on available artifacts
+- Brownfield support in `/init` command (auto-detects greenfield vs brownfield, generates Baseline section, new `type` field in frontmatter)
+- Multi-mode validation in `/validate` command (Spec, Plan, Tasks, Full modes with auto-detection)
+- `plan-validator` agent to validate plan.md against project documentation
+- Plan validation step in `/plan` command (Step 8) with auto-correction loop (max 3 iterations)
 
 ### Changed
 
-- Consolidated `plan-validator` and `spec-validator` into unified `validator` agent
-- Renamed agents for consistency:
-  - `web-researcher` -> `researcher`
-  - `code-explorer` -> `explorer`
-  - `code-architect` -> `architect`
-  - `task-generator` -> `tasker`
-  - `implement-agent` -> `implementer`
-  - `spec-archiver` -> `archiver`
-- Reduced agent count from 8 to 7
+- Consolidate `plan-validator` and `spec-validator` into unified `validator` agent
+- Rename agents for consistency (web-researcher, code-explorer, code-architect, task-generator, implement-agent, spec-archiver)
+- Reduce agent count from 8 to 7
 - `/validate` can now run at any workflow phase (not just after /implement)
+- `/plan` command now has 10 steps (was 9)
 
 ### Removed
 
 - `plan-validator` agent (merged into `validator`)
 - `spec-validator` agent (merged into `validator`)
-
-## 2026-01-12
-
-### Added
-
-- `plan-validator` agent to validate plan.md against project documentation
-- Plan validation step in `/plan` command (Step 8)
-- Auto-correction loop: re-generates plan until documentation consistency achieved (max 3 iterations)
-- User prompt when max iterations reached with remaining inconsistencies
-
-### Changed
-
-- `/plan` command now has 10 steps (was 9)
-
-## 2026-01-12
 
 ### Fixed
 
@@ -292,47 +229,29 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-01-07
 
-### Fixed
-
-- Status update timing in `/plan` command: now sets `ready` only after plan is generated
-
-## 2026-01-07
-
 ### Changed
 
-- Renamed status values for consistency:
-  - `planning` -> `ready`
-  - `review` -> `to-review`
+- Rename status values for consistency (`planning` to `ready`, `review` to `to-review`)
 - Status lifecycle: `draft` -> `ready` -> `in-progress` -> `to-review` -> `done` -> `archived`
-
-## 2026-01-05
-
-### Changed
-
 - `/archive` now generates centralized changelog at `docs/CHANGELOG.md`
 - Feature docs (`docs/features/*.md`) no longer include changelog section
 - Changelog uses Keep a Changelog format (Added/Changed/Removed/Fixed/Deprecated/Security)
+
+### Fixed
+
+- Status update timing in `/plan` command: now sets `ready` only after plan is generated
 
 ## 2026-01-05
 
 ### Added
 
-- Requirements Traceability in `code-architect` agent
-  - New "Requirements Mapping" step in process
-  - Mandatory "Requirements Traceability" table in plan.md output
-- Requirements Coverage in `task-generator` agent
-  - New "Extract Requirements" step to read spec.md
-  - New "Verify Requirements Coverage" step
-  - Mandatory "Requirements Coverage" table in tasks.md output
+- Requirements Traceability in `code-architect` agent (mapping step, mandatory table in plan.md)
+- Requirements Coverage in `task-generator` agent (extract step, verify step, mandatory table in tasks.md)
 - `/tasks` command now passes spec.md to task-generator agent
 
 ### Changed
 
-- Task categories renamed for clarity:
-  - "Setup & Dependencies" -> "Foundation"
-  - "Core Implementation" -> "Implementation"
-  - "Testing & Validation" -> "Validation"
-  - "Polish & Documentation" -> "Documentation"
+- Rename task categories (Setup & Dependencies to Foundation, Core Implementation to Implementation, Testing & Validation to Validation, Polish & Documentation to Documentation)
 - `code-architect` must map every FR-xxx to components
 - `task-generator` must ensure every FR-xxx has at least one task
 
@@ -340,28 +259,10 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- Documentation Discovery phase in `code-explorer` agent
-  - Scans READMEs in related directories
-  - Finds architecture docs, diagrams (mermaid, dbml, puml, drawio)
-  - Checks related specs and CLAUDE.md for conventions
-- Documentation Review phase in `code-architect` agent
-  - Extracts implicit requirements from diagrams
-  - Verifies plan completeness against documentation
+- Documentation Discovery phase in `code-explorer` agent (READMEs, architecture docs, diagrams, specs, CLAUDE.md)
+- Documentation Review phase in `code-architect` agent (extracts implicit requirements, verifies plan completeness)
 - Documentation Context section in plan.md template
-- Planning Completeness validation in `spec-validator` agent
-  - Detects unplanned files created during implementation
-  - Reports planning gaps for future improvements
-
-### Changed
-
-- `code-explorer` now includes documentation findings in output
-- `code-architect` verifies files against discovered documentation
-- `spec-validator` reports planning gaps (non-blocking feedback)
-
-## 2026-01-03
-
-### Added
-
+- Planning Completeness validation in `spec-validator` agent (detects unplanned files, reports planning gaps)
 - Feature organization by sequential ID (`001-user-auth/`, `002-add-2fa/`)
 - Optional branch association for automatic feature detection
 - `/init` command (renamed from `/spec`) with `--link` flag for branch association
@@ -376,15 +277,17 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Renamed `/spec` to `/init`
-- Renamed `/review` to `/validate`
-- Renamed `code-reviewer` agent to `spec-validator`
+- `code-explorer` now includes documentation findings in output
+- `code-architect` verifies files against discovered documentation
+- `spec-validator` reports planning gaps (non-blocking feedback)
+- Rename `/spec` to `/init` and `/review` to `/validate`
+- Rename `code-reviewer` agent to `spec-validator`
 - Artifacts now in `.artifacts/{ID}-{feature}/` instead of `.artifacts/{branch}/`
 - Research output to `docs/research/{topic}.md` (shared, committed)
 - `/implement` auto-marks as `review` when all tasks complete
 - `/validate` auto-marks as `done` if all checks pass
 - All commands support optional `[ID]` argument
-- Updated all commands with `/spec-driven:` prefix
+- Update all commands with `/spec-driven:` prefix
 
 ### Removed
 
@@ -405,10 +308,10 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- code-architect now receives and outputs consolidated Critical Files
-- implement-agent receives spec.md, research.md, and reference file contents
-- code-reviewer validates against acceptance criteria and architectural decisions
-- task-generator includes file refs only for complex tasks
+- `code-architect` now receives and outputs consolidated Critical Files
+- `implement-agent` receives spec.md, research.md, and reference file contents
+- `code-reviewer` validates against acceptance criteria and architectural decisions
+- `task-generator` includes file refs only for complex tasks
 
 ## 2025-12-15
 
