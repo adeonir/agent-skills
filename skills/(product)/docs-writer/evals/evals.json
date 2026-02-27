@@ -1,0 +1,82 @@
+[
+  {
+    "query": "create a PRD for my new project management SaaS, I need to define the core features and user journeys",
+    "should_trigger": true
+  },
+  {
+    "query": "report a bug I found where the search results page shows duplicates when filtering by date",
+    "should_trigger": true
+  },
+  {
+    "query": "create a task to update all API endpoints to use the new authentication middleware",
+    "should_trigger": true
+  },
+  {
+    "query": "write a user story for the checkout flow where customers can apply discount codes",
+    "should_trigger": true
+  },
+  {
+    "query": "create an RFC for migrating our monolith to microservices architecture",
+    "should_trigger": true
+  },
+  {
+    "query": "record an architecture decision about choosing Redis over Memcached for our caching layer",
+    "should_trigger": true
+  },
+  {
+    "query": "create a technical design document for the new real-time notification system",
+    "should_trigger": true
+  },
+  {
+    "query": "I need to document this feature idea before we start building it, can you write up the requirements?",
+    "should_trigger": true
+  },
+  {
+    "query": "write a spec for the file upload feature including edge cases and acceptance criteria",
+    "should_trigger": true
+  },
+  {
+    "query": "I found a bug in the payment flow, help me create a proper issue with reproduction steps",
+    "should_trigger": true
+  },
+  {
+    "query": "plan the implementation of the auth feature with specs, tasks, and architecture decisions",
+    "should_trigger": false
+  },
+  {
+    "query": "debug why the notification service is dropping messages under high load",
+    "should_trigger": false
+  },
+  {
+    "query": "commit these changes and create a pull request with a proper description",
+    "should_trigger": false
+  },
+  {
+    "query": "extract design tokens from this Figma screenshot and build the landing page",
+    "should_trigger": false
+  },
+  {
+    "query": "review my code for security vulnerabilities before I merge this PR",
+    "should_trigger": false
+  },
+  {
+    "query": "implement the user profile endpoint with input validation and error handling",
+    "should_trigger": false
+  },
+  {
+    "query": "set up Zustand for state management in my React app with TypeScript",
+    "should_trigger": false
+  },
+  {
+    "query": "write vitest tests for the order processing service with mock database",
+    "should_trigger": false
+  },
+  {
+    "query": "create a Tailwind design system with custom colors and typography tokens",
+    "should_trigger": false
+  },
+  {
+    "query": "map my codebase architecture so we understand the patterns before adding features",
+    "should_trigger": false
+  }
+]
