@@ -3,8 +3,11 @@ name: git-helpers
 description: >-
   Git workflow helper for conventional commits, confidence-scored code review,
   and pull request management. Use when: committing changes, reviewing code,
-  creating PRs, generating PR descriptions, analyzing diffs. Triggers on "commit",
-  "review", "push", "create PR", "PR description", "summarize changes".
+  creating PRs, generating PR descriptions. Also use when the user says they're
+  done coding and ready to commit, wants feedback on their changes, needs to push
+  and open a PR, or asks to check their code before merging. Triggers on "commit",
+  "review", "push", "create PR", "PR description", "summarize changes", "done",
+  "ready to push", "check my code".
 metadata:
   author: github.com/adeonir
   version: "1.0.0"
@@ -35,7 +38,6 @@ Load only the reference matching the current trigger. Never load multiple refere
 | Review code, check changes | [code-review.md](references/code-review.md) |
 | Summarize changes, generate PR description | [summary.md](references/summary.md) |
 | Push branch, create PR, open pull request | [push-pr.md](references/push-pr.md) |
-| Analyze diff, diff patterns | [workflow-patterns.md](references/workflow-patterns.md) |
 
 Notes:
 
@@ -54,7 +56,7 @@ push-pr.md ---------> conventional-commits.md (format rules)
 
 **DO:**
 - Use confidence scoring: only report findings with confidence >= 80
-- Auto-detect base branch: development > main
+- Default base branch: main (user can override)
 - Use imperative mood in commit messages and PR titles
 - Use HEREDOC format for multi-line commit messages
 - Analyze actual diff and staged files

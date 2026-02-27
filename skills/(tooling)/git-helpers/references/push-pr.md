@@ -18,12 +18,10 @@ If not available, stop and inform user to install `gh` cli.
 
 ### Step 2: Detect Base Branch
 
-If not specified:
+If not specified, default to `main`. User can override via prompt.
 
 ```bash
-for branch in development main; do
-  git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
-done
+git show-ref --verify --quiet refs/heads/main && echo main
 ```
 
 ### Step 3: Gather Context
@@ -99,8 +97,8 @@ Closes #N
 
 ## Task
 
-Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
-
 Push current branch and create PR using `gh pr create`.
+
+Show the PR title, body, and base branch for user confirmation before executing.
 
 Output the PR URL when done.

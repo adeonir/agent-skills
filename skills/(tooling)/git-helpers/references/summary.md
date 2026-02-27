@@ -12,10 +12,8 @@ When generating a PR description for the current branch.
 Always validate before running analysis:
 
 ```bash
-# Verify base branch exists (priority: development > develop > main > master)
-for branch in development main; do
-  git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
-done
+# Verify base branch exists (default: main, user can override)
+git show-ref --verify --quiet refs/heads/main && echo main
 
 # Confirm current branch is NOT the base branch
 git branch --show-current

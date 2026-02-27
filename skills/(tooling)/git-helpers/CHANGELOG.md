@@ -10,10 +10,18 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Fix push-pr.md confirmation contradiction (always ask before push/PR)
+- Simplify base branch detection to default main with user override
+- Deduplicate confidence scoring table (keep in code-review.md, reference from guidelines-audit.md)
+- Enhance description with adjacent trigger contexts for better skill matching
 - Standardize reference section naming: Process to Workflow
 - Standardize reference closing sections: add Guidelines and Error Handling, reorder Task to end
 - Add When to Use section to all reference files
 - Convert SKILL.md Guidelines to DO/DON'T format
+
+### Removed
+
+- workflow-patterns.md (orphaned reference with generic content)
 
 ## 2026-02-25
 

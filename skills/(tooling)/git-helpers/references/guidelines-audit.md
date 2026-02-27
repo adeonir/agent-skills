@@ -45,11 +45,7 @@ Only report violations with >= 80 confidence.
 
 ## Confidence Scoring
 
-| Score | Action |
-|-------|--------|
-| >= 80 | Report violation |
-| 50-79 | Investigate more |
-| < 50 | Do not report |
+See [code-review.md](code-review.md) for the full confidence scoring table. Only report violations with >= 80 confidence.
 
 ## What to Check
 

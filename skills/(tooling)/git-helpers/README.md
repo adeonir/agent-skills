@@ -148,7 +148,7 @@ Works with any agent that supports the standard skill format (SKILL.md + referen
 A: No. By default, the skill stages all modified/new files. Use "commit only staged files" if you prefer to stage manually.
 
 **Q: What base branch is used for comparisons?**
-A: Auto-detection order: `development` → `main`. You can also specify explicitly: "review against main".
+A: Defaults to `main`. You can override by specifying explicitly: "review against develop".
 
 **Q: Why are some issues not reported?**
 A: The skill uses conservative confidence scoring (>= 80). Style preferences, hypothetical issues, and "could be simplified" suggestions are intentionally skipped.
