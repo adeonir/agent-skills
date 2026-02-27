@@ -4,8 +4,11 @@ description: >-
   Iterative debugging workflow with confidence scoring and strategic log injection.
   Five phases: investigate, inject logs, propose fix, verify, cleanup.
   Use when: debugging unexpected behavior, silent errors, intermittent failures,
-  or issues requiring runtime data. Triggers on "debug", "fix bug", "investigate",
-  "trace issue", "add debug logs", "cleanup debug logs".
+  or issues requiring runtime data. Also use when the user says something isn't working,
+  behavior is inconsistent, tests pass but app fails, works in dev but not in prod,
+  or wants to trace execution flow. Triggers on "debug", "fix bug", "investigate",
+  "trace issue", "add debug logs", "cleanup debug logs", "why is this broken",
+  "not working".
 metadata:
   author: github.com/adeonir
   version: "1.0.0"

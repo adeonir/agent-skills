@@ -72,10 +72,17 @@ Findings are scored 0-100:
 
 ### Log Injection Phase
 
-If runtime data is needed, targeted logs are added:
+If runtime data is needed, targeted logs are added using the project's language:
 
 ```javascript
+// JavaScript/TypeScript
 console.log("[DEBUG] [auth.ts:15] login called", { email });
+
+// Python
+print(f"[DEBUG] [auth.py:15] login called {email}")
+
+// Go
+fmt.Printf("[DEBUG] [auth.go:15] login called %v\n", email)
 ```
 
 Strategic placement at:
@@ -96,11 +103,7 @@ Once root cause is confirmed:
 
 ### Automatic Cleanup
 
-All `[DEBUG]` logs are removed after verification:
-
-```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx'
-```
+All `[DEBUG]` logs are removed after verification. Supports JS/TS, Python, Go, Rust, Ruby, Vue, Svelte, and more.
 
 ## Details
 

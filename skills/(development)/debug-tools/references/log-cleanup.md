@@ -16,7 +16,7 @@ Remove all debug logs after debugging is complete.
 Search for all `[DEBUG]` logs in the codebase:
 
 ```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx'
+grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' --include='*.go' --include='*.rs' --include='*.rb' --include='*.mjs' --include='*.cjs' --include='*.vue' --include='*.svelte'
 ```
 
 ### Step 2: Remove Logs
@@ -44,7 +44,7 @@ function calculateTotal(items) {
 Run the grep command again to confirm no logs remain:
 
 ```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx'
+grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' --include='*.go' --include='*.rs' --include='*.rb' --include='*.mjs' --include='*.cjs' --include='*.vue' --include='*.svelte'
 ```
 
 Expected output: No matches found.
@@ -65,7 +65,7 @@ Removed {count} debug logs from:
 User can check for remaining logs anytime:
 
 ```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx'
+grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' --include='*.go' --include='*.rs' --include='*.rb' --include='*.mjs' --include='*.cjs' --include='*.vue' --include='*.svelte'
 ```
 
 ## Guidelines

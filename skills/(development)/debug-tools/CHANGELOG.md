@@ -10,6 +10,11 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Generalize log format from JS/TS-only to multi-language (Python, Go, Rust, Ruby)
+- Expand log-cleanup grep to cover .py, .go, .rs, .rb, .mjs, .cjs, .vue, .svelte
+- Deduplicate confidence scoring table (keep in investigation.md, reference from debugging-patterns.md)
+- Replace verbose framework-specific examples with compact common patterns section
+- Enhance description with adjacent trigger contexts for better skill matching
 - Standardize reference section naming: Process to Workflow
 - Standardize reference closing sections: add Error Handling before Task
 - Add When to Use section to all reference files

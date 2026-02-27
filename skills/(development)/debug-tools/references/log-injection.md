@@ -8,18 +8,22 @@ During the log injection phase of debugging, when investigation needs runtime da
 
 ## Log Format
 
-Always use this format for consistency:
+Always use the `[DEBUG]` prefix for grep and cleanup. Adapt the format to the project language:
 
-```javascript
-console.log("[DEBUG] [file:line] description", { vars });
-```
+| Language | Format |
+|----------|--------|
+| JavaScript/TypeScript | `console.log("[DEBUG] [file:line] description", { vars });` |
+| Python | `print(f"[DEBUG] [file:line] description {vars}")` |
+| Go | `fmt.Printf("[DEBUG] [file:line] description %v\n", vars)` |
+| Rust | `eprintln!("[DEBUG] [file:line] description {:?}", vars);` |
+| Ruby | `puts "[DEBUG] [file:line] description #{vars.inspect}"` |
 
 Components:
 
-- `[DEBUG]` - Prefix for grep and cleanup
+- `[DEBUG]` - Prefix for grep and cleanup (required, all languages)
 - `[file:line]` - Location for navigation
 - `description` - What this log checks
-- `{ vars }` - Relevant data (no sensitive info)
+- `vars` - Relevant data (no sensitive info)
 
 ## Strategic Placement
 
@@ -104,70 +108,23 @@ Ask user to:
 2. Share console output
 3. Describe what they observed
 
-## Framework-Specific Patterns
+## Common Patterns
 
-### React/Next.js
+### Component Lifecycle (React, Vue, Svelte)
 
-```javascript
-// Component lifecycle
-console.log("[DEBUG] [Component.tsx:10] mount", { props, state });
+Log on mount, effect execution, state changes, and event handlers.
 
-// Effect execution
-useEffect(() => {
-  console.log("[DEBUG] [Component.tsx:15] effect run", { deps });
-  return () => console.log("[DEBUG] [Component.tsx:17] cleanup");
-}, [deps]);
+### HTTP Handlers (Express, FastAPI, Gin)
 
-// State updates (before)
-console.log("[DEBUG] [Component.tsx:25] before setState", { current: state });
-setState(newValue);
+Log request entry (method, path, sanitized body), middleware execution, and response status.
 
-// Event handlers
-console.log("[DEBUG] [Component.tsx:30] click handler", { event: e.target.dataset });
-```
+### Database Operations
 
-### Node.js/Express
-
-```javascript
-// Request handling
-console.log("[DEBUG] [route.ts:10] request", {
-  method: req.method,
-  path: req.path,
-  query: req.query,
-  body: req.body, // Careful: may contain sensitive data
-});
-
-// Middleware execution
-console.log("[DEBUG] [auth.ts:20] auth middleware", { user: req.user?.id });
-
-// Database operations
-console.log("[DEBUG] [db.ts:45] query", { sql: query.substring(0, 100) });
-console.log("[DEBUG] [db.ts:47] query result", { rows: result.length });
-
-// Error handling
-console.log("[DEBUG] [error.ts:30] caught error", {
-  name: err.name,
-  message: err.message,
-  stack: err.stack?.split('\n')[0],
-});
-```
+Log query (truncated), result count, and errors. Never log full query params that may contain user data.
 
 ### API Calls
 
-```javascript
-// Request start
-console.log("[DEBUG] [api.ts:10] fetch start", { url, method });
-
-// Request complete
-console.log("[DEBUG] [api.ts:15] fetch done", {
-  status: res.status,
-  ok: res.ok,
-  contentType: res.headers.get('content-type'),
-});
-
-// Response parsing
-console.log("[DEBUG] [api.ts:20] response data", { data });
-```
+Log request start (url, method), response status, and parsed data shape.
 
 ## What to Capture
 
@@ -215,7 +172,7 @@ When user shares console output, look for:
 ## Error Handling
 
 - File is read-only or generated: inform user and suggest alternative location
-- Framework doesn't support console.log: suggest framework-specific alternatives
+- Language not listed in log format table: adapt the [DEBUG] prefix pattern to the language's print/log function
 - Too many injection points needed: focus on the most critical 3-5
 
 ## Next Steps

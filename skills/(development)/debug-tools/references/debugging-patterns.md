@@ -23,11 +23,7 @@ Auto-loaded as a reference for common bug patterns and confidence scoring. Not a
 
 ## Confidence Scoring Reference
 
-| Score | Meaning | Action |
-|-------|---------|--------|
-| >= 70 | High (>= 70) | Report as probable cause |
-| 50-69 | Medium (50-69) | Suggest logs to confirm |
-| < 50 | Low (< 50) | Do not report |
+See [investigation.md](investigation.md) for the full confidence scoring table.
 
 ## Tool Integration
 
