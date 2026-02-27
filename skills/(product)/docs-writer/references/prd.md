@@ -179,16 +179,6 @@ Generate both documents using the confirmed synthesis. Present drafts to user fo
 
 Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 
-## Quality Standards
-
-Requirements must be concrete and measurable.
-
-| Bad | Good |
-|-----|------|
-| "Search should be fast" | "Search returns results within 200ms" |
-| "Easy to use" | "New users complete onboarding in under 2 minutes" |
-| "Intuitive interface" | "Task completion rate above 90% without help text" |
-
 ## Guidelines
 
 **DO:**

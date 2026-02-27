@@ -10,6 +10,9 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Deduplicate quality standards table (keep in SKILL.md, remove from prd.md)
+- Simplify task template to match reference fields (remove Technical Details, Files to Modify, Approach, Notes)
+- Enhance description with adjacent trigger contexts for better skill matching
 - TDD template restructured from 14 to 16 sections: add frontmatter (status/date), Scope of Impact, Observability & Monitoring; rename Error Handling to Failure Modes & Recovery; add Do Nothing to Alternatives; add rollback triggers to Migration/Rollout
 - ADR template restructured from 7 to 8 sections: add MADR 4.0 frontmatter (status/date/deciders), add Confirmation section for decision validation
 - RFC template restructured from 11 to 12 sections: add frontmatter (status/date/authors), add Prior Art section, split Drawbacks into Accepted Trade-offs and Open Risks

@@ -34,7 +34,6 @@ flowchart LR
 
 ```
 create PRD for my project
-create brief for my product
 report bug in the login flow
 create task to update dependencies
 write user story for checkout
