@@ -19,7 +19,7 @@ Based on user's request, determine:
 ### Step 2: Determine Base Branch
 
 - If provided: use specified branch
-- If not: auto-detect (`development` > `main`)
+- If not: default to `main` (user can override)
 
 ### Step 3: Detect Review Mode
 

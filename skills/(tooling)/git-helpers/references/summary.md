@@ -28,13 +28,7 @@ git branch --show-current
 
 ### Step 1: Detect Base Branch
 
-If not specified:
-
-```bash
-for branch in development main; do
-  git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
-done
-```
+If not specified: default to `main`. User can override via prompt.
 
 ### Step 2: Gather Context
 

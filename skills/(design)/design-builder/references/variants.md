@@ -22,7 +22,7 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 
 1. Locate **design.json** (required) at `.artifacts/design/design.json`
 2. Locate **copy.yaml** (optional) at `.artifacts/design/copy.yaml`
-3. Locate **reference image** (required) at `.artifacts/docs/reference.*`
+3. Locate **reference image** (required) -- ask user for path if not provided
 4. If no design.json exists, suggest running extract design first
 5. If no copy.yaml exists, ask user for brief project description
 

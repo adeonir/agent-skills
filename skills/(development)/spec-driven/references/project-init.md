@@ -45,7 +45,7 @@ Generate ROADMAP.md following the template structure with Current Sprint and Bac
 
 **USE TEMPLATE:** `templates/CHANGELOG.md`
 
-Generate CHANGELOG.md following the template structure with Unreleased and versioned sections (Added, Changed, Fixed).
+Generate CHANGELOG.md following the template structure with date-only sections (Added, Changed, Fixed).
 
 ### Step 6: Report
 

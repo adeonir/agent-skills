@@ -21,13 +21,13 @@ flowchart LR
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery -> analysis -> drafting | `prd.md` |
-| **Brief** | discovery -> drafting | `brief.md` |
-| **Issue** | classification -> drafting | `issue.md` |
+| **PRD** | discovery -> validation -> synthesis -> drafting | `prd.md` |
+| **Brief** | generated with PRD | `brief.md` |
+| **Issue** | classification -> [clarification] -> drafting | `issue.md` |
 | **Task** | direct drafting | `task.md` |
-| **User Story** | discovery -> drafting | `story.md` |
-| **RFC** | discovery -> analysis -> drafting | `rfc.md` |
-| **ADR** | discovery -> drafting | `adr-{number}-{name}.md` |
+| **User Story** | [clarification] -> drafting | `story.md` |
+| **RFC** | [clarification] -> analysis -> drafting | `rfc.md` |
+| **ADR** | [clarification] -> drafting | `adr-{number}-{name}.md` |
 | **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
 ## Usage
