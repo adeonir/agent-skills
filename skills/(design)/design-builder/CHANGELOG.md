@@ -10,6 +10,8 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Centralize discovery in SKILL.md, references now only ask context-specific questions
+- Enhance description with adjacent trigger contexts for better skill matching
 - Standardize reference section naming: Process to Workflow, Rules to Guidelines
 - Standardize reference closing sections: remove Checklist from frontend.md and variants.md, add Error Handling, merge What to AVOID into Guidelines, convert Fallback to Error Handling
 - Add When to Use section to all reference files
