@@ -1,59 +1,12 @@
 # Debugging Patterns
 
-Common debugging patterns, log formats, and bug categories by framework.
+Quick-reference for common bug patterns, confidence scoring, and debugging decision-making.
 
-## Log Patterns by Framework
+For framework-specific log examples, see [log-injection.md](log-injection.md).
 
-### React/Next.js
+## When to Use
 
-```javascript
-// Lifecycle
-console.log("[DEBUG] [Component.tsx:10] mount", { props });
-
-// Effect
-useEffect(() => {
-  console.log("[DEBUG] [Component.tsx:15] effect run", { deps });
-  return () => console.log("[DEBUG] [Component.tsx:17] cleanup");
-}, [deps]);
-
-// State updates
-console.log("[DEBUG] [Component.tsx:25] before setState", { current: state });
-```
-
-### Node.js/Express
-
-```javascript
-// Request handling
-console.log("[DEBUG] [route.ts:10] request", {
-  method: req.method,
-  path: req.path,
-});
-
-// Error handling
-console.log("[DEBUG] [service.ts:30] caught error", {
-  name: err.name,
-  message: err.message,
-});
-
-// Database operations
-console.log("[DEBUG] [db.ts:45] query result", { rows: result.length });
-```
-
-### API Calls
-
-```javascript
-// Request start
-console.log("[DEBUG] [api.ts:10] fetch start", { url, method });
-
-// Request complete
-console.log("[DEBUG] [api.ts:15] fetch done", {
-  status: res.status,
-  ok: res.ok,
-});
-
-// Response data
-console.log("[DEBUG] [api.ts:20] response data", { data: await res.json() });
-```
+Auto-loaded as a reference for common bug patterns and confidence scoring. Not a direct trigger.
 
 ## Common Bug Patterns
 
@@ -96,6 +49,12 @@ to whatever tools are available in the environment.
 - Syntax errors (linter resolves)
 - Type errors (TypeScript resolves)
 - Obvious bugs in diff (use code review)
+
+## Error Handling
+
+- Pattern doesn't match framework: adapt the pattern to the specific framework conventions
+- No matching pattern found for the symptom: fall back to general investigation with debug logs
+- Multiple patterns match the same symptom: use confidence scoring to prioritize the most likely cause
 
 ## Task
 

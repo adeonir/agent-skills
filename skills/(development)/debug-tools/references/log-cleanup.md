@@ -9,7 +9,7 @@ Remove all debug logs after debugging is complete.
 - Before committing changes to version control
 - Debug session is complete
 
-## Process
+## Workflow
 
 ### Step 1: Find Debug Logs
 
@@ -75,6 +75,12 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 3. **Verify after cleanup** - confirm no logs remain
 4. **Cleanup is automatic** - part of normal debug workflow
 5. **Safe to cleanup anytime** - debug logs are temporary only
+
+## Error Handling
+
+- No [DEBUG] logs found: inform user cleanup is already done
+- Logs in generated or compiled files: suggest rebuilding instead of manual cleanup
+- Partial match (prefix variation): report and ask user to confirm removal
 
 ## Task
 

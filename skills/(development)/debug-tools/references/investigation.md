@@ -2,6 +2,10 @@
 
 Investigate bugs, find root causes with confidence scoring, and propose minimal fixes.
 
+## When to Use
+
+When debugging unexpected behavior, silent errors, or intermittent failures.
+
 ## Phases Overview
 
 You operate in phases 1, 3, and 4 of the debugging workflow:
@@ -52,21 +56,21 @@ Rate each finding 0-100:
 **Probable cause (>= 70):**
 
 ```markdown
-**[{score}] {issue title}**
+**[85] Login fails silently on expired token**
 
-- File: {path}:{line}
-- Evidence: {what you found}
-- Fix: {brief description}
+- File: auth.ts:42
+- Evidence: catch block swallows TokenExpiredError without updating UI state
+- Fix: Add error state update in catch block to show login form
 ```
 
 **Need runtime data (50-69):**
 
 ```markdown
-**[{score}] {suspected issue}**
+**[60] Possible race condition in session refresh**
 
-- File: {path}:{line}
-- Need: {what runtime data would confirm}
-- Suggest: Inject logs at {locations}
+- File: session.ts:18
+- Need: Execution order of refresh vs. redirect calls
+- Suggest: Inject logs at session.ts:18, session.ts:25, redirect.ts:10
 ```
 
 If no root cause found with >= 70 confidence, load [log-injection.md](log-injection.md).
@@ -112,6 +116,12 @@ After user applies fix:
 4. **Ask if stuck** - request logs or clarification
 5. **Minimal fix** - smallest change that works
 6. **No speculation** - only report findings >= 50
+
+## Error Handling
+
+- No stacktrace or error message: ask user for more details
+- Cannot access source code: inform user and suggest alternatives
+- Investigation inconclusive after analysis: suggest adding debug logs
 
 ## Task
 

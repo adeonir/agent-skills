@@ -48,12 +48,18 @@ log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 
 ## Guidelines
 
-- Confidence scoring: >= 70 report as probable cause, 50-69 suggest logs, < 50 don't report
+**DO:**
+- Use confidence scoring: >= 70 report as probable cause, 50-69 suggest logs
 - Always use `[DEBUG]` prefix for injected logs (enables cleanup)
-- Never log sensitive data (passwords, tokens, PII)
-- Minimal fix: smallest change that resolves the issue
-- Cleanup is automatic after fix is verified
-- Uses whatever debugging tools are available in the environment
+- Apply minimal fix: smallest change that resolves the issue
+- Clean up debug logs automatically after fix is verified
+- Use whatever debugging tools are available in the environment
+
+**DON'T:**
+- Report findings with confidence < 50
+- Log sensitive data (passwords, tokens, PII)
+- Apply large refactors as part of a bug fix
+- Leave debug logs in production code
 
 ## Error Handling
 

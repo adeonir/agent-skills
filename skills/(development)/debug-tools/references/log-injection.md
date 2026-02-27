@@ -4,10 +4,7 @@ Add targeted debug logs at strategic points to capture runtime data.
 
 ## When to Use
 
-- Investigation found suspected issues (50-69 confidence)
-- Need runtime data to confirm root cause
-- Silent errors or intermittent failures
-- Complex data flow that needs tracing
+During the log injection phase of debugging, when investigation needs runtime data to confirm root cause.
 
 ## Log Format
 
@@ -53,7 +50,7 @@ Is function called?
 | State changes | Track mutations | Before/after values |
 | Event handlers | User interactions | Event type, target data |
 
-## Process
+## Workflow
 
 ### Step 1: Identify Injection Points
 
@@ -214,6 +211,12 @@ When user shares console output, look for:
 5. **Minimal logs** - 3-5 strategic points, not flooding
 6. **Clean up after** - logs are temporary debugging aids
 7. **Be specific** - "login failed" not "error occurred"
+
+## Error Handling
+
+- File is read-only or generated: inform user and suggest alternative location
+- Framework doesn't support console.log: suggest framework-specific alternatives
+- Too many injection points needed: focus on the most critical 3-5
 
 ## Next Steps
 
