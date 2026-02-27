@@ -20,7 +20,7 @@ Analyze existing codebase for brownfield development.
 
 For **feature-specific exploration**, see [codebase-exploration.md](codebase-exploration.md) (used during planning).
 
-## Process
+## Workflow
 
 ### Step 1: Check Existing Mapping
 
@@ -112,6 +112,13 @@ Create `.artifacts/codebase/` with generated docs.
 Inform user:
 - Mapped 6 areas
 - Next: Create feature with baseline context
+
+## Guidelines
+
+- Don't overwrite existing codebase/ mapping without user confirmation
+- Focus on architecture-relevant patterns, not implementation details
+- Keep mapping files concise and scannable
+- Document conventions as observed, not as prescribed
 
 ## Error Handling
 

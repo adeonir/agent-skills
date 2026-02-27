@@ -2,6 +2,10 @@
 
 Behavioral principles for implementation. Load before writing any code.
 
+## When to Use
+
+Auto-loaded by implement.md before writing code. Not a direct trigger.
+
 ## Core Principles
 
 | Principle | Description |

@@ -2,6 +2,10 @@
 
 Guidelines for breaking features into tasks.
 
+## When to Use
+
+Auto-loaded by tasks.md as a guideline for task decomposition. Not a direct trigger.
+
 ## Task Structure
 
 Each task should be:

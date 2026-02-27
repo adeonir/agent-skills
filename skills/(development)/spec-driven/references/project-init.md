@@ -8,7 +8,7 @@ Initialize the .artifacts/ directory structure for a new project.
 - Setting up spec-driven workflow for existing project
 - First time running spec-driven commands
 
-## Process
+## Workflow
 
 ### Step 1: Check Existing Structure
 
@@ -55,6 +55,13 @@ Inform user:
 - Next steps:
   - Create features: "create new feature for..."
   - Map existing codebase: "map codebase" (if brownfield)
+
+## Guidelines
+
+- Don't overwrite existing .artifacts/ structure
+- Keep PROJECT.md focused on vision and constraints, not implementation
+- Use the provided templates for consistent formatting
+- Initialize once per project, not per feature
 
 ## Error Handling
 

@@ -7,7 +7,7 @@ Break plan into implementable tasks.
 - Plan.md is complete
 - Ready to define implementation steps
 
-## Process
+## Workflow
 
 ### Step 1: Resolve Feature
 
@@ -66,15 +66,15 @@ Inform user:
 
 Prefer Small and Medium tasks. If a task feels Large, split it.
 
-## Rules
+## Guidelines
 
-1. **Be atomic** - Single, clear action per task
-2. **No metadata** - No Files:/Reference:/Commit: lines in task descriptions
-3. **Respect dependencies** - Same component = sequential
-4. **Enable parallelization** - Mark independent tasks as [P]
-5. **Group by commit boundary** - Each group of tasks must form a complete, self-contained unit of work that results in one atomic commit
-6. **Cover all FRs** - Every FR-xxx has task(s)
-7. **Quality gates separate** - Not tasks, run after each task
+- **Be atomic** - Single, clear action per task
+- **No metadata** - No Files:/Reference:/Commit: lines in task descriptions
+- **Respect dependencies** - Same component = sequential
+- **Enable parallelization** - Mark independent tasks as [P]
+- **Group by commit boundary** - Each group of tasks must form a complete, self-contained unit of work that results in one atomic commit
+- **Cover all FRs** - Every FR-xxx has task(s)
+- **Quality gates separate** - Not tasks, run after each task
 
 ## Commit Boundary Grouping
 

@@ -11,7 +11,7 @@ For features that modify existing code, understand what the system currently doe
 - Feature type is `brownfield` (modifies existing code)
 - Creating spec for improvement/refactoring of existing functionality
 
-## Process
+## Workflow
 
 ### Step 1: Extract Keywords from Description
 

@@ -19,7 +19,7 @@ Extraction is **transformation**, not copying. Source documents (PRD, TDD) defin
 - User provides `@path` to PRD, TDD, or documentation
 - Need to map external requirements to spec format
 
-## Process
+## Workflow
 
 ### Step 1: List Files
 

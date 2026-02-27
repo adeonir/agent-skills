@@ -50,6 +50,18 @@ docs/
     └── {name}.md           # Consolidated implementation
 ```
 
+## Templates
+
+| Context | Template |
+|---------|----------|
+| Project initialization | [PROJECT.md](templates/PROJECT.md) |
+| Roadmap | [ROADMAP.md](templates/ROADMAP.md) |
+| Feature changelog | [CHANGELOG.md](templates/CHANGELOG.md) |
+| Feature spec | [spec.md](templates/spec.md) |
+| Technical plan | [plan.md](templates/plan.md) |
+| Task breakdown | [tasks.md](templates/tasks.md) |
+| Archive document | [archive.md](templates/archive.md) |
+
 ## Context Loading Strategy
 
 **Base load (~15k tokens):**
@@ -117,11 +129,18 @@ validate.md --------> archive.md (if passed)
 
 ## Guidelines
 
-- Content separation: spec=WHAT, plan=HOW, tasks=WHEN
-- Status flow: draft -> ready -> in-progress -> to-review -> done -> archived
-- Feature IDs: sequential (001, 002), never reused
-- Research cache: Reusable across features in .artifacts/research/
-- Archive generates: docs/features/{name}.md (no ID)
+**DO:**
+- Separate content by purpose: spec=WHAT, plan=HOW, tasks=WHEN
+- Follow status flow: draft -> ready -> in-progress -> to-review -> done -> archived
+- Use sequential Feature IDs (001, 002)
+- Reuse research cache across features (.artifacts/research/)
+- Archive to docs/features/{name}.md (without ID prefix)
+
+**DON'T:**
+- Reuse Feature IDs from previous features
+- Mix spec, plan, and task content in a single file
+- Skip status transitions (e.g., jumping from draft to done)
+- Create feature-specific research files outside .artifacts/research/
 
 ## Error Handling
 

@@ -7,7 +7,7 @@ Consolidate feature documentation and cleanup.
 - Feature is complete (status: done)
 - Ready to document for future reference
 
-## Process
+## Workflow
 
 ### Step 1: Resolve Feature
 
@@ -81,6 +81,13 @@ Inform user:
 - Archived to: `docs/features/{name}.md`
 - CHANGELOG.md updated
 - Cleanup: {done/kept}
+
+## Guidelines
+
+- Don't archive features with open or in-progress tasks
+- Always generate the consolidated doc before cleanup
+- Include implementation decisions and lessons learned in the archive
+- Don't delete feature directory without user confirmation
 
 ## Error Handling
 

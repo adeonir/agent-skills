@@ -2,6 +2,10 @@
 
 List features and show detailed status.
 
+## When to Use
+
+When listing features or checking the status of a specific feature.
+
 ## Commands
 
 ### List All Features
@@ -18,7 +22,7 @@ show status
 status of auth feature
 ```
 
-## Process
+## Workflow
 
 ### List Features
 
@@ -88,6 +92,13 @@ Remaining:
 ### Next Step
 Run `implement` to continue.
 ```
+
+## Guidelines
+
+- Show all features regardless of status
+- Keep status reports factual, not interpretive
+- Always include the next recommended action
+- Don't modify feature status from this command -- use implement or validate
 
 ## Error Handling
 

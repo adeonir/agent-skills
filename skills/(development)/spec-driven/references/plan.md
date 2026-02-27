@@ -9,7 +9,7 @@ Create technical plan from specification.
 - Spec is complete (no open questions blocking progress)
 - Ready to define HOW to build
 
-## Process
+## Workflow
 
 ### Step 1: Resolve Feature
 
@@ -88,6 +88,13 @@ Inform user:
 - Research cached: {topics}
 - Key decisions: {count}
 - Next: Run `tasks`
+
+## Guidelines
+
+- Don't start planning with unresolved open questions in the spec
+- Keep architecture decisions scoped to the feature
+- Research unfamiliar technologies before committing to them
+- Reference existing codebase patterns when available
 
 ## Error Handling
 

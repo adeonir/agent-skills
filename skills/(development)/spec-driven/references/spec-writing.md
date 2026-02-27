@@ -2,6 +2,10 @@
 
 Guidelines for writing clear specifications.
 
+## When to Use
+
+Auto-loaded as a guideline for writing feature specs. Not a direct trigger.
+
 ## Content Separation
 
 | File | Purpose |

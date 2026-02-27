@@ -6,6 +6,16 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-27
+
+### Changed
+
+- Standardize reference section naming: Process to Workflow, Rules to Guidelines
+- Standardize reference closing sections: add Guidelines to operational files before Error Handling
+- Add When to Use section to all reference files
+- Add Templates section to SKILL.md with links to 7 templates
+- Convert SKILL.md Guidelines to DO/DON'T format
+
 ## 2026-02-26
 
 ### Changed

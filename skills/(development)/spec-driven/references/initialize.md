@@ -4,6 +4,10 @@ Create a new feature specification.
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
+## When to Use
+
+When creating a new feature spec or modifying an existing one.
+
 ## Content Separation (CRITICAL)
 
 Each artifact has a distinct purpose. Never mix these concerns.
@@ -42,7 +46,7 @@ These belong in plan.md, created during the `plan` phase.
 - Greenfield: "create new feature for..."
 - Brownfield: "modify feature...", "improve..."
 
-## Process
+## Workflow
 
 ### Step 1: Ensure Project Structure
 
@@ -261,6 +265,13 @@ Inform user:
 They complement each other:
 - codebase-mapping: Macro view (all features)
 - baseline: Micro view (this feature only)
+
+## Guidelines
+
+- Always validate feature scope before creating the spec
+- Don't include technical solutions in spec (that belongs in plan)
+- Mark unclear requirements as TBD rather than inventing constraints
+- One feature per spec -- split if scope is too broad
 
 ## Error Handling
 

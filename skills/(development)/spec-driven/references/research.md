@@ -2,6 +2,10 @@
 
 Research technologies and cache findings for reuse across features.
 
+## When to Use
+
+When researching technologies referenced in a feature plan.
+
 ## Tools
 
 Use available documentation lookup and web search tools to research technologies.
@@ -124,12 +128,12 @@ keywords:
 - [{title}]({url})
 ```
 
-## Rules
+## Guidelines
 
-1. **Always check cache first**: Before webfetch, check .artifacts/research/
-2. **Include metadata**: Every research file must have YAML frontmatter
-3. **Respect TTL**: Don't use expired cache without verification
-4. **Version matters**: If spec mentions version, verify cache matches
-5. **Update, don't duplicate**: Refresh existing files instead of creating new ones
-6. **Be targeted**: Only research what's relevant to the feature
-7. **Cite sources**: Include URLs for verification
+- **Always check cache first**: Before webfetch, check .artifacts/research/
+- **Include metadata**: Every research file must have YAML frontmatter
+- **Respect TTL**: Don't use expired cache without verification
+- **Version matters**: If spec mentions version, verify cache matches
+- **Update, don't duplicate**: Refresh existing files instead of creating new ones
+- **Be targeted**: Only research what's relevant to the feature
+- **Cite sources**: Include URLs for verification

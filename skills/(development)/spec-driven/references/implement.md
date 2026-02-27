@@ -4,6 +4,10 @@ Execute tasks from task list.
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
+## When to Use
+
+When implementing tasks from a feature's tasks.md.
+
 ## Arguments
 
 - `[T001]` - Single task
@@ -11,7 +15,7 @@ Execute tasks from task list.
 - `[--all]` - All pending
 - Empty - Next pending task
 
-## Process
+## Workflow
 
 ### Step 1: Resolve Feature
 
@@ -133,6 +137,13 @@ type: what changed from the user's perspective
 ```
 
 Suggest atomic, logical commits at natural checkpoints (task group boundaries).
+
+## Guidelines
+
+- Complete one task at a time before starting the next
+- Load coding-principles.md before writing any code
+- Don't refactor beyond what the task requires
+- Run quality gates after each task or range of tasks, not only at the end
 
 ## Error Handling
 

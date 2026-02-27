@@ -2,6 +2,10 @@
 
 Status management for spec-driven features.
 
+## When to Use
+
+Auto-loaded as a reference for feature status transitions. Not a direct trigger.
+
 ## Status Values (EXACT)
 
 Use ONLY these values in spec.md frontmatter:

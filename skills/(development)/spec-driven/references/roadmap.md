@@ -8,7 +8,7 @@ Manage project roadmap and feature planning.
 - Prioritizing work
 - Updating feature status
 
-## Process
+## Workflow
 
 ### Step 1: Load Current Roadmap
 
@@ -59,6 +59,13 @@ Show current roadmap summary.
 | payments | P1 |
 | notifications | P2 |
 ```
+
+## Guidelines
+
+- Keep milestone descriptions actionable and measurable
+- Don't remove completed milestones -- mark them as done
+- Use consistent priority markers across all items
+- Update roadmap when features are initialized or archived
 
 ## Error Handling
 

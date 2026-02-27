@@ -2,7 +2,7 @@
 
 Patterns for analyzing existing code for a specific feature.
 
-## When to Explore
+## When to Use
 
 - During planning (plan.md)
 - Need to understand patterns for a specific feature
@@ -24,7 +24,7 @@ For **general codebase mapping**, see [codebase-mapping.md](codebase-mapping.md)
 Use available semantic analysis, code search, and file reading tools to explore the codebase.
 The agent discovers and uses whatever tools are available in the environment.
 
-## Process
+## Workflow
 
 ### Phase 1: Discovery
 
@@ -167,10 +167,10 @@ Use findings in plan.md:
 - Patterns to use
 - Code to reuse
 
-## Rules
+## Guidelines
 
-1. **Read content**: Don't just list files - READ them to extract actual patterns
-2. **Be specific**: Always include file:line references for every pattern
-3. **Be comprehensive**: Cover naming, imports, error handling, types, testing
-4. **Follow template**: Use exact sections above
-5. **Prioritize**: Focus on patterns most relevant to the feature being built
+- **Read content**: Don't just list files - READ them to extract actual patterns
+- **Be specific**: Always include file:line references for every pattern
+- **Be comprehensive**: Cover naming, imports, error handling, types, testing
+- **Follow template**: Use exact sections above
+- **Prioritize**: Focus on patterns most relevant to the feature being built

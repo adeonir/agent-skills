@@ -4,12 +4,16 @@ Validate artifacts and implementation.
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
+## When to Use
+
+When validating a completed feature against its spec requirements.
+
 ## Adaptive Mode
 
 Validation adapts automatically based on which artifacts exist. A single pass checks
 everything available, from spec structure to code implementation.
 
-## Process
+## Workflow
 
 ### Step 1: Resolve Feature
 
@@ -138,6 +142,13 @@ When validating code, check for:
 - Confidence: Only findings >= 80 reported
 - Next: {suggested action}
 ```
+
+## Guidelines
+
+- Validate against spec requirements, not subjective quality
+- Mark gaps as blocking only if they affect core functionality
+- Don't report code style issues -- focus on behavior
+- Always check edge cases when code is available
 
 ## Error Handling
 
