@@ -2,7 +2,11 @@
 
 Push current branch and create Pull Request via `gh` cli.
 
-## Process
+## When to Use
+
+When pushing a branch and creating a pull request.
+
+## Workflow
 
 ### Step 1: Check gh cli Availability
 
@@ -76,14 +80,22 @@ Brief summary of what this PR does (1-2 sentences max).
 Closes #N
 ```
 
-**Additional Guidelines:**
+## Guidelines
 
 - Everything in English
 - Title follows conventional commits format, lowercase
 - Body summary is a concise description of what was done
 - Changes list in imperative mood, 3-7 key items
 - Include `Closes #N` when there is a related issue to close
-- Scope in title is allowed - both `feat:` and `feat(scope):` are valid
+- Scope in PR title is allowed (both `feat:` and `feat(scope):` are valid)
+- Don't push without explicit user confirmation
+
+## Error Handling
+
+- gh cli not available: stop and inform user to install it
+- No remote configured: inform user to set up a remote first
+- Branch already has open PR: inform user and ask if they want to update it
+- Push rejected: inform user to pull first
 
 ## Task
 

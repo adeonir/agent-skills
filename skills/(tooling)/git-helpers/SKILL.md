@@ -52,13 +52,19 @@ push-pr.md ---------> conventional-commits.md (format rules)
 
 ## Guidelines
 
-- Confidence scoring: only report findings with confidence >= 80
-- No attribution lines in commit messages or PRs
-- Auto-detect base branch: development > develop > main > master
-- Always use imperative mood in commit messages and PR titles
-- HEREDOC format for multi-line commit messages
-- Analyze actual diff and staged files, never conversation context
+**DO:**
+- Use confidence scoring: only report findings with confidence >= 80
+- Auto-detect base branch: development > main
+- Use imperative mood in commit messages and PR titles
+- Use HEREDOC format for multi-line commit messages
+- Analyze actual diff and staged files
 - Follow existing project conventions for commit message format
+
+**DON'T:**
+- Add attribution lines in commit messages or PRs
+- Base analysis on conversation context instead of actual diff
+- Report findings with confidence < 80
+- Override project conventions with generic rules
 
 ## Error Handling
 

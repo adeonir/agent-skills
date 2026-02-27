@@ -2,7 +2,11 @@
 
 Create a commit with a well-formatted conventional commit message based on actual file changes.
 
-## Process
+## When to Use
+
+When creating a commit for staged or unstaged changes.
+
+## Workflow
 
 ### Step 1: Gather Context
 
@@ -85,15 +89,22 @@ Load [conventional-commits.md](conventional-commits.md) for:
 - Body guidelines
 - Good/bad examples
 
+## Guidelines
+
+- Always analyze the actual diff before writing the commit message
+- Follow project conventions for commit format
+- Don't commit files that contain secrets (.env, credentials)
+- Use imperative mood in commit messages
+
+## Error Handling
+
+- No changes to commit: inform user working tree is clean
+- Nothing staged (when user requested staged-only): inform user to stage files first
+- Commit rejected by hook: check if files were modified, handle per Step 6
+- Merge conflicts: stop and inform user to resolve first
+
 ## Task
 
 Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
 
 Create a commit for the changes.
-
-## Error Handling
-
-- **No changes to commit**: Inform user working tree is clean
-- **Nothing staged** (when user requested staged-only): Inform user to stage files first
-- **Commit rejected by hook**: Check if files were modified, handle per Step 6
-- **Merge conflicts**: Stop and inform user to resolve first

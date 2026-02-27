@@ -3,13 +3,17 @@
 Generate a comprehensive PR description comparing current branch with base branch,
 save to `PR_DETAILS.md`.
 
+## When to Use
+
+When generating a PR description for the current branch.
+
 ## Pre-execution Validation
 
 Always validate before running analysis:
 
 ```bash
 # Verify base branch exists (priority: development > develop > main > master)
-for branch in development develop main master; do
+for branch in development main; do
   git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
 done
 
@@ -22,14 +26,14 @@ git branch --show-current
 - Base branch must exist in repository
 - Current branch must NOT be the base branch (avoid empty diffs)
 
-## Process
+## Workflow
 
 ### Step 1: Detect Base Branch
 
 If not specified:
 
 ```bash
-for branch in development develop main master; do
+for branch in development main; do
   git show-ref --verify --quiet refs/heads/$branch && echo $branch && break
 done
 ```
@@ -154,13 +158,19 @@ Use Write tool to create the file with the template below.
 [Any additional context or considerations]
 ```
 
-## Template Guidelines
+## Guidelines
 
-- **Only include sections with actual file changes** - omit empty categories
-- **File descriptions**: Focus on functional impact, not line-by-line changes
-- **Technical Flow**: Describe the user-facing flow, not internal implementation
-- **Priority Review**: Focus on component names and areas, NOT line numbers
-- **Risk assessment**: Be honest about potential issues
+- Only include sections with actual file changes -- omit empty categories
+- Focus on functional impact in file descriptions, not line-by-line changes
+- Describe the user-facing flow in Technical Flow, not internal implementation
+- Focus on component names and areas in Priority Review, not line numbers
+- Be honest about potential issues in risk assessment
+
+## Error Handling
+
+- No commits to summarize: inform user there are no changes
+- No base branch found: ask user which branch to compare against
+- Too many files changed (100+): group by category and summarize, don't list individually
 
 ## Task
 

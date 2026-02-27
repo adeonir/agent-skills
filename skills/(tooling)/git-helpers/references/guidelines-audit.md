@@ -2,12 +2,16 @@
 
 Audit code changes for compliance with project guideline files.
 
+## When to Use
+
+Auto-loaded by code-review.md during the review process. Not a direct trigger.
+
 ## Purpose
 
 Verify changes follow explicit rules documented in project guideline files
-(CLAUDE.md, AGENTS.md, and similar).
+(CLAUDE.md, AGENTS.md, CONTRIBUTING.md, .editorconfig, and similar).
 
-## Process
+## Workflow
 
 ### Step 1: Find Guideline Files
 
@@ -20,7 +24,7 @@ git rev-parse --show-toplevel 2>/dev/null
 Then search for guideline files within the repository:
 
 ```bash
-find "$(git rev-parse --show-toplevel)" \( -name "CLAUDE.md" -o -name "AGENTS.md" \) -type f 2>/dev/null
+find "$(git rev-parse --show-toplevel)" \( -name "CLAUDE.md" -o -name "AGENTS.md" -o -name "CONTRIBUTING.md" -o -name ".editorconfig" \) -type f 2>/dev/null
 ```
 
 IMPORTANT: Only use guideline files found inside the project repository.
@@ -76,10 +80,16 @@ Only report violations with >= 80 confidence.
 X guidelines checked | Y violations found
 ```
 
-## Rules
+## Guidelines
 
 - Quote exact guideline being violated
 - Reference the source guideline file (CLAUDE.md, AGENTS.md, etc.)
 - Be specific about the violation
 - Provide actionable fix
 - If no guideline files found, report that and skip audit
+
+## Error Handling
+
+- No guideline files found: skip audit entirely and report it
+- Guideline file is empty: skip that file and continue
+- Ambiguous guideline: don't report violations for unclear rules

@@ -1,6 +1,10 @@
 # Git Workflow Patterns
 
-Standardized patterns for analyzing git diffs and common workflow scenarios.
+Auxiliary reference loaded by `code-review.md` and `summary.md` for diff analysis, file categorization, and risk assessment.
+
+## When to Use
+
+When analyzing diffs or detecting change patterns across files.
 
 ## Quick Diff Analysis
 
@@ -121,6 +125,19 @@ If diff is > 500 lines:
 2. Review by component/area
 3. Check for bulk changes (formatting, renaming)
 4. Flag for incremental review if needed
+
+## Guidelines
+
+- Always use `--cached` flag when analyzing only staged changes to avoid mixing in unstaged work
+- Categorize files before reviewing diffs to prioritize high-risk areas first
+- For large diffs, break the review into component-level passes instead of reading linearly
+- Flag security-sensitive patterns (credentials, tokens, hardcoded URLs) before any other analysis
+
+## Error Handling
+
+- Empty diff output: verify the correct ref is being compared and inform user if working tree is clean
+- Binary files in diff: skip content analysis and note them separately in the output
+- Diff too large to process: split by directory or file type and review incrementally
 
 ## Output Rules
 

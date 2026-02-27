@@ -2,7 +2,11 @@
 
 Review code changes for bugs, security issues, and guideline compliance.
 
-## Process
+## When to Use
+
+When reviewing code changes before committing or creating a pull request.
+
+## Workflow
 
 ### Step 1: Determine User Intent
 
@@ -15,7 +19,7 @@ Based on user's request, determine:
 ### Step 2: Determine Base Branch
 
 - If provided: use specified branch
-- If not: auto-detect (`development` > `develop` > `main` > `master`)
+- If not: auto-detect (`development` > `main`)
 
 ### Step 3: Detect Review Mode
 
@@ -135,17 +139,23 @@ X files | Y issues | Z suggestions
 Brief paragraph summarizing most important findings.
 ```
 
+## Guidelines
+
+- Only report issues with >= 80 confidence score
+- Analyze actual diff, not conversation context
+- Be specific: file path and line number
+- Be actionable: explain why AND how to fix
+- Skip sections if empty
+- Guidelines auditor reads guideline files from repository root
+
+## Error Handling
+
+- No changes to review: inform user there is nothing to review
+- No base branch found: ask user which branch to compare against
+- Binary files in diff: skip and note them in the summary
+
 ## Task
 
 Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
 
 Review code changes.
-
-## Notes
-
-- Only reports issues with >= 80 confidence score
-- Analyzes actual diff, not conversation context
-- Guidelines auditor reads guideline files from repository root
-- Skip sections if empty
-- Be specific: file path and line number
-- Be actionable: explain why AND how to fix
