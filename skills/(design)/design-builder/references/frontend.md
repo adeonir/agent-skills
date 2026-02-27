@@ -31,7 +31,7 @@ When user says "use editorial" (or another variant name):
 2. Use the variant HTML as layout reference
 3. Generate React components matching the variant structure
 
-## Process
+## Workflow
 
 ### Step 1: Gather Context
 
@@ -136,22 +136,16 @@ For images referenced in copy.yaml:
 - Use placeholder: `<div className="aspect-video bg-neutral-200" />`
 - Add comment: `{/* TODO: Replace with: {visual.description} */}`
 
-## Checklist
+## Guidelines
 
-- [ ] Variant reference read (if applicable)
-- [ ] Stack detected or chosen by user
-- [ ] Project scaffolded (if needed)
-- [ ] design.json tokens applied as CSS variables
-- [ ] Content from copy.yaml or user description included
-- [ ] Layout matches variant structure (if applicable)
-- [ ] Fonts imported
-- [ ] Hover states on all interactive elements
-- [ ] Animations implemented
-- [ ] Responsive breakpoints
-- [ ] web-standards.md rules applied (accessibility, forms, images, anti-patterns)
+- Always load aesthetics.md and web-standards.md before generating code
+- Apply design.json tokens as CSS custom properties, not hardcoded values
+- Use placeholder divs for images, never reference external URLs
+- Mobile-first CSS with 375px baseline
+- Don't use `transition: all` -- list properties explicitly
 
 ## Error Handling
 
-- **No design.json**: Suggest running extract design first
-- **Scaffold failed**: Check package manager availability
-- **No copy.yaml**: Ask user for brief project description
+- No design.json: suggest running extract design first
+- Scaffold failed: check package manager availability
+- No copy.yaml: ask user for brief project description

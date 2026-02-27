@@ -16,8 +16,7 @@ Save as `.artifacts/design/design.json` using the schema below.
 {
   "metadata": {
     "source": "{{image-path or url}}",
-    "extraction_date": "{{YYYY-MM-DD}}",
-    "version": "1.1.0"
+    "extraction_date": "{{YYYY-MM-DD}}"
   },
   "principles": {
     "vision": "{{one-sentence design direction}}",
@@ -128,6 +127,7 @@ Save as `.artifacts/design/design.json` using the schema below.
       "content_alignment": "{{center, left, right}}",
       "decorative_elements": ["{{element description}}"]
     },
+    "sectionFlow": ["{{hero}}", "{{features}}", "{{testimonials}}", "{{cta}}", "{{footer}}"],
     "sections": [
       {
         "name": "{{section-name}}",
@@ -137,6 +137,18 @@ Save as `.artifacts/design/design.json` using the schema below.
         "pattern": "{{layout pattern: cards-grid, alternating, stacked, masonry}}"
       }
     ],
+    "gridPatterns": {
+      "features": "{{e.g., 3-column equal}}",
+      "testimonials": "{{e.g., 2-column with avatar}}"
+    },
+    "cardStyles": {
+      "default": {
+        "background": "{{color-ref}}",
+        "border_radius": "{{radius-ref}}",
+        "shadow": "{{shadow-ref}}",
+        "padding": "{{spacing-ref}}"
+      }
+    },
     "decorative": {
       "dividers": "{{style: none, gradient-line, svg-wave, geometric}}",
       "accents": ["{{accent description}}"]

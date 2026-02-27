@@ -5,7 +5,7 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 ## Prerequisites
 
 - **design.json** (required) -- must include the `layout` block with hero type, section flow, and patterns
-- **reference image** (required) -- the original image used to extract design tokens
+- **reference image** (required when available) -- the original image used to extract design tokens. If no image exists, use design.json layout block as structural reference
 - **copy.yaml** (optional) -- structured content for all sections
 - **[aesthetics.md](aesthetics.md)** (required) -- design principles for typography, color, motion, spatial composition, and backgrounds. Follow its rules to avoid generic AI aesthetics.
 - **[web-standards.md](web-standards.md)** (required) -- implementation rules for accessibility, forms, performance, touch, and anti-patterns. Follow its rules for technically correct HTML output.
@@ -16,7 +16,7 @@ Generate 4 HTML+CSS layout variants for visual comparison before building React.
 - User wants to compare design directions side-by-side
 - User wants to explore how design tokens look with different aesthetics
 
-## Process
+## Workflow
 
 ### Step 1: Gather Context
 
@@ -253,7 +253,7 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 </div>
 ```
 
-## Rules
+## Guidelines
 
 1. **Always 4+ variants**: Generate all 4 fixed presets (plus custom if requested)
 2. **Simple HTML+CSS**: No frameworks, no build tools -- just static files
@@ -268,18 +268,9 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 11. **Reference validation**: Re-read the reference image to validate structural fidelity
 12. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
 
-## Checklist
+## Error Handling
 
-- [ ] design.json located and read (including `layout` block)
-- [ ] copy.yaml located (or user provided description)
-- [ ] Reference image re-read for structural validation (if available)
-- [ ] All 4 presets generated following layout skeleton
-- [ ] Each preset varies all 12 visual dimensions
-- [ ] Each preset has a distinct font pairing
-- [ ] aesthetics.md principles applied
-- [ ] web-standards.md rules applied (accessibility, images, animation, anti-patterns)
-- [ ] Custom preset generated (if requested)
-- [ ] All presets use same structure, different visual treatment
-- [ ] Comparison index.html generated
-- [ ] http-server started
-- [ ] User informed to compare and choose
+- No design.json: suggest running extract design first
+- No copy.yaml: ask user for brief project description
+- Reference image unavailable: generate variants from design.json tokens only
+

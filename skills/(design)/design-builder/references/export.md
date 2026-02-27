@@ -7,7 +7,7 @@ Send variants to Figma for refinement and mockups.
 - User wants to send a variant to Figma for refinement
 - User says "send to Figma", "export to Figma", "export design"
 
-## Process
+## Workflow
 
 ### Step 1: Verify Figma MCP
 
@@ -30,13 +30,13 @@ If no variants exist, suggest running generate variants first.
 
 For each selected variant:
 
-1. Serve locally: `npx http-server .artifacts/design/variants/{variant} -o -p 8081`
+1. Serve locally: `npx http-server .artifacts/design/variants/{variant} -o -p 8080`
 2. Confirm the page is rendering in the browser
 3. Send to Figma via MCP -- each variant becomes a separate editable frame
 
 The MCP captures the live browser state as editable frames -- not screenshots. Layout structure, typography, colors, and spacing are preserved as Figma layers.
 
-## Rules
+## Guidelines
 
 1. **Always verify MCP first** -- never skip the connection check
 2. **User confirms visually** -- each page must be reviewed in browser before sending
@@ -45,5 +45,5 @@ The MCP captures the live browser state as editable frames -- not screenshots. L
 
 - **MCP not configured**: Provide setup instructions (Step 1)
 - **No variants found**: Suggest running generate variants
-- **Port 8081 in use**: Suggest an alternative port
+- **Port 8080 in use**: Suggest an alternative port
 - **MCP connection fails**: Confirm Figma desktop is open with Dev Mode active

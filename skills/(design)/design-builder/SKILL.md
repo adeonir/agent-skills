@@ -95,6 +95,20 @@ Valid paths after design.json:
 src/                                   # React components (frontend)
 ```
 
+## Templates
+
+| Context | Template |
+|---------|----------|
+| Copy extraction output | [copy.md](templates/copy.md) |
+| Design tokens output | [design.md](templates/design.md) |
+
+## Context Loading Strategy
+
+Load only the reference matching the current trigger. For frontend and variants operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies.
+
+**Never simultaneous:**
+- Multiple operation references (e.g., copy.md + frontend.md)
+
 ## Triggers
 
 ### Extraction
@@ -112,6 +126,11 @@ src/                                   # React components (frontend)
 | Generate variants, preview designs, HTML variants | [variants.md](references/variants.md) |
 | Export design, export to Figma, send to Figma | [export.md](references/export.md) |
 
+### Auto-Loaded (not direct triggers)
+
+- `aesthetics.md` -- loaded by `frontend.md` and `variants.md` as design principles
+- `web-standards.md` -- loaded by `frontend.md` and `variants.md` as implementation rules
+
 ## Cross-References
 
 ```
@@ -128,21 +147,18 @@ variants.md -----> export.md (variants required for Figma export)
 
 ## Guidelines
 
-- **Project naming**: Ask user for project name. Use kebab-case for directory names.
-- **Discovery first**: Always check for existing PRD/Brief before any operation.
-  Use them as context when available.
-- **Existing artifacts**: Always check for existing copy.yaml, design.json before starting.
-  Use them as context when available.
-- **Missing prerequisites**: If a required artifact is missing, suggest which step
-  to run first (e.g., "Run extract design first to generate design.json").
+**DO:**
+- Ask user for project name and use kebab-case for directory names
+- Check for existing PRD/Brief before any operation and use them as context
+- Check for existing copy.yaml, design.json before starting
+- Suggest next steps after completing any operation (defined in each reference file)
+- Suggest missing prerequisites (e.g., "Run extract design first to generate design.json")
 
-## Suggestions
-
-After completing any operation, suggest next steps without coupling to specific skills:
-
-- If no PRD/Brief existed: "For more complete product documentation, consider creating a PRD or Brief before the next iteration."
-- If variants were generated: "To send a variant to Figma for refinement, run export to Figma."
-- Standard next steps per operation (already defined in each reference file).
+**DON'T:**
+- Skip discovery -- always establish project context first
+- Ignore existing artifacts when they're available
+- Couple suggestions to specific skills (keep them generic)
+- Block on missing PRD/Brief -- run lightweight discovery instead
 
 ## Error Handling
 

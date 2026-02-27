@@ -3,6 +3,10 @@
 Self-contained design principles for variant generation and frontend building.
 Apply these guidelines to every visual decision -- they replace any external design skill dependency.
 
+## When to Use
+
+Auto-loaded by frontend.md and variants.md as design principles. Not a direct trigger.
+
 ## Design Thinking
 
 ### Four Questions
@@ -38,7 +42,7 @@ Use these as starting points. Blend or push further as the project demands.
 
 ### Typography
 
-- **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice. Pair a characterful display font with a refined body font.
+- **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for marketing/editorial pages. Pair a characterful display font with a refined body font. System font stacks are acceptable for web apps where performance and native feel matter.
 - **Weight extremes**: use 100-200 for subtlety and 800-900 for impact within the same layout.
 - **Size jumps**: headings should be at least 3x body size. Timid 1.5x ratios flatten hierarchy.
 - **Each generation gets a different combination**: never reuse the same pairing across variants or builds.

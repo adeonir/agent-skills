@@ -6,6 +6,19 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-27
+
+### Changed
+
+- Standardize reference section naming: Process to Workflow, Rules to Guidelines
+- Standardize reference closing sections: remove Checklist from frontend.md and variants.md, add Error Handling, merge What to AVOID into Guidelines, convert Fallback to Error Handling
+- Add When to Use section to all reference files
+- Add Templates section to SKILL.md with links to 2 templates
+- Add Context Loading Strategy to SKILL.md
+- Merge Suggestions into Guidelines in SKILL.md
+- Convert SKILL.md Guidelines to DO/DON'T format
+- Default preview port in `export.md` changed from 8081 to 8080
+
 ## 2026-02-26
 
 ### Added

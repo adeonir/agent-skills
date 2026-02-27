@@ -4,6 +4,10 @@ Implementation rules for generated HTML and React code.
 These complement [aesthetics.md](aesthetics.md) (visual principles) with technical correctness.
 Apply to every component produced by frontend.md and variants.md.
 
+## When to Use
+
+Auto-loaded by frontend.md and variants.md as implementation rules. Not a direct trigger.
+
 ## Accessibility
 
 - Icon-only buttons need `aria-label`.
