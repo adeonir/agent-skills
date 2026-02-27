@@ -10,6 +10,11 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Merge task-decomposition.md into tasks.md (single file with workflow + guidelines)
+- Extract inline templates from codebase-exploration.md and research.md to templates/
+- Add exploration.md and research.md to templates table in SKILL.md
+- Fix CHANGELOG template to use date-only headers (was using version numbers)
+- Enhance description with adjacent trigger contexts for better skill matching
 - Standardize reference section naming: Process to Workflow, Rules to Guidelines
 - Standardize reference closing sections: add Guidelines to operational files before Error Handling
 - Add When to Use section to all reference files

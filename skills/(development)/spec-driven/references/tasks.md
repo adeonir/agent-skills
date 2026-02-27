@@ -30,14 +30,25 @@ Read `package.json`:
 
 ### Step 4: Decompose Tasks
 
-Load [task-decomposition.md](task-decomposition.md) guidelines.
-
 Generate tasks following natural order:
 1. Setup (config, deps)
 2. Types (interfaces)
 3. Implementation (core logic)
 4. Integration (connect)
 5. Tests
+
+Each task should be:
+- **Atomic**: Completable in one session
+- **Testable**: Has verifiable outcome
+- **Independent**: Minimal dependencies
+- **Traceable**: Maps to requirements
+
+**Task ID format:** `T001, T002, T003...` -- sequential, zero-padded, never reused.
+
+**Task description format:**
+```
+- [ ] T001 [P] {verb} {what} in {where}
+```
 
 ### Step 5: Generate tasks.md
 
@@ -65,6 +76,14 @@ Inform user:
 | Large | 3+ files, complex integration | "Implement auth flow" - consider splitting |
 
 Prefer Small and Medium tasks. If a task feels Large, split it.
+
+## Dependency Markers
+
+| Marker | Meaning |
+|--------|---------|
+| [P] | Parallel-safe, no dependencies |
+| [B:T001] | Blocked by T001 |
+| [B:T001,T002] | Blocked by multiple |
 
 ## Guidelines
 

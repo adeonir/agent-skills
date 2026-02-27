@@ -1,12 +1,15 @@
 ---
 name: spec-driven
 description: >-
-  Specification-driven development with structured phases: Initialize, Plan, Tasks, Implement+Validate.
-  Creates structured feature specs with traceability to requirements.
+  Specification-driven development with structured phases: Initialize, Plan, Tasks,
+  Implement+Validate. Creates structured feature specs with traceability to requirements.
   Use when: starting projects, planning features, implementing with verification,
-  or tracking decisions across sessions. Triggers on "map codebase", "initialize",
-  "initialize project", "create feature", "plan", "tasks", "implement",
-  "validate", "archive".
+  or tracking decisions across sessions. Also use when the user wants to break a feature
+  into tasks, plan before coding, track implementation progress, set up a new project
+  structure, or organize work into specs and plans. Triggers on "map codebase",
+  "initialize", "initialize project", "create feature", "plan", "tasks", "implement",
+  "validate", "archive", "break this into tasks", "plan this feature",
+  "start a new project".
 metadata:
   author: github.com/adeonir
   version: "1.0.0"
@@ -61,6 +64,8 @@ docs/
 | Technical plan | [plan.md](templates/plan.md) |
 | Task breakdown | [tasks.md](templates/tasks.md) |
 | Archive document | [archive.md](templates/archive.md) |
+| Codebase exploration | [exploration.md](templates/exploration.md) |
+| Research cache | [research.md](templates/research.md) |
 
 ## Context Loading Strategy
 
@@ -104,7 +109,7 @@ docs/
 | Trigger Pattern | Reference |
 |-----------------|-----------|
 | How to write specs | [spec-writing.md](references/spec-writing.md) |
-| How to decompose tasks | [task-decomposition.md](references/task-decomposition.md) |
+| How to decompose tasks | [tasks.md](references/tasks.md) |
 | Codebase exploration | [codebase-exploration.md](references/codebase-exploration.md) |
 | Research patterns | [research.md](references/research.md) |
 | Baseline discovery | [baseline-discovery.md](references/baseline-discovery.md) |

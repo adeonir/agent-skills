@@ -4,7 +4,7 @@ name: {{PROJECT_NAME}}
 
 # Changelog
 
-## v{{Version}} ({{YYYY-MM-DD}})
+## {{YYYY-MM-DD}}
 
 ### Added
 - Feature: {{name}}
