@@ -1,52 +1,44 @@
 # ADR -- Architecture Decision Record
 
+## When to Use
+
+When recording an architectural decision and its rationale.
+
 ## Workflow
 
 ```
-discovery --> drafting
+[clarification] --> drafting
 ```
 
-2-phase workflow. ADRs record architectural decisions with their context, options, and consequences.
+Direct drafting with optional clarification. ADRs record decisions that were already made -- the author comes with context, options, and the chosen path. Only clarify when input is incomplete.
 
-## Phase 1: Discovery
+## Clarification (when input is incomplete)
 
-**LOAD:** [discovery.md](discovery.md) for shared interview patterns.
+Evaluate the user's input against the sufficiency criteria below. If all criteria are met, skip directly to drafting. If gaps exist, ask only about the gaps.
 
-### Topic 1: Context & Drivers
-
-**Opening questions:**
-- What decision needs to be made?
-- What is the context? (technical, business, organizational)
-- What are the decision drivers? (forces that influence the decision)
-
-**Deepen when:**
-- Decision not clearly framed → "Frame it as a choice: 'We need to decide between X and Y.'"
-- Context missing non-technical dimension → "What business or team forces influence this?"
-- Drivers not prioritized → "Which of these forces matters most?"
+### Context & Drivers
 
 **Sufficient when:**
 - Decision is stated as a clear choice between options
 - Context includes technical and non-technical factors
 - Decision drivers are identified
 
-### Topic 2: Options (if not already clear)
+**Clarify when:**
+- Decision not clearly framed → "Frame it as a choice: 'We need to decide between X and Y.'"
+- Context missing non-technical dimension → "What business or team forces influence this?"
+- Drivers not prioritized → "Which of these forces matters most?"
 
-**Opening questions:**
-- What options were considered?
-- What are the trade-offs of each?
-- Which option was chosen and why?
-
-**Deepen when:**
-- Only one option → "What else was considered? Every decision has alternatives."
-- Trade-offs one-sided → "What are the downsides of the chosen option?"
-- No rejection rationale → "Why not option X? What specifically ruled it out?"
+### Options
 
 **Sufficient when:**
 - At least 2 genuine options documented with pros/cons
 - Chosen option has clear rationale
 - Rejected options have clear rejection reasons
 
-If the user already has the decision and full rationale, move directly to drafting.
+**Clarify when:**
+- Only one option → "What else was considered? Every decision has alternatives."
+- Trade-offs one-sided → "What are the downsides of the chosen option?"
+- No rejection rationale → "Why not option X? What specifically ruled it out?"
 
 ## Numbering
 
@@ -59,54 +51,30 @@ ADRs are numbered sequentially. Before creating a new ADR:
 
 Format: 3-digit zero-padded (`001`, `002`, `003`).
 
-## Phase 2: Drafting
+## Drafting
 
 **USE TEMPLATE:** `templates/adr.md`
 
 Generate the ADR using the schema below. Present draft to user for review.
 
+**Title:** Derived from the decision -- short and descriptive (e.g., "Use PostgreSQL for primary data store"). Goes in the filename: `adr-{number}-{name}.md`.
+
+**Frontmatter:** Template includes YAML frontmatter with `status`, `date`, and `deciders`. Status values: `proposed` | `accepted` | `deprecated` | `superseded`.
+
 ## ADR Schema
 
-### Title
+8 sections matching `templates/adr.md`:
 
-Short, descriptive title of the decision (e.g., "Use PostgreSQL for primary data store").
-
-### Status
-
-One of: `proposed` | `accepted` | `deprecated` | `superseded`
-
-If superseded, link to the new ADR: `superseded by [ADR-XXX](adr-xxx-name.md)`
-
-### Context
-
-What is the situation that requires a decision? Include:
-- Technical context
-- Business constraints
-- Team constraints
-- Related decisions (link to other ADRs if applicable)
-
-### Decision Drivers
-
-Numbered list of forces that influenced the decision:
-1. Force or requirement that shaped the decision
-2. Another force or constraint
-
-### Options Considered
-
-For each option:
-- **Option name**: Brief description
-  - Pros: advantages
-  - Cons: disadvantages
-
-### Decision
-
-Which option was chosen and why. State the decision clearly in one sentence, then elaborate on the rationale.
-
-### Consequences
-
-- **Positive**: Benefits of this decision
-- **Negative**: Downsides or trade-offs accepted
-- **Neutral**: Side effects that are neither positive nor negative
+| Section | Content |
+|---------|---------|
+| 1. Context | Situation requiring a decision -- technical, business, team forces (value-neutral language) |
+| 2. Decision Drivers | Numbered forces that influenced the decision |
+| 3. Options Considered | Each option with pros/cons (at least 2 genuine options) |
+| 4. Decision | Chosen option in active voice ("We will..."), with rationale tied to drivers |
+| 5. Consequences | Positive, negative, neutral outcomes and residual risks |
+| 6. Confirmation | How to validate the decision is working (tests, fitness functions, metrics, reviews) |
+| 7. Follow-Up Actions | Tasks required to implement or communicate the decision |
+| 8. References | Links to related RFCs, ADRs, documentation |
 
 ## Status Lifecycle
 

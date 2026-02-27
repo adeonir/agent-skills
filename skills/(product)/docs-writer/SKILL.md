@@ -31,12 +31,20 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 |------|----------|-----------|----------|
 | PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
 | Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
-| Issue | classification -> drafting | [issue.md](references/issue.md) | [issue.md](templates/issue.md) |
+| Issue | classification -> [clarification] -> drafting | [issue.md](references/issue.md) | [issue.md](templates/issue.md) |
 | Task | direct drafting | [task.md](references/task.md) | [task.md](templates/task.md) |
-| User Story | discovery -> drafting | [user-story.md](references/user-story.md) | [user-story.md](templates/user-story.md) |
-| RFC | discovery -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
-| ADR | discovery -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
+| User Story | [clarification] -> drafting | [user-story.md](references/user-story.md) | [user-story.md](templates/user-story.md) |
+| RFC | [clarification] -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
+| ADR | [clarification] -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
 | TDD | discovery -> analysis -> drafting | [tdd.md](references/tdd.md) | [tdd.md](templates/tdd.md) |
+
+## Context Loading Strategy
+
+Load the reference and template matching the detected document type. For types that require discovery, also load [discovery.md](references/discovery.md).
+
+**Never simultaneous:**
+- Multiple document type references
+- Templates for different document types
 
 ## Triggers
 
@@ -55,8 +63,9 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 
 **LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
 
-Discovery applies to: PRD, Issue (feature/discussion subtypes), User Story, RFC, ADR, TDD.
-Discovery does NOT apply to: Task, Issue (bug subtype -- uses structured reproduction instead), Brief (generated as part of PRD workflow).
+Discovery applies to: PRD, TDD.
+Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Issue (feature/discussion subtypes), User Story.
+Neither applies to: Task, Issue (bug subtype -- uses structured collection instead), Brief (generated as part of PRD workflow).
 
 ## Output
 
@@ -85,6 +94,21 @@ Requirements must be concrete and measurable across all document types.
 | "Easy to use" | "New users complete onboarding in under 2 minutes" |
 | "Intuitive interface" | "Task completion rate above 90% without help text" |
 
+## Cross-References
+
+```
+PRD -------------> TDD            (PRD feeds requirements, journeys, rules into TDD)
+PRD -------------> design-builder (PRD + Brief inform copy and design extraction)
+PRD -------------> spec-driven    (PRD milestones feed spec initialization)
+RFC -------------> ADR            (accepted RFC generates ADR)
+TDD -------------> ADR            (references relevant decisions)
+```
+
+Notes:
+
+- **design-builder**: PRD sections 1, 3-4 (problem, personas, scope) and Brief (value prop, market) inform copy extraction and design extraction
+- **spec-driven**: PRD milestones feed feature initialization -- each milestone can generate a spec with its own tasks
+
 ## Guidelines
 
 **DO:**
@@ -100,20 +124,6 @@ Requirements must be concrete and measurable across all document types.
 - Include visual/design direction (that belongs in design-builder)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Mix document types in a single file
-
-## Cross-References
-
-```
-docs-writer -----> spec-driven    (any doc can feed into a spec)
-docs-writer -----> design-builder (PRD informs copy and design extraction)
-RFC -------------> ADR            (accepted RFC generates ADR)
-TDD -------------> ADR            (references relevant decisions)
-```
-
-## Integration with Other Skills
-
-- **design-builder**: PRD sections 1-5 (problem, goals, value prop, competitive landscape, personas) inform copy extraction and design extraction
-- **spec-driven**: Any document can be input for feature initialization when implementation is complex
 
 ## Error Handling
 

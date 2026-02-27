@@ -1,9 +1,8 @@
 ---
 name: {{issue-name}}
-subtype: {{bug/enhancement/chore/spike}}
+subtype: {{bug/feature/discussion}}
 status: open
 priority: {{critical/high/medium/low}}
-severity: {{blocker/major/minor/trivial -- bugs only}}
 reporter: {{reporter}}
 assignee: {{assignee}}
 labels: {{labels}}
@@ -22,9 +21,13 @@ created: {{YYYY-MM-DD}}
 2. {{Next step in the reproduction flow}}
 3. {{Final step where the issue manifests}}
 
+**Reproduction Link:** {{Link to public repo, sandbox, or minimal reproduction, or "N/A"}}
+
 **Expected Behavior:** {{What should happen according to the spec or user expectation}}
 
 **Actual Behavior:** {{What actually happens, including any error messages}}
+
+**Last Working Version:** {{Version or commit where this worked correctly, or "Unknown"}}
 
 ## Environment *(bugs only)*
 
@@ -44,11 +47,15 @@ created: {{YYYY-MM-DD}}
 {{Error logs or stack trace if applicable}}
 ```
 
+## Workaround *(bugs only)*
+
+{{Describe any known workaround that mitigates the issue, or "None known"}}
+
 ## Impact
 
 {{Who is affected? How many users? What is the business impact?}}
 
-## Proposed Solution *(if known)*
+## Proposed Fix *(if known)*
 
 {{Describe the proposed fix or enhancement approach, or "To be investigated"}}
 

@@ -1,5 +1,9 @@
 # Task -- Execution Item
 
+## When to Use
+
+When creating a concrete work item with clear requirements.
+
 ## Workflow
 
 ```
@@ -7,8 +11,6 @@ drafting (direct)
 ```
 
 No discovery needed. Tasks are concrete work items where the user already knows what needs to be done. Collect structured fields and draft.
-
-## Process
 
 Ask the user for the task details. If they provide a brief description, fill in reasonable defaults and present for review.
 
@@ -37,7 +39,7 @@ Fill in fields from user input. For optional fields not provided, use defaults. 
 - Task titles should be action-oriented: "Implement...", "Fix...", "Add...", "Update..."
 - Acceptance criteria must be verifiable -- someone should be able to check each one as done or not done
 - Keep tasks small and focused -- one logical unit of work
-- If a task is too large, suggest breaking it into subtasks
+- If a task is too large, suggest breaking it into subtasks (the template includes an optional Subtasks section for this)
 
 ## Output
 

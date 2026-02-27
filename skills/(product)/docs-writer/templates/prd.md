@@ -4,36 +4,13 @@
 
 {{Describe the problem being solved. What pain point exists? Who is affected? What evidence supports this?}}
 
-## 2. Value Proposition
-
-**Headline:**
-{{Main benefit in 1 line}}
-
-**Subheadline:**
-{{Supporting text explaining the value}}
-
-**Key Benefits:**
-- {{Benefit 1}}
-- {{Benefit 2}}
-- {{Benefit 3}}
-
-## 3. Goals & Success Metrics
+## 2. Goals & Success Metrics
 
 | Goal | Metric | Target |
 |------|--------|--------|
 | {{goal}} | {{how it will be measured}} | {{concrete number or threshold}} |
 
-## 4. Competitive Landscape
-
-### How the Problem Is Solved Today
-
-{{Existing tools, workarounds, or competitors that address this problem.}}
-
-### Gaps & Differentiators
-
-{{What gaps remain in current solutions. What makes this approach different or better.}}
-
-## 5. User Personas
+## 3. User Personas
 
 ### {{Persona Name}}
 
@@ -41,7 +18,7 @@
 - **Pain Point:** {{primary frustration or problem}}
 - **Goal:** {{what they want to achieve with this product}}
 
-## 6. Scope Definition
+## 4. Scope Definition
 
 ### Must Have
 
@@ -66,12 +43,40 @@
 
 - {{What is explicitly out of scope and why}}
 
-## 7. User Stories
+## 5. User Journeys
 
-| ID | As a... | I want to... | So that... | Priority |
-|----|---------|--------------|------------|----------|
-| US-001 | {{persona}} | {{action}} | {{benefit}} | Must Have |
-| US-002 | {{persona}} | {{action}} | {{benefit}} | Should Have |
+### {{Journey Name}}
+
+**Actor:** {{persona}}
+**Goal:** {{what the user is trying to accomplish}}
+
+**Pre-conditions:**
+- {{what must be true before this journey starts}}
+
+**Main Flow:**
+1. {{user action}} → {{system behavior}}
+2. {{user action}} → {{system behavior}}
+3. {{user action}} → {{system behavior}}
+
+**Alternative Flows:**
+- {{step}}a. {{condition}} → {{what happens instead}}
+
+**Post-conditions:**
+- {{what is true after the journey completes}}
+
+## 6. Business Rules
+
+| ID | Rule | Scope |
+|----|------|-------|
+| BR-001 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
+| BR-002 | {{another business rule}} | {{scope}} |
+
+## 7. Edge Cases
+
+| ID | Scenario | Expected Behavior |
+|----|----------|-------------------|
+| EC-001 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
+| EC-002 | {{another exception scenario}} | {{expected behavior}} |
 
 ## 8. Non-Functional Requirements
 
@@ -87,24 +92,7 @@
 | {{milestone_1}} | {{key features and capabilities included}} |
 | {{milestone_2}} | {{key features and capabilities included}} |
 
-## 10. Technical Specifications
-
-### Architecture Overview
-
-{{High-level system design}}
-
-### Integration Points
-
-| System | Purpose | Details |
-|--------|---------|---------|
-| {{API/DB/Service}} | {{what it does}} | {{endpoint/format}} |
-
-### Security & Privacy
-
-- {{Security requirement}}
-- {{Privacy constraint}}
-
-## 11. Risks & Assumptions
+## 10. Risks & Assumptions
 
 ### Assumptions
 
@@ -119,13 +107,11 @@
 ### Hypotheses to Validate
 
 - [ ] {{Assumption that needs evidence before or during implementation}}
-- [ ] {{Another hypothesis requiring validation}}
 
 ### Unknowns
 
 - [ ] TBD: {{Question that needs answering before implementation}}
-- [ ] TBD: {{Another open item requiring investigation}}
 
-## 12. References
+## 11. References
 
 - {{Link to designs, research, prior art, or related documents}}

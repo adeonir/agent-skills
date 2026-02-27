@@ -1,14 +1,18 @@
 # Issue -- Bug Report, Feature Request, Discussion
 
+## When to Use
+
+When reporting bugs, requesting features, or creating discussion topics.
+
 ## Workflow
 
 ```
-classification --> [discovery] --> drafting
+classification --> [clarification] --> drafting
 ```
 
-First, classify the issue subtype. Discovery depth depends on the subtype.
+First, classify the issue subtype. Then check for existing context. Clarification depth depends on the subtype and available context.
 
-## Phase 1: Classification
+## Step 1: Classification
 
 Ask the user or detect from trigger:
 
@@ -19,87 +23,70 @@ Ask the user or detect from trigger:
 | "create discussion" | Discussion |
 | "create issue" | Ask user which subtype |
 
-## Phase 2: Discovery (subtype-dependent)
+## Step 2: Check Existing Context
 
-**LOAD:** [discovery.md](discovery.md) for shared interview patterns.
+Look for existing PRD at `.artifacts/docs/prd.md`.
 
-### Bug (no discovery -- structured reproduction)
+If found: read and use as context. PRD provides problem (section 1), personas (section 3), scope (section 4), journeys (section 5), business rules (section 6), and edge cases (section 7) that inform issue writing. Less clarification needed.
 
-Skip interview. Collect structured fields directly:
+If no PRD exists: rely on user input and clarify more proactively.
+
+## Step 3: Clarification (subtype-dependent)
+
+### Bug (no clarification -- structured collection)
+
+Collect structured fields directly:
 
 1. **What happened?** (actual behavior)
 2. **What should have happened?** (expected behavior)
-3. **How to reproduce?** (step-by-step)
-4. **Environment** (OS, browser, version, etc.)
-5. **Severity** (critical / high / medium / low)
-6. **Screenshots or logs?** (optional)
+3. **How to reproduce?** (step-by-step + reproduction link if applicable)
+4. **Did this work before?** (last working version for regression detection)
+5. **Environment** (OS, browser, version, etc.)
+6. **Workaround?** (any known mitigation -- critical for triage prioritization)
+7. **Screenshots or logs?** (optional)
 
-### Feature (1-2 topics)
-
-#### Topic 1: Problem
-
-**Opening questions:**
-- What problem does this feature solve?
-- Who is affected?
-- How are they currently working around it?
-
-**Deepen when:**
-- Solution disguised as problem → "That sounds like a solution. What's the underlying pain?"
-- Unclear who is affected → "Is this one person's request or a pattern you're seeing?"
-- No workaround described → "How do people handle this today without the feature?"
+### Feature (when input is incomplete)
 
 **Sufficient when:**
 - Clear problem with identified affected users
 - Current workaround (or lack thereof) understood
 
-#### Topic 2: Solution Direction (optional, if user has ideas)
+**Clarify when:**
+- Solution disguised as problem → "That sounds like a solution. What's the underlying pain?"
+- Unclear who is affected → "Is this one person's request or a pattern you're seeing?"
+- No workaround described → "How do people handle this today without the feature?"
 
-**Opening questions:**
-- What is the proposed solution?
-- What changes for the user if this is built?
-- Are there alternatives you've considered?
+If the user has a proposed solution, capture it. If not, mark as open for design.
 
-**Deepen when:**
-- Only one approach considered → "What else could solve this?"
-- Impact unclear beyond the feature → "Who else benefits? What second-order effects?"
-
-**Sufficient when:**
-- At least one approach described with expected impact
-- Or user has no preference (mark as open for design)
-
-### Discussion (1 topic)
-
-#### Topic 1: Context
-
-**Opening questions:**
-- What is the topic?
-- What context is needed to understand it?
-- What specific questions or decisions need to be addressed?
-
-**Deepen when:**
-- Topic too broad → "Can we narrow this down? What's the most important aspect?"
-- No clear questions → "What decisions need to come out of this discussion?"
+### Discussion (when input is incomplete)
 
 **Sufficient when:**
 - Topic is scoped and context is clear
 - Specific questions or decisions are identified
 
-## Phase 3: Drafting
+**Clarify when:**
+- Topic too broad → "Can we narrow this down? What's the most important aspect?"
+- No clear questions → "What decisions need to come out of this discussion?"
+
+## Drafting
 
 **USE TEMPLATE:** `templates/issue.md`
 
-The template adapts based on subtype. Fill in the fields collected during classification and discovery.
+The template adapts based on subtype. Fill in the fields collected during classification and clarification.
 
 ## Schema by Subtype
 
 ### Bug
 
-- **Title**: Short description of the bug
-- **Severity**: Critical / High / Medium / Low
+- **Title**: Short description of the symptom
+- **Priority**: Critical / High / Medium / Low
 - **Actual Behavior**: What happened
 - **Expected Behavior**: What should have happened
 - **Reproduction Steps**: Numbered step-by-step
+- **Reproduction Link**: Public repo, sandbox, or minimal reproduction
+- **Last Working Version**: Version or commit where this worked, or "Unknown"
 - **Environment**: OS, browser, version, runtime
+- **Workaround**: Known mitigation, or "None known"
 - **Logs / Screenshots**: Optional attachments or references
 - **Notes**: Additional context
 
@@ -119,6 +106,14 @@ The template adapts based on subtype. Fill in the fields collected during classi
 - **Context**: Background information
 - **Open Questions**: Specific questions to address
 - **Notes**: Additional context
+
+## Guidelines
+
+- Bug titles should describe the symptom, not the cause: "Login fails with 500 error" not "Fix auth middleware"
+- Feature requests should describe the problem, not prescribe the solution
+- Severity levels are about business impact, not technical complexity
+- Always check for existing PRD context before asking clarification questions
+- Keep discussions scoped -- one topic per issue
 
 ## Output
 

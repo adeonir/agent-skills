@@ -1,8 +1,14 @@
+---
+status: proposed
+date: {{YYYY-MM-DD}}
+deciders: {{list of people involved in the decision}}
+---
+
 # ADR
 
 ## Context
 
-{{What is the issue that we're seeing that is motivating this decision or change? Describe the forces at play -- technical, business, team, constraints.}}
+{{What is the issue that we're seeing that is motivating this decision or change? Describe the forces at play -- technical, business, team, constraints. Use value-neutral language.}}
 
 ## Decision Drivers
 
@@ -48,7 +54,7 @@
 
 ## Decision
 
-{{Which option was chosen -- state clearly in one sentence, then elaborate on the rationale and what factors were most important.}}
+{{Which option was chosen -- state in active voice ("We will use X"), then elaborate on the rationale and which decision drivers were decisive.}}
 
 ## Consequences
 
@@ -69,6 +75,10 @@
 ### Risks
 
 - {{Risk that remains even after the decision, and how to monitor it}}
+
+## Confirmation
+
+{{How will we validate this decision is working? Specify enforcement mechanisms -- automated tests, code review checks, fitness functions, metrics to watch, or review cadence.}}
 
 ## Follow-Up Actions
 

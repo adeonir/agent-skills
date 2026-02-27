@@ -6,6 +6,38 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-02-27
+
+### Changed
+
+- TDD template restructured from 14 to 16 sections: add frontmatter (status/date), Scope of Impact, Observability & Monitoring; rename Error Handling to Failure Modes & Recovery; add Do Nothing to Alternatives; add rollback triggers to Migration/Rollout
+- ADR template restructured from 7 to 8 sections: add MADR 4.0 frontmatter (status/date/deciders), add Confirmation section for decision validation
+- RFC template restructured from 11 to 12 sections: add frontmatter (status/date/authors), add Prior Art section, split Drawbacks into Accepted Trade-offs and Open Risks
+- Issue template: remove severity from frontmatter (keep priority only), add Reproduction Link, Last Working Version, and Workaround fields for bugs, rename Proposed Solution to Proposed Fix
+- User Story template restructured from 8 to 7 sections: remove Definition of Done (team-level concern), simplify AC from Given/When/Then to checklist format, merge Design/UI Reference and Related into unified References section
+- Update TDD, ADR, RFC, Issue, User Story reference docs to match new template schemas
+- Standardize reference section naming: Process to Workflow, Rules to Guidelines
+- Standardize reference closing sections order: Guidelines, Error Handling, Output
+- Add When to Use section to all reference files
+- Convert SKILL.md Guidelines to DO/DON'T format
+- Add Context Loading Strategy to SKILL.md
+- Reorder Cross-References before Guidelines in SKILL.md
+- Merge Integration with Other Skills into Cross-References notes
+
+## 2026-02-26
+
+### Changed
+
+- Restructure PRD template from 12 to 11 sections
+- Add User Journeys section (product-level flows with pre/post-conditions)
+- Add Business Rules section (functional constraints with IDs)
+- Add Edge Cases section (exception scenarios with IDs)
+- Remove Value Proposition, Competitive Landscape (covered by Brief)
+- Remove User Stories (derived later in spec-driven from journeys)
+- Remove Technical Specifications (covered by TDD)
+- Add discovery topic 5: Journeys & Constraints
+- Update PRD-to-spec integration via milestones
+
 ## 2026-02-25
 
 ### Changed

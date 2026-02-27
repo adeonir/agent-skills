@@ -16,17 +16,13 @@ assignee: {{assignee}}
 
 ## Context
 
-{{Additional context about why this story exists. Link to PRD or related documents if applicable.}}
+{{Why this story exists. What problem does it solve? Link to PRD, epic, or user journey if applicable.}}
 
 ## Acceptance Criteria
 
-- [ ] **Given** {{precondition or initial state}}, **When** {{action performed}}, **Then** {{expected result or behavior}}
-- [ ] **Given** {{precondition or initial state}}, **When** {{action performed}}, **Then** {{expected result or behavior}}
-- [ ] **Given** {{precondition or initial state}}, **When** {{action performed}}, **Then** {{expected result or behavior}}
-
-## Design / UI Reference
-
-{{Link to design files, screenshots, or describe the expected UI behavior}}
+- [ ] {{Verifiable condition that must be true for this story to be complete}}
+- [ ] {{Another testable condition}}
+- [ ] {{Edge case or boundary condition}}
 
 ## Technical Notes
 
@@ -44,16 +40,7 @@ assignee: {{assignee}}
 - {{Prerequisite that must be completed first, e.g., "Requires API endpoint from backend team"}}
 - {{Another dependency or blocker, or "None"}}
 
-## Definition of Done
-
-- [ ] Code implemented and passing linting
-- [ ] Unit tests written and passing
-- [ ] Acceptance criteria verified
-- [ ] Code reviewed and approved
-- [ ] Deployed to staging
-- [ ] Product Owner approved
-
-## Related
+## References
 
 - **PRD:** {{Link to PRD, or "None"}}
 - **TDD:** {{Link to technical design, or "None"}}

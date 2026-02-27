@@ -1,3 +1,8 @@
+---
+status: draft
+date: {{YYYY-MM-DD}}
+---
+
 # TDD
 
 ## 1. Overview
@@ -15,9 +20,18 @@
 
 ### Non-Goals
 
-- {{What this design explicitly does not address}}
+- {{What this design explicitly does not address -- must be things that could reasonably be goals}}
 
-## 4. Architecture
+## 4. Scope of Impact
+
+| Dimension | Details |
+|-----------|---------|
+| Affected systems | {{which services, modules, or databases are touched}} |
+| Affected teams | {{which teams need to be aware or involved}} |
+| Blast radius | {{what breaks if this fails -- scope of potential damage}} |
+| Dependencies disrupted | {{existing consumers or integrations that could be affected}} |
+
+## 5. Architecture
 
 ### High-Level Design
 
@@ -25,10 +39,10 @@
 {{flowchart or graph showing the system architecture at a high level}}
 ```
 
-### Component Diagram
+### System Context
 
 ```mermaid
-{{flowchart showing components and their relationships}}
+{{diagram showing the new system within existing infrastructure -- not in isolation}}
 ```
 
 ### Components
@@ -44,7 +58,7 @@
 {{sequenceDiagram or flowchart showing how data moves through the system}}
 ```
 
-## 5. Technical Design
+## 6. Technical Design
 
 ### Data Model
 
@@ -71,7 +85,7 @@ interface Example {
 
 {{Describe any non-trivial logic, business rules, or algorithms that need special attention}}
 
-## 6. Tech Stack & Dependencies
+## 7. Tech Stack & Dependencies
 
 | Category | Choice | Justification |
 |----------|--------|---------------|
@@ -79,25 +93,35 @@ interface Example {
 | {{e.g., Database}} | {{e.g., PostgreSQL}} | {{why this choice}} |
 | {{e.g., New Dependency}} | {{package name}} | {{why needed}} |
 
-## 7. Error Handling
+## 8. Failure Modes & Recovery
 
-| Scenario | Handling Strategy | User Impact |
-|----------|------------------|-------------|
-| {{what can go wrong}} | {{how the system responds}} | {{what the user sees}} |
-| {{another failure mode}} | {{recovery strategy}} | {{degraded experience description}} |
+| Failure Scenario | Detection | Recovery Strategy | User Impact |
+|-----------------|-----------|-------------------|-------------|
+| {{what can go wrong at system level}} | {{how it is detected -- metric, alert, health check}} | {{how the system recovers}} | {{what the user sees}} |
+| {{another failure mode}} | {{detection method}} | {{recovery strategy}} | {{degraded experience description}} |
 
-## 8. Performance Considerations
+## 9. Performance Considerations
 
 - {{Performance concern and mitigation strategy, e.g., lazy loading for large lists}}
 - {{Caching approach, e.g., stale-while-revalidate for API responses}}
 - {{Bundle size impact, e.g., tree-shaking strategy for new dependency}}
 
-## 9. Security Considerations
+## 10. Security Considerations
 
 - {{Security concern and how it is addressed, e.g., input validation on all user-facing endpoints}}
 - {{Auth/authz approach, e.g., role-based access control for admin features}}
 
-## 10. Testing Strategy
+## 11. Observability & Monitoring
+
+| Aspect | Details |
+|--------|---------|
+| Key metrics | {{what to measure -- latency, error rate, throughput, business metrics}} |
+| Dashboards | {{what dashboards to create or update}} |
+| Alerts | {{what thresholds trigger alerts and who gets paged}} |
+| Health model | {{healthy / degraded / unhealthy states and their definitions}} |
+| Rollback signals | {{what metrics or alerts indicate the change should be reverted}} |
+
+## 12. Testing Strategy
 
 | Type | Coverage | Tools |
 |------|----------|-------|
@@ -105,7 +129,7 @@ interface Example {
 | Integration | {{what is covered}} | {{e.g., Testing Library}} |
 | E2E | {{what is covered}} | {{e.g., Playwright}} |
 
-## 11. Migration / Rollout Plan
+## 13. Migration / Rollout Plan
 
 1. {{First step to ship this change safely}}
 2. {{Next step in the rollout}}
@@ -119,21 +143,26 @@ interface Example {
 
 ### Rollback Strategy
 
-{{How to revert if something goes wrong. What signals trigger a rollback?}}
+{{How to revert if something goes wrong.}}
 
-## 12. Alternatives Considered
+**Rollback triggers:**
+- {{Metric or signal that triggers a rollback, e.g., error rate > 5% for 5 minutes}}
+- {{Another trigger, e.g., latency p99 > 2s}}
+
+## 14. Alternatives Considered
 
 | Alternative | Pros | Cons | Why Rejected |
 |-------------|------|------|-------------|
+| Do nothing | {{advantages of not changing}} | {{cost of inaction}} | {{why inaction is not acceptable}} |
 | {{approach considered}} | {{advantages}} | {{disadvantages}} | {{reason it was not chosen}} |
 | {{another approach}} | {{advantages}} | {{disadvantages}} | {{reason it was not chosen}} |
 
-## 13. Open Questions
+## 15. Open Questions
 
 - [ ] {{Question requiring further investigation before or during implementation}}
 - [ ] {{Decision that can be deferred to implementation phase}}
 
-## 14. References
+## 16. References
 
 - {{Link to relevant documentation, prior art, or inspiration}}
 - {{Link to related ADRs or RFCs}}

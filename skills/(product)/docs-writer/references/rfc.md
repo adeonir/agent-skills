@@ -1,67 +1,55 @@
 # RFC -- Request for Comments
 
+## When to Use
+
+When proposing a significant change that needs team review and discussion.
+
 ## Workflow
 
 ```
-discovery --> analysis --> drafting
+[clarification] --> analysis --> drafting
 ```
 
-3-phase workflow. RFCs propose changes that need team discussion before implementation.
+2-phase workflow with optional clarification. RFCs propose changes that need team discussion before implementation. The author typically comes with the problem and proposal -- only clarify when input is incomplete.
 
-## Phase 1: Discovery
+## Clarification (when input is incomplete)
 
-**LOAD:** [discovery.md](discovery.md) for shared interview patterns.
+Evaluate the user's input against the sufficiency criteria below. If all criteria are met, skip directly to analysis. If gaps exist, ask only about the gaps.
 
-### Topic 1: Problem & Motivation
-
-**Opening questions:**
-- What problem or opportunity is this addressing?
-- Why is the current state insufficient?
-- Who is affected?
-
-**Deepen when:**
-- Change without clear motivation → "What breaks or degrades if we don't do this?"
-- Scope of impact unclear → "Who else is affected by the current state?"
-- Assumed consensus → "Does everyone agree this is a problem? What's the evidence?"
+### Problem & Motivation
 
 **Sufficient when:**
 - Current state and desired state are clearly different
 - Impact of inaction is understood
 
-### Topic 2: Proposed Solution
+**Clarify when:**
+- Change without clear motivation → "What breaks or degrades if we don't do this?"
+- Scope of impact unclear → "Who else is affected by the current state?"
 
-**Opening questions:**
-- What is the proposed change?
-- What are the key design decisions?
-- What are the constraints?
-
-**Deepen when:**
-- Solution is hand-wavy → "Walk me through how this would work in practice."
-- No constraints acknowledged → "What limits what we can do here?"
-- Single option presented as obvious → "What alternatives did you consider?"
+### Proposed Solution
 
 **Sufficient when:**
 - Solution is concrete enough to evaluate trade-offs
 - Key constraints are identified
 
-### Topic 3: Impact (if needed)
+**Clarify when:**
+- Solution is hand-wavy → "Walk me through how this would work in practice."
+- No constraints acknowledged → "What limits what we can do here?"
+- Single option presented as obvious → "What alternatives did you consider?"
 
-**Opening questions:**
-- What systems or teams are affected?
-- Are there breaking changes?
-- Are there migration concerns?
-
-**Deepen when:**
-- "Just our system" → "Does anything consume our API/data? Any downstream effects?"
-- Breaking changes mentioned casually → "Who needs to change and what's the migration path?"
+### Impact
 
 **Sufficient when:**
 - Affected systems and teams identified
 - Breaking changes documented or confirmed as none
 
-## Phase 2: Analysis
+**Clarify when:**
+- "Just our system" → "Does anything consume our API/data? Any downstream effects?"
+- Breaking changes mentioned casually → "Who needs to change and what's the migration path?"
 
-Synthesize discovery into structured analysis:
+## Analysis
+
+Synthesize input into structured analysis:
 
 1. Identify alternatives to the proposed solution
 2. Evaluate trade-offs for each alternative
@@ -79,7 +67,7 @@ For each alternative (including the proposed solution):
 | Risk | | | |
 | Trade-offs | | | |
 
-## Phase 3: Drafting
+## Drafting
 
 **USE TEMPLATE:** `templates/rfc.md`
 
@@ -87,38 +75,22 @@ Generate the RFC using the schema below. Present draft to user for review.
 
 ## RFC Schema
 
-### 1. Summary
+12 sections matching `templates/rfc.md`:
 
-One-paragraph description of the proposal.
-
-### 2. Motivation
-
-- Why is this change needed?
-- What problem does it solve?
-- What is the current state?
-
-### 3. Detailed Design
-
-- Technical description of the proposed change
-- How it works
-- Key implementation details
-
-### 4. Alternatives Considered
-
-- What other approaches were evaluated?
-- Why were they rejected?
-- Trade-offs of each
-
-### 5. Adoption Strategy
-
-- How will this be rolled out?
-- Migration path (if applicable)
-- Breaking changes (if any)
-
-### 6. Unresolved Questions
-
-- Open items that need further discussion
-- Decisions deferred to implementation
+| Section | Content |
+|---------|---------|
+| 1. Summary | One-paragraph description of the proposal |
+| 2. Motivation | Why this change is needed, current vs desired state |
+| 3. Detailed Design | Technical description with overview and implementation details |
+| 4. Impact Analysis | Performance impact, dependencies, team impact |
+| 5. Drawbacks | Accepted trade-offs and open risks (separated explicitly) |
+| 6. Alternatives | Options evaluated with rejection rationale, starting with "Do Nothing" |
+| 7. Prior Art | How others solved this problem -- other teams, companies, open source projects |
+| 8. Adoption Strategy | Rollout plan, migration path, breaking changes |
+| 9. Unresolved Questions | Open items needing discussion or deferred to implementation |
+| 10. Future Possibilities | What this enables or opens up for future work |
+| 11. Feedback | Reviewer table for tracking review status |
+| 12. References | Links to related RFCs, documentation |
 
 ## Status Lifecycle
 

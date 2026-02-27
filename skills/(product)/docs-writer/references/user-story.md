@@ -1,50 +1,52 @@
 # User Story -- Agile Format for User Value
 
+## When to Use
+
+When writing user stories for development planning.
+
 ## Workflow
 
 ```
-discovery --> drafting
+[clarification] --> drafting
 ```
 
-2-phase workflow. Discovery identifies the persona, action, and benefit. Drafting structures them into the agile format.
+Direct drafting with optional clarification. The user comes with the persona, action, and benefit -- only clarify when input is incomplete.
 
-## Phase 1: Discovery
+## Step 1: Check Existing Context
 
-**LOAD:** [discovery.md](discovery.md) for shared interview patterns.
+Look for existing PRD at `.artifacts/docs/prd.md`.
 
-### Topic 1: Persona & Need
+If found: read and use as context for drafting. PRD provides personas (section 3), scope (section 4), journeys (section 5), and business rules (section 6) that inform story writing. Less clarification needed.
 
-**Opening questions:**
-- Who is the user? (role, persona, or user type)
-- What do they want to accomplish?
-- Why is this valuable to them?
+If no PRD exists: rely on user input and clarify more proactively.
 
-**Deepen when:**
-- Generic "user" → "What role or context are they in? Describe a specific person."
-- Action too broad → "Can you break this down? What's the specific interaction?"
-- Benefit is implementation detail → "That's how, not why. What value does the user get?"
+## Step 2: Clarification (when input is incomplete)
+
+Evaluate the user's input (and PRD context if available) against the sufficiency criteria below. If all criteria are met, skip directly to drafting. If gaps exist, ask only about the gaps.
+
+### Persona & Need
 
 **Sufficient when:**
 - Persona is specific enough to distinguish from other user types
 - Action is a single, clear interaction
 - Benefit describes user value, not system behavior
 
-### Topic 2: Acceptance (if Topic 1 answers are clear enough)
+**Clarify when:**
+- Generic "user" → "What role or context are they in? Describe a specific person."
+- Action too broad → "Can you break this down? What's the specific interaction?"
+- Benefit is implementation detail → "That's how, not why. What value does the user get?"
 
-**Opening questions:**
-- How will we know this is done?
-- What does the ideal outcome look like for the user?
-- Any constraints or dependencies?
-
-**Deepen when:**
-- Criteria too vague → "What does 'working' look like? Walk me through the scenario."
-- Missing edge cases → "What happens when [boundary condition]?"
+### Acceptance Criteria
 
 **Sufficient when:**
 - 2-5 verifiable acceptance criteria exist
 - Key edge cases identified or noted as TBD
 
-## Phase 2: Drafting
+**Clarify when:**
+- Criteria too vague → "What does 'working' look like? Walk me through the scenario."
+- Missing edge cases → "What happens when [boundary condition]?"
+
+## Drafting
 
 **USE TEMPLATE:** `templates/user-story.md`
 
@@ -64,24 +66,35 @@ Each part must be specific:
 
 ### Acceptance Criteria Format
 
-Use WHEN/THEN/SHALL pattern:
+Use checklist format as default. Each criterion must be independently verifiable:
 
 ```
-WHEN [trigger/condition]
-THEN [expected outcome]
-SHALL [requirement/constraint]
+- [ ] Search results display within 2 seconds
+- [ ] Empty state shows "No results found" with suggested terms
+- [ ] Minimum 3 characters required to trigger search
 ```
 
-Each story should have 2-5 acceptance criteria. Each criterion must be independently verifiable.
+For complex behavioral flows, use Given/When/Then:
+
+```
+- [ ] Given a logged-in user with items in cart, When they click "checkout", Then they see the payment form with saved address pre-filled
+```
+
+Each story should have 2-5 acceptance criteria.
 
 ## Schema
 
-- **Story ID**: Sequential (US-001, US-002, etc.)
-- **Story**: "As a [persona], I want [action], so that [benefit]"
-- **Acceptance Criteria**: WHEN/THEN/SHALL conditions
-- **Priority**: P1 / P2 / P3
-- **Dependencies**: Related stories or prerequisites
-- **Notes**: Additional context
+7 sections matching `templates/user-story.md`:
+
+| Section | Content |
+|---------|---------|
+| 1. Story | "As a [persona], I want [action], so that [benefit]" |
+| 2. Context | Why this story exists, problem it solves, parent epic/journey |
+| 3. Acceptance Criteria | 2-5 verifiable conditions (checklist or Given/When/Then) |
+| 4. Technical Notes | Constraints and implementation hints (when applicable) |
+| 5. Out of Scope | What this story explicitly does not cover |
+| 6. Dependencies | Related stories or prerequisites |
+| 7. References | Links to PRD, TDD, Figma, blockers |
 
 ## Guidelines
 
@@ -89,6 +102,8 @@ Each story should have 2-5 acceptance criteria. Each criterion must be independe
 - Benefits must describe user value, not implementation details
 - Acceptance criteria should be testable by a non-technical person
 - If a story is too large (epic), suggest breaking it down
+- Definition of Done belongs at team level, not per-story -- don't duplicate it
+- Technical tasks and spikes don't need "As a..." framing -- use the right format for the work type
 
 ## Output
 

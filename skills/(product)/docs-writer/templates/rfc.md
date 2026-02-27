@@ -1,3 +1,9 @@
+---
+status: draft
+date: {{YYYY-MM-DD}}
+authors: {{list of authors}}
+---
+
 # RFC
 
 ## Summary
@@ -48,10 +54,21 @@
 
 {{Why should we NOT do this? Be honest about trade-offs.}}
 
-- {{Drawback that must be accepted if this RFC is approved}}
-- {{Another trade-off or concern}}
+### Accepted Trade-offs
+
+- {{Cost we agree to pay if this RFC is approved}}
+- {{Another accepted trade-off}}
+
+### Open Risks
+
+- {{Risk that might materialize, with mitigation or monitoring plan}}
+- {{Another risk to watch}}
 
 ## Alternatives
+
+### Do Nothing
+
+{{What happens if we don't do this? What is the cost of inaction?}}
 
 ### {{Alternative 1}}
 
@@ -61,9 +78,12 @@
 
 {{Description and why it was not chosen}}
 
-### Do Nothing
+## Prior Art
 
-{{What happens if we don't do this? What is the cost of inaction?}}
+{{How have other teams, companies, or open source projects solved this problem?}}
+
+- {{Implementation or approach and what worked or didn't}}
+- {{Why existing solutions don't fully apply or need adaptation}}
 
 ## Adoption Strategy
 

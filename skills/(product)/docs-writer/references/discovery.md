@@ -2,6 +2,10 @@
 
 Common interview and discovery patterns used across document types.
 
+## When to Use
+
+Auto-loaded by PRD and TDD workflows during the discovery phase. Not a direct trigger.
+
 ## Core Principle
 
 Never assume context. Always ask before drafting. The depth of discovery varies by document type, but the principle is the same: understand the problem before writing the solution.
@@ -43,17 +47,24 @@ Move on when:
 
 ## Discovery Depth by Type
 
+**Full discovery** (adaptive deepening, sufficiency criteria, critical posture):
+
 | Type | Topics | Focus |
 |------|--------|-------|
-| PRD | 4 topics | Problem, users, market, scope |
-| Issue (feature) | 1-2 topics | Problem, proposed solution |
-| Issue (discussion) | 1 topic | Topic, context |
-| User Story | 1-2 topics | Persona, action, benefit |
-| RFC | 2-3 topics | Problem, proposal, alternatives |
-| ADR | 1-2 topics | Context, decision drivers |
-| TDD | 2-3 topics | Requirements, constraints, architecture |
+| PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
+| TDD | 3 topics | Requirements, constraints, architecture |
 
-Types that skip discovery: Task, Issue (bug -- uses structured reproduction instead).
+**Clarification only** (ask only when input is incomplete):
+
+| Type | Focus |
+|------|-------|
+| RFC | Problem, proposal, impact |
+| ADR | Context, options |
+| Issue (feature) | Problem, affected users |
+| Issue (discussion) | Topic, open questions |
+| User Story | Persona, action, benefit |
+
+**No discovery:** Task, Issue (bug -- uses structured collection instead).
 
 ## Synthesis Pattern
 

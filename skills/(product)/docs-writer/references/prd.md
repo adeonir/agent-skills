@@ -1,5 +1,9 @@
 # PRD -- Product Requirements Document
 
+## When to Use
+
+When creating a PRD, defining product requirements, or writing product specifications.
+
 ## Workflow
 
 ```
@@ -68,6 +72,8 @@ Never assume context. Discovery is adaptive -- deepen topics based on the qualit
 - Differentiator is articulated beyond feature comparison
 - User understands the competitive context
 
+**Note:** Market & differentiation feeds the Brief, not the PRD. Still essential discovery -- it informs scope decisions and validation.
+
 ### Topic 4: Value & Scope
 
 **Opening questions:**
@@ -87,6 +93,25 @@ Never assume context. Discovery is adaptive -- deepen topics based on the qualit
 - Value generation model is understood or marked as TBD
 - Boundaries are defined (what is explicitly out of scope)
 
+### Topic 5: Journeys & Constraints
+
+**Opening questions:**
+- Walk me through the main flow: what does the user do from start to finish?
+- Are there rules or constraints the product must enforce? (limits, permissions, conditions)
+- What can go wrong? What happens when it does?
+
+**Deepen when:**
+- Only happy path described → "What if the user makes a mistake? What if data is missing?"
+- No constraints mentioned → "Are there limits? Who can do what? Any conditions that must be met?"
+- Single journey for multiple personas → "Does the admin go through the same flow? What's different?"
+- Vague error handling → "When X fails, what should the user see? Can they retry?"
+
+**Sufficient when:**
+- At least the primary journey is described end-to-end (pre-conditions → steps → post-conditions)
+- Key business rules are identified (even if details are TBD)
+- Critical edge cases are surfaced (at least "what if it fails?" for each major action)
+- Alternative flows are acknowledged for the main journey
+
 ## Phase 2: Validation
 
 Challenge what was learned. This phase exists to prevent building the wrong thing.
@@ -97,7 +122,8 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 4. **Propose pivots**: If the idea seems fragile after discovery, suggest alternative approaches
 5. **Define scope**: Categorize features into must/should/could priorities
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
-7. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
+7. **Validate journeys**: Do the described flows cover all must-have features? Are there gaps?
+8. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
 
 Do not proceed to synthesis until the user confirms scope and priorities.
 
@@ -107,11 +133,13 @@ Synthesize everything from discovery and validation into a structured summary.
 
 1. Summarize what was learned across all discovery topics
 2. Present the agreed scope (must/should/could)
-3. List risks and hypotheses identified during validation
-4. Identify gaps and mark as TBD
-5. Surface assumptions made (distinguish from validated facts)
-6. Present synthesis to user for confirmation
-7. Only proceed to drafting after user confirms
+3. List user journeys with main and alternative flows
+4. List business rules and edge cases identified
+5. List risks and hypotheses identified during validation
+6. Identify gaps and mark as TBD
+7. Surface assumptions made (distinguish from validated facts)
+8. Present synthesis to user for confirmation
+9. Only proceed to drafting after user confirms
 
 ## Phase 4: Drafting
 
@@ -123,53 +151,33 @@ Synthesize everything from discovery and validation into a structured summary.
 
 Generate both documents using the confirmed synthesis. Present drafts to user for review before saving.
 
+**Drafting notes:**
+- Market & differentiation content goes to Brief, not PRD
+- Value proposition content goes to Brief, not PRD
+- Journeys should be product-level (actor, goal, flow, conditions) -- no UI components, endpoints, or implementation details
+- Business rules use IDs (BR-001) for traceability
+- Edge cases use IDs (EC-001) for traceability
+- Each milestone should represent a coherent deliverable that can feed a spec
+
 ## PRD Schema
 
-### 1. Executive Summary
+11 sections matching `templates/prd.md`:
 
-- **Problem Statement**: What problem exists and for whom, with evidence
-- **Proposed Solution**: High-level description of what will be built
-- **Success Criteria**: Measurable KPIs (concrete numbers, not vague goals)
+| Section | Content | Discovery Source |
+|---------|---------|-----------------|
+| 1. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
+| 2. Goals & Success Metrics | Measurable KPIs (concrete numbers, not vague goals) | Topic 1: Problem |
+| 3. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
+| 4. Scope Definition | Must/Should/Could have, non-goals (FR-001...) | Topic 4: Value & Scope |
+| 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
+| 6. Business Rules | Functional constraints across features (BR-001...) | Topic 5: Journeys & Constraints |
+| 7. Edge Cases | Exception scenarios and expected behavior (EC-001...) | Topic 5: Journeys & Constraints |
+| 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
+| 9. Milestones | Key deliverables per phase -- each can generate a spec | Topic 4: Value & Scope |
+| 10. Risks & Assumptions | Risks, hypotheses, unknowns (TBD) | Validation phase |
+| 11. References | Links to designs, research, related documents | All phases |
 
-### 2. Product Definition
-
-- **Value Proposition**:
-  - Headline: main benefit
-  - Subheadline: supporting text
-  - Key Benefits: 3-5 benefits
-- **Target Audience**:
-  - Personas: who uses this
-  - Pain Points: what problems they face
-  - Goals: what they want to achieve
-- **Competitive Landscape**:
-  - How the problem is solved today
-  - Existing tools/workarounds/competitors
-  - Gaps that remain
-
-### 3. Scope Definition
-
-- **Must Have**: Core features required for launch
-- **Should Have**: Important but not launch-blocking
-- **Could Have**: Nice-to-have for future iterations
-- **Non-Goals**: What is explicitly out of scope and why
-
-### 4. User Experience & Functionality
-
-- **User Stories**: "As a [user], I want [action], so that [benefit]"
-- **Acceptance Criteria**: When/Then/Shall format
-- **Features List**: with descriptions
-
-### 5. Technical Specifications
-
-- **Architecture Overview**: high-level system design
-- **Integration Points**: APIs, databases, auth
-- **Security & Privacy**: requirements and constraints
-
-### 6. Risks, Assumptions & Validation
-
-- **Technical Risks**: known challenges
-- **Hypotheses to Validate**: assumptions that need evidence before or during implementation
-- **Unknowns**: marked as TBD
+Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 
 ## Quality Standards
 
@@ -190,20 +198,19 @@ Requirements must be concrete and measurable.
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Generate Brief alongside PRD during drafting
+- Keep journeys at product level -- describe what happens, not how it's built
+- Assign IDs to business rules and edge cases for traceability
 
 **DON'T:**
 - Skip discovery topics or advance without meeting sufficiency criteria
 - Assume project type -- discover it
 - Include visual/design direction (that belongs in design-builder)
+- Include technical implementation details (that belongs in TDD)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Proceed past validation without user confirmation on scope
+- Describe UI components or API endpoints in journeys
 
 ## Output
 
 - PRD: `.artifacts/docs/prd.md`
 - Brief: `.artifacts/docs/brief.md`
-
-## Integration
-
-- **design-builder**: PRD informs copy extraction and design extraction (sections 1-5: problem, goals, value prop, competitive landscape, personas)
-- **spec-driven**: PRD informs feature initialization (sections 1, 6, 7, 9: problem, scope, user stories, technical specs)
