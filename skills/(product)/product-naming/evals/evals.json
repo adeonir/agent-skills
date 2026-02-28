@@ -1,0 +1,82 @@
+[
+  {
+    "query": "suggest names for my new project management SaaS",
+    "should_trigger": true
+  },
+  {
+    "query": "what should I call my app? it's a habit tracker for developers",
+    "should_trigger": true
+  },
+  {
+    "query": "check if the name Nuvio is available for my startup",
+    "should_trigger": true
+  },
+  {
+    "query": "evaluate these names: Flowly, Cario, Velto, Stacko",
+    "should_trigger": true
+  },
+  {
+    "query": "find a name for my AI coding assistant, something techy but friendly",
+    "should_trigger": true
+  },
+  {
+    "query": "is flowly.com available? I want to use it for my product",
+    "should_trigger": true
+  },
+  {
+    "query": "I need a brand name for my fintech startup targeting Brazilian market",
+    "should_trigger": true
+  },
+  {
+    "query": "check domain availability for these names: Fluxo, Nuvem, Ponto",
+    "should_trigger": true
+  },
+  {
+    "query": "help me pick a name for my open source CLI tool",
+    "should_trigger": true
+  },
+  {
+    "query": "I have three name candidates for my app, can you check which ones have available domains and social handles?",
+    "should_trigger": true
+  },
+  {
+    "query": "create a PRD for my new project management SaaS with core features and user journeys",
+    "should_trigger": false
+  },
+  {
+    "query": "debug why the notification service is dropping messages under high load",
+    "should_trigger": false
+  },
+  {
+    "query": "commit these changes and create a pull request with a proper description",
+    "should_trigger": false
+  },
+  {
+    "query": "extract design tokens from this Figma screenshot and build the landing page",
+    "should_trigger": false
+  },
+  {
+    "query": "build a landing page for my startup with Tailwind CSS",
+    "should_trigger": false
+  },
+  {
+    "query": "write vitest tests for the order processing service",
+    "should_trigger": false
+  },
+  {
+    "query": "plan the implementation of the auth feature with specs and tasks",
+    "should_trigger": false
+  },
+  {
+    "query": "set up Zustand for state management in my React app",
+    "should_trigger": false
+  },
+  {
+    "query": "review my code for security vulnerabilities before I merge this PR",
+    "should_trigger": false
+  },
+  {
+    "query": "create a Tailwind design system with custom colors and typography tokens",
+    "should_trigger": false
+  }
+]

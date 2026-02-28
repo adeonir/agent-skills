@@ -18,13 +18,14 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 
 ## Skills
 
-| Skill | Category | Description |
-|-------|----------|-------------|
-| **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
-| **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
-| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
-| **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
-| **[design-builder](skills/(design)/design-builder)** | Design | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
+| Category | Skill | Description |
+|----------|-------|-------------|
+| Design | **[design-builder](skills/(design)/design-builder)** | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
+| Development | **[debug-tools](skills/(development)/debug-tools)** | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
+| Development | **[spec-driven](skills/(development)/spec-driven)** | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
+| Product | **[docs-writer](skills/(product)/docs-writer)** | Structured document generation: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
+| Product | **[product-naming](skills/(product)/product-naming)** | Research and validate product names with domain/social availability checks and quality scoring |
+| Tooling | **[git-helpers](skills/(tooling)/git-helpers)** | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
 
 ## Output Structure
 
