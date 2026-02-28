@@ -36,10 +36,10 @@ The agent detects whether to generate candidates or skip to evaluation based on 
 
 ## Output
 
-Results are presented inline using one of two report templates:
+Reports are saved as `.md` files in `.artifacts/docs/`:
 
-- **Name Research** (Template A): candidates with etymology, full evaluation with availability table, comparison, and eliminated names
-- **Name Validation** (Template B): per-name quality scoring, availability, risk assessment with context/impact, and verdict
+- **Name Research** (Template A): `{product}-research.md` -- candidates with etymology, full evaluation with availability table, comparison, and eliminated names
+- **Name Validation** (Template B): `{product}-validation.md` -- per-name quality scoring, availability, risk assessment with context/impact, and verdict
 
 Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 

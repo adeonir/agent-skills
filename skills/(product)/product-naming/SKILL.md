@@ -73,7 +73,12 @@ product-naming --> design-builder (chosen name informs brand/logo direction)
 
 ## Output
 
-Reports are presented inline (not saved to files). Two report templates in `templates/report.md`:
+Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if needed). Each template generates a separate file:
+
+- **Template A**: `.artifacts/docs/{product}-research.md`
+- **Template B**: `.artifacts/docs/{product}-validation.md`
+
+Two report templates in `templates/report.md`:
 
 - **Template A (Name Research)**: full flow with candidates, availability, comparison, and eliminated names
 - **Template B (Name Validation)**: per-name quality table, availability, risk assessment, and verdict

@@ -8,6 +8,10 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-02-28
 
+### Added
+
+- Reports saved as `.md` files in `.artifacts/docs/` (`{product}-research.md`, `{product}-validation.md`)
+
 ### Changed
 
 - Template B: availability table now matches Template A format (Name + Highlight columns)
