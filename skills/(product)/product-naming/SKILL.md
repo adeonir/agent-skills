@@ -57,7 +57,7 @@ product-naming --> design-builder (chosen name informs brand/logo direction)
 ## Guidelines
 
 **DO:**
-- Use web search for domain and social media lookups
+- Use shell commands (dig, whois, curl) for domain and social media checks; fall back to web search if shell is unavailable
 - Check .com and .com.br for every name (universal requirement)
 - Add extra TLDs based on product type (see tld-guide.md)
 - Bias invented names toward PT+EN bilingual phonetics
@@ -88,6 +88,8 @@ Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 ## Error Handling
 
 - No product context provided: ask what the product does and who it's for
-- Too many candidates (10+): batch web searches for efficiency
+- Too many candidates (10+): batch shell commands or web searches for efficiency
 - Domain check uncertain: mark as 🟡 and note it
+- Shell rate-limiting: add delays between requests or switch to web search for remaining names
+- No tools available (no shell, no web search): mark all availability as 🟡 Uncertain
 - All candidates eliminated: suggest the user adjust constraints or generate a new batch

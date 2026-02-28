@@ -47,6 +47,4 @@ Reference for domain extension selection during name evaluation.
 
 ## How to Check
 
-- **.com**: search `<name>.com available domain`
-- **.com.br**: search `<name>.com.br registro.br disponivel` (registro.br is the authoritative source)
-- **Other TLDs**: search `<name>.<tld> domain available`
+See [evaluation.md](evaluation.md) -- Domain Availability Check section for environment-adaptive methods (shell commands, web search fallback).

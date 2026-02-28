@@ -22,7 +22,33 @@ Then produce the output report.
 
 Always check .com and .com.br. Add other TLDs based on product type (see tld-guide.md).
 
-**How to check**: use web search for `<name>.com available domain` or `<name>.com.br registro.br disponivel`. Look for registrar pages showing "available" or "taken".
+**How to check** -- pick the first method available in your environment:
+
+**Method 1 (Shell -- preferred):** use `dig` for fast DNS lookup and `whois` for authoritative registration status.
+
+```bash
+# Quick DNS check (non-empty response = domain resolves, likely taken)
+dig +short <name>.com
+
+# Authoritative registration check
+whois <name>.com | grep -iE "status|not found|no match"
+
+# .com.br -- registro.br is authoritative
+whois <name>.com.br | grep -iE "status|not found"
+
+# Batch multiple candidates
+for name in foo bar baz; do
+  echo "--- $name ---"
+  whois "$name.com" 2>/dev/null | grep -iE "status|not found|no match"
+  whois "$name.com.br" 2>/dev/null | grep -iE "status|not found"
+done
+```
+
+Interpretation: "No match" / "NOT FOUND" = available. Any "clientTransferProhibited" or similar status = taken.
+
+**Method 2 (WebSearch -- fallback):** search `<name>.com available domain` or `<name>.com.br registro.br disponivel`. Look for registrar pages showing "available" or "taken".
+
+**Method 3 (Neither available):** mark all domains as 🟡 Uncertain and note that availability could not be verified.
 
 Mark each as:
 - 🟢 Available
@@ -31,8 +57,6 @@ Mark each as:
 
 ## Social Media Username Check
 
-Check relevant platforms using web search: `site:instagram.com/<name>` or `"@<name>" instagram`.
-
 | Platform | When to check |
 |----------|---------------|
 | Instagram | Always |
@@ -40,6 +64,30 @@ Check relevant platforms using web search: `site:instagram.com/<name>` or `"@<na
 | GitHub | Dev tools / technical products |
 | LinkedIn (company page) | B2B / SaaS |
 | TikTok | Consumer apps |
+
+**How to check** -- pick the first method available in your environment:
+
+**Method 1 (Shell -- preferred):** use `curl` to check HTTP status codes.
+
+```bash
+# 200 = taken, 404 = available
+curl -sI -o /dev/null -w "%{http_code}" https://www.instagram.com/<name>/
+curl -sI -o /dev/null -w "%{http_code}" https://x.com/<name>
+curl -sI -o /dev/null -w "%{http_code}" https://github.com/<name>
+
+# Batch multiple candidates across platforms
+for name in foo bar baz; do
+  echo "--- $name ---"
+  echo "IG: $(curl -sI -o /dev/null -w '%{http_code}' https://www.instagram.com/$name/)"
+  echo " X: $(curl -sI -o /dev/null -w '%{http_code}' https://x.com/$name)"
+done
+```
+
+Note: Instagram returns 302 for non-existent users instead of 404 -- mark 302 responses as 🟡 Uncertain.
+
+**Method 2 (WebSearch -- fallback):** search `"<name>" site:instagram.com` or `"@<name>" twitter`.
+
+**Method 3 (Neither available):** mark all usernames as 🟡 Uncertain and note that availability could not be verified.
 
 Mark each as: 🟢 Available, 🔴 Taken, 🟡 Uncertain
 
@@ -89,6 +137,7 @@ Common elimination reasons:
 
 ## Edge Cases
 
-- If checking many names (10+), batch web searches for efficiency
+- If checking many names (10+), batch searches or shell commands for efficiency
 - If a name scores well on quality but has poor domain availability, keep it in shortlist with domain caveat
 - Always end with a brief recommendation if one name clearly dominates
+- Shell rate-limiting: if whois or curl commands get throttled, add a 1-2 second delay between requests (`sleep 1` in the loop) or switch to WebSearch for remaining names

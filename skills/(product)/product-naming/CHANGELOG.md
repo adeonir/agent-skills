@@ -8,6 +8,14 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-02-28
 
+### Changed
+
+- Domain checks now use shell commands (dig, whois) as primary method with web search as fallback
+- Social media checks now use curl HTTP status codes as primary method with web search as fallback
+- tld-guide.md "How to Check" section replaced with pointer to evaluation.md to avoid duplication
+- SKILL.md guidelines updated to reflect environment-adaptive check strategy
+- Error handling expanded with shell rate-limiting and no-tools-available scenarios
+
 ### Added
 
 - Reports saved as `.md` files in `.artifacts/docs/` (`{product}-research.md`, `{product}-validation.md`)
