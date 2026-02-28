@@ -68,30 +68,21 @@ product-naming --> design-builder (chosen name informs brand/logo direction)
 - Skip domain checks -- availability is critical for final decisions
 - Do deep legal/trademark research -- flag obvious conflicts only
 - Eliminate names solely on domain unavailability (note as caveat instead)
-- Use emojis anywhere in the output
+- Use emojis outside of status indicators (availability uses traffic light emojis only)
 - Generate more than 20 candidates (keep focused)
 
 ## Output
 
-Reports are presented inline (not saved to files). Format:
+Reports are presented inline (not saved to files). Two report templates in `templates/report.md`:
 
-### Shortlist
+- **Template A (Name Research)**: full flow with candidates, availability, comparison, and eliminated names
+- **Template B (Name Validation)**: per-name quality table, availability, risk assessment, and verdict
 
-One line per viable name:
-```
-Name -- [quality note] | Domains: .com [ok] .com.br [ok] .io [x] | Social: IG [ok] X [ok]
-```
-
-### Eliminated
-
-One line per eliminated name:
-```
-Name -- [elimination reason]
-```
+Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 
 ## Error Handling
 
 - No product context provided: ask what the product does and who it's for
 - Too many candidates (10+): batch web searches for efficiency
-- Domain check uncertain: mark as [?] and note it
+- Domain check uncertain: mark as 🟡 and note it
 - All candidates eliminated: suggest the user adjust constraints or generate a new batch

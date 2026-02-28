@@ -36,10 +36,12 @@ The agent detects whether to generate candidates or skip to evaluation based on 
 
 ## Output
 
-Results are presented inline as a structured report with:
-- Shortlist: each name with domain/social availability status
-- Eliminated: names that didn't pass with reasons
-- TOP PICK recommendation when one name clearly stands out
+Results are presented inline using one of two report templates:
+
+- **Name Research** (Template A): candidates with etymology, full evaluation with availability table, comparison, and eliminated names
+- **Name Validation** (Template B): per-name quality scoring, availability, risk assessment with context/impact, and verdict
+
+Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 
 ## Integration
 

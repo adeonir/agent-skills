@@ -25,9 +25,9 @@ Always check .com and .com.br. Add other TLDs based on product type (see tld-gui
 **How to check**: use web search for `<name>.com available domain` or `<name>.com.br registro.br disponivel`. Look for registrar pages showing "available" or "taken".
 
 Mark each as:
-- `[ok]` Available
-- `[x]` Taken
-- `[?]` Uncertain (could not confirm)
+- 🟢 Available
+- 🔴 Taken
+- 🟡 Uncertain (could not confirm)
 
 ## Social Media Username Check
 
@@ -41,7 +41,7 @@ Check relevant platforms using web search: `site:instagram.com/<name>` or `"@<na
 | LinkedIn (company page) | B2B / SaaS |
 | TikTok | Consumer apps |
 
-Mark each as: `[ok]` Available, `[x]` Taken, `[?]` Uncertain
+Mark each as: 🟢 Available, 🔴 Taken, 🟡 Uncertain
 
 ## Name Quality Analysis
 
@@ -61,15 +61,15 @@ Evaluate each name on:
 One line per viable name:
 
 ```
-Name -- [brief quality note] | Domains: .com [ok] .com.br [ok] .io [x] | Social: IG [ok] X [ok]
+Name -- [brief quality note] | Domains: .com 🟢 .com.br 🟢 .io 🔴 | Social: IG 🟢 X 🟢
 ```
 
 Flag the strongest option with "TOP PICK" if one clearly stands out.
 
 Example:
 ```
-Flowly -- Fluido, memorizavel, soa bem em PT e EN | Domains: .com [x] .com.br [ok] .io [ok] | Social: IG [ok] X [?]
-Nuvio -- Inventado, leve, escalavel | Domains: .com [ok] .com.br [ok] .io [ok] | Social: IG [ok] X [ok] -- TOP PICK
+Flowly -- Fluido, memorizavel, soa bem em PT e EN | Domains: .com 🔴 .com.br 🟢 .io 🟢 | Social: IG 🟢 X 🟡
+Nuvio -- Inventado, leve, escalavel | Domains: .com 🟢 .com.br 🟢 .io 🟢 | Social: IG 🟢 X 🟢 -- TOP PICK
 ```
 
 ### Eliminated
