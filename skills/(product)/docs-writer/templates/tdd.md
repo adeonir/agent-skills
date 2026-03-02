@@ -1,168 +1,97 @@
 ---
 status: draft
 date: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
 ---
 
-# TDD
+# TDD - {{Product Name}}
 
 ## 1. Overview
 
-{{Brief summary of what is being built and why. 2-3 sentences max.}}
+{{What is being built, why it exists, and the problem it solves. Include relevant context and history. 1-2 paragraphs max.}}
 
-## 2. Context & Background
+## 2. Goals / Non-Goals
 
-{{What existing system or situation motivates this design? Include relevant history.}}
+### Goals
 
-## 3. Goals
-
-- {{Technical goal this design achieves}}
-- {{Another measurable objective}}
+- **{{Goal name}}:** {{Measurable technical objective}}
+- **{{Goal name}}:** {{Measurable technical objective}}
 
 ### Non-Goals
 
-- {{What this design explicitly does not address -- must be things that could reasonably be goals}}
+- {{What this design explicitly does not address}}
+- {{Another explicit exclusion}}
 
-## 4. Scope of Impact
+## 3. Tech Stack
 
-| Dimension | Details |
-|-----------|---------|
-| Affected systems | {{which services, modules, or databases are touched}} |
-| Affected teams | {{which teams need to be aware or involved}} |
-| Blast radius | {{what breaks if this fails -- scope of potential damage}} |
-| Dependencies disrupted | {{existing consumers or integrations that could be affected}} |
+### Frontend
 
-## 5. Architecture
+| Category | Choice |
+|----------|--------|
+| {{e.g., Framework}} | {{e.g., Next.js}} |
+| {{e.g., Styling}} | {{e.g., Tailwind CSS}} |
+
+### Backend
+
+| Category | Choice |
+|----------|--------|
+| {{e.g., Framework}} | {{e.g., NestJS}} |
+| {{e.g., Database}} | {{e.g., PostgreSQL}} |
+
+### Shared
+
+| Category | Choice |
+|----------|--------|
+| {{e.g., Validation}} | {{e.g., Zod}} |
+
+## 4. Architecture
 
 ### High-Level Design
 
 ```mermaid
-{{flowchart or graph showing the system architecture at a high level}}
+{{flowchart showing the system architecture at a high level}}
 ```
 
 ### System Context
 
 ```mermaid
-{{diagram showing the new system within existing infrastructure -- not in isolation}}
+{{diagram showing the system within existing infrastructure and external services}}
 ```
-
-### Components
-
-| Component | Responsibility |
-|-----------|---------------|
-| {{name}} | {{what it does and why it exists}} |
-| {{name}} | {{what it does and why it exists}} |
 
 ### Data Flow
 
 ```mermaid
-{{sequenceDiagram or flowchart showing how data moves through the system}}
+{{sequenceDiagram showing how data moves through the system for key scenarios}}
 ```
 
-## 6. Technical Design
+## 5. Security & Compliance
 
-### Data Model
+- {{Security concern and how it is addressed}}
+- {{Auth/authz approach}}
+- {{Data protection strategy}}
+- **Compliance:**
+  - {{Regulatory requirements and how they are met}}
+  - {{Data handling policies}}
 
-```typescript
-// {{Describe key types, interfaces, or schemas}}
-interface Example {
-  id: string;
-  name: string;
-  createdAt: Date;
-}
-```
-
-### API Design
-
-| Method | Endpoint | Description | Request | Response |
-|--------|----------|-------------|---------|----------|
-| {{GET/POST/etc}} | {{/api/resource}} | {{what it does}} | {{request shape or "-"}} | {{response shape}} |
-
-### State Management
-
-{{Describe how state is managed -- React state, context, stores, URL params, etc.}}
-
-### Key Algorithms / Logic
-
-{{Describe any non-trivial logic, business rules, or algorithms that need special attention}}
-
-## 7. Tech Stack & Dependencies
-
-| Category | Choice | Justification |
-|----------|--------|---------------|
-| {{e.g., Framework}} | {{e.g., Next.js 15}} | {{why this choice}} |
-| {{e.g., Database}} | {{e.g., PostgreSQL}} | {{why this choice}} |
-| {{e.g., New Dependency}} | {{package name}} | {{why needed}} |
-
-## 8. Failure Modes & Recovery
-
-| Failure Scenario | Detection | Recovery Strategy | User Impact |
-|-----------------|-----------|-------------------|-------------|
-| {{what can go wrong at system level}} | {{how it is detected -- metric, alert, health check}} | {{how the system recovers}} | {{what the user sees}} |
-| {{another failure mode}} | {{detection method}} | {{recovery strategy}} | {{degraded experience description}} |
-
-## 9. Performance Considerations
-
-- {{Performance concern and mitigation strategy, e.g., lazy loading for large lists}}
-- {{Caching approach, e.g., stale-while-revalidate for API responses}}
-- {{Bundle size impact, e.g., tree-shaking strategy for new dependency}}
-
-## 10. Security Considerations
-
-- {{Security concern and how it is addressed, e.g., input validation on all user-facing endpoints}}
-- {{Auth/authz approach, e.g., role-based access control for admin features}}
-
-## 11. Observability & Monitoring
-
-| Aspect | Details |
-|--------|---------|
-| Key metrics | {{what to measure -- latency, error rate, throughput, business metrics}} |
-| Dashboards | {{what dashboards to create or update}} |
-| Alerts | {{what thresholds trigger alerts and who gets paged}} |
-| Health model | {{healthy / degraded / unhealthy states and their definitions}} |
-| Rollback signals | {{what metrics or alerts indicate the change should be reverted}} |
-
-## 12. Testing Strategy
+## 6. Testing
 
 | Type | Coverage | Tools |
 |------|----------|-------|
-| Unit | {{what is covered}} | {{e.g., Vitest}} |
-| Integration | {{what is covered}} | {{e.g., Testing Library}} |
-| E2E | {{what is covered}} | {{e.g., Playwright}} |
+| {{e.g., Unit}} | {{what is covered}} | {{e.g., Vitest}} |
+| {{e.g., E2E}} | {{what is covered}} | {{e.g., Playwright}} |
 
-## 13. Migration / Rollout Plan
+## 7. Alternatives Considered
 
-1. {{First step to ship this change safely}}
-2. {{Next step in the rollout}}
-3. {{Final step to complete the migration}}
+| Decision | Choice | Over | Why |
+|----------|--------|------|-----|
+| {{what was decided}} | {{what was chosen}} | {{what was rejected}} | {{reasoning}} |
 
-### Feature Flags
+## 8. Open Questions
 
-| Flag | Purpose | Default |
-|------|---------|---------|
-| {{flag_name}} | {{what it gates}} | `false` |
+- [ ] {{Question requiring further investigation}}
+- [ ] {{Decision that can be deferred}}
 
-### Rollback Strategy
+## 9. References
 
-{{How to revert if something goes wrong.}}
-
-**Rollback triggers:**
-- {{Metric or signal that triggers a rollback, e.g., error rate > 5% for 5 minutes}}
-- {{Another trigger, e.g., latency p99 > 2s}}
-
-## 14. Alternatives Considered
-
-| Alternative | Pros | Cons | Why Rejected |
-|-------------|------|------|-------------|
-| Do nothing | {{advantages of not changing}} | {{cost of inaction}} | {{why inaction is not acceptable}} |
-| {{approach considered}} | {{advantages}} | {{disadvantages}} | {{reason it was not chosen}} |
-| {{another approach}} | {{advantages}} | {{disadvantages}} | {{reason it was not chosen}} |
-
-## 15. Open Questions
-
-- [ ] {{Question requiring further investigation before or during implementation}}
-- [ ] {{Decision that can be deferred to implementation phase}}
-
-## 16. References
-
-- {{Link to relevant documentation, prior art, or inspiration}}
-- {{Link to related ADRs or RFCs}}
+- {{Link to relevant documentation or prior art}}
+- {{Link to related ADRs, RFCs, or PRDs}}

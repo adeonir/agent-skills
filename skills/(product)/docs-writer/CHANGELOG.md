@@ -6,6 +6,20 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-02
+
+### Changed
+
+- TDD template restructured from 16 to 9 sections following AWS design doc pattern
+- Remove Context & Background, Scope of Impact, Technical Design, Failure Modes & Recovery, Performance Considerations, Observability & Monitoring, Migration / Rollout Plan
+- Tech Stack becomes standalone section with category tables (Frontend, Backend, Shared) without justification column
+- Alternatives Considered changes format from Pros/Cons to Decision/Choice/Over/Why
+- Security section expanded to Security & Compliance (includes regulatory requirements)
+- Architecture section focuses on three Mermaid diagrams: High-Level Design, System Context, Data Flow
+- Add `updated` field to frontmatter
+- TDD reference updated: discovery topics reorganized from 3 generic to 3 focused (Requirements & Stack, Architecture & Integrations, Security/Compliance/Testing)
+- TDD reference schema table updated to match new 9-section template
+
 ## 2026-02-27
 
 ### Changed
