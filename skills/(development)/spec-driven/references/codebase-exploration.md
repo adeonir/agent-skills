@@ -109,6 +109,8 @@ Use findings in plan.md:
 - Patterns to use
 - Code to reuse
 
+After exploration, new findings are persisted back to `.artifacts/codebase/` docs (see plan.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's planning are available to future features without rediscovery.
+
 ## Guidelines
 
 - **Read content**: Don't just list files - READ them to extract actual patterns

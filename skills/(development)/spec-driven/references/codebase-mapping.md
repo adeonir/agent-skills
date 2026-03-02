@@ -55,23 +55,40 @@ Generate:
 ## Patterns
 - {pattern}: {usage}
 
+## Entry Points
+
+| File | Line | Purpose |
+|------|------|---------|
+| {path} | {line} | {description} |
+
+## Layers
+
+| Layer | Responsibility | Key Files |
+|-------|---------------|-----------|
+| {Presentation/Business/Data/External} | {what it does} | {paths} |
+
 ## Data Flow
-1. {step}
+
+1. **Entry**: {file:line} - {description}
+2. **Transform**: {file:line} - {description}
+3. **Output**: {file:line} - {description}
 
 ## Key Decisions
 | Decision | Rationale |
+|----------|-----------|
 ```
 
 **CONVENTIONS.md**
 ```markdown
 # Conventions
 
-## Naming
-- Files: {pattern}
-- Functions: {pattern}
-
-## Code Style
-- {convention}
+| Aspect | Project Uses | Avoid | Reference |
+|--------|-------------|-------|-----------|
+| Naming | {convention} | {anti-pattern} | {file:line} |
+| Error handling | {approach} | {anti-pattern} | {file:line} |
+| Imports | {pattern} | {anti-pattern} | {file:line} |
+| Types | {style} | {anti-pattern} | {file:line} |
+| API calls | {pattern} | {anti-pattern} | {file:line} |
 ```
 
 **STRUCTURE.md**
@@ -87,11 +104,22 @@ Generate:
 ```markdown
 # Testing
 
-## Framework
-- {name}
+## Infrastructure
+
+| Aspect | Detail |
+|--------|--------|
+| Framework | {jest/vitest/etc} |
+| Command | {npm test/etc} |
+| Location | {test directory pattern} |
 
 ## Patterns
-- {pattern}
+- {describe/it structure, mocking approach, fixtures}
+
+## Reference Tests
+
+| File | What It Tests |
+|------|---------------|
+| {existing test} | {pattern to follow} |
 ```
 
 **INTEGRATIONS.md**

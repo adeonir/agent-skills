@@ -52,7 +52,24 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-### Step 5: Data Model Definition
+### Step 5: Persist Codebase Discoveries
+
+After exploration, feed new findings back to project-level docs:
+
+1. If `.artifacts/codebase/` doesn't exist: create it and populate with exploration findings
+2. If it exists: compare findings against current docs and append new discoveries
+
+What to update:
+- **CONVENTIONS.md**: new convention rows, updated file:line refs
+- **ARCHITECTURE.md**: new entry points, layers, integration points
+- **TESTING.md**: new test patterns, reference tests
+
+Rules:
+- Merge new findings, never overwrite existing content
+- Only add patterns confirmed by this exploration (not speculative)
+- Use the same table formats already in the codebase docs
+
+### Step 6: Data Model Definition
 
 Define the data model before component design:
 
@@ -60,7 +77,7 @@ Define the data model before component design:
 - **Relationships**: How entities relate (one-to-many, many-to-many)
 - **API contracts**: Request/response shapes for new endpoints
 
-### Step 6: Generate plan.md
+### Step 7: Generate plan.md
 
 **USE TEMPLATE:** `templates/plan.md`
 
@@ -80,15 +97,16 @@ Generate the plan following the template structure:
 - Decisions
 - Open Questions
 
-### Step 7: Update Status
+### Step 8: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 8: Report
+### Step 9: Report
 
 Inform user:
 - Created: `plan.md`
 - Research cached: {topics}
+- Codebase docs updated: {files updated or created in .artifacts/codebase/}
 - Key decisions: {count}
 - Next: Run `tasks`
 
