@@ -30,60 +30,93 @@ If `.artifacts/codebase/` exists:
 
 ### Step 2: Explore Codebase
 
-Perform a **macro-level analysis** of the entire codebase. This is NOT feature-specific -- the goal is to understand the project as a whole.
+Perform a **deep analysis** of the entire codebase. This is NOT feature-specific -- the goal is to understand the project as a whole.
+
+**Critical rule**: Don't just list or find files -- READ them and extract concrete patterns. Every convention documented must have evidence from actual code.
 
 #### Phase 1: Project Discovery
 
 1. **Read Project Metadata**
 
-   Read package.json, tsconfig.json, pyproject.toml, go.mod, or equivalent to understand stack and dependencies.
+   Read package.json, tsconfig.json, pyproject.toml, go.mod, or equivalent. Extract:
+   - Framework and runtime versions
+   - All meaningful dependencies and their purpose
+   - Scripts/commands available (build, test, lint, dev)
+   - Configuration choices (module system, target, strict mode)
 
 2. **Read Documentation**
 
-   Read README.md, CLAUDE.md, CONTRIBUTING.md, or similar docs to understand project purpose and conventions.
+   Read README.md, CLAUDE.md, CONTRIBUTING.md, or similar docs. Extract:
+   - Project purpose and scope
+   - Architecture decisions already documented
+   - Coding standards and conventions
+   - Setup and development workflow
 
 3. **Map Directory Structure**
 
-   List the top-level directory structure and key subdirectories to understand project organization.
+   Explore the full directory tree to understand the project, but only document the top-level directories and key subdirectories that define the architecture. Omit generated, vendored, or obvious directories.
 
-#### Phase 2: Architecture Analysis
+#### Phase 2: Deep Code Analysis
 
-4. **Identify Entry Points**
+4. **Read Representative Source Files**
 
-   Find main entry points: API routes, CLI commands, app bootstrapping, event handlers.
-
-5. **Trace Architecture Layers**
-
-   Map layers: Presentation, Business logic, Data access, External services. Identify which directories/files belong to each.
-
-6. **Read Reference Files**
-
-   Read 3-5 representative files across different layers to extract:
+   Select and READ 5-8 source files that represent different areas of the codebase (not just entry points -- pick files from different directories and layers). For each file, extract:
    - Naming conventions (functions, classes, variables, files)
-   - Import/export patterns
-   - Error handling approach
-   - Type definitions style
+   - Import/export patterns and module organization
+   - Error handling approach (try/catch, Result types, error boundaries)
+   - Type definitions style (interfaces vs types, inline vs shared)
+   - Code organization within files (ordering, grouping)
+
+5. **Map Module Dependencies**
+
+   For key modules/directories, identify:
+   - What they import (dependencies)
+   - What imports from them (dependents)
+   - Circular dependency patterns if any
+   - Shared utilities, constants, or types used across modules
+
+6. **Trace Data Flows**
+
+   Follow 2-3 complete flows from entry to output:
+   - Input: where data enters (API route, CLI arg, event handler, UI action)
+   - Validation: how input is validated/parsed
+   - Processing: business logic transformation
+   - Persistence: how data is stored/retrieved
+   - Output: how results are returned/rendered
+
+   Document each step as a pattern, not with specific file references.
 
 #### Phase 3: Testing & Integrations
 
 7. **Analyze Testing Setup**
 
-   Find test files, identify test framework, understand test organization and patterns.
+   READ 2-3 actual test files (not just find them). Extract:
+   - Test framework and runner
+   - Test file naming and location conventions
+   - describe/it structure and nesting patterns
+   - Mocking approach (what's mocked, how)
+   - Fixture and helper patterns
+   - Setup/teardown patterns
 
 8. **Identify External Integrations**
 
-   Find API calls, database connections, third-party services, environment variables.
+   Search for and document all external touchpoints:
+   - API calls (HTTP clients, SDK usage)
+   - Database connections and ORM patterns
+   - Third-party services (auth, payments, analytics)
+   - Environment variables and configuration
+   - File system operations
 
-#### Phase 4: Consolidation
+#### Phase 4: Convention Extraction
 
-9. **Document Patterns**
+9. **Synthesize Patterns**
 
-   For each convention found, include a file:line reference as evidence:
-   ```
-   Pattern: Function naming
-   - Project uses: camelCase for functions
-   - Example: src/utils/helpers.ts:15
-   ```
+   Cross-reference findings from all files read. For each convention, provide:
+   - What the project uses (with evidence from multiple files)
+   - What to avoid (anti-patterns observed or implied)
+   - Edge cases or inconsistencies found
+
+   Cover at minimum: naming, imports, error handling, types, state management, async patterns, logging.
 
 Generate:
 
@@ -109,22 +142,18 @@ Generate:
 - {pattern}: {usage}
 
 ## Entry Points
-
-| File | Line | Purpose |
-|------|------|---------|
-| {path} | {line} | {description} |
+- {description}: {how it works}
 
 ## Layers
 
-| Layer | Responsibility | Key Files |
+| Layer | Responsibility | Directory |
 |-------|---------------|-----------|
-| {Presentation/Business/Data/External} | {what it does} | {paths} |
+| {Presentation/Business/Data/External} | {what it does} | {directory} |
 
 ## Data Flow
-
-1. **Entry**: {file:line} - {description}
-2. **Transform**: {file:line} - {description}
-3. **Output**: {file:line} - {description}
+1. **Entry**: {description}
+2. **Processing**: {description}
+3. **Output**: {description}
 
 ## Key Decisions
 | Decision | Rationale |
@@ -135,13 +164,13 @@ Generate:
 ```markdown
 # Conventions
 
-| Aspect | Project Uses | Avoid | Reference |
-|--------|-------------|-------|-----------|
-| Naming | {convention} | {anti-pattern} | {file:line} |
-| Error handling | {approach} | {anti-pattern} | {file:line} |
-| Imports | {pattern} | {anti-pattern} | {file:line} |
-| Types | {style} | {anti-pattern} | {file:line} |
-| API calls | {pattern} | {anti-pattern} | {file:line} |
+| Aspect | Project Uses | Avoid |
+|--------|-------------|-------|
+| Naming | {convention} | {anti-pattern} |
+| Error handling | {approach} | {anti-pattern} |
+| Imports | {pattern} | {anti-pattern} |
+| Types | {style} | {anti-pattern} |
+| API calls | {pattern} | {anti-pattern} |
 ```
 
 **STRUCTURE.md**

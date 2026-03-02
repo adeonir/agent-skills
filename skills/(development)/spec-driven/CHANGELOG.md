@@ -16,6 +16,8 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Replace feature-scoped exploration delegation with inline deep analysis workflow in codebase-mapping
+- Codebase mapping now has 4 phases: Project Discovery, Deep Code Analysis, Testing & Integrations, Convention Extraction
 - Enrich codebase mapping templates: ARCHITECTURE.md with entry points, layers, and data flow; CONVENTIONS.md with exploration-style table; TESTING.md with infrastructure table and reference tests
 
 ## 2026-02-27
