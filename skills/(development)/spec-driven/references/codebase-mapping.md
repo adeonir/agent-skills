@@ -30,7 +30,60 @@ If `.artifacts/codebase/` exists:
 
 ### Step 2: Explore Codebase
 
-Load [codebase-exploration.md](codebase-exploration.md).
+Perform a **macro-level analysis** of the entire codebase. This is NOT feature-specific -- the goal is to understand the project as a whole.
+
+#### Phase 1: Project Discovery
+
+1. **Read Project Metadata**
+
+   Read package.json, tsconfig.json, pyproject.toml, go.mod, or equivalent to understand stack and dependencies.
+
+2. **Read Documentation**
+
+   Read README.md, CLAUDE.md, CONTRIBUTING.md, or similar docs to understand project purpose and conventions.
+
+3. **Map Directory Structure**
+
+   List the top-level directory structure and key subdirectories to understand project organization.
+
+#### Phase 2: Architecture Analysis
+
+4. **Identify Entry Points**
+
+   Find main entry points: API routes, CLI commands, app bootstrapping, event handlers.
+
+5. **Trace Architecture Layers**
+
+   Map layers: Presentation, Business logic, Data access, External services. Identify which directories/files belong to each.
+
+6. **Read Reference Files**
+
+   Read 3-5 representative files across different layers to extract:
+   - Naming conventions (functions, classes, variables, files)
+   - Import/export patterns
+   - Error handling approach
+   - Type definitions style
+
+#### Phase 3: Testing & Integrations
+
+7. **Analyze Testing Setup**
+
+   Find test files, identify test framework, understand test organization and patterns.
+
+8. **Identify External Integrations**
+
+   Find API calls, database connections, third-party services, environment variables.
+
+#### Phase 4: Consolidation
+
+9. **Document Patterns**
+
+   For each convention found, include a file:line reference as evidence:
+   ```
+   Pattern: Function naming
+   - Project uses: camelCase for functions
+   - Example: src/utils/helpers.ts:15
+   ```
 
 Generate:
 
