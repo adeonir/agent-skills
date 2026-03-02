@@ -6,6 +6,18 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-02
+
+### Added
+
+- Brownfield auto-detection in project-init (auto-triggers codebase mapping for existing codebases)
+- Persist Codebase Discoveries step in plan phase (feeds exploration findings back to project-level docs)
+- Codebase feedback loop note in codebase-exploration reference
+
+### Changed
+
+- Enrich codebase mapping templates: ARCHITECTURE.md with entry points, layers, and data flow; CONVENTIONS.md with exploration-style table; TESTING.md with infrastructure table and reference tests
+
 ## 2026-02-27
 
 ### Changed

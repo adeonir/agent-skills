@@ -33,17 +33,12 @@ Skills write artifacts to `.artifacts/` organized by domain:
 
 ```
 .artifacts/
-├── specs/          # spec-driven outputs
-│   ├── project/    # PROJECT.md, ROADMAP.md, CHANGELOG.md
-│   ├── codebase/   # Brownfield analysis
-│   ├── research/   # Research cache
-│   └── features/   # Feature specs, plans, tasks
-├── docs/           # docs-writer outputs
-│   └── *.md        # PRD, Brief, RFC, ADR, TDD, Issues, Tasks, Stories
-└── design/         # design-builder outputs
-    ├── copy.yaml
-    ├── design.json
-    └── variants/
+├── project/        # spec-driven: vision, roadmap, changelog
+├── codebase/       # spec-driven: brownfield analysis (6 docs)
+├── research/       # spec-driven: research cache
+├── features/       # spec-driven: feature specs, plans, tasks
+├── docs/           # docs-writer + product-naming reports
+└── design/         # design-builder: copy.yaml, design.json, variants/
 ```
 
 This directory is gitignored by default but can be committed for team collaboration.

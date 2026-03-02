@@ -6,6 +6,15 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-02
+
+### Added
+
+- Data Trust Boundary section in SKILL.md for VCS output sanitization
+- Inline trust notes at diff ingestion points in commit and code-review references
+- Guideline Content Boundary in guidelines-audit reference defining valid vs invalid guideline scope
+- Trust language in conventional-commits Source of Truth section
+
 ## 2026-02-27
 
 ### Changed

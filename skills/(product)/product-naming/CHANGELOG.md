@@ -6,6 +6,13 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-02
+
+### Added
+
+- External Content Trust Boundary section in SKILL.md for registrar and social media response sanitization
+- Inline trust note at shell command output interpretation in evaluation reference
+
 ## 2026-02-28
 
 ### Changed

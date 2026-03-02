@@ -55,7 +55,7 @@ initialize project
 setup project for my app
 ```
 
-Creates `.artifacts/project/` with PROJECT.md, ROADMAP.md, CHANGELOG.md.
+Creates `.artifacts/project/` with PROJECT.md. For existing codebases, also auto-maps the codebase to `.artifacts/codebase/`.
 
 ### Create a Feature (Greenfield)
 
@@ -138,10 +138,11 @@ archive auth feature
 ### Example 2: Brownfield Feature (Existing Codebase)
 
 ```
-# Map existing codebase (first time)
-map codebase
+# Initialize project (auto-detects existing code and maps codebase)
+initialize project
 
-# Creates .artifacts/codebase/ with STACK.md, ARCHITECTURE.md, etc.
+# Creates .artifacts/project/PROJECT.md
+# Detects existing source code, creates .artifacts/codebase/ with STACK.md, ARCHITECTURE.md, etc.
 
 # Create feature that modifies existing code
 modify existing auth flow to add 2FA

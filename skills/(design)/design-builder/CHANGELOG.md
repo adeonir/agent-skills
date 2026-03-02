@@ -6,6 +6,13 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-02
+
+### Added
+
+- External Content Trust Boundary section in SKILL.md for fetched URL and image sanitization
+- Inline trust notes at content ingestion points in copy and design references
+
 ## 2026-02-27
 
 ### Changed
