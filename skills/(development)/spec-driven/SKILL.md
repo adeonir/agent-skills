@@ -31,18 +31,18 @@ initialize --> plan --> tasks --> implement --> validate --> archive
 .artifacts/
 ├── project/
 │   ├── PROJECT.md          # Vision, goals, constraints
-│   ├── ROADMAP.md          # Planned features, milestones
-│   └── CHANGELOG.md        # Feature implementation history
-├── codebase/               # Brownfield analysis (optional)
+│   ├── ROADMAP.md          # Planned features, milestones (lazy)
+│   └── CHANGELOG.md        # Feature implementation history (lazy)
+├── codebase/               # Brownfield analysis (lazy)
 │   ├── STACK.md
 │   ├── ARCHITECTURE.md
 │   ├── CONVENTIONS.md
 │   ├── STRUCTURE.md
 │   ├── TESTING.md
 │   └── INTEGRATIONS.md
-├── research/               # Research cache (optional)
+├── research/               # Research cache (lazy)
 │   └── {topic}.md
-└── features/
+└── features/               # (lazy)
     └── {ID}-{name}/
         ├── spec.md         # WHAT: Requirements
         ├── plan.md         # HOW: Architecture

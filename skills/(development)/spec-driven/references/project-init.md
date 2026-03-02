@@ -22,12 +22,16 @@ If exists, skip to Step 4 (update check).
 
 ### Step 2: Create Directory Structure
 
-Create base directories:
+Create base directory:
 
 ```bash
 mkdir -p .artifacts/project
-mkdir -p .artifacts/features
 ```
+
+Other directories are created on demand:
+- `.artifacts/features/` -- created when first feature is initialized
+- `.artifacts/research/` -- created when first research is conducted
+- `.artifacts/codebase/` -- created when codebase mapping is run
 
 ### Step 3: Generate PROJECT.md
 
@@ -35,26 +39,23 @@ mkdir -p .artifacts/features
 
 Generate PROJECT.md following the template structure with project name, vision, goals, constraints, and tech stack.
 
-### Step 4: Generate ROADMAP.md
-
-**USE TEMPLATE:** `templates/ROADMAP.md`
-
-Generate ROADMAP.md following the template structure with Current Sprint and Backlog tables.
-
-### Step 5: Generate CHANGELOG.md
-
-**USE TEMPLATE:** `templates/CHANGELOG.md`
-
-Generate CHANGELOG.md following the template structure with date-only sections (Added, Changed, Fixed).
-
-### Step 6: Report
+### Step 4: Report
 
 Inform user:
-- Created .artifacts/ structure
-- Project initialized with PROJECT.md, ROADMAP.md, CHANGELOG.md
+- Created .artifacts/project/ with PROJECT.md
 - Next steps:
   - Create features: "create new feature for..."
   - Map existing codebase: "map codebase" (if brownfield)
+
+### Lazy Artifacts
+
+These files are created when first needed, not at initialization:
+
+| Artifact | Created When |
+|----------|-------------|
+| ROADMAP.md | User runs "create roadmap" or "plan features" |
+| CHANGELOG.md | First feature is archived |
+| .artifacts/features/ | First feature is initialized |
 
 ## Guidelines
 

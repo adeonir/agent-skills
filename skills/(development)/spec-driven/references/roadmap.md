@@ -69,5 +69,5 @@ Show current roadmap summary.
 
 ## Error Handling
 
-- Roadmap not found: Create from template
+- Roadmap not found: Create `.artifacts/project/ROADMAP.md` from template (lazy artifact)
 - Invalid priority: Suggest P1/P2/P3

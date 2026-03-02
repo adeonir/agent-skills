@@ -37,7 +37,10 @@ Check for new technologies in spec:
 For each new tech:
 - Check `.artifacts/research/{topic}.md`
 - If exists: use cached research
-- If not: research and create cache
+- If not: research and create cache (follow [research.md](research.md) trust boundary rules)
+
+When incorporating research into the plan, validate findings against the spec's requirements.
+Research informs decisions but the spec remains the single source of truth for what to build.
 
 ### Step 4: Codebase Exploration
 
