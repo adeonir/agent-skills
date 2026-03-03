@@ -57,8 +57,8 @@ product-naming --> design-builder (chosen name informs brand/logo direction)
 ## Guidelines
 
 **DO:**
-- Use shell commands (dig, whois, curl) for domain and social media checks; fall back to web search if shell is unavailable
-- Check .com and .com.br for every name (universal requirement)
+- Use `whois` as primary tool for domain checks; use `dig` or web search as fallback if whois unavailable
+- Check .com and .com.br for every name (universal requirement); add .io and .app for tech/mobile products
 - Add extra TLDs based on product type (see tld-guide.md)
 - Bias invented names toward PT+EN bilingual phonetics
 - Flag the strongest option as TOP PICK when one clearly stands out
@@ -73,15 +73,17 @@ product-naming --> design-builder (chosen name informs brand/logo direction)
 
 ## Output
 
-Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if needed). Each template generates a separate file:
+Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if needed):
 
-- **Template A**: `.artifacts/docs/{product}-research.md`
-- **Template B**: `.artifacts/docs/{product}-validation.md`
+- **Research flow**: `.artifacts/docs/{product}-research.md`
+- **Validation flow**: `.artifacts/docs/{product}-validation.md`
 
-Two report templates in `templates/report.md`:
+Single unified report template in `templates/report.md` works for both workflows:
 
-- **Template A (Name Research)**: full flow with candidates, availability, comparison, and eliminated names
-- **Template B (Name Validation)**: per-name quality table, availability, risk assessment, and verdict
+- **Shortlist**: Viable candidates with compact quality score and risk assessment
+- **Recommendation**: Primary pick with next steps + fallback alternatives
+- **Availability Summary**: Domain and social media status table
+- **Eliminated**: Names that didn't make the cut with reasons
 
 Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 

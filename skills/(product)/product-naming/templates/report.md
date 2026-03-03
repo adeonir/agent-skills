@@ -1,12 +1,10 @@
-# Report Templates
+# Report Template
 
-Two templates based on entry point. Use the one that matches the user's request.
+Unified template for both research (generate + evaluate) and validation (evaluate only) workflows.
 
 ---
 
-## Template A: Name Research
-
-Use when the user needs name suggestions (generate + evaluate flow).
+## Template: Product Naming Report
 
 ```markdown
 # Product Naming
@@ -16,107 +14,67 @@ Use when the user needs name suggestions (generate + evaluate flow).
 - **Product**: {one-sentence description}
 - **Audience**: {target audience}
 - **Tone**: {vibe/tone}
-- **Style**: {naming style preferences or "none specified"}
+- **Style**: {naming style preferences}
+- **Entry Point**: {Research (generated) | Validation (provided)}
 
 ---
 
-## Candidates
+## Shortlist — Viable Candidates
 
-Validated against existing products in the market.
-
-{For each viable name, one section:}
-
-### {Name}
+### {Name} {⭐ TOP PICK if applicable}
 
 > "{root word}" ({language}: {meaning}) + "{suffix}"
 
-{1-2 sentence description: what it evokes, tone, how it works in PT+EN.}
+{2-3 sentences: what it evokes, tone, how it works in PT+EN, key strengths}
 
-**Risk:** {Risk level and justification. "None" if completely clean.}
+**Quality Score:** Pronunciation 🟢 | Memorable 🟢 | Scalable 🟢
+
+**Risk:** {None / Low / Medium / High} — {justification}
 
 ---
 
-## Full Evaluation
+## Availability Summary
 
-### Top Pick
+| Name | .com | .com.br | .io | .app | IG | X | GH |
+|------|------|---------|-----|------|----|---|----|
+| **{Name}** | 🟢 | 🟢 | 🟢 | 🟢 | 🔴 | 🟡 | 🟢 |
+| **{Name}** | 🔴 | 🟢 | 🟢 | 🟢 | 🔴 | 🟡 | 🟢 |
 
-> **{Name}** -- {Short justification: why this is the best candidate.}
+> 🟢 Available  🔴 Taken  🟡 Uncertain/Verify
 
-### Availability
+---
 
-> Status: 🟢 disponivel  🔴 indisponivel  🟡 incerto
+## Recommendation
 
-| Name | Highlight | .com | .com.br | {extra TLDs} | IG | X | GH |
-|---|---|---|---|---|---|---|---|
-| **{Name}** | {quality note} | 🟢 | 🔴 | 🟡 | 🟢 | 🟢 | 🔴 |
+### 🥇 Primary: {Name}
+{Why this is the best choice — 2-3 sentences}
 
-### Comparison
+**Next Steps:**
+1. {Action item}
+2. {Action item}
 
-| Name | Tone | Memorability | Pronunciation PT+EN | Spelling | Risk |
-|---|---|---|---|---|---|
-| **{Name}** | {tone description} | {High/Very high} | {assessment} | {assessment} | {Very low/Low/Medium/High} |
+### 🥈 Alternatives (if primary unavailable)
+| Priority | Name | Key Trade-off |
+|----------|------|---------------|
+| 2º | {Name} | {concern} |
+| 3º | {Name} | {concern} |
 
 ---
 
 ## Eliminated
 
-{For each eliminated name, one line:}
-
-- ~~{Name}~~ -- {elimination reason}
+| Name | Motivo |
+|------|--------|
+| ~~{Name}~~ | {reason: domain taken / hard to pronounce / generic / trademark conflict} |
+| ~~{Name}~~ | {reason} |
 ```
 
 ---
 
-## Template B: Name Validation
+## Guidelines
 
-Use when the user already has one or more names to evaluate.
-
-```markdown
-# Name Validation
-
-## Context
-
-- **Product**: {one-sentence description or "not specified"}
-- **Names evaluated**: {list of names}
-
----
-
-{For each name, one section:}
-
-## {Name}
-
-### Quality
-
-| Criteria | Rating | Notes |
-|---|---|---|
-| Pronounceable (PT+EN) | {Good/Fair/Poor} | {assessment} |
-| Memorable | {Good/Fair/Poor} | {assessment} |
-| Spellable | {Good/Fair/Poor} | {assessment} |
-| Unique | {Good/Fair/Poor} | {assessment} |
-| Scalable | {Good/Fair/Poor} | {assessment} |
-
-### Availability
-
-> Status: 🟢 disponivel  🔴 indisponivel  🟡 incerto
-
-| Name | Highlight | .com | .com.br | {extra TLDs} | IG | X | GH |
-|---|---|---|---|---|---|---|---|
-| **{Name}** | {quality note} | 🟢 | 🔴 | 🟡 | 🟢 | 🟢 | 🔴 |
-
-### Risk
-
-{For each risk found, one bullet. "None identified." if clean.}
-
-- **{risk type}**: {context} -- {impact}
-- **{risk type}**: {context} -- {impact}
-
----
-
-{If multiple names were evaluated:}
-
-## Verdict
-
-> **{Name}** -- {contextual assessment: viable for what stage, key trade-offs, and one concrete next step.}
-
-{If only one name: skip this section. The single-name evaluation above is the full report.}
-```
+- **TOP PICK**: Flag only one name as the strongest option when there's a clear winner
+- **Quality Score**: Use 🟢 Good / 🟡 Fair / 🔴 Poor for each criterion
+- **Risk**: Keep it brief but specific — mention concrete issues (e.g., ".com taken by competitor", "pronunciation ambiguous in EN")
+- **Eliminated**: Group all eliminated names in one table at the end; reason can be domain conflict OR quality issue
+- **Availability Summary**: Always include .com and .com.br; add .io for tech products; check IG/X always, GH for dev tools

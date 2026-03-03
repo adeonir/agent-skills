@@ -6,6 +6,23 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-03
+
+### Changed
+
+- Unify Template A and Template B into single report template
+- Simplify report title to "Product Naming" (removed product name suffix)
+- Shortlist now uses compact Quality Score format (1-2 lines, no tables)
+- Move eliminated names to end of report
+- Reorder sections: Shortlist → Recommendation → Availability Summary → Eliminated
+- Availability Summary table: remove Status column, add .app TLD column
+- Domain check method: prefer whois as primary verification tool
+
+### Removed
+
+- Template A (Name Research) with per-candidate availability tables and comparison matrix
+- Template B (Name Validation) with per-candidate detailed quality tables
+
 ## 2026-03-02
 
 ### Added
@@ -26,17 +43,11 @@ All notable changes to this skill will be documented in this file.
 ### Added
 
 - Reports saved as `.md` files in `.artifacts/docs/` (`{product}-research.md`, `{product}-validation.md`)
-
-### Changed
-
 - Template B: availability table now matches Template A format (Name + Highlight columns)
 - Template B: risk section expanded to bulleted list with context and impact per risk
 - Template B: "Recommendation" renamed to "Verdict" with contextual assessment
 - Status indicators changed from text markers to traffic light emojis across all files
 - SKILL.md output section now references both report templates
-
-### Added
-
 - Product Naming skill with two-phase workflow (generation + evaluation)
 - Name generation reference with 5 naming styles (real words, compound, invented, prefixed, acronyms)
 - Name evaluation reference with domain, social media, and quality checks
