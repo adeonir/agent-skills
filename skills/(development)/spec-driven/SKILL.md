@@ -1,7 +1,6 @@
 ---
 name: spec-driven
-description: >-
-  Specification-driven development with structured phases: Initialize, Plan, Tasks,
+description: Specification-driven development with structured phases: Initialize, Plan, Tasks,
   Implement+Validate. Creates structured feature specs with traceability to requirements.
   Use when: planning features, implementing with verification, or tracking decisions
   across sessions. Also use when the user wants to break a feature into tasks, plan

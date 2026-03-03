@@ -1,7 +1,6 @@
 ---
 name: project-index
-description: >-
-  Generate project context and codebase documentation for AI agents. Creates
+description: Generate project context and codebase documentation for AI agents. Creates
   .agents/ directory with project overview and deep codebase analysis. Use when:
   starting work on a project, onboarding to an existing codebase, generating
   project documentation for agents, or mapping codebase patterns and conventions.

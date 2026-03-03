@@ -1,7 +1,6 @@
 ---
 name: debug-tools
-description: >-
-  Iterative debugging workflow with confidence scoring and strategic log injection.
+description: Iterative debugging workflow with confidence scoring and strategic log injection.
   Five phases: investigate, inject logs, propose fix, verify, cleanup.
   Use when: debugging unexpected behavior, silent errors, intermittent failures,
   or issues requiring runtime data. Also use when the user says something isn't working,

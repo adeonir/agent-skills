@@ -1,7 +1,6 @@
 ---
 name: product-naming
-description: >-
-  Research and validate product names with domain and social media availability checks.
+description: Research and validate product names with domain and social media availability checks.
   Generates name candidates, checks .com/.com.br/.io/.app domains, verifies Instagram/X/GitHub
   usernames, and scores name quality (pronounceable, memorable, brandable).
   Use when: naming products, startups, apps, or brands. Also use when the user provides

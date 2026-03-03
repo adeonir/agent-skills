@@ -43,8 +43,7 @@ The main file. Acts as a router: detects the trigger and loads the right referen
 ```yaml
 ---
 name: skill-name
-description: >-
-  Short sentence of what it does. Details about capabilities.
+description: Short sentence of what it does. Details about capabilities.
   Use when: usage contexts. Also use when: adjacent contexts.
   Triggers on "phrase 1", "phrase 2", "phrase 3".
 metadata:
@@ -56,9 +55,10 @@ metadata:
 Frontmatter rules:
 
 - `name`: kebab-case, matches the directory name
-- `description`: uses `>-` (folded block), 200-300 characters
+- `description`: multi-line string, 200-300 characters
   - Structure: what it does + when to use + specific triggers
   - Include varied trigger phrases to improve matching
+  - Use line continuation with indentation (not folded block `>-`)
 - `version`: always `"1.0.0"` -- never increment
 - `author`: format `github.com/{username}`
 

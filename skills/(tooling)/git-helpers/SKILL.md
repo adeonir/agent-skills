@@ -1,7 +1,6 @@
 ---
 name: git-helpers
-description: >-
-  Git workflow helper for conventional commits, confidence-scored code review,
+description: Git workflow helper for conventional commits, confidence-scored code review,
   and pull request management. Use when: committing changes, reviewing code,
   creating PRs, generating PR descriptions. Also use when the user says they're
   done coding and ready to commit, wants feedback on their changes, needs to push

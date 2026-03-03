@@ -1,7 +1,6 @@
 ---
 name: docs-writer
-description: >-
-  Generate structured product and technical documents through guided discovery.
+description: Generate structured product and technical documents through guided discovery.
   8 document types: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD.
   Use when: defining products, reporting bugs, planning tasks, writing stories,
   proposing changes, recording decisions, designing systems. Also use when the user
