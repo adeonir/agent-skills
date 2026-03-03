@@ -4,7 +4,7 @@
     "should_trigger": true
   },
   {
-    "query": "let's start a new project, I want to set up the structure with a roadmap and feature tracking",
+    "query": "create a new feature for the onboarding flow with proper specs and requirements",
     "should_trigger": true
   },
   {
@@ -24,7 +24,7 @@
     "should_trigger": true
   },
   {
-    "query": "map my codebase so we understand the architecture before adding features",
+    "query": "modify the existing search feature to support fuzzy matching",
     "should_trigger": true
   },
   {
@@ -77,6 +77,14 @@
   },
   {
     "query": "set up my Tailwind CSS config with custom design tokens and a component library",
+    "should_trigger": false
+  },
+  {
+    "query": "map my codebase so we understand the architecture and conventions",
+    "should_trigger": false
+  },
+  {
+    "query": "initialize project and generate an AGENTS.md",
     "should_trigger": false
   }
 ]

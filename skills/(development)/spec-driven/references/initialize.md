@@ -50,9 +50,13 @@ These belong in plan.md, created during the `plan` phase.
 
 ### Step 1: Ensure Project Structure
 
-Check if `.artifacts/project/` exists. If not:
-- Load [project-init.md](project-init.md)
-- Initialize project first
+Check if `.artifacts/features/` parent exists. If not:
+
+```bash
+mkdir -p .artifacts/features
+```
+
+If `.agents/project.md` exists, use it as additional context.
 
 ### Step 2: Generate Feature ID
 
@@ -205,8 +209,8 @@ Load [baseline-discovery.md](baseline-discovery.md) and:
 3. Document gaps and limitations
 4. Add Baseline section to spec.md
 
-If `.artifacts/codebase/` doesn't exist:
-- Suggest running "map codebase" for better context
+If `.agents/codebase/` doesn't exist:
+- Suggest running project-index's "summary" or "map codebase" for better context
 - Or proceed with limited codebase understanding
 
 ### Step 7: Generate Feature Name
@@ -243,11 +247,7 @@ Generate the spec following the template structure:
 
 P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test describing how to verify it works in isolation.
 
-### Step 11: Update ROADMAP.md
-
-Add feature to roadmap.
-
-### Step 12: Report
+### Step 11: Report
 
 Inform user:
 - Created: `.artifacts/features/{ID}-{name}/`
@@ -258,12 +258,12 @@ Inform user:
 
 ## Codebase Mapping Note
 
-**codebase-mapping.md** creates `.artifacts/codebase/` (8 docs) for general codebase understanding.
+**project-index** skill creates `.agents/codebase/` (8 docs) for general codebase understanding.
 
 **Baseline in initialize** captures specific current behavior relevant to this feature (from spec perspective, not deep code analysis).
 
 They complement each other:
-- codebase-mapping: Macro view (all features)
+- project-index summary: Macro view (whole codebase)
 - baseline: Micro view (this feature only)
 
 ## Guidelines

@@ -56,7 +56,7 @@ Focus areas:
 
 After exploration, feed new findings back to project-level docs:
 
-1. If `.artifacts/codebase/` doesn't exist: create it and populate with exploration findings
+1. If `.agents/codebase/` doesn't exist: skip (project-index hasn't been run yet, keep discoveries in plan.md only)
 2. If it exists: compare findings against current docs and append new discoveries
 
 What to update:
@@ -68,6 +68,7 @@ Rules:
 - Merge new findings, never overwrite existing content
 - Only add patterns confirmed by this exploration (not speculative)
 - Use the same table formats already in the codebase docs
+- Never create `.agents/codebase/` from scratch (that's project-index's job)
 
 ### Step 6: Data Model Definition
 
@@ -106,7 +107,7 @@ Set spec.md frontmatter: `status: ready`
 Inform user:
 - Created: `plan.md`
 - Research cached: {topics}
-- Codebase docs updated: {files updated or created in .artifacts/codebase/}
+- Codebase docs updated: {files updated in .agents/codebase/, if it existed}
 - Key decisions: {count}
 - Next: Run `tasks`
 

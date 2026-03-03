@@ -17,7 +17,7 @@ Patterns for analyzing existing code for a specific feature.
 - Integration patterns
 - Testing approaches
 
-For **general codebase mapping**, see [codebase-mapping.md](codebase-mapping.md) (creates .artifacts/codebase/ docs).
+For **general codebase mapping**, use the project-index skill (creates `.agents/codebase/` docs).
 
 ## Tools
 
@@ -109,7 +109,7 @@ Use findings in plan.md:
 - Patterns to use
 - Code to reuse
 
-After exploration, new findings are persisted back to `.artifacts/codebase/` docs (see plan.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's planning are available to future features without rediscovery.
+After exploration, if `.agents/codebase/` exists, new findings are persisted back to it (see plan.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's planning are available to future features without rediscovery.
 
 ## Guidelines
 

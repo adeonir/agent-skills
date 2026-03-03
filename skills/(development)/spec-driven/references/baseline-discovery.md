@@ -130,8 +130,8 @@ Current state based on codebase analysis.
 ## Integration with Codebase Mapping
 
 **baseline-discovery.md**: Micro view - behavior relevant to this feature
-**codebase-mapping.md**: Macro view - overall codebase structure
+**project-index summary**: Macro view - overall codebase structure (`.agents/codebase/`)
 
 They complement each other:
-- Use codebase-mapping for general patterns
+- Use project-index summary for general patterns
 - Use baseline-discovery for specific feature context
