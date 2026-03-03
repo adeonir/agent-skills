@@ -9,8 +9,6 @@ skills/(category)/skill-name/
   SKILL.md              # Entry point: frontmatter + router
   README.md             # User-facing documentation
   CHANGELOG.md          # Change history
-  evals/
-    evals.json          # 20 trigger evaluation queries
   references/           # Detailed documentation per phase/workflow
     phase-name.md
     auxiliary-ref.md
@@ -257,36 +255,6 @@ Rules:
 
 ---
 
-## evals/evals.json
-
-20 evaluation queries to test whether the skill triggers correctly.
-
-### Format
-
-```json
-[
-  {
-    "query": "natural language phrase that should activate the skill",
-    "should_trigger": true
-  },
-  {
-    "query": "natural language phrase that should NOT activate the skill",
-    "should_trigger": false
-  }
-]
-```
-
-### Rules
-
-- Exactly **20 entries**: 10 `true` + 10 `false`
-- Natural language queries, conversational tone
-- Vary sentence structure (questions, imperatives, contextual)
-- True: cover all main trigger patterns of the skill
-- False: use queries from other skills (cross-skill) and unrelated tasks
-- Avoid ambiguous cases that could reasonably trigger the skill
-
----
-
 ## references/
 
 Detailed documentation per phase or workflow. Each file is loaded on demand by SKILL.md.
@@ -385,7 +353,6 @@ Before finalizing a new skill, verify:
 - [ ] `SKILL.md` with complete frontmatter and all sections in correct order
 - [ ] `README.md` with mermaid diagram and usage examples
 - [ ] `CHANGELOG.md` with creation date entry
-- [ ] `evals/evals.json` with 20 entries (10 true, 10 false)
 - [ ] `references/` with one file per phase/workflow
 - [ ] Each reference has a "When to Use" section
 - [ ] Cross-references documented in SKILL.md
