@@ -31,7 +31,7 @@ flowchart LR
 ```
 .artifacts/                          # Working directory
 ├── project/
-│   ├── PROJECT.md               # Vision, goals
+│   ├── project.md               # Vision, goals, users
 │   ├── ROADMAP.md               # Planned features
 │   └── CHANGELOG.md             # Completed features
 ├── codebase/                    # Code analysis (optional)
@@ -55,7 +55,7 @@ initialize project
 setup project for my app
 ```
 
-Creates `.artifacts/project/` with PROJECT.md. For existing codebases, also auto-maps the codebase to `.artifacts/codebase/`.
+Creates `.artifacts/project/` with project.md. For existing codebases, also auto-maps the codebase to `.artifacts/codebase/`.
 
 ### Create a Feature (Greenfield)
 
@@ -141,8 +141,8 @@ archive auth feature
 # Initialize project (auto-detects existing code and maps codebase)
 initialize project
 
-# Creates .artifacts/project/PROJECT.md
-# Detects existing source code, creates .artifacts/codebase/ with STACK.md, ARCHITECTURE.md, etc.
+# Creates .artifacts/project/project.md
+# Detects existing source code, creates .artifacts/codebase/ with stack.md, architecture.md, etc.
 
 # Create feature that modifies existing code
 modify existing auth flow to add 2FA

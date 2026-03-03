@@ -6,6 +6,26 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-03
+
+### Added
+
+- New codebase mapping outputs: commands.md (dev/test/build scripts), checklist.md (post-task validation), workflows.md (user and dev flows)
+- Enrich project.md template with Purpose, Type, Users, Key Features, Integration Points sections
+- Structure section in architecture.md (absorbed from removed STRUCTURE.md)
+
+### Changed
+
+- Rename codebase mapping outputs to lowercase (stack.md, architecture.md, conventions.md, testing.md, integrations.md)
+- Rename project.md template to lowercase (ROADMAP.md and CHANGELOG.md kept uppercase)
+- Merge STRUCTURE.md into architecture.md (directory tree is now a section, not a separate file)
+- Codebase mapping now generates 8 docs instead of 6
+- Add phases 10-12 to codebase mapping: Extract Commands, Define Validation Checklist, Identify Key Workflows
+
+### Removed
+
+- STRUCTURE.md as standalone codebase mapping output
+
 ## 2026-03-02
 
 ### Added

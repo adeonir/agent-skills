@@ -33,11 +33,11 @@ Other directories are created on demand:
 - `.artifacts/research/` -- created when first research is conducted
 - `.artifacts/codebase/` -- created during brownfield detection (Step 4) or manual codebase mapping
 
-### Step 3: Generate PROJECT.md
+### Step 3: Generate project.md
 
-**USE TEMPLATE:** `templates/PROJECT.md`
+**USE TEMPLATE:** `templates/project.md`
 
-Generate PROJECT.md following the template structure with project name, vision, goals, constraints, and tech stack.
+Generate project.md following the template structure with project name, purpose, type, users, key features, goals, constraints, integration points, and tech stack.
 
 ### Step 4: Detect Brownfield
 
@@ -51,15 +51,15 @@ ls package.json Cargo.toml go.mod pyproject.toml Gemfile 2>/dev/null
 If any source code or project manifest is found:
 - Load [codebase-mapping.md](codebase-mapping.md)
 - Run codebase mapping as part of initialization
-- This generates `.artifacts/codebase/` with 6 docs (STACK, ARCHITECTURE, CONVENTIONS, STRUCTURE, TESTING, INTEGRATIONS)
+- This generates `.artifacts/codebase/` with 8 docs (stack, architecture, conventions, testing, integrations, commands, checklist, workflows)
 
 If nothing is found: skip, project is greenfield.
 
 ### Step 5: Report
 
 Inform user:
-- Created .artifacts/project/ with PROJECT.md
-- If brownfield: also created .artifacts/codebase/ with 6 analysis docs
+- Created .artifacts/project/ with project.md
+- If brownfield: also created .artifacts/codebase/ with 8 analysis docs
 - Next steps:
   - Create features: "create new feature for..."
   - Map codebase manually: "map codebase" (if greenfield that becomes brownfield later)
@@ -77,7 +77,7 @@ These files are created when first needed, not at initialization:
 ## Guidelines
 
 - Don't overwrite existing .artifacts/ structure
-- Keep PROJECT.md focused on vision and constraints, not implementation
+- Keep project.md focused on vision, users, and constraints, not implementation
 - Use the provided templates for consistent formatting
 - Initialize once per project, not per feature
 

@@ -30,16 +30,18 @@ initialize --> plan --> tasks --> implement --> validate --> archive
 ```
 .artifacts/
 ├── project/
-│   ├── PROJECT.md          # Vision, goals, constraints
+│   ├── project.md          # Vision, goals, users, constraints
 │   ├── ROADMAP.md          # Planned features, milestones (lazy)
 │   └── CHANGELOG.md        # Feature implementation history (lazy)
 ├── codebase/               # Brownfield analysis (lazy)
-│   ├── STACK.md
-│   ├── ARCHITECTURE.md
-│   ├── CONVENTIONS.md
-│   ├── STRUCTURE.md
-│   ├── TESTING.md
-│   └── INTEGRATIONS.md
+│   ├── stack.md
+│   ├── architecture.md
+│   ├── conventions.md
+│   ├── testing.md
+│   ├── integrations.md
+│   ├── commands.md
+│   ├── checklist.md
+│   └── workflows.md
 ├── research/               # Research cache (lazy)
 │   └── {topic}.md
 └── features/               # (lazy)
@@ -57,7 +59,7 @@ docs/
 
 | Context | Template |
 |---------|----------|
-| Project initialization | [PROJECT.md](templates/PROJECT.md) |
+| Project initialization | [project.md](templates/project.md) |
 | Roadmap | [ROADMAP.md](templates/ROADMAP.md) |
 | Feature changelog | [CHANGELOG.md](templates/CHANGELOG.md) |
 | Feature spec | [spec.md](templates/spec.md) |
@@ -70,7 +72,7 @@ docs/
 ## Context Loading Strategy
 
 **Base load (~15k tokens):**
-- PROJECT.md (context)
+- project.md (context)
 - Current feature spec.md
 
 **On-demand:**

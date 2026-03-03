@@ -60,9 +60,9 @@ After exploration, feed new findings back to project-level docs:
 2. If it exists: compare findings against current docs and append new discoveries
 
 What to update:
-- **CONVENTIONS.md**: new convention rows, updated file:line refs
-- **ARCHITECTURE.md**: new entry points, layers, integration points
-- **TESTING.md**: new test patterns, reference tests
+- **conventions.md**: new convention rows, updated file:line refs
+- **architecture.md**: new entry points, layers, integration points
+- **testing.md**: new test patterns, reference tests
 
 Rules:
 - Merge new findings, never overwrite existing content

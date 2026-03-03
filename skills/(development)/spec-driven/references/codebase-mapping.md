@@ -17,6 +17,9 @@ Analyze existing codebase for brownfield development.
 - Project conventions
 - Testing approach
 - External integrations
+- Development commands
+- Validation checklist
+- Key workflows
 
 For **feature-specific exploration**, see [codebase-exploration.md](codebase-exploration.md) (used during planning).
 
@@ -153,9 +156,48 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
    Cover at minimum: naming, imports, error handling, types, state management, async patterns, logging.
 
-Generate:
+10. **Extract Commands**
 
-**STACK.md**
+    From package.json scripts, Makefile, justfile, or equivalent, document:
+    - Setup/install commands
+    - Development server commands
+    - Test commands (all variants: unit, watch, coverage, ci)
+    - Lint/format commands
+    - Build/deploy commands
+    - Code generation commands (if any)
+    - Access points (local URLs, dev tools)
+
+11. **Define Validation Checklist**
+
+    Based on the project's tooling, define the verification steps to run after completing a task:
+    - Type checking command
+    - Lint command
+    - Test command (for changed files)
+    - Format command
+    - Code generation (if applicable)
+    - Pre-commit hooks (if configured)
+
+12. **Identify Key Workflows**
+
+    Document the main flows -- both user-facing and development:
+
+    **User workflows**: The core user journeys through the application (e.g., authentication, main feature flow, data submission). For each:
+    - Trigger: what starts the flow
+    - Steps: sequence of actions
+    - End state: what the user sees when done
+
+    **Development workflows**: How developers work with the codebase (e.g., local dev with mocks, feature flag workflow, code generation workflow). For each:
+    - When to use
+    - Steps to follow
+    - Key files involved
+
+    Keep workflows concise -- describe patterns, not every edge case.
+
+### Step 3: Generate
+
+Generate 8 documents:
+
+**stack.md**
 ```markdown
 # Stack
 
@@ -169,9 +211,14 @@ Generate:
 - {tool}: {purpose}
 ```
 
-**ARCHITECTURE.md**
+**architecture.md**
 ```markdown
 # Architecture
+
+## Structure
+```
+{directory tree -- top-level and key subdirectories only}
+```
 
 ## Patterns
 - {pattern}: {usage}
@@ -195,7 +242,7 @@ Generate:
 |----------|-----------|
 ```
 
-**CONVENTIONS.md**
+**conventions.md**
 ```markdown
 # Conventions
 
@@ -208,16 +255,7 @@ Generate:
 | API calls | {pattern} | {anti-pattern} |
 ```
 
-**STRUCTURE.md**
-```markdown
-# Structure
-
-```
-{tree}
-```
-```
-
-**TESTING.md**
+**testing.md**
 ```markdown
 # Testing
 
@@ -239,7 +277,7 @@ Generate:
 | {existing test} | {pattern to follow} |
 ```
 
-**INTEGRATIONS.md**
+**integrations.md**
 ```markdown
 # Integrations
 
@@ -248,14 +286,83 @@ Generate:
 | | | |
 ```
 
-### Step 3: Save
+**commands.md**
+```markdown
+# Commands
+
+## Setup
+- {command}: {what it does}
+
+## Development
+- {command}: {what it does}
+
+## Testing
+- {command}: {what it does}
+
+## Code Quality
+- {command}: {what it does}
+
+## Build
+- {command}: {what it does}
+
+## Access Points
+- {url}: {description}
+```
+
+**checklist.md**
+```markdown
+# Checklist
+
+Run after completing a task:
+
+## Code Quality
+- [ ] `{type check command}`
+- [ ] `{lint command}`
+- [ ] `{format command}`
+
+## Testing
+- [ ] `{test staged/changed files command}`
+
+## Generation (if applicable)
+- [ ] `{codegen command}`
+
+## Verification
+- [ ] No type errors
+- [ ] No lint errors
+- [ ] Tests pass
+- [ ] Code is formatted
+```
+
+**workflows.md**
+```markdown
+# Workflows
+
+## User Workflows
+
+### {Flow Name}
+**Trigger**: {what starts it}
+1. {step}
+2. {step}
+3. {step}
+**End state**: {what the user sees}
+
+## Development Workflows
+
+### {Workflow Name}
+**When**: {when to use}
+1. {step}
+2. {step}
+**Key files**: {relevant files}
+```
+
+### Step 4: Save
 
 Create `.artifacts/codebase/` with generated docs.
 
-### Step 4: Report
+### Step 5: Report
 
 Inform user:
-- Mapped 6 areas
+- Mapped 8 areas
 - Next: Create feature with baseline context
 
 ## Guidelines

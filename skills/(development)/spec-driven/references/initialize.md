@@ -258,7 +258,7 @@ Inform user:
 
 ## Codebase Mapping Note
 
-**codebase-mapping.md** creates `.artifacts/codebase/` (6 docs) for general codebase understanding.
+**codebase-mapping.md** creates `.artifacts/codebase/` (8 docs) for general codebase understanding.
 
 **Baseline in initialize** captures specific current behavior relevant to this feature (from spec perspective, not deep code analysis).
 
