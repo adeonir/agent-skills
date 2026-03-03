@@ -141,6 +141,12 @@ src/                           # Generated React components
 | **docs-writer** | PRD provides product context for copy and design extraction |
 | **spec-driven** | Use after design-builder to plan implementation of complex features |
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill design-builder
+```
+
 ## Requirements
 
 - Node.js (for `npx http-server` in variants and export)

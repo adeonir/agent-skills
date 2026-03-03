@@ -125,6 +125,12 @@ Removes all `[DEBUG]` logs automatically after fix is verified.
 
 Works with any agent that supports the standard skill format. Adapts to whatever debugging tools are available in the environment.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill debug-tools
+```
+
 ## FAQ
 
 **Q: When should I use debug-tools vs code review?**

@@ -68,6 +68,12 @@ Re-running summary updates existing docs (merge, never overwrite).
 - **spec-driven** -- spec-driven consumes `.agents/codebase/` for brownfield features and can update it with new discoveries during planning
 - **Any AI agent** -- AGENTS.md and `.agents/` follow standard conventions readable by any agent
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill project-index
+```
+
 ## Requirements
 
 - Existing project with source code (for summary)

@@ -50,6 +50,12 @@ Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  
 | **docs-writer** | Validated name feeds into PRD/Brief |
 | **design-builder** | Chosen name informs brand/logo direction |
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill product-naming
+```
+
 ## Requirements
 
 Works with any agent supporting standard skill format. Requires web search capability for domain and social media checks.

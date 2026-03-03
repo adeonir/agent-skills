@@ -170,6 +170,12 @@ Features track status in spec.md frontmatter:
 - **project-index** -- provides `.agents/` context consumed during planning
 - **git-helpers** -- handles commits and PRs
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill spec-driven
+```
+
 ## FAQ
 
 **Q: What's the difference between .artifacts/ and .agents/?**

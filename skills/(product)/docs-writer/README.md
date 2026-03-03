@@ -59,6 +59,12 @@ All documents are saved to:
 | **spec-driven** | Any document can feed into feature initialization |
 | **design-builder** | PRD sections inform copy and design extraction |
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill docs-writer
+```
+
 ## Requirements
 
 Works with any agent supporting standard skill format.

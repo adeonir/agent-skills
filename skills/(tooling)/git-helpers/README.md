@@ -140,6 +140,12 @@ Requires `gh` CLI. Pushes branch and creates PR with formatted title and concise
 
 Works with any agent that supports the standard skill format (SKILL.md + references).
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill git-helpers
+```
+
 ---
 
 ## FAQ
