@@ -60,7 +60,24 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
 4. **Read Representative Source Files**
 
-   Select and READ 5-8 source files that represent different areas of the codebase (not just entry points -- pick files from different directories and layers). For each file, extract:
+   Select and READ source files that represent different areas of the codebase. The number depends on project size and diversity:
+
+   | Project Size | Suggested Files | Coverage Goal |
+   |--------------|-----------------|---------------|
+   | Small (< 30 files) | 5-8 files | At least one from each directory |
+   | Medium (30-100 files) | 8-12 files | Multiple layers and modules |
+   | Large (> 100 files) | 12-20 files | Each major module, different patterns |
+
+   **Selection strategy**: Pick files from different directories AND different architectural layers:
+   - Entry points (API routes, CLI commands, main files)
+   - Business logic (services, use cases, domain models)
+   - Data access (repositories, API clients, database models)
+   - Utilities (helpers, constants, shared types)
+   - UI components (if applicable)
+
+   **Stop when**: You're seeing repeated patterns and no new conventions.
+
+   For each file, extract:
    - Naming conventions (functions, classes, variables, files)
    - Import/export patterns and module organization
    - Error handling approach (try/catch, Result types, error boundaries)
@@ -77,7 +94,15 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
 6. **Trace Data Flows**
 
-   Follow 2-3 complete flows from entry to output:
+   Follow complete flows from entry to output. Quantity depends on project complexity:
+
+   | Complexity | Flows to Trace |
+   |------------|----------------|
+   | Simple CRUD | 2-3 core flows |
+   | Multi-domain | 3-5 flows covering different domains |
+   | Complex/Event-driven | 5+ flows including edge cases |
+
+   For each flow, trace:
    - Input: where data enters (API route, CLI arg, event handler, UI action)
    - Validation: how input is validated/parsed
    - Processing: business logic transformation
@@ -90,7 +115,17 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
 7. **Analyze Testing Setup**
 
-   READ 2-3 actual test files (not just find them). Extract:
+   READ actual test files (not just find them). Quantity guidelines:
+
+   | Project Size | Test Files to Read |
+   |--------------|-------------------|
+   | Small | 2-3 tests |
+   | Medium | 3-5 tests (unit, integration, e2e) |
+   | Large | 5-8 tests across different types |
+
+   Ensure diversity: unit tests, integration tests, and different test categories (happy path, edge cases, error handling).
+
+   Extract:
    - Test framework and runner
    - Test file naming and location conventions
    - describe/it structure and nesting patterns
@@ -225,6 +260,24 @@ Inform user:
 
 ## Guidelines
 
+### File Reading Strategy
+- **Quality over quantity**: Better to read 10 diverse files than 30 similar ones
+- **Cover all layers**: Ensure every architectural layer is represented
+- **Look for inconsistencies**: Note when the same pattern is implemented differently
+- **Stop when saturated**: When new files don't reveal new patterns, you've read enough
+
+### Iterative Mapping
+The initial mapping creates a **baseline understanding**. It's OK if:
+- Some edge cases aren't covered initially
+- Certain modules need deeper analysis later
+- Patterns are refined as you work on features
+
+**When to expand mapping:**
+- Starting work on a new module not previously analyzed
+- Encountering patterns that contradict existing documentation
+- Adding new architectural layers (e.g., introducing caching, events)
+
+### General
 - Don't overwrite existing codebase/ mapping without user confirmation
 - Focus on architecture-relevant patterns, not implementation details
 - Keep mapping files concise and scannable
