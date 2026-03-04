@@ -51,7 +51,14 @@ Determine staging approach based on user intent:
 git add .
 ```
 
-### Step 4: Create Commit
+### Step 4: Preview and Confirm
+
+Display the proposed commit message to the user before committing.
+Ask for confirmation. Accept edits if suggested.
+
+This step is mandatory. Never skip it.
+
+### Step 5: Create Commit
 
 Load conventional-commits.md for format rules, then create the commit:
 
@@ -65,14 +72,14 @@ EOF
 )"
 ```
 
-### Step 5: Verify Commit
+### Step 6: Verify Commit
 
 ```bash
 git log -1 --format="%B"
 git status
 ```
 
-### Step 6: Handle Pre-commit Hooks
+### Step 7: Handle Pre-commit Hooks
 
 If pre-commit hook modified files and commit failed:
 
@@ -105,8 +112,4 @@ Load [conventional-commits.md](conventional-commits.md) for:
 - Commit rejected by hook: check if files were modified, handle per Step 6
 - Merge conflicts: stop and inform user to resolve first
 
-## Task
 
-Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
-
-Create a commit for the changes.

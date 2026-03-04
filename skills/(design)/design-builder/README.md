@@ -1,6 +1,12 @@
 # Design Builder
 
-Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma. Generated code follows web accessibility, performance, and semantic HTML standards.
+Design-to-code pipeline: extract copy from URLs, extract design tokens from images, build React components, preview design variants, or export to Figma.
+
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill design-builder
+```
 
 ## What It Does
 
@@ -26,82 +32,26 @@ flowchart TD
 
 ## Usage
 
-### Extract Content from URL
-
 ```
+# Extract content from URL
 extract copy from https://example.com
-```
 
-Fetches the URL, identifies project type, and generates structured `copy.yaml`.
-
-### Extract Design from Images
-
-```
+# Extract design from images
 extract design from this screenshot
 extract design tokens
-```
 
-Paste images or provide URLs. Extracts colors (exact HEX), typography, spacing, components, animations.
-
-If no images are available, describe the style direction and tokens will be generated from the description.
-
-### Build Frontend
-
-```
+# Build frontend
 build frontend
 create React components from design tokens
-```
 
-Detects existing project stack or scaffolds new. Maps design.json tokens to CSS variables.
-
-### Preview Variants
-
-```
+# Preview variants
 generate variants
 preview design layouts
-```
 
-Generates 4 HTML+CSS presets for comparison:
-
-| Preset | Style | Hero | Cards |
-| ------ | ----- | ---- | ----- |
-| **minimal** | Ultra clean | Text only | None |
-| **editorial** | Magazine feel | Split 50/50 | Flat |
-| **startup** | SaaS modern | Centered CTA | Shadows |
-| **bold** | High impact | Fullscreen | Bordered |
-
-Opens http://localhost:8080 for side-by-side comparison. Choose a variant and build React from it.
-
-Custom presets are also supported -- describe what you want.
-
-### Export to Figma
-
-```
+# Export to Figma
 export to Figma
 send to Figma
 ```
-
-Sends variants to Figma as editable frames. Can send one, some, or all.
-
-## Artifacts
-
-```
-.artifacts/
-├── docs/
-│   └── prd.md                 # Optional PRD
-└── design/
-    ├── copy.yaml              # Structured content
-    ├── design.json            # Design tokens
-    └── variants/              # HTML preview variants
-        ├── minimal/
-        ├── editorial/
-        ├── startup/
-        ├── bold/
-        └── index.html         # Comparison page
-src/                           # Generated React components
-```
-
-## Pipeline Examples
 
 ### Full Pipeline
 
@@ -127,24 +77,22 @@ src/                           # Generated React components
 2. build frontend
 ```
 
-### External Tool
+## Output
 
 ```
-1. extract design from [paste image]
-2. generate prompt for v0
-```
-
-## Integration
-
-| Skill | Relationship |
-| ----- | ------------ |
-| **docs-writer** | PRD provides product context for copy and design extraction |
-| **spec-driven** | Use after design-builder to plan implementation of complex features |
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill design-builder
+.artifacts/
+├── docs/
+│   └── prd.md                 # Optional PRD
+└── design/
+    ├── copy.yaml              # Structured content
+    ├── design.json            # Design tokens
+    └── variants/              # HTML preview variants
+        ├── minimal/
+        ├── editorial/
+        ├── startup/
+        ├── bold/
+        └── index.html         # Comparison page
+src/                           # Generated React components
 ```
 
 ## Requirements
@@ -152,4 +100,9 @@ npx skills add adeonir/agent-skills --skill design-builder
 - Node.js (for `npx http-server` in variants and export)
 - For Figma export: Figma Desktop with Dev Mode + Figma MCP server
 
-Works with any agent supporting standard skill format.
+## Integration
+
+| Skill | Connection |
+| ----- | ---------- |
+| **docs-writer** | PRD provides product context for copy and design extraction |
+| **spec-driven** | Use after design-builder to plan implementation of complex features |

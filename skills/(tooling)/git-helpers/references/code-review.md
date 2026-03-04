@@ -156,6 +156,6 @@ Brief paragraph summarizing most important findings.
 
 ## Task
 
-Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
+Start the review immediately when triggered. No confirmation needed to begin.
 
 Review code changes.

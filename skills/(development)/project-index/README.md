@@ -2,6 +2,12 @@
 
 Generate project context and codebase documentation for AI agents.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill project-index
+```
+
 ## What It Does
 
 Creates an `.agents/` directory with structured documentation that any AI agent can consume to understand your project.
@@ -14,7 +20,34 @@ Creates an `.agents/` directory with structured documentation that any AI agent 
 
 All commands also generate/update `AGENTS.md` at the project root.
 
-## Output Structure
+## Usage
+
+```
+# Full initialization (recommended for first time)
+initialize project
+
+# Just project context
+overview
+
+# Just codebase analysis
+map codebase
+summary
+```
+
+### How It Works
+
+**Overview** reads project metadata (package.json, README, etc.) and generates a concise project context document covering purpose, users, features, constraints, and stack.
+
+**Summary** does deep analysis of the codebase through 4 phases:
+
+1. **Project Discovery** -- metadata, docs, directory structure
+2. **Deep Code Analysis** -- reads 5-20 representative files, traces data flows
+3. **Testing & Integrations** -- test setup, external services
+4. **Convention Extraction** -- synthesizes patterns with evidence
+
+Re-running summary updates existing docs (merge, never overwrite).
+
+## Output
 
 ```
 .agents/
@@ -32,49 +65,13 @@ All commands also generate/update `AGENTS.md` at the project root.
 AGENTS.md                   # Root summary for AI agents
 ```
 
-## Usage
-
-```
-# Full initialization (recommended for first time)
-initialize project
-
-# Just project context
-overview
-
-# Just codebase analysis
-map codebase
-summary
-```
-
-## How It Works
-
-### Overview
-
-Reads project metadata (package.json, README, etc.) and generates a concise project context document covering purpose, users, features, constraints, and stack.
-
-### Summary
-
-Deep analysis of the codebase through 4 phases:
-
-1. **Project Discovery** -- metadata, docs, directory structure
-2. **Deep Code Analysis** -- reads 5-20 representative files, traces data flows
-3. **Testing & Integrations** -- test setup, external services
-4. **Convention Extraction** -- synthesizes patterns with evidence
-
-Re-running summary updates existing docs (merge, never overwrite).
-
-## Works With
-
-- **spec-driven** -- spec-driven consumes `.agents/codebase/` for brownfield features and can update it with new discoveries during planning
-- **Any AI agent** -- AGENTS.md and `.agents/` follow standard conventions readable by any agent
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill project-index
-```
-
 ## Requirements
 
 - Existing project with source code (for summary)
-- No dependencies on other skills
+- No external dependencies
+
+## Integration
+
+| Skill | Connection |
+|-------|------------|
+| **spec-driven** | Consumes `.agents/codebase/` for brownfield features and can update it with new discoveries during planning |

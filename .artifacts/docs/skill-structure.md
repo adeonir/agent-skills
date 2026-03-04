@@ -12,6 +12,8 @@ skills/(category)/skill-name/
   references/           # Detailed documentation per phase/workflow
     phase-name.md
     auxiliary-ref.md
+  guides/               # Optional: informational references (no write operations)
+    syntax-ref.md
   templates/            # Optional: output templates
     output-type.md
 ```
@@ -179,17 +181,19 @@ User-facing documentation. More visual, with examples.
 ```
 1. # Title
 2. Descriptive sentence (one line)
-3. ## What It Does
+3. ## Installation
+   - npx skills add command
+4. ## What It Does
    - Mermaid diagram (flowchart LR or TD)
    - Table with phases/outputs
-4. ## Usage
+5. ## Usage
    - Code block with natural language usage examples
-5. ## Output (if applicable)
+6. ## Output (if applicable)
    - Output format or directory
-6. ## Integration
+7. ## Requirements (if applicable)
+   - Dependencies and external tools
+8. ## Integration (if applicable)
    - Table of connections with other skills
-7. ## Requirements
-   - Dependencies and requirements
 ```
 
 ### Mermaid Diagram
@@ -351,7 +355,7 @@ Before finalizing a new skill, verify:
 
 - [ ] Directory at `skills/(category)/skill-name/`
 - [ ] `SKILL.md` with complete frontmatter and all sections in correct order
-- [ ] `README.md` with mermaid diagram and usage examples
+- [ ] `README.md` with Installation, mermaid diagram, and usage examples
 - [ ] `CHANGELOG.md` with creation date entry
 - [ ] `references/` with one file per phase/workflow
 - [ ] Each reference has a "When to Use" section

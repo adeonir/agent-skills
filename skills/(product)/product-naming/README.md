@@ -2,6 +2,12 @@
 
 Research, evaluate, and validate product/startup/app names with domain and social media availability checks.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill product-naming
+```
+
 ## What It Does
 
 Helps users find and validate names through a two-phase workflow:
@@ -43,19 +49,13 @@ Reports are saved as `.md` files in `.artifacts/docs/`:
 
 Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 
+## Requirements
+
+Works with any agent supporting standard skill format. Requires web search capability for domain and social media checks.
+
 ## Integration
 
 | Skill | How product-naming connects |
 |-------|-----------------------------|
 | **docs-writer** | Validated name feeds into PRD/Brief |
 | **design-builder** | Chosen name informs brand/logo direction |
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill product-naming
-```
-
-## Requirements
-
-Works with any agent supporting standard skill format. Requires web search capability for domain and social media checks.

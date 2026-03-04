@@ -54,12 +54,14 @@ push-pr.md ---------> conventional-commits.md (format rules)
 ## Guidelines
 
 **DO:**
+- Preview commit messages before committing -- always show and ask for confirmation
 - Use confidence scoring: only report findings with confidence >= 80
 - Default base branch: main (user can override)
 - Use imperative mood in commit messages and PR titles
 - Use HEREDOC format for multi-line commit messages
 - Analyze actual diff and staged files
 - Follow existing project conventions for commit message format
+- Prefer single-line commit messages -- only add body for complex or breaking changes
 
 **DON'T:**
 - Add attribution lines in commit messages or PRs

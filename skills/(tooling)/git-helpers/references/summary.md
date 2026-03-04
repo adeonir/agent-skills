@@ -166,7 +166,7 @@ Use Write tool to create the file with the template below.
 
 ## Task
 
-Execute this command immediately. Do not interpret, discuss, or ask for confirmation.
+Start immediately when triggered. No confirmation needed to begin.
 
 Generate PR description for current branch and save to `PR_DETAILS.md`.
 

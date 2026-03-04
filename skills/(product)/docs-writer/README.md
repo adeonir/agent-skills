@@ -2,6 +2,12 @@
 
 Generate structured product and technical documents through guided discovery.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill docs-writer
+```
+
 ## What It Does
 
 Routes document creation requests to type-specific workflows, each with appropriate discovery depth:
@@ -52,19 +58,13 @@ All documents are saved to:
 .artifacts/docs/{type}.md
 ```
 
+## Requirements
+
+Works with any agent supporting standard skill format.
+
 ## Integration
 
 | Skill | How docs-writer connects |
 |-------|-------------------------|
 | **spec-driven** | Any document can feed into feature initialization |
 | **design-builder** | PRD sections inform copy and design extraction |
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill docs-writer
-```
-
-## Requirements
-
-Works with any agent supporting standard skill format.

@@ -2,6 +2,12 @@
 
 Iterative debugging workflow with confidence scoring and targeted log injection.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill debug-tools
+```
+
 ## What It Does
 
 Five-phase debugging workflow that helps find and fix bugs systematically:
@@ -22,114 +28,42 @@ flowchart TD
     I --> J[Done]
 ```
 
-**Phase 1: Investigate** - Analyze code to find root cause with confidence scoring  
-**Phase 2: Inject Logs** - Add targeted `[DEBUG]` logs to capture runtime data  
-**Phase 3: Propose Fix** - Suggest minimal fix based on evidence  
-**Phase 4: Verify** - Confirm the fix resolves the issue  
+**Phase 1: Investigate** - Analyze code to find root cause with confidence scoring
+**Phase 2: Inject Logs** - Add targeted `[DEBUG]` logs to capture runtime data
+**Phase 3: Propose Fix** - Suggest minimal fix based on evidence
+**Phase 4: Verify** - Confirm the fix resolves the issue
 **Phase 5: Cleanup** - Automatically remove all debug logs
 
 ## Usage
 
-### Start Debugging
-
 ```
+# Start debugging
 debug this issue
 investigate why the login is failing
 trace this error
-```
 
-### Add Debug Logs
-
-```
+# Add debug logs
 add debug logs to trace the data flow
 inject logs to see what's happening
-```
 
-### Cleanup Logs
-
-```
+# Cleanup logs
 remove debug logs
 cleanup debug statements
 ```
 
-## How It Works
+### How It Works
 
-### Investigation Phase
+**Investigation** analyzes code looking for error sources, data flow issues, state mutations, race conditions, API contract violations, and timing problems. Findings are scored 0-100: >= 70 is reported as probable cause, 50-69 suggests logs to confirm, < 50 is not reported.
 
-The tool analyzes your code looking for:
+**Log Injection** adds 3-5 strategic `[DEBUG]` logs at function entry points, before/after async operations, conditional branches, and catch blocks. Never logs sensitive data. Supports JS/TS, Python, Go, Rust, Ruby, Vue, Svelte, and more.
 
-- Error sources (stack traces, error messages)
-- Data flow issues
-- State mutations and race conditions
-- API contract violations
-- Timing problems in async code
+**Fix and Verify** proposes a minimal fix in diff format, requires user approval, and loops back if the fix doesn't resolve the issue.
 
-Findings are scored 0-100:
-
-- **>= 70**: Reported as probable cause
-- **50-69**: Suggests logs to confirm
-- **< 50**: Not reported (avoid speculation)
-
-### Log Injection Phase
-
-If runtime data is needed, targeted logs are added using the project's language:
-
-```javascript
-// JavaScript/TypeScript
-console.log("[DEBUG] [auth.ts:15] login called", { email });
-
-// Python
-print(f"[DEBUG] [auth.py:15] login called {email}")
-
-// Go
-fmt.Printf("[DEBUG] [auth.go:15] login called %v\n", email)
-```
-
-Strategic placement at:
-
-- Function entry points
-- Before/after async operations
-- Conditional branches
-- Catch blocks
-
-### Fix and Verify
-
-Once root cause is confirmed:
-
-- Minimal fix proposed in diff format
-- User approval required
-- Verification that bug is resolved
-- Loop back if not fixed
-
-### Automatic Cleanup
-
-All `[DEBUG]` logs are removed after verification. Supports JS/TS, Python, Go, Rust, Ruby, Vue, Svelte, and more.
-
-## Details
-
-### Investigation
-
-Code analysis with confidence scoring. Uses available runtime inspection, browser debugging, and semantic analysis tools.
-
-### Log Injection
-
-Adds 3-5 strategic debug logs. Never logs sensitive data (passwords, tokens, PII).
-
-### Log Cleanup
-
-Removes all `[DEBUG]` logs automatically after fix is verified.
+**Cleanup** automatically removes all `[DEBUG]` logs after verification.
 
 ## Requirements
 
 - Git (for code analysis)
-
-Works with any agent that supports the standard skill format. Adapts to whatever debugging tools are available in the environment.
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill debug-tools
-```
 
 ## FAQ
 

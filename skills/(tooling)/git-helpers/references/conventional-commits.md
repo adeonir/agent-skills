@@ -47,12 +47,15 @@ The staged diff is the ONLY input for the commit message. Use `git diff --cached
 
 ## Body Guidelines
 
-Optional. When included, explain HOW the change was implemented from a developer's perspective.
+Most commits need only the subject line. A body is the exception, not the
+rule. Only add a body when the subject line alone cannot explain a complex
+or breaking change.
 
-- 1 to 5 bullet points
-- Complex change needs explanation
-- Breaking change needs documentation
+When included:
+- 1 to 5 bullet points maximum
+- Explain WHY, not WHAT (the diff already shows what changed)
 - No file names or paths
+- No listing every change (the subject line summarizes)
 
 ## Examples
 

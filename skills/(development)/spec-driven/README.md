@@ -2,6 +2,12 @@
 
 Structured development workflow with specification, planning, task breakdown, and implementation.
 
+## Installation
+
+```bash
+npx skills add adeonir/agent-skills --skill spec-driven
+```
+
 ## What It Does
 
 Structured workflow for building software with clarity and traceability:
@@ -24,75 +30,32 @@ flowchart LR
 | **Tasks** | Granular, atomic tasks with dependencies |
 | **Implement** | Execute tasks against the spec |
 | **Validate** | Verify implementation against acceptance criteria |
-| **Archive** | Consolidate documentation for future reference
-
-## Project Structure
-
-```
-.artifacts/                          # Working directory (spec-driven)
-├── features/                    # Active features
-│   └── 001-feature/
-│       ├── spec.md              # Requirements
-│       ├── plan.md              # Architecture
-│       └── tasks.md             # Implementation tasks
-└── research/                    # Research cache (optional)
-    └── {topic}.md
-
-.agents/                             # Project context (project-index)
-├── project.md                   # What the project is
-└── codebase/                    # How the code works
-
-docs/features/                       # Archived features
-└── feature.md                   # Consolidated docs
-```
+| **Archive** | Consolidate documentation for future reference |
 
 ## Usage
 
-### Create a Feature (Greenfield)
-
 ```
+# Create a feature (greenfield)
 create new feature for user authentication
 new feature: payment processing
-```
 
-**Greenfield** = new feature not related to existing code. Creates `.artifacts/features/001-auth/` with spec.md (type: greenfield, status: draft).
-
-### Create a Feature (Brownfield)
-
-```
+# Create a feature (brownfield)
 modify existing auth flow
 improve cache performance
 refactor user registration
-```
 
-**Brownfield** = modifies existing code. Creates feature with baseline analysis documenting current behavior and gaps.
-
-### Development Workflow
-
-```
-# Create technical plan (includes codebase exploration + research)
+# Development workflow
 create technical plan
-
-# Break into tasks
 create tasks for auth
-
-# Implement
 implement auth feature
-
-# Validate
 validate auth implementation
-
-# Archive
 archive auth feature
 ```
 
-## Examples
-
-### Example 1: New Feature
+### New Feature (Greenfield)
 
 ```
 create new feature for user authentication
-
 # Agent asks for requirements, resolves ambiguities inline
 # Creates: .artifacts/features/001-user-auth/spec.md
 
@@ -108,54 +71,37 @@ archive auth feature
 # Creates: docs/features/user-auth.md
 ```
 
-### Example 2: Brownfield Feature
+### Brownfield Feature
 
 ```
-# First, run project-index to map the codebase:
-# initialize project (or: summary / map codebase)
+# First, run project-index to map the codebase
+initialize project
 
 # Then create feature that modifies existing code
 modify existing auth flow to add 2FA
-
 # Creates .artifacts/features/001-add-2fa/spec.md
 # Includes Baseline section with current auth behavior
-# Plan phase reads .agents/codebase/ for context
 
 # Continue with plan -> tasks -> implement -> validate -> archive
 ```
 
-### Example 3: Feature with Research
+## Output
 
 ```
-create new feature for stripe payments
+.artifacts/
+├── features/
+│   └── 001-feature/
+│       ├── spec.md              # Requirements (WHAT)
+│       ├── plan.md              # Architecture (HOW)
+│       └── tasks.md             # Implementation tasks (WHEN)
+└── research/
+    └── {topic}.md               # Research cache (optional)
 
-# During plan phase, agent detects "stripe" is new
-# Researches Stripe API, creates .artifacts/research/stripe.md
-# Research is cached for future features using Stripe
+docs/features/
+└── feature.md                   # Archived documentation
 ```
 
-## Details
-
-### Initialize
-Creates the feature specification. Detects greenfield vs brownfield, resolves ambiguities through inline Q&A.
-Generates spec.md with user stories (P1/P2/P3), functional requirements, acceptance criteria, and open questions.
-
-### Plan
-Defines HOW to build. Creates plan.md with architecture decisions, codebase exploration, data model, research, and component breakdown. If `.agents/codebase/` exists, updates it with new discoveries.
-
-### Tasks
-Defines WHEN to build. Creates tasks.md with atomic tasks (T001, T002...), dependencies, and requirements coverage.
-
-### Implement
-Executes tasks from tasks.md. Loads coding principles before writing code.
-
-### Validate
-Verifies implementation against spec. Checks acceptance criteria and edge cases.
-
-### Archive
-Generates consolidated documentation at docs/features/{name}.md. Optionally removes working directory.
-
-## State Management
+### State Management
 
 Features track status in spec.md frontmatter:
 - **draft**: Created, may have open questions
@@ -165,16 +111,17 @@ Features track status in spec.md frontmatter:
 - **done**: Validated and complete
 - **archived**: Moved to docs/
 
-## Works With
+## Requirements
 
-- **project-index** -- provides `.agents/` context consumed during planning
-- **git-helpers** -- handles commits and PRs
+- Existing project directory
+- No external dependencies
 
-## Installation
+## Integration
 
-```bash
-npx skills add adeonir/agent-skills --skill spec-driven
-```
+| Skill | Connection |
+|-------|------------|
+| **project-index** | Provides `.agents/` context consumed during planning |
+| **git-helpers** | Handles commits and PRs |
 
 ## FAQ
 
