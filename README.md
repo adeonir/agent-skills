@@ -18,15 +18,16 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 
 ## Skills
 
-| Category | Skill | Description |
-|----------|-------|-------------|
-| Design | **[design-builder](skills/(design)/design-builder)** | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
-| Development | **[debug-tools](skills/(development)/debug-tools)** | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
-| Development | **[project-index](skills/(development)/project-index)** | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
-| Development | **[spec-driven](skills/(development)/spec-driven)** | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
-| Product | **[docs-writer](skills/(product)/docs-writer)** | Structured document generation: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
-| Product | **[product-naming](skills/(product)/product-naming)** | Research and validate product names with domain/social availability checks and quality scoring |
-| Tooling | **[git-helpers](skills/(tooling)/git-helpers)** | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
+| Skill | Category | Description |
+|-------|----------|-------------|
+| **[design-builder](skills/(design)/design-builder)** | Design | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
+| **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
+| **[project-index](skills/(development)/project-index)** | Development | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
+| **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
+| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
+| **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
+| **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
+| **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, conversations, and captures |
 
 ## Output Structure
 
