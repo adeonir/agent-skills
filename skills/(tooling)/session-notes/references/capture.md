@@ -1,0 +1,92 @@
+# Quick Capture
+
+Save any content as an Obsidian note. The agent organizes the content
+with headings, clean formatting, and logical structure before saving.
+
+## When to Use
+
+- User pastes content and wants to save it as a note
+- User wants to capture a snippet from a conversation, repo, or website
+- User says "save this", "capture this", "quick note"
+- User shares a URL to extract and save
+- User shares an attachment (PDF, DOCX, image) to extract content from
+- Content doesn't fit any existing note type
+
+## Workflow
+
+1. **Receive content**
+   The user provides content in one of these ways:
+
+   **URL:** User shares a link. Fetch the content (via WebFetch or similar),
+   extract the relevant text, and organize it in the note. Store the URL
+   in the `source` frontmatter field.
+
+   **Attachment (PDF, DOCX, image, etc.):** User shares a file. Extract
+   the content using available tools (Read tool for PDFs/images). Organize
+   the extracted text in the note. Store the filename in the `source`
+   frontmatter field. Do not embed or link to the original file (it may
+   be temporary or deleted later).
+
+   **Text:** User pastes or describes content directly. Organize it in
+   the note. Omit the `source` frontmatter field.
+
+2. **Ask for minimal metadata**
+   - Title (required) - used as filename and heading
+   - Tags (optional) - for searchability
+   - Folder (optional) - defaults to vault root or a folder the user prefers
+
+3. **Compose the note**
+   Follow `templates/capture.md` structure. Organize the content:
+   - Add headings where logical sections exist
+   - Clean up formatting (remove artifacts, fix line breaks)
+   - Separate into readable paragraphs
+   - Preserve code blocks and technical content as-is
+
+   If the user explicitly asks to preserve the original formatting,
+   keep the content as-is. Use a code block or blockquote if needed
+   for readability.
+
+4. **Preview and confirm**
+   Display the full note content and target file path to the user.
+   Ask for confirmation before writing. Accept edits if suggested.
+
+5. **Write note**
+   Check if Obsidian CLI is available:
+   ```bash
+   which obsidian
+   ```
+   If available:
+   ```bash
+   obsidian create path="{{folder}}/{{filename}}.md" content="{{escaped content}}" silent
+   ```
+   If CLI is not available, ask user for the output path on first use,
+   then fall back to Write tool to create the file directly.
+
+## Content Escaping
+
+When passing content via CLI, escape newlines and quotes:
+- Replace newlines with `\n`
+- Escape double quotes with `\"`
+
+For large content, prefer Write tool directly over CLI to avoid
+shell argument length limits.
+
+## Guidelines
+
+**DO:**
+- Organize content with headings, clean formatting, and logical paragraphs
+- Use the title as-is for the filename (convert to kebab-case)
+- Add `capture` tag automatically for easy filtering later
+- Ask where to save if the user hasn't specified a folder
+- Populate References with related notes if the user mentions any
+
+**DON'T:**
+- Dump raw content without organizing (unless user explicitly asks)
+- Assume which folder to use without asking
+- Skip the preview step
+- Embed or link to attachment files (they may be temporary)
+
+## Next Steps
+
+- User may want to move the note to a specific folder later
+- User may want to link the captured note from other notes
