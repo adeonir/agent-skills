@@ -1,6 +1,6 @@
 ---
 status: draft
-date: {{YYYY-MM-DD}}
+created: {{YYYY-MM-DD}}
 authors: {{list of authors}}
 ---
 

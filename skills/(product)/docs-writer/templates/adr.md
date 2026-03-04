@@ -1,6 +1,6 @@
 ---
 status: proposed
-date: {{YYYY-MM-DD}}
+created: {{YYYY-MM-DD}}
 deciders: {{list of people involved in the decision}}
 ---
 

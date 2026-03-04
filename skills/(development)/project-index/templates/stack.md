@@ -1,10 +1,10 @@
 # Stack
 
 ## Framework
-- {name}: {version}
+- {{name}}: {{version}}
 
 ## Key Dependencies
-- {package}: {purpose}
+- {{package}}: {{purpose}}
 
 ## Dev Tools
-- {tool}: {purpose}
+- {{tool}}: {{purpose}}
