@@ -70,7 +70,18 @@ Rules:
 - Use the same table formats already in the codebase docs
 - Never create `.agents/codebase/` from scratch (that's project-index's job)
 
-### Step 6: Data Model Definition
+### Step 6: Check Visual References
+
+Check if the spec includes a `designs/` folder with visual references:
+
+1. Look for `.artifacts/features/{ID}-{name}/designs/`
+2. If images exist (screenshots, mockups, wireframes):
+   - Review each image to understand visual requirements
+   - Note UI/UX patterns, layout, components shown
+   - Consider these in component design and implementation
+3. If no designs folder: proceed without visual context
+
+### Step 7: Data Model Definition
 
 Define the data model before component design:
 
@@ -78,7 +89,7 @@ Define the data model before component design:
 - **Relationships**: How entities relate (one-to-many, many-to-many)
 - **API contracts**: Request/response shapes for new endpoints
 
-### Step 7: Generate plan.md
+### Step 8: Generate plan.md
 
 **USE TEMPLATE:** `templates/plan.md`
 
@@ -98,17 +109,18 @@ Generate the plan following the template structure:
 - Decisions
 - Open Questions
 
-### Step 8: Update Status
+### Step 9: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 9: Report
+### Step 10: Report
 
 Inform user:
 - Created: `plan.md`
 - Research cached: {topics}
 - Codebase docs updated: {files updated in .agents/codebase/, if it existed}
 - Key decisions: {count}
+- Visual references considered: {count} (if designs/ exists)
 - Next: Run `tasks`
 
 ## Guidelines

@@ -75,6 +75,19 @@ created: {{YYYY-MM-DD}}
 |-----------|------|----------------|
 | {{name}} | {{path}} | {{what}} |
 
+{{#if designs}}
+## Visual Design Considerations
+
+{{#each designs}}
+- **{{filename}}**: {{design_decisions_based_on_image}}
+{{/each}}
+
+Key UI/UX patterns to implement:
+- {{layout_patterns}}
+- {{component_styles}}
+- {{interaction_behaviors}}
+{{/if}}
+
 ## Data Flow
 
 {{Use a mermaid sequenceDiagram or flowchart when the flow involves 3+ steps or multiple actors.}}

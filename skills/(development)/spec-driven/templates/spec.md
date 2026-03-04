@@ -36,6 +36,16 @@ created: {{YYYY-MM-DD}}
 
 - [ ] AC-001: WHEN {{trigger}} THEN {{expected behavior}}
 
+{{#if designs}}
+## Visual References
+
+{{#each designs}}
+![{{description}}](designs/{{filename}})
+{{description of what this image shows}}
+
+{{/each}}
+{{/if}}
+
 ## Edge Cases
 
 - WHEN {{boundary condition}} THEN system SHALL {{behavior}}

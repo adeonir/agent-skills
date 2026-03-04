@@ -236,7 +236,23 @@ If option 2:
 mkdir -p .artifacts/features/{ID}-{name}
 ```
 
-### Step 10: Generate spec.md
+### Step 10: Include Visual References
+
+Check if the prompt includes images (screenshots, mockups, wireframes, diagrams):
+
+**If images are present:**
+1. Create `designs/` subdirectory:
+   ```bash
+   mkdir -p .artifacts/features/{ID}-{name}/designs
+   ```
+2. Save each image to the designs folder with descriptive filenames:
+   - `{brief-description}.{ext}` (e.g., `login-screen.png`, `user-flow.jpg`)
+3. Images will be referenced in spec.md section "Visual References"
+
+**If no images:**
+- Skip this step (designs/ folder is optional)
+
+### Step 11: Generate spec.md
 
 **USE TEMPLATE:** `templates/spec.md`
 
@@ -244,6 +260,7 @@ Generate the spec following the template structure:
 - Frontmatter with ID, feature name, type, status, branch, created date
 - Greenfield: Overview, User Stories, Functional Requirements, Acceptance Criteria, Edge Cases, Success Criteria, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
+- **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
 P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test describing how to verify it works in isolation.
 

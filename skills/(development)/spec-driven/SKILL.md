@@ -24,7 +24,8 @@ initialize --> plan --> tasks --> implement --> validate --> archive
 │   └── {ID}-{name}/
 │       ├── spec.md         # WHAT: Requirements
 │       ├── plan.md         # HOW: Architecture
-│       └── tasks.md        # WHEN: Tasks
+│       ├── tasks.md        # WHEN: Tasks
+│       └── designs/        # Visual references (screenshots, mockups, wireframes)
 └── research/               # Research cache (lazy)
     └── {topic}.md
 

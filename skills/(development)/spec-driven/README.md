@@ -93,7 +93,8 @@ modify existing auth flow to add 2FA
 │   └── 001-feature/
 │       ├── spec.md              # Requirements (WHAT)
 │       ├── plan.md              # Architecture (HOW)
-│       └── tasks.md             # Implementation tasks (WHEN)
+│       ├── tasks.md             # Implementation tasks (WHEN)
+│       └── designs/             # Screenshots, mockups, wireframes (optional)
 └── research/
     └── {topic}.md               # Research cache (optional)
 

@@ -6,6 +6,16 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-04
+
+### Added
+
+- Support for visual references (screenshots, mockups, wireframes) in feature specs
+- New `designs/` folder within feature directory for storing images
+- Automatic detection and saving of images attached to feature requests
+- Visual References section in spec.md template for linking images
+- Plan phase considers visual references in component design decisions
+
 ## 2026-03-03
 
 ### Changed
