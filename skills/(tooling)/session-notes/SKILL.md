@@ -99,6 +99,7 @@ conversation --> brag     (conversation outcomes become achievements)
 
 **DON'T:**
 
+- Overwrite or delete existing vault files -- always append, rename, or cancel
 - Assume vault location without confirmation
 - Create notes without user confirmation of content
 - Use templates for updates (templates are for new notes only)
@@ -123,7 +124,7 @@ Vault/
 ## Error Handling
 
 - Vault not found: ask user for correct vault name (`obsidian vaults verbose`)
-- Note already exists: ask to overwrite, append, or cancel
+- Note already exists: ask to append, choose new name, or cancel
 - CLI not available for content: fall back to Write tool with content composed from templates
 - Obsidian CLI not available: fall back to Write tool to create the file directly at the vault path; ask user for vault path on first use
 - Empty required fields: prompt user for missing information

@@ -19,3 +19,4 @@ All notable changes to this skill will be documented in this file.
 - CLI fallback: Write tool when Obsidian CLI is unavailable
 - Preview and confirm step before writing any note
 - Template sync guideline (skill repo as source of truth, vault `Templates/` for manual use)
+- Safety rule: never overwrite or delete existing vault files

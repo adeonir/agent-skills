@@ -31,7 +31,7 @@ Create structured documentation for a project in the Obsidian vault.
    ```bash
    obsidian search query="checkout-refactor" path="Projects/Checkout Refactor"
    ```
-   If exists, ask to overwrite, append, or choose new name.
+   If exists, ask to append, choose new name, or cancel.
 
 5. **Compose content**
    Build the note content following `templates/project.md` structure.
