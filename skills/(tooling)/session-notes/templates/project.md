@@ -25,7 +25,7 @@ tags: [project]
 
 - [[brief]] - Executive summary
 - [[prd]] - Requirements
-- [[tdd]] - Technical design
+- [[design]] - Technical design
 - [[ADR 001]] - Architecture decisions
 
 ## References

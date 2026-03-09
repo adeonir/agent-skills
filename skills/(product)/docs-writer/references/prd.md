@@ -198,7 +198,7 @@ Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 - Skip discovery topics or advance without meeting sufficiency criteria
 - Assume project type -- discover it
 - Include visual/design direction (that belongs in design-builder)
-- Include technical implementation details (that belongs in TDD)
+- Include technical implementation details (that belongs in Design Doc)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Proceed past validation without user confirmation on scope
 - Describe UI components or API endpoints in journeys

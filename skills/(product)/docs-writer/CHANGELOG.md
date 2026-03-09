@@ -10,10 +10,14 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Replace TDD (Technical Design Document) with Design Doc following a broader technical design approach
-- Add Design Doc reference and template, remove TDD reference and template
-- Update cross-references: Design Doc now receives PRD context and feeds into ADR
-- Update discovery applicability and trigger mappings for Design Doc
+- Adopt Shape Up naming: User Story -> Pitch, Task -> Scope, Issue -> Bug
+- Pitch uses narrative format (problem + solution), replaces "As a... I want..." agile format
+- Scope defines technical work slice with in/out, no acceptance criteria (validation at pitch level)
+- Bug simplified to essential fields: description (expected/actual), steps to reproduce, environment, workaround
+- Issue subtypes (feature, discussion) removed -- Bug is a standalone type
+- Replace TDD with Design Doc following a broader technical design approach
+- Update cross-references: Pitch -> Scope relationship, Design Doc -> ADR
+- Update triggers, discovery patterns, and output filenames
 
 ## 2026-03-02
 

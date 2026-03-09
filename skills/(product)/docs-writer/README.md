@@ -17,35 +17,47 @@ flowchart LR
     T[Trigger] --> R{Router}
     R --> PRD[PRD]
     R --> B[Brief]
-    R --> I[Issue]
-    R --> TK[Task]
-    R --> US[User Story]
+    R --> DD[Design Doc]
+    R --> P[Pitch]
+    R --> S[Scope]
+    R --> BG[Bug]
     R --> RFC[RFC]
     R --> ADR[ADR]
-    R --> DD[Design Doc]
 ```
+
+### Google-style (product & technical strategy)
 
 | Type | Workflow | Output |
 |------|----------|--------|
 | **PRD** | discovery -> validation -> synthesis -> drafting | `prd.md` |
 | **Brief** | generated with PRD | `brief.md` |
 | **Design Doc** | discovery -> analysis -> drafting | `design.md` |
-| **Issue** | classification -> [clarification] -> drafting | `issue.md` |
-| **Task** | direct drafting | `task.md` |
-| **User Story** | [clarification] -> drafting | `story.md` |
-| **RFC** | [clarification] -> analysis -> drafting | `rfc.md` |
-| **ADR** | [clarification] -> drafting | `adr-{number}-{name}.md` |
+
+### Shape Up-style (features & work items)
+
+| Type | Workflow | Output |
+|------|----------|--------|
+| **Pitch** | [clarification] -> drafting | `pitch.md` |
+| **Scope** | direct drafting | `scope.md` |
+| **Bug** | structured collection -> drafting | `bug.md` |
+
+### Industry standard (decisions & proposals)
+
+| Type | Workflow | Output |
+|------|----------|--------|
+| **RFC** | [clarification] -> analysis -> drafting | `rfc/{number}-{name}.md` |
+| **ADR** | [clarification] -> drafting | `adr/{number}-{name}.md` |
 
 ## Usage
 
 ```
 create PRD for my project
+create design doc for API gateway
+create pitch for date filter feature
+create scope for the search endpoint
 report bug in the login flow
-create task to update dependencies
-write user story for checkout
 create RFC for new auth system
 record architecture decision about database choice
-create design doc for API gateway
 ```
 
 The agent detects the document type from the trigger and loads the appropriate workflow.

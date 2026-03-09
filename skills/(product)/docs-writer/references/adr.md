@@ -44,9 +44,9 @@ Evaluate the user's input against the sufficiency criteria below. If all criteri
 
 ADRs are numbered sequentially. Before creating a new ADR:
 
-1. Scan `.artifacts/docs/` for existing files matching `adr-*-*.md`
+1. Scan `.artifacts/docs/adr/` for existing files matching `{number}-*.md`
 2. Extract the highest number
-3. Use the next number (e.g., if `adr-003-*` exists, use `004`)
+3. Use the next number (e.g., if `003-*` exists, use `004`)
 4. If no ADRs exist, start at `001`
 
 Format: 3-digit zero-padded (`001`, `002`, `003`).
@@ -57,7 +57,7 @@ Format: 3-digit zero-padded (`001`, `002`, `003`).
 
 Generate the ADR using the schema below. Present draft to user for review.
 
-**Title:** Derived from the decision -- short and descriptive (e.g., "Use PostgreSQL for primary data store"). Goes in the filename: `adr-{number}-{name}.md`.
+**Title:** Derived from the decision -- short and descriptive (e.g., "Use PostgreSQL for primary data store"). Goes in the filename: `{number}-{name}.md`.
 
 **Frontmatter:** Template includes YAML frontmatter with `status`, `date`, and `deciders`. Status values: `proposed` | `accepted` | `deprecated` | `superseded`.
 
@@ -93,8 +93,8 @@ proposed --> accepted --> deprecated / superseded
 - Keep ADRs short and focused -- one decision per record
 - Context should be understandable by someone who wasn't in the room
 - Always document consequences honestly, including negative ones
-- Link to related RFCs or TDDs when applicable
+- Link to related RFCs or Design Docs when applicable
 
 ## Output
 
-Save to: `.artifacts/docs/adr-{number}-{name}.md`
+Save to: `.artifacts/docs/adr/{number}-{name}.md`

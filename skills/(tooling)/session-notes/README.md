@@ -12,7 +12,7 @@ npx skills add adeonir/agent-skills --skill session-notes
 
 Creates and manages documentation in your Obsidian vault with consistent structure:
 
-- **Projects** - Full project documentation (PRD, TDD, ADR, architecture)
+- **Projects** - Full project documentation (PRD, Design Doc, ADR, architecture)
 - **Companies** - Job application tracking (status, interviews, decisions)
 - **Challenges** - Technical interview challenges (take-homes, system design)
 - **Brags** - Achievement tracking for performance reviews

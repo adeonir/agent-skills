@@ -113,4 +113,6 @@ draft --> under-review --> accepted / rejected / withdrawn
 
 ## Output
 
-Save to: `.artifacts/docs/rfc.md`
+Save to: `.artifacts/docs/rfc/{number}-{name}.md`
+
+Use kebab-case for `{name}` and auto-detect the next sequential number from existing files in `.artifacts/docs/rfc/`.

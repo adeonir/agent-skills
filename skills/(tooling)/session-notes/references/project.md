@@ -5,7 +5,7 @@ Create structured documentation for a project in the Obsidian vault.
 ## When to Use
 
 - User says "create project", "new project note", "document project"
-- User mentions PRD, TDD, ADR, or architecture documentation
+- User mentions PRD, Design Doc, ADR, or architecture documentation
 - User wants to track project decisions, scope, or learnings
 
 ## Workflow
@@ -25,7 +25,7 @@ Create structured documentation for a project in the Obsidian vault.
 3. **Generate folder and filename**
    - Folder: Title Case (e.g., "Checkout Refactor" -> `Projects/Checkout Refactor/`)
    - Main file: always `Overview.md` (avoids redundancy with folder name)
-   - Related docs (ADR, PRD, TDD): follow docs-writer naming or user-defined
+   - Related docs (ADR, PRD, Design Doc): follow docs-writer naming or user-defined
 
 4. **Check if exists**
    ```bash
@@ -57,5 +57,5 @@ Create structured documentation for a project in the Obsidian vault.
 
 ## Next Steps
 
-- User may want to create linked docs (e.g., ADR, TDD) via docs-writer skill
+- User may want to create linked docs (e.g., ADR, Design Doc) via docs-writer skill
 - User may want to create a company note if this is for a job application

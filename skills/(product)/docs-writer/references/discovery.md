@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Auto-loaded by PRD and TDD workflows during the discovery phase. Not a direct trigger.
+Auto-loaded by PRD and Design Doc workflows during the discovery phase. Not a direct trigger.
 
 ## Core Principle
 
@@ -52,7 +52,7 @@ Move on when:
 | Type | Topics | Focus |
 |------|--------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
-| TDD | 3 topics | Requirements, constraints, architecture |
+| Design Doc | 3 topics | Requirements & stack, architecture & integrations, security/compliance/testing |
 
 **Clarification only** (ask only when input is incomplete):
 
@@ -60,11 +60,9 @@ Move on when:
 |------|-------|
 | RFC | Problem, proposal, impact |
 | ADR | Context, options |
-| Issue (feature) | Problem, affected users |
-| Issue (discussion) | Topic, open questions |
-| User Story | Persona, action, benefit |
+| Pitch | Problem, solution, scope |
 
-**No discovery:** Task, Issue (bug -- uses structured collection instead).
+**No discovery:** Scope, Bug (uses structured collection instead).
 
 ## Synthesis Pattern
 
