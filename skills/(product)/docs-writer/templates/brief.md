@@ -17,7 +17,13 @@
 - {{Core deliverable that defines this product}}
 - {{Another must-have capability}}
 
-## Open Risks
+## Success Metrics
+
+| Metric | Target | How to Measure |
+|--------|--------|----------------|
+| {{Key performance indicator}} | {{Concrete target or threshold}} | {{Method or tool}} |
+
+## Risks
 
 - {{Top risk or unvalidated assumption that could change the direction}}
 - {{Another risk or hypothesis that needs evidence}}

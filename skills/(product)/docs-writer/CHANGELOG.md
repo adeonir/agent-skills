@@ -6,6 +6,15 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-09
+
+### Changed
+
+- Replace TDD (Technical Design Document) with Design Doc following a broader technical design approach
+- Add Design Doc reference and template, remove TDD reference and template
+- Update cross-references: Design Doc now receives PRD context and feeds into ADR
+- Update discovery applicability and trigger mappings for Design Doc
+
 ## 2026-03-02
 
 ### Changed

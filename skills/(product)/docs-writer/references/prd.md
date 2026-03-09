@@ -161,21 +161,24 @@ Generate both documents using the confirmed synthesis. Present drafts to user fo
 
 ## PRD Schema
 
-11 sections matching `templates/prd.md`:
+14 sections matching `templates/prd.md`:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
 | 1. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
 | 2. Goals & Success Metrics | Measurable KPIs (concrete numbers, not vague goals) | Topic 1: Problem |
 | 3. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
-| 4. Scope Definition | Must/Should/Could have, non-goals (FR-001...) | Topic 4: Value & Scope |
+| 4. Scope Definition | Must/Should/Could/Won't have, non-goals (FR-001...) | Topic 4: Value & Scope |
 | 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
 | 6. Business Rules | Functional constraints across features (BR-001...) | Topic 5: Journeys & Constraints |
 | 7. Edge Cases | Exception scenarios and expected behavior (EC-001...) | Topic 5: Journeys & Constraints |
 | 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
 | 9. Milestones | Key deliverables per phase -- each can generate a spec | Topic 4: Value & Scope |
-| 10. Risks & Assumptions | Risks, hypotheses, unknowns (TBD) | Validation phase |
-| 11. References | Links to designs, research, related documents | All phases |
+| 10. Assumptions | What we believe to be true that underpins the plan | Validation phase |
+| 11. Risks | What could go wrong and how to address it | Validation phase |
+| 12. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
+| 13. Unknowns | Questions that need answering before implementation (TBD) | Validation phase |
+| 14. References | Links to designs, research, related documents | All phases |
 
 Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 

@@ -1,6 +1,6 @@
 ---
 name: docs-writer
-description: Generate structured product and technical documents through guided discovery. 8 document types (PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD). Use when defining products, reporting bugs, planning tasks, writing stories, proposing changes, recording decisions, designing systems. Also use when the user wants to document a feature idea, write requirements, formalize a decision, describe a bug they found, plan technical architecture, or needs any structured document for a project. Triggers on "create PRD", "create issue", "report bug", "feature request", "create task", "create user story", "create RFC", "create ADR", "create TDD", "create document", "write doc", "document this", "need a spec", "write requirements".
+description: Generate structured product and technical documents through guided discovery. 8 document types (PRD, Brief, Design Doc, Issue, Task, User Story, RFC, ADR). Use when defining products, designing systems, reporting bugs, planning tasks, writing stories, proposing changes, recording decisions. Also use when the user wants to document a feature idea, write requirements, formalize a decision, describe a bug they found, plan technical architecture, or needs any structured document for a project. Triggers on "create PRD", "create design doc", "design system", "create issue", "report bug", "feature request", "create task", "create user story", "create RFC", "create ADR", "create document", "write doc", "document this", "need a spec", "write requirements".
 metadata:
   author: github.com/adeonir
   version: "1.0.0"
@@ -24,12 +24,12 @@ Detect document type from the trigger. If ambiguous, ask the user which type the
 |------|----------|-----------|----------|
 | PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
 | Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
+| Design Doc | discovery -> analysis -> drafting | [design.md](references/design.md) | [design.md](templates/design.md) |
 | Issue | classification -> [clarification] -> drafting | [issue.md](references/issue.md) | [issue.md](templates/issue.md) |
 | Task | direct drafting | [task.md](references/task.md) | [task.md](templates/task.md) |
 | User Story | [clarification] -> drafting | [user-story.md](references/user-story.md) | [user-story.md](templates/user-story.md) |
 | RFC | [clarification] -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
 | ADR | [clarification] -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
-| TDD | discovery -> analysis -> drafting | [tdd.md](references/tdd.md) | [tdd.md](templates/tdd.md) |
 
 ## Context Loading Strategy
 
@@ -49,14 +49,14 @@ Load the reference and template matching the detected document type. For types t
 | Create user story, write story, new story | User Story | [user-story.md](references/user-story.md) |
 | Create RFC, propose change, request for comments | RFC | [rfc.md](references/rfc.md) |
 | Create ADR, record decision, architecture decision | ADR | [adr.md](references/adr.md) |
-| Create TDD, technical design, design document | TDD | [tdd.md](references/tdd.md) |
+| Create design doc, design system, technical design | Design Doc | [design.md](references/design.md) |
 | Create document, write doc | Ask user | -- |
 
 ## Shared Discovery Patterns
 
 **LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
 
-Discovery applies to: PRD, TDD.
+Discovery applies to: PRD, Design Doc.
 Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Issue (feature/discussion subtypes), User Story.
 Neither applies to: Task, Issue (bug subtype -- uses structured collection instead), Brief (generated as part of PRD workflow).
 
@@ -68,12 +68,12 @@ All documents save to `.artifacts/docs/`. Create the directory if it doesn't exi
 |------|----------|
 | PRD | `prd.md` |
 | Brief | `brief.md` |
+| Design Doc | `design.md` |
 | Issue | `issue.md` |
 | Task | `task.md` |
 | User Story | `story.md` |
 | RFC | `rfc.md` |
 | ADR | `adr-{number}-{name}.md` |
-| TDD | `tdd.md` |
 
 For ADR, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in `.artifacts/docs/`.
 
@@ -90,17 +90,18 @@ Requirements must be concrete and measurable across all document types.
 ## Cross-References
 
 ```
-PRD -------------> TDD            (PRD feeds requirements, journeys, rules into TDD)
+PRD -------------> Design Doc     (PRD feeds requirements, context into Design Doc)
 PRD -------------> design-builder (PRD + Brief inform copy and design extraction)
 PRD -------------> spec-driven    (PRD milestones feed spec initialization)
+Design Doc ------> ADR            (design decisions generate ADRs)
 RFC -------------> ADR            (accepted RFC generates ADR)
-TDD -------------> ADR            (references relevant decisions)
 ```
 
 Notes:
 
 - **design-builder**: PRD sections 1, 3-4 (problem, personas, scope) and Brief (value prop, market) inform copy extraction and design extraction
 - **spec-driven**: PRD milestones feed feature initialization -- each milestone can generate a spec with its own tasks
+- **Design Doc**: When PRD exists, the Design Doc focuses on technical strategy; without PRD, it covers both product context and technical design
 
 ## Guidelines
 

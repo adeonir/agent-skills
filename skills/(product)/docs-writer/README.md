@@ -22,19 +22,19 @@ flowchart LR
     R --> US[User Story]
     R --> RFC[RFC]
     R --> ADR[ADR]
-    R --> TDD[TDD]
+    R --> DD[Design Doc]
 ```
 
 | Type | Workflow | Output |
 |------|----------|--------|
 | **PRD** | discovery -> validation -> synthesis -> drafting | `prd.md` |
 | **Brief** | generated with PRD | `brief.md` |
+| **Design Doc** | discovery -> analysis -> drafting | `design.md` |
 | **Issue** | classification -> [clarification] -> drafting | `issue.md` |
 | **Task** | direct drafting | `task.md` |
 | **User Story** | [clarification] -> drafting | `story.md` |
 | **RFC** | [clarification] -> analysis -> drafting | `rfc.md` |
 | **ADR** | [clarification] -> drafting | `adr-{number}-{name}.md` |
-| **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
 ## Usage
 
@@ -45,7 +45,7 @@ create task to update dependencies
 write user story for checkout
 create RFC for new auth system
 record architecture decision about database choice
-create technical design for API gateway
+create design doc for API gateway
 ```
 
 The agent detects the document type from the trigger and loads the appropriate workflow.

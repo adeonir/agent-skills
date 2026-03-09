@@ -39,6 +39,12 @@
 |----|------------|-------|
 | FR-004 | {{nice-to-have for future iteration}} | |
 
+### Won't Have
+
+| ID | Requirement | Notes |
+|----|------------|-------|
+| FR-XXX | {{feature considered and explicitly excluded}} | {{reason for exclusion}} |
+
 ### Non-Goals
 
 - {{What is explicitly out of scope and why}}
@@ -92,26 +98,24 @@
 | {{milestone_1}} | {{key features and capabilities included}} |
 | {{milestone_2}} | {{key features and capabilities included}} |
 
-## 10. Risks & Assumptions
-
-### Assumptions
+## 10. Assumptions
 
 - {{Assumption that, if wrong, would change the plan}}
 
-### Risks
+## 11. Risks
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
 | {{what could go wrong}} | High | Medium | {{how to address}} |
 
-### Hypotheses to Validate
+## 12. Hypotheses to Validate
 
-- [ ] {{Assumption that needs evidence before or during implementation}}
+- [ ] {{Hypothesis to be tested and validated with data or user research}}
 
-### Unknowns
+## 13. Unknowns
 
 - [ ] TBD: {{Question that needs answering before implementation}}
 
-## 11. References
+## 14. References
 
 - {{Link to designs, research, prior art, or related documents}}

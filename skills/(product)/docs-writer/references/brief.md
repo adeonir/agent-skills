@@ -30,7 +30,8 @@ The Brief distills PRD discovery into a narrative. Each section pulls from disco
 | Why | Topic 3: Market & Differentiation + Topic 4: Value & Scope (gap, differentiator, value model) |
 | Who | Topic 2: Users (persona, job to be done, switching motivation) |
 | Scope | Topic 4: Value & Scope (must-haves only) |
-| Open Risks | Validation phase (risks and unvalidated hypotheses) |
+| Success Metrics | Topic 1: Problem (goals and targets from PRD section 2) |
+| Risks | Validation phase (risks and unvalidated hypotheses) |
 
 Note: Topic 3 (Market & Differentiation) is discovered during PRD discovery but flows exclusively to the Brief, not to the PRD.
 
@@ -43,7 +44,8 @@ Note: Topic 3 (Market & Differentiation) is discovered during PRD discovery but 
 - Keep it to 1 page equivalent -- concise and scannable
 - What, Why, Who are narrative paragraphs, not bullet lists
 - Scope lists only must-haves -- the full MoSCoW breakdown lives in the PRD
-- Open Risks surfaces what could change the direction, not an exhaustive risk register
+- Success Metrics pulls from Goals & Success Metrics in PRD section 2
+- Risks surfaces what could change the direction, not an exhaustive risk register
 - If something has no data from discovery, omit it rather than writing TBD -- the brief should only contain what is known
 - The Brief tells the story of the product. The PRD provides the specification. Never duplicate structure between them
 

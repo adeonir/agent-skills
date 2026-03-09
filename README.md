@@ -24,7 +24,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Initialize, Plan, Tasks, Implement+Validate. Full traceability |
-| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Issue, Task, User Story, RFC, ADR, TDD. Guided discovery per type |
+| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, Issue, Task, User Story, RFC, ADR. Guided discovery per type |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, conversations, and captures |
