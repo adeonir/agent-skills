@@ -7,8 +7,7 @@ technologies: {{technologies}}
 status: {{status}}
 tags: [challenge, interview]
 ---
-
-# {{type}}: {{description}}
+# {{short description of the challenge}}
 
 ## Problem
 
@@ -29,4 +28,4 @@ tags: [challenge, interview]
 
 ## References
 
-- [[{{company}}-{{year}}]]
+- [[{{Company}} {{Year}}]]

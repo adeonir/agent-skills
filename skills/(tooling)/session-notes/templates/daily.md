@@ -3,8 +3,7 @@ created: {{YYYY-MM-DD}}
 type: daily
 tags: [daily]
 ---
-
-# {{YYYY-MM-DD}}
+# {{short summary of the day}}
 
 ## Morning
 

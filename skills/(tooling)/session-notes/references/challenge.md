@@ -23,16 +23,18 @@ Document technical challenges from interview processes.
    - Time constraints
    - Current status (pending, completed, submitted, feedback received)
 
-3. **Generate filename**
-   - Descriptive kebab-case: `{{company}}-{{type}}-{{topic}}.md`
+3. **Generate folder and filename**
+   - Folder: company or context name in Title Case under `Challenges/`
+   - Filename: Title Case describing the challenge
+   - Pattern: `Challenges/{{Company}}/{{Type Topic}}.md`
    - Examples:
-     - `stripe-system-design-url-shortener.md`
-     - `algo-binary-tree-traversal.md`
-     - `figma-react-component-library.md`
+     - `Challenges/Stripe/System Design URL Shortener.md`
+     - `Challenges/Algo/Binary Tree Traversal.md`
+     - `Challenges/Figma/React Component Library.md`
 
 4. **Check if exists**
    ```bash
-   obsidian search query="stripe-system-design" path=Challenges
+   obsidian search query="System Design URL Shortener" path="Challenges/Stripe"
    ```
 
 5. **Compose content**
@@ -51,7 +53,7 @@ Document technical challenges from interview processes.
    ```
    If available, compose content and create with CLI:
    ```bash
-   obsidian create path="Challenges/stripe-system-design-url-shortener.md" content="{{composed content}}" silent
+   obsidian create path="Challenges/Stripe/System Design URL Shortener.md" content="{{composed content}}" silent
    ```
    Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
    If CLI is not available, fall back to Write tool to create the file

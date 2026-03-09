@@ -4,8 +4,7 @@ type: project
 status: {{status}}
 tags: [project]
 ---
-
-# {{project-name}}
+# {{short description of the project}}
 
 ## Summary
 
@@ -27,8 +26,8 @@ tags: [project]
 - [[brief]] - Executive summary
 - [[prd]] - Requirements
 - [[tdd]] - Technical design
-- [[adr-001-*]] - Architecture decisions
+- [[ADR 001]] - Architecture decisions
 
 ## References
 
-- [[related-notes]]
+- [[Related Notes]]

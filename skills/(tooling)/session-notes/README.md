@@ -94,4 +94,4 @@ Vault/
 | Skill | Connection |
 |-------|------------|
 | `spec-driven` | Project notes can reference specs created by spec-driven |
-| `docs-writer` | PRD/TDD/ADR created by docs-writer can be linked in project notes |
+| `docs-writer` | PRD/Design Doc/ADR created by docs-writer can be linked in project notes |

@@ -6,6 +6,14 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-09
+
+### Changed
+
+- Switch filenames from kebab-case to Title Case (e.g., `My Project.md`)
+- Switch wiki-links from `[[note-name]]` to `[[Note Name]]`
+- Update all references and templates to match new naming conventions
+
 ## 2026-03-04
 
 ### Added

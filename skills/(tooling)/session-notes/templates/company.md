@@ -10,8 +10,7 @@ industry: {{fintech/saas/etc}}
 stack: {{technologies}}
 tags: [company, job-search]
 ---
-
-# {{company-name}} - {{role}}
+# {{role}} -- {{short description}}
 
 ## Timeline
 
@@ -25,4 +24,4 @@ tags: [company, job-search]
 
 ## References
 
-- [[challenge-note]]
+- [[Challenge Note]]

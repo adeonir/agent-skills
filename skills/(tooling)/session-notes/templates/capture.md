@@ -4,11 +4,10 @@ type: capture
 source: {{url or filename, if applicable}}
 tags: [capture]
 ---
-
-# {{title}}
+# {{short description of the content}}
 
 {{organized content}}
 
 ## References
 
-- [[related-note]]
+- [[Related Note]]

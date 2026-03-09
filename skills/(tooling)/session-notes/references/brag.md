@@ -16,13 +16,13 @@ Add achievements to brag document for performance reviews and career growth.
    ```
 
 2. **Determine time period**
-   - Current year: `2025-brags.md`
-   - Or by quarter: `2025-q1-brags.md`
+   - Current year: `Brags 2025.md`
+   - Or by quarter: `Brags 2025 Q1.md`
    - Ask user preference on first use
 
 3. **Check if brag doc exists**
    ```bash
-   obsidian search query="2025-brags" path=Brags
+   obsidian search query="Brags 2025" path=Brags
    ```
 
 4. **Create or append**
@@ -48,11 +48,11 @@ Add achievements to brag document for performance reviews and career growth.
    If available, compose content following `templates/brag.md` structure.
    For new document:
    ```bash
-   obsidian create path="Brags/2025-brags.md" content="{{composed content}}" silent
+   obsidian create path="Brags/Brags 2025.md" content="{{composed content}}" silent
    ```
    For existing document - append achievement to the appropriate category:
    ```bash
-   obsidian append path="Brags/2025-brags.md" content="- **{{achievement}}**\n  - Context: {{context}}\n  - Result: {{result}}"
+   obsidian append path="Brags/Brags 2025.md" content="- **{{achievement}}**\n  - Context: {{context}}\n  - Result: {{result}}"
    ```
    If CLI is not available, fall back to Write tool (new) or Edit tool (append)
    to modify the file directly at the vault path (ask user for vault path on first use).

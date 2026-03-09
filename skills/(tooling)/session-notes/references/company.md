@@ -26,13 +26,12 @@ Track job applications and interview process for a company.
    - Tech stack (technologies used)
 
 3. **Generate filename**
-   - Convert to kebab-case
-   - Add year for uniqueness: `{{company-name}}-{{year}}.md`
-   - Example: "Stripe" -> `stripe-2025.md`
+   - Title Case with year for uniqueness: `{{Company Name}} {{Year}}.md`
+   - Example: "Stripe" -> `Stripe 2025.md`
 
 4. **Check if exists**
    ```bash
-   obsidian search query="stripe-2025" path=Companies
+   obsidian search query="Stripe 2025" path=Companies
    ```
 
 5. **Create or update**
@@ -52,11 +51,11 @@ Track job applications and interview process for a company.
    If available, compose content following `templates/company.md` structure
    and create with CLI:
    ```bash
-   obsidian create path="Companies/stripe-2025.md" content="{{composed content}}" silent
+   obsidian create path="Companies/Stripe 2025.md" content="{{composed content}}" silent
    ```
    For appending a Timeline row to an existing note:
    ```bash
-   obsidian append path="Companies/stripe-2025.md" content="| 2025-03-18 | Technical | System design, see [[stripe-system-design]] |"
+   obsidian append path="Companies/Stripe 2025.md" content="| 2025-03-18 | Technical | System design, see [[Stripe System Design]] |"
    ```
    Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
    If CLI is not available, fall back to Write tool to create the file

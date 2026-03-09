@@ -115,7 +115,7 @@ Vault/
 
 **DO:**
 - Start simple, add complexity only when needed
-- Use consistent naming (kebab-case)
+- Use consistent naming (Title Case)
 - Keep folder depth shallow (max 2-3 levels)
 - Use tags (#tag) for cross-cutting concerns
 

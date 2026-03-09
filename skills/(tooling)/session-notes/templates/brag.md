@@ -4,8 +4,7 @@ type: brag
 period: {{period}}
 tags: [brag, career]
 ---
-
-# Brag Document - {{period}}
+# {{short description of the period}}
 
 ## Summary
 
@@ -39,4 +38,4 @@ tags: [brag, career]
 
 ## References
 
-- [[related-project-or-challenge]]
+- [[Related Project or Challenge]]

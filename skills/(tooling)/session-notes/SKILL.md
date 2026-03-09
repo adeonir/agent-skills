@@ -75,8 +75,8 @@ conversation --> brag     (conversation outcomes become achievements)
 - Compose note content inline following `templates/*.md` structure
 - Preview the full note content and target path before writing, ask for confirmation
 - Check CLI availability with `which obsidian`; if unavailable, fall back to Write tool at vault path
-- Link related notes using Obsidian wiki-links `[[note-name]]`
-- Use kebab-case for filenames (e.g., `my-project.md`)
+- Link related notes using Obsidian wiki-links `[[Note Name]]`
+- Use Title Case for filenames (e.g., `My Project.md`)
 - Ask user which vault when multiple vaults exist
 - Remember vault name after first confirmation to avoid repeated prompts
 - Use `obsidian search` to check if a note exists before creating

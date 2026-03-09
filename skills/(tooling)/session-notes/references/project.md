@@ -24,12 +24,12 @@ Create structured documentation for a project in the Obsidian vault.
 
 3. **Generate folder and filename**
    - Folder: Title Case (e.g., "Checkout Refactor" -> `Projects/Checkout Refactor/`)
-   - Main file: `{{project-name}}.md` in kebab-case (e.g., `checkout-refactor.md`)
+   - Main file: always `Overview.md` (avoids redundancy with folder name)
    - Related docs (ADR, PRD, TDD): follow docs-writer naming or user-defined
 
 4. **Check if exists**
    ```bash
-   obsidian search query="checkout-refactor" path="Projects/Checkout Refactor"
+   obsidian search query="Checkout Refactor" path="Projects/Checkout Refactor"
    ```
    If exists, ask to append, choose new name, or cancel.
 
@@ -49,7 +49,7 @@ Create structured documentation for a project in the Obsidian vault.
    ```
    If available, create with CLI:
    ```bash
-   obsidian create path="Projects/Checkout Refactor/checkout-refactor.md" content="{{composed content}}" silent
+   obsidian create path="Projects/Checkout Refactor/Overview.md" content="{{composed content}}" silent
    ```
    Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
    If CLI is not available, fall back to Write tool to create the file

@@ -5,8 +5,7 @@ topic: {{topic}}
 type: conversation
 tags: [conversation, {{source}}]
 ---
-
-# {{topic}}
+# {{short description of what was discussed}}
 
 ## Summary
 
@@ -26,4 +25,4 @@ tags: [conversation, {{source}}]
 
 ## References
 
-- [[related-note]]
+- [[Related Note]]

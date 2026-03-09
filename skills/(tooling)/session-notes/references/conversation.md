@@ -32,24 +32,30 @@ as structured Obsidian notes.
    - For other sources: ask user to paste the conversation or describe
      the key points. Structure the content into the template sections.
 
-4. **Generate filename**
-   - Descriptive kebab-case: `{{topic}}.md`
-   - Examples:
-     - `refactoring-auth-flow.md`
-     - `api-design-discussion.md`
-     - `react-performance-patterns.md`
+4. **Determine destination**
+   Ask if the conversation is related to an existing project.
+   - If related to a project: save inside the project folder
+     - Path: `Projects/{{Project Name}}/{{Topic}}.md`
+   - If standalone: save in `Conversations/`
+     - Path: `Conversations/{{Topic}}.md`
 
-5. **Check if exists**
+5. **Generate filename**
+   - Title Case: `{{Topic}}.md`
+   - Examples:
+     - `Landing Page Stack.md` (inside `Projects/Pensefy/`)
+     - `React Performance Patterns.md` (inside `Conversations/`)
+
+6. **Check if exists**
    ```bash
-   obsidian search query="{{topic}}" path=Conversations
+   obsidian search query="{{topic}}" path="{{destination folder}}"
    ```
    If a related note exists, ask to append or create new.
 
-6. **Preview and confirm**
+7. **Preview and confirm**
    Display the full note content and target file path to the user.
    Ask for confirmation before writing. Accept edits if suggested.
 
-7. **Write note**
+8. **Write note**
    Check if Obsidian CLI is available:
    ```bash
    which obsidian
@@ -57,7 +63,7 @@ as structured Obsidian notes.
    If available, compose content following `templates/conversation.md` structure
    and create with CLI:
    ```bash
-   obsidian create path="Conversations/{{filename}}" content="{{composed content}}" silent
+   obsidian create path="{{destination folder}}/{{filename}}" content="{{composed content}}" silent
    ```
    If CLI is not available, ask user for the output path on first use,
    then fall back to Write tool to create the file directly.
