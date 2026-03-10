@@ -58,6 +58,8 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
    Explore the full directory tree to understand the project, but only document the top-level directories and key subdirectories that define the architecture. Omit generated, vendored, or obvious directories.
 
+   **Monorepos** (packages/, apps/, workspaces): Document the workspace structure and identify the primary package. Analyze shared packages first (shared types, config, utilities), then the main app. Don't try to deeply analyze every package -- focus on the ones most relevant to the project's core purpose.
+
 #### Phase 2: Deep Code Analysis
 
 4. **Read Representative Source Files**
@@ -70,12 +72,21 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    | Medium (30-100 files) | 8-12 files | Multiple layers and modules |
    | Large (> 100 files) | 12-20 files | Each major module, different patterns |
 
-   **Selection strategy**: Pick files from different directories AND different architectural layers:
-   - Entry points (API routes, CLI commands, main files)
-   - Business logic (services, use cases, domain models)
-   - Data access (repositories, API clients, database models)
-   - Utilities (helpers, constants, shared types)
-   - UI components (if applicable)
+   **Reading priority** (start with what gives most context):
+   1. Config and setup files (framework config, theme config, style tokens, env.example)
+   2. Entry points (API routes, CLI commands, main files, layout files)
+   3. Business logic (services, use cases, domain models)
+   4. Data access (repositories, API clients, database models)
+   5. Styling (global styles, theme files, design tokens, CSS/SCSS variables)
+   6. UI components (if applicable)
+   7. Utilities (helpers, constants, shared types)
+
+   **Always skip:**
+   - Generated files (.d.ts, lockfiles, build output, source maps)
+   - Vendored code (node_modules, vendor/, third_party/)
+   - Data fixtures and seed files (large JSON/SQL dumps)
+   - Migration files (schema history, not current patterns)
+   - Minified or bundled files
 
    **Stop when**: You're seeing repeated patterns and no new conventions.
 
@@ -85,6 +96,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    - Error handling approach (try/catch, Result types, error boundaries)
    - Type definitions style (interfaces vs types, inline vs shared)
    - Code organization within files (ordering, grouping)
+   - Styling patterns (custom properties, tokens, preprocessor usage, theme structure)
 
 5. **Map Module Dependencies**
 
@@ -153,7 +165,21 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    - What to avoid (anti-patterns observed or implied)
    - Edge cases or inconsistencies found
 
-   Cover at minimum: naming, imports, error handling, types, state management, async patterns, logging.
+   **Required categories** (document all that apply):
+
+   | Category | What to look for |
+   |----------|-----------------|
+   | Naming | Functions, classes, variables, files, directories |
+   | Imports | Order, grouping, aliases, barrel files |
+   | Error handling | try/catch, Result types, error boundaries, error messages |
+   | Types | Interfaces vs types, inline vs shared, strictness |
+   | State management | Local state, global state, server state patterns |
+   | Async patterns | Promises, async/await, error handling in async code |
+   | Logging | Logger usage, log levels, structured logging |
+   | Styling | CSS approach, preprocessor, custom properties, design tokens, theme structure |
+   | Components | File structure, props patterns, composition patterns (if UI project) |
+
+   **Critical**: Don't assume a framework or library based on dependency name alone. READ config files and actual usage to understand customizations. A project using Bootstrap may have extensive custom variables and overrides that define the real styling conventions.
 
 10. **Extract Commands**
 
@@ -240,8 +266,10 @@ Inform user:
 ## Guidelines
 
 ### File Reading Strategy
+- **Config first**: Read configuration and setup files before source code -- they reveal the project's actual choices
 - **Quality over quantity**: Better to read 10 diverse files than 30 similar ones
 - **Cover all layers**: Ensure every architectural layer is represented
+- **Read before assuming**: Never document a convention based on dependency names alone -- read actual config and usage files
 - **Look for inconsistencies**: Note when the same pattern is implemented differently
 - **Stop when saturated**: When new files don't reveal new patterns, you've read enough
 

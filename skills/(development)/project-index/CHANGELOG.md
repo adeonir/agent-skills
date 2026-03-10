@@ -19,6 +19,12 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - Improve brownfield detection with broader signals (manifests, source directories, file count)
+- Add reading priority order in deep analysis (config and setup files first, then entry points)
+- Add explicit skip list for generated, vendored, and data files
+- Add monorepo guidance (workspace structure, shared packages first)
+- Restructure convention extraction with required categories table including styling and components
+- Add rule to read config files before assuming conventions from dependency names
+- Enrich conventions template with styling, state management, async, and components categories
 - Enrich integrations template with auth method, config, and environment variables
 - Enrich commands template with table format and notes column
 - Document size guidelines in summary.md (max 10 table rows, max 7 list items)
