@@ -8,8 +8,13 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-03-10
 
+### Added
+
+- External Content Trust Boundary section in SKILL.md for web research sanitization
+
 ### Changed
 
+- Break frontmatter description into multi-line YAML to avoid obfuscation alerts
 - Rename Implement phase to Execute (implement.md -> execute.md)
 - Fold Validate phase into Execute as continuous per-task verification
 - Reduce pipeline from 5 phases to 4 (Specify, Plan, Tasks, Execute)

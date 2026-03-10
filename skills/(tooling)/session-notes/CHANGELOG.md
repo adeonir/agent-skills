@@ -6,6 +6,16 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Added
+
+- External Content Trust Boundary section in SKILL.md for URL capture sanitization
+
+### Changed
+
+- Break frontmatter description into multi-line YAML to avoid obfuscation alerts
+
 ## 2026-03-09
 
 ### Changed

@@ -6,6 +6,12 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Changed
+
+- Break frontmatter description into multi-line YAML to avoid obfuscation alerts in security audits
+
 ## 2026-03-09
 
 ### Changed

@@ -33,7 +33,9 @@ skills/
 ```yaml
 ---
 name: skill-name                    # kebab-case, matches directory name
-description: Single-line string...  # Dense, with trigger phrases at the end
+description: Multi-line with        # Max 1024 chars (skills.sh spec limit)
+  indentation for continuation.     # Keep lines under 80 chars
+  Triggers on "phrase 1", "phrase 2".
 metadata:
   author: Adeonir Kohl
   version: "1.0.0"                  # Quoted string
@@ -41,6 +43,11 @@ metadata:
 ```
 
 Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
+
+Formatting rules:
+- Use YAML line continuation with 2-space indentation (not folded block `>-`)
+- Keep each line under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
+- Max 1024 characters total (skills.sh spec limit)
 
 ### SKILL.md Sections
 

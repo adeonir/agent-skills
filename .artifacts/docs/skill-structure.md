@@ -57,10 +57,11 @@ metadata:
 Frontmatter rules:
 
 - `name`: kebab-case, matches the directory name
-- `description`: multi-line string, 200-300 characters
+- `description`: multi-line string, max 1024 characters (skills.sh spec limit)
   - Structure: what it does + when to use + specific triggers
   - Include varied trigger phrases to improve matching
   - Use line continuation with indentation (not folded block `>-`)
+  - Keep lines under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
 - `version`: always `"1.0.0"` -- never increment
 - `author`: format `github.com/{username}`
 

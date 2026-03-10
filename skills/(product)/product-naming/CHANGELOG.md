@@ -6,6 +6,13 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Changed
+
+- Strengthen External Content Trust Boundary with explicit extraction and discard rules
+- Break frontmatter description into multi-line YAML to avoid obfuscation alerts
+
 ## 2026-03-03
 
 ### Changed
