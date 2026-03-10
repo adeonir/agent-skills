@@ -2,6 +2,7 @@
 id: {{ID}}
 feature: {{name}}
 type: {{greenfield|brownfield}}
+scope: {{medium|large|complex}}
 status: draft
 branch: {{branch-name or main}}
 created: {{YYYY-MM-DD}}

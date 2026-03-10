@@ -1,6 +1,6 @@
 # Spec-Driven Development
 
-Structured development workflow with specification, planning, task breakdown, and implementation.
+Structured development workflow with adaptive depth. Right ceremony for the right scope.
 
 ## Installation
 
@@ -10,27 +10,36 @@ npx skills add adeonir/agent-skills --skill spec-driven
 
 ## What It Does
 
-Structured workflow for building software with clarity and traceability:
+Adaptive workflow for building software with clarity and traceability. Complexity determines depth -- small changes skip ceremony, large features get full planning.
 
 ```mermaid
 flowchart LR
-    A[Initialize] --> D[Plan]
+    A[Specify] --> B{Scope?}
+    B -->|Small| C[Quick Mode]
+    B -->|Medium| F[Execute]
+    B -->|Large/Complex| D[Plan]
     D --> E[Tasks]
-    E --> F[Implement]
-    F --> G{Validate}
-    G -->|Pass| H[Archive]
-    G -->|Fail| F
-    H --> I[Done]
+    E --> F
+    F --> G[Done]
 ```
 
-| Phase | Purpose |
-| ----- | ------- |
-| **Initialize** | Create feature spec (greenfield or brownfield), resolve ambiguities inline |
-| **Plan** | Technical architecture, codebase exploration, research |
-| **Tasks** | Granular, atomic tasks with dependencies |
-| **Implement** | Execute tasks against the spec |
-| **Validate** | Verify implementation against acceptance criteria |
-| **Archive** | Consolidate documentation for future reference |
+| Phase | Purpose | Required |
+| ----- | ------- | -------- |
+| **Specify** | Define requirements (greenfield or brownfield) | Always |
+| **Discuss** | Resolve gray areas and ambiguities | When triggered |
+| **Plan** | Technical architecture, codebase exploration, research | Large/Complex |
+| **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
+| **Execute** | Implement + verify per task, interactive UAT for Complex | Always |
+| **Quick Mode** | Express lane for small fixes | Small scope |
+
+### Auto-Sizing
+
+| Scope | Pipeline |
+|-------|----------|
+| **Small** (≤3 files) | Quick mode -- no pipeline |
+| **Medium** (<10 tasks) | Specify -> Execute |
+| **Large** (multi-component) | Specify -> Plan -> Tasks -> Execute |
+| **Complex** (ambiguity) | Specify (+ Discuss) -> Plan -> Tasks -> Execute (+ UAT) |
 
 ## Usage
 
@@ -42,75 +51,76 @@ new feature: payment processing
 # Create a feature (brownfield)
 modify existing auth flow
 improve cache performance
-refactor user registration
 
 # Development workflow
 create technical plan
-create tasks for auth
-implement auth feature
-validate auth implementation
-archive auth feature
+create tasks
+execute
+
+# Quick mode
+quick fix: update env variable
+quick task: fix login redirect
+
+# Discuss gray areas
+discuss auth feature
+how should session timeout work?
+
+# State management
+record decision: chose JWT over sessions
+log blocker: API dependency unavailable
 ```
 
 ### New Feature (Greenfield)
 
 ```
 create new feature for user authentication
-# Agent asks for requirements, resolves ambiguities inline
+# Agent assesses scope, asks for requirements
 # Creates: .artifacts/features/001-user-auth/spec.md
 
-create technical plan
-# Creates: .artifacts/features/001-user-auth/plan.md
-
-create tasks for auth
-# Creates: .artifacts/features/001-user-auth/tasks.md
-
-implement auth feature
-validate auth implementation
-archive auth feature
-# Creates: docs/features/user-auth.md
+create technical plan              # Large/Complex only
+create tasks                       # Large/Complex only
+execute
 ```
 
 ### Brownfield Feature
 
 ```
-# First, run project-index to map the codebase
+# First, run project-index to map the codebase (optional)
 initialize project
 
 # Then create feature that modifies existing code
 modify existing auth flow to add 2FA
-# Creates .artifacts/features/001-add-2fa/spec.md
-# Includes Baseline section with current auth behavior
+# Creates .artifacts/features/001-add-2fa/spec.md with Baseline section
 
-# Continue with plan -> tasks -> implement -> validate -> archive
+# Continue with adaptive workflow (depth based on scope)
 ```
 
 ## Output
 
 ```
 .artifacts/
+├── state.md                       # Persistent decisions, blockers, lessons
 ├── features/
 │   └── 001-feature/
-│       ├── spec.md              # Requirements (WHAT)
-│       ├── plan.md              # Architecture (HOW)
-│       ├── tasks.md             # Implementation tasks (WHEN)
-│       └── designs/             # Screenshots, mockups, wireframes (optional)
+│       ├── spec.md                # Requirements (WHAT)
+│       ├── decisions.md             # Gray area decisions (WHY, optional)
+│       ├── plan.md                # Architecture (HOW, Large/Complex only)
+│       ├── tasks.md               # Execution tasks (WHEN, Large/Complex only)
+│       └── designs/               # Screenshots, mockups (optional)
+├── quick/
+│   └── 001-fix-redirect/
+│       └── task.md                # Quick mode task record
 └── research/
-    └── {topic}.md               # Research cache (optional)
-
-docs/features/
-└── feature.md                   # Archived documentation
+    └── {topic}.md                 # Research cache (reusable)
 ```
 
 ### State Management
 
 Features track status in spec.md frontmatter:
 - **draft**: Created, may have open questions
-- **ready**: Spec complete, ready for plan
-- **in-progress**: Implementation started
-- **to-review**: All tasks done, needs validation
-- **done**: Validated and complete
-- **archived**: Moved to docs/
+- **ready**: Spec complete, plan done (or skipped for Medium)
+- **in-progress**: Execution started
+- **done**: Complete
 
 ## Requirements
 
@@ -134,3 +144,9 @@ A: No, but brownfield features benefit from having `.agents/codebase/` available
 
 **Q: How does research caching work?**
 A: Research is saved to .artifacts/research/{topic}.md and reused across features.
+
+**Q: What happens to artifacts after the feature is done?**
+A: Artifacts are disposable -- they exist during development and can be safely deleted when the feature is complete.
+
+**Q: When should I use quick mode vs full pipeline?**
+A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config changes). The agent auto-detects scope and suggests the right mode.

@@ -4,7 +4,7 @@ Behavioral principles for implementation. Load before writing any code.
 
 ## When to Use
 
-Auto-loaded by implement.md before writing code. Not a direct trigger.
+Auto-loaded by execute.md before writing code. Not a direct trigger.
 
 ## Core Principles
 

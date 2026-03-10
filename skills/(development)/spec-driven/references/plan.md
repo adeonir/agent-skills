@@ -6,8 +6,14 @@ Create technical plan from specification.
 
 ## When to Use
 
+- Scope is **Large** or **Complex** (check `scope:` in spec.md frontmatter)
 - Spec is complete (no open questions blocking progress)
 - Ready to define HOW to build
+
+## When to Skip
+
+- Scope is **Medium**: straightforward change, no architectural decisions, no new patterns
+- When skipped, implement handles a lightweight codebase scan inline (see [execute.md](execute.md))
 
 ## Workflow
 
@@ -23,8 +29,10 @@ Read `.artifacts/features/{ID}-{name}/spec.md`.
 
 If spec has critical open questions that block architecture decisions:
 - List items
-- Ask user to resolve them
+- Suggest running [discuss](discuss.md) to resolve them
 - Exit
+
+If decisions.md exists, load it for resolved gray areas.
 
 ### Step 3: Research Phase
 
@@ -38,6 +46,8 @@ For each new tech:
 - Check `.artifacts/research/{topic}.md`
 - If exists: use cached research
 - If not: research and create cache (follow [research.md](research.md) trust boundary rules)
+
+Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
 When incorporating research into the plan, validate findings against the spec's requirements.
 Research informs decisions but the spec remains the single source of truth for what to build.
@@ -113,7 +123,11 @@ Generate the plan following the template structure:
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 10: Report
+### Step 10: Update State
+
+If significant architecture decisions were made, record them in `.artifacts/state.md`.
+
+### Step 11: Report
 
 Inform user:
 - Created: `plan.md`
@@ -129,9 +143,10 @@ Inform user:
 - Keep architecture decisions scoped to the feature
 - Research unfamiliar technologies before committing to them
 - Reference existing codebase patterns when available
+- Follow Knowledge Verification Chain -- never fabricate APIs or patterns
 
 ## Error Handling
 
-- Spec not found: Suggest `initialize`
-- Open questions blocking architecture: Ask user to resolve them
+- Spec not found: Suggest `specify`
+- Open questions blocking architecture: Suggest `discuss`
 - Codebase unclear: Ask for guidance

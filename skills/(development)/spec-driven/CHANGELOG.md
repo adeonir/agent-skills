@@ -6,6 +6,50 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Changed
+
+- Rename Implement phase to Execute (implement.md -> execute.md)
+- Fold Validate phase into Execute as continuous per-task verification
+- Reduce pipeline from 5 phases to 4 (Specify, Plan, Tasks, Execute)
+- Verification now runs after each task or range, never deferred to the end
+- Validate reference repositioned as sub-reference for interactive UAT within Execute
+- Add project context check in Specify (suggests project-index for brownfield without .agents/)
+- Update README, status-workflow, and all cross-references for new phase names
+
+## 2026-03-09
+
+### Added
+
+- Adaptive phases with auto-sizing by complexity (Small/Medium/Large/Complex)
+- Quick mode for small changes (≤3 files): express lane with minimal artifacts in .artifacts/quick/
+- Discuss phase for resolving gray areas and ambiguities, generates decisions.md
+- Knowledge Verification Chain: strict 5-step order for research and technical decisions (Codebase -> Project docs -> Context7 -> Web -> Flag uncertain)
+- State management with .artifacts/state.md for persistent decisions, blockers, lessons, and deferred ideas
+- Safety valve in implement: lists inline steps first, redirects to tasks if >5 steps detected
+- Quick scan mode in implement: lightweight codebase exploration when plan is skipped (Medium scope)
+- Interactive UAT in validate for Complex scope with user-facing features
+- Scope field in spec.md frontmatter (medium/large/complex)
+- New references: specify.md, discuss.md, quick-mode.md, state-management.md
+- New templates: state.md, decisions.md, quick-task.md
+
+### Changed
+
+- Rename initialize phase to specify (initialize.md -> specify.md)
+- Plan, Tasks, and Validate phases are now optional (auto-sized by scope)
+- Simplify status workflow from 6 to 4 values (draft, ready, in-progress, done)
+- Implement absorbs lightweight codebase scan and research cache check when plan is skipped
+- Plan loads decisions.md for resolved gray areas
+- All references updated with When to Skip sections and Knowledge Verification Chain references
+
+### Removed
+
+- Archive phase and all related files (references/archive.md, templates/archive.md)
+- docs/features/ consolidation (no archive, no consolidated docs)
+- Status values: to-review, archived
+- references/initialize.md (replaced by specify.md)
+
 ## 2026-03-04
 
 ### Added

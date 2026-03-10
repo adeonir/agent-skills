@@ -36,28 +36,38 @@ status of auth feature
 ## Features
 
 ### In Progress
-| ID | Feature | Branch | Created |
-|----|---------|--------|---------|
-| 003 | auth | feat/auth | 2024-01-15 |
+| ID | Feature | Scope | Branch | Created |
+|----|---------|-------|--------|---------|
+| 003 | auth | large | feat/auth | 2024-01-15 |
 
 ### Ready
-| ID | Feature | Branch | Created |
-|----|---------|--------|---------|
-| 002 | payments | feat/payments | 2024-01-10 |
+| ID | Feature | Scope | Branch | Created |
+|----|---------|-------|--------|---------|
+| 002 | payments | complex | feat/payments | 2024-01-10 |
 
 ### Done
-| ID | Feature | Branch | Created |
-|----|---------|--------|---------|
-| 001 | onboarding | - | 2024-01-01 |
+| ID | Feature | Scope | Branch | Created |
+|----|---------|-------|--------|---------|
+| 001 | onboarding | medium | - | 2024-01-01 |
 
 Total: 3 features
+```
+
+Also check `.artifacts/quick/` for quick mode tasks:
+
+```markdown
+### Quick Tasks
+| ID | Task | Status |
+|----|------|--------|
+| 001 | fix-login-redirect | done |
+| 002 | update-env-config | done |
 ```
 
 ### Show Status
 
 1. Resolve feature (ID, branch, or single)
-2. Read spec.md, plan.md, tasks.md
-3. Parse task progress
+2. Read spec.md, plan.md, tasks.md (whichever exist)
+3. Parse task progress (if tasks.md exists)
 4. Determine next action
 
 **Output:**
@@ -68,6 +78,7 @@ Total: 3 features
 |----------|-------|
 | Status | in-progress |
 | Type | greenfield |
+| Scope | large |
 | Branch | feat/auth |
 | Created | 2024-01-15 |
 
@@ -75,6 +86,7 @@ Total: 3 features
 | File | Status |
 |------|--------|
 | spec.md | Present |
+| decisions.md | Present |
 | plan.md | Present |
 | tasks.md | Present |
 
@@ -90,7 +102,7 @@ Remaining:
 - [ ] T007 - Write tests
 
 ### Next Step
-Run `implement` to continue.
+Run `execute` to continue.
 ```
 
 ## Guidelines
@@ -98,9 +110,10 @@ Run `implement` to continue.
 - Show all features regardless of status
 - Keep status reports factual, not interpretive
 - Always include the next recommended action
-- Don't modify feature status from this command -- use implement or validate
+- Show scope to help user understand the pipeline depth
+- Don't modify feature status from this command -- use execute
 
 ## Error Handling
 
-- No features: Suggest `initialize`
+- No features: Suggest `specify`
 - Feature not found: List available

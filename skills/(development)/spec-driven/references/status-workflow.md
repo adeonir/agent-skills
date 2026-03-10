@@ -12,37 +12,38 @@ Use ONLY these values in spec.md frontmatter:
 
 | Status | Meaning | When to Use |
 |--------|---------|-------------|
-| `draft` | Initial state | After `initialize` - spec created, needs review |
-| `ready` | Ready for planning | After `plan` - spec complete, open questions resolved |
-| `in-progress` | Being implemented | After first `implement` task starts |
-| `to-review` | Implementation done | After all tasks complete, ready for validation |
-| `done` | Validated | After `validate` passes |
-| `archived` | Moved to docs | After `archive` (feature directory can be deleted) |
+| `draft` | Initial state | After `specify` - spec created, may have open questions |
+| `ready` | Ready for execution | After `plan` - spec complete, architecture defined |
+| `in-progress` | Being executed | After first `execute` task starts |
+| `done` | Complete | After `execute` completes all tasks and verification passes |
 
 ## Status Transitions
 
 ```
-draft --[plan]--> ready --[implement]--> in-progress --[all tasks done]--> to-review --[validate]--> done --[archive]--> archived
+draft --[plan]--> ready --[execute]--> in-progress --[execute done]--> done
+```
+
+**For Medium scope** (plan/tasks skipped):
+```
+draft --[execute]--> in-progress --[execute done]--> done
 ```
 
 ## Who Updates What
 
 | Reference | Updates Status | From | To |
 |-----------|---------------|------|-----|
-| `initialize.md` | Yes | - | `draft` |
+| `specify.md` | Yes | - | `draft` |
 | `plan.md` | Yes | `draft` | `ready` |
 | `tasks.md` | No | - | - |
-| `implement.md` | Yes | `ready` | `in-progress` |
-| `implement.md` | Yes | (tasks done) | `to-review` |
-| `validate.md` | Yes | `to-review` | `done` |
-| `archive.md` | No (requires `done`) | - | - |
+| `execute.md` | Yes | `draft` or `ready` | `in-progress` |
+| `execute.md` | Yes | (all done + verified) | `done` |
 
 ## Critical Rules
 
-1. **ONLY use the 6 values above** - never invent new status values
+1. **ONLY use the 4 values above** - never invent new status values
 2. **Check current status before updating** - read spec.md frontmatter first
 3. **Update at the END of the phase** - after completing all steps of that reference
-4. **Never skip status** - follow the flow: draft → ready → in-progress → to-review → done → archived
+4. **Never skip status** - follow the flow (exceptions: Medium scope can go draft -> in-progress)
 
 ## Frontmatter Format
 
@@ -51,7 +52,8 @@ draft --[plan]--> ready --[implement]--> in-progress --[all tasks done]--> to-re
 id: "001"
 feature: "auth"
 type: "greenfield"
-status: ready  # <-- ONLY: draft, ready, in-progress, to-review, done, archived
+scope: "large"
+status: ready  # <-- ONLY: draft, ready, in-progress, done
 branch: "main"
 created: "2024-01-15"
 ---
@@ -59,18 +61,18 @@ created: "2024-01-15"
 
 ## Common Mistakes to AVOID
 
-❌ `status: planned` → Use `ready`
-❌ `status: wip` → Use `in-progress`
-❌ `status: completed` → Use `done`
-❌ `status: finished` → Use `done`
-❌ `status: in_review` → Use `to-review`
-❌ `status: pending` → Use `draft` or `ready`
+- `status: planned` -> Use `ready`
+- `status: wip` -> Use `in-progress`
+- `status: completed` -> Use `done`
+- `status: finished` -> Use `done`
+- `status: in_review` -> Use `done` (no separate review status)
+- `status: to-review` -> Use `done` (no separate review status)
+- `status: pending` -> Use `draft` or `ready`
+- `status: archived` -> Use `done` (no archive phase)
 
 ## Quick Reference
 
-- Just created feature? → `draft`
-- Spec reviewed and complete? → `ready`
-- Started coding? → `in-progress`
-- All tasks done, need review? → `to-review`
-- Validated and working? → `done`
-- Moved to docs/features/? → `archived`
+- Just created feature? -> `draft`
+- Plan complete (or skipped for Medium)? -> `ready` (or stay `draft` if Medium)
+- Started coding? -> `in-progress`
+- All tasks done and verified? -> `done`
