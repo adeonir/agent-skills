@@ -75,4 +75,5 @@ AGENTS.md                   # Root summary for AI agents
 
 | Skill | Connection |
 |-------|------------|
+| **docs-writer** | Overview consumes `.artifacts/docs/` (briefs, PRDs, design docs) as context for generating project.md |
 | **spec-driven** | Consumes `.agents/codebase/` for brownfield features. Spec-driven may add discoveries during planning; project-index preserves them when re-running. |

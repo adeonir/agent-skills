@@ -93,14 +93,16 @@ Keep generated docs concise. Agents load these into context -- every line costs 
 
 **Total target:** ~300 lines / ~12k tokens. Tables max 10 rows, lists max 7 items.
 
-## Integration with spec-driven
+## Integration with Other Skills
 
 ```
-spec-driven (plan phase) --> may add discoveries to .agents/codebase/
-project-index (summary)  --> preserves spec-driven additions when re-running
+docs-writer (.artifacts/docs/) --> project-index (overview) consumes as context source
+spec-driven (plan phase)       --> may add discoveries to .agents/codebase/
+project-index (summary)        --> preserves spec-driven additions when re-running
 ```
 
-When re-running summary on a codebase where spec-driven has added content, project-index preserves those additions. More specific context (from feature planning) takes precedence over general analysis.
+- **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, pitches, and scopes. When found, uses them as primary context for generating project.md.
+- **spec-driven**: Summary preserves discoveries added during planning. More specific context (from feature planning) takes precedence over general analysis.
 
 ## Guidelines
 

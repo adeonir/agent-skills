@@ -18,11 +18,23 @@ If `.agents/project.md` exists:
 
 ### Step 2: Gather Context
 
-Read available documentation and metadata:
+Read available sources in priority order:
 
-1. **Project Metadata**: package.json, pyproject.toml, go.mod, Cargo.toml, or equivalent
-2. **Documentation**: README.md, CLAUDE.md, AGENTS.md, CONTRIBUTING.md
-3. **Configuration**: tsconfig.json, .env.example, docker-compose.yml
+1. **Existing docs-writer artifacts** (`.artifacts/docs/`): richest source when available
+
+   | File | What to extract |
+   |------|-----------------|
+   | `brief.md` | What/why/who, scope, success metrics, risks |
+   | `prd.md` | Problem, personas, goals, requirements, journeys, milestones, constraints |
+   | `design.md` | Context, goals/non-goals, design overview, trade-offs |
+   | `pitch.md` | Problem narrative, user-facing solution, scope, rabbit holes |
+   | `scope.md` | Work slice description, boundaries |
+
+   Read whichever exist. PRD is the richest single source -- if it exists, it likely covers most of what project.md needs.
+
+2. **Project Metadata**: package.json, pyproject.toml, go.mod, Cargo.toml, or equivalent
+3. **Documentation**: README.md, CLAUDE.md, AGENTS.md, CONTRIBUTING.md
+4. **Configuration**: tsconfig.json, .env.example, docker-compose.yml
 
 Extract:
 - Project name and purpose

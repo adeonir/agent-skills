@@ -14,6 +14,7 @@ All notable changes to this skill will be documented in this file.
 - Output size budget with target line counts per document (~300 lines / ~12k tokens total)
 - Bidirectional integration with spec-driven (preserves discoveries when re-running summary)
 - Dedicated root-agents.md reference for AGENTS.md generation (deduplicated from overview and summary)
+- Overview consumes docs-writer artifacts (.artifacts/docs/) as context source for richer project.md
 
 ### Changed
 
