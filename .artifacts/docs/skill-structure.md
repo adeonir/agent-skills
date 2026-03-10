@@ -49,7 +49,7 @@ description: Short sentence of what it does. Details about capabilities.
   Use when: usage contexts. Also use when: adjacent contexts.
   Triggers on "phrase 1", "phrase 2", "phrase 3".
 metadata:
-  author: github.com/adeonir
+  author: Adeonir Kohl
   version: "1.0.0"
 ---
 ```

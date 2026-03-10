@@ -2,7 +2,7 @@
 name: docs-writer
 description: Generate structured product and technical documents through guided discovery. 8 document types (PRD, Brief, Design Doc, Pitch, Scope, Bug, RFC, ADR). Use when defining products, designing systems, reporting bugs, planning tasks, writing stories, proposing changes, recording decisions. Also use when the user wants to document a feature idea, write requirements, formalize a decision, describe a bug they found, plan technical architecture, or needs any structured document for a project. Triggers on "create PRD", "create design doc", "design system", "create pitch", "new feature", "feature request", "create scope", "report bug", "fix bug", "create RFC", "create ADR", "create document", "write doc", "document this", "need a spec", "write requirements".
 metadata:
-  author: github.com/adeonir
+  author: Adeonir Kohl
   version: "1.0.0"
 ---
 

@@ -2,7 +2,7 @@
 name: project-index
 description: Generate project context and codebase documentation for AI agents. Creates .agents/ directory with project overview and deep codebase analysis. Use when starting work on a project, onboarding to an existing codebase, generating project documentation for agents, or mapping codebase patterns and conventions. Triggers on "initialize project", "setup project", "overview", "summary", "map codebase", "index project", "analyze codebase".
 metadata:
-  author: github.com/adeonir
+  author: Adeonir Kohl
   version: "1.0.0"
 ---
 

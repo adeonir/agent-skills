@@ -2,7 +2,7 @@
 name: git-helpers
 description: Git workflow helper for conventional commits, confidence-scored code review, and pull request management. Use when committing changes, reviewing code, creating PRs, generating PR descriptions. Also use when the user says they're done coding and ready to commit, wants feedback on their changes, needs to push and open a PR, or asks to check their code before merging. Triggers on "commit", "review", "push", "create PR", "PR description", "summarize changes", "done", "ready to push", "check my code".
 metadata:
-  author: github.com/adeonir
+  author: Adeonir Kohl
   version: "1.0.0"
 ---
 
