@@ -44,18 +44,9 @@ Create `.agents/project.md` using the template structure:
 - Constraints and integration points
 - Technology stack
 
-### Step 4: Generate AGENTS.md
+### Step 4: Update AGENTS.md
 
-Generate or update `AGENTS.md` at the project root. The file should reference the contents of `.agents/` and provide a concise summary of the project for any AI agent.
-
-Content should include:
-- Project summary (from project.md)
-- Key conventions (from conventions.md, if exists)
-- Important commands (from commands.md, if exists)
-- Checklist (from checklist.md, if exists)
-- References to `.agents/` files for deeper context
-
-If `AGENTS.md` already exists: merge new content, preserve any manual additions.
+Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
 
 ### Step 5: Report
 

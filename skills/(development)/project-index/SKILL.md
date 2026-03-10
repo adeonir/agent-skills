@@ -31,7 +31,8 @@ Each command can be used independently or chained via initialize.
     ├── integrations.md
     ├── commands.md
     ├── checklist.md
-    └── workflows.md
+    ├── workflows.md
+    └── concerns.md          # Optional: tech debt, risks (only when issues detected)
 
 AGENTS.md                   # Root file (auto-generated)
 ```
@@ -49,6 +50,7 @@ AGENTS.md                   # Root file (auto-generated)
 | Commands | [commands.md](templates/commands.md) |
 | Checklist | [checklist.md](templates/checklist.md) |
 | Workflows | [workflows.md](templates/workflows.md) |
+| Concerns | [concerns.md](templates/concerns.md) |
 
 ## Triggers
 
@@ -63,13 +65,42 @@ AGENTS.md                   # Root file (auto-generated)
 ```
 initialize.md ----> overview.md
 initialize.md ----> summary.md (if brownfield)
-overview.md ------> AGENTS.md (auto-update)
-summary.md -------> AGENTS.md (auto-update)
+overview.md ------> root-agents.md (auto-update AGENTS.md)
+summary.md -------> root-agents.md (auto-update AGENTS.md)
 ```
 
 ## Context Loading Strategy
 
 Load only the reference matching the current trigger. Never load multiple references simultaneously.
+
+## Output Size Budget
+
+Keep generated docs concise. Agents load these into context -- every line costs tokens.
+
+| Document | Target | Max |
+|----------|--------|-----|
+| project.md | ~30 lines | 50 |
+| stack.md | ~20 lines | 40 |
+| architecture.md | ~50 lines | 80 |
+| conventions.md | ~30 lines | 50 |
+| testing.md | ~30 lines | 50 |
+| integrations.md | ~15 lines | 30 |
+| commands.md | ~20 lines | 30 |
+| checklist.md | ~15 lines | 20 |
+| workflows.md | ~30 lines | 50 |
+| concerns.md | ~15 lines | 30 |
+| AGENTS.md | ~60 lines | 100 |
+
+**Total target:** ~300 lines / ~12k tokens. Tables max 10 rows, lists max 7 items.
+
+## Integration with spec-driven
+
+```
+spec-driven (plan phase) --> may add discoveries to .agents/codebase/
+project-index (summary)  --> preserves spec-driven additions when re-running
+```
+
+When re-running summary on a codebase where spec-driven has added content, project-index preserves those additions. More specific context (from feature planning) takes precedence over general analysis.
 
 ## Guidelines
 

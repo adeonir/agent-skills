@@ -19,6 +19,7 @@ Analyze existing codebase and generate documentation for AI agents.
 - Development commands
 - Validation checklist
 - Key workflows
+- Concerns and tech debt (when detected)
 
 ## Workflow
 
@@ -191,33 +192,38 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
     Keep workflows concise -- describe patterns, not every edge case.
 
+13. **Flag Concerns (optional)**
+
+    During analysis, note any issues that could affect development:
+    - Outdated or vulnerable dependencies
+    - Inconsistent patterns across the codebase
+    - Missing test coverage in critical areas
+    - Hard-coded values that should be configurable
+    - Security concerns (exposed secrets, missing auth checks)
+
+    Only create concerns.md if real issues are detected. Don't force it.
+
 ### Step 3: Generate
 
-Generate 8 documents in `.agents/codebase/` using the templates:
+Generate documents in `.agents/codebase/` using the templates:
 
-| Document | Template | Content |
-|----------|----------|---------|
-| Stack | [templates/stack.md](../templates/stack.md) | Framework, dependencies, dev tools |
-| Architecture | [templates/architecture.md](../templates/architecture.md) | Structure, patterns, layers, data flow |
-| Conventions | [templates/conventions.md](../templates/conventions.md) | Naming, error handling, imports, types |
-| Testing | [templates/testing.md](../templates/testing.md) | Infrastructure, patterns, reference tests |
-| Integrations | [templates/integrations.md](../templates/integrations.md) | External services and their purpose |
-| Commands | [templates/commands.md](../templates/commands.md) | Setup, dev, test, build commands |
-| Checklist | [templates/checklist.md](../templates/checklist.md) | Validation steps after tasks |
-| Workflows | [templates/workflows.md](../templates/workflows.md) | User and development workflows |
+| Document | Template | Content | Target |
+|----------|----------|---------|--------|
+| Stack | [templates/stack.md](../templates/stack.md) | Framework, dependencies, dev tools | ~20 lines |
+| Architecture | [templates/architecture.md](../templates/architecture.md) | Structure, patterns, layers, data flow | ~50 lines |
+| Conventions | [templates/conventions.md](../templates/conventions.md) | Naming, error handling, imports, types | ~30 lines |
+| Testing | [templates/testing.md](../templates/testing.md) | Infrastructure, patterns, reference tests | ~30 lines |
+| Integrations | [templates/integrations.md](../templates/integrations.md) | External services, auth, env vars | ~15 lines |
+| Commands | [templates/commands.md](../templates/commands.md) | Setup, dev, test, build commands | ~20 lines |
+| Checklist | [templates/checklist.md](../templates/checklist.md) | Validation steps after tasks | ~15 lines |
+| Workflows | [templates/workflows.md](../templates/workflows.md) | User and development workflows | ~30 lines |
+| Concerns | [templates/concerns.md](../templates/concerns.md) | Tech debt, risks, inconsistencies | Optional |
 
-### Step 4: Generate AGENTS.md
+**Size guidelines:** Each table max 10 rows, each list max 7 items. If the project has more, show the most relevant and note "see code for full list". Total output target: ~300 lines / ~12k tokens.
 
-Generate or update `AGENTS.md` at the project root. The file should reference the contents of `.agents/` and provide a concise summary of the project for any AI agent.
+### Step 4: Update AGENTS.md
 
-Content should include:
-- Project summary (from project.md)
-- Key conventions (from conventions.md)
-- Important commands (from commands.md)
-- Checklist (from checklist.md)
-- References to `.agents/` files for deeper context
-
-If `AGENTS.md` already exists: merge new content, preserve any manual additions.
+Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
 
 ### Step 5: Save
 
@@ -226,8 +232,9 @@ Create `.agents/codebase/` with generated docs.
 ### Step 6: Report
 
 Inform user:
-- Mapped 8 areas
+- Mapped {count} areas (8 standard + concerns if created)
 - Updated AGENTS.md
+- Concerns flagged: {count, if any}
 - Next: Create feature with baseline context
 
 ## Guidelines
@@ -240,11 +247,13 @@ Inform user:
 
 ### Update Mode
 When `.agents/codebase/` already exists:
-- Read existing docs first
+- Read existing docs first BEFORE analyzing the codebase
 - Merge new findings with existing content
 - Never remove existing content unless it's clearly outdated
 - Add new sections/rows to existing tables
 - Update version numbers and dependency changes
+- Preserve discoveries added by spec-driven during planning (more specific context wins)
+- On conflict: content from feature-specific analysis (spec-driven) takes precedence over general analysis (project-index)
 
 ### General
 - Don't overwrite existing codebase/ mapping without user confirmation

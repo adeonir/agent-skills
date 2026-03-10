@@ -22,7 +22,8 @@ skills/
         ├── CHANGELOG.md
         ├── README.md
         ├── references/ # On-demand detailed docs (loaded by triggers)
-        └── templates/  # Output templates for artifacts (optional)
+        ├── templates/  # Output templates for artifacts (optional)
+        └── guides/     # Standalone guides for users (optional)
 ```
 
 ## Skill File Conventions
@@ -41,16 +42,21 @@ metadata:
 
 Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
 
-### SKILL.md Sections (in order)
+### SKILL.md Sections
 
-1. `# Skill Name` -- H1 title + one-liner subtitle
-2. `## Workflow` -- ASCII art or text flow diagram
-3. `## Context Loading Strategy` -- what to load and when, token budgets
-4. `## Templates` -- table linking to template files (if templates/ exists)
-5. `## Triggers` -- tables mapping trigger patterns to reference files
-6. `## Cross-References` -- ASCII arrows showing reference dependencies
-7. `## Guidelines` -- split into **DO:** and **DON'T:** bullet lists
-8. `## Error Handling` -- bulleted `- Condition: action` pairs
+Every SKILL.md starts with an H1 title + one-liner subtitle and ends with Guidelines (DO/DON'T)
+and Error Handling. Between those, include whichever sections the skill needs. Common sections:
+
+- `## Workflow` -- ASCII art or text flow diagram
+- `## Context Loading Strategy` -- what to load and when, token budgets
+- `## Templates` -- table linking to template files (if templates/ exists)
+- `## Triggers` -- tables mapping trigger patterns to reference files
+- `## Cross-References` -- ASCII arrows showing reference dependencies
+- `## Guidelines` -- split into **DO:** and **DON'T:** bullet lists
+- `## Error Handling` -- bulleted `- Condition: action` pairs
+
+Skills may add domain-specific sections (e.g., Auto-Sizing, Document Types, Discovery)
+as needed between Workflow and Guidelines.
 
 ### Reference Files (references/*.md)
 
@@ -64,7 +70,7 @@ Brief description.
 ## Error Handling
 ```
 
-- Every reference has `When to Use`, `Guidelines`, and `Error Handling`
+- Every reference has `When to Use`; include `Guidelines` and `Error Handling` when relevant
 - Template usage: `**USE TEMPLATE:** \`templates/file.md\``
 - Loading other references: `Load [file.md](file.md)` or `**LOAD:** [file.md](file.md)`
 

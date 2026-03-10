@@ -16,7 +16,7 @@ Creates an `.agents/` directory with structured documentation that any AI agent 
 |---------|-------------------|
 | **initialize** | Everything (overview + summary if existing code found) |
 | **overview** | `.agents/project.md` -- project context, users, features |
-| **summary** | `.agents/codebase/` -- 8 docs covering stack, architecture, conventions, testing, integrations, commands, checklist, workflows |
+| **summary** | `.agents/codebase/` -- up to 9 docs covering stack, architecture, conventions, testing, integrations, commands, checklist, workflows, and concerns |
 
 All commands also generate/update `AGENTS.md` at the project root.
 
@@ -60,7 +60,8 @@ Re-running summary updates existing docs (merge, never overwrite).
     ├── integrations.md     # External services and APIs
     ├── commands.md         # Dev, test, build, deploy scripts
     ├── checklist.md        # Post-task validation steps
-    └── workflows.md        # User and development flows
+    ├── workflows.md        # User and development flows
+    └── concerns.md         # Tech debt and risks (optional, only when detected)
 
 AGENTS.md                   # Root summary for AI agents
 ```
@@ -74,4 +75,4 @@ AGENTS.md                   # Root summary for AI agents
 
 | Skill | Connection |
 |-------|------------|
-| **spec-driven** | Consumes `.agents/codebase/` for brownfield features and can update it with new discoveries during planning |
+| **spec-driven** | Consumes `.agents/codebase/` for brownfield features. Spec-driven may add discoveries during planning; project-index preserves them when re-running. |

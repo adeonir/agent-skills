@@ -35,25 +35,26 @@ Load [overview.md](overview.md) and generate `.agents/project.md`.
 
 ### Step 4: Detect Brownfield
 
-Check if the project has existing source code:
+A project is brownfield if ANY of these conditions is true:
 
-```bash
-ls src/ app/ lib/ packages/ 2>/dev/null
-ls package.json Cargo.toml go.mod pyproject.toml Gemfile 2>/dev/null
-```
+| Signal | Examples |
+|--------|---------|
+| Has a project manifest | package.json, Cargo.toml, go.mod, pyproject.toml, Gemfile, pom.xml, build.gradle, composer.json |
+| Has source code directories | src/, app/, lib/, cmd/, internal/, pkg/, packages/ |
+| Has multiple source files | More than 5 files with code extensions (.ts, .js, .py, .go, .rs, .java, .rb, .php) |
 
-If any source code or project manifest is found:
+If brownfield:
 - Load [summary.md](summary.md)
 - Run codebase summary as part of initialization
-- This generates `.agents/codebase/` with 8 docs
+- This generates `.agents/codebase/` with analysis docs
 
-If nothing is found: skip, project is greenfield.
+If none of the above: skip summary, project is greenfield.
 
 ### Step 5: Report
 
 Inform user:
 - Created `.agents/` with project.md
-- If brownfield: also created `.agents/codebase/` with 8 analysis docs
+- If brownfield: also created `.agents/codebase/` with analysis docs
 - Generated AGENTS.md at project root
 - Next steps:
   - If using spec-driven: "create feature for..."

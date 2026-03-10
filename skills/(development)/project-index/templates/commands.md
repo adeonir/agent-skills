@@ -1,19 +1,37 @@
 # Commands
 
 ## Setup
-- {{command}}: {{what it does}}
+
+| Command | Purpose | Notes |
+|---------|---------|-------|
+| {{command}} | {{what it does}} | {{first time only, etc}} |
 
 ## Development
-- {{command}}: {{what it does}}
+
+| Command | Purpose |
+|---------|---------|
+| {{command}} | {{what it does}} |
 
 ## Testing
-- {{command}}: {{what it does}}
+
+| Command | Purpose |
+|---------|---------|
+| {{command}} | {{what it does}} |
 
 ## Code Quality
-- {{command}}: {{what it does}}
 
-## Build
-- {{command}}: {{what it does}}
+| Command | Purpose |
+|---------|---------|
+| {{command}} | {{what it does}} |
+
+## Build & Deploy
+
+| Command | Purpose |
+|---------|---------|
+| {{command}} | {{what it does}} |
 
 ## Access Points
-- {{url}}: {{description}}
+
+| URL | Description |
+|-----|-------------|
+| {{url}} | {{what it serves}} |
