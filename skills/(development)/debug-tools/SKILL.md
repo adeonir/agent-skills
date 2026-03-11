@@ -1,13 +1,14 @@
 ---
 name: debug-tools
-description: Iterative debugging workflow with confidence scoring and strategic
-  log injection. Five phases (investigate, inject logs, propose fix, verify,
-  cleanup). Use when debugging unexpected behavior, silent errors, intermittent
-  failures, or issues requiring runtime data. Also use when the user says
-  something isn't working, behavior is inconsistent, tests pass but app fails,
-  works in dev but not in prod, or wants to trace execution flow. Triggers on
-  "debug", "fix bug", "investigate", "trace issue", "add debug logs", "cleanup
-  debug logs", "why is this broken", "not working".
+description: Iterative debugging workflow with confidence scoring, pattern
+  comparison, and strategic log injection. Flexible investigate-fix-verify
+  loop with escalation after 3 failed attempts. Use when debugging unexpected
+  behavior, silent errors, intermittent failures, or issues requiring runtime
+  data. Also use when the user says something isn't working, behavior is
+  inconsistent, tests pass but app fails, works in dev but not in prod, or
+  wants to trace execution flow. Triggers on "debug", "fix bug", "investigate",
+  "trace issue", "add debug logs", "cleanup debug logs", "why is this broken",
+  "not working".
 metadata:
   author: Adeonir Kohl
   version: "1.0.0"
@@ -15,16 +16,20 @@ metadata:
 
 # Debug Tools
 
-Iterative debugging workflow with targeted log injection and cleanup.
+Iterative debugging workflow with flexible technique selection and escalation.
 
 ## Workflow
 
 ```
-investigate --> inject logs --> propose fix --> verify --> cleanup
-     ^_________________________________________|
+investigate --> [techniques as needed] --> propose fix --> verify --> done
+     ^                                                       |
+     |_______________________________________________________|
+                        (max 3 attempts, then escalate)
 ```
 
-The workflow loops back to investigation if the fix doesn't work.
+Core loop: investigate, fix, verify. Techniques (log injection, pattern
+comparison, focus area analysis) are tools within investigation, not mandatory
+phases. Log cleanup happens automatically after verification succeeds.
 
 ## Context Loading Strategy
 
@@ -45,6 +50,7 @@ loaded during a full debugging session (investigation often leads to log injecti
 ```
 investigation.md <---> log-injection.md (investigation may request logs)
 investigation.md <---> log-cleanup.md (after fix verified)
+investigation.md <---> debugging-patterns.md (pattern comparison)
 log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 ```
 
@@ -52,9 +58,11 @@ log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 
 **DO:**
 - Use confidence scoring: >= 70 report as probable cause, 50-69 suggest logs
+- Compare broken code against working examples when root cause is unclear
 - Always use `[DEBUG]` prefix for injected logs (enables cleanup)
 - Apply minimal fix: smallest change that resolves the issue
 - Clean up debug logs automatically after fix is verified
+- Track fix attempts: after 3 failed fixes, escalate on the 4th to architectural review
 - Use whatever debugging tools are available in the environment
 
 **DON'T:**
@@ -62,10 +70,12 @@ log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 - Log sensitive data (passwords, tokens, PII)
 - Apply large refactors as part of a bug fix
 - Leave debug logs in production code
+- Keep retrying the same approach when fixes fail repeatedly
 
 ## Error Handling
 
 - No bug description provided: ask user to describe the issue
 - Cannot reproduce: suggest adding debug logs
-- Fix doesn't work: return to investigation phase
+- Fix doesn't work: return to investigation with new evidence
+- Three failed fix attempts: escalate to architectural review on the next attempt
 - Logs left behind: user can request cleanup anytime

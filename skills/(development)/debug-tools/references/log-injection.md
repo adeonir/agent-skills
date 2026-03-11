@@ -4,7 +4,10 @@ Add targeted debug logs at strategic points to capture runtime data.
 
 ## When to Use
 
-During the log injection phase of debugging, when investigation needs runtime data to confirm root cause.
+As a technique during investigation, when static analysis alone cannot confirm
+the root cause and runtime data is needed. Not every debugging session requires
+log injection -- use it when confidence is in the 50-69 range and runtime
+evidence would raise it above 70.
 
 ## Log Format
 
@@ -161,13 +164,19 @@ When user shares console output, look for:
 
 ## Guidelines
 
-1. **Only log what's needed** - no "just in case" logs
-2. **Always use [DEBUG] prefix** - enables cleanup
-3. **Never log sensitive data** - passwords, tokens, PII
-4. **Include context** - file:line helps navigation
-5. **Minimal logs** - 3-5 strategic points, not flooding
-6. **Clean up after** - logs are temporary debugging aids
-7. **Be specific** - "login failed" not "error occurred"
+**DO:**
+- Only log what is needed to confirm or deny the hypothesis
+- Always use `[DEBUG]` prefix for grep and cleanup
+- Include `[file:line]` context for navigation
+- Keep to 3-5 strategic injection points
+- Clean up after debugging -- logs are temporary aids
+- Use specific descriptions: "login failed" not "error occurred"
+
+**DON'T:**
+- Add "just in case" logs
+- Log sensitive data (passwords, tokens, PII)
+- Flood the output with excessive log points
+- Leave debug logs in production code
 
 ## Error Handling
 

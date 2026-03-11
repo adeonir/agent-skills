@@ -63,7 +63,7 @@ Frontmatter rules:
   - Use line continuation with indentation (not folded block `>-`)
   - Keep lines under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
 - `version`: always `"1.0.0"` -- never increment
-- `author`: format `github.com/{username}`
+- `author`: full name (e.g. `Adeonir Kohl`)
 
 ### Section Order
 

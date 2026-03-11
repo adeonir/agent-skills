@@ -1,12 +1,13 @@
 # Debugging Patterns
 
-Quick-reference for common bug patterns, confidence scoring, and debugging decision-making.
+Quick-reference for common bug patterns, pattern comparison, and debugging decision-making.
 
 For framework-specific log examples, see [log-injection.md](log-injection.md).
 
 ## When to Use
 
-Auto-loaded as a reference for common bug patterns and confidence scoring. Not a direct trigger.
+When looking up common bug patterns, pattern comparison techniques, or confidence
+scoring guidelines. Also loaded during investigation when pattern comparison is needed.
 
 ## Common Bug Patterns
 
@@ -20,6 +21,39 @@ Auto-loaded as a reference for common bug patterns and confidence scoring. Not a
 | Infinite loop | App freezes | Dependency arrays, state updates |
 | Memory leak | Performance degrades over time | Event listeners, subscriptions |
 | Timing issue | Works in dev, fails in prod | Timing assumptions, async/await |
+
+## Pattern Comparison
+
+When investigation stalls, compare broken code against working examples to spot
+the difference. This technique is effective for bugs introduced by recent changes
+or when similar code elsewhere works correctly.
+
+### How to Compare
+
+1. **Find working examples** - search the codebase for similar functionality that
+   works correctly (same API calls, same component patterns, same data flow)
+2. **Diff structurally** - compare the working and broken code side by side,
+   focusing on structure rather than variable names
+3. **Check for divergence** - identify where the broken code deviates from the
+   working pattern
+
+### What to Look For
+
+| Difference | Common Cause |
+|------------|-------------|
+| Missing step in sequence | Skipped initialization, missing middleware |
+| Different argument order | API changed, wrong overload |
+| Missing error handling | Catch block absent, no fallback |
+| Different import/version | Breaking change in dependency |
+| Extra/missing await | Async bug, unhandled promise |
+| Different config shape | Schema mismatch, missing field |
+
+### When to Use Pattern Comparison
+
+- Root cause confidence is below 70 after initial analysis
+- The bug appeared after a change to working code
+- Similar code in the project works correctly
+- The error suggests a contract or interface mismatch
 
 ## Confidence Scoring Reference
 
@@ -58,5 +92,6 @@ Load this reference when user asks about:
 
 - Debug log formats
 - Common bug patterns
+- Pattern comparison techniques
 - Framework-specific debugging
 - Confidence scoring guidelines

@@ -6,17 +6,7 @@ Investigate bugs, find root causes with confidence scoring, and propose minimal 
 
 When debugging unexpected behavior, silent errors, or intermittent failures.
 
-## Phases Overview
-
-You operate in phases 1, 3, and 4 of the debugging workflow:
-
-| Phase | Purpose |
-|-------|---------|
-| 1. Investigate | Analyze code, find root cause |
-| 3. Propose Fix | Suggest minimal correction |
-| 4. Verify | Confirm fix worked |
-
-## Phase 1: Investigate
+## Workflow
 
 ### Step 1: Understand the Bug
 
@@ -40,6 +30,17 @@ to investigate the issue. The agent discovers and uses whatever tools are availa
 | State | Mutations, race conditions, stale closures |
 | Boundaries | API contracts, type mismatches, null checks |
 | Timing | Async operations, event order, lifecycle |
+
+#### Pattern Comparison
+
+When the root cause is unclear, compare broken code against working examples:
+
+1. Find similar code in the project that works correctly
+2. Diff the working version against the broken one
+3. Focus on structural differences (argument order, missing steps, different patterns)
+4. Check if a recent change broke a previously working pattern
+
+See [debugging-patterns.md](debugging-patterns.md) for common patterns and comparison guidance.
 
 ### Step 3: Apply Confidence Scoring
 
@@ -75,7 +76,7 @@ Rate each finding 0-100:
 
 If no root cause found with >= 70 confidence, load [log-injection.md](log-injection.md).
 
-## Phase 3: Propose Fix
+### Step 5: Propose Fix
 
 When root cause is confirmed, present:
 
@@ -92,41 +93,81 @@ Root cause: {one sentence explanation}
 ```
 ````
 
-### Guidelines for Fixes
+Fix guidelines:
 
 - Minimal change that resolves the issue
 - No speculative fixes
 - Include confidence score
 - Ask user to approve before applying
 
-## Phase 4: Verify
+### Step 6: Verify
 
 After user applies fix:
 
 1. Ask user to reproduce the original bug
 2. Confirm the fix worked
-3. If not fixed, return to Phase 1 (investigate again)
-4. If fixed, proceed to cleanup phase
+3. If not fixed, return to Step 1 (investigate again with new evidence)
+4. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
+
+## Fix Attempt Tracking
+
+Track each fix attempt. After 3 failed fixes, escalate:
+
+| Attempt | Action |
+|---------|--------|
+| 1 | Apply fix based on investigation |
+| 2 | Reassess with new evidence, try different approach |
+| 3 | Last attempt with deeper analysis |
+| 4+ | Escalate to architectural review |
+
+Escalation means: stop fixing symptoms and re-examine the broader design.
+Present the user with an architectural assessment:
+
+- What was tried and why it failed
+- Whether the issue is systemic (wrong abstraction, missing layer, flawed assumption)
+- Suggested architectural changes to resolve the root cause
+
+## Red Flags
+
+Signals that the debugging process has gone off-track:
+
+- Fixing the same symptom in multiple places
+- Each fix introduces a new bug
+- The "root cause" keeps changing
+- Changes grow larger with each attempt
+- Confidence score drops between attempts
+
+When red flags appear, stop and reassess. The issue may be architectural, not a
+localized bug.
 
 ## Guidelines
 
-1. **Start from error** - trace backwards from symptoms
-2. **One root cause** - focus on the most probable, not a list
-3. **Score honestly** - don't inflate confidence
-4. **Ask if stuck** - request logs or clarification
-5. **Minimal fix** - smallest change that works
-6. **No speculation** - only report findings >= 50
+**DO:**
+- Start from the error and trace backwards from symptoms
+- Focus on the single most probable root cause
+- Score honestly -- don't inflate confidence
+- Compare broken code against working examples when root cause is unclear
+- Request logs or clarification when stuck
+- Apply the smallest fix that resolves the issue
+- Track fix attempts and escalate after 3 failures
+
+**DON'T:**
+- Report findings with confidence below 50
+- Propose speculative fixes without evidence
+- Inflate confidence to skip log injection
+- Retry the same approach after it fails
 
 ## Error Handling
 
 - No stacktrace or error message: ask user for more details
 - Cannot access source code: inform user and suggest alternatives
 - Investigation inconclusive after analysis: suggest adding debug logs
+- Three failed fixes: escalate to architectural review
 
 ## Task
 
-Execute the appropriate phase based on current state:
+Execute the appropriate step based on current state:
 
-- **Phase 1**: Investigate the bug described by the user
-- **Phase 3**: Propose a fix for the confirmed root cause
-- **Phase 4**: Verify the fix resolved the issue
+- **Understand + Analyze**: Investigate the bug described by the user
+- **Propose Fix**: Propose a fix for the confirmed root cause
+- **Verify**: Verify the fix resolved the issue

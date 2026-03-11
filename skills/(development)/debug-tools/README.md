@@ -1,6 +1,6 @@
 # Debug Tools
 
-Iterative debugging workflow with confidence scoring and targeted log injection.
+Iterative debugging workflow with confidence scoring, pattern comparison, and targeted log injection.
 
 ## Installation
 
@@ -10,29 +10,35 @@ npx skills add adeonir/agent-skills --skill debug-tools
 
 ## What It Does
 
-Five-phase debugging workflow that helps find and fix bugs systematically:
+Flexible debugging workflow that helps find and fix bugs systematically:
 
 ```mermaid
 flowchart TD
     A[Investigate] --> B{Root cause found?}
     B -->|Yes >=70%| C[Propose Fix]
     B -->|No 50-69%| D[Inject Logs]
-    B -->|No <50%| A
-    D --> E[User reproduces bug]
-    E --> F[Analyze output]
-    F --> A
-    C --> G[Apply fix]
-    G --> H{Bug fixed?}
-    H -->|Yes| I[Cleanup]
-    H -->|No| A
-    I --> J[Done]
+    B -->|No <50%| E[Pattern Comparison]
+    D --> F[User reproduces bug]
+    F --> G[Analyze output]
+    G --> A
+    E --> A
+    C --> H[Apply fix]
+    H --> I{Bug fixed?}
+    I -->|Yes| J[Cleanup]
+    I -->|No, attempt < 3| A
+    I -->|No, attempt >= 3| K[Escalate]
+    J --> L[Done]
 ```
 
-**Phase 1: Investigate** - Analyze code to find root cause with confidence scoring
-**Phase 2: Inject Logs** - Add targeted `[DEBUG]` logs to capture runtime data
-**Phase 3: Propose Fix** - Suggest minimal fix based on evidence
-**Phase 4: Verify** - Confirm the fix resolves the issue
-**Phase 5: Cleanup** - Automatically remove all debug logs
+Core loop: investigate, fix, verify. Techniques are selected based on context:
+
+- **Investigate** - Analyze code to find root cause with confidence scoring
+- **Pattern Comparison** - Diff broken code against working examples
+- **Inject Logs** - Add targeted `[DEBUG]` logs to capture runtime data
+- **Propose Fix** - Suggest minimal fix based on evidence
+- **Verify** - Confirm the fix resolves the issue
+- **Cleanup** - Automatically remove all debug logs
+- **Escalate** - After 3 failed fixes, review architecture
 
 ## Usage
 
@@ -55,9 +61,11 @@ cleanup debug statements
 
 **Investigation** analyzes code looking for error sources, data flow issues, state mutations, race conditions, API contract violations, and timing problems. Findings are scored 0-100: >= 70 is reported as probable cause, 50-69 suggests logs to confirm, < 50 is not reported.
 
+**Pattern Comparison** finds similar working code in the project and diffs it against the broken code. Effective when the root cause is unclear or the bug appeared after a change to previously working code.
+
 **Log Injection** adds 3-5 strategic `[DEBUG]` logs at function entry points, before/after async operations, conditional branches, and catch blocks. Never logs sensitive data. Supports JS/TS, Python, Go, Rust, Ruby, Vue, Svelte, and more.
 
-**Fix and Verify** proposes a minimal fix in diff format, requires user approval, and loops back if the fix doesn't resolve the issue.
+**Fix and Verify** proposes a minimal fix in diff format, requires user approval, and loops back if the fix doesn't resolve the issue. After 3 failed attempts, escalates to architectural review.
 
 **Cleanup** automatically removes all `[DEBUG]` logs after verification.
 
@@ -71,7 +79,7 @@ cleanup debug statements
 A: Use debug-tools for runtime issues and unexpected behavior. Use code review for static analysis of code changes.
 
 **Q: What if the first fix doesn't work?**
-A: The workflow loops back to investigation. New logs may be added, or a different root cause is explored.
+A: The workflow loops back to investigation with new evidence. After 3 failed attempts, it escalates to architectural review instead of retrying the same approach.
 
 **Q: Are debug logs left in my code?**
 A: No. Cleanup is automatic after fix verification. You can also request cleanup anytime.

@@ -4,6 +4,9 @@ Remove all debug logs after debugging is complete.
 
 ## When to Use
 
+Cleanup happens automatically after a fix is verified, or on explicit user
+request. Run cleanup before committing changes to version control.
+
 - Fix has been verified and bug is resolved
 - User explicitly requests cleanup
 - Before committing changes to version control
@@ -70,11 +73,15 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 
 ## Guidelines
 
-1. **Remove all [DEBUG] logs** - don't leave any behind
-2. **Don't remove other logs** - only those with [DEBUG] prefix
-3. **Verify after cleanup** - confirm no logs remain
-4. **Cleanup is automatic** - part of normal debug workflow
-5. **Safe to cleanup anytime** - debug logs are temporary only
+**DO:**
+- Remove all `[DEBUG]` logs -- don't leave any behind
+- Verify after cleanup by searching again for `[DEBUG]`
+- Run cleanup as part of normal debug workflow after fix is verified
+
+**DON'T:**
+- Remove logs that don't have the `[DEBUG]` prefix
+- Skip verification after cleanup
+- Leave debug logs in code that will be committed
 
 ## Error Handling
 

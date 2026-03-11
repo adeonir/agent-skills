@@ -6,6 +6,17 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Changed
+
+- Restructure from rigid 5-phase sequence to flexible investigate-fix-verify loop
+- Add pattern comparison as an investigation technique
+- Add fix attempt tracking with escalation after 3 failed attempts
+- Add red flags section for detecting off-track debugging
+- Reframe log injection and cleanup as optional techniques, not mandatory phases
+- Update SKILL.md workflow diagram and guidelines
+
 ## 2026-02-27
 
 ### Changed
@@ -39,8 +50,6 @@ All notable changes to this skill will be documented in this file.
 - `log-injection.md` reference for targeted log injection patterns
 - `log-cleanup.md` reference for debug log cleanup (promoted to standalone reference)
 - MCP Strategy with runtime detection and explicit fallbacks for console-ninja, chrome-devtools, serena, and context7
-
----
 
 ## 2026-02-04
 

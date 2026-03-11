@@ -21,7 +21,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | Skill | Category | Description |
 |-------|----------|-------------|
 | **[design-builder](skills/(design)/design-builder)** | Design | Design-to-code pipeline: extract copy from URLs, design tokens from images, generate HTML variants, build React frontend, export to Figma |
-| **[debug-tools](skills/(development)/debug-tools)** | Development | 5-phase debugging: investigate, inject logs, propose fix, verify, cleanup. With confidence scoring |
+| **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Plan, Tasks, Execute. Auto-sized by complexity, full traceability |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, Pitch, Scope, Bug, RFC, ADR. Guided discovery per type |
