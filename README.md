@@ -24,6 +24,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Plan, Tasks, Execute. Auto-sized by complexity, full traceability |
+| **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, Pitch, Scope, Bug, RFC, ADR. Guided discovery per type |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR descriptions, and push-to-PR workflow |
@@ -38,7 +39,8 @@ Skills write artifacts to `.artifacts/` organized by domain:
 ├── features/       # spec-driven: feature specs, plans, tasks
 ├── quick/          # spec-driven: quick mode tasks
 ├── research/       # spec-driven: research cache
-├── docs/           # docs-writer + product-naming reports
+├── brainstorm/     # brainstorming: ideation artifacts
+├── docs/           # docs-writer + product-naming
 └── design/         # design-builder: copy.yaml, design.json, variants/
 ```
 
