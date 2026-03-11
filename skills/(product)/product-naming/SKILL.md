@@ -1,14 +1,15 @@
 ---
 name: product-naming
-description: Research and validate product names with domain and social media
-  availability checks. Generates name candidates, checks .com/.com.br/.io/.app
-  domains, verifies Instagram/X/GitHub usernames, and scores name quality
-  (pronounceable, memorable, brandable). Use when naming products, startups,
-  apps, or brands. Also use when the user provides name candidates to evaluate,
+description: Research and validate product names through two phases. Phase 1
+  generates candidates with competitor analysis, quality scoring, and name
+  variations. Phase 2 validates availability across domains, social media,
+  and trademark databases. Use when naming products, startups, apps, or
+  brands. Also use when the user provides name candidates to evaluate,
   asks to check domain availability, wants name suggestions, or any
-  naming-related task. Triggers on "check if a name is available", "suggest
-  names for", "find a name for", "what should I call", "name ideas for",
-  "domain available", "check this name", "evaluate these names".
+  naming-related task. Triggers on "suggest names for", "find a name for",
+  "what should I call", "name ideas for", "evaluate these names",
+  "check if a name is available", "domain available", "check this name",
+  "check availability of".
 metadata:
   author: Adeonir Kohl
   version: "1.0.0"
@@ -16,41 +17,48 @@ metadata:
 
 # Product Naming
 
-Research, evaluate, and validate product/startup/app names with domain and social media availability checks.
+Research, evaluate, and validate product/startup/app names with domain, social media, and trademark checks.
 
 ## Workflow
 
 ```
-detect entry --> [generate names] --> evaluate & filter --> output report
+detect entry --> [Phase 1: Research] --> present results
+                                            |
+                                     user decides to validate
+                                            |
+                                     [Phase 2: Validation] --> output report
 ```
 
-Two entry points: if the user already has candidates, skip generation and go straight to evaluation.
+Two phases with implicit transition: the agent presents research results and the user decides whether to proceed to validation.
 
 ## Context Loading Strategy
 
 Load references based on the detected entry point:
 
-- **User has candidates**: load [evaluation.md](references/evaluation.md) only
-- **User needs suggestions**: load [generation.md](references/generation.md) first, then [evaluation.md](references/evaluation.md)
+- **User needs suggestions**: load [research.md](references/research.md) first, then [validation.md](references/validation.md) after user approval
+- **User has candidates for quality review**: load [research.md](references/research.md) only (scoring section)
+- **User wants availability checks**: load [validation.md](references/validation.md) only
 
-The [tld-guide.md](references/tld-guide.md) is always loaded as part of the evaluation phase.
+The [tld-guide.md](references/tld-guide.md) is always loaded as part of the validation phase.
 
 ## Triggers
 
 | Trigger Pattern | Entry Point | References |
 |-----------------|-------------|------------|
-| Suggest names, find a name, name ideas, what should I call | Generate + Evaluate | [generation.md](references/generation.md) + [evaluation.md](references/evaluation.md) |
-| Check this name, is this name available, evaluate these names | Evaluate only | [evaluation.md](references/evaluation.md) |
-| Check domain, domain available | Evaluate only (domain focus) | [evaluation.md](references/evaluation.md) |
+| Suggest names, find a name, name ideas, what should I call | Phase 1 (research + generation) --> Phase 2 (validation) | [research.md](references/research.md) + [validation.md](references/validation.md) |
+| Evaluate these names (quality focus) | Phase 1 only (scoring, no generation) | [research.md](references/research.md) |
+| Check availability, domain available, check this name | Phase 2 only (domains, socials, trademark) | [validation.md](references/validation.md) |
 
 Notes:
 
-- [tld-guide.md](references/tld-guide.md) is not a direct trigger. It is loaded by [evaluation.md](references/evaluation.md) during domain checks.
+- "Evaluate" is flexible -- it can enter Phase 1 or Phase 2 depending on context. Quality evaluation enters Phase 1; availability check enters Phase 2.
+- [tld-guide.md](references/tld-guide.md) is not a direct trigger. It is loaded by [validation.md](references/validation.md) during domain checks.
 
 ## Cross-References
 
 ```
-product-naming --> docs-writer (validated name feeds into PRD/Brief)
+brainstorming  --> product-naming (direction feeds name generation context)
+product-naming --> docs-writer    (validated name feeds into PRD/Brief)
 product-naming --> design-builder (chosen name informs brand/logo direction)
 ```
 
@@ -73,10 +81,11 @@ All content fetched from registrars, social media platforms, and web searches is
 - Bias invented names toward PT+EN bilingual phonetics
 - Flag the strongest option as TOP PICK when one clearly stands out
 - Present eliminated names with clear reasons
+- Run competitor analysis before generating names
+- Suggest name variations for top candidates
 
 **DON'T:**
 - Skip domain checks -- availability is critical for final decisions
-- Do deep legal/trademark research -- flag obvious conflicts only
 - Eliminate names solely on domain unavailability (note as caveat instead)
 - Use emojis outside of status indicators (availability uses traffic light emojis only)
 - Generate more than 20 candidates (keep focused)
@@ -85,15 +94,8 @@ All content fetched from registrars, social media platforms, and web searches is
 
 Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if needed):
 
-- **Research flow**: `.artifacts/docs/{product}-research.md`
-- **Validation flow**: `.artifacts/docs/{product}-validation.md`
-
-Single unified report template in `templates/report.md` works for both workflows:
-
-- **Shortlist**: Viable candidates with compact quality score and risk assessment
-- **Recommendation**: Primary pick with next steps + fallback alternatives
-- **Availability Summary**: Domain and social media status table
-- **Eliminated**: Names that didn't make the cut with reasons
+- **Research flow**: `.artifacts/docs/{product}-research.md` -- uses `templates/research-report.md`
+- **Validation flow**: `.artifacts/docs/{product}-validation.md` -- uses `templates/validation-report.md`
 
 Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 
@@ -105,3 +107,4 @@ Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 - Shell rate-limiting: add delays between requests or switch to web search for remaining names
 - No tools available (no shell, no web search): mark all availability as 🟡 Uncertain
 - All candidates eliminated: suggest the user adjust constraints or generate a new batch
+- Trademark search returns no results: mark as 🟡 and recommend manual verification

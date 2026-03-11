@@ -1,6 +1,6 @@
 # Product Naming
 
-Research, evaluate, and validate product/startup/app names with domain and social media availability checks.
+Research, evaluate, and validate product/startup/app names with domain, social media, and trademark checks.
 
 ## Installation
 
@@ -14,48 +14,55 @@ Helps users find and validate names through a two-phase workflow:
 
 ```mermaid
 flowchart LR
-    T[Trigger] --> D{Has candidates?}
-    D -->|No| G[Generate Names]
-    D -->|Yes| E[Evaluate & Filter]
-    G --> E
-    E --> R[Output Report]
+    T[Trigger] --> E{Entry point?}
+    E -->|Suggest names| R[Phase 1: Research]
+    E -->|Evaluate quality| R
+    E -->|Check availability| V[Phase 2: Validation]
+    R --> P[Present results]
+    P -->|User approves| V
+    V --> O[Output Report]
 ```
 
 | Phase | What happens |
 |-------|-------------|
-| **Generate** | Discovery questions, then 10-20 diverse candidates across multiple naming styles |
-| **Evaluate** | Domain checks, social media checks, name quality scoring |
-| **Report** | Shortlist with availability status + eliminated names with reasons |
+| **Research** | Competitor analysis, 10-20 diverse candidates, quality scoring, name variations |
+| **Validation** | Domain checks with pricing, social media checks, trademark search |
+| **Reports** | Research report (shortlist + scoring) and/or validation report (availability + recommendation) |
 
 ## Usage
 
 ```
 suggest names for my project management app
-check if "nuvio" is available as a product name
-evaluate these names: Flowly, Cario, Velto, Stacko
 find a name for my AI coding assistant
 what should I call my startup?
+evaluate these names: Flowly, Cario, Velto, Stacko
+check if "nuvio" is available as a product name
+check availability of Flowly, Nuvio, Velto
 is the domain flowly.com available?
 ```
 
-The agent detects whether to generate candidates or skip to evaluation based on the trigger.
+The agent detects the entry point and loads the appropriate phase:
+- Name suggestions trigger Phase 1 (research) then Phase 2 (validation)
+- Quality evaluation triggers Phase 1 only (scoring)
+- Availability checks trigger Phase 2 only (validation)
 
 ## Output
 
 Reports are saved as `.md` files in `.artifacts/docs/`:
 
-- **Name Research** (Template A): `{product}-research.md` -- candidates with etymology, full evaluation with availability table, comparison, and eliminated names
-- **Name Validation** (Template B): `{product}-validation.md` -- per-name quality scoring, availability, risk assessment with context/impact, and verdict
+- **Research report** (`templates/research-report.md`): `{product}-research.md` -- competitor landscape, candidates with quality scoring, variations, eliminated names
+- **Validation report** (`templates/validation-report.md`): `{product}-validation.md` -- domain availability with prices, social media status, trademark search, recommendation with next steps
 
 Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
 
 ## Requirements
 
-Works with any agent supporting standard skill format. Requires web search capability for domain and social media checks.
+Works with any agent supporting standard skill format. Requires web search capability for domain, social media, and trademark checks.
 
 ## Integration
 
 | Skill | How product-naming connects |
 |-------|-----------------------------|
+| **brainstorming** | Direction from brainstorm feeds name generation context |
 | **docs-writer** | Validated name feeds into PRD/Brief |
 | **design-builder** | Chosen name informs brand/logo direction |

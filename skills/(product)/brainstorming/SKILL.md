@@ -59,6 +59,7 @@ Notes:
 ```
 discovery.md  -------> diverge.md     (context feeds alternative generation)
 diverge.md    -------> converge.md    (alternatives feed evaluation)
+brainstorming -------> product-naming (direction feeds name generation)
 brainstorming -------> docs-writer    (direction feeds PRD, pitch, design doc)
 brainstorming -------> spec-driven    (direction feeds feature specification)
 brainstorming -------> design-builder (direction feeds visual exploration)

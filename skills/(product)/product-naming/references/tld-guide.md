@@ -1,10 +1,10 @@
 # TLD Guide
 
-Reference for domain extension selection during name evaluation.
+Reference for domain extension selection during name validation.
 
 ## When to Use
 
-Loaded automatically by evaluation.md during the domain availability check phase.
+Loaded automatically by validation.md during the domain availability check phase.
 Not a direct trigger.
 
 ## Universal (always check)
@@ -52,4 +52,4 @@ Not a direct trigger.
 
 ## How to Check
 
-See [evaluation.md](evaluation.md) -- Domain Availability Check section for environment-adaptive methods (shell commands, web search fallback).
+See [validation.md](validation.md) -- Domain Availability Check section for environment-adaptive methods (shell commands, web search fallback).

@@ -6,6 +6,47 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-11
+
+### Added
+
+- Phase 1 / Phase 2 workflow with implicit transition (research then validation)
+- Three entry points: suggest names, evaluate quality, check availability
+- Competitor analysis step before name generation in research phase
+- Portmanteau and truncation-with-suffix generation styles
+- Name variations step for top candidates (suffix swap, vowel swap, abbreviation)
+- Dictability test as quality scoring criterion (phone/podcast simulation)
+- Trademark check section in validation (INPI and USPTO via web search)
+- Estimated domain prices in validation report (pulled from tld-guide.md)
+- Separate research-report.md and validation-report.md templates
+- Cross-reference with brainstorming skill (bidirectional)
+- "What's Next" section in research report template suggesting validation
+- Conditional guidance in research template for evaluate-only entry point
+- Audience and research report reference in validation template Context section
+- Error Handling section in research.md and validation.md references
+- Brainstorming row in README.md Integration table
+
+### Fixed
+
+- Merge Entry Points table into Triggers section for consistency with other skills
+- Rename "Edge Cases" to "Error Handling" in validation.md for consistency
+
+### Changed
+
+- Rename generation.md to research.md with expanded scope (competitor analysis, variations, scoring)
+- Rename evaluation.md to validation.md with narrowed scope (external checks only)
+- Move quality scoring from evaluation to research phase
+- Update tld-guide.md cross-reference from evaluation.md to validation.md
+- Update SKILL.md workflow, triggers, context loading, and error handling for two-phase model
+- Update README.md flowchart and usage examples for three entry points
+- Domain columns in validation template are now flexible per tld-guide.md
+- Social media columns in validation template use platform placeholders
+
+### Removed
+
+- Unified report.md template (replaced by research-report.md and validation-report.md)
+- Quality scoring from validation phase (moved to research phase)
+
 ## 2026-03-10
 
 ### Changed
