@@ -6,6 +6,29 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-10
+
+### Changed
+
+- Inline conventional-commits.md into commit.md and delete the separate file
+- Rename push-pr.md to create-pull-request.md
+- Inline commit format rules and body guidelines directly into commit.md
+- Add pre-preview checklist to commit.md Step 4
+- Clarify body guideline: "add context the diff alone does not communicate"
+- Move pre-commit hook handling from workflow to error handling in commit.md
+- Convert all reference guidelines to DO/DON'T format
+- Extract PR body format into templates/pull-request.md
+- Rename PR_DETAILS.md output to PR_SUMMARY.md
+- Add Output section to SKILL.md
+- Move Data Trust Boundary above Guidelines in SKILL.md
+- Add mermaid diagram to README.md
+- Map all description triggers to trigger table entries
+
+### Removed
+
+- conventional-commits.md (inlined into commit.md)
+- push-pr.md (renamed to create-pull-request.md)
+
 ## 2026-03-02
 
 ### Added
@@ -82,8 +105,6 @@ All notable changes to this skill will be documented in this file.
 - Push before create in PR workflow
 - Scope rule relaxed for PR titles
 
----
-
 ## 2026-02-04
 
 ### Added
@@ -120,17 +141,12 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Installation now includes `skills/` directory
-- Update README with skills documentation
-
-## 2026-02-03
-
-### Changed
-
 - Commands renamed with prefix: `git-commit.md`, `git-review.md`, `git-push-pr.md`, `git-summary.md`
 - Agents renamed with prefix: `git-code-reviewer.md`, `git-guidelines-auditor.md`
 - Invocation now uses `/git-commit` and `@git-code-reviewer` instead of `/git/commit` and `@git/code-reviewer`
 - Simplify installation: files copy directly to `.opencode/commands/` and `.opencode/agents/` without subdirectories
+- Installation now includes `skills/` directory
+- Update README with skills documentation
 
 ## 2026-01-22
 

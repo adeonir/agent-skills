@@ -1,4 +1,4 @@
-# Push PR
+# Create Pull Request
 
 Push current branch and create Pull Request via `gh` cli.
 
@@ -38,55 +38,44 @@ git diff {base}...HEAD
 - Review commits and diff
 - Determine appropriate PR type
 
-### Step 5: Push and Create PR
+### Step 5: Preview and Confirm
+
+Compose the PR title and body. Display to user for confirmation before
+pushing or creating the PR.
+
+**Title:** `type: concise description` or `type(scope): concise description`
+(lowercase, imperative mood)
+
+**Body:** **USE TEMPLATE:** `templates/pull-request.md`
+
+This step is mandatory. Never push without explicit user confirmation.
+
+### Step 6: Push and Create PR
 
 ```bash
 git push -u origin $(git branch --show-current)
 gh pr create --title "type: concise description" --body "$(cat <<'EOF'
-Brief summary of what this PR does (1-2 sentences max).
-
-## Changes
-
-- Key change 1 (imperative mood)
-- Key change 2
-- Key change 3
-
-Closes #N
+{PR body from template}
 EOF
 )"
 ```
 
 Output the PR URL when done.
 
-## PR Format
-
-Load [conventional-commits.md](conventional-commits.md) for commit types and message format rules.
-
-**Title:** `type: concise description` or `type(scope): concise description` (lowercase)
-
-**Body:**
-
-```markdown
-Brief summary of what this PR does (1-2 sentences max).
-
-## Changes
-
-- Key change 1 (imperative mood)
-- Key change 2
-- Key change 3
-
-Closes #N
-```
-
 ## Guidelines
 
+**DO:**
+- Preview the PR title and body before pushing
+- Use imperative mood in PR title and changes list
+- Include `Closes #N` when there is a related issue
+- Keep the changes list to 3-7 key items
 - Everything in English
-- Title follows conventional commits format, lowercase
-- Body summary is a concise description of what was done
-- Changes list in imperative mood, 3-7 key items
-- Include `Closes #N` when there is a related issue to close
-- Scope in PR title is allowed (both `feat:` and `feat(scope):` are valid)
-- Don't push without explicit user confirmation
+
+**DON'T:**
+- Push without explicit user confirmation
+- Add attribution lines to the PR body
+- List every file changed (summarize key changes)
+- Include implementation details (focus on what changed, not how)
 
 ## Error Handling
 

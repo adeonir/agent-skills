@@ -141,12 +141,18 @@ Brief paragraph summarizing most important findings.
 
 ## Guidelines
 
+**DO:**
 - Only report issues with >= 80 confidence score
 - Analyze actual diff, not conversation context
-- Be specific: file path and line number
-- Be actionable: explain why AND how to fix
-- Skip sections if empty
-- Guidelines auditor reads guideline files from repository root
+- Be specific: include file path and line number
+- Be actionable: explain why it is a problem and how to fix
+- Skip output sections if empty
+
+**DON'T:**
+- Report style preferences or hypothetical issues
+- Suggest improvements unrelated to the diff
+- Base analysis on conversation context instead of the actual diff
+- Report findings with confidence below 80
 
 ## Error Handling
 

@@ -12,14 +12,17 @@ npx skills add adeonir/agent-skills --skill git-helpers
 
 Streamlines the git workflow from local changes to merged PR:
 
-```
-commit --> review --> summary --> push PR
+```mermaid
+flowchart LR
+    A[Commit] --> B[Review]
+    B --> C[Summary]
+    C --> D[Create PR]
 ```
 
 1. **Commit** - Creates well-formatted conventional commit messages
 2. **Review** - Finds bugs, security issues, and guideline violations
-3. **Summary** - Generates PR description with impact assessment (saves to `PR_DETAILS.md`)
-4. **Push PR** - Pushes branch and creates PR via GitHub CLI
+3. **Summary** - Generates PR description with impact assessment (saves to `PR_SUMMARY.md`)
+4. **Create PR** - Pushes branch and creates pull request via GitHub CLI
 
 ## Usage
 
@@ -39,7 +42,7 @@ code review and post as PR comment
 summarize these changes
 generate PR description
 
-# Push PR
+# Create PR
 push and create PR
 create pull request against main
 
@@ -74,7 +77,7 @@ review my changes
 
 # Generate detailed PR description
 summarize these changes
-# Output: PR_DETAILS.md created
+# Output: PR_SUMMARY.md created
 
 # Push and create PR
 push and create PR

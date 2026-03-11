@@ -82,14 +82,25 @@ X guidelines checked | Y violations found
 
 ## Guidelines
 
-- Quote exact guideline being violated
+**DO:**
+- Quote the exact guideline being violated
 - Reference the source guideline file (CLAUDE.md, AGENTS.md, etc.)
-- Be specific about the violation
-- Provide actionable fix
-- If no guideline files found, report that and skip audit
+- Be specific about what the code does wrong
+- Provide an actionable fix for each violation
+
+**DON'T:**
+- Report violations for inferred or implied guidelines
+- Flag style preferences not documented in guideline files
+- Report best practices that are not explicitly mentioned in guidelines
+- Audit files outside the project repository (e.g. ~/.claude/CLAUDE.md)
 
 ## Error Handling
 
 - No guideline files found: skip audit entirely and report it
 - Guideline file is empty: skip that file and continue
 - Ambiguous guideline: don't report violations for unclear rules
+
+## Task
+
+Audit code changes against project guideline files. Report violations with
+>= 80 confidence, quoting the exact guideline and providing an actionable fix.

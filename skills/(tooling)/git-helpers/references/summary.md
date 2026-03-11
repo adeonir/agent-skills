@@ -1,11 +1,11 @@
 # Branch Summary
 
 Generate a comprehensive PR description comparing current branch with base branch,
-save to `PR_DETAILS.md`.
+save to `PR_SUMMARY.md`.
 
 ## When to Use
 
-When generating a PR description for the current branch.
+When summarizing changes or generating a PR description for the current branch.
 
 ## Pre-execution Validation
 
@@ -66,11 +66,11 @@ git diff {base}...HEAD
 - **Performance Impact**: POSITIVE | NEUTRAL | NEGATIVE
 - **Compatibility Impact**: NONE | MINOR | MAJOR
 
-### Step 5: Generate PR_DETAILS.md
+### Step 5: Generate PR_SUMMARY.md
 
 Use Write tool to create the file with the template below.
 
-## PR_DETAILS.md Template
+## PR_SUMMARY.md Template
 
 ```markdown
 # Brief Descriptive Title
@@ -152,11 +152,17 @@ Use Write tool to create the file with the template below.
 
 ## Guidelines
 
-- Only include sections with actual file changes -- omit empty categories
-- Focus on functional impact in file descriptions, not line-by-line changes
-- Describe the user-facing flow in Technical Flow, not internal implementation
-- Focus on component names and areas in Priority Review, not line numbers
+**DO:**
+- Only include sections with actual file changes
+- Focus on functional impact, not line-by-line changes
+- Describe the user-facing flow in Technical Flow
 - Be honest about potential issues in risk assessment
+
+**DON'T:**
+- Include empty categories in Key Changes
+- Describe internal implementation details in Technical Flow
+- Use line numbers in Priority Review (use component names and areas)
+- Downplay risks to make the PR look simpler
 
 ## Error Handling
 
@@ -168,9 +174,9 @@ Use Write tool to create the file with the template below.
 
 Start immediately when triggered. No confirmation needed to begin.
 
-Generate PR description for current branch and save to `PR_DETAILS.md`.
+Generate PR description for current branch and save to `PR_SUMMARY.md`.
 
 After analyzing all changes:
 
-1. Generate complete PR_DETAILS.md file using Write tool
+1. Generate complete PR_SUMMARY.md file using Write tool
 2. Provide brief summary of key changes and priority review areas
