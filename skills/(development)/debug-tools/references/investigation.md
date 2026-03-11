@@ -8,6 +8,9 @@ When debugging unexpected behavior, silent errors, or intermittent failures.
 
 ## Workflow
 
+Execute the appropriate step based on current state: Understand + Analyze,
+Propose Fix, or Verify.
+
 ### Step 1: Understand the Bug
 
 Based on user's description, identify:
@@ -163,11 +166,3 @@ localized bug.
 - Cannot access source code: inform user and suggest alternatives
 - Investigation inconclusive after analysis: suggest adding debug logs
 - Three failed fixes: escalate to architectural review
-
-## Task
-
-Execute the appropriate step based on current state:
-
-- **Understand + Analyze**: Investigate the bug described by the user
-- **Propose Fix**: Propose a fix for the confirmed root cause
-- **Verify**: Verify the fix resolved the issue

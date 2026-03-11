@@ -69,6 +69,8 @@ User picks the direction or asks to loop back.
 - If loop back: return to discovery with refined understanding, articulate what
   new information is needed before restarting
 
+If approved, capture the direction and suggest next steps.
+
 ## Guidelines
 
 **DO:**
@@ -100,9 +102,3 @@ After user approves a direction, capture it using
 **USE TEMPLATE:** `templates/brainstorm.md` and save to
 `.artifacts/brainstorm/{topic}.md`. Then suggest the appropriate next
 skill (docs-writer, spec-driven, or design-builder).
-
-## Task
-
-Evaluate alternatives from diverge. Screen, compare, analyze trade-offs,
-recommend. Present to user for decision. If approved, capture the direction
-and suggest next steps.

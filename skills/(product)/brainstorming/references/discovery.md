@@ -116,7 +116,8 @@ Before advancing to diverge, confirm:
 - [ ] Success criteria defined (how to evaluate alternatives)
 - [ ] User has confirmed the summary
 
-Present the summary to the user. Only proceed after confirmation.
+Present a summary and confirm before advancing to diverge. Only proceed after
+confirmation.
 
 ## Guidelines
 
@@ -135,9 +136,3 @@ Present the summary to the user. Only proceed after confirmation.
 ## Next Steps
 
 Load [diverge.md](diverge.md) to generate alternatives.
-
-## Task
-
-Interview the user to understand the problem space. Cover all three topics
-(context, constraints, success criteria). Present a summary and confirm
-before advancing to diverge.

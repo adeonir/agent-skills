@@ -188,8 +188,3 @@ Co-Authored-By: AI Assistant
   `git log -1 --format='%an %ae'`; if HEAD commit was created by you in this
   conversation and not pushed, amend with modified files; otherwise create a
   new commit with the fixed files
-
-## Task
-
-Create a commit following the workflow above. Always preview the message
-and wait for user confirmation before committing.

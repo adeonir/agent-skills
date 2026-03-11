@@ -26,6 +26,8 @@ git branch --show-current
 
 ## Workflow
 
+Start immediately when triggered. No confirmation needed to begin.
+
 ### Step 1: Detect Base Branch
 
 If not specified: default to `main`. User can override via prompt.
@@ -169,14 +171,3 @@ Use Write tool to create the file with the template below.
 - No commits to summarize: inform user there are no changes
 - No base branch found: ask user which branch to compare against
 - Too many files changed (100+): group by category and summarize, don't list individually
-
-## Task
-
-Start immediately when triggered. No confirmation needed to begin.
-
-Generate PR description for current branch and save to `PR_SUMMARY.md`.
-
-After analyzing all changes:
-
-1. Generate complete PR_SUMMARY.md file using Write tool
-2. Provide brief summary of key changes and priority review areas

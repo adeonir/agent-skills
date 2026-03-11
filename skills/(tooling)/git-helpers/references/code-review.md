@@ -8,6 +8,8 @@ When reviewing code changes before committing or creating a pull request.
 
 ## Workflow
 
+Start the review immediately when triggered. No confirmation needed to begin.
+
 ### Step 1: Determine User Intent
 
 Based on user's request, determine:
@@ -159,9 +161,3 @@ Brief paragraph summarizing most important findings.
 - No changes to review: inform user there is nothing to review
 - No base branch found: ask user which branch to compare against
 - Binary files in diff: skip and note them in the summary
-
-## Task
-
-Start the review immediately when triggered. No confirmation needed to begin.
-
-Review code changes.

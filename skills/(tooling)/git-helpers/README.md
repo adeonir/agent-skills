@@ -83,10 +83,23 @@ summarize these changes
 push and create PR
 ```
 
+## Output
+
+| Workflow | Artifact |
+|----------|----------|
+| Review | `CODE_REVIEW.md` (findings with confidence scores) |
+| Summary | `PR_SUMMARY.md` (PR description with impact assessment) |
+
 ## Requirements
 
 - Git
 - `gh` CLI (for PR operations)
+
+## Integration
+
+| Skill | How git-helpers connects |
+|-------|-------------------------|
+| **spec-driven** | Commit and PR workflows after completing implementation tasks |
 
 ## FAQ
 

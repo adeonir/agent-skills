@@ -88,6 +88,8 @@ Before advancing to converge:
 
 If fewer than 4 alternatives: apply unused techniques before advancing.
 
+Reach the minimum bar before advancing to converge.
+
 ## Guidelines
 
 **DO:**
@@ -117,9 +119,3 @@ If fewer than 4 alternatives: apply unused techniques before advancing.
 ## Next Steps
 
 Load [converge.md](converge.md) to evaluate alternatives.
-
-## Task
-
-Generate alternatives using selected techniques. Capture each with a name,
-description, technique, and key assumption. Reach the minimum bar before
-advancing to converge.

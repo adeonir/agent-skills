@@ -191,9 +191,3 @@ After user provides console output:
 - Analyze the runtime data
 - Load [investigation.md](investigation.md) to continue investigation
 - Find root cause with new evidence
-
-## Task
-
-Add targeted debug logs at strategic points based on investigation findings.
-
-Ask user to reproduce the bug and share the console output.

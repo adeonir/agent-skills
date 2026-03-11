@@ -40,8 +40,8 @@ git diff {base}...HEAD
 
 ### Step 5: Preview and Confirm
 
-Compose the PR title and body. Display to user for confirmation before
-pushing or creating the PR.
+Compose the PR title and body. Show the PR title, body, and base branch for
+user confirmation before executing.
 
 **Title:** `type: concise description` or `type(scope): concise description`
 (lowercase, imperative mood)
@@ -83,11 +83,3 @@ Output the PR URL when done.
 - No remote configured: inform user to set up a remote first
 - Branch already has open PR: inform user and ask if they want to update it
 - Push rejected: inform user to pull first
-
-## Task
-
-Push current branch and create PR using `gh pr create`.
-
-Show the PR title, body, and base branch for user confirmation before executing.
-
-Output the PR URL when done.

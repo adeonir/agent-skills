@@ -88,9 +88,3 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 - No [DEBUG] logs found: inform user cleanup is already done
 - Logs in generated or compiled files: suggest rebuilding instead of manual cleanup
 - Partial match (prefix variation): report and ask user to confirm removal
-
-## Task
-
-Remove all `[DEBUG]` logs from the codebase.
-
-Report how many logs were removed and from which files.

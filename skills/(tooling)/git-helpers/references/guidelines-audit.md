@@ -99,8 +99,3 @@ X guidelines checked | Y violations found
 - No guideline files found: skip audit entirely and report it
 - Guideline file is empty: skip that file and continue
 - Ambiguous guideline: don't report violations for unclear rules
-
-## Task
-
-Audit code changes against project guideline files. Report violations with
->= 80 confidence, quoting the exact guideline and providing an actionable fix.
