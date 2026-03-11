@@ -34,37 +34,29 @@ Each note type has its own workflow. Use any type independently based on user ne
 Load only the reference or guide matching the current trigger. Never load
 multiple simultaneously unless explicitly noted.
 
-### Workflows
-
-Note-creation workflows. Each follows the full write cycle (compose,
-preview, confirm, write).
-
-| Trigger | Reference |
-|---------|-----------|
-| project, PRD, Design Doc, ADR, architecture | [project.md](references/project.md) |
-| company, job application, interview | [company.md](references/company.md) |
-| challenge, technical challenge, take-home, coding interview | [challenge.md](references/challenge.md) |
-| brag, achievement, accomplishment | [brag.md](references/brag.md) |
-| daily, today, daily note, journal | [daily.md](references/daily.md) |
-| conversation, session, save conversation, AI chat | [conversation.md](references/conversation.md) |
-| capture, save this, quick note, paste this | [capture.md](references/capture.md) |
-
-### Guides
-
-Informational references for syntax and vault organization. No vault
-write operations are performed.
-
-| Trigger | Guide |
-|---------|-------|
-| markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
-| vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
-
-### Notes
-
 - `templates/*.md` are not loaded into context. The agent uses them as
   reference to compose note content inline via `obsidian create content=<text>`.
 - Templates also live in the vault (`Templates/`) for manual use via
   Obsidian's Templates and Daily Notes plugins.
+
+## Triggers
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Project, PRD, Design Doc, ADR, architecture | [project.md](references/project.md) |
+| Company, job application, interview | [company.md](references/company.md) |
+| Challenge, technical challenge, take-home, coding interview | [challenge.md](references/challenge.md) |
+| Brag, achievement, accomplishment | [brag.md](references/brag.md) |
+| Daily, today, daily note, journal | [daily.md](references/daily.md) |
+| Conversation, session, save conversation, AI chat | [conversation.md](references/conversation.md) |
+| Capture, save this, quick note, paste this | [capture.md](references/capture.md) |
+| Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
+| Vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
+
+Notes:
+
+- `markdown.md` and `vault-structure.md` are informational guides (no write operations).
+- All other references are note-creation workflows (compose, preview, confirm, write).
 
 ## Cross-References
 

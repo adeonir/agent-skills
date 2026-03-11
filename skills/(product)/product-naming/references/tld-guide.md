@@ -2,6 +2,11 @@
 
 Reference for domain extension selection during name evaluation.
 
+## When to Use
+
+Loaded automatically by evaluation.md during the domain availability check phase.
+Not a direct trigger.
+
 ## Universal (always check)
 
 | TLD | Notes | Price |

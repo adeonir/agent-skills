@@ -1,3 +1,8 @@
+---
+project: {{project-name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Conventions
 
 | Aspect | Project Uses | Avoid |

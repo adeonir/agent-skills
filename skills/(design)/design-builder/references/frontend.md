@@ -138,11 +138,17 @@ For images referenced in copy.yaml:
 
 ## Guidelines
 
-- Always load aesthetics.md and web-standards.md before generating code
-- Apply design.json tokens as CSS custom properties, not hardcoded values
-- Use placeholder divs for images, never reference external URLs
-- Mobile-first CSS with 375px baseline
-- Don't use `transition: all` -- list properties explicitly
+**DO:**
+- Load aesthetics.md and web-standards.md before generating code
+- Apply design.json tokens as CSS custom properties
+- Use placeholder divs for images
+- Write mobile-first CSS with 375px baseline
+- List transition properties explicitly (e.g., `transition: background-color 0.2s, color 0.2s`)
+
+**DON'T:**
+- Hardcode color or spacing values -- use CSS custom properties from design.json
+- Reference external image URLs -- use placeholder divs instead
+- Use `transition: all` -- list properties explicitly
 
 ## Error Handling
 

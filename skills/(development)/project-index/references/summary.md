@@ -265,29 +265,25 @@ Inform user:
 
 ## Guidelines
 
-### File Reading Strategy
-- **Config first**: Read configuration and setup files before source code -- they reveal the project's actual choices
-- **Quality over quantity**: Better to read 10 diverse files than 30 similar ones
-- **Cover all layers**: Ensure every architectural layer is represented
-- **Read before assuming**: Never document a convention based on dependency names alone -- read actual config and usage files
-- **Look for inconsistencies**: Note when the same pattern is implemented differently
-- **Stop when saturated**: When new files don't reveal new patterns, you've read enough
-
-### Update Mode
-When `.agents/codebase/` already exists:
-- Read existing docs first BEFORE analyzing the codebase
-- Merge new findings with existing content
-- Never remove existing content unless it's clearly outdated
-- Add new sections/rows to existing tables
-- Update version numbers and dependency changes
+**DO:**
+- Read configuration and setup files before source code -- they reveal actual choices
+- Prefer 10 diverse files over 30 similar ones
+- Cover every architectural layer with representative files
+- Read actual config and usage files before documenting conventions
+- Note inconsistencies when the same pattern is implemented differently
+- Stop reading when new files don't reveal new patterns
+- Read existing docs first before analyzing when updating
+- Merge new findings with existing content on updates
 - Preserve discoveries added by spec-driven during planning (more specific context wins)
-- On conflict: content from feature-specific analysis (spec-driven) takes precedence over general analysis (project-index)
-
-### General
-- Don't overwrite existing codebase/ mapping without user confirmation
 - Focus on architecture-relevant patterns, not implementation details
 - Keep mapping files concise and scannable
 - Document conventions as observed, not as prescribed
+
+**DON'T:**
+- Document conventions based on dependency names alone
+- Overwrite existing codebase/ mapping without user confirmation
+- Remove existing content unless it is clearly outdated
+- Override feature-specific analysis (spec-driven) with general analysis (project-index)
 
 ## Error Handling
 

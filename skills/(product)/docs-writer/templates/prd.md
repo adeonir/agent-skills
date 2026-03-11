@@ -1,3 +1,9 @@
+---
+name: {{document-name}}
+type: prd
+created: {{YYYY-MM-DD}}
+---
+
 # PRD
 
 ## 1. Problem Statement

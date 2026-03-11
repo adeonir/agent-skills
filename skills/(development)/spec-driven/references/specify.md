@@ -333,11 +333,16 @@ They complement each other:
 
 ## Guidelines
 
-- Always validate feature scope before creating the spec
-- Don't include technical solutions in spec (that belongs in plan)
+**DO:**
+- Validate feature scope before creating the spec
 - Mark unclear requirements as TBD rather than inventing constraints
-- One feature per spec -- split if scope is too broad
-- Auto-size correctly -- don't force Large pipeline on Medium features
+- Keep one feature per spec -- split if scope is too broad
+- Auto-size correctly based on actual complexity
+
+**DON'T:**
+- Include technical solutions in spec (that belongs in plan)
+- Force Large pipeline on Medium features
+- Invent constraints when requirements are unclear
 
 ## Error Handling
 

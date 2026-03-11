@@ -51,11 +51,18 @@ Fill in fields from user input. Present draft for review before saving.
 
 ## Guidelines
 
-- Titles should describe the symptom, not the cause: "Login fails with 500 error" not "Fix auth middleware"
-- Expected vs actual behavior must be clearly separated
-- Reproduction steps should be specific enough for someone else to follow
+**DO:**
+- Write titles that describe the symptom: "Login fails with 500 error"
+- Clearly separate expected vs actual behavior
+- Write reproduction steps specific enough for someone else to follow
 - Always ask about workarounds -- critical for triage prioritization
-- Logs, screenshots, and other attachments go in Notes
+- Place logs, screenshots, and other attachments in Notes
+
+**DON'T:**
+- Write titles that describe the cause: "Fix auth middleware"
+- Merge expected and actual behavior into a single description
+- Write vague reproduction steps that require guesswork
+- Skip asking about workarounds
 
 ## Output
 

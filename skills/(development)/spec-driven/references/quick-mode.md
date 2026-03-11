@@ -96,10 +96,16 @@ When escalating, the quick task file serves as input for the specify phase.
 
 ## Guidelines
 
+**DO:**
 - Keep it simple -- quick mode exists to avoid ceremony for trivial changes
-- Don't skip quality gates even for small changes
-- If in doubt about scope, escalate rather than force quick mode
-- Quick task artifacts are disposable -- user can delete after implementation
+- Run quality gates even for small changes
+- Escalate to specify when in doubt about scope
+- Treat quick task artifacts as disposable after implementation
+
+**DON'T:**
+- Skip quality gates for small changes
+- Force quick mode when scope is uncertain
+- Over-document trivial changes
 
 ## Error Handling
 

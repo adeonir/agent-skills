@@ -84,12 +84,17 @@ Ideas, improvements, or features explicitly deferred for later. Each entry inclu
 
 ## Guidelines
 
+**DO:**
 - Keep entries concise -- one or two lines per entry
 - Always include date and context
-- Don't duplicate information already in spec.md or plan.md -- state.md is for cross-cutting concerns
 - Review state.md at the start of each new feature for relevant context
-- Resolved blockers stay in the file (for history) but are marked as resolved
-- State is persistent -- don't delete entries, only add and update status
+- Mark resolved blockers as resolved (keep for history)
+- Only add and update status -- state is persistent
+
+**DON'T:**
+- Duplicate information already in spec.md or plan.md -- state.md is for cross-cutting concerns
+- Delete entries from state.md
+- Omit date or context from entries
 
 ## Error Handling
 

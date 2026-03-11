@@ -1,3 +1,8 @@
+---
+project: {{project-name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Project State
 
 Persistent memory across sessions. Updated as decisions are made, blockers found, and lessons learned.

@@ -33,11 +33,16 @@ Fill in fields from user input. Present draft for review before saving.
 
 ## Guidelines
 
-- Scopes define a slice of work, not a full feature -- that's the pitch's job
-- Each scope should be an integrated piece (frontend + backend together when possible)
-- No acceptance criteria -- validation happens at the pitch level
+**DO:**
+- Define a slice of work, not a full feature -- that is the pitch's job
+- Make each scope an integrated piece (frontend + backend together when possible)
 - Keep scopes small enough to finish in a few days, large enough to be meaningful
-- If a scope has no parent pitch, it's standalone work (maintenance, refactoring, etc.)
+- Mark scopes without a parent pitch as standalone work (maintenance, refactoring, etc.)
+
+**DON'T:**
+- Add acceptance criteria -- validation happens at the pitch level
+- Make scopes so large they become features
+- Split frontend and backend into separate scopes when they belong together
 
 ## Output
 

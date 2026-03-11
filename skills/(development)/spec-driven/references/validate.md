@@ -99,10 +99,16 @@ When the user requests explicit validation of artifacts (not UAT), run these che
 
 ## Guidelines
 
-- Interactive UAT only for Complex scope -- don't over-validate
+**DO:**
+- Reserve interactive UAT for Complex scope only
 - Validate against spec requirements, not subjective quality
 - Mark gaps as blocking only if they affect core functionality
-- Don't report code style issues -- focus on behavior
+- Focus on behavior, not code style
+
+**DON'T:**
+- Over-validate with interactive UAT on non-Complex scope
+- Report code style issues during validation
+- Mark non-critical gaps as blocking
 
 ## Error Handling
 

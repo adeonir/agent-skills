@@ -139,11 +139,17 @@ Inform user:
 
 ## Guidelines
 
-- Don't start planning with unresolved open questions in the spec
+**DO:**
+- Resolve open questions in the spec before planning
 - Keep architecture decisions scoped to the feature
 - Research unfamiliar technologies before committing to them
 - Reference existing codebase patterns when available
-- Follow Knowledge Verification Chain -- never fabricate APIs or patterns
+- Follow Knowledge Verification Chain for all technical decisions
+
+**DON'T:**
+- Start planning with unresolved open questions in the spec
+- Fabricate APIs or patterns -- verify first
+- Over-architect beyond the feature scope
 
 ## Error Handling
 

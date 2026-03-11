@@ -107,11 +107,16 @@ Run `execute` to continue.
 
 ## Guidelines
 
+**DO:**
 - Show all features regardless of status
 - Keep status reports factual, not interpretive
 - Always include the next recommended action
 - Show scope to help user understand the pipeline depth
-- Don't modify feature status from this command -- use execute
+
+**DON'T:**
+- Modify feature status from this command -- use execute
+- Filter features by status unless explicitly requested
+- Add interpretation or commentary to status reports
 
 ## Error Handling
 

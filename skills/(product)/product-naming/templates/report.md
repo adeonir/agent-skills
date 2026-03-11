@@ -1,8 +1,12 @@
+---
+name: {{product-name}}
+type: {{research | validation}}
+created: {{YYYY-MM-DD}}
+---
+
 # Report Template
 
 Unified template for both research (generate + evaluate) and validation (evaluate only) workflows.
-
----
 
 ## Template: Product Naming Report
 

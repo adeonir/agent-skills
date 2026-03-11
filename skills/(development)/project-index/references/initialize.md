@@ -63,10 +63,14 @@ Inform user:
 
 ## Guidelines
 
-- Don't overwrite existing `.agents/` structure without confirmation
+**DO:**
 - Keep project.md focused on context, not implementation
 - Initialize once per project, not per feature
-- AGENTS.md is always regenerated to reflect current state
+- Regenerate AGENTS.md to reflect current state
+
+**DON'T:**
+- Overwrite existing `.agents/` structure without confirmation
+- Run initialize per feature -- it is a one-time project setup
 
 ## Error Handling
 

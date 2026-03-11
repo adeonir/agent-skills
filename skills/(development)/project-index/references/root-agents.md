@@ -68,7 +68,11 @@ Write `AGENTS.md` at the project root.
 
 ## Guidelines
 
+**DO:**
 - Keep it scannable -- this is the first file an agent reads
-- Don't duplicate full content from `.agents/` files
 - Preserve manual additions when updating
-- One file, one purpose: quick project orientation
+- Maintain one file, one purpose: quick project orientation
+
+**DON'T:**
+- Duplicate full content from `.agents/` files
+- Remove manually added sections when regenerating

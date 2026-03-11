@@ -60,11 +60,17 @@ Save to `.artifacts/design/copy.yaml`. Create directories if needed.
 
 ## Guidelines
 
-1. **Preserve original tone** -- structure content, don't rewrite it
-2. **Use Lucide icons** -- suggest appropriate icon names
-3. **Mark visuals** -- use `type: "generate"` with detailed descriptions
-4. **Document patterns** -- capture copywriting patterns in `copywriting_notes`
-5. **Be thorough** -- capture every section, don't skip content
+**DO:**
+- Preserve original tone -- structure content, don't rewrite it
+- Use Lucide icon names for icon suggestions
+- Mark visuals with `type: "generate"` and detailed descriptions
+- Capture copywriting patterns in `copywriting_notes`
+- Extract every section thoroughly -- don't skip content
+
+**DON'T:**
+- Rewrite or editorialize the original copy -- only restructure it
+- Skip sections or omit content found on the page
+- Use generic icon names -- pick specific Lucide icons that match the content
 
 ## Error Handling
 

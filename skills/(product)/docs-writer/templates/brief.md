@@ -1,3 +1,9 @@
+---
+name: {{document-name}}
+type: brief
+created: {{YYYY-MM-DD}}
+---
+
 # Brief
 
 ## What

@@ -1,3 +1,9 @@
+---
+name: {{document-name}}
+type: design-doc
+created: {{YYYY-MM-DD}}
+---
+
 # Design Doc: {{System Name}}
 
 ## 1. Context & Scope

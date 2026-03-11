@@ -95,13 +95,19 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 
 ## Guidelines
 
-- **Be atomic** - Single, clear action per task
-- **No metadata** - No Files:/Reference:/Commit: lines in task descriptions
-- **Respect dependencies** - Same component = sequential
-- **Enable parallelization** - Mark independent tasks as [P]
-- **Group by commit boundary** - Each group of tasks must form a complete, self-contained unit of work that results in one atomic commit
-- **Cover all FRs** - Every FR-xxx has task(s)
-- **Quality gates separate** - Not tasks, run after each task
+**DO:**
+- Keep tasks atomic -- single, clear action per task
+- Respect dependencies -- same component = sequential
+- Mark independent tasks as [P] to enable parallelization
+- Group by commit boundary -- each group forms one atomic commit
+- Cover all FRs -- every FR-xxx has at least one task
+- Run quality gates after each task, not as separate tasks
+
+**DON'T:**
+- Add Files:/Reference:/Commit: metadata lines in task descriptions
+- Create tasks that span multiple unrelated concerns
+- Leave FR-xxx requirements without corresponding tasks
+- Bundle quality gates as tasks in the breakdown
 
 ## Commit Boundary Grouping
 

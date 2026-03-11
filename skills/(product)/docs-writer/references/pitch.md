@@ -97,12 +97,19 @@ Describe the solution as what changes for the user -- interactions, screens, beh
 
 ## Guidelines
 
-- Describe problems as narratives with real people and situations, not abstract statements
-- Solutions describe user-facing changes, not implementation details
-- No-gos are as important as scope -- be explicit about what's out
-- Rabbit holes prevent wasted time -- flag known complexities upfront
-- If a pitch is too large, suggest breaking it into multiple pitches
-- Acceptance criteria belong here (not in scopes) -- they validate the feature as a whole
+**DO:**
+- Describe problems as narratives with real people and situations
+- Describe solutions as user-facing changes
+- Be explicit about no-gos -- they are as important as scope
+- Flag known complexities upfront in rabbit holes to prevent wasted time
+- Suggest breaking large pitches into multiple pitches
+- Place acceptance criteria here -- they validate the feature as a whole
+
+**DON'T:**
+- Write problems as abstract statements
+- Describe solutions with implementation details
+- Leave no-gos undefined or vague
+- Put acceptance criteria in scopes -- they belong at the pitch level
 
 ## Output
 

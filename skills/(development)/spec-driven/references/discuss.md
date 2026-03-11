@@ -109,11 +109,17 @@ Inform user:
 
 ## Guidelines
 
-- Never resolve ambiguities on behalf of the user -- always ask
+**DO:**
+- Always ask the user to resolve ambiguities -- never decide on their behalf
 - Present options with trade-offs, not just yes/no questions
-- If a gray area is too complex for a quick decision, mark as "needs research" and defer to plan phase
-- Group related decisions -- don't ask 15 questions one by one
-- Tentative decisions are valid -- mark them clearly for future revisit
+- Mark complex gray areas as "needs research" and defer to plan phase
+- Group related decisions into logical clusters
+- Accept tentative decisions -- mark them clearly for future revisit
+
+**DON'T:**
+- Resolve ambiguities on behalf of the user
+- Ask 15 questions one by one -- group related decisions
+- Present options without trade-off analysis
 
 ## Error Handling
 

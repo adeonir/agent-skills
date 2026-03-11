@@ -227,11 +227,16 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 
 ## Guidelines
 
+**DO:**
 - Complete one task at a time before starting the next
 - Load coding-principles.md before writing any code
-- Don't refactor beyond what the task requires
 - Verify after each task or range -- never batch all verification to the end
 - Follow Knowledge Verification Chain -- never fabricate patterns or APIs
+
+**DON'T:**
+- Refactor beyond what the task requires
+- Batch all verification to the end
+- Skip loading coding-principles.md before implementation
 
 ## Error Handling
 

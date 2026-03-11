@@ -89,11 +89,17 @@ proposed --> accepted --> deprecated / superseded
 
 ## Guidelines
 
-- ADRs are immutable once accepted -- don't edit old ADRs, create new ones that supersede
+**DO:**
 - Keep ADRs short and focused -- one decision per record
-- Context should be understandable by someone who wasn't in the room
-- Always document consequences honestly, including negative ones
+- Write context understandable by someone who was not in the room
+- Document consequences honestly, including negative ones
 - Link to related RFCs or Design Docs when applicable
+- Create new ADRs that supersede old ones when decisions change
+
+**DON'T:**
+- Edit accepted ADRs -- they are immutable once accepted
+- Combine multiple decisions into a single ADR
+- Omit negative consequences to make the decision look better
 
 ## Output
 

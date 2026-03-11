@@ -145,13 +145,6 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-02-11
 
-### Removed
-
-- Session state management (STATE.md template and session-state.md reference)
-- State generation steps from project initialization
-
-## 2026-02-11
-
 ### Added
 
 - Templates for all artifacts (PROJECT, ROADMAP, CHANGELOG, spec, plan, tasks, archive)
@@ -160,6 +153,11 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - References simplified by extracting output schemas into templates
+
+### Removed
+
+- Session state management (STATE.md template and session-state.md reference)
+- State generation steps from project initialization
 
 ## 2026-02-08
 
@@ -209,8 +207,6 @@ All notable changes to this skill will be documented in this file.
 - MCP Strategy sections from plan, implement, codebase-exploration, and research references
 - MCP tool name references (Serena/Context7) from all references (tool-agnostic)
 
----
-
 ## 2026-02-04
 
 ### Added
@@ -258,11 +254,6 @@ All notable changes to this skill will be documented in this file.
 
 - Installation now includes `skills/` directory
 - Update README with skills documentation and new commands
-
-## 2026-02-03
-
-### Changed
-
 - Commands renamed with prefix: `spec-init.md`, `spec-plan.md`, `spec-tasks.md`, etc.
 - Agents renamed with prefix: `spec-researcher.md`, `spec-explorer.md`, `spec-architect.md`, etc.
 - Invocation now uses `/spec-init` and `@spec-architect` instead of `/spec/init` and `@spec/architect`

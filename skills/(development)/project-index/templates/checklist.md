@@ -1,3 +1,8 @@
+---
+project: {{project-name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Checklist
 
 Run after completing a task:

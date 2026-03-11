@@ -107,10 +107,16 @@ Generate research files following the template structure.
 
 ## Guidelines
 
-- **Always check cache first**: Before webfetch, check .artifacts/research/
-- **Include metadata**: Every research file must have YAML frontmatter
-- **Respect TTL**: Don't use expired cache without verification
-- **Version matters**: If spec mentions version, verify cache matches
-- **Update, don't duplicate**: Refresh existing files instead of creating new ones
-- **Be targeted**: Only research what's relevant to the feature
-- **Cite sources**: Include URLs for verification
+**DO:**
+- Check cache first before fetching -- look in .artifacts/research/
+- Include YAML frontmatter metadata in every research file
+- Verify cache matches when spec mentions a specific version
+- Refresh existing files instead of creating new ones
+- Only research what is relevant to the feature
+- Include source URLs for verification
+
+**DON'T:**
+- Use expired cache without verification
+- Create duplicate research files for the same topic
+- Omit YAML frontmatter from research files
+- Research broadly without feature relevance

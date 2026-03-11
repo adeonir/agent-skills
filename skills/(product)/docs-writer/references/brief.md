@@ -41,13 +41,21 @@ Note: Topic 3 (Market & Differentiation) is discovered during PRD discovery but 
 
 ## Guidelines
 
+**DO:**
 - Keep it to 1 page equivalent -- concise and scannable
-- What, Why, Who are narrative paragraphs, not bullet lists
-- Scope lists only must-haves -- the full MoSCoW breakdown lives in the PRD
-- Success Metrics pulls from Goals & Success Metrics in PRD section 2
-- Risks surfaces what could change the direction, not an exhaustive risk register
-- If something has no data from discovery, omit it rather than writing TBD -- the brief should only contain what is known
-- The Brief tells the story of the product. The PRD provides the specification. Never duplicate structure between them
+- Write What, Why, Who as narrative paragraphs
+- List only must-haves in Scope -- the full MoSCoW breakdown lives in the PRD
+- Pull Success Metrics from Goals & Success Metrics in PRD section 2
+- Surface risks that could change the direction
+- Omit sections that have no data from discovery rather than writing TBD -- the brief should only contain what is known
+- Tell the story of the product -- the PRD provides the specification
+
+**DON'T:**
+- Use bullet lists for What, Why, Who sections
+- Include the full MoSCoW breakdown -- that belongs in the PRD
+- Turn Risks into an exhaustive risk register
+- Write TBD for sections with no discovery data -- omit them instead
+- Duplicate structure between the Brief and the PRD
 
 ## Output
 

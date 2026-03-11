@@ -12,6 +12,18 @@ npx skills add adeonir/agent-skills --skill project-index
 
 Creates an `.agents/` directory with structured documentation that any AI agent can consume to understand your project.
 
+```mermaid
+flowchart TD
+    A[initialize] --> B[overview]
+    A --> C{brownfield?}
+    C -->|yes| D[summary]
+    C -->|no| E[done]
+    B --> F[.agents/project.md]
+    D --> G[.agents/codebase/]
+    F --> H[AGENTS.md]
+    G --> H
+```
+
 | Command | What It Generates |
 |---------|-------------------|
 | **initialize** | Everything (overview + summary if existing code found) |

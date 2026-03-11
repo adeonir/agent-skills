@@ -23,6 +23,27 @@ initialize --> overview + summary
 
 Each command can be used independently or chained via initialize.
 
+## Context Loading Strategy
+
+Load only the reference matching the current trigger. Never load multiple references simultaneously.
+
+## Triggers
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Initialize project, setup project, index project | [initialize.md](references/initialize.md) |
+| Overview, project context | [overview.md](references/overview.md) |
+| Summary, map codebase, analyze codebase | [summary.md](references/summary.md) |
+
+## Cross-References
+
+```
+initialize.md ----> overview.md
+initialize.md ----> summary.md (if brownfield)
+overview.md ------> root-agents.md (auto-update AGENTS.md)
+summary.md -------> root-agents.md (auto-update AGENTS.md)
+```
+
 ## Output Structure
 
 ```
@@ -56,27 +77,6 @@ AGENTS.md                   # Root file (auto-generated)
 | Checklist | [checklist.md](templates/checklist.md) |
 | Workflows | [workflows.md](templates/workflows.md) |
 | Concerns | [concerns.md](templates/concerns.md) |
-
-## Triggers
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Initialize project, setup project, index project | [initialize.md](references/initialize.md) |
-| Overview, project context | [overview.md](references/overview.md) |
-| Summary, map codebase, analyze codebase | [summary.md](references/summary.md) |
-
-## Cross-References
-
-```
-initialize.md ----> overview.md
-initialize.md ----> summary.md (if brownfield)
-overview.md ------> root-agents.md (auto-update AGENTS.md)
-summary.md -------> root-agents.md (auto-update AGENTS.md)
-```
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. Never load multiple references simultaneously.
 
 ## Output Size Budget
 

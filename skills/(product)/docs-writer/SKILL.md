@@ -27,19 +27,6 @@ trigger --> detect type --> load reference --> discovery --> drafting
 
 Detect document type from the trigger. If ambiguous, ask the user which type they want.
 
-## Document Types
-
-| Type | Workflow | Reference | Template |
-|------|----------|-----------|----------|
-| PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
-| Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
-| Design Doc | discovery -> analysis -> drafting | [design.md](references/design.md) | [design.md](templates/design.md) |
-| Pitch | [clarification] -> drafting | [pitch.md](references/pitch.md) | [pitch.md](templates/pitch.md) |
-| Scope | direct drafting | [scope.md](references/scope.md) | [scope.md](templates/scope.md) |
-| Bug | structured collection -> drafting | [bug.md](references/bug.md) | [bug.md](templates/bug.md) |
-| RFC | [clarification] -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
-| ADR | [clarification] -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
-
 ## Context Loading Strategy
 
 Load the reference and template matching the detected document type. For types that require discovery, also load [discovery.md](references/discovery.md).
@@ -61,41 +48,6 @@ Load the reference and template matching the detected document type. For types t
 | Create design doc, design system, technical design | Design Doc | [design.md](references/design.md) |
 | Create document, write doc | Ask user | -- |
 
-## Shared Discovery Patterns
-
-**LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
-
-Discovery applies to: PRD, Design Doc.
-Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Pitch.
-Neither applies to: Scope, Bug (uses structured collection instead), Brief (generated as part of PRD workflow).
-
-## Output
-
-All documents save to `.artifacts/docs/`. Create the directory if it doesn't exist.
-
-| Type | Filename |
-|------|----------|
-| PRD | `prd.md` |
-| Brief | `brief.md` |
-| Design Doc | `design.md` |
-| Pitch | `pitch.md` |
-| Scope | `scope.md` |
-| Bug | `bug.md` |
-| RFC | `rfc/{number}-{name}.md` |
-| ADR | `adr/{number}-{name}.md` |
-
-For ADR and RFC, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in the respective subdirectory.
-
-## Quality Standards
-
-Requirements must be concrete and measurable across all document types.
-
-| Bad | Good |
-|-----|------|
-| "Search should be fast" | "Search returns results within 200ms" |
-| "Easy to use" | "New users complete onboarding in under 2 minutes" |
-| "Intuitive interface" | "Task completion rate above 90% without help text" |
-
 ## Cross-References
 
 ```
@@ -115,6 +67,37 @@ Notes:
 - **Design Doc**: When PRD exists, the Design Doc focuses on technical strategy; without PRD, it covers both product context and technical design
 - **Pitch -> Scope**: A pitch defines the feature as a whole; scopes are technical slices within it. Scopes have no acceptance criteria -- validation happens at the pitch level.
 
+## Document Types
+
+| Type | Workflow | Reference | Template |
+|------|----------|-----------|----------|
+| PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
+| Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
+| Design Doc | discovery -> analysis -> drafting | [design.md](references/design.md) | [design.md](templates/design.md) |
+| Pitch | [clarification] -> drafting | [pitch.md](references/pitch.md) | [pitch.md](templates/pitch.md) |
+| Scope | direct drafting | [scope.md](references/scope.md) | [scope.md](templates/scope.md) |
+| Bug | structured collection -> drafting | [bug.md](references/bug.md) | [bug.md](templates/bug.md) |
+| RFC | [clarification] -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
+| ADR | [clarification] -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
+
+## Shared Discovery Patterns
+
+**LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
+
+Discovery applies to: PRD, Design Doc.
+Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Pitch.
+Neither applies to: Scope, Bug (uses structured collection instead), Brief (generated as part of PRD workflow).
+
+## Quality Standards
+
+Requirements must be concrete and measurable across all document types.
+
+| Bad | Good |
+|-----|------|
+| "Search should be fast" | "Search returns results within 200ms" |
+| "Easy to use" | "New users complete onboarding in under 2 minutes" |
+| "Intuitive interface" | "Task completion rate above 90% without help text" |
+
 ## Guidelines
 
 **DO:**
@@ -130,6 +113,23 @@ Notes:
 - Include visual/design direction (that belongs in design-builder)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Mix document types in a single file
+
+## Output
+
+All documents save to `.artifacts/docs/`. Create the directory if it doesn't exist.
+
+| Type | Filename |
+|------|----------|
+| PRD | `prd.md` |
+| Brief | `brief.md` |
+| Design Doc | `design.md` |
+| Pitch | `pitch.md` |
+| Scope | `scope.md` |
+| Bug | `bug.md` |
+| RFC | `rfc/{number}-{name}.md` |
+| ADR | `adr/{number}-{name}.md` |
+
+For ADR and RFC, use kebab-case for `{name}` and auto-detect the next sequential number from existing files in the respective subdirectory.
 
 ## Error Handling
 

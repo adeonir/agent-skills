@@ -106,10 +106,16 @@ draft --> under-review --> accepted / rejected / withdrawn
 
 ## Guidelines
 
-- RFCs should be self-contained -- a reader should understand the proposal without external context
-- Alternatives must include genuine options, not straw-man arguments
-- Unresolved questions are expected -- don't force premature decisions
-- An accepted RFC can lead to an ADR (use docs-writer to create one)
+**DO:**
+- Make RFCs self-contained -- a reader should understand the proposal without external context
+- Include genuine alternatives with real trade-offs
+- Keep unresolved questions open -- they are expected
+- Create an ADR when an RFC is accepted (use docs-writer)
+
+**DON'T:**
+- Require external context to understand the proposal
+- Use straw-man arguments as alternatives
+- Force premature decisions on unresolved questions
 
 ## Output
 

@@ -84,13 +84,19 @@ If any item fails, fix it before saving. Report remaining gaps in `notes.uncerta
 
 ## Guidelines
 
-1. **Extract EXACT values** -- use color picker precision, don't approximate
-2. **Identify fonts** -- suggest Google Fonts equivalents if unsure
-3. **Capture ALL states** -- hover, focus, active, disabled
-4. **Document anti-patterns** -- in `principles.avoid`, list what NOT to do
-5. **Be specific** -- values in px, rem, hex. Nothing generic.
-6. **Capture layout structure** -- the `layout` block is critical for downstream variant generation. Document hero composition, section flow order, grid patterns, card styles, and decorative elements exactly as they appear in the reference.
-7. **Avoid generic tokens** -- no generic purple gradients, Inter as only font, 8px radius on everything, heavy shadows, cramped spacing, missing hover states, or vague descriptions like "nice blue"
+**DO:**
+- Extract exact color values with color picker precision (HEX, not approximations)
+- Identify fonts and suggest Google Fonts equivalents when unsure
+- Capture all interactive states: hover, focus, active, disabled
+- Document anti-patterns in `principles.avoid` (at least 2)
+- Use specific values in px, rem, hex -- nothing generic
+- Capture layout structure in the `layout` block: hero composition, section flow order, grid patterns, card styles, and decorative elements exactly as they appear in the reference
+
+**DON'T:**
+- Approximate colors -- extract exact values
+- Use generic tokens: no generic purple gradients, Inter as only font, 8px radius on everything, heavy shadows, cramped spacing, or missing hover states
+- Write vague descriptions like "nice blue" -- be precise
+- Skip the layout block -- it is critical for downstream variant generation
 
 ## Error Handling
 

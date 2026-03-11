@@ -1,3 +1,8 @@
+---
+project: {{project-name}}
+created: {{YYYY-MM-DD}}
+---
+
 # Integrations
 
 | Service | Purpose | Auth Method | Config |

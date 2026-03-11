@@ -68,10 +68,16 @@ Inform user:
 
 ## Guidelines
 
+**DO:**
 - Keep project.md focused on WHAT and WHO, not HOW (implementation)
-- One paragraph for purpose, not a wall of text
-- Integration points should list external services, not internal modules
-- Stack section is a quick reference, not an exhaustive dependency list
+- Use one paragraph for purpose
+- List external services in integration points
+- Keep stack section as a quick reference
+
+**DON'T:**
+- Write a wall of text for purpose
+- List internal modules as integration points
+- Turn stack into an exhaustive dependency list
 
 ## Error Handling
 

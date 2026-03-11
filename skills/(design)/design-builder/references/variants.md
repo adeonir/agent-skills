@@ -255,18 +255,25 @@ Generate `index.html` with all variants in a dark UI for side-by-side comparison
 
 ## Guidelines
 
-1. **Always 4+ variants**: Generate all 4 fixed presets (plus custom if requested)
-2. **Simple HTML+CSS**: No frameworks, no build tools -- just static files
-3. **Preserve tokens**: All variants use the same design.json (colors, fonts base, spacing base)
-4. **Preserve layout skeleton**: All variants follow the same structural skeleton from reference image + `design.json > layout`
-5. **Identical copy**: Same textual content across all variants
-6. **Comment headers**: Each file starts with variant identifier comment
-7. **Validation**: If design.json doesn't exist, suggest running extract design first
-8. **Apply aesthetics.md**: Follow its guidelines for typography, color, motion, and spatial composition in every variant
-9. **Apply web-standards.md**: Follow its rules for accessibility, animation, images, and anti-patterns in every variant
-10. **Distinct font pairings**: Each variant MUST use a different font combination
-11. **Reference validation**: Re-read the reference image to validate structural fidelity
-12. **12 dimensions**: Each preset must define its unique mix across all 12 visual dimensions
+**DO:**
+- Generate all 4 fixed presets (plus custom if requested)
+- Use simple HTML+CSS only -- no frameworks, no build tools, just static files
+- Preserve design.json tokens across all variants (colors, fonts base, spacing base)
+- Preserve layout skeleton from reference image + `design.json > layout` in every variant
+- Keep identical textual content across all variants
+- Start each file with a variant identifier comment
+- Apply aesthetics.md guidelines for typography, color, motion, and spatial composition
+- Apply web-standards.md rules for accessibility, animation, images, and anti-patterns
+- Use distinct font pairings for each variant
+- Re-read the reference image to validate structural fidelity
+- Define each preset's unique mix across all 12 visual dimensions
+
+**DON'T:**
+- Skip any of the 4 fixed presets
+- Use frameworks or build tools -- output must be plain HTML+CSS
+- Change the structural skeleton between variants -- only visual treatment differs
+- Reuse the same font pairing across multiple variants
+- Generate variants without design.json -- suggest running extract design first
 
 ## Error Handling
 

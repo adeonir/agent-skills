@@ -113,8 +113,14 @@ After exploration, if `.agents/codebase/` exists, new findings are persisted bac
 
 ## Guidelines
 
-- **Read content**: Don't just list files - READ them to extract actual patterns
-- **Be specific**: Always include file:line references for every pattern
-- **Be comprehensive**: Cover naming, imports, error handling, types, testing
-- **Follow template**: Use exact sections above
-- **Prioritize**: Focus on patterns most relevant to the feature being built
+**DO:**
+- Read file content to extract actual patterns -- not just list files
+- Include file:line references for every pattern
+- Cover naming, imports, error handling, types, testing
+- Follow the exploration template structure
+- Focus on patterns most relevant to the feature being built
+
+**DON'T:**
+- List files without reading their content
+- Omit file:line references for discovered patterns
+- Skip areas like error handling or testing conventions

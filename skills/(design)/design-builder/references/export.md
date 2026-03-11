@@ -38,8 +38,13 @@ The MCP captures the live browser state as editable frames -- not screenshots. L
 
 ## Guidelines
 
-1. **Always verify MCP first** -- never skip the connection check
-2. **User confirms visually** -- each page must be reviewed in browser before sending
+**DO:**
+- Always verify MCP connection before attempting export
+- Have user confirm each page visually in browser before sending
+
+**DON'T:**
+- Skip the MCP connection check
+- Send to Figma without user reviewing the rendered page first
 
 ## Error Handling
 

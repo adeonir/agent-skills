@@ -69,18 +69,16 @@ All notable changes to this skill will be documented in this file.
 - `aesthetics.md` reference with unified design principles (typography, color, motion, spatial composition, backgrounds, visual hierarchy, anti-patterns, responsive behavior, component states, depth and elevation)
 - Implementation Concerns section in `frontend.md` (Accessibility, Responsive Implementation, Theme Tokens)
 
-### Removed
-
-- External `frontend-design` skill dependency absorbed into `aesthetics.md`
-- "Required Skills" section and install-check logic from SKILL.md
-
-## 2026-02-19
-
 ### Changed
 
 - Export workflow now uses Figma MCP server directly instead of HTML intermediary
 - Export requires variants as input instead of allowing direct export
 - Penpot support and YashiTech extension dependency removed
+
+### Removed
+
+- External `frontend-design` skill dependency absorbed into `aesthetics.md`
+- "Required Skills" section and install-check logic from SKILL.md
 
 ## 2026-02-13
 
