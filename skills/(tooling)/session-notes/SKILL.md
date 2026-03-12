@@ -1,6 +1,7 @@
 ---
 name: session-notes
-description: Create and manage Obsidian notes for projects, companies, technical
+description: >-
+  Create and manage Obsidian notes for projects, companies, technical
   challenges, brag documents, daily logs, AI conversations, and quick captures
   using the Obsidian CLI. Use when documenting projects with PRD/Design Doc/ADR,
   tracking job applications to companies, recording technical interview
@@ -24,7 +25,8 @@ Create and manage Obsidian notes using the Obsidian CLI for structured documenta
 ## Workflow
 
 ```
-target-vault --> select-type --> create-note --> populate-content --> preview --> confirm --> write --> link-related
+target-vault --> select-type --> create-note --> populate
+  --> preview --> confirm --> write --> link-related
 ```
 
 Each note type has its own workflow. Use any type independently based on user needs.

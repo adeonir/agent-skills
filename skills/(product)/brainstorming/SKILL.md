@@ -1,6 +1,7 @@
 ---
 name: brainstorming
-description: Structured idea exploration from vague to direction. Discover
+description: >-
+  Structured idea exploration from vague to direction. Discover
   context, diverge with techniques (constraint removal, analogy, inversion,
   converge on a direction with trade-off analysis, capture as artifact. Produces
   output that feeds docs-writer, spec-driven, and design-builder. Use when ideas
@@ -22,8 +23,7 @@ Structured idea exploration from vague to direction.
 
 ```
 discover --> diverge --> converge --> capture
-   ^                       |
-   |_______________________|  (if no viable direction)
+  ^________________________|  (if no viable direction)
 ```
 
 Discover maps the problem space (context, constraints, success criteria). Diverge

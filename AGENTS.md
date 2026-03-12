@@ -45,7 +45,7 @@ metadata:
 Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
 
 Formatting rules:
-- Use YAML line continuation with 2-space indentation (not folded block `>-`)
+- Use YAML folded block `>-` with 2-space indentation
 - Keep each line under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
 - Max 1024 characters total (skills.sh spec limit)
 
@@ -126,7 +126,7 @@ Installation always uses `npx skills add adeonir/agent-skills --skill {name}`.
 - Direct, imperative voice: "Create", "Load", "Check" (not "You should create")
 - No emojis in prose or commit messages
 - English throughout
-- ASCII diagrams for workflows (box-and-arrow or simple `-->` arrows)
+- Simple `-->` arrows for workflows, optional loop with `^` and `|___|`, no pipes or box-drawing, lines under 70 chars
 - Tables for structured information (triggers, phases, comparisons)
 - Guidelines always in DO/DON'T format
 - Error handling always in `- Condition: action` format

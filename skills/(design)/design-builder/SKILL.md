@@ -1,6 +1,7 @@
 ---
 name: design-builder
-description: Design-to-code pipeline (extract copy from URLs, extract design
+description: >-
+  Design-to-code pipeline (extract copy from URLs, extract design
   tokens from images, then build React components or HTML preview variants). Use
   when extracting content from websites, extracting design systems, generating
   frontend code, previewing design variants, sending to Figma via MCP. Also use

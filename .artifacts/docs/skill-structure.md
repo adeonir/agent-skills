@@ -45,7 +45,8 @@ The main file. Acts as a router: detects the trigger and loads the right referen
 ```yaml
 ---
 name: skill-name
-description: Short sentence of what it does. Details about capabilities.
+description: >-
+  Short sentence of what it does. Details about capabilities.
   Use when: usage contexts. Also use when: adjacent contexts.
   Triggers on "phrase 1", "phrase 2", "phrase 3".
 metadata:
@@ -57,11 +58,11 @@ metadata:
 Frontmatter rules:
 
 - `name`: kebab-case, matches the directory name
-- `description`: multi-line string, max 1024 characters (skills.sh spec limit)
+- `description`: folded block `>-` string, max 1024 characters (skills.sh spec limit)
   - Structure: what it does + when to use + specific triggers
   - Include varied trigger phrases to improve matching
-  - Use line continuation with indentation (not folded block `>-`)
-  - Keep lines under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
+  - Use `>-` with 2-space indentation
+  - Keep lines under 80 characters
 - `version`: always `"1.0.0"` -- never increment
 - `author`: full name (e.g. `Adeonir Kohl`)
 
@@ -82,14 +83,14 @@ All skills follow this exact order:
 
 ### Workflow
 
-Text diagram showing the main flow:
+Simple `-->` arrows. Optional loop on second line with `^` and `|___|`. No pipes or box-drawing. Keep lines under 70 chars.
 
 ```
 phase-1 --> phase-2 --> phase-3 --> output
-     ^________________________|
+  ^_________________________|  (note about the loop)
 ```
 
-Include loops when the workflow is iterative. One sentence explaining the flow right below.
+One sentence explaining the flow right below.
 
 ### Context Loading Strategy
 

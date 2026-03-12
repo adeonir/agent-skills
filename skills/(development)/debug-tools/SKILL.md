@@ -1,6 +1,7 @@
 ---
 name: debug-tools
-description: Iterative debugging workflow with confidence scoring, pattern
+description: >-
+  Iterative debugging workflow with confidence scoring, pattern
   comparison, and strategic log injection. Flexible investigate-fix-verify
   loop with escalation after 3 failed attempts. Use when debugging unexpected
   behavior, silent errors, intermittent failures, or issues requiring runtime
@@ -21,10 +22,8 @@ Iterative debugging workflow with flexible technique selection and escalation.
 ## Workflow
 
 ```
-investigate --> [techniques as needed] --> propose fix --> verify --> done
-     ^                                                       |
-     |_______________________________________________________|
-                        (max 3 attempts, then escalate)
+investigate --> fix --> verify --> done
+  ^_______________________|  (max 3 attempts, then escalate)
 ```
 
 Core loop: investigate, fix, verify. Techniques (log injection, pattern

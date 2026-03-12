@@ -1,6 +1,7 @@
 ---
 name: spec-driven
-description: Specification-driven development with adaptive phases (Specify,
+description: >-
+  Specification-driven development with adaptive phases (Specify,
   Plan, Tasks, Execute). Auto-sizes depth by complexity. Creates structured
   feature specs with traceability to requirements. Use when planning features,
   implementing with verification, or tracking decisions across sessions. Also
@@ -21,11 +22,8 @@ Structured development workflow with adaptive depth. Right ceremony for the righ
 ## Workflow
 
 ```
-specify --> plan --> tasks --> execute
-  |          |        |         |
-  required   opt*     opt*      required
-  |__________|________|_________|
-       verify after each task
+specify --> plan* --> tasks* --> execute
+  ^___________________________|  (verify after each task)
 ```
 
 Adaptive pipeline: Specify and Execute always run; Plan and Tasks auto-skip when scope is small enough. Verification is continuous throughout Execute.

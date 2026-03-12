@@ -25,7 +25,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and codebase documentation. Creates `.agents/` with project overview and deep analysis |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Plan, Tasks, Execute. Auto-sized by complexity, full traceability |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
-| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, Pitch, Scope, Bug, RFC, ADR. Guided discovery per type |
+| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, Pitch, Scope, Bug, RFC, ADR. Guided discovery per type |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, and pull request creation |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, conversations, and captures |

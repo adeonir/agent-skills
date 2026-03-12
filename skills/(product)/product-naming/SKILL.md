@@ -1,6 +1,7 @@
 ---
 name: product-naming
-description: Research and validate product names through two phases. Phase 1
+description: >-
+  Research and validate product names through two phases. Phase 1
   generates candidates with competitor analysis, quality scoring, and name
   variations. Phase 2 validates availability across domains, social media,
   and trademark databases. Use when naming products, startups, apps, or
@@ -22,11 +23,7 @@ Research, evaluate, and validate product/startup/app names with domain, social m
 ## Workflow
 
 ```
-detect entry --> [Phase 1: Research] --> present results
-                                            |
-                                     user decides to validate
-                                            |
-                                     [Phase 2: Validation] --> output report
+detect entry --> research --> present --> validate* --> report
 ```
 
 Two phases with implicit transition: the agent presents research results and the user decides whether to proceed to validation.
