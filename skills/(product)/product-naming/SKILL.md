@@ -13,7 +13,6 @@ description: >-
   "check availability of".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Product Naming

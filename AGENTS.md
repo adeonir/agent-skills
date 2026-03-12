@@ -38,7 +38,6 @@ description: Multi-line with        # Max 1024 chars (skills.sh spec limit)
   Triggers on "phrase 1", "phrase 2".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"                  # Quoted string
 ---
 ```
 

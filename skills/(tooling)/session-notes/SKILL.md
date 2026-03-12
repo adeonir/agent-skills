@@ -15,7 +15,6 @@ description: >-
   "obsidian markdown".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Session Notes

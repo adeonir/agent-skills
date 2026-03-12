@@ -51,7 +51,6 @@ description: >-
   Triggers on "phrase 1", "phrase 2", "phrase 3".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 ```
 
@@ -63,7 +62,6 @@ Frontmatter rules:
   - Include varied trigger phrases to improve matching
   - Use `>-` with 2-space indentation
   - Keep lines under 80 characters
-- `version`: always `"1.0.0"` -- never increment
 - `author`: full name (e.g. `Adeonir Kohl`)
 
 ### Section Order

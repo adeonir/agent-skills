@@ -10,7 +10,6 @@ description: >-
   description", "summarize changes", "done", "ready to push", "check my code".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Git Helpers

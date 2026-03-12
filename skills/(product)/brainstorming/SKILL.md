@@ -12,7 +12,6 @@ description: >-
   "idea exploration", "compare approaches".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Brainstorming

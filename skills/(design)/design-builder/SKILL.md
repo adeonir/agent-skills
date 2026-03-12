@@ -12,7 +12,6 @@ description: >-
   reference", "redesign this", "create prototype".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Design Builder

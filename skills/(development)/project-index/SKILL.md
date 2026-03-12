@@ -9,7 +9,6 @@ description: >-
   "summary", "map codebase", "index project", "analyze codebase".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Project Index

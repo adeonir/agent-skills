@@ -12,7 +12,6 @@ description: >-
   this into tasks", "plan this feature", "record decision", "show state".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Spec-Driven Development

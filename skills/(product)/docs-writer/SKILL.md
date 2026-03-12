@@ -15,7 +15,6 @@ description: >-
   "write requirements".
 metadata:
   author: Adeonir Kohl
-  version: "1.0.0"
 ---
 
 # Docs Writer
