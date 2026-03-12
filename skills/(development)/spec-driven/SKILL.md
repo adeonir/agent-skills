@@ -1,15 +1,15 @@
 ---
 name: spec-driven
 description: >-
-  Specification-driven development with adaptive phases (Specify,
-  Plan, Tasks, Execute). Auto-sizes depth by complexity. Creates structured
-  feature specs with traceability to requirements. Use when planning features,
-  implementing with verification, or tracking decisions across sessions. Also
-  use when the user wants to break a feature into tasks, plan before coding,
-  track implementation progress, or organize work into specs and plans. Triggers
-  on "create feature", "specify feature", "plan", "tasks", "execute",
-  "implement", "validate", "quick fix", "quick task", "discuss feature", "break
-  this into tasks", "plan this feature", "record decision", "show state".
+  Specification-driven development that auto-sizes depth by complexity.
+  Creates structured feature specs with traceability to requirements. Use when
+  planning features, breaking work into tasks, implementing with verification,
+  or tracking decisions across sessions. Triggers on "create feature", "specify
+  feature", "plan", "tasks", "execute", "implement", "validate", "quick fix",
+  "quick task", "discuss feature", "break this into tasks", "plan this
+  feature", "record decision", "show state".
+license: MIT
+allowed-tools: Read, Write, Bash, WebSearch, WebFetch
 metadata:
   author: Adeonir Kohl
 ---

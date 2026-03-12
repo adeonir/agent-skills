@@ -46,9 +46,10 @@ The main file. Acts as a router: detects the trigger and loads the right referen
 ---
 name: skill-name
 description: >-
-  Short sentence of what it does. Details about capabilities.
-  Use when: usage contexts. Also use when: adjacent contexts.
+  Short sentence of what it does. Use when: usage contexts.
   Triggers on "phrase 1", "phrase 2", "phrase 3".
+license: MIT
+allowed-tools: Read, Write, Bash
 metadata:
   author: Adeonir Kohl
 ---
@@ -59,10 +60,13 @@ Frontmatter rules:
 - `name`: kebab-case, matches the directory name
 - `description`: folded block `>-` string, max 1024 characters (skills.sh spec limit)
   - Structure: what it does + when to use + specific triggers
+  - Avoid internal mechanics (phases, loops, stages) -- focus on what and when
   - Include varied trigger phrases to improve matching
   - Use `>-` with 2-space indentation
   - Keep lines under 80 characters
-- `author`: full name (e.g. `Adeonir Kohl`)
+- `license`: `MIT` for all skills in this repository
+- `allowed-tools`: comma-separated list of tools the skill uses (experimental, per spec)
+- `author`: full name under `metadata` (e.g. `Adeonir Kohl`)
 
 ### Section Order
 

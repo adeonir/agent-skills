@@ -4,15 +4,13 @@ description: >-
   Generate structured product and technical documents through guided
   discovery. 9 document types (PRD, Brief, Design Doc, TDD, Pitch, Scope, Bug,
   RFC, ADR). Use when defining products, designing systems, reporting bugs,
-  planning tasks, writing stories, proposing changes, recording decisions. Also
-  use when the user wants to document a feature idea, write requirements,
-  formalize a decision, describe a bug they found, plan technical architecture,
-  or needs any structured document for a project. Triggers on "create PRD",
-  "create design doc", "design system", "create TDD", "technical design
-  document", "technical design", "create pitch", "new feature", "feature
-  request", "create scope", "report bug", "fix bug", "create RFC", "create
-  ADR", "create document", "write doc", "document this", "need a spec",
-  "write requirements".
+  proposing changes, recording decisions, or when the user needs any structured
+  document for a project. Triggers on "create PRD", "create design doc",
+  "create TDD", "technical design", "create pitch", "new feature", "feature
+  request", "create scope", "report bug", "create RFC", "create ADR", "create
+  document", "write doc", "document this", "need a spec", "write requirements".
+license: MIT
+allowed-tools: Read, Write
 metadata:
   author: Adeonir Kohl
 ---

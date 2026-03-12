@@ -2,14 +2,13 @@
 name: debug-tools
 description: >-
   Iterative debugging workflow with confidence scoring, pattern
-  comparison, and strategic log injection. Flexible investigate-fix-verify
-  loop with escalation after 3 failed attempts. Use when debugging unexpected
-  behavior, silent errors, intermittent failures, or issues requiring runtime
-  data. Also use when the user says something isn't working, behavior is
-  inconsistent, tests pass but app fails, works in dev but not in prod, or
-  wants to trace execution flow. Triggers on "debug", "fix bug", "investigate",
-  "trace issue", "add debug logs", "cleanup debug logs", "why is this broken",
-  "not working".
+  comparison, and strategic log injection. Use when debugging unexpected
+  behavior, silent errors, intermittent failures, or when something isn't
+  working, tests pass but app fails, or works in dev but not in prod. Triggers
+  on "debug", "fix bug", "investigate", "trace issue", "add debug logs",
+  "cleanup debug logs", "why is this broken", "not working".
+license: MIT
+allowed-tools: Read, Grep, Bash
 metadata:
   author: Adeonir Kohl
 ---

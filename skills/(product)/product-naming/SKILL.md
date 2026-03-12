@@ -1,16 +1,15 @@
 ---
 name: product-naming
 description: >-
-  Research and validate product names through two phases. Phase 1
-  generates candidates with competitor analysis, quality scoring, and name
-  variations. Phase 2 validates availability across domains, social media,
-  and trademark databases. Use when naming products, startups, apps, or
-  brands. Also use when the user provides name candidates to evaluate,
-  asks to check domain availability, wants name suggestions, or any
-  naming-related task. Triggers on "suggest names for", "find a name for",
-  "what should I call", "name ideas for", "evaluate these names",
+  Research and validate product names with competitor analysis, quality
+  scoring, domain and social media availability, and trademark checks. Use
+  when naming products, startups, apps, or brands, evaluating name candidates,
+  or checking domain availability. Triggers on "suggest names for", "find a
+  name for", "what should I call", "name ideas for", "evaluate these names",
   "check if a name is available", "domain available", "check this name",
   "check availability of".
+license: MIT
+allowed-tools: Bash, WebSearch
 metadata:
   author: Adeonir Kohl
 ---

@@ -1,15 +1,14 @@
 ---
 name: brainstorming
 description: >-
-  Structured idea exploration from vague to direction. Discover
-  context, diverge with techniques (constraint removal, analogy, inversion,
-  converge on a direction with trade-off analysis, capture as artifact. Produces
-  output that feeds docs-writer, spec-driven, and design-builder. Use when ideas
-  are vague, multiple directions exist, or the team needs to explore before
-  committing. Also use when the user wants to think through options, compare
-  approaches, or explore before building. Triggers on "brainstorm", "explore
-  ideas", "what should we build", "explore options", "think through this",
-  "idea exploration", "compare approaches".
+  Structured idea exploration from vague to direction. Feeds
+  docs-writer, spec-driven, and design-builder. Use when ideas are vague,
+  multiple directions exist, or the user wants to think through options before
+  building. Triggers on "brainstorm", "explore ideas", "what should we build",
+  "explore options", "think through this", "idea exploration", "compare
+  approaches".
+license: MIT
+allowed-tools: Read, Write
 metadata:
   author: Adeonir Kohl
 ---

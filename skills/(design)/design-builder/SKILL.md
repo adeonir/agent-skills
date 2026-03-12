@@ -2,14 +2,14 @@
 name: design-builder
 description: >-
   Design-to-code pipeline (extract copy from URLs, extract design
-  tokens from images, then build React components or HTML preview variants). Use
-  when extracting content from websites, extracting design systems, generating
-  frontend code, previewing design variants, sending to Figma via MCP. Also use
-  when the user wants to build a page from a reference URL or screenshot,
-  redesign an existing site, create visual prototypes, or generate code from a
-  design. Triggers on "extract copy", "extract design", "build frontend",
-  "generate variants", "export design", "send to Figma", "build from
-  reference", "redesign this", "create prototype".
+  tokens from images, build React components or HTML preview variants). Use
+  when building pages from reference URLs or screenshots, extracting design
+  systems, generating frontend code, previewing variants, redesigning sites,
+  or sending to Figma via MCP. Triggers on "extract copy", "extract design",
+  "build frontend", "generate variants", "export design", "send to Figma",
+  "build from reference", "redesign this", "create prototype".
+license: MIT
+allowed-tools: Read, Write, WebFetch
 metadata:
   author: Adeonir Kohl
 ---
