@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Auto-loaded by PRD and Design Doc workflows during the discovery phase. Not a direct trigger.
+Auto-loaded by PRD, Design Doc, and TDD workflows during the discovery phase. Not a direct trigger.
 
 ## Core Principle
 
@@ -52,7 +52,8 @@ Move on when:
 | Type | Topics | Focus |
 |------|--------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
-| Design Doc | 3 topics | Requirements & stack, architecture & integrations, security/compliance/testing |
+| Design Doc | 3 topics | System overview, architecture & design, cross-cutting concerns |
+| TDD | 3 topics | Requirements & stack, architecture & integrations, operations & risk |
 
 **Clarification only** (ask only when input is incomplete):
 

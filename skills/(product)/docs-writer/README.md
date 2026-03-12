@@ -18,6 +18,7 @@ flowchart LR
     R --> PRD[PRD]
     R --> B[Brief]
     R --> DD[Design Doc]
+    R --> TDD[TDD]
     R --> P[Pitch]
     R --> S[Scope]
     R --> BG[Bug]
@@ -32,6 +33,7 @@ flowchart LR
 | **PRD** | discovery -> validation -> synthesis -> drafting | `prd.md` |
 | **Brief** | generated with PRD | `brief.md` |
 | **Design Doc** | discovery -> analysis -> drafting | `design.md` |
+| **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
 ### Shape Up-style (features & work items)
 
@@ -53,6 +55,7 @@ flowchart LR
 ```
 create PRD for my project
 create design doc for API gateway
+create TDD for payment service
 create pitch for date filter feature
 create scope for the search endpoint
 report bug in the login flow

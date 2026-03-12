@@ -1,15 +1,18 @@
 ---
 name: docs-writer
-description: Generate structured product and technical documents through guided
-  discovery. 8 document types (PRD, Brief, Design Doc, Pitch, Scope, Bug, RFC,
-  ADR). Use when defining products, designing systems, reporting bugs, planning
-  tasks, writing stories, proposing changes, recording decisions. Also use when
-  the user wants to document a feature idea, write requirements, formalize a
-  decision, describe a bug they found, plan technical architecture, or needs any
-  structured document for a project. Triggers on "create PRD", "create design
-  doc", "design system", "create pitch", "new feature", "feature request",
-  "create scope", "report bug", "fix bug", "create RFC", "create ADR", "create
-  document", "write doc", "document this", "need a spec", "write requirements".
+description: >-
+  Generate structured product and technical documents through guided
+  discovery. 9 document types (PRD, Brief, Design Doc, TDD, Pitch, Scope, Bug,
+  RFC, ADR). Use when defining products, designing systems, reporting bugs,
+  planning tasks, writing stories, proposing changes, recording decisions. Also
+  use when the user wants to document a feature idea, write requirements,
+  formalize a decision, describe a bug they found, plan technical architecture,
+  or needs any structured document for a project. Triggers on "create PRD",
+  "create design doc", "design system", "create TDD", "technical design
+  document", "technical design", "create pitch", "new feature", "feature
+  request", "create scope", "report bug", "fix bug", "create RFC", "create
+  ADR", "create document", "write doc", "document this", "need a spec",
+  "write requirements".
 metadata:
   author: Adeonir Kohl
   version: "1.0.0"
@@ -17,7 +20,7 @@ metadata:
 
 # Docs Writer
 
-Generate structured documents through guided discovery. 8 document types, each with its own workflow depth.
+Generate structured documents through guided discovery. 9 document types, each with its own workflow depth.
 
 ## Workflow
 
@@ -45,18 +48,21 @@ Load the reference and template matching the detected document type. For types t
 | Report bug, fix bug | Bug | [bug.md](references/bug.md) |
 | Create RFC, propose change, request for comments | RFC | [rfc.md](references/rfc.md) |
 | Create ADR, record decision, architecture decision | ADR | [adr.md](references/adr.md) |
-| Create design doc, design system, technical design | Design Doc | [design.md](references/design.md) |
+| Create design doc, design system | Design Doc | [design.md](references/design.md) |
+| Create TDD, technical design document, technical design | TDD | [tdd.md](references/tdd.md) |
 | Create document, write doc | Ask user | -- |
 
 ## Cross-References
 
 ```
 PRD -------------> Design Doc     (PRD feeds requirements, context into Design Doc)
+PRD -------------> TDD            (PRD feeds requirements into TDD)
 PRD -------------> Pitch          (PRD scope and journeys inform feature pitches)
 PRD -------------> design-builder (PRD + Brief inform copy and design extraction)
 PRD -------------> spec-driven    (PRD milestones feed spec initialization)
 Pitch -----------> Scope          (pitch defines feature, scopes slice the work)
 Design Doc ------> ADR            (design decisions generate ADRs)
+TDD -------------> ADR            (TDD decisions generate ADRs)
 RFC -------------> ADR            (accepted RFC generates ADR)
 ```
 
@@ -64,7 +70,8 @@ Notes:
 
 - **design-builder**: PRD sections 1, 3-4 (problem, personas, scope) and Brief (value prop, market) inform copy extraction and design extraction
 - **spec-driven**: PRD milestones feed feature initialization -- each milestone can generate a spec with its own tasks
-- **Design Doc**: When PRD exists, the Design Doc focuses on technical strategy; without PRD, it covers both product context and technical design
+- **Design Doc**: When PRD exists, the Design Doc focuses on technical strategy; without PRD, it covers both product context and technical design. Use Design Doc for informal trade-off discussion.
+- **TDD**: Prescriptive technical planning for specific components. A project can have both a Design Doc (system-level decisions) and TDDs (component-level technical plans).
 - **Pitch -> Scope**: A pitch defines the feature as a whole; scopes are technical slices within it. Scopes have no acceptance criteria -- validation happens at the pitch level.
 
 ## Document Types
@@ -74,6 +81,7 @@ Notes:
 | PRD | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md) | [prd.md](templates/prd.md) |
 | Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
 | Design Doc | discovery -> analysis -> drafting | [design.md](references/design.md) | [design.md](templates/design.md) |
+| TDD | discovery -> analysis -> drafting | [tdd.md](references/tdd.md) | [tdd.md](templates/tdd.md) |
 | Pitch | [clarification] -> drafting | [pitch.md](references/pitch.md) | [pitch.md](templates/pitch.md) |
 | Scope | direct drafting | [scope.md](references/scope.md) | [scope.md](templates/scope.md) |
 | Bug | structured collection -> drafting | [bug.md](references/bug.md) | [bug.md](templates/bug.md) |
@@ -84,7 +92,7 @@ Notes:
 
 **LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
 
-Discovery applies to: PRD, Design Doc.
+Discovery applies to: PRD, Design Doc, TDD.
 Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Pitch.
 Neither applies to: Scope, Bug (uses structured collection instead), Brief (generated as part of PRD workflow).
 
@@ -123,6 +131,7 @@ All documents save to `.artifacts/docs/`. Create the directory if it doesn't exi
 | PRD | `prd.md` |
 | Brief | `brief.md` |
 | Design Doc | `design.md` |
+| TDD | `tdd.md` |
 | Pitch | `pitch.md` |
 | Scope | `scope.md` |
 | Bug | `bug.md` |

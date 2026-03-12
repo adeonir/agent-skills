@@ -6,6 +6,15 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-11
+
+### Added
+
+- TDD (Technical Design Document) type with reference and template
+- 15 sections organized by sizing (core/medium/large) with critical sections by project type
+- Auto-sizing logic based on discovery signals
+- Document count updated from 8 to 9 types
+
 ## 2026-03-10
 
 ### Changed
