@@ -14,10 +14,10 @@ Recommended folder structure for the Obsidian vault when using session-notes.
 Vault/
 ├── Projects/
 │   └── Project Name/
-│       ├── project.md
-│       ├── adr-*.md
-│       ├── prd-*.md
-│       └── tdd-*.md
+│       ├── Overview.md
+│       ├── ADR 001.md
+│       ├── PRD.md
+│       └── Design Doc.md
 ├── Companies/
 ├── Challenges/
 ├── Brags/
@@ -37,12 +37,12 @@ Vault/
 
 | Folder | Purpose | Example Files |
 |--------|---------|---------------|
-| `Projects/` | One folder per project (Title Case), `project.md` + related docs | `Project Name/project.md` |
-| `Companies/` | Job search tracking | `stripe-2025.md`, `figma-2024.md` |
-| `Challenges/` | Interview take-homes | `stripe-system-design.md` |
-| `Brags/` | Achievement logs | `2025-brags.md` |
-| `Conversations/` | AI conversation notes | `refactoring-auth-flow.md` |
-| `Daily/` | Journal entries | `2025-03-03.md` |
+| `Projects/` | One folder per project (Title Case), `Overview.md` + related docs | `Project Name/Overview.md` |
+| `Companies/` | Job search tracking | `Stripe 2025.md`, `Figma 2024.md` |
+| `Challenges/` | Interview take-homes | `Stripe/System Design.md` |
+| `Brags/` | Achievement logs | `Brags 2025.md` |
+| `Conversations/` | AI conversation notes | `Refactoring Auth Flow.md` |
+| `Daily/` | Activity logs | `2025-03-03.md` |
 | `Templates/` | Templates for manual note creation via Obsidian | `daily.md`, `project.md` |
 
 ## Setup Commands
@@ -131,13 +131,13 @@ Connect notes using wiki-links:
 
 ```markdown
 # In Daily note
-Worked on [[project-name]] today. See [[stripe-2025]] for context.
+Worked on [[Project Name]] today. See [[Stripe 2025]] for context.
 
 # In Company note
-Technical challenge: [[stripe-system-design-url-shortener]]
+Technical challenge: [[System Design URL Shortener]]
 
 # In Challenge note
-Part of interview for [[stripe-2025]]
+Part of interview for [[Stripe 2025]]
 ```
 
 ## Templates

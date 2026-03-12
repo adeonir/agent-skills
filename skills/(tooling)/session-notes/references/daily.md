@@ -24,7 +24,10 @@ Create quick daily logs and journal entries.
    ```
 
 3. **Compose content**
-   Build the note content based on what the user wants to log.
+   Ask the user what they worked on. Activities include meetings, decisions,
+   research, and other work that may not produce commits. Use git log only
+   as a supplement if the user asks or needs help remembering -- never dump
+   raw commit data into the note.
 
 4. **Preview and confirm**
    Display the full note content and target file path to the user.
@@ -43,10 +46,6 @@ Create quick daily logs and journal entries.
    ```bash
    obsidian daily:append content="- {{content}}"
    ```
-   Prepend for morning planning:
-   ```bash
-   obsidian daily:prepend content="## Morning Plan\n- {{tasks}}"
-   ```
     If CLI is not available, fall back to Write tool to create the file
     directly at the vault path using the daily note path convention
     (`Daily/YYYY-MM-DD.md`). Ask user for vault path on first use.
@@ -58,9 +57,6 @@ For rapid logging throughout the day:
 ```bash
 # Quick append without opening
 obsidian daily:append content="- {{quick note}}"
-
-# Prepend for morning planning
-obsidian daily:prepend content="## Morning Plan\n- {{tasks}}"
 
 # Read current daily note content
 obsidian daily:read
@@ -75,12 +71,9 @@ obsidian tasks daily todo
 Typical daily note sections:
 
 ```markdown
-## Morning
-
-- Intentions for the day
-- Top priorities
-
 ## Activities
+
+### {{Project Name}} (optional subtopics)
 
 - What was worked on
 - Meetings attended
@@ -106,7 +99,7 @@ Typical daily note sections:
 
 **DO:**
 - Keep it brief - 5 minutes max
-- Link to project notes when mentioning projects `[[project-name]]`
+- Link to project notes when mentioning projects `[[Project Name]]`
 - Use bullet points for speed
 - Include emotional state/morale if relevant
 - Tag with #daily or #journal for searchability

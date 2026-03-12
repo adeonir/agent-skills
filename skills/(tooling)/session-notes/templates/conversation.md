@@ -1,9 +1,8 @@
 ---
-created: {{YYYY-MM-DD}}
+date: {{YYYY-MM-DD}}
 source: {{claude-code / claude-ai / chatgpt / gemini / other}}
 topic: {{topic}}
-type: conversation
-tags: [conversation, {{source}}]
+tags: [conversation]
 ---
 # {{short description of what was discussed}}
 

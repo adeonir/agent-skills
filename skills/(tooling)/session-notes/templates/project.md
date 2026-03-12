@@ -1,14 +1,13 @@
 ---
-created: {{YYYY-MM-DD}}
-type: project
-status: {{status}}
+date: {{YYYY-MM-DD}}
+stack: {{technologies}}
 tags: [project]
 ---
 # {{short description of the project}}
 
 ## Summary
 
-{{1-2 frases sobre o projeto}}
+{{1-2 sentences about the project}}
 
 ## Goals
 

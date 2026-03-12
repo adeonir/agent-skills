@@ -33,7 +33,7 @@ Add achievements to brag document for performance reviews and career growth.
    - What was accomplished
    - Context (project, team, situation)
    - Result with metrics (quantify when possible)
-   - Category (impact, technical, leadership, collaboration, growth)
+   - Category (impact, technical, growth)
 
 6. **Preview and confirm**
    Display the full note content (or the new entry to append) and target
@@ -71,7 +71,7 @@ Add achievements to brag document for performance reviews and career growth.
 - Quantify impact when possible (%, $, time saved)
 - Include both technical and soft skill achievements
 - Record achievements as they happen (don't wait for review)
-- Categorize by type (impact, technical, leadership, collaboration, growth)
+- Categorize by type (impact, technical, growth)
 - Include context for future reference
 
 **DON'T:**
@@ -85,9 +85,7 @@ Add achievements to brag document for performance reviews and career growth.
 Common categories for organizing brags:
 - **Impact** - Business results, user metrics
 - **Technical** - Architecture, performance, reliability
-- **Leadership** - Mentoring, process improvements
-- **Collaboration** - Cross-team work, knowledge sharing
-- **Growth** - Learning, certifications, new skills
+- **Growth** - Learning, mentoring, new skills, feedback received
 
 ## Next Steps
 

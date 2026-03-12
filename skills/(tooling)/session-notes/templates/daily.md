@@ -1,15 +1,12 @@
 ---
-created: {{YYYY-MM-DD}}
-type: daily
+date: {{YYYY-MM-DD}}
 tags: [daily]
 ---
-# {{short summary of the day}}
-
-## Morning
-
-- {{intentions for the day}}
+# {{DayOfWeek, Month DD, YYYY}}
 
 ## Activities
+
+### {{project name}} (optional subtopics)
 
 - {{what was worked on}}
 

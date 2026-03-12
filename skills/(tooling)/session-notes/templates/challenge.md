@@ -1,9 +1,7 @@
 ---
-created: {{YYYY-MM-DD}}
-type: challenge
+date: {{YYYY-MM-DD}}
 company: {{company}}
-challenge-type: {{type}}
-technologies: {{technologies}}
+stack: {{technologies}}
 status: {{status}}
 tags: [challenge, interview]
 ---

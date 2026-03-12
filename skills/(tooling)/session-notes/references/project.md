@@ -20,7 +20,7 @@ Create structured documentation for a project in the Obsidian vault.
 2. **Gather project info**
    - Project name
    - Brief summary (1-2 sentences)
-   - Status (planning, active, completed, archived)
+   - Tech stack
 
 3. **Generate folder and filename**
    - Folder: Title Case (e.g., "Checkout Refactor" -> `Projects/Checkout Refactor/`)

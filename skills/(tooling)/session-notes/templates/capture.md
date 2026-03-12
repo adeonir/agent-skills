@@ -1,6 +1,5 @@
 ---
-created: {{YYYY-MM-DD}}
-type: capture
+date: {{YYYY-MM-DD}}
 source: {{url or filename, if applicable}}
 tags: [capture]
 ---

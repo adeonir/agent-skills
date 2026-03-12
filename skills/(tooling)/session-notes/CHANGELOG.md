@@ -6,6 +6,23 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-12
+
+### Changed
+
+- Simplify template frontmatter: remove `type` field, rename `created` to `date`
+- Simplify brag template: consolidate to 3 sections (Impact, Technical, Growth)
+- Simplify company template: remove `size`, `industry`, `source` from frontmatter
+- Simplify challenge template: remove `challenge-type`, rename `technologies` to `stack`
+- Update project template: remove `status`, add `stack`, fix mixed-language placeholder
+- Remove `{{source}}` from conversation template tags
+- Replace dynamic title in daily template with date format
+- Replace Morning section in daily template with project subtopics in Activities
+- Remove `period` from brag template frontmatter
+- Add mid-file editing guideline to SKILL.md for direct vault file edits
+- Update daily reference to ask user about activities instead of defaulting to git log
+- Update all references to match template changes
+
 ## 2026-03-10
 
 ### Added

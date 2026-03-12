@@ -85,6 +85,8 @@ conversation --> brag     (conversation outcomes become achievements)
 - Use `obsidian search` to check if a note exists before creating
 - Run `obsidian help` or `obsidian help <command>` for up-to-date CLI reference
 - Use `silent` flag on `create` to avoid opening the note in Obsidian
+- For mid-file edits, resolve the absolute path with `obsidian vault info=path`
+  combined with the note's relative path, then use the Edit tool directly
 - When templates in the skill are updated, remind user to sync vault copies (`Templates/`)
 
 **DON'T:**

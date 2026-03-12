@@ -19,10 +19,7 @@ Track job applications and interview process for a company.
    - Company name
    - Position/role applied for
    - Application date
-   - Source (LinkedIn, referral, etc.)
    - Current status (applied, screening, interview, offer, rejected)
-   - Company size (startup, scale-up, enterprise)
-   - Industry (fintech, saas, etc.)
    - Tech stack (technologies used)
 
 3. **Generate filename**

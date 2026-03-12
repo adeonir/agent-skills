@@ -17,9 +17,8 @@ Document technical challenges from interview processes.
 
 2. **Gather challenge info**
    - Company (if part of interview process)
-   - Challenge type (algorithm, system design, take-home, live coding)
    - Brief description
-   - Technologies involved
+   - Tech stack
    - Time constraints
    - Current status (pending, completed, submitted, feedback received)
 

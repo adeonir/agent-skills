@@ -1,12 +1,8 @@
 ---
-created: {{YYYY-MM-DD}}
-type: company
+date: {{YYYY-MM-DD}}
 company: {{company-name}}
 role: {{role}}
-source: {{source}}
 status: {{status}}
-size: {{startup/scale-up/enterprise}}
-industry: {{fintech/saas/etc}}
 stack: {{technologies}}
 tags: [company, job-search]
 ---

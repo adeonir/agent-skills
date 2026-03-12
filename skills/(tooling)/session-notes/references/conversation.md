@@ -74,7 +74,7 @@ as structured Obsidian notes.
 - Focus on decisions, insights, and actionable outcomes
 - Keep summaries concise (not a transcript)
 - Link to related project/daily notes with `[[wikilinks]]`
-- Use the correct source tag for searchability
+- Include source in frontmatter for searchability
 
 **DON'T:**
 - Include the full conversation transcript (summarize instead)

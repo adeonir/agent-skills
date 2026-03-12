@@ -1,14 +1,8 @@
 ---
-created: {{YYYY-MM-DD}}
-type: brag
-period: {{period}}
+date: {{YYYY-MM-DD}}
 tags: [brag, career]
 ---
-# {{short description of the period}}
-
-## Summary
-
-{{high-level overview of the period}}
+# {{Month YYYY}}
 
 ## Impact
 
@@ -20,21 +14,9 @@ tags: [brag, career]
 
 - {{technical achievements, architecture decisions}}
 
-## Leadership
-
-- {{mentoring, process improvements}}
-
-## Collaboration
-
-- {{cross-team work, knowledge sharing}}
-
 ## Growth
 
-- {{new skills learned, certifications}}
-
-## Feedback
-
-- {{positive feedback received}}
+- {{new skills, mentoring, feedback received}}
 
 ## References
 
