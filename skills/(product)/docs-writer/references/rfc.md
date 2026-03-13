@@ -19,12 +19,12 @@ Evaluate the user's input against the sufficiency criteria below. If all criteri
 ### Problem & Motivation
 
 **Sufficient when:**
-- Current state and desired state are clearly different
+- The problem and why it matters are clear
 - Impact of inaction is understood
 
 **Clarify when:**
-- Change without clear motivation → "What breaks or degrades if we don't do this?"
-- Scope of impact unclear → "Who else is affected by the current state?"
+- Change without clear motivation
+- Scope of impact unclear
 
 ### Proposed Solution
 
@@ -33,19 +33,9 @@ Evaluate the user's input against the sufficiency criteria below. If all criteri
 - Key constraints are identified
 
 **Clarify when:**
-- Solution is hand-wavy → "Walk me through how this would work in practice."
-- No constraints acknowledged → "What limits what we can do here?"
-- Single option presented as obvious → "What alternatives did you consider?"
-
-### Impact
-
-**Sufficient when:**
-- Affected systems and teams identified
-- Breaking changes documented or confirmed as none
-
-**Clarify when:**
-- "Just our system" → "Does anything consume our API/data? Any downstream effects?"
-- Breaking changes mentioned casually → "Who needs to change and what's the migration path?"
+- Solution is hand-wavy
+- No constraints acknowledged
+- Single option presented as obvious without alternatives
 
 ## Analysis
 
@@ -54,18 +44,7 @@ Synthesize input into structured analysis:
 1. Identify alternatives to the proposed solution
 2. Evaluate trade-offs for each alternative
 3. Surface risks and unknowns
-4. Identify dependencies on other systems or decisions
-5. Present analysis to user for feedback before drafting
-
-### Alternatives Evaluation
-
-For each alternative (including the proposed solution):
-
-| Criteria | Alternative A | Alternative B | Proposed |
-|----------|--------------|--------------|----------|
-| Complexity | | | |
-| Risk | | | |
-| Trade-offs | | | |
+4. Present analysis to user for feedback before drafting
 
 ## Drafting
 
@@ -75,22 +54,25 @@ Generate the RFC using the schema below. Present draft to user for review.
 
 ## RFC Schema
 
-12 sections matching `templates/rfc.md`:
+7 sections matching `templates/rfc.md`:
 
 | Section | Content |
 |---------|---------|
-| 1. Summary | One-paragraph description of the proposal |
-| 2. Motivation | Why this change is needed, current vs desired state |
-| 3. Detailed Design | Technical description with overview and implementation details |
-| 4. Impact Analysis | Performance impact, dependencies, team impact |
-| 5. Drawbacks | Accepted trade-offs and open risks (separated explicitly) |
-| 6. Alternatives | Options evaluated with rejection rationale, starting with "Do Nothing" |
-| 7. Prior Art | How others solved this problem -- other teams, companies, open source projects |
-| 8. Adoption Strategy | Rollout plan, migration path, breaking changes |
-| 9. Unresolved Questions | Open items needing discussion or deferred to implementation |
-| 10. Future Possibilities | What this enables or opens up for future work |
-| 11. Feedback | Reviewer table for tracking review status |
-| 12. References | Links to related RFCs, documentation |
+| 1. Motivation | Why this change is needed, what problem it solves |
+| 2. Proposal | Concise description of the proposed solution |
+| 3. Design | Structure, model, or technical detail. Use tables when possible |
+| 4. Alternatives | Options evaluated with rejection rationale |
+| 5. Risks | Trade-offs and risks with mitigation |
+| 6. Unresolved Questions | Open items needing discussion |
+| 7. References | Links to related documents |
+
+### Section guidelines
+
+- **Motivation** should stand alone -- a reader understands the problem without external context
+- **Design** uses tables and lists over prose. No implementation details unless the RFC is about a technical change
+- **Alternatives** includes genuine options with real trade-offs, not straw-man arguments. Include "Do Nothing" when inaction is a viable option
+- **Risks** pairs each risk with a mitigation. Keep the list short (3-5 items max)
+- **Unresolved Questions** are expected -- do not force premature decisions
 
 ## Status Lifecycle
 
@@ -107,15 +89,18 @@ draft --> under-review --> accepted / rejected / withdrawn
 ## Guidelines
 
 **DO:**
+- Keep RFCs concise -- optimized for quick analysis and decision-making
 - Make RFCs self-contained -- a reader should understand the proposal without external context
 - Include genuine alternatives with real trade-offs
 - Keep unresolved questions open -- they are expected
 - Create an ADR when an RFC is accepted (use docs-writer)
 
 **DON'T:**
-- Require external context to understand the proposal
+- Repeat information that exists in referenced documents (PRD, design docs, etc.)
+- Include implementation details unless the RFC is specifically about a technical change
 - Use straw-man arguments as alternatives
 - Force premature decisions on unresolved questions
+- Add sections that don't contribute to the decision
 
 ## Output
 
