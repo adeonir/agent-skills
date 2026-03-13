@@ -8,7 +8,6 @@ description: >-
   "explore options", "think through this", "idea exploration", "compare
   approaches".
 license: MIT
-allowed-tools: Read, Write
 metadata:
   author: Adeonir Kohl
 ---

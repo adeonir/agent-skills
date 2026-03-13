@@ -6,6 +6,13 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-12
+
+### Changed
+
+- Remove allowed-tools and External Content Trust Boundary from SKILL.md
+- Simplify guidelines and error handling to avoid tool-specific references
+
 ## 2026-03-11
 
 ### Added

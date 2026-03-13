@@ -48,11 +48,11 @@ Add achievements to brag document for performance reviews and career growth.
    If available, compose content following `templates/brag.md` structure.
    For new document:
    ```bash
-   obsidian create path="Brags/Brags 2025.md" content="{{composed content}}" silent
+   obsidian create path="Brags/Brags 2025.md" content="# March 2025" silent
    ```
    For existing document - append achievement to the appropriate category:
    ```bash
-   obsidian append path="Brags/Brags 2025.md" content="- **{{achievement}}**\n  - Context: {{context}}\n  - Result: {{result}}"
+   obsidian append path="Brags/Brags 2025.md" content="- **Reduced API latency by 40%**\n  - Context: Checkout refactor\n  - Result: Improved response time"
    ```
    If CLI is not available, fall back to Write tool (new) or Edit tool (append)
    to modify the file directly at the vault path (ask user for vault path on first use).

@@ -49,7 +49,6 @@ description: >-
   Short sentence of what it does. Use when: usage contexts.
   Triggers on "phrase 1", "phrase 2", "phrase 3".
 license: MIT
-allowed-tools: Read, Write, Bash
 metadata:
   author: Adeonir Kohl
 ---
@@ -65,7 +64,6 @@ Frontmatter rules:
   - Use `>-` with 2-space indentation
   - Keep lines under 80 characters
 - `license`: `MIT` for all skills in this repository
-- `allowed-tools`: comma-separated list of tools the skill uses (experimental, per spec)
 - `author`: full name under `metadata` (e.g. `Adeonir Kohl`)
 
 ### Section Order

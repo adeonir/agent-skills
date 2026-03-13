@@ -49,7 +49,7 @@ Create structured documentation for a project in the Obsidian vault.
    ```
    If available, create with CLI:
    ```bash
-   obsidian create path="Projects/Checkout Refactor/Overview.md" content="{{composed content}}" silent
+   obsidian create path="Projects/Checkout Refactor/Overview.md" content="# Checkout Refactor" silent
    ```
    Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
    If CLI is not available, fall back to Write tool to create the file

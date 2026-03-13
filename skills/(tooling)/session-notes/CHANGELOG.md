@@ -22,6 +22,8 @@ All notable changes to this skill will be documented in this file.
 - Add mid-file editing guideline to SKILL.md for direct vault file edits
 - Update daily reference to ask user about activities instead of defaulting to git log
 - Update all references to match template changes
+- Remove allowed-tools and External Content Trust Boundary from SKILL.md
+- Remove dynamic content pattern from context loading strategy
 
 ## 2026-03-10
 

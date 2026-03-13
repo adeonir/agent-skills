@@ -8,7 +8,6 @@ description: >-
   conventions. Triggers on "initialize project", "setup project", "overview",
   "summary", "map codebase", "index project", "analyze codebase".
 license: MIT
-allowed-tools: Read, Write, Bash, Glob
 metadata:
   author: Adeonir Kohl
 ---

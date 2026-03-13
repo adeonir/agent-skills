@@ -44,7 +44,7 @@ Create quick daily logs and journal entries.
    ```
    Append quick entry without opening:
    ```bash
-   obsidian daily:append content="- {{content}}"
+   obsidian daily:append content="- Worked on checkout refactor"
    ```
     If CLI is not available, fall back to Write tool to create the file
     directly at the vault path using the daily note path convention
@@ -56,7 +56,7 @@ For rapid logging throughout the day:
 
 ```bash
 # Quick append without opening
-obsidian daily:append content="- {{quick note}}"
+obsidian daily:append content="- Quick standup note"
 
 # Read current daily note content
 obsidian daily:read

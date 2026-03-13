@@ -6,6 +6,12 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-12
+
+### Changed
+
+- Remove allowed-tools and External Content Trust Boundary from SKILL.md
+
 ## 2026-03-10
 
 ### Added

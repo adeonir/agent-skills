@@ -207,7 +207,7 @@ Before publishing, verify:
 - No plaintext passwords or API keys in examples (use `$ENV_VAR` or `{placeholder}`)
 - No `curl | sh` or piped download-and-execute patterns
 - No links to untrusted or non-official domains
-- External content ingestion has trust boundary documentation (see research.md pattern)
+- External content ingestion has trust boundary in the relevant reference file (see research.md, capture.md, validation.md patterns)
 - Shell commands are limited to non-destructive operations (mkdir, ls, grep)
 - No instructions that could exfiltrate local data to external services
 

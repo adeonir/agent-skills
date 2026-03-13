@@ -52,7 +52,7 @@ Document technical challenges from interview processes.
    ```
    If available, compose content and create with CLI:
    ```bash
-   obsidian create path="Challenges/Stripe/System Design URL Shortener.md" content="{{composed content}}" silent
+   obsidian create path="Challenges/Stripe/System Design URL Shortener.md" content="# System Design URL Shortener" silent
    ```
    Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
    If CLI is not available, fall back to Write tool to create the file

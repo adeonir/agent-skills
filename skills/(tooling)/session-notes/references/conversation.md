@@ -63,7 +63,7 @@ as structured Obsidian notes.
    If available, compose content following `templates/conversation.md` structure
    and create with CLI:
    ```bash
-   obsidian create path="{{destination folder}}/{{filename}}" content="{{composed content}}" silent
+   obsidian create path="Conversations/Auth Refactor.md" content="# Auth refactor discussion" silent
    ```
    If CLI is not available, ask user for the output path on first use,
    then fall back to Write tool to create the file directly.

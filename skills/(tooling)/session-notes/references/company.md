@@ -48,7 +48,7 @@ Track job applications and interview process for a company.
    If available, compose content following `templates/company.md` structure
    and create with CLI:
    ```bash
-   obsidian create path="Companies/Stripe 2025.md" content="{{composed content}}" silent
+   obsidian create path="Companies/Stripe 2025.md" content="# Senior Engineer -- Stripe" silent
    ```
    For appending a Timeline row to an existing note:
    ```bash

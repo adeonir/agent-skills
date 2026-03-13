@@ -10,7 +10,6 @@ description: >-
   request", "create scope", "report bug", "create RFC", "create ADR", "create
   document", "write doc", "document this", "need a spec", "write requirements".
 license: MIT
-allowed-tools: Read, Write
 metadata:
   author: Adeonir Kohl
 ---

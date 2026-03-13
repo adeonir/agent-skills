@@ -8,7 +8,6 @@ description: >-
   on "debug", "fix bug", "investigate", "trace issue", "add debug logs",
   "cleanup debug logs", "why is this broken", "not working".
 license: MIT
-allowed-tools: Read, Grep, Bash
 metadata:
   author: Adeonir Kohl
 ---
