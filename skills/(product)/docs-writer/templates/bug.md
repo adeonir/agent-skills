@@ -37,5 +37,5 @@ priority: {{critical/high/medium/low}}
 
 ## References
 
-- **Pitch:** {{Link to related pitch, or "None"}}
-- **Scope:** {{Link to related scope, or "None"}}
+- **Epic:** {{Link to related epic, or "None"}}
+- **Issue:** {{Link to related issue, or "None"}}

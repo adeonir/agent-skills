@@ -1,6 +1,5 @@
 ---
 name: {{document-name}}
-type: brief
 created: {{YYYY-MM-DD}}
 ---
 
@@ -32,4 +31,5 @@ created: {{YYYY-MM-DD}}
 ## Risks
 
 - {{Top risk or unvalidated assumption that could change the direction}}
+- {{Known complexity or trap to avoid (rabbit hole)}}
 - {{Another risk or hypothesis that needs evidence}}

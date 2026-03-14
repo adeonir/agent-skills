@@ -1,6 +1,5 @@
 ---
 name: {{document-name}}
-type: design-doc
 created: {{YYYY-MM-DD}}
 ---
 

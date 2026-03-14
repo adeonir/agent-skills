@@ -61,6 +61,6 @@ created: {{YYYY-MM-DD}}
 ## Next Step
 
 {{Recommended next action and which skill to use:}}
-{- docs-writer: to formalize into a PRD, pitch, or design doc}
+{- docs-writer: to formalize into a PRD, epic, or design doc}
 {- spec-driven: to specify and implement directly}
 {- design-builder: to explore visual direction}

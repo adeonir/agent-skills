@@ -1,6 +1,7 @@
 ---
-name: {{pitch-name}}
-status: draft
+name: {{epic-name}}
+milestone: {{milestone name or "standalone"}}
+created: {{YYYY-MM-DD}}
 ---
 
 # {{Title}}
@@ -27,7 +28,7 @@ status: draft
 
 ## Acceptance Criteria
 
-- [ ] {{Verifiable condition for the feature as a whole}}
+- [ ] {{Verifiable condition for the epic as a whole}}
 - [ ] {{Another testable condition}}
 
 ## References

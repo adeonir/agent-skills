@@ -1,6 +1,5 @@
 ---
 name: {{document-name}}
-type: tdd
 size: {{core|medium|large}}
 created: {{YYYY-MM-DD}}
 ---

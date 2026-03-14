@@ -19,8 +19,8 @@ flowchart LR
     R --> B[Brief]
     R --> DD[Design Doc]
     R --> TDD[TDD]
-    R --> P[Pitch]
-    R --> S[Scope]
+    R --> E[Epic]
+    R --> I[Issue]
     R --> BG[Bug]
     R --> RFC[RFC]
     R --> ADR[ADR]
@@ -35,12 +35,12 @@ flowchart LR
 | **Design Doc** | discovery -> analysis -> drafting | `design.md` |
 | **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
-### Shape Up-style (features & work items)
+### Tracker (features & work items)
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **Pitch** | [clarification] -> drafting | `pitch.md` |
-| **Scope** | direct drafting | `scope.md` |
+| **Epic** | [clarification] -> drafting | `epic.md` |
+| **Issue** | direct drafting | `issue.md` |
 | **Bug** | structured collection -> drafting | `bug.md` |
 
 ### Industry standard (decisions & proposals)
@@ -56,8 +56,8 @@ flowchart LR
 create PRD for my project
 create design doc for API gateway
 create TDD for payment service
-create pitch for date filter feature
-create scope for the search endpoint
+create epic for date filter feature
+create issue for the search endpoint
 report bug in the login flow
 create RFC for new auth system
 record architecture decision about database choice

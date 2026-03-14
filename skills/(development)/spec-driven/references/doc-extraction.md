@@ -4,7 +4,7 @@ Extract and transform requirements from referenced documentation into feature-le
 
 ## Core Principle
 
-Extraction is **transformation**, not copying. Source documents (PRD, TDD) define product-level or system-level requirements. The spec defines feature-level, implementation-ready requirements. Every extracted item must be narrowed to the feature scope and refined with implementation detail.
+Extraction is **transformation**, not copying. Source documents (PRD, TDD, Epic) define product-level or system-level requirements. The spec defines feature-level, implementation-ready requirements. Every extracted item must be narrowed to the feature scope and refined with implementation detail.
 
 | Source (PRD/TDD) | spec.md |
 |-------------------|---------|
@@ -16,7 +16,7 @@ Extraction is **transformation**, not copying. Source documents (PRD, TDD) defin
 
 ## When to Use
 
-- User provides `@path` to PRD, TDD, or documentation
+- User provides `@path` to PRD, TDD, Epic, or documentation
 - Need to map external requirements to spec format
 
 ## Workflow

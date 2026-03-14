@@ -107,7 +107,7 @@ spec-driven (plan phase)       --> may add discoveries to .agents/codebase/
 project-index (summary)        --> preserves spec-driven additions when re-running
 ```
 
-- **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, pitches, and scopes. When found, uses them as primary context for generating project.md.
+- **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, epics, and issues. When found, uses them as primary context for generating project.md.
 - **spec-driven**: Summary preserves discoveries added during planning. More specific context (from feature planning) takes precedence over general analysis.
 
 ## Guidelines

@@ -27,8 +27,8 @@ Read available sources in priority order:
    | `brief.md` | What/why/who, scope, success metrics, risks |
    | `prd.md` | Problem, personas, goals, requirements, journeys, milestones, constraints |
    | `design.md` | Context, goals/non-goals, design overview, trade-offs |
-   | `pitch.md` | Problem narrative, user-facing solution, scope, rabbit holes |
-   | `scope.md` | Work slice description, boundaries |
+   | `epic.md` | Problem narrative, user-facing solution, scope, rabbit holes |
+   | `issue.md` | Work item description, context, boundaries |
 
    Read whichever exist. PRD is the richest single source -- if it exists, it likely covers most of what project.md needs.
 

@@ -59,7 +59,7 @@ compare approaches for real-time updates
 
 | Skill | How brainstorming connects |
 |-------|---------------------------|
-| **docs-writer** | Chosen direction feeds PRD discovery, pitch, or design doc |
+| **docs-writer** | Chosen direction feeds PRD discovery, epic, or design doc |
 | **spec-driven** | Chosen direction feeds feature specification |
 | **design-builder** | Chosen direction feeds visual exploration |
 

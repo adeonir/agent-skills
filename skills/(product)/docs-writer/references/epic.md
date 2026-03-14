@@ -1,8 +1,8 @@
-# Pitch -- Feature Definition
+# Epic -- Deliverable Feature Slice
 
 ## When to Use
 
-When defining a new feature or capability for the product.
+When defining a deliverable slice of functionality within a milestone. Epics group related requirements (FRs) from the PRD into a cohesive unit that can be built, tested, and shipped independently.
 
 ## Workflow
 
@@ -16,7 +16,7 @@ Direct drafting with optional clarification. The user comes with the problem and
 
 Look for existing PRD at `.artifacts/docs/prd.md`.
 
-If found: read and use as context for drafting. PRD provides personas (section 3), scope (section 4), journeys (section 5), and business rules (section 6) that inform pitch writing. Less clarification needed.
+If found: read and use as context for drafting. PRD provides personas (section 3), scope (section 4), journeys (section 5), and business rules (section 6) that inform epic writing. Less clarification needed.
 
 If no PRD exists: rely on user input and clarify more proactively.
 
@@ -57,11 +57,11 @@ Evaluate the user's input (and PRD context if available) against the sufficiency
 
 **Clarify when:**
 - Scope keeps growing -> "We started with X, now it's X + Y + Z. Should we narrow down?"
-- No boundaries -> "What's explicitly out of scope for this pitch?"
+- No boundaries -> "What's explicitly out of scope for this epic?"
 
 ## Drafting
 
-**USE TEMPLATE:** `templates/pitch.md`
+**USE TEMPLATE:** `templates/epic.md`
 
 ### Problem Format
 
@@ -83,17 +83,17 @@ Describe the solution as what changes for the user -- interactions, screens, beh
 
 ## Schema
 
-7 sections matching `templates/pitch.md`:
+7 sections matching `templates/epic.md`:
 
 | Section | Content |
 |---------|---------|
 | 1. Problem | Narrative describing who has the problem, when, and the impact |
 | 2. Solution | What changes for the user -- interactions and behaviors |
-| 3. Scope In | What's included in this pitch |
+| 3. Scope In | What's included in this epic |
 | 4. Scope Out (No-gos) | What's explicitly excluded |
 | 5. Rabbit Holes | Known complexities or traps to avoid |
-| 6. Acceptance Criteria | 2-5 verifiable conditions for the feature |
-| 7. References | Links to PRD, Design Doc, Figma, related pitches |
+| 6. Acceptance Criteria | 2-5 verifiable conditions for the epic |
+| 7. References | Links to PRD, Design Doc, Figma, related epics |
 
 ## Guidelines
 
@@ -102,15 +102,16 @@ Describe the solution as what changes for the user -- interactions, screens, beh
 - Describe solutions as user-facing changes
 - Be explicit about no-gos -- they are as important as scope
 - Flag known complexities upfront in rabbit holes to prevent wasted time
-- Suggest breaking large pitches into multiple pitches
-- Place acceptance criteria here -- they validate the feature as a whole
+- Suggest breaking large epics into multiple epics
+- Place acceptance criteria here -- they validate the epic as a whole
+- Link to the parent milestone when one exists
 
 **DON'T:**
 - Write problems as abstract statements
 - Describe solutions with implementation details
 - Leave no-gos undefined or vague
-- Put acceptance criteria in scopes -- they belong at the pitch level
+- Put acceptance criteria in issues -- they belong at the epic level
 
 ## Output
 
-Save to: `.artifacts/docs/pitch.md`
+Save to: `.artifacts/docs/epic.md`

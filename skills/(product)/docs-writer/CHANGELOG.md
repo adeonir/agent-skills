@@ -6,6 +6,16 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-14
+
+### Changed
+
+- Replace Pitch with Epic (deliverable feature slice linked to PRD milestones)
+- Replace Scope with Issue (enriched work item with Context field)
+- Add Rabbit Holes to Brief Risks section
+- Remove `type` field from all template frontmatters
+- Update cross-references and triggers
+
 ## 2026-03-11
 
 ### Added

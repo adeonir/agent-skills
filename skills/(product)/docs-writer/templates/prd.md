@@ -1,6 +1,5 @@
 ---
 name: {{document-name}}
-type: prd
 created: {{YYYY-MM-DD}}
 ---
 
