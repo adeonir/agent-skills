@@ -16,7 +16,7 @@ Creates and manages documentation in your Obsidian vault with consistent structu
 - **Companies** - Job application tracking (status, interviews, decisions)
 - **Challenges** - Technical interview challenges (take-homes, system design)
 - **Brags** - Achievement tracking for performance reviews
-- **Daily** - Quick logs and activities with optional project subtopics
+- **Daily** - Daily logs with per-project activities and in-place updates
 - **Conversations** - AI chat summaries and key decisions
 - **Captures** - Quick notes, links, ideas, and snippets
 
@@ -95,3 +95,4 @@ Vault/
 |-------|------------|
 | `spec-driven` | Project notes can reference specs created by spec-driven |
 | `docs-writer` | PRD/Design Doc/ADR created by docs-writer can be linked in project notes |
+| `basic-memory` | Daily notes can pull recent activity as context suggestions (optional) |

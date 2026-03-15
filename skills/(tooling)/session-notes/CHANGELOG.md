@@ -6,6 +6,18 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-14
+
+### Changed
+
+- Rewrite daily reference with separate create and update flows
+- Add Edit tool flow for updating existing daily notes (append only adds to end of file)
+- Infer project name from current working directory
+- Mark only Activities as required section, rest are optional
+- Add natural language bullet point style with examples
+- Add Basic Memory integration for context gathering (optional, skipped if unavailable)
+- Default daily notes to English, Portuguese with proper accents if user writes in Portuguese
+
 ## 2026-03-12
 
 ### Changed
