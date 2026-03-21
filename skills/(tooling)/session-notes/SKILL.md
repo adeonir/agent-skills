@@ -10,9 +10,6 @@ description: >-
   "technical challenge", "brag document", "daily note", "today's log",
   "obsidian note", "save conversation", "chat summary", "session summary",
   "save this", "capture this", "quick note".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Session Notes

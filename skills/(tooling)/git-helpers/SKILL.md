@@ -7,9 +7,6 @@ description: >-
   commit, wants feedback on changes, or needs to push and open a PR. Triggers
   on "commit", "review", "push", "create PR", "PR description", "summarize
   changes", "done", "ready to push", "check my code".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Git Helpers

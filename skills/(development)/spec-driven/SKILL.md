@@ -8,9 +8,6 @@ description: >-
   feature", "plan", "tasks", "execute", "implement", "validate", "quick fix",
   "quick task", "discuss feature", "break this into tasks", "plan this
   feature", "record decision", "show state".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Spec-Driven Development

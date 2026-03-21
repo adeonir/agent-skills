@@ -7,9 +7,6 @@ description: >-
   building. Triggers on "brainstorm", "explore ideas", "what should we build",
   "explore options", "think through this", "idea exploration", "compare
   approaches".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Brainstorming

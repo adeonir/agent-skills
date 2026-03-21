@@ -7,9 +7,6 @@ description: >-
   generating project documentation for agents, or mapping codebase patterns and
   conventions. Triggers on "initialize project", "setup project", "overview",
   "summary", "map codebase", "index project", "analyze codebase".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Project Index

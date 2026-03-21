@@ -10,9 +10,6 @@ description: >-
   "new feature", "feature request", "create issue", "report bug", "create RFC",
   "create ADR", "create document", "write doc", "document this", "need a spec",
   "write requirements".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Docs Writer

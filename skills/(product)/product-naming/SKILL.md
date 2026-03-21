@@ -8,9 +8,6 @@ description: >-
   name for", "what should I call", "name ideas for", "evaluate these names",
   "check if a name is available", "domain available", "check this name",
   "check availability of".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Product Naming

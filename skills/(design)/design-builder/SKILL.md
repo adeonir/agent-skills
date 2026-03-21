@@ -8,9 +8,6 @@ description: >-
   or sending to Figma via MCP. Triggers on "extract copy", "extract design",
   "build frontend", "generate variants", "export design", "send to Figma",
   "build from reference", "redesign this", "create prototype".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Design Builder

@@ -7,9 +7,6 @@ description: >-
   working, tests pass but app fails, or works in dev but not in prod. Triggers
   on "debug", "fix bug", "investigate", "trace issue", "add debug logs",
   "cleanup debug logs", "why is this broken", "not working".
-license: MIT
-metadata:
-  author: Adeonir Kohl
 ---
 
 # Debug Tools

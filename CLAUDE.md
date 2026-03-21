@@ -1,13 +1,13 @@
-# Agent Skills Repository
+# CLAUDE.md
 
-Collection of skills for AI coding agents. Each skill packages instructions, references, and
-workflows that extend agent capabilities. Skills follow the [Agent Skills](https://agentskills.io)
-open standard.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build / Test / Lint
+## Overview
 
-This is a pure-markdown repository -- no build system, no tests, no linter.
-Validation is manual: read the files, verify structure, check cross-references.
+Pure-markdown repository of skills for AI coding agents. No build system, no tests, no linter.
+Validation is manual: read files, verify structure, check cross-references.
+
+Skills follow the [Agent Skills](https://agentskills.io) open standard.
 
 ## Repository Structure
 
@@ -28,18 +28,21 @@ skills/
 
 ## Skill File Conventions
 
+For detailed structure, section order, and examples, see `.artifacts/docs/skill-structure.md`.
+
 ### SKILL.md Frontmatter
 
 ```yaml
 ---
 name: skill-name                    # kebab-case, matches directory name
-description: Multi-line with        # Max 1024 chars (skills.sh spec limit)
-  indentation for continuation.     # Keep lines under 80 chars
+description: >-                     # Max 1024 chars (skills.sh spec limit)
+  Multi-line with                   # Keep lines under 80 chars
+  indentation for continuation.
   Triggers on "phrase 1", "phrase 2".
-metadata:
-  author: Adeonir Kohl
 ---
 ```
+
+Only `name` and `description` -- no other fields.
 
 Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
 
@@ -61,20 +64,7 @@ and Error Handling. Between those, include whichever sections the skill needs. C
 - `## Guidelines` -- split into **DO:** and **DON'T:** bullet lists
 - `## Error Handling` -- bulleted `- Condition: action` pairs
 
-Skills may add domain-specific sections (e.g., Auto-Sizing, Document Types, Discovery)
-as needed between Workflow and Guidelines.
-
 ### Reference Files (references/*.md)
-
-```markdown
-# Reference Name
-Brief description.
-## When to Use
-## Workflow
-### Step 1: ...
-## Guidelines
-## Error Handling
-```
 
 - Every reference has `When to Use`; include `Guidelines` and `Error Handling` when relevant
 - Template usage: `**USE TEMPLATE:** \`templates/file.md\``
@@ -82,24 +72,11 @@ Brief description.
 
 ### Template Files (templates/*.md)
 
-Use `{{placeholder}}` syntax (Handlebars-like). Templates include YAML frontmatter:
-
-```yaml
----
-id: {{ID}}
-feature: {{name}}
-status: draft
----
-```
+Use `{{placeholder}}` syntax (Handlebars-like).
 
 ### CHANGELOG.md
 
-```yaml
----
-name: skill-name
----
-```
-
+- Frontmatter with `name` field only
 - Date headers (`## YYYY-MM-DD`), not version numbers
 - Keep a Changelog categories: Added, Changed, Removed, Fixed
 - Reverse-chronological order
@@ -117,15 +94,13 @@ Installation always uses `npx skills add adeonir/agent-skills --skill {name}`.
 | Category directories | Parenthesized lowercase | `(design)`, `(development)` |
 | Reference/template files | kebab-case .md | `quick-mode.md`, `code-review.md` |
 | Fixed files | UPPERCASE .md | `SKILL.md`, `CHANGELOG.md`, `README.md` |
-| Feature artifact IDs | Zero-padded sequential | `001`, `002` |
-| Feature directories | `{ID}-{kebab-name}` | `001-user-auth` |
 
 ## Writing Style
 
 - Direct, imperative voice: "Create", "Load", "Check" (not "You should create")
 - No emojis in prose or commit messages
 - English throughout
-- Simple `-->` arrows for workflows, optional loop with `^` and `|___|`, no pipes or box-drawing, lines under 70 chars
+- Simple `-->` arrows for workflows, no pipes or box-drawing, lines under 70 chars
 - Tables for structured information (triggers, phases, comparisons)
 - Guidelines always in DO/DON'T format
 - Error handling always in `- Condition: action` format
@@ -160,7 +135,7 @@ Skills write to `.artifacts/` organized by domain:
 
 ## Terminology
 
-TDD in this project means Technical Design Document, NOT Test-Driven Development. Never confuse these.
+TDD in this project means Technical Design Document, NOT Test-Driven Development.
 
 ## Documentation
 
@@ -172,8 +147,6 @@ Run security self-assessment after any skill change or new skill creation. The s
 platform audits every published skill with 3 providers:
 
 ### Gen Agent Trust Hub
-
-Classifies risks by category:
 
 | Category | What Triggers It |
 |----------|-----------------|
@@ -207,11 +180,11 @@ Before publishing, verify:
 - No plaintext passwords or API keys in examples (use `$ENV_VAR` or `{placeholder}`)
 - No `curl | sh` or piped download-and-execute patterns
 - No links to untrusted or non-official domains
-- External content ingestion has trust boundary in the relevant reference file (see research.md, capture.md, validation.md patterns)
+- External content ingestion has trust boundary in the relevant reference file
 - Shell commands are limited to non-destructive operations (mkdir, ls, grep)
 - No instructions that could exfiltrate local data to external services
 
-## Important: Skill Installation
+## Skill Installation
 
 Skills are installed globally via `npx skills add adeonir/agent-skills --skill {name}`.
 This copies files to `~/.agents/skills/{name}/`.
