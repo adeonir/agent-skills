@@ -89,12 +89,19 @@ conversation --> daily    (conversation insights logged in daily)
 conversation --> brag     (conversation outcomes become achievements)
 ```
 
+## Writing Style
+
+- Body: rich prose context after the heading, not just bullet points
+- Bullet points: natural log of what was done, no subject, past tense descriptive
+- Observations: `[category] content #optional-tag` syntax
+- Relations: `- relation_type [[Note Title]]` syntax
+
 ## Guidelines
 
 **DO:**
 
 - Resolve vault once per session (see Vault Resolution above)
-- Compose note content inline following `templates/*.md` structure
+- Compose note content following `templates/*.md` structure
 - Use `write_note` for new notes, `read_note` + `patch_note` for updates
 - Use `search_notes` to check if a note exists before creating
 - Link related notes using Obsidian wiki-links `[[Note Name]]`

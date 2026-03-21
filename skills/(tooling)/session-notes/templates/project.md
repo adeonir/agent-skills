@@ -1,13 +1,18 @@
 ---
+title: "{{Project Name}}"
+type: project
 date: {{YYYY-MM-DD}}
-stack: {{technologies}}
-tags: [project]
+stack:
+  - {{technology}}
+tags:
+  - project
 ---
-# {{short description of the project}}
+# {{Project Name}}
 
-## Summary
-
-{{1-2 sentences about the project}}
+{{What this project is, why it exists, what problem it solves. Include the
+constraints, trade-offs, and context that shaped the approach -- enough that
+someone reading this note later understands the full picture without needing
+to ask.}}
 
 ## Goals
 
@@ -22,11 +27,18 @@ tags: [project]
 
 ## Documents
 
-- [[brief]] - Executive summary
-- [[prd]] - Requirements
-- [[design]] - Technical design
+- [[Brief]] - Executive summary
+- [[PRD]] - Requirements
+- [[Design Doc]] - Technical design
 - [[ADR 001]] - Architecture decisions
 
-## References
+## Observations
 
-- [[Related Notes]]
+- [decision] {{key technical or product decision}}
+- [stack] {{technology choice and rationale}}
+- [risk] {{known risk or concern}}
+
+## Relations
+
+- part_of [[{{Parent Project or Initiative}}]]
+- relates_to [[{{Related Project}}]]

@@ -33,7 +33,7 @@ Document technical challenges from interview processes.
 
 4. **Compose content**
    Build the note content following `templates/challenge.md` structure.
-   Populate References with the company note link if part of an interview
+   Populate Relations with the company note link if part of an interview
    process. Include any other related notes mentioned by the user.
 
 5. **Write note**

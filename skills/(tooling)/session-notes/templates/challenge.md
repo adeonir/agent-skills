@@ -1,29 +1,43 @@
 ---
+title: "{{Challenge Description}}"
+type: challenge
 date: {{YYYY-MM-DD}}
 company: {{company}}
-stack: {{technologies}}
-status: {{status}}
-tags: [challenge, interview]
+stack:
+  - {{technology}}
+status: {{pending / completed / submitted / feedback-received}}
+tags:
+  - challenge
+  - interview
 ---
-# {{short description of the challenge}}
+# {{Challenge Description}}
 
-## Problem
-
-{{description of the challenge}}
+{{What the challenge was about, the constraints (time, tools, scope), and the
+environment. Include your initial reaction and how you framed the problem
+before diving in. Paraphrase -- do not copy proprietary challenge text
+verbatim.}}
 
 ## Approach
 
-{{how you approached solving it}}
+{{how you approached solving it -- thought process, trade-offs considered}}
 
 ## Solution
 
-{{your solution - code, architecture, etc}}
+{{your solution -- code, architecture, diagrams (mermaid)}}
 
 ## Learnings
 
 - {{what you learned}}
 - {{what you'd do differently}}
 
-## References
+## Observations
 
-- [[{{Company}} {{Year}}]]
+- [technique] {{approach or pattern used}}
+- [complexity] {{time/space complexity if algorithmic}}
+- [feedback] {{feedback received, if any}}
+- [lesson] {{key takeaway}}
+
+## Relations
+
+- part_of [[{{Company}} {{Year}}]]
+- feeds_into [[{{Brag Document}}]]

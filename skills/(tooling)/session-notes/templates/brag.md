@@ -1,8 +1,16 @@
 ---
+title: "{{Month YYYY}}"
+type: brag
 date: {{YYYY-MM-DD}}
-tags: [brag, career]
+tags:
+  - brag
+  - career
 ---
 # {{Month YYYY}}
+
+{{What this period looked like -- themes, milestones, shifts in focus. Write
+enough context that future-you can reconstruct what mattered and why these
+achievements stand out.}}
 
 ## Impact
 
@@ -18,6 +26,13 @@ tags: [brag, career]
 
 - {{new skills, mentoring, feedback received}}
 
-## References
+## Observations
 
-- [[Related Project or Challenge]]
+- [achievement] {{key accomplishment with metrics}}
+- [growth] {{skill or area of development}}
+- [impact] {{business or team impact}}
+
+## Relations
+
+- relates_to [[{{Project Name}}]]
+- inspired_by [[{{Challenge Note}}]]

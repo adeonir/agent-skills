@@ -1,14 +1,16 @@
 ---
+title: "{{Topic}}"
+type: conversation
 date: {{YYYY-MM-DD}}
 source: {{claude-code / claude-ai / chatgpt / gemini / other}}
-topic: {{topic}}
-tags: [conversation]
+tags:
+  - conversation
 ---
-# {{short description of what was discussed}}
+# {{Topic}}
 
-## Summary
-
-{{concise summary of the conversation}}
+{{What was discussed, why it mattered, and what came out of it. Capture the
+reasoning and context behind decisions -- not a transcript, but enough that
+someone reading this later understands the conversation's value.}}
 
 ## Key Decisions
 
@@ -22,6 +24,13 @@ tags: [conversation]
 
 - {{unresolved questions or next steps}}
 
-## References
+## Observations
 
-- [[Related Note]]
+- [decision] {{key decision made}}
+- [insight] {{important realization}}
+- [question] {{open question to revisit}}
+
+## Relations
+
+- relates_to [[{{Project Name}}]]
+- feeds_into [[{{Daily Note}}]]

@@ -29,7 +29,7 @@ Create structured documentation for a project in the Obsidian vault.
 4. **Compose content**
    Build the note content following `templates/project.md` structure.
    Populate Documents section only with links that exist or that the user
-   wants to create. Populate References with related notes if mentioned.
+   wants to create. Populate Relations with related notes if mentioned.
 
 5. **Write note**
    ```

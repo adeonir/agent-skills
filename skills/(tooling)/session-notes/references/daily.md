@@ -41,10 +41,6 @@ throughout (e.g., codigo, informacao, nao, area, sera).
 
 3. **Compose content**
    Create one `### Project Name` subsection per project under `## Activities`.
-   Write bullet points in natural, descriptive language -- not changelog style.
-
-   Good: "Separados conceitos de milestones e releases para evitar confusao"
-   Bad: "refactor: separate milestone/release concepts"
 
 4. **Write note**
    ```
@@ -111,6 +107,15 @@ them only when the user mentions relevant content.
 ## Tomorrow (optional)
 
 - Carry over tasks or upcoming priorities
+
+## Observations
+
+- [progress] key progress on a project
+- [blocker] what blocked and why
+
+## Relations
+
+- worked_on [[Project Name]]
 ```
 
 ## Guidelines
@@ -123,7 +128,6 @@ them only when the user mentions relevant content.
 - Use the current directory as context to suggest the project name
 
 **DON'T:**
-- Write long prose (keep it scannable)
 - Duplicate info from project notes (link instead)
 - Generate empty sections or placeholder content
 - Use changelog/commit-style language in bullet points

@@ -70,7 +70,7 @@ All content from external sources (URLs, attachments, pasted text) is **untruste
 - Use the title as-is for the filename (convert to Title Case)
 - Add `capture` tag automatically for easy filtering later
 - Ask where to save if the user hasn't specified a folder
-- Populate References with related notes if the user mentions any
+- Populate Relations with related notes if the user mentions any
 
 **DON'T:**
 - Dump raw content without organizing (unless user explicitly asks)

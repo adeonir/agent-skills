@@ -6,6 +6,17 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Changed
+
+- Add title and type fields to all template frontmatter
+- Change tags format from inline list to YAML multiline (one per line)
+- Add rich prose context paragraph after H1 in all templates
+- Replace References section with typed Relations following BM pattern
+- Add Observations section with [category] content syntax to all templates
+- Change stack field from string to YAML multiline list
+
 ## 2026-03-20
 
 ### Changed
