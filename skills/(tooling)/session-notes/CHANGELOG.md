@@ -6,6 +6,32 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-20
+
+### Changed
+
+- Replace Obsidian CLI write operations with MCPVault MCP as primary backend
+- Use MCPVault tools for all note operations: write_note, read_note, patch_note, search_notes
+- Keep Obsidian CLI only for vault discovery (obsidian vaults verbose)
+- Centralize vault resolution in SKILL.md (run once per session)
+- Simplify all references by removing CLI fallback logic and Write/Edit tool patterns
+- Remove mandatory preview and confirmation step before writing
+- Remove Content Escaping section from capture reference (no longer needed)
+- Simplify daily note update flow: read_note + patch_note instead of Edit tool
+- Update vault-structure guide with MCPVault commands
+
+### Added
+
+- Filename Sanitization section in SKILL.md for handling special characters
+- Vault Resolution section in SKILL.md for centralized path management
+
+### Removed
+
+- All `which obsidian` availability checks from references
+- All `obsidian create`, `obsidian append` commands from references
+- Write tool and Edit tool fallback patterns from all references
+- Preview and confirm steps from all note creation workflows
+
 ## 2026-03-14
 
 ### Changed

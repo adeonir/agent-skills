@@ -10,52 +10,36 @@ Add achievements to brag document for performance reviews and career growth.
 
 ## Workflow
 
-1. **Confirm vault**
-   ```bash
-   obsidian vaults verbose
-   ```
-
-2. **Determine time period**
+1. **Determine time period**
    - Current year: `Brags 2025.md`
    - Or by quarter: `Brags 2025 Q1.md`
    - Ask user preference on first use
 
-3. **Check if brag doc exists**
-   ```bash
-   obsidian search query="Brags 2025" path=Brags
+2. **Check if brag doc exists**
+   ```
+   search_notes query="Brags 2025" path="Brags/"
    ```
 
-4. **Create or append**
+3. **Create or append**
    - If doesn't exist: create with template
    - If exists: append new achievement to the appropriate category
 
-5. **Gather achievement details**
+4. **Gather achievement details**
    - What was accomplished
    - Context (project, team, situation)
    - Result with metrics (quantify when possible)
    - Category (impact, technical, growth)
 
-6. **Preview and confirm**
-   Display the full note content (or the new entry to append) and target
-   file path to the user. Ask for confirmation before writing.
-   Accept edits if suggested.
-
-7. **Write note**
-   Check if Obsidian CLI is available:
-   ```bash
-   which obsidian
+5. **Write note**
+   New document:
    ```
-   If available, compose content following `templates/brag.md` structure.
-   For new document:
-   ```bash
-   obsidian create path="Brags/Brags 2025.md" content="# March 2025" silent
+   write_note path="Brags/Brags 2025.md" content="..."
    ```
-   For existing document - append achievement to the appropriate category:
-   ```bash
-   obsidian append path="Brags/Brags 2025.md" content="- **Reduced API latency by 40%**\n  - Context: Checkout refactor\n  - Result: Improved response time"
+   Append to existing:
    ```
-   If CLI is not available, fall back to Write tool (new) or Edit tool (append)
-   to modify the file directly at the vault path (ask user for vault path on first use).
+   read_note path="Brags/Brags 2025.md"
+   patch_note path="Brags/Brags 2025.md" oldString="..." newString="..."
+   ```
 
 ## Achievement Format
 

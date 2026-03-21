@@ -45,33 +45,22 @@ Vault/
 | `Daily/` | Activity logs | `2025-03-03.md` |
 | `Templates/` | Templates for manual note creation via Obsidian | `daily.md`, `project.md` |
 
-## Setup Commands
+## Setup
 
-Verify vault and list existing folders:
+Verify vault structure:
 
-```bash
-# List available vaults
-obsidian vaults verbose
-
-# Show vault info
-obsidian vault
-
-# List existing folders
-obsidian folders
-
-# Verify a specific folder exists
-obsidian folder path=Projects
+```
+list_directory path="/"
 ```
 
-Create initial structure by creating a note in each folder:
+Create initial structure by writing a placeholder note in each folder:
 
-```bash
-# Create a placeholder note in each folder to establish structure
-obsidian create path="Projects/.gitkeep.md" content="placeholder"
-obsidian create path="Companies/.gitkeep.md" content="placeholder"
-obsidian create path="Challenges/.gitkeep.md" content="placeholder"
-obsidian create path="Brags/.gitkeep.md" content="placeholder"
-obsidian create path="Conversations/.gitkeep.md" content="placeholder"
+```
+write_note path="Projects/.gitkeep.md" content="placeholder"
+write_note path="Companies/.gitkeep.md" content="placeholder"
+write_note path="Challenges/.gitkeep.md" content="placeholder"
+write_note path="Brags/.gitkeep.md" content="placeholder"
+write_note path="Conversations/.gitkeep.md" content="placeholder"
 ```
 
 Note: The `Daily/` folder is created automatically by the Daily Notes plugin.

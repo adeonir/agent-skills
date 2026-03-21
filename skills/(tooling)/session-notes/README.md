@@ -1,6 +1,6 @@
 # Session Notes
 
-Structured note creation for Obsidian using the official CLI with Write tool fallback.
+Structured note creation for Obsidian using MCPVault MCP.
 
 ## Installation
 
@@ -30,17 +30,14 @@ flowchart LR
     D -->|Daily| Y[Create Daily Note]
     D -->|Conversation| V[Save Conversation]
     D -->|Capture| Q[Quick Capture]
-    P --> W{CLI Available?}
-    C --> W
-    H --> W
-    B --> W
-    Y --> W
-    V --> W
-    Q --> W
-    W -->|Yes| O[Obsidian CLI]
-    W -->|No| F[Write Tool]
-    O --> N[Note in Vault]
-    F --> N
+    P --> M[MCPVault MCP]
+    C --> M
+    H --> M
+    B --> M
+    Y --> M
+    V --> M
+    Q --> M
+    M --> N[Note in Vault]
 ```
 
 ## Usage
@@ -85,8 +82,9 @@ Vault/
 
 ## Requirements
 
-- Obsidian CLI installed and available in PATH (optional - falls back to Write tool)
+- MCPVault MCP server configured and connected
 - At least one Obsidian vault configured
+- Obsidian CLI (optional -- used for vault discovery)
 - Templates in `Templates/` for manual use via Obsidian's Templates plugin
 
 ## Integration

@@ -15,21 +15,15 @@ throughout (e.g., codigo, informacao, nao, area, sera).
 
 ## Workflow
 
-1. **Confirm vault**
-   ```bash
-   obsidian vaults verbose
-   ```
-
-2. **Check if today's note exists**
+1. **Check if today's note exists**
    Daily notes follow the convention: `Daily/YYYY-MM-DD.md`.
-   ```bash
-   obsidian daily:path
-   obsidian daily:read
+   ```
+   search_notes query="YYYY-MM-DD" path="Daily/"
    ```
    If the note already exists, follow the **Update Existing Note** flow below.
-   If it does not exist, continue with step 3.
+   If it does not exist, continue with step 2.
 
-3. **Gather project context**
+2. **Gather project context**
    Use the current working directory to infer the project name (folder name,
    git remote, package.json name). Suggest it to the user and ask what was
    worked on. Activities include meetings, decisions, research, and other work
@@ -45,34 +39,17 @@ throughout (e.g., codigo, informacao, nao, area, sera).
    Use findings as suggestions -- let the user confirm what to include.
    If Basic Memory is not available, skip this step entirely.
 
-4. **Compose content**
+3. **Compose content**
    Create one `### Project Name` subsection per project under `## Activities`.
    Write bullet points in natural, descriptive language -- not changelog style.
 
    Good: "Separados conceitos de milestones e releases para evitar confusao"
    Bad: "refactor: separate milestone/release concepts"
 
-5. **Preview and confirm**
-   Display the full note content and target file path to the user.
-   Ask for confirmation before writing. Accept edits if suggested.
-
-6. **Write note**
-   Check if Obsidian CLI is available:
-   ```bash
-   which obsidian
+4. **Write note**
    ```
-   If available, create the daily note:
-   ```bash
-   obsidian daily
+   write_note path="Daily/YYYY-MM-DD.md" content="..." frontmatter={...}
    ```
-   Then resolve the absolute path and use the Write tool to set the content:
-   ```bash
-   obsidian vault info=path
-   ```
-   The full path is `<vault-path>/Daily/YYYY-MM-DD.md`.
-
-   If CLI is not available, fall back to Write tool to create the file
-   directly at the vault path. Ask user for vault path on first use.
 
 ## Update Existing Note
 
@@ -80,17 +57,11 @@ When the daily note already exists (user switched projects or is adding to
 an earlier entry):
 
 1. **Read current content**
-   ```bash
-   obsidian daily:read
+   ```
+   read_note path="Daily/YYYY-MM-DD.md"
    ```
 
-2. **Resolve absolute path**
-   ```bash
-   obsidian vault info=path
-   ```
-   The file path is `<vault-path>/Daily/YYYY-MM-DD.md`.
-
-3. **Infer project from context**
+2. **Infer project from context**
    Use the current working directory to suggest the project name. Check if a
    subsection for that project already exists in the note.
 
@@ -98,20 +69,19 @@ an earlier entry):
    updated to suggest new items. Present findings to the user for confirmation.
    If Basic Memory is not available, skip this step.
 
-4. **Gather new content**
+3. **Gather new content**
    Ask what was worked on. Also ask about learnings, blockers, or tomorrow
    items if relevant.
 
-5. **Edit in place with Edit tool**
-   Do NOT use `obsidian daily:append` -- it adds to the end of the file,
-   not inside the correct section. Instead, use the Edit tool to:
+4. **Edit in place**
+   Use `patch_note` to insert content at the right location:
    - Insert new `### Project Name` subsection at the end of `## Activities`
      (before the next `## ` section or end of file)
    - If the user mentions learnings, blockers, or tomorrow items, insert them
      into the corresponding section (create the section if it does not exist)
-
-6. **Preview and confirm**
-   Show only the changes being made, not the full note. Ask for confirmation.
+   ```
+   patch_note path="Daily/YYYY-MM-DD.md" oldString="..." newString="..."
+   ```
 
 ## Content Structure
 
@@ -143,22 +113,6 @@ them only when the user mentions relevant content.
 - Carry over tasks or upcoming priorities
 ```
 
-## Quick Capture
-
-For rapid logging throughout the day:
-
-```bash
-# Quick append without opening
-obsidian daily:append content="- Quick standup note"
-
-# Read current daily note content
-obsidian daily:read
-
-# Check tasks in daily note
-obsidian tasks daily
-obsidian tasks daily todo
-```
-
 ## Guidelines
 
 **DO:**
@@ -173,7 +127,6 @@ obsidian tasks daily todo
 - Duplicate info from project notes (link instead)
 - Generate empty sections or placeholder content
 - Use changelog/commit-style language in bullet points
-- Use `obsidian daily:append` when inserting into the middle of a note
 
 ## Next Steps
 

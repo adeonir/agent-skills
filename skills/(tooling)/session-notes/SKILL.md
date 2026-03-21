@@ -3,7 +3,7 @@ name: session-notes
 description: >-
   Create and manage Obsidian notes for projects, companies, technical
   challenges, brag documents, daily logs, AI conversations, and quick captures
-  using the Obsidian CLI. Use when documenting projects, tracking job
+  using MCPVault MCP. Use when documenting projects, tracking job
   applications, recording interview challenges, maintaining brag documents,
   creating daily notes, or saving AI conversations. Triggers on "create
   project", "new project note", "document company", "job application",
@@ -14,16 +14,39 @@ description: >-
 
 # Session Notes
 
-Create and manage Obsidian notes using the Obsidian CLI for structured documentation.
+Create and manage Obsidian notes using MCPVault MCP for structured documentation.
 
 ## Workflow
 
 ```
-target-vault --> select-type --> create-note --> populate
-  --> preview --> confirm --> write --> link-related
+resolve-vault --> select-type --> compose-note --> write --> link-related
 ```
 
 Each note type has its own workflow. Use any type independently based on user needs.
+
+## Vault Resolution
+
+Run once per session before any write operation. All references assume the vault
+is already resolved.
+
+1. Check if MCPVault MCP is available (look for `write_note`, `read_note` tools)
+2. Use `list_directory` to verify the vault root is accessible
+3. If Obsidian CLI is available (`which obsidian`), use `obsidian vaults verbose`
+   to list vaults and confirm with user
+4. If multiple vaults exist, ask user which one to use
+5. Remember the vault name for the rest of the session
+
+Once resolved, all references use relative paths from the vault root
+(e.g., `Daily/2026-03-20.md`, `Projects/My Project/Overview.md`).
+
+## Filename Sanitization
+
+When generating filenames from user input:
+
+- Remove invalid characters: `/ \ : * ? " < > |`
+- Preserve accented characters (valid in filenames)
+- Use Title Case for all filenames
+- Example: `What's Next?` becomes `Whats Next.md`
 
 ## Context Loading Strategy
 
@@ -52,7 +75,7 @@ multiple simultaneously unless explicitly noted.
 Notes:
 
 - `markdown.md` and `vault-structure.md` are informational guides (no write operations).
-- All other references are note-creation workflows (compose, preview, confirm, write).
+- All other references are note-creation workflows (compose, write, link).
 
 ## Cross-References
 
@@ -70,28 +93,21 @@ conversation --> brag     (conversation outcomes become achievements)
 
 **DO:**
 
-- Always verify vault with user before creating notes (`obsidian vaults verbose`)
+- Resolve vault once per session (see Vault Resolution above)
 - Compose note content inline following `templates/*.md` structure
-- Preview the full note content and target path before writing, ask for confirmation
-- Check CLI availability with `which obsidian`; if unavailable, fall back to Write tool at vault path
+- Use `write_note` for new notes, `read_note` + `patch_note` for updates
+- Use `search_notes` to check if a note exists before creating
 - Link related notes using Obsidian wiki-links `[[Note Name]]`
 - Use Title Case for filenames (e.g., `My Project.md`)
-- Ask user which vault when multiple vaults exist
-- Remember vault name after first confirmation to avoid repeated prompts
-- Use `obsidian search` to check if a note exists before creating
-- Run `obsidian help` or `obsidian help <command>` for up-to-date CLI reference
-- Use `silent` flag on `create` to avoid opening the note in Obsidian
-- For mid-file edits, resolve the absolute path with `obsidian vault info=path`
-  combined with the note's relative path, then use the Edit tool directly
+- Sanitize filenames from user input (see Filename Sanitization above)
 - When templates in the skill are updated, remind user to sync vault copies (`Templates/`)
 
 **DON'T:**
 
 - Overwrite or delete existing vault files -- always append, rename, or cancel
 - Assume vault location without confirmation
-- Create notes without user confirmation of content
 - Use templates for updates (templates are for new notes only)
-- Create duplicate notes - search first with `obsidian search query=<name>`
+- Create duplicate notes -- search first with `search_notes`
 - Use absolute paths in wiki-links (always relative)
 
 ## Output
@@ -111,8 +127,7 @@ Vault/
 
 ## Error Handling
 
-- Vault not found: ask user for correct vault name (`obsidian vaults verbose`)
+- MCPVault unavailable: inform user the skill requires MCPVault MCP server
+- Vault not found: ask user for correct vault name
 - Note already exists: ask to append, choose new name, or cancel
-- CLI not available for content: fall back to Write tool with content composed from templates
-- Obsidian CLI not available: fall back to Write tool to create the file directly at the vault path; ask user for vault path on first use
 - Empty required fields: prompt user for missing information

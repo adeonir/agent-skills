@@ -10,19 +10,14 @@ Document technical challenges from interview processes.
 
 ## Workflow
 
-1. **Confirm vault**
-   ```bash
-   obsidian vaults verbose
-   ```
-
-2. **Gather challenge info**
+1. **Gather challenge info**
    - Company (if part of interview process)
    - Brief description
    - Tech stack
    - Time constraints
    - Current status (pending, completed, submitted, feedback received)
 
-3. **Generate folder and filename**
+2. **Generate folder and filename**
    - Folder: company or context name in Title Case under `Challenges/`
    - Filename: Title Case describing the challenge
    - Pattern: `Challenges/{{Company}}/{{Type Topic}}.md`
@@ -31,32 +26,20 @@ Document technical challenges from interview processes.
      - `Challenges/Algo/Binary Tree Traversal.md`
      - `Challenges/Figma/React Component Library.md`
 
-4. **Check if exists**
-   ```bash
-   obsidian search query="System Design URL Shortener" path="Challenges/Stripe"
+3. **Check if exists**
+   ```
+   search_notes query="System Design URL Shortener" path="Challenges/"
    ```
 
-5. **Compose content**
+4. **Compose content**
    Build the note content following `templates/challenge.md` structure.
    Populate References with the company note link if part of an interview
    process. Include any other related notes mentioned by the user.
 
-6. **Preview and confirm**
-   Display the full note content and target file path to the user.
-   Ask for confirmation before writing. Accept edits if suggested.
-
-7. **Write note**
-   Check if Obsidian CLI is available:
-   ```bash
-   which obsidian
+5. **Write note**
    ```
-   If available, compose content and create with CLI:
-   ```bash
-   obsidian create path="Challenges/Stripe/System Design URL Shortener.md" content="# System Design URL Shortener" silent
+   write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
    ```
-   Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
-   If CLI is not available, fall back to Write tool to create the file
-   directly at the vault path (ask user for vault path on first use).
 
 ## Guidelines
 

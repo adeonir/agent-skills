@@ -10,53 +10,36 @@ Track job applications and interview process for a company.
 
 ## Workflow
 
-1. **Confirm vault**
-   ```bash
-   obsidian vaults verbose
-   ```
-
-2. **Gather company info**
+1. **Gather company info**
    - Company name
    - Position/role applied for
    - Application date
    - Current status (applied, screening, interview, offer, rejected)
    - Tech stack (technologies used)
 
-3. **Generate filename**
+2. **Generate filename**
    - Title Case with year for uniqueness: `{{Company Name}} {{Year}}.md`
    - Example: "Stripe" -> `Stripe 2025.md`
 
-4. **Check if exists**
-   ```bash
-   obsidian search query="Stripe 2025" path=Companies
+3. **Check if exists**
+   ```
+   search_notes query="Stripe 2025" path="Companies/"
    ```
 
-5. **Create or update**
-   - If new: create with template
-   - If exists: append new row to Timeline table
+4. **Create or update**
+   - If new: compose content following `templates/company.md` structure
+   - If exists: read with `read_note`, then append new Timeline row with `patch_note`
 
-6. **Preview and confirm**
-   Display the full note content (or the new Timeline row to append) and
-   target file path to the user. Ask for confirmation before writing.
-   Accept edits if suggested.
-
-7. **Write note**
-   Check if Obsidian CLI is available:
-   ```bash
-   which obsidian
+5. **Write note**
+   New note:
    ```
-   If available, compose content following `templates/company.md` structure
-   and create with CLI:
-   ```bash
-   obsidian create path="Companies/Stripe 2025.md" content="# Senior Engineer -- Stripe" silent
+   write_note path="Companies/Stripe 2025.md" content="..."
    ```
-   For appending a Timeline row to an existing note:
-   ```bash
-   obsidian append path="Companies/Stripe 2025.md" content="| 2025-03-18 | Technical | System design, see [[Stripe System Design]] |"
+   Append Timeline row:
    ```
-   Use `open` instead of `silent` if the user wants to see the note in Obsidian immediately.
-   If CLI is not available, fall back to Write tool to create the file
-   directly at the vault path (ask user for vault path on first use).
+   read_note path="Companies/Stripe 2025.md"
+   patch_note path="Companies/Stripe 2025.md" oldString="..." newString="..."
+   ```
 
 ## Guidelines
 
@@ -69,7 +52,7 @@ Track job applications and interview process for a company.
 **DON'T:**
 - Create duplicate notes for same company + year
 - Include sensitive info (recruiter personal contact without permission)
-- Assume status - always confirm with user
+- Assume status -- always confirm with user
 - Include compensation details (sensitive information)
 
 ## Next Steps
