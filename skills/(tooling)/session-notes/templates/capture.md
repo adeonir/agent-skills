@@ -1,10 +1,10 @@
 ---
 title: "{{Content Title}}"
 type: capture
-date: {{YYYY-MM-DD}}
 source: {{url or filename, if applicable}}
 tags:
   - capture
+  - {{dynamic tags based on content}}
 ---
 # {{Content Title}}
 
@@ -14,9 +14,9 @@ work or interests.}}
 
 ## Observations
 
-- [topic] {{what this content is about}}
-- [takeaway] {{key insight or useful fact}}
+- #topic {{what this content is about}}
+- #takeaway {{key insight or useful fact}}
 
 ## Relations
 
-- relates_to [[{{Related Note}}]]
+- [[{{Related Note}}]]

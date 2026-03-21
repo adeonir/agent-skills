@@ -13,9 +13,16 @@ All notable changes to this skill will be documented in this file.
 - Add title and type fields to all template frontmatter
 - Change tags format from inline list to YAML multiline (one per line)
 - Add rich prose context paragraph after H1 in all templates
-- Replace References section with typed Relations following BM pattern
-- Add Observations section with [category] content syntax to all templates
+- Replace References section with Relations using wikilinks only (no relation_type)
+- Replace [category] observations with #category hashtags for native Obsidian tag indexing
+- Add dynamic tags placeholder to all templates
 - Change stack field from string to YAML multiline list
+- Centralize English language rule in SKILL.md Writing Style
+
+### Removed
+
+- Remove date field from all template frontmatter
+- Remove Language section from daily reference (centralized in SKILL.md)
 
 ## 2026-03-20
 

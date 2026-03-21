@@ -1,9 +1,9 @@
 ---
-title: "{{YYYY-MM-DD}}"
+title: "{{DayOfWeek, Month DD, YYYY}}"
 type: daily
-date: {{YYYY-MM-DD}}
 tags:
   - daily
+  - {{dynamic tags based on content}}
 ---
 # {{DayOfWeek, Month DD, YYYY}}
 
@@ -30,10 +30,10 @@ that connects the activities below. Keep it natural, not a summary.}}
 
 ## Observations
 
-- [progress] {{key progress on a project}}
-- [blocker] {{what blocked and why}}
-- [decision] {{decision made during the day}}
+- #progress {{key progress on a project}}
+- #blocker {{what blocked and why}}
+- #decision {{decision made during the day}}
 
 ## Relations
 
-- worked_on [[{{Project Name}}]]
+- [[{{Related Note}}]]

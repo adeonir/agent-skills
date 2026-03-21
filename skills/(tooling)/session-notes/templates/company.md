@@ -1,7 +1,6 @@
 ---
 title: "{{Role}} -- {{Company Name}}"
 type: company
-date: {{YYYY-MM-DD}}
 company: {{company-name}}
 role: {{role}}
 status: {{applied / screening / interview / offer / rejected}}
@@ -10,6 +9,7 @@ stack:
 tags:
   - company
   - job-search
+  - {{dynamic tags based on content}}
 ---
 # {{Role}} -- {{Company Name}}
 
@@ -30,11 +30,10 @@ picture.}}
 
 ## Observations
 
-- [status] {{current application status}}
-- [impression] {{impression of the company or team}}
-- [lesson] {{what you learned from the process}}
+- #status {{current application status}}
+- #impression {{impression of the company or team}}
+- #lesson {{what you learned from the process}}
 
 ## Relations
 
-- relates_to [[{{Challenge Note}}]]
-- feeds_into [[{{Brag Document}}]]
+- [[{{Related Note}}]]

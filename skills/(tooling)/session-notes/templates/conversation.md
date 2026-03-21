@@ -1,10 +1,10 @@
 ---
 title: "{{Topic}}"
 type: conversation
-date: {{YYYY-MM-DD}}
 source: {{claude-code / claude-ai / chatgpt / gemini / other}}
 tags:
   - conversation
+  - {{dynamic tags based on content}}
 ---
 # {{Topic}}
 
@@ -26,11 +26,10 @@ someone reading this later understands the conversation's value.}}
 
 ## Observations
 
-- [decision] {{key decision made}}
-- [insight] {{important realization}}
-- [question] {{open question to revisit}}
+- #decision {{key decision made}}
+- #insight {{important realization}}
+- #question {{open question to revisit}}
 
 ## Relations
 
-- relates_to [[{{Project Name}}]]
-- feeds_into [[{{Daily Note}}]]
+- [[{{Related Note}}]]

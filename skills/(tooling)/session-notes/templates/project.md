@@ -1,11 +1,11 @@
 ---
 title: "{{Project Name}}"
 type: project
-date: {{YYYY-MM-DD}}
 stack:
   - {{technology}}
 tags:
   - project
+  - {{dynamic tags based on content}}
 ---
 # {{Project Name}}
 
@@ -34,11 +34,10 @@ to ask.}}
 
 ## Observations
 
-- [decision] {{key technical or product decision}}
-- [stack] {{technology choice and rationale}}
-- [risk] {{known risk or concern}}
+- #decision {{key technical or product decision}}
+- #stack {{technology choice and rationale}}
+- #risk {{known risk or concern}}
 
 ## Relations
 
-- part_of [[{{Parent Project or Initiative}}]]
-- relates_to [[{{Related Project}}]]
+- [[{{Related Note}}]]

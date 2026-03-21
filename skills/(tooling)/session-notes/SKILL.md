@@ -91,10 +91,11 @@ conversation --> brag     (conversation outcomes become achievements)
 
 ## Writing Style
 
+- Language: English for all notes
 - Body: rich prose context after the heading, not just bullet points
-- Bullet points: natural log of what was done, no subject, past tense descriptive
-- Observations: `[category] content #optional-tag` syntax
-- Relations: `- relation_type [[Note Title]]` syntax
+- Bullet points: describe what happened and why, with natural language, and with enough context to understand weeks later
+- Observations: `#category content` syntax -- tags are indexed by Obsidian natively
+- Relations: `[[Note Title]]` wikilinks only -- omit the section if no related notes exist in the vault
 
 ## Guidelines
 

@@ -8,11 +8,6 @@ Create quick daily logs and journal entries.
 - User wants to record daily activities and reflections
 - End of day wrap-up
 
-## Language
-
-Default to English. If user writes in Portuguese, use proper accents
-throughout (e.g., codigo, informacao, nao, area, sera).
-
 ## Workflow
 
 1. **Check if today's note exists**

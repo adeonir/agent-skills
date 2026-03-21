@@ -1,10 +1,10 @@
 ---
 title: "{{Month YYYY}}"
 type: brag
-date: {{YYYY-MM-DD}}
 tags:
   - brag
   - career
+  - {{dynamic tags based on content}}
 ---
 # {{Month YYYY}}
 
@@ -28,11 +28,10 @@ achievements stand out.}}
 
 ## Observations
 
-- [achievement] {{key accomplishment with metrics}}
-- [growth] {{skill or area of development}}
-- [impact] {{business or team impact}}
+- #achievement {{key accomplishment with metrics}}
+- #growth {{skill or area of development}}
+- #impact {{business or team impact}}
 
 ## Relations
 
-- relates_to [[{{Project Name}}]]
-- inspired_by [[{{Challenge Note}}]]
+- [[{{Related Note}}]]

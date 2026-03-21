@@ -1,7 +1,6 @@
 ---
 title: "{{Challenge Description}}"
 type: challenge
-date: {{YYYY-MM-DD}}
 company: {{company}}
 stack:
   - {{technology}}
@@ -9,6 +8,7 @@ status: {{pending / completed / submitted / feedback-received}}
 tags:
   - challenge
   - interview
+  - {{dynamic tags based on content}}
 ---
 # {{Challenge Description}}
 
@@ -32,12 +32,11 @@ verbatim.}}
 
 ## Observations
 
-- [technique] {{approach or pattern used}}
-- [complexity] {{time/space complexity if algorithmic}}
-- [feedback] {{feedback received, if any}}
-- [lesson] {{key takeaway}}
+- #technique {{approach or pattern used}}
+- #complexity {{time/space complexity if algorithmic}}
+- #feedback {{feedback received, if any}}
+- #lesson {{key takeaway}}
 
 ## Relations
 
-- part_of [[{{Company}} {{Year}}]]
-- feeds_into [[{{Brag Document}}]]
+- [[{{Related Note}}]]
