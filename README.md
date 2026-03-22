@@ -30,6 +30,40 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, and conversations |
 
+## How They Connect
+
+```mermaid
+flowchart TD
+    BR[brainstorming] -->|direction| DW[docs-writer]
+    BR -->|direction| PN[product-naming]
+    BR -->|direction| DB[design-builder]
+    PN -->|name| DW
+    PN -->|name| DB
+    DW -->|requirements| SD[spec-driven]
+    DW -->|requirements| DB[design-builder]
+    PI[project-index] -->|codebase docs| SD
+    PI -->|conventions| DB
+    DB -->|approved design| SD
+    SD -->|commit / review| GH[git-helpers]
+    SD -->|discoveries| PI
+    GH -->|session wrap-up| SN[session-notes]
+    DT[debug-tools] -.->|escalate| SD
+```
+
+## Full Project Flow
+
+```
+1. brainstorming     --> explore ideas, choose direction
+2. product-naming    --> research and validate name
+3. docs-writer       --> generate requirements (PRD, Brief)
+4. project-index     --> scan codebase (if brownfield)
+5. design-builder    --> extract, structure, preview, approve
+6. spec-driven       --> specify, plan, tasks, execute
+7. git-helpers       --> commit, review, PR, finish
+8. session-notes     --> document what was done
+9. debug-tools       --> when something breaks
+```
+
 ## Output Structure
 
 Skills write artifacts to `.artifacts/` organized by domain:
