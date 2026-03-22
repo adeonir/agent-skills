@@ -66,9 +66,22 @@ Generate design tokens following the template schema. Key sections:
 
 Save to `.artifacts/design/design.json`. Create directories if needed.
 
-### Step 5: Validate Output
+### Step 5: Validate Against Heuristics
 
-Run the validation checklist before presenting the result:
+Validate the extracted tokens against design heuristics and accessibility:
+
+- **Visibility**: contrast ratios meet WCAG AA (4.5:1 text, 3:1 large text)
+- **Consistency**: spacing uses regular multiples, typography scale has clear ratio
+- **Feedback**: hover, focus, error, disabled states defined for interactive components
+- **Hierarchy**: typography scale creates clear visual hierarchy (hero vs body ratio)
+- **Flexibility**: responsive breakpoints defined, mobile adaptations considered
+- **Error prevention**: form validation styles defined (if applicable)
+
+Report issues to user. Fix or mark as accepted trade-off before proceeding.
+
+### Step 6: Validate Output Completeness
+
+Run the checklist before presenting:
 
 - [ ] All semantic colors defined (primary, secondary, background, text)
 - [ ] Font families resolved with Google Fonts equivalents
@@ -79,6 +92,7 @@ Run the validation checklist before presenting the result:
 - [ ] Animations defined (entrance + interaction)
 - [ ] Backgrounds defined for hero and at least one section
 - [ ] Typography scale includes hero, body, and label sizes
+- [ ] Heuristic validation passed or trade-offs accepted
 
 If any item fails, fix it before saving. Report remaining gaps in `notes.uncertainties`.
 
@@ -107,6 +121,5 @@ If any item fails, fix it before saving. Report remaining gaps in `notes.uncerta
 ## Next Steps
 
 After generating design.json, suggest:
-- "Run build frontend to generate React components"
-- "Run generate variants to preview 4 layout options before building"
-- "Run export to Figma to send the design for refinement"
+- "Run structure to define the page layout and content hierarchy"
+- "Or provide a wireframe to validate against the tokens"

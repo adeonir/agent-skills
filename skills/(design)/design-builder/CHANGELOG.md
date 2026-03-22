@@ -6,6 +6,29 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-22
+
+### Added
+
+- Structure reference for layout decisions before visual style (create and validate modes)
+- Preview reference with guided mode (per-question) and exploratory mode (4 variants)
+- Preview server script (Bun) for interactive HTML fragments
+- Heuristic validation in design extraction (Nielsen + WCAG AA)
+- Discovery checks brainstorming direction and naming research artifacts
+
+### Changed
+
+- Workflow redesigned: discovery --> content --> tokens + validate --> structure --> preview
+- Implementation delegated to spec-driven (design-builder stops at approved design)
+- SKILL.md rewritten with new triggers, cross-references, and routing
+- Design extraction next steps point to structure instead of frontend/variants
+
+### Removed
+
+- Frontend reference (implementation via spec-driven)
+- Variants reference (content absorbed into preview reference)
+- Export reference (Figma is a preview/wireframe method via MCP, not export step)
+
 ## 2026-03-21
 
 ### Changed

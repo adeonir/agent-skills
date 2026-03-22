@@ -89,4 +89,4 @@ Save to `.artifacts/design/copy.yaml`. Create directories if needed.
 
 After generating copy.yaml, suggest:
 - "Run extract design to create design tokens from reference images"
-- "Or provide reference images for design extraction"
+- "Or if you already have tokens, run structure to define the page layout"

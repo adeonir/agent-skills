@@ -1,34 +1,38 @@
 ---
 name: design-builder
 description: >-
-  Design-to-code pipeline (extract copy from URLs, extract design
-  tokens from images, build React components or HTML preview variants). Use
-  when building pages from reference URLs or screenshots, extracting design
-  systems, generating frontend code, previewing variants, redesigning sites,
-  or sending to Figma via MCP. Triggers on "extract copy", "extract design",
-  "build frontend", "generate variants", "export design", "send to Figma",
-  "build from reference", "redesign this", "create prototype".
+  Product-engineer design pipeline: extract content and tokens, define
+  structure, preview and approve designs. Use when building pages from
+  reference URLs or screenshots, extracting design systems, defining
+  page structure, previewing designs, or redesigning sites. Triggers on
+  "extract copy", "extract design", "wireframe", "layout", "structure",
+  "preview", "variants", "mockup", "build from reference", "redesign
+  this", "create prototype", "design review".
 ---
 
 # Design Builder
 
-Design-to-code pipeline: discover, extract, tokenize, build.
+Product-engineer design pipeline: discover, extract, structure, preview, approve.
 
 ## Workflow
 
 ```
-discovery --> copy --> design --> frontend / variants / export
+discovery --> content --> tokens + validate --> structure --> preview --> design final
 ```
 
 Each step is independent. Can run isolated or chained.
 Discovery is always the first step -- never skip it.
 
+Design final can be: HTML standalone, Paper/Pencil/Figma via MCP, or input
+for spec-driven (implementation).
+
 ## Context Loading Strategy
 
-Load only the reference matching the current trigger. For frontend and variants operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies.
+Load only the reference matching the current trigger. For preview operations,
+also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies.
 
 **Never simultaneous:**
-- Multiple operation references (e.g., copy.md + frontend.md)
+- Multiple operation references (e.g., copy.md + structure.md)
 
 ## Triggers
 
@@ -39,31 +43,35 @@ Load only the reference matching the current trigger. For frontend and variants 
 | Extract copy, copy from URL, content from website | [copy.md](references/copy.md) |
 | Extract design, design from image, design tokens | [design.md](references/design.md) |
 
-### Building
+### Structure
 
 | Trigger Pattern | Reference |
 |-----------------|-----------|
-| Build frontend, create components, generate React | [frontend.md](references/frontend.md) |
-| Generate variants, preview designs, HTML variants | [variants.md](references/variants.md) |
-| Export design, export to Figma, send to Figma | [export.md](references/export.md) |
+| Wireframe, layout, structure, organize content | [structure.md](references/structure.md) |
+
+### Preview
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Preview, variants, mockup, design review | [preview.md](references/preview.md) |
 
 ### Auto-Loaded (not direct triggers)
 
-- `aesthetics.md` -- loaded by `frontend.md` and `variants.md` as design principles
-- `web-standards.md` -- loaded by `frontend.md` and `variants.md` as implementation rules
+- `aesthetics.md` -- loaded by `preview.md` as design principles
+- `web-standards.md` -- loaded by `preview.md` as implementation rules
 
 ## Cross-References
 
 ```
-copy.md ---------> design.md (content informs design)
-design.md -------> frontend.md (tokens required)
-design.md -------> variants.md (tokens required)
-aesthetics.md ------> frontend.md (design principles)
-aesthetics.md ------> variants.md (design principles)
-web-standards.md --> frontend.md (implementation rules)
-web-standards.md --> variants.md (implementation rules)
-variants.md -----> frontend.md (user picks variant, then builds React)
-variants.md -----> export.md (variants required for Figma export)
+brainstorming ---------> design-builder (direction feeds discovery)
+product-naming --------> design-builder (name feeds discovery)
+copy.md ---------------> structure.md (content informs structure)
+design.md -------------> structure.md (tokens inform visual hierarchy)
+design.md -------------> preview.md (tokens style the preview)
+structure.md ----------> preview.md (structure + tokens = preview)
+aesthetics.md ---------> preview.md (design principles)
+web-standards.md ------> preview.md (implementation rules)
+design-builder --------> spec-driven (approved design feeds implementation)
 ```
 
 ## Discovery
@@ -72,17 +80,17 @@ Before any operation, establish project context.
 
 ### Step 1: Check Existing Context
 
-Look for existing documents in `.artifacts/docs/`:
+Look for existing documents:
 
-- `prd.md` -- PRD
-- `brief.md` -- Brief
+- `.artifacts/docs/prd.md` -- PRD
+- `.artifacts/docs/brief.md` -- Brief
+- `.artifacts/brainstorm/` -- brainstorming direction
+- `.artifacts/docs/*-research.md` -- naming research
 
 If found: read and extract purpose, audience, tone, and key features.
 Skip to the relevant trigger operation.
 
-### Step 2: Lightweight Discovery (when no PRD/Brief exists)
-
-Ask up to 4 questions, one stage only:
+### Step 2: Lightweight Discovery (when no context exists)
 
 Ask one question at a time:
 
@@ -106,21 +114,11 @@ Has URL reference?
     No  --> Visual discovery (tone, colors, typography) --> Extract design
 ```
 
-**Phase 2 -- Building** (what to build -- user chooses):
+**Phase 2 -- Structure and Preview** (design the experience):
 
 ```
-design.json exists --> What to build?
-  Preview first    --> Variants --> Frontend or Export
-  Build directly   --> Frontend
-  Send to Figma    --> Variants --> Export
-  External tool    --> Generate prompt (v0, aura.build, replit, etc.)
+tokens + validate complete --> Structure --> Preview --> Design final
 ```
-
-Valid paths after design.json:
-- design --> variants --> frontend
-- design --> variants --> export
-- design --> frontend (directly)
-- design --> prompt for external tool
 
 ## Templates
 
@@ -133,45 +131,33 @@ Valid paths after design.json:
 
 ```
 .artifacts/design/
-├── copy.yaml                          # Structured content
-├── design.json                        # Design tokens
-└── variants/
-    ├── minimal/index.html             # Variant preview
-    ├── editorial/index.html
-    ├── startup/index.html
-    ├── bold/index.html
-    ├── {custom}/index.html            # Custom variant (if requested)
-    └── index.html                     # Comparison page
-src/                                   # React components (frontend)
+├── copy.yaml              # Structured content
+├── design.json            # Design tokens (validated)
+├── structure.md           # Layout decisions
+└── preview/               # Preview session output
+    ├── guided/            # Per-question decisions (guided mode)
+    └── variants/          # 4 HTML variants (exploratory mode)
 ```
 
 ## Guidelines
 
 **DO:**
 - Ask user for project name and use kebab-case for directory names
-- Check for existing PRD/Brief before any operation and use them as context
-- Check for existing copy.yaml, design.json before starting
-- Suggest next steps after completing any operation (defined in each reference file)
-- Suggest missing prerequisites (e.g., "Run extract design first to generate design.json")
+- Check for existing context before any operation (PRD, brief, brainstorm, naming)
+- Check for existing copy.yaml, design.json, structure.md before starting
+- Suggest next steps after completing any operation
+- Suggest missing prerequisites
 
 **DON'T:**
 - Skip discovery -- always establish project context first
-- Ignore existing artifacts when they're available
-- Couple suggestions to specific skills (keep them generic)
+- Ignore existing artifacts when they are available
 - Block on missing PRD/Brief -- run lightweight discovery instead
-
-## Output
-
-```
-.artifacts/design/copy.yaml    # Structured content from URL extraction
-.artifacts/design/design.json  # Design tokens from image extraction
-.artifacts/design/variants/    # HTML+CSS preview variants
-src/                           # React components from frontend building
-```
+- Skip structure -- even with wireframe, validate coherence
 
 ## Error Handling
 
 - No PRD/Brief: Run lightweight discovery, never block on it
 - No copy.yaml: Proceed without it, or suggest running extract copy first
-- No design.json: Required for frontend/variants/export -- suggest running extract design
+- No design.json: Required for structure/preview -- suggest running extract design
+- No structure.md: Required for preview -- suggest running structure first
 - Reference URL unavailable: ask user to paste a screenshot instead
