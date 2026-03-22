@@ -23,8 +23,9 @@ Ask the user for the issue details. If they provide a brief description, fill in
 
 ### Optional Fields
 
-5. **Scope In**: What's included in this slice
-6. **Scope Out**: What's excluded from this slice
+5. **Size**: T-shirt estimate (S / M / L)
+6. **Scope In**: What's included in this slice
+7. **Scope Out**: What's excluded from this slice
 
 ## Drafting
 

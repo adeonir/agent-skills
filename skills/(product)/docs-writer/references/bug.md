@@ -20,7 +20,8 @@ Collect the following from the user:
 2. **What should have happened?** (expected behavior)
 3. **How to reproduce?** (step-by-step)
 4. **Environment** (OS, browser, version, etc.)
-5. **Workaround?** (any known mitigation)
+5. **Severity?** (optional -- critical / high / medium / low)
+6. **Workaround?** (any known mitigation)
 
 If the user provides a brief description, ask for the missing fields. Don't ask for fields the user already covered.
 
@@ -43,11 +44,12 @@ Fill in fields from user input. Present draft for review before saving.
 | Section | Content |
 |---------|---------|
 | 1. Description | Expected behavior vs actual behavior |
-| 2. Steps to Reproduce | Numbered step-by-step reproduction |
-| 3. Environment | OS, browser, device, version, environment |
-| 4. Workaround | Known mitigation or "None known" |
-| 5. Notes | Additional context, logs, screenshots, related info |
-| 6. References | Links to related pitches, scopes, or PRD |
+| 2. Severity | Optional: critical / high / medium / low |
+| 3. Steps to Reproduce | Numbered step-by-step reproduction |
+| 4. Environment | OS, browser, device, version, environment |
+| 5. Workaround | Known mitigation or "None known" |
+| 6. Notes | Additional context, logs, screenshots, related info |
+| 7. References | Links to related pitches, scopes, or PRD |
 
 ## Guidelines
 

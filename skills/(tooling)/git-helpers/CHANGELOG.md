@@ -6,6 +6,22 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- Finish branch reference for branch lifecycle (update, merge, cleanup)
+- Test plan section in pull request template
+- Type of change field in pull request template
+
+### Changed
+
+- Commit body bullets start with lowercase
+- Code review output format enforces file:line (never function names)
+- Pull request template rewritten (summary with what+why, removed frontmatter)
+- Workflow expanded to commit --> review --> summary --> pr --> finish
+- Description updated with finish branch and merge triggers
+
 ## 2026-03-12
 
 ### Changed

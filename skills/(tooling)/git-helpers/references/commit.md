@@ -130,6 +130,7 @@ or breaking change.
 When included:
 
 - 1 to 5 bullet points maximum
+- Start each bullet with a lowercase verb (e.g., "- support", "- add", "- remove")
 - Add context the diff alone does not communicate (motivation, impact, decisions)
 - No file names or paths
 - No listing every change (the subject line summarizes)
@@ -141,9 +142,9 @@ When included:
 ```
 feat: add user authentication flow
 
-- Support email/password login
-- Add session management
-- Include remember me option
+- support email/password login
+- add session management
+- include remember me option
 ```
 
 ```

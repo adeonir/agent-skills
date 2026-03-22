@@ -117,6 +117,7 @@ them only when the user mentions relevant content.
 
 **DO:**
 - Keep it brief - 5 minutes max
+- Ask one question at a time -- never batch multiple questions
 - Link to project notes when mentioning projects `[[Project Name]]`
 - Use bullet points for speed
 - Ask which projects were worked on and create a subsection for each

@@ -13,7 +13,8 @@ Auto-loaded by execute.md before writing code. Not a direct trigger.
 | Simplicity first | Write the simplest code that satisfies the requirement |
 | Surgical changes | Modify only what is necessary, leave unrelated code untouched |
 | Goal-driven | Every change must trace back to a requirement or acceptance criterion |
-| Follow existing patterns | Match the project's conventions exactly (naming, imports, error handling) |
+| Follow existing patterns | Match the project's conventions exactly. When `.agents/codebase/conventions.md` exists, treat it as the source of truth -- especially Project Abstractions and Custom Hooks |
+| Test first (when tests exist) | If the project has test infrastructure, write the failing test before the implementation |
 | Verify before moving on | Run quality gates after each task, fix issues immediately |
 
 ## Anti-Patterns

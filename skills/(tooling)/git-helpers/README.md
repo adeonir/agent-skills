@@ -17,12 +17,14 @@ flowchart LR
     A[Commit] --> B[Review]
     B --> C[Summary]
     C --> D[Create PR]
+    D --> E[Finish]
 ```
 
 1. **Commit** - Creates well-formatted conventional commit messages
 2. **Review** - Finds bugs, security issues, and guideline violations
 3. **Summary** - Generates PR description with impact assessment (saves to `PR_SUMMARY.md`)
 4. **Create PR** - Pushes branch and creates pull request via GitHub CLI
+5. **Finish Branch** - Prepares branch (rebase/squash/merge), merges PR, cleans up
 
 ## Usage
 
@@ -46,11 +48,17 @@ generate PR description
 push and create PR
 create pull request against main
 
+# Finish Branch
+finish branch
+merge branch
+merge PR
+
 # Chained workflow
 commit these changes
 review my changes
 summarize these changes
 push and create PR
+finish branch
 ```
 
 ### Quick Bug Fix

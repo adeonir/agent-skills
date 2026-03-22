@@ -2,11 +2,13 @@
 name: git-helpers
 description: >-
   Git workflow helper for conventional commits, confidence-scored
-  code review, and pull request management. Use when committing changes,
-  reviewing code, creating PRs, or when the user is done coding and ready to
-  commit, wants feedback on changes, or needs to push and open a PR. Triggers
-  on "commit", "review", "push", "create PR", "PR description", "summarize
-  changes", "done", "ready to push", "check my code".
+  code review, pull request management, and branch lifecycle. Use when
+  committing changes, reviewing code, creating PRs, merging branches, or
+  when the user is done coding and ready to commit, wants feedback on
+  changes, needs to push and open a PR, or wants to finish and merge a
+  branch. Triggers on "commit", "review", "push", "create PR",
+  "summarize changes", "done", "ready to push", "check my code",
+  "finish branch", "merge branch", "merge PR", "cleanup branch".
 ---
 
 # Git Helpers
@@ -17,7 +19,7 @@ and automated PR management.
 ## Workflow
 
 ```
-commit --> review --> summary --> create-pull-request
+commit --> review --> summary --> create-pull-request --> finish-branch
 ```
 
 Each step is independent. Use any workflow in isolation or chain them together.
@@ -34,6 +36,7 @@ Load only the reference matching the current trigger. Never load multiple refere
 | Review code, check changes, check my code | [code-review.md](references/code-review.md) |
 | Summarize changes, generate PR description | [summary.md](references/summary.md) |
 | Push branch, create PR, open pull request, ready to push | [create-pull-request.md](references/create-pull-request.md) |
+| Finish branch, merge branch, merge PR, cleanup branch | [finish-branch.md](references/finish-branch.md) |
 
 Notes:
 
@@ -44,6 +47,7 @@ Notes:
 ```
 code-review.md -------------> guidelines-audit.md (loaded as part of review)
 create-pull-request.md -----> templates/pull-request.md (PR body template)
+finish-branch.md -----------> commit.md (squash commit message conventions)
 ```
 
 ## Guidelines

@@ -11,13 +11,13 @@ Add achievements to brag document for performance reviews and career growth.
 ## Workflow
 
 1. **Determine time period**
-   - Current year: `Brags 2025.md`
-   - Or by quarter: `Brags 2025 Q1.md`
+   - Current year: `{{YYYY}}.md`
+   - Or by quarter: `{{YYYY}} Q1.md`
    - Ask user preference on first use
 
 2. **Check if brag doc exists**
    ```
-   search_notes query="Brags 2025" path="Brags/"
+   search_notes query="{{YYYY}}" path="Brags/"
    ```
 
 3. **Create or append**
@@ -33,12 +33,12 @@ Add achievements to brag document for performance reviews and career growth.
 5. **Write note**
    New document:
    ```
-   write_note path="Brags/Brags 2025.md" content="..."
+   write_note path="Brags/{{YYYY}}.md" content="..."
    ```
    Append to existing:
    ```
-   read_note path="Brags/Brags 2025.md"
-   patch_note path="Brags/Brags 2025.md" oldString="..." newString="..."
+   read_note path="Brags/{{YYYY}}.md"
+   patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
    ```
 
 ## Achievement Format
@@ -52,6 +52,7 @@ Add achievements to brag document for performance reviews and career growth.
 ## Guidelines
 
 **DO:**
+- Ask one question at a time -- never batch multiple questions
 - Quantify impact when possible (%, $, time saved)
 - Include both technical and soft skill achievements
 - Record achievements as they happen (don't wait for review)

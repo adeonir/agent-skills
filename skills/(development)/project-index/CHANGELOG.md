@@ -6,6 +6,29 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- Custom Hooks section in conventions template
+- Project Abstractions table in conventions template
+- Inconsistencies section in conventions template
+- Mermaid diagrams in architecture template (system overview, component map, data flows)
+- Interfaces and APIs section in architecture template
+- Module dependencies table in architecture template
+- Review notes template (consistency, completeness, recommendations)
+- Self-assessment step in summary workflow
+- Coverage gaps section in testing template
+
+### Changed
+
+- Size budget removed, replaced with "depth over brevity" guidelines
+- Code snippets with source file references required for all conventions
+- Custom hooks added to reading priority (position 3)
+- Abstractions documented as high priority in convention extraction
+- Architecture template uses mermaid for complex diagrams
+- Workflows template uses mermaid flowcharts
+
 ## 2026-03-10
 
 ### Added

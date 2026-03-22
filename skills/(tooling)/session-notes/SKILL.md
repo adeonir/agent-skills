@@ -2,14 +2,13 @@
 name: session-notes
 description: >-
   Create and manage Obsidian notes for projects, companies, technical
-  challenges, brag documents, daily logs, AI conversations, and quick captures
-  using MCPVault MCP. Use when documenting projects, tracking job
-  applications, recording interview challenges, maintaining brag documents,
-  creating daily notes, or saving AI conversations. Triggers on "create
-  project", "new project note", "document company", "job application",
-  "technical challenge", "brag document", "daily note", "today's log",
-  "obsidian note", "save conversation", "chat summary", "session summary",
-  "save this", "capture this", "quick note".
+  challenges, brag documents, daily logs, and AI conversations using
+  MCPVault MCP. Use when documenting projects, tracking job applications,
+  recording interview challenges, maintaining brag documents, creating
+  daily notes, or saving AI conversations. Triggers on "create project",
+  "new project note", "document company", "job application", "technical
+  challenge", "brag document", "daily note", "today's log", "obsidian
+  note", "save conversation", "chat summary", "session summary".
 ---
 
 # Session Notes
@@ -68,7 +67,6 @@ multiple simultaneously unless explicitly noted.
 | Brag, achievement, accomplishment | [brag.md](references/brag.md) |
 | Daily, today, daily note, journal | [daily.md](references/daily.md) |
 | Conversation, session, save conversation, AI chat | [conversation.md](references/conversation.md) |
-| Capture, save this, quick note, paste this | [capture.md](references/capture.md) |
 | Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
 | Vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
 
@@ -129,8 +127,7 @@ Vault/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
-├── Daily/
-└── Templates/
+└── Daily/
 ```
 
 ## Error Handling

@@ -44,6 +44,7 @@ Track job applications and interview process for a company.
 ## Guidelines
 
 **DO:**
+- Ask one question at a time -- never batch multiple questions
 - Update existing company note if re-applying to same company
 - Link to challenge notes for interview stages with technical detail
 - Track reasons for rejection (if known)

@@ -1,6 +1,6 @@
 ---
 name: {{bug-name}}
-priority: {{critical/high/medium/low}}
+severity: {{critical/high/medium/low}}
 ---
 
 # {{Title}}
@@ -10,6 +10,8 @@ priority: {{critical/high/medium/low}}
 **Expected:** {{What should happen}}
 
 **Actual:** {{What actually happens}}
+
+**Severity:** {{critical / high / medium / low (optional -- omit if unknown)}}
 
 ## Steps to Reproduce
 

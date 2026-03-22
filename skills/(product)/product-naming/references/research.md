@@ -17,7 +17,7 @@ The user asks for name suggestions, ideas, or help coming up with a name. Also u
 
 ## Discovery
 
-Ask (if not already clear from context):
+Ask one question at a time (if not already clear from context):
 
 1. What does the product do? (one sentence)
 2. Who is the target audience?
@@ -100,6 +100,15 @@ Evaluate each candidate on these criteria:
 - **Trademark risk**: sounds too close to a known brand? Flag obvious conflicts based on agent judgment -- no external research needed here.
 
 Use [Good] / [Fair] / [Poor] for each criterion.
+
+## Review Before Presenting
+
+Before presenting the report, verify:
+
+- [ ] Scoring is consistent (no candidate scored [Good] on all criteria without justification)
+- [ ] Top candidates are genuinely different from each other (not variations of the same idea)
+- [ ] Competitor names are not accidentally duplicated in candidates
+- [ ] Bilingual phonetics were considered for invented names
 
 ## Output
 

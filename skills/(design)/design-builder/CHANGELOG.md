@@ -6,6 +6,13 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Changed
+
+- Discovery adds "one question at a time" rule
+- Frontend loads conventions.md for brownfield projects
+
 ## 2026-03-12
 
 ### Changed

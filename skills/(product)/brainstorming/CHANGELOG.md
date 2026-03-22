@@ -6,6 +6,17 @@ name: brainstorming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- YAGNI as screening criterion in converge Step 1
+- Review checklist in converge Step 7 (validates artifact before saving)
+
+### Changed
+
+- Discovery "one question at a time" changed from conditional to absolute rule
+
 ## 2026-03-10
 
 ### Added

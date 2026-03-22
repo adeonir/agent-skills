@@ -24,7 +24,7 @@ Always use the `[DEBUG]` prefix for grep and cleanup. Adapt the format to the pr
 Components:
 
 - `[DEBUG]` - Prefix for grep and cleanup (required, all languages)
-- `[file:line]` - Location for navigation
+- `[file:line]` - File path and line number for navigation (e.g., `[cache.js:12]`). Never use function names in place of line numbers
 - `description` - What this log checks
 - `vars` - Relevant data (no sensitive info)
 

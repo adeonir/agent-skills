@@ -46,19 +46,20 @@ summary.md -------> root-agents.md (auto-update AGENTS.md)
 
 ```
 .agents/
-├── project.md              # Project context (overview)
-└── codebase/               # Codebase analysis (summary)
-    ├── stack.md
-    ├── architecture.md
-    ├── conventions.md
-    ├── testing.md
-    ├── integrations.md
-    ├── commands.md
-    ├── checklist.md
-    ├── workflows.md
-    └── concerns.md          # Optional: tech debt, risks (only when issues detected)
+├── project.md              # Project context, purpose, scope
+└── codebase/               # Deep codebase analysis
+    ├── stack.md            # Framework, runtime, all dependencies with purpose
+    ├── architecture.md     # Mermaid diagrams, component map, layers, data flows, interfaces
+    ├── conventions.md      # Observed patterns with code snippets, abstractions, custom hooks
+    ├── testing.md          # Patterns from actual tests, mocking, fixtures, coverage gaps
+    ├── integrations.md     # External services, env vars, config details
+    ├── commands.md         # All available scripts with descriptions
+    ├── checklist.md        # Validation steps after completing a task
+    ├── workflows.md        # Mermaid flowcharts for user and dev workflows
+    ├── review-notes.md     # Self-assessment: consistency, completeness, gaps
+    └── concerns.md         # Optional: tech debt, risks (only when detected)
 
-AGENTS.md                   # Root file (auto-generated)
+AGENTS.md                   # Concise entry point pointing to .agents/codebase/
 ```
 
 ## Templates
@@ -74,27 +75,28 @@ AGENTS.md                   # Root file (auto-generated)
 | Commands | [commands.md](templates/commands.md) |
 | Checklist | [checklist.md](templates/checklist.md) |
 | Workflows | [workflows.md](templates/workflows.md) |
+| Review Notes | [review-notes.md](templates/review-notes.md) |
 | Concerns | [concerns.md](templates/concerns.md) |
 
-## Output Size Budget
+## Output Size Guidelines
 
-Keep generated docs concise. Agents load these into context -- every line costs tokens.
+These docs are loaded on-demand (research, implementation), not always in context.
+Be thorough -- document patterns with real code examples and file references.
+Avoid redundancy across files, but do not sacrifice depth for brevity.
 
-| Document | Target | Max |
-|----------|--------|-----|
-| project.md | ~30 lines | 50 |
-| stack.md | ~20 lines | 40 |
-| architecture.md | ~50 lines | 80 |
-| conventions.md | ~30 lines | 50 |
-| testing.md | ~30 lines | 50 |
-| integrations.md | ~15 lines | 30 |
-| commands.md | ~20 lines | 30 |
-| checklist.md | ~15 lines | 20 |
-| workflows.md | ~30 lines | 50 |
-| concerns.md | ~15 lines | 30 |
-| AGENTS.md | ~60 lines | 100 |
-
-**Total target:** ~300 lines / ~12k tokens. Tables max 10 rows, lists max 7 items.
+| Document | Guideline |
+|----------|-----------|
+| project.md | Concise overview (~30 lines) |
+| stack.md | All meaningful dependencies with purpose |
+| architecture.md | Structure, patterns, data flows with code examples |
+| conventions.md | Every observed pattern with code snippets and file references |
+| testing.md | Patterns with example test structure from actual tests |
+| integrations.md | All external touchpoints with config details |
+| commands.md | All available commands with descriptions |
+| checklist.md | Concise validation steps (~15 lines) |
+| workflows.md | Core flows with step-by-step detail |
+| concerns.md | Only real issues with evidence |
+| AGENTS.md | Concise entry point (~60 lines) pointing to .agents/codebase/ |
 
 ## Integration with Other Skills
 

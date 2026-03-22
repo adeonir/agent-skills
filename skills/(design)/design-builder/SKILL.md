@@ -84,6 +84,8 @@ Skip to the relevant trigger operation.
 
 Ask up to 4 questions, one stage only:
 
+Ask one question at a time:
+
 1. What is the project purpose? (landing page, app, tool, portfolio)
 2. Who is the target audience?
 3. What is the visual reference? (URLs, screenshots, descriptions)

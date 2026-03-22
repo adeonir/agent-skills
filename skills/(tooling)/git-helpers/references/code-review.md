@@ -132,6 +132,9 @@ Only issues with confidence >= 80 are reported.
 - **[{score}] [{file}:{line}]** Issue description
   - Why it's a problem and how to fix
 
+Where `{file}` is the relative file path (e.g., `src/users.js`) and `{line}` is the
+line number in the diff. Never use function names or symbol names in place of file:line.
+
 ## Guidelines Compliance
 
 - **[{score}] [{file}:{line}]** Guideline violation

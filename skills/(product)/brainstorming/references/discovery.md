@@ -36,7 +36,7 @@ Probe further when answers are:
 - Never suggest answers (avoid leading)
 - Build follow-ups on what the user actually said, not a script
 - Summarize understanding before moving to the next topic
-- One question at a time when exploring complex territory
+- One question at a time -- never batch multiple questions in a single message
 
 ### Topics
 

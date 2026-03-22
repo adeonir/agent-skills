@@ -6,6 +6,21 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- Test-driven development reference (red-green-refactor, behavior vs implementation)
+- Pattern loading in quick-mode (Step 4: Load Patterns from conventions.md)
+- Persist discoveries step in quick-mode and execute
+- "Test first" principle in coding-principles when project has tests
+
+### Changed
+
+- Quick Scan rewritten: loads conventions.md + architecture.md when available, scans 5-8 files otherwise
+- Quick-mode commit rules aligned with git-helpers conventions
+- Coding-principles references conventions.md as source of truth for patterns
+
 ## 2026-03-12
 
 ### Changed

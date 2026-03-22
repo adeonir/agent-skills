@@ -6,6 +6,15 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- Review checklist in SKILL.md (applies to all document types)
+- Severity field in bug report (optional)
+- Size field in issue (optional, S/M/L)
+- "One question at a time" rule in discovery
+
 ## 2026-03-14
 
 ### Changed

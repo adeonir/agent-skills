@@ -1,6 +1,7 @@
 ---
 name: {{issue-name}}
 parent: {{epic name or "standalone"}}
+size: {{S/M/L (optional)}}
 created: {{YYYY-MM-DD}}
 ---
 

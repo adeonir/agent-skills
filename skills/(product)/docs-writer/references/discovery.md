@@ -43,6 +43,7 @@ Move on when:
 - Open-ended first, specific later
 - Never suggest answers in the question (avoid leading questions)
 - Build follow-ups on what the user actually said, not on a script
+- One question at a time -- never batch multiple questions in a single message
 - Summarize understanding before moving to the next topic
 
 ## Discovery Depth by Type

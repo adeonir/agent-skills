@@ -75,11 +75,12 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    **Reading priority** (start with what gives most context):
    1. Config and setup files (framework config, theme config, style tokens, env.example)
    2. Entry points (API routes, CLI commands, main files, layout files)
-   3. Business logic (services, use cases, domain models)
-   4. Data access (repositories, API clients, database models)
-   5. Styling (global styles, theme files, design tokens, CSS/SCSS variables)
-   6. UI components (if applicable)
-   7. Utilities (helpers, constants, shared types)
+   3. Custom hooks (all hooks in hooks/ or similar directories)
+   4. Business logic (services, use cases, domain models)
+   5. Data access (repositories, API clients, database models)
+   6. Styling (global styles, theme files, design tokens, CSS/SCSS variables)
+   7. UI components (if applicable)
+   8. Utilities (helpers, constants, shared types)
 
    **Always skip:**
    - Generated files (.d.ts, lockfiles, build output, source maps)
@@ -97,6 +98,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    - Type definitions style (interfaces vs types, inline vs shared)
    - Code organization within files (ordering, grouping)
    - Styling patterns (custom properties, tokens, preprocessor usage, theme structure)
+   - Shared components and utilities (what exists, how to import, when to use)
 
 5. **Map Module Dependencies**
 
@@ -161,9 +163,14 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 9. **Synthesize Patterns**
 
    Cross-reference findings from all files read. For each convention, provide:
-   - What the project uses (with evidence from multiple files)
-   - What to avoid (anti-patterns observed or implied)
-   - Edge cases or inconsistencies found
+   - What the project uses, with **code snippets** from actual source files as evidence
+   - The **source file path** where the pattern was observed
+   - What to avoid (anti-patterns observed or implied, not theoretical)
+   - Inconsistencies: places where the same pattern is done differently
+
+   The goal is to produce a reference that another agent can follow to write
+   code that matches the project's existing patterns exactly. Generic
+   descriptions like "uses camelCase" are not enough -- show the actual code.
 
    **Required categories** (document all that apply):
 
@@ -177,9 +184,20 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    | Async patterns | Promises, async/await, error handling in async code |
    | Logging | Logger usage, log levels, structured logging |
    | Styling | CSS approach, preprocessor, custom properties, design tokens, theme structure |
+   | Shared components | Reusable components library, how to import, when to use instead of raw HTML/framework primitives |
+   | Custom hooks | All hooks the project defines, their signatures, return types, and usage examples |
    | Components | File structure, props patterns, composition patterns (if UI project) |
 
-   **Critical**: Don't assume a framework or library based on dependency name alone. READ config files and actual usage to understand customizations. A project using Bootstrap may have extensive custom variables and overrides that define the real styling conventions.
+   **Critical**: Don't assume a framework or library based on dependency name alone.
+   READ config files and actual usage to understand customizations. Projects often
+   override or extend framework defaults -- document the project's actual values, not
+   the framework's.
+
+   **Project-specific abstractions are high priority.** When a project wraps framework
+   primitives (custom components, variables, tokens, helpers, hooks), the agent needs to
+   know they exist and use them instead of the underlying primitives. Scan for shared
+   directories, component libraries, theme files, and utility modules. Document each
+   abstraction with import paths and usage examples.
 
 10. **Extract Commands**
 
@@ -233,34 +251,46 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
 Generate documents in `.agents/codebase/` using the templates:
 
-| Document | Template | Content | Target |
-|----------|----------|---------|--------|
-| Stack | [templates/stack.md](../templates/stack.md) | Framework, dependencies, dev tools | ~20 lines |
-| Architecture | [templates/architecture.md](../templates/architecture.md) | Structure, patterns, layers, data flow | ~50 lines |
-| Conventions | [templates/conventions.md](../templates/conventions.md) | Naming, error handling, imports, types | ~30 lines |
-| Testing | [templates/testing.md](../templates/testing.md) | Infrastructure, patterns, reference tests | ~30 lines |
-| Integrations | [templates/integrations.md](../templates/integrations.md) | External services, auth, env vars | ~15 lines |
-| Commands | [templates/commands.md](../templates/commands.md) | Setup, dev, test, build commands | ~20 lines |
-| Checklist | [templates/checklist.md](../templates/checklist.md) | Validation steps after tasks | ~15 lines |
-| Workflows | [templates/workflows.md](../templates/workflows.md) | User and development workflows | ~30 lines |
-| Concerns | [templates/concerns.md](../templates/concerns.md) | Tech debt, risks, inconsistencies | Optional |
+| Document | Template | Content |
+|----------|----------|---------|
+| Stack | [templates/stack.md](../templates/stack.md) | Framework, dependencies, dev tools |
+| Architecture | [templates/architecture.md](../templates/architecture.md) | Structure, patterns, layers, data flows with code examples |
+| Conventions | [templates/conventions.md](../templates/conventions.md) | Every observed pattern with code snippets and file references |
+| Testing | [templates/testing.md](../templates/testing.md) | Patterns with example test structure from actual tests |
+| Integrations | [templates/integrations.md](../templates/integrations.md) | All external touchpoints with config details |
+| Commands | [templates/commands.md](../templates/commands.md) | All available commands with descriptions |
+| Checklist | [templates/checklist.md](../templates/checklist.md) | Validation steps after tasks |
+| Workflows | [templates/workflows.md](../templates/workflows.md) | Core flows with step-by-step detail and file references |
+| Concerns | [templates/concerns.md](../templates/concerns.md) | Tech debt, risks, inconsistencies (optional) |
 
-**Size guidelines:** Each table max 10 rows, each list max 7 items. If the project has more, show the most relevant and note "see code for full list". Total output target: ~300 lines / ~12k tokens.
+**Depth over brevity.** These docs are loaded on-demand, not always in context.
+Include code snippets and file references as evidence for every pattern.
+Avoid redundancy across files, but do not sacrifice depth for token savings.
 
 ### Step 4: Update AGENTS.md
 
 Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
 
-### Step 5: Save
+### Step 5: Self-Assessment
+
+After generating all docs, review them for consistency and completeness:
+
+- **Consistency**: Do service names, paths, and patterns match across files?
+- **Completeness**: Are there areas the scan could not cover deeply? Flag them
+- **Gaps**: What would an agent still need to know that is not documented?
+
+Save findings to `.agents/codebase/review-notes.md` using the template.
+
+### Step 6: Save
 
 Create `.agents/codebase/` with generated docs.
 
-### Step 6: Report
+### Step 7: Report
 
 Inform user:
-- Mapped {count} areas (8 standard + concerns if created)
+- Mapped {count} areas (8 standard + review notes + concerns if created)
 - Updated AGENTS.md
-- Concerns flagged: {count, if any}
+- Gaps identified: {list areas lacking detail}
 - Next: Create feature with baseline context
 
 ## Guidelines

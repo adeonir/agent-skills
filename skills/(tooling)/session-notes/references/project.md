@@ -36,6 +36,16 @@ Create structured documentation for a project in the Obsidian vault.
    write_note path="Projects/Checkout Refactor/Overview.md" content="..."
    ```
 
+## Guidelines
+
+**DO:**
+- Ask one question at a time -- never batch multiple questions
+- Use `search_notes` to check for existing project notes before creating
+
+**DON'T:**
+- Create duplicate project notes
+- Populate sections with placeholder content
+
 ## Next Steps
 
 - User may want to create linked docs (e.g., ADR, Design Doc) via docs-writer skill

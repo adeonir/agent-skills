@@ -8,16 +8,43 @@ created: {{YYYY-MM-DD}}
 ## User Workflows
 
 ### {{Flow Name}}
-Trigger: {{what starts it}}
-1. {{step}}
-2. {{step}}
-3. {{step}}
-End state: {{what the user sees}}
+
+**Trigger**: {{what starts it}}
+
+```mermaid
+flowchart TD
+    {{step-a}} --> {{step-b}} --> {{step-c}}
+```
+
+1. {{step}} (`{{file-path}}`)
+2. {{step}} (`{{file-path}}`)
+3. {{step}} (`{{file-path}}`)
+
+**End state**: {{what the user sees}}
+
+**Key code**:
+
+```{{lang}}
+// Source: {{file-path}}
+{{code snippet showing the critical part of this flow}}
+```
+
+{{Repeat for each user workflow}}
 
 ## Development Workflows
 
 ### {{Workflow Name}}
-When: {{when to use}}
+
+**When**: {{when to use}}
+
+```mermaid
+flowchart LR
+    {{step-a}} --> {{step-b}} --> {{step-c}}
+```
+
 1. {{step}}
 2. {{step}}
-Key files: {{relevant files}}
+
+**Key files**: {{relevant files with purpose}}
+
+{{Repeat for each development workflow (local dev, testing, code generation, CI/CD, etc.)}}

@@ -135,7 +135,9 @@ Skills write to `.artifacts/` organized by domain:
 
 ## Terminology
 
-TDD in this project means Technical Design Document, NOT Test-Driven Development.
+TDD has two meanings in this project depending on context:
+- docs-writer: Technical Design Document (`references/tdd.md`)
+- spec-driven: Test-Driven Development (`references/test-driven.md`)
 
 ## Documentation
 

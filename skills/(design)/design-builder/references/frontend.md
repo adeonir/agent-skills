@@ -39,6 +39,10 @@ When user says "use editorial" (or another variant name):
 2. Locate **design.json** (required) at `.artifacts/design/design.json`
 3. Locate **copy.yaml** (optional) at `.artifacts/design/copy.yaml`
 4. If no design.json exists, suggest running extract design first
+5. Check if `.agents/codebase/conventions.md` exists (brownfield project):
+   - If exists: read it. Use project abstractions, custom hooks, shared
+     components, and styling tokens instead of creating new ones
+   - If not: proceed as greenfield (generate everything from design.json)
 
 ### Step 2: Detect Stack
 

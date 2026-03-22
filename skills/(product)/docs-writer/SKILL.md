@@ -104,6 +104,7 @@ Requirements must be concrete and measurable across all document types.
 
 **DO:**
 - Always complete discovery before drafting (for types that require it)
+- Review the artifact before presenting to user (see Review Checklist below)
 - Present draft for user feedback before saving
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
@@ -115,6 +116,18 @@ Requirements must be concrete and measurable across all document types.
 - Include visual/design direction (that belongs in design-builder)
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Mix document types in a single file
+
+## Review Checklist
+
+Before presenting any document to the user, verify:
+
+- [ ] No contradictions between sections
+- [ ] No unresolved TBDs that block the document's purpose
+- [ ] Scope is focused (one document, one purpose)
+- [ ] Cross-references to other docs are valid
+- [ ] Requirements are concrete and measurable (no vague adjectives)
+
+If issues found: fix inline before presenting. Don't deliver a flawed artifact.
 
 ## Output
 

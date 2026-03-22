@@ -48,36 +48,54 @@ Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Files to modify (if known)
 - Expected outcome
 
-### Step 4: Execute
+### Step 4: Load Patterns
+
+Even small changes must follow project patterns.
+
+- If `.agents/codebase/conventions.md` exists: read it. Pay attention to
+  Project Abstractions and Custom Hooks -- use these instead of primitives
+- If not: follow patterns already present in the files being modified
+
+### Step 5: Execute
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
 
 1. Read relevant files
-2. Make the change
+2. Make the change -- match the patterns loaded in Step 4
 3. Run quality gates (lint, typecheck, tests if available)
 4. Fix any issues
 
-### Step 5: Verify
+### Step 6: Verify
 
 Quick verification checklist:
 - [ ] Change works as described
 - [ ] No regressions in affected files
 - [ ] Quality gates pass
 
-### Step 6: Update Task File
+### Step 7: Persist Discoveries
+
+If `.agents/codebase/` exists and you found a pattern not yet documented
+(new shared component, new hook, new convention), update the relevant file.
+Merge new findings, never overwrite existing content.
+
+### Step 8: Update Task File
 
 Mark task as done in `task.md`. Add:
 - Files modified
 - Brief summary of what was done
 
-### Step 7: Suggest Commit
+### Step 9: Suggest Commit
 
 Suggest a commit message following git-helpers conventions:
-- Conventional commit type (`fix`, `chore`, `refactor`, etc.)
-- Concise description in imperative mood
+- Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
+- Format: `type: concise description in imperative mood`
+- Imperative mood: "add", "fix", "implement" (not "added", "fixes")
 - First line under 72 characters
+- No scope, no file names, no versions, no attribution
+- Body only for complex changes: 1-5 bullet points starting with lowercase
+- Preview message and ask for confirmation before committing
 
-### Step 8: Update State
+### Step 10: Update State
 
 If `.artifacts/state.md` exists and the fix reveals a pattern (recurring bug, tech debt area), note it under Lessons or Deferred.
 

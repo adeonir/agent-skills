@@ -41,13 +41,20 @@ When operating in **Quick scan mode** (Medium scope, no plan.md):
 
 1. **Check research cache**: Look for `.artifacts/research/{topic}.md` relevant to this feature. If exists and valid, use it. Don't conduct deep research for Medium scope.
 
-2. **Quick pattern scan**: Find 2-3 files similar to what needs to be built. Extract:
-   - Naming conventions
-   - Import patterns
-   - Error handling approach
-   - Test patterns (if applicable)
+2. **Load project conventions**:
+   - If `.agents/codebase/` exists: READ `conventions.md` (project abstractions,
+     custom hooks, styling tokens -- these tell you what to use instead of
+     framework primitives). READ relevant sections of `architecture.md`
+     (component map, data flows)
+   - If `.agents/codebase/` does not exist: scan 5-8 representative files.
+     Prioritize shared component directories (find barrel exports / index files),
+     custom hooks directories, style/theme files (variables, tokens), then files
+     similar to what needs to be built
 
-3. **Check .agents/codebase/**: If exists, scan for relevant conventions. Don't update it (that's plan's job).
+3. **Identify required abstractions**: Before writing any code, list:
+   - Which shared components exist that should be used (not raw elements)
+   - Which custom hooks handle the patterns needed (data fetching, state, etc.)
+   - Which variables/tokens to use for styling (not hardcoded values)
 
 4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), STOP and suggest running `plan` first.
 
@@ -89,6 +96,7 @@ For each task, follow the 3-phase cycle:
 #### Before (Preparation)
 
 - Load [coding-principles.md](coding-principles.md)
+- If project has test infrastructure: load [test-driven.md](test-driven.md)
 - Read the relevant reference files from plan.md or quick scan (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
 - Run pre-implementation checklist:
@@ -107,6 +115,7 @@ For each task, follow the 3-phase cycle:
 
 #### During (Implementation)
 
+- When TDD is active: write failing test first, then implement, then refactor
 - Follow plan.md architecture precisely (if plan exists)
 - Match patterns from reference files exactly
 - Use project's error handling approach
@@ -154,11 +163,17 @@ If all tasks done (or all inline steps done for Medium scope):
 - Run final verification (see [Final Verification](#final-verification))
 - Set `status: done`
 
-### Step 10: Update State
+### Step 10: Persist Discoveries
+
+If `.agents/codebase/` exists and you discovered patterns not yet documented
+(new shared component, new hook, new convention), update the relevant file.
+Merge new findings, never overwrite existing content.
+
+### Step 11: Update State
 
 If `.artifacts/state.md` exists and lessons were learned during execution, record them.
 
-### Step 11: Report
+### Step 12: Report
 
 Show:
 - Tasks completed

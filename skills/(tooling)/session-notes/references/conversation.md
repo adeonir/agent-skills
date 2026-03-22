@@ -1,7 +1,6 @@
 # Conversation Note
 
-Save conversations with AI tools (Claude Code, claude.ai, ChatGPT, Gemini, etc.)
-as structured Obsidian notes.
+Save conversations with AI tools as structured Obsidian notes with prose context.
 
 ## When to Use
 
@@ -14,55 +13,57 @@ as structured Obsidian notes.
 
 1. **Identify source**
    If running inside Claude Code, assume `claude-code` automatically.
-   Otherwise, ask user which tool the conversation is from:
-   - `claude-code` - current session (agent has full context)
-   - `claude-ai` - user provides content (paste or describe)
-   - `chatgpt` - user provides content
-   - `gemini` - user provides content
-   - `other` - user provides content
+   Otherwise, ask user which tool the conversation is from.
+   Ask one question at a time -- never batch source and destination together.
 
 2. **Compose the note**
-   - For `claude-code`: summarize from the current session context.
-     Focus on what was discussed, decisions made, insights, and open questions.
-   - For other sources: ask user to paste the conversation or describe
-     the key points. Structure the content into the template sections.
+   Write in prose -- capture the reasoning and context behind decisions,
+   not a transcript. The note should read naturally weeks later.
+
+   - **Body**: rich prose paragraph(s) explaining what was discussed, why it
+     mattered, and what came out of it
+   - **Key Decisions**: prose describing each decision and its rationale
+   - **Insights**: prose describing findings, learnings, or realizations
+   - **Open Questions**: bullet list of unresolved items
+   - **Observations**: `#category content` syntax for Obsidian indexing
+   - **Relations**: `[[wikilinks]]` to related notes -- omit if none exist
+
+   For `claude-code`: compose from the current session context.
+   For other sources: ask user to paste or describe key points.
 
 3. **Determine destination**
-   Ask if the conversation is related to an existing project.
-   - If related to a project: save inside the project folder
-     - Path: `Projects/{{Project Name}}/{{Topic}}.md`
-   - If standalone: save in `Conversations/`
-     - Path: `Conversations/{{Topic}}.md`
+   Ask if the conversation relates to an existing project.
+   - Related to project: `Projects/{{Project Name}}/{{Topic}}.md`
+   - Standalone: `Conversations/{{Topic}}.md`
 
 4. **Generate filename**
-   - Title Case: `{{Topic}}.md`
-   - Examples:
-     - `Landing Page Stack.md` (inside `Projects/Pensefy/`)
-     - `React Performance Patterns.md` (inside `Conversations/`)
+   Title Case: `{{Topic}}.md`
 
 5. **Check if exists**
    ```
    search_notes query="{{topic}}" path="{{destination folder}}"
    ```
-   If a related note exists, ask to append or create new.
+   If related note exists, ask to append or create new.
 
 6. **Write note**
    ```
-   write_note path="Conversations/Auth Refactor.md" content="..."
+   write_note path="{{destination}}/{{Topic}}.md" content="..."
    ```
 
 ## Guidelines
 
 **DO:**
-- Focus on decisions, insights, and actionable outcomes
-- Keep summaries concise (not a transcript)
+- Write prose, not bullet dumps -- decisions and insights deserve context
+- Focus on reasoning and outcomes, not a play-by-play
+- Ask one question at a time -- never batch multiple questions
 - Link to related project/daily notes with `[[wikilinks]]`
 - Include source in frontmatter for searchability
 
 **DON'T:**
-- Include the full conversation transcript (summarize instead)
+- Include the full conversation transcript (summarize in prose)
 - Assume the conversation source without asking
 - Include sensitive information (API keys, credentials, personal data)
+- Write bullet-only notes without prose context
 
 ## Next Steps
 

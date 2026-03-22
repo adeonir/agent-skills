@@ -8,6 +8,19 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-03-21
 
+### Added
+
+- "One question at a time" rule in all references that ask user questions
+
+### Changed
+
+- Brag document year from hardcoded to dynamic, path from Brags/Brags YYYY to Brags/YYYY
+- Conversation reference rewritten with prose style (aligned with Basic Memory)
+
+### Removed
+
+- Capture reference and template (replaced by Basic Memory)
+
 ### Changed
 
 - Add title and type fields to all template frontmatter

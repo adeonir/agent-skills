@@ -6,6 +6,13 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-21
+
+### Added
+
+- Review checklist before presenting research report
+- "One question at a time" rule in discovery
+
 ## 2026-03-12
 
 ### Changed
