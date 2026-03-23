@@ -21,12 +21,11 @@ Each artifact has a distinct purpose. Never mix these concerns.
 
 ### spec.md MUST contain ONLY:
 
-- User stories (As a... I want... so that...)
-- Functional requirements (what the system must do)
-- Acceptance criteria (verifiable conditions)
+- Goals (measurable outcomes)
+- Out of scope (explicit exclusions)
+- User stories with acceptance criteria inline (AC-xxx IDs)
 - Edge cases (boundary conditions, error scenarios)
 - Success criteria (measurable outcomes)
-- Business rules and constraints
 - For brownfield: current behavior description (high-level, no code)
 
 ### spec.md MUST NOT contain:
@@ -295,11 +294,11 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 
 Generate the spec following the template structure:
 - Frontmatter with ID, feature name, type, scope, status, branch, created date
-- Greenfield: Overview, User Stories, Functional Requirements, Acceptance Criteria, Edge Cases, Success Criteria, Open Questions, Notes
+- Greenfield: Overview, Goals, Out of Scope, User Stories (with ACs inline), Edge Cases, Success Criteria, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
-P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test describing how to verify it works in isolation.
+Each story includes "Why Px" to justify its priority level. P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test. Acceptance criteria are inline per story with AC-xxx IDs for traceability.
 
 ### Step 14: Report
 

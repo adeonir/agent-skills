@@ -14,6 +14,39 @@ Auto-loaded as a guideline for writing feature specs. Not a direct trigger.
 | design.md | HOW to build |
 | tasks.md | WHEN to build |
 
+## Goals
+
+Measurable outcomes that define what success looks like at the feature level.
+
+```markdown
+## Goals
+
+- [ ] Users can reset their password without contacting support
+- [ ] Reset flow completes in under 2 minutes end-to-end
+```
+
+Rules:
+- Each goal has a measurable outcome
+- 2-4 goals per feature (more signals scope creep)
+- Goals drive Success Criteria -- every goal should map to at least one SC
+
+## Out of Scope
+
+Explicit exclusions to prevent scope creep. Use a table with reasons.
+
+```markdown
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| SMS verification | Separate feature, different integration |
+| Admin password override | Security concern, needs separate spec |
+```
+
+Rules:
+- Always include at least one item (forces the conversation)
+- Include the reason -- prevents re-discussion later
+
 ## User Stories
 
 Format:
@@ -28,60 +61,39 @@ Priority levels:
 - **P2** (Increment): Implement after P1. Adds important capability on top of the core.
 - **P3** (Polish): Implement last. Refinements and enhancements that improve the experience.
 
+Each story includes **Why Px** to justify its priority and **Acceptance Criteria** inline with AC-xxx IDs.
+
 Good:
-```
+```markdown
 ### P1: Password Reset
 
 - As a user, I want to reset my password via email so that I can regain access
+- **Why P1:** Core account recovery -- users locked out without this
 - **Independent Test:** Can demo by clicking "Forgot password", receiving email, clicking link, and setting new password
+
+**Acceptance Criteria:**
+
+- [ ] AC-001: WHEN user requests password reset THEN system SHALL send email within 1 minute
+- [ ] AC-002: WHEN reset link is older than 24 hours THEN system SHALL display "Link expired"
+- [ ] AC-003: WHEN user submits new password THEN system SHALL enforce minimum 8 characters
 ```
 
 Bad:
 ```
 As a user, I want a POST /reset-password endpoint (implementation detail)
-As a user, I want to reset my password (no priority, no benefit, no independent test)
+As a user, I want to reset my password (no priority, no benefit, no ACs)
 ```
 
-## Functional Requirements
+## Acceptance Criteria Format
 
-Use checkboxes:
-```markdown
-- [ ] FR-001: System must allow password reset
-- [ ] FR-002: Reset link expires after 24 hours
-```
-
-Rules:
-- Start with "System must..." or "User must..."
-- Be specific and measurable
-- No implementation details
-
-## Acceptance Criteria
-
-Use WHEN/THEN format for verifiable conditions:
-
-```markdown
-- [ ] AC-001: WHEN user requests password reset THEN system sends email within 1 minute
-- [ ] AC-002: WHEN user clicks reset link a second time THEN system rejects the request
-```
-
-Good:
-```markdown
-- [ ] AC-003: WHEN reset link is older than 24 hours THEN system SHALL display "Link expired" message
-- [ ] AC-004: WHEN user submits new password THEN system SHALL enforce minimum 8 characters
-```
-
-Bad:
-```markdown
-- [ ] AC-005: Password reset works correctly (not testable)
-- [ ] AC-006: System should handle errors (vague, no WHEN/THEN)
-```
+Use WHEN/THEN/SHALL format for verifiable conditions. ACs live inline within each story, not as a separate section.
 
 Rules:
 - Must be testable (yes/no outcome)
 - Use WHEN/THEN to define trigger and expected behavior
 - Use SHALL for mandatory behavior
-- Include edge cases
-- Map to functional requirements
+- AC-xxx IDs are sequential across the entire spec (not per story)
+- Happy paths go in ACs, boundary conditions go in Edge Cases
 
 ## Edge Cases
 

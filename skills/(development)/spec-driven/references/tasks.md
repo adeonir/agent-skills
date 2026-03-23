@@ -55,20 +55,33 @@ Each task should be:
 
 **Task description format:**
 ```
-- [ ] T001 [P] {verb} {what} in {where}
+- [ ] T001 [P] {verb} {what}
+  - **Done when:** {verifiable outcome}
 ```
 
-### Step 5: Generate tasks.md
+Each task has a "Done when" line -- a concrete, verifiable condition that marks the task as complete.
+
+### Step 5: Create Execution Plan
+
+Before writing tasks, create an ASCII diagram showing the execution flow:
+- Sequential dependencies as arrows (`-->`)
+- Parallel tasks as branches (`├-->`, `└-->`)
+- Convergence points where branches merge
+
+This gives an overview of parallelism and critical path before the detailed breakdown.
+
+### Step 6: Generate tasks.md
 
 **USE TEMPLATE:** `templates/tasks.md`
 
 Generate tasks following the template structure:
 - Summary (total count)
-- Tasks grouped by component (T001 [P] for parallel, T002 [B:T001] for dependent)
-- Requirements Coverage (mapping FRs to tasks)
+- Execution Plan (ASCII diagram of task flow)
 - Quality Gates (lint, typecheck, test commands)
+- Tasks grouped by commit boundary (T001 [P] for parallel, T002 [B:T001] for dependent), each with "Done when"
+- Requirements Coverage (mapping ACs to tasks)
 
-### Step 6: Report
+### Step 7: Report
 
 Inform user:
 - Created: {count} tasks
@@ -100,13 +113,13 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 - Respect dependencies -- same component = sequential
 - Mark independent tasks as [P] to enable parallelization
 - Group by commit boundary -- each group forms one atomic commit
-- Cover all FRs -- every FR-xxx has at least one task
+- Cover all ACs -- every AC-xxx has at least one task
 - Run quality gates after each task, not as separate tasks
 
 **DON'T:**
 - Add Files:/Reference:/Commit: metadata lines in task descriptions
 - Create tasks that span multiple unrelated concerns
-- Leave FR-xxx requirements without corresponding tasks
+- Leave AC-xxx requirements without corresponding tasks
 - Bundle quality gates as tasks in the breakdown
 
 ## Commit Boundary Grouping

@@ -15,6 +15,14 @@ All notable changes to this skill will be documented in this file.
 - Remove context budget (fixed token targets), keep qualitative loading rules only
 - Quick mode now generates summary.md post-execution record
 - Spec-driven retrofeeds .agents/codebase/ during design and implement phases
+- Restructure spec.md: add Goals and Out of Scope sections, move ACs inline per story with Why Px justification
+- Remove separate Functional Requirements and Acceptance Criteria sections from spec template
+- Traceability now flows through AC-xxx IDs (inline per story) instead of FR-xxx + AC-xxx
+- Condensate design.md template: merge Critical Files + Codebase Patterns into Patterns & Reuse, merge Architecture Decision + Decisions
+- Add concerns check step in design workflow (loads .agents/codebase/concerns.md)
+- Add Component Design "Action" column (new/modify) replacing separate Critical Files lists
+- Add execution plan ASCII diagram to tasks.md template
+- Add "Done when" checklist per task for explicit verification criteria
 
 ### Added
 

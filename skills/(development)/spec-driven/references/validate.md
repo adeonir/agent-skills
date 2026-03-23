@@ -73,7 +73,7 @@ When the user requests explicit validation of artifacts (not UAT), run these che
 - [ ] Has overview section
 - [ ] Has user stories with priority levels (P1/P2/P3)
 - [ ] P1 stories have independent test descriptions
-- [ ] Has functional requirements (FR-xxx)
+- [ ] Has acceptance criteria with IDs (AC-xxx) inline per story
 - [ ] Has acceptance criteria (AC-xxx) in WHEN/THEN format
 - [ ] Has edge cases (boundary conditions, error scenarios)
 - [ ] Has success criteria (measurable outcomes)

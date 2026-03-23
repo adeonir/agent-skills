@@ -70,7 +70,7 @@ Skills write artifacts to `.artifacts/` organized by domain:
 
 ```
 .artifacts/
-├── features/       # spec-driven: feature specs, plans, tasks
+├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
 ├── research/       # spec-driven: research cache
 ├── brainstorm/     # brainstorming: ideation artifacts

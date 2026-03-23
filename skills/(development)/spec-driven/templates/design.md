@@ -19,33 +19,21 @@ created: {{YYYY-MM-DD}}
 - {{key finding 2}}
 {{/if}}
 
-## Critical Files
+## Patterns & Reuse
 
-### Reference Files
-
-| File | Purpose |
-|------|---------|
-| {{path}} | {{why relevant}} |
-
-### Files to Modify
-
-| File | Reason |
-|------|--------|
-| {{path}} | {{what changes}} |
-
-### Files to Create
-
-| File | Purpose |
-|------|---------|
-| {{path}} | {{responsibility}} |
-
-## Codebase Patterns
+### Conventions to Follow
 
 | Pattern | Project Uses | Avoid | Reference |
 |---------|-------------|-------|-----------|
 | Naming | {{convention}} | {{anti-pattern}} | {{file:line}} |
 | Error handling | {{approach}} | {{anti-pattern}} | {{file:line}} |
 | API calls | {{pattern}} | {{anti-pattern}} | {{file:line}} |
+
+### Existing Code to Reuse
+
+| Component | Location | How to Use |
+|-----------|----------|------------|
+| {{existing component}} | {{file:line}} | {{extend/import/wrap}} |
 
 ## Data Model
 
@@ -65,15 +53,18 @@ created: {{YYYY-MM-DD}}
 |----------|--------|---------|----------|
 | {{path}} | {{verb}} | {{shape}} | {{shape}} |
 
-## Architecture Decision
+## Decisions
 
-{{chosen approach with rationale - be decisive, pick ONE approach}}
+| Decision | Rationale |
+|----------|-----------|
+| {{architecture approach}} | {{why this over alternatives}} |
+| {{decision}} | {{rationale}} |
 
 ## Component Design
 
-| Component | File | Responsibility |
-|-----------|------|----------------|
-| {{name}} | {{path}} | {{what}} |
+| Component | File | Action | Responsibility |
+|-----------|------|--------|----------------|
+| {{name}} | {{path}} | {{new/modify}} | {{what}} |
 
 {{#if designs}}
 ## Visual Design Considerations
@@ -100,8 +91,8 @@ Key UI/UX patterns to implement:
 
 | Requirement | Component | File | Status |
 |-------------|-----------|------|--------|
-| FR-001 | {{comp}} | {{path}} | Planned |
-| FR-002 | {{comp}} | {{path}} | Planned |
+| AC-001 | {{comp}} | {{path}} | Planned |
+| AC-002 | {{comp}} | {{path}} | Planned |
 
 ## Test Strategy
 
@@ -134,12 +125,6 @@ Key UI/UX patterns to implement:
 ### Security
 
 - {{concerns if applicable}}
-
-## Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| {{decision}} | {{rationale}} |
 
 ## Open Questions
 

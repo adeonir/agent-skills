@@ -150,12 +150,14 @@ Fix errors before marking the task complete.
 
 ### Step 8: Update Progress
 
-If tasks.md exists, mark completed tasks:
+If tasks.md exists:
+1. Verify the "Done when" criteria for the task are met
+2. Mark completed tasks:
 ```markdown
 - [x] T001 [P] {description}
+  - **Done when:** {verifiable outcome} -- VERIFIED
 ```
-
-Update task counters in tasks.md header.
+3. Update task counters in tasks.md header.
 
 ### Step 9: Check Completion
 
@@ -200,7 +202,7 @@ Not every category applies to every task. Check only what's relevant to the code
 When all tasks are complete, run a final pass before marking `done`:
 
 - [ ] All acceptance criteria (AC-xxx) from spec.md are satisfied
-- [ ] All functional requirements (FR-xxx) are covered
+- [ ] All acceptance criteria (AC-xxx) are covered by tasks
 - [ ] Quality gates pass on the full feature (not just per-task)
 - [ ] No TODO/FIXME comments left from this feature
 - [ ] Edge cases from spec.md are handled

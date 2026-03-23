@@ -62,7 +62,15 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-### Step 5: Persist Codebase Discoveries
+### Step 5: Check Concerns
+
+If `.agents/codebase/concerns.md` exists, read it before designing.
+
+Any component flagged as fragile, carrying tech debt, or having test coverage gaps requires extra care. Document in the Considerations section how the design mitigates those concerns.
+
+If concerns.md does not exist, skip this step.
+
+### Step 6: Persist Codebase Discoveries
 
 After exploration, feed new findings back to project-level docs:
 
@@ -80,7 +88,7 @@ Rules:
 - Use the same table formats already in the codebase docs
 - Never create `.agents/codebase/` from scratch (that's project-index's job)
 
-### Step 6: Check Visual References
+### Step 7: Check Visual References
 
 Check if the spec includes a `designs/` folder with visual references:
 
@@ -91,7 +99,7 @@ Check if the spec includes a `designs/` folder with visual references:
    - Consider these in component design and implementation
 3. If no designs folder: proceed without visual context
 
-### Step 7: Data Model Definition
+### Step 8: Data Model Definition
 
 Define the data model before component design:
 
@@ -99,31 +107,28 @@ Define the data model before component design:
 - **Relationships**: How entities relate (one-to-many, many-to-many)
 - **API contracts**: Request/response shapes for new endpoints
 
-### Step 8: Generate design.md
+### Step 9: Generate design.md
 
 **USE TEMPLATE:** `templates/design.md`
 
 Generate the design following the template structure:
-- Context (feature reference)
 - Scope (what is in scope and out of scope)
 - Research Summary (if applicable)
-- Critical Files (Reference, Modify, Create)
-- Codebase Patterns
+- Patterns & Reuse (conventions to follow + existing code to reuse)
 - Data Model (Entities, Relationships, API Contracts)
-- Architecture Decision
-- Component Design
+- Decisions (architecture approach + secondary decisions)
+- Component Design (component, file, action, responsibility)
 - Data Flow (use mermaid for complex flows)
-- Requirements Traceability
+- Requirements Traceability (AC -> Component -> File)
 - Test Strategy
-- Considerations (Error Handling, Security)
-- Decisions
+- Considerations (Error Handling, Security, Concerns mitigation)
 - Open Questions
 
-### Step 9: Update Status
+### Step 10: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 10: Report
+### Step 11: Report
 
 Inform user:
 - Created: `design.md`

@@ -67,18 +67,14 @@ Spec: ### P1: Password Reset
       - **Independent Test:** Can demo by requesting reset, receiving email, clicking link, setting new password
 ```
 
-**Requirements: Make measurable**
+**Acceptance criteria: Make testable**
 
 ```markdown
 PRD: "System must support password reset" (directional)
-  --> Spec: FR-001: System must send password reset email within 60 seconds of request (measurable)
-```
+  --> Spec: AC-001: WHEN user requests password reset THEN system SHALL send email within 60 seconds
 
-**Acceptance criteria: Make testable as code**
-
-```markdown
 PRD: "Reset links should expire" (vague)
-  --> Spec: AC-001: WHEN reset link is older than 24 hours THEN system SHALL reject the link and display "Link expired"
+  --> Spec: AC-002: WHEN reset link is older than 24 hours THEN system SHALL reject the link and display "Link expired"
 ```
 
 **Identify what the source document lacks:**
@@ -95,7 +91,7 @@ Output extraction summary before generating spec. The "Transformed To" column mu
 
 | Source | Original | Relevant | Transformed To |
 |--------|----------|----------|----------------|
-| prd.md | "Users must verify email" | Yes | FR-001: System must send verification email within 60s of registration |
+| prd.md | "Users must verify email" | Yes | AC-001: WHEN user registers THEN system SHALL send verification email within 60s |
 | prd.md | "SMS verification optional" | No | Skipped: out of scope for this feature |
 | prd.md | "Easy onboarding" | Yes | SC-001: New user completes verification in under 2 minutes |
 | (none) | -- | -- | Edge case: WHEN user clicks expired verification link THEN system SHALL offer resend |
@@ -105,14 +101,14 @@ Note: The last row shows content **derived** from requirements but not present i
 
 ## Mapping Guidelines
 
-### Rules --> Functional Requirements (make measurable)
+### Rules --> Acceptance Criteria (make testable)
 
 ```markdown
 Source: "Users must be able to reset password via email"
---> FR-001: System must send password reset email within 60 seconds of request
+--> AC-001: WHEN user requests password reset THEN system SHALL send email within 60 seconds
 ```
 
-### Constraints --> Acceptance Criteria (make testable)
+### Constraints --> Acceptance Criteria (add precision)
 
 ```markdown
 Source: "Reset link expires after 24 hours"
@@ -138,7 +134,7 @@ Source: "Fast onboarding experience"
 ### Missing edge cases --> Derive from requirements
 
 ```markdown
-Source: FR about email verification (no edge cases in PRD)
+Source: AC about email verification (no edge cases in PRD)
 --> Edge case: WHEN user submits already-verified email THEN system SHALL display "Email already verified"
 --> Edge case: WHEN verification email fails to send THEN system SHALL retry once and display error if still failing
 ```
@@ -163,20 +159,25 @@ initialize feature @docs/prd.md
 3. Find: "Verification link expires in 1 hour"
 4. Find: "Easy onboarding for new users"
 5. Transform (not copy) to spec:
-   - FR-001: System must send verification email within 60 seconds of registration
-   - FR-002: System must block dashboard access for unverified users
-   - AC-001: WHEN verification link is older than 1 hour THEN system SHALL reject and offer resend
+   - AC-001: WHEN user registers THEN system SHALL send verification email within 60 seconds
+   - AC-002: WHEN unverified user accesses dashboard THEN system SHALL redirect to verification
+   - AC-003: WHEN verification link is older than 1 hour THEN system SHALL reject and offer resend
    - Edge case: WHEN user clicks verification link twice THEN system SHALL display "Already verified"
    - SC-001: New user completes email verification in under 2 minutes
 
-**Spec Output:**
+**Spec Output (inline in P1 story):**
 ```markdown
-## Functional Requirements
-- [ ] FR-001: System must send verification email within 60 seconds of registration
-- [ ] FR-002: System must block dashboard access for unverified users
+### P1: Email Verification
 
-## Acceptance Criteria
-- [ ] AC-001: WHEN verification link is older than 1 hour THEN system SHALL reject and offer resend
+- As a user, I want to verify my email after registration so that I can access the dashboard
+- **Why P1:** Users cannot use the product without verification
+- **Independent Test:** Register, receive email, click link, access dashboard
+
+**Acceptance Criteria:**
+
+- [ ] AC-001: WHEN user registers THEN system SHALL send verification email within 60 seconds
+- [ ] AC-002: WHEN unverified user accesses dashboard THEN system SHALL redirect to verification
+- [ ] AC-003: WHEN verification link is older than 1 hour THEN system SHALL reject and offer resend
 
 ## Edge Cases
 - WHEN user clicks verification link twice THEN system SHALL display "Already verified"

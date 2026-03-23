@@ -12,30 +12,49 @@ created: {{YYYY-MM-DD}}
 
 ## Overview
 
-{{description}}
+{{Problem description: what pain point are we solving, who is affected, why now}}
+
+## Goals
+
+- [ ] {{Primary goal with measurable outcome}}
+- [ ] {{Secondary goal with measurable outcome}}
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| {{feature}} | {{why excluded}} |
 
 ## User Stories
 
 ### P1: {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
-- **Independent Test:** {{How to verify this story works alone -- e.g., "Can demo by doing X and seeing Y"}}
+- **Why P1:** {{why this is critical for MVP}}
+- **Independent Test:** {{how to verify this story works alone}}
+
+**Acceptance Criteria:**
+
+- [ ] AC-001: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-002: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 ### P2: {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
+- **Why P2:** {{why this matters but is not MVP}}
+
+**Acceptance Criteria:**
+
+- [ ] AC-003: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 ### P3: {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
+- **Why P3:** {{why this is nice-to-have}}
 
-## Functional Requirements
+**Acceptance Criteria:**
 
-- [ ] FR-001: {{requirement}}
-
-## Acceptance Criteria
-
-- [ ] AC-001: WHEN {{trigger}} THEN {{expected behavior}}
+- [ ] AC-004: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 {{#if designs}}
 ## Visual References
@@ -58,13 +77,9 @@ created: {{YYYY-MM-DD}}
 - [ ] {{Measurable outcome -- e.g., "User can complete X in under 2 minutes"}}
 - [ ] {{Measurable outcome -- e.g., "Zero errors in Y scenario"}}
 
-## Out of Scope
-
-- {{What is NOT included in this feature}}
-
 ## Open Questions
 
-- {{Any unresolved questions from Step 5, or "None" if all resolved}}
+- {{Any unresolved questions, or "None" if all resolved}}
 
 ## Notes
 

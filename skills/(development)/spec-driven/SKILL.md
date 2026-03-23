@@ -170,7 +170,7 @@ Step 5: Flag uncertain -> "I'm not certain about X -- here's my reasoning, but v
 ## Guidelines
 
 **DO:**
-- Separate content by purpose: spec=WHAT, design=HOW, tasks=WHEN
+- Separate content by purpose: spec=WHAT (goals, stories, ACs), design=HOW, tasks=WHEN
 - Follow status flow: draft -> ready -> in-progress -> done
 - Use sequential Feature IDs (001, 002)
 - Reuse research cache across features (.artifacts/research/)
