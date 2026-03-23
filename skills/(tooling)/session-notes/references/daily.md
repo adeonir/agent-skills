@@ -35,7 +35,8 @@ Create quick daily logs and journal entries.
    If Basic Memory is not available, skip this step entirely.
 
 3. **Compose content**
-   Create one `### Project Name` subsection per project under `## Activities`.
+   Each item in What Was Done is a single line: bold project/topic name
+   followed by a one-sentence summary. Not a changelog.
 
 4. **Write note**
    ```
@@ -53,22 +54,21 @@ an earlier entry):
    ```
 
 2. **Infer project from context**
-   Use the current working directory to suggest the project name. Check if a
-   subsection for that project already exists in the note.
+   Use the current working directory to suggest the project name. Check if
+   that project already appears in What Was Done.
 
    If Basic Memory is available, search for activity since the note was last
    updated to suggest new items. Present findings to the user for confirmation.
    If Basic Memory is not available, skip this step.
 
 3. **Gather new content**
-   Ask what was worked on. Also ask about learnings, blockers, or tomorrow
-   items if relevant.
+   Ask what was worked on. Also ask about decisions, learnings, or open items
+   if relevant.
 
 4. **Edit in place**
    Use `patch_note` to insert content at the right location:
-   - Insert new `### Project Name` subsection at the end of `## Activities`
-     (before the next `## ` section or end of file)
-   - If the user mentions learnings, blockers, or tomorrow items, insert them
+   - Add new bullet to `## What Was Done` (before the next `## ` section)
+   - If the user mentions decisions, learnings, or open items, insert them
      into the corresponding section (create the section if it does not exist)
    ```
    patch_note path="Daily/YYYY-MM-DD.md" oldString="..." newString="..."
@@ -76,60 +76,56 @@ an earlier entry):
 
 ## Content Structure
 
-Only `## Activities` is required. All other sections are optional -- include
-them only when the user mentions relevant content.
+Only `## What Was Done` is required. All other sections are optional -- include
+them only when the user mentions relevant content. Omit empty sections.
 
 ```markdown
-## Activities
+## What Was Done
 
-### Project Name
+- **Project/Topic** -- 1 sentence summary (not a changelog)
+- **Another Project** -- What was accomplished, at a high level
 
-- Descriptive bullet point about what was done
-- Another activity with enough context to understand later
+## Key Decisions (optional)
 
-### Another Project
-
-- What was worked on in this project
-
-## Blockers (optional)
-
-- What got in the way, with context or expected resolution
+- Decision + rationale (why, not just what)
 
 ## Learnings (optional)
 
-- Insights or discoveries worth remembering
+- Discoveries, surprises, gotchas
 
-## Tomorrow (optional)
+## Open Items (optional)
 
-- Carry over tasks or upcoming priorities
+- [ ] Pending work, blockers, next steps
 
 ## Observations
 
-- [progress] key progress on a project
-- [blocker] what blocked and why
+- #progress Key progress on a project
+- #decision Decision made during the day
+- #learning Something discovered worth remembering
 
 ## Relations
 
-- worked_on [[Project Name]]
+- [[Project Name]]
 ```
 
 ## Guidelines
 
 **DO:**
-- Keep it brief - 5 minutes max
+- Keep it brief -- 5 minutes max
 - Ask one question at a time -- never batch multiple questions
 - Link to project notes when mentioning projects `[[Project Name]]`
 - Use bullet points for speed
-- Ask which projects were worked on and create a subsection for each
 - Use the current directory as context to suggest the project name
+- Write What Was Done as executive summary, not step-by-step
 
 **DON'T:**
 - Duplicate info from project notes (link instead)
 - Generate empty sections or placeholder content
 - Use changelog/commit-style language in bullet points
+- Split What Was Done into subsections per project (use bold prefix instead)
 
 ## Next Steps
 
 - Daily notes can be reviewed weekly for patterns
 - Insights can feed into brag documents
-- Blockers may become project notes
+- Open items may become project notes

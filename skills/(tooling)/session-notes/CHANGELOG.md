@@ -6,6 +6,17 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-23
+
+### Changed
+
+- Rename Activities to What Was Done with flat bullet format (bold project + one-sentence summary)
+- Replace per-project subsections with single-line bold-prefix bullets
+- Rename Blockers to Key Decisions, Tomorrow to Open Items
+- Simplify observations format from multiple named categories to generic #category pattern
+- Remove introductory prose paragraph from daily template
+- Update daily reference create and update flows to match new structure
+
 ## 2026-03-21
 
 ### Added

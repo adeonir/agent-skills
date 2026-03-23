@@ -7,32 +7,25 @@ tags:
 ---
 # {{DayOfWeek, Month DD, YYYY}}
 
-{{What the day looked like -- main focus areas, notable events, context
-that connects the activities below. Keep it natural, not a summary.}}
+## What Was Done
 
-## Activities
+- **{{Project/Topic}}** -- {{1 sentence summary, not a changelog}}
 
-### {{Project Name}}
+## Key Decisions
 
-- {{what was worked on}}
-
-## Blockers
-
-- {{what got in the way}}
+- {{Decision + rationale (why, not just what)}}
 
 ## Learnings
 
-- {{new things discovered}}
+- {{Discoveries, surprises, gotchas}}
 
-## Tomorrow
+## Open Items
 
-- {{carry over tasks}}
+- [ ] {{Pending work, blockers, next steps}}
 
 ## Observations
 
-- #progress {{key progress on a project}}
-- #blocker {{what blocked and why}}
-- #decision {{decision made during the day}}
+- #{{category}} {{Observation with context}}
 
 ## Relations
 
