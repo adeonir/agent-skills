@@ -4,7 +4,7 @@ Research technologies and cache findings for reuse across features.
 
 ## When to Use
 
-When researching technologies referenced in a feature plan.
+When researching technologies referenced in a feature design.
 
 ## Tools
 

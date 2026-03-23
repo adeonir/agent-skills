@@ -13,19 +13,19 @@ Use ONLY these values in spec.md frontmatter:
 | Status | Meaning | When to Use |
 |--------|---------|-------------|
 | `draft` | Initial state | After `specify` - spec created, may have open questions |
-| `ready` | Ready for execution | After `plan` - spec complete, architecture defined |
-| `in-progress` | Being executed | After first `execute` task starts |
-| `done` | Complete | After `execute` completes all tasks and verification passes |
+| `ready` | Ready for implementation | After `design` - spec complete, architecture defined |
+| `in-progress` | Being implemented | After first `implement` task starts |
+| `done` | Complete | After `implement` completes all tasks and verification passes |
 
 ## Status Transitions
 
 ```
-draft --[plan]--> ready --[execute]--> in-progress --[execute done]--> done
+draft --[design]--> ready --[implement]--> in-progress --[implement done]--> done
 ```
 
-**For Medium scope** (plan/tasks skipped):
+**For Medium scope** (design/tasks skipped):
 ```
-draft --[execute]--> in-progress --[execute done]--> done
+draft --[implement]--> in-progress --[implement done]--> done
 ```
 
 ## Who Updates What
@@ -33,10 +33,10 @@ draft --[execute]--> in-progress --[execute done]--> done
 | Reference | Updates Status | From | To |
 |-----------|---------------|------|-----|
 | `specify.md` | Yes | - | `draft` |
-| `plan.md` | Yes | `draft` | `ready` |
+| `design.md` | Yes | `draft` | `ready` |
 | `tasks.md` | No | - | - |
-| `execute.md` | Yes | `draft` or `ready` | `in-progress` |
-| `execute.md` | Yes | (all done + verified) | `done` |
+| `implement.md` | Yes | `draft` or `ready` | `in-progress` |
+| `implement.md` | Yes | (all done + verified) | `done` |
 
 ## Critical Rules
 
@@ -73,6 +73,6 @@ created: "2024-01-15"
 ## Quick Reference
 
 - Just created feature? -> `draft`
-- Plan complete (or skipped for Medium)? -> `ready` (or stay `draft` if Medium)
+- Design complete (or skipped for Medium)? -> `ready` (or stay `draft` if Medium)
 - Started coding? -> `in-progress`
 - All tasks done and verified? -> `done`

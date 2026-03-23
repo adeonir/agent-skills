@@ -11,7 +11,7 @@ Auto-loaded as a guideline for writing feature specs. Not a direct trigger.
 | File | Purpose |
 |------|---------|
 | spec.md | WHAT to build |
-| plan.md | HOW to build |
+| design.md | HOW to build |
 | tasks.md | WHEN to build |
 
 ## User Stories

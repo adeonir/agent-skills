@@ -6,6 +6,25 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-23
+
+### Changed
+
+- Rename Plan phase to Design (plan.md -> design.md) for better semantic clarity
+- Rename Execute phase to Implement (execute.md -> implement.md) for precision
+- Remove context budget (fixed token targets), keep qualitative loading rules only
+- Quick mode now generates summary.md post-execution record
+- Spec-driven retrofeeds .agents/codebase/ during design and implement phases
+
+### Added
+
+- Quick summary template (templates/quick-summary.md)
+
+### Removed
+
+- state.md template, state-management.md reference, and all state.md mentions
+- Fixed token budget numbers (~15k base, <40k target, 160k+ reserve)
+
 ## 2026-03-21
 
 ### Added

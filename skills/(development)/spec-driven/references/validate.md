@@ -1,6 +1,6 @@
 # Interactive UAT
 
-User acceptance testing for Complex scope features with user-facing behavior. Triggered within Execute, not a separate phase.
+User acceptance testing for Complex scope features with user-facing behavior. Triggered within Implement, not a separate phase.
 
 ## When to Use
 
@@ -11,7 +11,7 @@ User acceptance testing for Complex scope features with user-facing behavior. Tr
 
 ## When to Skip
 
-- Scope is **Medium** or **Large**: per-task verification in Execute is sufficient
+- Scope is **Medium** or **Large**: per-task verification in Implement is sufficient
 - Feature is purely backend/infrastructure with no user-facing behavior
 
 ## Workflow
@@ -24,12 +24,12 @@ User acceptance testing for Complex scope features with user-facing behavior. Tr
 
 ### Step 2: Pre-UAT Check
 
-Verify that Execute has completed:
+Verify that Implement has completed:
 - All tasks marked done in tasks.md
 - Quality gates pass
 - Per-task verification passed
 
-If not complete, redirect back to Execute.
+If not complete, redirect back to Implement.
 
 ### Step 3: Run Interactive UAT
 
@@ -56,7 +56,7 @@ Walk the user through each P1 story's Independent Test:
 ### Step 4: Determine Outcome
 
 **If all pass:**
-- Confirm `status: done` (already set by Execute)
+- Confirm `status: done` (already set by Implement)
 - Inform user: feature complete and validated
 
 **If issues found:**
@@ -80,7 +80,7 @@ When the user requests explicit validation of artifacts (not UAT), run these che
 - [ ] For brownfield: has baseline section
 - [ ] Open questions are documented (not blocking)
 
-### Plan Checks (if plan.md exists)
+### Design Checks (if design.md exists)
 
 - [ ] References spec requirements
 - [ ] Has architecture decision with rationale
@@ -113,5 +113,5 @@ When the user requests explicit validation of artifacts (not UAT), run these che
 ## Error Handling
 
 - No artifacts: Suggest `specify`
-- Execute not complete: Redirect to Execute
+- Implement not complete: Redirect to Implement
 - Issues found: List with severity

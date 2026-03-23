@@ -16,7 +16,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 |------|---------|
 | spec.md | WHAT to build (requirements, acceptance criteria) |
 | decisions.md | WHY certain decisions were made (discuss output, gray areas) |
-| plan.md | HOW to build (architecture, files, implementation) |
+| design.md | HOW to build (architecture, files, implementation) |
 | tasks.md | WHEN to build (ordered tasks with dependencies) |
 
 ### spec.md MUST contain ONLY:
@@ -38,7 +38,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 - Database schemas or API designs
 - Architecture decisions
 
-These belong in plan.md, created during the `plan` phase.
+These belong in design.md, created during the `design` phase.
 
 ## Arguments
 
@@ -56,9 +56,9 @@ Before anything else, determine complexity to auto-size the pipeline:
 | Signal | Scope | Pipeline |
 |--------|-------|----------|
 | ≤3 files, one-sentence description, fix or config change | **Small** | Redirect to [quick-mode.md](quick-mode.md) |
-| Clear feature, single component, <10 tasks likely | **Medium** | Specify -> Execute (skip Plan, Tasks) |
-| Multi-component, architectural decisions needed | **Large** | Specify -> Plan -> Tasks -> Execute |
-| Ambiguity, new domain, multiple unknowns | **Complex** | Specify (+ Discuss) -> Plan -> Tasks -> Execute (+ UAT) |
+| Clear feature, single component, <10 tasks likely | **Medium** | Specify -> Implement (skip Design, Tasks) |
+| Multi-component, architectural decisions needed | **Large** | Specify -> Design -> Tasks -> Implement |
+| Ambiguity, new domain, multiple unknowns | **Complex** | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
 
 If **Small**: redirect to [quick-mode.md](quick-mode.md) and stop here.
 
@@ -82,8 +82,6 @@ Check if `.artifacts/features/` parent exists. If not:
 ```bash
 mkdir -p .artifacts/features
 ```
-
-If `.artifacts/state.md` exists, check for relevant decisions or deferred ideas.
 
 ### Step 4: Generate Feature ID
 
@@ -303,11 +301,7 @@ Generate the spec following the template structure:
 
 P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test describing how to verify it works in isolation.
 
-### Step 14: Update State
-
-If `.artifacts/state.md` exists and decisions were made during discovery, record them.
-
-### Step 15: Report
+### Step 14: Report
 
 Inform user:
 - Created: `.artifacts/features/{ID}-{name}/`
@@ -317,9 +311,9 @@ Inform user:
 - Open questions: {count, if any}
 - Gray areas detected: {yes/no -- suggest discuss if yes}
 - Next step based on scope:
-  - **Medium**: Run `execute` (plan and tasks skipped)
-  - **Large/Complex**: Run `plan`
-  - **Complex with gray areas**: Run `discuss` first, then `plan`
+  - **Medium**: Run `implement` (design and tasks skipped)
+  - **Large/Complex**: Run `design`
+  - **Complex with gray areas**: Run `discuss` first, then `design`
 
 ## Codebase Mapping Note
 
@@ -340,7 +334,7 @@ They complement each other:
 - Auto-size correctly based on actual complexity
 
 **DON'T:**
-- Include technical solutions in spec (that belongs in plan)
+- Include technical solutions in spec (that belongs in design)
 - Force Large pipeline on Medium features
 - Invent constraints when requirements are unclear
 
@@ -349,4 +343,4 @@ They complement each other:
 - No project structure: Initialize project first
 - ID conflict: Regenerate ID
 - Branch exists: Offer to checkout existing
-- Scope misjudged: Safety valve in execute catches this
+- Scope misjudged: Safety valve in implement catches this

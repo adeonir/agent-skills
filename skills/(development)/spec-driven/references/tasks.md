@@ -1,17 +1,17 @@
 # Task Decomposition
 
-Break plan into implementable tasks.
+Break design into implementable tasks.
 
 ## When to Use
 
 - Scope is **Large** or **Complex** (check `scope:` in spec.md frontmatter)
-- Plan.md is complete
+- design.md is complete
 - Ready to define implementation steps
 
 ## When to Skip
 
-- Scope is **Medium**: ≤3 obvious steps, tasks are implicit in Execute
-- When skipped, implement lists steps inline before starting (see [execute.md](execute.md))
+- Scope is **Medium**: ≤3 obvious steps, tasks are implicit in Implement
+- When skipped, implement lists steps inline before starting (see [implement.md](implement.md))
 - **Safety valve**: If implement's inline listing reveals >5 steps or complex dependencies, it redirects back here
 
 ## Workflow
@@ -26,7 +26,7 @@ Break plan into implementable tasks.
 
 Read:
 - `spec.md` (requirements)
-- `plan.md` (architecture)
+- `design.md` (architecture)
 - `decisions.md` (if exists, for resolved gray areas)
 
 ### Step 3: Detect Quality Gates
@@ -73,7 +73,7 @@ Generate tasks following the template structure:
 Inform user:
 - Created: {count} tasks
 - Components: {list}
-- Next: Run `execute`
+- Next: Run `implement`
 
 ## Task Size Guidelines
 
@@ -137,5 +137,5 @@ After completing all tasks in a group, the code is in a stable, committable stat
 
 ## Error Handling
 
-- Plan not found: Suggest `plan` (or skip if Medium scope)
+- Design not found: Suggest `design` (or skip if Medium scope)
 - No clear components: Ask for clarification

@@ -4,7 +4,7 @@ feature: {{name}}
 created: {{YYYY-MM-DD}}
 ---
 
-# Technical Plan: {{Feature}}
+# Technical Design: {{Feature}}
 
 ## Scope
 

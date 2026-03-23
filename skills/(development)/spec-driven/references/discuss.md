@@ -93,18 +93,14 @@ Create `.artifacts/features/{ID}-{name}/decisions.md` with all decisions.
 - Update TBD markers with decisions where applicable
 - Add reference to decisions.md in Notes section
 
-### Step 8: Update State
-
-If `.artifacts/state.md` exists, record significant decisions that may affect other features.
-
-### Step 9: Report
+### Step 8: Report
 
 Inform user:
 - Resolved: {count} gray areas
 - Remaining: {count} open questions (if any)
 - Created: `decisions.md`
 - Next step based on scope:
-  - **Large/Complex**: Run `plan`
+  - **Large/Complex**: Run `design`
   - **Medium**: Run `implement`
 
 ## Guidelines
@@ -112,7 +108,7 @@ Inform user:
 **DO:**
 - Always ask the user to resolve ambiguities -- never decide on their behalf
 - Present options with trade-offs, not just yes/no questions
-- Mark complex gray areas as "needs research" and defer to plan phase
+- Mark complex gray areas as "needs research" and defer to design phase
 - Group related decisions into logical clusters
 - Accept tentative decisions -- mark them clearly for future revisit
 

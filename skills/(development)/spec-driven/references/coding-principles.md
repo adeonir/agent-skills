@@ -4,7 +4,7 @@ Behavioral principles for implementation. Load before writing any code.
 
 ## When to Use
 
-Auto-loaded by execute.md before writing code. Not a direct trigger.
+Auto-loaded by implement.md before writing code. Not a direct trigger.
 
 ## Core Principles
 
@@ -23,7 +23,7 @@ Auto-loaded by execute.md before writing code. Not a direct trigger.
 |--------------|--------------------|---------|
 | Over-engineering | Adding abstractions for one use case | Write concrete code, extract later if needed |
 | Premature abstraction | Creating helpers/utils for single callers | Inline the logic, refactor when a pattern emerges |
-| Unnecessary refactoring | Cleaning up code outside the task scope | Only touch files listed in the plan |
+| Unnecessary refactoring | Cleaning up code outside the task scope | Only touch files listed in the design |
 | Speculative features | Adding config options "just in case" | Implement exactly what the spec requires |
 | Gold plating | Adding extra error handling, logging, or comments beyond requirements | Match the project's existing level of detail |
 
@@ -32,7 +32,7 @@ Auto-loaded by execute.md before writing code. Not a direct trigger.
 Before writing code, ask:
 
 1. Is this change required by a spec requirement?
-2. Does the plan specify this file/component?
+2. Does the design specify this file/component?
 3. Am I following the project's existing pattern for this?
 4. Is this the minimal change that satisfies the task?
 

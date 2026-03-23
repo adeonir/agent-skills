@@ -1,6 +1,6 @@
-# Technical Planning
+# Technical Design
 
-Create technical plan from specification.
+Create technical design from specification.
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
@@ -13,7 +13,7 @@ Create technical plan from specification.
 ## When to Skip
 
 - Scope is **Medium**: straightforward change, no architectural decisions, no new patterns
-- When skipped, implement handles a lightweight codebase scan inline (see [execute.md](execute.md))
+- When skipped, implement handles a lightweight codebase scan inline (see [implement.md](implement.md))
 
 ## Workflow
 
@@ -49,7 +49,7 @@ For each new tech:
 
 Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
-When incorporating research into the plan, validate findings against the spec's requirements.
+When incorporating research into the design, validate findings against the spec's requirements.
 Research informs decisions but the spec remains the single source of truth for what to build.
 
 ### Step 4: Codebase Exploration
@@ -66,7 +66,7 @@ Focus areas:
 
 After exploration, feed new findings back to project-level docs:
 
-1. If `.agents/codebase/` doesn't exist: skip (project-index hasn't been run yet, keep discoveries in plan.md only)
+1. If `.agents/codebase/` doesn't exist: skip (project-index hasn't been run yet, keep discoveries in design.md only)
 2. If it exists: compare findings against current docs and append new discoveries
 
 What to update:
@@ -99,11 +99,11 @@ Define the data model before component design:
 - **Relationships**: How entities relate (one-to-many, many-to-many)
 - **API contracts**: Request/response shapes for new endpoints
 
-### Step 8: Generate plan.md
+### Step 8: Generate design.md
 
-**USE TEMPLATE:** `templates/plan.md`
+**USE TEMPLATE:** `templates/design.md`
 
-Generate the plan following the template structure:
+Generate the design following the template structure:
 - Context (feature reference)
 - Scope (what is in scope and out of scope)
 - Research Summary (if applicable)
@@ -123,14 +123,10 @@ Generate the plan following the template structure:
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 10: Update State
-
-If significant architecture decisions were made, record them in `.artifacts/state.md`.
-
-### Step 11: Report
+### Step 10: Report
 
 Inform user:
-- Created: `plan.md`
+- Created: `design.md`
 - Research cached: {topics}
 - Codebase docs updated: {files updated in .agents/codebase/, if it existed}
 - Key decisions: {count}
@@ -140,14 +136,14 @@ Inform user:
 ## Guidelines
 
 **DO:**
-- Resolve open questions in the spec before planning
+- Resolve open questions in the spec before designing
 - Keep architecture decisions scoped to the feature
 - Research unfamiliar technologies before committing to them
 - Reference existing codebase patterns when available
 - Follow Knowledge Verification Chain for all technical decisions
 
 **DON'T:**
-- Start planning with unresolved open questions in the spec
+- Start designing with unresolved open questions in the spec
 - Fabricate APIs or patterns -- verify first
 - Over-architect beyond the feature scope
 

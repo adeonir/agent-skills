@@ -5,9 +5,9 @@ description: >-
   Creates structured feature specs with traceability to requirements. Use when
   planning features, breaking work into tasks, implementing with verification,
   or tracking decisions across sessions. Triggers on "create feature", "specify
-  feature", "plan", "tasks", "execute", "implement", "validate", "quick fix",
-  "quick task", "discuss feature", "break this into tasks", "plan this
-  feature", "record decision", "show state".
+  feature", "plan", "design feature", "tasks", "implement", "validate",
+  "quick fix", "quick task", "discuss feature", "break this into tasks",
+  "plan this feature", "show status".
 ---
 
 # Spec-Driven Development
@@ -17,32 +17,28 @@ Structured development workflow with adaptive depth. Right ceremony for the righ
 ## Workflow
 
 ```
-specify --> plan* --> tasks* --> execute
-  ^___________________________|  (verify after each task)
+specify --> design* --> tasks* --> implement
+  ^_____________________________|  (verify after each task)
 ```
 
-Adaptive pipeline: Specify and Execute always run; Plan and Tasks auto-skip when scope is small enough. Verification is continuous throughout Execute.
+Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip when scope is small enough. Verification is continuous throughout Implement.
 
 ## Context Loading Strategy
 
-**Base load (~15k tokens):**
+**Base load:**
 - `.agents/project.md` (context, if exists)
-- `.artifacts/state.md` (persistent memory)
 - Current feature spec.md
 
 **On-demand:**
 - `.agents/codebase/*.md` (brownfield)
-- decisions.md (designing or executing from user decisions)
-- plan.md (executing)
-- tasks.md (executing)
+- decisions.md (designing or implementing from user decisions)
+- design.md (implementing)
+- tasks.md (implementing)
 - research/*.md (new technologies)
 
 **Never simultaneous:**
 - Multiple feature specs
 - Multiple codebase docs
-
-**Target:** <40k tokens total context
-**Reserve:** 160k+ tokens for work, reasoning, outputs
 
 ## Triggers
 
@@ -53,19 +49,13 @@ Adaptive pipeline: Specify and Execute always run; Plan and Tasks auto-skip when
 | Create new feature, specify feature | [specify.md](references/specify.md) |
 | Modify feature, improve feature | [specify.md](references/specify.md) (brownfield) |
 | Discuss feature, capture context, how should this work | [discuss.md](references/discuss.md) |
-| Create technical plan | [plan.md](references/plan.md) |
+| Create technical design, plan feature | [design.md](references/design.md) |
 | Research technology, cache research | [research.md](references/research.md) |
 | Create tasks | [tasks.md](references/tasks.md) |
-| Execute task, implement task | [execute.md](references/execute.md) |
-| Validate, UAT, verify work | [validate.md](references/validate.md) (within Execute) |
+| Implement task, execute task | [implement.md](references/implement.md) |
+| Validate, UAT, verify work | [validate.md](references/validate.md) (within Implement) |
 | Quick fix, quick task, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
 | List features, show status | [status-specs.md](references/status-specs.md) |
-
-### Project-Level
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Record decision, log blocker, add deferred idea | [state-management.md](references/state-management.md) |
 
 ### Guidelines
 
@@ -83,56 +73,56 @@ Adaptive pipeline: Specify and Execute always run; Plan and Tasks auto-skip when
 ## Cross-References
 
 ```
-specify.md -------> discuss.md (when gray areas detected)
-specify.md -------> quick-mode.md (when Small scope)
-specify.md -------> plan.md (when Large/Complex, spec complete)
-specify.md -------> execute.md (when Medium, skip plan/tasks)
-plan.md ----------> tasks.md (when Large/Complex)
-plan.md ----------> research.md (if new tech)
-tasks.md ---------> execute.md
-execute.md -------> coding-principles.md (loaded before coding)
-execute.md -------> validate.md (interactive UAT, Complex scope)
-execute.md -------> tasks.md (safety valve: >5 inline steps)
+specify.md --------> discuss.md (when gray areas detected)
+specify.md --------> quick-mode.md (when Small scope)
+specify.md --------> design.md (when Large/Complex, spec complete)
+specify.md --------> implement.md (when Medium, skip design/tasks)
+design.md ---------> tasks.md (when Large/Complex)
+design.md ---------> research.md (if new tech)
+tasks.md ----------> implement.md
+implement.md ------> coding-principles.md (loaded before coding)
+implement.md ------> validate.md (interactive UAT, Complex scope)
+implement.md ------> tasks.md (safety valve: >5 inline steps)
 ```
 
 ## Auto-Sizing
 
 **Complexity determines depth, not a fixed pipeline.** Before starting any feature, assess its scope and apply only what's needed:
 
-| Scope | What | Specify | Plan | Tasks | Execute |
-|-------|------|---------|------|-------|---------|
+| Scope | What | Specify | Design | Tasks | Implement |
+|-------|------|---------|--------|-------|-----------|
 | **Small** | ≤3 files, one sentence | **Quick mode** -- skip pipeline entirely | - | - | - |
 | **Medium** | Clear feature, <10 tasks | Spec (brief) | Skip -- explore inline | Skip -- steps implicit | Implement + verify per step |
-| **Large** | Multi-component feature | Full spec + requirement IDs | Full plan | Full breakdown + dependencies | Implement + verify per task |
-| **Complex** | Ambiguity, new domain | Full spec + [discuss gray areas](references/discuss.md) | Research + full plan | Breakdown + parallel plan | Implement + verify per task + [interactive UAT](references/validate.md) |
+| **Large** | Multi-component feature | Full spec + requirement IDs | Full design | Full breakdown + dependencies | Implement + verify per task |
+| **Complex** | Ambiguity, new domain | Full spec + [discuss gray areas](references/discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task + [interactive UAT](references/validate.md) |
 
 **Rules:**
 
-- **Specify and Execute are always required** -- you always need to know WHAT and DO it
-- **Plan is skipped** when the change is straightforward (no architectural decisions, no new patterns)
-- **Tasks is skipped** when there are ≤3 obvious steps (they become implicit in Execute)
+- **Specify and Implement are always required** -- you always need to know WHAT and DO it
+- **Design is skipped** when the change is straightforward (no architectural decisions, no new patterns)
+- **Tasks is skipped** when there are ≤3 obvious steps (they become implicit in Implement)
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
-- **Interactive UAT is triggered within Execute** only for Complex scope with user-facing features
+- **Interactive UAT is triggered within Implement** only for Complex scope with user-facing features
 - **Quick mode** is the express lane -- for bug fixes, config changes, and small tweaks
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end
 
-**Safety valve:** Even when Tasks is skipped, Execute ALWAYS starts by listing atomic steps inline (see [execute.md](references/execute.md)). If that listing reveals >5 steps or complex dependencies, STOP and create a formal `tasks.md` -- the Tasks phase was wrongly skipped.
+**Safety valve:** Even when Tasks is skipped, Implement ALWAYS starts by listing atomic steps inline (see [implement.md](references/implement.md)). If that listing reveals >5 steps or complex dependencies, STOP and create a formal `tasks.md` -- the Tasks phase was wrongly skipped.
 
 ## Project Structure
 
 ```
 .artifacts/
-├── state.md              # Decisions, blockers, lessons, deferred ideas (persistent)
 ├── features/
 │   └── {ID}-{name}/
 │       ├── spec.md       # WHAT: Requirements (always created)
-│       ├── decisions.md    # WHY: Decisions on gray areas (only when discuss triggered)
-│       ├── plan.md       # HOW: Architecture (only for Large/Complex)
+│       ├── decisions.md  # WHY: Decisions on gray areas (only when discuss triggered)
+│       ├── design.md     # HOW: Architecture (only for Large/Complex)
 │       ├── tasks.md      # WHEN: Tasks (only for Large/Complex)
 │       └── designs/      # Visual references (optional)
 ├── quick/                # Quick mode tasks
 │   └── NNN-{slug}/
-│       └── task.md
+│       ├── task.md
+│       └── summary.md    # Post-execution summary
 └── research/             # Research cache (reusable across features)
     └── {topic}.md
 ```
@@ -144,7 +134,7 @@ execute.md -------> tasks.md (safety valve: >5 inline steps)
 └── codebase/             # Codebase analysis
 ```
 
-> Note: `.agents/` is generated by the `project-index` skill. If it exists, spec-driven uses and updates it. If not, Specify suggests running project-index for better context (especially for brownfield projects). All feature artifacts stay within `.artifacts/`.
+> Note: `.agents/` is generated by the `project-index` skill. If it exists, spec-driven consumes and retrofeeds it with discoveries. If not, Specify suggests running project-index for better context (especially for brownfield projects). All feature artifacts stay within `.artifacts/`.
 
 ## Templates
 
@@ -152,10 +142,10 @@ execute.md -------> tasks.md (safety valve: >5 inline steps)
 |---------|----------|
 | Feature spec | [spec.md](templates/spec.md) |
 | Discuss context | [decisions.md](templates/decisions.md) |
-| Technical plan | [plan.md](templates/plan.md) |
+| Technical design | [design.md](templates/design.md) |
 | Task breakdown | [tasks.md](templates/tasks.md) |
-| Project state | [state.md](templates/state.md) |
 | Quick task | [quick-task.md](templates/quick-task.md) |
+| Quick summary | [quick-summary.md](templates/quick-summary.md) |
 | Codebase exploration | [exploration.md](templates/exploration.md) |
 | Research cache | [research.md](templates/research.md) |
 
@@ -175,36 +165,35 @@ Step 5: Flag uncertain -> "I'm not certain about X -- here's my reasoning, but v
 
 - Never skip to Step 5 if Steps 1-4 are available
 - Step 5 is ALWAYS flagged as uncertain -- never presented as fact
-- **NEVER assume or fabricate.** If you cannot find an answer, say "I don't know" or "I couldn't find documentation for this". Inventing APIs, patterns, or behaviors causes cascading failures across plan -> tasks -> implementation. Uncertainty is always preferable to fabrication.
+- **NEVER assume or fabricate.** If you cannot find an answer, say "I don't know" or "I couldn't find documentation for this". Inventing APIs, patterns, or behaviors causes cascading failures across design -> tasks -> implementation. Uncertainty is always preferable to fabrication.
 
 ## Guidelines
 
 **DO:**
-- Separate content by purpose: spec=WHAT, plan=HOW, tasks=WHEN
+- Separate content by purpose: spec=WHAT, design=HOW, tasks=WHEN
 - Follow status flow: draft -> ready -> in-progress -> done
 - Use sequential Feature IDs (001, 002)
 - Reuse research cache across features (.artifacts/research/)
 - Consume `.agents/` for project context and codebase info (optional -- use if exists)
-- Update `.agents/codebase/` with new discoveries during plan phase (if it exists)
-- Update `.artifacts/state.md` with decisions and blockers as they arise
+- Retrofeed `.agents/codebase/` with new discoveries during design and implement phases
 - Auto-size depth based on complexity -- skip phases that add no value
-- Verify continuously during Execute -- after each task or range, not as a separate phase
+- Verify continuously during Implement -- after each task or range, not as a separate phase
 
 **DON'T:**
 - Reuse Feature IDs from previous features
-- Mix spec, plan, and task content in a single file
+- Mix spec, design, and task content in a single file
 - Skip status transitions (e.g., jumping from draft to done)
 - Create feature-specific research files outside .artifacts/research/
-- Generate `.agents/` content (that's project-index's responsibility)
+- Generate `.agents/` content from scratch (that's project-index's responsibility)
 - Force full pipeline on small/medium changes -- respect auto-sizing
 - Assume or fabricate when information is unavailable -- follow Knowledge Verification Chain
-- Defer all verification to the end -- verify per task/range during Execute
+- Defer all verification to the end -- verify per task/range during Implement
 
 ## Error Handling
 
 - No .artifacts/: Create it (features/ and research/ are created on demand)
 - Spec not found: List available features
 - Open questions blocking architecture: Resolve before planning (trigger discuss)
-- Plan not found: Suggest plan before tasks (or skip if Medium scope)
-- Tasks not found: Suggest tasks before execute (or skip if Medium scope)
+- Design not found: Suggest design before tasks (or skip if Medium scope)
+- Tasks not found: Suggest tasks before implement (or skip if Medium scope)
 - Scope misjudged: Safety valve catches it -- redirect to appropriate phase

@@ -56,7 +56,7 @@ Even small changes must follow project patterns.
   Project Abstractions and Custom Hooks -- use these instead of primitives
 - If not: follow patterns already present in the files being modified
 
-### Step 5: Execute
+### Step 5: Implement
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
 
@@ -80,11 +80,19 @@ Merge new findings, never overwrite existing content.
 
 ### Step 8: Update Task File
 
-Mark task as done in `task.md`. Add:
-- Files modified
-- Brief summary of what was done
+Mark task as done in `task.md`.
 
-### Step 9: Suggest Commit
+### Step 9: Generate Summary
+
+**USE TEMPLATE:** `templates/quick-summary.md`
+
+Create `.artifacts/quick/{NNN}-{slug}/summary.md` with:
+- What was changed and why
+- Files modified
+- Patterns discovered (if any)
+- Side effects or follow-up needed
+
+### Step 10: Suggest Commit
 
 Suggest a commit message following git-helpers conventions:
 - Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
@@ -94,10 +102,6 @@ Suggest a commit message following git-helpers conventions:
 - No scope, no file names, no versions, no attribution
 - Body only for complex changes: 1-5 bullet points starting with lowercase
 - Preview message and ask for confirmation before committing
-
-### Step 10: Update State
-
-If `.artifacts/state.md` exists and the fix reveals a pattern (recurring bug, tech debt area), note it under Lessons or Deferred.
 
 ## Scope Escalation
 

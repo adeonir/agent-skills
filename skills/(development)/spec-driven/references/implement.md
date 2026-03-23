@@ -1,4 +1,4 @@
-# Execute Tasks
+# Implement Tasks
 
 Implement, verify, and complete tasks. Verification happens continuously -- after each task or range, never deferred to the end.
 
@@ -6,7 +6,7 @@ Implement, verify, and complete tasks. Verification happens continuously -- afte
 
 ## When to Use
 
-When executing tasks from a feature's tasks.md, or when scope is Medium and plan/tasks were skipped.
+When implementing tasks from a feature's tasks.md, or when scope is Medium and design/tasks were skipped.
 
 ## Arguments
 
@@ -31,13 +31,13 @@ Check which artifacts exist and adapt:
 
 | Artifacts Found | Mode |
 |-----------------|------|
-| spec + plan + tasks | **Full mode**: follow tasks.md |
-| spec + plan (no tasks) | **Inline mode**: list steps from plan, then execute |
-| spec only (Medium scope) | **Quick scan mode**: lightweight exploration, then execute |
+| spec + design + tasks | **Full mode**: follow tasks.md |
+| spec + design (no tasks) | **Inline mode**: list steps from design, then implement |
+| spec only (Medium scope) | **Quick scan mode**: lightweight exploration, then implement |
 
-### Step 3: Quick Scan (when plan was skipped)
+### Step 3: Quick Scan (when design was skipped)
 
-When operating in **Quick scan mode** (Medium scope, no plan.md):
+When operating in **Quick scan mode** (Medium scope, no design.md):
 
 1. **Check research cache**: Look for `.artifacts/research/{topic}.md` relevant to this feature. If exists and valid, use it. Don't conduct deep research for Medium scope.
 
@@ -56,7 +56,7 @@ When operating in **Quick scan mode** (Medium scope, no plan.md):
    - Which custom hooks handle the patterns needed (data fetching, state, etc.)
    - Which variables/tokens to use for styling (not hardcoded values)
 
-4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), STOP and suggest running `plan` first.
+4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), STOP and suggest running `design` first.
 
 ### Step 4: Safety Valve (inline step listing)
 
@@ -73,14 +73,14 @@ Execution steps:
 **If >5 steps or complex dependencies detected:**
 - STOP execution
 - Inform user: "This is more complex than expected. Recommend creating formal tasks."
-- Suggest running `tasks` (which requires `plan` first if that was also skipped)
+- Suggest running `tasks` (which requires `design` first if that was also skipped)
 - Exit
 
 **If <=5 steps:** Proceed with execution.
 
 ### Step 5: Validate Dependencies
 
-For each task to execute (when tasks.md exists):
+For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
 - Check [B:Txxx] - verify Txxx is done
 
@@ -89,7 +89,7 @@ For each task to execute (when tasks.md exists):
 If status is `ready` or `draft` (Medium scope may skip ready):
 - Set `status: in-progress`
 
-### Step 7: Execute Tasks
+### Step 7: Implement Tasks
 
 For each task, follow the 3-phase cycle:
 
@@ -97,7 +97,7 @@ For each task, follow the 3-phase cycle:
 
 - Load [coding-principles.md](coding-principles.md)
 - If project has test infrastructure: load [test-driven.md](test-driven.md)
-- Read the relevant reference files from plan.md or quick scan (patterns to follow)
+- Read the relevant reference files from design.md or quick scan (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
 - Run pre-implementation checklist:
 
@@ -106,7 +106,7 @@ For each task, follow the 3-phase cycle:
 | Check | Question |
 |-------|----------|
 | Assumptions | What am I assuming about the existing code? Verify. |
-| Files | Which files will I touch? Are they listed in the plan? |
+| Files | Which files will I touch? Are they listed in the design? |
 | Success criteria | What acceptance criteria does this task satisfy? |
 | Risk | Could this change break existing functionality? |
 
@@ -116,7 +116,7 @@ For each task, follow the 3-phase cycle:
 #### During (Implementation)
 
 - When TDD is active: write failing test first, then implement, then refactor
-- Follow plan.md architecture precisely (if plan exists)
+- Follow design.md architecture precisely (if design exists)
 - Match patterns from reference files exactly
 - Use project's error handling approach
 - Follow naming conventions documented
@@ -169,11 +169,7 @@ If `.agents/codebase/` exists and you discovered patterns not yet documented
 (new shared component, new hook, new convention), update the relevant file.
 Merge new findings, never overwrite existing content.
 
-### Step 11: Update State
-
-If `.artifacts/state.md` exists and lessons were learned during execution, record them.
-
-### Step 12: Report
+### Step 11: Report
 
 Show:
 - Tasks completed
@@ -258,4 +254,4 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 - Tasks not found: Check scope -- Medium may not have tasks.md (use inline mode)
 - Dependency blocked: List prerequisites
 - Quality gate failed: Fix before marking done
-- Scope misjudged: Safety valve catches >5 steps, redirect to tasks/plan
+- Scope misjudged: Safety valve catches >5 steps, redirect to tasks/design

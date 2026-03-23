@@ -4,13 +4,13 @@ Write the test first, then the implementation.
 
 ## When to Use
 
-Loaded during execute when the project has test infrastructure:
+Loaded during implement when the project has test infrastructure:
 
 - `.agents/codebase/testing.md` exists, OR
 - Test command found in package.json, Makefile, or equivalent, OR
 - Test files found in the project
 
-Not a gate -- a technique. If the project has no tests, execute continues
+Not a gate -- a technique. If the project has no tests, implement continues
 normally without loading this reference.
 
 ## Workflow
@@ -104,6 +104,6 @@ the project is harder to maintain.
 
 ## Error Handling
 
-- No test infrastructure in project: skip TDD, execute normally
+- No test infrastructure in project: skip TDD, implement normally
 - Test patterns unclear: read 2-3 existing test files before writing new ones
 - Test framework not installed: inform user, suggest setup

@@ -4,7 +4,7 @@ Patterns for analyzing existing code for a specific feature.
 
 ## When to Use
 
-- During planning (plan.md)
+- During design (design.md)
 - Need to understand patterns for a specific feature
 - Finding similar existing features
 - Understanding integration points
@@ -102,14 +102,14 @@ The agent discovers and uses whatever tools are available in the environment.
 
 After exploration, document findings following the template structure.
 
-## Integration with Plan
+## Integration with Design
 
-Use findings in plan.md:
+Use findings in design.md:
 - Reference files to follow
 - Patterns to use
 - Code to reuse
 
-After exploration, if `.agents/codebase/` exists, new findings are persisted back to it (see plan.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's planning are available to future features without rediscovery.
+After exploration, if `.agents/codebase/` exists, new findings are persisted back to it (see design.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's design are available to future features without rediscovery.
 
 ## Guidelines
 

@@ -16,8 +16,8 @@ Adaptive workflow for building software with clarity and traceability. Complexit
 flowchart LR
     A[Specify] --> B{Scope?}
     B -->|Small| C[Quick Mode]
-    B -->|Medium| F[Execute]
-    B -->|Large/Complex| D[Plan]
+    B -->|Medium| F[Implement]
+    B -->|Large/Complex| D[Design]
     D --> E[Tasks]
     E --> F
     F --> G[Done]
@@ -27,9 +27,9 @@ flowchart LR
 | ----- | ------- | -------- |
 | **Specify** | Define requirements (greenfield or brownfield) | Always |
 | **Discuss** | Resolve gray areas and ambiguities | When triggered |
-| **Plan** | Technical architecture, codebase exploration, research | Large/Complex |
+| **Design** | Technical architecture, codebase exploration, research | Large/Complex |
 | **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
-| **Execute** | Implement + verify per task, interactive UAT for Complex | Always |
+| **Implement** | Implement + verify per task, interactive UAT for Complex | Always |
 | **Quick Mode** | Express lane for small fixes | Small scope |
 
 ### Auto-Sizing
@@ -37,9 +37,9 @@ flowchart LR
 | Scope | Pipeline |
 |-------|----------|
 | **Small** (≤3 files) | Quick mode -- no pipeline |
-| **Medium** (<10 tasks) | Specify -> Execute |
-| **Large** (multi-component) | Specify -> Plan -> Tasks -> Execute |
-| **Complex** (ambiguity) | Specify (+ Discuss) -> Plan -> Tasks -> Execute (+ UAT) |
+| **Medium** (<10 tasks) | Specify -> Implement |
+| **Large** (multi-component) | Specify -> Design -> Tasks -> Implement |
+| **Complex** (ambiguity) | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
 
 ## Usage
 
@@ -53,9 +53,9 @@ modify existing auth flow
 improve cache performance
 
 # Development workflow
-create technical plan
+create technical design
 create tasks
-execute
+implement
 
 # Quick mode
 quick fix: update env variable
@@ -65,9 +65,6 @@ quick task: fix login redirect
 discuss auth feature
 how should session timeout work?
 
-# State management
-record decision: chose JWT over sessions
-log blocker: API dependency unavailable
 ```
 
 ### New Feature (Greenfield)
@@ -77,9 +74,9 @@ create new feature for user authentication
 # Agent assesses scope, asks for requirements
 # Creates: .artifacts/features/001-user-auth/spec.md
 
-create technical plan              # Large/Complex only
+create technical design             # Large/Complex only
 create tasks                       # Large/Complex only
-execute
+implement
 ```
 
 ### Brownfield Feature
@@ -99,26 +96,26 @@ modify existing auth flow to add 2FA
 
 ```
 .artifacts/
-├── state.md                       # Persistent decisions, blockers, lessons
 ├── features/
 │   └── 001-feature/
 │       ├── spec.md                # Requirements (WHAT)
-│       ├── decisions.md             # Gray area decisions (WHY, optional)
-│       ├── plan.md                # Architecture (HOW, Large/Complex only)
-│       ├── tasks.md               # Execution tasks (WHEN, Large/Complex only)
+│       ├── decisions.md           # Gray area decisions (WHY, optional)
+│       ├── design.md              # Architecture (HOW, Large/Complex only)
+│       ├── tasks.md               # Implementation tasks (WHEN, Large/Complex only)
 │       └── designs/               # Screenshots, mockups (optional)
 ├── quick/
 │   └── 001-fix-redirect/
-│       └── task.md                # Quick mode task record
+│       ├── task.md                # Quick mode task record
+│       └── summary.md             # Post-execution summary
 └── research/
     └── {topic}.md                 # Research cache (reusable)
 ```
 
-### State Management
+### Status Tracking
 
 Features track status in spec.md frontmatter:
 - **draft**: Created, may have open questions
-- **ready**: Spec complete, plan done (or skipped for Medium)
+- **ready**: Spec complete, design done (or skipped for Medium)
 - **in-progress**: Execution started
 - **done**: Complete
 

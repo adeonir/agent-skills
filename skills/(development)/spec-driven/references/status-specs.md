@@ -66,7 +66,7 @@ Also check `.artifacts/quick/` for quick mode tasks:
 ### Show Status
 
 1. Resolve feature (ID, branch, or single)
-2. Read spec.md, plan.md, tasks.md (whichever exist)
+2. Read spec.md, design.md, tasks.md (whichever exist)
 3. Parse task progress (if tasks.md exists)
 4. Determine next action
 
@@ -87,7 +87,7 @@ Also check `.artifacts/quick/` for quick mode tasks:
 |------|--------|
 | spec.md | Present |
 | decisions.md | Present |
-| plan.md | Present |
+| design.md | Present |
 | tasks.md | Present |
 
 ### Progress
@@ -102,7 +102,7 @@ Remaining:
 - [ ] T007 - Write tests
 
 ### Next Step
-Run `execute` to continue.
+Run `implement` to continue.
 ```
 
 ## Guidelines
@@ -114,7 +114,7 @@ Run `execute` to continue.
 - Show scope to help user understand the pipeline depth
 
 **DON'T:**
-- Modify feature status from this command -- use execute
+- Modify feature status from this command -- use implement
 - Filter features by status unless explicitly requested
 - Add interpretation or commentary to status reports
 

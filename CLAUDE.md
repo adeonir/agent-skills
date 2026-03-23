@@ -26,19 +26,25 @@ skills/
         └── guides/     # Standalone guides for users (optional)
 ```
 
-## Skill File Conventions
+## Category Directories
 
-For detailed structure, section order, and examples, see `.artifacts/docs/skill-structure.md`.
+| Directory | Usage |
+|-----------|-------|
+| (design) | Design, UI, brand skills |
+| (development) | Development, debugging, specs skills |
+| (product) | Product, documentation, naming skills |
+| (tooling) | Git, CI, workflow tooling skills |
+
+## Skill File Conventions
 
 ### SKILL.md Frontmatter
 
 ```yaml
 ---
-name: skill-name                    # kebab-case, matches directory name
-description: >-                     # Max 1024 chars (skills.sh spec limit)
-  Multi-line with                   # Keep lines under 80 chars
-  indentation for continuation.
-  Triggers on "phrase 1", "phrase 2".
+name: skill-name
+description: >-
+  Short sentence of what it does. Use when: usage contexts.
+  Triggers on "phrase 1", "phrase 2", "phrase 3".
 ---
 ```
 
@@ -47,44 +53,270 @@ Only `name` and `description` -- no other fields.
 Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
 
 Formatting rules:
-- Use YAML folded block `>-` with 2-space indentation
-- Keep each line under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
-- Max 1024 characters total (skills.sh spec limit)
+- `name`: kebab-case, matches the directory name
+- `description`: folded block `>-` string, max 1024 characters (skills.sh spec limit)
+  - Structure: what it does + when to use + specific triggers
+  - Avoid internal mechanics (phases, loops, stages) -- focus on what and when
+  - Include varied trigger phrases to improve matching
+  - Use `>-` with 2-space indentation
+  - Keep lines under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
 
-### SKILL.md Sections
+### SKILL.md Section Order
 
-Every SKILL.md starts with an H1 title + one-liner subtitle and ends with Guidelines (DO/DON'T)
-and Error Handling. Between those, include whichever sections the skill needs. Common sections:
+All skills follow this exact order:
 
-- `## Workflow` -- ASCII art or text flow diagram
-- `## Context Loading Strategy` -- what to load and when, token budgets
-- `## Templates` -- table linking to template files (if templates/ exists)
-- `## Triggers` -- tables mapping trigger patterns to reference files
-- `## Cross-References` -- ASCII arrows showing reference dependencies
-- `## Guidelines` -- split into **DO:** and **DON'T:** bullet lists
-- `## Error Handling` -- bulleted `- Condition: action` pairs
+```
+1. # Title              (H1, descriptive skill name)
+2. ## Workflow           (flow diagram)
+3. ## Context Loading    (reference loading strategy)
+4. ## Triggers           (trigger -> reference table)
+5. ## Cross-References   (ASCII dependency diagram)
+6. ## Guidelines         (DO/DON'T)
+7. ## Output             (output format and location, if applicable)
+8. ## Error Handling     (edge case list)
+```
+
+### Workflow
+
+Simple `-->` arrows. Optional loop on second line with `^` and `|___|`.
+No pipes or box-drawing. Keep lines under 70 chars.
+
+```
+phase-1 --> phase-2 --> phase-3 --> output
+  ^_________________________|  (note about the loop)
+```
+
+One sentence explaining the flow right below.
+
+### Context Loading Strategy
+
+Documents which references to load and when. Specify:
+- What to load per trigger
+- Automatic dependencies (ref A loads ref B)
+- What should never be loaded together
+
+```markdown
+Load only the reference matching the current trigger. Never load multiple
+references simultaneously unless explicitly noted.
+```
+
+### Triggers
+
+Table mapping natural language phrases to references:
+
+```markdown
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Commit changes, create commit | [commit.md](references/commit.md) |
+| Review code, check changes | [code-review.md](references/code-review.md) |
+```
+
+Followed by `Notes:` for auxiliary references (not direct triggers):
+
+```markdown
+Notes:
+
+- `auxiliary.md` is not a direct trigger. It is loaded by `main.md` as part of its process.
+```
+
+### Cross-References
+
+ASCII diagram showing dependencies between internal references and with other skills:
+
+```markdown
+reference-a.md ----> reference-b.md (a loads b)
+reference-a.md <---> reference-c.md (bidirectional)
+skill-name --------> other-skill (output feeds into)
+```
+
+### Guidelines
+
+Always DO/DON'T format. Never prose. 3-8 items per list. Concrete rules, not aspirational.
+
+```markdown
+**DO:**
+- Use confidence scoring: >= 80 to report findings
+- Always validate before saving output
+- Follow existing project conventions
+
+**DON'T:**
+- Skip validation for any output type
+- Assume context not provided by user
+- Add emojis to output
+```
+
+### Error Handling
+
+List of conditions and actions:
+
+```markdown
+- No context provided: ask user for details
+- Ambiguous trigger: ask which workflow to use
+- Output directory missing: create it
+- Conflicting results: present options to user
+```
 
 ### Reference Files (references/*.md)
+
+Each file is loaded on demand by SKILL.md. Internal structure:
+
+```
+1. # Descriptive Title
+2. Introductory sentence (one line)
+3. ## When to Use
+   - Conditions that trigger this reference
+4. ## Workflow (or ## Discovery, ## Phases)
+   - Numbered or bulleted steps
+   - Subsections with ### for complex phases
+5. ## Guidelines (optional)
+   - DO/DON'T format
+6. ## Error Handling (optional)
+   - Edge cases specific to this phase
+7. ## Next Steps (optional)
+   - What to do after completing this phase
+```
 
 - Every reference has `When to Use`; include `Guidelines` and `Error Handling` when relevant
 - Template usage: `**USE TEMPLATE:** \`templates/file.md\``
 - Loading other references: `Load [file.md](file.md)` or `**LOAD:** [file.md](file.md)`
 
+Dependencies between references -- indicate at the top of the file:
+
+```markdown
+> **LOAD FIRST:** [dependency.md](dependency.md) -- description of why
+```
+
+This dependency must also be documented in the SKILL.md Cross-References section.
+
+Internal links always relative to the references directory:
+
+```markdown
+[evaluation.md](evaluation.md)
+[../templates/report.md](../templates/report.md)
+```
+
 ### Template Files (templates/*.md)
 
-Use `{{placeholder}}` syntax (Handlebars-like).
+Optional. Exist when the skill generates artifacts with a fixed structure.
+
+When to create:
+- The skill generates files as output (documents, reports, configs)
+- The output has a repeatable structure across executions
+- No template needed: skills that operate inline (debug-tools, git-helpers)
+
+Use `{{mustache}}` for dynamic values:
+
+```yaml
+---
+name: {{project-name}}
+source: {{url or description}}
+created: {{YYYY-MM-DD}}
+---
+
+# {{Title}}
+
+## Section
+
+{{description of what goes here}}
+```
+
+For fill-in instructions (not value placeholders), use `{single braces}`:
+
+```markdown
+{For each item, one line:}
+{Brief recommendation if one clearly dominates.}
+```
+
+Templates named after the output type they generate:
+
+| Template | Output |
+|----------|--------|
+| `report.md` | Naming report |
+| `prd.md` | Product Requirements Document |
+| `copy.yaml` | Copy extraction |
 
 ### CHANGELOG.md
 
-- Frontmatter with `name` field only
-- Date headers (`## YYYY-MM-DD`), not version numbers
-- Keep a Changelog categories: Added, Changed, Removed, Fixed
-- Reverse-chronological order
+Frontmatter:
+
+```yaml
+---
+name: skill-name
+---
+```
+
+Format:
+
+```markdown
+# Changelog
+
+All notable changes to this skill will be documented in this file.
+
+## YYYY-MM-DD
+
+### Added
+
+- Description of added feature
+
+### Changed
+
+- Description of change
+
+### Fixed
+
+- Description of fix
+
+### Removed
+
+- Description of removal
+```
+
+Rules:
+- Date headers: `## YYYY-MM-DD` -- never versions
+- Subsections: `### Added`, `### Changed`, `### Fixed`, `### Removed`
+- Each item is one sentence (no paragraphs)
+- Most recent first (descending chronological order)
+- Reference filenames when relevant
 
 ### README.md
 
-Sections in order: Installation, What It Does, Usage, Output, Requirements, Integration, FAQ.
-Installation always uses `npx skills add adeonir/agent-skills --skill {name}`.
+User-facing documentation. Sections in order:
+
+```
+1. # Title
+2. Descriptive sentence (one line)
+3. ## Installation
+   - npx skills add adeonir/agent-skills --skill {name}
+4. ## What It Does
+   - Mermaid diagram (flowchart LR or TD)
+   - Table with phases/outputs
+5. ## Usage
+   - Code block with natural language usage examples
+6. ## Output (if applicable)
+   - Output format or directory
+7. ## Requirements (if applicable)
+   - Dependencies and external tools
+8. ## Integration (if applicable)
+   - Table of connections with other skills
+```
+
+Mermaid diagrams always `flowchart LR` or `flowchart TD` (never `graph`).
+Decisions with `{}`, actions with `[]`, arrows with labels via `-->|label|`.
+
+## New Skill Checklist
+
+Before finalizing a new skill, verify:
+
+- [ ] Directory at `skills/(category)/skill-name/`
+- [ ] `SKILL.md` with complete frontmatter and all sections in correct order
+- [ ] `README.md` with Installation, mermaid diagram, and usage examples
+- [ ] `CHANGELOG.md` with creation date entry
+- [ ] `references/` with one file per phase/workflow
+- [ ] Each reference has a "When to Use" section
+- [ ] Cross-references documented in SKILL.md
+- [ ] Guidelines in DO/DON'T format
+- [ ] `templates/` if the skill generates artifacts with fixed structure
+- [ ] Skill added to the root README.md table (sorted by category)
 
 ## Naming Conventions
 
@@ -121,8 +353,7 @@ Skills write to `.artifacts/` organized by domain:
 
 ```
 .artifacts/
-├── state.md        # spec-driven: persistent decisions
-├── features/       # spec-driven: specs, plans, tasks
+├── features/       # spec-driven: specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
 ├── research/       # spec-driven: research cache
 ├── docs/           # docs-writer: PRD, ADR, RFC, etc.
@@ -189,7 +420,7 @@ Before publishing, verify:
 ## Skill Installation
 
 Skills are installed globally via `npx skills add adeonir/agent-skills --skill {name}`.
-This copies files to `~/.agents/skills/{name}/`.
+This installs the skill files to using symlinks in `~/.agents/skills/{name}/`.
 
 **NEVER edit files in `~/.agents/skills/` directly.** That is the installation target.
 The source of truth is this repository (`skills/` directory). Edit here, then reinstall.

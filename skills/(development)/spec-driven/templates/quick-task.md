@@ -18,10 +18,6 @@ created: {{YYYY-MM-DD}}
 
 {{What should be different after the change}}
 
-## Result
+## Status
 
-**Status:** {{pending|done}}
-**Files modified:**
-- {{file:line}}
-
-**Summary:** {{brief description of what was done}}
+{{pending|done}}

@@ -23,7 +23,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[design-builder](skills/(design)/design-builder)** | Design | Product-engineer design pipeline: extract copy and tokens, define structure, preview and approve designs |
 | **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
-| **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Plan, Tasks, Execute. Auto-sized by complexity, full traceability |
+| **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, Epic, Issue, Bug, RFC, ADR. Guided discovery per type |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
@@ -58,7 +58,7 @@ flowchart TD
 3. docs-writer       --> generate requirements (PRD, Brief)
 4. project-index     --> scan codebase (if brownfield)
 5. design-builder    --> extract, structure, preview, approve
-6. spec-driven       --> specify, plan, tasks, execute
+6. spec-driven       --> specify, design, tasks, implement
 7. git-helpers       --> commit, review, PR, finish
 8. session-notes     --> document what was done
 9. debug-tools       --> when something breaks
