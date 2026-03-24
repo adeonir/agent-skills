@@ -6,6 +6,20 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-24
+
+### Added
+
+- Session note type with reference and template for focused single-project work logs
+- New triggers: "session note", "obsidian session", "vault session"
+- Cross-references: session feeds daily, project feeds session
+
+### Changed
+
+- Rename What Was Done to Activities in daily notes
+- Replace flat bold-prefix bullets with per-project subsections (`### Project Name`)
+- Update daily reference and template to match new structure
+
 ## 2026-03-23
 
 ### Changed

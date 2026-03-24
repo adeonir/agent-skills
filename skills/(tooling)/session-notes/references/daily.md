@@ -35,8 +35,9 @@ Create quick daily logs and journal entries.
    If Basic Memory is not available, skip this step entirely.
 
 3. **Compose content**
-   Each item in What Was Done is a single line: bold project/topic name
-   followed by a one-sentence summary. Not a changelog.
+   Create one `### Project Name` subsection per project under `## Activities`.
+   Use past tense, natural language. 3-5 bullets per project describing what
+   was accomplished and why. Not a changelog -- focus on outcomes and context.
 
 4. **Write note**
    ```
@@ -54,8 +55,8 @@ an earlier entry):
    ```
 
 2. **Infer project from context**
-   Use the current working directory to suggest the project name. Check if
-   that project already appears in What Was Done.
+   Use the current working directory to suggest the project name. Check if a
+   subsection for that project already exists in Activities.
 
    If Basic Memory is available, search for activity since the note was last
    updated to suggest new items. Present findings to the user for confirmation.
@@ -67,7 +68,9 @@ an earlier entry):
 
 4. **Edit in place**
    Use `patch_note` to insert content at the right location:
-   - Add new bullet to `## What Was Done` (before the next `## ` section)
+   - Add new `### Project Name` subsection at the end of `## Activities`
+     (before the next `## ` section)
+   - If the project subsection already exists, append bullets to it
    - If the user mentions decisions, learnings, or open items, insert them
      into the corresponding section (create the section if it does not exist)
    ```
@@ -76,14 +79,20 @@ an earlier entry):
 
 ## Content Structure
 
-Only `## What Was Done` is required. All other sections are optional -- include
+Only `## Activities` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
 ```markdown
-## What Was Done
+## Activities
 
-- **Project/Topic** -- 1 sentence summary (not a changelog)
-- **Another Project** -- What was accomplished, at a high level
+### Project Name
+
+- What was accomplished, in past tense and natural language (3-5 bullets)
+- Enough context to understand weeks later, not a step-by-step changelog
+
+### Another Project
+
+- Summary of work done on this project
 
 ## Key Decisions (optional)
 
@@ -115,14 +124,14 @@ them only when the user mentions relevant content. Omit empty sections.
 - Ask one question at a time -- never batch multiple questions
 - Link to project notes when mentioning projects `[[Project Name]]`
 - Use bullet points for speed
+- Use past tense and natural language
 - Use the current directory as context to suggest the project name
-- Write What Was Done as executive summary, not step-by-step
+- Write Activities as executive summary, not step-by-step
 
 **DON'T:**
 - Duplicate info from project notes (link instead)
 - Generate empty sections or placeholder content
 - Use changelog/commit-style language in bullet points
-- Split What Was Done into subsections per project (use bold prefix instead)
 
 ## Next Steps
 

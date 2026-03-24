@@ -7,9 +7,13 @@ tags:
 ---
 # {{DayOfWeek, Month DD, YYYY}}
 
-## What Was Done
+## Activities
 
-- **{{Project/Topic}}** -- {{1 sentence summary, not a changelog}}
+### {{Project Name}}
+
+{3-5 bullets per project. Use past tense, natural language, not changelog.
+Describe what was accomplished and why, with enough context to understand
+weeks later.}
 
 ## Key Decisions
 

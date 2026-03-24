@@ -16,7 +16,8 @@ Creates and manages documentation in your Obsidian vault with consistent structu
 - **Companies** - Job application tracking (status, interviews, decisions)
 - **Challenges** - Technical interview challenges (take-homes, system design)
 - **Brags** - Achievement tracking for performance reviews
-- **Daily** - Daily logs with flat activity summaries and in-place updates
+- **Daily** - Daily logs with per-project activity subsections and in-place updates
+- **Sessions** - Focused work session notes for a single project (git metadata, decisions, learnings)
 - **Conversations** - AI chat summaries and key decisions
 
 ```mermaid
@@ -27,12 +28,14 @@ flowchart LR
     D -->|Challenge| H[Create Challenge Note]
     D -->|Brag| B[Update Brag Document]
     D -->|Daily| Y[Create Daily Note]
+    D -->|Session| S[Create Session Note]
     D -->|Conversation| V[Save Conversation]
     P --> M[MCPVault MCP]
     C --> M
     H --> M
     B --> M
     Y --> M
+    S --> M
     V --> M
     M --> N[Note in Vault]
 ```
@@ -54,6 +57,9 @@ flowchart LR
 
 # Create daily note
 "Criar nota de hoje"
+
+# Create a session note
+"Session note for this project"
 
 # Save an AI conversation
 "Salvar conversa sobre refatoracao do auth"
