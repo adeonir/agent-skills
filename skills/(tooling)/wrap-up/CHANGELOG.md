@@ -25,3 +25,4 @@ All notable changes to this skill will be documented in this file.
 - Debrief template now uses `## Context` heading for body prose
 - Reference bm-notes.md uses template files instead of inline examples
 - Added memory-notes guidance on body context to bm-notes.md
+- Decision notes are now required for formats, conventions, and reusable patterns

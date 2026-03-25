@@ -83,6 +83,8 @@ generate decision notes grouped by theme. Decision notes are
 session via `part_of`.
 
 Skip this step if the session had no significant decisions.
+Always create a decision note when the session defines a format,
+convention, or reusable pattern that other agents need to reference.
 
 **USE TEMPLATE:** `templates/decision.md`
 
@@ -103,6 +105,7 @@ Rules:
 - Link debrief to session note with `expands` relation
 - Be detailed in debrief -- this is the deep knowledge record
 - Update existing decision notes when the theme already exists
+- Create decision notes for any format, convention, or reusable pattern -- if another agent may need this information, it must exist as its own reference
 
 **DON'T:**
 - Use #hashtags in observations (BM uses [brackets])
