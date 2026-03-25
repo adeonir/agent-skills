@@ -2,19 +2,18 @@
 name: docs-writer
 description: >-
   Generate structured product and technical documents through guided
-  discovery. 9 document types (PRD, Brief, Design Doc, TDD, Epic, Issue, Bug,
-  RFC, ADR). Use when defining products, designing systems, planning tracker
-  items, reporting bugs, proposing changes, recording decisions, or when the
-  user needs any structured document for a project. Triggers on "create PRD",
-  "create design doc", "create TDD", "technical design", "create epic",
-  "new feature", "feature request", "create issue", "report bug", "create RFC",
-  "create ADR", "create document", "write doc", "document this", "need a spec",
+  discovery. 6 document types (PRD, Brief, Design Doc, TDD, RFC, ADR).
+  Use when defining products, designing systems, proposing changes,
+  recording decisions, or when the user needs any structured document
+  for a project. Triggers on "create PRD", "create design doc",
+  "create TDD", "technical design", "create RFC", "create ADR",
+  "create document", "write doc", "document this", "need a spec",
   "write requirements".
 ---
 
 # Docs Writer
 
-Generate structured documents through guided discovery. 9 document types, each with its own workflow depth.
+Generate structured documents through guided discovery. 6 document types, each with its own workflow depth.
 
 ## Workflow
 
@@ -37,9 +36,6 @@ Load the reference and template matching the detected document type. For types t
 | Trigger Pattern | Type | Reference |
 |-----------------|------|-----------|
 | Create PRD, define product, product requirements, write PRD | PRD | [prd.md](references/prd.md) |
-| Create epic, new feature, feature request | Epic | [epic.md](references/epic.md) |
-| Create issue | Issue | [issue.md](references/issue.md) |
-| Report bug, fix bug | Bug | [bug.md](references/bug.md) |
 | Create RFC, propose change, request for comments | RFC | [rfc.md](references/rfc.md) |
 | Create ADR, record decision, architecture decision | ADR | [adr.md](references/adr.md) |
 | Create design doc, design system | Design Doc | [design.md](references/design.md) |
@@ -51,10 +47,9 @@ Load the reference and template matching the detected document type. For types t
 ```
 PRD -------------> Design Doc     (PRD feeds requirements, context into Design Doc)
 PRD -------------> TDD            (PRD feeds requirements into TDD)
-PRD -------------> Epic           (PRD milestones and FRs inform epic definition)
+PRD -------------> epic-tracker   (PRD milestones and FRs inform epic definition)
 PRD -------------> design-builder (PRD + Brief inform copy and design extraction)
 PRD -------------> spec-driven    (PRD milestones feed spec initialization)
-Epic ------------> Issue          (epic defines feature, issues slice the work)
 Design Doc ------> ADR            (design decisions generate ADRs)
 TDD -------------> ADR            (TDD decisions generate ADRs)
 RFC -------------> ADR            (accepted RFC generates ADR)
@@ -62,11 +57,11 @@ RFC -------------> ADR            (accepted RFC generates ADR)
 
 Notes:
 
+- **epic-tracker**: PRD milestones and functional requirements feed epic planning -- epics, stories, and bugs are managed by epic-tracker
 - **design-builder**: PRD sections 1, 3-4 (problem, personas, scope) and Brief (value prop, market) inform copy extraction and design extraction
 - **spec-driven**: PRD milestones feed feature initialization -- each milestone can generate a spec with its own tasks
 - **Design Doc**: When PRD exists, the Design Doc focuses on technical strategy; without PRD, it covers both product context and technical design. Use Design Doc for informal trade-off discussion.
 - **TDD**: Prescriptive technical planning for specific components. A project can have both a Design Doc (system-level decisions) and TDDs (component-level technical plans).
-- **Epic -> Issue**: An epic defines the feature as a whole; issues are work items within it. Issues have no acceptance criteria -- validation happens at the epic level.
 
 ## Document Types
 
@@ -76,9 +71,6 @@ Notes:
 | Brief | generated with PRD (no separate trigger) | [brief.md](references/brief.md) | [brief.md](templates/brief.md) |
 | Design Doc | discovery -> analysis -> drafting | [design.md](references/design.md) | [design.md](templates/design.md) |
 | TDD | discovery -> analysis -> drafting | [tdd.md](references/tdd.md) | [tdd.md](templates/tdd.md) |
-| Epic | [clarification] -> drafting | [epic.md](references/epic.md) | [epic.md](templates/epic.md) |
-| Issue | direct drafting | [issue.md](references/issue.md) | [issue.md](templates/issue.md) |
-| Bug | structured collection -> drafting | [bug.md](references/bug.md) | [bug.md](templates/bug.md) |
 | RFC | [clarification] -> analysis -> drafting | [rfc.md](references/rfc.md) | [rfc.md](templates/rfc.md) |
 | ADR | [clarification] -> drafting | [adr.md](references/adr.md) | [adr.md](templates/adr.md) |
 
@@ -87,8 +79,8 @@ Notes:
 **LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
 
 Discovery applies to: PRD, Design Doc, TDD.
-Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR, Epic.
-Neither applies to: Issue, Bug (uses structured collection instead), Brief (generated as part of PRD workflow).
+Clarification (lightweight, only when input is incomplete) applies to: RFC, ADR.
+Neither applies to: Brief (generated as part of PRD workflow).
 
 ## Quality Standards
 
@@ -139,9 +131,6 @@ All documents save to `.artifacts/docs/`. Create the directory if it doesn't exi
 | Brief | `brief.md` |
 | Design Doc | `design.md` |
 | TDD | `tdd.md` |
-| Epic | `epic.md` |
-| Issue | `issue.md` |
-| Bug | `bug.md` |
 | RFC | `rfc/{number}-{name}.md` |
 | ADR | `adr/{number}-{name}.md` |
 

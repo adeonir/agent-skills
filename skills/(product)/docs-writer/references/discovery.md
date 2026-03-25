@@ -62,9 +62,6 @@ Move on when:
 |------|-------|
 | RFC | Problem, proposal, impact |
 | ADR | Context, options |
-| Epic | Problem, solution, scope |
-
-**No discovery:** Issue, Bug (uses structured collection instead).
 
 ## Synthesis Pattern
 

@@ -6,6 +6,20 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-25
+
+### Removed
+
+- Epic, Issue, and Bug document types (moved to epic-tracker skill)
+- References: epic.md, issue.md, bug.md
+- Templates: epic.md, issue.md, bug.md
+- Document count updated from 9 to 6 types
+
+### Changed
+
+- Cross-references updated to point PRD -> epic-tracker instead of PRD -> Epic
+- Discovery patterns updated to remove Epic clarification and Issue/Bug entries
+
 ## 2026-03-21
 
 ### Added

@@ -19,9 +19,6 @@ flowchart LR
     R --> B[Brief]
     R --> DD[Design Doc]
     R --> TDD[TDD]
-    R --> E[Epic]
-    R --> I[Issue]
-    R --> BG[Bug]
     R --> RFC[RFC]
     R --> ADR[ADR]
 ```
@@ -34,14 +31,6 @@ flowchart LR
 | **Brief** | generated with PRD | `brief.md` |
 | **Design Doc** | discovery -> analysis -> drafting | `design.md` |
 | **TDD** | discovery -> analysis -> drafting | `tdd.md` |
-
-### Tracker (features & work items)
-
-| Type | Workflow | Output |
-|------|----------|--------|
-| **Epic** | [clarification] -> drafting | `epic.md` |
-| **Issue** | direct drafting | `issue.md` |
-| **Bug** | structured collection -> drafting | `bug.md` |
 
 ### Industry standard (decisions & proposals)
 
@@ -56,9 +45,6 @@ flowchart LR
 create PRD for my project
 create design doc for API gateway
 create TDD for payment service
-create epic for date filter feature
-create issue for the search endpoint
-report bug in the login flow
 create RFC for new auth system
 record architecture decision about database choice
 ```
@@ -81,5 +67,6 @@ Works with any agent supporting standard skill format.
 
 | Skill | How docs-writer connects |
 |-------|-------------------------|
+| **epic-tracker** | PRD milestones and requirements feed epic planning |
 | **spec-driven** | Any document can feed into feature initialization |
 | **design-builder** | PRD sections inform copy and design extraction |
