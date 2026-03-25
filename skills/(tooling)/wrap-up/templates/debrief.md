@@ -1,4 +1,4 @@
-# {{YYYY-MM-DD — Description}}
+# {{YYYY-MM-DD — What was learned/decided (not the session title)}}
 
 ## Context
 

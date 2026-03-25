@@ -71,6 +71,10 @@ Always create a debrief. Use `write_note` with extended format:
 **USE TEMPLATE:** `templates/debrief.md`
 
 Rules:
+- Debrief title must differ from session title -- session describes
+  **what was done**, debrief describes **what was learned/decided**
+- Example: session `2026-03-25 — Decision Notes and Vault Restructure`,
+  debrief `2026-03-25 — Template Consistency and Format Decisions`
 - Omit empty sections (no empty Decisions, Findings, etc.)
 - Observations condense the sections above into atomic facts
 - The `expands` relation links to the session note from step 3
@@ -113,4 +117,5 @@ Rules:
 - Use #hashtags in observations (BM uses [brackets])
 - Create a debrief if the session had no meaningful content
 - Duplicate content between session and debrief (session is facts, debrief is reasoning)
+- Reuse the session title for the debrief -- each must have its own descriptive title
 - Duplicate content between debrief and decision notes (debrief covers the session, decision goes deeper on the specific choice)

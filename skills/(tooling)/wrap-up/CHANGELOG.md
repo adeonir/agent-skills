@@ -6,6 +6,13 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-25
+
+### Changed
+
+- Debrief must have its own title describing what was learned/decided, not reuse session title
+- Debrief template placeholder updated to reflect naming convention
+
 ## 2026-03-24
 
 ### Added
