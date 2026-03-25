@@ -26,6 +26,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, Epic, Issue, Bug, RFC, ADR. Guided discovery per type |
+| **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Feeds spec-driven |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, decisions, and conversations |
@@ -39,8 +40,9 @@ flowchart TD
     BR -->|direction| DB[design-builder]
     PN -->|name| DW
     PN -->|name| DB
-    DW -->|requirements| SD[spec-driven]
+    DW -->|requirements| ET[epic-tracker]
     DW -->|requirements| DB[design-builder]
+    ET -->|handoff| SD[spec-driven]
     PI[project-index] -->|codebase docs| SD
     PI -->|conventions| DB
     DB -->|approved design| SD
@@ -56,12 +58,13 @@ flowchart TD
 1. brainstorming     --> explore ideas, choose direction
 2. product-naming    --> research and validate name
 3. docs-writer       --> generate requirements (PRD, Brief)
-4. project-index     --> scan codebase (if brownfield)
-5. design-builder    --> extract, structure, preview, approve
-6. spec-driven       --> specify, design, tasks, implement
-7. git-helpers       --> commit, review, PR, finish
-8. session-notes     --> document what was done
-9. debug-tools       --> when something breaks
+4. epic-tracker      --> plan epics, track stories and bugs
+5. project-index     --> scan codebase (if brownfield)
+6. design-builder    --> extract, structure, preview, approve
+7. spec-driven       --> specify, design, tasks, implement
+8. git-helpers       --> commit, review, PR, finish
+9. session-notes     --> document what was done
+10. debug-tools      --> when something breaks
 ```
 
 ## Output Structure
@@ -73,6 +76,7 @@ Skills write artifacts to `.artifacts/` organized by domain:
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
 ├── research/       # spec-driven: research cache
+├── epics/          # epic-tracker: epics, stories, bugs, releases
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── docs/           # docs-writer + product-naming
 └── design/         # design-builder: copy.yaml, design.json, variants/
