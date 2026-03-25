@@ -6,6 +6,20 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-25
+
+### Added
+
+- Verify phase: check implementation against design, project patterns, and visual references
+- New triggers: "verify", "verify implementation"
+
+### Changed
+
+- Validate rewritten to UAT only, on-demand, any scope (was UAT + artifact validation, Complex only)
+- Implement now references verify.md after quality gates
+- Verify runs after every task/range regardless of scope
+- Updated workflow diagram to show verify as explicit phase
+
 ## 2026-03-23
 
 ### Changed

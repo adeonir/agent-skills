@@ -123,9 +123,9 @@ For each task, follow the 3-phase cycle:
 - Apply research findings if applicable
 - Follow Knowledge Verification Chain for any technical decisions
 
-#### After (Verification)
+#### After (Quality Gates + Verify)
 
-Verification runs after EVERY task or range of tasks -- never deferred to the end.
+Quality gates and verification run after EVERY task or range -- never deferred.
 
 **Quality gates:**
 
@@ -136,17 +136,18 @@ Verification runs after EVERY task or range of tasks -- never deferred to the en
 {test command}
 ```
 
-Fix errors before marking the task complete.
+Fix errors before proceeding to verify.
 
-**Acceptance criteria check:**
+**Verify:**
 
-- Validate against AC from spec.md that this task satisfies
-- Verify follows project patterns (naming, imports, error handling)
-- Check edge cases relevant to this task (see [Edge Case Verification](#edge-case-verification))
+Run [verify.md](verify.md) to check implementation against design, project
+patterns, and visual references (if provided). Verify handles:
+- Design adherence (code matches spec/design)
+- Pattern adherence (code follows project conventions)
+- Visual adherence (layout matches references, optional)
 
-**If issues found:**
-- Fix immediately before moving to the next task
-- If the fix requires changes beyond the current task scope, note it and inform the user
+If verify finds issues, fix them before moving to the next task. See
+verify.md for the full workflow including loop escape.
 
 ### Step 8: Update Progress
 
@@ -206,14 +207,12 @@ When all tasks are complete, run a final pass before marking `done`:
 - [ ] Quality gates pass on the full feature (not just per-task)
 - [ ] No TODO/FIXME comments left from this feature
 - [ ] Edge cases from spec.md are handled
+- [ ] Verify passed (design + pattern adherence)
 
-For **Complex** scope with user-facing features, suggest interactive UAT:
+For features with user-facing behavior, suggest interactive UAT:
 - "Feature is implemented and verified. Want to run interactive UAT to walk through user scenarios?"
 - If yes, follow [validate.md](validate.md) for the UAT workflow
-
-## Interactive UAT (Complex scope)
-
-For Complex scope features with user-facing behavior, interactive UAT can be triggered after all tasks pass verification. See [validate.md](validate.md) for the full UAT workflow. This is suggested, not automatic -- the user decides.
+- UAT is on-demand -- the user decides, any scope
 
 ## Commit Suggestion
 

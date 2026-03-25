@@ -20,7 +20,8 @@ flowchart LR
     B -->|Large/Complex| D[Design]
     D --> E[Tasks]
     E --> F
-    F --> G[Done]
+    F --> V[Verify]
+    V --> G[Done]
 ```
 
 | Phase | Purpose | Required |
@@ -29,7 +30,9 @@ flowchart LR
 | **Discuss** | Resolve gray areas and ambiguities | When triggered |
 | **Design** | Technical architecture, codebase exploration, research | Large/Complex |
 | **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
-| **Implement** | Implement + verify per task, interactive UAT for Complex | Always |
+| **Implement** | Implement tasks with quality gates | Always |
+| **Verify** | Check code against design, patterns, and visual references | After every task/range |
+| **Validate** | Interactive UAT with manual testing | On-demand |
 | **Quick Mode** | Express lane for small fixes | Small scope |
 
 ### Auto-Sizing
@@ -39,7 +42,7 @@ flowchart LR
 | **Small** (≤3 files) | Quick mode -- no pipeline |
 | **Medium** (<10 tasks) | Specify -> Implement |
 | **Large** (multi-component) | Specify -> Design -> Tasks -> Implement |
-| **Complex** (ambiguity) | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
+| **Complex** (ambiguity) | Specify (+ Discuss) -> Design -> Tasks -> Implement -> Verify |
 
 ## Usage
 
@@ -56,6 +59,11 @@ improve cache performance
 create technical design
 create tasks
 implement
+verify implementation
+
+# Manual testing
+validate
+run UAT
 
 # Quick mode
 quick fix: update env variable

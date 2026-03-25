@@ -5,9 +5,10 @@ description: >-
   Creates structured feature specs with traceability to requirements. Use when
   planning features, breaking work into tasks, implementing with verification,
   or tracking decisions across sessions. Triggers on "create feature", "specify
-  feature", "plan", "design feature", "tasks", "implement", "validate",
-  "quick fix", "quick task", "discuss feature", "break this into tasks",
-  "plan this feature", "show status".
+  feature", "plan", "design feature", "tasks", "implement", "verify",
+  "verify implementation", "validate", "UAT", "quick fix", "quick task",
+  "discuss feature", "break this into tasks", "plan this feature",
+  "show status".
 ---
 
 # Spec-Driven Development
@@ -17,11 +18,11 @@ Structured development workflow with adaptive depth. Right ceremony for the righ
 ## Workflow
 
 ```
-specify --> design* --> tasks* --> implement
-  ^_____________________________|  (verify after each task)
+specify --> design* --> tasks* --> implement --> verify
+  ^______________________________________|  (verify after each task)
 ```
 
-Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip when scope is small enough. Verification is continuous throughout Implement.
+Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip when scope is small enough. Verify runs after every task/range. Validate (UAT) is on-demand.
 
 ## Context Loading Strategy
 
@@ -53,7 +54,8 @@ Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip 
 | Research technology, cache research | [research.md](references/research.md) |
 | Create tasks | [tasks.md](references/tasks.md) |
 | Implement task, execute task | [implement.md](references/implement.md) |
-| Validate, UAT, verify work | [validate.md](references/validate.md) (within Implement) |
+| Verify implementation, check adherence, verify code | [verify.md](references/verify.md) |
+| Validate, UAT, manual testing, test manually | [validate.md](references/validate.md) |
 | Quick fix, quick task, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
 | List features, show status | [status-specs.md](references/status-specs.md) |
 
@@ -81,7 +83,8 @@ design.md ---------> tasks.md (when Large/Complex)
 design.md ---------> research.md (if new tech)
 tasks.md ----------> implement.md
 implement.md ------> coding-principles.md (loaded before coding)
-implement.md ------> validate.md (interactive UAT, Complex scope)
+implement.md ------> verify.md (after every task/range)
+implement.md ------> validate.md (on-demand UAT, any scope)
 implement.md ------> tasks.md (safety valve: >5 inline steps)
 ```
 
@@ -94,7 +97,7 @@ implement.md ------> tasks.md (safety valve: >5 inline steps)
 | **Small** | ≤3 files, one sentence | **Quick mode** -- skip pipeline entirely | - | - | - |
 | **Medium** | Clear feature, <10 tasks | Spec (brief) | Skip -- explore inline | Skip -- steps implicit | Implement + verify per step |
 | **Large** | Multi-component feature | Full spec + requirement IDs | Full design | Full breakdown + dependencies | Implement + verify per task |
-| **Complex** | Ambiguity, new domain | Full spec + [discuss gray areas](references/discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task + [interactive UAT](references/validate.md) |
+| **Complex** | Ambiguity, new domain | Full spec + [discuss gray areas](references/discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task |
 
 **Rules:**
 
@@ -102,7 +105,8 @@ implement.md ------> tasks.md (safety valve: >5 inline steps)
 - **Design is skipped** when the change is straightforward (no architectural decisions, no new patterns)
 - **Tasks is skipped** when there are ≤3 obvious steps (they become implicit in Implement)
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
-- **Interactive UAT is triggered within Implement** only for Complex scope with user-facing features
+- **Verify runs after every task/range** -- checks design adherence, pattern adherence, and visual adherence (optional)
+- **Validate (UAT) is on-demand** -- user requests it when they want to manually test, any scope
 - **Quick mode** is the express lane -- for bug fixes, config changes, and small tweaks
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end
 
@@ -177,7 +181,7 @@ Step 5: Flag uncertain -> "I'm not certain about X -- here's my reasoning, but v
 - Consume `.agents/` for project context and codebase info (optional -- use if exists)
 - Retrofeed `.agents/codebase/` with new discoveries during design and implement phases
 - Auto-size depth based on complexity -- skip phases that add no value
-- Verify continuously during Implement -- after each task or range, not as a separate phase
+- Run verify after each task or range -- design adherence, pattern adherence, visual (if references exist)
 
 **DON'T:**
 - Reuse Feature IDs from previous features
@@ -187,7 +191,8 @@ Step 5: Flag uncertain -> "I'm not certain about X -- here's my reasoning, but v
 - Generate `.agents/` content from scratch (that's project-index's responsibility)
 - Force full pipeline on small/medium changes -- respect auto-sizing
 - Assume or fabricate when information is unavailable -- follow Knowledge Verification Chain
-- Defer all verification to the end -- verify per task/range during Implement
+- Defer verification to the end -- verify runs per task/range, not as a final batch
+- Loop indefinitely on verify findings -- escape after 3 failed fix attempts
 
 ## Error Handling
 

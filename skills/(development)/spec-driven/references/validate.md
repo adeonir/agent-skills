@@ -1,18 +1,17 @@
 # Interactive UAT
 
-User acceptance testing for Complex scope features with user-facing behavior. Triggered within Implement, not a separate phase.
+User acceptance testing where the user manually verifies behavior. On-demand -- the user requests it when they want to test.
 
 ## When to Use
 
-- Scope is **Complex** (check `scope:` in spec.md frontmatter)
-- All tasks are implemented and verified
-- Feature has user-facing behavior worth walking through
-- User explicitly requests UAT or validation
+- User explicitly requests UAT or manual testing
+- After implementation is complete and verify has passed
+- Any scope -- not restricted to Complex
 
 ## When to Skip
 
-- Scope is **Medium** or **Large**: per-task verification in Implement is sufficient
-- Feature is purely backend/infrastructure with no user-facing behavior
+- User does not request it
+- Feature has no user-facing behavior (purely backend/infrastructure)
 
 ## Workflow
 
@@ -24,94 +23,58 @@ User acceptance testing for Complex scope features with user-facing behavior. Tr
 
 ### Step 2: Pre-UAT Check
 
-Verify that Implement has completed:
-- All tasks marked done in tasks.md
+Verify that implementation is complete:
+- All tasks marked done (or all inline steps completed)
 - Quality gates pass
-- Per-task verification passed
+- Verify has passed (design and pattern adherence)
 
-If not complete, redirect back to Implement.
+If not complete, inform user and suggest finishing implementation first.
 
-### Step 3: Run Interactive UAT
+### Step 3: Build Test Scenarios
 
-Walk the user through each P1 story's Independent Test:
+From spec.md, extract testable scenarios:
 
-1. For each P1 story:
-   - Describe the steps to perform
-   - Ask user to verify the expected behavior
-   - Record pass/fail with any observations
-2. For P2/P3 stories: verify key scenarios (not exhaustive)
+1. For each P1 user story: create a step-by-step test
+2. For P2/P3 stories: create key scenario tests (not exhaustive)
+3. Include edge cases from spec.md that are user-facing
 
-**UAT output:**
+Present the test plan to the user before starting.
 
-```markdown
-### UAT Results
+### Step 4: Run Interactive UAT
 
-| Story | Test | Result | Notes |
-|-------|------|--------|-------|
-| P1: Password Reset | Request, receive email, click link, set new password | Pass | - |
-| P1: Login | Enter credentials, see dashboard | Pass | - |
-| P2: Remember Me | Check box, close browser, reopen | Fail | Cookie not persisting |
-```
+Walk the user through each scenario:
 
-### Step 4: Determine Outcome
+1. Describe the steps to perform
+2. Ask user to verify the expected behavior
+3. Record pass/fail with observations
+
+### Step 5: Determine Outcome
 
 **If all pass:**
-- Confirm `status: done` (already set by Implement)
-- Inform user: feature complete and validated
+- Confirm feature is validated
+- Suggest commit if not already committed
 
 **If issues found:**
 - List what needs fixing with severity
-- Suggest specific tasks to re-execute
-- Status stays `done` only if issues are minor (P3); otherwise revert to `in-progress`
-
-## Artifact Validation Checks
-
-When the user requests explicit validation of artifacts (not UAT), run these checks:
-
-### Spec Checks
-
-- [ ] Has overview section
-- [ ] Has user stories with priority levels (P1/P2/P3)
-- [ ] P1 stories have independent test descriptions
-- [ ] Has acceptance criteria with IDs (AC-xxx) inline per story
-- [ ] Has acceptance criteria (AC-xxx) in WHEN/THEN format
-- [ ] Has edge cases (boundary conditions, error scenarios)
-- [ ] Has success criteria (measurable outcomes)
-- [ ] For brownfield: has baseline section
-- [ ] Open questions are documented (not blocking)
-
-### Design Checks (if design.md exists)
-
-- [ ] References spec requirements
-- [ ] Has architecture decision with rationale
-- [ ] Has data model (entities, relationships, API contracts)
-- [ ] Lists files to create/modify
-- [ ] Documents key decisions
-- [ ] Follows codebase conventions
-
-### Tasks Checks (if tasks.md exists)
-
-- [ ] All FRs covered by tasks
-- [ ] All ACs addressed
-- [ ] Tasks are atomic and testable
-- [ ] Dependencies are valid [P] or [B:Txxx]
-- [ ] Has quality gates defined
+- Suggest specific areas to re-implement
+- User decides whether to fix now or defer
 
 ## Guidelines
 
 **DO:**
-- Reserve interactive UAT for Complex scope only
-- Validate against spec requirements, not subjective quality
-- Mark gaps as blocking only if they affect core functionality
-- Focus on behavior, not code style
+- Let the user drive -- they decide when to run UAT
+- Focus on behavior, not code quality (verify handles that)
+- Prioritize P1 stories in test scenarios
+- Keep test steps concrete and actionable
 
 **DON'T:**
-- Over-validate with interactive UAT on non-Complex scope
-- Report code style issues during validation
-- Mark non-critical gaps as blocking
+- Run UAT automatically without user request
+- Report code style or pattern issues (that's verify's job)
+- Make UAT exhaustive for non-P1 stories
+- Block completion on minor P3 issues
 
 ## Error Handling
 
-- No artifacts: Suggest `specify`
-- Implement not complete: Redirect to Implement
-- Issues found: List with severity
+- No spec.md: suggest running specify first
+- Implementation not complete: redirect to implement
+- No user-facing behavior: inform user UAT is not applicable
