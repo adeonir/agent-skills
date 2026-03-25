@@ -82,6 +82,10 @@ an earlier entry):
 Only `## Activities` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
+Activities use one `### Project Name` subsection per project with 3-5 bullets
+each. Use past tense, natural language. Describe what was accomplished and why,
+with enough context to understand weeks later. Not a changelog.
+
 ## Guidelines
 
 **DO:**
