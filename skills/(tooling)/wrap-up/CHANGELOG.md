@@ -12,6 +12,7 @@ All notable changes to this skill will be documented in this file.
 
 - Debrief must have its own title describing what was learned/decided, not reuse session title
 - Debrief template placeholder updated to reflect naming convention
+- Moved debrief and decision templates inline into bm-notes.md, removed templates/ directory
 
 ## 2026-03-24
 

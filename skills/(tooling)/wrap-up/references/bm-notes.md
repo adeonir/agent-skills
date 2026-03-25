@@ -68,7 +68,43 @@ Rules:
 
 Always create a debrief. Use `write_note` with extended format:
 
-**USE TEMPLATE:** `templates/debrief.md`
+```markdown
+# YYYY-MM-DD — What was learned/decided (not the session title)
+
+## Context
+
+Deeper than session note. Include reasoning, trade-offs
+considered, discoveries, and context for next session. Free-form
+markdown -- this is the heart of the note, write generously:
+background, motivation, history, analysis, reasoning, trade-offs.
+
+## Decisions
+
+- Decision + rationale + alternatives rejected
+
+## Findings
+
+- Technical discovery with specifics (values, edge cases, errors)
+
+## Problems
+
+- Problem + root cause + fix applied
+
+## Next Context
+
+- Unfinished work, next steps, blockers for next session
+
+## Observations
+
+- [summary] 1-3 sentence summary of the session
+- [decision] Key decision condensed from Decisions section
+- [finding] Key discovery condensed from Findings section
+- [problem] Key problem condensed from Problems section
+
+## Relations
+
+- expands [[Session Note Title]]
+```
 
 Rules:
 - Debrief title must differ from session title -- session describes
@@ -92,7 +128,33 @@ Skip this step if the session had no significant decisions.
 Always create a decision note when the session defines a format,
 convention, or reusable pattern that other agents need to reference.
 
-**USE TEMPLATE:** `templates/decision.md`
+```markdown
+# Title — Decision Theme
+
+## Context
+
+Free-form markdown -- this is the heart of the note, write
+generously: background, motivation, history, analysis, reasoning,
+trade-offs. What prompted this decision and why it matters.
+
+## Decisions
+
+### 1. Decision title
+
+Justification with rationale embedded. Include alternatives
+rejected and why. Add subsections, tables, or comparisons
+as complexity demands.
+
+## Observations
+
+- [decision] Key decision condensed from Decisions section
+- [rationale] Why this was chosen over alternatives
+- [constraint] Limitation that influenced the decision
+
+## Relations
+
+- part_of [[Session Note Title]]
+```
 
 Rules:
 - Group by theme, not by session (one decision note per subject)
