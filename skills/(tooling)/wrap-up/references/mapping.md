@@ -48,7 +48,9 @@ Given category `ventures` and project `pensefy`:
 
 - **BM session**: `products/pensefy/sessions/YYYY-MM-DD — Description.md`
 - **BM debrief**: `products/pensefy/debriefs/YYYY-MM-DD — Description.md`
+- **BM decision**: `products/pensefy/decisions/Title — Theme.md`
 - **Obsidian session**: `Ventures/Pensefy/YYYY-MM-DD — Description.md`
+- **Obsidian decision**: `Ventures/Pensefy/Decisions/Title — Theme.md`
 - **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)
 
 ## Rules

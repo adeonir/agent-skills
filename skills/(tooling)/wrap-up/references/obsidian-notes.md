@@ -1,6 +1,7 @@
 # Write Obsidian Notes
 
-Create session note in the project folder and update the daily note.
+Create session and decision notes in the project folder and update
+the daily note.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian folder
 
@@ -28,48 +29,7 @@ separator and date header).
 
 #### Compose content
 
-```markdown
----
-title: 'YYYY-MM-DD — Description'
-type: session
-tags:
-  - session-note
-  - {dynamic tags based on content}
----
-# YYYY-MM-DD — Description
-
-**Branch:** branch-name
-**PR:** pr-url
-**Commit:** short-hash commit message
-
-## What Was Done
-
-- 2-5 bullets in past tense, natural language (not changelog)
-
-## Files Modified
-
-- path/to/file -- what changed
-
-## Key Decisions
-
-- Decision + rationale
-
-## Open Items
-
-- [ ] Pending work, blockers, next steps
-
-## Learnings
-
-- Discoveries, surprises, gotchas
-
-## Observations
-
-- #category Observation with context
-
-## Relations
-
-- [[Related Note]]
-```
+Use session-notes skill (MCPVault MCP) to create the note.
 
 Rules:
 - Git metadata only when available, omit entirely if not in a repo
@@ -78,7 +38,33 @@ Rules:
 - Observations use `#hashtags` (Obsidian format)
 - Use session-notes skill (MCPVault MCP) for write/patch
 
-### 2. Create or update daily note
+### 2. Create decision notes (conditional)
+
+Only when BM decision notes were created in step 5 of bm-notes.md.
+One Obsidian decision note per BM decision note created.
+
+#### Determine path
+
+- Folder: `{Obsidian folder}/{Project Name}/Decisions/` (Title Case)
+- Filename: `Title — Decision Theme.md`
+- Example: `Projects/My Skills/Decisions/Decision Note Format.md`
+
+#### Check for existing note
+
+Search the target folder for a file matching the same theme.
+If found, update with `patch_note`.
+
+#### Compose content
+
+Use session-notes skill (MCPVault MCP) to create the note.
+Mirror the BM decision note content adapted to Obsidian format.
+
+Rules:
+- Observations use `#hashtags` (Obsidian format)
+- Omit empty sections
+- Use session-notes skill for write/patch
+
+### 3. Create or update daily note
 
 #### Path
 
@@ -86,44 +72,7 @@ Always `Daily/YYYY-MM-DD.md`.
 
 #### If note does not exist
 
-Create with full template:
-
-```markdown
----
-title: 'DayOfWeek, Month DD, YYYY'
-type: daily
-tags:
-  - daily
-  - {dynamic tags based on content}
----
-# DayOfWeek, Month DD, YYYY
-
-## Activities
-
-### Project Name
-
-- 2-3 bullets per project (past tense, natural language, not changelog)
-
-## Key Decisions
-
-- Decision + rationale
-
-## Learnings
-
-- Discoveries, surprises, gotchas
-
-## Open Items
-
-- [ ] Pending work, blockers, next steps
-
-## Observations
-
-- #category Observation with context
-
-## Relations
-
-- [[Related Note]]
-```
+Use session-notes skill (MCPVault MCP) to create the note.
 
 #### If note already exists
 

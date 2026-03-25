@@ -1,12 +1,11 @@
 ---
 name: wrap-up
 description: >-
-  End-of-session command that updates auto-memory, writes session and
-  debrief notes to Basic Memory, and creates session and daily notes
-  in Obsidian. Use when finishing a work session, saving progress
-  before clearing context, or documenting what was accomplished.
-  Triggers on "wrap up", "end session", "finish up", "close session",
-  "wrap-up".
+  End-of-session command that persists context across auto-memory,
+  Basic Memory, and Obsidian. Use when finishing a work session,
+  saving progress before clearing context, or documenting what was
+  accomplished. Triggers on "wrap up", "end session", "finish up",
+  "close session", "wrap-up".
 ---
 
 # Wrap Up Session
@@ -49,7 +48,7 @@ Notes:
 mapping.md -------> bm-notes.md      (provides BM project and prefix)
 mapping.md -------> obsidian-notes.md (provides Obsidian folder)
 bm-notes.md -----> memory-notes      (uses BM skill for write_note)
-obsidian-notes.md > session-notes     (uses Obsidian skill for write/patch)
+obsidian-notes.md -> session-notes     (uses Obsidian skill for write/patch)
 ```
 
 ## Guidelines

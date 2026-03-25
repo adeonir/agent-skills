@@ -15,11 +15,12 @@ flowchart LR
   A[Detect Project] --> B[Auto-Memory]
   B --> C[BM Notes]
   C --> D[Obsidian Notes]
-  C -->|session| C1[Session Note]
-  C -->|debrief| C2[Debrief Note]
-  C -->|decisions?| C3[Decision Notes]
-  D -->|project folder| D1[Session Note]
-  D -->|Daily/| D2[Daily Note]
+  C --> C1[Session]
+  C --> C2[Debrief]
+  C -.->|if decisions| C3[Decision]
+  D --> D1[Session]
+  D -.->|if decisions| D3[Decision]
+  D --> D2[Daily]
 ```
 
 | Step | System | Output | Audience |
@@ -28,8 +29,9 @@ flowchart LR
 | Auto-Memory | Claude Code | Updated memory files | Agents |
 | BM Session | Basic Memory | Session note (facts) | Agents |
 | BM Debrief | Basic Memory | Debrief note (reasoning) | Agents |
-| BM Decision | Basic Memory | Decision notes (thematic, conditional) | Agents |
+| BM Decision (conditional) | Basic Memory | Decision notes (thematic) | Agents |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
+| Obsidian Decision (conditional) | Obsidian | Decision notes (thematic) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
 
 ## Usage

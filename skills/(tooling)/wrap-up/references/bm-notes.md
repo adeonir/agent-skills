@@ -16,6 +16,7 @@ Create session, debrief, and decision notes in Basic Memory.
 Using mapping output:
 - Session directory: `{bm_prefix}{project}/sessions/`
 - Debrief directory: `{bm_prefix}{project}/debriefs/`
+- Decision directory: `{bm_prefix}{project}/decisions/`
 - BM project: from mapping table
 
 ### 2. Check for existing session note
@@ -31,7 +32,8 @@ If no session note exists, create one in step 3.
 
 ### 3. Create session note
 
-Use `write_note` with the BM standard format:
+Use `write_note` following the memory-notes skill format (no
+template in wrap-up -- the example below is format guidance):
 
 The body context is free-form markdown between the heading and
 the Observations section. This is the heart of the note -- write
