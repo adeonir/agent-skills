@@ -76,16 +76,22 @@ Use session-notes skill (MCPVault MCP) to create the note.
 
 #### If note already exists
 
-Use `patch_note` to insert content:
-- If the project already has a subsection in Activities, append bullets
+Read the existing note first with `read_note`, then use `patch_note`
+to update:
+- If the project already has a subsection in Activities, rewrite the
+  entire subsection: merge existing bullets with new activities and
+  consolidate into 3-5 summary bullets that cover the full day
 - If the project is new, add a `### Project Name` subsection at the end
   of Activities (before the next `##` section)
 - Add items to Key Decisions, Learnings, Open Items, Observations, and
   Relations if relevant (create sections if they do not exist)
+- Consolidate Observations and Relations the same way: merge existing
+  with new, deduplicate, keep only distinct items
 
 Rules:
 - Activities split by project with H3 headers
-- Past tense, natural language, 2-3 bullets per project
+- Past tense, natural language, 3-5 bullets per project after
+  consolidation (group related work into single bullets)
 - Do not duplicate detail from the session note -- keep it summary-level
 - Omit empty sections
 - Use session-notes skill (MCPVault MCP) for write/patch
@@ -96,10 +102,13 @@ Rules:
 - Search before creating to avoid duplicates
 - Use session-notes skill for all Obsidian writes
 - Keep daily note as executive summary, not detailed log
+- Read existing daily note before patching to consolidate content
 - Link session note from daily note Relations
 
 **DON'T:**
 - Use [brackets] in Obsidian observations (Obsidian uses #hashtags)
 - Write changelog-style content
+- Blindly append bullets without reading existing content first
+- Let any project subsection exceed 5 bullets -- consolidate
 - Duplicate full detail from BM notes into Obsidian notes
 - Create empty sections or placeholder content
