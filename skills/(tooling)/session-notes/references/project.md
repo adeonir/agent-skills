@@ -5,8 +5,7 @@ Create structured documentation for a project in the Obsidian vault.
 ## When to Use
 
 - User says "create project", "new project note", "document project"
-- User mentions PRD, Design Doc, ADR, or architecture documentation
-- User wants to track project decisions, scope, or learnings
+- User wants to track project scope or learnings
 
 ## Workflow
 
@@ -16,25 +15,41 @@ Create structured documentation for a project in the Obsidian vault.
    - Tech stack
 
 2. **Generate folder and filename**
-   - Folder: Title Case (e.g., "Checkout Refactor" -> `Projects/Checkout Refactor/`)
-   - Main file: always `Overview.md` (avoids redundancy with folder name)
-   - Related docs (ADR, PRD, Design Doc): follow docs-writer naming or user-defined
+   - Folder: `{VaultFolder}/{Project Name}/` in Title Case
+   - The vault folder depends on the project category (e.g., `Work/`, `Ventures/`,
+     `Projects/`). Use the wrap-up mapping table to resolve, or ask the user.
+   - Main file: `{Project Name} Overview.md` (filenames must be unique across the
+     vault for Obsidian wikilinks to work)
 
 3. **Check if exists**
    ```
-   search_notes query="Checkout Refactor" path="Projects/"
+   search_notes query="Checkout Refactor Overview" path="{VaultFolder}/"
    ```
    If exists, ask to append, choose new name, or cancel.
 
 4. **Compose content**
    Build the note content following `templates/project.md` structure.
-   Populate Documents section only with links that exist or that the user
-   wants to create. Populate Relations with related notes if mentioned.
+   Populate Relations with related notes if mentioned.
 
 5. **Write note**
    ```
-   write_note path="Projects/Checkout Refactor/Overview.md" content="..."
+   write_note path="{VaultFolder}/Checkout Refactor/Checkout Refactor Overview.md" content="..."
    ```
+
+## Content Structure
+
+Context prose between H1 and Goals is required. Goals is required. All other
+sections are optional -- include only when the user mentions relevant content.
+Omit empty sections.
+
+## Output Path
+
+```
+{VaultFolder}/{Project Name}/{Project Name} Overview.md
+```
+
+The `{VaultFolder}` depends on the project category (e.g., `Work/`, `Ventures/`,
+`Projects/`). Use the wrap-up mapping table to resolve, or ask the user.
 
 ## Guidelines
 
@@ -48,5 +63,4 @@ Create structured documentation for a project in the Obsidian vault.
 
 ## Next Steps
 
-- User may want to create linked docs (e.g., ADR, Design Doc) via docs-writer skill
 - User may want to create a company note if this is for a job application

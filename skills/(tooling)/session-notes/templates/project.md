@@ -1,5 +1,5 @@
 ---
-title: "{{Project Name}}"
+title: "{{Project Name}} Overview"
 type: project
 stack:
   - {{technology}}
@@ -7,7 +7,7 @@ tags:
   - project
   - {{dynamic tags based on content}}
 ---
-# {{Project Name}}
+# {{Project Name}} Overview
 
 {{What this project is, why it exists, what problem it solves. Include the
 constraints, trade-offs, and context that shaped the approach -- enough that
@@ -24,13 +24,6 @@ to ask.}}
 - {{what worked well}}
 - {{what didn't work}}
 - {{what to remember next time}}
-
-## Documents
-
-- [[Brief]] - Executive summary
-- [[PRD]] - Requirements
-- [[Design Doc]] - Technical design
-- [[ADR 001]] - Architecture decisions
 
 ## Observations
 

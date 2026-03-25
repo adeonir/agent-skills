@@ -82,41 +82,6 @@ an earlier entry):
 Only `## Activities` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
-```markdown
-## Activities
-
-### Project Name
-
-- What was accomplished, in past tense and natural language (3-5 bullets)
-- Enough context to understand weeks later, not a step-by-step changelog
-
-### Another Project
-
-- Summary of work done on this project
-
-## Key Decisions (optional)
-
-- Decision + rationale (why, not just what)
-
-## Learnings (optional)
-
-- Discoveries, surprises, gotchas
-
-## Open Items (optional)
-
-- [ ] Pending work, blockers, next steps
-
-## Observations
-
-- #progress Key progress on a project
-- #decision Decision made during the day
-- #learning Something discovered worth remembering
-
-## Relations
-
-- [[Project Name]]
-```
-
 ## Guidelines
 
 **DO:**

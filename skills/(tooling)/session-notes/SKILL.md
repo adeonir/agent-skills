@@ -2,14 +2,15 @@
 name: session-notes
 description: >-
   Create and manage Obsidian notes for projects, companies, technical
-  challenges, brag documents, daily logs, session logs, and AI
-  conversations using MCPVault MCP. Use when documenting projects,
+  challenges, brag documents, daily logs, session logs, decisions, and
+  AI conversations using MCPVault MCP. Use when documenting projects,
   tracking job applications, recording interview challenges, maintaining
-  brag documents, creating daily notes, logging work sessions in
-  Obsidian, or saving AI conversations. Triggers on "create project",
-  "new project note", "document company", "job application", "technical
-  challenge", "brag document", "daily note", "today's log", "session
-  note", "obsidian session", "vault session", "obsidian note", "save
+  brag documents, creating daily notes, logging work sessions, recording
+  decisions in Obsidian, or saving AI conversations. Triggers on "create
+  project", "new project note", "document company", "job application",
+  "technical challenge", "brag document", "daily note", "today's log",
+  "session note", "obsidian session", "vault session", "decision note",
+  "document decision", "record decision", "obsidian note", "save
   conversation", "chat summary", "session summary".
 ---
 
@@ -56,19 +57,18 @@ multiple simultaneously unless explicitly noted.
 
 - `templates/*.md` are not loaded into context. The agent uses them as
   reference to compose note content.
-- Templates also live in the vault (`Templates/`) for manual use via
-  Obsidian's Templates and Daily Notes plugins.
 
 ## Triggers
 
 | Trigger Pattern | Reference |
 |-----------------|-----------|
-| Project, PRD, Design Doc, ADR, architecture | [project.md](references/project.md) |
+| Project, new project note, document project | [project.md](references/project.md) |
 | Company, job application, interview | [company.md](references/company.md) |
 | Challenge, technical challenge, take-home, coding interview | [challenge.md](references/challenge.md) |
 | Brag, achievement, accomplishment | [brag.md](references/brag.md) |
 | Daily, today, daily note, journal | [daily.md](references/daily.md) |
 | Session note, obsidian session, vault session | [session.md](references/session.md) |
+| Decision note, document decision, record decision | [decision.md](references/decision.md) |
 | Conversation, save conversation, AI chat | [conversation.md](references/conversation.md) |
 | Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
 | Vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
@@ -86,6 +86,8 @@ company --> brag          (interview learnings become achievements)
 challenge --> brag        (completed challenge becomes achievement)
 daily --> brag            (daily insights feed brag document)
 session --> daily         (session work summarized in daily notes)
+session --> decision      (session decisions become decision notes)
+decision --> project      (decisions link to project overview)
 project --> daily         (project work logged in daily notes)
 project --> session       (project work detailed in session notes)
 conversation --> daily    (conversation insights logged in daily)
@@ -111,7 +113,6 @@ conversation --> brag     (conversation outcomes become achievements)
 - Link related notes using Obsidian wiki-links `[[Note Name]]`
 - Use Title Case for filenames (e.g., `My Project.md`)
 - Sanitize filenames from user input (see Filename Sanitization above)
-- When templates in the skill are updated, remind user to sync vault copies (`Templates/`)
 
 **DON'T:**
 
@@ -127,13 +128,22 @@ Notes are created in the user's Obsidian vault:
 
 ```
 Vault/
-├── Projects/
+├── {VaultFolder}/
+│   └── {Project}/
+│       ├── {Project Name} Overview.md
+│       ├── Sessions/
+│       │   └── YYYY-MM-DD — Description.md
+│       └── Decisions/
+│           └── Decision Title.md
 ├── Companies/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
 └── Daily/
 ```
+
+The `{VaultFolder}` depends on the project category (e.g., `Work/`, `Ventures/`,
+`Projects/`). See the wrap-up mapping table for resolution.
 
 ## Error Handling
 

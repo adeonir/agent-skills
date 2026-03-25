@@ -12,38 +12,30 @@ Recommended folder structure for the Obsidian vault when using session-notes.
 
 ```
 Vault/
-├── Projects/
+├── {VaultFolder}/
 │   └── Project Name/
-│       ├── Overview.md
-│       ├── ADR 001.md
-│       ├── PRD.md
-│       └── Design Doc.md
+│       ├── Project Name Overview.md
+│       ├── Sessions/
+│       │   └── YYYY-MM-DD — Description.md
+│       └── Decisions/
+│           └── Decision Title.md
 ├── Companies/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
-├── Daily/
-└── Templates/
-    ├── project.md
-    ├── company.md
-    ├── challenge.md
-    ├── brag.md
-    ├── conversation.md
-    ├── capture.md
-    └── daily.md
+└── Daily/
 ```
 
 ## Folder Descriptions
 
 | Folder | Purpose | Example Files |
 |--------|---------|---------------|
-| `Projects/` | One folder per project (Title Case), `Overview.md` + related docs | `Project Name/Overview.md` |
+| `{VaultFolder}/` | One folder per project (Title Case), `{Name} Overview.md` + Sessions/ + Decisions/ | `Project Name/Project Name Overview.md` |
 | `Companies/` | Job search tracking | `Stripe 2025.md`, `Figma 2024.md` |
 | `Challenges/` | Interview take-homes | `Stripe/System Design.md` |
 | `Brags/` | Achievement logs | `Brags 2025.md` |
 | `Conversations/` | AI conversation notes | `Refactoring Auth Flow.md` |
 | `Daily/` | Activity logs | `2025-03-03.md` |
-| `Templates/` | Templates for manual note creation via Obsidian | `daily.md`, `project.md` |
 
 ## Setup
 
@@ -56,12 +48,14 @@ list_directory path="/"
 Create initial structure by writing a placeholder note in each folder:
 
 ```
-write_note path="Projects/.gitkeep.md" content="placeholder"
 write_note path="Companies/.gitkeep.md" content="placeholder"
 write_note path="Challenges/.gitkeep.md" content="placeholder"
 write_note path="Brags/.gitkeep.md" content="placeholder"
 write_note path="Conversations/.gitkeep.md" content="placeholder"
 ```
+
+Project folders are created on demand when the first note is written.
+The vault folder depends on the project category (see wrap-up mapping table).
 
 Note: The `Daily/` folder is created automatically by the Daily Notes plugin.
 
@@ -129,18 +123,3 @@ Technical challenge: [[System Design URL Shortener]]
 Part of interview for [[Stripe 2025]]
 ```
 
-## Templates
-
-Templates live in two places:
-
-1. **Skill repo** (`templates/`) - source of truth, used by the agent to compose content
-2. **Vault** (`Templates/`) - copies for manual use via Obsidian's Templates plugin
-   and Daily Notes plugin
-
-Configure Obsidian:
-- **Settings > Templates > Template folder location**: `Templates`
-- **Settings > Daily notes > Template file location**: `Templates/daily`
-
-When templates in the skill repo are updated, sync changes to the vault copies.
-The agent should remind the user to update vault templates when it detects
-differences between the skill templates and the vault copies.

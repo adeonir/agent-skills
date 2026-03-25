@@ -10,12 +10,19 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
+- Decision note type with reference and template for standalone decision documentation
+- New triggers: "decision note", "document decision", "record decision"
+- Cross-references: session feeds decision, decision links to project
 - Session note type with reference and template for focused single-project work logs
 - New triggers: "session note", "obsidian session", "vault session"
 - Cross-references: session feeds daily, project feeds session
 
 ### Changed
 
+- Session notes now go in `{VaultFolder}/{Project}/Sessions/` subfolder
+- Decision notes go in `{VaultFolder}/{Project}/Decisions/` subfolder
+- Project overview filename changed from `Overview.md` to `{Name} Overview.md` for unique wikilinks
+- Project vault folder is dynamic based on category mapping, not always `Projects/`
 - Rename What Was Done to Activities in daily notes
 - Replace flat bold-prefix bullets with per-project subsections (`### Project Name`)
 - Update daily reference and template to match new structure

@@ -84,7 +84,6 @@ Vault/
 - MCPVault MCP server configured and connected
 - At least one Obsidian vault configured
 - Obsidian CLI (optional -- used for vault discovery)
-- Templates in `Templates/` for manual use via Obsidian's Templates plugin
 
 ## Integration
 
