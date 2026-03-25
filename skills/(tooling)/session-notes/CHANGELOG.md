@@ -6,6 +6,13 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-25
+
+### Changed
+
+- Wikilinks must point to existing files -- verify before adding project links
+- Orphan wikilinks added to DON'T guidelines
+
 ## 2026-03-24
 
 ### Added

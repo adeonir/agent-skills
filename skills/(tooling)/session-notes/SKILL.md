@@ -101,6 +101,7 @@ conversation --> brag     (conversation outcomes become achievements)
 - Bullet points: describe what happened and why, with natural language, and with enough context to understand weeks later
 - Observations: `#category content` syntax -- tags are indexed by Obsidian natively
 - Relations: `[[Note Title]]` wikilinks only -- omit the section if no related notes exist in the vault
+- Wikilinks must point to existing files. Before adding a project link, verify the `{Name} Overview.md` file exists in the vault. Never create orphan wikilinks -- clicking them creates empty files at the vault root
 
 ## Guidelines
 
@@ -121,6 +122,7 @@ conversation --> brag     (conversation outcomes become achievements)
 - Use templates for updates (templates are for new notes only)
 - Create duplicate notes -- search first with `search_notes`
 - Use absolute paths in wiki-links (always relative)
+- Create wikilinks to files that don't exist in the vault (orphan links)
 
 ## Output
 
