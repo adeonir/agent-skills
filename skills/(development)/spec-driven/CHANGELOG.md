@@ -10,6 +10,8 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
+- Deep-verify reference for code correctness analysis (24 categories, tooling-aware)
+- Verify Step 5: Code Correctness loads deep-verify.md between pattern and visual checks
 - Verify phase: check implementation against design, project patterns, and visual references
 - New triggers: "verify", "verify implementation"
 

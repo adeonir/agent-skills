@@ -1,6 +1,9 @@
 # Verify Implementation
 
-Check implementation against the spec design, project patterns, and visual references. Runs after every task or range -- never deferred to the end.
+Check implementation against the spec design, project patterns, code correctness,
+and visual references. Runs after every task or range -- never deferred to the end.
+
+> **LOADS:** [deep-verify.md](deep-verify.md) -- code correctness analysis (Step 5)
 
 ## When to Use
 
@@ -66,7 +69,20 @@ Compare implementation against project conventions in `.agents/codebase/`
 
 Report findings with the same severity table.
 
-### Step 5: Visual Adherence (optional)
+### Step 5: Code Correctness
+
+Load [deep-verify.md](deep-verify.md) for semantic code analysis.
+
+Deep-verify checks for logic errors, semantic issues, and correctness
+problems that linters and type checkers cannot detect. It auto-detects
+project tooling and skips categories already covered.
+
+Skip this step when the task only changed configuration, documentation,
+or static assets.
+
+Findings merge into the outcome table in Step 7.
+
+### Step 6: Visual Adherence (optional)
 
 Only runs when visual references exist or user explicitly requests.
 
@@ -82,7 +98,7 @@ Compare:
 - Responsive behavior matches reference (if specified)
 - Spacing, alignment, visual hierarchy are consistent
 
-### Step 6: Determine Outcome
+### Step 7: Determine Outcome
 
 **If all checks pass:**
 - Report "Verification passed" with summary
@@ -93,7 +109,7 @@ Compare:
 - Fix issues immediately (verify --> fix --> verify loop)
 - Re-run only the failed checks after fix
 
-### Step 7: Loop Escape
+### Step 8: Loop Escape
 
 Track fix attempts per finding. If the same finding fails N times (default: 3):
 - Stop the loop
@@ -108,7 +124,7 @@ Never loop indefinitely.
 
 **DO:**
 - Run after every task or range, regardless of scope
-- Check design adherence first, then patterns, then visual
+- Check design adherence first, then patterns, then code correctness, then visual
 - Fix issues before moving to the next task
 - Report findings with severity (high/medium/low)
 - Skip visual check when no references exist
@@ -119,6 +135,7 @@ Never loop indefinitely.
 - Loop indefinitely on the same finding
 - Assume visual references exist -- check first
 - Run visual verification without explicit references
+- Run deep-verify on config-only or docs-only changes
 
 ## Error Handling
 

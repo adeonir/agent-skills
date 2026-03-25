@@ -72,6 +72,11 @@ Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip 
 | Coding principles | [coding-principles.md](references/coding-principles.md) |
 | Status workflow, when to update status | [status-workflow.md](references/status-workflow.md) |
 
+Notes:
+
+- `deep-verify.md` is not a direct trigger. It is loaded by `verify.md`
+  during Step 5 (Code Correctness).
+
 ## Cross-References
 
 ```
@@ -84,6 +89,7 @@ design.md ---------> research.md (if new tech)
 tasks.md ----------> implement.md
 implement.md ------> coding-principles.md (loaded before coding)
 implement.md ------> verify.md (after every task/range)
+verify.md --------> deep-verify.md (code correctness analysis)
 implement.md ------> validate.md (on-demand UAT, any scope)
 implement.md ------> tasks.md (safety valve: >5 inline steps)
 ```
@@ -105,7 +111,7 @@ implement.md ------> tasks.md (safety valve: >5 inline steps)
 - **Design is skipped** when the change is straightforward (no architectural decisions, no new patterns)
 - **Tasks is skipped** when there are ≤3 obvious steps (they become implicit in Implement)
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
-- **Verify runs after every task/range** -- checks design adherence, pattern adherence, and visual adherence (optional)
+- **Verify runs after every task/range** -- checks design adherence, pattern adherence, code correctness (tooling-aware deep analysis), and visual adherence (optional)
 - **Validate (UAT) is on-demand** -- user requests it when they want to manually test, any scope
 - **Quick mode** is the express lane -- for bug fixes, config changes, and small tweaks
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end
