@@ -1,6 +1,6 @@
 # Write Basic Memory Notes
 
-Create session and debrief notes in Basic Memory.
+Create session, debrief, and decision notes in Basic Memory.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project and prefix
 
@@ -33,6 +33,11 @@ If no session note exists, create one in step 3.
 
 Use `write_note` with the BM standard format:
 
+The body context is free-form markdown between the heading and
+the Observations section. This is the heart of the note -- write
+generously here: background, motivation, history, analysis,
+reasoning, trade-offs.
+
 ```markdown
 # YYYY-MM-DD — Description
 
@@ -63,46 +68,32 @@ Always create a debrief. Use `write_note` with extended format:
 
 **USE TEMPLATE:** `templates/debrief.md`
 
-```markdown
-# YYYY-MM-DD — Description
-
-Prose context -- deeper than session note. Include reasoning,
-trade-offs considered, discoveries, and context for next session.
-
-## Decisions
-
-- Decision + rationale + alternatives rejected
-
-## Findings
-
-- Technical discovery with specifics (values, edge cases, errors)
-
-## Problems
-
-- Problem + root cause + fix applied
-
-## Next Context
-
-- Unfinished work, next steps, blockers for next session
-
-## Observations
-
-- [summary] 1-3 sentence summary of the session
-- [decision] Key decisions (condensed from Decisions section)
-- [finding] Key discoveries (condensed from Findings section)
-- [problem] Key problems (condensed from Problems section)
-
-## Relations
-
-- expands [[YYYY-MM-DD — Session Note Title]]
-```
-
 Rules:
 - Omit empty sections (no empty Decisions, Findings, etc.)
 - Observations condense the sections above into atomic facts
 - The `expands` relation links to the session note from step 3
 - Focus on reasoning, discoveries, and specifics
 - Do not include file lists or obvious info from git history
+
+### 5. Create decision notes (conditional)
+
+If the debrief has a Decisions section with substantive content,
+generate decision notes grouped by theme. Decision notes are
+**not** 1:1 with sessions -- they are thematic, linked to the
+session via `part_of`.
+
+Skip this step if the session had no significant decisions.
+
+**USE TEMPLATE:** `templates/decision.md`
+
+Rules:
+- Group by theme, not by session (one decision note per subject)
+- Context and Decisions sections are required
+- Additional sections (tables, comparisons, tiers) as needed
+- Search BM first -- update existing decision note if the theme
+  already has one
+- Do not repeat debrief content -- decisions go deeper on the
+  specific choice, debrief covers the full session
 
 ## Guidelines
 
@@ -111,8 +102,10 @@ Rules:
 - Use BM skills (write_note, search_notes, edit_note)
 - Link debrief to session note with `expands` relation
 - Be detailed in debrief -- this is the deep knowledge record
+- Update existing decision notes when the theme already exists
 
 **DON'T:**
 - Use #hashtags in observations (BM uses [brackets])
 - Create a debrief if the session had no meaningful content
 - Duplicate content between session and debrief (session is facts, debrief is reasoning)
+- Duplicate content between debrief and decision notes (debrief covers the session, decision goes deeper on the specific choice)

@@ -17,6 +17,7 @@ flowchart LR
   C --> D[Obsidian Notes]
   C -->|session| C1[Session Note]
   C -->|debrief| C2[Debrief Note]
+  C -->|decisions?| C3[Decision Notes]
   D -->|project folder| D1[Session Note]
   D -->|Daily/| D2[Daily Note]
 ```
@@ -27,6 +28,7 @@ flowchart LR
 | Auto-Memory | Claude Code | Updated memory files | Agents |
 | BM Session | Basic Memory | Session note (facts) | Agents |
 | BM Debrief | Basic Memory | Debrief note (reasoning) | Agents |
+| BM Decision | Basic Memory | Decision notes (thematic, conditional) | Agents |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
 

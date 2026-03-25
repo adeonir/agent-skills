@@ -1,8 +1,11 @@
 # {{YYYY-MM-DD — Description}}
 
-{{Prose context -- deeper than session note. Include reasoning,
-trade-offs considered, discoveries, and context for next session.
-Rich and substantive.}}
+## Context
+
+{{Deeper than session note. Include reasoning, trade-offs
+considered, discoveries, and context for next session. Free-form
+markdown -- this is the heart of the note, write generously:
+background, motivation, history, analysis, reasoning, trade-offs.}}
 
 ## Decisions
 
