@@ -11,9 +11,8 @@ tags:
 
 ### {{Project Name}}
 
-{3-5 bullets per project. Use past tense, natural language, not changelog.
-Describe what was accomplished and why, with enough context to understand
-weeks later.}
+{3-5 bullets per project. Past tense, natural language.
+Capture outcomes and decisions, not steps taken.}
 
 ## Key Decisions
 

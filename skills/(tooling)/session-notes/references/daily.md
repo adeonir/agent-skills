@@ -83,8 +83,8 @@ Only `## Activities` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
 Activities use one `### Project Name` subsection per project with 3-5 bullets
-each. Use past tense, natural language. Describe what was accomplished and why,
-with enough context to understand weeks later. Not a changelog.
+each. Past tense, natural language. Capture outcomes and decisions, not steps
+taken. Each bullet should make sense weeks later without extra context.
 
 ## Guidelines
 
@@ -95,7 +95,7 @@ with enough context to understand weeks later. Not a changelog.
 - Use bullet points for speed
 - Use past tense and natural language
 - Use the current directory as context to suggest the project name
-- Write Activities as executive summary, not step-by-step
+- Write Activities as outcomes and decisions, not steps taken
 
 **DON'T:**
 - Duplicate info from project notes (link instead)

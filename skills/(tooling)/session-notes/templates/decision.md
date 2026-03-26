@@ -7,6 +7,8 @@ tags:
 ---
 # {{Decision Title}}
 
+## Context
+
 {{Context -- what prompted the decision, background, constraints.
 Rich prose, not just bullets. Enough for someone to understand
 weeks later without asking.}}

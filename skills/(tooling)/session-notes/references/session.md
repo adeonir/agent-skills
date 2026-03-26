@@ -63,26 +63,26 @@ When a session note for the same project and topic already exists today:
 
 ## Content Structure
 
-Only `## What Was Done` is required. All other sections are optional -- include
+Only `## Summary` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
-Git metadata (Branch, PR, Commit) appears between H1 and What Was Done only
-when available. Omit entirely if not in a git repo or no relevant git data.
+Summary uses 2-5 bullets describing context, outcomes, and decisions.
+Focus on what was achieved and why, not steps taken or tasks executed.
 
 ## Guidelines
 
 **DO:**
 - Keep it focused on one project per note
 - Use past tense and natural language
-- Include file paths when discussing code changes
+- Write Summary as bullet points with outcomes and context, not a task list
 - Link to related daily notes and project notes
-- Include git metadata when available and relevant
 
 **DON'T:**
 - Mix multiple projects in one session note (use daily note for that)
-- Dump raw git log or diff output
+- List tasks or steps executed (that is a changelog)
+- List files modified (that is git log)
+- Include git metadata (branches, commits, PRs)
 - Generate empty sections or placeholder content
-- Use changelog/commit-style language
 
 ## Next Steps
 

@@ -10,6 +10,9 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Session template: replaced "What Was Done" with "Summary" (outcomes, not tasks)
+- Session template: removed git metadata (Branch, PR, Commit) and Files Modified section
+- Session reference: guidelines updated to prohibit changelog-style content and git metadata
 - Wikilinks must point to existing files -- verify before adding project links
 - Orphan wikilinks added to DON'T guidelines
 
