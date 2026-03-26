@@ -64,7 +64,7 @@ obsidian-notes.md -> session-notes     (uses Obsidian skill for write/patch)
 **DON'T:**
 - Ask for confirmation between steps
 - Create duplicate notes -- search first
-- Write changelog-style content in Obsidian notes
+- Write changelog-style content or git metadata in Obsidian notes
 - Skip auto-memory even for trivial sessions
 - Mix BM format ([brackets]) with Obsidian format (#hashtags)
 

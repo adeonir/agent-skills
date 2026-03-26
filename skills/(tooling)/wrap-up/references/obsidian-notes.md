@@ -32,9 +32,9 @@ separator and date header).
 Use session-notes skill (MCPVault MCP) to create the note.
 
 Rules:
-- Git metadata only when available, omit entirely if not in a repo
 - Omit empty sections
-- Past tense, natural language, not changelog
+- Past tense, natural language -- outcomes and decisions, not steps taken
+- No git metadata (branches, commits, PRs) or file lists
 - Observations use `#hashtags` (Obsidian format)
 - Use session-notes skill (MCPVault MCP) for write/patch
 
@@ -91,7 +91,7 @@ to update:
 Rules:
 - Activities split by project with H3 headers
 - Past tense, natural language, 3-5 bullets per project after
-  consolidation (group related work into single bullets)
+  consolidation -- capture outcomes and decisions, not steps taken
 - Do not duplicate detail from the session note -- keep it summary-level
 - Omit empty sections
 - Use session-notes skill (MCPVault MCP) for write/patch
@@ -101,13 +101,14 @@ Rules:
 **DO:**
 - Search before creating to avoid duplicates
 - Use session-notes skill for all Obsidian writes
-- Keep daily note as executive summary, not detailed log
+- Keep daily note as outcomes and decisions, not detailed log
 - Read existing daily note before patching to consolidate content
 - Link session note from daily note Relations
 
 **DON'T:**
 - Use [brackets] in Obsidian observations (Obsidian uses #hashtags)
-- Write changelog-style content
+- Write changelog-style content or list steps taken
+- List files modified or git metadata
 - Blindly append bullets without reading existing content first
 - Let any project subsection exceed 5 bullets -- consolidate
 - Duplicate full detail from BM notes into Obsidian notes
