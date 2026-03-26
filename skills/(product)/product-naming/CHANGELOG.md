@@ -6,6 +6,14 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-25
+
+### Fixed
+
+- Quote all shell command interpolations with `"${name}"` to prevent injection
+- Add Input Sanitization section rejecting shell metacharacters in candidate names
+- Strengthen Content Trust Boundary to cover WHOIS records and DNS responses explicitly
+
 ## 2026-03-21
 
 ### Added
