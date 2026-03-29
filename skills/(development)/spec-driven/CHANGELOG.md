@@ -6,6 +6,22 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-29
+
+### Added
+
+- Baseline capture reference for hypothesis-free documentation of existing modules
+- Baseline template for `.agents/baselines/{name}.md` output
+- New triggers: "capture baseline", "document module", "document existing code"
+- Specify Step 8 checks `.agents/baselines/` before running baseline-discovery
+
+### Changed
+
+- baseline-discovery.md notes baseline-capture for hypothesis-free use
+- baseline-discovery.md checks existing baselines before rediscovering
+- Cross-references updated with baseline-capture pipeline position
+- Project structure updated with `.agents/baselines/` directory
+
 ## 2026-03-25
 
 ### Added

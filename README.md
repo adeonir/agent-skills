@@ -69,9 +69,14 @@ flowchart TD
 
 ## Output Structure
 
-Skills write artifacts to `.artifacts/` organized by domain:
+Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 
 ```
+.agents/
+├── project.md      # project-index: project context
+├── codebase/       # project-index: deep codebase analysis
+└── baselines/      # spec-driven: area behavioral baselines
+
 .artifacts/
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

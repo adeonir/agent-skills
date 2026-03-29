@@ -55,6 +55,12 @@ new feature: payment processing
 modify existing auth flow
 improve cache performance
 
+# Capture a baseline (no feature needed)
+capture baseline for auth module
+document existing code in src/payments
+baseline capture for the caching layer
+help me find what to capture
+
 # Development workflow
 create technical design
 create tasks
@@ -87,6 +93,18 @@ create tasks                       # Large/Complex only
 implement
 ```
 
+### Baseline Capture
+
+```
+# Document an area before deciding what to change
+capture baseline for auth module
+# Creates .agents/baselines/auth.md with behavioral documentation
+
+# Later, when you have a hypothesis:
+modify existing auth flow to add 2FA
+# Specify Step 8 consumes .agents/baselines/auth.md automatically
+```
+
 ### Brownfield Feature
 
 ```
@@ -103,6 +121,10 @@ modify existing auth flow to add 2FA
 ## Output
 
 ```
+.agents/
+└── baselines/
+    └── {area-name}.md             # Area behavioral baseline
+
 .artifacts/
 ├── features/
 │   └── 001-feature/
@@ -136,7 +158,7 @@ Features track status in spec.md frontmatter:
 
 | Skill | Connection |
 |-------|------------|
-| **project-index** | Provides `.agents/` context consumed during planning |
+| **project-index** | Provides `.agents/` context consumed during baseline capture and planning |
 | **git-helpers** | Handles commits and PRs |
 
 ## FAQ
@@ -152,6 +174,12 @@ A: Research is saved to .artifacts/research/{topic}.md and reused across feature
 
 **Q: What happens to artifacts after the feature is done?**
 A: Artifacts are disposable -- they exist during development and can be safely deleted when the feature is complete.
+
+**Q: What's the difference between baseline-capture and baseline-discovery?**
+A: baseline-capture documents an area WITHOUT a feature hypothesis (standalone). baseline-discovery documents behavior RELEVANT TO a specific feature (runs inside specify). If a baseline-capture exists, baseline-discovery builds on it instead of rediscovering.
+
+**Q: Where do baselines go?**
+A: `.agents/baselines/{name}.md` -- they're reference context, not feature artifacts, so they live in `.agents/` alongside project-index output.
 
 **Q: When should I use quick mode vs full pipeline?**
 A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config changes). The agent auto-detects scope and suggests the right mode.
