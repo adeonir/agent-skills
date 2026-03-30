@@ -92,12 +92,30 @@ No relevant cache exists:
 - Conduct new research
 - Save with proper metadata
 
+## Research Depth
+
+Not all topics need the same depth. Match research depth to how
+the topic will be used:
+
+- **Conceptual**: the topic informs a design decision but is not
+  directly invoked. Research what it does, compatibility, trade-offs.
+- **Integration**: the topic will be used programmatically -- CLI,
+  SDK, CI action, deploy target, runtime environment. Research the
+  exact interface: accepted flags, required env vars per stage,
+  container/runtime constraints, error modes. "Does it support X?"
+  is not enough -- research how X works in practice.
+
+Default to conceptual. Escalate to integration when the feature
+spec involves connecting to, deploying to, or automating through
+an external tool or platform.
+
 ## Research Process
 
 1. **Check Cache** - Look for `.artifacts/research/{topic}.md`
 2. **Extract Topics** - From spec.md: technologies, APIs, services
-3. **Research** - Official docs first, best practices, gotchas
-4. **Synthesize** - Organize: must-know, architectural impact, warnings
+3. **Determine Depth** - Conceptual or integration per topic
+4. **Research** - Official docs first, best practices, gotchas
+5. **Synthesize** - Organize: must-know, architectural impact, warnings
 
 ## Research File Template
 

@@ -6,6 +6,15 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-03-30
+
+### Changed
+
+- Research reference adds depth levels: conceptual vs integration
+- Integration depth requires researching exact interfaces, flags, env vars per stage, and runtime constraints
+- Research process gains Step 3: determine depth per topic
+- Research template adds optional Integration Constraints section
+
 ## 2026-03-29
 
 ### Added

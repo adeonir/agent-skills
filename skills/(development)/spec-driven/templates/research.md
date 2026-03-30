@@ -29,6 +29,15 @@ keywords:
 
 - {{warnings}}
 
+## Integration Constraints
+
+{Include only when research depth is integration. Remove section otherwise.}
+
+- **CLI/SDK interface**: {{exact flags, subcommands, required arguments}}
+- **Environment variables**: {{vars required per stage -- build, bundle, runtime}}
+- **Runtime constraints**: {{container limitations, missing binaries, edge vs serverless}}
+- **Error modes**: {{what fails silently, what throws, common misconfigurations}}
+
 ## Recommendations
 
 {{specific suggestions}}
