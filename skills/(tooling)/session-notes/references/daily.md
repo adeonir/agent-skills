@@ -86,6 +86,9 @@ Activities use one `### Project Name` subsection per project with 3-5 bullets
 each. Past tense, natural language. Capture outcomes and decisions, not steps
 taken. Each bullet should make sense weeks later without extra context.
 
+Daily bullets name what was produced or completed. Leave how, why, and file
+paths for session notes and debrief.
+
 ## Guidelines
 
 **DO:**
@@ -101,6 +104,7 @@ taken. Each bullet should make sense weeks later without extra context.
 - Duplicate info from project notes (link instead)
 - Generate empty sections or placeholder content
 - Use changelog/commit-style language in bullet points
+- Describe how or why something was done (belongs in session notes or debrief)
 
 ## Next Steps
 

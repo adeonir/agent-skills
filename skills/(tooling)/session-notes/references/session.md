@@ -67,7 +67,8 @@ Only `## Summary` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
 Summary uses 2-5 bullets describing context, outcomes, and decisions.
-Focus on what was achieved and why, not steps taken or tasks executed.
+Focus on what was done, written, shipped, or decided — not steps taken,
+not reasoning, not file paths.
 
 ## Guidelines
 
@@ -82,6 +83,8 @@ Focus on what was achieved and why, not steps taken or tasks executed.
 - List tasks or steps executed (that is a changelog)
 - List files modified (that is git log)
 - Include git metadata (branches, commits, PRs)
+- Include file paths or directory names (those belong in debrief)
+- Explain reasoning or motivations (those belong in debrief)
 - Generate empty sections or placeholder content
 
 ## Next Steps

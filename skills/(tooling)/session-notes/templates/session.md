@@ -2,7 +2,7 @@
 title: "{{YYYY-MM-DD — Description}}"
 type: session
 tags:
-  - session-note
+  - session
   - {{dynamic tags based on content}}
 ---
 # {{YYYY-MM-DD — Description}}
