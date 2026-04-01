@@ -43,8 +43,8 @@ reasoning, trade-offs.
 ```markdown
 # YYYY-MM-DD — Description
 
-Prose context -- background, motivation, what happened and why.
-Rich and substantive, not just bullet points.
+Prose context -- what happened and what was done. Facts only,
+no reasoning or file paths. Rich and substantive, not just bullet points.
 
 ## Observations
 
@@ -77,6 +77,7 @@ Deeper than session note. Include reasoning, trade-offs
 considered, discoveries, and context for next session. Free-form
 markdown -- this is the heart of the note, write generously:
 background, motivation, history, analysis, reasoning, trade-offs.
+Include file paths, directory names, and technical specifics here.
 
 ## Decisions
 
@@ -178,6 +179,6 @@ Rules:
 **DON'T:**
 - Use #hashtags in observations (BM uses [brackets])
 - Create a debrief if the session had no meaningful content
-- Duplicate content between session and debrief (session is facts, debrief is reasoning)
+- Duplicate content between session and debrief (session is facts, debrief is reasoning, paths, and technical specifics)
 - Reuse the session title for the debrief -- each must have its own descriptive title
 - Duplicate content between debrief and decision notes (debrief covers the session, decision goes deeper on the specific choice)

@@ -19,7 +19,7 @@ the daily note.
 
 - Folder: `{Obsidian folder}/{Project Name}/` (Title Case)
 - Filename: `YYYY-MM-DD — Description.md`
-- Example: `Ventures/Pensefy/2026-03-22 — BM Reorganization.md`
+- Example: `Ventures/Pensefy/Session/2026-03-22 — BM Reorganization.md`
 
 #### Check for existing note
 
