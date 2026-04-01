@@ -76,22 +76,25 @@ multiple simultaneously unless explicitly noted.
 Notes:
 
 - `markdown.md` and `vault-structure.md` are informational guides (no write operations).
+- `mapping.md` is not a direct trigger. It is loaded by `project.md` and `session.md` to resolve vault paths.
 - All other references are note-creation workflows (compose, write, link).
 
 ## Cross-References
 
 ```
-company --> challenge     (interview triggers challenge)
-company --> brag          (interview learnings become achievements)
-challenge --> brag        (completed challenge becomes achievement)
-daily --> brag            (daily insights feed brag document)
-session --> daily         (session work summarized in daily notes)
-session --> decision      (session decisions become decision notes)
-decision --> project      (decisions link to project overview)
-project --> daily         (project work logged in daily notes)
-project --> session       (project work detailed in session notes)
-conversation --> daily    (conversation insights logged in daily)
-conversation --> brag     (conversation outcomes become achievements)
+mapping.md <-- project.md   (project loads mapping to resolve vault path)
+mapping.md <-- session.md   (session loads mapping to resolve vault path)
+company --> challenge        (interview triggers challenge)
+company --> brag             (interview learnings become achievements)
+challenge --> brag           (completed challenge becomes achievement)
+daily --> brag               (daily insights feed brag document)
+session --> daily            (session work summarized in daily notes)
+session --> decision         (session decisions become decision notes)
+decision --> project         (decisions link to project overview)
+project --> daily            (project work logged in daily notes)
+project --> session          (project work detailed in session notes)
+conversation --> daily       (conversation insights logged in daily)
+conversation --> brag        (conversation outcomes become achievements)
 ```
 
 ## Writing Style

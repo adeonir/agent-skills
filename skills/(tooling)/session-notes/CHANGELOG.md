@@ -6,6 +6,18 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-01
+
+### Added
+
+- mapping.md reference for resolving vault folder from current working directory
+- Cross-references in SKILL.md documenting that project.md and session.md load mapping.md
+
+### Changed
+
+- project.md: replaced references to wrap-up mapping table with a load directive to mapping.md
+- session.md: step 1 now loads mapping.md instead of describing resolution inline
+
 ## 2026-03-25
 
 ### Changed

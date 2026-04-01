@@ -11,11 +11,9 @@ Create a session note documenting work done on a specific project.
 ## Workflow
 
 1. **Determine project and folder**
-   Use the current working directory to infer the project name. Map it to the
-   corresponding vault folder (e.g., `Work/Jaya/`, `Ventures/Pensefy/`).
-   Session notes go in the `Sessions/` subfolder:
+   Load [mapping.md](mapping.md) to resolve the vault folder from the current
+   working directory. Session notes go in the `Sessions/` subfolder:
    `{Folder}/{Project}/Sessions/`.
-   If the project cannot be determined, ask the user.
 
 2. **Check for existing note**
    Session notes use the convention: `{Folder}/{Project}/Sessions/YYYY-MM-DD — Description.md`.

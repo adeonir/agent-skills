@@ -16,8 +16,8 @@ Create structured documentation for a project in the Obsidian vault.
 
 2. **Generate folder and filename**
    - Folder: `{VaultFolder}/{Project Name}/` in Title Case
-   - The vault folder depends on the project category (e.g., `Work/`, `Ventures/`,
-     `Projects/`). Use the wrap-up mapping table to resolve, or ask the user.
+   - The vault folder depends on the project category. Load
+     [mapping.md](mapping.md) to resolve it.
    - Main file: `{Project Name} Overview.md` (filenames must be unique across the
      vault for Obsidian wikilinks to work)
 
@@ -48,8 +48,8 @@ Omit empty sections.
 {VaultFolder}/{Project Name}/{Project Name} Overview.md
 ```
 
-The `{VaultFolder}` depends on the project category (e.g., `Work/`, `Ventures/`,
-`Projects/`). Use the wrap-up mapping table to resolve, or ask the user.
+The `{VaultFolder}` depends on the project category. Load
+[mapping.md](mapping.md) to resolve it.
 
 ## Guidelines
 
