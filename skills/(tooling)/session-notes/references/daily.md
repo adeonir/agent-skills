@@ -86,8 +86,7 @@ Activities use one `### Project Name` subsection per project with 3-5 bullets
 each. Past tense, natural language. Capture outcomes and decisions, not steps
 taken. Each bullet should make sense weeks later without extra context.
 
-Daily bullets name what was produced or completed. Leave how, why, and file
-paths for session notes and debrief.
+Daily bullets name what was produced or completed. Omit how, why, and file paths.
 
 ## Guidelines
 

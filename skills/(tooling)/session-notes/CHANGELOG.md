@@ -10,13 +10,16 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
-- mapping.md reference for resolving vault folder from current working directory
-- Cross-references in SKILL.md documenting that project.md and session.md load mapping.md
+- Vault folder resolution via path detection and category mapping table
+- Cross-references documenting that project and session references load mapping on demand
 
 ### Changed
 
-- project.md: replaced references to wrap-up mapping table with a load directive to mapping.md
-- session.md: step 1 now loads mapping.md instead of describing resolution inline
+- Output section now resolves vault folder via internal mapping instead of referencing the wrap-up skill
+- Session and project references now load mapping explicitly instead of describing resolution inline
+- Session summary description changed from "context, outcomes, and decisions" to "facts, outcomes, and decisions"
+- Session DON'T rules for reasoning, file paths, and technical specifics collapsed into one item
+- Daily content boundary clarified to omit how, why, and file paths without deferring to external systems
 
 ## 2026-03-25
 

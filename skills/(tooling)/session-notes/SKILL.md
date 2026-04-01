@@ -148,7 +148,7 @@ Vault/
 ```
 
 The `{VaultFolder}` depends on the project category (e.g., `Work/`, `Ventures/`,
-`Projects/`). See the wrap-up mapping table for resolution.
+`Projects/`). See [mapping.md](references/mapping.md) for resolution.
 
 ## Error Handling
 

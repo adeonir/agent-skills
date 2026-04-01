@@ -64,7 +64,7 @@ When a session note for the same project and topic already exists today:
 Only `## Summary` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
-Summary uses 2-5 bullets describing context, outcomes, and decisions.
+Summary uses 2-5 bullets describing facts, outcomes, and decisions.
 Focus on what was done, written, shipped, or decided — not steps taken,
 not reasoning, not file paths.
 
@@ -73,7 +73,7 @@ not reasoning, not file paths.
 **DO:**
 - Keep it focused on one project per note
 - Use past tense and natural language
-- Write Summary as bullet points with outcomes and context, not a task list
+- Write Summary as bullet points with facts, outcomes, and decisions, not a task list
 - Link to related daily notes and project notes
 
 **DON'T:**
@@ -81,8 +81,7 @@ not reasoning, not file paths.
 - List tasks or steps executed (that is a changelog)
 - List files modified (that is git log)
 - Include git metadata (branches, commits, PRs)
-- Include file paths or directory names (those belong in debrief)
-- Explain reasoning or motivations (those belong in debrief)
+- Include reasoning, motivations, file paths, or technical specifics
 - Generate empty sections or placeholder content
 
 ## Next Steps
