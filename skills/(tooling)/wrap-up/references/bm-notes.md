@@ -178,7 +178,6 @@ Rules:
 
 **DON'T:**
 - Use #hashtags in observations (BM uses [brackets])
-- Create a debrief if the session had no meaningful content
 - Duplicate content between session and debrief (session is facts, debrief is reasoning, paths, and technical specifics)
 - Reuse the session title for the debrief -- each must have its own descriptive title
 - Duplicate content between debrief and decision notes (debrief covers the session, decision goes deeper on the specific choice)

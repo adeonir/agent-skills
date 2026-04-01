@@ -75,4 +75,4 @@ obsidian-notes.md -> session-notes     (uses Obsidian skill for write/patch)
 - Obsidian/MCPVault unavailable: skip Obsidian step, warn user
 - Session note already exists in BM: append with edit_note, do not overwrite
 - Daily note already exists in Obsidian: update with patch_note
-- No meaningful session content: skip BM and Obsidian session, still update daily
+- No meaningful session content: keep session and debrief brief, skip decision notes, still update daily

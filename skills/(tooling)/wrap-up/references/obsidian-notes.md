@@ -17,9 +17,9 @@ the daily note.
 
 #### Determine path
 
-- Folder: `{Obsidian folder}/{Project Name}/` (Title Case)
+- Folder: `{Obsidian folder}/{Project Name}/Sessions/` (Title Case)
 - Filename: `YYYY-MM-DD — Description.md`
-- Example: `Ventures/Pensefy/Session/2026-03-22 — BM Reorganization.md`
+- Example: `Ventures/Pensefy/Sessions/2026-03-22 — BM Reorganization.md`
 
 #### Check for existing note
 

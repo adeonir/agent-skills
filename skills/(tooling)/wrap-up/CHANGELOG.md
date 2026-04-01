@@ -6,6 +6,13 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-01
+
+### Fixed
+
+- Obsidian session notes path now includes Sessions/ subfolder consistently
+- Session and debrief notes are always created; decision notes are optional by context
+
 ## 2026-03-25
 
 ### Changed
