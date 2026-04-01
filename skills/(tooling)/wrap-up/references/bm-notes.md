@@ -27,7 +27,9 @@ Search BM for a session note with today's date and similar topic:
 search_notes query="YYYY-MM-DD" project="{bm_project}"
 ```
 
-If a session note exists for today's work, skip to step 4 (debrief).
+If a session note exists for today's work, read it and merge new
+information — add new observations, update prose. Do not duplicate
+existing observations. Then proceed to step 4 (debrief).
 If no session note exists, create one in step 3.
 
 ### 3. Create session note
@@ -36,15 +38,16 @@ Use `write_note` following the memory-notes skill format (no
 template in wrap-up -- the example below is format guidance):
 
 The body context is free-form markdown between the heading and
-the Observations section. This is the heart of the note -- write
-generously here: background, motivation, history, analysis,
-reasoning, trade-offs.
+the Observations section. Write substantively -- background,
+motivation, what happened and why. Reasoning and trade-offs
+belong in the debrief, not here.
 
 ```markdown
 # YYYY-MM-DD — Description
 
-Prose context -- what happened and what was done. Facts only,
-no reasoning or file paths. Rich and substantive, not just bullet points.
+Prose context -- what happened and what was done. Facts and outcomes
+only, not reasoning or trade-offs (those belong in the debrief).
+Rich and substantive, not just bullet points.
 
 ## Observations
 
@@ -63,6 +66,9 @@ Rules:
 - One fact per observation, be specific
 - Prose body tells the story, observations distill the facts
 - Omit empty sections
+- **`follows` relation**: list the sessions directory, find the most
+  recent note before today's date. If no previous note exists, omit
+  the relation
 
 ### 4. Create debrief note
 
@@ -114,7 +120,8 @@ Rules:
   debrief `2026-03-25 — Template Consistency and Format Decisions`
 - Omit empty sections (no empty Decisions, Findings, etc.)
 - Observations condense the sections above into atomic facts
-- The `expands` relation links to the session note from step 3
+- **`expands` relation**: links to the session note from step 3. If no
+  session note was created (no meaningful content), omit the relation
 - Focus on reasoning, discoveries, and specifics
 - Do not include file lists or obvious info from git history
 
@@ -161,8 +168,9 @@ Rules:
 - Group by theme, not by session (one decision note per subject)
 - Context and Decisions sections are required
 - Additional sections (tables, comparisons, tiers) as needed
-- Search BM first -- update existing decision note if the theme
-  already has one
+- Search BM first -- scan decision note titles for keyword overlap
+  with the current topic. If a match is found, update that note
+  instead of creating a new one
 - Do not repeat debrief content -- decisions go deeper on the
   specific choice, debrief covers the full session
 
