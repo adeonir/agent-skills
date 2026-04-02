@@ -19,6 +19,7 @@ Creates and manages documentation in your Obsidian vault with consistent structu
 - **Daily** - Daily logs with per-project activity subsections and in-place updates
 - **Sessions** - Focused work session notes for a single project (git metadata, decisions, learnings)
 - **Conversations** - AI chat summaries and key decisions
+- **Transcriptions** - Meeting, course, lecture, and standup notes preserved verbatim
 
 ```mermaid
 flowchart LR
@@ -30,6 +31,7 @@ flowchart LR
     D -->|Daily| Y[Create Daily Note]
     D -->|Session| S[Create Session Note]
     D -->|Conversation| V[Save Conversation]
+    D -->|Transcription| TR[Save Transcription]
     P --> M[MCPVault MCP]
     C --> M
     H --> M
@@ -37,6 +39,7 @@ flowchart LR
     Y --> M
     S --> M
     V --> M
+    TR --> M
     M --> N[Note in Vault]
 ```
 
@@ -63,6 +66,9 @@ flowchart LR
 
 # Save an AI conversation
 "Salvar conversa sobre refatoracao do auth"
+
+# Save a meeting or course transcription
+"Salvar transcricao da aula de testes automatizados"
 ```
 
 ## Output
@@ -76,6 +82,7 @@ Vault/
 ├── Challenges/        # Technical challenges
 ├── Brags/            # Achievement records
 ├── Conversations/    # AI conversation summaries
+├── Meetings/         # Transcription notes
 └── Daily/            # Daily notes
 ```
 

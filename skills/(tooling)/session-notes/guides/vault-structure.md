@@ -23,6 +23,7 @@ Vault/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
+├── Meetings/
 └── Daily/
 ```
 
@@ -35,6 +36,7 @@ Vault/
 | `Challenges/` | Interview take-homes | `Stripe/System Design.md` |
 | `Brags/` | Achievement logs | `Brags 2025.md` |
 | `Conversations/` | AI conversation notes | `Refactoring Auth Flow.md` |
+| `Meetings/` | Transcription notes (meetings, courses, lectures) | `2026-04-02 -- Intro Testes Automatizados.md` |
 | `Daily/` | Activity logs | `2025-03-03.md` |
 
 ## Setup
@@ -91,6 +93,7 @@ Vault/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
+├── Meetings/
 └── Daily/
 ```
 

@@ -3,15 +3,18 @@ name: session-notes
 description: >-
   Create and manage Obsidian notes for projects, companies, technical
   challenges, brag documents, daily logs, session logs, decisions, and
-  AI conversations using MCPVault MCP. Use when documenting projects,
-  tracking job applications, recording interview challenges, maintaining
-  brag documents, creating daily notes, logging work sessions, recording
-  decisions in Obsidian, or saving AI conversations. Triggers on "create
-  project", "new project note", "document company", "job application",
-  "technical challenge", "brag document", "daily note", "today's log",
-  "session note", "obsidian session", "vault session", "decision note",
-  "document decision", "record decision", "obsidian note", "save
-  conversation", "chat summary", "session summary".
+  AI conversations, and meeting transcriptions using MCPVault MCP. Use
+  when documenting projects, tracking job applications, recording
+  interview challenges, maintaining brag documents, creating daily notes,
+  logging work sessions, recording decisions, saving AI conversations,
+  or preserving meeting and course transcriptions in Obsidian. Triggers
+  on "create project", "new project note", "document company", "job
+  application", "technical challenge", "brag document", "daily note",
+  "today's log", "session note", "obsidian session", "vault session",
+  "decision note", "document decision", "record decision", "obsidian
+  note", "save conversation", "chat summary", "session summary",
+  "transcription", "meeting notes", "standup notes", "lecture notes",
+  "course notes".
 ---
 
 # Session Notes
@@ -70,6 +73,7 @@ multiple simultaneously unless explicitly noted.
 | Session note, obsidian session, vault session | [session.md](references/session.md) |
 | Decision note, document decision, record decision | [decision.md](references/decision.md) |
 | Conversation, save conversation, AI chat | [conversation.md](references/conversation.md) |
+| Transcription, meeting notes, standup, lecture, course notes | [transcription.md](references/transcription.md) |
 | Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
 | Vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
 
@@ -95,6 +99,8 @@ project --> daily            (project work logged in daily notes)
 project --> session          (project work detailed in session notes)
 conversation --> daily       (conversation insights logged in daily)
 conversation --> brag        (conversation outcomes become achievements)
+transcription --> daily      (transcription insights logged in daily)
+transcription --> decision   (meeting decisions become decision notes)
 ```
 
 ## Writing Style
@@ -144,6 +150,7 @@ Vault/
 ├── Challenges/
 ├── Brags/
 ├── Conversations/
+├── Meetings/
 └── Daily/
 ```
 

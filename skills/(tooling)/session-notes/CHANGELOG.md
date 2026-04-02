@@ -6,6 +6,14 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-02
+
+### Added
+
+- Transcription note type for meetings, courses, lectures, and standups
+- `Meetings/` folder in vault structure
+- Reference `transcription.md` reuses session template with verbatim content preservation
+
 ## 2026-04-01
 
 ### Added
