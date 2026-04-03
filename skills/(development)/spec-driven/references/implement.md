@@ -8,6 +8,10 @@ Implement, verify, and complete tasks. Verification happens continuously -- afte
 
 When implementing tasks from a feature's tasks.md, or when scope is Medium and design/tasks were skipped.
 
+Start with a clean context window. Load artifacts from disk (spec.md, design.md,
+tasks.md), not from a previous phase's conversation context. See SKILL.md Phase
+Transitions.
+
 ## Arguments
 
 - `[T001]` - Single task
@@ -26,6 +30,7 @@ When implementing tasks from a feature's tasks.md, or when scope is Medium and d
 ### Step 2: Load Context
 
 Read `spec.md` (acceptance criteria).
+If `.agents/knowledge.md` exists, read it for project-level decisions and gotchas.
 
 Check which artifacts exist and adapt:
 
@@ -83,6 +88,13 @@ Execution steps:
 For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
 - Check [B:Txxx] - verify Txxx is done
+
+**Sub-agent dispatch:** Parallel tasks (`[P]` marker) can be dispatched to
+independent sub-agents. Each sub-agent receives: spec.md + design.md + its
+task(s) + coding-principles.md. Sub-agents write code to disk. The main agent
+coordinates, tracks progress, and runs verify after each sub-agent completes.
+The execution plan diagram in tasks.md serves as the dispatch map -- parallel
+branches map to independent sub-agents.
 
 ### Step 6: Update Status
 
@@ -171,6 +183,11 @@ If all tasks done (or all inline steps done for Medium scope):
 If `.agents/codebase/` exists and you discovered patterns not yet documented
 (new shared component, new hook, new convention), update the relevant file.
 Merge new findings, never overwrite existing content.
+
+Also feed `.agents/knowledge.md` with any project-level gotchas or patterns
+discovered during implementation (e.g., API quirks, runtime constraints,
+workarounds). Append new entries -- never overwrite. Create the file if it
+doesn't exist.
 
 ### Step 11: Report
 

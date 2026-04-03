@@ -10,6 +10,9 @@ Create technical design from specification.
 - Spec is complete (no open questions blocking progress)
 - Ready to define HOW to build
 
+Start with a clean context window. Load artifacts from disk (spec.md, decisions.md),
+not from a previous phase's conversation context. See SKILL.md Phase Transitions.
+
 ## When to Skip
 
 - Scope is **Medium**: straightforward change, no architectural decisions, no new patterns
@@ -34,7 +37,19 @@ If spec has critical open questions that block architecture decisions:
 
 If decisions.md exists, load it for resolved gray areas.
 
-### Step 3: Research Phase
+### Step 3: Load Project Knowledge
+
+If `.agents/knowledge.md` exists, read it before designing. It contains
+cross-feature decisions, gotchas, and patterns accumulated from previous
+features. Use it to:
+
+- Avoid repeating past mistakes
+- Follow established architectural patterns
+- Respect decisions already made for the project
+
+If it doesn't exist, skip this step.
+
+### Step 4: Research Phase
 
 Check for new technologies in spec:
 
@@ -52,7 +67,7 @@ Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-cha
 When incorporating research into the design, validate findings against the spec's requirements.
 Research informs decisions but the spec remains the single source of truth for what to build.
 
-### Step 4: Codebase Exploration
+### Step 5: Codebase Exploration
 
 Load [codebase-exploration.md](codebase-exploration.md).
 
@@ -62,7 +77,7 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-### Step 5: Check Concerns
+### Step 6: Check Concerns
 
 If `.agents/codebase/concerns.md` exists, read it before designing.
 
@@ -70,7 +85,7 @@ Any component flagged as fragile, carrying tech debt, or having test coverage ga
 
 If concerns.md does not exist, skip this step.
 
-### Step 6: Persist Codebase Discoveries
+### Step 7: Persist Codebase Discoveries
 
 After exploration, feed new findings back to project-level docs:
 
@@ -88,7 +103,23 @@ Rules:
 - Use the same table formats already in the codebase docs
 - Never create `.agents/codebase/` from scratch (that's project-index's job)
 
-### Step 7: Check Visual References
+After persisting codebase discoveries, also feed `.agents/knowledge.md` with
+any project-level architectural decisions made during this design. Append new
+entries -- never overwrite existing content. If the file doesn't exist, create
+it. See format below:
+
+```markdown
+## Architecture
+- {decision + rationale} (YYYY-MM-DD, feature {ID})
+
+## Gotchas
+- {gotcha + context} (YYYY-MM-DD, feature {ID})
+
+## Patterns
+- {pattern + why it emerged} (YYYY-MM-DD, feature {ID})
+```
+
+### Step 8: Check Visual References
 
 Check if the spec includes a `designs/` folder with visual references:
 
@@ -99,7 +130,7 @@ Check if the spec includes a `designs/` folder with visual references:
    - Consider these in component design and implementation
 3. If no designs folder: proceed without visual context
 
-### Step 8: Data Model Definition
+### Step 9: Data Model Definition
 
 Define the data model before component design:
 
@@ -107,7 +138,7 @@ Define the data model before component design:
 - **Relationships**: How entities relate (one-to-many, many-to-many)
 - **API contracts**: Request/response shapes for new endpoints
 
-### Step 9: Generate design.md
+### Step 10: Generate design.md
 
 **USE TEMPLATE:** `templates/design.md`
 
@@ -124,16 +155,17 @@ Generate the design following the template structure:
 - Considerations (Error Handling, Security, Concerns mitigation)
 - Open Questions
 
-### Step 10: Update Status
+### Step 11: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 11: Report
+### Step 12: Report
 
 Inform user:
 - Created: `design.md`
 - Research cached: {topics}
 - Codebase docs updated: {files updated in .agents/codebase/, if it existed}
+- Knowledge updated: {entries added to .agents/knowledge.md, if any}
 - Key decisions: {count}
 - Visual references considered: {count} (if designs/ exists)
 - Next: Run `tasks`

@@ -103,11 +103,14 @@ Avoid redundancy across files, but do not sacrifice depth for brevity.
 ```
 docs-writer (.artifacts/docs/) --> project-index (overview) consumes as context source
 spec-driven (plan phase)       --> may add discoveries to .agents/codebase/
+spec-driven (design/implement) --> owns .agents/knowledge.md (accumulates decisions)
 project-index (summary)        --> preserves spec-driven additions when re-running
+project-index                  --> reads .agents/knowledge.md but never writes it
 ```
 
 - **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, epics, and issues. When found, uses them as primary context for generating project.md.
 - **spec-driven**: Summary preserves discoveries added during planning. More specific context (from feature planning) takes precedence over general analysis.
+- **knowledge.md**: Owned by spec-driven. Contains cross-feature decisions, gotchas, and patterns not derivable from code. project-index reads it for context when generating docs but never overwrites or regenerates it. When re-running summary, preserve knowledge.md as-is.
 
 ## Guidelines
 

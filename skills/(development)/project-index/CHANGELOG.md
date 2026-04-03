@@ -6,6 +6,13 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-03
+
+### Added
+
+- Documentation for `.agents/knowledge.md` ownership by spec-driven
+- Integration note: project-index reads but never writes knowledge.md
+
 ## 2026-03-21
 
 ### Added

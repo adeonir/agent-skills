@@ -23,8 +23,9 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
    Use `templates/session.md` as the structural base with these overrides:
 
    - **Frontmatter**: use `type: transcription` instead of `type: session`.
+     Add `date: YYYY-MM-DD` with the transcription date.
      Tags are derived from the transcription content
-   - **Title (H1)**: `YYYY-MM-DD -- Description` (same as session template)
+   - **Title (H1)**: `Description` (no date prefix)
    - **Body**: paste the transcription content verbatim after the H1. Do not
      add a `## Summary` or any other heading before the transcription content
    - **Observations**: `#category content` entries derived from the
@@ -41,18 +42,18 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
    If not, default to `Meetings/` at the vault root.
 
 5. **Generate filename**
-   `YYYY-MM-DD -- Description.md` where Description is a short title
-   derived from the content (Title Case, sanitized).
+   `Description.md` where Description is a short title derived from the
+   content (Title Case, sanitized). No date prefix in the filename.
 
 6. **Check if exists**
    ```
    search_notes query="Description" path="{destination}/"
    ```
-   If a note with the same date and topic exists, ask to append or create new.
+   If a note with the same topic exists, ask to append or create new.
 
 7. **Write note**
    ```
-   write_note path="{destination}/YYYY-MM-DD -- Description.md" content="..." frontmatter={...}
+   write_note path="{destination}/Description.md" content="..." frontmatter={...}
    ```
 
 ## Guidelines

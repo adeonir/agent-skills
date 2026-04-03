@@ -6,6 +6,21 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-03
+
+### Added
+
+- Phase Transitions section with context window discipline and session dump pattern
+- Sub-agent dispatch guidance for research and implementation phases
+- PRD-as-input triggers for better discoverability of `@file.md` entry point
+- Project knowledge artifact `.agents/knowledge.md` for cross-feature decisions and gotchas
+- Clean window notes in design, implement, and research references
+
+### Changed
+
+- Design reference renumbered steps after adding knowledge loading step
+- Project structure diagram updated to include knowledge.md
+
 ## 2026-03-30
 
 ### Changed

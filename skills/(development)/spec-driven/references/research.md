@@ -6,6 +6,10 @@ Research technologies and cache findings for reuse across features.
 
 When researching technologies referenced in a feature design.
 
+Research can run in its own context window or be dispatched to a sub-agent.
+Output is self-contained in `.artifacts/research/{topic}.md` -- the artifact
+is the handoff mechanism. See SKILL.md Phase Transitions.
+
 ## Tools
 
 Use available documentation lookup and web search tools to research technologies.

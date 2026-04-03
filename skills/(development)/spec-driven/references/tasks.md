@@ -68,7 +68,10 @@ Before writing tasks, create an ASCII diagram showing the execution flow:
 - Parallel tasks as branches (`├-->`, `└-->`)
 - Convergence points where branches merge
 
-This gives an overview of parallelism and critical path before the detailed breakdown.
+This gives an overview of parallelism and critical path before the detailed
+breakdown. The diagram also serves as a sub-agent dispatch map -- parallel
+branches identify tasks that can be delegated to independent sub-agents
+during implementation.
 
 ### Step 6: Generate tasks.md
 
