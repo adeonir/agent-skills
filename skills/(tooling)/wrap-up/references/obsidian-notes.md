@@ -29,14 +29,16 @@ separator and date header).
 
 #### Compose content
 
-Use session-notes skill (MCPVault MCP) to create the note.
+Invoke the **session-notes skill** (via Skill tool) to create
+the note. Do not call Obsidian MCP tools directly -- the skill
+enforces format conventions, frontmatter, and structure.
 
 Rules:
 - Omit empty sections
 - Past tense, natural language -- outcomes and decisions, not steps taken
 - No git metadata (branches, commits, PRs) or file lists
 - Observations use `#hashtags` (Obsidian format)
-- Use session-notes skill (MCPVault MCP) for write/patch
+- Invoke session-notes skill (via Skill tool) for write/patch
 
 ### 2. Create decision notes (conditional)
 
@@ -56,7 +58,9 @@ If found, update with `patch_note`.
 
 #### Compose content
 
-Use session-notes skill (MCPVault MCP) to create the note.
+Invoke the **session-notes skill** (via Skill tool) to create
+the note. Do not call Obsidian MCP tools directly -- the skill
+enforces format conventions, frontmatter, and structure.
 Mirror the BM decision note content adapted to Obsidian format.
 
 Rules:
@@ -72,7 +76,9 @@ Always `Daily/YYYY-MM-DD.md`.
 
 #### If note does not exist
 
-Use session-notes skill (MCPVault MCP) to create the note.
+Invoke the **session-notes skill** (via Skill tool) to create
+the note. Do not call Obsidian MCP tools directly -- the skill
+enforces format conventions, frontmatter, and structure.
 
 #### If note already exists
 
@@ -94,13 +100,13 @@ Rules:
   consolidation -- capture outcomes and decisions, not steps taken
 - Do not duplicate detail from the session note -- keep it summary-level
 - Omit empty sections
-- Use session-notes skill (MCPVault MCP) for write/patch
+- Invoke session-notes skill (via Skill tool) for write/patch
 
 ## Guidelines
 
 **DO:**
 - Search before creating to avoid duplicates
-- Use session-notes skill for all Obsidian writes
+- Invoke session-notes skill (via Skill tool) for all Obsidian writes -- never call Obsidian MCP tools directly
 - Keep daily note as outcomes and decisions, not detailed log
 - Read existing daily note before patching to consolidate content
 - Link session note from daily note Relations

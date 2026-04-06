@@ -34,8 +34,10 @@ If no session note exists, create one in step 3.
 
 ### 3. Create session note
 
-Use `write_note` following the memory-notes skill format (no
-template in wrap-up -- the example below is format guidance):
+Invoke the **memory-notes skill** (via Skill tool) to create the
+note. Do not call `write_note` MCP tool directly -- the skill
+enforces format conventions, tags, and structure. The example
+below is format guidance for the skill input:
 
 The body context is free-form markdown between the heading and
 the Observations section. Write substantively -- background,
@@ -72,7 +74,8 @@ Rules:
 
 ### 4. Create debrief note
 
-Always create a debrief. Use `write_note` with extended format:
+Always create a debrief. Invoke the **memory-notes skill** (via
+Skill tool) -- do not call `write_note` MCP tool directly:
 
 ```markdown
 # YYYY-MM-DD — What was learned/decided (not the session title)
@@ -178,7 +181,8 @@ Rules:
 
 **DO:**
 - Search before creating to avoid duplicates
-- Use BM skills (write_note, search_notes, edit_note)
+- Invoke memory-notes skill (via Skill tool) for all BM writes
+- Use search_notes and edit_note MCP tools for search and updates
 - Link debrief to session note with `expands` relation
 - Be detailed in debrief -- this is the deep knowledge record
 - Update existing decision notes when the theme already exists

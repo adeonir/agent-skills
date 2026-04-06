@@ -6,6 +6,15 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-06
+
+### Fixed
+
+- Clarified that BM writes must invoke memory-notes skill (via Skill tool), not call write_note MCP directly
+- Clarified that Obsidian writes must invoke session-notes skill (via Skill tool), not call Obsidian MCP directly
+- Added top-level guideline in SKILL.md enforcing skill invocation over direct MCP calls
+- Updated cross-references to specify "invoke via Skill tool, not MCP"
+
 ## 2026-04-01
 
 ### Fixed

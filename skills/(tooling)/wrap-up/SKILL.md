@@ -47,13 +47,14 @@ Notes:
 ```
 mapping.md -------> bm-notes.md      (provides BM project and prefix)
 mapping.md -------> obsidian-notes.md (provides Obsidian folder)
-bm-notes.md -----> memory-notes      (uses BM skill for write_note)
-obsidian-notes.md -> session-notes     (uses Obsidian skill for write/patch)
+bm-notes.md -----> memory-notes      (invoke via Skill tool, not MCP)
+obsidian-notes.md -> session-notes     (invoke via Skill tool, not MCP)
 ```
 
 ## Guidelines
 
 **DO:**
+- Invoke memory-notes and session-notes skills (via Skill tool) for writes -- never call BM or Obsidian MCP tools directly
 - Execute all steps in order without confirmation
 - Skip auto-memory and BM when mapping returns `--` for BM project
 - Skip Obsidian session note when mapping returns `--` for Obsidian session
