@@ -20,7 +20,7 @@ The first segment after `~/Developer/` is the category. The second segment
 is the project.
 
 Examples:
-- `~/Developer/work/jaya/src/` -> category: `work`, project: `jaya`
+- `~/Developer/jobs/jaya/src/` -> category: `jobs`, project: `jaya`
 - `~/Developer/ventures/pensefy/apps/webapp/` -> category: `ventures`, project: `pensefy`
 - `~/Developer/projects/my-skills/` -> category: `projects`, project: `my-skills`
 
@@ -30,15 +30,15 @@ rather than an actual project, ask the user for the project name and category.
 
 ## Mapping Table
 
-| Category  | BM Project | BM Prefix  | Obsidian Session |
-|-----------|-----------|------------|-------------------------|
-| work      | work      | jobs/      | Work/                   |
-| freelance | work      | freelance/ | Freelance/              |
-| ventures  | ventures  | products/  | Ventures/               |
-| personal  | main      | personal/  | Personal/               |
-| projects  | main      | projects/  | Projects/               |
-| learning  | --        | --         | Learning/               |
-| sandbox   | --        | --         | --                      |
+| Category   | BM Project | BM Prefix    | Obsidian Session |
+|------------|-----------|--------------|-------------------------|
+| jobs       | main      | jobs/        | Jobs/                   |
+| freelances | main      | freelances/  | Freelances/             |
+| ventures   | main      | ventures/    | Ventures/               |
+| personals  | main      | personals/   | Personals/              |
+| projects   | main      | projects/    | Projects/               |
+| learning   | --        | --           | Learning/               |
+| sandbox    | --        | --           | --                      |
 
 Daily note (`Daily/YYYY-MM-DD.md`) always runs, regardless of mapping values.
 
@@ -46,9 +46,9 @@ Daily note (`Daily/YYYY-MM-DD.md`) always runs, regardless of mapping values.
 
 Given category `ventures` and project `pensefy`:
 
-- **BM session**: `products/pensefy/sessions/YYYY-MM-DD — Description.md`
-- **BM debrief**: `products/pensefy/debriefs/YYYY-MM-DD — Description.md`
-- **BM decision**: `products/pensefy/decisions/Title — Theme.md`
+- **BM session**: `ventures/pensefy/sessions/YYYY-MM-DD — Description.md`
+- **BM debrief**: `ventures/pensefy/debriefs/YYYY-MM-DD — Description.md`
+- **BM decision**: `ventures/pensefy/decisions/Title — Theme.md`
 - **Obsidian session**: `Ventures/Pensefy/Sessions/YYYY-MM-DD — Description.md`
 - **Obsidian decision**: `Ventures/Pensefy/Decisions/Title — Theme.md`
 - **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)

@@ -46,7 +46,7 @@ close session
 ## Output
 
 - Auto-memory files in `.claude/projects/.../memory/`
-- BM notes in the resolved project (`main`, `ventures`, or `work`)
+- BM notes in the `main` project (prefixed by category)
 - Obsidian session note in `{Vault}/{Folder}/{Project}/`
 - Obsidian daily note in `{Vault}/Daily/`
 

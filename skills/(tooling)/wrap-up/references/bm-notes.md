@@ -13,11 +13,11 @@ Create session, debrief, and decision notes in Basic Memory.
 
 ### 1. Determine paths
 
-Using mapping output:
+Using mapping output (all notes go to BM project `main`):
 - Session directory: `{bm_prefix}{project}/sessions/`
 - Debrief directory: `{bm_prefix}{project}/debriefs/`
 - Decision directory: `{bm_prefix}{project}/decisions/`
-- BM project: from mapping table
+- BM project: always `main`
 
 ### 2. Check for existing session note
 
@@ -187,6 +187,8 @@ Rules:
 - Be detailed in debrief -- this is the deep knowledge record
 - Update existing decision notes when the theme already exists
 - Create decision notes for any format, convention, or reusable pattern -- if another agent may need this information, it must exist as its own reference
+- Link to entities in `entities/` when referencing technologies or tools (e.g., `uses [[Cloudflare]]`)
+- Create new entity notes for technologies that appear in 2+ decision/session notes
 
 **DON'T:**
 - Use #hashtags in observations (BM uses [brackets])

@@ -6,6 +6,15 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-08
+
+### Changed
+
+- Renamed categories to match directory names: `work` -> `jobs`, `freelance` -> `freelances`, `personal` -> `personals`
+- Unified all BM projects to `main` (removed `work` and `ventures` projects)
+- BM prefix now matches category name directly (`ventures/` instead of `products/`)
+- Added entity-linking guidelines to bm-notes.md (link to `entities/`, create entities for recurring technologies)
+
 ## 2026-04-06
 
 ### Fixed
