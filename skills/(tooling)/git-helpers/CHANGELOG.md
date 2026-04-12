@@ -6,6 +6,13 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-12
+
+### Changed
+
+- Finish branch: never use default GitHub merge message; always pass `--subject` citing the PR ID
+- Commit body must explain *why*, not restate the diff; added anti-example of changelog-style body
+
 ## 2026-03-21
 
 ### Added

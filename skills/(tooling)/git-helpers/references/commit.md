@@ -127,6 +127,14 @@ Most commits need only the subject line. A body is the exception, not the
 rule. Only add a body when the subject line alone cannot explain a complex
 or breaking change.
 
+**The body is not a changelog.** Do not restate what the diff already shows.
+If a bullet could be inferred by reading the diff, omit it. The body exists
+to capture what the diff cannot express: motivation, trade-offs, decisions,
+and impact on the user or system.
+
+Before adding a body, ask: "Does this explain *why*, or just re-describe *what*?"
+If it's the latter, drop it and keep only the subject line.
+
 When included:
 
 - 1 to 5 bullet points maximum
@@ -163,6 +171,21 @@ feat: Added authentication and updated src/auth.ts
 Updated lodash to 4.17.21 for security.
 Co-Authored-By: AI Assistant
 ```
+
+Changelog-style body that restates the diff instead of adding context:
+
+```
+ci: consolidate workflows
+
+- replace four workflow files with one
+- add needs to chain jobs
+- remove old lint.yml, test.yml, build.yml, typecheck.yml
+- update deploy.yml to chain smoke
+```
+
+Every bullet is visible in the diff. Prefer the subject line alone, or
+rewrite the body to explain *why* (e.g., "fail-fast ordering" or
+"reduce parallel runner cost").
 
 ## Guidelines
 

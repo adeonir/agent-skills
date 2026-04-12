@@ -89,9 +89,15 @@ Ask user which merge method to use:
 | Squash | `gh pr merge --squash` | Single commit on base |
 | Rebase | `gh pr merge --rebase` | Replays commits on base (linear) |
 
+Never use the default GitHub merge message (e.g. `Merge pull request #19 from adeonir/chore/foundation`). Always pass a custom subject that cites the PR ID.
+
+Subject format: `{type}: {description} (#{pr-number})` -- follows conventional commit style from [commit.md](commit.md), with PR ID appended.
+
 ```bash
-gh pr merge {pr-number} --{method}
+gh pr merge {pr-number} --{method} --subject "{type}: {description} (#{pr-number})"
 ```
+
+For `--squash` and `--merge`, also pass `--body` with contextual bullets when relevant. For `--rebase`, no subject/body is needed (original commits are replayed).
 
 **If no PR (solo project, merge direct):**
 
@@ -127,6 +133,7 @@ Confirm: "Branch `{branch}` merged into `{base}` and deleted."
 - Delete branch before merge is confirmed
 - Merge without checking if branch is up to date
 - Skip cleanup -- stale branches accumulate
+- Use the default `Merge pull request #N from {branch}` message -- always pass `--subject` citing the PR ID
 
 ## Error Handling
 
