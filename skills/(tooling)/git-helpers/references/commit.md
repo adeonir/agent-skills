@@ -107,18 +107,27 @@ git status
 
 1. **Use imperative mood**: "add", "fix", "implement" (not "added", "fixes")
 2. **Be concise**: First line under 72 characters
-3. **Focus on WHAT**: Describe the change and the observable behavior from the
+3. **Human readable**: Write the subject so a teammate understands it without
+   opening the diff. Prefer concrete nouns and verbs (the actual things being
+   changed) over abstract framings ("pattern", "approach", "behavior",
+   "handling"). Both styles below are acceptable, but the second reads more
+   naturally because it names the things that moved:
+   - `refactor: make db and auth per-request for d1 binding`
+   - `refactor: swap client and adapter for d1 pattern`
+   Avoid vague verbs like "improve", "update", "tweak", "rework" unless
+   paired with a concrete object.
+4. **Focus on WHAT**: Describe the change and the observable behavior from the
    user's perspective
-4. **Follow project conventions**: Check AGENTS.md or CLAUDE.md for explicit
+5. **Follow project conventions**: Check AGENTS.md or CLAUDE.md for explicit
    commit rules first. Only fall back to `git log --oneline -10 --no-merges`
    if no rules are documented. When analyzing the log, distinguish between
    regular commits and PR/merge commits, as they may follow different
    conventions. Never use scope in regular commits. Scope is only allowed in
    PR titles
-5. **No file names**: Don't mention specific files in the message
-6. **No versions**: Don't mention package versions
-7. **No attribution**: Never add Co-Authored-By or similar lines
-8. **No future references**: Don't mention upcoming work or architectural
+6. **No file names**: Don't mention specific files in the message
+7. **No versions**: Don't mention package versions
+8. **No attribution**: Never add Co-Authored-By or similar lines
+9. **No future references**: Don't mention upcoming work or architectural
    reasoning
 
 ## Body Guidelines
@@ -133,7 +142,15 @@ to capture what the diff cannot express: motivation, trade-offs, decisions,
 and impact on the user or system.
 
 Before adding a body, ask: "Does this explain *why*, or just re-describe *what*?"
-If it's the latter, drop it and keep only the subject line.
+If it's the latter, **first try to rewrite it** to capture motivation,
+trade-offs, or impact. Only drop the body if no such context exists.
+
+When the user asks to reevaluate or fix a changelog-style body, do not
+silently delete it. Attempt a rewrite first using the conversation context
+(why the change was needed, what it unblocks, what alternative was rejected).
+If after the rewrite there is still no real *why* to capture, then drop the
+body and keep only the subject — and tell the user that's what you did and
+why, so they can supply context if you missed it.
 
 When included:
 
@@ -202,6 +219,10 @@ rewrite the body to explain *why* (e.g., "fail-fast ordering" or
 - Add attribution lines or Co-Authored-By
 - Skip the preview step
 - Base the message on conversation context instead of the diff
+- Use abstract framings ("pattern", "approach", "behavior") when concrete
+  nouns describe the change better
+- Delete the body silently when asked to reevaluate it — attempt a rewrite
+  for *why* first, and announce the drop if no real context exists
 
 ## Error Handling
 
