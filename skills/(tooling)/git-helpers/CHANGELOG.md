@@ -10,7 +10,7 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Subject must be human readable: prefer concrete nouns and verbs over abstract framings ("pattern", "behavior")
+- Subject must be human readable: prioritize descriptions that tell the story of the change over abstract technical effect; prefer concrete nouns and verbs over framings like "pattern" or "behavior"
 - Reevaluating a changelog-style body must attempt a *why* rewrite first; only drop the body when no real context exists, and announce the drop
 
 ## 2026-04-12

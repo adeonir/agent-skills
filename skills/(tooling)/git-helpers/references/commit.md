@@ -108,10 +108,12 @@ git status
 1. **Use imperative mood**: "add", "fix", "implement" (not "added", "fixes")
 2. **Be concise**: First line under 72 characters
 3. **Human readable**: Write the subject so a teammate understands it without
-   opening the diff. Prefer concrete nouns and verbs (the actual things being
-   changed) over abstract framings ("pattern", "approach", "behavior",
-   "handling"). Both styles below are acceptable, but the second reads more
-   naturally because it names the things that moved:
+   opening the diff. Prioritize descriptions that tell the story of the
+   change — what actually moved and why it matters — over abstract technical
+   effect. Prefer concrete nouns and verbs (the actual things being changed)
+   over abstract framings ("pattern", "approach", "behavior", "handling").
+   The first reads like a story; the second reads like a release-note
+   abstraction:
    - `refactor: make db and auth per-request for d1 binding`
    - `refactor: swap client and adapter for d1 pattern`
    Avoid vague verbs like "improve", "update", "tweak", "rework" unless
