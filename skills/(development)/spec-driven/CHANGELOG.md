@@ -10,6 +10,9 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
+- Quality Gates section in quick-task template (detected commands)
+- Detect Quality Gates step in quick-mode (reads package.json before task file)
+- Explicit gate command block and fix loop in quick-mode (parity with implement)
 - `to-review` status between `in-progress` and `done`
 - Audit reference for Goals and Success Criteria validation (transitions `to-review` to `done`)
 - AC checkbox sync in verify Step 8 (marks on pass, reverts on regression)

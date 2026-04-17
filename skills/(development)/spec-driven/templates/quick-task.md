@@ -18,3 +18,11 @@ created: {{YYYY-MM-DD}}
 ## Expected Outcome
 
 {{What should be different after the change}}
+
+## Quality Gates
+
+Run after the change, before marking done:
+
+- {{lint command}}
+- {{typecheck command}}
+- {{test command}}

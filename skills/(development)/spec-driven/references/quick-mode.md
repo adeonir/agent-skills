@@ -39,7 +39,17 @@ Create directory:
 mkdir -p .artifacts/quick/{NNN}-{slug}
 ```
 
-### Step 3: Create Task File
+### Step 3: Detect Quality Gates
+
+Read `package.json` (or equivalent for the stack):
+- Lint script
+- Typecheck script
+- Test script
+
+Record the actual commands for this project -- they go into the task file and
+run in Step 6. If a gate doesn't exist, write `n/a` instead of inventing one.
+
+### Step 4: Create Task File
 
 **LOAD ORDER:** Load this template before reading any existing quick task in `.artifacts/quick/`. Existing tasks may be stale -- template wins on structure.
 
@@ -49,9 +59,10 @@ Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Description of what needs to change
 - Files to modify (if known)
 - Expected outcome
+- Quality Gates filled with commands detected in Step 3
 - Current git branch (or `main`) in frontmatter
 
-### Step 4: Load Patterns
+### Step 5: Load Patterns
 
 Even small changes must follow project patterns.
 
@@ -59,23 +70,37 @@ Even small changes must follow project patterns.
   Project Abstractions and Custom Hooks -- use these instead of primitives
 - If not: follow patterns already present in the files being modified
 
-### Step 5: Implement
+### Step 6: Implement
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
 
 1. Read relevant files
-2. Make the change -- match the patterns loaded in Step 4
-3. Run quality gates (lint, typecheck, tests if available)
-4. Fix any issues
+2. Make the change -- match the patterns loaded in Step 5
 
-### Step 6: Verify
+### Step 7: Run Quality Gates
+
+Run the gates recorded in the task file, in order, using `--fix` flags when
+available:
+
+```bash
+{lint command} --fix
+{typecheck command}
+{test command}
+```
+
+Fix errors before proceeding. If the same gate fails 3 times, stop and ask
+the user how to proceed -- never loop indefinitely.
+
+Skip gates marked `n/a` in the task file.
+
+### Step 8: Verify
 
 Quick verification checklist:
 - [ ] Change works as described
 - [ ] No regressions in affected files
 - [ ] Quality gates pass
 
-### Step 7: Queue Discoveries (lightweight)
+### Step 9: Queue Discoveries (lightweight)
 
 If you found a pattern, convention, or gotcha worth persisting, append to `.agents/knowledge.md`:
 
@@ -88,11 +113,11 @@ Never write to `.agents/codebase/*.md` -- those are owned by project-index.
 
 No prompt to integrate -- the next design or implement flow will surface queued items.
 
-### Step 8: Update Task File
+### Step 10: Update Task File
 
 Set `status: done` in `task.md` frontmatter.
 
-### Step 9: Generate Summary
+### Step 11: Generate Summary
 
 **USE TEMPLATE:** `templates/quick-summary.md`
 
@@ -102,7 +127,7 @@ Create `.artifacts/quick/{NNN}-{slug}/summary.md` with:
 - Patterns discovered (if any)
 - Side effects or follow-up needed
 
-### Step 10: Suggest Commit
+### Step 12: Suggest Commit
 
 Suggest a commit message following git-helpers conventions:
 - Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
