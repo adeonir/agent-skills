@@ -41,6 +41,8 @@ mkdir -p .artifacts/quick/{NNN}-{slug}
 
 ### Step 3: Create Task File
 
+**LOAD ORDER:** Load this template before reading any existing quick task in `.artifacts/quick/`. Existing tasks may be stale -- template wins on structure.
+
 **USE TEMPLATE:** `templates/quick-task.md`
 
 Create `.artifacts/quick/{NNN}-{slug}/task.md` with:

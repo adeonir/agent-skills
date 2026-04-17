@@ -6,6 +6,25 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-16
+
+### Added
+
+- Artifact Structure Authority section in SKILL.md establishing `templates/` as canonical source of truth
+- LOAD ORDER notes in creation references to prevent pattern-matching on stale artifacts
+- Member Enumeration phase in codebase-exploration requiring exhaustive member listing with file:line
+- Touched Types section in exploration template for structured member and absence-claim capture
+- Exploration Depth Gate in design blocking Data Model until member enumeration is complete
+- Currently Exposed Fields subsection in design template with self-auditing Gap column
+- Granularity rule for Requirements Traceability (N-field ACs expand to N rows)
+- Data Model closing checklist gating AC-field coverage, source anchors, and absence-claim anchors
+- DO/DON'T rules against sampling touched types and unanchored absence claims
+
+### Changed
+
+- Data Model step requires enumerated members cited to file:line (not loose "attributes"/"shapes")
+- Requirements Traceability bullet reflects per-field granularity
+
 ## 2026-04-03
 
 ### Added

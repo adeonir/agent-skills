@@ -77,6 +77,19 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
+### Step 5a: Exploration Depth Gate
+
+Before proceeding to Step 9 (Data Model), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
+
+**Exit criterion (all must hold):**
+
+- Every touched type named in the spec or data flow has at least one row in the enumeration table
+- Every row cites a real `file:line`
+- Every absence claim in the Absence Claims table has a `file:line` anchor
+- No row has a blank Member cell or TBD `file:line`
+
+If any criterion fails, return to [codebase-exploration.md](codebase-exploration.md) Phase 4 before continuing.
+
 ### Step 6: Check Concerns
 
 If `.agents/codebase/concerns.md` exists, read it before designing.
@@ -132,13 +145,24 @@ Check if the spec includes a `designs/` folder with visual references:
 
 ### Step 9: Data Model Definition
 
-Define the data model before component design:
+Define the data model before component design. Every statement about an existing type must cite `file:line` from the exploration's Member Enumeration.
 
-- **Entities**: Key domain objects and their attributes
-- **Relationships**: How entities relate (one-to-many, many-to-many)
-- **API contracts**: Request/response shapes for new endpoints
+- **Entities**: Every member the feature reads or writes, cited to `file:line`. Not "attributes" in the abstract -- the actual exposed members in source
+- **Relationships**: How entities relate (one-to-many, many-to-many), with `file:line` for each referenced foreign key or join
+- **Contracts**: Every member of every request, response, or projection the feature touches, cited to `file:line`. Not "shapes" -- enumerated members
+- **Currently Exposed Fields**: If any acceptance criterion names specific output or display fields, fill the `Currently Exposed Fields` table in the design template (one row per AC-named field)
+
+**Closing checklist -- all must pass before Step 10:**
+
+- [ ] Every field named in any acceptance criterion has a row in `Currently Exposed Fields`
+- [ ] Every Source cell cites a real `file:line`
+- [ ] No Gap cell is blank (use "none" explicitly if no gap)
+- [ ] Every "no change required" / "already returns" / "contract unchanged" claim in this section cites a `file:line` from the exploration's Member Enumeration
+- [ ] Every type listed under Entities or Contracts matches a row in the exploration's Member Enumeration
 
 ### Step 10: Generate design.md
+
+**LOAD ORDER:** Load this template before reading any existing design in `.artifacts/features/`. Existing designs may be stale -- template wins on structure.
 
 **USE TEMPLATE:** `templates/design.md`
 
@@ -146,11 +170,11 @@ Generate the design following the template structure:
 - Scope (what is in scope and out of scope)
 - Research Summary (if applicable)
 - Patterns & Reuse (conventions to follow + existing code to reuse)
-- Data Model (Entities, Relationships, API Contracts)
+- Data Model (Entities, Relationships, API Contracts, Currently Exposed Fields when ACs enumerate fields)
 - Decisions (architecture approach + secondary decisions)
 - Component Design (component, file, action, responsibility)
 - Data Flow (use mermaid for complex flows)
-- Requirements Traceability (AC -> Component -> File)
+- Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
 - Test Strategy
 - Considerations (Error Handling, Security, Concerns mitigation)
 - Open Questions
@@ -178,11 +202,17 @@ Inform user:
 - Research unfamiliar technologies before committing to them
 - Reference existing codebase patterns when available
 - Follow Knowledge Verification Chain for all technical decisions
+- Enumerate every member of every type the feature reads or writes, cited to file:line
+- Cite file:line from the exploration's Member Enumeration for every claim about an existing type
+- Expand multi-field acceptance criteria into one traceability row per field
 
 **DON'T:**
 - Start designing with unresolved open questions in the spec
 - Fabricate APIs or patterns -- verify first
 - Over-architect beyond the feature scope
+- Sample touched types -- enumerate them
+- Claim "already returns X" / "no additional join" / "contract unchanged" without a file:line anchor
+- Collapse multi-field ACs into a single traceability row
 
 ## Error Handling
 

@@ -45,6 +45,17 @@ Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip 
 - Multiple feature specs
 - Multiple codebase docs
 
+## Artifact Structure Authority
+
+Templates in `templates/` are the canonical source of truth for every artifact's structure. Existing artifacts in `.artifacts/` may be stale, predate skill updates, or have been authored before current conventions -- they are context, NEVER structural reference.
+
+**Load order when creating any artifact:**
+
+1. Load the relevant template from `templates/` first
+2. Only then read existing artifacts (`spec.md`, `design.md`, `tasks.md`, etc.) for domain context, prior decisions, or cross-feature continuity
+
+If an existing artifact's structure diverges from the template, follow the template. Do not propagate legacy structure.
+
 ## Triggers
 
 ### Feature-Level (auto-sized)

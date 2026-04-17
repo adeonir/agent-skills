@@ -297,6 +297,8 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 
 ### Step 13: Generate spec.md
 
+**LOAD ORDER:** Load this template before reading any existing spec in `.artifacts/features/`. Existing specs may be stale -- template wins on structure.
+
 **USE TEMPLATE:** `templates/spec.md`
 
 Generate the spec following the template structure:

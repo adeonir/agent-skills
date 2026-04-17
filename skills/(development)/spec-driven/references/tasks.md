@@ -75,6 +75,8 @@ during implementation.
 
 ### Step 6: Generate tasks.md
 
+**LOAD ORDER:** Load this template before reading any existing tasks.md in `.artifacts/features/`. Existing task breakdowns may be stale -- template wins on structure.
+
 **USE TEMPLATE:** `templates/tasks.md`
 
 Generate tasks following the template structure:

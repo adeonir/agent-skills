@@ -53,6 +53,14 @@ created: {{YYYY-MM-DD}}
 |----------|--------|---------|----------|
 | {{path}} | {{verb}} | {{shape}} | {{shape}} |
 
+### Currently Exposed Fields
+
+Required when any acceptance criterion enumerates output, display, response, or persisted fields. One row per AC-named field.
+
+| AC ID | Field | Source (file:line) | Currently Exposed? | Gap? |
+|-------|-------|--------------------|--------------------|------|
+| {{AC-00N}} | {{fieldName}} | {{path:line or "none"}} | {{yes / no}} | {{none / must add / must map}} |
+
 ## Decisions
 
 | Decision | Rationale |
@@ -88,6 +96,8 @@ Key UI/UX patterns to implement:
 3. {{Output}}
 
 ## Requirements Traceability
+
+> **Granularity rule:** If an acceptance criterion enumerates N fields, expand it into N rows -- one per field, each with its own Source `file:line`. Coarse AC-level rows hide individual field gaps.
 
 | Requirement | Component | File | Status |
 |-------------|-----------|------|--------|

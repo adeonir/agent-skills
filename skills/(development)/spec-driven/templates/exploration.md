@@ -28,6 +28,22 @@ created: {{YYYY-MM-DD}}
 - **Layers**: {{list}}
 - **Key Abstractions**: {{wrappers used}}
 
+## Touched Types -- Member Enumeration
+
+Every entity, projection, contract, or type the feature reads or writes. All exposed members listed -- no sampling. Every "no change needed" claim anchored to `file:line`.
+
+| Type / Entity | Member | file:line | Notes (feature reads? writes? nullable?) |
+|---------------|--------|-----------|------------------------------------------|
+| {{EntityOrContract}} | {{memberName}} | {{path:line}} | {{notes}} |
+
+### Absence Claims
+
+Claims that an existing type already covers the feature's needs -- each must cite the member that backs the claim.
+
+| Claim | Anchor (file:line) |
+|-------|--------------------|
+| {{e.g. "response shape already exposes field X"}} | {{path:line}} |
+
 ## Conventions
 
 | Aspect | Project Uses | Avoid | Reference |

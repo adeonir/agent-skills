@@ -86,13 +86,31 @@ The agent discovers and uses whatever tools are available in the environment.
 
     Map architecture layers: Presentation, Business logic, Data access, External services.
 
-### Phase 4: Consolidation
+### Phase 4: Member Enumeration
 
-11. **Summarize Conventions**
+Before closing Architecture Analysis, list every entity, projection, contract, DTO, view model, or type the feature will read from or write to. For each one, enumerate every exposed member with a `file:line` anchor. Sampling is not allowed -- a type either has all its members listed or it is not yet explored.
+
+11. **Identify Touched Types**
+
+    From the feature requirements and the data flow traced in Phase 3, list every entity, projection, DTO, contract, view model, response shape, and persisted type the feature will consume or emit.
+
+12. **Enumerate Members Exhaustively**
+
+    For each touched type, open its definition and list every exposed member (field, property, method, or contract element) with `file:line`. If a member is itself a composite type the feature also touches, recurse.
+
+13. **Anchor Absence Claims**
+
+    For every claim of the form "already returns X", "no additional join needed", "signature unchanged", "contract already covers this", attach the `file:line` of the member that backs the claim. Unanchored absence claims are rejected.
+
+**Exit criterion:** No claim about an existing type's contents stands without (a) a full member list with `file:line` and (b) anchors on every absence assertion.
+
+### Phase 5: Consolidation
+
+14. **Summarize Conventions**
 
     Create comprehensive convention table with file:line references.
 
-12. **List Essential Files**
+15. **List Essential Files**
 
     Categorize as: Reference (patterns to follow), Modify (existing files to change), Dependencies (files to import).
 
@@ -119,8 +137,12 @@ After exploration, if `.agents/codebase/` exists, new findings are persisted bac
 - Cover naming, imports, error handling, types, testing
 - Follow the exploration template structure
 - Focus on patterns most relevant to the feature being built
+- Enumerate every exposed member of every type the feature touches -- cite file:line for each
+- Anchor every "no change" or "already exposes" claim to a file:line in the member list
 
 **DON'T:**
 - List files without reading their content
 - Omit file:line references for discovered patterns
 - Skip areas like error handling or testing conventions
+- Sample members of a touched type -- enumerate them exhaustively
+- Claim a type "already returns" or "already covers" something without citing file:line
