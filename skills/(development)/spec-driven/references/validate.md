@@ -5,13 +5,24 @@ User acceptance testing where the user manually verifies behavior. On-demand -- 
 ## When to Use
 
 - User explicitly requests UAT or manual testing
-- After implementation is complete and verify has passed
+- Feature is in `to-review` (implement finished) -- audit and validate can run in any order
 - Any scope -- not restricted to Complex
 
 ## When to Skip
 
 - User does not request it
 - Feature has no user-facing behavior (purely backend/infrastructure)
+
+## Relationship to Audit
+
+Validate is the human-observation layer. Audit ([audit.md](audit.md)) is the
+evidence-based layer.
+
+- Audit transitions status `to-review` -> `done`; validate does **not**
+- Validate may run before or after audit -- no enforced order
+- If UAT reproves a scenario, validate may revert any `[x]` (AC, Goal, or
+  Success Criterion) in spec.md -- after a revert, audit must be re-run
+  before the feature can move to `done`
 
 ## Workflow
 
@@ -51,11 +62,14 @@ Walk the user through each scenario:
 ### Step 5: Determine Outcome
 
 **If all pass:**
-- Confirm feature is validated
+- Confirm feature is validated by user observation
+- Suggest running `audit` (if not already run) to close status `to-review` -> `done`
 - Suggest commit if not already committed
 
 **If issues found:**
 - List what needs fixing with severity
+- If a previously-checked AC, Goal, or Success Criterion is reproved, revert
+  its `[x]` to `[ ]` in spec.md and tell the user audit must be re-run
 - Suggest specific areas to re-implement
 - User decides whether to fix now or defer
 
@@ -66,12 +80,14 @@ Walk the user through each scenario:
 - Focus on behavior, not code quality (verify handles that)
 - Prioritize P1 stories in test scenarios
 - Keep test steps concrete and actionable
+- Revert `[x]` to `[ ]` in spec.md when the user reproves a previously-checked item
 
 **DON'T:**
 - Run UAT automatically without user request
 - Report code style or pattern issues (that's verify's job)
 - Make UAT exhaustive for non-P1 stories
 - Block completion on minor P3 issues
+- Transition `status: done` -- that is audit.md's exclusive job
 
 ## Error Handling
 

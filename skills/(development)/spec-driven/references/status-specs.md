@@ -45,13 +45,21 @@ status of auth feature
 |----|---------|-------|--------|---------|
 | 002 | payments | complex | feat/payments | 2024-01-10 |
 
+### To Review
+| ID | Feature | Scope | Branch | Created |
+|----|---------|-------|--------|---------|
+| 004 | checkout | medium | feat/checkout | 2024-01-20 |
+
 ### Done
 | ID | Feature | Scope | Branch | Created |
 |----|---------|-------|--------|---------|
 | 001 | onboarding | medium | - | 2024-01-01 |
 
-Total: 3 features
+Total: 4 features
 ```
+
+Group order matches status flow: In Progress -> Ready -> To Review -> Done.
+Draft features appear before Ready when present.
 
 Also check `.artifacts/quick/` for quick mode tasks:
 
@@ -104,6 +112,16 @@ Remaining:
 ### Next Step
 Run `implement` to continue.
 ```
+
+Next-step rules by status:
+
+| Status | Next Step |
+|--------|-----------|
+| `draft` | Run `design` (or `implement` for Medium scope) |
+| `ready` | Run `implement` |
+| `in-progress` | Run `implement` to continue |
+| `to-review` | Run `audit` to validate Goals/Success Criteria (and optionally `validate` for UAT) |
+| `done` | Feature closed |
 
 ## Guidelines
 

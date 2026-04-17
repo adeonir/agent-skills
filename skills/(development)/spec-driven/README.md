@@ -21,7 +21,9 @@ flowchart LR
     D --> E[Tasks]
     E --> F
     F --> V[Verify]
-    V --> G[Done]
+    V --> R[To Review]
+    R --> AU[Audit]
+    AU --> G[Done]
 ```
 
 | Phase | Purpose | Required |
@@ -31,9 +33,10 @@ flowchart LR
 | **Design** | Technical architecture, codebase exploration, research | Large/Complex |
 | **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
 | **Implement** | Implement tasks with quality gates | Always |
-| **Verify** | Check code against design, patterns, and visual references | After every task/range |
-| **Validate** | Interactive UAT with manual testing | On-demand |
-| **Quick Mode** | Express lane for small fixes | Small scope |
+| **Verify** | Check code against design, patterns, visual references; mark AC `[x]` | After every task/range |
+| **Audit** | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done` | Before `done` (all scopes except Quick) |
+| **Validate** | Interactive UAT with manual testing; may reprove any `[x]` | On-demand |
+| **Quick Mode** | Express lane for small fixes (no audit) | Small scope |
 
 ### Auto-Sizing
 
@@ -71,6 +74,10 @@ create technical design
 create tasks
 implement
 verify implementation
+
+# Close the feature
+audit feature
+validate goals
 
 # Manual testing
 validate
@@ -154,7 +161,8 @@ Features track status in spec.md frontmatter:
 - **draft**: Created, may have open questions
 - **ready**: Spec complete, design done (or skipped for Medium)
 - **in-progress**: Execution started
-- **done**: Complete
+- **to-review**: Implementation complete, awaiting Goals/Success audit
+- **done**: Audit passed, feature closed
 
 ## Requirements
 
@@ -193,3 +201,6 @@ A: `.agents/baselines/{name}.md` -- they're reference context, not feature artif
 
 **Q: When should I use quick mode vs full pipeline?**
 A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config changes). The agent auto-detects scope and suggests the right mode.
+
+**Q: What's the difference between verify, audit, and validate?**
+A: Verify runs per task and checks code against design/patterns, marking AC `[x]` on pass. Audit runs once before `done` and validates Goals and Success Criteria against evidence (tests, metrics, observation), marking their `[x]` and transitioning the status. Validate is on-demand interactive UAT -- the user manually walks scenarios; it can reprove any `[x]` and force audit to re-run.

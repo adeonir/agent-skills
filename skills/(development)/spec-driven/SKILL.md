@@ -4,10 +4,11 @@ description: >-
   Specification-driven development that auto-sizes depth by complexity.
   Creates structured feature specs with traceability to requirements. Use when
   planning features, breaking work into tasks, implementing with verification,
-  tracking decisions across sessions, extracting specs from PRDs, or capturing
-  baselines of existing code. Triggers on "create feature", "specify feature",
-  "plan", "design feature", "tasks", "implement", "verify", "verify
-  implementation", "validate", "UAT", "quick fix", "quick task", "discuss
+  auditing goals before closing, tracking decisions across sessions, extracting
+  specs from PRDs, or capturing baselines of existing code. Triggers on
+  "create feature", "specify feature", "plan", "design feature", "tasks",
+  "implement", "verify", "verify implementation", "validate", "UAT", "audit",
+  "audit feature", "validate goals", "quick fix", "quick task", "discuss
   feature", "break this into tasks", "plan this feature", "show status",
   "capture baseline", "document module", "document existing code", "from PRD",
   "extract from document", "use this PRD", "here's the PRD".
@@ -20,11 +21,11 @@ Structured development workflow with adaptive depth. Right ceremony for the righ
 ## Workflow
 
 ```
-specify --> design* --> tasks* --> implement --> verify
+specify --> design* --> tasks* --> implement --> verify --> audit --> done
   ^______________________________________|  (verify after each task)
 ```
 
-Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip when scope is small enough. Verify runs after every task/range. Validate (UAT) is on-demand.
+Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip when scope is small enough. Verify runs after every task/range and marks AC checkboxes. Implement finishes at `to-review`; Audit validates Goals and Success Criteria, then transitions to `done`. Validate (UAT) is on-demand and can reprove any `[x]`.
 
 ## Context Loading Strategy
 
@@ -71,6 +72,7 @@ If an existing artifact's structure diverges from the template, follow the templ
 | Create tasks | [tasks.md](references/tasks.md) |
 | Implement task, execute task | [implement.md](references/implement.md) |
 | Verify implementation, check adherence, verify code | [verify.md](references/verify.md) |
+| Audit feature, validate goals, audit goals and success criteria | [audit.md](references/audit.md) |
 | Validate, UAT, manual testing, test manually | [validate.md](references/validate.md) |
 | Quick fix, quick task, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
 | Capture baseline, document module, document existing code | [baseline-capture.md](references/baseline-capture.md) |
@@ -111,7 +113,11 @@ tasks.md ----------> implement.md
 implement.md ------> coding-principles.md (loaded before coding)
 implement.md ------> verify.md (after every task/range)
 verify.md --------> deep-verify.md (code correctness analysis)
+verify.md --------> spec.md (marks AC [x] on pass, reverts on regression)
+implement.md ------> audit.md (after to-review, validates Goals/Success)
+audit.md ---------> spec.md (marks Goals/Success [x], transitions done)
 implement.md ------> validate.md (on-demand UAT, any scope)
+validate.md ------> audit.md (re-run required after UAT reproves any [x])
 implement.md ------> tasks.md (safety valve: >5 inline steps)
 project-index -----> baseline-capture.md (provides .agents/ context)
 baseline-capture.md -> specify.md (when hypothesis forms)
@@ -137,9 +143,10 @@ implement.md ------> project-index (prompts integrate feedback after Step 10)
 - **Design is skipped** when the change is straightforward (no architectural decisions, no new patterns)
 - **Tasks is skipped** when there are ≤3 obvious steps (they become implicit in Implement)
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
-- **Verify runs after every task/range** -- checks design adherence, pattern adherence, code correctness (tooling-aware deep analysis), and visual adherence (optional)
-- **Validate (UAT) is on-demand** -- user requests it when they want to manually test, any scope
-- **Quick mode** is the express lane -- for bug fixes, config changes, and small tweaks
+- **Verify runs after every task/range** -- checks design adherence, pattern adherence, code correctness (tooling-aware deep analysis), and visual adherence (optional); also marks AC `[x]` in spec.md on pass
+- **Audit runs before done** -- validates Goals and Success Criteria against evidence, marks their `[x]`, and transitions `to-review` -> `done`; mandatory for every `.artifacts/features/` feature (Medium/Large/Complex)
+- **Validate (UAT) is on-demand** -- user requests it when they want to manually test, any scope; may revert any `[x]` if user reproves
+- **Quick mode** is the express lane -- for bug fixes, config changes, and small tweaks (no audit needed)
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end
 
 **Safety valve:** Even when Tasks is skipped, Implement ALWAYS starts by listing atomic steps inline (see [implement.md](references/implement.md)). If that listing reveals >5 steps or complex dependencies, STOP and create a formal `tasks.md` -- the Tasks phase was wrongly skipped.
@@ -211,7 +218,7 @@ Step 5: Flag uncertain -> "I'm not certain about X -- here's my reasoning, but v
 
 **DO:**
 - Separate content by purpose: spec=WHAT (goals, stories, ACs), design=HOW, tasks=WHEN
-- Follow status flow: draft -> ready -> in-progress -> done
+- Follow status flow: draft -> ready -> in-progress -> to-review -> done
 - Use sequential Feature IDs (001, 002)
 - Reuse research cache across features (.artifacts/research/)
 - Consume `.agents/` for project context and codebase info (optional -- use if exists)

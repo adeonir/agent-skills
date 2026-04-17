@@ -8,22 +8,34 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-04-17
 
-### Changed
-
-- quick-task template adds `branch` to frontmatter and drops the redundant body-level Status section (status now lives only in frontmatter, matching spec.md)
-- quick-mode.md Step 3 instructs capturing current branch in frontmatter and Step 8 sets `status: done` in frontmatter instead of a body section
-- Entities table in design template reduced to index columns (Entity, Purpose) with explicit sub-blocks for member enumeration, removing the tension between table structure and Step 9's file:line requirement
-- design.md Step 7 codebase-feedback report is now mandatory -- always surface the count (including zero) so the `/project-index integrate feedback` handoff is never silently skipped
-- specify.md MUST NOT list expanded to cover code identifiers (`mode: 'create'`, `reason: 'validation_error'`, `discountType === 'fixed'`), component/hook/function names, and named libraries; the rule now applies explicitly to every spec section
-- spec-writing.md Baseline guidance tightened to forbid component/hook/function names alongside file paths
-- spec template Notes and Baseline placeholders rewritten to steer the model toward behavioral context only
-
 ### Added
 
-- DON'T rules in design.md forbidding `### Gotcha` subsections in Considerations (route to Decisions or `.agents/knowledge.md`) and forbidding prose/bullet substitution for the Entities table
-- Behavior vs Symbol section in spec-writing.md with leak/rewrite pairs (mode, reason, discountType, TanStack, ClientFormDrawer) so the model can calibrate against real anti-patterns
-- Notes section guidance in spec-writing.md so the free-form section no longer becomes a HOW dumping ground
-- Pre-write checklist in specify.md Step 13 gating spec finalization on Content Separation compliance across every section
+- `to-review` status between `in-progress` and `done`
+- Audit reference for Goals and Success Criteria validation (transitions `to-review` to `done`)
+- AC checkbox sync in verify Step 8 (marks on pass, reverts on regression)
+- Audit triggers in SKILL.md (`audit`, `audit feature`, `validate goals`)
+- Next-step table in status-specs.md for every status
+- DON'T rules in design against `### Gotcha` subsections and prose/bullet Entities table
+- Behavior vs Symbol section in spec-writing with leak/rewrite pairs
+- Notes section guidance in spec-writing
+- Pre-write checklist in specify Step 13 for Content Separation compliance
+
+### Changed
+
+- Implement Step 9 ends at `status: to-review` (audit owns `done`)
+- Final Verification in implement drops Goals/Success Criteria checks, adds AC checkbox sync
+- Validate clarifies relationship to audit (UAT never sets `done`, may revert any `[x]`)
+- Status workflow expanded to 5 statuses with verify/audit/validate rows in "Who Updates What"
+- `to-review` removed from Common Mistakes in status-workflow (now a real status)
+- Status listing adds a "To Review" group
+- Workflow diagram, Cross-References, and Auto-Sizing in SKILL.md include audit
+- Quick-task template adds `branch` to frontmatter, drops body-level Status section
+- Quick-mode Step 3 captures branch, Step 8 sets `status: done` in frontmatter
+- Entities table in design template reduced to index columns (Entity, Purpose) with member enumeration sub-blocks
+- Codebase-feedback report in design Step 7 is mandatory (always surfaces count, including zero)
+- MUST NOT list in specify covers code identifiers, component/hook/function names, and named libraries
+- Baseline guidance in spec-writing forbids component/hook/function names alongside file paths
+- Notes and Baseline placeholders in spec template rewritten for behavioral context only
 
 ## 2026-04-16
 

@@ -102,14 +102,40 @@ Compare:
 
 **If all checks pass:**
 - Report "Verification passed" with summary
+- Mark covered ACs as `[x]` in spec.md (see [Step 8](#step-8-sync-ac-checkboxes))
 - Continue to next task or mark done
 
 **If issues found:**
 - List findings with severity
+- If a previously-marked AC is now failing, revert its `[x]` to `[ ]` in spec.md
 - Fix issues immediately (verify --> fix --> verify loop)
 - Re-run only the failed checks after fix
 
-### Step 8: Loop Escape
+### Step 8: Sync AC Checkboxes
+
+After verification passes for a task, update spec.md acceptance criteria.
+
+**Which ACs to mark:**
+
+1. If `tasks.md` exists: read `## Requirements Coverage` table -- mark every
+   AC whose task list is fully verified (all listed tasks passed verify)
+2. If no `tasks.md` (Medium scope): map by user story containing the code
+   changed -- mark ACs inside that P1/P2/P3 story
+
+**How to mark:**
+
+Edit `spec.md` in place, flipping `- [ ]` to `- [x]` on the matching AC line.
+Never reorder, rename, or drop ACs. Preserve the `AC-xxx:` identifier.
+
+**Revert rule:**
+
+If a later verify run reopens a finding on an already-marked AC, flip it back
+to `- [ ]`. The checkbox always reflects current verification state, not
+historical pass.
+
+**Never touch Goals or Success Criteria here** -- those are audit.md's job.
+
+### Step 9: Loop Escape
 
 Track fix attempts per finding. If the same finding fails N times (default: 3):
 - Stop the loop
@@ -128,6 +154,7 @@ Never loop indefinitely.
 - Fix issues before moving to the next task
 - Report findings with severity (high/medium/low)
 - Skip visual check when no references exist
+- Sync AC checkboxes in spec.md after every pass (and revert on regression)
 
 **DON'T:**
 - Defer verification to the end of all tasks
@@ -136,6 +163,7 @@ Never loop indefinitely.
 - Assume visual references exist -- check first
 - Run visual verification without explicit references
 - Run deep-verify on config-only or docs-only changes
+- Mark Goals or Success Criteria checkboxes -- audit.md owns those
 
 ## Error Handling
 

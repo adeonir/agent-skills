@@ -176,7 +176,8 @@ If tasks.md exists:
 
 If all tasks done (or all inline steps done for Medium scope):
 - Run final verification (see [Final Verification](#final-verification))
-- Set `status: done`
+- Set `status: to-review`
+- Do NOT set `status: done` -- audit owns that transition
 
 ### Step 10: Queue Discoveries
 
@@ -204,9 +205,11 @@ Show:
 - Files modified
 - Quality gate results
 - Verification summary (per-task results)
+- AC checkbox sync summary (X of Y ACs marked `[x]` in spec.md)
 - Remaining tasks (if any)
 - Suggested commit message
-- For **Complex** scope with user-facing features: suggest running interactive UAT (see [validate.md](validate.md))
+- If feature moved to `to-review`: suggest running `audit` to validate Goals and Success Criteria before `done`
+- For user-facing features: suggest running interactive UAT (see [validate.md](validate.md)) alongside audit
 
 ## Edge Case Verification
 
@@ -225,19 +228,22 @@ Not every category applies to every task. Check only what's relevant to the code
 
 ## Final Verification
 
-When all tasks are complete, run a final pass before marking `done`:
+When all tasks are complete, run a final pass before setting `status: to-review`:
 
-- [ ] All acceptance criteria (AC-xxx) from spec.md are satisfied
 - [ ] All acceptance criteria (AC-xxx) are covered by tasks
+- [ ] All ACs marked `[x]` in spec.md match the per-task verify results
 - [ ] Quality gates pass on the full feature (not just per-task)
 - [ ] No TODO/FIXME comments left from this feature
 - [ ] Edge cases from spec.md are handled
 - [ ] Verify passed (design + pattern adherence)
 
-For features with user-facing behavior, suggest interactive UAT:
-- "Feature is implemented and verified. Want to run interactive UAT to walk through user scenarios?"
-- If yes, follow [validate.md](validate.md) for the UAT workflow
-- UAT is on-demand -- the user decides, any scope
+Goals and Success Criteria are NOT checked here -- they are audit.md's job.
+Do not mark their `[ ]` from this reference.
+
+After `status: to-review`, suggest next steps:
+- "Implementation complete. Run `audit` to validate Goals and Success Criteria and move to `done`."
+- For user-facing features: "Also consider running interactive UAT (see [validate.md](validate.md)) to confirm user-observable behavior."
+- Audit is mandatory for `done`. UAT is on-demand.
 
 ## Commit Suggestion
 
