@@ -10,6 +10,8 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- quick-task template adds `branch` to frontmatter and drops the redundant body-level Status section (status now lives only in frontmatter, matching spec.md)
+- quick-mode.md Step 3 instructs capturing current branch in frontmatter and Step 8 sets `status: done` in frontmatter instead of a body section
 - Entities table in design template reduced to index columns (Entity, Purpose) with explicit sub-blocks for member enumeration, removing the tension between table structure and Step 9's file:line requirement
 - design.md Step 7 codebase-feedback report is now mandatory -- always surface the count (including zero) so the `/project-index integrate feedback` handoff is never silently skipped
 - specify.md MUST NOT list expanded to cover code identifiers (`mode: 'create'`, `reason: 'validation_error'`, `discountType === 'fixed'`), component/hook/function names, and named libraries; the rule now applies explicitly to every spec section

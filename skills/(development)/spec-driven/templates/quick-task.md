@@ -1,6 +1,7 @@
 ---
 slug: {{slug}}
 status: pending
+branch: {{branch-name or main}}
 created: {{YYYY-MM-DD}}
 ---
 
@@ -17,7 +18,3 @@ created: {{YYYY-MM-DD}}
 ## Expected Outcome
 
 {{What should be different after the change}}
-
-## Status
-
-{{pending|done}}

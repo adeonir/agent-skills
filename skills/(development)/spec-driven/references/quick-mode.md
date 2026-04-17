@@ -49,6 +49,7 @@ Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Description of what needs to change
 - Files to modify (if known)
 - Expected outcome
+- Current git branch (or `main`) in frontmatter
 
 ### Step 4: Load Patterns
 
@@ -89,7 +90,7 @@ No prompt to integrate -- the next design or implement flow will surface queued 
 
 ### Step 8: Update Task File
 
-Mark task as done in `task.md`.
+Set `status: done` in `task.md` frontmatter.
 
 ### Step 9: Generate Summary
 
