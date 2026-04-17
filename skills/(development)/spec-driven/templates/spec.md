@@ -83,16 +83,16 @@ created: {{YYYY-MM-DD}}
 
 ## Notes
 
-{{additional context}}
+{{additional behavioral context -- evidence, stakeholders, deadlines; never technology choices, component names, or file paths}}
 
 {{#if brownfield}}
 ## Baseline
 
 ### Current Behavior
 
-- {{What system currently does}}
+- {{What users observe today -- no component names, no code identifiers}}
 
 ### Gaps / Limitations
 
-- {{What's missing or problematic}}
+- {{What's missing or problematic, described as user impact}}
 {{/if}}

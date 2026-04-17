@@ -39,9 +39,15 @@ created: {{YYYY-MM-DD}}
 
 ### Entities
 
-| Entity | Key Attributes | Purpose |
-|--------|---------------|---------|
-| {{name}} | {{attributes}} | {{role in feature}} |
+| Entity | Purpose |
+|--------|---------|
+| {{name}} | {{role in feature}} |
+
+For each entity, enumerate the members the feature reads or writes:
+
+#### {{Entity}}
+
+- `{{memberName}}` ({{type}}) -- {{path:line}}
 
 ### Relationships
 

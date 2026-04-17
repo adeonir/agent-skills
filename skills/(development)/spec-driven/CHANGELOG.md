@@ -6,6 +6,23 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-17
+
+### Changed
+
+- Entities table in design template reduced to index columns (Entity, Purpose) with explicit sub-blocks for member enumeration, removing the tension between table structure and Step 9's file:line requirement
+- design.md Step 7 codebase-feedback report is now mandatory -- always surface the count (including zero) so the `/project-index integrate feedback` handoff is never silently skipped
+- specify.md MUST NOT list expanded to cover code identifiers (`mode: 'create'`, `reason: 'validation_error'`, `discountType === 'fixed'`), component/hook/function names, and named libraries; the rule now applies explicitly to every spec section
+- spec-writing.md Baseline guidance tightened to forbid component/hook/function names alongside file paths
+- spec template Notes and Baseline placeholders rewritten to steer the model toward behavioral context only
+
+### Added
+
+- DON'T rules in design.md forbidding `### Gotcha` subsections in Considerations (route to Decisions or `.agents/knowledge.md`) and forbidding prose/bullet substitution for the Entities table
+- Behavior vs Symbol section in spec-writing.md with leak/rewrite pairs (mode, reason, discountType, TanStack, ClientFormDrawer) so the model can calibrate against real anti-patterns
+- Notes section guidance in spec-writing.md so the free-form section no longer becomes a HOW dumping ground
+- Pre-write checklist in specify.md Step 13 gating spec finalization on Content Separation compliance across every section
+
 ## 2026-04-16
 
 ### Added

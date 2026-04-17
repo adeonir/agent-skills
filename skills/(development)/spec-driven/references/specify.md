@@ -30,12 +30,15 @@ Each artifact has a distinct purpose. Never mix these concerns.
 
 ### spec.md MUST NOT contain:
 
-- Code snippets or examples
-- File paths or directory structures
-- Technology choices (React, Node, etc.)
-- Implementation approaches
+- Code snippets, identifiers, or field/enum names from the codebase (e.g., `mode: 'create'`, `reason: 'validation_error'`, `discountType === 'fixed'`)
+- Component, hook, function, or class names (e.g., `PlanFormDrawer`, `usePlans`, `DangerZone`)
+- File paths or directory structures (e.g., `src/components/ui/`)
+- Technology or library choices (e.g., React, TanStack Form, shadcn, Radix)
+- Implementation approaches (e.g., `useTransition`, `router.refresh()`, server actions)
 - Database schemas or API designs
 - Architecture decisions
+
+These apply to ALL sections -- Overview, Goals, Out of Scope, Stories, ACs, Edge Cases, Success Criteria, Notes, Baseline. Behavior always trumps symbols.
 
 These belong in design.md, created during the `design` phase.
 
@@ -308,6 +311,20 @@ Generate the spec following the template structure:
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
 Each story includes "Why Px" to justify its priority level. P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test. Acceptance criteria are inline per story with AC-xxx IDs for traceability.
+
+#### Pre-write checklist
+
+Before finalizing spec.md, audit every section against the Content Separation rules:
+
+- [ ] No code identifiers in ACs or Edge Cases (no `mode: 'create'`, no `===`, no field or enum names)
+- [ ] No technology or library names anywhere (no React, TanStack, shadcn, Radix)
+- [ ] No component, hook, function, or class names from the codebase
+- [ ] No file paths or directory names
+- [ ] Out of Scope entries describe behavior, not code symbols
+- [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
+- [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
+
+If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
 ### Step 14: Report
 

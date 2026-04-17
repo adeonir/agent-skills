@@ -14,6 +14,22 @@ Auto-loaded as a guideline for writing feature specs. Not a direct trigger.
 | design.md | HOW to build |
 | tasks.md | WHEN to build |
 
+## Behavior vs Symbol
+
+Every line in spec.md describes user-observable behavior. Never reference code-level symbols -- not in ACs, not in Edge Cases, not in Out of Scope, not in Notes, not in Baseline.
+
+| Symbol leak | Behavioral rewrite |
+|-------------|--------------------|
+| WHEN user opens drawer in `mode: 'create'` | WHEN admin opens the drawer to create a new client |
+| Server rejects with `reason: 'validation_error'` + `fieldErrors` | Server rejects the submission with per-field validation errors |
+| `discountType === 'fixed'` shows currency input | When the discount is a fixed amount, the form shows a currency input |
+| `plan.value × 1` | The plan's total value |
+| `frozenBilling` rows show disabled state | Rows representing frozen billing records appear disabled |
+| Uses `TanStack Form` with `shadcn` drawer | (remove -- belongs in design.md) |
+| `ClientFormDrawer` renders the form | The client form is presented in a side drawer |
+
+If a behavior only makes sense by naming a code symbol, the spec is leaking design. Either rewrite in behavioral terms or move the content to design.md.
+
 ## Goals
 
 Measurable outcomes that define what success looks like at the feature level.
@@ -125,6 +141,15 @@ Rules:
 - Avoid vague adjectives ("fast", "easy", "intuitive")
 - Focus on user outcomes, not implementation metrics
 
+## Notes
+
+Free-form context that doesn't fit other sections -- evidence sources, stakeholder input, deadlines, dependencies on other features, non-functional constraints stated behaviorally.
+
+Rules:
+- Same Behavior vs Symbol filter as the rest of the spec -- no libraries, no paths, no component or hook names
+- Anything HOW-flavored goes to design.md, not here
+- Omit the section entirely if there's nothing behavioral to capture beyond what the other sections already cover
+
 ## Brownfield Baseline
 
 For changes to existing code:
@@ -138,4 +163,4 @@ For changes to existing code:
 - Links never expire (security risk)
 ```
 
-**Important:** Describe BEHAVIOR, not implementation. No file paths, no code.
+**Important:** Describe BEHAVIOR, not implementation. No file paths, no component/hook/function names, no code identifiers. Describe what the user observes, not what the code is called.

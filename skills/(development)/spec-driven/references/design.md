@@ -112,9 +112,11 @@ Never write to `.agents/codebase/*.md` -- those are owned by project-index.
 
 If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
 
-After appending, if `## Codebase Feedback` has rows, count by target and prompt the user:
+After appending, always report the `## Codebase Feedback` state to the user -- even when nothing was added. Count by target and prompt:
 
 > N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Run `/project-index integrate feedback` now? (y/n)
+
+If N is 0, say "No new codebase discoveries this run" and skip the prompt. Never silently proceed to Step 8 without reporting -- this step is mandatory and user-facing.
 
 Do not auto-invoke project-index -- the user controls integration timing.
 
@@ -162,7 +164,7 @@ Generate the design following the template structure:
 - Data Flow (use mermaid for complex flows)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
 - Test Strategy
-- Considerations (Error Handling, Security, Concerns mitigation)
+- Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
 
 ### Step 11: Update Status
@@ -199,6 +201,8 @@ Inform user:
 - Sample touched types -- enumerate them
 - Claim "already returns X" / "no additional join" / "contract unchanged" without a file:line anchor
 - Collapse multi-field ACs into a single traceability row
+- Add `### Gotcha` subsections to Considerations -- design-level gotchas with rationale go to Decisions; cross-feature gotchas go to `.agents/knowledge.md ## Gotchas`
+- Substitute the Entities table for prose or bullets -- the table is the index; member enumeration goes in sub-blocks below
 
 ## Error Handling
 
