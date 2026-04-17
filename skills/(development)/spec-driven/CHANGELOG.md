@@ -19,11 +19,22 @@ All notable changes to this skill will be documented in this file.
 - Granularity rule for Requirements Traceability (N-field ACs expand to N rows)
 - Data Model closing checklist gating AC-field coverage, source anchors, and absence-claim anchors
 - DO/DON'T rules against sampling touched types and unanchored absence claims
+- `references/knowledge.md` canonical format spec for `.agents/knowledge.md`
+- `## Codebase Feedback` queue section in knowledge.md for project-index handoff with target-tagged metadata
+- Integration prompt after design Step 7 and implement Step 10 when feedback is queued
 
 ### Changed
 
 - Data Model step requires enumerated members cited to file:line (not loose "attributes"/"shapes")
 - Requirements Traceability bullet reflects per-field granularity
+- design.md Step 7, implement.md Step 10, and quick-mode.md Step 7 queue discoveries in knowledge.md instead of writing `.agents/codebase/*.md` directly
+- knowledge.md format tightened to `## Decisions` + `## Gotchas` + `## Codebase Feedback`
+- Guidelines reflect one-writer rule: spec-driven writes knowledge.md, project-index writes codebase/*.md
+
+### Removed
+
+- `## Architecture` and `## Patterns` sections from knowledge.md format
+- Direct writes from spec-driven to `.agents/codebase/conventions.md|architecture.md|testing.md`
 
 ## 2026-04-03
 

@@ -32,6 +32,7 @@ Load only the reference matching the current trigger. Never load multiple refere
 | Initialize project, setup project, index project | [initialize.md](references/initialize.md) |
 | Overview, project context | [overview.md](references/overview.md) |
 | Summary, map codebase, analyze codebase | [summary.md](references/summary.md) |
+| Integrate feedback, integrate discoveries, sync knowledge | [integrate-feedback.md](references/integrate-feedback.md) |
 
 ## Cross-References
 
@@ -40,6 +41,8 @@ initialize.md ----> overview.md
 initialize.md ----> summary.md (if brownfield)
 overview.md ------> root-agents.md (auto-update AGENTS.md)
 summary.md -------> root-agents.md (auto-update AGENTS.md)
+spec-driven ---------------> integrate-feedback.md (consumes knowledge.md Codebase Feedback)
+integrate-feedback.md -----> knowledge.md (clears integrated rows only)
 ```
 
 ## Output Structure
@@ -102,15 +105,15 @@ Avoid redundancy across files, but do not sacrifice depth for brevity.
 
 ```
 docs-writer (.artifacts/docs/) --> project-index (overview) consumes as context source
-spec-driven (plan phase)       --> may add discoveries to .agents/codebase/
-spec-driven (design/implement) --> owns .agents/knowledge.md (accumulates decisions)
-project-index (summary)        --> preserves spec-driven additions when re-running
-project-index                  --> reads .agents/knowledge.md but never writes it
+spec-driven (design/implement) --> queues codebase discoveries to .agents/knowledge.md Codebase Feedback
+integrate-feedback             --> merges knowledge.md Codebase Feedback into .agents/codebase/*.md
+project-index (summary)        --> preserves knowledge.md as-is when re-running
+project-index                  --> sole writer to .agents/codebase/*.md and .agents/project.md
 ```
 
 - **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, epics, and issues. When found, uses them as primary context for generating project.md.
-- **spec-driven**: Summary preserves discoveries added during planning. More specific context (from feature planning) takes precedence over general analysis.
-- **knowledge.md**: Owned by spec-driven. Contains cross-feature decisions, gotchas, and patterns not derivable from code. project-index reads it for context when generating docs but never overwrites or regenerates it. When re-running summary, preserve knowledge.md as-is.
+- **spec-driven**: queues codebase discoveries to `.agents/knowledge.md` `## Codebase Feedback`; integrate-feedback merges them into `codebase/*.md` on demand. spec-driven never writes directly to `.agents/codebase/*.md`.
+- **knowledge.md**: Owned by spec-driven. Contains `## Decisions`, `## Gotchas`, and a `## Codebase Feedback` queue. project-index reads the file for context and consumes the Codebase Feedback queue via `integrate-feedback`, but never modifies Decisions or Gotchas. When re-running summary, preserve the full file.
 
 ## Guidelines
 

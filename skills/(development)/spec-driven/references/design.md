@@ -98,39 +98,25 @@ Any component flagged as fragile, carrying tech debt, or having test coverage ga
 
 If concerns.md does not exist, skip this step.
 
-### Step 7: Persist Codebase Discoveries
+### Step 7: Queue Codebase Discoveries
 
-After exploration, feed new findings back to project-level docs:
+Load [knowledge.md](knowledge.md) for format.
 
-1. If `.agents/codebase/` doesn't exist: skip (project-index hasn't been run yet, keep discoveries in design.md only)
-2. If it exists: compare findings against current docs and append new discoveries
+Append to `.agents/knowledge.md`:
 
-What to update:
-- **conventions.md**: new convention rows, updated file:line refs
-- **architecture.md**: new entry points, layers, integration points
-- **testing.md**: new test patterns, reference tests
+1. **Cross-feature decisions** -> `## Decisions`, with rationale
+2. **Gotchas** -> `## Gotchas`, with context
+3. **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
 
-Rules:
-- Merge new findings, never overwrite existing content
-- Only add patterns confirmed by this exploration (not speculative)
-- Use the same table formats already in the codebase docs
-- Never create `.agents/codebase/` from scratch (that's project-index's job)
+Never write to `.agents/codebase/*.md` -- those are owned by project-index.
 
-After persisting codebase discoveries, also feed `.agents/knowledge.md` with
-any project-level architectural decisions made during this design. Append new
-entries -- never overwrite existing content. If the file doesn't exist, create
-it. See format below:
+If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
 
-```markdown
-## Architecture
-- {decision + rationale} (YYYY-MM-DD, feature {ID})
+After appending, if `## Codebase Feedback` has rows, count by target and prompt the user:
 
-## Gotchas
-- {gotcha + context} (YYYY-MM-DD, feature {ID})
+> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Run `/project-index integrate feedback` now? (y/n)
 
-## Patterns
-- {pattern + why it emerged} (YYYY-MM-DD, feature {ID})
-```
+Do not auto-invoke project-index -- the user controls integration timing.
 
 ### Step 8: Check Visual References
 

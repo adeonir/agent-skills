@@ -6,6 +6,18 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-16
+
+### Added
+
+- `references/integrate-feedback.md` consuming spec-driven's `.agents/knowledge.md` Codebase Feedback queue
+- Triggers "integrate feedback", "integrate discoveries", "sync knowledge" routing to integrate-feedback
+
+### Changed
+
+- Integration section clarifies project-index as sole writer to `.agents/codebase/*.md` and `.agents/project.md`
+- spec-driven no longer writes to `.agents/codebase/*.md`; discoveries flow through knowledge.md queue and integrate-feedback merges them
+
 ## 2026-04-03
 
 ### Added

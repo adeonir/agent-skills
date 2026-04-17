@@ -74,11 +74,18 @@ Quick verification checklist:
 - [ ] No regressions in affected files
 - [ ] Quality gates pass
 
-### Step 7: Persist Discoveries
+### Step 7: Queue Discoveries (lightweight)
 
-If `.agents/codebase/` exists and you found a pattern not yet documented
-(new shared component, new hook, new convention), update the relevant file.
-Merge new findings, never overwrite existing content.
+If you found a pattern, convention, or gotcha worth persisting, append to `.agents/knowledge.md`:
+
+- **Gotchas** -> `## Gotchas`
+- **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
+
+Load [knowledge.md](knowledge.md) for format.
+
+Never write to `.agents/codebase/*.md` -- those are owned by project-index.
+
+No prompt to integrate -- the next design or implement flow will surface queued items.
 
 ### Step 8: Update Task File
 

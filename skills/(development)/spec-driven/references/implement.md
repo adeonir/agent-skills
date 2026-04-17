@@ -178,16 +178,24 @@ If all tasks done (or all inline steps done for Medium scope):
 - Run final verification (see [Final Verification](#final-verification))
 - Set `status: done`
 
-### Step 10: Persist Discoveries
+### Step 10: Queue Discoveries
 
-If `.agents/codebase/` exists and you discovered patterns not yet documented
-(new shared component, new hook, new convention), update the relevant file.
-Merge new findings, never overwrite existing content.
+Load [knowledge.md](knowledge.md) for format.
 
-Also feed `.agents/knowledge.md` with any project-level gotchas or patterns
-discovered during implementation (e.g., API quirks, runtime constraints,
-workarounds). Append new entries -- never overwrite. Create the file if it
-doesn't exist.
+Append discoveries from implementation to `.agents/knowledge.md`:
+
+- **Runtime constraints, API quirks, workarounds** -> `## Gotchas`
+- **New patterns, conventions, integration details observed in code** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
+
+Never write to `.agents/codebase/*.md` -- those are owned by project-index.
+
+If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
+
+After appending, if `## Codebase Feedback` has rows, count by target and prompt the user:
+
+> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Run `/project-index integrate feedback` now? (y/n)
+
+Do not auto-invoke project-index -- the user controls integration timing.
 
 ### Step 11: Report
 

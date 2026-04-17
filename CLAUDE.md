@@ -369,8 +369,11 @@ Skills write to `.artifacts/` organized by domain:
 .agents/
 ├── project.md      # project-index: project context
 ├── codebase/       # project-index: deep codebase analysis
-└── baselines/      # spec-driven: area behavioral baselines
+├── baselines/      # spec-driven: area behavioral baselines
+└── knowledge.md    # spec-driven: decisions, gotchas, Codebase Feedback queue
 ```
+
+Ownership is strict: project-index is the sole writer to `project.md` and `codebase/*.md`; spec-driven is the sole writer to `knowledge.md` and `baselines/*.md`. Codebase discoveries from spec-driven (design, implement, quick-mode) land in `knowledge.md`'s `## Codebase Feedback` section and are merged into `codebase/*.md` on demand via `/project-index integrate feedback`.
 
 ## Terminology
 
