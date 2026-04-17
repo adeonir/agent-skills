@@ -6,6 +6,21 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-16
+
+### Changed
+
+- Removed dependency on `memory-notes` skill — BM syntax rules, tool signatures, and search-before-create logic now inline in bm-notes.md
+- Removed dependency on `session-notes` skill — Obsidian templates (daily, session, decision), syntax rules, tool signatures, and filename sanitization now inline in obsidian-notes.md
+- Wrap-up now depends only on MCPs (BM MCP, MCPVault MCP) and the `auto-memory` skill
+- Cross-References and Guidelines in SKILL.md updated to reflect direct MCP calls
+
+### Fixed
+
+- Obsidian notes now follow the complete template (frontmatter + all sections), no longer missing Key Decisions, Learnings, Open Items, Observations, or Relations
+- Daily note no longer reverts to changelog style — enforced outcomes-and-decisions guidance with no contradictory bullets
+- Obsidian observations no longer leak BM `[brackets]` format — `#hashtags` enforced with explicit DON'T rule
+
 ## 2026-04-08
 
 ### Changed

@@ -45,16 +45,16 @@ Notes:
 ## Cross-References
 
 ```
-mapping.md -------> bm-notes.md      (provides BM project and prefix)
-mapping.md -------> obsidian-notes.md (provides Obsidian folder)
-bm-notes.md -----> memory-notes      (invoke via Skill tool, not MCP)
-obsidian-notes.md -> session-notes     (invoke via Skill tool, not MCP)
+mapping.md -------> bm-notes.md        (provides BM project and prefix)
+mapping.md -------> obsidian-notes.md  (provides Obsidian folder)
+bm-notes.md -----> BM MCP              (direct tool calls, no skill indirection)
+obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirection)
 ```
 
 ## Guidelines
 
 **DO:**
-- Invoke memory-notes and session-notes skills (via Skill tool) for writes -- never call BM or Obsidian MCP tools directly
+- Call BM MCP and MCPVault MCP tools directly from bm-notes.md and obsidian-notes.md workflows
 - Execute all steps in order without confirmation
 - Skip auto-memory and BM when mapping returns `--` for BM project
 - Skip Obsidian session note when mapping returns `--` for Obsidian session
