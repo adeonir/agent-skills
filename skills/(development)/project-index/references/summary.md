@@ -314,6 +314,8 @@ Inform user:
 - Overwrite existing codebase/ mapping without user confirmation
 - Remove existing content unless it is clearly outdated
 - Override feature-specific analysis (spec-driven) with general analysis (project-index)
+- Include forward-looking content (`(planned)`, `(TBD)`, `(coming soon)`, milestone labels like `M5+`, feature numbers/IDs, phrases like "shipped through feature X") -- `codebase/*.md` captures only observable current state
+- Include stubs for services, dependencies, routes, or modules that are not installed or present in the codebase right now -- if it does not exist today, it does not belong here
 
 ## Error Handling
 

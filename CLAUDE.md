@@ -375,6 +375,10 @@ Skills write to `.artifacts/` organized by domain:
 
 Ownership is strict: project-index is the sole writer to `project.md` and `codebase/*.md`; spec-driven is the sole writer to `knowledge.md` and `baselines/*.md`. Codebase discoveries from spec-driven (design, implement, quick-mode) land in `knowledge.md`'s `## Codebase Feedback` section and are merged into `codebase/*.md` on demand via `/project-index integrate feedback`.
 
+`codebase/*.md` captures only observable current state -- no milestones, feature numbers, `(planned)` or `(TBD)` markers, and no stubs for services/routes/deps not present in the codebase. Inventory and structural facts (installed packages, new routes, new modules, new directories, new env vars) are not queued in `knowledge.md` -- they are re-derived by `/project-index re-index`, which audit suggests (never prompts) when structural deltas exist on the feature branch.
+
+Root instruction files: project-index owns `AGENTS.md` and generates/updates it only when the project already uses it or the user opts in. `CLAUDE.md` is user-authored territory -- project-index never edits or overwrites it.
+
 ## Terminology
 
 TDD has two meanings in this project depending on context:

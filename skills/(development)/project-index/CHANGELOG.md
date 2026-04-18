@@ -6,7 +6,19 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
-## 2026-04-16
+## 2026-04-18
+
+### Added
+
+- Forward-looking skip classification in Integrate feedback Step 2
+- Four-state root detection for `AGENTS.md` and `CLAUDE.md` at project root
+
+### Changed
+
+- Codebase docs prohibit planned, milestone, feature-number, and stub content
+- Root `CLAUDE.md` treated as user territory and never edited
+
+
 
 ### Added
 

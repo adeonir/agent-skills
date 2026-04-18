@@ -23,7 +23,13 @@ For each row under `## Codebase Feedback`:
 - Extract metadata from `<!-- feature:{ID} target:{name} date:YYYY-MM-DD -->`
 - Valid targets: `conventions`, `architecture`, `testing`, `integrations`
 
-Skip rows with unknown target or malformed metadata; list them in the final report.
+Classify each row into one of:
+
+- **Integrate** -- content describes current observable state
+- **Skipped (malformed)** -- unknown target or broken metadata
+- **Skipped (forward-looking)** -- content describes future plans, milestones, feature numbers, or markers like `(planned)`, `(TBD)`, `(coming soon)`, `(M{N}+)`, "shipped through feature X"
+
+Forward-looking and malformed rows are listed in the final report. They are never merged into `codebase/*.md`, which captures only current state.
 
 See [../../spec-driven/references/knowledge.md](../../spec-driven/references/knowledge.md) for the canonical format.
 
@@ -65,6 +71,7 @@ Show:
 - Integrated: N items (X conventions, Y architecture, Z testing, W integrations)
 - Skipped duplicates: M items
 - Skipped malformed: P items (if any)
+- Skipped forward-looking: K items (if any, with the offending content for user review)
 - Target files touched: {list}
 
 ## Guidelines
@@ -80,6 +87,7 @@ Show:
 - Invent target names outside the canonical set (`conventions`, `architecture`, `testing`, `integrations`)
 - Modify `## Decisions` or `## Gotchas` sections
 - Auto-run without a user trigger (spec-driven prompts, user decides)
+- Merge rows describing future plans, milestones, feature numbers, or `(planned)`/`(TBD)` markers -- skip and list them in the report under "forward-looking" for the user to reconcile at the source
 
 ## Error Handling
 

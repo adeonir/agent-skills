@@ -6,7 +6,17 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
-## 2026-04-17
+## 2026-04-18
+
+### Added
+
+- Structural delta check in Audit Step 8 with passive re-index suggestion
+
+### Changed
+
+- Codebase Feedback queue rejects inventory facts and forward-looking markers
+
+
 
 ### Added
 

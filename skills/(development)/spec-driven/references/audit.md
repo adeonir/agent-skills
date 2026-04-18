@@ -104,7 +104,32 @@ needs a rewrite, not an audit pass.
   - Unmet -> fix implementation or update tests, then re-run audit
   - Unmeasurable -> update spec.md (via specify) with a verifiable rewrite
 
-### Step 8: Relationship to Validate
+### Step 8: Structural Delta Check
+
+Independent of audit outcome. Inform the user when `.agents/codebase/*.md` may
+be stale so they can decide whether to refresh it. Never prompt, never block
+the status transition.
+
+Run against the feature branch:
+
+```bash
+git diff --name-status $(git merge-base main HEAD)..HEAD
+```
+
+Flag as structural delta if any of the following is true:
+
+- Any `A` (added), `D` (deleted), `R` (renamed), or `C` (copied) entry outside `.artifacts/`
+- `package.json` `dependencies` or `devDependencies` sections changed
+- `.env.example` changed
+- New directory under `src/app/api/` or equivalent route root (framework-specific)
+
+If any flag fires, append exactly one line to the audit report:
+
+> Structural changes detected -- consider running `/project-index re-index` to refresh `.agents/codebase/*.md`.
+
+If no flag fires, emit no output for this step.
+
+### Step 9: Relationship to Validate
 
 Audit is evidence-based and automated. Validate ([validate.md](validate.md))
 is user-observation based and interactive. They do not block each other:
@@ -122,6 +147,7 @@ is user-observation based and interactive. They do not block each other:
 - Leave Unmeasurable targets unchecked and flag the spec for rewrite
 - Keep audit deterministic -- same evidence yields same classification
 - Consult UAT notes if validate ran before audit
+- Suggest `/project-index re-index` when structural deltas exist -- inform only, never prompt
 
 **DON'T:**
 - Touch AC checkboxes -- those belong to verify.md

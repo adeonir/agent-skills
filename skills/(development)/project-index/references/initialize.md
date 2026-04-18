@@ -55,7 +55,7 @@ If none of the above: skip summary, project is greenfield.
 Inform user:
 - Created `.agents/` with project.md
 - If brownfield: also created `.agents/codebase/` with analysis docs
-- Generated AGENTS.md at project root
+- AGENTS.md: `created` / `updated` / `skipped (CLAUDE.md present)` / `skipped (user declined)` -- mirror the outcome from root-agents.md
 - Next steps:
   - If using spec-driven: "create feature for..."
   - Re-run summary later: "map codebase" or "summary"

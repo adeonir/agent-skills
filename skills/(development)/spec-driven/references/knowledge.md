@@ -65,8 +65,12 @@ When appending a discovery during design or implement, route by content:
 | Project-level decision (why we chose X over Y for the project) | `## Decisions` |
 | Runtime constraint, API quirk, workaround, non-obvious trap | `## Gotchas` |
 | New pattern, convention, architectural insight, testing approach, integration detail | `## Codebase Feedback` with target tag |
+| Inventory/structural fact (installed package, new route, new module, new directory, new env var) | **Not queued** -- caught by `/project-index re-index` after audit |
+| Forward-looking item (milestone, planned feature, `(TBD)`, feature number) | **Not queued** -- `codebase/*.md` is observable current state only |
 
 Feature-specific details (only relevant to the current feature) do NOT belong here -- they live in the feature's own `design.md` or `implement.md` artifacts.
+
+Inventory and structural facts are not queued because `codebase/*.md` is re-derived by project-index directly from the code. Queueing them duplicates work and turns the feedback queue into a changelog. What belongs here is the *interpretive* layer that re-index cannot infer: the why behind a choice, the trap behind a behavior, the convention behind a pattern.
 
 ## Guidelines
 
@@ -83,6 +87,8 @@ Feature-specific details (only relevant to the current feature) do NOT belong he
 - Use target values outside the canonical set
 - Re-queue items already integrated (project-index handles dedupe, but redundant work wastes context)
 - Let feature-specific details leak into this file
+- Queue inventory or structural facts (installed packages, new routes, new modules, new directories, new env vars) -- they belong in `codebase/*.md` via re-index
+- Queue forward-looking items (milestones, feature numbers, `(planned)`, `(TBD)`, `(coming soon)`) -- `codebase/*.md` is current state only
 
 ## Error Handling
 
