@@ -44,13 +44,7 @@ function calculateTotal(items) {
 
 ### Step 3: Verify Removal
 
-Run the grep command again to confirm no logs remain:
-
-```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' --include='*.go' --include='*.rs' --include='*.rb' --include='*.mjs' --include='*.cjs' --include='*.vue' --include='*.svelte'
-```
-
-Expected output: No matches found.
+Re-run the grep command from Step 1. Expected output: no matches.
 
 ### Step 4: Report to User
 
@@ -61,14 +55,6 @@ Removed {count} debug logs from:
 
 - {file}: {count} logs
 - {file}: {count} logs
-```
-
-## Manual Verification
-
-User can check for remaining logs anytime:
-
-```bash
-grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' --include='*.go' --include='*.rs' --include='*.rb' --include='*.mjs' --include='*.cjs' --include='*.vue' --include='*.svelte'
 ```
 
 ## Guidelines
