@@ -100,7 +100,6 @@ Ask one question at a time:
 4. Any brand or style constraints? (colors, fonts, existing guidelines)
 
 If the user answers "I don't know" to any question, mark as TBD and move forward.
-Summarize understanding before proceeding.
 
 ### Step 3: Route to Operation
 
@@ -142,17 +141,19 @@ tokens + validate complete --> Structure --> Preview --> Design final
 ## Guidelines
 
 **DO:**
+- Ask one question at a time when gathering context from the user
 - Ask user for project name and use kebab-case for directory names
 - Check for existing context before any operation (PRD, brief, brainstorm, naming)
 - Check for existing copy.yaml, design.json, structure.md before starting
-- Suggest next steps after completing any operation
-- Suggest missing prerequisites
+- Run lightweight discovery when no prior context exists
+- Validate coherence with structure before preview, even when a wireframe exists
+- Suggest next steps and missing prerequisites after each operation
 
 **DON'T:**
-- Skip discovery -- always establish project context first
-- Ignore existing artifacts when they are available
-- Block on missing PRD/Brief -- run lightweight discovery instead
-- Skip structure -- even with wireframe, validate coherence
+- Skip discovery (contrasts: check for existing context or run lightweight discovery)
+- Ignore existing artifacts when they are available (contrasts: check for existing artifacts)
+- Block on missing PRD/Brief (contrasts: run lightweight discovery)
+- Skip structure (contrasts: validate coherence with structure before preview)
 
 ## Error Handling
 

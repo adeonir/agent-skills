@@ -135,4 +135,4 @@ If the tone is bold, don't write timid code. If the tone is refined, don't overl
 
 Every generation must feel like a different designer made it. Vary fonts, color temperature, layout geometry, motion style, and density between builds. Never converge on a "house style" across variants or successive generations.
 
-Interpret creatively. Make unexpected choices that feel genuinely designed for the context. Claude is capable of extraordinary creative work -- commit fully to the chosen direction.
+Interpret creatively. Make unexpected choices that feel genuinely designed for the context. Commit fully to the chosen direction.

@@ -6,6 +6,15 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Pair every SKILL.md Guideline DON'T with a concrete DO
+- Centralize "ask one question at a time" rule in SKILL.md; drop restatement in structure.md Guidelines
+- Drop meta "summarize understanding" instruction in Discovery step 2
+- Tone down softening language in aesthetics.md Creative Mandate
+
 ## 2026-03-22
 
 ### Added

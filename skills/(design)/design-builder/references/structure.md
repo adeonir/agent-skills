@@ -110,7 +110,7 @@ Low fidelity is intentional.
 ## Guidelines
 
 **DO:**
-- Ask one question at a time -- never batch layout decisions
+- Never batch layout decisions together -- walk through them one at a time
 - Always validate structure even when wireframe exists
 - Ground decisions in content (copy.yaml) and intent (PRD/discovery)
 - Question hierarchy: does the most important content get the most attention?
