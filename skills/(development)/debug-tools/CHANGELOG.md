@@ -11,6 +11,7 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - Pair every SKILL.md Guideline DON'T with a concrete DO; add redaction rule
+- Remove Common Patterns and Always Useful sections in log-injection.md; keep Sometimes Useful (sanitize/truncate hints) and Never Capture (security)
 
 ## 2026-03-21
 

@@ -111,31 +111,7 @@ Ask user to:
 2. Share console output
 3. Describe what they observed
 
-## Common Patterns
-
-### Component Lifecycle (React, Vue, Svelte)
-
-Log on mount, effect execution, state changes, and event handlers.
-
-### HTTP Handlers (Express, FastAPI, Gin)
-
-Log request entry (method, path, sanitized body), middleware execution, and response status.
-
-### Database Operations
-
-Log query (truncated), result count, and errors. Never log full query params that may contain user data.
-
-### API Calls
-
-Log request start (url, method), response status, and parsed data shape.
-
 ## What to Capture
-
-### Always Useful
-- Function entry/exit
-- Async operation start/completion
-- Error details (name, message)
-- State before/after changes
 
 ### Sometimes Useful
 - Function arguments (sanitized)
