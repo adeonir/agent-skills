@@ -13,6 +13,7 @@ All notable changes to this skill will be documented in this file.
 - Tone down caps emphasis in implement.md Safety Valve
 - Drop redundant "measurable outcome" rule in spec-writing.md Goals
 - Remove "systematically" meta framing in baseline-capture.md Step 4
+- Knowledge Verification Chain Step 5 now covers both "flag uncertain" and "ask user for direction"; fabrication rule instructs asking for direction when stuck
 
 ## 2026-04-18
 
