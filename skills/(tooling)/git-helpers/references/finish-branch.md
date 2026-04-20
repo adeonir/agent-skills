@@ -89,7 +89,7 @@ Ask user which merge method to use:
 | Squash | `gh pr merge --squash` | Single commit on base |
 | Rebase | `gh pr merge --rebase` | Replays commits on base (linear) |
 
-Never use the default GitHub merge message (e.g. `Merge pull request #19 from adeonir/chore/foundation`). Always pass a custom subject that cites the PR ID.
+Pass a custom subject citing the PR ID (the default GitHub merge message, e.g. `Merge pull request #19 from adeonir/chore/foundation`, is not acceptable).
 
 Subject format: `{type}: {description} (#{pr-number})` -- follows conventional commit style from [commit.md](commit.md), with PR ID appended.
 
@@ -126,14 +126,15 @@ Confirm: "Branch `{branch}` merged into `{base}` and deleted."
 - Always ask before updating or merging -- never auto-merge
 - Use `--force-with-lease` (not `--force`) when force pushing
 - Confirm the merge method with the user
-- Delete both local and remote branch after merge
+- Pass a custom subject citing the PR ID on merge commits
+- Delete both local and remote branch after merge is confirmed
 
 **DON'T:**
-- Force push without `--force-with-lease`
-- Delete branch before merge is confirmed
-- Merge without checking if branch is up to date
-- Skip cleanup -- stale branches accumulate
-- Use the default `Merge pull request #N from {branch}` message -- always pass `--subject` citing the PR ID
+- Force push without `--force-with-lease` (contrasts: use --force-with-lease)
+- Merge without checking if branch is up to date (contrasts: always ask before merging)
+- Use the default `Merge pull request #N from {branch}` message (contrasts: custom subject with PR ID)
+- Delete branch before merge is confirmed (contrasts: delete after merge is confirmed)
+- Skip cleanup -- stale branches accumulate (contrasts: delete both local and remote after merge)
 
 ## Error Handling
 

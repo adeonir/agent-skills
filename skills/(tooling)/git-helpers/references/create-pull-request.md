@@ -48,8 +48,6 @@ user confirmation before executing.
 
 **Body:** **USE TEMPLATE:** `templates/pull-request.md`
 
-This step is mandatory. Never push without explicit user confirmation.
-
 ### Step 6: Push and Create PR
 
 ```bash
@@ -68,14 +66,15 @@ Output the PR URL when done.
 - Preview the PR title and body before pushing
 - Use imperative mood in PR title and changes list
 - Include `Closes #N` when there is a related issue
-- Keep the changes list to 3-7 key items
+- Keep the changes list to 3-7 key items, from the user's perspective
+- Write the PR body in neutral voice (no attribution)
 - Everything in English
 
 **DON'T:**
-- Push without explicit user confirmation
-- Add attribution lines to the PR body
-- List every file changed (summarize key changes)
-- Include implementation details (focus on what changed, not how)
+- Push without explicit user confirmation (contrasts: preview before pushing)
+- List every file changed (contrasts: 3-7 key items)
+- Include implementation details (contrasts: user's perspective)
+- Add attribution lines to the PR body (contrasts: neutral voice)
 
 ## Error Handling
 

@@ -211,20 +211,21 @@ rewrite the body to explain *why* (e.g., "fail-fast ordering" or
 **DO:**
 - Analyze the actual diff before writing the commit message
 - Follow project conventions for commit format
-- Use imperative mood in commit messages
+- Use imperative mood and concrete nouns; avoid abstract framings
 - Preview and confirm before committing
+- Stage only intended files and keep messages unattributed
+- Use bullets in the body when one is needed; let the subject summarize
+- When asked to reevaluate a body, rewrite for *why* first; announce any drop
 
 **DON'T:**
-- Commit files that contain secrets (.env, credentials)
-- Write body as paragraphs (use bullet points)
-- List individual changes in the body (the subject summarizes)
-- Add attribution lines or Co-Authored-By
-- Skip the preview step
-- Base the message on conversation context instead of the diff
-- Use abstract framings ("pattern", "approach", "behavior") when concrete
-  nouns describe the change better
-- Delete the body silently when asked to reevaluate it — attempt a rewrite
-  for *why* first, and announce the drop if no real context exists
+- Skip the preview step (contrasts: preview and confirm)
+- Base the message on conversation context instead of the diff (contrasts: analyze the actual diff)
+- Commit files that contain secrets (contrasts: stage only intended files)
+- Add attribution lines or Co-Authored-By (contrasts: keep messages unattributed)
+- Write body as paragraphs (contrasts: use bullets when body is needed)
+- List individual changes in the body (contrasts: subject summarizes)
+- Use abstract framings like "pattern" or "approach" (contrasts: concrete nouns)
+- Delete the body silently when asked to reevaluate (contrasts: rewrite for *why* first)
 
 ## Error Handling
 
