@@ -10,12 +10,7 @@ When creating a commit for staged or unstaged changes.
 
 ### Step 1: Gather Context
 
-First, check for explicit commit conventions:
-
-- Read AGENTS.md or CLAUDE.md if present in project root
-- Look for commit format rules, scope requirements, or type preferences
-
-Then run to understand current state:
+Check for explicit commit conventions (AGENTS.md or CLAUDE.md at project root: format rules, scope requirements, type preferences), then read current state:
 
 ```bash
 git status
@@ -66,8 +61,6 @@ Before presenting the message, verify:
 
 Display the proposed commit message to the user before committing.
 Ask for confirmation. Accept edits if suggested.
-
-This step is mandatory. Never skip it.
 
 ### Step 5: Create Commit
 

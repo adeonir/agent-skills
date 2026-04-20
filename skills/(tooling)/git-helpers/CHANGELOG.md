@@ -14,6 +14,9 @@ All notable changes to this skill will be documented in this file.
 - Collapse duplicate "custom subject" rule in finish-branch.md Step 4
 - Drop redundant push-confirmation restatement in create-pull-request.md Step 5
 - Trim verbose pre-execution validation block in summary.md
+- Tighten Step 1 Gather Context preamble in commit.md
+- Drop redundant "never skip it" emphasis in commit.md Step 4
+- Drop "start immediately" meta line in summary.md Workflow
 
 ## 2026-04-13
 

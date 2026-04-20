@@ -14,8 +14,6 @@ When summarizing changes or generating a PR description for the current branch.
 
 ## Workflow
 
-Start immediately when triggered. No confirmation needed to begin.
-
 ### Step 1: Detect Base Branch
 
 If not specified: default to `main`. User can override via prompt.
