@@ -66,15 +66,56 @@ Formatting rules:
 All skills follow this exact order:
 
 ```
-1. # Title              (H1, descriptive skill name)
-2. ## Workflow           (flow diagram)
-3. ## Context Loading    (reference loading strategy)
-4. ## Triggers           (trigger -> reference table)
-5. ## Cross-References   (ASCII dependency diagram)
-6. ## Guidelines         (DO/DON'T)
-7. ## Output             (output format and location, if applicable)
-8. ## Error Handling     (edge case list)
+1. # Title                  (H1, descriptive skill name)
+2. **Recommended effort:**  (optional single line; skills with heavy phases)
+3. ## Workflow              (flow diagram)
+4. ## Context Loading       (reference loading strategy)
+5. ## Triggers              (trigger -> reference table)
+6. ## Cross-References      (ASCII dependency diagram)
+7. ## Guidelines            (DO/DON'T)
+8. ## Output                (output format and location, if applicable)
+9. ## Error Handling        (edge case list)
+10. ## Compact Instructions (optional; long-running skills only)
 ```
+
+### Recommended Effort
+
+Optional single line placed immediately after the H1 title, before Workflow.
+Use only for skills with cognitively heavy phases (audit, design, discovery,
+review). Omit on light skills (quick fixes, naming, single-step tooling).
+
+Format: one bold line with the effort level and a short rationale.
+
+```markdown
+**Recommended effort:** xhigh for design/audit phases; medium for quick mode.
+```
+
+Guidance by level:
+- `medium`: cost- or latency-sensitive work with tight scope
+- `high`: balance of intelligence and cost; concurrent sessions
+- `xhigh`: default for intelligence-sensitive work (API design, migrations,
+  multi-file reviews)
+- `max`: reserve for evals and ceiling tests; diminishing returns
+
+### Compact Instructions
+
+Optional section for long-running skills where context pressure is realistic.
+Tells Claude Code what to preserve when autocompact fires.
+
+```markdown
+## Compact Instructions
+
+Preserve:
+- Current phase, phase artifacts paths, open decisions
+- User's acceptance criteria and constraints
+
+Drop:
+- Raw tool outputs, intermediate grep results, scratch reasoning
+```
+
+Skills that persist state to disk across phases (e.g., `spec-driven` via
+`.artifacts/.session-dump.md`) do not need this section -- the artifact
+already survives `/clear` and is a stronger guarantee than compact hints.
 
 ### Workflow
 
@@ -133,16 +174,21 @@ skill-name --------> other-skill (output feeds into)
 
 Always DO/DON'T format. Never prose. 3-8 items per list. Concrete rules, not aspirational.
 
+Voice rule: every `DON'T` must be a contrast of a concrete `DO` in the same
+list. A `DON'T` without a matching `DO` is proscription without direction --
+move it to a positive instruction elsewhere or drop it. Positive examples
+("write it like this") steer behavior better than standalone proscriptions.
+
 ```markdown
 **DO:**
-- Use confidence scoring: >= 80 to report findings
-- Always validate before saving output
-- Follow existing project conventions
+- Validate output before saving
+- Ask the user for missing context
+- Match the project's existing conventions
 
 **DON'T:**
-- Skip validation for any output type
-- Assume context not provided by user
-- Add emojis to output
+- Skip validation to save a step (contrasts: validate before saving)
+- Invent context the user did not provide (contrasts: ask for missing context)
+- Introduce patterns foreign to the project (contrasts: match conventions)
 ```
 
 ### Error Handling
@@ -314,9 +360,13 @@ Before finalizing a new skill, verify:
 - [ ] `references/` with one file per phase/workflow
 - [ ] Each reference has a "When to Use" section
 - [ ] Cross-references documented in SKILL.md
-- [ ] Guidelines in DO/DON'T format
+- [ ] Guidelines in DO/DON'T format; every DON'T contrasts a concrete DO
 - [ ] `templates/` if the skill generates artifacts with fixed structure
 - [ ] Skill added to the root README.md table (sorted by category)
+- [ ] `Recommended effort:` line added if skill has heavy phases
+- [ ] `Compact Instructions` section added if skill is long-running and does not persist state to disk
+- [ ] Entrypoint skills state a first-turn brief (intent, constraints, acceptance, files)
+- [ ] Skills that fan out across items instruct the model to spawn subagents explicitly
 
 ## Naming Conventions
 
@@ -338,6 +388,27 @@ Before finalizing a new skill, verify:
 - Error handling always in `- Condition: action` format
 - Cross-references use relative paths: `[file.md](references/file.md)`
 - Token budget awareness: document what to load, what never to load simultaneously
+- XML tags (`<example>`, `<instructions>`, `<input>`) are permitted inside
+  `references/*.md` and `templates/*.md` when the file is ingested as input by
+  the model. Do not use XML tags in `SKILL.md` -- it stays human-readable markdown
+
+## Prompt Conventions
+
+Rules for how skills should instruct the model at runtime (distinct from
+authoring style, which is Writing Style above).
+
+- **First-turn brief**: entrypoint skills (those the user invokes directly) must
+  accept intent, constraints, acceptance criteria, and target files in the first
+  turn. Avoid multi-turn clarification loops -- they add reasoning overhead and
+  degrade coherence over long sessions
+- **Explicit fan-out**: skills that rely on parallel exploration must instruct
+  the model to spawn multiple subagents in the same turn. Opus 4.7 is
+  conservative about spawning subagents by default, so "fan out across N files"
+  must be stated, not assumed
+- **Positive examples over proscriptions**: when steering output shape, show an
+  example of the desired form rather than listing what to avoid
+- **No tool-stack coupling**: instructions describe behavior (what to do), not
+  specific tools or commands. Keep skills portable across harnesses
 
 ## Commit Conventions
 
