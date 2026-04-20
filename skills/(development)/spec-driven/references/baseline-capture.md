@@ -52,7 +52,7 @@ Output: area name (kebab-case) for the output filename.
 ### Step 4: Explore Without Hypothesis
 
 **Critical difference from baseline-discovery:** no feature keywords to
-guide search. Explore systematically:
+guide search. Explore:
 
 1. **Entry Points**: Find public API, routes, exports, CLI commands
 2. **Data Flow**: Trace primary paths through the module

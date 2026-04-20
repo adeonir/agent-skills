@@ -42,7 +42,6 @@ Measurable outcomes that define what success looks like at the feature level.
 ```
 
 Rules:
-- Each goal has a measurable outcome
 - 2-4 goals per feature (more signals scope creep)
 - Goals drive Success Criteria -- every goal should map to at least one SC
 

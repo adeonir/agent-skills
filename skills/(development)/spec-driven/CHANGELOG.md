@@ -6,6 +6,14 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Tone down caps emphasis in implement.md Safety Valve
+- Drop redundant "measurable outcome" rule in spec-writing.md Goals
+- Remove "systematically" meta framing in baseline-capture.md Step 4
+
 ## 2026-04-18
 
 ### Added

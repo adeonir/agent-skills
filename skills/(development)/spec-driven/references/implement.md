@@ -61,11 +61,11 @@ When operating in **Quick scan mode** (Medium scope, no design.md):
    - Which custom hooks handle the patterns needed (data fetching, state, etc.)
    - Which variables/tokens to use for styling (not hardcoded values)
 
-4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), STOP and suggest running `design` first.
+4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), stop and suggest running `design` first.
 
 ### Step 4: Safety Valve (inline step listing)
 
-**ALWAYS** list atomic steps before starting implementation, even when tasks.md exists:
+List atomic steps before starting implementation, even when tasks.md exists:
 
 ```
 Execution steps:
@@ -76,7 +76,7 @@ Execution steps:
 ```
 
 **If >5 steps or complex dependencies detected:**
-- STOP execution
+- Halt execution
 - Inform user: "This is more complex than expected. Recommend creating formal tasks."
 - Suggest running `tasks` (which requires `design` first if that was also skipped)
 - Exit
