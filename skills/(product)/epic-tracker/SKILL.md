@@ -77,18 +77,19 @@ epic-tracker ------> spec-driven   (handoff feeds implementation)
 **DO:**
 - Check for existing PRD/brief before creating an epic (discover phase)
 - Use status in frontmatter for all artifacts (planned, in-progress, done, blocked)
-- Keep stories within their epic folder
-- Place standalone bugs in the standalone/ folder
-- Present the artifact for user review before saving
+- Keep each file to a single artifact type in its proper folder
 - Use kebab-case for all artifact and folder names
+- Present the artifact for user review before saving
+- Suggest spec-driven as the next step; let the user invoke it
+- Structure artifacts so a future tracker sync stays possible
+- Read artifacts directly when composing an overview; sizing stays with spec-driven
 
 **DON'T:**
-- Auto-trigger spec-driven -- always suggest, let user invoke
-- Implement tracker sync -- structure artifacts for future compatibility
-- Create an index file -- read artifacts directly for overview
-- Add size fields to stories -- spec-driven handles sizing
-- Mix artifact types in a single file
-- Skip the discover phase for epics
+- Skip the discover phase (contrasts: check for existing PRD/brief first)
+- Auto-trigger spec-driven (contrasts: suggest, let user invoke)
+- Implement tracker sync now (contrasts: structure for future compatibility)
+- Create an index file or add size fields (contrasts: read artifacts directly; spec-driven handles sizing)
+- Mix artifact types in a single file (contrasts: single type per file in its folder)
 
 ## Output
 

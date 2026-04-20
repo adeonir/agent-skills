@@ -58,19 +58,17 @@ if it doesn't exist.
 
 **DO:**
 - Extract context from existing docs before asking questions
-- Write acceptance criteria that are verifiable without knowing
-  implementation details
-- Include scope boundaries -- what's explicitly out helps as much as
-  what's in
-- List stories even if they'll be created later -- the checklist is
-  the roadmap
+- Write acceptance criteria verifiable without knowing implementation details
+- Include scope boundaries -- what's explicitly out helps as much as what's in
+- List stories in the epic checklist; create them as separate artifacts later
+- Run discover first, even when the user provides context directly
+- Hand sizing off to spec-driven
 
 **DON'T:**
-- Include implementation details -- that's spec-driven's job. No
-  technology names, frameworks, or patterns in the epic.
-- Create story artifacts during epic creation -- just list them
-- Skip the discover phase even if the user provides context directly
-- Add size estimates -- spec-driven handles sizing
+- Include implementation details (contrasts: criteria stay implementation-agnostic)
+- Create story artifacts during epic creation (contrasts: list stories in checklist, create on demand later)
+- Skip discover (contrasts: run discover first regardless of provided context)
+- Add size estimates (contrasts: sizing is spec-driven's job)
 
 ## Error Handling
 

@@ -6,6 +6,12 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Pair every Guideline DON'T with a concrete DO in SKILL.md and epic.md
+
 ## 2026-03-25
 
 ### Added
