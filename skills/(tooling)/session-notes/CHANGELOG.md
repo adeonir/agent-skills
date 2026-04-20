@@ -6,6 +6,15 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Centralize "ask one question at a time" rule in SKILL.md; drop repetitions across reference Guidelines
+- Pair every SKILL.md DON'T with a concrete DO
+- Pair every Guideline DON'T with a concrete DO in session.md and company.md
+- Trim redundant "never modifies the transcription text" restatement in transcription.md
+
 ## 2026-04-02
 
 ### Added

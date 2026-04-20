@@ -55,7 +55,6 @@ Save conversations with AI tools as structured Obsidian notes with prose context
 **DO:**
 - Write prose, not bullet dumps -- decisions and insights deserve context
 - Focus on reasoning and outcomes, not a play-by-play
-- Ask one question at a time -- never batch multiple questions
 - Link to related project/daily notes with `[[wikilinks]]`
 - Include source in frontmatter for searchability
 

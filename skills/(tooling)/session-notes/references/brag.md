@@ -52,7 +52,6 @@ Add achievements to brag document for performance reviews and career growth.
 ## Guidelines
 
 **DO:**
-- Ask one question at a time -- never batch multiple questions
 - Quantify impact when possible (%, $, time saved)
 - Include both technical and soft skill achievements
 - Record achievements as they happen (don't wait for review)

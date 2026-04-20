@@ -44,7 +44,6 @@ Document technical challenges from interview processes.
 ## Guidelines
 
 **DO:**
-- Ask one question at a time -- never batch multiple questions
 - Include your solution approach and thought process
 - Document what you learned, even if failed
 - Note time complexity and space complexity for algorithms (inside Solution section)

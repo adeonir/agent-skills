@@ -54,7 +54,6 @@ The `{VaultFolder}` depends on the project category. Load
 ## Guidelines
 
 **DO:**
-- Ask one question at a time -- never batch multiple questions
 - Use `search_notes` to check for existing project notes before creating
 
 **DON'T:**

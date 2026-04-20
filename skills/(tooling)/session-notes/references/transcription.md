@@ -12,7 +12,7 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
 
 1. **Identify context**
    Ask the user what kind of content this is (meeting, standup, course, lecture,
-   workshop, webinar). Ask one question at a time.
+   workshop, webinar).
 
 2. **Receive the transcription**
    The user pastes or provides the transcription content. This content is the
@@ -35,7 +35,7 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
      they exist. Check before linking
 
    The agent reads the transcription to generate tags, observations, and
-   relations, but never modifies the transcription text itself.
+   relations; the transcription body is passed through verbatim.
 
 4. **Determine destination**
    Ask the user where to save the note. If the user specifies a path, use it.
@@ -62,7 +62,6 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
 - Preserve the transcription content exactly as provided
 - Generate tags from the transcription content (topics, tools, concepts)
 - Generate observations by reading the transcription (key insights, decisions)
-- Ask one question at a time
 - Include source link at the bottom if the user provides one
 
 **DON'T:**

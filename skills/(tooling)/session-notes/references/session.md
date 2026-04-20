@@ -71,18 +71,17 @@ not reasoning, not file paths.
 ## Guidelines
 
 **DO:**
-- Keep it focused on one project per note
+- Keep one project per note; use daily note for cross-project context
 - Use past tense and natural language
-- Write Summary as bullet points with facts, outcomes, and decisions, not a task list
+- Write Summary as bullet points with facts, outcomes, and decisions (not tasks, git metadata, or reasoning)
+- Include only sections with content; omit empty sections
 - Link to related daily notes and project notes
 
 **DON'T:**
-- Mix multiple projects in one session note (use daily note for that)
-- List tasks or steps executed (that is a changelog)
-- List files modified (that is git log)
-- Include git metadata (branches, commits, PRs)
-- Include reasoning, motivations, file paths, or technical specifics
-- Generate empty sections or placeholder content
+- Mix multiple projects in one session note (contrasts: one project per note)
+- List tasks, steps executed, files modified, or git metadata (contrasts: facts, outcomes, decisions)
+- Include reasoning, motivations, file paths, or technical specifics (contrasts: outcomes over process)
+- Generate empty sections or placeholder content (contrasts: include only sections with content)
 
 ## Next Steps
 

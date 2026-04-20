@@ -44,17 +44,17 @@ Track job applications and interview process for a company.
 ## Guidelines
 
 **DO:**
-- Ask one question at a time -- never batch multiple questions
-- Update existing company note if re-applying to same company
+- Update the existing company note when re-applying to the same company
 - Link to challenge notes for interview stages with technical detail
 - Track reasons for rejection (if known)
 - Create separate challenge notes for technical interview stages
+- Confirm application status with the user before recording it
+- Redact sensitive info (recruiter contact, compensation) unless the user explicitly consents
 
 **DON'T:**
-- Create duplicate notes for same company + year
-- Include sensitive info (recruiter personal contact without permission)
-- Assume status -- always confirm with user
-- Include compensation details (sensitive information)
+- Create duplicate notes for the same company + year (contrasts: update existing note)
+- Include sensitive info like recruiter contact or compensation without permission (contrasts: redact unless user consents)
+- Assume application status (contrasts: confirm with the user)
 
 ## Next Steps
 

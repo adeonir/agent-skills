@@ -92,7 +92,6 @@ Daily bullets name what was produced or completed. Omit how, why, and file paths
 
 **DO:**
 - Keep it brief -- 5 minutes max
-- Ask one question at a time -- never batch multiple questions
 - Link to project notes when mentioning projects `[[Project Name]]`
 - Use bullet points for speed
 - Use past tense and natural language

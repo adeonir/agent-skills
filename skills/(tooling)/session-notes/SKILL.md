@@ -116,6 +116,7 @@ transcription --> decision   (meeting decisions become decision notes)
 
 **DO:**
 
+- Ask one question at a time when gathering context from the user
 - Resolve vault once per session (see Vault Resolution above)
 - Compose note content following `templates/*.md` structure
 - Use `write_note` for new notes, `read_note` + `patch_note` for updates
@@ -126,12 +127,13 @@ transcription --> decision   (meeting decisions become decision notes)
 
 **DON'T:**
 
-- Overwrite or delete existing vault files -- always append, rename, or cancel
-- Assume vault location without confirmation
-- Use templates for updates (templates are for new notes only)
-- Create duplicate notes -- search first with `search_notes`
-- Use absolute paths in wiki-links (always relative)
-- Create wikilinks to files that don't exist in the vault (orphan links)
+- Batch multiple questions to the user (contrasts: one question at a time)
+- Overwrite or delete existing vault files (contrasts: append, rename, or cancel)
+- Assume vault location without confirmation (contrasts: resolve vault once per session)
+- Use templates for updates (contrasts: templates are for new notes only)
+- Create duplicate notes (contrasts: search first with `search_notes`)
+- Use absolute paths in wiki-links (contrasts: always relative)
+- Create wikilinks to files that don't exist in the vault (contrasts: verify target exists before linking)
 
 ## Output
 
