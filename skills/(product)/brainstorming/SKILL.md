@@ -62,19 +62,18 @@ brainstorming -------> design-builder (direction feeds visual exploration)
 ## Guidelines
 
 **DO:**
-- Always complete discovery before diverging
 - Generate at least 4 alternatives during diverge, including non-obvious options
 - Challenge every alternative with trade-offs during converge
 - Require explicit user approval before capturing the direction
 - Mark unknowns as TBD rather than inventing constraints
+- Stay at the problem-and-direction level; defer implementation choices
 - Suggest the appropriate next skill after capture
 
 **DON'T:**
-- Skip directly to a solution (the point is exploration)
-- Generate only 2-3 obvious alternatives (push for non-obvious options)
-- Let the user commit to a direction without evaluating trade-offs
-- Include implementation details (that belongs in spec-driven)
-- Proceed past converge without user confirmation
+- Generate only 2-3 obvious alternatives (contrasts: push for non-obvious options)
+- Let the user commit to a direction without evaluating trade-offs (contrasts: challenge every alternative)
+- Include implementation details (contrasts: stay at the problem-and-direction level)
+- Proceed past converge without user confirmation (contrasts: require explicit approval)
 
 ## Output
 

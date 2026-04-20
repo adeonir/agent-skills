@@ -6,6 +6,13 @@ name: brainstorming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Collapse duplicate discovery discipline rule in SKILL.md; discovery.md is the single home
+- Pair every SKILL.md DON'T with a concrete DO
+
 ## 2026-03-21
 
 ### Added
