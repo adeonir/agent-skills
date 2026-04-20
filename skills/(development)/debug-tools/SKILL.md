@@ -54,16 +54,17 @@ log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
 - Compare broken code against working examples when root cause is unclear
 - Always use `[DEBUG]` prefix for injected logs (enables cleanup)
 - Apply minimal fix: smallest change that resolves the issue
+- Redact sensitive values (passwords, tokens, PII) in injected logs
 - Clean up debug logs automatically after fix is verified
 - Track fix attempts: after 3 failed fixes, escalate on the 4th to architectural review
 - Use whatever debugging tools are available in the environment
 
 **DON'T:**
-- Report findings with confidence < 50
-- Log sensitive data (passwords, tokens, PII)
-- Apply large refactors as part of a bug fix
-- Leave debug logs in production code
-- Keep retrying the same approach when fixes fail repeatedly
+- Report findings with confidence < 50 (contrasts: >= 70 probable cause, 50-69 suggest logs)
+- Log sensitive data (contrasts: redact sensitive values in injected logs)
+- Apply large refactors as part of a bug fix (contrasts: smallest change that resolves the issue)
+- Leave debug logs in production code (contrasts: clean up debug logs after verification)
+- Keep retrying the same approach when fixes fail repeatedly (contrasts: track attempts and escalate on the 4th)
 
 ## Error Handling
 

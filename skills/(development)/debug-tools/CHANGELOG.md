@@ -6,6 +6,12 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Pair every SKILL.md Guideline DON'T with a concrete DO; add redaction rule
+
 ## 2026-03-21
 
 ### Changed
