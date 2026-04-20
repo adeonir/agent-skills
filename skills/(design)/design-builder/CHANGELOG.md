@@ -8,8 +8,27 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-04-20
 
+### Added
+
+- Bidirectional sync for propagating `design.pen` or implementation changes back to `design.json` and `structure.md`
+- Handoff operation for optional bundle packaging to external agents or developers
+- Codebase extraction path in design (Tailwind, CSS variables, shadcn, tokens files) for redesign or migration scenarios
+- Web capture paths in copy: Claude Chrome extension, region screenshot, CSS selector, URL plus description
+- PDF and DOCX brief documents as input sources in copy
+- Tune sliders, inline comments (Alt+click), and apply-across refinement tools in preview
+- Screen-based preset set (utilitarian, consumer-polished, native-platform, creative-tool) for web-app and mobile-app types
+- Component isolation preview mode for design-system-level review
+- Viewport switcher (375 / 768 / 1440) in exploratory mode
+- `tune` and `comment` event types in preview server with live CSS custom property swap
+
 ### Changed
 
+- Skill reframed greenfield-first for any digital product (page-based and screen-based flows)
+- Project type routes behavior in structure (decision sets) and preview (preset set)
+- Reconcile project type list across copy, structure, and templates: `landing-page`, `website`, `web-app`, `mobile-app`
+- Design template splits `layout` into `page` and `screen` blocks; `responsive` adds `device_adaptations`
+- Recommended effort line added (xhigh for preview, design extraction, sync; high for discovery, structure, handoff)
+- SKILL.md section order aligned to canonical sequence: Discovery folded into Workflow, Templates and Artifacts merged into a single Output section
 - Pair every SKILL.md Guideline DON'T with a concrete DO
 - Centralize "ask one question at a time" rule in SKILL.md; drop restatement in structure.md Guidelines
 - Drop meta "summarize understanding" instruction in Discovery step 2

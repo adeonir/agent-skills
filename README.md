@@ -20,7 +20,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 
 | Skill | Category | Description |
 |-------|----------|-------------|
-| **[design-builder](skills/(design)/design-builder)** | Design | Product-engineer design pipeline: extract copy and tokens, define structure, preview and approve designs |
+| **[design-builder](skills/(design)/design-builder)** | Design | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
 | **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
