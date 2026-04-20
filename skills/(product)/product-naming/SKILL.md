@@ -78,7 +78,7 @@ Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if 
 - **Research flow**: `.artifacts/docs/{product}-research.md` -- uses `templates/research-report.md`
 - **Validation flow**: `.artifacts/docs/{product}-validation.md` -- uses `templates/validation-report.md`
 
-Status indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
+Status indicators: 🟢 available  🔴 unavailable  🟡 uncertain
 
 ## Error Handling
 

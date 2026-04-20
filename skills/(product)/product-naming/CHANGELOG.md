@@ -6,6 +6,12 @@ name: product-naming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Changed
+
+- Translate status indicator labels to English in SKILL.md and README.md; add missing accent to PT search query in validation.md
+
 ## 2026-03-25
 
 ### Fixed

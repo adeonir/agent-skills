@@ -58,7 +58,7 @@ dig +short "${name}.com"
 
 **Last resort: WebSearch**
 
-If shell tools are unavailable, search `<name>.com available domain` or `<name>.com.br registro.br disponivel`. Look for registrar pages showing "available" or "taken". Mark as 🟡 Uncertain if results are inconclusive.
+If shell tools are unavailable, search `<name>.com available domain` or `<name>.com.br registro.br disponível`. Look for registrar pages showing "available" or "taken". Mark as 🟡 Uncertain if results are inconclusive.
 
 Mark each as:
 - 🟢 Available

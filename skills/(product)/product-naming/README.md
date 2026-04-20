@@ -53,7 +53,7 @@ Reports are saved as `.md` files in `.artifacts/docs/`:
 - **Research report** (`templates/research-report.md`): `{product}-research.md` -- competitor landscape, candidates with quality scoring, variations, eliminated names
 - **Validation report** (`templates/validation-report.md`): `{product}-validation.md` -- domain availability with prices, social media status, trademark search, recommendation with next steps
 
-Availability uses traffic light indicators: 🟢 disponivel  🔴 indisponivel  🟡 incerto
+Availability uses traffic light indicators: 🟢 available  🔴 unavailable  🟡 uncertain
 
 ## Requirements
 
