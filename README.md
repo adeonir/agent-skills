@@ -74,8 +74,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 ```
 .agents/
 ├── project.md      # project-index: project context
-├── codebase/       # project-index: deep codebase analysis
-└── baselines/      # spec-driven: area behavioral baselines
+└── codebase/       # project-index: deep codebase analysis
 
 .artifacts/
 ├── features/       # spec-driven: feature specs, designs, tasks

@@ -15,6 +15,11 @@ All notable changes to this skill will be documented in this file.
 - Remove "systematically" meta framing in baseline-capture.md Step 4
 - Knowledge Verification Chain Step 5 now covers both "flag uncertain" and "ask user for direction"; fabrication rule instructs asking for direction when stuck
 
+### Removed
+
+- Baseline-capture reference and template
+- `.agents/baselines/` directory references across SKILL.md, specify.md, and baseline-discovery.md
+
 ## 2026-04-18
 
 ### Added

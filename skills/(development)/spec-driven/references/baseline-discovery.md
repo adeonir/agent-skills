@@ -3,8 +3,7 @@
 Document current behavior for brownfield features.
 
 > **NOTE:** This reference requires a feature hypothesis as input (called
-> from specify.md Step 8). To document an area WITHOUT a feature in mind,
-> use [baseline-capture.md](baseline-capture.md) instead.
+> from specify.md Step 8).
 
 ## Purpose
 
@@ -29,11 +28,6 @@ For features that modify existing code, understand what the system currently doe
 - "criar", "novo", "implementar do zero"
 
 ### Step 2: Search Codebase for Related Code
-
-**Check for existing baseline first:**
-If `.agents/baselines/` contains a baseline for the relevant area, use it
-as starting context instead of rediscovering from scratch. Supplement with
-feature-specific details not covered by the baseline.
 
 Extract technical terms from description (e.g., "cache", "auth", "payment").
 
@@ -139,12 +133,8 @@ Current state based on codebase analysis.
 ## Integration with Codebase Mapping
 
 **project-index summary**: Macro view - overall codebase structure (`.agents/codebase/`)
-**baseline-capture.md**: Middle view - full behavioral baseline of an area (hypothesis-free)
 **baseline-discovery.md**: Micro view - behavior relevant to this feature (hypothesis-driven)
 
 They complement each other:
 - Use project-index summary for general patterns and architecture
-- Use baseline-capture for deep understanding of a specific area
 - Use baseline-discovery for feature-specific behavioral context
-- If a baseline-capture exists for the relevant area, baseline-discovery
-  builds on it

@@ -241,19 +241,12 @@ Items unresolved after discovery go to "Open Questions" in spec.md. Never block 
 
 If type is `brownfield`:
 
-1. **Check for existing baseline:**
-   Look in `.agents/baselines/` for a baseline matching the feature's area.
-   If found, use it as starting context for the Baseline section.
+1. **Run baseline-discovery:**
+   Load [baseline-discovery.md](baseline-discovery.md) to document current
+   behavior relevant to this feature.
 
-2. **Run baseline-discovery (if needed):**
-   Load [baseline-discovery.md](baseline-discovery.md) and supplement with
-   feature-specific details:
-   - If baseline-capture exists: focus only on feature-specific gaps not
-     already documented
-   - If no baseline-capture: full discovery as before
-
-3. Document gaps and limitations
-4. Add Baseline section to spec.md
+2. Document gaps and limitations
+3. Add Baseline section to spec.md
 
 If `.agents/codebase/` doesn't exist and wasn't suggested in Step 2:
 - Suggest running project-index for better brownfield context
@@ -343,12 +336,10 @@ Inform user:
 ## Codebase Mapping Note
 
 **project-index** skill creates `.agents/codebase/` for general codebase understanding.
-**baseline-capture** creates `.agents/baselines/` for area-level behavioral baselines.
 **Baseline in specify** captures specific current behavior relevant to this feature.
 
 They complement each other:
 - project-index: Macro view (whole codebase)
-- baseline-capture: Middle view (one area, hypothesis-free)
 - baseline-discovery: Micro view (this feature only)
 
 ## Guidelines

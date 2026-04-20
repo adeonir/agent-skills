@@ -4,14 +4,13 @@ description: >-
   Specification-driven development that auto-sizes depth by complexity.
   Creates structured feature specs with traceability to requirements. Use when
   planning features, breaking work into tasks, implementing with verification,
-  auditing goals before closing, tracking decisions across sessions, extracting
-  specs from PRDs, or capturing baselines of existing code. Triggers on
-  "create feature", "specify feature", "plan", "design feature", "tasks",
-  "implement", "verify", "verify implementation", "validate", "UAT", "audit",
-  "audit feature", "validate goals", "quick fix", "quick task", "discuss
-  feature", "break this into tasks", "plan this feature", "show status",
-  "capture baseline", "document module", "document existing code", "from PRD",
-  "extract from document", "use this PRD", "here's the PRD".
+  auditing goals before closing, tracking decisions across sessions, or
+  extracting specs from PRDs. Triggers on "create feature", "specify feature",
+  "plan", "design feature", "tasks", "implement", "verify", "verify
+  implementation", "validate", "UAT", "audit", "audit feature", "validate
+  goals", "quick fix", "quick task", "discuss feature", "break this into
+  tasks", "plan this feature", "show status", "from PRD", "extract from
+  document", "use this PRD", "here's the PRD".
 ---
 
 # Spec-Driven Development
@@ -35,7 +34,6 @@ Adaptive pipeline: Specify and Implement always run; Design and Tasks auto-skip 
 
 **On-demand:**
 - `.agents/codebase/*.md` (brownfield)
-- `.agents/baselines/*.md` (pre-existing baseline for area)
 - `.agents/knowledge.md` (cross-feature decisions and gotchas)
 - decisions.md (designing or implementing from user decisions)
 - design.md (implementing)
@@ -75,7 +73,6 @@ If an existing artifact's structure diverges from the template, follow the templ
 | Audit feature, validate goals, audit goals and success criteria | [audit.md](references/audit.md) |
 | Validate, UAT, manual testing, test manually | [validate.md](references/validate.md) |
 | Quick fix, quick task, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
-| Capture baseline, document module, document existing code | [baseline-capture.md](references/baseline-capture.md) |
 | List features, show status | [status-specs.md](references/status-specs.md) |
 
 ### Guidelines
@@ -96,9 +93,8 @@ Notes:
 
 - `deep-verify.md` is not a direct trigger. It is loaded by `verify.md`
   during Step 5 (Code Correctness).
-- `baseline-discovery.md` is subordinate to `specify.md` Step 8 (requires
-  a feature hypothesis). For hypothesis-free documentation, use
-  `baseline-capture.md` instead.
+- `baseline-discovery.md` is not a direct trigger. It is loaded by
+  `specify.md` Step 8 for brownfield features.
 
 ## Cross-References
 
@@ -119,9 +115,7 @@ audit.md ---------> spec.md (marks Goals/Success [x], transitions done)
 implement.md ------> validate.md (on-demand UAT, any scope)
 validate.md ------> audit.md (re-run required after UAT reproves any [x])
 implement.md ------> tasks.md (safety valve: >5 inline steps)
-project-index -----> baseline-capture.md (provides .agents/ context)
-baseline-capture.md -> specify.md (when hypothesis forms)
-specify.md --------> baseline-discovery.md (checks .agents/baselines/ first)
+specify.md --------> baseline-discovery.md (brownfield features)
 design.md ---------> project-index (prompts integrate feedback after Step 7)
 implement.md ------> project-index (prompts integrate feedback after Step 10)
 ```
@@ -175,8 +169,6 @@ implement.md ------> project-index (prompts integrate feedback after Step 10)
 .agents/
 ├── project.md            # Project context (project-index)
 ├── codebase/             # Codebase analysis (project-index)
-├── baselines/            # Behavioral baselines (baseline-capture)
-│   └── {area-name}.md
 └── knowledge.md          # Cross-feature decisions and gotchas (spec-driven)
 ```
 
@@ -194,7 +186,6 @@ implement.md ------> project-index (prompts integrate feedback after Step 10)
 | Quick summary | [quick-summary.md](templates/quick-summary.md) |
 | Codebase exploration | [exploration.md](templates/exploration.md) |
 | Research cache | [research.md](templates/research.md) |
-| Baseline capture | [baseline.md](templates/baseline.md) |
 
 ## Knowledge Verification Chain
 
@@ -226,7 +217,6 @@ Step 5: Flag or ask   -> state partial reasoning tagged "verify", or ask user fo
 - Record cross-feature decisions and gotchas in `.agents/knowledge.md` during design and implement
 - Auto-size depth based on complexity -- skip phases that add no value
 - Run verify after each task or range -- design adherence, pattern adherence, visual (if references exist)
-- Check `.agents/baselines/` for existing baselines before running baseline-discovery from scratch
 
 **DON'T:**
 - Reuse Feature IDs from previous features
@@ -285,5 +275,3 @@ mechanism -- sub-agents don't need to return findings through the context.
 - Design not found: Suggest design before tasks (or skip if Medium scope)
 - Tasks not found: Suggest tasks before implement (or skip if Medium scope)
 - Scope misjudged: Safety valve catches it -- redirect to appropriate phase
-- Baseline target not found: Offer discovery mode to list available areas
-- Baseline already exists: Ask user whether to update or capture adjacent area
