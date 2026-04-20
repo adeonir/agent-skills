@@ -121,13 +121,15 @@ project-index                  --> sole writer to .agents/codebase/*.md and .age
 - Read actual code files to extract patterns, not just list them
 - Keep all outputs concise and scannable
 - Document conventions as observed, not as prescribed
+- Document stable patterns and interfaces, not volatile implementation details
+- Cross-reference between output files rather than duplicating content
 - Update existing docs when re-running (merge, never overwrite)
 
 **DON'T:**
-- Generate exhaustive catalogs of every component/file
-- Include implementation details that change frequently
-- Duplicate information across output files
-- Create outputs without reading representative source files
+- Create outputs without reading representative source files (contrasts: read actual code)
+- Generate exhaustive catalogs of every component/file (contrasts: concise and scannable)
+- Include implementation details that change frequently (contrasts: stable patterns and interfaces)
+- Duplicate information across output files (contrasts: cross-reference between files)
 
 ## Error Handling
 
