@@ -104,19 +104,23 @@ Otherwise create a new one in step 3.
 
 ### 3. Create session note
 
-One note per session, carrying both facts and reasoning. Body prose is
-free-form markdown above the structured sections. Write substantively —
-background, motivation, what happened and why, trade-offs considered,
-discoveries, and context for the next session.
+One note per session, carrying both facts and reasoning. Body opens with
+a `## Summary` heading containing the prose narrative — background,
+motivation, what happened and why, trade-offs considered, discoveries,
+and context for the next session. Keep the prose substantive but
+concise — focused on key decisions and insights, not exhaustive replay.
+Structured sections follow.
 
 ```markdown
+## Summary
+
 Prose context -- background, motivation, what happened and why, trade-offs,
 discoveries, and reasoning. Free-form markdown, rich and substantive.
 Include file paths, directory names, and technical specifics here.
 
 ## Decisions
 
-- Decision + rationale + alternatives rejected
+- Decision + rationale + named alternative rejected (when a real option was considered)
 
 ## Findings
 
@@ -128,7 +132,8 @@ Include file paths, directory names, and technical specifics here.
 
 ## Next Context
 
-- Unfinished work, next steps, blockers for next session
+- Unfinished work + concrete entry point (file, function, path, or command)
+- Blockers with what needs to unblock them
 
 ## Observations
 
@@ -138,6 +143,8 @@ Include file paths, directory names, and technical specifics here.
 - [problem] Key problem condensed from Problems section
 - [convention] Convention established
 - [context] Background information
+- [state] Commit/WIP status at session end (shipped vs uncommitted)
+- [prereq] Environmental or setup requirement to continue the work
 
 ## Relations
 
@@ -153,19 +160,27 @@ write_note(
   directory="{bm.path}/sessions",
   note_type="session",
   tags=["session", ...base_tags, ...context_tags],
-  content="Prose context...\n\n## Decisions\n..."
+  content="## Summary\n\nProse context...\n\n## Decisions\n..."
 )
 ```
 
 Rules:
 - Observations use `[brackets]`, not `#hashtags`
 - One fact per observation, be specific
-- Prose body tells the story, observations distill the facts
+- `## Summary` prose tells the story, observations distill the facts
+- Name rejected alternatives explicitly in Decisions when a real option
+  was considered (`decided X over Y because Z`, not just `decided X`)
+- Next Context bullets include a concrete entry point — file, function,
+  path, or command — not just "do X"
+- Add a `[state]` observation at session end when changes are
+  uncommitted, partial, or span committed + WIP work
+- Add a `[prereq]` observation for setup or environmental requirements
+  the next session must satisfy before the work resumes
 - Omit empty sections (no empty Decisions, Findings, etc.)
 - **`follows` relation**: list the sessions directory, find the most
   recent note before today's date. If no previous note exists, omit
   the relation
-- Do not include file lists or obvious info from git history
+- Focus on reasoning, discoveries, and specifics — do not include file lists, diff stats, or obvious info from git history
 
 ## Guidelines
 

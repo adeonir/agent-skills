@@ -11,6 +11,19 @@ All notable changes to this skill will be documented in this file.
 ### Added
 
 - Auto-memory optimization routine now runs at the end of the auto-memory step — scans all memory files for duplicates, staleness, broken index pointers, and oversized entries
+- `## Summary` heading at the top of the BM session template — body opens with the heading so the prose narrative is a named section rather than an anonymous preamble
+
+### Changed
+
+- Obsidian session template restructured around five sections: `## Summary` (prose), `## Decisions`, `## Open Items`, `## Observations`, `## Relations` — mirrors BM substance with a shape optimized for human reading
+- Obsidian observations now use `- #category content` in a dedicated `## Observations` section instead of inline hashtags woven into prose; categories are free-form and derived from the session content
+- Obsidian relations now use typed verbs (`- follows [[X]]`) in a `## Relations` fallback section, with inline `[[wikilinks]]` in Summary prose covering ordinary mentions; reverses the earlier prose-first rule against typed relation syntax
+- Obsidian daily template gained `## Observations` for cross-cutting day-level facts (`#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`) and `## Relations` for typed edges (`contains [[session]]`) to today's session notes; project-specific facts still live in the session note, not the daily
+- BM session Summary guidance now tells the writer to keep prose substantive but concise — focused on key decisions and insights, not exhaustive replay
+- BM session "do not include" rule reframed with a positive lead — focus on reasoning, discoveries, and specifics — and extended to exclude diff stats alongside file lists and git history
+- BM session Decisions bullets now require naming the rejected alternative when a real option was considered (`decided X over Y because Z` instead of generic `alternatives rejected` placeholder); Obsidian session Decisions mirrors the same rule
+- BM session Next Context bullets now require a concrete entry point — file, function, path, or command — so the next session can resume without searching for where to start
+- BM session Observations gained two example categories: `[state]` for commit/WIP status at session end and `[prereq]` for setup or environmental requirements the next session must satisfy
 
 ### Removed
 
