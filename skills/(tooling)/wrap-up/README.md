@@ -12,7 +12,7 @@ npx skills add . --skill wrap-up
 
 ```mermaid
 flowchart LR
-  A[Detect Project] --> B[Auto-Memory]
+  A[Resolve Project] --> B[Auto-Memory]
   B --> C[BM Notes]
   C --> D[Obsidian Notes]
   C --> C1[Session]
@@ -25,7 +25,7 @@ flowchart LR
 
 | Step | System | Output | Audience |
 |------|--------|--------|----------|
-| Detect Project | -- | category, project, mappings | Internal |
+| Resolve Project | -- | BM path, Obsidian path, base tags | Internal |
 | Auto-Memory | Claude Code | Updated memory files | Agents |
 | BM Session | Basic Memory | Session note (facts) | Agents |
 | BM Debrief | Basic Memory | Debrief note (reasoning) | Agents |
@@ -46,19 +46,14 @@ close session
 ## Output
 
 - Auto-memory files in `.claude/projects/.../memory/`
-- BM notes in the `main` project (prefixed by category)
-- Obsidian session note in `{Vault}/{Folder}/{Project}/`
-- Obsidian daily note in `{Vault}/Daily/`
+- BM notes under `{bm.path}/{sessions,debriefs,decisions}/`
+- Obsidian session and decision notes under `{obsidian.path}/`
+- Obsidian daily note in `Daily/YYYY-MM-DD.md`
 
 ## Requirements
 
 - Basic Memory MCP server (for BM notes)
 - MCPVault MCP server (for Obsidian notes)
 - Auto-memory configured in Claude Code
-
-## Integration
-
-| Skill | Relationship |
-|-------|-------------|
-| memory-notes | BM session and debrief use write_note |
-| session-notes | Obsidian notes use MCPVault write/patch |
+- `.notes/` symlink in the repo root pointing to the Obsidian vault
+- `wrap-up.yml` at the vault root with a `projects` registry

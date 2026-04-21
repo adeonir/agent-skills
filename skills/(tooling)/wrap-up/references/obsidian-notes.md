@@ -4,11 +4,11 @@ Create session and decision notes in the project folder and update
 the daily note. Uses MCPVault MCP tools directly — no dependency on
 other skills.
 
-> **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian folder
+> **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian path and base tags
 
 ## When to Use
 
-- Obsidian session note: when Obsidian folder is not `--`
+- Obsidian session note: when `obsidian.path` is not `--`
 - Daily note: always (even when session note is skipped)
 - Runs after BM notes
 
@@ -51,14 +51,14 @@ Always search before creating to avoid duplicates.
 
 #### Determine path
 
-- Folder: `{Obsidian folder}/{Project Name}/Sessions/` (Title Case)
+- Folder: `{obsidian.path}/Sessions/`
 - Filename: `YYYY-MM-DD — Description.md`
-- Example: `Ventures/Pensefy/Sessions/2026-03-22 — BM Reorganization.md`
+- Example: `Work/Acme/Sessions/2026-03-22 — BM Reorganization.md`
 
 #### Check for existing note
 
 ```
-search_notes query="YYYY-MM-DD" path="{Folder}/{Project}/Sessions/"
+search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
 ```
 
 If a match exists for the same date and topic, read it with `read_note`
@@ -75,7 +75,8 @@ title: "YYYY-MM-DD — Description"
 type: session
 tags:
   - session
-  - {dynamic tags based on content}
+  - {base tags from mapping}
+  - {context tags from content}
 ---
 
 # YYYY-MM-DD — Description
@@ -111,9 +112,9 @@ tags:
 
 ```
 write_note(
-  path="{Folder}/{Project}/Sessions/YYYY-MM-DD — Description.md",
+  path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
   content="# YYYY-MM-DD — Description\n\n## Summary\n...",
-  frontmatter={title: "...", type: "session", tags: [...]}
+  frontmatter={title: "...", type: "session", tags: ["session", ...base_tags, ...context_tags]}
 )
 ```
 
@@ -131,14 +132,14 @@ One Obsidian decision note per BM decision note created.
 
 #### Determine path
 
-- Folder: `{Obsidian folder}/{Project Name}/Decisions/` (Title Case)
+- Folder: `{obsidian.path}/Decisions/`
 - Filename: `Title — Decision Theme.md`
-- Example: `Projects/My Skills/Decisions/Decision Note Format.md`
+- Example: `Work/Acme/Decisions/Decision Note Format.md`
 
 #### Check for existing note
 
 ```
-search_notes query="Decision Theme" path="{Folder}/{Project}/Decisions/"
+search_notes query="Decision Theme" path="{obsidian.path}/Decisions/"
 ```
 
 If a match exists for the same theme, read it with `read_note` and
@@ -152,7 +153,8 @@ title: "Decision Title"
 type: decision
 tags:
   - decision
-  - {dynamic tags based on content}
+  - {base tags from mapping}
+  - {context tags from content}
 ---
 
 # Decision Title
@@ -201,7 +203,8 @@ title: "DayOfWeek, Month DD, YYYY"
 type: daily
 tags:
   - daily
-  - {dynamic tags based on content}
+  - {base tags from mapping}
+  - {context tags from content}
 ---
 
 # DayOfWeek, Month DD, YYYY
@@ -275,6 +278,10 @@ Rules:
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
 - Follow the full template — frontmatter + all relevant sections
+- Tag every note as `[note-type, ...base_tags, ...context_tags]` —
+  `note-type` is one of `session`, `decision`, `daily`; `base_tags`
+  come from mapping output; `context_tags` are derived from the session
+  content (work type, topics)
 - Use `#hashtags` for observations (Obsidian format)
 - Use `[[wikilinks]]` for relations (verify target exists)
 - Keep daily note as outcomes and decisions, not detailed log

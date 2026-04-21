@@ -24,7 +24,8 @@ in sequence. No confirmation between steps.
 ## Context Loading
 
 Load [mapping.md](references/mapping.md) first -- all subsequent steps
-depend on the resolved project, BM project, and Obsidian folder.
+depend on the resolved project name, BM project and path, Obsidian path,
+and base tags.
 
 Then load each reference in order as each step executes:
 1. [auto-memory.md](references/auto-memory.md)
@@ -45,8 +46,8 @@ Notes:
 ## Cross-References
 
 ```
-mapping.md -------> bm-notes.md        (provides BM project and prefix)
-mapping.md -------> obsidian-notes.md  (provides Obsidian folder)
+mapping.md -------> bm-notes.md        (provides BM project, path, base tags)
+mapping.md -------> obsidian-notes.md  (provides Obsidian path, base tags)
 bm-notes.md -----> BM MCP              (direct tool calls, no skill indirection)
 obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirection)
 ```
@@ -71,7 +72,8 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 
 ## Error Handling
 
-- Project not detected from path: ask user for project name and category
+- `.notes/` symlink missing: run vault bootstrap, ask user for vault path
+- Repo not registered in `wrap-up.yml`: run project bootstrap, append entry
 - BM tools unavailable: skip BM step, warn user
 - Obsidian/MCPVault unavailable: skip Obsidian step, warn user
 - Session note already exists in BM: append with edit_note, do not overwrite

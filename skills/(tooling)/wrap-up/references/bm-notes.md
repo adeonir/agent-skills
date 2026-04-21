@@ -3,7 +3,7 @@
 Create session, debrief, and decision notes in Basic Memory. Uses BM MCP
 tools directly — no dependency on other skills.
 
-> **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project and prefix
+> **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project, BM path, and base tags
 
 ## When to Use
 
@@ -50,7 +50,7 @@ Call these directly — do not invoke any skill.
 write_note(
   project="main",
   title="Note Title",
-  folder="ventures/pensefy/sessions",
+  directory="work/acme/sessions",
   tags=["tag1", "tag2"],
   content="# Note Title\n\nBody prose...\n\n## Observations\n..."
 )
@@ -82,16 +82,17 @@ Decision tree:
 
 ### 1. Determine paths
 
-Using mapping output (all notes go to BM project `main`):
-- Session directory: `{bm_prefix}{project}/sessions/`
-- Debrief directory: `{bm_prefix}{project}/debriefs/`
-- Decision directory: `{bm_prefix}{project}/decisions/`
-- BM project: always `main`
+Using mapping output:
+- BM project: `bm.project` (typically `main`)
+- Session directory: `{bm.path}/sessions/`
+- Debrief directory: `{bm.path}/debriefs/`
+- Decision directory: `{bm.path}/decisions/`
+- Base tags: `tags` (applied to every note, plus the note-type tag)
 
 ### 2. Check for existing session note
 
 ```
-search_notes query="YYYY-MM-DD" project="main"
+search_notes query="YYYY-MM-DD" project="{bm.project}"
 ```
 
 If a session note exists for today's work, read it with `read_note`
@@ -129,10 +130,10 @@ Write:
 
 ```
 write_note(
-  project="main",
+  project="{bm.project}",
   title="YYYY-MM-DD — Description",
-  folder="{bm_prefix}{project}/sessions",
-  tags=["session"],
+  directory="{bm.path}/sessions",
+  tags=["session", ...base_tags, ...context_tags],
   content="# YYYY-MM-DD — Description\n\n..."
 )
 ```
@@ -255,6 +256,10 @@ Rules:
 **DO:**
 - Search before creating with `search_notes` to avoid duplicates
 - Call BM MCP tools directly (`mcp__basic-memory__write_note`, etc.)
+- Tag every note as `[note-type, ...base_tags, ...context_tags]` —
+  `note-type` is one of `session`, `debrief`, `decision`; `base_tags`
+  come from mapping output; `context_tags` are derived from the session
+  content (work type, topics)
 - Use `[brackets]` for observations (BM format)
 - Use `- relation_type [[Target]]` for relations (BM format)
 - Link debrief to session note with `expands` relation

@@ -6,6 +6,27 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-20
+
+### Added
+
+- Vault discovery via `.notes/` symlink in the repo root, with a bootstrap flow that prompts for the vault path and adds `.notes` to `.git/info/exclude`
+- Shared `wrap-up.yml` registry at the vault root keyed by repo absolute path, with fields `name`, `bm.project`, `bm.path`, `obsidian.path`, `tags`
+- Project bootstrap flow that prompts for name, BM project/path, Obsidian path, and base tags, appending the entry under the existing `projects` key
+- Base tags from the project entry applied to every note (session, debrief, decision, daily)
+- Downstream refs append context tags per note on top of base tags
+
+### Changed
+
+- Project resolution rewritten around `.notes/` symlink and `wrap-up.yml` lookup instead of path parsing
+- BM and Obsidian notes now consume paths and base tags from the mapping output
+- Obsidian daily note path remains `Daily/YYYY-MM-DD.md` regardless of project
+
+### Removed
+
+- Hardcoded path detection
+- Category-to-system mapping table
+
 ## 2026-04-16
 
 ### Changed
@@ -25,10 +46,10 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
-- Renamed categories to match directory names: `work` -> `jobs`, `freelance` -> `freelances`, `personal` -> `personals`
-- Unified all BM projects to `main` (removed `work` and `ventures` projects)
-- BM prefix now matches category name directly (`ventures/` instead of `products/`)
-- Added entity-linking guidelines to bm-notes.md (link to `entities/`, create entities for recurring technologies)
+- Renamed categories to match directory names
+- Unified all BM projects under `main`
+- BM prefix now matches category name directly
+- Added entity-linking guidelines (link to `entities/`, create entities for recurring technologies)
 
 ## 2026-04-06
 
@@ -63,7 +84,7 @@ All notable changes to this skill will be documented in this file.
 - Decision note template (templates/decision.md) with Context + Decisions required sections
 - Conditional decision note creation step in bm-notes.md (step 5)
 - Initial skill creation with SKILL.md, references, and templates
-- Path detection from ~/Developer/{category}/{project}/ with mapping table
+- Path-based project detection with category mapping table
 - Auto-memory update step (references/auto-memory.md)
 - BM session and debrief note creation (references/bm-notes.md)
 - Obsidian session and daily note creation (references/obsidian-notes.md)
