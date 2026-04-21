@@ -30,6 +30,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard, which or
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, decisions, and conversations |
+| **[wrap-up](skills/(tooling)/wrap-up)** | Tooling | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
 
 ## How They Connect
 
@@ -49,6 +50,7 @@ flowchart TD
     SD -->|commit / review| GH[git-helpers]
     SD -->|discoveries| PI
     GH -->|session wrap-up| SN[session-notes]
+    GH -->|persist context| WU[wrap-up]
     DT[debug-tools] -.->|escalate| SD
 ```
 
@@ -64,7 +66,8 @@ flowchart TD
 7. spec-driven       --> specify, design, tasks, implement
 8. git-helpers       --> commit, review, PR, finish
 9. session-notes     --> document what was done
-10. debug-tools      --> when something breaks
+10. wrap-up          --> persist session across auto-memory, BM, Obsidian
+11. debug-tools      --> when something breaks
 ```
 
 ## Output Structure
