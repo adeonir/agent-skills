@@ -41,9 +41,8 @@ Read `package.json`:
 Generate tasks following natural order:
 1. Setup (config, deps)
 2. Types (interfaces)
-3. Implementation (core logic)
+3. Implementation (core logic, tests included per task)
 4. Integration (connect)
-5. Tests
 
 Each task should be:
 - **Atomic**: Completable in one session
@@ -54,12 +53,27 @@ Each task should be:
 **Task ID format:** `T001, T002, T003...` -- sequential, zero-padded, never reused.
 
 **Task description format:**
+
+Without test infrastructure:
 ```
 - [ ] T001 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
 ```
 
-Each task has a "Done when" line -- a concrete, verifiable condition that marks the task as complete.
+With test infrastructure (test script detected in Step 3):
+```
+- [ ] T001 [P] {verb} {what}
+  - **Tests:** unit|integration|e2e|none
+  - **Gate:** quick|full|build
+  - **Done when:** {verifiable outcome}; gate passes, no tests deleted
+```
+
+`Tests` declares the test type written in this task. `Gate` declares which gate command to run.
+`Done when` is a concrete, verifiable condition. When test infrastructure exists it must
+confirm the gate passes and no tests were deleted (count after ≥ count before).
+
+**Metadata split:** What/Where/Reuses live in design.md Component Design and Patterns & Reuse.
+Do not duplicate them per task -- tasks own Tests, Gate, and Done when only.
 
 ### Step 5: Create Execution Plan
 
@@ -86,7 +100,37 @@ Generate tasks following the template structure:
 - Tasks grouped by commit boundary (T001 [P] for parallel, T002 [B:T001] for dependent), each with "Done when"
 - Requirements Coverage (mapping ACs to tasks)
 
-### Step 7: Report
+After generating tasks.md, update spec.md: for each AC mapped to a task in Requirements Coverage,
+change its status tag from `` `in-design` `` to `` `in-tasks` ``. For Medium scope (no design phase),
+change from `` `pending` `` directly to `` `in-tasks` ``.
+
+### Step 7: Pre-Approval Checks
+
+Run both checks before presenting tasks to the user. If either fails, restructure and re-run.
+
+#### Diagram-Definition Cross-Check
+
+Verify the execution diagram arrows match every task's dependency markers.
+These are written independently and can drift.
+
+For each task, confirm:
+- Every `[B:Txxx]` marker has a corresponding arrow in the diagram
+- Every arrow in the diagram has a corresponding `[B:Txxx]` in the target task
+- Tasks shown as parallel `[P]` do not depend on each other
+
+If any mismatch: fix the diagram or the marker, not both arbitrarily.
+
+#### Test Co-location Check
+
+Only applies when a test script was detected in Step 3. Skip entirely if no test infrastructure.
+
+For each task that creates or modifies a code layer:
+- Tests for that layer must be included in the same task
+- "Tested in T00X" or "tests added later" is a violation -- merge the tests into the task
+
+If any task defers its tests: merge them in before proceeding.
+
+### Step 8: Report
 
 Inform user:
 - Created: {count} tasks
@@ -126,6 +170,8 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 - Create tasks that span multiple unrelated concerns
 - Leave AC-xxx requirements without corresponding tasks
 - Bundle quality gates as tasks in the breakdown
+- Defer tests to a later task when test infrastructure exists (contrasts: include tests in the task that creates the code)
+- Present tasks before running the pre-approval checks (contrasts: run checks first, restructure if needed)
 
 ## Commit Boundary Grouping
 

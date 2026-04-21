@@ -35,6 +35,12 @@ created: {{YYYY-MM-DD}}
 |-----------|----------|------------|
 | {{existing component}} | {{file:line}} | {{extend/import/wrap}} |
 
+### Integration Points
+
+| System | Integration Method |
+|--------|--------------------|
+| {{existing API / service / DB / auth}} | {{how the feature connects}} |
+
 ## Data Model
 
 ### Entities
@@ -69,10 +75,11 @@ Required when any acceptance criterion enumerates output, display, response, or 
 
 ## Decisions
 
-| Decision | Rationale |
-|----------|-----------|
-| {{architecture approach}} | {{why this over alternatives}} |
-| {{decision}} | {{rationale}} |
+{Non-obvious decisions only. If the choice is self-evident from the spec, omit it.}
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| {{what was decided}} | {{what was chosen}} | {{why this over alternatives}} |
 
 ## Component Design
 
@@ -136,7 +143,7 @@ Key UI/UX patterns to implement:
 
 ### Error Handling
 
-- {{approach matching project patterns}}
+- {{error scenario}}: {{how handled}}. User sees: {{user-visible impact or "none"}}.
 
 ### Security
 

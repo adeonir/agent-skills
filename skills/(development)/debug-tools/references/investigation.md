@@ -81,6 +81,10 @@ If no root cause found with >= 70 confidence, load [log-injection.md](log-inject
 
 ### Step 5: Propose Fix
 
+**Gate:** Root cause must be confirmed at ≥70 confidence before any fix is proposed.
+Below that threshold, gather more evidence first — load [log-injection.md](log-injection.md).
+Never propose a fix as exploration.
+
 When root cause is confirmed, present:
 
 ````markdown

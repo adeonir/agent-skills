@@ -8,7 +8,6 @@ description: >-
 when_to_use: >-
   Triggers on "wrap up", "end session", "finish up", "close session",
   "wrap-up".
-disable-model-invocation: true
 effort: medium
 ---
 

@@ -144,6 +144,12 @@ Features track status in spec.md frontmatter:
 - **to-review**: Implementation complete, awaiting Goals/Success audit
 - **done**: Audit passed, feature closed
 
+Each acceptance criterion tracks its own status inline in spec.md:
+- **`pending`**: Created in specify
+- **`in-design`**: Mapped to a component in design
+- **`in-tasks`**: Assigned to a task in tasks
+- **`verified`**: Confirmed by verify after implementation
+
 ## Requirements
 
 - Existing project directory

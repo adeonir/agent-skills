@@ -6,6 +6,12 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-21
+
+### Added
+
+- Test verification gate at start of finish-branch: test suite must pass before merge or PR options are presented
+
 ## 2026-04-20
 
 ### Changed

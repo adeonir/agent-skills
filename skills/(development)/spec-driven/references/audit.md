@@ -150,7 +150,7 @@ is user-observation based and interactive. They do not block each other:
 - Suggest `/project-index re-index` when structural deltas exist -- inform only, never prompt
 
 **DON'T:**
-- Touch AC checkboxes -- those belong to verify.md
+- Touch AC checkboxes or status tags -- those belong to verify.md
 - Set `status: done` if any Goal or Success Criterion is Unmet or Unmeasurable
 - Rewrite Goals or Success Criteria during audit -- route to specify instead
 - Assume Met because the code exists -- check the observable outcome

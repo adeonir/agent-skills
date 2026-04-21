@@ -23,7 +23,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 
 - Goals (measurable outcomes)
 - Out of scope (explicit exclusions)
-- User stories with acceptance criteria inline (AC-xxx IDs)
+- User stories with acceptance criteria inline (AC-xxx IDs, `WHEN/THEN/SHALL` format, status starts as `` `pending` ``)
 - Edge cases (boundary conditions, error scenarios)
 - Success criteria (measurable outcomes)
 - For brownfield: current behavior description (high-level, no code)
@@ -291,6 +291,25 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 **If no images:**
 - Skip this step (designs/ folder is optional)
 
+### Step 12b: Propose Approaches (Large/Complex only)
+
+Skip for Small and Medium scope.
+
+For **Large** and **Complex** features, before drafting the spec present 2-3 architectural
+approaches with trade-offs. Lead with your recommendation and the reason. Keep each
+option to 3-4 sentences. Wait for user to choose before proceeding.
+
+Example structure:
+
+```
+**Option A (recommended):** {approach} — {why it fits, trade-off}
+**Option B:** {approach} — {why it fits, trade-off}
+**Option C:** {approach} — {why it fits, trade-off}
+```
+
+Do not draft spec.md until user confirms an approach. Record the chosen approach in
+spec.md Notes section.
+
 ### Step 13: Generate spec.md
 
 **LOAD ORDER:** Load this template before reading any existing spec in `.artifacts/features/`. Existing specs may be stale -- template wins on structure.
@@ -319,19 +338,29 @@ Before finalizing spec.md, audit every section against the Content Separation ru
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
-### Step 14: Report
+### Step 14: Approval Gate
 
-Inform user:
-- Created: `.artifacts/features/{ID}-{name}/`
-- Type: {greenfield|brownfield}
-- Scope: {small|medium|large|complex}
-- Branch: {name}
-- Open questions: {count, if any}
-- Gray areas detected: {yes/no -- suggest discuss if yes}
-- Next step based on scope:
+Present a summary to the user and ask for explicit approval before proceeding:
+
+```
+Spec created: `.artifacts/features/{ID}-{name}/spec.md`
+Type: {greenfield|brownfield} | Scope: {small|medium|large|complex}
+Open questions: {count or "none"}
+Gray areas: {yes -- suggest discuss | no}
+
+Review the spec and confirm: does it capture what you want to build?
+Reply "approved" to proceed, or describe what to change.
+```
+
+Wait for the user's response.
+
+- If changes requested: update spec.md and re-run the pre-write checklist. Present the gate again.
+- If approved: report next step based on scope:
   - **Medium**: Run `implement` (design and tasks skipped)
   - **Large/Complex**: Run `design`
   - **Complex with gray areas**: Run `discuss` first, then `design`
+
+Do not suggest the next step until the user approves.
 
 ## Codebase Mapping Note
 

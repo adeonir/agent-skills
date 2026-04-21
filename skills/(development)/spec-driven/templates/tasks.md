@@ -32,15 +32,21 @@ Run after each task or batch:
 ### {{Logical group description}}
 
 - [ ] T001 [P] {{verb}} {{what}}
-  - **Done when:** {{verifiable outcome}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
 
 - [ ] T002 [B:T001] {{dependent task}}
-  - **Done when:** {{verifiable outcome}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
 
 ### {{Next logical group}}
 
 - [ ] T003 [B:T002] {{verb}} {{what}}
-  - **Done when:** {{verifiable outcome}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
 
 ## Requirements Coverage
 

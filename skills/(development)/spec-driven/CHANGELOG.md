@@ -6,6 +6,31 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-21
+
+### Added
+
+- Approval gate at end of specify: user must confirm spec before next phase is suggested
+- Approval gate at end of design: user must confirm design before tasks is suggested
+- Propose-approaches step for Large/Complex scope in specify: 2-3 architectural options presented before drafting spec
+- AC status tracking inline on spec.md: tags progress `pending` → `in-design` → `in-tasks` → `verified` across the pipeline
+- Integration Points table in design template: captures how the feature connects to existing systems
+- Pre-implementation declaration in implement: assumptions, files, and success criteria stated before any code
+- Scope guardrail in implement: out-of-scope discoveries queued to knowledge.md, not acted on inline
+- Pre-approval checks in tasks: diagram-definition cross-check and test co-location validation before presenting tasks to user
+- Tests and Gate fields per task in tasks template when test infrastructure exists
+- Test count guard in Done when: gate must pass with no tests deleted
+
+### Changed
+
+- AC format instruction updated to WHEN/THEN/SHALL
+- RED phase in test-driven promoted from technique to gate: test must fail before any implementation code
+- AC checkbox sync in verify now also updates status tag; revert restores `in-tasks`
+- Decisions table in design template split into Decision / Choice / Rationale; non-obvious qualifier added
+- Error handling format in design template requires user-visible impact per scenario
+- Tasks natural order updated: tests no longer a separate phase, included per implementation task
+- AC status tag ownership clarified in audit: verify.md owns AC tags, audit does not touch them
+
 ## 2026-04-20
 
 ### Changed

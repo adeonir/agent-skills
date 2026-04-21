@@ -10,8 +10,9 @@ Loaded during implement when the project has test infrastructure:
 - Test command found in package.json, Makefile, or equivalent, OR
 - Test files found in the project
 
-Not a gate -- a technique. If the project has no tests, implement continues
-normally without loading this reference.
+This is a gate when test infrastructure exists. Implementation code cannot be
+written before a failing test confirms the behavior is not yet present.
+If the project has no tests, implement continues normally without loading this reference.
 
 ## Workflow
 
@@ -24,9 +25,12 @@ Write a failing test that describes the expected behavior. The test should:
 - Be the simplest test that captures the requirement
 
 ```bash
-# Run tests -- expect failure
+# Run tests -- must fail before proceeding
 {test command}
 ```
+
+**Gate:** confirm the test fails. If it passes, the test is wrong -- rewrite it.
+Do not write implementation code until the test fails for the right reason.
 
 ### Green
 
@@ -100,7 +104,7 @@ the project is harder to maintain.
 - Write all tests upfront before any implementation
 - Test implementation details when the project tests behavior
 - Skip the refactor step
-- Add production code without a failing test first
+- Add production code without a failing test first (contrasts: RED is a gate -- test must fail before implementation)
 
 ## Error Handling
 

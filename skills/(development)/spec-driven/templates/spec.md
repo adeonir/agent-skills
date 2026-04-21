@@ -35,8 +35,8 @@ created: {{YYYY-MM-DD}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-001: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
-- [ ] AC-002: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-001 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-002 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 ### P2: {{Story Title}}
 
@@ -45,7 +45,7 @@ created: {{YYYY-MM-DD}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-003: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-003 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 ### P3: {{Story Title}}
 
@@ -54,7 +54,7 @@ created: {{YYYY-MM-DD}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-004: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-004 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 {{#if designs}}
 ## Visual References

@@ -9,6 +9,16 @@ solo project without PRs. This is the final step in the git workflow.
 
 ## Workflow
 
+### Step 0: Verify Tests Pass
+
+Run the project's test suite before anything else:
+
+```bash
+# Use whichever applies: npm test / yarn test / pnpm test / pytest / cargo test / go test ./...
+```
+
+If tests fail: report failures and stop. Do not proceed until tests pass.
+
 ### Step 1: Gather Context
 
 ```bash

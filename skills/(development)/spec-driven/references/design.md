@@ -161,12 +161,15 @@ Define the data model before component design. Every statement about an existing
 Generate the design following the template structure:
 - Scope (what is in scope and out of scope)
 - Research Summary (if applicable)
-- Patterns & Reuse (conventions to follow + existing code to reuse)
+- Patterns & Reuse (conventions to follow + existing code to reuse + integration points with existing systems)
 - Data Model (Entities, Relationships, API Contracts, Currently Exposed Fields when ACs enumerate fields)
 - Decisions (architecture approach + secondary decisions)
 - Component Design (component, file, action, responsibility)
 - Data Flow (use mermaid for complex flows)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
+
+After generating design.md, update spec.md: for each AC mapped in Requirements Traceability,
+change its status tag from `` `pending` `` to `` `in-design` ``.
 - Test Strategy
 - Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
@@ -175,16 +178,26 @@ Generate the design following the template structure:
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 12: Report
+### Step 12: Approval Gate
 
-Inform user:
-- Created: `design.md`
-- Research cached: {topics}
-- Codebase docs updated: {files updated in .agents/codebase/, if it existed}
-- Knowledge updated: {entries added to .agents/knowledge.md, if any}
-- Key decisions: {count}
-- Visual references considered: {count} (if designs/ exists)
-- Next: Run `tasks`
+Present a summary and ask for explicit approval before proceeding:
+
+```
+Design created: `.artifacts/features/{ID}-{name}/design.md`
+Research cached: {topics or "none"}
+Key decisions: {count}
+Open questions: {count or "none"}
+
+Review the design and confirm: does the architecture match what you want to build?
+Reply "approved" to proceed, or describe what to change.
+```
+
+Wait for the user's response.
+
+- If changes requested: update design.md and present the gate again.
+- If approved: suggest running `tasks`
+
+Do not suggest `tasks` until the user approves.
 
 ## Guidelines
 

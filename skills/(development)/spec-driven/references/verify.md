@@ -124,14 +124,15 @@ After verification passes for a task, update spec.md acceptance criteria.
 
 **How to mark:**
 
-Edit `spec.md` in place, flipping `- [ ]` to `- [x]` on the matching AC line.
+Edit `spec.md` in place: flip `- [ ]` to `- [x]` and change the status tag
+from `` `in-tasks` `` to `` `verified` `` on the matching AC line.
 Never reorder, rename, or drop ACs. Preserve the `AC-xxx:` identifier.
 
 **Revert rule:**
 
 If a later verify run reopens a finding on an already-marked AC, flip it back
-to `- [ ]`. The checkbox always reflects current verification state, not
-historical pass.
+to `- [ ]` and revert the status tag to `` `in-tasks` ``. The checkbox and
+status always reflect current verification state, not historical pass.
 
 **Never touch Goals or Success Criteria here** -- those are audit.md's job.
 

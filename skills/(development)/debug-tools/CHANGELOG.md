@@ -6,6 +6,12 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-21
+
+### Added
+
+- Hard gate before fix proposal: root cause must reach ≥70 confidence before any fix is proposed; below threshold triggers log injection, never a fix
+
 ## 2026-04-20
 
 ### Changed

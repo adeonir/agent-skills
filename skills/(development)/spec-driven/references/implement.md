@@ -111,19 +111,28 @@ For each task, follow the 3-phase cycle:
 - If project has test infrastructure: load [test-driven.md](test-driven.md)
 - Read the relevant reference files from design.md or quick scan (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
-- Run pre-implementation checklist:
+- State the pre-implementation declaration before writing any code:
+
+```
+Assumptions: {what am I assuming about existing code -- verify each}
+Files: {exhaustive list of files to create/modify -- only these}
+Success criteria: {which ACs and Done when this task satisfies}
+```
+
+Do not proceed without stating all three explicitly.
+
+- Verify the declaration against the checklist:
 
 **Pre-Implementation Checklist:**
 
 | Check | Question |
 |-------|----------|
-| Assumptions | What am I assuming about the existing code? Verify. |
-| Files | Which files will I touch? Are they listed in the design? |
-| Success criteria | What acceptance criteria does this task satisfy? |
+| Assumptions | Are all assumptions verified against actual code, not memory? |
+| Files | Do listed files match design.md component locations? |
+| Success criteria | Does it map directly to the task's Done when and AC-xxx? |
 | Risk | Could this change break existing functionality? |
 
-- Understand the scope: what files to create/modify
-- Note specific patterns to match
+Any failed check: resolve before writing code.
 
 #### During (Implementation)
 
@@ -134,6 +143,9 @@ For each task, follow the 3-phase cycle:
 - Follow naming conventions documented
 - Apply research findings if applicable
 - Follow Knowledge Verification Chain for any technical decisions
+- **Scope guardrail:** if something outside the task definition is noticed (bug, improvement,
+  tech debt), queue it to `.agents/knowledge.md ## Codebase Feedback` -- do not act on it inline.
+  The heuristic: "Is this in my task definition?" If no, queue and move on.
 
 #### After (Quality Gates + Verify)
 
