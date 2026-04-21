@@ -57,18 +57,21 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 **DO:**
 - Call BM MCP and MCPVault MCP tools directly from bm-notes.md and obsidian-notes.md workflows
 - Execute all steps in order without confirmation
+- Search existing notes before creating new ones
+- Run auto-memory for every session, even trivial ones
 - Skip auto-memory and BM when mapping returns `--` for BM project
 - Skip Obsidian session note when mapping returns `--` for Obsidian session
 - Always create/update Obsidian daily note, regardless of mapping values
 - Be concise in auto-memory, detailed in BM session
 - Use past tense and natural language in Obsidian notes
+- Use BM `[brackets]` tag syntax and Obsidian `#hashtags` per tool
 
 **DON'T:**
 - Ask for confirmation between steps
-- Create duplicate notes -- search first
+- Create duplicate notes without searching first
+- Skip auto-memory for trivial sessions
 - Write changelog-style content or git metadata in Obsidian notes
-- Skip auto-memory even for trivial sessions
-- Mix BM format ([brackets]) with Obsidian format (#hashtags)
+- Mix BM `[brackets]` with Obsidian `#hashtags` across tools
 
 ## Error Handling
 
