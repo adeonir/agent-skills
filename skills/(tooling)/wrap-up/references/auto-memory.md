@@ -39,8 +39,15 @@ Review the session and update Claude Code auto-memory files.
    Content with **Why:** and **How to apply:** lines.
    ```
 
-5. **Update MEMORY.md index**
-   Add pointers to new files. Keep the index under 200 lines.
+5. **Optimize memory files**
+   After the update pass, perform the auto-memory optimization routine:
+   review all memory files for duplicates, staleness, broken index
+   pointers, and oversized entries. Consolidate or prune as needed.
+
+6. **Update MEMORY.md index**
+   Add pointers to new files, remove pointers to pruned files, and
+   rewrite entries for renamed or merged files. Keep the index under
+   200 lines.
 
 ## Guidelines
 

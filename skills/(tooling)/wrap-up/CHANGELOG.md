@@ -6,6 +6,12 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-21
+
+### Added
+
+- Auto-memory optimization routine now runs at the end of the auto-memory step — scans all memory files for duplicates, staleness, broken index pointers, and oversized entries
+
 ## 2026-04-20
 
 ### Added
