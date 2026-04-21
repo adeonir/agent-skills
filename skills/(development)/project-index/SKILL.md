@@ -4,14 +4,23 @@ description: >-
   Generate project context and codebase documentation for AI agents.
   Creates .agents/ directory with project overview and deep codebase analysis.
   Use when starting work on a project, onboarding to an existing codebase,
-  generating project documentation for agents, or mapping codebase patterns and
-  conventions. Triggers on "initialize project", "setup project", "overview",
-  "summary", "map codebase", "index project", "analyze codebase".
+  generating project documentation for agents, or mapping codebase patterns
+  and conventions.
+when_to_use: >-
+  Triggers on "initialize project", "setup project", "overview", "summary",
+  "map codebase", "index project", "analyze codebase".
+effort: xhigh
+context: fork
+agent: general-purpose
 ---
 
 # Project Index
 
-Generate project context and codebase documentation for AI agents.
+**Recommended effort:** xhigh for initialize and summary; medium for overview
+and integrate-feedback.
+
+Generate project context and codebase documentation for AI agents. Use
+ultrathink for initialize and summary phases.
 
 ## Workflow
 
@@ -133,6 +142,6 @@ project-index                  --> sole writer to .agents/codebase/*.md and .age
 
 ## Error Handling
 
-- No source code found: Inform this is for existing projects
-- Empty project: Skip summary, generate overview only
-- `.agents/` already exists: Ask if refresh needed
+- No source code found: inform this is for existing projects
+- Empty project: skip summary, generate overview only
+- `.agents/` already exists: update existing files, never overwrite blindly — merge new findings

@@ -113,8 +113,12 @@ flavor of presets depend on project type.
    skeleton — sections (page-based) or screens (screen-based) and their order.
    Variants differ only in visual treatment.
 
-3. **Generate presets.** Each preset applies a unique mix across these
-   dimensions:
+3. **Generate presets in parallel.** Spawn one subagent per preset in a single
+   turn — do not generate them sequentially. Each subagent receives: design.json
+   + structure.md + copy.yaml (if available) + its assigned preset name and
+   description. Each writes its output to
+   `.artifacts/design/preview/variants/{preset-name}.html`. Each preset applies
+   a unique mix across these dimensions:
 
    | Dimension | Description |
    |-----------|-------------|

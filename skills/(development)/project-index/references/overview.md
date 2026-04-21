@@ -13,8 +13,8 @@ Generate project context for AI agents.
 ### Step 1: Check Existing
 
 If `.agents/project.md` exists:
-- Ask if refresh needed
-- If no: skip to Step 4
+- Update it, merging new findings
+- Never overwrite blindly
 
 ### Step 2: Gather Context
 

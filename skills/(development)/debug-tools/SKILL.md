@@ -4,9 +4,11 @@ description: >-
   Iterative debugging workflow with confidence scoring, pattern
   comparison, and strategic log injection. Use when debugging unexpected
   behavior, silent errors, intermittent failures, or when something isn't
-  working, tests pass but app fails, or works in dev but not in prod. Triggers
-  on "debug", "fix bug", "investigate", "trace issue", "add debug logs",
-  "cleanup debug logs", "why is this broken", "not working".
+  working, tests pass but app fails, or works in dev but not in prod.
+when_to_use: >-
+  Triggers on "debug", "fix bug", "investigate", "trace issue",
+  "add debug logs", "cleanup debug logs", "why is this broken",
+  "not working".
 ---
 
 # Debug Tools

@@ -32,7 +32,7 @@ Traps discovered during design or implementation that would cost time to redisco
 
 Queue of discoveries that belong in `.agents/codebase/*.md`. project-index consumes and clears via `/project-index integrate feedback`.
 
-- {discovery} <!-- feature:{ID} target:{conventions|architecture|testing|integrations} date:YYYY-MM-DD -->
+- {discovery} <!-- target:{conventions|architecture|testing|integrations|workflows|concerns} -->
 ```
 
 Always keep all three section headers, even when empty. project-index and spec-driven both rely on the headers existing to locate sections.
@@ -42,7 +42,7 @@ Always keep all three section headers, even when empty. project-index and spec-d
 Every row under `## Codebase Feedback` MUST end with an HTML-comment metadata trailer:
 
 ```
-<!-- feature:{ID} target:{name} date:YYYY-MM-DD -->
+<!-- target:{name} -->
 ```
 
 **Valid target values:**
@@ -53,6 +53,8 @@ Every row under `## Codebase Feedback` MUST end with an HTML-comment metadata tr
 | `architecture` | `.agents/codebase/architecture.md` |
 | `testing` | `.agents/codebase/testing.md` |
 | `integrations` | `.agents/codebase/integrations.md` |
+| `workflows` | `.agents/codebase/workflows.md` |
+| `concerns` | `.agents/codebase/concerns.md` |
 
 Rows with unknown targets or malformed metadata are skipped by integrate-feedback and reported.
 
@@ -64,7 +66,7 @@ When appending a discovery during design or implement, route by content:
 |---------|---------|
 | Project-level decision (why we chose X over Y for the project) | `## Decisions` |
 | Runtime constraint, API quirk, workaround, non-obvious trap | `## Gotchas` |
-| New pattern, convention, architectural insight, testing approach, integration detail | `## Codebase Feedback` with target tag |
+| New pattern, convention, architectural insight, testing approach, integration detail, dev/user workflow, tech debt or risk | `## Codebase Feedback` with target tag |
 | Inventory/structural fact (installed package, new route, new module, new directory, new env var) | **Not queued** -- caught by `/project-index re-index` after audit |
 | Forward-looking item (milestone, planned feature, `(TBD)`, feature number) | **Not queued** -- `codebase/*.md` is observable current state only |
 

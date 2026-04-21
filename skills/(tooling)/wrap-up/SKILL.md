@@ -4,8 +4,12 @@ description: >-
   End-of-session command that persists context across auto-memory,
   Basic Memory, and Obsidian. Use when finishing a work session,
   saving progress before clearing context, or documenting what was
-  accomplished. Triggers on "wrap up", "end session", "finish up",
-  "close session", "wrap-up".
+  accomplished.
+when_to_use: >-
+  Triggers on "wrap up", "end session", "finish up", "close session",
+  "wrap-up".
+disable-model-invocation: true
+effort: medium
 ---
 
 # Wrap Up Session

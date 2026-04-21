@@ -105,7 +105,7 @@ Quick verification checklist:
 If you found a pattern, convention, or gotcha worth persisting, append to `.agents/knowledge.md`:
 
 - **Gotchas** -> `## Gotchas`
-- **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
+- **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
 Load [knowledge.md](knowledge.md) for format.
 

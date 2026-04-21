@@ -5,15 +5,22 @@ description: >-
   discovery. 6 document types (PRD, Brief, Design Doc, TDD, RFC, ADR).
   Use when defining products, designing systems, proposing changes,
   recording decisions, or when the user needs any structured document
-  for a project. Triggers on "create PRD", "create design doc",
-  "create TDD", "technical design", "create RFC", "create ADR",
-  "create document", "write doc", "document this", "need a spec",
-  "write requirements".
+  for a project.
+when_to_use: >-
+  Triggers on "create PRD", "create design doc", "create TDD",
+  "technical design", "create RFC", "create ADR", "create document",
+  "write doc", "document this", "need a spec", "write requirements".
+effort: high
 ---
 
 # Docs Writer
 
-Generate structured documents through guided discovery. 6 document types, each with its own workflow depth.
+**Recommended effort:** high for PRD, Design Doc, and TDD (multi-phase discovery);
+medium for RFC and ADR (clarification only).
+
+Generate structured documents through guided discovery. 6 document types, each
+with its own workflow depth. Use ultrathink for PRD validation and Design Doc
+trade-off analysis.
 
 ## Workflow
 
@@ -142,3 +149,15 @@ For ADR and RFC, use kebab-case for `{name}` and auto-detect the next sequential
 - Ambiguous trigger: Ask user which document type
 - Missing context for discovery: Ask questions, never assume
 - ADR/RFC numbering conflict: Scan existing files in subdirectory and use next available number
+
+## Compact Instructions
+
+Preserve:
+- Document type being written, current phase (discovery/validation/synthesis/drafting)
+- All discovery topic answers collected so far
+- Agreed scope, priorities, and open TBDs
+- User confirmations received
+
+Drop:
+- Raw question-and-answer transcript
+- Intermediate analysis scratch work

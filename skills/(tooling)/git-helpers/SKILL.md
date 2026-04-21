@@ -6,12 +6,17 @@ description: >-
   committing changes, reviewing code, creating PRs, merging branches, or
   when the user is done coding and ready to commit, wants feedback on
   changes, needs to push and open a PR, or wants to finish and merge a
-  branch. Triggers on "commit", "review", "push", "create PR",
-  "summarize changes", "done", "ready to push", "check my code",
-  "finish branch", "merge branch", "merge PR", "cleanup branch".
+  branch.
+when_to_use: >-
+  Triggers on "commit", "review", "push", "create PR", "summarize changes",
+  "done", "ready to push", "check my code", "finish branch", "merge branch",
+  "merge PR", "cleanup branch".
+effort: medium
 ---
 
 # Git Helpers
+
+**Recommended effort:** medium for code review; low for commit, PR, and branch operations.
 
 Git workflow with conventional commits, confidence-scored code review,
 and automated PR management.

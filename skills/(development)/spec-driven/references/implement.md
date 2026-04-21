@@ -89,12 +89,12 @@ For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
 - Check [B:Txxx] - verify Txxx is done
 
-**Sub-agent dispatch:** Parallel tasks (`[P]` marker) can be dispatched to
-independent sub-agents. Each sub-agent receives: spec.md + design.md + its
-task(s) + coding-principles.md. Sub-agents write code to disk. The main agent
-coordinates, tracks progress, and runs verify after each sub-agent completes.
-The execution plan diagram in tasks.md serves as the dispatch map -- parallel
-branches map to independent sub-agents.
+**Sub-agent dispatch:** Spawn all `[P]` tasks as independent subagents in a
+single turn — do not dispatch one at a time. Each subagent receives: spec.md +
+design.md + its task(s) + coding-principles.md. Subagents write code to disk.
+The main agent coordinates, tracks progress, and runs verify after each
+subagent completes. The execution plan diagram in tasks.md serves as the
+dispatch map — parallel branches map directly to independent subagents.
 
 ### Step 6: Update Status
 
@@ -186,7 +186,7 @@ Load [knowledge.md](knowledge.md) for format.
 Append discoveries from implementation to `.agents/knowledge.md`:
 
 - **Runtime constraints, API quirks, workarounds** -> `## Gotchas`
-- **New patterns, conventions, integration details observed in code** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
+- **New patterns, conventions, integration details, workflows, or tech debt observed in code** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
 Never write to `.agents/codebase/*.md` -- those are owned by project-index.
 

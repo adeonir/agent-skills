@@ -62,6 +62,10 @@ For each new tech:
 - If exists: use cached research
 - If not: research and create cache (follow [research.md](research.md) trust boundary rules)
 
+If multiple unknown technologies, spawn one research subagent per topic in a
+single turn — do not research sequentially. Each subagent follows research.md
+and writes to `.artifacts/research/{topic}.md`.
+
 Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
 When incorporating research into the design, validate findings against the spec's requirements.
@@ -106,7 +110,7 @@ Append to `.agents/knowledge.md`:
 
 1. **Cross-feature decisions** -> `## Decisions`, with rationale
 2. **Gotchas** -> `## Gotchas`, with context
-3. **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`)
+3. **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
 Never write to `.agents/codebase/*.md` -- those are owned by project-index.
 

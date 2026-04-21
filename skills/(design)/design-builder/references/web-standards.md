@@ -6,7 +6,7 @@ Apply to every component produced by frontend.md and variants.md.
 
 ## When to Use
 
-Auto-loaded by frontend.md and variants.md as implementation rules. Not a direct trigger.
+Auto-loaded by preview.md as implementation rules. Not a direct trigger.
 
 ## Accessibility
 

@@ -5,17 +5,24 @@ description: >-
   Creates structured feature specs with traceability to requirements. Use when
   planning features, breaking work into tasks, implementing with verification,
   auditing goals before closing, tracking decisions across sessions, or
-  extracting specs from PRDs. Triggers on "create feature", "specify feature",
-  "plan", "design feature", "tasks", "implement", "verify", "verify
-  implementation", "validate", "UAT", "audit", "audit feature", "validate
-  goals", "quick fix", "quick task", "discuss feature", "break this into
-  tasks", "plan this feature", "show status", "from PRD", "extract from
-  document", "use this PRD", "here's the PRD".
+  extracting specs from PRDs.
+when_to_use: >-
+  Triggers on "create feature", "specify feature", "plan", "design feature",
+  "tasks", "implement", "verify", "verify implementation", "validate", "UAT",
+  "audit", "audit feature", "validate goals", "quick fix", "quick task",
+  "discuss feature", "break this into tasks", "plan this feature",
+  "show status", "from PRD", "extract from document", "use this PRD",
+  "here's the PRD".
+effort: xhigh
 ---
 
 # Spec-Driven Development
 
-Structured development workflow with adaptive depth. Right ceremony for the right scope.
+**Recommended effort:** xhigh for design, implement, and audit phases; medium
+for quick mode and status checks.
+
+Structured development workflow with adaptive depth. Right ceremony for the
+right scope. Use ultrathink for design and audit phases.
 
 ## Workflow
 

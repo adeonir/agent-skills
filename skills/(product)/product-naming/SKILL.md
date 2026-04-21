@@ -4,15 +4,22 @@ description: >-
   Research and validate product names with competitor analysis, quality
   scoring, domain and social media availability, and trademark checks. Use
   when naming products, startups, apps, or brands, evaluating name candidates,
-  or checking domain availability. Triggers on "suggest names for", "find a
-  name for", "what should I call", "name ideas for", "evaluate these names",
-  "check if a name is available", "domain available", "check this name",
-  "check availability of".
+  or checking domain availability.
+when_to_use: >-
+  Triggers on "suggest names for", "find a name for", "what should I call",
+  "name ideas for", "evaluate these names", "check if a name is available",
+  "domain available", "check this name", "check availability of".
+effort: high
 ---
 
 # Product Naming
 
-Research, evaluate, and validate product/startup/app names with domain, social media, and trademark checks.
+**Recommended effort:** high for research and generation phases; medium for
+availability-only checks.
+
+Research, evaluate, and validate product/startup/app names with domain, social
+media, and trademark checks. Use ultrathink for competitor analysis and quality
+scoring.
 
 ## Workflow
 
@@ -79,6 +86,17 @@ Reports are saved as `.md` files in `.artifacts/docs/` (create the directory if 
 - **Validation flow**: `.artifacts/docs/{product}-validation.md` -- uses `templates/validation-report.md`
 
 Status indicators: 🟢 available  🔴 unavailable  🟡 uncertain
+
+## Compact Instructions
+
+Preserve:
+- Current phase (research or validation), product context (what it does, audience, tone)
+- Generated candidates with quality scores
+- User approval on which candidates to validate
+
+Drop:
+- Competitor analysis raw output
+- Intermediate generation scratch work
 
 ## Error Handling
 

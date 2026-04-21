@@ -19,9 +19,8 @@ ls -la .agents/ 2>/dev/null
 ```
 
 If exists:
-- Check age of files
-- Ask if refresh needed
-- If no refresh: skip to Step 5 (report)
+- Update existing files, merging new findings
+- Never overwrite blindly
 
 ### Step 2: Create Directory
 

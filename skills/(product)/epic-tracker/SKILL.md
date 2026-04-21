@@ -4,9 +4,10 @@ description: >-
   Manage the delivery lifecycle from epic planning through story tracking
   to implementation handoff. 4 artifact types (Epic, Story, Bug, Release).
   Use when planning epics, creating stories, reporting bugs, tracking
-  delivery status, or preparing handoff to spec-driven. Triggers on
-  "create epic", "new epic", "create story", "new story", "add story",
-  "create bug", "report bug", "bug report", "create release",
+  delivery status, or preparing handoff to spec-driven.
+when_to_use: >-
+  Triggers on "create epic", "new epic", "create story", "new story",
+  "add story", "create bug", "report bug", "bug report", "create release",
   "new release", "status", "update status", "mark done", "show roadmap",
   "list epics", "overview", "handoff", "implement story", "start story".
 ---

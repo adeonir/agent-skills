@@ -7,12 +7,14 @@ description: >-
   projects, tracking job applications, recording interview challenges,
   maintaining brag documents, creating daily notes, logging work sessions,
   saving AI conversations, or preserving meeting and course transcriptions
-  in Obsidian. Triggers on "create project", "new project note", "document
-  company", "job application", "technical challenge", "brag document",
-  "daily note", "today's log", "session note", "obsidian session", "vault
-  session", "obsidian note", "save conversation", "chat summary", "session
-  summary", "transcription", "meeting notes", "standup notes", "lecture
-  notes", "course notes".
+  in Obsidian.
+when_to_use: >-
+  Triggers on "create project", "new project note", "document company",
+  "job application", "technical challenge", "brag document", "daily note",
+  "today's log", "session note", "obsidian session", "vault session",
+  "obsidian note", "save conversation", "chat summary", "session summary",
+  "transcription", "meeting notes", "standup notes", "lecture notes",
+  "course notes".
 ---
 
 # Session Notes

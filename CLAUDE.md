@@ -44,22 +44,80 @@ skills/
 name: skill-name
 description: >-
   Short sentence of what it does. Use when: usage contexts.
-  Triggers on "phrase 1", "phrase 2", "phrase 3".
+when_to_use: >-
+  Trigger phrases or example requests that activate this skill.
 ---
 ```
 
-Only `name` and `description` -- no other fields.
+Frontmatter fields:
 
-Description structure: `[What it does]. Use when [scenarios]. Triggers on "[trigger1]", "[trigger2]"`.
+| Field | Notes |
+|-------|-------|
+| `name` | kebab-case, max 64 chars. Defaults to directory name. |
+| `description` | Recommended. What it does + when to use it. Combined with `when_to_use`, truncated at 1,536 chars in skill listing. |
+| `when_to_use` | Optional. Extra trigger context appended to `description`. Counts toward 1,536-char cap. |
+| `argument-hint` | Optional. Autocomplete hint for expected args, e.g. `[issue-number]`. |
+| `disable-model-invocation` | Optional. `true` = user-only invoke. Default: `false`. |
+| `user-invocable` | Optional. `false` = hidden from `/` menu. Default: `true`. |
+| `allowed-tools` | Optional. Tools pre-approved while skill active. Space-separated or YAML list. Supports scoping: `Bash(git *)` allows only git commands; `Bash(gh pr *)` allows only `gh pr` subcommands. |
+| `model` | Optional. Model override when skill is active. |
+| `effort` | Optional. Effort level when skill is active; overrides session level. Default: inherits from session. Options: `low`, `medium`, `high`, `xhigh`, `max`. |
+| `context` | Optional. `inline` (default) or `fork` (run in subagent). |
+| `agent` | Optional. Subagent type when `context: fork`. Built-ins: `Explore`, `Plan`, `general-purpose`. Custom: any agent in `.claude/agents/`. Default: `general-purpose`. |
+
+Description structure: `[What it does]. Use when [scenarios].`
+`when_to_use` structure: trigger phrases, example requests, invocation patterns.
 
 Formatting rules:
-- `name`: kebab-case, matches the directory name
-- `description`: folded block `>-` string, max 1024 characters (skills.sh spec limit)
-  - Structure: what it does + when to use + specific triggers
+- `description` and `when_to_use`: folded block `>-` with 2-space indentation
   - Avoid internal mechanics (phases, loops, stages) -- focus on what and when
   - Include varied trigger phrases to improve matching
-  - Use `>-` with 2-space indentation
-  - Keep lines under 80 characters -- long single-line descriptions trigger obfuscation alerts in security audits
+  - Keep lines under 80 characters -- long single-line descriptions trigger
+    obfuscation alerts in security audits
+
+### SKILL.md Runtime Variables
+
+Two runtime substitutions available inside SKILL.md content:
+
+**`$ARGUMENTS`** — replaced with whatever the user typed after the skill name
+when invoked via `/skill-name <args>`. Use for skills that accept a target,
+message, or topic at invocation time.
+
+```markdown
+---
+name: commit
+description: Create a conventional commit
+disable-model-invocation: true
+---
+
+Create a commit for the staged changes.
+Commit message hint: $ARGUMENTS
+```
+
+**`!`command``** — shell command executed before Claude sees the skill content;
+output is injected in place of the placeholder. Use to inject live context
+(diff, PR data, file list) without requiring the user to paste it.
+
+```markdown
+---
+name: pr-summary
+description: Summarize changes in a pull request
+context: fork
+agent: Explore
+allowed-tools: Bash(gh *)
+---
+
+## Pull request context
+- PR diff: !`gh pr diff`
+- PR comments: !`gh pr view --comments`
+
+## Task
+Summarize this pull request...
+```
+
+Security note: `!`command`` executes at invocation time in the user's shell.
+Keep commands read-only (`gh`, `git log`, `cat`). Never pipe to a shell or
+write to disk from this interpolation.
 
 ### SKILL.md Section Order
 
@@ -91,6 +149,7 @@ Format: one bold line with the effort level and a short rationale.
 ```
 
 Guidance by level:
+- `low`: lightweight reference skills with no heavy reasoning
 - `medium`: cost- or latency-sensitive work with tight scope
 - `high`: balance of intelligence and cost; concurrent sessions
 - `xhigh`: default for intelligence-sensitive work (API design, migrations,
@@ -409,6 +468,10 @@ authoring style, which is Writing Style above).
   example of the desired form rather than listing what to avoid
 - **No tool-stack coupling**: instructions describe behavior (what to do), not
   specific tools or commands. Keep skills portable across harnesses
+- **`ultrathink`**: include the word `ultrathink` anywhere in skill content to
+  enable extended thinking for that skill. Use for intelligence-sensitive phases
+  (audit, design, API review, multi-file analysis). Omit on light or
+  latency-sensitive skills
 
 ## Commit Conventions
 
@@ -433,6 +496,8 @@ Skills write to `.artifacts/` organized by domain:
 ├── design/         # design-builder: copy, design tokens, variants
 └── brainstorm/     # brainstorming: direction artifacts
 ```
+
+`.artifacts/` is gitignored by default; commit it explicitly for team collaboration.
 
 `.agents/` is a separate directory for reference context, consumed by other skills:
 
@@ -508,5 +573,5 @@ Before publishing, verify:
 Skills are installed globally via `npx skills add adeonir/agent-skills --skill {name}`.
 This installs the skill files to using symlinks in `~/.agents/skills/{name}/`.
 
-**NEVER edit files in `~/.agents/skills/` directly.** That is the installation target.
-The source of truth is this repository (`skills/` directory). Edit here, then reinstall.
+**NEVER edit files in `~/.agents/skills/` or `~/.claude/skills/` directly.** That is the installation target.
+The source of truth is this repository (`skills/` directory). Edit here; reinstallation is done manually by the user — never attempt it automatically.

@@ -20,8 +20,8 @@ Consume `.agents/knowledge.md` `## Codebase Feedback` queue, merge items into `.
 For each row under `## Codebase Feedback`:
 
 - Extract content (text before the HTML comment)
-- Extract metadata from `<!-- feature:{ID} target:{name} date:YYYY-MM-DD -->`
-- Valid targets: `conventions`, `architecture`, `testing`, `integrations`
+- Extract target from `<!-- target:{name} -->`
+- Valid targets: `conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`
 
 Classify each row into one of:
 
@@ -31,7 +31,7 @@ Classify each row into one of:
 
 Forward-looking and malformed rows are listed in the final report. They are never merged into `codebase/*.md`, which captures only current state.
 
-See [../../spec-driven/references/knowledge.md](../../spec-driven/references/knowledge.md) for the canonical format.
+Read `.agents/knowledge.md` directly for the queue content.
 
 ### Step 3: Group by Target
 
@@ -43,6 +43,8 @@ Group parsed items by target. Each target maps to a file:
 | `architecture` | `.agents/codebase/architecture.md` |
 | `testing` | `.agents/codebase/testing.md` |
 | `integrations` | `.agents/codebase/integrations.md` |
+| `workflows` | `.agents/codebase/workflows.md` |
+| `concerns` | `.agents/codebase/concerns.md` |
 
 ### Step 4: Merge
 

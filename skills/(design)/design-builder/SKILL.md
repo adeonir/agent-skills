@@ -8,11 +8,14 @@ description: >-
   images, briefs, or an existing codebase; defining layout or screen flow;
   previewing and tuning designs; syncing changes from Pencil or
   implementation back to tokens and structure; packaging a handoff bundle
-  for another agent or developer. Triggers on "extract copy", "extract
-  design", "extract from codebase", "web capture", "wireframe", "layout",
-  "structure", "screen flow", "preview", "variants", "tune design",
-  "mockup", "redesign", "create prototype", "design review", "sync
-  design", "sync tokens", "handoff design", "package design".
+  for another agent or developer.
+when_to_use: >-
+  Triggers on "extract copy", "extract design", "extract from codebase",
+  "web capture", "wireframe", "layout", "structure", "screen flow",
+  "preview", "variants", "tune design", "mockup", "redesign",
+  "create prototype", "design review", "sync design", "sync tokens",
+  "handoff design", "package design".
+effort: xhigh
 ---
 
 # Design Builder
@@ -34,7 +37,8 @@ handoff: collected artifacts         -->  single bundle for external use
 ```
 
 Each step is independent. Can run isolated or chained. Discovery is always
-the first step — never skip it.
+the first step — never skip it. Use ultrathink for design extraction and
+preview phases.
 
 design-builder is greenfield-first: it assumes no existing codebase. The
 "extract from codebase" path in `design.md` is an alternative for redesign
@@ -144,10 +148,10 @@ also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies.
 |-----------------|-----------|
 | Handoff design, package design, bundle for developer | [handoff.md](references/handoff.md) |
 
-### Auto-Loaded (not direct triggers)
+Notes:
 
-- `aesthetics.md` — loaded by `preview.md` as design principles
-- `web-standards.md` — loaded by `preview.md` as implementation rules
+- `aesthetics.md` is not a direct trigger. Loaded by `preview.md` as design principles.
+- `web-standards.md` is not a direct trigger. Loaded by `preview.md` as implementation rules.
 
 ## Cross-References
 
@@ -223,3 +227,15 @@ spec-driven -----------> sync.md (implementation changes propagate back)
 - Reference URL unavailable: ask user to paste a screenshot or use a captured-region path
 - Project type unclear: ask the user before routing — page-based and screen-based differ throughout
 - Derivative out of sync with `design.json`/`structure.md`: suggest running sync before further work
+
+## Compact Instructions
+
+Preserve:
+- Current phase and loaded reference file
+- Project type (page-based or screen-based), name, purpose, audience
+- Artifact paths generated so far (copy.yaml, design.json, structure.md, etc.)
+- Open user decisions or pending approvals
+
+Drop:
+- Raw tool outputs and intermediate extraction results
+- Scratch reasoning and discarded design directions

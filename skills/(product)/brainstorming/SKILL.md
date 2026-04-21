@@ -4,9 +4,11 @@ description: >-
   Structured idea exploration from vague to direction. Feeds
   docs-writer, spec-driven, and design-builder. Use when ideas are vague,
   multiple directions exist, or the user wants to think through options before
-  building. Triggers on "brainstorm", "explore ideas", "what should we build",
-  "explore options", "think through this", "idea exploration", "compare
-  approaches".
+  building.
+when_to_use: >-
+  Triggers on "brainstorm", "explore ideas", "what should we build",
+  "explore options", "think through this", "idea exploration",
+  "compare approaches".
 ---
 
 # Brainstorming

@@ -26,9 +26,8 @@ Analyze existing codebase and generate documentation for AI agents.
 ### Step 1: Check Existing
 
 If `.agents/codebase/` exists:
-- Check age of files
-- Ask if refresh needed
-- If refresh: update existing docs (merge, never overwrite)
+- Update existing docs, merging new findings
+- Never overwrite blindly
 
 ### Step 2: Explore Codebase
 
