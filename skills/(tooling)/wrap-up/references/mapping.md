@@ -55,8 +55,8 @@ Fields:
 - `bm.path`: BM directory (lowercase, mirrors filesystem). `--` to skip BM
 - `obsidian.path`: Obsidian folder (Title Case, mirrors filesystem).
   `--` to skip Obsidian session
-- `tags`: base tags applied to every note — session, debrief, decision,
-  daily. Downstream refs append context tags per note.
+- `tags`: base tags applied to every note — session, decision, daily.
+  Downstream refs append context tags per note.
 
 ## Project Lookup
 
@@ -111,7 +111,6 @@ Given this entry:
 ```
 
 - **BM session**: `work/acme/sessions/YYYY-MM-DD — Description.md`
-- **BM debrief**: `work/acme/debriefs/YYYY-MM-DD — Description.md`
 - **BM decision**: `work/acme/decisions/Title — Theme.md`
 - **Obsidian session**: `Work/Acme/Sessions/YYYY-MM-DD — Description.md`
 - **Obsidian decision**: `Work/Acme/Decisions/Title — Theme.md`

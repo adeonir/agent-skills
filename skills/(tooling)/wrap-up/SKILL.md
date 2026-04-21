@@ -60,7 +60,7 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 - Skip auto-memory and BM when mapping returns `--` for BM project
 - Skip Obsidian session note when mapping returns `--` for Obsidian session
 - Always create/update Obsidian daily note, regardless of mapping values
-- Be concise in auto-memory, detailed in BM debrief
+- Be concise in auto-memory, detailed in BM session
 - Use past tense and natural language in Obsidian notes
 
 **DON'T:**
@@ -78,4 +78,4 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 - Obsidian/MCPVault unavailable: skip Obsidian step, warn user
 - Session note already exists in BM: append with edit_note, do not overwrite
 - Daily note already exists in Obsidian: update with patch_note
-- No meaningful session content: keep session and debrief brief, skip decision notes, still update daily
+- No meaningful session content: keep session brief, skip decision notes, still update daily

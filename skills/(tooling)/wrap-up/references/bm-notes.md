@@ -1,7 +1,7 @@
 # Write Basic Memory Notes
 
-Create session, debrief, and decision notes in Basic Memory. Uses BM MCP
-tools directly — no dependency on other skills.
+Create session and decision notes in Basic Memory. Uses BM MCP tools
+directly — no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project, BM path, and base tags
 
@@ -25,11 +25,9 @@ Basic Memory uses a distinct format from Obsidian. Do not mix them.
   - Custom types are fine (snake_case by convention)
 - **Frontmatter**: generated automatically by `write_note` from
   parameters — do not write it manually in the content string
-- **Body**: free-form markdown between `# Heading` and `## Observations`.
-  Write rich prose — background, motivation, analysis. Search retrieves
-  chunks from body prose, so longer substantive context makes notes more
-  discoverable.
-- The `title` parameter must match the `# Heading` in the content
+- **Body**: free-form markdown. Write rich prose — background, motivation,
+  analysis. Search retrieves chunks from body prose, so longer substantive
+  context makes notes more discoverable.
 
 ## BM Tools
 
@@ -51,13 +49,19 @@ write_note(
   project="main",
   title="Note Title",
   directory="work/acme/sessions",
+  note_type="session",
   tags=["tag1", "tag2"],
-  content="# Note Title\n\nBody prose...\n\n## Observations\n..."
+  content="Body prose...\n\n## Observations\n..."
 )
 ```
 
+Set `note_type` to match the note's role (`session`, `decision`). Enables
+native BM filtering by type without relying on tags alone.
+
 ### edit_note operations
 
+- `identifier`: permalink of the target note
+  (e.g. `work/acme/sessions/2026-04-20-description`)
 - `operation="append"` with `section="Observations"` adds a new observation
 - `operation="find_replace"` with `find_text` / `content` updates in place
 - `operation="prepend"` inserts at the top
@@ -74,7 +78,7 @@ search_notes(query="wrap-up refactor", project="main")
 ```
 
 Decision tree:
-- **Entity exists** → Update with `edit_note`
+- **Entity exists** → Update with `edit_note` using the permalink
 - **Entity doesn't exist** → Create with `write_note`
 - **Unsure** → Read the candidate with `read_note` first, then decide
 
@@ -85,7 +89,6 @@ Decision tree:
 Using mapping output:
 - BM project: `bm.project` (typically `main`)
 - Session directory: `{bm.path}/sessions/`
-- Debrief directory: `{bm.path}/debriefs/`
 - Decision directory: `{bm.path}/decisions/`
 - Base tags: `tags` (applied to every note, plus the note-type tag)
 
@@ -95,71 +98,21 @@ Using mapping output:
 search_notes query="YYYY-MM-DD" project="{bm.project}"
 ```
 
-If a session note exists for today's work, read it with `read_note`
-and merge new information with `edit_note` — add new observations,
-update prose. Do not duplicate existing observations. Then proceed
-to step 4 (debrief). If no session note exists, create one in step 3.
+If a session note exists for today's work, read it with `read_note` and
+merge new information with `edit_note` using the permalink as identifier —
+add new observations, update prose. Do not duplicate existing observations.
+Otherwise create a new one in step 3.
 
 ### 3. Create session note
 
-Body context is free-form markdown between the heading and the
-Observations section. Write substantively — background, motivation,
-what happened and why. Reasoning and trade-offs belong in the
-debrief, not here.
+One note per session, carrying both facts and reasoning. Body prose is
+free-form markdown above the structured sections. Write substantively —
+background, motivation, what happened and why, trade-offs considered,
+discoveries, and context for the next session.
 
 ```markdown
-# YYYY-MM-DD — Description
-
-Prose context -- what happened and what was done. Facts and outcomes
-only, not reasoning or trade-offs (those belong in the debrief).
-Rich and substantive, not just bullet points.
-
-## Observations
-
-- [outcome] Key outcome from the session
-- [decision] Decision made with rationale
-- [convention] Convention established
-- [context] Background information
-
-## Relations
-
-- follows [[Previous Session Note]]
-```
-
-Write:
-
-```
-write_note(
-  project="{bm.project}",
-  title="YYYY-MM-DD — Description",
-  directory="{bm.path}/sessions",
-  tags=["session", ...base_tags, ...context_tags],
-  content="# YYYY-MM-DD — Description\n\n..."
-)
-```
-
-Rules:
-- Observations use `[brackets]`, not `#hashtags`
-- One fact per observation, be specific
-- Prose body tells the story, observations distill the facts
-- Omit empty sections
-- **`follows` relation**: list the sessions directory, find the most
-  recent note before today's date. If no previous note exists, omit
-  the relation
-
-### 4. Create debrief note
-
-Always create a debrief. Call `write_note` directly:
-
-```markdown
-# YYYY-MM-DD — What was learned/decided (not the session title)
-
-## Context
-
-Deeper than session note. Include reasoning, trade-offs
-considered, discoveries, and context for next session. Free-form
-markdown -- this is the heart of the note, write generously:
-background, motivation, history, analysis, reasoning, trade-offs.
+Prose context -- background, motivation, what happened and why, trade-offs,
+discoveries, and reasoning. Free-form markdown, rich and substantive.
 Include file paths, directory names, and technical specifics here.
 
 ## Decisions
@@ -180,31 +133,44 @@ Include file paths, directory names, and technical specifics here.
 
 ## Observations
 
-- [summary] 1-3 sentence summary of the session
+- [outcome] Key outcome from the session
 - [decision] Key decision condensed from Decisions section
 - [finding] Key discovery condensed from Findings section
 - [problem] Key problem condensed from Problems section
+- [convention] Convention established
+- [context] Background information
 
 ## Relations
 
-- expands [[Session Note Title]]
+- follows [[Previous Session Note]]
+```
+
+Write:
+
+```
+write_note(
+  project="{bm.project}",
+  title="YYYY-MM-DD — Description",
+  directory="{bm.path}/sessions",
+  note_type="session",
+  tags=["session", ...base_tags, ...context_tags],
+  content="Prose context...\n\n## Decisions\n..."
+)
 ```
 
 Rules:
-- Debrief title must differ from session title -- session describes
-  **what was done**, debrief describes **what was learned/decided**
-- Example: session `2026-03-25 — Decision Notes and Vault Restructure`,
-  debrief `2026-03-25 — Template Consistency and Format Decisions`
+- Observations use `[brackets]`, not `#hashtags`
+- One fact per observation, be specific
+- Prose body tells the story, observations distill the facts
 - Omit empty sections (no empty Decisions, Findings, etc.)
-- Observations condense the sections above into atomic facts
-- **`expands` relation**: links to the session note from step 3. If no
-  session note was created (no meaningful content), omit the relation
-- Focus on reasoning, discoveries, and specifics
+- **`follows` relation**: list the sessions directory, find the most
+  recent note before today's date. If no previous note exists, omit
+  the relation
 - Do not include file lists or obvious info from git history
 
-### 5. Create decision notes (conditional)
+### 4. Create decision notes (conditional)
 
-If the debrief has a Decisions section with substantive content,
+If the session has a Decisions section with substantive content,
 generate decision notes grouped by theme. Decision notes are
 **not** 1:1 with sessions -- they are thematic, linked to the
 session via `part_of`.
@@ -214,8 +180,6 @@ Always create a decision note when the session defines a format,
 convention, or reusable pattern that other agents need to reference.
 
 ```markdown
-# Title — Decision Theme
-
 ## Context
 
 Free-form markdown -- this is the heart of the note, write
@@ -241,29 +205,42 @@ as complexity demands.
 - part_of [[Session Note Title]]
 ```
 
+Write:
+
+```
+write_note(
+  project="{bm.project}",
+  title="Title — Decision Theme",
+  directory="{bm.path}/decisions",
+  note_type="decision",
+  tags=["decision", ...base_tags, ...context_tags],
+  content="## Context\n\n..."
+)
+```
+
 Rules:
 - Group by theme, not by session (one decision note per subject)
 - Context and Decisions sections are required
 - Additional sections (tables, comparisons, tiers) as needed
 - Search BM first -- scan decision note titles for keyword overlap
   with the current topic. If a match is found, update that note
-  instead of creating a new one
-- Do not repeat debrief content -- decisions go deeper on the
-  specific choice, debrief covers the full session
+  via `edit_note` with its permalink instead of creating a new one
+- Do not repeat full session content -- decisions go deeper on the
+  specific choice, session covers the full context
 
 ## Guidelines
 
 **DO:**
 - Search before creating with `search_notes` to avoid duplicates
 - Call BM MCP tools directly (`mcp__basic-memory__write_note`, etc.)
+- Set `note_type` on every write (`session`, `decision`)
 - Tag every note as `[note-type, ...base_tags, ...context_tags]` —
-  `note-type` is one of `session`, `debrief`, `decision`; `base_tags`
-  come from mapping output; `context_tags` are derived from the session
-  content (work type, topics)
+  `note-type` is one of `session`, `decision`; `base_tags` come from
+  mapping output; `context_tags` are derived from the session content
+  (work type, topics)
 - Use `[brackets]` for observations (BM format)
 - Use `- relation_type [[Target]]` for relations (BM format)
-- Link debrief to session note with `expands` relation
-- Be detailed in debrief — this is the deep knowledge record
+- Use permalinks as `identifier` for `edit_note`
 - Update existing decision notes when the theme already exists
 - Create decision notes for any format, convention, or reusable pattern —
   if another agent may need this information, it must exist as its own reference
@@ -275,9 +252,6 @@ Rules:
 - Invoke any skill — use BM MCP tools directly
 - Use `#hashtags` for observations (that is Obsidian format)
 - Use plain `[[wikilinks]]` without relation type (that is Obsidian format)
-- Duplicate content between session and debrief (session is facts,
-  debrief is reasoning, paths, and technical specifics)
-- Reuse the session title for the debrief — each must have its own
-  descriptive title
-- Duplicate content between debrief and decision notes (debrief covers
-  the session, decision goes deeper on the specific choice)
+- Duplicate content between session and decision notes (session covers
+  the full event, decision goes deeper on the specific choice)
+- Write `# Heading` inside `content` — frontmatter already carries the title

@@ -13,19 +13,25 @@ All notable changes to this skill will be documented in this file.
 - Vault discovery via `.notes/` symlink in the repo root, with a bootstrap flow that prompts for the vault path and adds `.notes` to `.git/info/exclude`
 - Shared `wrap-up.yml` registry at the vault root keyed by repo absolute path, with fields `name`, `bm.project`, `bm.path`, `obsidian.path`, `tags`
 - Project bootstrap flow that prompts for name, BM project/path, Obsidian path, and base tags, appending the entry under the existing `projects` key
-- Base tags from the project entry applied to every note (session, debrief, decision, daily)
+- Base tags from the project entry applied to every note (session, decision, daily)
 - Downstream refs append context tags per note on top of base tags
+- `note_type` set on every BM write (`session`, `decision`) for native filtering
+- Permalink documented as the `identifier` format for `edit_note`
 
 ### Changed
 
 - Project resolution rewritten around `.notes/` symlink and `wrap-up.yml` lookup instead of path parsing
 - BM and Obsidian notes now consume paths and base tags from the mapping output
 - Obsidian daily note path remains `Daily/YYYY-MM-DD.md` regardless of project
+- Session note now carries facts and reasoning together — one BM write per session instead of two
+- `write_note` examples use `directory` (real MCP param) instead of `folder`
 
 ### Removed
 
 - Hardcoded path detection
 - Category-to-system mapping table
+- Debrief note type — absorbed into the session note
+- Rule requiring `title` to match `# Heading` (not enforced by BM MCP)
 
 ## 2026-04-16
 
