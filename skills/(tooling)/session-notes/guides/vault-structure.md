@@ -15,10 +15,8 @@ Vault/
 ├── {VaultFolder}/
 │   └── Project Name/
 │       ├── Project Name Overview.md
-│       ├── Sessions/
-│       │   └── YYYY-MM-DD — Description.md
-│       └── Decisions/
-│           └── Decision Title.md
+│       └── Sessions/
+│           └── YYYY-MM-DD — Description.md
 ├── Companies/
 ├── Challenges/
 ├── Brags/
@@ -31,7 +29,7 @@ Vault/
 
 | Folder | Purpose | Example Files |
 |--------|---------|---------------|
-| `{VaultFolder}/` | One folder per project (Title Case), `{Name} Overview.md` + Sessions/ + Decisions/ | `Project Name/Project Name Overview.md` |
+| `{VaultFolder}/` | One folder per project (Title Case), `{Name} Overview.md` + Sessions/ | `Project Name/Project Name Overview.md` |
 | `Companies/` | Job search tracking | `Stripe 2025.md`, `Figma 2024.md` |
 | `Challenges/` | Interview take-homes | `Stripe/System Design.md` |
 | `Brags/` | Achievement logs | `Brags 2025.md` |

@@ -6,6 +6,25 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-21
+
+### Changed
+
+- Session template restructured around five sections: prose `## Summary`, `## Decisions`, `## Open Items`, `## Observations`, `## Relations` — mirrors the wrap-up session shape for human reading
+- Session Summary switched from 2-5 bullets to prose narrative covering context, outcomes, decisions, findings, problems, and next context
+- Session Decisions bullets now require naming the rejected alternative when a real option was considered
+- Session Relations now use typed verbs (`- follows [[X]]`, `- part_of [[Project]]`) as a fallback section; inline wikilinks in Summary cover ordinary mentions
+- Daily Activities switched from 3-5 bullets per project to one prose paragraph (2-4 sentences) per project subsection
+- Daily Observations scoped to cross-cutting day-level facts (`#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`); project-specific facts stay in the session note
+- Daily Relations now use typed verbs (`contains [[session]]`) pointing to today's session notes
+- Daily update flow now rewrites existing project subsections by merging into a single 2-4 sentence paragraph instead of appending bullets
+- All templates dropped the body `# H1` heading — frontmatter `title` is the canonical heading
+
+### Removed
+
+- Decision note type — reference, template, triggers, and vault `Decisions/` subfolder removed; decisions now live inline in the session `## Decisions` section and surface via `#decision` observation search
+- Session and daily `## Key Decisions` and `## Learnings` sections — absorbed into Summary prose and Activities paragraphs
+
 ## 2026-04-20
 
 ### Changed

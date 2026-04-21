@@ -16,8 +16,8 @@ Creates and manages documentation in your Obsidian vault with consistent structu
 - **Companies** - Job application tracking (status, interviews, decisions)
 - **Challenges** - Technical interview challenges (take-homes, system design)
 - **Brags** - Achievement tracking for performance reviews
-- **Daily** - Daily logs with per-project activity subsections and in-place updates
-- **Sessions** - Focused work session notes for a single project (git metadata, decisions, learnings)
+- **Daily** - Daily logs with per-project activity paragraphs and in-place updates
+- **Sessions** - Focused work session notes for a single project (prose summary, decisions, observations)
 - **Conversations** - AI chat summaries and key decisions
 - **Transcriptions** - Meeting, course, lecture, and standup notes preserved verbatim
 

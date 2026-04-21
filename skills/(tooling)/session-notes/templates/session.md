@@ -5,24 +5,21 @@ tags:
   - session
   - {{dynamic tags based on content}}
 ---
-# {{YYYY-MM-DD — Description}}
 
 ## Summary
 
-{2-5 bullets describing context, outcomes, and decisions. Past tense,
-natural language. Focus on what was achieved and why, not steps taken.}
+{{Prose narrative -- context, what happened, decisions with rationale,
+findings, problems and root causes, next context for the following
+session. Past tense, natural language. [[Wikilinks]] inline only to
+notes or entities that already exist.}}
 
-## Key Decisions
+## Decisions
 
-- {{Decision + rationale (why, not just what)}}
+- {{Decision + rationale + named alternative rejected (when a real option was considered)}}
 
 ## Open Items
 
 - [ ] {{Pending work, blockers, next steps}}
-
-## Learnings
-
-- {{Discoveries, surprises, gotchas}}
 
 ## Observations
 
@@ -30,4 +27,5 @@ natural language. Focus on what was achieved and why, not steps taken.}
 
 ## Relations
 
-- [[{{Related Note}}]]
+- follows [[{{Previous Session}}]]
+- part_of [[{{Project}}]]

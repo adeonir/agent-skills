@@ -5,22 +5,18 @@ tags:
   - daily
   - {{dynamic tags based on content}}
 ---
-# {{DayOfWeek, Month DD, YYYY}}
 
 ## Activities
 
 ### {{Project Name}}
 
-{3-5 bullets per project. Past tense, natural language.
-Capture outcomes and decisions, not steps taken.}
+{{Prose paragraph (2-4 sentences) -- outcomes, decisions, and context
+from the day's work on this project. Inline `[[wikilink]]` to the
+session note. Past tense, natural language.}}
 
-## Key Decisions
+### {{Another Project}}
 
-- {{Decision + rationale (why, not just what)}}
-
-## Learnings
-
-- {{Discoveries, surprises, gotchas}}
+{{...}}
 
 ## Open Items
 
@@ -28,8 +24,9 @@ Capture outcomes and decisions, not steps taken.}
 
 ## Observations
 
-- #{{category}} {{Observation with context}}
+- #{{category}} {{Cross-cutting day-level observation (patterns, methods,
+  cadence, blockers, mood) -- not tied to a single project's session}}
 
 ## Relations
 
-- [[{{Related Note}}]]
+- contains [[{{YYYY-MM-DD — Session Note}}]]

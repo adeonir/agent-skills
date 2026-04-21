@@ -64,27 +64,40 @@ When a session note for the same project and topic already exists today:
 Only `## Summary` is required. All other sections are optional -- include
 them only when the user mentions relevant content. Omit empty sections.
 
-Summary uses 2-5 bullets describing facts, outcomes, and decisions.
-Focus on what was done, written, shipped, or decided — not steps taken,
-not reasoning, not file paths.
+Summary is a prose narrative covering context, what happened, decisions
+with rationale, findings, problems and root causes, and next context for
+the following session. Past tense, natural language. Inline `[[wikilinks]]`
+only to notes or entities that already exist.
+
+Decisions bullets distill the choice with rationale and name the rejected
+alternative explicitly when a real option was considered (e.g. `decided X
+over Y because Z`).
+
+Observations use `- #category content`; categories are free-form, derived
+from the session content (examples: outcome, finding, risk, convention,
+context — not a fixed list).
+
+Relations use typed verbs (`- follows [[X]]`, `- part_of [[Project]]`) as
+a fallback for graph edges; ordinary mentions stay inline in Summary.
 
 ## Guidelines
 
 **DO:**
 - Keep one project per note; use daily note for cross-project context
 - Use past tense and natural language
-- Write Summary as bullet points with facts, outcomes, and decisions (not tasks, git metadata, or reasoning)
+- Write Summary as prose narrative covering context, outcomes, decisions, findings, problems, and next context
+- Name the rejected alternative in Decisions when a real option was considered
 - Include only sections with content; omit empty sections
 - Link to related daily notes and project notes
 
 **DON'T:**
 - Mix multiple projects in one session note (contrasts: one project per note)
-- List tasks, steps executed, files modified, or git metadata (contrasts: facts, outcomes, decisions)
-- Include reasoning, motivations, file paths, or technical specifics (contrasts: outcomes over process)
+- List tasks, steps executed, files modified, or git metadata (contrasts: prose narrative of outcomes)
+- Write Summary as bullet points (contrasts: prose narrative)
 - Generate empty sections or placeholder content (contrasts: include only sections with content)
 
 ## Next Steps
 
 - Session notes feed into daily notes (summary of the day)
-- Key decisions may become project-level documentation
+- Key decisions surface via `#decision` observation search across sessions
 - Open items carry over to next session or daily note

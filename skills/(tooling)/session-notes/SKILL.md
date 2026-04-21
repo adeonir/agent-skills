@@ -2,19 +2,17 @@
 name: session-notes
 description: >-
   Create and manage Obsidian notes for projects, companies, technical
-  challenges, brag documents, daily logs, session logs, decisions, and
-  AI conversations, and meeting transcriptions using MCPVault MCP. Use
-  when documenting projects, tracking job applications, recording
-  interview challenges, maintaining brag documents, creating daily notes,
-  logging work sessions, recording decisions, saving AI conversations,
-  or preserving meeting and course transcriptions in Obsidian. Triggers
-  on "create project", "new project note", "document company", "job
-  application", "technical challenge", "brag document", "daily note",
-  "today's log", "session note", "obsidian session", "vault session",
-  "decision note", "document decision", "record decision", "obsidian
-  note", "save conversation", "chat summary", "session summary",
-  "transcription", "meeting notes", "standup notes", "lecture notes",
-  "course notes".
+  challenges, brag documents, daily logs, session logs, AI conversations,
+  and meeting transcriptions using MCPVault MCP. Use when documenting
+  projects, tracking job applications, recording interview challenges,
+  maintaining brag documents, creating daily notes, logging work sessions,
+  saving AI conversations, or preserving meeting and course transcriptions
+  in Obsidian. Triggers on "create project", "new project note", "document
+  company", "job application", "technical challenge", "brag document",
+  "daily note", "today's log", "session note", "obsidian session", "vault
+  session", "obsidian note", "save conversation", "chat summary", "session
+  summary", "transcription", "meeting notes", "standup notes", "lecture
+  notes", "course notes".
 ---
 
 # Session Notes
@@ -71,7 +69,6 @@ multiple simultaneously unless explicitly noted.
 | Brag, achievement, accomplishment | [brag.md](references/brag.md) |
 | Daily, today, daily note, journal | [daily.md](references/daily.md) |
 | Session note, obsidian session, vault session | [session.md](references/session.md) |
-| Decision note, document decision, record decision | [decision.md](references/decision.md) |
 | Conversation, save conversation, AI chat | [conversation.md](references/conversation.md) |
 | Transcription, meeting notes, standup, lecture, course notes | [transcription.md](references/transcription.md) |
 | Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
@@ -93,14 +90,11 @@ company --> brag             (interview learnings become achievements)
 challenge --> brag           (completed challenge becomes achievement)
 daily --> brag               (daily insights feed brag document)
 session --> daily            (session work summarized in daily notes)
-session --> decision         (session decisions become decision notes)
-decision --> project         (decisions link to project overview)
 project --> daily            (project work logged in daily notes)
 project --> session          (project work detailed in session notes)
 conversation --> daily       (conversation insights logged in daily)
 conversation --> brag        (conversation outcomes become achievements)
 transcription --> daily      (transcription insights logged in daily)
-transcription --> decision   (meeting decisions become decision notes)
 ```
 
 ## Writing Style
@@ -109,7 +103,7 @@ transcription --> decision   (meeting decisions become decision notes)
 - Body: rich prose context after the heading, not just bullet points
 - Bullet points: describe what happened and why, with natural language, and with enough context to understand weeks later
 - Observations: `#category content` syntax -- tags are indexed by Obsidian natively
-- Relations: `[[Note Title]]` wikilinks only -- omit the section if no related notes exist in the vault
+- Relations: typed verbs + wikilinks (`- follows [[X]]`, `- part_of [[Project]]`, `- contains [[Session]]`) -- common types include `follows`, `part_of`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`, `contains`; inline `[[wikilinks]]` in prose cover ordinary mentions, the Relations section holds typed edges that add graph value; omit the section if no typed edges apply
 - Wikilinks must point to existing files. Before adding a project link, verify the `{Name} Overview.md` file exists in the vault. Never create orphan wikilinks -- clicking them creates empty files at the vault root
 
 ## Guidelines
@@ -144,10 +138,8 @@ Vault/
 ├── {VaultFolder}/
 │   └── {Project}/
 │       ├── {Project Name} Overview.md
-│       ├── Sessions/
-│       │   └── YYYY-MM-DD — Description.md
-│       └── Decisions/
-│           └── Decision Title.md
+│       └── Sessions/
+│           └── YYYY-MM-DD — Description.md
 ├── Companies/
 ├── Challenges/
 ├── Brags/

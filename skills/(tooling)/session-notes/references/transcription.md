@@ -79,4 +79,3 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
 
 - Transcription insights may feed into daily notes
 - Course transcriptions may link to project notes when applying learnings
-- Meeting decisions may become decision notes
