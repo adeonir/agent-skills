@@ -55,7 +55,7 @@ Fields:
 - `bm.path`: BM directory (lowercase, mirrors filesystem). `--` to skip BM
 - `obsidian.path`: Obsidian folder (Title Case, mirrors filesystem).
   `--` to skip Obsidian session
-- `tags`: base tags applied to every note — session, decision, daily.
+- `tags`: base tags applied to every note — session and daily.
   Downstream refs append context tags per note.
 
 ## Project Lookup
@@ -111,15 +111,13 @@ Given this entry:
 ```
 
 - **BM session**: `work/acme/sessions/YYYY-MM-DD — Description.md`
-- **BM decision**: `work/acme/decisions/Title — Theme.md`
 - **Obsidian session**: `Work/Acme/Sessions/YYYY-MM-DD — Description.md`
-- **Obsidian decision**: `Work/Acme/Decisions/Title — Theme.md`
 - **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)
 
 ## Rules
 
 - `bm.project` or `bm.path` is `--`: skip auto-memory and BM notes entirely
-- `obsidian.path` is `--`: skip Obsidian session and decision notes
+- `obsidian.path` is `--`: skip Obsidian session note
 - Daily note always runs, even when all other paths are `--`
 - Base tags apply to every note — downstream refs append context tags
 - Vault structure mirrors filesystem conventions (`bm.path` lowercase,

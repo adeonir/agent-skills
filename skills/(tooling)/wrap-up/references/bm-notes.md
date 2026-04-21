@@ -1,7 +1,7 @@
 # Write Basic Memory Notes
 
-Create session and decision notes in Basic Memory. Uses BM MCP tools
-directly — no dependency on other skills.
+Create session notes in Basic Memory. Uses BM MCP tools directly —
+no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project, BM path, and base tags
 
@@ -55,8 +55,8 @@ write_note(
 )
 ```
 
-Set `note_type` to match the note's role (`session`, `decision`). Enables
-native BM filtering by type without relying on tags alone.
+Set `note_type="session"`. Enables native BM filtering by type without
+relying on tags alone.
 
 ### edit_note operations
 
@@ -89,7 +89,6 @@ Decision tree:
 Using mapping output:
 - BM project: `bm.project` (typically `main`)
 - Session directory: `{bm.path}/sessions/`
-- Decision directory: `{bm.path}/decisions/`
 - Base tags: `tags` (applied to every note, plus the note-type tag)
 
 ### 2. Check for existing session note
@@ -168,90 +167,28 @@ Rules:
   the relation
 - Do not include file lists or obvious info from git history
 
-### 4. Create decision notes (conditional)
-
-If the session has a Decisions section with substantive content,
-generate decision notes grouped by theme. Decision notes are
-**not** 1:1 with sessions -- they are thematic, linked to the
-session via `part_of`.
-
-Skip this step if the session had no significant decisions.
-Always create a decision note when the session defines a format,
-convention, or reusable pattern that other agents need to reference.
-
-```markdown
-## Context
-
-Free-form markdown -- this is the heart of the note, write
-generously: background, motivation, history, analysis, reasoning,
-trade-offs. What prompted this decision and why it matters.
-
-## Decisions
-
-### 1. Decision title
-
-Justification with rationale embedded. Include alternatives
-rejected and why. Add subsections, tables, or comparisons
-as complexity demands.
-
-## Observations
-
-- [decision] Key decision condensed from Decisions section
-- [rationale] Why this was chosen over alternatives
-- [constraint] Limitation that influenced the decision
-
-## Relations
-
-- part_of [[Session Note Title]]
-```
-
-Write:
-
-```
-write_note(
-  project="{bm.project}",
-  title="Title — Decision Theme",
-  directory="{bm.path}/decisions",
-  note_type="decision",
-  tags=["decision", ...base_tags, ...context_tags],
-  content="## Context\n\n..."
-)
-```
-
-Rules:
-- Group by theme, not by session (one decision note per subject)
-- Context and Decisions sections are required
-- Additional sections (tables, comparisons, tiers) as needed
-- Search BM first -- scan decision note titles for keyword overlap
-  with the current topic. If a match is found, update that note
-  via `edit_note` with its permalink instead of creating a new one
-- Do not repeat full session content -- decisions go deeper on the
-  specific choice, session covers the full context
-
 ## Guidelines
 
 **DO:**
 - Search before creating with `search_notes` to avoid duplicates
 - Call BM MCP tools directly (`mcp__basic-memory__write_note`, etc.)
-- Set `note_type` on every write (`session`, `decision`)
-- Tag every note as `[note-type, ...base_tags, ...context_tags]` —
-  `note-type` is one of `session`, `decision`; `base_tags` come from
-  mapping output; `context_tags` are derived from the session content
-  (work type, topics)
+- Set `note_type="session"` on every write
+- Tag every note as `[session, ...base_tags, ...context_tags]` —
+  `base_tags` come from mapping output; `context_tags` are derived
+  from the session content (work type, topics)
 - Use `[brackets]` for observations (BM format)
 - Use `- relation_type [[Target]]` for relations (BM format)
 - Use permalinks as `identifier` for `edit_note`
-- Update existing decision notes when the theme already exists
-- Create decision notes for any format, convention, or reusable pattern —
-  if another agent may need this information, it must exist as its own reference
+- Capture decisions inline in the session `## Decisions` section with
+  `[decision]` observations — thematic discovery happens via observation
+  search, not via dedicated notes
 - Link to entities in `entities/` when referencing technologies or tools
   (e.g., `uses [[Cloudflare]]`)
-- Create new entity notes for technologies that appear in 2+ decision/session notes
+- Create new entity notes for technologies that appear in 2+ session notes
 
 **DON'T:**
 - Invoke any skill — use BM MCP tools directly
 - Use `#hashtags` for observations (that is Obsidian format)
 - Use plain `[[wikilinks]]` without relation type (that is Obsidian format)
-- Duplicate content between session and decision notes (session covers
-  the full event, decision goes deeper on the specific choice)
+- Create dedicated decision notes — decisions live inline in sessions
 - Write `# Heading` inside `content` — frontmatter already carries the title

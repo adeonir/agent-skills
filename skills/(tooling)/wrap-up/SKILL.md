@@ -78,4 +78,4 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 - Obsidian/MCPVault unavailable: skip Obsidian step, warn user
 - Session note already exists in BM: append with edit_note, do not overwrite
 - Daily note already exists in Obsidian: update with patch_note
-- No meaningful session content: keep session brief, skip decision notes, still update daily
+- No meaningful session content: keep session brief, still update daily

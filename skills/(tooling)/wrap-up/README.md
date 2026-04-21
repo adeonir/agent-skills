@@ -16,9 +16,7 @@ flowchart LR
   B --> C[BM Notes]
   C --> D[Obsidian Notes]
   C --> C1[Session]
-  C -.->|if decisions| C3[Decision]
   D --> D1[Session]
-  D -.->|if decisions| D3[Decision]
   D --> D2[Daily]
 ```
 
@@ -27,9 +25,7 @@ flowchart LR
 | Resolve Project | -- | BM path, Obsidian path, base tags | Internal |
 | Auto-Memory | Claude Code | Updated memory files | Agents |
 | BM Session | Basic Memory | Session note (facts + reasoning) | Agents |
-| BM Decision (conditional) | Basic Memory | Decision notes (thematic) | Agents |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
-| Obsidian Decision (conditional) | Obsidian | Decision notes (thematic) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
 
 ## Usage
@@ -44,8 +40,8 @@ close session
 ## Output
 
 - Auto-memory files in `.claude/projects/.../memory/`
-- BM notes under `{bm.path}/{sessions,decisions}/`
-- Obsidian session and decision notes under `{obsidian.path}/`
+- BM notes under `{bm.path}/sessions/`
+- Obsidian session notes under `{obsidian.path}/Sessions/`
 - Obsidian daily note in `Daily/YYYY-MM-DD.md`
 
 ## Requirements

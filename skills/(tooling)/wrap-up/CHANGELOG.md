@@ -12,6 +12,10 @@ All notable changes to this skill will be documented in this file.
 
 - Auto-memory optimization routine now runs at the end of the auto-memory step — scans all memory files for duplicates, staleness, broken index pointers, and oversized entries
 
+### Removed
+
+- Decision as a standalone note type in BM and Obsidian — decisions now live inline in the session `## Decisions` section, with `[decision]` (BM) and `#decision` (Obsidian) tags driving thematic discovery via observation search
+
 ## 2026-04-20
 
 ### Added

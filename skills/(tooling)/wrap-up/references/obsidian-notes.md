@@ -1,8 +1,7 @@
 # Write Obsidian Notes
 
-Create session and decision notes in the project folder and update
-the daily note. Uses MCPVault MCP tools directly — no dependency on
-other skills.
+Create session notes in the project folder and update the daily note.
+Uses MCPVault MCP tools directly — no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian path and base tags
 
@@ -84,8 +83,8 @@ tags:
 
 Prose body — context, what happened this session, decisions made with
 rationale, learnings and surprises woven in. Past tense, natural language.
-Wikilinks inline to related notes (e.g. [[YYYY-MM-DD — Previous Session]],
-[[Decision Theme]]). Hashtags inline where a fact warrants tagging.
+Wikilinks inline to related notes (e.g. [[YYYY-MM-DD — Previous Session]]).
+Hashtags inline where a fact warrants tagging (e.g. `#decision`, `#bug`).
 
 ## Open Items
 
@@ -122,73 +121,7 @@ Rules:
 - No git metadata (branches, commits, PRs) or file lists
 - One project per session note
 
-### 2. Create decision notes (conditional)
-
-Only when BM decision notes were created in step 4 of bm-notes.md.
-One Obsidian decision note per BM decision note created.
-
-#### Determine path
-
-- Folder: `{obsidian.path}/Decisions/`
-- Filename: `Title — Decision Theme.md`
-- Example: `Work/Acme/Decisions/Decision Note Format.md`
-
-#### Check for existing note
-
-```
-search_notes query="Decision Theme" path="{obsidian.path}/Decisions/"
-```
-
-If a match exists for the same theme, read it with `read_note` and
-update with `patch_note`.
-
-#### Decision template
-
-```markdown
----
-title: "Decision Title"
-type: decision
-tags:
-  - decision
-  - {base tags from mapping}
-  - {context tags from content}
----
-
-## Context
-
-Prose — what prompted the decision, background, constraints, rationale,
-alternatives considered. Rich enough for a reader weeks later to follow
-without asking. Wikilinks inline to related decisions or sessions
-(e.g. [[Adjacent Theme]], [[YYYY-MM-DD — Session]]). Hashtags inline where
-a fact warrants tagging.
-
-## Decisions
-
-### 1. Short title
-
-Rationale, alternatives considered, why this was chosen. One subsection
-per distinct decision.
-```
-
-Fallback sections (only when no inline opportunity exists):
-
-```markdown
-## Observations
-
-- #category content
-
-## Relations
-
-- [[Related Note]]
-```
-
-Rules:
-- `## Context` prose and `## Decisions` section are required
-- One decision note per theme — group related decisions, not per session
-- Mirror the BM decision note content adapted to Obsidian format
-- Fallback sections only when inline is not natural
-
-### 3. Create or update daily note
+### 2. Create or update daily note
 
 #### Path
 
@@ -277,9 +210,9 @@ Rules:
 - Prefer prose body + inline wikilinks/hashtags over standalone sections
 - Use `## Observations` / `## Relations` only as fallback
 - Tag every note as `[note-type, ...base_tags, ...context_tags]` —
-  `note-type` is one of `session`, `decision`, `daily`; `base_tags`
-  come from mapping output; `context_tags` are derived from the session
-  content (work type, topics)
+  `note-type` is one of `session`, `daily`; `base_tags` come from
+  mapping output; `context_tags` are derived from the session content
+  (work type, topics)
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
 - Keep daily note as outcomes and decisions, not detailed log
