@@ -24,6 +24,7 @@ All notable changes to this skill will be documented in this file.
 - BM session Decisions bullets now require naming the rejected alternative when a real option was considered (`decided X over Y because Z` instead of generic `alternatives rejected` placeholder); Obsidian session Decisions mirrors the same rule
 - BM session Next Context bullets now require a concrete entry point — file, function, path, or command — so the next session can resume without searching for where to start
 - BM session Observations gained two example categories: `[state]` for commit/WIP status at session end and `[prereq]` for setup or environmental requirements the next session must satisfy
+- Vault bootstrap creates a local `.notes/` directory with a file symlink for the registry only, replacing the previous whole-vault directory symlink; vault contents stay out of repo-level IDE indexing and git status
 
 ### Removed
 

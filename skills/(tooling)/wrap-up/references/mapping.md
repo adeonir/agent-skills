@@ -1,7 +1,7 @@
-# Project Resolution via .notes Symlink
+# Project Resolution via .notes Registry Symlink
 
-Resolve vault root, project config, and base tags via a `.notes/`
-symlink and a shared `wrap-up.yml` registry.
+Resolve vault root, project config, and base tags via a `.notes/` local
+directory that carries a symlinked `wrap-up.yml` registry file.
 
 ## When to Use
 
@@ -10,9 +10,11 @@ symlink and a shared `wrap-up.yml` registry.
 
 ## Vault Discovery
 
-Check `.notes/` in the current working directory (symlink or real directory).
+Check `.notes/wrap-up.yml` in the current working directory. The file is
+a symlink into the shared registry at the vault root.
 
-- Exists: resolve its target as the vault root. Continue to project lookup.
+- Exists: resolve the symlink target to find the vault root. Continue to
+  project lookup.
 - Missing: run vault bootstrap.
 
 ### Vault Bootstrap
@@ -21,16 +23,18 @@ Ask the user for the absolute path to the Obsidian vault. After receiving:
 
 1. Verify the path exists as a directory. If invalid, ask again. Do not
    proceed until valid.
-2. Create the symlink: `ln -s {vault_path} .notes`
-3. If in a git repo: add `.notes` (no trailing slash) to
-   `.git/info/exclude` (create the file if needed). Git treats symlinks
-   as files, so `.notes/` would fail to match. This avoids polluting the
-   shared `.gitignore` with a user-specific entry.
-4. Continue to project lookup.
+2. If `{vault_path}/wrap-up.yml` does not exist, create it with an empty
+   `projects:` key.
+3. Create the local directory and symlink the registry file:
+   `mkdir -p .notes && ln -s {vault_path}/wrap-up.yml .notes/wrap-up.yml`
+4. If in a git repo: add `.notes` to `.git/info/exclude` (create the file
+   if needed). Keeps the user-specific path out of the shared `.gitignore`.
+5. Continue to project lookup.
 
 ## Config Registry
 
-Path: `.notes/wrap-up.yml` (at vault root, shared across all repos).
+Path: `.notes/wrap-up.yml` — local file symlink to the shared registry at
+`{vault_root}/wrap-up.yml` (one registry per vault, shared across all repos).
 
 Schema:
 
@@ -127,8 +131,10 @@ Given this entry:
 
 ## Error Handling
 
-- `.notes/` missing: ask for vault path, create symlink, continue
+- `.notes/wrap-up.yml` missing: ask for vault path, create the local `.notes/`
+  dir and symlink the registry file, continue
 - Invalid vault path: ask again until a valid directory is provided
-- `wrap-up.yml` missing at vault root: create on first project bootstrap
+- `wrap-up.yml` missing at vault root: create it with an empty `projects:`
+  key during vault bootstrap
 - Repo root not in registry: run project bootstrap, append entry
 - Malformed YAML: surface the error to the user, do not silently overwrite
