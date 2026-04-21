@@ -25,6 +25,8 @@ All notable changes to this skill will be documented in this file.
 - Obsidian daily note path remains `Daily/YYYY-MM-DD.md` regardless of project
 - Session note now carries facts and reasoning together — one BM write per session instead of two
 - `write_note` examples use `directory` (real MCP param) instead of `folder`
+- Obsidian session and decision templates are now prose-first, with observations and relations woven inline and standalone sections kept only as fallback
+- Obsidian daily Activities now uses one prose paragraph per project instead of 3-5 bullets
 
 ### Removed
 
@@ -32,6 +34,9 @@ All notable changes to this skill will be documented in this file.
 - Category-to-system mapping table
 - Debrief note type — absorbed into the session note
 - Rule requiring `title` to match `# Heading` (not enforced by BM MCP)
+- `# H1` heading from all Obsidian notes — frontmatter `title` is the canonical heading
+- Obsidian session `## Summary`, `## Key Decisions`, and `## Learnings` sections — absorbed into the prose body
+- Obsidian daily `## Key Decisions` and `## Learnings` sections — content moves into Activities prose
 
 ## 2026-04-16
 

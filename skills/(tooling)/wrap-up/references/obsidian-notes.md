@@ -16,12 +16,17 @@ other skills.
 
 Obsidian uses a distinct format from Basic Memory. Do not mix them.
 
-- **Observations**: `- #category content` (hashtags, not `[brackets]`)
-- **Relations**: `- [[Note Title]]` (wikilinks only, not `- relation_type [[...]]`)
 - **Frontmatter**: YAML with `title`, `type`, `tags`
-- The `title` in frontmatter must match the `# Heading` in the body
-- Wikilinks must point to existing files — orphan links create empty
+- **Observations**: prefer inline `#hashtags` woven into prose. Use a
+  `## Observations` section only as fallback when no natural inline spot
+  exists. Never use `[brackets]` — that is BM format.
+- **Relations**: prefer inline `[[wikilinks]]` woven into prose. Use a
+  `## Relations` section only as fallback when no natural inline spot
+  exists. Never use `- relation_type [[...]]` — that is BM format.
+- **Wikilinks** must point to existing files — orphan links create empty
   files at the vault root. Verify before linking.
+- **H1 heading**: all notes omit the body `# H1` — the frontmatter
+  `title` is the canonical heading. Top-level body sections start at `##`.
 
 ## Filename Sanitization
 
@@ -67,8 +72,6 @@ date header as separator). Otherwise create a new note.
 
 #### Session template
 
-Compose the body following this template exactly. Omit empty sections.
-
 ```markdown
 ---
 title: "YYYY-MM-DD — Description"
@@ -79,29 +82,22 @@ tags:
   - {context tags from content}
 ---
 
-# YYYY-MM-DD — Description
-
-## Summary
-
-- {2-5 bullets describing context, outcomes, and decisions.
-  Past tense, natural language. Focus on what was achieved
-  and why, not steps taken.}
-
-## Key Decisions
-
-- {Decision + rationale (why, not just what)}
+Prose body — context, what happened this session, decisions made with
+rationale, learnings and surprises woven in. Past tense, natural language.
+Wikilinks inline to related notes (e.g. [[YYYY-MM-DD — Previous Session]],
+[[Decision Theme]]). Hashtags inline where a fact warrants tagging.
 
 ## Open Items
 
-- [ ] {Pending work, blockers, next steps}
+- [ ] Pending work, blockers, next steps
+```
 
-## Learnings
+Fallback sections (only when no inline opportunity exists):
 
-- {Discoveries, surprises, gotchas}
-
+```markdown
 ## Observations
 
-- #category {Observation with context}
+- #category content
 
 ## Relations
 
@@ -113,21 +109,22 @@ tags:
 ```
 write_note(
   path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
-  content="# YYYY-MM-DD — Description\n\n## Summary\n...",
+  content="Prose body...\n\n## Open Items\n- [ ] ...",
   frontmatter={title: "...", type: "session", tags: ["session", ...base_tags, ...context_tags]}
 )
 ```
 
 Rules:
-- Only `## Summary` is required. All other sections are optional.
-- Omit empty sections entirely — do not leave headers with no content.
-- Past tense, natural language — outcomes and decisions, not steps taken.
-- No git metadata (branches, commits, PRs) or file lists.
-- One project per session note.
+- Prose body is the core — weave decisions, learnings, and wikilinks in
+- `## Open Items` is the only standard section; add only if there are items
+- Fallback sections only when inline is not natural
+- Past tense, natural language
+- No git metadata (branches, commits, PRs) or file lists
+- One project per session note
 
 ### 2. Create decision notes (conditional)
 
-Only when BM decision notes were created in step 5 of bm-notes.md.
+Only when BM decision notes were created in step 4 of bm-notes.md.
 One Obsidian decision note per BM decision note created.
 
 #### Determine path
@@ -157,26 +154,28 @@ tags:
   - {context tags from content}
 ---
 
-# Decision Title
-
 ## Context
 
-{Context — what prompted the decision, background, constraints.
-Rich prose, not just bullets. Enough for someone to understand
-weeks later without asking.}
+Prose — what prompted the decision, background, constraints, rationale,
+alternatives considered. Rich enough for a reader weeks later to follow
+without asking. Wikilinks inline to related decisions or sessions
+(e.g. [[Adjacent Theme]], [[YYYY-MM-DD — Session]]). Hashtags inline where
+a fact warrants tagging.
 
 ## Decisions
 
 ### 1. Short title
 
-{Rationale, alternatives considered, why this was chosen.
-One subsection per distinct decision.}
+Rationale, alternatives considered, why this was chosen. One subsection
+per distinct decision.
+```
 
+Fallback sections (only when no inline opportunity exists):
+
+```markdown
 ## Observations
 
-- #decision {Key decision condensed}
-- #rationale {Why this choice over alternatives}
-- #constraint {Limitation that shaped the decision}
+- #category content
 
 ## Relations
 
@@ -184,10 +183,10 @@ One subsection per distinct decision.}
 ```
 
 Rules:
-- `## Context` prose and `## Decisions` section are required.
-- One decision note per theme — group related decisions, not per session.
-- Mirror the BM decision note content adapted to Obsidian format.
-- Omit empty sections.
+- `## Context` prose and `## Decisions` section are required
+- One decision note per theme — group related decisions, not per session
+- Mirror the BM decision note content adapted to Obsidian format
+- Fallback sections only when inline is not natural
 
 ### 3. Create or update daily note
 
@@ -207,31 +206,29 @@ tags:
   - {context tags from content}
 ---
 
-# DayOfWeek, Month DD, YYYY
-
 ## Activities
 
 ### {Project Name}
 
-- {3-5 bullets per project. Past tense, natural language.
-  Capture outcomes and decisions, not steps taken.
-  Each bullet must make sense weeks later without extra context.}
+Prose paragraph (2-4 sentences) — outcomes, decisions, and context from
+the day's work on this project. Wikilinks inline to the session note
+(e.g. [[YYYY-MM-DD — Description]]). Past tense, natural language.
 
-## Key Decisions
+### {Another Project}
 
-- {Decision + rationale (why, not just what)}
-
-## Learnings
-
-- {Discoveries, surprises, gotchas}
+...
 
 ## Open Items
 
-- [ ] {Pending work, blockers, next steps}
+- [ ] Pending work, blockers, next steps
+```
 
+Fallback sections (only when no inline opportunity exists):
+
+```markdown
 ## Observations
 
-- #category {Observation with context}
+- #category content
 
 ## Relations
 
@@ -240,13 +237,13 @@ tags:
 
 #### If note does not exist
 
-Compose content following the template above. Only `## Activities`
-is required; omit other sections if empty.
+Compose content following the template above. Only `## Activities` is
+required; omit `## Open Items` and fallback sections if empty.
 
 ```
 write_note(
   path="Daily/YYYY-MM-DD.md",
-  content="...",
+  content="## Activities\n...",
   frontmatter={title: "...", type: "daily", tags: [...]}
 )
 ```
@@ -255,21 +252,21 @@ write_note(
 
 Read first with `read_note`, then use `patch_note`:
 - If the project already has a subsection in Activities, rewrite the
-  entire subsection: merge existing bullets with new activities and
-  consolidate into 3-5 summary bullets that cover the full day
+  entire subsection: merge the existing paragraph with new activities
+  into a single 2-4 sentence paragraph that covers the full day
 - If the project is new, add a `### Project Name` subsection at the end
   of Activities (before the next `##` section)
-- Add items to Key Decisions, Learnings, Open Items, Observations, and
-  Relations if relevant (create sections if they do not exist)
-- Consolidate Observations and Relations the same way: merge existing
-  with new, deduplicate, keep only distinct items
+- Add items to Open Items if relevant (create the section if it does
+  not exist)
+- Consolidate fallback `## Observations` and `## Relations` the same way
+  — merge existing with new, deduplicate, keep only distinct items
 
 Rules:
 - Activities split by project with `### Project Name` headers
+- One prose paragraph per project (2-4 sentences) after consolidation
 - Past tense, natural language
-- 3-5 bullets per project after consolidation — capture outcomes and
-  decisions, not steps taken
-- Do not duplicate detail from the session note — keep summary-level
+- Do not duplicate detail from the session note — daily stays
+  summary-level
 - Omit empty sections entirely
 
 ## Guidelines
@@ -277,26 +274,25 @@ Rules:
 **DO:**
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
-- Follow the full template — frontmatter + all relevant sections
+- Prefer prose body + inline wikilinks/hashtags over standalone sections
+- Use `## Observations` / `## Relations` only as fallback
 - Tag every note as `[note-type, ...base_tags, ...context_tags]` —
   `note-type` is one of `session`, `decision`, `daily`; `base_tags`
   come from mapping output; `context_tags` are derived from the session
   content (work type, topics)
-- Use `#hashtags` for observations (Obsidian format)
-- Use `[[wikilinks]]` for relations (verify target exists)
-- Keep daily note as outcomes and decisions, not detailed log
-- Link session note from daily note Relations
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
+- Keep daily note as outcomes and decisions, not detailed log
 
 **DON'T:**
 - Call any skill — use MCPVault MCP tools directly
 - Use `[brackets]` for observations (that is BM format)
 - Use `- relation_type [[...]]` for relations (that is BM format)
+- Add `# H1` to any note — frontmatter `title` is the canonical heading
 - Write changelog-style content or list steps taken
 - List files modified or git metadata
 - Blindly append bullets without reading existing content first
-- Let any project subsection exceed 5 bullets — consolidate
+- Let any daily project paragraph exceed 4 sentences — consolidate
 - Duplicate full detail from BM notes into Obsidian notes
 - Create empty sections or placeholder content
 - Create wikilinks to files that don't exist (orphan links)
