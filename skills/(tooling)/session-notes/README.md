@@ -12,33 +12,21 @@ npx skills add adeonir/agent-skills --skill session-notes
 
 Creates and manages documentation in your Obsidian vault with consistent structure:
 
-- **Projects** - Full project documentation (PRD, Design Doc, ADR, architecture)
-- **Companies** - Job application tracking (status, interviews, decisions)
+- **Projects** - Full project documentation (overview, goals, architecture)
 - **Challenges** - Technical interview challenges (take-homes, system design)
 - **Brags** - Achievement tracking for performance reviews
-- **Daily** - Daily logs with per-project activity paragraphs and in-place updates
-- **Sessions** - Focused work session notes for a single project (prose summary, decisions, observations)
-- **Conversations** - AI chat summaries and key decisions
 - **Transcriptions** - Meeting, course, lecture, and standup notes preserved verbatim
 
 ```mermaid
 flowchart LR
     T[User Request] --> D{Note Type}
     D -->|Project| P[Create Project Note]
-    D -->|Company| C[Create Company Note]
     D -->|Challenge| H[Create Challenge Note]
     D -->|Brag| B[Update Brag Document]
-    D -->|Daily| Y[Create Daily Note]
-    D -->|Session| S[Create Session Note]
-    D -->|Conversation| V[Save Conversation]
     D -->|Transcription| TR[Save Transcription]
     P --> M[MCPVault MCP]
-    C --> M
     H --> M
     B --> M
-    Y --> M
-    S --> M
-    V --> M
     TR --> M
     M --> N[Note in Vault]
 ```
@@ -49,23 +37,11 @@ flowchart LR
 # Create a new project note
 "Criar documentacao do projeto checkout-refactor"
 
-# Track a job application
-"Documentar que apliquei na Stripe"
-
 # Record a technical challenge
 "Registrar desafio tecnico da Figma"
 
 # Update brag document
 "Adicionar conquista: reduzi latency em 40%"
-
-# Create daily note
-"Criar nota de hoje"
-
-# Create a session note
-"Session note for this project"
-
-# Save an AI conversation
-"Salvar conversa sobre refatoracao do auth"
 
 # Save a meeting or course transcription
 "Salvar transcricao da aula de testes automatizados"
@@ -77,25 +53,24 @@ Notes are created in your Obsidian vault following this structure:
 
 ```
 Vault/
-├── Projects/          # Project documentation
-├── Companies/         # Job application tracking
+├── {VaultFolder}/
+│   └── {Project}/
+│       └── {Project Name} Overview.md
 ├── Challenges/        # Technical challenges
-├── Brags/            # Achievement records
-├── Conversations/    # AI conversation summaries
-├── Meetings/         # Transcription notes
-└── Daily/            # Daily notes
+├── Brags/             # Achievement records
+└── Meetings/          # Transcription notes
 ```
 
 ## Requirements
 
 - MCPVault MCP server configured and connected
 - At least one Obsidian vault configured
-- Obsidian CLI (optional -- used for vault discovery)
+- `.notes/wrap-up.yml` registry configured (for project path resolution)
 
 ## Integration
 
 | Skill | Connection |
 |-------|------------|
+| `wrap-up` | Shares `.notes/wrap-up.yml` registry for project path resolution |
 | `spec-driven` | Project notes can reference specs created by spec-driven |
 | `docs-writer` | PRD/Design Doc/ADR created by docs-writer can be linked in project notes |
-| `basic-memory` | Daily notes can pull recent activity as context suggestions (optional) |
