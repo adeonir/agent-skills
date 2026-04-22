@@ -6,6 +6,18 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-22
+
+### Changed
+
+- Vault Resolution simplified to MCPVault availability check and active vault selection
+- Project registry replaced with wrap-up registry format (`.notes/wrap-up.yml`)
+
+### Removed
+
+- Session and daily note types (handled by wrap-up skill)
+- Company and conversation note types (unused)
+
 ## 2026-04-21
 
 ### Changed

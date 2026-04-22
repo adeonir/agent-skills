@@ -1,20 +1,14 @@
 ---
 name: session-notes
 description: >-
-  Create and manage Obsidian notes for projects, companies, technical
-  challenges, brag documents, daily logs, session logs, AI conversations,
-  and meeting transcriptions using MCPVault MCP. Use when documenting
-  projects, tracking job applications, recording interview challenges,
-  maintaining brag documents, creating daily notes, logging work sessions,
-  saving AI conversations, or preserving meeting and course transcriptions
-  in Obsidian.
+  Create and manage Obsidian notes for projects, technical challenges,
+  brag documents, and meeting transcriptions using MCPVault MCP. Use when
+  documenting projects, recording technical challenges, maintaining brag
+  documents, or preserving meeting and course transcriptions in Obsidian.
 when_to_use: >-
-  Triggers on "create project", "new project note", "document company",
-  "job application", "technical challenge", "brag document", "daily note",
-  "today's log", "session note", "obsidian session", "vault session",
-  "obsidian note", "save conversation", "chat summary", "session summary",
-  "transcription", "meeting notes", "standup notes", "lecture notes",
-  "course notes".
+  Triggers on "create project", "new project note", "technical challenge",
+  "brag document", "achievement", "accomplishment", "transcription",
+  "meeting notes", "standup notes", "lecture notes", "course notes".
 ---
 
 # Session Notes
@@ -31,18 +25,15 @@ Each note type has its own workflow. Use any type independently based on user ne
 
 ## Vault Resolution
 
-Run once per session before any write operation. All references assume the vault
-is already resolved.
+Run once per session before any write operation.
 
-1. Check if MCPVault MCP is available (look for `write_note`, `read_note` tools)
-2. Use `list_directory` to verify the vault root is accessible
-3. If Obsidian CLI is available (`which obsidian`), use `obsidian vaults verbose`
-   to list vaults and confirm with user
-4. If multiple vaults exist, ask user which one to use
-5. Remember the vault name for the rest of the session
+1. Verify MCPVault MCP is available (`write_note`, `read_note` tools present)
+2. If multiple vaults exist, ask user which one to use
+3. All write operations use paths relative to the vault root
 
-Once resolved, all references use relative paths from the vault root
-(e.g., `Daily/2026-03-20.md`, `Projects/My Project/Overview.md`).
+For project path resolution, load [mapping.md](references/mapping.md).
+Fixed-path refs (`brag.md`, `challenge.md`, `transcription.md`) write directly
+to `Brags/`, `Challenges/`, `Meetings/` without path resolution.
 
 ## Filename Sanitization
 
@@ -66,12 +57,8 @@ multiple simultaneously unless explicitly noted.
 | Trigger Pattern | Reference |
 |-----------------|-----------|
 | Project, new project note, document project | [project.md](references/project.md) |
-| Company, job application, interview | [company.md](references/company.md) |
 | Challenge, technical challenge, take-home, coding interview | [challenge.md](references/challenge.md) |
 | Brag, achievement, accomplishment | [brag.md](references/brag.md) |
-| Daily, today, daily note, journal | [daily.md](references/daily.md) |
-| Session note, obsidian session, vault session | [session.md](references/session.md) |
-| Conversation, save conversation, AI chat | [conversation.md](references/conversation.md) |
 | Transcription, meeting notes, standup, lecture, course notes | [transcription.md](references/transcription.md) |
 | Markdown, syntax, wikilink, callout, embed | [markdown.md](guides/markdown.md) |
 | Vault structure, organize vault | [vault-structure.md](guides/vault-structure.md) |
@@ -79,24 +66,14 @@ multiple simultaneously unless explicitly noted.
 Notes:
 
 - `markdown.md` and `vault-structure.md` are informational guides (no write operations).
-- `mapping.md` is not a direct trigger. It is loaded by `project.md` and `session.md` to resolve vault paths.
+- `mapping.md` is not a direct trigger. It is loaded by `project.md` to resolve vault paths.
 - All other references are note-creation workflows (compose, write, link).
 
 ## Cross-References
 
 ```
 mapping.md <-- project.md   (project loads mapping to resolve vault path)
-mapping.md <-- session.md   (session loads mapping to resolve vault path)
-company --> challenge        (interview triggers challenge)
-company --> brag             (interview learnings become achievements)
 challenge --> brag           (completed challenge becomes achievement)
-daily --> brag               (daily insights feed brag document)
-session --> daily            (session work summarized in daily notes)
-project --> daily            (project work logged in daily notes)
-project --> session          (project work detailed in session notes)
-conversation --> daily       (conversation insights logged in daily)
-conversation --> brag        (conversation outcomes become achievements)
-transcription --> daily      (transcription insights logged in daily)
 ```
 
 ## Writing Style
@@ -139,15 +116,10 @@ Notes are created in the user's Obsidian vault:
 Vault/
 ├── {VaultFolder}/
 │   └── {Project}/
-│       ├── {Project Name} Overview.md
-│       └── Sessions/
-│           └── YYYY-MM-DD — Description.md
-├── Companies/
+│       └── {Project Name} Overview.md
 ├── Challenges/
 ├── Brags/
-├── Conversations/
-├── Meetings/
-└── Daily/
+└── Meetings/
 ```
 
 The `{VaultFolder}` depends on the project category (e.g., `Work/`, `Ventures/`,

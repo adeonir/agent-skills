@@ -60,6 +60,3 @@ The `{VaultFolder}` depends on the project category. Load
 - Create duplicate project notes
 - Populate sections with placeholder content
 
-## Next Steps
-
-- User may want to create a company note if this is for a job application
