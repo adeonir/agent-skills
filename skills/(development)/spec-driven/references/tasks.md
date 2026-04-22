@@ -38,7 +38,9 @@ Read `package.json`:
 
 ### Step 4: Decompose Tasks
 
-Generate tasks following natural order:
+Group tasks by story. Each story in spec.md becomes a `### Sxxx [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
+
+Within each story group, generate tasks following natural order:
 1. Setup (config, deps)
 2. Types (interfaces)
 3. Implementation (core logic, tests included per task)
@@ -50,7 +52,7 @@ Each task should be:
 - **Independent**: Minimal dependencies
 - **Traceable**: Maps to requirements
 
-**Task ID format:** `T001, T002, T003...` -- sequential, zero-padded, never reused.
+**Task ID format:** `T001, T002, T003...` -- sequential across the entire tasks.md, zero-padded, never reused.
 
 **Task description format:**
 

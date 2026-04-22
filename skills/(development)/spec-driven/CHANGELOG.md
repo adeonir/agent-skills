@@ -6,6 +6,15 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-22
+
+### Added
+
+- Story IDs (S001, S002...) to spec.md user stories, mirroring T-ID pattern from tasks
+- Story-based grouping in tasks.md: each section maps to a story from spec.md
+- Story Coverage table in tasks.md template linking stories to implementing tasks
+- `[S001]` argument in implement: runs all tasks belonging to that story
+
 ## 2026-04-21
 
 ### Added

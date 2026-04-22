@@ -66,10 +66,16 @@ Rules:
 
 Format:
 ```
-[P1|P2|P3] As a {user}, I want {goal} so that {benefit}
+### Sxxx [P1|P2|P3] {Story Title}
+As a {user}, I want {goal} so that {benefit}
 ```
 
 All stories in a spec WILL be implemented. Priorities define **implementation order**, not whether something ships.
+
+Story ID rules:
+- Sequential across the spec: S001, S002, S003...
+- Never reused, never recycled
+- Story IDs survive spec edits -- adding a story at the end, never renumbering
 
 Priority levels:
 - **P1** (Core): Implement first. The feature works with only P1 stories done. Must be vertical slices -- complete, demo-able end-to-end (not just backend or frontend). Each P1 story includes an Independent Test.
@@ -80,7 +86,7 @@ Each story includes **Why Px** to justify its priority and **Acceptance Criteria
 
 Good:
 ```markdown
-### P1: Password Reset
+### S001 [P1] Password Reset
 
 - As a user, I want to reset my password via email so that I can regain access
 - **Why P1:** Core account recovery -- users locked out without this

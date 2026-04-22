@@ -16,6 +16,7 @@ Transitions.
 
 - `[T001]` - Single task
 - `[T001-T005]` - Range
+- `[S001]` - All tasks under story S001
 - `[--all]` - All pending
 - Empty - Next pending task
 
@@ -23,9 +24,14 @@ Transitions.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
+1. If feature ID provided -> use `.artifacts/features/{ID}-{name}/`
+2. If no feature ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
+
+If a story ID argument was given (`[S001]`):
+- Read tasks.md, find the `### S001 ...` section
+- Collect all tasks under that section header
+- Treat them as the task range for this run
 
 ### Step 2: Load Context
 

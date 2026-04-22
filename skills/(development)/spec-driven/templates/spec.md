@@ -27,7 +27,7 @@ created: {{YYYY-MM-DD}}
 
 ## User Stories
 
-### P1: {{Story Title}}
+### S001 [P1] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P1:** {{why this is critical for MVP}}
@@ -38,7 +38,7 @@ created: {{YYYY-MM-DD}}
 - [ ] AC-001 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 - [ ] AC-002 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
-### P2: {{Story Title}}
+### S002 [P2] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P2:** {{why this matters but is not MVP}}
@@ -47,7 +47,7 @@ created: {{YYYY-MM-DD}}
 
 - [ ] AC-003 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
-### P3: {{Story Title}}
+### S003 [P3] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P3:** {{why this is nice-to-have}}
