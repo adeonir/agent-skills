@@ -14,6 +14,8 @@ created: {{YYYY-MM-DD}}
 - [ ] {{story-name}} -- {{brief description of what this story delivers}}
 - [ ] {{story-name}} -- {{brief description}}
 
+{Stories are linked when created: [001-story-name](001-story-name.md) -- description}
+
 ## Scope
 
 **In:**

@@ -6,6 +6,13 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-22
+
+### Changed
+
+- Story files now use a zero-padded 3-digit numeric prefix (`001-story-name.md`) for visual ordering in file explorers
+- Epic checklist entries updated to linked format when story is created
+
 ## 2026-04-20
 
 ### Changed

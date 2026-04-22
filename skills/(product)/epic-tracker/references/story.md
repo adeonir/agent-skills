@@ -25,8 +25,8 @@ that can be verified independently.
 
 Fill the template:
 
-- **Name**: kebab-case, descriptive (`add-pix-payment`,
-  `reset-password-flow`)
+- **Name**: kebab-case, descriptive, no numeric prefix (`add-pix-payment`,
+  `reset-password-flow`) -- the prefix lives in the filename only
 - **Title**: human-readable title
 - **Epic**: parent epic name (must match an existing epic directory)
 - **Status**: always starts as `planned`
@@ -44,12 +44,21 @@ Present the draft to the user. Wait for feedback before saving.
 
 ### 4. Save
 
-Save to `.artifacts/epics/{epic-name}/{story-name}.md`.
+Determine the next sequence number by counting existing story files in
+`.artifacts/epics/{epic-name}/` (exclude `epic.md`). Zero-pad to 3 digits.
+
+Save to `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md`.
+
+Example: if 2 stories exist, the next file is `003-reset-password-flow.md`.
 
 ### 5. Update Epic
 
-After saving, update the parent epic's Stories checklist to reflect
-the new story. Link to the story file.
+After saving, update the parent epic's Stories checklist to replace the
+plain story name with a linked, numbered entry:
+
+```markdown
+- [ ] [003-reset-password-flow](003-reset-password-flow.md) -- brief description
+```
 
 ## Guidelines
 
