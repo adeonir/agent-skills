@@ -216,18 +216,24 @@ After appending, if `## Codebase Feedback` has rows, count by target and prompt 
 
 Do not auto-invoke project-index -- the user controls integration timing.
 
-### Step 11: Report
+### Step 11: Approval Gate
 
-Show:
-- Tasks completed
-- Files modified
-- Quality gate results
-- Verification summary (per-task results)
-- AC checkbox sync summary (X of Y ACs marked `[x]` in spec.md)
-- Remaining tasks (if any)
-- Suggested commit message
-- If feature moved to `to-review`: suggest running `audit` to validate Goals and Success Criteria before `done`
-- For user-facing features: suggest running interactive UAT (see [validate.md](validate.md)) alongside audit
+When all tasks are done and Final Verification passes, present a summary and wait for approval:
+
+```
+Implementation ready: `.artifacts/features/{ID}-{name}/`
+Tasks: {X} done | ACs: {Y}/{Z} verified
+Remaining: {count or "none"}
+Suggested commit: {message}
+
+Approve to proceed to audit, or describe what to fix.
+```
+
+- If issues remain: fix before presenting gate.
+- If changes requested: address and re-present gate.
+- If approved: run `audit` (mandatory before `done`). For user-facing features, also consider `validate`.
+
+Do not suggest `audit` until approved.
 
 ## Edge Case Verification
 
@@ -258,10 +264,7 @@ When all tasks are complete, run a final pass before setting `status: to-review`
 Goals and Success Criteria are NOT checked here -- they are audit.md's job.
 Do not mark their `[ ]` from this reference.
 
-After `status: to-review`, suggest next steps:
-- "Implementation complete. Run `audit` to validate Goals and Success Criteria and move to `done`."
-- For user-facing features: "Also consider running interactive UAT (see [validate.md](validate.md)) to confirm user-observable behavior."
-- Audit is mandatory for `done`. UAT is on-demand.
+Audit is mandatory before `done`. UAT is on-demand.
 
 ## Commit Suggestion
 

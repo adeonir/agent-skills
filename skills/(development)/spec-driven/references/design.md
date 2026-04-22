@@ -180,24 +180,19 @@ Set spec.md frontmatter: `status: ready`
 
 ### Step 12: Approval Gate
 
-Present a summary and ask for explicit approval before proceeding:
+Present a summary and wait for approval:
 
 ```
-Design created: `.artifacts/features/{ID}-{name}/design.md`
-Research cached: {topics or "none"}
-Key decisions: {count}
-Open questions: {count or "none"}
+Design ready: `.artifacts/features/{ID}-{name}/design.md`
+Decisions: {count} | Open questions: {count or "none"}
 
-Review the design and confirm: does the architecture match what you want to build?
-Reply "approved" to proceed, or describe what to change.
+Approve to proceed, or describe changes.
 ```
 
-Wait for the user's response.
+- If changes: update design.md, re-present gate.
+- If approved: run `tasks`.
 
-- If changes requested: update design.md and present the gate again.
-- If approved: suggest running `tasks`
-
-Do not suggest `tasks` until the user approves.
+Do not suggest `tasks` until approved.
 
 ## Guidelines
 

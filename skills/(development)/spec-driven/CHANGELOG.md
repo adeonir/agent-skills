@@ -8,8 +8,14 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-04-22
 
+### Added
+
+- Approval gate at end of tasks: user must confirm task breakdown before implement is suggested
+- Approval gate at end of implement: user must confirm implementation before audit is suggested
+
 ### Changed
 
+- Approval gates in specify and design trimmed to a concise summary block format
 - Spec self-containment rule: milestones, epics, sprints, release names, and roadmap references are now explicitly forbidden in spec.md
 - Story commit boundary rule: each story's ACs must be completable together; ACs that depend on a later story must be moved to it
 

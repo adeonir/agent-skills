@@ -132,12 +132,21 @@ For each task that creates or modifies a code layer:
 
 If any task defers its tests: merge them in before proceeding.
 
-### Step 8: Report
+### Step 8: Approval Gate
 
-Inform user:
-- Created: {count} tasks
-- Components: {list}
-- Next: Run `implement`
+Present a summary and wait for approval:
+
+```
+Tasks ready: `.artifacts/features/{ID}-{name}/tasks.md`
+Tasks: {count} | Components: {list}
+
+Approve to proceed, or describe changes.
+```
+
+- If changes: update tasks.md, re-run pre-approval checks, re-present gate.
+- If approved: run `implement`.
+
+Do not suggest `implement` until approved.
 
 ## Task Size Guidelines
 

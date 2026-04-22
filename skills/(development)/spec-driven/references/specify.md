@@ -343,27 +343,20 @@ If any box fails: rewrite the offending lines behaviorally, or move HOW content 
 
 ### Step 14: Approval Gate
 
-Present a summary to the user and ask for explicit approval before proceeding:
+Present a summary and wait for approval:
 
 ```
-Spec created: `.artifacts/features/{ID}-{name}/spec.md`
+Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
 Type: {greenfield|brownfield} | Scope: {small|medium|large|complex}
-Open questions: {count or "none"}
-Gray areas: {yes -- suggest discuss | no}
+Open questions: {count or "none"} | Gray areas: {yes/no}
 
-Review the spec and confirm: does it capture what you want to build?
-Reply "approved" to proceed, or describe what to change.
+Approve to proceed, or describe changes.
 ```
 
-Wait for the user's response.
+- If changes: update spec.md, re-run pre-write checklist, re-present gate.
+- If approved: next step by scope — Medium → `implement`; Large/Complex → `design`; Complex with gray areas → `discuss` then `design`.
 
-- If changes requested: update spec.md and re-run the pre-write checklist. Present the gate again.
-- If approved: report next step based on scope:
-  - **Medium**: Run `implement` (design and tasks skipped)
-  - **Large/Complex**: Run `design`
-  - **Complex with gray areas**: Run `discuss` first, then `design`
-
-Do not suggest the next step until the user approves.
+Do not suggest next step until approved.
 
 ## Codebase Mapping Note
 
