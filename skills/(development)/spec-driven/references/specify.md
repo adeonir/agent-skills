@@ -336,6 +336,7 @@ Before finalizing spec.md, audit every section against the Content Separation ru
 - [ ] Out of Scope entries describe behavior, not code symbols
 - [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
+- [ ] Each story is a commit boundary: no AC depends on work belonging to a later story (move it if so)
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.

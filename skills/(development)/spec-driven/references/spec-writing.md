@@ -72,6 +72,8 @@ As a {user}, I want {goal} so that {benefit}
 
 All stories in a spec WILL be implemented. Priorities define **implementation order**, not whether something ships.
 
+Each story is a **commit boundary**: all its ACs must be completable and committable together. An AC that requires work from a later story must be moved to that story — never leave a story with an AC that can only be fulfilled after another story is done.
+
 Story ID rules:
 - Sequential across the spec: S001, S002, S003...
 - Never reused, never recycled

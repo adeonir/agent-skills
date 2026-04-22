@@ -11,6 +11,7 @@ All notable changes to this skill will be documented in this file.
 ### Changed
 
 - Spec self-containment rule: milestones, epics, sprints, release names, and roadmap references are now explicitly forbidden in spec.md
+- Story commit boundary rule: each story's ACs must be completable together; ACs that depend on a later story must be moved to it
 
 ### Added
 
