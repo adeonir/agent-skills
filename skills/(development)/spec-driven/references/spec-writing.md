@@ -152,6 +152,7 @@ Free-form context that doesn't fit other sections -- evidence sources, stakehold
 
 Rules:
 - Same Behavior vs Symbol filter as the rest of the spec -- no libraries, no paths, no component or hook names
+- No milestone, epic, sprint, release, or roadmap references -- spec is self-contained; organizational context lives outside it
 - Anything HOW-flavored goes to design.md, not here
 - Omit the section entirely if there's nothing behavioral to capture beyond what the other sections already cover
 

@@ -37,6 +37,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 - Implementation approaches (e.g., `useTransition`, `router.refresh()`, server actions)
 - Database schemas or API designs
 - Architecture decisions
+- Milestones, epics, sprints, release names, or roadmap references (e.g., "part of Q2 epic", "blocked by milestone 3", "planned for v2")
 
 These apply to ALL sections -- Overview, Goals, Out of Scope, Stories, ACs, Edge Cases, Success Criteria, Notes, Baseline. Behavior always trumps symbols.
 
@@ -334,6 +335,7 @@ Before finalizing spec.md, audit every section against the Content Separation ru
 - [ ] No file paths or directory names
 - [ ] Out of Scope entries describe behavior, not code symbols
 - [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
+- [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.

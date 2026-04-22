@@ -8,6 +8,10 @@ All notable changes to this skill will be documented in this file.
 
 ## 2026-04-22
 
+### Changed
+
+- Spec self-containment rule: milestones, epics, sprints, release names, and roadmap references are now explicitly forbidden in spec.md
+
 ### Added
 
 - Story IDs (S001, S002...) to spec.md user stories, mirroring T-ID pattern from tasks
