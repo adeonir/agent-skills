@@ -24,6 +24,7 @@ npx skills add adeonir/agent-skills
 | **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[project-index](skills/(development)/project-index)** | Development | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
 | **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
+| **[system-design](skills/(development)/system-design)** | Development | Guided system design from problem to architecture: discovery, requirements, trade-offs, components, brief |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, RFC, ADR. Guided discovery per type |
 | **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Feeds spec-driven |
@@ -50,6 +51,9 @@ flowchart TD
     DB -->|approved design| SD
     SD -->|commits & PRs| GH[git-helpers]
     SD -->|discoveries| PI
+    SYS[system-design] -->|brief| DW
+    SYS -->|architecture| SD
+    BR -.->|direction| SYS
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
@@ -82,17 +86,17 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 
 ```
 .agents/
-├── project.md      # project-index: project context
-└── codebase/       # project-index: deep codebase analysis
+├── codebase/       # project-index: deep codebase analysis
+└── project.md      # project-index: project context
 
 .artifacts/
+├── brainstorm/     # brainstorming: ideation artifacts
+├── design/         # design-builder: copy.yaml, design.json, variants/
+├── docs/           # docs-writer + system-design + product-naming: PRD, ADR, TDD, RFC, system-brief.md
+├── epics/          # epic-tracker: epics, stories, bugs, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
-├── research/       # spec-driven: research cache
-├── epics/          # epic-tracker: epics, stories, bugs, releases
-├── brainstorm/     # brainstorming: ideation artifacts
-├── docs/           # docs-writer + product-naming
-└── design/         # design-builder: copy.yaml, design.json, variants/
+└── research/       # spec-driven: research cache
 ```
 
 This directory is gitignored by default but can be committed for team collaboration.
