@@ -7,8 +7,11 @@ description: >-
   generating project documentation for agents, or mapping codebase patterns
   and conventions.
 when_to_use: >-
-  Triggers on "initialize project", "setup project", "overview", "summary",
-  "map codebase", "index project", "analyze codebase".
+  Triggers on "initialize .agents", "setup project index", "index project",
+  "map codebase", "analyze codebase", "project overview",
+  "codebase summary", "onboarding to this repo". Not for feature work
+  (use spec-driven), session notes in Obsidian (use session-notes), or
+  dev tooling setup like prettier/eslint (out of scope for all skills).
 effort: xhigh
 context: fork
 agent: general-purpose

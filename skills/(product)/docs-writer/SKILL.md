@@ -8,8 +8,11 @@ description: >-
   for a project.
 when_to_use: >-
   Triggers on "create PRD", "create design doc", "create TDD",
-  "technical design", "create RFC", "create ADR", "create document",
-  "write doc", "document this", "need a spec", "write requirements".
+  "technical design document", "create RFC", "create ADR",
+  "create document", "write doc", "document this", "write requirements",
+  "brief for this product". Not for feature spec.md tied to implementation
+  (use spec-driven), system architecture discovery (use system-design),
+  or meeting/session notes in Obsidian (use session-notes).
 effort: high
 ---
 

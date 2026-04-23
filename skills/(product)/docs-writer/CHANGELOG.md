@@ -6,6 +6,14 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Trigger "need a spec" removed (too ambiguous with spec-driven)
+- Trigger "technical design" replaced with "technical design document"
+- "Not for" routing added to spec-driven, system-design, and session-notes
+
 ## 2026-03-25
 
 ### Removed

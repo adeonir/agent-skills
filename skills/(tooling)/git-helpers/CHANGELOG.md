@@ -6,6 +6,13 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Bare triggers "review", "done", "check my code" replaced with phrase-scoped variants ("code review", "review this PR", "review this diff", "ready to commit", "ready to push")
+- "Not for" routing added to spec-driven (verify implementation), design-builder (UI design review), and wrap-up (session close)
+
 ## 2026-04-21
 
 ### Added

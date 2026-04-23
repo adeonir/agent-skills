@@ -2,13 +2,18 @@
 name: debug-tools
 description: >-
   Iterative debugging workflow with confidence scoring, pattern
-  comparison, and strategic log injection. Use when debugging unexpected
+  comparison, and strategic log injection. Use when diagnosing unexpected
   behavior, silent errors, intermittent failures, or when something isn't
   working, tests pass but app fails, or works in dev but not in prod.
+  For known fixes where the user names the file and line, defer to
+  spec-driven quick-mode.
 when_to_use: >-
-  Triggers on "debug", "fix bug", "investigate", "trace issue",
+  Triggers on "debug this", "investigate", "trace issue",
   "add debug logs", "cleanup debug logs", "why is this broken",
-  "not working".
+  "why is X not working", "tests pass but app fails",
+  "works in dev but not prod". Not for known one-line fixes with file and
+  line given (use spec-driven), PM bug reports (use epic-tracker), or
+  runtime error review on a deployed service (different domain).
 ---
 
 # Debug Tools

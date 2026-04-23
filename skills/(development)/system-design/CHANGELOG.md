@@ -6,6 +6,13 @@ name: system-design
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Trigger "technical approach" replaced with phrase-scoped variants ("technical approach for scale", "technical approach for architecture")
+- "Not for" routing added to spec-driven (feature design.md), docs-writer (TDD), and design-builder (visual UI)
+
 ## 2026-04-21
 
 ### Added

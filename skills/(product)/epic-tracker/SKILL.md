@@ -7,9 +7,12 @@ description: >-
   delivery status, or preparing handoff to spec-driven.
 when_to_use: >-
   Triggers on "create epic", "new epic", "create story", "new story",
-  "add story", "create bug", "report bug", "bug report", "create release",
-  "new release", "status", "update status", "mark done", "show roadmap",
-  "list epics", "overview", "handoff", "implement story", "start story".
+  "add story", "report bug", "bug report", "create release", "new release",
+  "update status", "mark done", "show roadmap", "list epics", "epic status",
+  "handoff to spec-driven". Not for implementing a named story with an
+  existing spec (use spec-driven "implement story S###"), project-wide
+  overview (use project-index), or feature status within a spec (use
+  spec-driven "show feature status").
 ---
 
 # Epic Tracker

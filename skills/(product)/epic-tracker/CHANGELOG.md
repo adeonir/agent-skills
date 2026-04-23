@@ -6,6 +6,13 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Triggers "overview", "status", "start story", and "create bug" removed (collided with spec-driven and project-index)
+- "Not for" routing added to spec-driven ("implement story S###") and project-index (project-wide overview)
+
 ## 2026-04-22
 
 ### Changed

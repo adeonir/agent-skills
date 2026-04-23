@@ -8,9 +8,13 @@ description: >-
   changes, needs to push and open a PR, or wants to finish and merge a
   branch.
 when_to_use: >-
-  Triggers on "commit", "review", "push", "create PR", "summarize changes",
-  "done", "ready to push", "check my code", "finish branch", "merge branch",
-  "merge PR", "cleanup branch".
+  Triggers on "commit this", "create a commit", "code review",
+  "review this PR", "review this diff", "review the changes", "push this",
+  "ready to push", "ready to commit", "create PR", "open a pull request",
+  "summarize changes", "finish branch", "merge branch", "merge PR",
+  "cleanup branch". Not for acceptance-criteria verify (use spec-driven
+  "verify implementation"), visual design review (use design-builder
+  "UI design review"), or session wrap-up (use wrap-up).
 effort: medium
 ---
 

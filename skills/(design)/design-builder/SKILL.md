@@ -11,10 +11,13 @@ description: >-
   for another agent or developer.
 when_to_use: >-
   Triggers on "extract copy", "extract design", "extract from codebase",
-  "web capture", "wireframe", "layout", "structure", "screen flow",
-  "preview", "variants", "tune design", "mockup", "redesign",
-  "create prototype", "design review", "sync design", "sync tokens",
-  "handoff design", "package design".
+  "web capture", "wireframe", "screen flow", "layout the page",
+  "preview the design", "UI variants", "tune design", "mockup",
+  "redesign the landing page", "redesign the screen", "visual prototype",
+  "UI design review", "sync design", "sync tokens", "handoff design",
+  "package design". Not for feature spec/design.md (use spec-driven),
+  system architecture (use system-design), or PR/code review
+  (use git-helpers).
 effort: xhigh
 ---
 

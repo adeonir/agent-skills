@@ -6,6 +6,13 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Trigger "create project" replaced with "create project note" (collided with project-index)
+- "Not for" routing added to project-index (.agents/ context) and wrap-up (end-of-session)
+
 ## 2026-04-22
 
 ### Changed

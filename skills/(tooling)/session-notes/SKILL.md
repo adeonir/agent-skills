@@ -6,9 +6,11 @@ description: >-
   documenting projects, recording technical challenges, maintaining brag
   documents, or preserving meeting and course transcriptions in Obsidian.
 when_to_use: >-
-  Triggers on "create project", "new project note", "technical challenge",
-  "brag document", "achievement", "accomplishment", "transcription",
-  "meeting notes", "standup notes", "lecture notes", "course notes".
+  Triggers on "create project note", "new project note",
+  "technical challenge", "brag document", "achievement", "accomplishment",
+  "transcription", "meeting notes", "standup notes", "lecture notes",
+  "course notes". Not for initializing .agents/ project context
+  (use project-index), or end-of-session wrap-up (use wrap-up).
 ---
 
 # Session Notes

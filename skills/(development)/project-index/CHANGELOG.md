@@ -6,6 +6,13 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Bare triggers "overview", "summary", "setup project" replaced with phrase-scoped variants ("project overview", "codebase summary", "setup project index", "initialize .agents")
+- "Not for" routing added to spec-driven (feature work) and session-notes (Obsidian project notes)
+
 ## 2026-04-20
 
 ### Changed

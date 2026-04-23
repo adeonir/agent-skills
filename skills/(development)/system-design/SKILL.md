@@ -12,7 +12,10 @@ when_to_use: >-
   "system for X", "what architecture", "scale this", "handle X users",
   "microservices vs monolith", "how to store", "real-time notifications",
   "event-driven", "distributed system", "system design interview",
-  "architect this", "technical approach", "infrastructure for".
+  "architect this", "technical approach for scale",
+  "technical approach for architecture", "infrastructure for". Not for
+  feature design.md (use spec-driven), TDD document (use docs-writer),
+  or visual UI design (use design-builder).
 effort: xhigh
 ---
 

@@ -6,6 +6,14 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Description scoped to unknown-cause diagnosis; known fixes hand off to spec-driven quick-mode
+- Triggers "debug" and "fix bug" replaced with phrase-scoped diagnostic patterns ("debug this", "why is X not working", "tests pass but app fails")
+- "Not for" routing added to spec-driven (known fixes) and epic-tracker (PM bug reports)
+
 ## 2026-04-21
 
 ### Added

@@ -6,6 +6,24 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Added
+
+- Story order and ID monotonicity pre-approval check in Tasks Step 7 (stories in spec order, IDs monotonic top-to-bottom, each story contiguous, no forward dependencies)
+- Commit-boundary viability check in Tasks Step 7 (implicit, not echoed into artifact; each story prefix must compile and pass lint/typecheck/tests standalone)
+- Dependency inversion check in Design Step 10 (implicit; owning story must be numbered ≤ earliest consuming story, with relocate/reorder/inline-then-refactor resolutions)
+- Narrative-order vs build-order guidance in spec-writing User Stories section (names the inversion trap, requires explicit choice in the story text)
+- Small row in Specify Step 14 pipeline list for completeness
+- Approval-gate waypoint rule in Specify Step 14 and Design Step 13 (full planning bundle on "plan this out" / "turn PRD into spec" phrasing; spec-only gate only when user asks for just a spec)
+
+### Changed
+
+- Trigger vocabulary: phrase-scoped patterns with explicit "not for" routing to debug-tools, docs-writer, git-helpers, epic-tracker
+- Auto-sizing table: tighter Medium vs Large boundary, worked examples for each scope
+- Decompose Tasks (Step 4): stories emitted in spec.md order, task IDs assigned top-to-bottom, contiguous per story, forward dependencies forbidden, shared infra owned by first consuming story
+- Design steps renumbered (former Step 10–12 are now Step 11–13)
+
 ## 2026-04-22
 
 ### Added

@@ -349,7 +349,7 @@ If any box fails: rewrite the offending lines behaviorally, or move HOW content 
 
 ### Step 14: Approval Gate
 
-Present a summary and wait for approval:
+Present a summary:
 
 ```
 Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
@@ -359,10 +359,23 @@ Open questions: {count or "none"} | Gray areas: {yes/no}
 Approve to proceed, or describe changes.
 ```
 
-- If changes: update spec.md, re-run pre-write checklist, re-present gate.
-- If approved: next step by scope — Medium → `implement`; Large/Complex → `design`; Complex with gray areas → `discuss` then `design`.
+Whether to stop here depends on what the user actually asked for. Read the original request:
 
-Do not suggest next step until approved.
+- **User asked for the spec only** (e.g. "write a spec", "capture the requirements", "draft what this feature should do") -- stop at this gate and wait for approval.
+- **User asked for the full planning bundle** (e.g. "plan this out", "plan and break into tasks", "turn this into a spec for us to implement", "design this", "break into tasks", "figure this out and spec it", provides a PRD and asks to "turn this into something we can execute") -- do not stop. Present this summary as a waypoint, then continue the pipeline through the final planning phase the scope requires. Approval is collected once at the end of planning, not at every phase boundary.
+
+Apply the pipeline by scope once you have decided to continue:
+
+- Small: Quick mode handles the whole job -- Specify was not invoked. If you are reading this, the scope assessment was wrong; back out and route through `quick-mode`.
+- Medium: Specify finishes, then `implement` waits for user go
+- Large: Specify → `design` → `tasks`, then wait for user go before `implement`
+- Complex: Specify → (`discuss` if gray areas) → `research` (if new tech) → `design` → `tasks`, then wait for user go before `implement`
+
+The approval gates exist to catch user disagreement, not to impose a phase-by-phase checkpoint when the user has already asked for the whole planning bundle. Stopping prematurely on a phrase like "a spec" when the user clearly meant "the full plan, starting from the spec" forces the user to re-ask for every downstream phase -- that is ceremony, not safety.
+
+If changes are requested at any gate: update the relevant artifact, re-run its pre-write checks, then continue.
+
+Do not start `implement` (code-producing phases) without explicit user approval regardless of the original phrasing.
 
 ## Codebase Mapping Note
 

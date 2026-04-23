@@ -74,6 +74,27 @@ All stories in a spec WILL be implemented. Priorities define **implementation or
 
 Each story is a **commit boundary**: all its ACs must be completable and committable together. An AC that requires work from a later story must be moved to that story — never leave a story with an AC that can only be fulfilled after another story is done.
 
+**Narrative order vs build order.** Stories are often written in the order
+the feature makes sense as a story ("setup, then the main flow, then the
+helper for edge cases"). That reading order frequently inverts the order in
+which code must be built. When a story defines a reusable primitive --
+function, type, module, data-access helper -- that an earlier-numbered story
+already consumes, the inversion breaks the commit-boundary contract.
+
+When you notice this, pick one and make the choice explicit in the spec:
+
+- Move the primitive's story earlier so it owns the primitive before any
+  consumer arrives
+- Merge the primitive into its earliest consumer's story
+- Leave the earlier story shipping an inline implementation, and make the
+  later story's scope include refactoring that inline impl into the shared
+  primitive -- write this intent into the later story's description so
+  design and tasks plan the refactor as a real piece of work
+
+Never let the inversion stay implicit. If the spec reads cleanly as a
+narrative but the underlying story order would require uncompilable
+intermediate commits, the narrative is wrong for this artifact.
+
 Story ID rules:
 - Sequential across the spec: S001, S002, S003...
 - Never reused, never recycled

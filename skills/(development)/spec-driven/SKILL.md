@@ -1,18 +1,28 @@
 ---
 name: spec-driven
 description: >-
-  Specification-driven development that auto-sizes depth by complexity.
-  Creates structured feature specs with traceability to requirements. Use when
-  planning features, breaking work into tasks, implementing with verification,
-  auditing goals before closing, tracking decisions across sessions, or
-  extracting specs from PRDs.
+  Specification-driven feature development with auto-sized depth. Produces
+  spec.md, design.md, and tasks.md artifacts with requirements traceability,
+  plus verify and audit phases tied to acceptance criteria. Use when planning
+  a feature, breaking a change into tasks or stories, implementing a named
+  story or task, verifying implementation against acceptance criteria,
+  auditing goals before closing, or turning a PRD into engineering artifacts.
+  Not for diagnosing unknown bugs (use debug-tools), authoring standalone
+  PRD/RFC/ADR/TDD documents (use docs-writer), PR/commit mechanics (use
+  git-helpers), or PM backlog tracking (use epic-tracker).
 when_to_use: >-
-  Triggers on "create feature", "specify feature", "plan", "design feature",
-  "tasks", "implement", "verify", "verify implementation", "validate", "UAT",
-  "audit", "audit feature", "validate goals", "quick fix", "quick task",
-  "discuss feature", "break this into tasks", "plan this feature",
-  "show status", "from PRD", "extract from document", "use this PRD",
-  "here's the PRD".
+  Triggers on "plan this feature", "plan this out", "spec this feature",
+  "turn this PRD into a spec", "turn into something we can execute",
+  "break this into tasks", "break this into stories", "create technical
+  design for this feature", "implement story S###", "implement task T###",
+  "verify implementation", "check acceptance criteria", "audit feature",
+  "audit this spec", "validate goals", "UAT", "manual testing",
+  "discuss this feature", "show feature status", and known one-line fixes
+  where the user names file and line (for example, "fix the typo in
+  components/Footer.tsx line 12", "one-line change in <file>:<line>"). Do NOT
+  trigger on "why is X not working", "debug this", "trace issue", "create
+  PRD/RFC/ADR/TDD", "code review this diff", "commit this", "create an
+  issue", or tooling/setup tasks.
 effort: xhigh
 ---
 
@@ -133,10 +143,21 @@ implement.md ------> project-index (prompts integrate feedback after Step 10)
 
 | Scope | What | Specify | Design | Tasks | Implement |
 |-------|------|---------|--------|-------|-----------|
-| **Small** | ≤3 files, one sentence | **Quick mode** -- skip pipeline entirely | - | - | - |
-| **Medium** | Clear feature, <10 tasks | Spec (brief) | Skip -- explore inline | Skip -- steps implicit | Implement + verify per step |
-| **Large** | Multi-component feature | Full spec + requirement IDs | Full design | Full breakdown + dependencies | Implement + verify per task |
-| **Complex** | Ambiguity, new domain | Full spec + [discuss gray areas](references/discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task |
+| **Small** | ≤3 files, one sentence, no user-facing feature | **Quick mode** -- skip pipeline entirely | - | - | - |
+| **Medium** | Canonical pattern, ≤10 tasks, no novel architectural decisions | Spec (brief) | Skip -- explore inline | Skip -- steps implicit | Implement + verify per step |
+| **Large** | Novel architectural decisions, or >10 tasks, or pattern new to this codebase | Full spec + requirement IDs | Full design | Full breakdown + dependencies | Implement + verify per task |
+| **Complex** | Ambiguity in problem itself, or new domain to the user | Full spec + [discuss gray areas](references/discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task |
+
+**Medium vs Large, resolving the gray zone:**
+
+Multi-file is not Large. Touching 4-6 files does not upgrade a canonical pattern to Large -- the count of files is incidental. The question is whether the feature requires an architectural decision the reader of the spec could not have predicted from the feature description alone.
+
+- Dark-mode toggle (localStorage + system preference + CSS vars) -- **Medium**. Canonical pattern, no novel decision. Files touched is incidental.
+- Add "remember me" checkbox to existing login -- **Medium**. Pattern known, scope bounded.
+- Add role-based access control to an app without any prior auth model -- **Large**. Novel decision: where does role live (JWT vs DB lookup), how does enforcement layer work.
+- Build offline-first sync with conflict resolution, no prior CRDT experience -- **Complex**. Ambiguity in the problem itself (LWW vs CRDT vs event sourcing), new domain.
+
+If you find yourself reaching for design.md because the feature is "multi-component," pause: if every file you will touch is an obvious consequence of the feature description, you are in Medium territory. Design.md exists to capture decisions a peer reviewer could not reconstruct from the spec -- if there are no such decisions, design.md is ceremony.
 
 **Rules:**
 

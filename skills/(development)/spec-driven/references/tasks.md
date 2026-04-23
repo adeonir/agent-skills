@@ -44,8 +44,27 @@ Read `package.json`:
 
 Group tasks by story. Each story in spec.md becomes a `### Sxxx [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
 
+**Story order is fixed.** Emit stories in the exact order they appear in spec.md: S001 first, then S002, then S003, and so on. Do not reorder stories by technical dependency, risk, or setup-first instinct -- the user reads and commits stories in the order the spec declares them.
+
+**Task IDs are assigned top-to-bottom, in document order.** The first task listed in tasks.md is `T001`. The second is `T002`. Numbering is monotonic as the reader scrolls down. This means:
+
+- All of S001's tasks are listed first and get IDs `T001..T00k`
+- S002's tasks follow and get `T00k+1..T00m`
+- S003 continues from there, and so on
+
+Never assign a low ID (e.g. `T001`) to a task that appears later in the document than a higher ID. A reader scanning top-to-bottom must see ascending IDs.
+
+**Commit boundary: each story is independently shippable.** The user must be able to execute and commit only S001's tasks without pulling in work from S002 or later stories. This forbids **forward dependencies**:
+
+- Allowed: `T005 [B:T002]` inside S002 blocking on T002 inside S001 (backward dep)
+- Forbidden: `T002 [B:T005]` inside S001 blocking on T005 inside S002 (forward dep)
+
+If a task seems to need something from a later story, the dependency is a signal the stories are wrong -- either merge them, reorder them in spec.md (then reflect here), or pull the shared prerequisite into the earlier story.
+
+**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S001. Do not invent a "Phase 0" or "Setup" section outside the story structure. A story exists precisely because it delivers user value; setup that serves one story lives in that story.
+
 Within each story group, generate tasks following natural order:
-1. Setup (config, deps)
+1. Setup (config, deps) -- only if not already done in an earlier story
 2. Types (interfaces)
 3. Implementation (core logic, tests included per task)
 4. Integration (connect)
@@ -56,7 +75,7 @@ Each task should be:
 - **Independent**: Minimal dependencies
 - **Traceable**: Maps to requirements
 
-**Task ID format:** `T001, T002, T003...` -- sequential across the entire tasks.md, zero-padded, never reused.
+**Task ID format:** `T001, T002, T003...` -- sequential across the entire tasks.md in document order, zero-padded, never reused.
 
 **Task description format:**
 
@@ -112,9 +131,23 @@ change from `` `pending` `` directly to `` `in-tasks` ``.
 
 ### Step 7: Pre-Approval Checks
 
-Run both checks before writing tasks.md. Display the result of each check explicitly —
+Run all four checks before writing tasks.md. Display the result of each check explicitly —
 `[pass]` or `[fail]` per item. Fix all `[fail]` items before writing. Do not run
-these checks silently.
+these checks silently. Exception: the Commit-Boundary Viability Check (last) is
+reasoned about internally and not echoed into the artifact — the artifact stays
+focused on tasks, not process logs.
+
+#### Story Order and ID Monotonicity Check
+
+Verify the document order enforces the commit-boundary contract.
+
+- `[pass|fail]` Stories appear in spec.md order (S001 first, then S002, ...)
+- `[pass|fail]` Task IDs are monotonic top-to-bottom (first listed task = T001)
+- `[pass|fail]` Each story's tasks are contiguous -- no story is split across non-adjacent sections
+- `[pass|fail]` No forward dependencies -- no task blocks on a task with a higher ID
+- `[pass|fail]` Shared setup (test infra, types) lives inside the first story that needs it, not in a separate "Phase 0"
+
+If any fail: re-emit stories in spec.md order, reassign IDs top-to-bottom, and move or rewrite any forward-dependent task.
 
 #### Diagram-Definition Cross-Check
 
@@ -137,6 +170,35 @@ For each task that creates or modifies a code layer:
 - "Tested in T00X" or "tests added later" is a violation -- merge the tests into the task
 
 If any task defers its tests: merge them in before proceeding.
+
+#### Commit-Boundary Viability Check (implicit)
+
+Reason about this silently. Do not print `[pass]` lines for this check into
+tasks.md -- the artifact should not contain a compile/test log per prefix.
+
+For each story prefix (S001, then S001+S002, then S001+S002+S003, ...), the
+codebase state after applying those tasks in order must stand alone:
+
+- Compiles, lint and typecheck pass, tests (if present) pass
+- No unresolved reference to a primitive owned by a later story
+- No task in an earlier story silently depends on a symbol, function, or
+  module that a later story defines
+
+If an intermediate state would fail, the problem is a hidden forward
+dependency the `[B:Txxx]` markers did not surface. Resolve it before writing
+the artifact -- pick one:
+
+- Restructure: have the earlier story ship an inline implementation that the
+  later story refactors into a shared primitive, and add a `[B:Txxx]`
+  refactor marker
+- Reorder stories in spec.md so the primitive is owned by an earlier story
+  (keep IDs monotonic after the reorder)
+- Escalate to design.md: relocate component ownership and update the
+  Requirements Traceability table, then regenerate tasks.md against the new
+  design
+
+Do not ship a tasks.md whose commits do not stand alone. "Compiles only at
+the end" is not an acceptable execution plan.
 
 ### Step 8: Approval Gate
 

@@ -157,7 +157,37 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] Every "no change required" / "already returns" / "contract unchanged" claim in this section cites a `file:line` from the exploration's Member Enumeration
 - [ ] Every type listed under Entities or Contracts matches a row in the exploration's Member Enumeration
 
-### Step 10: Generate design.md
+### Step 10: Dependency Inversion Check (implicit)
+
+Reason about this silently before writing design.md. Do not echo this check
+into the artifact -- the design stays focused on the design, not on a process
+log.
+
+For each component, module, type, or primitive you are placing into a story:
+
+- Identify which story *owns* it (the story that introduces it)
+- Identify every story that *consumes* it
+- The owning story must be numbered ≤ the earliest consuming story
+
+If inverted -- owning story has a higher number than a consuming story --
+resolve before writing, by picking one:
+
+- **Relocate ownership**: move the component into the earliest consuming
+  story. Often the right answer for shared primitives that were mentally
+  "grouped with their caller"
+- **Reorder stories**: if the primitive is conceptually a prerequisite, move
+  its story earlier in spec.md. Remember to keep Story IDs aligned with the
+  new order
+- **Inline then refactor**: leave the earlier story shipping an inline
+  implementation, and let the later story's scope explicitly include the
+  refactor to a shared primitive. Record this decision in Decisions so tasks
+  can plan the refactor as an explicit task
+
+Never let the design leave an inversion implicit. An inverted design produces
+tasks whose commits do not stand alone, which breaks the per-story
+commit-boundary contract that spec-driven relies on.
+
+### Step 11: Generate design.md
 
 **LOAD ORDER:** Load this template before reading any existing design in `.artifacts/features/`. Existing designs may be stale -- template wins on structure.
 
@@ -179,13 +209,13 @@ change its status tag from `` `pending` `` to `` `in-design` ``.
 - Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
 
-### Step 11: Update Status
+### Step 12: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 12: Approval Gate
+### Step 13: Approval Gate
 
-Present a summary and wait for approval:
+Present a summary:
 
 ```
 Design ready: `.artifacts/features/{ID}-{name}/design.md`
@@ -194,10 +224,14 @@ Decisions: {count} | Open questions: {count or "none"}
 Approve to proceed, or describe changes.
 ```
 
-- If changes: update design.md, re-present gate.
-- If approved: run `tasks`.
+Whether to stop here depends on the user's original request (see Specify Step 14 for the same rule):
 
-Do not suggest `tasks` until approved.
+- User asked only for design (rare): stop and wait.
+- User asked for the full planning bundle ("plan and break into tasks", "turn this into a spec for us to implement", "figure this out and spec it", etc.): present this as a waypoint, then continue into `tasks`. Collect approval once at the end of planning.
+
+If changes are requested: update design.md, then continue.
+
+Do not start code-producing phases (`implement`) without explicit user approval regardless of the original phrasing.
 
 ## Guidelines
 

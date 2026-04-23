@@ -6,6 +6,13 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-23
+
+### Changed
+
+- Bare triggers "layout", "structure", "preview", "variants", "redesign", "create prototype", "design review" replaced with phrase-scoped variants ("layout the page", "preview the design", "UI variants", "redesign the landing page", "visual prototype", "UI design review")
+- "Not for" routing added to spec-driven (feature design.md), system-design (architecture), and git-helpers (PR review)
+
 ## 2026-04-20
 
 ### Added
