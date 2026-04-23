@@ -16,6 +16,10 @@ Break design into implementable tasks.
 
 ## Workflow
 
+Track each step as it completes — mark it done before moving to the next.
+In Claude Code, create a task list at phase start (TaskCreate) and update
+each step as it completes (TaskUpdate).
+
 ### Step 1: Resolve Feature
 
 1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
@@ -108,7 +112,9 @@ change from `` `pending` `` directly to `` `in-tasks` ``.
 
 ### Step 7: Pre-Approval Checks
 
-Run both checks before presenting tasks to the user. If either fails, restructure and re-run.
+Run both checks before writing tasks.md. Display the result of each check explicitly —
+`[pass]` or `[fail]` per item. Fix all `[fail]` items before writing. Do not run
+these checks silently.
 
 #### Diagram-Definition Cross-Check
 

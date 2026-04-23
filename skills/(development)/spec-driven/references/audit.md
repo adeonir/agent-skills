@@ -18,6 +18,10 @@ checkboxes in spec.md, and transition status from `to-review` to `done`.
 
 ## Workflow
 
+Track each step as it completes — mark it done before moving to the next.
+In Claude Code, create a task list at phase start (TaskCreate) and update
+each step as it completes (TaskUpdate).
+
 ### Step 1: Resolve Feature
 
 1. If ID provided -> use `.artifacts/features/{ID}-{name}/`

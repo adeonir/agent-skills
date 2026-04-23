@@ -20,6 +20,10 @@ not from a previous phase's conversation context. See SKILL.md Phase Transitions
 
 ## Workflow
 
+Track each step as it completes — mark it done before moving to the next.
+In Claude Code, create a task list at phase start (TaskCreate) and update
+each step as it completes (TaskUpdate).
+
 ### Step 1: Resolve Feature
 
 1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
@@ -144,7 +148,8 @@ Define the data model before component design. Every statement about an existing
 - **Contracts**: Every member of every request, response, or projection the feature touches, cited to `file:line`. Not "shapes" -- enumerated members
 - **Currently Exposed Fields**: If any acceptance criterion names specific output or display fields, fill the `Currently Exposed Fields` table in the design template (one row per AC-named field)
 
-**Closing checklist -- all must pass before Step 10:**
+**Closing checklist — display each item as `[pass]` or `[fail]` before writing
+design.md. Fix all `[fail]` items first. Do not run this check silently.**
 
 - [ ] Every field named in any acceptance criterion has a row in `Currently Exposed Fields`
 - [ ] Every Source cell cites a real `file:line`

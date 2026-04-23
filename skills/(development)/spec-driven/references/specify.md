@@ -52,6 +52,10 @@ These belong in design.md, created during the `design` phase.
 
 ## Workflow
 
+Track each step as it completes — mark it done before moving to the next.
+In Claude Code, create a task list at phase start (TaskCreate) and update
+each step as it completes (TaskUpdate).
+
 ### Step 1: Assess Scope
 
 Before anything else, determine complexity to auto-size the pipeline:
@@ -327,7 +331,9 @@ Each story includes "Why Px" to justify its priority level. P1 stories must be v
 
 #### Pre-write checklist
 
-Before finalizing spec.md, audit every section against the Content Separation rules:
+Before writing spec.md, display the result of every item below — show `[pass]` or
+`[fail]` for each line. Fix all `[fail]` items before writing. Do not run this
+check silently.
 
 - [ ] No code identifiers in ACs or Edge Cases (no `mode: 'create'`, no `===`, no field or enum names)
 - [ ] No technology or library names anywhere (no React, TanStack, shadcn, Radix)

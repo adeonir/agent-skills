@@ -10,6 +10,8 @@ All notable changes to this skill will be documented in this file.
 
 ### Added
 
+- Step tracking instruction in all five phase references (specify, design, tasks, implement, audit): track each step before moving to the next; in Claude Code, use TaskCreate at phase start and TaskUpdate per step
+- Pre-write checklist is now displayed output: specify shows `[pass]`/`[fail]` per item before writing spec.md; design and tasks follow the same pattern before their respective artifacts
 - Approval gate at end of tasks: user must confirm task breakdown before implement is suggested
 - Approval gate at end of implement: user must confirm implementation before audit is suggested
 
