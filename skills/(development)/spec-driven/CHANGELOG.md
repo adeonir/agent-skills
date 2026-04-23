@@ -19,6 +19,11 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Implement: Safety Valve (Step 4) skipped in Full mode; tasks.md is already the execution plan
+- Implement: Pre-Implementation Checklist reduced in Full mode to assumptions and risk only; files and success criteria defer to design.md and tasks.md
+- `ultrathink` moved from global SKILL.md to design.md and audit.md only; implement no longer inherits extended thinking
+- Recommended effort: implement removed from xhigh list; design and audit remain xhigh
+
 - Trigger vocabulary: phrase-scoped patterns with explicit "not for" routing to debug-tools, docs-writer, git-helpers, epic-tracker
 - Auto-sizing table: tighter Medium vs Large boundary, worked examples for each scope
 - Decompose Tasks (Step 4): stories emitted in spec.md order, task IDs assigned top-to-bottom, contiguous per story, forward dependencies forbidden, shared infra owned by first consuming story

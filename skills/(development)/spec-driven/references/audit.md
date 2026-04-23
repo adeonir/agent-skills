@@ -1,7 +1,7 @@
 # Audit Feature
 
 Validate Goals and Success Criteria against evidence, mark the corresponding
-checkboxes in spec.md, and transition status from `to-review` to `done`.
+checkboxes in spec.md, and transition status from `to-review` to `done`. ultrathink
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) -- required for correct status management
 

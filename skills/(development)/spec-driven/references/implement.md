@@ -75,7 +75,10 @@ When operating in **Quick scan mode** (Medium scope, no design.md):
 
 ### Step 4: Safety Valve (inline step listing)
 
-List atomic steps before starting implementation, even when tasks.md exists:
+**Skip this step in Full mode** (spec + design + tasks all exist). Tasks.md
+is already the execution plan — re-deriving steps adds no value.
+
+Apply only in **Inline mode** or **Quick scan mode** (no tasks.md):
 
 ```
 Execution steps:
@@ -135,12 +138,17 @@ Do not proceed without stating all three explicitly.
 
 **Pre-Implementation Checklist:**
 
-| Check | Question |
-|-------|----------|
-| Assumptions | Are all assumptions verified against actual code, not memory? |
-| Files | Do listed files match design.md component locations? |
-| Success criteria | Does it map directly to the task's Done when and AC-xxx? |
-| Risk | Could this change break existing functionality? |
+In **Full mode** (spec + design + tasks exist), files and success criteria
+are already resolved — check only assumptions and risk:
+
+| Check | Question | Full mode |
+|-------|----------|-----------|
+| Assumptions | Are all assumptions verified against actual code, not memory? | Required |
+| Files | Do listed files match design.md component locations? | Skip — use design.md |
+| Success criteria | Does it map directly to the task's Done when and AC-xxx? | Skip — use tasks.md |
+| Risk | Could this change break existing functionality? | Required |
+
+In **Inline mode** or **Quick scan mode**, all four checks are required.
 
 Any failed check: resolve before writing code.
 

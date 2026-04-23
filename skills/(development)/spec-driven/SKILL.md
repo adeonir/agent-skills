@@ -28,11 +28,11 @@ effort: xhigh
 
 # Spec-Driven Development
 
-**Recommended effort:** xhigh for design, implement, and audit phases; medium
-for quick mode and status checks.
+**Recommended effort:** xhigh for design and audit phases; medium for
+implement, quick mode, and status checks.
 
 Structured development workflow with adaptive depth. Right ceremony for the
-right scope. Use ultrathink for design and audit phases.
+right scope.
 
 ## Workflow
 

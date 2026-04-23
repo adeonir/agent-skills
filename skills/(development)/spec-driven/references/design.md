@@ -1,6 +1,6 @@
 # Technical Design
 
-Create technical design from specification.
+Create technical design from specification. ultrathink
 
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
