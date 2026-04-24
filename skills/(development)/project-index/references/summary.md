@@ -35,6 +35,8 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
 **Critical rule**: Don't just list or find files -- READ them and extract concrete patterns. Every convention documented must have evidence from actual code.
 
+**Source boundary**: summary maps only the observable current state of source code, config, and tooling. Never read `.artifacts/` (docs-writer briefs, PRDs, design docs, epics, issues, roadmaps) or any planning document as a source of codebase facts. Milestones, epics, stories, `(planned)`, `(TBD)`, and feature IDs belong to planning artifacts -- they are not current state. If a module, route, or dependency is described in `.artifacts/` but absent from the filesystem right now, it does not exist and must not appear in `codebase/*.md`.
+
 #### Phase 1: Project Discovery
 
 1. **Read Project Metadata**
@@ -315,6 +317,7 @@ Inform user:
 - Override feature-specific analysis (spec-driven) with general analysis (project-index)
 - Include forward-looking content (`(planned)`, `(TBD)`, `(coming soon)`, milestone labels like `M5+`, feature numbers/IDs, phrases like "shipped through feature X") -- `codebase/*.md` captures only observable current state
 - Include stubs for services, dependencies, routes, or modules that are not installed or present in the codebase right now -- if it does not exist today, it does not belong here
+- Read `.artifacts/` (briefs, PRDs, design docs, epics, issues, roadmaps) as a source of codebase facts -- those are planning artifacts and describe intent, not current state
 
 ## Error Handling
 

@@ -9,23 +9,24 @@ Auto-loaded by overview.md and summary.md after generating their outputs. Not a 
 
 ## Workflow
 
-### Step 1: Detect Root Files
+### Step 1: Detect Harness
 
 Check which agent-instruction files exist at the project root:
 
 - `AGENTS.md` -- cross-tool convention, project-index territory
-- `CLAUDE.md` -- Claude Code convention, user-authored territory
+- `CLAUDE.md` -- Claude Code convention (signal: Claude harness). Editable (managed section only), never overwritable.
+
+**Rule:** `CLAUDE.md` present = Claude harness. Only `CLAUDE.md` should exist at root. Never create or update `AGENTS.md` alongside it. project-index maintains a single delimited section inside `CLAUDE.md` and leaves everything else untouched.
 
 ### Step 2: Decide Action
 
 | State | Action |
 |-------|--------|
-| Only `AGENTS.md` exists | Update it (Steps 3-6) |
-| Only `CLAUDE.md` exists | Skip AGENTS.md generation. Report: "CLAUDE.md detected at root -- project-index will not create AGENTS.md to avoid duplicating agent instructions. If you want agents to pick up `.agents/` context automatically, add a pointer to `.agents/project.md` manually in CLAUDE.md." |
-| Both exist | Update `AGENTS.md` only (Steps 3-6). Never touch `CLAUDE.md`. |
-| Neither exists | Ask: "No agent-instruction file found at root. Create `AGENTS.md` for quick orientation? (y/n)". If `y`, run Steps 3-6. If `n`, skip. |
+| `CLAUDE.md` exists (alone or with `AGENTS.md`) | Skip AGENTS.md creation/update entirely. Edit `CLAUDE.md` by writing/updating the project-index managed section only (Steps 3-5 + Step 6b). Preserve all other content verbatim. Never overwrite the file. If a stale `AGENTS.md` exists alongside, surface it in the report and suggest manual deletion -- never delete automatically. |
+| Only `AGENTS.md` exists | Update it (Steps 3-5 + Step 6a). |
+| Neither exists | Ask: "No agent-instruction file found at root. Create `AGENTS.md` for quick orientation? (y/n)". If `y`, run Steps 3-5 + Step 6a. If `n`, skip. |
 
-Record the outcome (`created`, `updated`, `skipped`) so the caller (initialize.md / summary.md) can mirror it in its report.
+Record the outcome (`created`, `updated`, `skipped (user declined)`, or `claude-md-updated` when editing CLAUDE.md) so the caller (initialize.md / summary.md) can mirror it in its report.
 
 ### Step 3: Collect Available Content
 
@@ -72,9 +73,27 @@ Structure:
 - `.agents/codebase/` -- full codebase analysis
 ```
 
-### Step 6: Write File
+### Step 6a: Write AGENTS.md
 
-Write `AGENTS.md` at the project root.
+Write `AGENTS.md` at the project root. Preserve manual additions identified in Step 4.
+
+### Step 6b: Edit CLAUDE.md (Claude harness)
+
+Edit `CLAUDE.md` in place. Maintain exactly one managed section wrapped in delimiters:
+
+```markdown
+<!-- project-index:start -->
+## Project Context (managed by project-index)
+
+{Content from Step 5 -- same structure as AGENTS.md, minus the top-level title}
+<!-- project-index:end -->
+```
+
+Rules:
+- Never overwrite the file. Read the current content, locate the delimiters, replace only the block between them.
+- If the delimiters are missing, append the managed section at the end of the file with a preceding blank line.
+- Do not touch any content outside the delimiters.
+- If the file has no prior project-index section, do not reformat existing sections -- just append.
 
 ## Size Guidelines
 
@@ -95,12 +114,15 @@ Write `AGENTS.md` at the project root.
 - Return the outcome (`created` / `updated` / `skipped`) so the caller can report it
 
 **DON'T:**
-- Edit or overwrite `CLAUDE.md` -- it is user-authored territory
-- Create `AGENTS.md` when `CLAUDE.md` is the only root file without asking the user
-- Duplicate full content from `.agents/` files
-- Remove manually added sections when regenerating
+- Overwrite `CLAUDE.md` wholesale (contrasts: edit only the delimited managed section)
+- Touch content outside the `project-index:start`/`:end` delimiters (contrasts: preserve all user-authored content verbatim)
+- Create or update `AGENTS.md` when `CLAUDE.md` is present (contrasts: skip entirely under Claude harness)
+- Auto-delete a stale `AGENTS.md` when `CLAUDE.md` appears (contrasts: suggest the user remove it, never delete automatically)
+- Duplicate full content from `.agents/` files (contrasts: link to `.agents/` for details)
+- Remove manually added sections when regenerating `AGENTS.md` (contrasts: preserve manual additions)
 
 ## Error Handling
 
-- `.agents/project.md` missing: cannot generate AGENTS.md meaningfully -- skip and inform user to run initialize first
+- `.agents/project.md` missing: cannot generate AGENTS.md or the CLAUDE.md managed section meaningfully -- skip and inform the user to run initialize first
 - User declines the "neither exists" prompt: skip silently, record outcome as `skipped (user declined)`
+- `CLAUDE.md` present alongside a stale `AGENTS.md`: update CLAUDE.md managed section, leave `AGENTS.md` untouched, and surface a note suggesting manual deletion

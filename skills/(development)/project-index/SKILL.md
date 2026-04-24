@@ -12,7 +12,8 @@ when_to_use: >-
   "codebase summary", "onboarding to this repo". Not for feature work
   (use spec-driven), session notes in Obsidian (use session-notes), or
   dev tooling setup like prettier/eslint (out of scope for all skills).
-effort: xhigh
+model: sonnet
+effort: high
 context: fork
 agent: general-purpose
 ---
@@ -39,11 +40,11 @@ Load only the reference matching the current trigger. Never load multiple refere
 
 ## Triggers
 
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Initialize project, setup project, index project | [initialize.md](references/initialize.md) |
-| Overview, project context | [overview.md](references/overview.md) |
-| Summary, map codebase, analyze codebase | [summary.md](references/summary.md) |
+| Trigger Pattern                                           | Reference                                                 |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| Initialize project, setup project, index project          | [initialize.md](references/initialize.md)                 |
+| Overview, project context                                 | [overview.md](references/overview.md)                     |
+| Summary, map codebase, analyze codebase                   | [summary.md](references/summary.md)                       |
 | Integrate feedback, integrate discoveries, sync knowledge | [integrate-feedback.md](references/integrate-feedback.md) |
 
 ## Cross-References
@@ -74,24 +75,26 @@ integrate-feedback.md -----> knowledge.md (clears integrated rows only)
     ├── review-notes.md     # Self-assessment: consistency, completeness, gaps
     └── concerns.md         # Optional: tech debt, risks (only when detected)
 
-AGENTS.md                   # Concise entry point pointing to .agents/codebase/
+AGENTS.md                   # Concise entry point pointing to .agents/codebase/ (skipped when CLAUDE.md is present)
 ```
+
+Claude harness (root `CLAUDE.md` present): `AGENTS.md` is never created or updated. project-index maintains a single delimited section inside `CLAUDE.md` (`<!-- project-index:start -->` ... `<!-- project-index:end -->`) and leaves the rest of the file untouched. Edits happen in place -- the file is never overwritten.
 
 ## Templates
 
-| Document | Template |
-|----------|----------|
-| Project overview | [project.md](templates/project.md) |
-| Stack | [stack.md](templates/stack.md) |
-| Architecture | [architecture.md](templates/architecture.md) |
-| Conventions | [conventions.md](templates/conventions.md) |
-| Testing | [testing.md](templates/testing.md) |
-| Integrations | [integrations.md](templates/integrations.md) |
-| Commands | [commands.md](templates/commands.md) |
-| Checklist | [checklist.md](templates/checklist.md) |
-| Workflows | [workflows.md](templates/workflows.md) |
-| Review Notes | [review-notes.md](templates/review-notes.md) |
-| Concerns | [concerns.md](templates/concerns.md) |
+| Document         | Template                                     |
+| ---------------- | -------------------------------------------- |
+| Project overview | [project.md](templates/project.md)           |
+| Stack            | [stack.md](templates/stack.md)               |
+| Architecture     | [architecture.md](templates/architecture.md) |
+| Conventions      | [conventions.md](templates/conventions.md)   |
+| Testing          | [testing.md](templates/testing.md)           |
+| Integrations     | [integrations.md](templates/integrations.md) |
+| Commands         | [commands.md](templates/commands.md)         |
+| Checklist        | [checklist.md](templates/checklist.md)       |
+| Workflows        | [workflows.md](templates/workflows.md)       |
+| Review Notes     | [review-notes.md](templates/review-notes.md) |
+| Concerns         | [concerns.md](templates/concerns.md)         |
 
 ## Output Size Guidelines
 
@@ -99,19 +102,19 @@ These docs are loaded on-demand (research, implementation), not always in contex
 Be thorough -- document patterns with real code examples and file references.
 Avoid redundancy across files, but do not sacrifice depth for brevity.
 
-| Document | Guideline |
-|----------|-----------|
-| project.md | Concise overview (~30 lines) |
-| stack.md | All meaningful dependencies with purpose |
-| architecture.md | Structure, patterns, data flows with code examples |
-| conventions.md | Every observed pattern with code snippets and file references |
-| testing.md | Patterns with example test structure from actual tests |
-| integrations.md | All external touchpoints with config details |
-| commands.md | All available commands with descriptions |
-| checklist.md | Concise validation steps (~15 lines) |
-| workflows.md | Core flows with step-by-step detail |
-| concerns.md | Only real issues with evidence |
-| AGENTS.md | Concise entry point (~60 lines) pointing to .agents/codebase/ |
+| Document        | Guideline                                                     |
+| --------------- | ------------------------------------------------------------- |
+| project.md      | Concise overview (~30 lines)                                  |
+| stack.md        | All meaningful dependencies with purpose                      |
+| architecture.md | Structure, patterns, data flows with code examples            |
+| conventions.md  | Every observed pattern with code snippets and file references |
+| testing.md      | Patterns with example test structure from actual tests        |
+| integrations.md | All external touchpoints with config details                  |
+| commands.md     | All available commands with descriptions                      |
+| checklist.md    | Concise validation steps (~15 lines)                          |
+| workflows.md    | Core flows with step-by-step detail                           |
+| concerns.md     | Only real issues with evidence                                |
+| AGENTS.md       | Concise entry point (~60 lines) pointing to .agents/codebase/ |
 
 ## Integration with Other Skills
 
@@ -130,6 +133,7 @@ project-index                  --> sole writer to .agents/codebase/*.md and .age
 ## Guidelines
 
 **DO:**
+
 - Read actual code files to extract patterns, not just list them
 - Keep all outputs concise and scannable
 - Document conventions as observed, not as prescribed
@@ -138,6 +142,7 @@ project-index                  --> sole writer to .agents/codebase/*.md and .age
 - Update existing docs when re-running (merge, never overwrite)
 
 **DON'T:**
+
 - Create outputs without reading representative source files (contrasts: read actual code)
 - Generate exhaustive catalogs of every component/file (contrasts: concise and scannable)
 - Include implementation details that change frequently (contrasts: stable patterns and interfaces)

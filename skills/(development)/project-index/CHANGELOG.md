@@ -10,6 +10,10 @@ All notable changes to this skill will be documented in this file.
 
 ### Changed
 
+- Claude harness rule: `CLAUDE.md` present means only `CLAUDE.md` lives at root; `AGENTS.md` is never created or updated alongside it
+- `CLAUDE.md` is editable via a delimited project-index managed section (`<!-- project-index:start -->` / `<!-- project-index:end -->`); the file is never overwritten
+- Stale `AGENTS.md` alongside `CLAUDE.md` is surfaced for manual deletion, never removed automatically
+- Summary source boundary: planning artifacts in `.artifacts/` (briefs, PRDs, design docs, epics, issues, roadmaps) are out of scope for codebase state; summary maps only observable source, config, and tooling
 - Bare triggers "overview", "summary", "setup project" replaced with phrase-scoped variants ("project overview", "codebase summary", "setup project index", "initialize .agents")
 - "Not for" routing added to spec-driven (feature work) and session-notes (Obsidian project notes)
 
