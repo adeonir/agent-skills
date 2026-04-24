@@ -3,6 +3,9 @@ slug: {{slug}}
 status: pending
 branch: {{branch-name or main}}
 created: {{YYYY-MM-DD}}
+completed: {{YYYY-MM-DD or empty}}
+patterns_discovered: {{list or empty}}
+follow_up: {{list or empty}}
 ---
 
 # Quick Task: {{Description}}

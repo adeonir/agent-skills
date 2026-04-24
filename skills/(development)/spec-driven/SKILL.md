@@ -186,8 +186,7 @@ If you find yourself reaching for design.md because the feature is "multi-compon
 │       └── designs/      # Visual references (optional)
 ├── quick/                # Quick mode tasks
 │   └── NNN-{slug}/
-│       ├── task.md
-│       └── summary.md    # Post-execution summary
+│       └── task.md       # Includes completion fields (patterns_discovered, follow_up)
 └── research/             # Research cache (reusable across features)
     └── {topic}.md
 ```
@@ -211,7 +210,6 @@ If you find yourself reaching for design.md because the feature is "multi-compon
 | Technical design | [design.md](templates/design.md) |
 | Task breakdown | [tasks.md](templates/tasks.md) |
 | Quick task | [quick-task.md](templates/quick-task.md) |
-| Quick summary | [quick-summary.md](templates/quick-summary.md) |
 | Codebase exploration | [exploration.md](templates/exploration.md) |
 | Research cache | [research.md](templates/research.md) |
 

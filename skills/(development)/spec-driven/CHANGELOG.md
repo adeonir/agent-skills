@@ -6,6 +6,24 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-24
+
+### Added
+
+- Inline design pre-condition in quick-mode: task.md treated as hypothesis, alternatives enumerated before Step 6 with trigger and skip signals
+- Re-read task.md reminder in quick-mode after user interruptions
+- Quick-task frontmatter fields completed, patterns_discovered, follow_up
+
+### Changed
+
+- Quick-mode quality gates merged into single ordered checklist: lint, typecheck, tests (static), then end-to-end run and inspect (dynamic); static failures short-circuit
+- Save Discoveries flipped to save-by-default with explicit skip criteria (already in knowledge.md, restatement of conventions, mechanical change)
+- Quick-mode ≤3-files rule clarified to count source files of user code only; lock files, .artifacts, .agents, and auto-formatted files excluded
+
+### Removed
+
+- Quick-summary template and Generate Summary step; fields merged into quick-task frontmatter
+
 ## 2026-04-23
 
 ### Added

@@ -5,12 +5,17 @@ Express lane for small changes. Minimal ceremony, minimal artifacts.
 ## When to Use
 
 - Bug fixes, config changes, small tweaks
-- ≤3 files affected
+- ≤3 files affected (count source files of user-written code only — exclude
+  lock files, `.artifacts/`, `.agents/`, and auto-formatted files with no
+  semantic change)
 - Scope describable in one sentence
 - No architectural decisions needed
 - No ambiguity in requirements
 
 ## Workflow
+
+If the user pauses mid-execution and resumes later, re-read `task.md` before
+the next edit — branch, status, or scope may have drifted.
 
 ### Step 1: Ensure Structure
 
@@ -47,7 +52,7 @@ Read `package.json` (or equivalent for the stack):
 - Test script
 
 Record the actual commands for this project -- they go into the task file and
-run in Step 6. If a gate doesn't exist, write `n/a` instead of inventing one.
+run in Step 7. If a gate doesn't exist, write `n/a` instead of inventing one.
 
 ### Step 4: Create Task File
 
@@ -70,6 +75,33 @@ Even small changes must follow project patterns.
   Project Abstractions and Custom Hooks -- use these instead of primitives
 - If not: follow patterns already present in the files being modified
 
+### Design is inline, not a phase
+
+Before Step 6, treat `task.md` as a hypothesis, not a contract. The author may
+have assumed one approach without weighing alternatives.
+
+Enumerate silently the 2-4 viable approaches. If only one exists, proceed. If
+multiple exist with materially different trade-offs (lock contention, deploy
+parity, library surface, reversibility, coupling to internal layouts), surface
+them to the user as a short trade-off table before writing code. Let the user
+pick — do not present a recommendation dressed as analysis.
+
+This is a precondition to Step 6, not a numbered step. Skipping it and
+implementing task-as-written is executing a command, not collaborating on a
+design.
+
+Trigger signals (enumerate):
+- Task touches infrastructure (DB access, build tooling, CI, deploy)
+- Task creates reusable tooling (seeds, fixtures, dev routes, mock servers)
+- Task integrates a new dependency or runtime
+- Task description names a filesystem path, internal API, or binary format
+
+Skip signals (proceed without enumeration):
+- Bug fix with file and line named
+- Config value swap
+- Rename or text-level refactor with no behavioral change
+- Dependency version bump with no API change
+
 ### Step 6: Implement
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
@@ -77,57 +109,52 @@ Follow [coding-principles.md](coding-principles.md) during implementation.
 1. Read relevant files
 2. Make the change -- match the patterns loaded in Step 5
 
-### Step 7: Run Quality Gates
+### Step 7: Run Quality Gates and Verify
 
-Run the gates recorded in the task file, in order, using `--fix` flags when
-available:
+Run in order. Static gates first; static failures short-circuit — do not execute
+the change until static gates pass. A typecheck or lint failure means the
+runtime behavior is moot; running the script or hitting the endpoint just burns
+cycles before you have to come back and fix the static issue anyway.
 
-```bash
-{lint command} --fix
-{typecheck command}
-{test command}
+```
+1. {lint command} --fix       (static)
+2. {typecheck command}        (static)
+3. {test command}             (static, if any)
+4. Execute the change end-to-end — run the script, open the UI, hit the endpoint
+5. Inspect result against task.md "Expected Outcome"
 ```
 
-Fix errors before proceeding. If the same gate fails 3 times, stop and ask
-the user how to proceed -- never loop indefinitely.
+Skip gates marked `n/a` in the task file. Fix errors before proceeding. If the
+same gate fails 3 times, stop and ask the user how to proceed -- never loop
+indefinitely.
 
-Skip gates marked `n/a` in the task file.
+### Step 8: Save Discoveries (default: save)
 
-### Step 8: Verify
+Append non-obvious findings to `.agents/knowledge.md` without asking. Real
+gotchas, verified patterns, and environmental quirks all qualify.
 
-Quick verification checklist:
-- [ ] Change works as described
-- [ ] No regressions in affected files
-- [ ] Quality gates pass
+SKIP only when:
+- Already in knowledge.md (check first)
+- Restatement of project conventions already documented elsewhere
+- Change was purely mechanical (formatting, rename, dep bump with no behavior shift)
 
-### Step 9: Queue Discoveries (lightweight)
-
-If you found a pattern, convention, or gotcha worth persisting, append to `.agents/knowledge.md`:
-
+Targets:
 - **Gotchas** -> `## Gotchas`
 - **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
-Load [knowledge.md](knowledge.md) for format.
+Format per [knowledge.md](knowledge.md). Never write to `.agents/codebase/*.md` --
+those are owned by project-index. No prompt to integrate -- the next design or
+implement flow will surface queued items.
 
-Never write to `.agents/codebase/*.md` -- those are owned by project-index.
+### Step 9: Update Task File
 
-No prompt to integrate -- the next design or implement flow will surface queued items.
+Set in `task.md` frontmatter:
+- `status: done`
+- `completed: {YYYY-MM-DD}`
+- `patterns_discovered`: list of new patterns surfaced (or empty)
+- `follow_up`: side effects, related issues, improvements noticed but not addressed (or empty)
 
-### Step 10: Update Task File
-
-Set `status: done` in `task.md` frontmatter.
-
-### Step 11: Generate Summary
-
-**USE TEMPLATE:** `templates/quick-summary.md`
-
-Create `.artifacts/quick/{NNN}-{slug}/summary.md` with:
-- What was changed and why
-- Files modified
-- Patterns discovered (if any)
-- Side effects or follow-up needed
-
-### Step 12: Suggest Commit
+### Step 10: Suggest Commit
 
 Suggest a commit message following git-helpers conventions:
 - Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
@@ -155,17 +182,22 @@ When escalating, the quick task file serves as input for the specify phase.
 
 **DO:**
 - Keep it simple -- quick mode exists to avoid ceremony for trivial changes
-- Run quality gates even for small changes
+- Treat `task.md` as a hypothesis; surface alternatives before implementing infra/tooling tasks
+- Run static gates before executing the change
+- Save discoveries by default; skip only when criteria above apply
 - Escalate to specify when in doubt about scope
 - Treat quick task artifacts as disposable after implementation
 
 **DON'T:**
-- Skip quality gates for small changes
-- Force quick mode when scope is uncertain
-- Over-document trivial changes
+- Skip quality gates for small changes (contrasts: run static gates before executing)
+- Implement task-as-written without enumerating alternatives when trigger signals fire (contrasts: treat task.md as hypothesis)
+- Ask permission to record gotchas (contrasts: save by default)
+- Force quick mode when scope is uncertain (contrasts: escalate when in doubt)
 
 ## Error Handling
 
 - No .artifacts/: Create it
 - Scope too large: Escalate to specify
-- Quality gate fails: Fix before marking done
+- Static gate fails: Fix before running the change end-to-end
+- Same gate fails 3 times: Stop and ask the user
+- task.md modified mid-session: Re-read before the next edit
