@@ -6,6 +6,32 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-24
+
+### Added
+
+- Single-file visual identity artifact at `<project-root>/DESIGN.md` with YAML frontmatter tokens (colors, typography, rounded, spacing, components, motion, variants) and 11-section markdown rationale
+- Inputs reference covering four source types (images, codebase, text description, external design-tool file via MCP) with section-scoped patches into DESIGN.md
+- Structure reference rewrites Layout and Screen Flow as DESIGN.md prose sections instead of a separate artifact
+- Push targets in preview: HTML server (default) and external design tool when the matching MCP is available, both write-only from the skill
+- Section-scoped patch model so each phase touches only its owned blocks and prose sections
+
+### Changed
+
+- Workflow simplified to discovery, copy, inputs, structure, preview (loop)
+- Preview reads DESIGN.md frontmatter; tune commits patch the matching frontmatter blocks
+- Tool integrations described as "external design tool" plus "matching MCP" — no specific tool names
+- SKILL.md description and triggers refreshed for DESIGN.md authoring and external-tool push
+- Recommended effort scoped to inputs and preview (xhigh) and discovery and structure (high)
+- README pipeline diagram, steps table, usage examples, and FAQ aligned with the DESIGN.md model
+- Body text in references and templates dropped 80-character hard wrap; YAML `description` and `when_to_use` keep the limit
+
+### Removed
+
+- Sync reference and workflow phase — pulling from a design-tool file is an inputs source; pushing is a preview target
+- Handoff reference, template, and artifact — DESIGN.md is itself the shareable artifact
+- Standalone `design.json`, `structure.md`, `design.pen`, and `handoff.md` artifacts under `.artifacts/design/`
+
 ## 2026-04-23
 
 ### Changed

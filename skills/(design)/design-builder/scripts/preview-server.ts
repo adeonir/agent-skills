@@ -41,6 +41,11 @@ const sessionDir: string =
     : resolve(".artifacts/design/preview");
 const port: number = parseInt(portIdx !== -1 ? args[portIdx + 1] : "3456", 10);
 
+if (!Number.isInteger(port) || port < 1024 || port > 65535) {
+  console.error(`Invalid --port value: must be an integer between 1024 and 65535 (got: ${args[portIdx + 1]})`);
+  process.exit(1);
+}
+
 if (!existsSync(sessionDir)) {
   await mkdir(sessionDir, { recursive: true });
 }
