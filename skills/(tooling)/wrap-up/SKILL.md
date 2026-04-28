@@ -78,7 +78,7 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 
 ## Error Handling
 
-- `.notes/wrap-up.yml` missing: run vault bootstrap, ask user for vault path
+- `.notes/wrap-up.yml` missing: auto link from `~/.config/wrap-up/vault` if present, otherwise run vault bootstrap and ask for vault path once
 - Repo not registered in `wrap-up.yml`: run project bootstrap, append entry
 - BM tools unavailable: skip BM step, warn user
 - Obsidian/MCPVault unavailable: skip Obsidian step, warn user

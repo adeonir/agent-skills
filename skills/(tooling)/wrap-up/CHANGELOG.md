@@ -6,6 +6,18 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-28
+
+### Added
+
+- Global vault pointer at `~/.config/wrap-up/vault` so the vault path is asked once per machine; subsequent projects auto-create the local `.notes/` symlink without prompting
+- Auto link step in `mapping.md` covering the second-and-later project case where the global pointer exists but the repo has no local symlink yet
+
+### Changed
+
+- Vault discovery in `mapping.md` now uses a three-step resolution order (local symlink, global pointer, bootstrap) with bootstrap as the only path that prompts for the vault path
+- Vault bootstrap now persists the absolute vault path to `~/.config/wrap-up/vault` before creating the local symlink
+
 ## 2026-04-21
 
 ### Added
