@@ -36,6 +36,19 @@ Agent suggests based on context, user chooses.
 | **Guided** | New projects, no clear reference, user wants control | One visual decision at a time, accumulates into the final design |
 | **Exploratory** | Strong reference, user wants to see full options | Complete variants (one per preset), pick one, refine |
 
+## Prompt Direction
+
+Variants reward specific direction. "Make it different" produces noise; "make
+it minimalist", "shift to a Bento Grid layout with neon accents on dark mode",
+or "redesign with a Cyberpunk vibe" produces signal.
+
+When the user gives broad direction:
+
+- Acknowledge the broad intent
+- Ask one specific axis pivot if context is missing (Layout? Color? Era?)
+- Combine theme + structure changes into a single Exploratory prompt -- variants are the place for big swings, not the chat editor
+- Reference [aesthetics.md](aesthetics.md) Style Axes for orthogonal vocabulary (Layout & Structure, Texture & Depth, Atmosphere & Era, Color & Contrast); compose across axes for distinctive results
+
 ## Preset Sets
 
 **Page-based** (landing-page, website):
@@ -73,6 +86,21 @@ Per-question visual decisions using the preview server.
 
 All presets at once. User picks one.
 
+### Range Parameter
+
+Exploratory variants are generated within a range, set by the user (default: refined):
+
+| Range | Structure | Aesthetic | Best for |
+|-------|-----------|-----------|----------|
+| **Refined** | preserved across variants | varies (palette, typography, spacing, motion) | polish, comparing within a known direction |
+| **Creative** | variants may propose alternative `## Layout` / `## Screen Flow` | varies fully | pivots, getting unstuck, exploring across structural directions |
+
+Refined keeps DESIGN.md `## Layout` / `## Screen Flow` constant; only frontmatter token blocks vary. Creative allows variants to suggest alternative structural skeletons -- when the user picks a creative variant as winner, both the tokens AND the structural sections get committed back to DESIGN.md.
+
+DESIGN.md is a living artifact, not a static input. Structural changes from a creative pick are valid commits, not constraint violations -- `## Layout` and `## Screen Flow` are themselves outcomes of the structure phase and may be revisited at any time.
+
+Detect the range from the user's intent: words like "polish", "compare colors", "tighten" -> refined. Words like "pivot", "different vibe", "what else", "redesign", or explicit aesthetic overhaul -> creative. Ask if ambiguous.
+
 ### Workflow
 
 1. **Start server**:
@@ -81,9 +109,15 @@ All presets at once. User picks one.
    bun run scripts/preview-server.ts --session .artifacts/design/preview/variants
    ```
 
-2. **Generate one HTML per preset**. Preserve the structural skeleton from DESIGN.md `## Layout` / `## Screen Flow` across all variants. Vary only visual treatment (palette weight, typography pairing, component styling, motion intensity).
-3. **Serve** all variants side by side via the server. User picks one.
-4. **Mark** the chosen variant as `final.html` in its preset directory.
+2. **Generate one HTML per preset**. Read DESIGN.md for current tokens and structure.
+
+   - **Refined range**: preserve `## Layout` / `## Screen Flow` across all variants. Vary only frontmatter token blocks (colors, typography, rounded, spacing, motion, components, variants).
+   - **Creative range**: allow variants to propose alternative `## Layout` and `## Screen Flow` content alongside token variation. Each preset may suggest a different structural skeleton.
+
+3. **Snapshot per variant**. Write `tokens.yaml` to `.artifacts/design/preview/variants/{preset}/tokens.yaml` capturing the frontmatter values used for that variant. For creative range, also write `structure.md` capturing the proposed `## Layout` and `## Screen Flow` content. These snapshots enable cross-variant borrow during refinement without re-running variants.
+4. **Serve** all variants side by side via the server. User picks one.
+5. **Mark** the chosen variant as `final.html` in its preset directory.
+6. **Commit**. Patch DESIGN.md with the winner's tokens (section-scoped). For creative range, also patch `## Layout` and `## Screen Flow` from the winner's `structure.md` snapshot.
 
 ## Refinement Tools
 
@@ -116,7 +150,21 @@ Agent reads `comment` events on the next turn, addresses each, and shows the upd
 
 ### Apply Across
 
-When a comment affects a repeated element (button, card, list item), ask whether the change should apply across all instances. Announce the scope before propagating ("applying to 12 button-primary instances"). If the change maps to a token, fold it into the next tune commit; if it is local (one instance only), regenerate just that fragment.
+Propagate a chosen attribute beyond its origin point. Two scopes:
+
+**Within-variant.** When a comment affects a repeated element (button, card, list item), ask whether the change should apply across all instances of that component within the current variant. Announce the scope before propagating ("applying to 12 button-primary instances"). If the change maps to a token, fold it into the next tune commit; if it is local (one instance only), regenerate just that fragment.
+
+**Cross-variant (borrow).** When the user picks a winner from Exploratory mode but wants to borrow attributes from a sibling variant ("winner is A, but I want B's typography palette and D's color scheme"):
+
+1. Read sibling variant snapshots from `.artifacts/design/preview/variants/{preset}/tokens.yaml`
+2. Identify the token blocks to borrow (`colors`, `typography`, `rounded`, `spacing`, `motion`, `components`, `variants`)
+3. Patch the winner's DESIGN.md with the borrowed blocks (section-scoped, never overwriting blocks the user did not ask to borrow)
+4. Re-render the winner with the patched tokens by swapping CSS custom properties on the live preview -- no full HTML regeneration when the borrow maps cleanly to tokens
+5. User confirms or iterates with another borrow
+
+For creative range, structural sections (`## Layout`, `## Screen Flow`) can also be borrowed from a sibling's `structure.md` snapshot. Useful when the user wants the layout from one variant and the aesthetic from another. Announce the scope before patching ("borrowing structure from variant B, color tokens from variant D").
+
+Each Exploratory variant writes its snapshot at generation time (Workflow step 3), so cross-variant borrow does not require re-running variants. If a snapshot is missing (older session, manually deleted), ask the user whether to re-run variants or describe the borrow textually.
 
 ## Component Isolation
 
@@ -156,22 +204,27 @@ Push direction from skill is **write-only** from DESIGN.md to the target. Revers
 - Let user choose the base mode — suggest based on context, never force
 - Ask one visual decision at a time in guided mode
 - Generate all presets in exploratory mode
-- Preserve the structural skeleton from `## Layout` / `## Screen Flow` across all variants
+- Detect the range (refined or creative) from user intent before generating variants; ask if ambiguous
+- Preserve `## Layout` / `## Screen Flow` across variants only in refined range
+- Write a `tokens.yaml` snapshot per variant (and `structure.md` for creative range) to enable cross-variant borrow
 - Apply [aesthetics.md](aesthetics.md) and [web-standards.md](web-standards.md) to every output
-- Announce apply-across scope before propagating a comment-driven change
+- Announce apply-across scope before propagating, whether within-variant or cross-variant
+- Compose direction across the four Style Axes when prompts go vague -- pick a Layout, a Texture, an Era, a Color move
 - Serve every generated preview through the preview server
 - Swap CSS custom properties during tune — keep the DOM, change only tokens
-- Patch DESIGN.md frontmatter section by section when committing tune events
+- Patch DESIGN.md frontmatter section by section when committing tune events or cross-variant borrow
 
 **DON'T:**
 
 - Mix base modes in a single session (contrasts: pick one and commit)
-- Change structural layout between variants (contrasts: only visual treatment differs)
+- Change structural layout between variants in refined range (contrasts: refined preserves the skeleton; creative range allows structural pivots and is the place for those moves)
 - Use CSS frameworks (contrasts: vanilla CSS only, self-contained)
 - Generate previews without DESIGN.md tokens and structure (contrasts: treat them as prerequisites)
 - Skip serving the result (contrasts: serve every generated preview through the preview server)
 - Regenerate HTML during tune when a CSS custom property swap is enough (contrasts: swap CSS custom properties, keep the DOM)
-- Rewrite the whole DESIGN.md frontmatter when committing tune (contrasts: patch only affected blocks)
+- Rewrite the whole DESIGN.md frontmatter when committing tune or borrow (contrasts: patch only affected blocks)
+- Skip variant snapshots (contrasts: write `tokens.yaml` per variant at generation time so cross-variant borrow does not require re-running variants)
+- Treat "make it different" as actionable (contrasts: ask for one specific axis pivot or compose across Style Axes)
 - Create files in an external design tool (contrasts: treat those files as user-owned; push only when the file already exists)
 
 ## Error Handling

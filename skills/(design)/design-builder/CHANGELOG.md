@@ -6,6 +6,30 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-29
+
+### Added
+
+- Validation phase as a callable reference covering frontmatter, prose, and cross-layer checks against the spec; produces a severity-grouped findings report and never patches the file
+- Direct trigger for "validate DESIGN.md", "check DESIGN.md", "audit design tokens", "lint the design system"
+- Brand URL or live site listed as an explicit input source alongside reference images, codebase, text description, and design-tool MCP
+- Style Axes vocabulary in aesthetics.md: four orthogonal axes (Layout & Structure, Texture & Depth, Atmosphere & Era, Color & Contrast) with named patterns; Tone Catalog reframed as a curated set of pre-blended directions
+- Prompt Direction subsection in preview.md guiding specific axis-based prompts and pointing to Style Axes for composable vocabulary
+- Range parameter in Exploratory mode: refined (default) preserves `## Layout` / `## Screen Flow` and varies only tokens; creative allows variants to propose alternative structural skeletons committed back to DESIGN.md when picked as winner
+- Per-variant snapshot in Exploratory: every preset writes `.artifacts/design/preview/variants/{preset}/tokens.yaml` (and `structure.md` under creative range) at generation time, enabling cross-variant borrow without re-running variants
+- Redesign reference for brownfield aesthetic overhaul, modeled as anchor + new inputs + slice mapping; user composes which DESIGN.md slice (Layout, colors, typography, components, motion, etc.) comes from which source; supports layout-only, aesthetic-only, hybrid, and full-pivot scenarios
+- Direct trigger for "redesign this app", "modernize this interface", "apply new vibe to existing app", "brand refresh"
+
+### Changed
+
+- Inputs Step 5 promoted from optional check list to hard gate; loads the validation reference and blocks the "done" report when errors fire
+- Inputs error handling now normalizes spec section aliases (Brand & Style, Layout & Spacing, Elevation) to the canonical sections instead of treating them as unknown
+- Typography template surfaces `fontFamily`, `fontSize`, `fontWeight`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation` as standard fields with a populate-when-source-supports philosophy; drops the required/optional split that hid `fontFeature` and `fontVariation`
+- Rounded scale renamed from Tailwind-style `DEFAULT` to spec-recommended `none` (`none, sm, md, lg, xl, full`); aligns with the canonical DESIGN.md spec
+- SKILL.md cross-references and triggers cover the new validation reference and the inputs-as-gate relationship
+- Apply Across refactored from single within-variant scope to umbrella covering within-variant (comment-driven propagation across instances) and cross-variant (borrow tokens or structure from a sibling variant snapshot, patch winner's DESIGN.md, re-render via CSS custom property swap)
+- Preview DO/DON'T list updated: structural preservation conditional on refined range; new rules cover variant snapshots, cross-variant borrow scope, and axis composition over vague "make it different" prompts
+
 ## 2026-04-24
 
 ### Added

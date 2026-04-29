@@ -12,12 +12,15 @@ description: >-
 when_to_use: >-
   Triggers on "extract copy", "extract design", "extract from codebase",
   "web capture", "wireframe", "screen flow", "layout the page",
-  "preview the design", "UI variants", "tune design", "mockup",
-  "redesign the landing page", "redesign the screen", "visual prototype",
-  "UI design review", "author DESIGN.md", "refresh design tokens",
-  "push design to external tool". Not for feature spec/design.md
-  (use spec-driven), system architecture (use system-design), or PR/code
-  review (use git-helpers).
+  "preview the design", "UI variants", "creative variants", "tune design",
+  "mockup", "redesign this app", "redesign the landing page",
+  "redesign the screen", "modernize this app", "apply new vibe to existing app",
+  "brand refresh", "visual prototype", "UI design review",
+  "pivot the design", "borrow from variant", "author DESIGN.md",
+  "refresh design tokens", "validate DESIGN.md", "check DESIGN.md",
+  "audit design tokens", "push design to external tool". Not for feature
+  spec/design.md (use spec-driven), system architecture (use system-design),
+  or PR/code review (use git-helpers).
 effort: xhigh
 ---
 
@@ -68,7 +71,7 @@ If found, read and extract purpose, audience, tone, key features, and any existi
 
 ## Context Loading Strategy
 
-Load only the reference matching the current trigger. For preview operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies.
+Load only the reference matching the current trigger. For preview operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies. For inputs operations, auto-load `validate.md` at Step 5 (gate before declaring done). `validate.md` is also a direct trigger when called on its own.
 
 **Never simultaneous:**
 
@@ -98,11 +101,24 @@ Load only the reference matching the current trigger. For preview operations, al
 
 | Trigger Pattern | Reference |
 |-----------------|-----------|
-| Preview the design, UI variants, visual mockup, UI design review, tune the design, comment on the design, push the design to an external design tool | [preview.md](references/preview.md) |
+| Preview the design, UI variants, visual mockup, UI design review, tune the design, comment on the design, creative variants, pivot the design, borrow from variant, apply across variants, push the design to an external design tool | [preview.md](references/preview.md) |
+
+### Validation
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Validate DESIGN.md, check DESIGN.md, audit design tokens, lint the design system | [validate.md](references/validate.md) |
+
+### Redesign (brownfield aesthetic overhaul)
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Redesign this app, modernize this interface, apply a new vibe to the existing app, brand refresh on existing product, change the vibe without rebuilding the IA | [redesign.md](references/redesign.md) |
 
 Notes:
 
 - `aesthetics.md` and `web-standards.md` are not direct triggers. They are auto-loaded by `preview.md`.
+- `validate.md` is both a direct trigger (callable on demand) and auto-loaded by `inputs.md` Step 5 as the gate before declaring done.
 
 ## Cross-References
 
@@ -113,9 +129,15 @@ copy.md ---------------> structure.md (content informs structure)
 copy.md ---------------> inputs.md (content informs Voice and Do/Don't prose)
 inputs.md -------------> structure.md (tokens inform layout decisions)
 inputs.md -------------> preview.md (tokens style the preview)
+inputs.md -------------> validate.md (Step 5 gate; auto-loaded before declaring done)
 structure.md ----------> preview.md (Layout and Screen Flow shape the variants)
 aesthetics.md ---------> preview.md (design principles)
+aesthetics.md ---------> redesign.md (Style Axes inform aesthetic direction)
 web-standards.md ------> preview.md (implementation rules)
+validate.md -----------> DESIGN.md (read-only audit; no patch)
+redesign.md -----------> inputs.md (delegates structure-only or aesthetic-only extraction)
+redesign.md -----------> preview.md (delegates Exploratory creative variants for the new aesthetic)
+redesign.md -----------> validate.md (final gate before declaring done)
 preview.md ------------> external design tool (write-only push when MCP is available)
 external design tool --> inputs.md (read-only pull when user refreshes from a design-tool file)
 design-builder --------> spec-driven (approved design feeds implementation)

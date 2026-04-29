@@ -18,6 +18,24 @@ Before any visual work, answer these to lock in a direction:
 3. **Constraints**: Technical requirements (framework, performance, accessibility).
 4. **Signature**: What single detail will make this _unforgettable_? (A motion moment, a typographic trick, an unusual color move.) Every project needs one.
 
+### Style Axes
+
+Visual direction is a composition of four orthogonal axes. Pick one pattern
+from each axis -- or blend two within the same axis -- to construct a unique
+direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone"
+produce more distinctive results than single-tone choices.
+
+| Axis | Patterns |
+|------|----------|
+| **Layout & Structure** | Bento Grid (modular boxy cards), Editorial (magazine feel, large serifs, asymmetric placement, generous whitespace), Swiss Style (strict grids, sans-serif, flush-left, objective clarity), Split-Screen (vertical division, color block paired with full-bleed imagery), Asymmetric Modular (intentional off-grid composition with rhythm) |
+| **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials -- leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
+| **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
+| **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
+
+The Tone Catalog below is a curated set of pre-blended directions. Use a tone
+when you want a fast starting point; compose from axes when no tone fits or
+when you want a unique combination.
+
 ### Tone Catalog
 
 | Tone | Description |

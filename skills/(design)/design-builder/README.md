@@ -25,9 +25,11 @@ flowchart LR
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Copy** | Extract copy from URL, web capture, brief document | `.artifacts/design/copy.yaml` |
-| **Inputs** | Extract design from images, codebase, text description, or design-tool file; author or refresh `DESIGN.md` | `<project-root>/DESIGN.md` (frontmatter tokens + rationale prose) |
+| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `<project-root>/DESIGN.md` (frontmatter tokens + rationale prose) |
 | **Structure** | Define layout, wireframe, organize content, screen flow | `<project-root>/DESIGN.md` `## Layout` and `## Screen Flow` sections |
-| **Preview** | Preview design, generate variants, tune tokens, comment, apply-across, push to external design tool | `.artifacts/design/preview/` (HTML), or write to a user-owned design-tool file |
+| **Preview** | Preview design, generate variants (refined or creative), tune tokens, comment, apply-across (within or cross-variant), push to external design tool | `.artifacts/design/preview/` (HTML, per-variant `tokens.yaml`), or write to a user-owned design-tool file |
+| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices (Layout from X, colors from Y, etc.), explore variants | Patched `<project-root>/DESIGN.md` with slice-scoped updates |
+| **Validate** | Validate `DESIGN.md`, check tokens, audit design system, lint | Findings report (read-only; no file writes) |
 
 ## Project Types
 
@@ -53,7 +55,19 @@ web capture the hero section of https://competitor.com
 # Author DESIGN.md (visual identity tokens + rationale)
 extract design from this screenshot
 extract design from this codebase
+extract design from https://brand.example.com
 refresh design tokens from this design-tool file
+
+# Validate DESIGN.md (callable anytime, also runs as gate inside inputs)
+validate DESIGN.md
+check this DESIGN.md
+audit the design tokens
+
+# Redesign brownfield app (anchor + new inputs + slice mapping)
+redesign my app with a Cyberpunk vibe
+modernize this interface with a Bento Grid layout
+apply this brand's colors to my app, keep my typography
+adopt the layout from https://example.com but keep my current colors
 
 # Define structure (routes by project type)
 define the layout for this landing page         # page-based

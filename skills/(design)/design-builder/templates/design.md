@@ -23,13 +23,15 @@ colors:
   on-error: "{{#hex}}"
 
 typography:
-  {Semantic categories: display, headline, body, label. Each may divide into sm, md, lg. Required fields: fontFamily, fontSize, fontWeight, lineHeight. Optional: letterSpacing.}
+  {Semantic categories: display, headline, body, label. Each may divide into sm, md, lg. Fields: fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, fontFeature, fontVariation. Populate every field the source supports; omit those it does not.}
   display-lg:
     fontFamily: {{Font Family}}
     fontSize: {{Npx}}
     fontWeight: {{number}}
     lineHeight: {{Dimension or number}}
     letterSpacing: {{em or px}}
+    fontFeature: {{"ss01", "tnum", etc.}}
+    fontVariation: {{"opsz" 14, "wght" 600, etc.}}
   headline-lg:
     fontFamily: {{Font Family}}
     fontSize: {{Npx}}
@@ -53,9 +55,9 @@ typography:
     letterSpacing: {{em or px}}
 
 rounded:
-  {Scale levels are descriptive strings. Common: sm, DEFAULT, md, lg, xl, full.}
+  {Scale levels are descriptive strings. Common: none, sm, md, lg, xl, full.}
+  none: 0px
   sm: {{Dimension}}
-  DEFAULT: {{Dimension}}
   md: {{Dimension}}
   lg: {{Dimension}}
   xl: {{Dimension}}
