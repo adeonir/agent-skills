@@ -60,6 +60,20 @@ plain story name with a linked, numbered entry:
 - [ ] [003-reset-password-flow](003-reset-password-flow.md) -- brief description
 ```
 
+### 6. Sync to tracker (optional)
+
+If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
+`none`, ask the user (per session, cached) whether to push this story to
+the tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
+adapter; pass the parent Epic's tracker id (from `epic.md` frontmatter) so
+the story is linked correctly in the tracker.
+
+If the config is missing, run [sync.md](sync.md) bootstrap before the
+first push, then proceed.
+
+If `tracker.kind: none` or no matching MCP is available, skip silently --
+markdown stays the source of truth.
+
 ## Guidelines
 
 **DO:**

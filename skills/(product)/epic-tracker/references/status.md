@@ -33,7 +33,9 @@ Releases use `released` instead of `done`.
 
 1. Identify the artifact to update (ask if ambiguous)
 2. Read the current frontmatter
-3. Update the `status` field
+3. Detect tracker integration:
+   - If `tracker.id` is present in the artifact's frontmatter, the tracker is the source of truth -- delegate to [sync.md](sync.md) which dispatches to the matching adapter to update the tracker; on success, update the local frontmatter `status` and `tracker.last_synced` as a cache
+   - Otherwise, update the `status` field directly in markdown frontmatter
 4. Save the file
 5. If marking a story as "done", check if the parent epic's stories
    are all done -- if so, suggest marking the epic as done too
@@ -42,13 +44,19 @@ Releases use `released` instead of `done`.
 
 ### Reading Artifacts
 
-No index file. Read all artifacts directly:
+Source depends on tracker config:
+
+**Without tracker (or `tracker.kind: none`):** read markdown directly.
 
 1. List directories in `.artifacts/epics/`
 2. For each epic directory, read `epic.md` frontmatter (status, title)
 3. List story and bug files, read their frontmatter
 4. Read `.artifacts/epics/standalone/` for standalone bugs
 5. Read `.artifacts/epics/releases/` for releases
+
+**With tracker configured:** delegate to [sync.md](sync.md) `list_artifacts`
+which fetches current state from the tracker. Use markdown only as a cache
+when the tracker MCP is unavailable; warn the user that the view is stale.
 
 ### Display Format
 
@@ -75,15 +83,19 @@ completion ratio for epics (`N/M stories done`) and releases.
 
 **DO:**
 - Always read current status before updating
+- Detect `tracker.id` in frontmatter to decide source of truth (tracker vs markdown)
+- Delegate to `sync.md` for tracker reads/writes; never call MCPs directly from this ref
 - Suggest cascading updates (all stories done -> suggest epic done)
 - Show completion ratios for epics and releases
 - Group output by epic for readability
+- Warn the user when overview falls back to markdown cache because tracker MCP is unavailable
 
 **DON'T:**
 - Auto-update parent status -- always suggest, let user confirm
 - Show file paths in the overview -- use names and titles
 - Skip standalone bugs in the overview
 - Update status without user confirmation
+- Read or write the tracker directly -- delegate to `sync.md`
 
 ## Error Handling
 

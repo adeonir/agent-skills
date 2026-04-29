@@ -44,6 +44,27 @@ Present the draft to the user. Wait for feedback before saving.
 Save to `.artifacts/epics/releases/{release-name}.md`. Create the
 directory if it doesn't exist.
 
+### 5. Sync to tracker (optional)
+
+If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
+`none`, ask the user (per session, cached) whether to push this release to
+the tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
+adapter; the adapter maps Release to the closest native primitive:
+
+- Linear -> Cycle (sprint-style)
+- GitHub Issues / Projects -> Release tag
+- Jira -> Fix Version
+
+The adapter also links included stories/bugs to the release primitive
+(e.g., setting `cycle` on Linear Issues, `fixVersions` on Jira Issues,
+listing Issues in the GitHub Release notes).
+
+If the config is missing, run [sync.md](sync.md) bootstrap before the
+first push, then proceed.
+
+If `tracker.kind: none` or no matching MCP is available, skip silently --
+markdown stays the source of truth.
+
 ## Guidelines
 
 **DO:**
