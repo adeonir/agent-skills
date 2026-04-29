@@ -6,6 +6,22 @@ name: debug-tools
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-29
+
+### Added
+
+- Expected vs actual behavior and explicit reproduction steps required in Step 1 before analysis
+- Regression as a focus area in investigation Step 2 and as a pattern in debugging-patterns
+- Regression Tracing section with checklist (last working state, git log, diff, dependencies, bisect)
+- Performance and Memory Leak Instrumentation section in log-injection with timing wrappers and listener-count snapshots
+- Multi-hypothesis ranking in Step 3/4: enumerate 2-3 candidates, converge on highest-scored
+- Reproduce 3-5 times during Verify when bug is intermittent or race-related
+
+### Changed
+
+- Step 3 renamed from "Apply Confidence Scoring" to "Enumerate Hypotheses" to lead with the enumeration intent
+- Guidelines updated to converge after enumeration instead of "single most probable" upfront
+
 ## 2026-04-23
 
 ### Changed

@@ -15,9 +15,14 @@ Propose Fix, or Verify.
 
 Based on user's description, identify:
 
+- Expected behavior vs actual behavior (the gap to close)
 - Symptoms and error messages
-- When/how the bug occurs
+- Reproduction steps (exact sequence that triggers the bug)
+- Frequency: deterministic, intermittent, or load-dependent
 - Recent changes that might have introduced it
+
+If the user did not state expected vs actual or reproduction steps, ask before
+analyzing. Diagnosis built on assumed behavior wastes attempts.
 
 ### Step 2: Analyze Code
 
@@ -33,6 +38,7 @@ to investigate the issue. The agent discovers and uses whatever tools are availa
 | State | Mutations, race conditions, stale closures |
 | Boundaries | API contracts, type mismatches, null checks |
 | Timing | Async operations, event order, lifecycle |
+| Regression | Diff against last working commit, git log/blame on suspect lines, recent dependency upgrades |
 
 #### Pattern Comparison
 
@@ -45,17 +51,27 @@ When the root cause is unclear, compare broken code against working examples:
 
 See [debugging-patterns.md](debugging-patterns.md) for common patterns and comparison guidance.
 
-### Step 3: Apply Confidence Scoring
+### Step 3: Enumerate Hypotheses
 
-Rate each finding 0-100:
+Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up
+front prevent premature commitment to the first plausible explanation. Score
+each one 0-100:
 
 | Score | Meaning | Action |
 |-------|---------|--------|
 | >= 70 | High (>= 70) | Report as probable cause |
 | 50-69 | Medium (50-69) | Suggest logs to confirm |
-| < 50 | Low (< 50) | Do not report |
+| < 50 | Low (< 50) | Keep as alternative, do not report |
+
+If only one hypothesis is plausible, that is fine -- do not invent weak
+alternatives to fill the slate. The goal is honest enumeration, not three
+items.
 
 ### Step 4: Report Findings
+
+Rank hypotheses by score, highest first. The top candidate drives the next
+action; lower-scored ones stay as fallbacks if the leading theory is
+disproven.
 
 **Probable cause (>= 70):**
 
@@ -77,7 +93,16 @@ Rate each finding 0-100:
 - Suggest: Inject logs at session.ts:18, session.ts:25, redirect.ts:10
 ```
 
-If no root cause found with >= 70 confidence, load [log-injection.md](log-injection.md).
+**Multiple hypotheses example:**
+
+```markdown
+1. **[75] Stale closure in retry handler** -- file: retry.ts:22, evidence: deps array missing `attempt`
+2. **[55] Race between cache write and read** -- file: cache.ts:48, need: ordering of write/read calls
+3. **[40] Network flakiness** -- low, kept as fallback
+```
+
+If no hypothesis reaches >= 70 confidence, load [log-injection.md](log-injection.md)
+to gather runtime evidence and re-rank.
 
 ### Step 5: Propose Fix
 
@@ -111,10 +136,13 @@ Fix guidelines:
 
 After user applies fix:
 
-1. Ask user to reproduce the original bug
-2. Confirm the fix worked
-3. If not fixed, return to Step 1 (investigate again with new evidence)
-4. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
+1. Provide explicit reproduction steps for the user to run
+2. Ask user to reproduce the original bug
+3. For race conditions or intermittent bugs, ask user to reproduce 3-5 times --
+   a single pass can hide timing-dependent failures
+4. Confirm the fix worked
+5. If not fixed, return to Step 1 (investigate again with new evidence)
+6. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
 
 ## Fix Attempt Tracking
 
@@ -151,7 +179,7 @@ localized bug.
 
 **DO:**
 - Start from the error and trace backwards from symptoms
-- Focus on the single most probable root cause
+- Enumerate 2-3 ranked hypotheses, then converge on the highest-scored one
 - Score honestly -- don't inflate confidence
 - Compare broken code against working examples when root cause is unclear
 - Request logs or clarification when stuck
@@ -159,10 +187,11 @@ localized bug.
 - Track fix attempts and escalate after 3 failures
 
 **DON'T:**
-- Report findings with confidence below 50
-- Propose speculative fixes without evidence
-- Inflate confidence to skip log injection
-- Retry the same approach after it fails
+- Report findings with confidence below 50 (contrasts: honest scoring)
+- Commit to the first plausible cause without alternatives (contrasts: enumerate 2-3 ranked hypotheses)
+- Propose speculative fixes without evidence (contrasts: smallest fix once root cause confirmed)
+- Inflate confidence to skip log injection (contrasts: request logs when stuck)
+- Retry the same approach after it fails (contrasts: track attempts and escalate)
 
 ## Error Handling
 

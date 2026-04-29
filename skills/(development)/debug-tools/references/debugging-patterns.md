@@ -21,6 +21,7 @@ scoring guidelines. Also loaded during investigation when pattern comparison is 
 | Infinite loop | App freezes | Dependency arrays, state updates |
 | Memory leak | Performance degrades over time | Event listeners, subscriptions |
 | Timing issue | Works in dev, fails in prod | Timing assumptions, async/await |
+| Regression | Used to work, broke after change | Diff vs last working commit, dependency upgrades |
 
 ## Pattern Comparison
 
@@ -54,6 +55,38 @@ or when similar code elsewhere works correctly.
 - The bug appeared after a change to working code
 - Similar code in the project works correctly
 - The error suggests a contract or interface mismatch
+
+## Regression Tracing
+
+When the user reports "this used to work", treat the change history as primary
+evidence. The bug is somewhere in the diff between the last known good state
+and now.
+
+### Checklist
+
+1. **Confirm the last working state** -- ask the user when it last worked
+   (commit, release, date)
+2. **Inspect git log on the suspect area** -- list commits touching the
+   relevant files since that point
+3. **Diff against the last working commit** -- focus on logic changes, not
+   formatting
+4. **Check dependency changes** -- review `package.json`, `lockfile`, or
+   equivalents for upgrades in the same window
+5. **Bisect when the suspect range is wide** -- `git bisect` narrows it to
+   a single commit when manual diffing is too noisy
+
+### What to Compare
+
+| Source | What to Look For |
+|--------|------------------|
+| Code diff | Logic changes, removed branches, signature changes |
+| Lockfile diff | Major/minor version bumps, transitive shifts |
+| Config diff | Env vars, build flags, feature flags toggled |
+| Test diff | Tests removed or weakened around the affected area |
+
+The output of regression tracing feeds back into the hypothesis ranking in
+investigation.md -- a recent commit that touches the failing path is strong
+evidence and should score above generic theories.
 
 ## Confidence Scoring Reference
 
