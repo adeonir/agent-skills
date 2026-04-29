@@ -18,11 +18,12 @@ End-of-session documentation across auto-memory, Basic Memory, and Obsidian.
 ## Workflow
 
 ```
-detect-project --> auto-memory --> bm-notes --> obsidian-notes
+detect-project --> auto-memory --> bm-notes --> obsidian-notes --> spec-delta
 ```
 
-Detect project from current working directory, then execute three steps
-in sequence. No confirmation between steps.
+Detect project from current working directory, then execute four steps
+in sequence. No confirmation between steps. The final step is silent
+unless a structural delta is detected.
 
 ## Context Loading
 
@@ -34,17 +35,20 @@ Then load each reference in order as each step executes:
 1. [auto-memory.md](references/auto-memory.md)
 2. [bm-notes.md](references/bm-notes.md)
 3. [obsidian-notes.md](references/obsidian-notes.md)
+4. [spec-delta.md](references/spec-delta.md)
 
 ## Triggers
 
 | Trigger Pattern | Reference |
 |-----------------|-----------|
-| Wrap up, end session, finish up, close session | All references in sequence |
+| Wrap up, wrap-up, end session, finish up, close session | All references in sequence |
 
 Notes:
 
 - `mapping.md` is not a direct trigger. It is loaded automatically before
   all other references.
+- `spec-delta.md` runs last, only emits output when a spec-driven
+  session-dump is present and a structural delta is detected.
 
 ## Cross-References
 
@@ -52,7 +56,9 @@ Notes:
 mapping.md -------> bm-notes.md        (provides BM project, path, base tags)
 mapping.md -------> obsidian-notes.md  (provides Obsidian path, base tags)
 bm-notes.md -----> BM MCP              (direct tool calls, no skill indirection)
-obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirection)
+obsidian-notes.md -> MCPVault MCP      (direct tool calls, no skill indirection)
+spec-delta.md ----> spec-driven        (reads .artifacts/.session-dump.md, latest phase block)
+spec-delta.md ----> project-index      (suggests /project-index re-index when delta detected)
 ```
 
 ## Guidelines
@@ -68,6 +74,7 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 - Be concise in auto-memory, detailed in BM session
 - Use past tense and natural language in Obsidian notes
 - Use BM `[brackets]` tag syntax and Obsidian `#hashtags` per tool
+- Run spec-delta last; surface the re-index suggestion only when a session-dump exists and either keyword scan or structural diff fires
 
 **DON'T:**
 - Ask for confirmation between steps
@@ -85,3 +92,5 @@ obsidian-notes.md -> MCPVault MCP        (direct tool calls, no skill indirectio
 - Session note already exists in BM: append with edit_note, do not overwrite
 - Daily note already exists in Obsidian: update with patch_note
 - No meaningful session content: keep session brief, still update daily
+- No spec-driven session-dump found: spec-delta step emits nothing
+- Not in a git repo: spec-delta skips the structural diff and uses the session-dump keyword scan only

@@ -6,6 +6,18 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-29
+
+### Added
+
+- Final wrap-up step that reads spec-driven's cumulative session dump at `.artifacts/.session-dump.md` (latest phase block), runs the same structural diff that audit step 8 uses, and surfaces a one-line `/project-index re-index` suggestion when a delta is detected
+- Workflow extended from three to four steps; new step stays silent when the session-dump file does not exist or no signal fires
+
+### Changed
+
+- Cross-references and Guidelines cover the new step
+- Error handling covers the no-session-dump and not-in-git-repo cases
+
 ## 2026-04-28
 
 ### Added
