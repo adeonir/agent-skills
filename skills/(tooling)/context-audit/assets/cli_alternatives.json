@@ -1,0 +1,75 @@
+{
+  "_comment": "Map MCP server names (or substrings) to their CLI equivalents. Used to flag MCP servers whose tooling exists as a CLI and could be invoked via Bash instead, costing zero tokens when idle. Match is substring, case-insensitive.",
+  "alternatives": [
+    {
+      "match": "playwright",
+      "cli": "npx playwright",
+      "note": "Use Playwright CLI through Bash. Same capability, no idle token cost."
+    },
+    {
+      "match": "puppeteer",
+      "cli": "npx puppeteer",
+      "note": "Puppeteer scripts run via Node + Bash."
+    },
+    {
+      "match": "github",
+      "cli": "gh",
+      "note": "GitHub CLI covers issues, PRs, repos, releases."
+    },
+    {
+      "match": "gitlab",
+      "cli": "glab",
+      "note": "GitLab CLI covers most workflows."
+    },
+    {
+      "match": "google-workspace",
+      "cli": "gcloud / gsutil",
+      "note": "Google Workspace and GCP have CLIs for most operations."
+    },
+    {
+      "match": "gdrive",
+      "cli": "rclone or gcloud",
+      "note": "Drive operations work via rclone or gcloud CLI."
+    },
+    {
+      "match": "filesystem",
+      "cli": "native Read/Write/Edit",
+      "note": "Filesystem MCP duplicates native file tools — usually pure overhead."
+    },
+    {
+      "match": "fetch",
+      "cli": "curl / native WebFetch",
+      "note": "HTTP fetching has CLI and native equivalents."
+    },
+    {
+      "match": "sqlite",
+      "cli": "sqlite3",
+      "note": "sqlite3 CLI handles queries via Bash."
+    },
+    {
+      "match": "postgres",
+      "cli": "psql",
+      "note": "psql via Bash is faster and lighter than the MCP."
+    },
+    {
+      "match": "docker",
+      "cli": "docker",
+      "note": "docker CLI is already there."
+    },
+    {
+      "match": "kubernetes",
+      "cli": "kubectl",
+      "note": "kubectl handles all common operations."
+    },
+    {
+      "match": "aws",
+      "cli": "aws",
+      "note": "aws CLI covers full surface."
+    },
+    {
+      "match": "stripe",
+      "cli": "stripe",
+      "note": "stripe CLI exists for most resources."
+    }
+  ]
+}

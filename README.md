@@ -29,6 +29,7 @@ npx skills add adeonir/agent-skills
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, RFC, ADR. Guided discovery per type |
 | **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Feeds spec-driven |
 | **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
+| **[context-audit](skills/(tooling)/context-audit)** | Tooling | Audit Claude Code setup for token waste across MCP, CLAUDE.md, skills, settings, deny rules. Score plus Top 3 fixes ranked by tokens saved per effort |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
 | **[wrap-up](skills/(tooling)/wrap-up)** | Tooling | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
@@ -57,7 +58,7 @@ flowchart TD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
-**debug-tools**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
+**context-audit**, **debug-tools**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
 
 ## Typical Greenfield Flow
 
@@ -74,8 +75,9 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 **Always available:**
 
 ```
-project-index   --> scan codebase and generate context (brownfield or re-index)
+context-audit   --> audit Claude Code setup for token waste and context bloat
 debug-tools     --> investigate and fix issues
+project-index   --> scan codebase and generate context (brownfield or re-index)
 session-notes   --> document work in Obsidian
 wrap-up         --> persist session context across memory systems
 ```
@@ -91,6 +93,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
+├── context-audit/  # context-audit: saved audit reports
 ├── design/         # design-builder: copy.yaml, design.json, variants/
 ├── docs/           # docs-writer + system-design + product-naming: PRD, ADR, TDD, RFC, system-brief.md
 ├── epics/          # epic-tracker: epics, stories, bugs, releases

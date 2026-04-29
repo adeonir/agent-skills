@@ -1,0 +1,23 @@
+---
+name: context-audit
+---
+
+# Changelog
+
+All notable changes to this skill will be documented in this file.
+
+## 2026-04-28
+
+### Added
+
+- Initial release
+- Deterministic scanner for MCP servers, slash commands, hooks, agents, skills, CLAUDE.md (with `@import` resolution), settings keys, and missing deny rules
+- Heuristic pre-filter for Default, Vague, and Bandaid rule patterns; emits `flagged_rules[]` per instruction file
+- Drift detection across runs, with baseline persisted to `.claude/.audit-baseline.json`
+- Five-filter reconciliation workflow (Default, Contradiction, Redundancy, Bandaid, Vague)
+- Per-scanner inspection reference loaded only on troubleshooting
+- Scoring with deduction caps and Top 3 ranking formula (savings divided by effort weight)
+- Report template with worked example
+- MCP-to-CLI mapping for playwright, github, filesystem, gcloud, kubectl, and others
+- Project marker (package.json, Cargo.toml, etc.) to deny-pattern recommendations
+- Inspired by "The Claude Code Context Cleanup Guide" PDF by Bradley Bonanno (2026)

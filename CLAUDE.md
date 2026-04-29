@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Pure-markdown repository of skills for AI coding agents. No build system, no tests, no linter.
+Repository of skills for AI coding agents. Mostly markdown, with optional `scripts/` and `assets/` per skill. No build system, no tests, no linter.
 Validation is manual: read files, verify structure, check cross-references.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard.
@@ -23,7 +23,9 @@ skills/
         ├── README.md
         ├── references/ # On-demand detailed docs (loaded by triggers)
         ├── templates/  # Output templates for artifacts (optional)
-        └── guides/     # Standalone guides for users (optional)
+        ├── guides/     # Standalone guides for users (optional)
+        ├── scripts/    # Executable helpers loaded on demand (optional)
+        └── assets/     # Static data files consumed by scripts (optional)
 ```
 
 ## Category Directories
@@ -494,7 +496,8 @@ Skills write to `.artifacts/` organized by domain:
 ├── docs/           # docs-writer: PRD, ADR, RFC, etc.
 │                   # product-naming: naming research and validation reports
 ├── design/         # design-builder: copy, design tokens, variants
-└── brainstorm/     # brainstorming: direction artifacts
+├── brainstorm/     # brainstorming: direction artifacts
+└── context-audit/  # context-audit: saved audit reports
 ```
 
 `.artifacts/` is gitignored by default; commit it explicitly for team collaboration.
