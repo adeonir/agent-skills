@@ -3,6 +3,9 @@
 Validate Goals and Success Criteria against evidence, mark the corresponding
 checkboxes in spec.md, and transition status from `to-review` to `done`. ultrathink
 
+**Recommended effort:** xhigh — auditing requires evidence-based reasoning
+across spec, design, and implementation. Lower effort risks rubber-stamp.
+
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) -- required for correct status management
 
 ## When to Use

@@ -377,6 +377,29 @@ If changes are requested at any gate: update the relevant artifact, re-run its p
 
 Do not start `implement` (code-producing phases) without explicit user approval regardless of the original phrasing.
 
+### Step 15: Suggest Session Dump
+
+Phase complete. Suggest to the user that this is a good moment to dump
+session context and clear the window before the next phase:
+
+> Phase complete. Append a phase summary to `.artifacts/.session-dump.md`
+> and clear the context for the next phase? (y/n)
+
+If the user accepts:
+
+- If `.artifacts/.session-dump.md` does not exist, create it with
+  `# Session Dump` as the H1
+- Append one block using `templates/session-dump.md` -- record only what
+  an artifact does not already capture (unstated decisions, blockers,
+  follow-ups for the next phase). Do not duplicate spec.md / design.md /
+  tasks.md content
+- Confirm the dump was written; the user clears the window manually
+
+If the user declines or skips: continue in the current window without dumping.
+
+The dump is ephemeral cross-phase memory -- wrap-up reads it at end of
+session, then the file is disposable.
+
 ## Codebase Mapping Note
 
 **project-index** skill creates `.agents/codebase/` for general codebase understanding.

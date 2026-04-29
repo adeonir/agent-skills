@@ -6,6 +6,31 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-29
+
+### Added
+
+- Session dump suggestion at the end of specify, design, and implement phases — opt-in y/n prompt before clearing context
+- Session dump template with phase, status transition, decisions, discoveries, blockers, open items, next phase
+- Templates table entry for session dump
+
+## 2026-04-28
+
+### Added
+
+- Architecture Context step in design covering CLAUDE.md, AGENTS.md, and dynamic enumeration of `.agents/codebase/*.md` and `.agents/baselines/`
+- Recommended effort line in design scoping xhigh to architectural decisions and contract enumeration
+- Recommended effort line in audit scoping xhigh to evidence-based goal validation
+
+### Changed
+
+- Design steps renumbered for new architecture-context step (former 4–13 shifted to 5–14, 5a became 6a)
+- Project-index feedback cross-reference moved from Step 7 to Step 8
+
+### Removed
+
+- Skill-level `effort: xhigh` frontmatter; effort now scoped per phase in individual references
+
 ## 2026-04-24
 
 ### Added

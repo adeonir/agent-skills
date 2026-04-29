@@ -2,6 +2,9 @@
 
 Create technical design from specification. ultrathink
 
+**Recommended effort:** xhigh — architectural decisions and contract
+enumeration are intelligence-sensitive. Lower effort risks shallow design.
+
 > **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
 
 ## When to Use
@@ -53,7 +56,31 @@ features. Use it to:
 
 If it doesn't exist, skip this step.
 
-### Step 4: Research Phase
+### Step 4: Load Architecture Context
+
+Load each of the following if it exists. Skip silently if absent.
+
+**Project root:**
+- `CLAUDE.md` — project conventions and agent constraints
+- `AGENTS.md` — agent instructions
+
+**Project intelligence (only if `.agents/` exists):**
+- `.agents/project.md` — project context
+- Every `.md` file in `.agents/codebase/` — list the directory and read
+  each file present (architecture, conventions, integrations, concerns,
+  plus any others project-index has generated). Do not hardcode names —
+  enumerate the directory and read what is there.
+- `.agents/baselines/` — load only the baseline matching the area this
+  feature touches, if any
+
+`.agents/knowledge.md` is already loaded in Step 3 — do not re-read.
+
+`.agents/` may not exist (greenfield, or project-index never run).
+Greenfield projects may have only `CLAUDE.md`. Never block on a missing
+file — load what's there. If nothing exists in either location, proceed
+with spec.md only.
+
+### Step 5: Research Phase
 
 Check for new technologies in spec:
 
@@ -75,7 +102,7 @@ Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-cha
 When incorporating research into the design, validate findings against the spec's requirements.
 Research informs decisions but the spec remains the single source of truth for what to build.
 
-### Step 5: Codebase Exploration
+### Step 6: Codebase Exploration
 
 Load [codebase-exploration.md](codebase-exploration.md).
 
@@ -85,9 +112,9 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-### Step 5a: Exploration Depth Gate
+### Step 6a: Exploration Depth Gate
 
-Before proceeding to Step 9 (Data Model), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
+Before proceeding to Step 10 (Data Model), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
 
 **Exit criterion (all must hold):**
 
@@ -98,7 +125,7 @@ Before proceeding to Step 9 (Data Model), verify the exploration artifact's `Tou
 
 If any criterion fails, return to [codebase-exploration.md](codebase-exploration.md) Phase 4 before continuing.
 
-### Step 6: Check Concerns
+### Step 7: Check Concerns
 
 If `.agents/codebase/concerns.md` exists, read it before designing.
 
@@ -106,7 +133,7 @@ Any component flagged as fragile, carrying tech debt, or having test coverage ga
 
 If concerns.md does not exist, skip this step.
 
-### Step 7: Queue Codebase Discoveries
+### Step 8: Queue Codebase Discoveries
 
 Load [knowledge.md](knowledge.md) for format.
 
@@ -124,11 +151,11 @@ After appending, always report the `## Codebase Feedback` state to the user -- e
 
 > N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Run `/project-index integrate feedback` now? (y/n)
 
-If N is 0, say "No new codebase discoveries this run" and skip the prompt. Never silently proceed to Step 8 without reporting -- this step is mandatory and user-facing.
+If N is 0, say "No new codebase discoveries this run" and skip the prompt. Never silently proceed to Step 9 without reporting -- this step is mandatory and user-facing.
 
 Do not auto-invoke project-index -- the user controls integration timing.
 
-### Step 8: Check Visual References
+### Step 9: Check Visual References
 
 Check if the spec includes a `designs/` folder with visual references:
 
@@ -139,7 +166,7 @@ Check if the spec includes a `designs/` folder with visual references:
    - Consider these in component design and implementation
 3. If no designs folder: proceed without visual context
 
-### Step 9: Data Model Definition
+### Step 10: Data Model Definition
 
 Define the data model before component design. Every statement about an existing type must cite `file:line` from the exploration's Member Enumeration.
 
@@ -157,7 +184,7 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] Every "no change required" / "already returns" / "contract unchanged" claim in this section cites a `file:line` from the exploration's Member Enumeration
 - [ ] Every type listed under Entities or Contracts matches a row in the exploration's Member Enumeration
 
-### Step 10: Dependency Inversion Check (implicit)
+### Step 11: Dependency Inversion Check (implicit)
 
 Reason about this silently before writing design.md. Do not echo this check
 into the artifact -- the design stays focused on the design, not on a process
@@ -187,7 +214,7 @@ Never let the design leave an inversion implicit. An inverted design produces
 tasks whose commits do not stand alone, which breaks the per-story
 commit-boundary contract that spec-driven relies on.
 
-### Step 11: Generate design.md
+### Step 12: Generate design.md
 
 **LOAD ORDER:** Load this template before reading any existing design in `.artifacts/features/`. Existing designs may be stale -- template wins on structure.
 
@@ -209,11 +236,11 @@ change its status tag from `` `pending` `` to `` `in-design` ``.
 - Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
 
-### Step 12: Update Status
+### Step 13: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 13: Approval Gate
+### Step 14: Approval Gate
 
 Present a summary:
 
@@ -232,6 +259,29 @@ Whether to stop here depends on the user's original request (see Specify Step 14
 If changes are requested: update design.md, then continue.
 
 Do not start code-producing phases (`implement`) without explicit user approval regardless of the original phrasing.
+
+### Step 15: Suggest Session Dump
+
+Phase complete. Suggest to the user that this is a good moment to dump
+session context and clear the window before the next phase:
+
+> Phase complete. Append a phase summary to `.artifacts/.session-dump.md`
+> and clear the context for the next phase? (y/n)
+
+If the user accepts:
+
+- If `.artifacts/.session-dump.md` does not exist, create it with
+  `# Session Dump` as the H1
+- Append one block using `templates/session-dump.md` -- record only what
+  an artifact does not already capture (unstated decisions, blockers,
+  follow-ups for the next phase). Do not duplicate spec.md / design.md /
+  tasks.md content
+- Confirm the dump was written; the user clears the window manually
+
+If the user declines or skips: continue in the current window without dumping.
+
+The dump is ephemeral cross-phase memory -- wrap-up reads it at end of
+session, then the file is disposable.
 
 ## Guidelines
 

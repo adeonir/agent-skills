@@ -23,7 +23,6 @@ when_to_use: >-
   trigger on "why is X not working", "debug this", "trace issue", "create
   PRD/RFC/ADR/TDD", "code review this diff", "commit this", "create an
   issue", or tooling/setup tasks.
-effort: xhigh
 ---
 
 # Spec-Driven Development
@@ -133,7 +132,7 @@ implement.md ------> validate.md (on-demand UAT, any scope)
 validate.md ------> audit.md (re-run required after UAT reproves any [x])
 implement.md ------> tasks.md (safety valve: >5 inline steps)
 specify.md --------> baseline-discovery.md (brownfield features)
-design.md ---------> project-index (prompts integrate feedback after Step 7)
+design.md ---------> project-index (prompts integrate feedback after Step 8)
 implement.md ------> project-index (prompts integrate feedback after Step 10)
 ```
 
@@ -212,6 +211,7 @@ If you find yourself reaching for design.md because the feature is "multi-compon
 | Quick task | [quick-task.md](templates/quick-task.md) |
 | Codebase exploration | [exploration.md](templates/exploration.md) |
 | Research cache | [research.md](templates/research.md) |
+| Session dump | [session-dump.md](templates/session-dump.md) |
 
 ## Knowledge Verification Chain
 
