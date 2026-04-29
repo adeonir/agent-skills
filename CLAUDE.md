@@ -493,8 +493,7 @@ Skills write to `.artifacts/` organized by domain:
 ├── quick/          # spec-driven: quick mode tasks
 ├── research/       # spec-driven: research cache
 ├── epics/          # epic-tracker: epics, stories, bugs, releases
-├── docs/           # docs-writer: PRD, ADR, RFC, etc.
-│                   # product-naming: naming research and validation reports
+├── docs/           # docs-writer: PRD, Brief, Design Doc, TDD
 ├── design/         # design-builder: copy, design tokens, variants
 ├── brainstorm/     # brainstorming: direction artifacts
 └── context-audit/  # context-audit: saved audit reports

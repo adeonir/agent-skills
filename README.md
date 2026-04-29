@@ -28,7 +28,6 @@ npx skills add adeonir/agent-skills
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD, RFC, ADR. Guided discovery per type |
 | **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Feeds spec-driven |
-| **[product-naming](skills/(product)/product-naming)** | Product | Research and validate product names with domain/social availability checks and quality scoring |
 | **[context-audit](skills/(tooling)/context-audit)** | Tooling | Audit Claude Code setup for token waste across MCP, CLAUDE.md, skills, settings, deny rules. Score plus Top 3 fixes ranked by tokens saved per effort |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
@@ -38,12 +37,9 @@ npx skills add adeonir/agent-skills
 
 ```mermaid
 flowchart TD
-    BR[brainstorming] -->|direction| PN[product-naming]
-    BR -->|direction| DW[docs-writer]
+    BR[brainstorming] -->|direction| DW[docs-writer]
     BR -->|direction| DB[design-builder]
     BR -.->|direction| SD[spec-driven]
-    PN -->|name| DW
-    PN -->|name| DB
     DW -->|requirements| ET[epic-tracker]
     DW -->|requirements| DB
     DW -->|requirements| SD
@@ -64,12 +60,11 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 
 ```
 1. brainstorming     --> explore ideas, choose direction
-2. product-naming    --> research and validate name
-3. docs-writer       --> generate requirements (PRD, Brief)
-4. epic-tracker      --> plan epics, track stories and bugs
-5. design-builder    --> extract, structure, preview, approve
-6. spec-driven       --> specify, design, tasks, implement
-7. git-helpers       --> commit, review, PR, finish
+2. docs-writer       --> generate requirements and technical docs
+3. epic-tracker      --> plan epics, track stories and bugs
+4. design-builder    --> extract, structure, preview, approve
+5. spec-driven       --> specify, design, tasks, implement
+6. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
 
 **Always available:**
@@ -95,7 +90,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── context-audit/  # context-audit: saved audit reports
 ├── design/         # design-builder: copy.yaml, design.json, variants/
-├── docs/           # docs-writer + system-design + product-naming: PRD, ADR, TDD, RFC, system-brief.md
+├── docs/           # docs-writer + system-design: PRD, Brief, Design Doc, TDD, system-brief.md
 ├── epics/          # epic-tracker: epics, stories, bugs, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

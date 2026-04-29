@@ -111,7 +111,6 @@ External design-tool files (when used) live at the user's path and are user-owne
 | Skill | Connection |
 | ----- | ---------- |
 | **brainstorming** | Direction feeds discovery context |
-| **product-naming** | Name feeds discovery context |
 | **docs-writer** | PRD/Brief provides product context for extraction |
 | **spec-driven** | Approved design feeds implementation |
 

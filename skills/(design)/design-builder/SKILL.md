@@ -108,7 +108,6 @@ Notes:
 
 ```
 brainstorming ---------> design-builder (direction feeds discovery)
-product-naming --------> design-builder (name feeds discovery)
 docs-writer -----------> design-builder (PRD/Brief feeds discovery)
 copy.md ---------------> structure.md (content informs structure)
 copy.md ---------------> inputs.md (content informs Voice and Do/Don't prose)
