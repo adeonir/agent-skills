@@ -6,6 +6,24 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-29
+
+### Removed
+
+- RFC and ADR document types (rare in solo/small-team flows; ADR remains a generic external concept referenced by Design Doc and TDD)
+- References: `rfc.md`, `adr.md`
+- Templates: `rfc.md`, `adr.md`
+- Document count updated from 6 to 4 types
+
+### Changed
+
+- Cross-references in `design.md` and `tdd.md` no longer point to ADR as a generated artifact
+- Discovery patterns table dropped the "Clarification only" subsection
+- Output filename table no longer covers `rfc/{number}-{name}.md` and `adr/{number}-{name}.md`
+- Triggers narrowed: removed "create RFC", "create ADR", "record decision"
+- PRD scope clarified: product requirements only, never implementation content (architecture, stack, UI, APIs belong to Design Doc, TDD, or design-builder)
+- Brief scope clarified: explicit 1-page executive summary of the PRD, not a generic companion output
+
 ## 2026-04-23
 
 ### Changed

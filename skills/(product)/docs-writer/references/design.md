@@ -172,13 +172,12 @@ Generate the design doc using the schema below. Present draft to user for review
 ## Cross-References
 
 ```
-PRD ----------> Design Doc ----------> ADR
-                (feeds context)        (documents key decisions)
+PRD ----------> Design Doc
+                (feeds context)
 ```
 
 - **PRD**: Provides product context, goals, and requirements
 - **Design Doc**: Documents technical strategy and trade-offs
-- **ADR**: Records specific architectural decisions (optional—can be embedded in Design Doc or separate)
 
 ## Output
 

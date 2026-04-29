@@ -1,5 +1,12 @@
 # PRD -- Product Requirements Document
 
+## Scope
+
+Product requirements only. Captures the problem, users, scope, journeys, business
+rules, and success metrics. Never carries implementation content -- no architecture,
+tech stack, UI components, API endpoints, or code-level decisions. Those belong to
+Design Doc, TDD, or design-builder.
+
 ## When to Use
 
 When creating a PRD, defining product requirements, or writing product specifications.

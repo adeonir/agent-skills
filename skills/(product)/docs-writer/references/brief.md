@@ -1,8 +1,11 @@
 # Brief -- Executive Summary
 
-## Context
+## Scope
 
-The Brief is a 1-page executive summary generated as a companion output of the PRD workflow. It is not a standalone document type -- it has no separate trigger and no independent discovery phase.
+The Brief is a 1-page executive summary of the PRD. It distills the PRD into a
+narrative readable in under a minute -- the story of the product, while the PRD
+remains the specification. Not a standalone document type: no separate trigger,
+no independent discovery phase.
 
 ## When Generated
 

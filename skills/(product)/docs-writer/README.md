@@ -19,11 +19,7 @@ flowchart LR
     R --> B[Brief]
     R --> DD[Design Doc]
     R --> TDD[TDD]
-    R --> RFC[RFC]
-    R --> ADR[ADR]
 ```
-
-### Google-style (product & technical strategy)
 
 | Type | Workflow | Output |
 |------|----------|--------|
@@ -32,21 +28,12 @@ flowchart LR
 | **Design Doc** | discovery -> analysis -> drafting | `design.md` |
 | **TDD** | discovery -> analysis -> drafting | `tdd.md` |
 
-### Industry standard (decisions & proposals)
-
-| Type | Workflow | Output |
-|------|----------|--------|
-| **RFC** | [clarification] -> analysis -> drafting | `rfc/{number}-{name}.md` |
-| **ADR** | [clarification] -> drafting | `adr/{number}-{name}.md` |
-
 ## Usage
 
 ```
 create PRD for my project
 create design doc for API gateway
 create TDD for payment service
-create RFC for new auth system
-record architecture decision about database choice
 ```
 
 The agent detects the document type from the trigger and loads the appropriate workflow.

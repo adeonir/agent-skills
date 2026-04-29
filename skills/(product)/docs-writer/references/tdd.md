@@ -203,14 +203,13 @@ Generate the TDD using the schema below. Include only sections matching the dete
 ## Cross-References
 
 ```
-PRD ----------> TDD ----------> ADR
-                (feeds context)  (documents key decisions)
+PRD ----------> TDD
+                (feeds context)
 ```
 
 - **PRD**: Provides product context, goals, and requirements
 - **Design Doc**: Provides system-level architectural context (TDD focuses on component-level)
 - **TDD**: Documents prescriptive technical plan for implementation
-- **ADR**: Records specific architectural decisions (can be generated from TDD decisions)
 
 ## Output
 

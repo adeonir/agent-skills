@@ -56,13 +56,6 @@ Move on when:
 | Design Doc | 3 topics | System overview, architecture & design, cross-cutting concerns |
 | TDD | 3 topics | Requirements & stack, architecture & integrations, operations & risk |
 
-**Clarification only** (ask only when input is incomplete):
-
-| Type | Focus |
-|------|-------|
-| RFC | Problem, proposal, impact |
-| ADR | Context, options |
-
 ## Synthesis Pattern
 
 After discovery is complete, synthesize before drafting:
