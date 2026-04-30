@@ -60,6 +60,14 @@ Look for:
 
 Cut the duplicate. Keep the version closest to where it actually applies.
 
+**Exception: rules that overlap with a skill trigger.** A CLAUDE.md rule
+like "always use git-helpers for commits" is not redundant with the
+git-helpers skill description, even when the trigger phrase matches.
+Skill triggers fire on natural-language matching and can miss when the
+user phrases a request differently; the rule is a deterministic guarantee
+loaded every session. Keep both. Only flag as redundant when the rule
+restates an existing rule in another instruction file at the same scope.
+
 ### Filter 4: Bandaid
 
 **Question:** Was this added to fix one specific bad output?
@@ -105,6 +113,7 @@ existing README -- first person, no headers above h2") or cut.
 - Trust the script's pre-filter without reading the rule (contrasts: confirm against the filter)
 - Skip cross-file contradictions because the script did not flag them (contrasts: add cross-file cases manually)
 - Cut a project-specific override just because it pattern-matches (contrasts: reclassify when context contradicts heuristic)
+- Flag a rule as redundant just because a skill trigger covers the same intent (contrasts: keep the rule -- triggers are heuristic, rules are deterministic)
 - Record only the filter name without the reason (contrasts: record file, line, filter, and one-line reason)
 
 ## Error Handling

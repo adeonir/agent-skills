@@ -90,14 +90,13 @@ plus files referenced via `@path/to/file.md` (resolved recursively).
 
 **Source:** `~/.claude/settings.json` and project settings.
 
-**Output fields per scope:** present, autocompact_override, autocompact_ok,
-bash_max_output_length, bash_max_ok, deny_count, status_line, hook_events.
+**Output fields per scope:** present, bash_max_output_length, bash_max_ok,
+deny_count, status_line, hook_events.
 
 **Apply:**
 
 | Key | Flag if | Recommended |
 |-----|---------|-------------|
-| `autocompact_percentage_override` | Missing or > 80 | 75 |
 | `env.BASH_MAX_OUTPUT_LENGTH` | Missing or < 100,000 | 150,000 |
 | `permissions.deny` | Missing | See below |
 
@@ -122,7 +121,7 @@ plus detected project markers.
 - Read the scanner output before re-scanning files manually
 - Cross-reference scanner findings with /context when /context is available
 - Add cross-file judgment the scanner cannot do: contradictions, redundancy across scopes
-- Distinguish quality fixes (autocompact threshold) from token-savings fixes (MCP disconnect) in the report
+- Distinguish quality fixes (vague rule rewrites) from token-savings fixes (MCP disconnect) in the report
 
 **DON'T:**
 - Re-implement the scanner inline (contrasts: read scanner output first)

@@ -75,7 +75,7 @@ Total: 92,400 tokens before first message
 - System: 28,100
 
 ## What's working
-- autocompact_percentage_override set to 75
+- env.BASH_MAX_OUTPUT_LENGTH set to 150,000
 - Project CLAUDE.md uses @imports for testing.md and deploy.md
 - 0 agents over 150 lines
 

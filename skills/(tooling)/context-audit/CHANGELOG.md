@@ -6,6 +6,17 @@ name: context-audit
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-04-30
+
+### Added
+
+- Explicit context-snapshot prompt asking the user to paste `/context` output before scoring, so MCP estimates use real numbers when available
+- Filter 3 exception: rules that overlap with a skill trigger are not flagged as redundant; triggers are heuristic, rules are deterministic
+
+### Removed
+
+- Drop `autocompact_percentage_override` checks, deductions, and report references; key is not part of the current Claude Code settings schema
+
 ## 2026-04-28
 
 ### Added

@@ -27,8 +27,6 @@ prevent double-counting. Floor at 0.
 | Skill > 500 lines | -10 each (replaces -5) | -15 |
 | Agent > 150 lines | -3 each | -10 |
 | Slash command > 100 lines | -2 each | -10 |
-| Missing `autocompact_percentage_override` | -10 | -- |
-| `autocompact_percentage_override` > 80 | -5 | -- |
 | Missing `env.BASH_MAX_OUTPUT_LENGTH` | -5 | -- |
 | Missing `permissions.deny` while bloat dirs exist | -10 | -- |
 
@@ -80,7 +78,6 @@ Built into `scripts/audit.py`:
 - **MCP with CLI alternative:** pull from /context if user provided it; otherwise estimate ~15,000 tokens per server
 - **Instruction file lines:** ~4 tokens per Markdown line
 - **Missing bash output cap:** estimate one truncation event per ~10 turns at ~3,000 tokens per retry
-- **Missing autocompact override:** quality fix, not a token-savings fix; report as such
 - **Missing deny rules with bloat dirs:** high variance; default 10,000, can be 0 if dirs are small
 
 When an estimate is uncertain, mark with `~` in the report so the user
@@ -96,7 +93,7 @@ knows it is approximate.
 
 **DON'T:**
 - Inflate estimates for emphasis (contrasts: show the math)
-- Treat "missing autocompact" as a token-savings fix (contrasts: distinguish quality from savings)
+- Conflate quality fixes (rule rewrites) with token-savings fixes (contrasts: distinguish quality from savings)
 - Hide caps behind hand-wavy language (contrasts: cite the cap explicitly)
 - Estimate when /context numbers exist (contrasts: pull from /context when provided)
 

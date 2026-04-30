@@ -42,11 +42,16 @@ explain how to interpret and act on it.
 
 | Phase | What to load |
 |-------|-------------|
-| context-snapshot | Nothing -- ask user for /context output if available |
+| context-snapshot | Nothing -- ask the user to run `/context` and paste the output before continuing |
 | audit-script | Nothing -- run scripts/audit.py and read its JSON |
 | reconcile-filters | [filters.md](references/filters.md) |
 | report | [templates/report.md](templates/report.md), [scoring.md](references/scoring.md) only if explaining a deduction |
 | offer-fixes | Nothing -- ask the user which to apply, show diffs |
+
+In the context-snapshot phase, prompt the user explicitly: "Please run
+`/context` in this session and paste the output -- it gives precise
+per-category token numbers so MCP cost estimates aren't approximated."
+Proceed without it only if the user declines or already pasted it.
 
 [checks.md](references/checks.md) is loaded only if troubleshooting an
 unexpected scanner result.
@@ -80,19 +85,21 @@ context-audit ------> wrap-up             (suggest periodic re-runs in session n
 **DO:**
 - Lead the report with estimated tokens saved per turn -- that is the user-facing value
 - Show a diff for every change, including settings.json -- a bad key breaks the session
-- Pull MCP token estimates from /context output when available; fall back to ~15,000 per server only when the user cannot run /context
+- Ask the user to paste `/context` output before scoring; fall back to ~15,000 per server estimate only if they decline
 - Treat scripts/audit.py output as the factual basis -- do not re-scan files manually
 - Confirm or reclassify the script's pre-filtered rules with judgment from filters.md
 - Surface positive findings in a "What's working" section before issues
 - Include the cross-file checks the script cannot do: contradictions and redundancies between project and user CLAUDE.md
+- Keep CLAUDE.md rules that overlap with a skill trigger -- triggers are heuristic, rules are deterministic
 
 **DON'T:**
 - Skip the diff before applying settings.json changes (contrasts: show a diff for every change)
-- Estimate MCP token cost when /context output exists (contrasts: pull from /context when available)
+- Estimate MCP token cost when /context output exists (contrasts: ask for /context output before scoring)
 - Re-scan files the script already covered (contrasts: treat script output as factual basis)
 - Trust pre-filter flags blindly without confirming context (contrasts: confirm or reclassify with judgment)
 - Auto-apply fixes without showing diffs first (contrasts: show a diff for every change)
 - Lead the report with the score (contrasts: lead with tokens saved)
+- Flag a CLAUDE.md rule as redundant because a skill trigger covers the same intent (contrasts: keep deterministic rules alongside heuristic triggers)
 
 ## Output
 

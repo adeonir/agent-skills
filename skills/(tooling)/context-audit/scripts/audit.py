@@ -261,7 +261,6 @@ def scan_settings(settings: dict | None, scope: str) -> dict:
     """Check for required settings keys."""
     if not settings:
         return {"scope": scope, "present": False}
-    autocompact = settings.get("autocompact_percentage_override")
     bash_max = (settings.get("env") or {}).get("BASH_MAX_OUTPUT_LENGTH")
     deny = ((settings.get("permissions") or {}).get("deny") or [])
     status_line = settings.get("statusLine")
@@ -269,8 +268,6 @@ def scan_settings(settings: dict | None, scope: str) -> dict:
     return {
         "scope": scope,
         "present": True,
-        "autocompact_override": autocompact,
-        "autocompact_ok": autocompact is not None and int(autocompact) <= 80,
         "bash_max_output_length": bash_max,
         "bash_max_ok": bash_max is not None and int(bash_max) >= 100_000,
         "deny_count": len(deny),
@@ -388,12 +385,6 @@ def compute_score(data: dict) -> dict:
             if source.get("present") and source.get(key) is not None:
                 return source.get(key)
         return None
-
-    autocompact = effective("autocompact_override")
-    if autocompact is None:
-        deductions.append({"reason": "Missing autocompact_percentage_override", "points": 10})
-    elif int(autocompact) > 80:
-        deductions.append({"reason": "autocompact_percentage_override > 80", "points": 5})
 
     if effective("bash_max_output_length") is None:
         deductions.append({"reason": "Missing BASH_MAX_OUTPUT_LENGTH", "points": 5})
