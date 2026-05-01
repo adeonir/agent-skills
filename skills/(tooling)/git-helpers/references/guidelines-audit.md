@@ -1,15 +1,14 @@
 # Guidelines Audit
 
-Audit code changes for compliance with project guideline files.
+Lens prompt for the `guidelines` sub-agent in the code-review fan-out. Audits the annotated diff for violations of explicit rules documented in project guideline files.
 
 ## When to Use
 
-Auto-loaded by code-review.md during the review process. Not a direct trigger.
+Loaded by the `guidelines` lens during code-review fan-out (Step 7). Not a direct trigger.
 
 ## Purpose
 
-Verify changes follow explicit rules documented in project guideline files
-(CLAUDE.md, AGENTS.md, CONTRIBUTING.md, .editorconfig, and similar).
+Verify changes follow explicit rules documented in project guideline files (CLAUDE.md, AGENTS.md, CONTRIBUTING.md, .editorconfig, and similar). The lens receives `ANNOTATED_DIFF` + `CHANGED_FILES` from the main agent and must obey all Universal Rules from [code-review.md](code-review.md) (line allowlist, confidence `>= 80`, second-pass coverage, never modify files).
 
 ## Workflow
 
@@ -41,15 +40,15 @@ Valid guidelines: coding standards, naming conventions, architecture patterns, f
 
 ### Step 3: Review Diff
 
-Check each change against the extracted guidelines.
+Check each change in `ANNOTATED_DIFF` against the extracted guidelines. Cite only lines that carry an `[L<n>]` marker -- the line allowlist applies to this lens like every other.
 
 ### Step 4: Score Violations
 
-Only report violations with >= 80 confidence.
+Only report violations with `>= 80` confidence (see [code-review.md](code-review.md) for the calibrated rubric).
 
-## Confidence Scoring
+### Step 5: Second-Pass Coverage
 
-See [code-review.md](code-review.md) for the full confidence scoring table. Only report violations with >= 80 confidence.
+Re-read the diff top to bottom. List every file you did not flag a violation in. For each uncovered file, ask "Does this file violate any extracted guideline?" Skip a file only when you can explicitly state why it complies.
 
 ## What to Check
 
@@ -66,19 +65,23 @@ See [code-review.md](code-review.md) for the full confidence scoring table. Only
 
 ## Output Format
 
-```markdown
-## Guidelines Compliance
+Return a single markdown block under `### Guidelines` followed by a `### Highlights` block (per Universal Rules). The main agent merges this into the consolidated report.
 
-- **[{score}] [{file}:{line}]** Guideline violation
+```markdown
+### Guidelines
+
+- **[{severity}] [{file}:{line}]** Guideline violation
   - **Source**: "{guideline file where the rule was found}"
   - **Guideline**: "{exact quote from the guideline file}"
   - **Violation**: What the code does wrong
   - **Fix**: How to comply
 
-## Summary
+### Highlights
 
-X guidelines checked | Y violations found
+- {one positive observation, e.g. "Naming convention from CLAUDE.md applied consistently across new files"}
 ```
+
+If no violations: `### Guidelines` + `- No findings.` and still include `### Highlights`.
 
 ## Guidelines
 

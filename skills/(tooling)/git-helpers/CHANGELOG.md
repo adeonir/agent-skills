@@ -6,6 +6,24 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-01
+
+### Changed
+
+- Code review parallelized via five-lens sub-agent fan-out (security, bugs, data-loss, performance, guidelines) dispatched in a single turn
+- Diff is pre-annotated with `[L<n>]` post-image line markers before fan-out, and lens prompts may only cite marked lines (anti-hallucination line allowlist)
+- Confidence scoring rubric calibrated with examples for the 90-100 / 80-89 / 60-79 / sub-60 bands
+- Consolidation owned by the main agent: dedup across lenses on `file:line`, severity-sorted output, gap detection for files with zero findings, collated highlights, and partial-run header when a lens errors
+- Findings sorted by severity (critical > security > data-loss > performance > warning > suggestion > nit) instead of discovery order
+- Guidelines audit reframed as the `guidelines` lens prompt, loaded by the lens sub-agent at dispatch
+
+### Added
+
+- Size gate before fan-out aborts the review when the diff exceeds 3000 lines or 40 files
+- Universal rules block applied to every lens prompt: line allowlist, confidence threshold, severity labels, tone, mandatory `### Highlights`, second-pass coverage check, never modify files
+- Re-review loop tracks prior findings as `fixed` / `persisting` / `regressed` when the user requests a re-check after edits
+- Partial-run handling continues with successful lenses when one fails and reports the failure in the output header
+
 ## 2026-04-23
 
 ### Changed

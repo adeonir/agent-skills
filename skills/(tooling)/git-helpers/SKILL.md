@@ -33,6 +33,15 @@ commit --> review --> summary --> create-pull-request --> finish-branch
 
 Each step is independent. Use any workflow in isolation or chain them together.
 
+## Sub-agent Dispatch
+
+Code review parallelizes via lens fan-out. After the main agent annotates the diff and clears the size gate, it dispatches five lens sub-agents in a single turn -- each reads the same annotated diff under a focused scope and returns markdown findings. The main agent consolidates (dedup, severity sort, gap detection, partial-run handling) and renders the final report.
+
+- **Lens sub-agents** -- one per scope (`security`, `bugs`, `data-loss`, `performance`, `guidelines`). Each receives `ANNOTATED_DIFF` (with `[L<n>]` line markers as the citation allowlist), the lens-specific scope, and the universal rules block (code-review.md Step 7).
+- **Consolidation is main-agent work** -- dedup across lenses on `file:line`, severity-sorted output, gap detection, highlight collation, and partial-run header when a lens errors (code-review.md Step 8). Cross-lens visibility cannot be split across sub-agents.
+
+Commit, summary, create-pull-request, and finish-branch run inline on the main agent (single-output workflows, no fan-out value).
+
 ## Context Loading Strategy
 
 Load only the reference matching the current trigger. Never load multiple references simultaneously unless explicitly noted (code-review.md loads guidelines-audit.md as part of its process).
@@ -54,7 +63,7 @@ Notes:
 ## Cross-References
 
 ```
-code-review.md -------------> guidelines-audit.md (loaded as part of review)
+code-review.md -------------> guidelines-audit.md (loaded by guidelines lens at fan-out)
 create-pull-request.md -----> templates/pull-request.md (PR body template)
 finish-branch.md -----------> commit.md (squash commit message conventions)
 ```
