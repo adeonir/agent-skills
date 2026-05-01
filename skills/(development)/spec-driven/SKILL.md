@@ -257,9 +257,11 @@ Step 5: Flag or ask   -> state partial reasoning tagged "verify", or ask user fo
 
 ## Phase Transitions
 
-Each phase (specify, design, research, tasks, implement) should run in a clean
-context window. A polluted window (used for research and then for implementation)
-grows large and increases hallucination risk.
+Each phase (specify, design, tasks, implement) should run in a clean
+context window. A polluted window (used for early phases and then for
+implementation) grows large and increases hallucination risk. Within
+design, research (Step 5) and codebase exploration (Step 6) may dispatch
+to sub-agents -- their disk artifacts are the handoff back to design.
 
 **Between phases:**
 
@@ -283,15 +285,25 @@ notes, then the file is disposable. It is not a project artifact.
 
 **Sub-agent dispatch:**
 
-Research and implementation phases can be delegated to sub-agents for better
-context isolation and parallelism. The artifacts on disk are the handoff
-mechanism -- sub-agents don't need to return findings through the context.
+When activities run in full form (Auto-Sizing decides), they can dispatch
+to sub-agents for context isolation. Disk artifacts are the handoff --
+sub-agents don't return findings through the context. Inline forms (quick
+mode, Medium scope) run without dispatch.
 
-- Research sub-agent: reads codebase + external sources, writes to
-  `.artifacts/research/{topic}.md`
-- Implementation sub-agents: receive spec + design + task(s), write code to
-  disk. Main agent coordinates and runs verify
-- Parallel tasks (`[P]` marker) map directly to independent sub-agents
+- **Research sub-agents** -- one per unknown topic, write to
+  `.artifacts/research/{topic}.md` (design.md Step 5; multi-topic in a
+  single dispatch turn).
+- **Codebase exploration sub-agent** -- one per design phase, runs the
+  multi-phase exploration end to end, writes per
+  `templates/exploration.md` (design.md Step 6).
+- **Implement sub-agent** -- one per user invocation (T001 / range / S001
+  / --all), owns Steps 7-8 (per-task implement + verify + mark `[x]`).
+  Main agent dispatches once and resumes at Step 9
+  (implement.md Step 5).
+
+Research and exploration sub-agents in design.md run in the same dispatch
+turn (independent). The implement sub-agent runs after design/tasks
+artifacts exist.
 
 ## Error Handling
 

@@ -108,9 +108,9 @@ Before writing tasks, create an ASCII diagram showing the execution flow:
 - Convergence points where branches merge
 
 This gives an overview of parallelism and critical path before the detailed
-breakdown. The diagram also serves as a sub-agent dispatch map -- parallel
-branches identify tasks that can be delegated to independent sub-agents
-during implementation.
+breakdown. The diagram also serves as the implement subagent's ordering
+hint -- it reads the diagram alongside tasks.md to decide internal
+execution order. Main agent does not consume the diagram for fan-out.
 
 ### Step 6: Generate tasks.md
 

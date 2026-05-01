@@ -93,9 +93,24 @@ For each new tech:
 - If exists: use cached research
 - If not: research and create cache (follow [research.md](research.md) trust boundary rules)
 
-If multiple unknown technologies, spawn one research subagent per topic in a
-single turn — do not research sequentially. Each subagent follows research.md
-and writes to `.artifacts/research/{topic}.md`.
+If multiple unknown technologies, dispatch one research subagent per topic in
+a single turn -- emit multiple dispatch calls in one message, never
+sequentially. Each subagent follows research.md and writes to
+`.artifacts/research/{topic}.md`. Output is the cache file; main agent reads
+results from disk after dispatch completes.
+
+Single-turn dispatch shape (three unknown techs):
+
+```
+Turn N (one message):
+  - dispatch subagent for {topic-1}, brief = {research.md + topic-1 + spec context}
+  - dispatch subagent for {topic-2}, brief = {research.md + topic-2 + spec context}
+  - dispatch subagent for {topic-3}, brief = {research.md + topic-3 + spec context}
+Turn N+1: read .artifacts/research/{topic-N}.md for each, validate against spec.
+```
+
+Map this shape to the subagent dispatch primitive available in the harness.
+Single unknown tech: research inline, no dispatch needed.
 
 Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
@@ -111,6 +126,34 @@ Focus areas:
 - Reusable components
 - Patterns to follow
 - Integration points
+
+**Sub-agent dispatch:** Codebase exploration is context-heavy (multi-phase
+workflow with exhaustive member enumeration). Dispatch as a single subagent
+that owns the entire exploration end to end and writes findings to disk per
+`templates/exploration.md`. Main agent reads the artifact, never the raw
+file content.
+
+Subagent brief:
+- Paths to spec.md, codebase-exploration.md, templates/exploration.md
+- Path to `.agents/codebase/` (if it exists)
+- "Follow codebase-exploration.md end to end. Write findings per the
+  template. Anchor every claim with file:line. Member enumeration must be
+  exhaustive, not sampled."
+
+**Discovery batch:** Step 5 research subagents and this exploration
+subagent are independent. Dispatch all in a single turn -- emit multiple
+dispatch calls in one message:
+
+```
+Turn N (one message):
+  - dispatch research subagent for {topic-1}
+  - dispatch research subagent for {topic-2}
+  - dispatch codebase-exploration subagent
+Turn N+1: read .artifacts/research/*.md and exploration artifact from disk,
+          advance to Data Model.
+```
+
+Map this shape to the subagent dispatch primitive available in the harness.
 
 ### Step 6a: Exploration Depth Gate
 

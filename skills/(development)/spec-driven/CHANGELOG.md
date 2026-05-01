@@ -6,6 +6,22 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-01
+
+### Added
+
+- Sub-agent dispatch documented across implement, design, and SKILL.md: implement sub-agent owns Steps 7-8 per user invocation; research sub-agents per topic; codebase exploration sub-agent in design; discovery batch combines research and exploration in a single dispatch turn
+- Inline micro-research path in quick-mode and implement Quick scan mode: 1-2 query cap, findings captured inline, escalation when deeper research is needed
+- Ownership notes on implement Steps 7 and 8 distinguishing dispatched (sub-agent runs) vs inline (main agent runs) execution
+
+### Changed
+
+- Phase Transitions list trimmed to specify, design, tasks, implement; research and codebase exploration now described as design sub-steps that may dispatch sub-agents
+- Implement Step 5 dispatch reframed as one sub-agent per user invocation (T001, range, S001, --all) owning Steps 7-8, with main agent resuming at Step 9
+- Tasks execution diagram reframed as ordering hint for the implement sub-agent (was "dispatch map" for main-agent fan-out)
+- Research invocation model aligned with design.md Step 5: single topic inline, multi-topic per-topic dispatch
+- Local pattern extraction made explicit in quick mode Step 5 with "read 2-3 files near target" guidance
+
 ## 2026-04-29
 
 ### Added

@@ -74,6 +74,24 @@ Even small changes must follow project patterns.
 - If `.agents/codebase/conventions.md` exists: read it. Pay attention to
   Project Abstractions and Custom Hooks -- use these instead of primitives
 - If not: follow patterns already present in the files being modified
+- Read 2-3 files near the target (siblings in the same directory or
+  closest peers in the layer being touched) to extract local patterns
+  before editing -- naming, imports, error handling
+
+**Inline micro-research (only if needed):**
+
+Trigger: the task touches a tech the codebase has not used (new library
+call, version bump with API change, unfamiliar API). Skip otherwise.
+
+Path: follow Knowledge Verification Chain Steps 1-3 (codebase -> project
+docs -> Context7). Cap at 1-2 queries.
+
+Capture findings inline in `task.md` under a `## Notes` section. Do **not**
+write to `.artifacts/research/{topic}.md` -- that cache is for full
+research in Large/Complex scope.
+
+If 1-2 queries insufficient (deeper unknowns surface, multiple unfamiliar
+APIs, conflicting docs): stop and escalate via Scope Escalation.
 
 ### Design is inline, not a phase
 

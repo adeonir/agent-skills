@@ -182,5 +182,8 @@ A: An optional cumulative log that records decisions, discoveries, and blockers 
 **Q: When should I use quick mode vs full pipeline?**
 A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config changes). The agent auto-detects scope and suggests the right mode.
 
-**Q: What's the difference between verify, audit, and validate?**
-A: Verify runs per task and checks code against design/patterns, marking AC `[x]` on pass. Audit runs once before `done` and validates Goals and Success Criteria against evidence (tests, metrics, observation), marking their `[x]` and transitioning the status. Validate is on-demand interactive UAT -- the user manually walks scenarios; it can reprove any `[x]` and force audit to re-run.
+**Q: What's the difference between verify, validate, and audit?**
+A: Verify runs continuously during implement (after each task or range) -- code adherence to design and patterns, marks AC `[x]` on pass. Validate is on-demand UAT at any scope -- user manually walks scenarios and may reprove any `[x]`. Audit is the terminal gate before `done` -- evidence-based check of Goals and Success Criteria, marks their `[x]`, transitions status. Validate may run before or after audit; a reproved `[x]` forces verify or audit to re-run.
+
+**Q: How does sub-agent dispatch work?**
+A: Auto-Sizing decides depth. When activities run in full form (Large/Complex), they may dispatch to sub-agents for context isolation: research sub-agents per unknown topic, one codebase exploration sub-agent, and one implement sub-agent per user invocation (T001, range, S001, --all) that owns the per-task implement and verify cycle. Inline forms (Quick mode, Medium scope) run without dispatch -- the overhead exceeds the benefit at small ceremony.

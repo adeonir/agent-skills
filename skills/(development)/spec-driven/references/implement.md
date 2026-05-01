@@ -54,7 +54,17 @@ Check which artifacts exist and adapt:
 
 When operating in **Quick scan mode** (Medium scope, no design.md):
 
-1. **Check research cache**: Look for `.artifacts/research/{topic}.md` relevant to this feature. If exists and valid, use it. Don't conduct deep research for Medium scope.
+1. **Check research cache, then inline micro-research if needed**:
+   - First, look for `.artifacts/research/{topic}.md` relevant to this
+     feature. If exists and valid, use it.
+   - On cache miss, if a step touches a tech the codebase has not used:
+     run inline micro-research. Follow Knowledge Verification Chain Steps
+     1-3 (codebase -> project docs -> Context7). Cap at 1-2 queries.
+     Capture findings inline in spec.md under `## Implementation Notes`.
+     Do **not** write to `.artifacts/research/{topic}.md` -- that cache
+     is for full research in Large/Complex scope.
+   - If 1-2 queries insufficient: stop and escalate (suggest `design`
+     first, which runs full research per design.md Step 5).
 
 2. **Load project conventions**:
    - If `.agents/codebase/` exists: READ `conventions.md` (project abstractions,
@@ -102,12 +112,40 @@ For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
 - Check [B:Txxx] - verify Txxx is done
 
-**Sub-agent dispatch:** Spawn all `[P]` tasks as independent subagents in a
-single turn — do not dispatch one at a time. Each subagent receives: spec.md +
-design.md + its task(s) + coding-principles.md. Subagents write code to disk.
-The main agent coordinates, tracks progress, and runs verify after each
-subagent completes. The execution plan diagram in tasks.md serves as the
-dispatch map — parallel branches map directly to independent subagents.
+**Sub-agent dispatch:** Dispatch one subagent per user invocation. Scope
+follows the invocation argument:
+
+- `[T001]`: one subagent for the single task.
+- `[T001-T005]`: one subagent for the whole range.
+- `[S001]`: one subagent for the whole story.
+- `[--all]`: one subagent for all pending tasks.
+
+The subagent owns Steps 7-8 for every task in its scope. It implements
+tasks in dependency order (`[B:Txxx]` waits for `Txxx`), resolves order
+internally, runs verify per task (Step 7-After), and marks `[x]` in
+tasks.md (Step 8). Main agent does not fan out across tasks -- it
+dispatches once and resumes at Step 9 (Check Completion) after the
+subagent returns.
+
+Subagent brief includes:
+- Paths to spec.md, design.md, tasks.md, coding-principles.md
+- Task list within scope (Txxx, ...) with `[P]`/`[B:Txxx]` markers
+- Acceptance criteria per task
+- "Run Steps 7-8 for each task in dependency order. Implement, verify per
+  task, mark `[x]` in tasks.md. Write code and updates to disk. Report
+  files changed and per-task status."
+
+Subagent writes code, runs verify, and updates tasks.md. Main agent reads
+tasks.md and per-task status from disk, resumes at Step 9.
+
+Dispatch shape:
+
+```
+Turn N:   dispatch one subagent for the invocation scope.
+Turn N+1: read tasks.md and per-task status from disk, resume at Step 9.
+```
+
+Map this shape to the subagent dispatch primitive available in the harness.
 
 ### Step 6: Update Status
 
@@ -115,6 +153,11 @@ If status is `ready` or `draft` (Medium scope may skip ready):
 - Set `status: in-progress`
 
 ### Step 7: Implement Tasks
+
+**Ownership:** When tasks.md exists and Step 5 dispatched a subagent, the
+subagent runs Step 7 (and Step 8) for every task in its scope. Main agent
+resumes at Step 9. When no dispatch ran (Medium scope or no tasks.md),
+main agent runs Step 7 inline.
 
 For each task, follow the 3-phase cycle:
 
@@ -192,6 +235,10 @@ If verify finds issues, fix them before moving to the next task. See
 verify.md for the full workflow including loop escape.
 
 ### Step 8: Update Progress
+
+**Ownership:** When dispatched, the subagent runs Step 8 for each task it
+completes (right after Step 7-After verify passes). Main agent runs Step 8
+inline only when no dispatch ran (Medium scope).
 
 If tasks.md exists:
 1. Verify the "Done when" criteria for the task are met
