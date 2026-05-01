@@ -16,7 +16,6 @@ Analyze existing codebase and generate documentation for AI agents.
 - Project conventions
 - Testing approach
 - External integrations
-- Development commands
 - Validation checklist
 - Key workflows
 - Concerns and tech debt (when detected)
@@ -200,18 +199,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
    directories, component libraries, theme files, and utility modules. Document each
    abstraction with import paths and usage examples.
 
-10. **Extract Commands**
-
-    From package.json scripts, Makefile, justfile, or equivalent, document:
-    - Setup/install commands
-    - Development server commands
-    - Test commands (all variants: unit, watch, coverage, ci)
-    - Lint/format commands
-    - Build/deploy commands
-    - Code generation commands (if any)
-    - Access points (local URLs, dev tools)
-
-11. **Define Validation Checklist**
+10. **Define Validation Checklist**
 
     Based on the project's tooling, define the verification steps to run after completing a task:
     - Type checking command
@@ -221,7 +209,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
     - Code generation (if applicable)
     - Pre-commit hooks (if configured)
 
-12. **Identify Key Workflows**
+11. **Identify Key Workflows**
 
     Document the main flows -- both user-facing and development:
 
@@ -237,7 +225,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
     Keep workflows concise -- describe patterns, not every edge case.
 
-13. **Flag Concerns (optional)**
+12. **Flag Concerns (optional)**
 
     During analysis, note any issues that could affect development:
     - Outdated or vulnerable dependencies
@@ -248,21 +236,22 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
 
     Only create concerns.md if real issues are detected. Don't force it.
 
-### Step 3: Generate
+### Step 3: Generate (sub-agent fan-out)
 
-Generate documents in `.agents/codebase/` using the templates:
+Dispatch one sub-agent per output doc in a single turn. Each sub-agent receives the Phase 1 baseline (project metadata, docs, directory structure already gathered by main) plus the matching template, reads only the files relevant to its domain, and writes its output file directly. Sub-agents do not return findings through the context -- the disk artifact is the handoff.
 
-| Document | Template | Content |
-|----------|----------|---------|
-| Stack | [templates/stack.md](../templates/stack.md) | Framework, dependencies, dev tools |
-| Architecture | [templates/architecture.md](../templates/architecture.md) | Structure, patterns, layers, data flows with code examples |
-| Conventions | [templates/conventions.md](../templates/conventions.md) | Every observed pattern with code snippets and file references |
-| Testing | [templates/testing.md](../templates/testing.md) | Patterns with example test structure from actual tests |
-| Integrations | [templates/integrations.md](../templates/integrations.md) | All external touchpoints with config details |
-| Commands | [templates/commands.md](../templates/commands.md) | All available commands with descriptions |
-| Checklist | [templates/checklist.md](../templates/checklist.md) | Validation steps after tasks |
-| Workflows | [templates/workflows.md](../templates/workflows.md) | Core flows with step-by-step detail and file references |
-| Concerns | [templates/concerns.md](../templates/concerns.md) | Tech debt, risks, inconsistencies (optional) |
+| Sub-agent | Template | Reads | Writes |
+|-----------|----------|-------|--------|
+| stack | [templates/stack.md](../templates/stack.md) | Manifest deeply, lockfile, dev tooling configs | `.agents/codebase/stack.md` |
+| architecture | [templates/architecture.md](../templates/architecture.md) | Entry points, dir tree, layer boundaries | `.agents/codebase/architecture.md` |
+| conventions | [templates/conventions.md](../templates/conventions.md) | Representative source files (Phase 2 reading priority) | `.agents/codebase/conventions.md` |
+| testing | [templates/testing.md](../templates/testing.md) | Test files, test config | `.agents/codebase/testing.md` |
+| integrations | [templates/integrations.md](../templates/integrations.md) | API clients, DB models, env files | `.agents/codebase/integrations.md` |
+| checklist | [templates/checklist.md](../templates/checklist.md) | Scripts (package.json/Makefile), pre-commit config | `.agents/codebase/checklist.md` |
+| workflows | [templates/workflows.md](../templates/workflows.md) | Entry points to traced data flows (Phase 2 step 6) | `.agents/codebase/workflows.md` |
+| concerns (conditional) | [templates/concerns.md](../templates/concerns.md) | Whatever surfaced real issues during Phase 2-3 | `.agents/codebase/concerns.md` |
+
+Dispatch all applicable sub-agents in the same turn -- they run independently. Concerns sub-agent only dispatches if Phase 2-3 surfaced concrete issues; otherwise skip.
 
 **Depth over brevity.** These docs are loaded on-demand, not always in context.
 Include code snippets and file references as evidence for every pattern.
@@ -272,15 +261,15 @@ Avoid redundancy across files, but do not sacrifice depth for token savings.
 
 Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
 
-### Step 5: Self-Assessment
+### Step 5: Self-Assessment (main agent)
 
-After generating all docs, review them for consistency and completeness:
+After all sub-agents finish, the main agent reads the generated docs together and reviews them for consistency and completeness:
 
 - **Consistency**: Do service names, paths, and patterns match across files?
 - **Completeness**: Are there areas the scan could not cover deeply? Flag them
 - **Gaps**: What would an agent still need to know that is not documented?
 
-Save findings to `.agents/codebase/review-notes.md` using the template.
+Save findings to `.agents/codebase/review-notes.md` using the template. Cross-doc visibility cannot be split across sub-agents -- the main agent owns this synthesis.
 
 ### Step 6: Save
 
@@ -289,7 +278,7 @@ Create `.agents/codebase/` with generated docs.
 ### Step 7: Report
 
 Inform user:
-- Mapped {count} areas (8 standard + review notes + concerns if created)
+- Mapped {count} areas (7 standard + review notes + concerns if created)
 - Updated AGENTS.md
 - Gaps identified: {list areas lacking detail}
 - Next: Create feature with baseline context

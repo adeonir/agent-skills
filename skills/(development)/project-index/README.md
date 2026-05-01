@@ -28,7 +28,7 @@ flowchart TD
 |---------|-------------------|
 | **initialize** | Everything (overview + summary if existing code found) |
 | **overview** | `.agents/project.md` -- project context, users, features |
-| **summary** | `.agents/codebase/` -- up to 9 docs covering stack, architecture, conventions, testing, integrations, commands, checklist, workflows, and concerns |
+| **summary** | `.agents/codebase/` -- up to 8 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and concerns |
 
 All commands also generate/update `AGENTS.md` at the project root.
 
@@ -70,7 +70,6 @@ Re-running summary updates existing docs (merge, never overwrite).
     ├── conventions.md      # Naming, imports, types, error handling
     ├── testing.md          # Test infra, patterns, reference tests
     ├── integrations.md     # External services and APIs
-    ├── commands.md         # Dev, test, build, deploy scripts
     ├── checklist.md        # Post-task validation steps
     ├── workflows.md        # User and development flows
     └── concerns.md         # Tech debt and risks (optional, only when detected)

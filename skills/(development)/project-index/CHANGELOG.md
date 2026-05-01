@@ -6,6 +6,19 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-01
+
+### Changed
+
+- Summary doc generation parallelized via per-doc sub-agent fan-out, dispatched in a single turn
+- Self-assessment owned by the main agent so cross-doc consistency review keeps visibility across generated docs
+- Frontmatter drops `model`, `context: fork`, and `agent` so orchestration runs in the main session and avoids nested forks
+
+### Removed
+
+- Commands doc and template from summary output
+- Commands section from generated `AGENTS.md` and `CLAUDE.md` managed block
+
 ## 2026-04-23
 
 ### Changed

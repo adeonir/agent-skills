@@ -12,10 +12,7 @@ when_to_use: >-
   "codebase summary", "onboarding to this repo". Not for feature work
   (use spec-driven), session notes in Obsidian (use session-notes), or
   dev tooling setup like prettier/eslint (out of scope for all skills).
-model: sonnet
 effort: high
-context: fork
-agent: general-purpose
 ---
 
 # Project Index
@@ -33,6 +30,15 @@ initialize --> overview + summary
 ```
 
 Each command can be used independently or chained via initialize.
+
+## Sub-agent Dispatch
+
+Summary parallelizes doc generation. After Phase 1 baseline (project metadata, docs, directory structure) the main agent dispatches one sub-agent per output doc in a single turn -- each owns its template, reads only the files relevant to its domain, and writes its file directly.
+
+- **Doc sub-agents** -- one per `.agents/codebase/*.md` (stack, architecture, conventions, testing, integrations, checklist, workflows, plus concerns when issues detected). Each sub-agent receives Phase 1 baseline as context, reads its domain files, and writes the output file. Disk artifacts are the handoff -- sub-agents do not return findings through the context (summary.md Step 3).
+- **Self-assessment is main-agent work** -- after sub-agents finish, main reads the generated docs together to detect cross-doc inconsistencies and gaps, then writes `review-notes.md` (summary.md Step 5). Cross-doc visibility cannot be split across sub-agents.
+
+Overview and root-agents.md run inline on the main agent (single doc each, no fan-out value).
 
 ## Context Loading Strategy
 
@@ -69,7 +75,6 @@ integrate-feedback.md -----> knowledge.md (clears integrated rows only)
     ├── conventions.md      # Observed patterns with code snippets, abstractions, custom hooks
     ├── testing.md          # Patterns from actual tests, mocking, fixtures, coverage gaps
     ├── integrations.md     # External services, env vars, config details
-    ├── commands.md         # All available scripts with descriptions
     ├── checklist.md        # Validation steps after completing a task
     ├── workflows.md        # Mermaid flowcharts for user and dev workflows
     ├── review-notes.md     # Self-assessment: consistency, completeness, gaps
@@ -90,7 +95,6 @@ Claude harness (root `CLAUDE.md` present): `AGENTS.md` is never created or updat
 | Conventions      | [conventions.md](templates/conventions.md)   |
 | Testing          | [testing.md](templates/testing.md)           |
 | Integrations     | [integrations.md](templates/integrations.md) |
-| Commands         | [commands.md](templates/commands.md)         |
 | Checklist        | [checklist.md](templates/checklist.md)       |
 | Workflows        | [workflows.md](templates/workflows.md)       |
 | Review Notes     | [review-notes.md](templates/review-notes.md) |
@@ -110,7 +114,6 @@ Avoid redundancy across files, but do not sacrifice depth for brevity.
 | conventions.md  | Every observed pattern with code snippets and file references |
 | testing.md      | Patterns with example test structure from actual tests        |
 | integrations.md | All external touchpoints with config details                  |
-| commands.md     | All available commands with descriptions                      |
 | checklist.md    | Concise validation steps (~15 lines)                          |
 | workflows.md    | Core flows with step-by-step detail                           |
 | concerns.md     | Only real issues with evidence                                |

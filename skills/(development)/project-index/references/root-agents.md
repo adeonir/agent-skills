@@ -36,7 +36,6 @@ Check which `.agents/` files exist and extract key content:
 |--------|---------|----------|
 | `.agents/project.md` | Project summary | Yes (skip if missing) |
 | `.agents/codebase/conventions.md` | Key conventions | If exists |
-| `.agents/codebase/commands.md` | Important commands | If exists |
 | `.agents/codebase/checklist.md` | Post-task checklist | If exists |
 
 ### Step 4: Check Existing AGENTS.md
@@ -58,10 +57,6 @@ Structure:
 ## Conventions
 
 {Key conventions table from conventions.md -- top entries only}
-
-## Commands
-
-{Essential commands from commands.md -- setup, dev, test, lint}
 
 ## Checklist
 
@@ -101,7 +96,6 @@ Rules:
 - AGENTS.md is a quick reference, not a full document
 - Link to `.agents/` files for details instead of duplicating content
 - Conventions: max 5 most important rows
-- Commands: max 10 most used commands
 - Checklist: keep as-is (already concise)
 
 ## Guidelines
