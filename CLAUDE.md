@@ -142,7 +142,7 @@ All skills follow this exact order:
 
 Optional single line placed immediately after the H1 title, before Workflow.
 Use only for skills with cognitively heavy phases (audit, design, discovery,
-review). Omit on light skills (quick fixes, naming, single-step tooling).
+review). Omit on light skills.
 
 Format: one bold line with the effort level and a short rationale.
 
@@ -150,13 +150,7 @@ Format: one bold line with the effort level and a short rationale.
 **Recommended effort:** xhigh for design/audit phases; medium for quick mode.
 ```
 
-Guidance by level:
-- `low`: lightweight reference skills with no heavy reasoning
-- `medium`: cost- or latency-sensitive work with tight scope
-- `high`: balance of intelligence and cost; concurrent sessions
-- `xhigh`: default for intelligence-sensitive work (API design, migrations,
-  multi-file reviews)
-- `max`: reserve for evals and ceiling tests; diminishing returns
+Levels: `low` · `medium` · `high` · `xhigh` (default for heavy reasoning) · `max` (evals only).
 
 ### Compact Instructions
 
@@ -344,46 +338,15 @@ Templates named after the output type they generate:
 
 ### CHANGELOG.md
 
-Frontmatter:
+Frontmatter: `name: skill-name`.
 
-```yaml
----
-name: skill-name
----
-```
-
-Format:
-
-```markdown
-# Changelog
-
-All notable changes to this skill will be documented in this file.
-
-## YYYY-MM-DD
-
-### Added
-
-- Description of added feature
-
-### Changed
-
-- Description of change
-
-### Fixed
-
-- Description of fix
-
-### Removed
-
-- Description of removal
-```
-
-Rules:
-- Date headers: `## YYYY-MM-DD` -- never versions
-- Subsections: `### Added`, `### Changed`, `### Fixed`, `### Removed`
+Structure:
+- `# Changelog`
+- Intro line: `All notable changes to this skill will be documented in this file.`
+- `## YYYY-MM-DD` per dated entry, most recent first (never versions)
+- `### Added` / `### Changed` / `### Fixed` / `### Removed` subsections
 - Each item is one sentence (no paragraphs)
-- Most recent first (descending chronological order)
-- Reference filenames when relevant
+- Reference filenames when relevant, but never lead the sentence with a filename -- start with the concept or change
 
 ### README.md
 
@@ -499,7 +462,7 @@ Skills write to `.artifacts/` organized by domain:
 └── context-audit/  # context-audit: saved audit reports
 ```
 
-`.artifacts/` is gitignored by default; commit it explicitly for team collaboration.
+`.artifacts/` stays untracked by default; commit specific files only when the user wants them in version control.
 
 `.agents/` is a separate directory for reference context, consumed by other skills:
 
@@ -511,11 +474,9 @@ Skills write to `.artifacts/` organized by domain:
 └── knowledge.md    # spec-driven: decisions, gotchas, Codebase Feedback queue
 ```
 
-Ownership is strict: project-index is the sole writer to `project.md` and `codebase/*.md`; spec-driven is the sole writer to `knowledge.md` and `baselines/*.md`. Codebase discoveries from spec-driven (design, implement, quick-mode) land in `knowledge.md`'s `## Codebase Feedback` section and are merged into `codebase/*.md` on demand via `/project-index integrate feedback`.
+Ownership: project-index writes `project.md` and `codebase/*.md`; spec-driven writes `knowledge.md` and `baselines/*.md`. Spec-driven discoveries land in `knowledge.md`'s `## Codebase Feedback` and merge into `codebase/*.md` via `/project-index integrate feedback`.
 
-`codebase/*.md` captures only observable current state -- no milestones, feature numbers, `(planned)` or `(TBD)` markers, and no stubs for services/routes/deps not present in the codebase. Inventory and structural facts (installed packages, new routes, new modules, new directories, new env vars) are not queued in `knowledge.md` -- they are re-derived by `/project-index re-index`, which audit suggests (never prompts) when structural deltas exist on the feature branch.
-
-Root instruction files: project-index owns `AGENTS.md` and generates/updates it only when the project already uses it or the user opts in. `CLAUDE.md` is user-authored territory -- project-index never edits or overwrites it.
+project-index owns `AGENTS.md`; `CLAUDE.md` is user-authored -- project-index never edits it.
 
 ## Terminology
 
@@ -523,57 +484,17 @@ TDD has two meanings in this project depending on context:
 - docs-writer: Technical Design Document (`references/tdd.md`)
 - spec-driven: Test-Driven Development (`references/test-driven.md`)
 
-## Documentation
-
-When updating docs, maintain consistency with existing patterns. Do not add product names to titles, use informal chat context as formal documentation, or include conversational topics as architectural decisions.
-
 ## Security Audits
 
-Run security self-assessment after any skill change or new skill creation. The skills.sh
-platform audits every published skill with 3 providers:
+skills.sh audits every published skill (Gen Agent Trust Hub, Socket, Snyk). Run this self-check after any skill change:
 
-### Gen Agent Trust Hub
-
-| Category | What Triggers It |
-|----------|-----------------|
-| COMMAND_EXECUTION | Instructions to run shell commands (mkdir, git, npm) |
-| REMOTE_CODE_EXECUTION | Downloads + execution of external scripts (curl \| sh) |
-| PROMPT_INJECTION | Ingesting untrusted external content (web pages, APIs) without sanitization |
-| DATA_EXFILTRATION | Sending local data to external services |
-| EXTERNAL_DOWNLOADS | Downloading from unverified domains |
-
-### Socket
-
-| Check | What It Detects |
-|-------|----------------|
-| Malicious behavior | Injection, exfiltration, untrusted installs |
-| Security concerns | Credential exposure, tool/trust exploitation |
-| Code obfuscation | Hidden or obfuscated code |
-| Suspicious patterns | Reconnaissance, excessive autonomy, resource abuse |
-
-### Snyk
-
-| Code | What It Flags |
-|------|--------------|
-| W007 | Plaintext credentials in instructions or examples |
-| E005 | Suspicious or untrusted download URLs |
-| W011 | Third-party content exposure (indirect prompt injection risk) |
-
-### Self-Assessment Checklist
-
-Before publishing, verify:
-
-- No plaintext passwords or API keys in examples (use `$ENV_VAR` or `{placeholder}`)
+- No plaintext passwords or API keys (use `$ENV_VAR` or `{placeholder}`)
 - No `curl | sh` or piped download-and-execute patterns
 - No links to untrusted or non-official domains
 - External content ingestion has trust boundary in the relevant reference file
-- Shell commands are limited to non-destructive operations (mkdir, ls, grep)
+- Shell commands limited to non-destructive operations (mkdir, ls, grep)
 - No instructions that could exfiltrate local data to external services
 
 ## Skill Installation
 
-Skills are installed globally via `npx skills add adeonir/agent-skills --skill {name}`.
-This installs the skill files to using symlinks in `~/.agents/skills/{name}/`.
-
-**NEVER edit files in `~/.agents/skills/` or `~/.claude/skills/` directly.** That is the installation target.
-The source of truth is this repository (`skills/` directory). Edit here; reinstallation is done manually by the user — never attempt it automatically.
+Source of truth is `skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` -- those are install targets (symlinks). See README for `npx skills add` usage.
