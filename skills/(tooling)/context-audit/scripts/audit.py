@@ -164,12 +164,15 @@ def scan_skills(base: Path) -> list[dict]:
         text = skill_md.read_text()
         meta, body = parse_frontmatter(text)
         body_lines = len(body.splitlines())
+        desc = meta.get("description") or ""
+        when = meta.get("when_to_use") or ""
         results.append({
             "name": meta.get("name") or skill_path.name,
             "path": str(skill_md),
             "total_lines": len(text.splitlines()),
             "body_lines": body_lines,
-            "description_words": len((meta.get("description") or "").split()),
+            "description_words": len(desc.split()),
+            "desc_when_chars": len(desc) + len(when),
             "has_references_dir": (skill_path / "references").exists(),
             "has_scripts_dir": (skill_path / "scripts").exists(),
         })
@@ -332,13 +335,13 @@ def compute_score(data: dict) -> dict:
     if overflow_ded > 0:
         deductions.append({"reason": f"{overflow} MCP(s) beyond threshold of 5", "points": overflow_ded})
 
-    # CLAUDE.md size
+    # CLAUDE.md size — soft penalty; the file may be load-bearing in spec-heavy repos.
     for cmd in data["claude_md"]:
         lines = cmd["resolved_lines"]
         if lines > 500:
-            deductions.append({"reason": f"{cmd['path']} > 500 lines (resolved)", "points": 20})
+            deductions.append({"reason": f"{cmd['path']} > 500 lines (resolved)", "points": 10})
         elif lines > 200:
-            deductions.append({"reason": f"{cmd['path']} > 200 lines (resolved)", "points": 10})
+            deductions.append({"reason": f"{cmd['path']} > 200 lines (resolved)", "points": 5})
 
     # Flagged rules across instruction files (capped at -20)
     flagged_total = 0
@@ -352,16 +355,15 @@ def compute_score(data: dict) -> dict:
     if flag_ded > 0:
         deductions.append({"reason": f"{flagged_total} rule(s) auto-flagged by filters", "points": flag_ded})
 
-    # Skills size
-    skill_ded = 0
-    for skill in data["skills"]:
-        if skill["total_lines"] > 500:
-            skill_ded += 10
-        elif skill["total_lines"] > 200:
-            skill_ded += 5
-    skill_ded = min(skill_ded, 15)
-    if skill_ded > 0:
-        deductions.append({"reason": "Long SKILL.md files", "points": skill_ded})
+    # Skill descriptions — only `description + when_to_use` (capped at 1,536 chars)
+    # loads at session start. Skill bodies load on invocation, so body length is
+    # informational, not a per-session token cost.
+    desc_overflow = sum(1 for s in data["skills"] if s.get("desc_when_chars", 0) > 1536)
+    if desc_overflow:
+        deductions.append({
+            "reason": f"{desc_overflow} skill(s) with description+when_to_use over 1,536 chars",
+            "points": min(desc_overflow * 5, 15),
+        })
 
     # Agents > 150
     agent_ded = sum(3 for a in data["agents"] if a["lines"] > 150)
@@ -462,14 +464,13 @@ def estimate_savings(data: dict, context_data: dict | None) -> list[dict]:
             "approximate": True,
         })
 
-    # Long skills
+    # Skills with bloated descriptions (the only part that loads at session start)
     for skill in data["skills"]:
-        if skill["total_lines"] > 500:
-            saved = (skill["total_lines"] - 200) * TOKENS_PER_LINE
+        if skill.get("desc_when_chars", 0) > 1536:
             fixes.append({
-                "action": f"Apply progressive disclosure to {skill['name']} ({skill['total_lines']} lines)",
-                "savings": saved,
-                "effort": "large",
+                "action": f"Trim description+when_to_use of {skill['name']} below 1,536 chars",
+                "savings": (skill["desc_when_chars"] - 1536) // 4,
+                "effort": "trivial",
                 "approximate": True,
             })
 

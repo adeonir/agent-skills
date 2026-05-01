@@ -66,11 +66,12 @@ name, scope, and matched CLI alternative.
 **Source:** `.claude/skills/*/SKILL.md` (project and user scopes).
 
 **Output fields:** name, path, total_lines, body_lines, description_words,
-has_references_dir, has_scripts_dir.
+desc_when_chars, has_references_dir, has_scripts_dir.
 
 **Apply:**
-- Skills over 200 lines without `references/` are flagged for progressive disclosure
-- Skills over 500 lines are critical
+- Only `description + when_to_use` (capped at 1,536 chars) loads at session start; SKILL.md bodies load on invocation
+- Flag skills whose `desc_when_chars` exceeds 1,536 -- the harness truncates and triggering quality drops
+- Long bodies are informational: they affect invocation latency, not per-session token cost. Suggest `references/` for skills over 500 body lines, but do not deduct
 - A `description` over 80 words may hurt triggering accuracy
 
 ### CLAUDE.md files

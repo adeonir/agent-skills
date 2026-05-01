@@ -12,10 +12,17 @@ All notable changes to this skill will be documented in this file.
 
 - Explicit context-snapshot prompt asking the user to paste `/context` output before scoring, so MCP estimates use real numbers when available
 - Filter 3 exception: rules that overlap with a skill trigger are not flagged as redundant; triggers are heuristic, rules are deterministic
+- Skill description+when_to_use cap check (1,536 chars); deducts when frontmatter exceeds the harness truncation limit
+
+### Changed
+
+- Soften CLAUDE.md size penalty: `> 200 lines` now -5 (was -10), `> 500 lines` now -10 (was -20); the file may be load-bearing in spec-heavy repos
+- Replace SKILL.md body-length deduction with description+when_to_use char check; skill bodies load on invocation, not at session start
 
 ### Removed
 
 - Drop `autocompact_percentage_override` checks, deductions, and report references; key is not part of the current Claude Code settings schema
+- Drop the `Long SKILL.md files` deduction; long bodies are informational only (invocation latency, not per-session tokens)
 
 ## 2026-04-28
 

@@ -20,11 +20,10 @@ prevent double-counting. Floor at 0.
 |----------|-----------|-----|
 | MCP server with CLI alternative | -3 each | -15 |
 | MCP count beyond 5 | -2 per server | -10 |
-| CLAUDE.md > 200 lines (resolved) | -10 | -- |
-| CLAUDE.md > 500 lines (resolved) | -20 (replaces -10) | -- |
+| CLAUDE.md > 200 lines (resolved) | -5 | -- |
+| CLAUDE.md > 500 lines (resolved) | -10 (replaces -5) | -- |
 | Each rule auto-flagged by pre-filter | -1 | -20 across all instruction files |
-| Skill > 200 lines | -5 each | -15 |
-| Skill > 500 lines | -10 each (replaces -5) | -15 |
+| Skill `description + when_to_use` > 1,536 chars | -5 each | -15 |
 | Agent > 150 lines | -3 each | -10 |
 | Slash command > 100 lines | -2 each | -10 |
 | Missing `env.BASH_MAX_OUTPUT_LENGTH` | -5 | -- |
@@ -76,7 +75,8 @@ Effort weights:
 Built into `scripts/audit.py`:
 
 - **MCP with CLI alternative:** pull from /context if user provided it; otherwise estimate ~15,000 tokens per server
-- **Instruction file lines:** ~4 tokens per Markdown line
+- **Instruction file lines:** ~4 tokens per Markdown line (CLAUDE.md is auto-loaded; SKILL.md bodies are not)
+- **Skill description+when_to_use:** the only frontmatter that loads at session start, capped at 1,536 chars by the harness
 - **Missing bash output cap:** estimate one truncation event per ~10 turns at ~3,000 tokens per retry
 - **Missing deny rules with bloat dirs:** high variance; default 10,000, can be 0 if dirs are small
 
