@@ -458,8 +458,7 @@ Skills write to `.artifacts/` organized by domain:
 ├── epics/          # epic-tracker: epics, stories, bugs, releases
 ├── docs/           # docs-writer: PRD, Brief, Design Doc, TDD
 ├── design/         # design-builder: copy, design tokens, variants
-├── brainstorm/     # brainstorming: direction artifacts
-└── context-audit/  # context-audit: saved audit reports
+└── brainstorm/     # brainstorming: direction artifacts
 ```
 
 `.artifacts/` stays untracked by default; commit specific files only when the user wants them in version control.

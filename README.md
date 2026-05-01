@@ -28,7 +28,6 @@ npx skills add adeonir/agent-skills
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
 | **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Optional tracker integration (Linear, GitHub Issues/Projects, Jira) with markdown fallback. Feeds spec-driven |
-| **[context-audit](skills/(tooling)/context-audit)** | Tooling | Audit Claude Code setup for token waste across MCP, CLAUDE.md, skills, settings, deny rules. Score plus Top 3 fixes ranked by tokens saved per effort |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
 | **[wrap-up](skills/(tooling)/wrap-up)** | Tooling | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
@@ -54,7 +53,7 @@ flowchart TD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
-**context-audit**, **debug-tools**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
+**debug-tools**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
 
 ## Typical Greenfield Flow
 
@@ -70,7 +69,6 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 **Always available:**
 
 ```
-context-audit   --> audit Claude Code setup for token waste and context bloat
 debug-tools     --> investigate and fix issues
 project-index   --> scan codebase and generate context (brownfield or re-index)
 session-notes   --> document work in Obsidian
@@ -88,7 +86,6 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
-├── context-audit/  # context-audit: saved audit reports
 ├── design/         # design-builder: copy.yaml, design.json, variants/
 ├── docs/           # docs-writer + system-design: PRD, Brief, Design Doc, TDD, system-brief.md
 ├── epics/          # epic-tracker: epics, stories, bugs, releases
