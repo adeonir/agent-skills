@@ -6,6 +6,13 @@ name: git-helpers
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-02
+
+### Changed
+
+- Commit workflow stages files before reading the diff so message generation runs against `git diff --cached` only and ignores unstaged content
+- Step order reshuffled to gather context, stage, analyze, preview, commit, verify; explicit DON'T added against reading the diff before staging
+
 ## 2026-05-01
 
 ### Changed
