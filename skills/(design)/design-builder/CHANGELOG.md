@@ -6,6 +6,15 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-02
+
+### Added
+
+- Asset generation phase (`assets.md`) — builds image prompts from DESIGN.md tokens and prose; two modes: MCP-direct (saves binary assets) and prompt-only (writes `prompts.md` for manual generation in an external image tool)
+- Assets as optional sub-phase of preview: auto-invoked after variant approval, then re-renders preview with real assets
+- Direct triggers for "generate hero banner", "create product image", "generate OG card", "generate image prompts"
+- Cross-references from `preview.md` to `assets.md` and from `assets.md` back to `preview.md` for re-render
+
 ## 2026-04-29
 
 ### Added

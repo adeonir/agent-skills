@@ -33,11 +33,11 @@ Greenfield design pipeline for any digital product: discover, extract content, a
 ## Workflow
 
 ```
-discovery --> copy --> inputs --> structure --> preview --> final
+discovery --> copy --> inputs --> structure --> preview --> assets --> final
                                                   ^__|  (tune / comment / apply-across loop)
 ```
 
-Each step is independent. Can run isolated or chained. Discovery is always the first step — never skip it.
+Each step is independent. Can run isolated or chained. Discovery is always the first step — never skip it. Assets is optional: auto-invoked after preview approval, or triggered directly at any time.
 
 design-builder is greenfield-first: it assumes no existing codebase. The codebase path inside `inputs.md` is an alternative for redesign or migration work, not the primary flow.
 
@@ -71,7 +71,7 @@ If found, read and extract purpose, audience, tone, key features, and any existi
 
 ## Context Loading Strategy
 
-Load only the reference matching the current trigger. For preview operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies. For inputs operations, auto-load `validate.md` at Step 5 (gate before declaring done). `validate.md` is also a direct trigger when called on its own.
+Load only the reference matching the current trigger. For preview operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies. For inputs operations, auto-load `validate.md` at Step 5 (gate before declaring done). `validate.md` is also a direct trigger when called on its own. `assets.md` is both a direct trigger and an optional sub-phase auto-invoked by `preview.md` after variant approval.
 
 **Never simultaneous:**
 
@@ -115,10 +115,17 @@ Load only the reference matching the current trigger. For preview operations, al
 |-----------------|-----------|
 | Redesign this app, modernize this interface, apply a new vibe to the existing app, brand refresh on existing product, change the vibe without rebuilding the IA | [redesign.md](references/redesign.md) |
 
+### Assets
+
+| Trigger Pattern | Reference |
+|-----------------|-----------|
+| Generate hero banner, create product image, generate OG card, generate banner, image assets, generate image prompt, prompts for banner | [assets.md](references/assets.md) |
+
 Notes:
 
 - `aesthetics.md` and `web-standards.md` are not direct triggers. They are auto-loaded by `preview.md`.
 - `validate.md` is both a direct trigger (callable on demand) and auto-loaded by `inputs.md` Step 5 as the gate before declaring done.
+- `assets.md` is both a direct trigger (callable on demand) and an optional sub-phase auto-invoked by `preview.md` after variant approval.
 
 ## Cross-References
 
@@ -139,7 +146,11 @@ redesign.md -----------> inputs.md (delegates structure-only or aesthetic-only e
 redesign.md -----------> preview.md (delegates Exploratory creative variants for the new aesthetic)
 redesign.md -----------> validate.md (final gate before declaring done)
 preview.md ------------> external design tool (write-only push when MCP is available)
+preview.md ------------> assets.md (optional sub-phase after variant approval)
 external design tool --> inputs.md (read-only pull when user refreshes from a design-tool file)
+inputs.md -------------> assets.md (tokens and prose drive prompts)
+assets.md -------------> preview.md (re-render with real assets after generation)
+assets.md -------------> spec-driven (approved assets feed implementation)
 design-builder --------> spec-driven (approved design feeds implementation)
 ```
 
