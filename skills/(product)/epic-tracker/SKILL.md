@@ -15,8 +15,9 @@ when_to_use: >-
   "push to linear", "push to github", "push to jira", "pull from tracker",
   "configure tracker", "handoff to spec-driven". Not for implementing a
   named story with an existing spec (use spec-driven "implement story
-  S###"), project-wide overview (use project-index), or feature status
-  within a spec (use spec-driven "show feature status").
+  S###"), project-wide overview (use project-index), feature status
+  within a spec (use spec-driven "show feature status"), or quick fixes
+  and small changes (use spec-driven "quick task", "quick fix").
 ---
 
 # Epic Tracker
@@ -63,7 +64,7 @@ references simultaneously unless explicitly noted.
 | Create epic, new epic | [epic.md](references/epic.md) |
 | Create story, new story, add story | [story.md](references/story.md) |
 | Create bug, report bug, bug report | [bug.md](references/bug.md) |
-| Create issue, new issue, add issue, chore, task | [issue.md](references/issue.md) |
+| Create issue, new issue, add issue, create chore, create task, add task | [issue.md](references/issue.md) |
 | Create release, new release | [release.md](references/release.md) |
 | Status, update status, mark done | [status.md](references/status.md) |
 | Show roadmap, list epics, overview | [status.md](references/status.md) |

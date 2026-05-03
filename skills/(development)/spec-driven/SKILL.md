@@ -17,12 +17,13 @@ when_to_use: >-
   design for this feature", "implement story S###", "implement task T###",
   "verify implementation", "check acceptance criteria", "audit feature",
   "audit this spec", "validate goals", "UAT", "manual testing",
-  "discuss this feature", "show feature status", and known one-line fixes
-  where the user names file and line (for example, "fix the typo in
-  components/Footer.tsx line 12", "one-line change in <file>:<line>"). Do NOT
-  trigger on "why is X not working", "debug this", "trace issue", "create
-  PRD/RFC/ADR/TDD", "code review this diff", "commit this", "create an
-  issue", or tooling/setup tasks.
+  "discuss this feature", "show feature status", "quick fix", "quick task",
+  "quick mode", "start quick mode", "criar quick", "small change",
+  and known one-line fixes where the user names file and line (for example,
+  "fix the typo in components/Footer.tsx line 12", "one-line change in
+  <file>:<line>"). Do NOT trigger on "why is X not working", "debug this",
+  "trace issue", "create PRD/RFC/ADR/TDD", "code review this diff",
+  "commit this", "create an issue", or tooling/setup tasks.
 ---
 
 # Spec-Driven Development
@@ -88,7 +89,7 @@ If an existing artifact's structure diverges from the template, follow the templ
 | Verify implementation, check adherence, verify code | [verify.md](references/verify.md) |
 | Audit feature, validate goals, audit goals and success criteria | [audit.md](references/audit.md) |
 | Validate, UAT, manual testing, test manually | [validate.md](references/validate.md) |
-| Quick fix, quick task, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
+| Quick fix, quick task, quick mode, start quick mode, small change, bug fix | [quick-mode.md](references/quick-mode.md) |
 | List features, show status | [status-specs.md](references/status-specs.md) |
 
 ### Guidelines
