@@ -388,7 +388,7 @@ Before finalizing a new skill, verify:
 - [ ] `templates/` if the skill generates artifacts with fixed structure
 - [ ] Skill added to the root README.md table (sorted by category)
 - [ ] `Recommended effort:` line added if skill has heavy phases
-- [ ] `Compact Instructions` section added if skill is long-running and does not persist state to disk
+- [ ] `Compact Instructions` section added if skill has heavy phases where autocompact could fire before the next disk write (even if the skill persists state to disk — the guarantee only holds after the write happens)
 - [ ] Entrypoint skills state a first-turn brief (intent, constraints, acceptance, files)
 - [ ] Skills that fan out across items instruct the model to spawn subagents explicitly
 
@@ -437,6 +437,15 @@ authoring style, which is Writing Style above).
   enable extended thinking for that skill. Use for intelligence-sensitive phases
   (audit, design, API review, multi-file analysis). Omit on light or
   latency-sensitive skills
+- **Context pressure and autocompact guards**: skills with heavy phases need two
+  layers of protection against autocompact firing before state is saved. First,
+  a mid-phase checkpoint: an automatic (no user confirmation) partial dump to
+  disk at a natural boundary before the heaviest steps — this guarantees
+  something is on disk early. Second, `Compact Instructions` in SKILL.md as
+  fallback for when autocompact fires before the checkpoint runs. End-of-phase
+  session dump suggestions remain opt-in and capture the completed phase in full.
+  The pattern: checkpoint (automatic, partial, mid-phase) → end-of-phase dump
+  (opt-in, complete) → Compact Instructions (fallback)
 
 ## Commit Conventions
 
@@ -452,16 +461,19 @@ Skills write to `.artifacts/` organized by domain:
 
 ```
 .artifacts/
-├── features/       # spec-driven: specs, designs, tasks
-├── quick/          # spec-driven: quick mode tasks
-├── research/       # spec-driven: research cache
-├── epics/          # epic-tracker: epics, stories, bugs, releases
-├── docs/           # docs-writer: PRD, Brief, Design Doc, TDD
-├── design/         # design-builder: copy, design tokens, variants
-└── brainstorm/     # brainstorming: direction artifacts
+├── features/           # spec-driven: specs, designs, tasks
+├── quick/              # spec-driven: quick mode tasks
+├── research/           # spec-driven: research cache
+├── epics/              # epic-tracker: epics, stories, bugs, releases
+├── docs/               # docs-writer: PRD, Brief, Design Doc, TDD
+├── design/             # design-builder: copy, design tokens, variants
+├── brainstorm/         # brainstorming: direction artifacts
+└── .session-dump.md    # spec-driven: ephemeral cross-phase memory
 ```
 
 `.artifacts/` stays untracked by default; commit specific files only when the user wants them in version control.
+
+`.artifacts/.session-dump.md` is ephemeral — written during heavy phases to survive `/clear` and autocompact, read by wrap-up at session end, then disposable. It is not a project artifact and should never be committed.
 
 `.agents/` is a separate directory for reference context, consumed by other skills:
 
