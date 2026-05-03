@@ -17,36 +17,68 @@ GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
 - `sub-issues` (default): Epic = parent Issue, Story/Bug = sub-issues
 - `classic`: Epic = Project board itself, Story/Bug = Issues added to the board (legacy fallback)
 
+## Issue Types vs Labels
+
+GitHub has two distinct classification mechanisms with different scopes:
+
+- **Issue types**: configured at the **org level** — shared across all
+  repos in the organization. When the org has issue types, every repo
+  has them consistently. Bootstrap detects once; no per-repo variation.
+- **Labels**: configured at the **repo level** — each repository defines
+  its own label set. Never hardcode label names or colors; always query
+  the repo's existing labels before assigning (see Label Matching below).
+
+## Label Matching
+
+Labels are repo-specific. Before assigning any label, always fetch the
+repo's label list:
+
+```
+GET /repos/{owner}/{repo}/labels
+```
+
+Match semantically against the needed concept (severity, status). If no
+match is found, surface the available labels to the user and ask which
+to use (or skip). Never create labels automatically.
+
+Concepts that use labels:
+
+| Concept | Match strategy |
+|---------|---------------|
+| Severity | Look for labels containing the severity word (e.g., `high`, `critical`, `severity-high`) |
+| Status (in-progress) | Look for labels containing `progress` or `wip` |
+| Status (blocked) | Look for labels containing `blocked` or `on-hold` |
+
 ## Primitive Mapping
 
 ### github-issues mode
 
-| Artifact | GitHub primitive |
-|----------|------------------|
+| Artifact | Primitive |
+|----------|-----------|
 | Epic     | Milestone |
-| Story    | Issue (linked to Milestone via `milestone` field) |
-| Bug      | Issue + label `bug` (linked to Milestone) |
-| Issue    | Issue (linked to Milestone when epic provided; label `task` optional) |
+| Story    | Issue `issuetype: Story` (linked to Milestone) |
+| Bug      | Issue `issuetype: Bug` (linked to Milestone) |
+| Issue    | Issue `issuetype: Task` (linked to Milestone when epic provided) |
 | Release  | Release tag (semver-style; created against a commit) |
 
 ### github-projects mode (sub-issues)
 
-| Artifact | GitHub primitive |
-|----------|------------------|
-| Epic     | Issue (parent), added to the Project; sub-issues feature enabled |
-| Story    | Issue (sub-issue under the parent Epic), added to the Project |
-| Bug      | Issue (sub-issue) + label `bug`, added to the Project |
-| Issue    | Issue (sub-issue when epic provided, else standalone) + label `task` |
-| Release  | Release tag (same as github-issues mode; Project Iterations are sprint-level, not release-level) |
+| Artifact | Primitive |
+|----------|-----------|
+| Epic     | Issue `issuetype: Epic` (parent), added to Project |
+| Story    | Issue `issuetype: Story` (sub-issue under Epic) |
+| Bug      | Issue `issuetype: Bug` (sub-issue) |
+| Issue    | Issue `issuetype: Task` (sub-issue when epic provided, else standalone) |
+| Release  | Release tag |
 
 ### github-projects mode (classic)
 
-| Artifact | GitHub primitive |
-|----------|------------------|
-| Epic     | Project board (one Project per Epic) |
-| Story    | Issue added as item to the Project |
-| Bug      | Issue + label `bug`, added to the Project |
-| Issue    | Issue + label `task`, added to the Project |
+| Artifact | Primitive |
+|----------|-----------|
+| Epic     | Project board (one per Epic) |
+| Story    | Issue `issuetype: Story`, added to Project |
+| Bug      | Issue `issuetype: Bug`, added to Project |
+| Issue    | Issue `issuetype: Task`, added to Project |
 | Release  | Release tag |
 
 Sub-issues mode is preferred -- it nests work naturally and keeps a single
@@ -70,6 +102,27 @@ the project has a Status field; fall back to labels otherwise.
 
 ## Operations
 
+### Bootstrap: Issue Type Detection
+
+During bootstrap, detect whether the org has custom issue types configured:
+
+1. Query the org's issue types via MCP or `gh api orgs/{org}/issue-types`.
+2. If types are found, store the detected names in config:
+   ```yaml
+   issue_types:
+     epic: Epic
+     story: Story
+     bug: Bug
+     task: Task
+   ```
+   Names may differ from defaults (e.g., the org may use "Chore" instead
+   of "Task"). Store whatever name the org configured.
+3. If no types found or query fails: set `issue_types: {}` in config.
+   Artifact classification relies on semantic matching at the type level
+   (no types = plain Issues, no automatic classification).
+
+Re-detect on demand via "configure tracker".
+
 ### create_epic
 
 **github-issues mode:**
@@ -81,7 +134,8 @@ the project has a Status field; fall back to labels otherwise.
 **github-projects sub-issues:**
 
 1. Create a parent Issue in the configured `repo`.
-2. Add label `epic` to mark it semantically.
+2. If `issue_types: true`: set `issue_type: Epic`.
+   Otherwise: add label `epic`.
 3. Add the Issue to the Project (`project_number`).
 4. Return Issue number and url.
 
@@ -98,25 +152,25 @@ the project has a Status field; fall back to labels otherwise.
 2. Set `milestone` to the parent Epic (when `epic_id` provided).
 3. Set body with title/description and acceptance criteria (story),
    repro steps (bug), or plain description (issue).
-4. For `create_bug`: add label `bug`. Add `severity:{level}` label when
-   provided.
-5. For `create_issue`: add label `task` (creates it in the repo on first
-   use; color: blue, description: "Internal or infrastructure work").
+4. Set `issue_type` using the name stored in config under `issue_types`
+   (e.g., `issue_types.story`, `issue_types.bug`, `issue_types.task`).
+   If `issue_types` is empty, no type is set — Issue is created plain.
+5. For `create_bug` with a severity: fetch repo labels, match semantically
+   to find a severity label (see Label Matching). Assign if found; skip
+   with a note to the user if not.
 6. Return Issue number and url.
 
 **github-projects sub-issues:**
 
 1. Create an Issue in the `repo`.
-2. Attach as sub-issue under the parent Epic Issue (when `epic_id`
-   provided).
+2. Attach as sub-issue under the parent Epic Issue (when `epic_id` provided).
 3. Add to the Project (`project_number`).
-4. For `create_bug`: add label `bug` and severity label.
-5. For `create_issue`: add label `task`.
-6. Return Issue number and url.
+4. Apply issue type per the same rules as github-issues mode above.
+5. Return Issue number and url.
 
 **github-projects classic:**
 
-Same as github-issues mode; additionally add to the Project as an item.
+Same as github-issues mode; additionally add the Issue to the Project as an item.
 
 ### create_release
 
@@ -129,8 +183,11 @@ Same as github-issues mode; additionally add to the Project as an item.
 
 1. Map generic status to GitHub state via the table above.
 2. For `done`: close Issue with reason `completed`.
-3. For `planned` -> `in-progress`: add `in-progress` label, optionally set Project Status field.
-4. For `blocked`: keep open, add `blocked` label.
+3. For `planned` -> `in-progress`: fetch repo labels, match semantically
+   (look for `progress` or `wip`); assign if found, skip with note if not.
+   In Projects mode, prefer setting the Project Status field instead.
+4. For `blocked`: fetch repo labels, match semantically (look for `blocked`
+   or `on-hold`); assign if found, skip with note if not.
 
 ### fetch_artifact
 
@@ -169,6 +226,9 @@ sub-issue support). If unavailable:
 - Repo not accessible: route to GitHub MCP auth setup
 - Milestone or Project not found: ask user to verify config or offer to create
 - Sub-issues feature disabled: fall back to classic mode after user confirmation
-- Label `bug` doesn't exist in repo: create it during first push (color: red, description: "Something isn't working")
+- Issue type not found in org (type was deleted or renamed after bootstrap): warn user,
+  suggest re-running "configure tracker" to re-detect; create Issue without type
+- Severity or status label not found in repo: surface available labels to user, ask
+  which to use or confirm to skip; never create labels automatically
 - Release tag already exists: ask user whether to overwrite, append, or change the tag name
 - API rate limit: surface the error, suggest waiting before retry

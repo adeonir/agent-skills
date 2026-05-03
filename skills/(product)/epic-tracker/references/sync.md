@@ -28,8 +28,13 @@ tracker:
 
   # GitHub (issues or projects)
   repo: owner/name
-  project_number: 5     # github-projects only
+  project_number: 5          # github-projects only
   projects_mode: sub-issues | classic    # github-projects only; default sub-issues
+  issue_types:               # github only; detected during bootstrap
+    epic: Epic               # org-configured type names; empty object if org has none
+    story: Story
+    bug: Bug
+    task: Task
 
   # Jira
   base_url: https://company.atlassian.net
@@ -56,7 +61,11 @@ Runs when an operation requires a tracker but config is missing or
 6. For `github-projects`, detect whether the project uses sub-issues
    (newer) or classic (older); default to sub-issues, fall back to classic
    if detection fails.
-7. Write the config to `.artifacts/epics/.config.yml` including the
+7. For `github-issues` or `github-projects`, detect whether the org has
+   custom issue types configured (Story, Bug, Task, Epic); store result
+   as `issue_types: true | false` in config. See adapter for detection
+   details and label fallback rules.
+8. Write the config to `.artifacts/epics/.config.yml` including the
    integration method chosen (`via: mcp | cli`).
 
 Bootstrap runs at most once per project. Re-run on demand by triggering
