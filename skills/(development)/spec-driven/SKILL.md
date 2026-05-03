@@ -306,6 +306,23 @@ Research and exploration sub-agents in design.md run in the same dispatch
 turn (independent). The implement sub-agent runs after design/tasks
 artifacts exist.
 
+## Compact Instructions
+
+Heavy phases write a mid-phase checkpoint to disk before autocompact
+can fire (design.md Step 9a). If autocompact fires before that
+checkpoint runs, preserve:
+
+- Current phase and step number
+- Feature ID and path (`.artifacts/features/{ID}-{name}/`)
+- Open decisions not yet captured in any artifact
+- Acceptance criteria check status (which `[x]` are marked and which are not)
+- Path to session dump if already written (`.artifacts/.session-dump.md`)
+
+Drop:
+- Raw file contents read during exploration (already on disk)
+- Intermediate research output already written to `.artifacts/research/`
+- Verification output already committed as `[x]` in tasks.md
+
 ## Error Handling
 
 - No .artifacts/: Create it (features/ and research/ are created on demand)

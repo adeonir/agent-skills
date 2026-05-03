@@ -256,6 +256,31 @@ If all tasks done (or all inline steps done for Medium scope):
 - Set `status: to-review`
 - Do NOT set `status: done` -- audit owns that transition
 
+### Step 9a: Session Dump
+
+Implementation is complete. Suggest a context dump before queuing
+discoveries and the approval gate — this is the safest moment to clear
+the window before audit.
+
+> Implementation complete. Append a phase summary to
+> `.artifacts/.session-dump.md` and clear the context before audit? (y/n)
+
+If the user accepts:
+
+- If `.artifacts/.session-dump.md` does not exist, create it with
+  `# Session Dump` as the H1
+- Append one block using `templates/session-dump.md` — record only what
+  an artifact does not already capture (unstated decisions, runtime
+  surprises, follow-ups for audit). Do not duplicate spec.md / design.md
+  / tasks.md content
+- Confirm the dump was written; the user clears the window manually
+
+If the user declines or skips: continue in the current window without
+dumping.
+
+The dump is ephemeral cross-phase memory — wrap-up reads it at end of
+session, then the file is disposable.
+
 ### Step 10: Queue Discoveries
 
 Load [knowledge.md](knowledge.md) for format.
@@ -293,29 +318,6 @@ Approve to proceed to audit, or describe what to fix.
 - If approved: run `audit` (mandatory before `done`). For user-facing features, also consider `validate`.
 
 Do not suggest `audit` until approved.
-
-### Step 12: Suggest Session Dump
-
-Phase complete. Suggest to the user that this is a good moment to dump
-session context and clear the window before audit:
-
-> Phase complete. Append a phase summary to `.artifacts/.session-dump.md`
-> and clear the context before audit? (y/n)
-
-If the user accepts:
-
-- If `.artifacts/.session-dump.md` does not exist, create it with
-  `# Session Dump` as the H1
-- Append one block using `templates/session-dump.md` -- record only what
-  an artifact does not already capture (unstated decisions, blockers,
-  follow-ups for audit). Do not duplicate spec.md / design.md /
-  tasks.md content
-- Confirm the dump was written; the user clears the window manually
-
-If the user declines or skips: continue in the current window without dumping.
-
-The dump is ephemeral cross-phase memory -- wrap-up reads it at end of
-session, then the file is disposable.
 
 ## Edge Case Verification
 

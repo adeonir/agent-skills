@@ -209,6 +209,31 @@ Check if the spec includes a `designs/` folder with visual references:
    - Consider these in component design and implementation
 3. If no designs folder: proceed without visual context
 
+### Step 9a: Mid-Phase Context Checkpoint
+
+Discovery is complete. Write a partial snapshot to disk before the
+context-heavy design generation steps (10-12). Do not wait for user
+confirmation — write immediately and continue.
+
+- If `.artifacts/.session-dump.md` does not exist, create it with
+  `# Session Dump` as the H1
+- Append a partial block (use `templates/session-dump.md` shape):
+  - Phase: `design (in progress — entering data model)`
+  - Feature: ID and name
+  - Decisions: open architectural decisions entering Step 10
+  - Discoveries: key findings from research and exploration not captured
+    in their respective cache files (e.g. a constraint that affects
+    data model shape)
+  - Blockers: anything flagged during exploration that may affect design
+  - Open items: questions for the data model or component design steps
+  - Next phase: `design (continuing — data model and generation)`
+- Confirm the checkpoint was written, then continue immediately
+
+This checkpoint is partial and automatic. The end-of-phase dump
+(Step 15) remains opt-in and captures the completed phase in full.
+If autocompact fires during Steps 10-12, this checkpoint plus the
+artifacts on disk provide enough context to resume.
+
 ### Step 10: Data Model Definition
 
 Define the data model before component design. Every statement about an existing type must cite `file:line` from the exploration's Member Enumeration.
