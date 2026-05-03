@@ -18,12 +18,15 @@ End-of-session documentation across auto-memory, Basic Memory, and Obsidian.
 ## Workflow
 
 ```
-detect-project --> auto-memory --> bm-notes --> obsidian-notes --> spec-delta
+detect-project --> session-dump:load --> auto-memory --> bm-notes -->
+obsidian-notes --> session-dump:detect+cleanup
 ```
 
-Detect project from current working directory, then execute four steps
-in sequence. No confirmation between steps. The final step is silent
-unless a structural delta is detected.
+Detect project from current working directory, load the spec-driven
+session dump (when present), then execute the four note-writing steps
+in sequence. No confirmation between steps. The closing step runs
+structural-delta detection — silent unless a delta fires — and then
+unconditionally unlinks the dump file.
 
 ## Context Loading
 
@@ -32,10 +35,11 @@ depend on the resolved project name, BM project and path, Obsidian path,
 and base tags.
 
 Then load each reference in order as each step executes:
-1. [auto-memory.md](references/auto-memory.md)
-2. [bm-notes.md](references/bm-notes.md)
-3. [obsidian-notes.md](references/obsidian-notes.md)
-4. [spec-delta.md](references/spec-delta.md)
+1. [session-dump.md](references/session-dump.md) (Load phase)
+2. [auto-memory.md](references/auto-memory.md)
+3. [bm-notes.md](references/bm-notes.md)
+4. [obsidian-notes.md](references/obsidian-notes.md)
+5. [session-dump.md](references/session-dump.md) (Detect + Cleanup phases)
 
 ## Triggers
 
@@ -47,18 +51,25 @@ Notes:
 
 - `mapping.md` is not a direct trigger. It is loaded automatically before
   all other references.
-- `spec-delta.md` runs last, only emits output when a spec-driven
-  session-dump is present and a structural delta is detected.
+- `session-dump.md` is not a direct trigger. It is loaded automatically
+  after mapping (Load phase) and again after obsidian-notes
+  (Detect + Cleanup phases). Detect emits one suggestion line only when
+  a structural delta is detected; Cleanup unlinks the dump file
+  unconditionally.
 
 ## Cross-References
 
 ```
 mapping.md -------> bm-notes.md        (provides BM project, path, base tags)
 mapping.md -------> obsidian-notes.md  (provides Obsidian path, base tags)
+mapping.md -------> session-dump.md    (loaded after mapping)
+session-dump.md --> bm-notes.md        (provides Discoveries / Decisions / Next Context)
+session-dump.md --> obsidian-notes.md  (same)
+session-dump.md --> spec-driven        (consumes .artifacts/.session-dump.md, latest phase block)
+session-dump.md --> project-index      (suggests /project-index re-index when Detect fires)
+session-dump.md --> filesystem         (unconditional unlink at end)
 bm-notes.md -----> BM MCP              (direct tool calls, no skill indirection)
 obsidian-notes.md -> MCPVault MCP      (direct tool calls, no skill indirection)
-spec-delta.md ----> spec-driven        (reads .artifacts/.session-dump.md, latest phase block)
-spec-delta.md ----> project-index      (suggests /project-index re-index when delta detected)
 ```
 
 ## Guidelines
@@ -74,7 +85,8 @@ spec-delta.md ----> project-index      (suggests /project-index re-index when de
 - Be concise in auto-memory, detailed in BM session
 - Use past tense and natural language in Obsidian notes
 - Use BM `[brackets]` tag syntax and Obsidian `#hashtags` per tool
-- Run spec-delta last; surface the re-index suggestion only when a session-dump exists and either keyword scan or structural diff fires
+- Load session-dump first so bm-notes and obsidian-notes can fold its content
+- Run session-dump cleanup last so the ephemeral file does not linger
 
 **DON'T:**
 - Ask for confirmation between steps
@@ -82,6 +94,8 @@ spec-delta.md ----> project-index      (suggests /project-index re-index when de
 - Skip auto-memory for trivial sessions
 - Write changelog-style content or git metadata in Obsidian notes
 - Mix BM `[brackets]` with Obsidian `#hashtags` across tools
+- Re-read `.artifacts/.session-dump.md` in downstream refs (contrasts: load once, share via context)
+- Prompt before deleting the session-dump (contrasts: cleanup is unconditional)
 
 ## Error Handling
 
@@ -92,5 +106,6 @@ spec-delta.md ----> project-index      (suggests /project-index re-index when de
 - Session note already exists in BM: append with edit_note, do not overwrite
 - Daily note already exists in Obsidian: update with patch_note
 - No meaningful session content: keep session brief, still update daily
-- No spec-driven session-dump found: spec-delta step emits nothing
-- Not in a git repo: spec-delta skips the structural diff and uses the session-dump keyword scan only
+- No spec-driven session-dump found: Load no-ops, bm-notes / obsidian-notes proceed without folded content, Detect emits nothing, Cleanup no-ops
+- Not in a git repo: Detect skips the structural diff and uses the keyword scan only
+- session-dump unlink fails: warn, do not block wrap-up completion

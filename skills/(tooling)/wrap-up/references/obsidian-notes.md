@@ -4,6 +4,7 @@ Create session notes in the project folder and update the daily note.
 Uses MCPVault MCP tools directly — no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian path and base tags
+> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- weave its bullets into Summary prose and mirror Decisions
 
 ## When to Use
 
@@ -122,6 +123,16 @@ Section presence:
 - `## Observations` whenever a fact is worth distilling into a tagged bullet
 - `## Relations` as fallback for typed edges that add graph value —
   inline `[[wikilinks]]` in Summary already cover ordinary mentions
+
+When `session-dump.md` Load surfaced a latest phase block, fold its
+bullets in before composing the note:
+
+- `**Discoveries:**` and `**Next Context:**` weave into `## Summary`
+  prose narrative (past tense, natural language) — do not list them
+  verbatim
+- `**Decisions:**` mirror into `## Decisions` bullets with rationale,
+  matching the BM Decisions shape (name rejected alternatives when
+  applicable)
 
 #### Write
 
@@ -259,6 +270,7 @@ Rules:
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
 - Keep daily note as outcomes and decisions, not detailed log
+- Weave session-dump Discoveries and Next Context into Summary prose; mirror Decisions bullets with rationale
 
 **DON'T:**
 - Call any skill — use MCPVault MCP tools directly
@@ -272,3 +284,4 @@ Rules:
   `## Next Context` fold into Obsidian `## Summary` prose
 - Create empty sections or placeholder content
 - Create wikilinks to files that don't exist (orphan links)
+- Restate session-dump bullets verbatim as a list inside Summary (contrasts: weave into prose narrative)

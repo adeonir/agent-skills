@@ -4,6 +4,7 @@ Create session notes in Basic Memory. Uses BM MCP tools directly —
 no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project, BM path, and base tags
+> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- fold its bullets into matching BM session sections
 
 ## When to Use
 
@@ -151,6 +152,21 @@ Include file paths, directory names, and technical specifics here.
 - follows [[Previous Session Note]]
 ```
 
+### Folding session-dump content
+
+When `session-dump.md` Load surfaced a latest phase block, fold its
+bullets into the matching BM sections before composing the note:
+
+- `**Discoveries:**` → `## Findings` bullets (one per discovery,
+  preserving values, edge cases, errors)
+- `**Decisions:**` → `## Decisions` bullets, merged with reasoning
+  derived from session (name rejected alternatives when applicable)
+- `**Next Context:**` → `## Next Context` bullets, preserving the
+  concrete entry point (file, function, path, or command)
+
+When the dump is absent, populate these sections from conversation
+review only.
+
 Write:
 
 ```
@@ -200,6 +216,7 @@ Rules:
 - Link to entities in `entities/` when referencing technologies or tools
   (e.g., `uses [[Cloudflare]]`)
 - Create new entity notes for technologies that appear in 2+ session notes
+- Fold session-dump Discoveries / Decisions / Next Context into matching BM sections when present
 
 **DON'T:**
 - Invoke any skill — use BM MCP tools directly
@@ -207,3 +224,4 @@ Rules:
 - Use plain `[[wikilinks]]` without relation type (that is Obsidian format)
 - Create dedicated decision notes — decisions live inline in sessions
 - Write `# Heading` inside `content` — frontmatter already carries the title
+- Drop session-dump bullets from the BM note without folding them in (contrasts: fold all three categories when present)

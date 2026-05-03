@@ -6,6 +6,22 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-03
+
+### Added
+
+- Lifecycle ownership for the spec-driven session dump: a new `session-dump.md` reference loads `.artifacts/.session-dump.md` after mapping so bm-notes and obsidian-notes can fold its Discoveries / Decisions / Next Context, runs the structural-delta detection that previously lived in spec-delta, and unconditionally unlinks the file at the end of wrap-up
+- Fold rules in `bm-notes.md` (Discoveries to Findings, Decisions to Decisions, Next Context to Next Context) and `obsidian-notes.md` (Discoveries and Next Context woven into Summary prose, Decisions mirrored with rationale) for the loaded session-dump content
+
+### Changed
+
+- Workflow re-orchestrated around the new lifecycle: session-dump Load runs after mapping, Detect + Cleanup run after obsidian-notes
+- Cross-references and Guidelines in SKILL.md updated to reflect the load-once / share-via-context pattern and the unconditional cleanup
+
+### Removed
+
+- Standalone `spec-delta.md` reference; its keyword scan, structural git diff, and `/project-index re-index` suggestion now live as the Detect phase inside `session-dump.md`
+
 ## 2026-04-29
 
 ### Added
