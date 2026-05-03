@@ -17,6 +17,8 @@ Generated automatically during PRD drafting. Do not trigger independently -- the
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ```
 (PRD discovery -> validation -> synthesis) -> drafting -> PRD + Brief
 ```

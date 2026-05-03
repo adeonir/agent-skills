@@ -13,6 +13,8 @@ tooling, research, CI/CD, documentation, or any chore-type work.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### 1. Identify Epic (optional)
 
 1. Ask the user whether this issue belongs to an epic or is standalone

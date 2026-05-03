@@ -10,6 +10,8 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### 1. Discover
 
 Check for existing context before asking questions:

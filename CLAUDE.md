@@ -457,7 +457,7 @@ authoring style, which is Writing Style above).
 
 ## Output Artifacts
 
-Skills write to `.artifacts/` organized by domain:
+Skills write to `.artifacts` organized by domain:
 
 ```
 .artifacts/
@@ -471,7 +471,7 @@ Skills write to `.artifacts/` organized by domain:
 └── .session-dump.md    # spec-driven: ephemeral cross-phase memory
 ```
 
-`.artifacts/` stays untracked by default; commit specific files only when the user wants them in version control.
+`.artifacts` is excluded locally via `.git/info/exclude` on first write — it stays out of `git status` without touching the project's `.gitignore`. Commit specific files only when the user explicitly requests it.
 
 `.artifacts/.session-dump.md` is ephemeral — written during heavy phases to survive `/clear` and autocompact, read by wrap-up at session end, then disposable. It is not a project artifact and should never be committed.
 

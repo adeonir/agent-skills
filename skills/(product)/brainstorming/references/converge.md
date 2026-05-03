@@ -15,6 +15,8 @@ explicit, not hidden. The user decides, the agent informs.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Screen
 
 Quick pass: eliminate alternatives that violate hard constraints identified

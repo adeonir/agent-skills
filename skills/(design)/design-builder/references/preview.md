@@ -27,6 +27,8 @@ Read `project_type` from discovery context or `copy.yaml`:
 - **page-based** (`landing-page`, `website`): page-based presets and full-page HTML
 - **screen-based** (`web-app`, `mobile-app`): screen-based presets, render the entry screen with navigation affordances, offer device viewport switching
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ## Two Base Modes
 
 Agent suggests based on context, user chooses.

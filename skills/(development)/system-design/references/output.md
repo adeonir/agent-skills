@@ -6,6 +6,8 @@ Produce the system brief and ask the user what to do next.
 
 Load after the architecture is confirmed by the user.
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ## System Brief
 
 The brief consolidates everything from the session into a single structured

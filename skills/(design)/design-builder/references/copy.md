@@ -12,6 +12,8 @@ and organize into `copy.yaml`.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Establish Context
 
 If context was not established by SKILL.md discovery, ask:

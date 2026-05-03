@@ -11,6 +11,8 @@ that can be verified independently.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### 1. Identify Epic
 
 1. If user specifies an epic, load

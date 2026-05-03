@@ -13,6 +13,8 @@ When creating a PRD, defining product requirements, or writing product specifica
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ```
 discovery --> validation --> synthesis --> drafting
 ```

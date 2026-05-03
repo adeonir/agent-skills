@@ -58,6 +58,8 @@ keywords:
 
 ## Cache Check Process
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 Before researching, always check for existing cache:
 
 ```bash

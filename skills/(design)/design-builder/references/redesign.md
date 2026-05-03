@@ -40,6 +40,8 @@ Slices are independent. Each can come from a different source. The composition i
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Identify the Anchor
 
 Pick the existing app being redesigned. Accepted sources:

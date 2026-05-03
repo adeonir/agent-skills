@@ -11,6 +11,8 @@ environment context.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### 1. Collect Information
 
 Ask the user for (skip what's already provided):

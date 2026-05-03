@@ -26,6 +26,8 @@ evidence-based layer.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Resolve Feature
 
 1. If ID provided -> use `.artifacts/features/{ID}-{name}/`

@@ -10,6 +10,8 @@ Group stories from one or more epics into a cross-cutting delivery slice.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### 1. Discover
 
 1. If tracker is configured, fetch story summaries via the sync.md

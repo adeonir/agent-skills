@@ -17,6 +17,8 @@ Creates `.artifacts/features/{ID}-{name}/decisions.md` with user decisions on gr
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Resolve Feature
 
 1. If ID provided -> use `.artifacts/features/{ID}-{name}/`

@@ -15,6 +15,8 @@ When creating a design document for a software system before implementation. Des
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ```
 discovery --> analysis --> drafting
 ```

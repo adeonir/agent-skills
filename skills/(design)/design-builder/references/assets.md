@@ -32,6 +32,8 @@ User may also request prompt-only explicitly even when an MCP is present — hon
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Step 1: Read DESIGN.md
 
 Read `<project-root>/DESIGN.md`. Extract:

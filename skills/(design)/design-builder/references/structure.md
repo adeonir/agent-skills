@@ -27,6 +27,8 @@ Never overwrite frontmatter, `## Overview`, `## Colors`, `## Typography`, `## El
 
 The template file is lowercase (`design.md`) by skill convention. The artifact written into the user's project root must use the uppercase filename `DESIGN.md`.
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ## Project Type Routes the Flow
 
 Read `project_type` from discovery context or `copy.yaml`. Ask the user if not set. It routes into one of two decision sets:

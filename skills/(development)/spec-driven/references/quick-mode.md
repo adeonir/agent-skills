@@ -14,6 +14,8 @@ Express lane for small changes. Minimal ceremony, minimal artifacts.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 If the user pauses mid-execution and resumes later, re-read `task.md` before
 the next edit — branch, status, or scope may have drifted.
 

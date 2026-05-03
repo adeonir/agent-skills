@@ -13,6 +13,8 @@ push can clobber tracker state that other people rely on.
 - Auto-loaded by core refs (epic, story, bug, release) after the artifact is saved when config has `tracker.kind != none`
 - Auto-loaded by `status.md` to read overview state from the tracker when configured
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ## Config
 
 Path: `<project-root>/.artifacts/epics/.config.yml`

@@ -16,6 +16,8 @@ Break design into implementable tasks.
 
 ## Workflow
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 Track each step as it completes — mark it done before moving to the next.
 In Claude Code, create a task list at phase start (TaskCreate) and update
 each step as it completes (TaskUpdate).
