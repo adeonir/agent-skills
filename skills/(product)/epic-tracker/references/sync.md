@@ -45,12 +45,19 @@ Runs when an operation requires a tracker but config is missing or
 `kind` is unset.
 
 1. Read `<project-root>/.artifacts/epics/.config.yml`. If valid, skip bootstrap.
-2. Detect which tracker MCPs are available in the current environment.
+2. Detect available integration methods for each tracker:
+   - MCP: check if the tracker's MCP server is active in the session
+   - CLI: check if the tracker's CLI is installed (`gh`, `linear`, `jira`)
+   - Prefer MCP when both are available; CLI is an equally valid fallback
 3. Present detected options plus "none (markdown only)" to the user.
 4. Ask the user to pick one.
-5. Collect tracker-specific fields (workspace, repo, project_number, base_url, project_key) one question at a time.
-6. For `github-projects`, detect whether the project uses sub-issues (newer) or classic (older); default to sub-issues, fall back to classic if detection fails.
-7. Write the config to `.artifacts/epics/.config.yml`.
+5. Collect tracker-specific fields (workspace, repo, project_number,
+   base_url, project_key) one question at a time.
+6. For `github-projects`, detect whether the project uses sub-issues
+   (newer) or classic (older); default to sub-issues, fall back to classic
+   if detection fails.
+7. Write the config to `.artifacts/epics/.config.yml` including the
+   integration method chosen (`via: mcp | cli`).
 
 Bootstrap runs at most once per project. Re-run on demand by triggering
 "configure tracker".
@@ -67,25 +74,30 @@ not per artifact. Cache the user's answer in memory:
 Cache is in-memory only. Next session resets to "always ask" unless the
 user updates the cache mid-session.
 
-## Push Direction (markdown → tracker)
+## Push Direction (draft or markdown → tracker)
 
-1. Read the artifact markdown (frontmatter + body).
-2. Validate config: `tracker.kind` must be set and not `none`. Otherwise fall back to markdown-only and inform the user.
+1. Read artifact content: use the draft data directly when invoked
+   immediately after create (no markdown file exists); read from the saved
+   markdown file when invoked standalone (e.g., "sync to tracker").
+2. Validate config: `tracker.kind` must be set and not `none`. Otherwise
+   fall back to markdown-only and inform the user.
 3. Load the adapter matching `tracker.kind`:
    - `linear` -> [adapters/linear.md](adapters/linear.md)
    - `github-issues` or `github-projects` -> [adapters/github.md](adapters/github.md)
    - `jira` -> [adapters/jira.md](adapters/jira.md)
 4. Adapter creates or updates the entity in the tracker via MCP.
-5. On success, patch the markdown frontmatter:
-
-   ```yaml
-   tracker:
-     id: PROJ-123
-     url: https://linear.app/.../PROJ-123
-     last_synced: 2026-04-29T10:30:00Z
-   ```
-
-6. On failure, surface the error and leave markdown untouched. Suggest re-running sync once the issue is resolved.
+5. On success:
+   - If a markdown file exists: patch its frontmatter with tracker info:
+     ```yaml
+     tracker:
+       id: PROJ-123
+       url: https://linear.app/.../PROJ-123
+       last_synced: 2026-04-29T10:30:00Z
+     ```
+   - If no markdown file (tracker-native workflow): surface the tracker URL
+     to the user; nothing is stored locally.
+6. On failure, surface the error and leave any existing markdown untouched.
+   Suggest re-running sync once the issue is resolved.
 
 ## Pull Direction (tracker → markdown)
 
@@ -138,6 +150,7 @@ these operations using its own MCP calls:
 | `create_epic` | name, title, body, labels | tracker id + url |
 | `create_story` | epic_id (optional), name, title, body, acceptance criteria, labels | tracker id + url |
 | `create_bug` | epic_id (optional), name, title, severity, body, repro steps | tracker id + url |
+| `create_issue` | epic_id (optional), name, title, body, labels | tracker id + url |
 | `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `fetch_artifact` | tracker_id | full state (status, title, body, labels) |

@@ -26,6 +26,7 @@ GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
 | Epic     | Milestone |
 | Story    | Issue (linked to Milestone via `milestone` field) |
 | Bug      | Issue + label `bug` (linked to Milestone) |
+| Issue    | Issue (linked to Milestone when epic provided; label `task` optional) |
 | Release  | Release tag (semver-style; created against a commit) |
 
 ### github-projects mode (sub-issues)
@@ -35,6 +36,7 @@ GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
 | Epic     | Issue (parent), added to the Project; sub-issues feature enabled |
 | Story    | Issue (sub-issue under the parent Epic), added to the Project |
 | Bug      | Issue (sub-issue) + label `bug`, added to the Project |
+| Issue    | Issue (sub-issue when epic provided, else standalone) + label `task` |
 | Release  | Release tag (same as github-issues mode; Project Iterations are sprint-level, not release-level) |
 
 ### github-projects mode (classic)
@@ -44,6 +46,7 @@ GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
 | Epic     | Project board (one Project per Epic) |
 | Story    | Issue added as item to the Project |
 | Bug      | Issue + label `bug`, added to the Project |
+| Issue    | Issue + label `task`, added to the Project |
 | Release  | Release tag |
 
 Sub-issues mode is preferred -- it nests work naturally and keeps a single
@@ -87,23 +90,29 @@ the project has a Status field; fall back to labels otherwise.
 1. Create a new Project board (or use `project_number` if pointing at one).
 2. Return Project number and url.
 
-### create_story / create_bug
+### create_story / create_bug / create_issue
 
 **github-issues mode:**
 
 1. Create an Issue in the `repo`.
 2. Set `milestone` to the parent Epic (when `epic_id` provided).
-3. Set body with title/description and acceptance criteria (story) or repro steps (bug).
-4. For `create_bug`: add label `bug`. Add `severity:{level}` label when provided.
-5. Return Issue number and url.
+3. Set body with title/description and acceptance criteria (story),
+   repro steps (bug), or plain description (issue).
+4. For `create_bug`: add label `bug`. Add `severity:{level}` label when
+   provided.
+5. For `create_issue`: add label `task` (creates it in the repo on first
+   use; color: blue, description: "Internal or infrastructure work").
+6. Return Issue number and url.
 
 **github-projects sub-issues:**
 
 1. Create an Issue in the `repo`.
-2. Attach as sub-issue under the parent Epic Issue (when `epic_id` provided).
+2. Attach as sub-issue under the parent Epic Issue (when `epic_id`
+   provided).
 3. Add to the Project (`project_number`).
 4. For `create_bug`: add label `bug` and severity label.
-5. Return Issue number and url.
+5. For `create_issue`: add label `task`.
+6. Return Issue number and url.
 
 **github-projects classic:**
 

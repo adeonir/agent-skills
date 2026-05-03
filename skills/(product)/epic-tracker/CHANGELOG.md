@@ -6,6 +6,23 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-03
+
+### Added
+
+- Issue artifact type for internal work items (infra, refactor, tooling, research) with optional epic parent, checklist, and rabbit holes
+- Adapter mapping for the issue type across all trackers (Linear: label `task`, GitHub: label `task`, Jira: native Task issue type)
+- `create_issue` operation in the sync operations table
+- CLI detection in bootstrap alongside MCP; integration method persisted as `via: mcp | cli` in config
+
+### Changed
+
+- Tracker integration is tracker-first when configured: artifacts pushed directly to the tracker with no local markdown file created
+- Save and Sync steps in core refs merged into a single conditional step routing to tracker or markdown based on config
+- Markdown output is the fallback path only, used when no tracker is configured or user declines to push
+- Push Direction in sync accepts draft content directly without a pre-saved markdown file; surfaces tracker URL to the user on success when no local file exists
+- Release discovery fetches stories from the tracker when configured instead of scanning markdown files
+
 ## 2026-04-29
 
 ### Added

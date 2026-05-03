@@ -42,37 +42,35 @@ Fill the template:
 
 Present the draft to the user. Wait for feedback before saving.
 
-### 4. Save
+### 4. Save or Push
 
-Determine the next sequence number by counting existing story files in
-`.artifacts/epics/{epic-name}/` (exclude `epic.md`). Zero-pad to 3 digits.
+**If tracker configured** (`.artifacts/epics/.config.yml` exists with
+`tracker.kind` set and not `none`):
+- Ask the user (per session, cached) whether to push to the tracker
+- If yes: load [sync.md](sync.md) and dispatch using the draft content;
+  pass the parent epic's tracker id (from `epic.md` frontmatter
+  `tracker.id`) so the story is linked — no markdown file is created
+- If no: save to markdown and proceed to step 5
 
-Save to `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md`.
+**If no tracker configured** (config missing or `kind: none`):
+- Save to markdown and proceed to step 5
 
-Example: if 2 stories exist, the next file is `003-reset-password-flow.md`.
-
-### 5. Update Epic
-
-After saving, update the parent epic's Stories checklist to replace the
-plain story name with a linked, numbered entry:
-
-```markdown
-- [ ] [003-reset-password-flow](003-reset-password-flow.md) -- brief description
-```
-
-### 6. Sync to tracker (optional)
-
-If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
-`none`, ask the user (per session, cached) whether to push this story to
-the tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
-adapter; pass the parent Epic's tracker id (from `epic.md` frontmatter) so
-the story is linked correctly in the tracker.
+**Saving to markdown:**
+1. Count existing story and task files in `.artifacts/epics/{epic-name}/`
+   (exclude `epic.md`); zero-pad to 3 digits
+2. Save to `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md`
 
 If the config is missing, run [sync.md](sync.md) bootstrap before the
 first push, then proceed.
 
-If `tracker.kind: none` or no matching MCP is available, skip silently --
-markdown stays the source of truth.
+### 5. Update Epic Checklist *(markdown only)*
+
+After saving to markdown, update the parent epic's Stories checklist to
+replace the plain story name with a linked, numbered entry:
+
+```markdown
+- [ ] [003-reset-password-flow](003-reset-password-flow.md) -- brief description
+```
 
 ## Guidelines
 

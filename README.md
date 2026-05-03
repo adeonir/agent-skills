@@ -27,7 +27,7 @@ npx skills add adeonir/agent-skills
 | **[system-design](skills/(development)/system-design)** | Development | Guided system design from problem to architecture: discovery, requirements, trade-offs, components, brief |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration: discover context, diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
-| **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories and bugs, group releases. Optional tracker integration (Linear, GitHub Issues/Projects, Jira) with markdown fallback. Feeds spec-driven |
+| **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
 | **[wrap-up](skills/(tooling)/wrap-up)** | Tooling | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
@@ -60,7 +60,7 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 ```
 1. brainstorming     --> explore ideas, choose direction
 2. docs-writer       --> generate requirements and technical docs
-3. epic-tracker      --> plan epics, track stories and bugs
+3. epic-tracker      --> plan epics, track stories, bugs, and issues
 4. design-builder    --> extract, structure, preview, approve
 5. spec-driven       --> specify, design, tasks, implement
 6. git-helpers       --> commit, code-review, pull-request, finish branch
@@ -88,7 +88,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── design/         # design-builder: copy.yaml, design.json, variants/
 ├── docs/           # docs-writer + system-design: PRD, Brief, Design Doc, TDD, system-brief.md
-├── epics/          # epic-tracker: epics, stories, bugs, releases
+├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
 └── research/       # spec-driven: research cache

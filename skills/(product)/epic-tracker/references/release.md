@@ -12,7 +12,8 @@ Group stories from one or more epics into a cross-cutting delivery slice.
 
 ### 1. Discover
 
-1. Scan `.artifacts/epics/` for existing epics and their stories
+1. If tracker is configured, fetch story summaries via the sync.md
+   `list_artifacts` operation; otherwise scan `.artifacts/epics/`
 2. List stories by status to help the user choose what to include
 3. If no stories exist, suggest creating epics and stories first
 
@@ -39,31 +40,23 @@ Fill the template:
 
 Present the draft to the user. Wait for feedback before saving.
 
-### 4. Save
+### 4. Save or Push
 
-Save to `.artifacts/epics/releases/{release-name}.md`. Create the
-directory if it doesn't exist.
+**If tracker configured** (`.artifacts/epics/.config.yml` exists with
+`tracker.kind` set and not `none`):
+- Ask the user (per session, cached) whether to push to the tracker
+- If yes: load [sync.md](sync.md) and dispatch using the draft content;
+  the adapter maps Release to the closest native primitive (Linear: Cycle,
+  GitHub: Release tag, Jira: Fix Version) and links included stories/tasks/
+  bugs to the release — no markdown file is created
+- If no: save to `.artifacts/epics/releases/{release-name}.md`
 
-### 5. Sync to tracker (optional)
-
-If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
-`none`, ask the user (per session, cached) whether to push this release to
-the tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
-adapter; the adapter maps Release to the closest native primitive:
-
-- Linear -> Cycle (sprint-style)
-- GitHub Issues / Projects -> Release tag
-- Jira -> Fix Version
-
-The adapter also links included stories/bugs to the release primitive
-(e.g., setting `cycle` on Linear Issues, `fixVersions` on Jira Issues,
-listing Issues in the GitHub Release notes).
+**If no tracker configured** (config missing or `kind: none`):
+- Save to `.artifacts/epics/releases/{release-name}.md`; create the
+  directory if it doesn't exist
 
 If the config is missing, run [sync.md](sync.md) bootstrap before the
 first push, then proceed.
-
-If `tracker.kind: none` or no matching MCP is available, skip silently --
-markdown stays the source of truth.
 
 ## Guidelines
 

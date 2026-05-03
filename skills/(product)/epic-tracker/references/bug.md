@@ -54,27 +54,23 @@ Fill the template:
 
 Present the draft to the user. Wait for feedback before saving.
 
-### 5. Save
+### 5. Save or Push
 
-Save to `.artifacts/epics/{epic-name}/{bug-name}.md` or
-`.artifacts/epics/standalone/{bug-name}.md`.
+**If tracker configured** (`.artifacts/epics/.config.yml` exists with
+`tracker.kind` set and not `none`):
+- Ask the user (per session, cached) whether to push to the tracker
+- If yes: load [sync.md](sync.md) and dispatch using the draft content;
+  the adapter adds `bug` label and severity labels (Jira uses the native
+  `Bug` issue type) — no markdown file is created
+- If no: save to `.artifacts/epics/{epic-name}/{bug-name}.md` or
+  `.artifacts/epics/standalone/{bug-name}.md`
 
-### 6. Sync to tracker (optional)
-
-If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
-`none`, ask the user (per session, cached) whether to push this bug to the
-tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
-adapter; the adapter handles bug-specific labels (e.g., `bug` label,
-`severity:{level}` label) per tracker.
-
-For Jira, the bug is created as the native `Bug` issue type rather than a
-labeled Story.
+**If no tracker configured** (config missing or `kind: none`):
+- Save to `.artifacts/epics/{epic-name}/{bug-name}.md` or
+  `.artifacts/epics/standalone/{bug-name}.md`
 
 If the config is missing, run [sync.md](sync.md) bootstrap before the
 first push, then proceed.
-
-If `tracker.kind: none` or no matching MCP is available, skip silently --
-markdown stays the source of truth.
 
 ## Guidelines
 

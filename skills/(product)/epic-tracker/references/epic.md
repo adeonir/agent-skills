@@ -49,23 +49,23 @@ Fill the template with discovered context:
 
 Present the draft to the user. Wait for feedback before saving.
 
-### 4. Save
+### 4. Save or Push
 
-Save to `.artifacts/epics/{epic-name}/epic.md`. Create the directory
-if it doesn't exist.
+**If tracker configured** (`.artifacts/epics/.config.yml` exists with
+`tracker.kind` set and not `none`):
+- Ask the user (per session, cached) whether to push to the tracker
+- If yes: load [sync.md](sync.md) and dispatch using the draft content
+  directly — no markdown file is created; the tracker is the source of
+  truth
+- If no: save to `.artifacts/epics/{epic-name}/epic.md`; push later via
+  "sync to tracker"
 
-### 5. Sync to tracker (optional)
-
-If `.artifacts/epics/.config.yml` exists with `tracker.kind` set and not
-`none`, ask the user (per session, cached) whether to push this epic to
-the tracker. If yes, load [sync.md](sync.md) and dispatch to the matching
-adapter.
+**If no tracker configured** (config missing or `kind: none`):
+- Save to `.artifacts/epics/{epic-name}/epic.md`; create the directory
+  if it doesn't exist
 
 If the config is missing, run [sync.md](sync.md) bootstrap before the
 first push, then proceed.
-
-If `tracker.kind: none` or no matching MCP is available, skip silently --
-markdown stays the source of truth.
 
 ## Guidelines
 

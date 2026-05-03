@@ -2,26 +2,29 @@
 name: epic-tracker
 description: >-
   Manage the delivery lifecycle from epic planning through story tracking
-  to implementation handoff. 4 artifact types (Epic, Story, Bug, Release).
-  Authors markdown locally; pushes to external tracker (Linear, GitHub
-  Issues/Projects, Jira) when MCP is available. Falls back to markdown as
-  source of truth when no tracker is configured.
+  to implementation handoff. 5 artifact types (Epic, Story, Bug, Issue,
+  Release). Tracker-first when configured (Linear, GitHub Issues/Projects,
+  Jira) via MCP or CLI — artifacts go directly to the tracker with no local
+  files. Falls back to markdown as source of truth when no tracker is
+  configured.
 when_to_use: >-
   Triggers on "create epic", "new epic", "create story", "new story",
-  "add story", "report bug", "bug report", "create release", "new release",
-  "update status", "mark done", "show roadmap", "list epics", "epic status",
-  "sync to tracker", "push to linear", "push to github", "push to jira",
-  "pull from tracker", "configure tracker", "handoff to spec-driven". Not
-  for implementing a named story with an existing spec (use spec-driven
-  "implement story S###"), project-wide overview (use project-index), or
-  feature status within a spec (use spec-driven "show feature status").
+  "add story", "create issue", "new issue", "add issue", "report bug",
+  "bug report", "create release", "new release", "update status", "mark
+  done", "show roadmap", "list epics", "epic status", "sync to tracker",
+  "push to linear", "push to github", "push to jira", "pull from tracker",
+  "configure tracker", "handoff to spec-driven". Not for implementing a
+  named story with an existing spec (use spec-driven "implement story
+  S###"), project-wide overview (use project-index), or feature status
+  within a spec (use spec-driven "show feature status").
 ---
 
 # Epic Tracker
 
-Manage the delivery lifecycle with markdown artifacts and optional tracker
-integration. Plan epics, track stories, report bugs, group releases, push
-to a tracker when MCP is configured, and hand off to spec-driven.
+Manage the delivery lifecycle with tracker-first integration and markdown
+fallback. Plan epics, track stories, report bugs, file issues, group
+releases, push to a tracker (via MCP or CLI) when configured, and hand
+off to spec-driven.
 
 ## Workflow
 
@@ -60,6 +63,7 @@ references simultaneously unless explicitly noted.
 | Create epic, new epic | [epic.md](references/epic.md) |
 | Create story, new story, add story | [story.md](references/story.md) |
 | Create bug, report bug, bug report | [bug.md](references/bug.md) |
+| Create issue, new issue, add issue, chore, task | [issue.md](references/issue.md) |
 | Create release, new release | [release.md](references/release.md) |
 | Status, update status, mark done | [status.md](references/status.md) |
 | Show roadmap, list epics, overview | [status.md](references/status.md) |
@@ -83,10 +87,12 @@ Notes:
 docs-writer -------> epic-tracker      (PRD/brief feed epic discovery)
 epic.md -----------> story.md          (epic contains stories)
 epic.md -----------> bug.md            (bugs can belong to an epic)
-epic.md -----------> sync.md           (push after save when tracker configured)
-story.md ----------> sync.md           (push after save when tracker configured)
-bug.md ------------> sync.md           (push after save when tracker configured)
-release.md --------> sync.md           (push after save when tracker configured)
+epic.md -----------> issue.md          (issues can belong to an epic)
+epic.md -----------> sync.md           (push on create when tracker configured)
+story.md ----------> sync.md           (push on create when tracker configured)
+bug.md ------------> sync.md           (push on create when tracker configured)
+issue.md ----------> sync.md           (push on create when tracker configured)
+release.md --------> sync.md           (push on create when tracker configured)
 release.md --------> status.md         (release groups stories by status)
 sync.md -----------> adapters/linear   (when tracker.kind = linear)
 sync.md -----------> adapters/github   (when tracker.kind = github-issues or github-projects)
@@ -94,15 +100,16 @@ sync.md -----------> adapters/jira     (when tracker.kind = jira)
 status.md ---------> sync.md           (overview reads from tracker when configured)
 story.md ----------> handoff.md        (story hands off to spec-driven)
 bug.md ------------> handoff.md        (bug hands off to spec-driven)
+issue.md ----------> handoff.md        (issue can hand off to spec-driven)
 epic-tracker ------> spec-driven       (handoff feeds implementation)
 ```
 
 ## Tracker Integration
 
-Optional and adaptive. When the user has an MCP for a supported tracker
-installed, the skill can push markdown artifacts to that tracker and pull
-state back. When no MCP is available, markdown stays the source of truth
-(current behavior).
+Optional and adaptive. When the user has an MCP or CLI for a supported
+tracker available, the skill pushes artifacts directly to that tracker
+(no local markdown files created). When no integration is available,
+markdown stays the source of truth.
 
 Supported trackers and primitive mapping:
 
@@ -111,34 +118,37 @@ Supported trackers and primitive mapping:
 | Epic     | Project | Milestone | Issue parent (with sub-issues) | Epic |
 | Story    | Issue | Issue | Sub-issue | Story |
 | Bug      | Issue + label `bug` | Issue + label `bug` | Sub-issue + label `bug` | Bug |
+| Issue    | Issue | Issue | Sub-issue | Task |
 | Release  | Cycle | Release tag | Release tag | Fix Version |
 
 Release uses the closest native primitive each tracker offers; no forced
 single concept across trackers.
 
 Config lives at `.artifacts/epics/.config.yml`. First operation that needs
-a tracker triggers bootstrap: detect available MCPs, ask user, persist.
-Push is asked per session (cached after first ask).
+a tracker triggers bootstrap: detect available MCPs and CLIs, ask user,
+persist. Push is asked per session (cached after first ask).
 
 ## Guidelines
 
 **DO:**
 - Check for existing PRD/brief before creating an epic (discover phase)
-- Use status in frontmatter for all artifacts (planned, in-progress, done, blocked) when no tracker is configured
-- When tracker is configured, treat tracker as source of truth for status; markdown frontmatter `status` becomes a cache updated on pull
-- Keep each file to a single artifact type in its proper folder
+- When tracker is configured, push artifacts directly — no markdown file created; tracker is the source of truth
+- When no tracker is configured, save to markdown; use status in frontmatter (planned, in-progress, done, blocked)
+- Keep each file to a single artifact type in its proper folder (markdown-only mode)
 - Use kebab-case for all artifact and folder names
-- Present the artifact for user review before saving
-- After save, ask user once per session whether to push to tracker (cache the answer)
+- Present the artifact for user review before saving or pushing
+- Ask the user once per session whether to push to tracker; cache the answer
 - Suggest spec-driven as the next step; let the user invoke it
 - When pulling from tracker, warn the user about any divergence (status, title, body) before resolving
 - Read from tracker when composing overview if configured; markdown when not
+- Accept both MCP and CLI as valid integration methods; treat them as interchangeable
 - Sizing stays with spec-driven
 
 **DON'T:**
 - Skip the discover phase (contrasts: check for existing PRD/brief first)
 - Auto-trigger spec-driven (contrasts: suggest, let user invoke)
 - Push to tracker without asking (contrasts: ask once per session, cache choice)
+- Save markdown when tracker is configured and user said yes to push (contrasts: tracker-native workflow creates no local files)
 - Auto-resolve conflicts silently (contrasts: warn user about divergence in pull, default tracker wins, allow override)
 - Hardcode tracker primitives in core refs (contrasts: core refs stay tracker-agnostic; adapters own tracker mapping)
 - Create an index file or add size fields (contrasts: read artifacts/tracker directly; spec-driven handles sizing)
@@ -149,14 +159,19 @@ Push is asked per session (cached after first ask).
 All artifacts save to `.artifacts/epics/`. Create the directory structure
 as needed.
 
+Markdown files are created only when no tracker is configured, or when
+the user declines to push on a per-artifact basis.
+
 ```
 .artifacts/epics/
 ├── epic-name/
 │   ├── epic.md
 │   ├── story-name.md
-│   └── bug-name.md
+│   ├── bug-name.md
+│   └── issue-name.md
 ├── standalone/
-│   └── bug-name.md
+│   ├── bug-name.md
+│   └── issue-name.md
 └── releases/
     └── release-name.md
 ```
@@ -164,9 +179,11 @@ as needed.
 | Type | Location |
 |------|----------|
 | Epic | `.artifacts/epics/{epic-name}/epic.md` |
-| Story | `.artifacts/epics/{epic-name}/{story-name}.md` |
+| Story | `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md` |
 | Bug (with epic) | `.artifacts/epics/{epic-name}/{bug-name}.md` |
 | Bug (standalone) | `.artifacts/epics/standalone/{bug-name}.md` |
+| Issue (with epic) | `.artifacts/epics/{epic-name}/{issue-name}.md` |
+| Issue (standalone) | `.artifacts/epics/standalone/{issue-name}.md` |
 | Release | `.artifacts/epics/releases/{release-name}.md` |
 
 ## Error Handling

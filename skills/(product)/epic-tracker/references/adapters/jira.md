@@ -11,7 +11,8 @@ Jira MCP (or Jira Cloud REST API when MCP is unavailable). Loaded by
 | Epic     | Epic (issue type) | Native Jira primitive |
 | Story    | Story (issue type) | Native; linked to Epic via `Epic Link` field |
 | Bug      | Bug (issue type) | Native; first-class type, no label needed |
-| Release  | Fix Version | Jira's native release primitive; Stories and Bugs link via `fixVersions` |
+| Issue    | Task (issue type) | Native Jira Task; linked to Epic via `Epic Link` when provided |
+| Release  | Fix Version | Jira's native release primitive; Stories, Tasks, and Bugs link via `fixVersions` |
 
 Unlike Linear and GitHub, Jira has dedicated types for every artifact in
 this skill. No label workarounds needed.
@@ -39,12 +40,15 @@ nearest standard name with a warning when an exact match isn't found.
 2. Inputs: `name` -> Epic Name field (Jira's custom field), `title` -> Summary, `body` -> Description.
 3. Return Epic key (e.g., `PROJ-123`) and url.
 
-### create_story / create_bug
+### create_story / create_bug / create_issue
 
-1. Create an Issue with `issuetype: Story` (or `Bug`) in the `project_key`.
-2. Inputs: `title` -> Summary, `body` -> Description (acceptance criteria for Story, repro steps for Bug).
+1. Create an Issue with `issuetype: Story`, `Bug`, or `Task` in the
+   `project_key`.
+2. Inputs: `title` -> Summary, `body` -> Description (acceptance criteria
+   for Story, repro steps for Bug, plain description for Task).
 3. Set `Epic Link` to `epic_id` when provided.
-4. For `create_bug`: set `Priority` from severity (critical/high/medium/low -> Highest/High/Medium/Low).
+4. For `create_bug`: set `Priority` from severity
+   (critical/high/medium/low -> Highest/High/Medium/Low).
 5. Return Issue key and url.
 
 ### create_release
@@ -102,7 +106,7 @@ fills them in Jira UI.
 ## Error Handling
 
 - Project not found: ask user to verify `project_key`; offer to re-run bootstrap
-- Issue type unavailable in project (e.g., "Bug" disabled): fall back to Story with `bug` label, warn user
+- Issue type unavailable in project (e.g., "Bug" or "Task" disabled): fall back to Story with appropriate label (`bug` or `task`), warn user
 - Workflow transition not reachable: list the legal transitions and ask user to pick or fix the workflow in Jira
 - Auth error: route to Jira MCP setup
 - Released Fix Version: warn user; refuse update unless explicitly confirmed
