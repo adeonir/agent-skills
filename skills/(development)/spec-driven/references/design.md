@@ -159,7 +159,7 @@ Map this shape to the subagent dispatch primitive available in the harness.
 
 ### Step 6a: Exploration Depth Gate
 
-Before proceeding to Step 10 (Data Model), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
+Before proceeding to the design generation phase (Steps 10-13), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
 
 **Exit criterion (all must hold):**
 
@@ -214,7 +214,7 @@ Check if the spec includes a `designs/` folder with visual references:
 ### Step 9a: Mid-Phase Context Checkpoint
 
 Discovery is complete. Write a partial snapshot to disk before the
-context-heavy design generation steps (10-12). Do not wait for user
+context-heavy design generation steps (11-13). Do not wait for user
 confirmation — write immediately and continue.
 
 - If `.artifacts/.session-dump.md` does not exist, create it with
@@ -222,7 +222,7 @@ confirmation — write immediately and continue.
 - Append a partial block (use `templates/session-dump.md` shape):
   - Phase: `design (in progress — entering data model)`
   - Feature: ID and name
-  - Decisions: open architectural decisions entering Step 10
+  - Decisions: open architectural decisions entering the design generation phase
   - Discoveries: key findings from research and exploration not captured
     in their respective cache files (e.g. a constraint that affects
     data model shape)
@@ -232,11 +232,93 @@ confirmation — write immediately and continue.
 - Confirm the checkpoint was written, then continue immediately
 
 This checkpoint is partial and automatic. The end-of-phase dump
-(Step 15) remains opt-in and captures the completed phase in full.
-If autocompact fires during Steps 10-12, this checkpoint plus the
+(Step 16) remains opt-in and captures the completed phase in full.
+If autocompact fires during Steps 11-13, this checkpoint plus the
 artifacts on disk provide enough context to resume.
 
-### Step 10: Data Model Definition
+### Step 10: Dispatch Design Plan subagent
+
+Steps 11-13 are owned by a Plan subagent. Main agent dispatches once,
+receives structured slot fillers, composes design.md per
+`templates/design.md`, then runs the closing checklist against the
+artifact before advancing to Step 14.
+
+Why dispatched: Steps 11-13 are intelligence-sensitive (member
+enumeration with file:line cites, dependency inversion, traceability
+expansion). Isolating them in a Plan subagent keeps main context clean
+for the user-visible checklist and approval gate. Plan is read-only by
+harness contract (Edit/Write/NotebookEdit excluded), so it returns
+structured slot fillers; main composes the artifact via the canonical
+template (pattern A1: Plan returns slots, main fills template).
+
+Skip dispatch when subagent support is unavailable; main agent executes
+Steps 11-13 directly in that case.
+
+Subagent brief:
+
+- Inputs (paths only -- Plan reads from disk):
+  - `.artifacts/features/{ID}-{name}/spec.md`
+  - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
+  - Exploration artifact path (from Step 6)
+  - `.artifacts/research/*.md` (cached topics from Step 5)
+  - `.agents/knowledge.md` (if exists)
+  - Every `.md` file in `.agents/codebase/` (if exists; enumerate the
+    directory, do not hardcode names)
+  - `.agents/baselines/` matching the feature's area (if any)
+  - `.agents/project.md`, `CLAUDE.md`, `AGENTS.md` (project root, if
+    exist)
+  - `.artifacts/features/{ID}-{name}/designs/` (if exists)
+- Reference: `templates/design.md` -- return chunks matching the
+  template section order and table shapes exactly
+- Process: follow Step 11 (Data Model, including its closing checklist
+  criteria internally), Step 12 (Dependency Inversion -- silent
+  reasoning, never echoed into chunks), Step 13 prep (organize chunks
+  per template section). Anchor every claim about an existing type
+  with `file:line` from the exploration's Member Enumeration. Resolve
+  any internal `[fail]` against Step 11's checklist criteria before
+  returning.
+- Return shape (structured slot fillers per template section, no
+  surrounding prose):
+  - Scope: in-scope, out-of-scope bullets
+  - Research Summary: bullets per cached topic (or empty)
+  - Patterns & Reuse: Conventions rows, Existing Code rows,
+    Integration Points rows
+  - Data Model: Entities rows; per-entity Member Enumeration blocks
+    (member, type, file:line); Relationships text or mermaid; API
+    Contracts rows; Currently Exposed Fields rows (one per AC-named
+    field when ACs enumerate output, display, response, or persisted
+    fields)
+  - Decisions: rows (decision, choice, rationale)
+  - Component Design: rows (component, file, action, responsibility)
+  - Visual Design Considerations: bullets (only when designs/ exists)
+  - Data Flow: numbered steps or mermaid
+  - Requirements Traceability: rows (requirement, component, file,
+    status); expand to one row per field for multi-field ACs
+  - Test Strategy: Infrastructure, Reference Tests, New Tests rows
+  - Considerations: Error Handling rows, Security bullets
+  - Open Questions: checklist items
+- Do NOT return: prose narration, process logs, dependency-inversion
+  reasoning (silent per Step 12), Gotcha subsections (design-level
+  gotchas with rationale go to Decisions; cross-feature gotchas go to
+  `.agents/knowledge.md`)
+
+Main agent composes `design.md` by writing Plan's chunks into
+`templates/design.md` slots. Preserve template section order and table
+shapes exactly. After writing, run Step 11's closing checklist against
+the composed artifact -- display each item as `[pass]` or `[fail]`. If
+any item fails, re-dispatch Plan with the failure list as additional
+brief context.
+
+Main agent also updates spec.md status tags per Step 13 (change each
+AC mapped in Requirements Traceability from `pending` to `in-design`).
+Plan cannot perform this update because it is read-only; the write is
+always main's responsibility regardless of dispatch.
+
+_Steps 11-13 below describe the process Plan follows. Read them as
+Plan's substeps when dispatched, or as main agent's process when
+dispatch is skipped._
+
+### Step 11: Data Model Definition
 
 Define the data model before component design. Every statement about an existing type must cite `file:line` from the exploration's Member Enumeration.
 
@@ -254,7 +336,7 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] Every "no change required" / "already returns" / "contract unchanged" claim in this section cites a `file:line` from the exploration's Member Enumeration
 - [ ] Every type listed under Entities or Contracts matches a row in the exploration's Member Enumeration
 
-### Step 11: Dependency Inversion Check (implicit)
+### Step 12: Dependency Inversion Check (implicit)
 
 Reason about this silently before writing design.md. Do not echo this check
 into the artifact -- the design stays focused on the design, not on a process
@@ -284,7 +366,7 @@ Never let the design leave an inversion implicit. An inverted design produces
 tasks whose commits do not stand alone, which breaks the per-story
 commit-boundary contract that spec-driven relies on.
 
-### Step 12: Generate design.md
+### Step 13: Generate design.md
 
 **LOAD ORDER:** Load this template before reading any existing design in `.artifacts/features/`. Existing designs may be stale -- template wins on structure.
 
@@ -299,18 +381,18 @@ Generate the design following the template structure:
 - Component Design (component, file, action, responsibility)
 - Data Flow (use mermaid for complex flows)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
-
-After generating design.md, update spec.md: for each AC mapped in Requirements Traceability,
-change its status tag from `` `pending` `` to `` `in-design` ``.
 - Test Strategy
 - Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
 
-### Step 13: Update Status
+After generating design.md, update spec.md: for each AC mapped in Requirements Traceability,
+change its status tag from `` `pending` `` to `` `in-design` ``.
+
+### Step 14: Update Status
 
 Set spec.md frontmatter: `status: ready`
 
-### Step 14: Approval Gate
+### Step 15: Approval Gate
 
 Present a summary:
 
@@ -330,7 +412,7 @@ If changes are requested: update design.md, then continue.
 
 Do not start code-producing phases (`implement`) without explicit user approval regardless of the original phrasing.
 
-### Step 15: Suggest Session Dump
+### Step 16: Suggest Session Dump
 
 Phase complete. Suggest to the user that this is a good moment to dump
 session context and clear the window before the next phase:

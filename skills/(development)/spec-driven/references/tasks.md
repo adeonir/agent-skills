@@ -42,7 +42,69 @@ Read `package.json`:
 - Typecheck script
 - Test script
 
-### Step 4: Decompose Tasks
+### Step 4: Dispatch Tasks Plan subagent
+
+Steps 5-7 are owned by a Plan subagent. Main agent dispatches once,
+receives structured slot fillers, composes tasks.md per
+`templates/tasks.md`, then runs Step 8 pre-approval checks against
+the artifact before advancing to Step 9.
+
+Why dispatched: Steps 5-7 are intelligence-sensitive (story grouping,
+top-to-bottom ID monotonicity, forward-dependency detection, execution
+plan diagram). Isolating them in a Plan subagent keeps main context
+clean for the user-visible pre-approval checks and approval gate.
+Plan is read-only by harness contract (Edit/Write/NotebookEdit
+excluded), so it returns structured slot fillers; main composes the
+artifact via the canonical template (pattern A1: Plan returns slots,
+main fills template).
+
+Skip dispatch when subagent support is unavailable; main agent
+executes Steps 5-7 directly in that case.
+
+Subagent brief:
+
+- Inputs (paths only -- Plan reads from disk):
+  - `.artifacts/features/{ID}-{name}/spec.md`
+  - `.artifacts/features/{ID}-{name}/design.md`
+  - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
+  - Quality gate commands from Step 3 (lint, typecheck, test)
+- Reference: `templates/tasks.md` -- return chunks matching the
+  template section order and table shapes exactly
+- Process: follow Step 5 (Decompose Tasks, including story order,
+  ID monotonicity, commit boundary, forward-dependency rules), Step 6
+  (Execution Plan diagram), Step 7 prep (organize chunks per template
+  section). Run the Commit-Boundary Viability Check internally
+  (silent) before returning -- resolve any hidden forward dependency
+  via restructure, reorder, or escalation back to design.
+- Return shape (structured slot fillers per template section, no
+  surrounding prose):
+  - Summary: total task count
+  - Execution Plan: ASCII diagram (sequential `-->`, parallel
+    branches `├-->`/`└-->`, convergence points)
+  - Quality Gates: lint, typecheck, test commands from Step 3
+  - Tasks: story groups in spec.md order (`### Sxxx [Px] Title`),
+    each containing tasks with monotonic IDs top-to-bottom, dependency
+    markers (`[P]`, `[B:Txxx]`), Tests / Gate / Done when fields
+    (Tests and Gate only when test infrastructure detected in Step 3)
+  - Requirements Coverage: Story-to-Tasks mapping rows, AC-to-Tasks
+    mapping rows
+- Do NOT return: prose narration, Files/Reference/Commit metadata
+  lines per task, Phase 0 / Setup sections outside the story
+  structure, Commit-Boundary Viability Check `[pass]` lines (silent
+  per Step 8)
+
+Main agent composes `tasks.md` by writing Plan's chunks into
+`templates/tasks.md` slots. Preserve template section order, story
+order from spec.md, and ID monotonicity exactly. After writing, run
+Step 8 pre-approval checks against the composed artifact -- display
+each item as `[pass]` or `[fail]`. If any item fails, re-dispatch
+Plan with the failure list as additional brief context.
+
+_Steps 5-7 below describe the process Plan follows. Read them as
+Plan's substeps when dispatched, or as main agent's process when
+dispatch is skipped._
+
+### Step 5: Decompose Tasks
 
 Group tasks by story. Each story in spec.md becomes a `### Sxxx [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
 
@@ -102,7 +164,7 @@ confirm the gate passes and no tests were deleted (count after ≥ count before)
 **Metadata split:** What/Where/Reuses live in design.md Component Design and Patterns & Reuse.
 Do not duplicate them per task -- tasks own Tests, Gate, and Done when only.
 
-### Step 5: Create Execution Plan
+### Step 6: Create Execution Plan
 
 Before writing tasks, create an ASCII diagram showing the execution flow:
 - Sequential dependencies as arrows (`-->`)
@@ -114,7 +176,7 @@ breakdown. The diagram also serves as the implement subagent's ordering
 hint -- it reads the diagram alongside tasks.md to decide internal
 execution order. Main agent does not consume the diagram for fan-out.
 
-### Step 6: Generate tasks.md
+### Step 7: Generate tasks.md
 
 **LOAD ORDER:** Load this template before reading any existing tasks.md in `.artifacts/features/`. Existing task breakdowns may be stale -- template wins on structure.
 
@@ -131,7 +193,7 @@ After generating tasks.md, update spec.md: for each AC mapped to a task in Requi
 change its status tag from `` `in-design` `` to `` `in-tasks` ``. For Medium scope (no design phase),
 change from `` `pending` `` directly to `` `in-tasks` ``.
 
-### Step 7: Pre-Approval Checks
+### Step 8: Pre-Approval Checks
 
 Run all four checks before writing tasks.md. Display the result of each check explicitly —
 `[pass]` or `[fail]` per item. Fix all `[fail]` items before writing. Do not run
@@ -202,7 +264,7 @@ the artifact -- pick one:
 Do not ship a tasks.md whose commits do not stand alone. "Compiles only at
 the end" is not an acceptable execution plan.
 
-### Step 8: Approval Gate
+### Step 9: Approval Gate
 
 Present a summary and wait for approval:
 

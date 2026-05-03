@@ -186,4 +186,12 @@ A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config changes
 A: Verify runs continuously during implement (after each task or range) -- code adherence to design and patterns, marks AC `[x]` on pass. Validate is on-demand UAT at any scope -- user manually walks scenarios and may reprove any `[x]`. Audit is the terminal gate before `done` -- evidence-based check of Goals and Success Criteria, marks their `[x]`, transitions status. Validate may run before or after audit; a reproved `[x]` forces verify or audit to re-run.
 
 **Q: How does sub-agent dispatch work?**
-A: Auto-Sizing decides depth. When activities run in full form (Large/Complex), they may dispatch to sub-agents for context isolation: research sub-agents per unknown topic, one codebase exploration sub-agent, and one implement sub-agent per user invocation (T001, range, S001, --all) that owns the per-task implement and verify cycle. Inline forms (Quick mode, Medium scope) run without dispatch -- the overhead exceeds the benefit at small ceremony.
+A: Auto-Sizing decides depth. When activities run in full form (Large/Complex), they may dispatch to sub-agents for context isolation:
+
+- **Research sub-agents** -- one per unknown topic, write to `.artifacts/research/{topic}.md`
+- **Codebase exploration sub-agent** -- one per design phase, runs the full multi-phase exploration, writes to disk
+- **Design Plan sub-agent** -- one per design phase, owns architectural reasoning (data model with file:line cites, dependency inversion, decisions, traceability); read-only by harness contract, returns structured slot fillers that main agent composes into design.md via the canonical template
+- **Tasks Plan sub-agent** -- one per tasks phase, owns decomposition reasoning (story grouping, ID monotonicity, forward-dependency detection, execution plan); read-only, returns slot fillers that main agent composes into tasks.md via the canonical template
+- **Implement sub-agent** -- one per user invocation (T001, range, S001, --all), owns the per-task implement and verify cycle
+
+Discovery sub-agents (research, exploration) hand off via disk artifacts. Plan sub-agents hand off via structured chunks because the harness blocks Edit/Write for the built-in Plan agent. Inline forms (Quick mode, Medium scope) run without dispatch -- the overhead exceeds the benefit at small ceremony.

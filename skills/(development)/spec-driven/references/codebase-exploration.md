@@ -127,7 +127,7 @@ Use findings in design.md:
 - Patterns to use
 - Code to reuse
 
-After exploration, if `.agents/codebase/` exists, new findings are persisted back to it (see design.md Step 5: Persist Codebase Discoveries). This ensures patterns discovered during one feature's design are available to future features without rediscovery.
+After exploration, if `.agents/codebase/` exists, new findings are queued for persistence in `.agents/knowledge.md` `## Codebase Feedback` (see design.md Step 8: Queue Codebase Discoveries). project-index integrates the queue back into `.agents/codebase/*.md` on demand, so patterns discovered during one feature's design become available to future features without rediscovery.
 
 ## Guidelines
 

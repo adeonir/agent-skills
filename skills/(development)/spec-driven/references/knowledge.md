@@ -4,8 +4,8 @@ Canonical format for `.agents/knowledge.md`, owned by spec-driven.
 
 ## When to Use
 
-- Loaded by design.md Step 7 and implement.md Step 10 before appending
-- Loaded by quick-mode.md Step 7 before appending
+- Loaded by design.md Step 8 and implement.md Step 10 before appending
+- Loaded by quick-mode.md Step 8 before appending
 - Loaded by project-index `integrate-feedback.md` to parse the Codebase Feedback queue
 
 ## Ownership

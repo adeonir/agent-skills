@@ -287,9 +287,12 @@ notes, then the file is disposable. It is not a project artifact.
 **Sub-agent dispatch:**
 
 When activities run in full form (Auto-Sizing decides), they can dispatch
-to sub-agents for context isolation. Disk artifacts are the handoff --
-sub-agents don't return findings through the context. Inline forms (quick
-mode, Medium scope) run without dispatch.
+to sub-agents for context isolation. Disk artifacts are the handoff for
+discovery and execution sub-agents -- they don't return findings through
+the context. Plan sub-agents are read-only by harness contract: they
+return structured slot fillers (tables, lists, rows) that the main agent
+composes into the artifact via the canonical template. Inline forms
+(quick mode, Medium scope) run without dispatch.
 
 - **Research sub-agents** -- one per unknown topic, write to
   `.artifacts/research/{topic}.md` (design.md Step 5; multi-topic in a
@@ -297,14 +300,25 @@ mode, Medium scope) run without dispatch.
 - **Codebase exploration sub-agent** -- one per design phase, runs the
   multi-phase exploration end to end, writes per
   `templates/exploration.md` (design.md Step 6).
+- **Design Plan sub-agent** -- one per design phase, owns architectural
+  reasoning for Steps 11-13 (data model with member-enumeration cites,
+  dependency-inversion check, decisions, component design, traceability).
+  Returns slot fillers per `templates/design.md`; main agent composes
+  the artifact and resumes at Step 14 (design.md Step 10).
+- **Tasks Plan sub-agent** -- one per tasks phase, owns decomposition
+  reasoning for Steps 5-7 (story grouping, task atomization, execution
+  plan, dependency markers, requirements coverage). Returns slot fillers
+  per `templates/tasks.md`; main agent composes the artifact and resumes
+  at Step 8 (tasks.md Step 4).
 - **Implement sub-agent** -- one per user invocation (T001 / range / S001
   / --all), owns Steps 7-8 (per-task implement + verify + mark `[x]`).
   Main agent dispatches once and resumes at Step 9
   (implement.md Step 5).
 
 Research and exploration sub-agents in design.md run in the same dispatch
-turn (independent). The implement sub-agent runs after design/tasks
-artifacts exist.
+turn (independent). The Design Plan sub-agent runs after exploration
+artifacts exist. The Tasks Plan sub-agent runs after design.md exists.
+The implement sub-agent runs after design/tasks artifacts exist.
 
 ## Compact Instructions
 

@@ -6,6 +6,19 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-03
+
+### Added
+
+- Plan subagent dispatch in design (new Step 10): owns Steps 11-13 (data model, dependency inversion, design composition); returns structured slot fillers per `templates/design.md`; main agent composes the artifact and runs Step 11's closing checklist against it
+- Plan subagent dispatch in tasks (new Step 4): owns Steps 5-7 (decomposition, execution plan, tasks composition); returns structured slot fillers per `templates/tasks.md`; main agent composes the artifact and runs Step 8 pre-approval checks against it
+- Sub-agent dispatch list in SKILL.md extended with Design Plan and Tasks Plan entries documenting the read-only harness contract and pattern A1 (Plan returns slots, main fills template)
+- README FAQ entry expanded to cover Plan subagents alongside research, exploration, and implement subagents
+
+### Changed
+
+- Step renumbering in design.md (former 10-15 shifted to 11-16) and tasks.md (former 4-8 shifted to 5-9) to make Plan dispatch a top-level step rather than a lettered sub-step
+
 ## 2026-05-01
 
 ### Added
