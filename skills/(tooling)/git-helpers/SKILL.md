@@ -35,10 +35,10 @@ Each step is independent. Use any workflow in isolation or chain them together.
 
 ## Sub-agent Dispatch
 
-Code review parallelizes via lens fan-out. After the main agent annotates the diff and clears the size gate, it dispatches five lens sub-agents in a single turn -- each reads the same annotated diff under a focused scope and returns markdown findings. The main agent consolidates (dedup, severity sort, gap detection, partial-run handling) and renders the final report.
+Code review parallelizes via lens fan-out. After the main agent annotates the diff and clears the size gate, it selects active lenses based on the changed files (minimum 3, maximum 5), then dispatches them in a single turn -- each reads the same annotated diff under a focused scope and returns markdown findings. The main agent consolidates (dedup, severity sort, gap detection, partial-run handling) and renders the final report.
 
-- **Lens sub-agents** -- one per scope (`security`, `bugs`, `data-loss`, `performance`, `guidelines`). Each receives `ANNOTATED_DIFF` (with `[L<n>]` line markers as the citation allowlist), the lens-specific scope, and the universal rules block (code-review.md Step 7).
-- **Consolidation is main-agent work** -- dedup across lenses on `file:line`, severity-sorted output, gap detection, highlight collation, and partial-run header when a lens errors (code-review.md Step 8). Cross-lens visibility cannot be split across sub-agents.
+- **Lens sub-agents** -- up to five scopes (`security`, `bugs`, `data-loss`, `performance`, `guidelines`). `security`, `bugs`, and `guidelines` always run; `data-loss` and `performance` activate only when the diff contains relevant patterns (see code-review.md Step 7). Each receives `ANNOTATED_DIFF` (with `[L<n>]` line markers as the citation allowlist), the lens-specific scope, and the universal rules block (code-review.md Step 8).
+- **Consolidation is main-agent work** -- dedup across lenses on `file:line`, severity-sorted output, gap detection, highlight collation, and partial-run header when a lens errors (code-review.md Step 9). Cross-lens visibility cannot be split across sub-agents.
 
 Commit, summary, create-pull-request, and finish-branch run inline on the main agent (single-output workflows, no fan-out value).
 

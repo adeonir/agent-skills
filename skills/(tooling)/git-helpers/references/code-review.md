@@ -1,6 +1,6 @@
 # Code Review
 
-Lens-based fan-out review with anti-hallucination diff annotation. Five sub-agents (security, bugs, data-loss, performance, guidelines) read the same annotated diff in parallel; the main agent consolidates findings.
+Lens-based fan-out review with anti-hallucination diff annotation. Up to five lenses (security, bugs, data-loss, performance, guidelines) read the same annotated diff in parallel; active lenses are selected based on diff content (minimum 3). The main agent consolidates findings.
 
 ## When to Use
 
@@ -81,9 +81,25 @@ Compute:
 
 If `DIFF_LINES > 3000` OR `DIFF_FILES > 40`: stop and inform the user the diff is too large for reliable review (cite the limits and suggest splitting the branch). Do not fan out.
 
-### Step 7: Fan Out to Lens Sub-agents
+### Step 7: Select Active Lenses
 
-Dispatch all five lens sub-agents in a single turn (one message, multiple Task tool calls). Each receives:
+Before fanning out, determine which lenses are relevant to this diff. This avoids dispatching lenses that have no plausible findings given the changed files.
+
+**Always active:** `security`, `bugs`, `guidelines`
+
+**`data-loss`** — activate if any of these match:
+- `CHANGED_FILES` contains: `*migration*`, `*migrate*`, `*seed*`, `*.sql`, `*.entity.ts`, `*.model.ts`, `schema.*`
+- `ANNOTATED_DIFF` contains (in application code context): `DELETE`, `DROP`, `TRUNCATE`, `.delete(`, `.remove(`, `.destroy(`
+
+**`performance`** — activate if any of these match:
+- `CHANGED_FILES` contains files in paths like: `*service*`, `*controller*`, `*handler*`, `*resolver*`, `*repository*`, `*api*`
+- `ANNOTATED_DIFF` contains: `.find(`, `.findMany(`, `.findAll(`, `await` inside a loop pattern, `SELECT` in SQL context
+
+Capture as `ACTIVE_LENSES` (minimum 3, maximum 5). Note which lenses were skipped and why — include in the Summary line of the output.
+
+### Step 8: Fan Out to Lens Sub-agents
+
+Dispatch only the `ACTIVE_LENSES` sub-agents in a single turn (one message, multiple Task tool calls). Each receives:
 
 - `ANNOTATED_DIFF` (the line-marked diff)
 - `CHANGED_FILES` (newline-separated)
@@ -93,9 +109,9 @@ Dispatch all five lens sub-agents in a single turn (one message, multiple Task t
 
 Each sub-agent returns markdown findings under a single `### {LensName}` heading plus a `### Highlights` heading. Findings cite `path/file.ext:L<n>` where `<n>` matches a `[L<n>]` marker in the annotated diff.
 
-If a lens fails or times out, capture the error and continue with the remaining lenses (partial-run handling -- see Step 8).
+If a lens fails or times out, capture the error and continue with the remaining lenses (partial-run handling -- see Step 9).
 
-### Step 8: Consolidate Findings
+### Step 9: Consolidate Findings
 
 After all dispatched lenses return, the main agent:
 
@@ -104,9 +120,9 @@ After all dispatched lenses return, the main agent:
 3. **Sort** by severity in this order: `critical > security > data-loss > performance > warning > suggestion > nit`.
 4. **Gap detection.** From `CHANGED_FILES`, list files that received zero findings across every successful lens. Exclude `*.json`, `*.yaml`, `*.yml`, `*.lock`, `*.d.ts`, and pure type-declaration files from the gap list.
 5. **Collate Highlights** from each lens into a single `### Highlights` block.
-6. **Partial-run handling.** If any lens errored, prepend a `WARNING: Partial review (<N> of 5 lenses succeeded)` header to the output and append an `### Errors` section listing `{lens_name: error_message}`.
+6. **Partial-run handling.** If any active lens errored, prepend a `WARNING: Partial review (<N> of <ACTIVE_LENSES count> lenses succeeded)` header to the output and append an `### Errors` section listing `{lens_name: error_message}`.
 
-### Step 9: Output
+### Step 10: Output
 
 Based on user's intent:
 
@@ -182,7 +198,7 @@ When the user requests a re-review (triggers like "re-review", "check fixes", "a
 
 Reviewed against `{base-branch}` | {date}
 
-WARNING: Partial review (<N> of 5 lenses succeeded)   <!-- only if any lens errored -->
+WARNING: Partial review (<N> of <M> lenses succeeded)   <!-- only if any active lens errored -->
 
 ## Issues
 
@@ -210,7 +226,7 @@ Sorted by severity. Only findings with confidence >= 80 are included.
 
 ## Summary
 
-X files | Y issues | Z guidelines violations | <N> of 5 lenses succeeded
+X files | Y issues | Z guidelines violations | <N> of <M> lenses run (skipped: {lens list or "none"})
 
 ### Key Findings
 
