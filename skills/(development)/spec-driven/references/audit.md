@@ -53,6 +53,10 @@ Read spec.md and extract every `- [ ]` item under:
 Record each target with its exact line text. These are the only items this
 reference may mark -- never touch ACs (verify.md owns those).
 
+**Never read `## Operational Follow-ups`** -- that section captures
+post-deploy observation tasks and is non-audit by design. Items there never
+block status transition.
+
 ### Step 4: Gather Evidence
 
 For each target, collect evidence that it is met. Evidence sources, in order
@@ -157,12 +161,14 @@ is user-observation based and interactive. They do not block each other:
 - Keep audit deterministic -- same evidence yields same classification
 - Consult UAT notes if validate ran before audit
 - Suggest `/project-index re-index` when structural deltas exist -- inform only, never prompt
+- Treat `## Operational Follow-ups` as non-audit -- route those items to runbooks or issues outside the spec, never as a blocker for `done`
 
 **DON'T:**
 - Touch AC checkboxes or status tags -- those belong to verify.md
 - Set `status: done` if any Goal or Success Criterion is Unmet or Unmeasurable
 - Rewrite Goals or Success Criteria during audit -- route to specify instead
 - Assume Met because the code exists -- check the observable outcome
+- Read or classify items under `## Operational Follow-ups` -- that section is non-audit by design and never gates status
 
 ## Error Handling
 

@@ -77,6 +77,13 @@ created: {{YYYY-MM-DD}}
 - [ ] {{Measurable outcome -- e.g., "User can complete X in under 2 minutes"}}
 - [ ] {{Measurable outcome -- e.g., "Zero errors in Y scenario"}}
 
+## Operational Follow-ups
+
+Post-deploy observations, monitoring windows, or runbook tasks that cannot be verified at audit time. Recorded here so the spec captures intent, but **not audit targets** -- audit only checks Goals and Success Criteria.
+
+- {{Operational item, e.g., "Post-deploy monitoring: zero rejections in payment flow over 7 days"}}
+- {{or write "None" if every criterion is pre-merge verifiable}}
+
 ## Open Questions
 
 - {{Any unresolved questions, or "None" if all resolved}}

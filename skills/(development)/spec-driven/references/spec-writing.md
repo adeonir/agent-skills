@@ -44,6 +44,17 @@ Measurable outcomes that define what success looks like at the feature level.
 Rules:
 - 2-4 goals per feature (more signals scope creep)
 - Goals drive Success Criteria -- every goal should map to at least one SC
+- Goals must be verifiable at audit time with evidence reachable in feature scope. Future-tense windows ("for N days after deploy", "in the period following X") signal an operational claim, not a delivery claim -- split it: keep the architectural / instrumentation claim in Goals, route the observation window to `## Operational Follow-ups`
+
+Split example:
+
+```markdown
+## Goals
+- [ ] Instrumentation present to detect rejections in payment flow (verified in staging)
+
+## Operational Follow-ups
+- Post-deploy: zero rejections over 7 days
+```
 
 ## Out of Scope
 
@@ -168,6 +179,28 @@ Rules:
 - Must be measurable (numbers, times, rates)
 - Avoid vague adjectives ("fast", "easy", "intuitive")
 - Focus on user outcomes, not implementation metrics
+- Must be verifiable at audit time. Future-tense observation windows ("for N days after deploy", "in the period following launch") belong in `## Operational Follow-ups`, not here -- audit cannot pass an SC that requires post-deploy data to confirm
+
+## Operational Follow-ups
+
+Post-deploy observations, monitoring windows, runbook tasks, or any claim that requires real production traffic to verify. Lives in spec.md to record intent but is **excluded from audit by design** -- audit only iterates Goals and Success Criteria.
+
+```markdown
+## Operational Follow-ups
+
+- Post-deploy: zero rejections in payment flow over 7 days
+- Runbook: on-call dashboard updated with new error class before next release
+```
+
+Format:
+- Plain bullets (no checkboxes -- the absence of `[ ]` makes the non-gating intent explicit)
+- One line per item, behavioral wording (same Behavior vs Symbol filter as the rest of the spec)
+- Use "None" if every criterion is pre-merge verifiable
+
+Rules:
+- Never duplicate an item that also appears in Goals or Success Criteria
+- If unsure whether an item belongs in Goals/SC or here, ask: "can I show evidence for this at audit time?" -- if no, route here
+- Operational Follow-ups never block `status: done`
 
 ## Notes
 

@@ -14,10 +14,14 @@ All notable changes to this skill will be documented in this file.
 - Plan subagent dispatch in tasks (new Step 4): owns Steps 5-7 (decomposition, execution plan, tasks composition); returns structured slot fillers per `templates/tasks.md`; main agent composes the artifact and runs Step 8 pre-approval checks against it
 - Sub-agent dispatch list in SKILL.md extended with Design Plan and Tasks Plan entries documenting the read-only harness contract and pattern A1 (Plan returns slots, main fills template)
 - README FAQ entry expanded to cover Plan subagents alongside research, exploration, and implement subagents
+- Operational Follow-ups section in `templates/spec.md` between Success Criteria and Open Questions; plain bullets, no checkboxes, captures post-deploy observations
 
 ### Changed
 
 - Step renumbering in design.md (former 10-15 shifted to 11-16) and tasks.md (former 4-8 shifted to 5-9) to make Plan dispatch a top-level step rather than a lettered sub-step
+- Verifiability rule on Goals and Success Criteria in `spec-writing.md`: future-tense observation windows route to Operational Follow-ups; new section documents the slot with split example
+- Audit Step 3 skips `## Operational Follow-ups` in `audit.md`; matching DO/DON'T pair added
+- Section enumerations in `specify.md` include Operational Follow-ups in the Behavior vs Symbol filter list and the Greenfield section order
 
 ## 2026-05-01
 

@@ -39,7 +39,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 - Architecture decisions
 - Milestones, epics, sprints, release names, or roadmap references (e.g., "part of Q2 epic", "blocked by milestone 3", "planned for v2")
 
-These apply to ALL sections -- Overview, Goals, Out of Scope, Stories, ACs, Edge Cases, Success Criteria, Notes, Baseline. Behavior always trumps symbols.
+These apply to ALL sections -- Overview, Goals, Out of Scope, Stories, ACs, Edge Cases, Success Criteria, Operational Follow-ups, Notes, Baseline. Behavior always trumps symbols.
 
 These belong in design.md, created during the `design` phase.
 
@@ -325,7 +325,7 @@ spec.md Notes section.
 
 Generate the spec following the template structure:
 - Frontmatter with ID, feature name, type, scope, status, branch, created date
-- Greenfield: Overview, Goals, Out of Scope, User Stories (with ACs inline), Edge Cases, Success Criteria, Open Questions, Notes
+- Greenfield: Overview, Goals, Out of Scope, User Stories (with ACs inline), Edge Cases, Success Criteria, Operational Follow-ups, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
