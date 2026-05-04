@@ -17,6 +17,17 @@ explicit, not hidden. The user decides, the agent informs.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
+### Pre-screen: Surface TBDs
+
+Before screening, check for open TBDs carried from discovery:
+
+- **Constraint TBDs:** Resolve or explicitly accept the ambiguity before
+  screening. Alternatives cannot be properly eliminated against unknown
+  constraints. Ask the user to clarify or acknowledge the risk.
+- **Criteria TBDs:** Note as evaluation gaps in the comparison table — they
+  will produce incomplete scores, which is acceptable.
+- **Motivation TBDs:** If present, consider looping back to discovery.
+
 ### Step 1: Screen
 
 Quick pass: eliminate alternatives that violate hard constraints identified

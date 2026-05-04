@@ -6,6 +6,22 @@ name: brainstorming
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-04
+
+### Added
+
+- Two discovery paths: standard (vague ideas) and relentless (existing plan stress-test), auto-detected from entry state with explicit `/brainstorming deep` override
+- Decision tree traversal within each topic — answers drive next branch instead of scripted question lists
+- Proposed interpretation pattern in discovery — model proposes its read, user confirms or redirects
+- Codebase exploration trigger in discovery — explore current state from code instead of asking when possible
+- TBD weighting by topic in discovery — motivation and constraint TBDs are high-weight; criteria TBDs are low-weight and acceptable
+- TBD carry-forward in diverge — open TBDs surfaced before alternative generation
+- Constraint TBD resolution gate added before converge screening (Pre-screen step)
+
+### Changed
+
+- Discovery question lists replaced with dependency-aware decision tree per topic
+
 ## 2026-04-20
 
 ### Changed

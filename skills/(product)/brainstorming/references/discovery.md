@@ -7,16 +7,63 @@ and what matters.
 
 First phase of every brainstorming session. Auto-loaded when brainstorming triggers.
 
+## Path Detection
+
+Before starting, classify the entry state from the user's input:
+
+| Signal | Path |
+|--------|------|
+| Vague idea, question, "explore X", "what should we do about Y" | Standard |
+| Existing plan, design, "stress-test this", "grill me on this", `/brainstorming deep` | Relentless |
+
+Do not announce the path as a label or headline. Lead directly with a proposed
+interpretation that reflects the detected path. User can redirect at any point.
+
+Standard: open with your read of the situation, invite correction.
+Relentless: open by acknowledging the committed direction, then probe the
+core assumption behind it. Do not repeat "stress-test" or "pressure-test" as
+labels throughout the response — acknowledge the mode once if at all, then
+focus on the substance.
+
+The proposed interpretation with its redirect invite is the complete first turn.
+Do not add a second question after the interpretation. End on the invite
+("Is that right?" / "Is that a fair read?") and wait for the response.
+
 ## Workflow
 
 Never assume context. Always interview before generating alternatives. Unlike
 docs-writer discovery (which refines an existing idea), brainstorming discovery
 maps the space of possibilities before any direction exists.
 
-Adaptive interview, not scripted. Start each topic with opening questions,
-evaluate answers against sufficiency criteria, deepen when signals appear,
-and move on when criteria are met. Summarize understanding before advancing
-to the next topic.
+Interview is adaptive, not scripted. Walk the decision tree: each answer reveals
+which branch to explore next. Resolve dependencies between decisions before
+advancing — don't ask B until A is settled if B depends on A.
+
+### Interview Approach
+
+**Proposed interpretation:** Don't ask cold open-ended questions. Propose your
+read of the situation, let the user confirm or redirect. This unsticks vague
+thinking faster than neutral questioning.
+
+Example: "It sounds like the core problem is X — is that right, or is it
+more like Y?"
+
+**Codebase exploration:** When a question about current state can be answered
+by reading the code, explore the codebase instead of asking. State what you
+found before moving on.
+
+Example: Instead of "What does the current onboarding flow look like?" →
+explore the codebase, then: "I found the current flow in `src/onboarding/` —
+it has 3 steps with drop-off tracking on step 2. Does that match your
+understanding?"
+
+**One question at a time:** Never batch questions. Propose one interpretation
+with its redirect invite, OR ask one question — not both. The interpretation
+with invite ("It sounds like X — is that right?") is the complete turn. Do not
+add a second question after it.
+
+**Summarize before advancing:** Before moving to the next topic, summarize
+what was learned and confirm with the user.
 
 ### Adaptive Deepening
 
@@ -24,96 +71,118 @@ Probe further when answers are:
 
 | Signal | Response |
 |--------|----------|
-| Vague | Ask for specifics: "Can you give a concrete example?" |
+| Vague | Propose an interpretation: "It sounds like X — is that right?" |
 | Assumed | Ask for evidence: "How do you know? What data supports this?" |
-| Conflated | Separate concepts: "Those sound like two different things. Which one matters more?" |
-| Solution-first | Redirect to problem: "Before the solution -- what problem or opportunity do you see?" |
-| Overly broad | Narrow down: "Who specifically? Which case matters most?" |
+| Conflated | Separate: "Those sound like two different things. Which one matters more?" |
+| Solution-first | Redirect: "Before the solution — what problem or opportunity do you see?" |
+| Overly broad | Narrow: "Who specifically? Which case matters most?" |
 
-### Question Principles
+### Path Differences
 
-- Open-ended first, specific later
-- Never suggest answers (avoid leading)
-- Build follow-ups on what the user actually said, not a script
-- Summarize understanding before moving to the next topic
-- One question at a time -- never batch multiple questions in a single message
+**Standard path:** Adaptive deepening applies. When the user genuinely doesn't
+know, mark as TBD and move on. Not all unknowns block advancement.
+
+**Relentless path:** Push once more before accepting any TBD on Topics 1 and 2.
+"You said you're not sure — what's your best guess, even if uncertain?" Only
+mark TBD after a genuine second attempt. Topic 3 (success criteria) follows
+standard rules — genuine uncertainty there is acceptable.
 
 ### Topics
 
 #### Topic 1: Context and Motivation
 
-**Opening Questions:**
+Walk the decision tree for this topic: start with what triggered this brainstorm,
+then resolve dependent branches (current state, timing) in the order they emerge.
 
-- What triggered this brainstorm? What happened or changed?
-- What is the current situation? What exists today?
-- Why now? What makes this the right time to explore?
+**Opening branch:** What triggered this brainstorm?
 
-**Deepen When:**
+Depending on the answer, explore dependent branches:
+- Triggered by a problem: What is the current state? Who is affected? How often?
+- Triggered by an opportunity: What changed to make this possible now? What exists today?
+- Triggered by a constraint: What does that constraint prevent? What would removing it enable?
 
-- Vague motivation: "Something feels off" -- ask for a specific moment or trigger
-- Solution-first: user describes what to build -- redirect to what problem or
-  opportunity they see
-- Assumed urgency: "We need this ASAP" -- ask what happens if you wait a month
-- No current state: user jumps to the future -- ask what exists today and what
-  is working or not working
+**Codebase trigger:** If the discussion touches existing features, systems, or
+flows — explore the codebase to map current state before asking the user about it.
 
-**Sufficient When:**
+**Deepen when:**
+- Vague motivation: "Something feels off" → propose: "It sounds like [X] is causing friction — is that right?"
+- Solution-first: user describes what to build → redirect: "Before the solution — what problem or opportunity do you see?"
+- Assumed urgency: "We need this ASAP" → ask what happens if you wait a month
+- No current state: user jumps to the future → explore codebase or ask what exists today
 
+**Sufficient when:**
 - Clear trigger or motivation articulated
 - Current state understood (what exists, what does not)
 - Timing rationale clear or explicitly unknown
 
+**TBD weight:** High. A TBD on motivation means diverge has no anchor. Relentless
+path: push once more before accepting. Standard path: flag the gap explicitly
+before advancing.
+
 #### Topic 2: Constraints and Boundaries
 
-**Opening Questions:**
+Walk the decision tree for this topic: start with what is off the table, then
+resolve dependent branches (what must be preserved, who has veto power) based
+on answers.
 
-- What is definitely off the table? (technical, budget, time, political)
-- What must be preserved? (existing systems, user expectations, brand)
-- Who are the stakeholders? Who has veto power?
+**Opening branch:** What is definitely off the table?
 
-**Deepen When:**
+Depending on the answer, explore dependent branches:
+- Technical constraints: What does that rule out? What does it still allow?
+- Budget/time constraints: Does that change the scope of what's worth exploring?
+- "No constraints": probe — budget? timeline? team size? technical stack? political?
 
-- "No constraints" -- probe: budget? timeline? team size? technical stack?
-- Hidden constraints -- "What would your manager/team/users reject?"
-- Contradictory constraints -- surface the tension, ask which takes priority
-- Only hard constraints mentioned -- ask about preferences and soft boundaries
+**Deepen when:**
+- "No constraints" → "What would your manager/team/users reject?"
+- Hidden constraints → "What would make this dead on arrival?"
+- Contradictory constraints → surface the tension, ask which takes priority
+- Only hard constraints mentioned → ask about soft preferences too
 
-**Sufficient When:**
-
+**Sufficient when:**
 - Hard constraints identified (non-negotiable boundaries)
 - Soft constraints identified (preferences that can flex)
 - Key stakeholders named or explicitly noted as absent
 
+**TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives.
+Relentless path: push once more before accepting. Standard path: flag explicitly —
+note which alternatives may be affected.
+
 #### Topic 3: Success Criteria
 
-**Opening Questions:**
+Walk the decision tree for this topic: start with what success looks like, then
+resolve dependent branches (how to evaluate, what failure looks like).
 
-- If this brainstorm succeeds, what do you walk away with?
-- How will you know the chosen direction is right?
-- What would make you confident enough to move forward?
+**Opening branch:** If this brainstorm succeeds, what do you walk away with?
 
-**Deepen When:**
+Depending on the answer, explore dependent branches:
+- Output-focused: How will you evaluate the chosen direction?
+- Feeling-focused ("I'll know it when I see it"): ask for one concrete signal
+- Multiple criteria: Which one wins when they conflict?
 
-- "I will know it when I see it" -- ask for one concrete signal
-- Multiple competing criteria -- ask which one wins when they conflict
-- No measurable outcome -- "If we revisit in 3 months, how do we judge if
-  this was the right call?"
-- Only positive criteria -- ask what failure looks like too
+**Deepen when:**
+- "I will know it when I see it" → ask for one concrete signal
+- Multiple competing criteria → ask which one wins when they conflict
+- No measurable outcome → "If we revisit in 3 months, how do we judge this?"
+- Only positive criteria → ask what failure looks like too
 
-**Sufficient When:**
-
+**Sufficient when:**
 - At least one concrete success signal defined
 - Decision criteria clear enough to evaluate alternatives against
 - User understands what "done" means for this brainstorm (a direction, not a plan)
+
+**TBD weight:** Low. Genuine uncertainty on success criteria is acceptable —
+diverge often clarifies what "good" looks like. Mark TBD, carry forward to
+converge for evaluation.
 
 ### Quality Gate
 
 Before advancing to diverge, confirm:
 
 - [ ] Motivation is understood (why now, what triggered this)
-- [ ] Current state is mapped (what exists today)
+- [ ] Current state is mapped (what exists today — from codebase or user)
 - [ ] Hard constraints are identified
-- [ ] Success criteria defined (how to evaluate alternatives)
+- [ ] Success criteria defined or explicitly TBD (carried forward to converge)
+- [ ] Open TBDs logged with topic and weight
 - [ ] User has confirmed the summary
 
 Present a summary and confirm before advancing to diverge. Only proceed after
@@ -122,17 +191,23 @@ confirmation.
 ## Guidelines
 
 **DO:**
-- Start every brainstorm with discovery regardless of how clear the idea seems
-- Adapt question depth to the complexity of the subject
-- Mark unknowns as TBD rather than inventing constraints
-- Challenge vague or assumed answers before moving on
+- Detect entry state and reflect it in how you open — not as a label, but as framing
+- Propose your interpretation, let the user confirm or redirect
+- Explore the codebase when current-state questions can be answered that way
+- Walk the decision tree within each topic — let answers drive the next branch
+- Push once more on Topics 1 and 2 TBDs before accepting on relentless path
+- Log open TBDs with their topic weight before advancing
 
 **DON'T:**
-- Skip discovery because the user seems to have a direction
-- Ask all questions at once (one topic at a time)
-- Assume constraints that were not stated
-- Move past the quality gate without user confirmation
+- Follow scripted question lists regardless of answers (contrasts: walk the decision tree)
+- Ask cold neutral questions when you can propose an interpretation (contrasts: propose and let user redirect)
+- Ask about current state when the codebase can answer it (contrasts: explore first)
+- Accept motivation or constraint TBDs without a second push on relentless path (contrasts: push once more)
+- Move past the quality gate without user confirmation (contrasts: confirm summary)
+- Add a second question after the interpretation invite (contrasts: end the turn on the invite, wait for reply)
+- Repeat "stress-test" or "pressure-test" as labels throughout the response (contrasts: acknowledge mode once, focus on substance)
 
 ## Next Steps
 
 Load [diverge.md](diverge.md) to generate alternatives.
+Carry open TBDs forward — note them at the start of diverge.

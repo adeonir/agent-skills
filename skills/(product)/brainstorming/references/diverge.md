@@ -9,6 +9,11 @@ After discovery quality gate passes. Loaded automatically as second phase.
 
 ## Workflow
 
+Before generating alternatives, surface open TBDs carried from discovery. List
+them with their topic weights and note which alternatives might resolve them.
+Flag constraint TBDs explicitly — they will block screening in converge if
+unresolved.
+
 Breadth over depth. Generate at least 4 alternatives, aim for 6-8. Include at
 least one non-obvious or uncomfortable option. Separate generation from
 evaluation -- no judging during diverge.

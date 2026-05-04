@@ -1,14 +1,15 @@
 ---
 name: brainstorming
 description: >-
-  Structured idea exploration from vague to direction. Feeds
-  docs-writer, spec-driven, and design-builder. Use when ideas are vague,
-  multiple directions exist, or the user wants to think through options before
-  building.
+  Structured idea exploration from vague to direction, or stress-test of an
+  existing plan. Feeds docs-writer, spec-driven, and design-builder. Use when
+  ideas are vague, multiple directions exist, or the user wants to explore
+  options or pressure-test a plan before building.
 when_to_use: >-
   Triggers on "brainstorm", "explore ideas", "what should we build",
   "explore options", "think through this", "idea exploration",
-  "compare approaches".
+  "compare approaches", "stress-test this", "grill me on this plan".
+argument-hint: "[deep]"
 ---
 
 # Brainstorming
@@ -18,13 +19,13 @@ Structured idea exploration from vague to direction.
 ## Workflow
 
 ```
-discover --> diverge --> converge --> capture
-  ^________________________|  (if no viable direction)
+trigger --> detect path --> discover --> diverge --> converge --> capture
+              ^________________________________|  (if no viable direction)
 ```
 
-Discover maps the problem space (context, constraints, success criteria). Diverge
-generates alternatives using structured techniques. Converge evaluates trade-offs
-and picks a direction. Capture produces the artifact.
+Detect path from entry state (standard for vague ideas, relentless for existing
+plans). Discover maps the problem space. Diverge generates alternatives. Converge
+evaluates trade-offs and picks a direction. Capture produces the artifact.
 
 ## Context Loading Strategy
 
@@ -86,8 +87,9 @@ brainstorming -------> design-builder (direction feeds visual exploration)
 ## Error Handling
 
 - No `.artifacts/brainstorm/` directory: create it
-- User arrives with a clear solution: ask if they want to explore alternatives
-  first, or redirect to docs-writer
+- User arrives with a clear plan or solution: detect as relentless path, proceed
+  with stress-test discovery. Only redirect to docs-writer if they want to skip
+  discovery entirely.
 - No viable direction after converge: loop back to discovery with refined
   understanding
 - Scope too broad: decompose into sub-problems, brainstorm one at a time
