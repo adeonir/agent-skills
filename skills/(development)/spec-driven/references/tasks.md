@@ -85,7 +85,13 @@ Subagent brief:
   - Tasks: story groups in spec.md order (`### Sxxx [Px] Title`),
     each containing tasks with monotonic IDs top-to-bottom, dependency
     markers (`[P]`, `[B:Txxx]`), Tests / Gate / Done when fields
-    (Tests and Gate only when test infrastructure detected in Step 3)
+    (Tests and Gate only when test infrastructure detected in Step 3),
+    Satisfaction sketch field per task (one line: why this
+    implementation actually moves the criterion -- mechanisms cited
+    must exist within the task's own scope or in earlier tasks),
+    Candidate trace sub-block (investigation tasks only -- enumerate
+    every candidate from the spec with evidence for and against,
+    omit on non-investigation tasks)
   - Requirements Coverage: Story-to-Tasks mapping rows, AC-to-Tasks
     mapping rows
 - Do NOT return: prose narration, Files/Reference/Commit metadata
@@ -147,6 +153,7 @@ Without test infrastructure:
 ```
 - [ ] T001 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
+  - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
 ```
 
 With test infrastructure (test script detected in Step 3):
@@ -155,14 +162,38 @@ With test infrastructure (test script detected in Step 3):
   - **Tests:** unit|integration|e2e|none
   - **Gate:** quick|full|build
   - **Done when:** {verifiable outcome}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
 ```
 
 `Tests` declares the test type written in this task. `Gate` declares which gate command to run.
 `Done when` is a concrete, verifiable condition. When test infrastructure exists it must
 confirm the gate passes and no tests were deleted (count after ≥ count before).
 
+`Satisfaction sketch` is a one-line rationale for why the proposed implementation actually
+moves the criterion. The mechanisms cited must exist within the task's own scope or in
+earlier tasks -- if the rationale depends on a missing or later task, the Done when must
+be relaxed or the missing task must be added.
+
+**Investigation-task shape:** Tasks that profile, analyze, or trace (rather than build)
+must include a `Candidate trace` sub-block enumerating every candidate from the spec
+with evidence for and against each. A mitigation may only be chosen after every candidate
+is evaluated; premature rejection is a smell.
+
+```
+- [ ] T001 [P] {verb} {what}
+  - **Done when:** {verifiable outcome}
+  - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
+  - **Candidate trace:**
+    | Candidate | Evidence For | Evidence Against | Status |
+    |-----------|--------------|------------------|--------|
+    | {name}    | {observation} | {observation}   | {chosen / ruled out} |
+```
+
+Omit `Candidate trace` for non-investigation tasks.
+
 **Metadata split:** What/Where/Reuses live in design.md Component Design and Patterns & Reuse.
-Do not duplicate them per task -- tasks own Tests, Gate, and Done when only.
+Do not duplicate them per task -- tasks own Tests, Gate, Done when, Satisfaction sketch,
+and (when applicable) Candidate trace only.
 
 ### Step 6: Create Execution Plan
 
@@ -224,6 +255,16 @@ For each task, confirm:
 - Tasks shown as parallel `[P]` do not depend on each other
 
 If any mismatch: fix the diagram or the marker, not both arbitrarily.
+
+#### Satisfaction Sketch Check
+
+Every task must carry a Satisfaction sketch, and every sketch must reference only mechanisms that exist within its own scope or in earlier tasks.
+
+- `[pass|fail]` Every task has a non-empty Satisfaction sketch
+- `[pass|fail]` Each Satisfaction sketch cites a mechanism present in the task's own scope or in an earlier task -- never a future task
+- `[pass|fail]` No Done when relies on a mechanism that no task implements
+
+If any fail: relax the Done when, add the missing task, or rewrite the sketch against an existing mechanism.
 
 #### Test Co-location Check
 
@@ -307,6 +348,8 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 - Group by commit boundary -- each group forms one atomic commit
 - Cover all ACs -- every AC-xxx has at least one task
 - Run quality gates after each task, not as separate tasks
+- Pair every Done when with a Satisfaction sketch citing a mechanism present in this task or earlier
+- Enumerate every candidate from the spec with evidence for and against in `Candidate trace` before choosing a mitigation in an investigation task
 
 **DON'T:**
 - Add Files:/Reference:/Commit: metadata lines in task descriptions
@@ -315,6 +358,8 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 - Bundle quality gates as tasks in the breakdown
 - Defer tests to a later task when test infrastructure exists (contrasts: include tests in the task that creates the code)
 - Present tasks before running the pre-approval checks (contrasts: run checks first, restructure if needed)
+- Ship a Done when whose mechanism does not exist in the task's own scope or earlier (contrasts: every Satisfaction sketch cites a mechanism present in this task or earlier)
+- Choose a mitigation in an investigation task before evaluating every candidate from the spec (contrasts: enumerate every candidate with evidence in `Candidate trace`, then choose)
 
 ## Commit Boundary Grouping
 

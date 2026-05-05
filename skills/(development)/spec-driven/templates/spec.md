@@ -36,6 +36,7 @@ created: {{YYYY-MM-DD}}
 **Acceptance Criteria:**
 
 - [ ] AC-001 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+  - **Audit-tool measurement:** {{tool name}} -- {{exact metric}} -- pass threshold: {{numeric or boolean}}
 - [ ] AC-002 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
 
 ### S002 [P2] {{Story Title}}

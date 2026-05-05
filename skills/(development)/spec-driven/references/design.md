@@ -282,16 +282,24 @@ Subagent brief:
   - Scope: in-scope, out-of-scope bullets
   - Research Summary: bullets per cached topic (or empty)
   - Patterns & Reuse: Conventions rows, Existing Code rows,
-    Integration Points rows
+    Reused Component Contracts rows (when feature reuses a shared
+    component in an execution context or input shape that differs
+    from existing consumers), Reused Utility Contracts rows (one
+    per shared utility the feature reuses), Integration Points rows
   - Data Model: Entities rows; per-entity Member Enumeration blocks
     (member, type, file:line); Relationships text or mermaid; API
     Contracts rows; Currently Exposed Fields rows (one per AC-named
     field when ACs enumerate output, display, response, or persisted
     fields)
-  - Decisions: rows (decision, choice, rationale)
+  - Decisions: rows (decision, choice, worst-case consumer file:line
+    or `n/a` for non-numeric decisions, rationale -- when the choice
+    fixes a numeric default, cap, or implicit upper bound, rationale
+    must show derivation from the worst-case consumer)
   - Component Design: rows (component, file, action, responsibility)
   - Visual Design Considerations: bullets (only when designs/ exists)
-  - Data Flow: numbered steps or mermaid
+  - Data Flow: numbered steps or mermaid; Cross-Task Value Trace rows
+    (one per hop, when more than one task produces a value another
+    task consumes)
   - Requirements Traceability: rows (requirement, component, file,
     status); expand to one row per field for multi-field ACs
   - Test Strategy: Infrastructure, Reference Tests, New Tests rows
@@ -326,6 +334,9 @@ Define the data model before component design. Every statement about an existing
 - **Relationships**: How entities relate (one-to-many, many-to-many), with `file:line` for each referenced foreign key or join
 - **Contracts**: Every member of every request, response, or projection the feature touches, cited to `file:line`. Not "shapes" -- enumerated members
 - **Currently Exposed Fields**: If any acceptance criterion names specific output or display fields, fill the `Currently Exposed Fields` table in the design template (one row per AC-named field)
+- **Reused Component Contracts**: If the feature reuses a shared component (UI component, service, module, class, hook, etc.) in an execution context or input shape that differs from existing consumers, fill the `Reused Component Contracts` table. One row per such component. Runtime preconditions, inputs this feature exercises, and defaults that activate for this input shape -- sourced by reading the component, not by trusting the name
+- **Reused Utility Contracts**: For every shared utility the feature reuses, fill the `Reused Utility Contracts` table. One row per utility. Inputs, outputs, and internal rules (transforms, edge cases, output constraints) that shape the output -- sourced by reading the utility, not inferred from the name
+- **Cross-Task Value Trace**: When the feature splits production and consumption of a value across multiple tasks, fill the `Cross-Task Value Trace` table inside `## Data Flow`. One row per hop. A reader must be able to reconstruct the value at every consumer without reading code
 
 **Closing checklist — display each item as `[pass]` or `[fail]` before writing
 design.md. Fix all `[fail]` items first. Do not run this check silently.**
@@ -335,6 +346,11 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] No Gap cell is blank (use "none" explicitly if no gap)
 - [ ] Every "no change required" / "already returns" / "contract unchanged" claim in this section cites a `file:line` from the exploration's Member Enumeration
 - [ ] Every type listed under Entities or Contracts matches a row in the exploration's Member Enumeration
+- [ ] Every reused component listed in Component Design has a row in `Reused Component Contracts` when its execution context or input shape differs from existing consumers
+- [ ] Every utility named in Component Design or Data Flow has a row in `Reused Utility Contracts`
+- [ ] Every `Reused Component Contracts` and `Reused Utility Contracts` row has a real `file:line` in Source
+- [ ] When more than one task produces a value another task consumes, `Cross-Task Value Trace` is populated with one row per hop
+- [ ] Every Decisions row that fixes a numeric default, cap, or implicit upper bound has a non-empty `Worst-Case Consumer` cell with `file:line`
 
 ### Step 12: Dependency Inversion Check (implicit)
 
@@ -375,11 +391,11 @@ commit-boundary contract that spec-driven relies on.
 Generate the design following the template structure:
 - Scope (what is in scope and out of scope)
 - Research Summary (if applicable)
-- Patterns & Reuse (conventions to follow + existing code to reuse + integration points with existing systems)
+- Patterns & Reuse (conventions to follow + existing code to reuse + Reused Component Contracts when applicable + Reused Utility Contracts + integration points with existing systems)
 - Data Model (Entities, Relationships, API Contracts, Currently Exposed Fields when ACs enumerate fields)
-- Decisions (architecture approach + secondary decisions)
+- Decisions (architecture approach + secondary decisions; any decision that fixes a numeric default, cap, or implicit upper bound must cite the worst-case consumer in the codebase that the value must satisfy, and the rationale must show derivation from that consumer -- never from a typical or lifted value)
 - Component Design (component, file, action, responsibility)
-- Data Flow (use mermaid for complex flows)
+- Data Flow (use mermaid for complex flows; Cross-Task Value Trace when more than one task produces a value another task consumes)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
 - Test Strategy
 - Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
@@ -446,6 +462,9 @@ session, then the file is disposable.
 - Enumerate every member of every type the feature reads or writes, cited to file:line
 - Cite file:line from the exploration's Member Enumeration for every claim about an existing type
 - Expand multi-field acceptance criteria into one traceability row per field
+- Read the source of every reused component and utility before filling its contract row -- preconditions, defaults, internal rules come from the code, not the name
+- Trace cross-task values explicitly when one task produces and another consumes -- one row per hop in `Cross-Task Value Trace`
+- Cite the worst-case consumer (file:line) for every numeric default, cap, or implicit upper bound -- derive the value from that consumer
 
 **DON'T:**
 - Start designing with unresolved open questions in the spec
@@ -456,6 +475,9 @@ session, then the file is disposable.
 - Collapse multi-field ACs into a single traceability row
 - Add `### Gotcha` subsections to Considerations -- design-level gotchas with rationale go to Decisions; cross-feature gotchas go to `.agents/knowledge.md ## Gotchas`
 - Substitute the Entities table for prose or bullets -- the table is the index; member enumeration goes in sub-blocks below
+- Treat a reused component or utility as a black box (contrasts: read its source for preconditions, defaults, and internal rules)
+- Lift a numeric default from an existing consumer's intrinsic value (contrasts: derive from the worst-case consumer with file:line)
+- Reason at "checkbox" level about cross-task values ("isXUrl matches, so the path runs") (contrasts: simulate the actual transformation through every hop in `Cross-Task Value Trace`)
 
 ## Error Handling
 

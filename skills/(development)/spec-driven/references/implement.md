@@ -210,6 +210,25 @@ Any failed check: resolve before writing code.
   tech debt), queue it to `.agents/knowledge.md ## Codebase Feedback` -- do not act on it inline.
   The heuristic: "Is this in my task definition?" If no, queue and move on.
 
+##### Design-gap recovery
+
+When a defect surfaces during implementation that traces back to a missing or wrong assumption in `design.md` (rather than a coding mistake in the task), prefer a clean reset over additive corrective commits.
+
+Heuristic for "design gap" vs "coding mistake":
+- **Coding mistake**: the task's mechanism is correct in design, but implementation typed it wrong, missed an edge case, or violated a documented convention. Fix in place, normal commit.
+- **Design gap**: the task's mechanism is wrong because design.md black-boxed a utility, a component contract, a numeric default, or a cross-task value flow. The corrective work invalidates the prior commit's premise.
+
+When a design gap is identified mid-implement, pause and pick the cleaner recovery:
+
+1. `git reset --soft` to the pre-defect commit (or the commit that introduced the wrong premise) -- preserves the staged corrective work without keeping the contradicting commit history
+2. Re-commit in the corrected shape, with the new mechanism reflecting what design.md should have said
+3. Append the gap to the feature's `design.md` under a new section `## Design Gaps Discovered During Implementation` -- one bullet stating what the assumption was and how implementation invalidated it
+4. Optionally, when the gap reveals a class of issue the spec-driven skill itself should catch, append to `.artifacts/spec-driven-feedback.md` as input for future skill iteration (this file is opt-in, not part of `.agents/knowledge.md`)
+
+Never use `--no-verify` or `--amend` to mask a design gap. The corrective commit must run hooks normally. Destructive history rewriting (`reset --hard`, force push) requires explicit user confirmation.
+
+Additive corrective commits ("oops, missed X", "fix the previous fix") are a smell that the underlying design assumption is wrong -- when two corrective commits stack, stop and apply the recovery above.
+
 #### After (Quality Gates + Verify)
 
 Quality gates and verification run after EVERY task or range -- never deferred.
@@ -394,3 +413,4 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 - Dependency blocked: List prerequisites
 - Quality gate failed: Fix before marking done
 - Scope misjudged: Safety valve catches >5 steps, redirect to tasks/design
+- Design-gap defect mid-implement: see Design-gap recovery in Step 7 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md and (optionally) `.artifacts/spec-driven-feedback.md`

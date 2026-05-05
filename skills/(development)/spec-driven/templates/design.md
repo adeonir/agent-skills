@@ -35,6 +35,22 @@ created: {{YYYY-MM-DD}}
 |-----------|----------|------------|
 | {{existing component}} | {{file:line}} | {{extend/import/wrap}} |
 
+### Reused Component Contracts
+
+Required when the feature reuses a shared component (UI component, service, module, class, hook, etc.) in an execution context or input shape that differs from existing consumers. One row per reused component. Fields sourced by reading the component, not by trusting the name.
+
+| Component | Runtime Preconditions | Inputs Exercised | Defaults Activated for This Input Shape | Source (file:line) |
+|-----------|----------------------|------------------|-----------------------------------------|--------------------|
+| {{name}} | {{must run inside X / requires Y to be initialized / must be invoked from environment Z}} | {{inputs this feature passes -- props, args, config, params}} | {{defaults that activate when called this way}} | {{file:line}} |
+
+### Reused Utility Contracts
+
+Required for every shared utility the feature reuses. One row per utility. Internal rules sourced by reading the utility, never inferred from the name.
+
+| Utility | Inputs | Outputs | Internal Rules (transforms, edge cases, output constraints) | Source (file:line) |
+|---------|--------|---------|-------------------------------------------------------------|--------------------|
+| {{name}} | {{shape}} | {{shape}} | {{rules that shape the output -- caps, multipliers, exclusions, branching, etc.}} | {{file:line}} |
+
 ### Integration Points
 
 | System | Integration Method |
@@ -77,9 +93,9 @@ Required when any acceptance criterion enumerates output, display, response, or 
 
 {Non-obvious decisions only. If the choice is self-evident from the spec, omit it.}
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| {{what was decided}} | {{what was chosen}} | {{why this over alternatives}} |
+| Decision | Choice | Worst-Case Consumer (file:line) | Rationale |
+|----------|--------|---------------------------------|-----------|
+| {{what was decided}} | {{what was chosen}} | {{file:line of largest realistic consumer the value must satisfy, or `n/a` for non-numeric decisions}} | {{why this over alternatives -- when the choice fixes a numeric default, cap, or implicit upper bound, the rationale must show the value derives from the worst-case consumer}} |
 
 ## Component Design
 
@@ -107,6 +123,14 @@ Key UI/UX patterns to implement:
 1. {{Entry point}}
 2. {{Transform}}
 3. {{Output}}
+
+### Cross-Task Value Trace
+
+Required when more than one task produces a value another task consumes. One row per hop. A reader must be able to reconstruct the value at every consumer without reading code.
+
+| Hop | Producer Task | Value Shape Out | Consumer Task | Transformation Applied at Consumer | Final Value Shape |
+|-----|---------------|-----------------|---------------|------------------------------------|-------------------|
+| 1 | {{Txxx}} | {{shape produced}} | {{Tyyy}} | {{what the consumer applies on top}} | {{shape after consumer}} |
 
 ## Requirements Traceability
 

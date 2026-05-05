@@ -35,11 +35,13 @@ Run after each task or batch:
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
 
 - [ ] T002 [B:T001] {{dependent task}}
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
 
 ### S002 [P2] {{Story Title}}
 
@@ -47,6 +49,11 @@ Run after each task or batch:
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
+  - **Candidate trace:** (investigation tasks only -- omit otherwise)
+    | Candidate | Evidence For | Evidence Against | Status |
+    |-----------|--------------|------------------|--------|
+    | {{name}} | {{observation}} | {{observation}} | {{chosen / ruled out}} |
 
 ## Requirements Coverage
 

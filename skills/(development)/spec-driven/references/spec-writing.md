@@ -150,6 +150,21 @@ Rules:
 - AC-xxx IDs are sequential across the entire spec (not per story)
 - Happy paths go in ACs, boundary conditions go in Edge Cases
 
+### Audit-Tool Measurement (optional sub-line)
+
+When an acceptance criterion references a third-party audit tool (any tool that emits a binary pass/fail check on the system), append an `Audit-tool measurement` sub-bullet pinning the exact metric and the threshold used as the binary pass check, so tasks can target the tool's measurement precisely.
+
+```markdown
+- [ ] AC-001: WHEN {trigger} THEN system SHALL {expected behavior}
+  - **Audit-tool measurement:** {tool name} -- {exact metric the tool reports} -- pass threshold: {numeric or boolean}
+```
+
+Rules:
+- Required only when the AC references a third-party audit tool. Omit the sub-line otherwise
+- The exact metric must match the tool's own reported field name when one exists
+- The threshold must be a numeric value or boolean -- never a vague adjective
+- Audit behavior is unchanged: the spec-driven `audit` phase still verifies only Goals and Success Criteria; this sub-line gives tasks the precise target to design against
+
 ## Edge Cases
 
 Boundary conditions, error scenarios, and unexpected inputs. Use WHEN/THEN/SHALL format:

@@ -6,6 +6,27 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-05
+
+### Added
+
+- Reused Component Contracts sub-table in `templates/design.md` Patterns & Reuse, paired with a Step 11 instruction in `references/design.md` requiring runtime preconditions, inputs exercised, defaults activated, and source `file:line` for any reused component used in an execution context or input shape that differs from existing consumers
+- Reused Utility Contracts sub-table in `templates/design.md` Patterns & Reuse, paired with a Step 11 instruction in `references/design.md` requiring inputs, outputs, internal rules, and source `file:line` for every shared utility the feature reuses
+- Cross-Task Value Trace sub-table inside `templates/design.md` Data Flow, paired with a Step 11 instruction in `references/design.md` requiring one row per hop whenever a value is produced by one task and consumed by another
+- Worst-Case Consumer column in the `templates/design.md` Decisions table, paired with Step 13 guidance in `references/design.md` that any numeric default, cap, or implicit upper bound must derive from the largest realistic consumer with `file:line`
+- Satisfaction sketch field per task in `templates/tasks.md` and `references/tasks.md` Step 5, requiring a one-line rationale citing mechanisms present in the task's own scope or in earlier tasks
+- Candidate trace optional sub-block per investigation task in `templates/tasks.md` and `references/tasks.md` Step 5, requiring every candidate from the spec to be enumerated with evidence for and against before choosing a mitigation
+- Audit-Tool Measurement optional sub-line per AC in `templates/spec.md` and `references/spec-writing.md`, pinning the tool's exact metric and threshold whenever an AC references a third-party audit tool
+- Design-gap recovery sub-section in `references/implement.md` Step 7 During and a matching Error Handling entry, naming `git reset --soft` as the canonical recovery and routing the gap to the feature's `## Design Gaps Discovered During Implementation` plus optional `.artifacts/spec-driven-feedback.md`
+- Satisfaction Sketch Check in `references/tasks.md` Step 8 pre-approval checks, verifying every task has a non-empty sketch and no Done when relies on a missing or future task
+
+### Changed
+
+- Plan subagent return shape in `references/design.md` Step 10 carries new slots for the two contract tables, the value trace, and the Decisions worst-case-consumer column
+- Closing checklist in `references/design.md` Step 11 grows five items covering contract-table presence, source-line citations, value-trace population, and worst-case-consumer enforcement
+- Plan subagent return shape in `references/tasks.md` Step 4 carries the new Satisfaction sketch field and the optional Candidate trace sub-block
+- DO/DON'T pairs in `references/design.md` and `references/tasks.md` reflect the new black-box, lifted-value, cross-task, sketch, and candidate-trace rules
+
 ## 2026-05-03
 
 ### Added
