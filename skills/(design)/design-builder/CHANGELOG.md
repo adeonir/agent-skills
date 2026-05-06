@@ -6,6 +6,19 @@ name: design-builder
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Added
+
+- Discovery reference (`discovery.md`) for Type B context check — reads existing artifacts, runs lightweight 3-question intake when none found, and routes to the correct operation reference
+
+### Changed
+
+- Context Loading Strategy and Discovery steps moved out of SKILL.md into `discovery.md`; SKILL.md is now a pure dispatcher
+- Trigger table flattened into a single table; category H3 headers removed
+- Stale and overly-broad trigger patterns removed: "UI variants", "UI design review", "borrow from variant", "apply new vibe to existing app"
+- "Wireframe a screen" renamed to "Create a wireframe" in trigger table
+
 ## 2026-05-02
 
 ### Added

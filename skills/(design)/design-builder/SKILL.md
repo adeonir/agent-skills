@@ -12,11 +12,11 @@ description: >-
 when_to_use: >-
   Triggers on "extract copy", "extract design", "extract from codebase",
   "web capture", "wireframe", "screen flow", "layout the page",
-  "preview the design", "UI variants", "creative variants", "tune design",
+  "preview the design", "creative variants", "tune design",
   "mockup", "redesign this app", "redesign the landing page",
-  "redesign the screen", "modernize this app", "apply new vibe to existing app",
-  "brand refresh", "visual prototype", "UI design review",
-  "pivot the design", "borrow from variant", "author DESIGN.md",
+  "redesign the screen", "modernize this app",
+  "brand refresh", "visual prototype",
+  "pivot the design", "author DESIGN.md",
   "refresh design tokens", "validate DESIGN.md", "check DESIGN.md",
   "audit design tokens", "push design to external tool". Not for feature
   spec/design.md (use spec-driven), system architecture (use system-design),
@@ -37,92 +37,23 @@ discovery --> copy --> inputs --> structure --> preview --> assets --> final
                                                   ^__|  (tune / comment / apply-across loop)
 ```
 
-Each step is independent. Can run isolated or chained. Discovery is always the first step — never skip it. Assets is optional: auto-invoked after preview approval, or triggered directly at any time.
-
-design-builder is greenfield-first: it assumes no existing codebase. The codebase path inside `inputs.md` is an alternative for redesign or migration work, not the primary flow.
-
-Project type routes behavior in later steps:
-
-- **page-based** (landing-page, website): section-oriented questions and presets
-- **screen-based** (web-app, mobile-app): screen-flow and navigation questions, app-oriented presets
-
-Final design can be served as HTML via the preview server, or pushed to an external design tool when the matching MCP is available, or handed to `spec-driven` for implementation.
-
-### Discovery
-
-Before any operation, establish project context.
-
-**Step 1 — Check existing context.** Look for:
-
-- `<project-root>/DESIGN.md` — already-authored visual identity
-- `.artifacts/docs/prd.md` — PRD
-- `.artifacts/docs/brief.md` — Brief
-- `.artifacts/brainstorm/` — brainstorming direction
-- `.artifacts/docs/*-research.md` — naming research
-- `.artifacts/design/copy.yaml` — extracted content payload
-
-If found, read and extract purpose, audience, tone, key features, and any existing tokens. Skip to the relevant trigger operation.
-
-**Step 2 — Lightweight discovery (when no context exists).** Ask one question at a time:
-
-1. Project type: landing-page, website, web-app, or mobile-app?
-2. Source on hand: URL, images, brief document, codebase, design-tool file, or text description?
-3. Visual references or constraints?
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. For preview operations, also load `aesthetics.md` and `web-standards.md` as auto-loaded dependencies. For inputs operations, auto-load `validate.md` at Step 5 (gate before declaring done). `validate.md` is also a direct trigger when called on its own. `assets.md` is both a direct trigger and an optional sub-phase auto-invoked by `preview.md` after variant approval.
-
-**Never simultaneous:**
-
-- Multiple operation references (e.g., `copy.md` + `structure.md`)
+Each step is independent. Can run isolated or chained (`discovery.md` pre-loads before every operation). Assets is optional: auto-invoked after preview approval, or triggered directly. design-builder is greenfield-first — codebase path inside `inputs.md` is an alternative for redesign or migration, not the primary flow. Final design can be served as HTML, pushed to an external design tool when the matching MCP is available, or handed to `spec-driven` for implementation.
 
 ## Triggers
-
-### Content
 
 | Trigger Pattern | Reference |
 |-----------------|-----------|
 | Extract copy, copy from URL, web capture, content from website, brief document | [copy.md](references/copy.md) |
-
-### Visual Identity (DESIGN.md)
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
 | Extract design tokens, author DESIGN.md, refresh design tokens, extract design from images, extract design from codebase, pull design from external design tool | [inputs.md](references/inputs.md) |
-
-### Structure
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Wireframe a screen, layout the page, structure the content, screen flow, organize content, validate this wireframe | [structure.md](references/structure.md) |
-
-### Preview and Refinement
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Preview the design, UI variants, visual mockup, UI design review, tune the design, comment on the design, creative variants, pivot the design, borrow from variant, apply across variants, push the design to an external design tool | [preview.md](references/preview.md) |
-
-### Validation
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
+| Create a wireframe, layout the page, structure the content, screen flow, organize content, validate this wireframe | [structure.md](references/structure.md) |
+| Preview the design, visual mockup, tune the design, comment on the design, creative variants, pivot the design, apply across variants, push the design to an external design tool | [preview.md](references/preview.md) |
 | Validate DESIGN.md, check DESIGN.md, audit design tokens, lint the design system | [validate.md](references/validate.md) |
-
-### Redesign (brownfield aesthetic overhaul)
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Redesign this app, modernize this interface, apply a new vibe to the existing app, brand refresh on existing product, change the vibe without rebuilding the IA | [redesign.md](references/redesign.md) |
-
-### Assets
-
-| Trigger Pattern | Reference |
-|-----------------|-----------|
+| Redesign this app, modernize this interface, brand refresh on existing product, change the vibe without rebuilding the IA | [redesign.md](references/redesign.md) |
 | Generate hero banner, create product image, generate OG card, generate banner, image assets, generate image prompt, prompts for banner | [assets.md](references/assets.md) |
 
 Notes:
 
+- `discovery.md` is not a direct trigger. It loads before every operation — never skip it.
 - `aesthetics.md` and `web-standards.md` are not direct triggers. They are auto-loaded by `preview.md`.
 - `validate.md` is both a direct trigger (callable on demand) and auto-loaded by `inputs.md` Step 5 as the gate before declaring done.
 - `assets.md` is both a direct trigger (callable on demand) and an optional sub-phase auto-invoked by `preview.md` after variant approval.
@@ -130,6 +61,7 @@ Notes:
 ## Cross-References
 
 ```
+discovery.md ----------> all refs (pre-loaded before every operation)
 brainstorming ---------> design-builder (direction feeds discovery)
 docs-writer -----------> design-builder (PRD/Brief feeds discovery)
 copy.md ---------------> structure.md (content informs structure)
