@@ -79,47 +79,13 @@ Formatting rules:
 
 ### SKILL.md Runtime Variables
 
-Two runtime substitutions available inside SKILL.md content:
-
-**`$ARGUMENTS`** — replaced with whatever the user typed after the skill name
-when invoked via `/skill-name <args>`. Use for skills that accept a target,
-message, or topic at invocation time.
-
-```markdown
----
-name: commit
-description: Create a conventional commit
-disable-model-invocation: true
----
-
-Create a commit for the staged changes.
-Commit message hint: $ARGUMENTS
-```
+**`$ARGUMENTS`** — replaced with whatever the user typed after `/skill-name <args>`.
+Use for skills that accept a target, message, or topic at invocation time.
 
 **`!`command``** — shell command executed before Claude sees the skill content;
-output is injected in place of the placeholder. Use to inject live context
-(diff, PR data, file list) without requiring the user to paste it.
-
-```markdown
----
-name: pr-summary
-description: Summarize changes in a pull request
-context: fork
-agent: Explore
-allowed-tools: Bash(gh *)
----
-
-## Pull request context
-- PR diff: !`gh pr diff`
-- PR comments: !`gh pr view --comments`
-
-## Task
-Summarize this pull request...
-```
-
-Security note: `!`command`` executes at invocation time in the user's shell.
-Keep commands read-only (`gh`, `git log`, `cat`). Never pipe to a shell or
-write to disk from this interpolation.
+output is injected in place. Use to inject live context (diff, PR data, file list).
+Security: keep commands read-only (`gh`, `git log`, `cat`). Never pipe to a shell
+or write to disk from this interpolation.
 
 ### SKILL.md Section Order
 
@@ -129,14 +95,18 @@ All skills follow this exact order:
 1. # Title                  (H1, descriptive skill name)
 2. **Recommended effort:**  (optional single line; skills with heavy phases)
 3. ## Workflow              (flow diagram)
-4. ## Context Loading       (reference loading strategy)
-5. ## Triggers              (trigger -> reference table)
-6. ## Cross-References      (ASCII dependency diagram)
-7. ## Guidelines            (DO/DON'T)
-8. ## Output                (output format and location, if applicable)
-9. ## Error Handling        (edge case list)
-10. ## Compact Instructions (optional; long-running skills only)
+4. ## Triggers              (trigger -> reference table)
+5. ## Cross-References      (ASCII dependency diagram)
+6. ## Guidelines            (DO/DON'T)
+7. ## Output                (output format and location, if applicable)
+8. ## Error Handling        (edge case list)
+9. ## Compact Instructions  (optional; long-running skills only)
 ```
+
+Extra sections are allowed but must respect this order. Methodological sections
+(e.g., Knowledge Verification Chain, Artifact Structure Authority) go between
+`## Cross-References` and `## Guidelines`. Context loading belongs in the refs
+that execute it — never as a SKILL.md section.
 
 ### Recommended Effort
 
@@ -150,27 +120,16 @@ Format: one bold line with the effort level and a short rationale.
 **Recommended effort:** xhigh for design/audit phases; medium for quick mode.
 ```
 
-Levels: `low` · `medium` · `high` · `xhigh` (default for heavy reasoning) · `max` (evals only).
+Levels: `low` · `medium` · `high` · `xhigh` (default for heavy reasoning) · `max` (complex design phases only; use sparingly).
 
 ### Compact Instructions
 
 Optional section for long-running skills where context pressure is realistic.
-Tells Claude Code what to preserve when autocompact fires.
+List what to preserve (current phase, artifact paths, open decisions) and what
+to drop (raw tool outputs, scratch reasoning) when autocompact fires.
 
-```markdown
-## Compact Instructions
-
-Preserve:
-- Current phase, phase artifacts paths, open decisions
-- User's acceptance criteria and constraints
-
-Drop:
-- Raw tool outputs, intermediate grep results, scratch reasoning
-```
-
-Skills that persist state to disk across phases (e.g., `spec-driven` via
-`.artifacts/.session-dump.md`) do not need this section -- the artifact
-already survives `/clear` and is a stronger guarantee than compact hints.
+Skills that persist state to disk across phases do not need this section --
+the artifact already survives `/clear` and is a stronger guarantee.
 
 ### Workflow
 
@@ -183,18 +142,6 @@ phase-1 --> phase-2 --> phase-3 --> output
 ```
 
 One sentence explaining the flow right below.
-
-### Context Loading Strategy
-
-Documents which references to load and when. Specify:
-- What to load per trigger
-- Automatic dependencies (ref A loads ref B)
-- What should never be loaded together
-
-```markdown
-Load only the reference matching the current trigger. Never load multiple
-references simultaneously unless explicitly noted.
-```
 
 ### Triggers
 
@@ -214,6 +161,33 @@ Notes:
 
 - `auxiliary.md` is not a direct trigger. It is loaded by `main.md` as part of its process.
 ```
+
+### Discovery Types
+
+Three fundamentally different discovery patterns exist. Placing them in the
+wrong location causes bloated SKILL.md and inconsistent behavior.
+
+**Type A — Product discovery**
+Understand the problem, user, and direction before any execution. Iterative,
+question-driven, no disk state. Output is direction, not artifact.
+Lives in `references/discovery.md`. Loaded as the first step before triggers.
+Skills: `brainstorming`, `docs-writer`, `system-design`, `spec-driven`.
+
+**Type B — Context discovery**
+Determine execution state — which artifacts exist, which project is active,
+what the codebase looks like. Deterministic, reads disk and context. Output
+is a routing decision.
+Lives at the **start of the reference that needs it**. Never in SKILL.md.
+When a skill has `discovery.md` used as pre-load, document it in Triggers
+Notes (same pattern as `wrap-up` / `mapping.md`).
+
+**Type C — Technical discovery**
+Understand the solution space — requirements, trade-offs, architecture.
+Exclusive to design/engineering skills. Structured by topics, adaptive depth.
+Lives in `references/discovery.md` (same location as Type A, technical focus).
+Skills: `system-design`, `spec-driven`.
+
+Reference models for the correct patterns: `git-helpers`, `wrap-up`, `project-index`.
 
 ### Cross-References
 
@@ -298,43 +272,11 @@ Internal links always relative to the references directory:
 
 ### Template Files (templates/*.md)
 
-Optional. Exist when the skill generates artifacts with a fixed structure.
+Optional. Create when the skill generates artifacts with a repeatable structure.
+Not needed for inline skills (debug-tools, git-helpers).
 
-When to create:
-- The skill generates files as output (documents, reports, configs)
-- The output has a repeatable structure across executions
-- No template needed: skills that operate inline (debug-tools, git-helpers)
-
-Use `{{mustache}}` for dynamic values:
-
-```yaml
----
-name: {{project-name}}
-source: {{url or description}}
-created: {{YYYY-MM-DD}}
----
-
-# {{Title}}
-
-## Section
-
-{{description of what goes here}}
-```
-
-For fill-in instructions (not value placeholders), use `{single braces}`:
-
-```markdown
-{For each item, one line:}
-{Brief recommendation if one clearly dominates.}
-```
-
-Templates named after the output type they generate:
-
-| Template | Output |
-|----------|--------|
-| `report.md` | Naming report |
-| `prd.md` | Product Requirements Document |
-| `copy.yaml` | Copy extraction |
+Use `{{mustache}}` for dynamic values, `{single braces}` for fill-in instructions.
+Name templates after the output type they generate (`report.md`, `prd.md`, `copy.yaml`).
 
 ### CHANGELOG.md
 
@@ -350,28 +292,19 @@ Structure:
 
 ### README.md
 
-User-facing documentation. Sections in order:
+User-facing documentation. Required sections in order:
 
-```
-1. # Title
-2. Descriptive sentence (one line)
-3. ## Installation
-   - npx skills add adeonir/agent-skills --skill {name}
-4. ## What It Does
-   - Mermaid diagram (flowchart LR or TD)
-   - Table with phases/outputs
-5. ## Usage
-   - Code block with natural language usage examples
-6. ## Output (if applicable)
-   - Output format or directory
-7. ## Requirements (if applicable)
-   - Dependencies and external tools
-8. ## Integration (if applicable)
-   - Table of connections with other skills
-```
+| Section | Content |
+|---------|---------|
+| `# Title` + tagline | One descriptive sentence |
+| `## Installation` | `npx skills add adeonir/agent-skills --skill {name}` |
+| `## What It Does` | Mermaid diagram + phases table |
+| `## Usage` | Natural language usage examples |
+| `## Output` | Output format or directory (if applicable) |
+| `## Requirements` | Dependencies and external tools (if applicable) |
+| `## Integration` | Connections with other skills (if applicable) |
 
-Mermaid diagrams always `flowchart LR` or `flowchart TD` (never `graph`).
-Decisions with `{}`, actions with `[]`, arrows with labels via `-->|label|`.
+Mermaid: `flowchart LR` or `flowchart TD` (never `graph`). Decisions `{}`, actions `[]`, labels via `-->|label|`.
 
 ## New Skill Checklist
 
@@ -391,6 +324,9 @@ Before finalizing a new skill, verify:
 - [ ] `Compact Instructions` section added if skill has heavy phases where autocompact could fire before the next disk write (even if the skill persists state to disk — the guarantee only holds after the write happens)
 - [ ] Entrypoint skills state a first-turn brief (intent, constraints, acceptance, files)
 - [ ] Skills that fan out across items instruct the model to spawn subagents explicitly
+- [ ] SKILL.md is a pure dispatcher (≤ ~150 lines): only triggers, cross-refs, short guidelines — no operational logic inline
+- [ ] No inline logic in SKILL.md that applies only to a subset of triggers (move it to that trigger's ref)
+- [ ] Discovery type identified and placed correctly: Type A/C in `references/discovery.md`, Type B at the start of the ref that needs it
 
 ## Naming Conventions
 
@@ -437,15 +373,10 @@ authoring style, which is Writing Style above).
   enable extended thinking for that skill. Use for intelligence-sensitive phases
   (audit, design, API review, multi-file analysis). Omit on light or
   latency-sensitive skills
-- **Context pressure and autocompact guards**: skills with heavy phases need two
-  layers of protection against autocompact firing before state is saved. First,
-  a mid-phase checkpoint: an automatic (no user confirmation) partial dump to
-  disk at a natural boundary before the heaviest steps — this guarantees
-  something is on disk early. Second, `Compact Instructions` in SKILL.md as
-  fallback for when autocompact fires before the checkpoint runs. End-of-phase
-  session dump suggestions remain opt-in and capture the completed phase in full.
-  The pattern: checkpoint (automatic, partial, mid-phase) → end-of-phase dump
-  (opt-in, complete) → Compact Instructions (fallback)
+- **Context pressure and autocompact guards**: heavy phases need two layers:
+  (1) automatic mid-phase checkpoint to disk before the heaviest steps;
+  (2) `Compact Instructions` as fallback if autocompact fires before the checkpoint.
+  End-of-phase dumps remain opt-in. Pattern: checkpoint → opt-in dump → Compact Instructions.
 
 ## Commit Conventions
 
@@ -486,8 +417,6 @@ Skills write to `.artifacts` organized by domain:
 ```
 
 Ownership: project-index writes `project.md` and `codebase/*.md`; spec-driven writes `knowledge.md` and `baselines/*.md`. Spec-driven discoveries land in `knowledge.md`'s `## Codebase Feedback` and merge into `codebase/*.md` via `/project-index integrate feedback`.
-
-project-index owns `AGENTS.md`; `CLAUDE.md` is user-authored -- project-index never edits it.
 
 ## Terminology
 
