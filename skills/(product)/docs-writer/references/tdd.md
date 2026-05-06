@@ -23,6 +23,8 @@ discovery --> analysis --> drafting
 
 ### Phase 1: Discovery
 
+**LOAD:** [discovery.md](discovery.md) for shared interview patterns and critical posture.
+
 **Check Existing Context:**
 
 Look for existing PRD at `.artifacts/docs/prd.md` and Design Doc at `.artifacts/docs/design.md`.
@@ -146,6 +148,7 @@ Synthesize discovery into technical analysis:
 ### Phase 3: Drafting
 
 **USE TEMPLATE:** `templates/tdd.md`
+**LOAD:** [quality.md](quality.md) before presenting the draft to the user.
 
 Generate the TDD using the schema below. Include only sections matching the determined size plus any promoted critical sections. Present draft to user for review.
 

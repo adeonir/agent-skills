@@ -157,6 +157,7 @@ Synthesize everything from discovery and validation into a structured summary.
 - Brief: `templates/brief.md`
 
 **LOAD:** [brief.md](brief.md) for brief generation rules.
+**LOAD:** [quality.md](quality.md) before presenting the draft to the user.
 
 Generate both documents using the confirmed synthesis. Present drafts to user for review before saving.
 

@@ -6,6 +6,18 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Added
+
+- Quality standards reference (`quality.md`) consolidating requirements quality table and pre-presentation review checklist
+- Discovery and quality LOAD directives in `design.md` and `tdd.md` Phase 1 and Phase 3
+
+### Changed
+
+- Context Loading Strategy, Shared Discovery Patterns, Document Types, Quality Standards, and Review Checklist sections moved out of SKILL.md; dispatcher now under 120 lines
+- Triggers Notes added with pre-load documentation for `discovery.md`, `quality.md`, and `brief.md`
+
 ## 2026-04-29
 
 ### Removed

@@ -23,6 +23,8 @@ discovery --> analysis --> drafting
 
 ### Phase 1: Discovery
 
+**LOAD:** [discovery.md](discovery.md) for shared interview patterns and critical posture.
+
 **Check Existing Context:**
 
 Look for existing PRD at `.artifacts/docs/prd.md`.
@@ -121,6 +123,7 @@ For key decisions, consider:
 ### Phase 3: Drafting
 
 **USE TEMPLATE:** `templates/design.md`
+**LOAD:** [quality.md](quality.md) before presenting the draft to the user.
 
 Generate the design doc using the schema below. Present draft to user for review.
 

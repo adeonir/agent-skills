@@ -31,15 +31,6 @@ trigger --> detect type --> load reference --> discovery --> drafting
 
 Detect document type from the trigger. If ambiguous, ask the user which type they want.
 
-## Context Loading Strategy
-
-Load the reference and template matching the detected document type. For types that require discovery, also load [discovery.md](references/discovery.md).
-
-**Never simultaneous:**
-
-- Multiple document type references
-- Templates for different document types
-
 ## Triggers
 
 | Trigger Pattern                                             | Type       | Reference                         |
@@ -49,9 +40,17 @@ Load the reference and template matching the detected document type. For types t
 | Create TDD, technical design document, technical design     | TDD        | [tdd.md](references/tdd.md)       |
 | Create document, write doc                                  | Ask user   | --                                |
 
+Notes:
+
+- `discovery.md` is not a direct trigger. It is auto-loaded by `prd.md`, `design.md`, and `tdd.md` at the start of the discovery phase.
+- `quality.md` is not a direct trigger. It is auto-loaded by `prd.md`, `design.md`, and `tdd.md` before presenting the document draft.
+- `brief.md` is not a direct trigger. It is loaded by `prd.md` during the drafting phase.
+
 ## Cross-References
 
 ```
+discovery.md -----> prd.md, design.md, tdd.md (auto-loaded before discovery starts)
+quality.md -------> prd.md, design.md, tdd.md (auto-loaded before presenting draft)
 PRD -------------> Design Doc     (PRD feeds requirements, context into Design Doc)
 PRD -------------> TDD            (PRD feeds requirements into TDD)
 PRD -------------> epic-tracker   (PRD milestones and FRs inform epic definition)
@@ -69,62 +68,26 @@ Notes:
 - **design-builder**: PRD sections 1, 3-4 (problem, personas, scope) and Brief (value prop, market) inform copy extraction and design extraction
 - **spec-driven**: PRD milestones feed feature initialization -- each milestone can generate a spec with its own tasks
 
-## Document Types
-
-| Type       | Workflow                                         | Reference                         | Template                         |
-| ---------- | ------------------------------------------------ | --------------------------------- | -------------------------------- |
-| PRD        | discovery -> validation -> synthesis -> drafting | [prd.md](references/prd.md)       | [prd.md](templates/prd.md)       |
-| Brief      | generated with PRD (no separate trigger)         | [brief.md](references/brief.md)   | [brief.md](templates/brief.md)   |
-| Design Doc | discovery -> analysis -> drafting                | [design.md](references/design.md) | [design.md](templates/design.md) |
-| TDD        | discovery -> analysis -> drafting                | [tdd.md](references/tdd.md)       | [tdd.md](templates/tdd.md)       |
-
-## Shared Discovery Patterns
-
-**LOAD:** [discovery.md](references/discovery.md) before starting any type that requires discovery.
-
-Discovery applies to: PRD, Design Doc, TDD.
-Brief is generated as part of the PRD workflow (no standalone trigger).
-
-## Quality Standards
-
-Requirements must be concrete and measurable across all document types.
-
-| Bad                     | Good                                               |
-| ----------------------- | -------------------------------------------------- |
-| "Search should be fast" | "Search returns results within 200ms"              |
-| "Easy to use"           | "New users complete onboarding in under 2 minutes" |
-| "Intuitive interface"   | "Task completion rate above 90% without help text" |
-
 ## Guidelines
 
 **DO:**
 
 - Always complete discovery before drafting (for types that require it)
-- Review the artifact before presenting to user (see Review Checklist below)
+- Review the artifact before presenting to user (load quality.md)
 - Present draft for user feedback before saving
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Use fixed filenames per type
+- Detect document type from the trigger; ask if ambiguous
+- Keep each document within its domain (PRD = product, Design Doc/TDD = technical)
 
 **DON'T:**
 
 - Skip discovery for types that require it
 - Assume document type -- detect from trigger or ask
-- Include visual/design direction (that belongs in design-builder)
+- Include visual/design direction in product or technical docs
 - Use vague adjectives as requirements ("fast", "easy", "intuitive")
 - Mix document types in a single file
-
-## Review Checklist
-
-Before presenting any document to the user, verify:
-
-- [ ] No contradictions between sections
-- [ ] No unresolved TBDs that block the document's purpose
-- [ ] Scope is focused (one document, one purpose)
-- [ ] Cross-references to other docs are valid
-- [ ] Requirements are concrete and measurable (no vague adjectives)
-
-If issues found: fix inline before presenting. Don't deliver a flawed artifact.
 
 ## Output
 
