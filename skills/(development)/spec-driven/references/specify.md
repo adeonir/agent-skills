@@ -121,13 +121,29 @@ If ambiguous, ask user.
 
 **If input is a file (@file.md):**
 
-Load [doc-extraction.md](doc-extraction.md) and:
+Extraction is **transformation**, not copying. Source documents define
+product-level or system-level requirements; the spec defines feature-level,
+implementation-ready requirements. Every item must be narrowed to feature
+scope and refined with implementation detail.
 
-1. List all files in referenced path
-2. Read each file completely
-3. Extract rules, constraints, and examples
-4. Map relevant items to FRs and ACs
-5. Document extraction summary in Notes section
+| Source (PRD/TDD) | spec.md |
+|-------------------|---------|
+| Product-wide user stories | Feature-scoped stories prioritized by implementation order (P1/P2/P3) |
+| Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
+| High-level acceptance criteria | Testable ACs in WHEN/THEN/SHALL format |
+| Product KPIs and success metrics | Feature-specific success criteria (demo-able) |
+| No edge cases | Edge cases (boundaries, errors, invalid inputs) |
+
+1. If path is a directory, list all files: `find {path} -type f -name "*.md"`
+2. Read each file completely -- extract rules ("must", "cannot", "always"),
+   constraints ("only if", "when", "unless"), and examples
+3. Filter each item: relevant → transform; not relevant → note WHY in Notes;
+   partially relevant → extract only the applicable part
+4. Transform (never copy verbatim): narrow broad stories to feature scope, make
+   ACs testable (WHEN/THEN/SHALL), add missing edge cases and success criteria
+   derived from requirements
+5. Output extraction summary in Notes section before generating spec -- the
+   "Transformed To" column must show the refined version, not a copy
 
 **If input is text:**
 - Use as feature description
@@ -137,123 +153,43 @@ Load [doc-extraction.md](doc-extraction.md) and:
 
 ### Step 7: Feature Discovery
 
-Understand the feature before drafting. Discovery is adaptive -- deepen based on the quality of answers, not a fixed script. If input came from a file (@file.md), use extracted content as starting context and skip questions already answered by the document.
-
-#### Topic 1: Problem & Context
-
-**Opening questions:**
-- What problem does this feature solve?
-- Who is affected and what's their current pain?
-- How do you know this is a real problem? (evidence, feedback, observation)
-
-**Deepen when:**
-- User describes a solution, not a problem --> "What problem does this solve? Let's start there."
-- No evidence --> "What would convince you this is real? Have you seen users struggle with this?"
-- Multiple problems mixed --> "These sound like separate issues. Which one is primary?"
-- Vague audience --> "Who specifically? Describe the person who hits this problem most."
-
-**Sufficient when:**
-- Problem can be stated in one clear sentence
-- At least one concrete user/persona is identified
-- Evidence exists or is explicitly marked as hypothesis
-
-#### Topic 2: Scope & Success
-
-**Opening questions:**
-- What needs to work first for this feature to be useful? (P1 core)
-- What is explicitly out of scope?
-- How will you know this feature succeeded? (measurable outcome)
-
-**Deepen when:**
-- No clear core --> "What needs to work first for this feature to be useful?"
-- Scope keeps expanding --> "We started with X, now it's X+Y+Z. Should we narrow down?"
-- No success criteria --> "How would you demo this working? What does the user see?"
-- Stories without user connection --> "Which user needs this? What problem does it solve for them?"
-- No priority order --> "If you implement these one at a time, what order makes sense?"
-
-**Sufficient when:**
-- Stories are prioritized by implementation order (P1 core, P2 increment, P3 polish)
-- P1 stories form a working feature on their own
-- At least one measurable success criterion exists
-- Boundaries are defined (what is explicitly out of scope)
-
-#### Discovery Flow
-
-1. Start each topic with its opening questions (2-3 per topic)
-2. Evaluate answers against sufficiency criteria
-3. If criteria not met, deepen -- ask follow-ups targeting the specific gap
-4. If criteria met, summarize understanding and move to next topic
-5. After both topics, present synthesis for user confirmation
-
-#### Adaptive Deepening
-
-Probe further when answers are:
-
-- **Vague**: "users want something better" --> ask for specifics
-- **Assumed**: stated as fact without evidence --> ask for evidence or mark as hypothesis
-- **Conflated**: multiple concepts mixed --> separate and explore each
-- **Solution-first**: describes what to build before why --> redirect to the problem
-- **Overly broad**: "everyone", "all cases" --> narrow to most important
-
-Move on when:
-
-- The topic's sufficiency criteria are met
-- The user explicitly says "I don't know" (mark as TBD)
-- Further questioning would not yield new information
-
-#### Question Principles
-
-- Open-ended first, specific later
-- Never suggest answers in the question (avoid leading questions)
-- Build follow-ups on what the user actually said, not on a script
-- Be specific: "Should password reset require email verification?" not "How should reset work?"
-- Offer options when possible: "Should the timeout be (a) 30 minutes, (b) 1 hour, or (c) configurable?"
-
-#### Critical Posture
-
-Discovery is not a formality. Challenge ideas with respect, but never be a yes-man.
-
-| Situation | Passive Response | Critical Response |
-|-----------|-----------------|-------------------|
-| User describes vague problem | "Okay, let's proceed" | "Who specifically has this problem? How often?" |
-| User jumps to solution | "Got it, I'll include that" | "Before we define the solution -- what problem does this solve?" |
-| User adds scope mid-discovery | "I'll add that too" | "This changes the scope. Should we focus on the core first?" |
-| User has no evidence | "Noted" | "Without evidence, this is an assumption. Mark as hypothesis?" |
-
-#### Gray Area Detection
-
-During discovery, watch for signals that indicate ambiguous areas needing deeper discussion:
-
-- Contradictory requirements
-- "It depends" answers without clear conditions
-- Requirements that could be interpreted multiple ways
-- Missing domain knowledge
-- Trade-offs without clear preference
-
-If detected and scope is **Complex**: note them as Open Questions and suggest running [discuss](discuss.md) after spec is created.
-
-#### Quality Gate
-
-Before proceeding to drafting, verify:
-
-- [ ] Both topics met sufficiency criteria or gaps are marked as TBD
-- [ ] Unknowns explicitly marked as TBD
-- [ ] User confirmed the synthesis
-- [ ] No critical ambiguity remains
-- [ ] Problem is understood with evidence or marked as hypothesis
-
-Items unresolved after discovery go to "Open Questions" in spec.md. Never block spec creation on unresolved questions.
+Load [discovery.md](discovery.md) and conduct feature discovery. If input came
+from a file (@file.md), pass the extracted content as starting context so
+discovery can skip questions already answered by the document.
 
 ### Step 8: Baseline Discovery (Brownfield)
 
 If type is `brownfield`:
 
-1. **Run baseline-discovery:**
-   Load [baseline-discovery.md](baseline-discovery.md) to document current
-   behavior relevant to this feature.
+1. **Analyze current behavior from user perspective** (not implementation details):
+   - What users can currently do
+   - Current workflows and limitations
+   - What needs to change
 
-2. Document gaps and limitations
-3. Add Baseline section to spec.md
+2. **Behavior only -- no file paths, no component/hook names:**
+
+   | Include | Exclude |
+   |---------|---------|
+   | What users can do | File paths |
+   | Current limitations | Function names |
+   | Behavior gaps | Code snippets |
+   | User-facing issues | Technical implementation |
+
+3. **Add Baseline section to spec.md:**
+
+   ```markdown
+   ## Baseline
+
+   ### Current Behavior
+   - Users can currently do X
+   - System behaves like Y
+   - Limitation: Z
+
+   ### Gaps / Limitations
+   - Missing: A
+   - Problem: B
+   - Improvement needed: C
+   ```
 
 If `.agents/codebase/` doesn't exist and wasn't suggested in Step 2:
 - Suggest running project-index for better brownfield context
@@ -349,6 +285,40 @@ check silently.
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
+### Section Rules
+
+**Goals:** 2-4 per feature (more signals scope creep). Each goal must map to at least
+one Success Criterion. Future-tense observation windows ("for N days after deploy",
+"in the period following launch") are not verifiable at audit time -- keep the
+architectural/instrumentation claim in Goals and move the observation window to
+`## Operational Follow-ups`.
+
+**User Stories:** All stories WILL be implemented. Priorities define implementation
+order, not whether something ships. Each story is a commit boundary -- an AC that
+requires work from a later story must be moved to that story. Watch for narrative vs
+build order inversions: if a story defines a reusable primitive that an earlier-numbered
+story consumes, the inversion breaks the commit-boundary contract. Fix by moving the
+primitive's story earlier, merging it into the first consumer, or making the earlier
+story ship an inline implementation that the later story refactors into the shared
+primitive. Never leave the inversion implicit.
+
+**Acceptance Criteria:** Use WHEN/THEN/SHALL format. Happy paths go in ACs; boundary
+conditions go in Edge Cases. When an AC references a third-party audit tool, append
+an `Audit-tool measurement` sub-bullet:
+```
+- [ ] AC-001: WHEN {trigger} THEN system SHALL {expected behavior}
+  - **Audit-tool measurement:** {tool name} -- {exact metric the tool reports} -- pass threshold: {numeric or boolean}
+```
+Required only when the AC references a third-party audit tool. Omit the sub-line otherwise.
+
+**Operational Follow-ups:** Plain bullets (no `[ ]` -- the absence of a checkbox makes
+the non-gating intent explicit). Use "None" if every criterion is pre-merge verifiable.
+Never duplicate items that also appear in Goals or Success Criteria.
+
+**Notes:** Same behavior vs symbol filter as the rest of the spec -- no libraries, no
+paths, no component or hook names. Omit the section entirely if there is nothing
+behavioral to capture beyond what other sections already cover.
+
 ### Step 14: Approval Gate
 
 Present a summary:
@@ -409,7 +379,7 @@ session, then the file is disposable.
 
 They complement each other:
 - project-index: Macro view (whole codebase)
-- baseline-discovery: Micro view (this feature only)
+- Baseline discovery (Step 8): Micro view (this feature only)
 
 ## Guidelines
 

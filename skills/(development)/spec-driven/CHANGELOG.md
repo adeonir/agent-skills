@@ -6,6 +6,29 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Added
+
+- Feature discovery reference in `references/discovery.md` with problem/context and scope/success topics, adaptive deepening, critical posture, and pre-draft quality gate
+- Auto-sizing reference in `references/auto-sizing.md` with complexity table, pipeline depth rules, and Medium vs Large gray-zone resolution
+- Phase transitions reference in `references/phases.md` with opt-in between-phase session dump protocol and sub-agent dispatch overview
+- Code correctness analysis reference in `references/code-correctness.md` with 24 categories, tooling coverage detection, and tier-based confidence model (renamed from `deep-verify.md`)
+
+### Changed
+
+- Baseline discovery inlined into Specify Step 8 with behavioral filter table and markdown template
+- Document extraction rules inlined into Specify Step 6 with transformation table and 5-step execution
+- Auto-sizing table, context loading strategy, phase transitions, and sub-agent dispatch moved from SKILL.md to dedicated references
+
+### Removed
+
+- Baseline discovery reference (inlined into Specify Step 8)
+- Deep-verify reference (renamed to `code-correctness.md`)
+- Doc extraction reference (inlined into Specify Step 6)
+- Spec-writing reference (content distributed across Specify and SKILL.md)
+- Test-driven reference from Implement
+
 ## 2026-05-05
 
 ### Added

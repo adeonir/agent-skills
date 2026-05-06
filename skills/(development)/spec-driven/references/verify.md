@@ -3,7 +3,7 @@
 Check implementation against the spec design, project patterns, code correctness,
 and visual references. Runs after every task or range -- never deferred to the end.
 
-> **LOADS:** [deep-verify.md](deep-verify.md) -- code correctness analysis (Step 5)
+> **LOADS:** [code-correctness.md](code-correctness.md) -- code correctness analysis (Step 5)
 
 ## When to Use
 
@@ -71,11 +71,11 @@ Report findings with the same severity table.
 
 ### Step 5: Code Correctness
 
-Load [deep-verify.md](deep-verify.md) for semantic code analysis.
+Load [code-correctness.md](code-correctness.md) for semantic code analysis.
 
-Deep-verify checks for logic errors, semantic issues, and correctness
-problems that linters and type checkers cannot detect. It auto-detects
-project tooling and skips categories already covered.
+Code correctness analysis checks for logic errors, semantic issues, and
+correctness problems that linters and type checkers cannot detect. It
+auto-detects project tooling and skips categories already covered.
 
 Skip this step when the task only changed configuration, documentation,
 or static assets.
@@ -163,7 +163,7 @@ Never loop indefinitely.
 - Loop indefinitely on the same finding
 - Assume visual references exist -- check first
 - Run visual verification without explicit references
-- Run deep-verify on config-only or docs-only changes
+- Run code-correctness on config-only or docs-only changes
 - Mark Goals or Success Criteria checkboxes -- audit.md owns those
 
 ## Error Handling

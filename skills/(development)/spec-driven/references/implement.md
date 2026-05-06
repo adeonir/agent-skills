@@ -166,7 +166,6 @@ For each task, follow the 3-phase cycle:
 #### Before (Preparation)
 
 - Load [coding-principles.md](coding-principles.md)
-- If project has test infrastructure: load [test-driven.md](test-driven.md)
 - Read the relevant reference files from design.md or quick scan (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
 - State the pre-implementation declaration before writing any code:
