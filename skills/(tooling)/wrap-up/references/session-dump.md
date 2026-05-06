@@ -77,11 +77,9 @@ If neither signal fires, emit nothing.
 
 Runs last, unconditional regardless of Detect output.
 
-```bash
-rm -f .artifacts/.session-dump.md
-```
-
-No prompt. Silent if the file is already absent.
+Write empty content to `.artifacts/.session-dump.md`. Do not delete the
+file — an empty file is treated as missing on the next Load, and writing
+avoids a Bash permission prompt.
 
 ## Guidelines
 
@@ -89,6 +87,8 @@ No prompt. Silent if the file is already absent.
 - Read the file once in Load and share contents via working context
 - Emit at most one suggestion line in Detect
 - Run Cleanup unconditionally — the dump is ephemeral by design
+- Clear the dump file by writing empty content in Cleanup — avoids
+  Bash permission prompts; empty file is treated as missing on next Load
 - Treat a missing file as a silent no-op in every phase
 - Mirror audit's inform-only pattern — the suggestion is
   informational, never blocking
@@ -104,6 +104,8 @@ No prompt. Silent if the file is already absent.
   suggestion line, user decides)
 - Walk every block in the file (contrasts: read only the latest
   phase entry)
+- Delete the file — write empty content instead (contrasts: clear
+  with empty write, no Bash permission prompt)
 
 ## Error Handling
 
@@ -117,5 +119,4 @@ No prompt. Silent if the file is already absent.
   bullets: rely on git diff only
 - Session-dump file empty or has no `##` blocks: treat as missing,
   skip Detect
-- File missing on Cleanup: no-op
-- `rm` fails (permissions): warn, do not block wrap-up completion
+- File missing on Cleanup: no-op, skip the empty write

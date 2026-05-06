@@ -225,3 +225,8 @@ Rules:
 - Create dedicated decision notes — decisions live inline in sessions
 - Write `# Heading` inside `content` — frontmatter already carries the title
 - Drop session-dump bullets from the BM note without folding them in (contrasts: fold all three categories when present)
+
+## Error Handling
+
+- BM tools unavailable: skip BM step entirely, warn user
+- Session note already exists for today: append with `edit_note`, do not overwrite

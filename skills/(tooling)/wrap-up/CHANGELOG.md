@@ -6,6 +6,22 @@ name: wrap-up
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Changed
+
+- Cleanup phase switched to empty-content write instead of `rm -f` to avoid Bash permission prompts
+- Context loading section removed from SKILL.md; loading order preserved in Triggers Notes as a numbered sequence
+- Error handling section removed from SKILL.md; all cases distributed to `mapping.md`, `bm-notes.md`, `obsidian-notes.md`, and `session-dump.md`
+- Obsidian session template reshaped as a human brief with Summary, Decisions, Findings, Problems, Next, and Relations; Observations and Open Items removed
+- Obsidian daily Activities switched from prose paragraphs to mixed outcome/task bullet list
+- Session-dump folding updated to map Discoveries to Findings bullets and Next Context to Next bullets in `obsidian-notes.md`
+
+### Added
+
+- Error handling added to `bm-notes.md` covering unavailable BM tools and duplicate session notes
+- Error handling added to `obsidian-notes.md` covering unavailable Obsidian tools, existing daily notes, and low-content sessions
+
 ## 2026-05-03
 
 ### Added

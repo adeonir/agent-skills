@@ -26,20 +26,7 @@ Detect project from current working directory, load the spec-driven
 session dump (when present), then execute the four note-writing steps
 in sequence. No confirmation between steps. The closing step runs
 structural-delta detection — silent unless a delta fires — and then
-unconditionally unlinks the dump file.
-
-## Context Loading
-
-Load [mapping.md](references/mapping.md) first -- all subsequent steps
-depend on the resolved project name, BM project and path, Obsidian path,
-and base tags.
-
-Then load each reference in order as each step executes:
-1. [session-dump.md](references/session-dump.md) (Load phase)
-2. [auto-memory.md](references/auto-memory.md)
-3. [bm-notes.md](references/bm-notes.md)
-4. [obsidian-notes.md](references/obsidian-notes.md)
-5. [session-dump.md](references/session-dump.md) (Detect + Cleanup phases)
+unconditionally clears the dump file.
 
 ## Triggers
 
@@ -49,13 +36,19 @@ Then load each reference in order as each step executes:
 
 Notes:
 
-- `mapping.md` is not a direct trigger. It is loaded automatically before
-  all other references.
-- `session-dump.md` is not a direct trigger. It is loaded automatically
-  after mapping (Load phase) and again after obsidian-notes
-  (Detect + Cleanup phases). Detect emits one suggestion line only when
-  a structural delta is detected; Cleanup unlinks the dump file
-  unconditionally.
+- `mapping.md` is loaded first — all other steps depend on its output.
+  It is not a direct trigger.
+- Loading order within wrap-up:
+  1. [mapping.md](references/mapping.md)
+  2. [session-dump.md](references/session-dump.md) (Load phase)
+  3. [auto-memory.md](references/auto-memory.md)
+  4. [bm-notes.md](references/bm-notes.md)
+  5. [obsidian-notes.md](references/obsidian-notes.md)
+  6. [session-dump.md](references/session-dump.md) (Detect + Cleanup phases)
+- `session-dump.md` is not a direct trigger. Loaded after mapping (Load
+  phase) and again after obsidian-notes (Detect + Cleanup phases). Detect
+  emits one suggestion line only when a structural delta is detected;
+  Cleanup writes empty content to the dump file unconditionally.
 
 ## Cross-References
 
@@ -67,7 +60,8 @@ session-dump.md --> bm-notes.md        (provides Discoveries / Decisions / Next 
 session-dump.md --> obsidian-notes.md  (same)
 session-dump.md --> spec-driven        (consumes .artifacts/.session-dump.md, latest phase block)
 session-dump.md --> project-index      (suggests /project-index re-index when Detect fires)
-session-dump.md --> filesystem         (unconditional unlink at end)
+session-dump.md --> filesystem         (unconditional clear at end)
+auto-memory.md --> filesystem          (reads/writes agent auto-memory files)
 bm-notes.md -----> BM MCP              (direct tool calls, no skill indirection)
 obsidian-notes.md -> MCPVault MCP      (direct tool calls, no skill indirection)
 ```
@@ -95,17 +89,5 @@ obsidian-notes.md -> MCPVault MCP      (direct tool calls, no skill indirection)
 - Write changelog-style content or git metadata in Obsidian notes
 - Mix BM `[brackets]` with Obsidian `#hashtags` across tools
 - Re-read `.artifacts/.session-dump.md` in downstream refs (contrasts: load once, share via context)
-- Prompt before deleting the session-dump (contrasts: cleanup is unconditional)
+- Prompt before clearing the session-dump (contrasts: cleanup is unconditional)
 
-## Error Handling
-
-- `.notes/wrap-up.yml` missing: auto link from `~/.config/wrap-up/vault` if present, otherwise run vault bootstrap and ask for vault path once
-- Repo not registered in `wrap-up.yml`: run project bootstrap, append entry
-- BM tools unavailable: skip BM step, warn user
-- Obsidian/MCPVault unavailable: skip Obsidian step, warn user
-- Session note already exists in BM: append with edit_note, do not overwrite
-- Daily note already exists in Obsidian: update with patch_note
-- No meaningful session content: keep session brief, still update daily
-- No spec-driven session-dump found: Load no-ops, bm-notes / obsidian-notes proceed without folded content, Detect emits nothing, Cleanup no-ops
-- Not in a git repo: Detect skips the structural diff and uses the keyword scan only
-- session-dump unlink fails: warn, do not block wrap-up completion

@@ -4,7 +4,7 @@ Create session notes in the project folder and update the daily note.
 Uses MCPVault MCP tools directly — no dependency on other skills.
 
 > **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian path and base tags
-> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- weave its bullets into Summary prose and mirror Decisions
+> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- fold Discoveries → Findings, Decisions → Decisions, Next Context → Next
 
 ## When to Use
 
@@ -15,15 +15,15 @@ Uses MCPVault MCP tools directly — no dependency on other skills.
 ## Obsidian Syntax Rules
 
 Obsidian notes render for humans (Graph view, daily review, Dataview).
-BM notes are agent-consumed. Same substance, different shape: Obsidian
-keeps a prose narrative up front, structured sections below, typed
-relations for graph edges.
+Keep notes brief and scannable — prose narrative up front, structured
+sections below, typed relations for graph edges.
 
 - **Frontmatter**: YAML with `title`, `type`, `tags`
-- **Observations**: bullets under `## Observations` formatted as
-  `- #category content`. Category is free-form, derived from session
-  content (examples: outcome, decision, finding, risk, convention,
-  context — not a fixed list). Never use `[brackets]` — that is BM format.
+- **Observations**: daily notes only. Bullets under `## Observations`
+  formatted as `- #category content`. Category is free-form (examples:
+  `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood` — day-level
+  cross-cutting facts). Use `#hashtags`, not `[brackets]`.
+  Session notes do not have an Observations section.
 - **Relations**: typed verb + wikilink under `## Relations`:
   `- follows [[Target]]`. Common types: `follows`, `part_of`, `expands`,
   `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`,
@@ -78,10 +78,6 @@ date header as separator). Otherwise create a new note.
 
 #### Session template
 
-Mirrors BM session structure, optimized for human reading. BM sections
-`## Findings`, `## Problems`, and `## Next Context` fold into Summary
-prose — same substance, different shape.
-
 ```markdown
 ---
 title: "YYYY-MM-DD — Description"
@@ -94,22 +90,24 @@ tags:
 
 ## Summary
 
-Prose narrative — context, what happened, decisions with rationale,
-findings, problems and root causes, next context for the following
-session. Past tense, natural language. [[Wikilinks]] inline only to
-notes or entities that already exist.
+2-3 sentence narrative. What happened, key outcome, why it matters.
+Past tense, natural language. [[Wikilinks]] inline only to existing notes.
 
 ## Decisions
 
 - Decision + rationale + named alternative rejected (when a real option was considered)
 
-## Open Items
+## Findings
 
-- [ ] Pending work, blockers, next steps
+- Brief finding worth capturing (omit section when nothing notable)
 
-## Observations
+## Problems
 
-- #category content (category free-form, derived from content)
+- Problem + root cause + fix (omit section when nothing notable)
+
+## Next
+
+- Entry point for next session (file, function, path, or command)
 
 ## Relations
 
@@ -118,43 +116,42 @@ notes or entities that already exist.
 ```
 
 Section presence:
-- `## Summary` and `## Decisions` always present when there is content
-- `## Open Items` only when there are pending items
-- `## Observations` whenever a fact is worth distilling into a tagged bullet
-- `## Relations` as fallback for typed edges that add graph value —
-  inline `[[wikilinks]]` in Summary already cover ordinary mentions
+- `## Summary` always present
+- `## Decisions` when decisions were made
+- `## Findings` when there is a notable technical discovery
+- `## Problems` when a problem was encountered and resolved or noted
+- `## Next` when there is work to continue
+- `## Relations` for typed edges that add graph value
 
 When `session-dump.md` Load surfaced a latest phase block, fold its
 bullets in before composing the note:
 
-- `**Discoveries:**` and `**Next Context:**` weave into `## Summary`
-  prose narrative (past tense, natural language) — do not list them
-  verbatim
-- `**Decisions:**` mirror into `## Decisions` bullets with rationale,
-  matching the BM Decisions shape (name rejected alternatives when
-  applicable)
+- `**Discoveries:**` → brief bullets in `## Findings`
+- `**Decisions:**` → `## Decisions` bullets with rationale (name
+  rejected alternatives when applicable)
+- `**Next Context:**` → `## Next` bullets, preserving the concrete
+  entry point
 
 #### Write
 
 ```
 write_note(
   path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
-  content="## Summary\n\nProse narrative...\n\n## Decisions\n- ...\n\n## Open Items\n- [ ] ...\n\n## Observations\n- #category ...\n\n## Relations\n- follows [[...]]",
+  content="## Summary\n\n2-3 sentence narrative...\n\n## Decisions\n- ...\n\n## Findings\n- ...\n\n## Problems\n- ...\n\n## Next\n- ...\n\n## Relations\n- follows [[...]]",
   frontmatter={title: "...", type: "session", tags: ["session", ...base_tags, ...context_tags]}
 )
 ```
 
 Rules:
-- Summary prose opens the body; findings, problems, and next-context fold into the narrative
-- Decisions bullets distill with rationale — mirror the BM `## Decisions` content
-- Name rejected alternatives explicitly in Decisions when a real option was considered
-- Observations use `- #category content`; categories come from the content, not a fixed list
-- Relations use typed verbs (`- follows [[X]]`) — same verbs as BM, fallback only for graph edges
+- Keep each section brief — this is a human note, not an AI knowledge base
+- Decisions bullets distill with rationale — name rejected alternatives when a real option was considered
+- Findings and Problems: brief bullets only, no detailed narratives
+- Relations use typed verbs (`- follows [[X]]`) — fallback for graph edges only
 - Wikilinks only to existing notes/entities; verify with `search_notes` before linking
 - Past tense, natural language
 - No git metadata (branches, commits, PRs) or file lists
 - One project per session note
-- Omit empty sections — skip Open Items, Observations, or Relations when empty
+- Omit empty sections
 
 ### 2. Create or update daily note
 
@@ -164,7 +161,7 @@ Always `Daily/YYYY-MM-DD.md`.
 
 #### Daily template
 
-Activities per project (prose paragraph), Open Items for pending work,
+Activities per project (bullet list), Open Items for pending work,
 Observations for day-level facts that cut across projects, Relations
 for typed edges to today's session notes.
 
@@ -182,13 +179,13 @@ tags:
 
 ### {Project Name}
 
-Prose paragraph (2-4 sentences) — outcomes, decisions, and context from
-the day's work on this project. Inline `[[wikilink]]` to the session
-note (e.g. [[YYYY-MM-DD — Description]]). Past tense, natural language.
+- Outcome or task, with inline `[[wikilink]]` to the session note
+  on the first bullet (e.g. [[YYYY-MM-DD — Description]])
+- Another outcome or task
 
 ### {Another Project}
 
-...
+- ...
 
 ## Open Items
 
@@ -230,9 +227,8 @@ write_note(
 #### If note already exists
 
 Read first with `read_note`, then use `patch_note`:
-- If the project already has a subsection in Activities, rewrite the
-  entire subsection: merge the existing paragraph with new activities
-  into a single 2-4 sentence paragraph that covers the full day
+- If the project already has a subsection in Activities, merge the
+  existing bullets with new bullets — deduplicate, keep distinct items
 - If the project is new, add a `### Project Name` subsection at the end
   of Activities (before the next `##` section)
 - Add items to Open Items if relevant (create the section if it does
@@ -242,7 +238,8 @@ Read first with `read_note`, then use `patch_note`:
 
 Rules:
 - Activities split by project with `### Project Name` headers
-- One prose paragraph per project (2-4 sentences) after consolidation
+- Bullets per project, mix of outcomes and tasks — count scales with
+  session depth
 - Observations are day-level and cross-cutting — project-specific facts
   stay in the session note
 - Relations use typed verbs (`contains`, `relates_to`); `contains`
@@ -257,10 +254,7 @@ Rules:
 **DO:**
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
-- Keep Summary prose substantive — it is the human-readable narrative
-  and carries findings, problems, and next-context that BM puts in
-  dedicated sections
-- Put distilled facts under `## Observations` as `- #category content`
+- Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
 - Use `## Relations` for typed edges (`- follows [[X]]`) that add graph
   value; inline `[[wikilinks]]` in Summary cover ordinary mentions
 - Tag every note as `[note-type, ...base_tags, ...context_tags]` —
@@ -269,19 +263,24 @@ Rules:
   (work type, topics)
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
-- Keep daily note as outcomes and decisions, not detailed log
-- Weave session-dump Discoveries and Next Context into Summary prose; mirror Decisions bullets with rationale
+- Keep daily note as outcomes and tasks in bullets, not a detailed log
+- Map session-dump Discoveries → Findings bullets, Decisions → Decisions, Next Context → Next
 
 **DON'T:**
 - Call any skill — use MCPVault MCP tools directly
-- Use `[brackets]` for observations (that is BM format)
+- Use `[brackets]` for observations — use `#hashtags` instead (contrasts: Obsidian Syntax Rules)
 - Add `# H1` to any note — frontmatter `title` is the canonical heading
 - Write changelog-style content or list steps taken
 - List files modified or git metadata
 - Blindly append bullets without reading existing content first
-- Let any daily project paragraph exceed 4 sentences — consolidate
-- Copy the BM note verbatim — BM `## Findings`, `## Problems`, and
-  `## Next Context` fold into Obsidian `## Summary` prose
+- Write prose paragraphs in Activities — use bullets (contrasts: bullets per project)
+- Turn session notes into detailed logs — keep them brief and human-scannable (contrasts: keep session Summary brief)
 - Create empty sections or placeholder content
 - Create wikilinks to files that don't exist (orphan links)
-- Restate session-dump bullets verbatim as a list inside Summary (contrasts: weave into prose narrative)
+- Expand Findings or Problems into detailed narratives (contrasts: brief bullets only)
+
+## Error Handling
+
+- Obsidian/MCPVault unavailable: skip Obsidian step entirely, warn user
+- Daily note already exists: read with `read_note`, update with `patch_note`
+- No meaningful session content: keep session brief, still update daily note
