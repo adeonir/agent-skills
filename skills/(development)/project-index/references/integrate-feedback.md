@@ -15,13 +15,24 @@ Consume `.agents/knowledge.md` `## Codebase Feedback` queue, merge items into `.
 - `.agents/knowledge.md` exists and has `## Codebase Feedback` section with rows. If missing or empty, exit with "No feedback to integrate."
 - `.agents/codebase/` exists. If missing, exit with "Run `/project-index initialize` first to create `.agents/codebase/`."
 
-### Step 2: Parse Queue
+### Step 2: Sync Decisions
+
+Read `## Decisions` rows from `.agents/knowledge.md` (if the section exists and has rows).
+
+For each decision row:
+1. Check if a matching row already exists in `.agents/codebase/architecture.md` `## Key Decisions` table (substring match on decision text).
+2. If not found, append the row to `## Key Decisions`.
+3. Do NOT remove rows from `## Decisions` in knowledge.md — decisions are permanent record.
+
+If `architecture.md` does not exist yet, skip this step silently.
+
+### Step 3: Parse Queue
 
 For each row under `## Codebase Feedback`:
 
 - Extract content (text before the HTML comment)
 - Extract target from `<!-- target:{name} -->`
-- Valid targets: `conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`
+- Valid targets: `conventions`, `architecture`, `testing`, `integrations`, `workflows`, `review`
 
 Classify each row into one of:
 
@@ -33,7 +44,7 @@ Forward-looking and malformed rows are listed in the final report. They are neve
 
 Read `.agents/knowledge.md` directly for the queue content.
 
-### Step 3: Group by Target
+### Step 4: Group by Target
 
 Group parsed items by target. Each target maps to a file:
 
@@ -44,9 +55,9 @@ Group parsed items by target. Each target maps to a file:
 | `testing` | `.agents/codebase/testing.md` |
 | `integrations` | `.agents/codebase/integrations.md` |
 | `workflows` | `.agents/codebase/workflows.md` |
-| `concerns` | `.agents/codebase/concerns.md` |
+| `review` | `.agents/codebase/review.md` |
 
-### Step 4: Merge
+### Step 5: Merge
 
 For each target file:
 
@@ -57,7 +68,7 @@ For each target file:
    - Otherwise, append using the file's existing format.
 4. Preserve the `feature:{ID}` and `date:` metadata by adding an inline note when the target format doesn't have a column for it.
 
-### Step 5: Clear Integrated Rows
+### Step 6: Clear Integrated Rows
 
 Rewrite `.agents/knowledge.md`:
 
@@ -66,11 +77,12 @@ Rewrite `.agents/knowledge.md`:
 - Never modify `## Decisions` or `## Gotchas`
 - Remove duplicate rows too (they're already in the target file) with a note in the report
 
-### Step 6: Report
+### Step 7: Report
 
 Show:
 
-- Integrated: N items (X conventions, Y architecture, Z testing, W integrations)
+- Integrated: N items (by target: conventions, architecture, testing, integrations, workflows, review)
+- Decisions synced: N items (if any were synced)
 - Skipped duplicates: M items
 - Skipped malformed: P items (if any)
 - Skipped forward-looking: K items (if any, with the offending content for user review)
@@ -86,7 +98,7 @@ Show:
 
 **DON'T:**
 - Overwrite existing content in any target file
-- Invent target names outside the canonical set (`conventions`, `architecture`, `testing`, `integrations`)
+- Invent target names outside the canonical set (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `review`)
 - Modify `## Decisions` or `## Gotchas` sections
 - Auto-run without a user trigger (spec-driven prompts, user decides)
 - Merge rows describing future plans, milestones, feature numbers, or `(planned)`/`(TBD)` markers -- skip and list them in the report under "forward-looking" for the user to reconcile at the source

@@ -54,7 +54,6 @@ If none of the above: skip summary, project is greenfield.
 Inform user:
 - Created `.agents/` with project.md
 - If brownfield: also created `.agents/codebase/` with analysis docs
-- Root file: `AGENTS.md created` / `AGENTS.md updated` / `CLAUDE.md updated (managed section)` / `skipped (user declined)` -- mirror the outcome from root-agents.md. If both `CLAUDE.md` and a stale `AGENTS.md` coexist, surface the suggestion to delete `AGENTS.md` manually.
 - Next steps:
   - If using spec-driven: "create feature for..."
   - Re-run summary later: "map codebase" or "summary"
@@ -65,7 +64,6 @@ Inform user:
 **DO:**
 - Keep project.md focused on context, not implementation
 - Initialize once per project, not per feature
-- Regenerate AGENTS.md to reflect current state
 
 **DON'T:**
 - Overwrite existing `.agents/` structure without confirmation

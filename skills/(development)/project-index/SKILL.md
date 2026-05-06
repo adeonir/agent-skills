@@ -31,19 +31,6 @@ initialize --> overview + summary
 
 Each command can be used independently or chained via initialize.
 
-## Sub-agent Dispatch
-
-Summary parallelizes doc generation. After Phase 1 baseline (project metadata, docs, directory structure) the main agent dispatches one sub-agent per output doc in a single turn -- each owns its template, reads only the files relevant to its domain, and writes its file directly.
-
-- **Doc sub-agents** -- one per `.agents/codebase/*.md` (stack, architecture, conventions, testing, integrations, checklist, workflows, plus concerns when issues detected). Each sub-agent receives Phase 1 baseline as context, reads its domain files, and writes the output file. Disk artifacts are the handoff -- sub-agents do not return findings through the context (summary.md Step 3).
-- **Self-assessment is main-agent work** -- after sub-agents finish, main reads the generated docs together to detect cross-doc inconsistencies and gaps, then writes `review-notes.md` (summary.md Step 5). Cross-doc visibility cannot be split across sub-agents.
-
-Overview and root-agents.md run inline on the main agent (single doc each, no fan-out value).
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. Never load multiple references simultaneously.
-
 ## Triggers
 
 | Trigger Pattern                                           | Reference                                                 |
@@ -53,85 +40,23 @@ Load only the reference matching the current trigger. Never load multiple refere
 | Summary, map codebase, analyze codebase                   | [summary.md](references/summary.md)                       |
 | Integrate feedback, integrate discoveries, sync knowledge | [integrate-feedback.md](references/integrate-feedback.md) |
 
+Notes:
+
+- `summary.md` parallelizes doc generation via sub-agent fan-out (see Step 3).
+
 ## Cross-References
 
 ```
 initialize.md ----> overview.md
 initialize.md ----> summary.md (if brownfield)
-overview.md ------> root-agents.md (auto-update AGENTS.md)
-summary.md -------> root-agents.md (auto-update AGENTS.md)
-spec-driven ---------------> integrate-feedback.md (consumes knowledge.md Codebase Feedback)
-integrate-feedback.md -----> knowledge.md (clears integrated rows only)
+spec-driven -------> integrate-feedback.md (consumes knowledge.md Codebase Feedback)
+integrate-feedback.md --> knowledge.md (clears Codebase Feedback only)
 ```
 
-## Output Structure
-
-```
-.agents/
-├── project.md              # Project context, purpose, scope
-└── codebase/               # Deep codebase analysis
-    ├── stack.md            # Framework, runtime, all dependencies with purpose
-    ├── architecture.md     # Mermaid diagrams, component map, layers, data flows, interfaces
-    ├── conventions.md      # Observed patterns with code snippets, abstractions, custom hooks
-    ├── testing.md          # Patterns from actual tests, mocking, fixtures, coverage gaps
-    ├── integrations.md     # External services, env vars, config details
-    ├── checklist.md        # Validation steps after completing a task
-    ├── workflows.md        # Mermaid flowcharts for user and dev workflows
-    ├── review-notes.md     # Self-assessment: consistency, completeness, gaps
-    └── concerns.md         # Optional: tech debt, risks (only when detected)
-
-AGENTS.md                   # Concise entry point pointing to .agents/codebase/ (skipped when CLAUDE.md is present)
-```
-
-Claude harness (root `CLAUDE.md` present): `AGENTS.md` is never created or updated. project-index maintains a single delimited section inside `CLAUDE.md` (`<!-- project-index:start -->` ... `<!-- project-index:end -->`) and leaves the rest of the file untouched. Edits happen in place -- the file is never overwritten.
-
-## Templates
-
-| Document         | Template                                     |
-| ---------------- | -------------------------------------------- |
-| Project overview | [project.md](templates/project.md)           |
-| Stack            | [stack.md](templates/stack.md)               |
-| Architecture     | [architecture.md](templates/architecture.md) |
-| Conventions      | [conventions.md](templates/conventions.md)   |
-| Testing          | [testing.md](templates/testing.md)           |
-| Integrations     | [integrations.md](templates/integrations.md) |
-| Checklist        | [checklist.md](templates/checklist.md)       |
-| Workflows        | [workflows.md](templates/workflows.md)       |
-| Review Notes     | [review-notes.md](templates/review-notes.md) |
-| Concerns         | [concerns.md](templates/concerns.md)         |
-
-## Output Size Guidelines
-
-These docs are loaded on-demand (research, implementation), not always in context.
-Be thorough -- document patterns with real code examples and file references.
-Avoid redundancy across files, but do not sacrifice depth for brevity.
-
-| Document        | Guideline                                                     |
-| --------------- | ------------------------------------------------------------- |
-| project.md      | Concise overview (~30 lines)                                  |
-| stack.md        | All meaningful dependencies with purpose                      |
-| architecture.md | Structure, patterns, data flows with code examples            |
-| conventions.md  | Every observed pattern with code snippets and file references |
-| testing.md      | Patterns with example test structure from actual tests        |
-| integrations.md | All external touchpoints with config details                  |
-| checklist.md    | Concise validation steps (~15 lines)                          |
-| workflows.md    | Core flows with step-by-step detail                           |
-| concerns.md     | Only real issues with evidence                                |
-| AGENTS.md       | Concise entry point (~60 lines) pointing to .agents/codebase/ |
-
-## Integration with Other Skills
-
-```
-docs-writer (.artifacts/docs/) --> project-index (overview) consumes as context source
-spec-driven (design/implement) --> queues codebase discoveries to .agents/knowledge.md Codebase Feedback
-integrate-feedback             --> merges knowledge.md Codebase Feedback into .agents/codebase/*.md
-project-index (summary)        --> preserves knowledge.md as-is when re-running
-project-index                  --> sole writer to .agents/codebase/*.md and .agents/project.md
-```
-
-- **docs-writer**: Overview checks `.artifacts/docs/` for existing briefs, PRDs, design docs, epics, and issues. When found, uses them as primary context for generating project.md.
-- **spec-driven**: queues codebase discoveries to `.agents/knowledge.md` `## Codebase Feedback`; integrate-feedback merges them into `codebase/*.md` on demand. spec-driven never writes directly to `.agents/codebase/*.md`.
-- **knowledge.md**: Owned by spec-driven. Contains `## Decisions`, `## Gotchas`, and a `## Codebase Feedback` queue. project-index reads the file for context and consumes the Codebase Feedback queue via `integrate-feedback`, but never modifies Decisions or Gotchas. When re-running summary, preserve the full file.
+- docs-writer (`.artifacts/docs/`) feeds overview.md as context source for project.md
+- spec-driven queues codebase discoveries to `.agents/knowledge.md` `## Codebase Feedback`; integrate-feedback merges them into `codebase/*.md` on demand
+- spec-driven owns `.agents/knowledge.md` (Decisions, Gotchas, Codebase Feedback); project-index reads it but never modifies Decisions or Gotchas
+- project-index is sole writer to `.agents/project.md` and `.agents/codebase/*.md`
 
 ## Guidelines
 
@@ -150,6 +75,21 @@ project-index                  --> sole writer to .agents/codebase/*.md and .age
 - Generate exhaustive catalogs of every component/file (contrasts: concise and scannable)
 - Include implementation details that change frequently (contrasts: stable patterns and interfaces)
 - Duplicate information across output files (contrasts: cross-reference between files)
+
+## Output
+
+```
+.agents/
+├── project.md              # Project context, purpose, scope, stack
+└── codebase/               # Deep codebase analysis
+    ├── architecture.md     # Mermaid diagrams, component map, layers, data flows, interfaces
+    ├── conventions.md      # Observed patterns with code snippets, abstractions, custom hooks
+    ├── testing.md          # Patterns from actual tests, mocking, fixtures, coverage gaps
+    ├── integrations.md     # External services, env vars, config details
+    ├── checklist.md        # Validation steps after completing a task
+    ├── workflows.md        # Mermaid flowcharts for user and dev workflows
+    └── review.md           # Self-assessment: consistency, completeness, concerns if any
+```
 
 ## Error Handling
 

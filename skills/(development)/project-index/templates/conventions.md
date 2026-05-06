@@ -5,9 +5,6 @@ created: {{YYYY-MM-DD}}
 
 # Conventions
 
-Document each convention with evidence from actual code. Include code snippets
-showing the pattern in use and reference the file where it was observed.
-
 ## Naming
 
 {{Description of naming conventions observed}}
@@ -52,7 +49,7 @@ showing the pattern in use and reference the file where it was observed.
 
 **Avoid:** {{anti-pattern}}
 
-## Styling
+## Styling (if applicable)
 
 {{CSS approach, preprocessor, custom properties, design tokens, theme structure}}
 
@@ -119,7 +116,7 @@ logic that agents should use instead of reimplementing.
 
 **Avoid:** {{anti-pattern}}
 
-## Components
+## Components (if applicable)
 
 {{File structure, props patterns, composition patterns (if UI project)}}
 

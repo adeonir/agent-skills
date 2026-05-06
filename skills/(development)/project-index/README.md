@@ -63,16 +63,15 @@ Re-running summary updates existing docs (merge, never overwrite).
 
 ```
 .agents/
-├── project.md              # What the project is, who it's for
+├── project.md              # Project context, purpose, stack
 └── codebase/               # How the code works
-    ├── stack.md            # Framework, deps, dev tools
     ├── architecture.md     # Patterns, layers, structure, data flow
     ├── conventions.md      # Naming, imports, types, error handling
     ├── testing.md          # Test infra, patterns, reference tests
     ├── integrations.md     # External services and APIs
     ├── checklist.md        # Post-task validation steps
     ├── workflows.md        # User and development flows
-    └── concerns.md         # Tech debt and risks (optional, only when detected)
+    └── review.md           # Self-assessment: consistency, completeness, concerns if any
 
 AGENTS.md                   # Root summary for AI agents
 ```

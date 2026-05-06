@@ -43,7 +43,7 @@ Extract:
 - Core features/capabilities
 - Goals and constraints
 - External services and integrations
-- Initial technology stack
+- Technology stack: framework version, key dependencies, dev tools
 
 ### Step 3: Generate project.md
 
@@ -56,15 +56,10 @@ Create `.agents/project.md` using the template structure:
 - Constraints and integration points
 - Technology stack
 
-### Step 4: Update AGENTS.md
-
-Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
-
-### Step 5: Report
+### Step 4: Report
 
 Inform user:
 - Created: `.agents/project.md`
-- Updated: `AGENTS.md`
 
 ## Guidelines
 

@@ -16,8 +16,6 @@ created: {{YYYY-MM-DD}}
 
 ## Patterns
 
-Document testing patterns with code from actual test files.
-
 ### Test Structure
 
 ```{{lang}}
@@ -40,9 +38,6 @@ Document testing patterns with code from actual test files.
 ```
 
 ## Reference Tests
-
-Tests that best represent the project's testing patterns. Use these as
-models when writing new tests.
 
 | File | What It Tests | Why It's a Good Reference |
 |------|---------------|--------------------------|

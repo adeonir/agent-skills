@@ -6,6 +6,27 @@ name: project-index
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Added
+
+- Decisions sync step in integrate-feedback (reads `knowledge.md ## Decisions`, appends new rows to `architecture.md ## Key Decisions`)
+
+### Changed
+
+- SKILL.md reduced to pure dispatcher (operational sections moved to refs or removed)
+- AGENTS.md authorship transferred to user; project-index writes only to `.agents/`
+- Output docs reorganized: stack moved into project.md, concerns and review notes merged into `review.md`
+- Stack sub-agent removed from fan-out; `review.md` written by main agent in Self-Assessment
+- Integrate feedback target set expanded to include `workflows` and `review`
+- Size guidelines moved from SKILL.md into summary.md
+- Templates reduced to output structure only (instructional prose removed)
+
+### Removed
+
+- Root agents reference and AGENTS.md management workflow
+- Codebase templates: `stack.md`, `review-notes.md`, `concerns.md`
+
 ## 2026-05-01
 
 ### Changed

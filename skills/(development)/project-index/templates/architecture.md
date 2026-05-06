@@ -13,17 +13,12 @@ created: {{YYYY-MM-DD}}
 
 ## System Overview
 
-Use mermaid diagrams to show the high-level architecture. Include the main
-components, their relationships, and external services.
-
 ```mermaid
 graph TB
     {{nodes and edges showing system architecture}}
 ```
 
 ## Patterns
-
-Document each architectural pattern with evidence from code.
 
 ### {{Pattern Name}}
 
@@ -48,10 +43,7 @@ Document each architectural pattern with evidence from code.
 |-------|---------------|-----------|-----------|
 | {{layer}} | {{what it does}} | {{directory}} | {{representative files}} |
 
-## Component Map
-
-Group components by domain/feature area. This helps agents understand where
-to add new components and which existing ones to reuse.
+## Component Map (if UI project)
 
 ```mermaid
 graph TB
@@ -74,9 +66,6 @@ graph TB
 
 ## Data Flows
 
-Trace complete flows from entry to output. Use mermaid sequence or flowchart
-diagrams for complex flows, ASCII arrows for simple ones.
-
 ### {{Flow Name}}
 
 ```mermaid
@@ -93,8 +82,6 @@ flowchart LR
 {{Repeat for each core flow}}
 
 ## Interfaces and APIs
-
-Document all external service interfaces and internal API routes.
 
 ### External Services
 

@@ -42,6 +42,14 @@ created: {{YYYY-MM-DD}}
 
 ## Stack
 
-- Framework: {{framework}}
-- Language: {{language}}
-- Database: {{database}}
+### Framework
+
+- {{name}}: {{version}}
+
+### Key Dependencies
+
+- {{package}}: {{purpose}}
+
+### Dev Tools
+
+- {{tool}}: {{purpose}}

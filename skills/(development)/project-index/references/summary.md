@@ -234,7 +234,7 @@ Perform a **deep analysis** of the entire codebase. This is NOT feature-specific
     - Hard-coded values that should be configurable
     - Security concerns (exposed secrets, missing auth checks)
 
-    Only create concerns.md if real issues are detected. Don't force it.
+    Populate the Concerns section in review.md only if real issues are detected. Omit the section otherwise.
 
 ### Step 3: Generate (sub-agent fan-out)
 
@@ -242,26 +242,19 @@ Dispatch one sub-agent per output doc in a single turn. Each sub-agent receives 
 
 | Sub-agent | Template | Reads | Writes |
 |-----------|----------|-------|--------|
-| stack | [templates/stack.md](../templates/stack.md) | Manifest deeply, lockfile, dev tooling configs | `.agents/codebase/stack.md` |
 | architecture | [templates/architecture.md](../templates/architecture.md) | Entry points, dir tree, layer boundaries | `.agents/codebase/architecture.md` |
 | conventions | [templates/conventions.md](../templates/conventions.md) | Representative source files (Phase 2 reading priority) | `.agents/codebase/conventions.md` |
 | testing | [templates/testing.md](../templates/testing.md) | Test files, test config | `.agents/codebase/testing.md` |
 | integrations | [templates/integrations.md](../templates/integrations.md) | API clients, DB models, env files | `.agents/codebase/integrations.md` |
 | checklist | [templates/checklist.md](../templates/checklist.md) | Scripts (package.json/Makefile), pre-commit config | `.agents/codebase/checklist.md` |
 | workflows | [templates/workflows.md](../templates/workflows.md) | Entry points to traced data flows (Phase 2 step 6) | `.agents/codebase/workflows.md` |
-| concerns (conditional) | [templates/concerns.md](../templates/concerns.md) | Whatever surfaced real issues during Phase 2-3 | `.agents/codebase/concerns.md` |
-
-Dispatch all applicable sub-agents in the same turn -- they run independently. Concerns sub-agent only dispatches if Phase 2-3 surfaced concrete issues; otherwise skip.
+Dispatch all sub-agents in the same turn -- they run independently.
 
 **Depth over brevity.** These docs are loaded on-demand, not always in context.
 Include code snippets and file references as evidence for every pattern.
 Avoid redundancy across files, but do not sacrifice depth for token savings.
 
-### Step 4: Update AGENTS.md
-
-Load [root-agents.md](root-agents.md) and generate/update `AGENTS.md` at the project root.
-
-### Step 5: Self-Assessment (main agent)
+### Step 4: Self-Assessment (main agent)
 
 After all sub-agents finish, the main agent reads the generated docs together and reviews them for consistency and completeness:
 
@@ -269,17 +262,16 @@ After all sub-agents finish, the main agent reads the generated docs together an
 - **Completeness**: Are there areas the scan could not cover deeply? Flag them
 - **Gaps**: What would an agent still need to know that is not documented?
 
-Save findings to `.agents/codebase/review-notes.md` using the template. Cross-doc visibility cannot be split across sub-agents -- the main agent owns this synthesis.
+Save findings to `.agents/codebase/review.md` using the template. Cross-doc visibility cannot be split across sub-agents -- the main agent owns this synthesis.
 
-### Step 6: Save
+### Step 5: Save
 
 Create `.agents/codebase/` with generated docs.
 
-### Step 7: Report
+### Step 6: Report
 
 Inform user:
-- Mapped {count} areas (7 standard + review notes + concerns if created)
-- Updated AGENTS.md
+- Mapped {count} areas (6 standard + review)
 - Gaps identified: {list areas lacking detail}
 - Next: Create feature with baseline context
 
@@ -312,3 +304,18 @@ Inform user:
 
 - No codebase: Inform this is for existing projects
 - Empty project: Treat as greenfield, skip summary
+
+## Size Guidelines
+
+These docs are loaded on-demand. Be thorough -- document patterns with real code examples and file references. Avoid redundancy across files, but do not sacrifice depth for brevity.
+
+| Document        | Guideline                                                     |
+| --------------- | ------------------------------------------------------------- |
+| project.md      | Concise overview with full stack (~40 lines)                  |
+| architecture.md | Structure, patterns, data flows with code examples            |
+| conventions.md  | Every observed pattern with code snippets and file references |
+| testing.md      | Patterns with example test structure from actual tests        |
+| integrations.md | All external touchpoints with config details                  |
+| checklist.md    | Concise validation steps (~15 lines)                          |
+| workflows.md    | Core flows with step-by-step detail                           |
+| review.md       | Consistency check, completeness gaps, concerns if found       |
