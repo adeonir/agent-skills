@@ -53,6 +53,9 @@ falls back to markdown when not.
 
 Notes:
 
+- `epic.md` opens with Type B context discovery: reads `.artifacts/docs/prd.md`
+  and `.artifacts/docs/brief.md` before prompting. Falls back to direct
+  questions when neither file exists.
 - `status.md` covers both status updates and overview reads.
 - `handoff.md` suggests spec-driven and surfaces tracker URLs -- it does not
   auto-trigger other skills.
