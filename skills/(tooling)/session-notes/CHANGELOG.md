@@ -6,6 +6,15 @@ name: session-notes
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Changed
+
+- Dispatcher slimmed to pure routing: Vault Resolution and Context Loading Strategy moved to refs
+- Vault resolution moved into each writing ref (brag, challenge, transcription) using `~/.config/wrap-up/vault`
+- Filename Sanitization and Writing Style repositioned to after Cross-References (canonical extra-section placement)
+- Dependency on mapping.md made explicit with LOAD FIRST block in project.md
+
 ## 2026-04-23
 
 ### Changed

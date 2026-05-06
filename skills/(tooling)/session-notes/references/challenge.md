@@ -8,6 +8,12 @@ Document technical challenges from interview processes.
 - User mentions interview problems or assignments
 - User wants to record solutions to technical problems
 
+## Vault Resolution
+
+Check `~/.config/wrap-up/vault` for the vault path. If the file exists, use
+it without asking. If missing, ask the user once for the absolute path to their
+Obsidian vault and persist it to `~/.config/wrap-up/vault`.
+
 ## Workflow
 
 1. **Gather challenge info**

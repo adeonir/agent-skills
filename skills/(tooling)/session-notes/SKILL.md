@@ -25,35 +25,6 @@ resolve-vault --> select-type --> compose-note --> write --> link-related
 
 Each note type has its own workflow. Use any type independently based on user needs.
 
-## Vault Resolution
-
-Run once per session before any write operation.
-
-1. Verify MCPVault MCP is available (`write_note`, `read_note` tools present)
-2. If multiple vaults exist, ask user which one to use
-3. All write operations use paths relative to the vault root
-
-For project path resolution, load [mapping.md](references/mapping.md).
-Fixed-path refs (`brag.md`, `challenge.md`, `transcription.md`) write directly
-to `Brags/`, `Challenges/`, `Meetings/` without path resolution.
-
-## Filename Sanitization
-
-When generating filenames from user input:
-
-- Remove invalid characters: `/ \ : * ? " < > |`
-- Preserve accented characters (valid in filenames)
-- Use Title Case for all filenames
-- Example: `What's Next?` becomes `Whats Next.md`
-
-## Context Loading Strategy
-
-Load only the reference or guide matching the current trigger. Never load
-multiple simultaneously unless explicitly noted.
-
-- `templates/*.md` are not loaded into context. The agent uses them as
-  reference to compose note content.
-
 ## Triggers
 
 | Trigger Pattern | Reference |
@@ -70,6 +41,7 @@ Notes:
 - `markdown.md` and `vault-structure.md` are informational guides (no write operations).
 - `mapping.md` is not a direct trigger. It is loaded by `project.md` to resolve vault paths.
 - All other references are note-creation workflows (compose, write, link).
+- Templates under `templates/` are reference structure only; do not load them into context.
 
 ## Cross-References
 
@@ -77,6 +49,15 @@ Notes:
 mapping.md <-- project.md   (project loads mapping to resolve vault path)
 challenge --> brag           (completed challenge becomes achievement)
 ```
+
+## Filename Sanitization
+
+When generating filenames from user input:
+
+- Remove invalid characters: `/ \ : * ? " < > |`
+- Replace accented characters with ASCII equivalents (e.g., `é` → `e`, `ã` → `a`)
+- Use Title Case for all filenames
+- Example: `What's Next?` becomes `Whats Next.md`
 
 ## Writing Style
 
@@ -92,7 +73,6 @@ challenge --> brag           (completed challenge becomes achievement)
 **DO:**
 
 - Ask one question at a time when gathering context from the user
-- Resolve vault once per session (see Vault Resolution above)
 - Compose note content following `templates/*.md` structure
 - Use `write_note` for new notes, `read_note` + `patch_note` for updates
 - Use `search_notes` to check if a note exists before creating
@@ -104,7 +84,6 @@ challenge --> brag           (completed challenge becomes achievement)
 
 - Batch multiple questions to the user (contrasts: one question at a time)
 - Overwrite or delete existing vault files (contrasts: append, rename, or cancel)
-- Assume vault location without confirmation (contrasts: resolve vault once per session)
 - Use templates for updates (contrasts: templates are for new notes only)
 - Create duplicate notes (contrasts: search first with `search_notes`)
 - Use absolute paths in wiki-links (contrasts: always relative)

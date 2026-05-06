@@ -8,6 +8,12 @@ Add achievements to brag document for performance reviews and career growth.
 - User mentions something they're proud of at work
 - User wants to track wins for performance review
 
+## Vault Resolution
+
+Check `~/.config/wrap-up/vault` for the vault path. If the file exists, use
+it without asking. If missing, ask the user once for the absolute path to their
+Obsidian vault and persist it to `~/.config/wrap-up/vault`.
+
 ## Workflow
 
 1. **Determine time period**

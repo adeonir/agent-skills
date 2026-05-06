@@ -2,6 +2,8 @@
 
 Create structured documentation for a project in the Obsidian vault.
 
+> **LOAD FIRST:** [mapping.md](mapping.md) — resolves vault root and project folder
+
 ## When to Use
 
 - User says "create project", "new project note", "document project"

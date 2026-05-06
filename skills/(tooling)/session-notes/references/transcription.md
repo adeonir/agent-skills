@@ -8,6 +8,12 @@ Save meeting, course, lecture, or standup transcription notes to the vault.
 - User pastes or shares a transcription from Granola, Otter, or similar tools
 - User wants to save course module notes, workshop notes, or webinar notes
 
+## Vault Resolution
+
+Check `~/.config/wrap-up/vault` for the vault path. If the file exists, use
+it without asking. If missing, ask the user once for the absolute path to their
+Obsidian vault and persist it to `~/.config/wrap-up/vault`.
+
 ## Workflow
 
 1. **Identify context**
