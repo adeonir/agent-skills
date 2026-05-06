@@ -15,6 +15,10 @@ tooling, research, CI/CD, documentation, or any chore-type work.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
+> When working within an epic: read the epic folder contents before
+> drafting — `epic.md` sets the scope and existing artifacts provide
+> naming context.
+
 ### 1. Identify Epic (optional)
 
 1. Ask the user whether this issue belongs to an epic or is standalone

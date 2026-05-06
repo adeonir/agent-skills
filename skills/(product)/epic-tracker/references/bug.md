@@ -13,6 +13,10 @@ environment context.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
+> When working within an epic: read the epic folder contents before
+> collecting information — `epic.md` sets the scope and existing artifacts
+> provide naming context.
+
 ### 1. Collect Information
 
 Ask the user for (skip what's already provided):

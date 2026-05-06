@@ -15,6 +15,19 @@ push can clobber tracker state that other people rely on.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
+## Primitive Mapping
+
+| Artifact | Linear | GitHub Issues | GitHub Projects | Jira |
+|----------|--------|---------------|-----------------|------|
+| Epic     | Project | Milestone | Issue parent (with sub-issues) | Epic |
+| Story    | Issue | Issue | Sub-issue | Story |
+| Bug      | Issue + label `bug` | Issue + label `bug` | Sub-issue + label `bug` | Bug |
+| Issue    | Issue | Issue | Sub-issue | Task |
+| Release  | Cycle | Release tag | Release tag | Fix Version |
+
+Release uses the closest native primitive each tracker offers — no forced
+single concept across trackers.
+
 ## Config
 
 Path: `<project-root>/.artifacts/epics/.config.yml`

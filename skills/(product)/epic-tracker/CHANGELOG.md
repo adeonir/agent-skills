@@ -6,6 +6,20 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-06
+
+### Added
+
+- Brief description field after title in bug template
+- Epic folder context loading note at the start of `bug.md` and `issue.md` Workflow
+
+### Changed
+
+- Context Loading Strategy and Tracker Integration sections moved out of SKILL.md into their respective refs; dispatcher now under 140 lines
+- Primitive mapping table moved to `sync.md` alongside bootstrap and config documentation
+- Tracker-specific guidelines distributed to individual refs; SKILL.md keeps only cross-artifact universal rules
+- Expected, Actual, and Impact fields in bug template promoted from bold labels to H2 headings
+
 ## 2026-05-03
 
 ### Added

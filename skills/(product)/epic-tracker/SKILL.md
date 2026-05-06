@@ -34,28 +34,8 @@ discover --> create --> sync* --> track --> handoff
                           ^_______|  (sync is optional, gated by config)
 ```
 
-Discover checks for existing docs (PRD, brief). Create generates the
-artifact in markdown. Sync (optional) pushes to the configured tracker
-when an MCP is available; user is asked once per session whether to push.
-Track updates status -- in the tracker when configured, in markdown
-frontmatter when not. Handoff suggests spec-driven and surfaces tracker
-URLs.
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. Never load multiple
-references simultaneously unless explicitly noted.
-
-**Base load:**
-- Current epic folder contents (when working within an epic)
-
-**On-demand:**
-- `.artifacts/docs/prd.md` (discover phase, if exists)
-- `.artifacts/docs/brief.md` (discover phase, if exists)
-
-**Never simultaneous:**
-- Multiple epic folders
-- Reference files for different artifact types
+Tracker-first when configured — artifacts go directly to the tracker;
+falls back to markdown when not.
 
 ## Triggers
 
@@ -105,55 +85,19 @@ issue.md ----------> handoff.md        (issue can hand off to spec-driven)
 epic-tracker ------> spec-driven       (handoff feeds implementation)
 ```
 
-## Tracker Integration
-
-Optional and adaptive. When the user has an MCP or CLI for a supported
-tracker available, the skill pushes artifacts directly to that tracker
-(no local markdown files created). When no integration is available,
-markdown stays the source of truth.
-
-Supported trackers and primitive mapping:
-
-| Artifact | Linear | GitHub Issues | GitHub Projects | Jira |
-|----------|--------|---------------|-----------------|------|
-| Epic     | Project | Milestone | Issue parent (with sub-issues) | Epic |
-| Story    | Issue | Issue | Sub-issue | Story |
-| Bug      | Issue + label `bug` | Issue + label `bug` | Sub-issue + label `bug` | Bug |
-| Issue    | Issue | Issue | Sub-issue | Task |
-| Release  | Cycle | Release tag | Release tag | Fix Version |
-
-Release uses the closest native primitive each tracker offers; no forced
-single concept across trackers.
-
-Config lives at `.artifacts/epics/.config.yml`. First operation that needs
-a tracker triggers bootstrap: detect available MCPs and CLIs, ask user,
-persist. Push is asked per session (cached after first ask).
-
 ## Guidelines
 
 **DO:**
-- Check for existing PRD/brief before creating an epic (discover phase)
-- When tracker is configured, push artifacts directly — no markdown file created; tracker is the source of truth
-- When no tracker is configured, save to markdown; use status in frontmatter (planned, in-progress, done, blocked)
-- Keep each file to a single artifact type in its proper folder (markdown-only mode)
 - Use kebab-case for all artifact and folder names
+- Keep each file to a single artifact type in its proper folder
 - Present the artifact for user review before saving or pushing
-- Ask the user once per session whether to push to tracker; cache the answer
-- Suggest spec-driven as the next step; let the user invoke it
-- When pulling from tracker, warn the user about any divergence (status, title, body) before resolving
-- Read from tracker when composing overview if configured; markdown when not
-- Accept both MCP and CLI as valid integration methods; treat them as interchangeable
-- Sizing stays with spec-driven
+- Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
+- Delegate sizing to spec-driven
 
 **DON'T:**
-- Skip the discover phase (contrasts: check for existing PRD/brief first)
-- Auto-trigger spec-driven (contrasts: suggest, let user invoke)
-- Push to tracker without asking (contrasts: ask once per session, cache choice)
-- Save markdown when tracker is configured and user said yes to push (contrasts: tracker-native workflow creates no local files)
-- Auto-resolve conflicts silently (contrasts: warn user about divergence in pull, default tracker wins, allow override)
-- Hardcode tracker primitives in core refs (contrasts: core refs stay tracker-agnostic; adapters own tracker mapping)
-- Create an index file or add size fields (contrasts: read artifacts/tracker directly; spec-driven handles sizing)
 - Mix artifact types in a single file (contrasts: single type per file in its folder)
+- Handle tracker push/pull directly in core refs (contrasts: route through sync.md)
+- Create an index file or add size fields (contrasts: delegate sizing to spec-driven)
 
 ## Output
 

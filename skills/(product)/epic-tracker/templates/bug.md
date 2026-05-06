@@ -16,11 +16,19 @@ created: {{YYYY-MM-DD}}
 
 # {{Bug Title}}
 
-**Expected:** {{What should happen}}
+{{Brief one-sentence description of the defect.}}
 
-**Actual:** {{What actually happens}}
+## Expected
 
-**Impact:** {{Who is affected and how severely}}
+{{What should happen}}
+
+## Actual
+
+{{What actually happens}}
+
+## Impact
+
+{{Who is affected and how severely}}
 
 ## Steps to Reproduce
 
