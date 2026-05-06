@@ -103,6 +103,8 @@ implement.md ------> tasks.md (safety valve: >5 inline steps)
 phases.md ---------> specify/design/tasks/implement (session dump + dispatch protocol)
 design.md ---------> project-index (integrate feedback after Step 8)
 implement.md ------> project-index (integrate feedback after Step 10)
+domain-model -----> spec-driven      (entities+rules as impl contracts)
+spec-driven ------> domain-model     (domain gaps trigger update mode)
 ```
 
 ## Artifact Structure Authority

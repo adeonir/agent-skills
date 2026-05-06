@@ -9,6 +9,37 @@ Validation is manual: read files, verify structure, check cross-references.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard.
 
+## Canonical Skill Flow
+
+Product-first workflow from discovery to implementation:
+
+```
+brainstorming + project-index (parallel, discovery)
+    --> docs-writer (PRD or Brief)
+    --> domain-model (entities, invariants, bounded contexts)
+    --> system-design + design-builder (parallel)
+    --> epic-tracker (epics --> stories)
+    --> spec-driven (per story: spec + design + tasks)
+    --> git-helpers (atomic commits per task)
+    --> wrap-up (persist context to BM + Obsidian)
+```
+
+- `brainstorming` and `project-index` run in parallel — both are discovery
+- `domain-model` translates PRD business rules and journeys into domain
+  entities, invariants, and bounded contexts
+- `system-design` defines technical architecture (APIs, data models,
+  boundaries); bounded contexts from `domain-model` inform service design
+- `design-builder` defines visual design (tokens, layout, components)
+- `system-design` and `design-builder` are independent — run in parallel
+  after `domain-model`; both inform `epic-tracker` scope
+- `epic-tracker` needs both outputs to scope stories correctly
+- `spec-driven` consumes `domain-model` entities and rules as contracts
+- `spec-driven` runs per story, not per epic — correct granularity
+  for atomic tasks
+- `spec-driven` signals domain gaps back to `domain-model` via
+  `knowledge.md`; `domain-model` update mode reads and clears the queue
+- `wrap-up` is mandatory at end of any heavy session
+
 ## Repository Structure
 
 ```

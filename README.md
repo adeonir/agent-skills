@@ -27,6 +27,7 @@ npx skills add adeonir/agent-skills
 | **[system-design](skills/(development)/system-design)** | Development | Guided system design from problem to architecture: discovery, requirements, trade-offs, components, brief |
 | **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
+| **[domain-model](skills/(product)/domain-model)** | Product | Translate PRD business rules and journeys into domain entities, invariants, bounded contexts, and a living contract for system-design and spec-driven |
 | **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 | **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
 | **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
@@ -39,15 +40,20 @@ flowchart TD
     BR[brainstorming] -->|direction| DW[docs-writer]
     BR -->|direction| DB[design-builder]
     BR -.->|direction| SD[spec-driven]
+    DW -->|BRs + journeys| DM[domain-model]
     DW -->|requirements| ET[epic-tracker]
     DW -->|requirements| DB
     DW -->|requirements| SD
+    DM -->|bounded contexts| SYS[system-design]
+    DM -->|contracts| SD
+    DM -->|lifecycle| ET
     ET -->|handoff| SD
     PI[project-index] -->|codebase docs| SD
     DB -->|approved design| SD
     SD -->|commits & PRs| GH[git-helpers]
     SD -->|discoveries| PI
-    SYS[system-design] -->|brief| DW
+    SD -.->|domain gap| DM
+    SYS -->|brief| DW
     SYS -->|architecture| SD
     BR -.->|direction| SYS
 ```
@@ -60,10 +66,11 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 ```
 1. brainstorming     --> explore ideas, choose direction
 2. docs-writer       --> generate requirements and technical docs
-3. epic-tracker      --> plan epics, track stories, bugs, and issues
-4. design-builder    --> extract, structure, preview, approve
-5. spec-driven       --> specify, design, tasks, implement
-6. git-helpers       --> commit, code-review, pull-request, finish branch
+3. domain-model      --> define entities, invariants, bounded contexts
+4. epic-tracker      --> plan epics, track stories, bugs, and issues
+5. design-builder    --> extract, structure, preview, approve
+6. spec-driven       --> specify, design, tasks, implement
+7. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
 
 **Always available:**
@@ -74,6 +81,64 @@ project-index   --> scan codebase and generate context (brownfield or re-index)
 session-notes   --> document work in Obsidian
 wrap-up         --> persist session context across memory systems
 ```
+
+## Using the Flow
+
+### Full product-first flow
+
+Use all steps when building a new product or feature with non-trivial
+business logic:
+
+```
+brainstorming    --> direction and constraints
+docs-writer      --> PRD (what to build, for whom, why)
+domain-model     --> entities, rules, bounded contexts
+system-design    --> architecture, trade-offs, component brief
+design-builder   --> visual design, tokens, layout
+epic-tracker     --> epics, stories, acceptance criteria
+spec-driven      --> per-story spec, design, tasks, implementation
+git-helpers      --> commit, review, pull request
+wrap-up          --> persist session context
+```
+
+`project-index` runs once at project start and re-indexes on demand.
+`system-design` and `design-builder` run in parallel after `domain-model`.
+
+### When to skip steps
+
+| Skip | When |
+|------|------|
+| `brainstorming` | Direction is already clear |
+| `domain-model` | No business rules or complex entity lifecycle |
+| `system-design` | Frontend-only or trivial backend |
+| `design-builder` | No UI, or design already exists |
+| `docs-writer` | Feature is too small to warrant a PRD |
+
+`spec-driven` and `git-helpers` are never optional for non-trivial work.
+
+### Brownfield entry
+
+Jump in at any step — each skill reads existing artifacts and adapts:
+
+- Adding a feature to an existing product → start at `epic-tracker` or `spec-driven`
+- Undocumented codebase → run `project-index` first, then `spec-driven`
+- Design before requirements → run `design-builder`, then back-fill with `docs-writer`
+- Architecture question mid-feature → run `system-design`, feed result to `spec-driven`
+
+### Feedback loop
+
+`spec-driven` discovers domain gaps during implementation and signals back:
+
+```
+spec-driven discovers gap
+    --> writes to knowledge.md ## Domain Gaps
+    --> user runs domain-model (update mode)
+    --> domain-model refines entities or rules
+    --> spec-driven resumes with updated contracts
+```
+
+`project-index integrate feedback` handles codebase discoveries on the
+same cycle — run both after a batch of stories lands.
 
 ## Output Structure
 
@@ -87,7 +152,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── design/         # design-builder: copy.yaml, design.json, variants/
-├── docs/           # docs-writer + system-design: PRD, Brief, Design Doc, TDD, system-brief.md
+├── docs/           # docs-writer + system-design + domain-model: PRD, Brief, Design Doc, TDD, system-brief.md, domain.md
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

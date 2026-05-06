@@ -69,9 +69,10 @@ discovery.md -----> requirements.md  (framing complete → elicit NFRs)
 requirements.md --> trade-offs.md    (decisions surface → compare options)
 trade-offs.md ---> architecture.md  (decisions resolved → map components)
 architecture.md --> output.md       (blueprint ready → produce brief)
-system-design ---> docs-writer      (brief feeds TDD or ADR)
+system-design ---> docs-writer      (brief feeds TDD)
 system-design ---> spec-driven      (architectural decisions feed feature planning)
 spec-driven -----> system-design    (feature needing architectural decision)
+domain-model ----> system-design    (bounded contexts inform service boundaries)
 ```
 
 ## Guidelines
@@ -101,7 +102,7 @@ Brief saved to `.artifacts/docs/system-brief.md`. Create the directory
 if it does not exist.
 
 Handoff options:
-- `docs-writer` for a formal TDD (component-level) or ADR (single decision)
+- `docs-writer` for a formal TDD (component-level)
 - `spec-driven` when the architecture feeds a feature implementation plan
 
 ## Error Handling
