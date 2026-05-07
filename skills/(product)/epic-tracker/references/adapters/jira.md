@@ -45,7 +45,14 @@ nearest standard name with a warning when an exact match isn't found.
 1. Create an Issue with `issuetype: Story`, `Bug`, or `Task` in the
    `project_key`.
 2. Inputs: `title` -> Summary, `body` -> Description (acceptance criteria
-   for Story, repro steps for Bug, plain description for Task).
+   for Story, repro steps for Bug, plain description for Task). For
+   stories, the body must include the validated `### AC-N`
+   Given/When/Then blocks verbatim -- adapters do not transform AC
+   structure. The planner subagent (consumer in a separate repo) parses
+   these blocks back to structured AC. Verify Jira's Atlassian Document
+   Format preserves H3 headings and bold list items on round-trip; pass
+   `format: markdown` on the MCP call when supported. See
+   [../ac-validation.md](../ac-validation.md) for the contract.
 3. Set `Epic Link` to `epic_id` when provided.
 4. For `create_bug`: set `Priority` from severity
    (critical/high/medium/low -> Highest/High/Medium/Low).

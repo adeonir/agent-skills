@@ -73,7 +73,7 @@ spec-driven ------> domain-model     (domain gaps trigger update mode)
 **DO:**
 - Read the PRD before any other action — the model derives from it
 - Trace every entity back to at least one PRD journey or FR
-- Assign every BR-xxx to one or more entity lifecycle states
+- Assign every BR-N to one or more entity lifecycle states
 - Mark invariants explicitly — they are the enforcement contracts
 - Group entities into bounded contexts before handoff to system-design
 - Use update mode when spec-driven reports a domain gap
@@ -83,7 +83,7 @@ spec-driven ------> domain-model     (domain gaps trigger update mode)
   to a PRD journey or FR)
 - Mix implementation data models with domain concepts (contrasts: stay at
   business abstraction level; spec-driven handles file:line grounding)
-- Leave any PRD BR-xxx unassigned to an entity (contrasts: assign every
+- Leave any PRD BR-N unassigned to an entity (contrasts: assign every
   BR to an entity lifecycle)
 - Skip bounded context grouping (contrasts: group entities before handoff)
 - Treat the domain model as final (contrasts: use update mode when
@@ -103,7 +103,7 @@ Handoff options:
 
 - No PRD artifact found: ask user to provide the PRD path or run
   docs-writer first
-- PRD has no BR-xxx IDs: continue with informal rules, flag for
+- PRD has no BR-N IDs: continue with informal rules, flag for
   traceability
 - Entity candidate is ambiguous (value object vs. entity): decide based
   on whether it has its own lifecycle; document the decision

@@ -102,12 +102,12 @@ Also check `.artifacts/quick/` for quick mode tasks:
 [=========> ] 45% (5/11 tasks)
 
 Completed:
-- [x] T001 - Setup auth types
-- [x] T002 - Create login form
+- [x] T-1 - Setup auth types
+- [x] T-2 - Create login form
 
 Remaining:
-- [ ] T006 - Add session persistence
-- [ ] T007 - Write tests
+- [ ] T-6 - Add session persistence
+- [ ] T-7 - Write tests
 
 ### Next Step
 Run `implement` to continue.

@@ -26,11 +26,11 @@ List all attributes. For each attribute:
 
 Invariants are rules the entity must always satisfy. Derive from:
 
-- BR-xxx rules that apply to this entity
+- BR-N rules that apply to this entity
 - Conditions in user journeys (pre-conditions, post-conditions)
-- Edge cases (EC-xxx) that describe illegal states
+- Edge cases (EC-N) that describe illegal states
 
-Format: `INVARIANT: {condition}. Source: {BR-xxx or EC-xxx}`
+Format: `INVARIANT: {condition}. Source: {BR-N or EC-N}`
 
 ### Step 3: Lifecycle States
 
@@ -53,7 +53,7 @@ Define what makes this entity unique:
 Before loading `relationships.md`, verify:
 
 - [ ] Every confirmed entity has attributes, invariants, and lifecycle
-- [ ] Every invariant cites a PRD source (BR-xxx, EC-xxx, or FR-xxx)
+- [ ] Every invariant cites a PRD source (BR-N, EC-N, or FR-N)
 - [ ] Value objects are noted as such (no lifecycle section needed)
 - [ ] No implementation details have leaked in (no table names, no IDs)
 

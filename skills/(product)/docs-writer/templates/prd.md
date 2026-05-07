@@ -29,26 +29,26 @@ created: {{YYYY-MM-DD}}
 
 | ID | Requirement | Notes |
 |----|------------|-------|
-| FR-001 | {{core capability required for launch}} | |
-| FR-002 | {{another core capability}} | |
+| FR-1 | {{core capability required for launch}} | |
+| FR-2 | {{another core capability}} | |
 
 ### Should Have
 
 | ID | Requirement | Notes |
 |----|------------|-------|
-| FR-003 | {{important but not launch-blocking}} | |
+| FR-3 | {{important but not launch-blocking}} | |
 
 ### Could Have
 
 | ID | Requirement | Notes |
 |----|------------|-------|
-| FR-004 | {{nice-to-have for future iteration}} | |
+| FR-4 | {{nice-to-have for future iteration}} | |
 
 ### Won't Have
 
 | ID | Requirement | Notes |
 |----|------------|-------|
-| FR-XXX | {{feature considered and explicitly excluded}} | {{reason for exclusion}} |
+| FR-N | {{feature considered and explicitly excluded}} | {{reason for exclusion}} |
 
 ### Non-Goals
 
@@ -79,22 +79,22 @@ created: {{YYYY-MM-DD}}
 
 | ID | Rule | Scope |
 |----|------|-------|
-| BR-001 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
-| BR-002 | {{another business rule}} | {{scope}} |
+| BR-1 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
+| BR-2 | {{another business rule}} | {{scope}} |
 
 ## 7. Edge Cases
 
 | ID | Scenario | Expected Behavior |
 |----|----------|-------------------|
-| EC-001 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
-| EC-002 | {{another exception scenario}} | {{expected behavior}} |
+| EC-1 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
+| EC-2 | {{another exception scenario}} | {{expected behavior}} |
 
 ## 8. Non-Functional Requirements
 
 | ID | Requirement | Target |
 |----|------------|--------|
-| NFR-001 | Performance | {{e.g., page load < 2s}} |
-| NFR-002 | Accessibility | {{e.g., WCAG 2.1 AA}} |
+| NFR-1 | Performance | {{e.g., page load < 2s}} |
+| NFR-2 | Accessibility | {{e.g., WCAG 2.1 AA}} |
 
 ## 9. Milestones
 

@@ -13,10 +13,10 @@ Total: {{count}} | Completed: 0 | Remaining: {{count}}
 ## Execution Plan
 
 ```
-T001 --> T002 --> T003
-                   ├--> T004 --┐
-                   └--> T005 --┼--> T007
-                   T006 -------┘
+T-1 --> T-2 --> T-3
+                 ├--> T-4 --┐
+                 └--> T-5 --┼--> T-7
+                 T-6 -------┘
 ```
 
 ## Quality Gates
@@ -29,23 +29,23 @@ Run after each task or batch:
 
 ## Tasks
 
-### S001 [P1] {{Story Title}}
+### S-1 [P1] {{Story Title}}
 
-- [ ] T001 [P] {{verb}} {{what}}
+- [ ] T-1 [P] {{verb}} {{what}}
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
   - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
 
-- [ ] T002 [B:T001] {{dependent task}}
+- [ ] T-2 [B:T-1] {{dependent task}}
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
   - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
 
-### S002 [P2] {{Story Title}}
+### S-2 [P2] {{Story Title}}
 
-- [ ] T003 [B:T002] {{verb}} {{what}}
+- [ ] T-3 [B:T-2] {{verb}} {{what}}
   - **Tests:** {{unit|integration|e2e|none}}
   - **Gate:** {{quick|full|build}}
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
@@ -57,11 +57,11 @@ Run after each task or batch:
 
 ## Requirements Coverage
 
-| Story | Tasks            |
-|-------|------------------|
-| S001  | T001, T002       |
-| S002  | T003             |
+| Story | Tasks         |
+|-------|---------------|
+| S-1   | T-1, T-2      |
+| S-2   | T-3           |
 
 | Requirement | Tasks      |
 | ----------- | ---------- |
-| AC-001      | T001, T002 |
+| AC-1        | T-1, T-2   |

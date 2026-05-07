@@ -6,6 +6,22 @@ name: epic-tracker
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-07
+
+### Added
+
+- Given/When/Then 1:1 acceptance criteria contract for Stories with seven validation rules (V1-V7) in `ac-validation.md`
+- Story body edit workflow with diff-based AC re-validation in `edit-story.md`
+- `### AC-N` block format for Story body, parseable by the planner subagent downstream
+- Edit story triggers in SKILL.md
+
+### Changed
+
+- Story template AC section replaced the checkbox list with structured `### AC-N` Given/When/Then blocks
+- Story create flow gained a Validate Acceptance Criteria step before save or push
+- Adapter notes lock Story body passthrough so `### AC-N` blocks survive the round-trip in Linear, GitHub, and Jira
+- Pull direction in `sync.md` documents no AC validation on read paths (legacy tolerance for stories created before this change)
+
 ## 2026-05-06
 
 ### Added

@@ -27,7 +27,7 @@ created: {{YYYY-MM-DD}}
 
 ## User Stories
 
-### S001 [P1] {{Story Title}}
+### S-1 [P1] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P1:** {{why this is critical for MVP}}
@@ -35,27 +35,27 @@ created: {{YYYY-MM-DD}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-001 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-1 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
   - **Audit-tool measurement:** {{tool name}} -- {{exact metric}} -- pass threshold: {{numeric or boolean}}
-- [ ] AC-002 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-2 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
 
-### S002 [P2] {{Story Title}}
+### S-2 [P2] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P2:** {{why this matters but is not MVP}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-003 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-3 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
 
-### S003 [P3] {{Story Title}}
+### S-3 [P3] {{Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P3:** {{why this is nice-to-have}}
 
 **Acceptance Criteria:**
 
-- [ ] AC-004 `pending`: WHEN {{trigger}} THEN system SHALL {{expected behavior}}
+- [ ] AC-4 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
 
 {{#if designs}}
 ## Visual References
@@ -69,9 +69,9 @@ created: {{YYYY-MM-DD}}
 
 ## Edge Cases
 
-- WHEN {{boundary condition}} THEN system SHALL {{behavior}}
-- WHEN {{error scenario}} THEN system SHALL {{graceful handling}}
-- WHEN {{unexpected input}} THEN system SHALL {{validation response}}
+- GIVEN {{precondition}} WHEN {{boundary condition}} THEN {{observable handling}}
+- GIVEN {{precondition}} WHEN {{error scenario}} THEN {{graceful handling}}
+- GIVEN {{precondition}} WHEN {{unexpected input}} THEN {{validation response}}
 
 ## Success Criteria
 

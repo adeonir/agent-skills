@@ -192,6 +192,6 @@ A: Auto-Sizing decides depth. When activities run in full form (Large/Complex), 
 - **Codebase exploration sub-agent** -- one per design phase, runs the full multi-phase exploration, writes to disk
 - **Design Plan sub-agent** -- one per design phase, owns architectural reasoning (data model with file:line cites, dependency inversion, decisions, traceability); read-only by harness contract, returns structured slot fillers that main agent composes into design.md via the canonical template
 - **Tasks Plan sub-agent** -- one per tasks phase, owns decomposition reasoning (story grouping, ID monotonicity, forward-dependency detection, execution plan); read-only, returns slot fillers that main agent composes into tasks.md via the canonical template
-- **Implement sub-agent** -- one per user invocation (T001, range, S001, --all), owns the per-task implement and verify cycle
+- **Implement sub-agent** -- one per user invocation (T-1, range, S-1, --all), owns the per-task implement and verify cycle
 
 Discovery sub-agents (research, exploration) hand off via disk artifacts. Plan sub-agents hand off via structured chunks because the harness blocks Edit/Write for the built-in Plan agent. Inline forms (Quick mode, Medium scope) run without dispatch -- the overhead exceeds the benefit at small ceremony.

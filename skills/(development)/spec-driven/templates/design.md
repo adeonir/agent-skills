@@ -87,7 +87,7 @@ Required when any acceptance criterion enumerates output, display, response, or 
 
 | AC ID | Field | Source (file:line) | Currently Exposed? | Gap? |
 |-------|-------|--------------------|--------------------|------|
-| {{AC-00N}} | {{fieldName}} | {{path:line or "none"}} | {{yes / no}} | {{none / must add / must map}} |
+| {{AC-N}} | {{fieldName}} | {{path:line or "none"}} | {{yes / no}} | {{none / must add / must map}} |
 
 ## Decisions
 
@@ -130,7 +130,7 @@ Required when more than one task produces a value another task consumes. One row
 
 | Hop | Producer Task | Value Shape Out | Consumer Task | Transformation Applied at Consumer | Final Value Shape |
 |-----|---------------|-----------------|---------------|------------------------------------|-------------------|
-| 1 | {{Txxx}} | {{shape produced}} | {{Tyyy}} | {{what the consumer applies on top}} | {{shape after consumer}} |
+| 1 | {{T-X}} | {{shape produced}} | {{T-Y}} | {{what the consumer applies on top}} | {{shape after consumer}} |
 
 ## Requirements Traceability
 
@@ -138,8 +138,8 @@ Required when more than one task produces a value another task consumes. One row
 
 | Requirement | Component | File | Status |
 |-------------|-----------|------|--------|
-| AC-001 | {{comp}} | {{path}} | Planned |
-| AC-002 | {{comp}} | {{path}} | Planned |
+| AC-1 | {{comp}} | {{path}} | Planned |
+| AC-2 | {{comp}} | {{path}} | Planned |
 
 ## Test Strategy
 

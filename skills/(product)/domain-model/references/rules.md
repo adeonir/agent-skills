@@ -1,6 +1,6 @@
 # Rules
 
-Assign every PRD business rule (BR-xxx) to entity lifecycle states.
+Assign every PRD business rule (BR-N) to entity lifecycle states.
 Validate full coverage.
 
 ## When to Use
@@ -14,9 +14,9 @@ Load after relationships and bounded contexts are stable.
 
 ### Step 1: Rule Inventory
 
-List all BR-xxx rules from the PRD. For each:
+List all BR-N rules from the PRD. For each:
 
-- Rule ID (BR-xxx)
+- Rule ID (BR-N)
 - Rule text (verbatim from PRD)
 - Applicable entities (which entities are involved)
 
@@ -31,13 +31,13 @@ and assign as:
 
 Format:
 ```
-BR-001: Order.lifecycle.checkout.precondition
-BR-002: Payment.lifecycle.authorized.invariant
+BR-1: Order.lifecycle.checkout.precondition
+BR-2: Payment.lifecycle.authorized.invariant
 ```
 
 ### Step 3: Coverage Check
 
-Verify every BR-xxx from the PRD is assigned:
+Verify every BR-N from the PRD is assigned:
 
 - List unassigned BRs — these are gaps
 - For each gap: determine if it maps to an undiscovered entity (return
@@ -45,7 +45,7 @@ Verify every BR-xxx from the PRD is assigned:
 
 ### Step 4: Edge Case Coverage
 
-For each EC-xxx from the PRD:
+For each EC-N from the PRD:
 
 - Identify which entity state it represents
 - Ensure the lifecycle includes this state or transition
@@ -55,8 +55,8 @@ For each EC-xxx from the PRD:
 
 Before loading `output.md`, verify:
 
-- [ ] Every BR-xxx has an entity assignment
-- [ ] Every EC-xxx has an entity lifecycle home
+- [ ] Every BR-N has an entity assignment
+- [ ] Every EC-N has an entity lifecycle home
 - [ ] No gaps remain (or gaps are documented as open questions)
 - [ ] Invariant lists in entities reflect all assigned BRs
 

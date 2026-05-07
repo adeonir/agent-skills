@@ -6,6 +6,15 @@ name: spec-driven
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-07
+
+### Changed
+
+- AC, Task, and Story id format dash-separated with no padding (`AC-1`, `T-1`, `S-1`) replacing zero-padded `AC-001`, `T001`, `S001` and `S###`, `T###` placeholders
+- AC notation flipped to Gherkin (`Given / When / Then`) in `spec.md` template, Edge Cases section, and `specify.md` prose, replacing EARS `WHEN ... THEN system SHALL ...`
+- Trigger phrases in SKILL.md updated to `implement story S-1` and `implement task T-1`
+- Task ID format prose updated to "dash-separated with no padding"
+
 ## 2026-05-06
 
 ### Added

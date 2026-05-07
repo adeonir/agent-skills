@@ -30,14 +30,14 @@ Scan the PRD in this order:
 
 1. Section 5 (User Journeys) — nouns that act, receive actions, or
    carry state are entity candidates
-2. Section 6 (Business Rules BR-xxx) — subjects and objects of rules
+2. Section 6 (Business Rules BR-N) — subjects and objects of rules
 3. Section 4 (Scope / FRs) — capabilities that imply persistent state
-4. Section 7 (Edge Cases EC-xxx) — exceptional states reveal lifecycle
+4. Section 7 (Edge Cases EC-N) — exceptional states reveal lifecycle
 
 For each candidate, record:
 
 - Name (singular noun)
-- Source (journey step, FR-xxx, BR-xxx, or EC-xxx)
+- Source (journey step, FR-N, BR-N, or EC-N)
 - Candidate type: Entity (has lifecycle) or Value Object (no lifecycle)
 
 ### Step 3: Confirm Candidates

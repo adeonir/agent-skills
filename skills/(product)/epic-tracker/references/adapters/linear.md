@@ -43,7 +43,11 @@ Detect available states from the workspace via MCP before pushing. If
    the team backlog (when not).
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include
    acceptance criteria for stories, repro steps for bugs, plain
-   description for issues).
+   description for issues). For stories, the body must include the
+   validated `### AC-N` Given/When/Then blocks verbatim -- adapters do
+   not transform AC structure. The planner subagent (consumer in a
+   separate repo) parses these blocks back to structured AC. See
+   [../ac-validation.md](../ac-validation.md) for the contract.
 3. For `create_bug`: add label `bug`. Add `severity:{level}` label when
    severity is provided.
 4. For `create_issue`: add label `task`.

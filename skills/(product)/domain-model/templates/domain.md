@@ -17,7 +17,7 @@ created: {{YYYY-MM-DD}}
 
 **Type:** Entity | Value Object
 **Context:** {{BoundedContextName}}
-**Source:** {{FR-xxx, journey step, or BR-xxx that introduced this entity}}
+**Source:** {{FR-N, journey step, or BR-N that introduced this entity}}
 
 #### Attributes
 
@@ -27,7 +27,7 @@ created: {{YYYY-MM-DD}}
 
 #### Invariants
 
-- `INVARIANT:` {{condition}}. Source: {{BR-xxx or EC-xxx}}
+- `INVARIANT:` {{condition}}. Source: {{BR-N or EC-N}}
 
 #### Lifecycle
 
@@ -55,7 +55,7 @@ created: {{YYYY-MM-DD}}
 
 | Relationship | Cardinality | Owner | Source |
 |--------------|-------------|-------|--------|
-| {{EntityA verb EntityB}} | 1..* | {{EntityA}} | {{FR-xxx}} |
+| {{EntityA verb EntityB}} | 1..* | {{EntityA}} | {{FR-N}} |
 
 ## Context Map
 
@@ -72,8 +72,8 @@ created: {{YYYY-MM-DD}}
 
 | Rule ID | Rule Text | Entity | Assignment Type |
 |---------|-----------|--------|-----------------|
-| BR-001 | {{text}} | {{Entity.lifecycle.state}} | precondition |
-| BR-002 | {{text}} | {{Entity}} | invariant |
+| BR-1 | {{text}} | {{Entity.lifecycle.state}} | precondition |
+| BR-2 | {{text}} | {{Entity}} | invariant |
 
 ## Open Questions
 

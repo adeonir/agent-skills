@@ -6,6 +6,12 @@ name: docs-writer
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-07
+
+### Changed
+
+- PRD requirement id format dash-separated with no padding (`FR-1`, `BR-1`, `EC-1`, `NFR-1`) replacing zero-padded `FR-001`, `BR-001`, `EC-001`, `NFR-001` for consistency with the rest of the agent-skills id convention
+
 ## 2026-05-06
 
 ### Added

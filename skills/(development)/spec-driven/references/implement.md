@@ -14,9 +14,9 @@ Transitions.
 
 ## Arguments
 
-- `[T001]` - Single task
-- `[T001-T005]` - Range
-- `[S001]` - All tasks under story S001
+- `[T-1]` - Single task
+- `[T-1..T-5]` - Range
+- `[S-1]` - All tasks under story S-1
 - `[--all]` - All pending
 - Empty - Next pending task
 
@@ -34,8 +34,8 @@ each step as it completes (TaskUpdate).
 2. If no feature ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
-If a story ID argument was given (`[S001]`):
-- Read tasks.md, find the `### S001 ...` section
+If a story ID argument was given (`[S-1]`):
+- Read tasks.md, find the `### S-1 ...` section
 - Collect all tasks under that section header
 - Treat them as the task range for this run
 
@@ -112,18 +112,18 @@ Execution steps:
 
 For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
-- Check [B:Txxx] - verify Txxx is done
+- Check [B:T-X] - verify T-X is done
 
 **Sub-agent dispatch:** Dispatch one subagent per user invocation. Scope
 follows the invocation argument:
 
-- `[T001]`: one subagent for the single task.
-- `[T001-T005]`: one subagent for the whole range.
-- `[S001]`: one subagent for the whole story.
+- `[T-1]`: one subagent for the single task.
+- `[T-1..T-5]`: one subagent for the whole range.
+- `[S-1]`: one subagent for the whole story.
 - `[--all]`: one subagent for all pending tasks.
 
 The subagent owns Steps 7-8 for every task in its scope. It implements
-tasks in dependency order (`[B:Txxx]` waits for `Txxx`), resolves order
+tasks in dependency order (`[B:T-X]` waits for `T-X`), resolves order
 internally, runs verify per task (Step 7-After), and marks `[x]` in
 tasks.md (Step 8). Main agent does not fan out across tasks -- it
 dispatches once and resumes at Step 9 (Check Completion) after the
@@ -131,7 +131,7 @@ subagent returns.
 
 Subagent brief includes:
 - Paths to spec.md, design.md, tasks.md, coding-principles.md
-- Task list within scope (Txxx, ...) with `[P]`/`[B:Txxx]` markers
+- Task list within scope (T-X, ...) with `[P]`/`[B:T-X]` markers
 - Acceptance criteria per task
 - "Run Steps 7-8 for each task in dependency order. Implement, verify per
   task, mark `[x]` in tasks.md. Write code and updates to disk. Report
@@ -264,7 +264,7 @@ If tasks.md exists:
 1. Verify the "Done when" criteria for the task are met
 2. Mark completed tasks:
 ```markdown
-- [x] T001 [P] {description}
+- [x] T-1 [P] {description}
   - **Done when:** {verifiable outcome} -- VERIFIED
 ```
 3. Update task counters in tasks.md header.

@@ -23,7 +23,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 
 - Goals (measurable outcomes)
 - Out of scope (explicit exclusions)
-- User stories with acceptance criteria inline (AC-xxx IDs, `WHEN/THEN/SHALL` format, status starts as `` `pending` ``)
+- User stories with acceptance criteria inline (AC-N IDs, `Given/When/Then` format 1:1 (no compound), status starts as `` `pending` ``)
 - Edge cases (boundary conditions, error scenarios)
 - Success criteria (measurable outcomes)
 - For brownfield: current behavior description (high-level, no code)
@@ -130,7 +130,7 @@ scope and refined with implementation detail.
 |-------------------|---------|
 | Product-wide user stories | Feature-scoped stories prioritized by implementation order (P1/P2/P3) |
 | Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
-| High-level acceptance criteria | Testable ACs in WHEN/THEN/SHALL format |
+| High-level acceptance criteria | Testable ACs in Given/When/Then format (1:1, no compound) |
 | Product KPIs and success metrics | Feature-specific success criteria (demo-able) |
 | No edge cases | Edge cases (boundaries, errors, invalid inputs) |
 
@@ -140,7 +140,7 @@ scope and refined with implementation detail.
 3. Filter each item: relevant → transform; not relevant → note WHY in Notes;
    partially relevant → extract only the applicable part
 4. Transform (never copy verbatim): narrow broad stories to feature scope, make
-   ACs testable (WHEN/THEN/SHALL), add missing edge cases and success criteria
+   ACs testable (Given/When/Then 1:1), add missing edge cases and success criteria
    derived from requirements
 5. Output extraction summary in Notes section before generating spec -- the
    "Transformed To" column must show the refined version, not a copy
@@ -302,11 +302,11 @@ primitive's story earlier, merging it into the first consumer, or making the ear
 story ship an inline implementation that the later story refactors into the shared
 primitive. Never leave the inversion implicit.
 
-**Acceptance Criteria:** Use WHEN/THEN/SHALL format. Happy paths go in ACs; boundary
-conditions go in Edge Cases. When an AC references a third-party audit tool, append
-an `Audit-tool measurement` sub-bullet:
+**Acceptance Criteria:** Use Given/When/Then format, 1:1 per AC. No compound clauses.
+Happy paths go in ACs; boundary conditions go in Edge Cases. When an AC references a
+third-party audit tool, append an `Audit-tool measurement` sub-bullet:
 ```
-- [ ] AC-001: WHEN {trigger} THEN system SHALL {expected behavior}
+- [ ] AC-1: GIVEN {precondition} WHEN {action} THEN {observable outcome}
   - **Audit-tool measurement:** {tool name} -- {exact metric the tool reports} -- pass threshold: {numeric or boolean}
 ```
 Required only when the AC references a third-party audit tool. Omit the sub-line otherwise.

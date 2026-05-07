@@ -30,7 +30,7 @@ Dashed arrow: update mode triggered when spec-driven surfaces a domain gap.
 | Discovery | Candidate entities with PRD source references |
 | Entities | Attributes, invariants, lifecycle per entity |
 | Relationships | Cardinalities, aggregate roots, bounded contexts, context map |
-| Rules | All BR-xxx assigned to entity lifecycle |
+| Rules | All BR-N assigned to entity lifecycle |
 | Output | `domain.md` in `.artifacts/docs/` |
 
 ## Usage

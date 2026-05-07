@@ -151,7 +151,12 @@ Re-detect on demand via "configure tracker".
 1. Create an Issue in the `repo`.
 2. Set `milestone` to the parent Epic (when `epic_id` provided).
 3. Set body with title/description and acceptance criteria (story),
-   repro steps (bug), or plain description (issue).
+   repro steps (bug), or plain description (issue). For stories, the
+   body must include the validated `### AC-N` Given/When/Then blocks
+   verbatim -- adapters do not transform AC structure. The planner
+   subagent (consumer in a separate repo) parses these blocks back to
+   structured AC. See [../ac-validation.md](../ac-validation.md) for
+   the contract.
 4. Set `issue_type` using the name stored in config under `issue_types`
    (e.g., `issue_types.story`, `issue_types.bug`, `issue_types.task`).
    If `issue_types` is empty, no type is set — Issue is created plain.

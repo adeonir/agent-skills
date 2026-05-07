@@ -18,8 +18,19 @@ created: {{YYYY-MM-DD}}
 
 ## Acceptance Criteria
 
-- [ ] {{Specific, verifiable condition}}
-- [ ] {{Another testable condition}}
+> Format: Given/When/Then, 1:1 per AC. No compound clauses. Each AC has a stable id (`AC-1`, `AC-2`, ...; dash-separated, no zero-padding). The skill validates this on create and on edits that change AC text. See `references/ac-validation.md` for the rules.
+
+### AC-1
+
+- **Given:** {{precondition -- single, concrete state}}
+- **When:** {{single user or system action}}
+- **Then:** {{single observable outcome}}
+
+### AC-2
+
+- **Given:** {{precondition}}
+- **When:** {{action}}
+- **Then:** {{observable outcome}}
 
 ## Rabbit Holes
 

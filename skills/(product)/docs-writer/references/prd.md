@@ -165,8 +165,8 @@ Generate both documents using the confirmed synthesis. Present drafts to user fo
 - Market & differentiation content goes to Brief, not PRD
 - Value proposition content goes to Brief, not PRD
 - Journeys should be product-level (actor, goal, flow, conditions) -- no UI components, endpoints, or implementation details
-- Business rules use IDs (BR-001) for traceability
-- Edge cases use IDs (EC-001) for traceability
+- Business rules use IDs (BR-1) for traceability
+- Edge cases use IDs (EC-1) for traceability
 - Each milestone should represent a coherent deliverable that can feed a spec
 
 ## PRD Schema
@@ -178,10 +178,10 @@ Generate both documents using the confirmed synthesis. Present drafts to user fo
 | 1. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
 | 2. Goals & Success Metrics | Measurable KPIs (concrete numbers, not vague goals) | Topic 1: Problem |
 | 3. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
-| 4. Scope Definition | Must/Should/Could/Won't have, non-goals (FR-001...) | Topic 4: Value & Scope |
+| 4. Scope Definition | Must/Should/Could/Won't have, non-goals (FR-1...) | Topic 4: Value & Scope |
 | 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
-| 6. Business Rules | Functional constraints across features (BR-001...) | Topic 5: Journeys & Constraints |
-| 7. Edge Cases | Exception scenarios and expected behavior (EC-001...) | Topic 5: Journeys & Constraints |
+| 6. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
+| 7. Edge Cases | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
 | 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
 | 9. Milestones | Key deliverables per phase -- each can generate a spec | Topic 4: Value & Scope |
 | 10. Assumptions | What we believe to be true that underpins the plan | Validation phase |

@@ -13,8 +13,8 @@ description: >-
 when_to_use: >-
   Triggers on "plan this feature", "plan this out", "spec this feature",
   "turn this PRD into a spec", "break this into tasks", "break this into stories",
-  "create technical design for this feature", "implement story S###",
-  "implement task T###", "verify implementation", "check acceptance criteria",
+  "create technical design for this feature", "implement story S-1",
+  "implement task T-1", "verify implementation", "check acceptance criteria",
   "audit feature", "audit this spec", "validate goals", "UAT", "manual testing",
   "discuss this feature", "show feature status", "quick fix", "quick task",
   "quick mode", "small change", and known one-line fixes where the user names

@@ -82,9 +82,9 @@ Subagent brief:
   - Execution Plan: ASCII diagram (sequential `-->`, parallel
     branches `├-->`/`└-->`, convergence points)
   - Quality Gates: lint, typecheck, test commands from Step 3
-  - Tasks: story groups in spec.md order (`### Sxxx [Px] Title`),
+  - Tasks: story groups in spec.md order (`### S-N [Px] Title`),
     each containing tasks with monotonic IDs top-to-bottom, dependency
-    markers (`[P]`, `[B:Txxx]`), Tests / Gate / Done when fields
+    markers (`[P]`, `[B:T-X]`), Tests / Gate / Done when fields
     (Tests and Gate only when test infrastructure detected in Step 3),
     Satisfaction sketch field per task (one line: why this
     implementation actually moves the criterion -- mechanisms cited
@@ -112,26 +112,26 @@ dispatch is skipped._
 
 ### Step 5: Decompose Tasks
 
-Group tasks by story. Each story in spec.md becomes a `### Sxxx [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
+Group tasks by story. Each story in spec.md becomes a `### S-N [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
 
-**Story order is fixed.** Emit stories in the exact order they appear in spec.md: S001 first, then S002, then S003, and so on. Do not reorder stories by technical dependency, risk, or setup-first instinct -- the user reads and commits stories in the order the spec declares them.
+**Story order is fixed.** Emit stories in the exact order they appear in spec.md: S-1 first, then S-2, then S-3, and so on. Do not reorder stories by technical dependency, risk, or setup-first instinct -- the user reads and commits stories in the order the spec declares them.
 
-**Task IDs are assigned top-to-bottom, in document order.** The first task listed in tasks.md is `T001`. The second is `T002`. Numbering is monotonic as the reader scrolls down. This means:
+**Task IDs are assigned top-to-bottom, in document order.** The first task listed in tasks.md is `T-1`. The second is `T-2`. Numbering is monotonic as the reader scrolls down. This means:
 
-- All of S001's tasks are listed first and get IDs `T001..T00k`
-- S002's tasks follow and get `T00k+1..T00m`
-- S003 continues from there, and so on
+- All of S-1's tasks are listed first and get IDs `T-1..T-k`
+- S-2's tasks follow and get `T-(k+1)..T-m`
+- S-3 continues from there, and so on
 
-Never assign a low ID (e.g. `T001`) to a task that appears later in the document than a higher ID. A reader scanning top-to-bottom must see ascending IDs.
+Never assign a low ID (e.g. `T-1`) to a task that appears later in the document than a higher ID. A reader scanning top-to-bottom must see ascending IDs.
 
-**Commit boundary: each story is independently shippable.** The user must be able to execute and commit only S001's tasks without pulling in work from S002 or later stories. This forbids **forward dependencies**:
+**Commit boundary: each story is independently shippable.** The user must be able to execute and commit only S-1's tasks without pulling in work from S-2 or later stories. This forbids **forward dependencies**:
 
-- Allowed: `T005 [B:T002]` inside S002 blocking on T002 inside S001 (backward dep)
-- Forbidden: `T002 [B:T005]` inside S001 blocking on T005 inside S002 (forward dep)
+- Allowed: `T-5 [B:T-2]` inside S-2 blocking on T-2 inside S-1 (backward dep)
+- Forbidden: `T-2 [B:T-5]` inside S-1 blocking on T-5 inside S-2 (forward dep)
 
 If a task seems to need something from a later story, the dependency is a signal the stories are wrong -- either merge them, reorder them in spec.md (then reflect here), or pull the shared prerequisite into the earlier story.
 
-**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S001. Do not invent a "Phase 0" or "Setup" section outside the story structure. A story exists precisely because it delivers user value; setup that serves one story lives in that story.
+**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S-1. Do not invent a "Phase 0" or "Setup" section outside the story structure. A story exists precisely because it delivers user value; setup that serves one story lives in that story.
 
 Within each story group, generate tasks following natural order:
 1. Setup (config, deps) -- only if not already done in an earlier story
@@ -145,20 +145,20 @@ Each task should be:
 - **Independent**: Minimal dependencies
 - **Traceable**: Maps to requirements
 
-**Task ID format:** `T001, T002, T003...` -- sequential across the entire tasks.md in document order, zero-padded, never reused.
+**Task ID format:** `T-1, T-2, T-3...` -- sequential across the entire tasks.md in document order, dash-separated with no padding, never reused.
 
 **Task description format:**
 
 Without test infrastructure:
 ```
-- [ ] T001 [P] {verb} {what}
+- [ ] T-1 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
   - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
 ```
 
 With test infrastructure (test script detected in Step 3):
 ```
-- [ ] T001 [P] {verb} {what}
+- [ ] T-1 [P] {verb} {what}
   - **Tests:** unit|integration|e2e|none
   - **Gate:** quick|full|build
   - **Done when:** {verifiable outcome}; gate passes, no tests deleted
@@ -180,7 +180,7 @@ with evidence for and against each. A mitigation may only be chosen after every 
 is evaluated; premature rejection is a smell.
 
 ```
-- [ ] T001 [P] {verb} {what}
+- [ ] T-1 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
   - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
   - **Candidate trace:**
@@ -217,7 +217,7 @@ Generate tasks following the template structure:
 - Summary (total count)
 - Execution Plan (ASCII diagram of task flow)
 - Quality Gates (lint, typecheck, test commands)
-- Tasks grouped by commit boundary (T001 [P] for parallel, T002 [B:T001] for dependent), each with "Done when"
+- Tasks grouped by commit boundary (T-1 [P] for parallel, T-2 [B:T-1] for dependent), each with "Done when"
 - Requirements Coverage (mapping ACs to tasks)
 
 After generating tasks.md, update spec.md: for each AC mapped to a task in Requirements Coverage,
@@ -236,8 +236,8 @@ focused on tasks, not process logs.
 
 Verify the document order enforces the commit-boundary contract.
 
-- `[pass|fail]` Stories appear in spec.md order (S001 first, then S002, ...)
-- `[pass|fail]` Task IDs are monotonic top-to-bottom (first listed task = T001)
+- `[pass|fail]` Stories appear in spec.md order (S-1 first, then S-2, ...)
+- `[pass|fail]` Task IDs are monotonic top-to-bottom (first listed task = T-1)
 - `[pass|fail]` Each story's tasks are contiguous -- no story is split across non-adjacent sections
 - `[pass|fail]` No forward dependencies -- no task blocks on a task with a higher ID
 - `[pass|fail]` Shared setup (test infra, types) lives inside the first story that needs it, not in a separate "Phase 0"
@@ -250,8 +250,8 @@ Verify the execution diagram arrows match every task's dependency markers.
 These are written independently and can drift.
 
 For each task, confirm:
-- Every `[B:Txxx]` marker has a corresponding arrow in the diagram
-- Every arrow in the diagram has a corresponding `[B:Txxx]` in the target task
+- Every `[B:T-X]` marker has a corresponding arrow in the diagram
+- Every arrow in the diagram has a corresponding `[B:T-X]` in the target task
 - Tasks shown as parallel `[P]` do not depend on each other
 
 If any mismatch: fix the diagram or the marker, not both arbitrarily.
@@ -272,7 +272,7 @@ Only applies when a test script was detected in Step 3. Skip entirely if no test
 
 For each task that creates or modifies a code layer:
 - Tests for that layer must be included in the same task
-- "Tested in T00X" or "tests added later" is a violation -- merge the tests into the task
+- "Tested in T-X" or "tests added later" is a violation -- merge the tests into the task
 
 If any task defers its tests: merge them in before proceeding.
 
@@ -281,7 +281,7 @@ If any task defers its tests: merge them in before proceeding.
 Reason about this silently. Do not print `[pass]` lines for this check into
 tasks.md -- the artifact should not contain a compile/test log per prefix.
 
-For each story prefix (S001, then S001+S002, then S001+S002+S003, ...), the
+For each story prefix (S-1, then S-1+S-2, then S-1+S-2+S-3, ...), the
 codebase state after applying those tasks in order must stand alone:
 
 - Compiles, lint and typecheck pass, tests (if present) pass
@@ -290,11 +290,11 @@ codebase state after applying those tasks in order must stand alone:
   module that a later story defines
 
 If an intermediate state would fail, the problem is a hidden forward
-dependency the `[B:Txxx]` markers did not surface. Resolve it before writing
+dependency the `[B:T-X]` markers did not surface. Resolve it before writing
 the artifact -- pick one:
 
 - Restructure: have the earlier story ship an inline implementation that the
-  later story refactors into a shared primitive, and add a `[B:Txxx]`
+  later story refactors into a shared primitive, and add a `[B:T-X]`
   refactor marker
 - Reorder stories in spec.md so the primitive is owned by an earlier story
   (keep IDs monotonic after the reorder)
@@ -336,8 +336,8 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 | Marker | Meaning |
 |--------|---------|
 | [P] | Parallel-safe, no dependencies |
-| [B:T001] | Blocked by T001 |
-| [B:T001,T002] | Blocked by multiple |
+| [B:T-1] | Blocked by T-1 |
+| [B:T-1,T-2] | Blocked by multiple |
 
 ## Guidelines
 
@@ -346,7 +346,7 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 - Respect dependencies -- same component = sequential
 - Mark independent tasks as [P] to enable parallelization
 - Group by commit boundary -- each group forms one atomic commit
-- Cover all ACs -- every AC-xxx has at least one task
+- Cover all ACs -- every AC-N has at least one task
 - Run quality gates after each task, not as separate tasks
 - Pair every Done when with a Satisfaction sketch citing a mechanism present in this task or earlier
 - Enumerate every candidate from the spec with evidence for and against in `Candidate trace` before choosing a mitigation in an investigation task
@@ -354,7 +354,7 @@ Prefer Small and Medium tasks. If a task feels Large, split it.
 **DON'T:**
 - Add Files:/Reference:/Commit: metadata lines in task descriptions
 - Create tasks that span multiple unrelated concerns
-- Leave AC-xxx requirements without corresponding tasks
+- Leave AC-N requirements without corresponding tasks
 - Bundle quality gates as tasks in the breakdown
 - Defer tests to a later task when test infrastructure exists (contrasts: include tests in the task that creates the code)
 - Present tasks before running the pre-approval checks (contrasts: run checks first, restructure if needed)
@@ -376,13 +376,13 @@ Example:
 ```markdown
 ### Authentication Setup
 
-- [ ] T001 [P] Create auth types in types/auth.ts
-- [ ] T002 [B:T001] Implement AuthService in services/auth.ts
+- [ ] T-1 [P] Create auth types in types/auth.ts
+- [ ] T-2 [B:T-1] Implement AuthService in services/auth.ts
 
 ### Auth Middleware
 
-- [ ] T003 [B:T002] Add auth middleware in middleware.ts
-- [ ] T004 [B:T003] Protect routes with auth middleware
+- [ ] T-3 [B:T-2] Add auth middleware in middleware.ts
+- [ ] T-4 [B:T-3] Protect routes with auth middleware
 ```
 
 After completing all tasks in a group, the code is in a stable, committable state.

@@ -132,6 +132,11 @@ user updates the cache mid-session.
 5. Detect conflicts (see below).
 6. Update markdown content + frontmatter `tracker.last_synced`.
 
+AC validation does not run on pull. Pulled bodies may contain legacy AC
+format from before the Given/When/Then enforcement; the planner subagent
+decides how to handle them. See [ac-validation.md](ac-validation.md)
+"Read-path tolerance" for rationale.
+
 If `tracker.id` is missing, route the user to push first or to manually
 attach an existing tracker entity.
 

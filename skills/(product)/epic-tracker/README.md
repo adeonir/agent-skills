@@ -49,6 +49,7 @@ Configure via `configure tracker` (runs bootstrap once) or by editing `.artifact
 ```
 "create epic"    -- plan a new epic with stories, scope, and acceptance criteria
 "create story"   -- add a user-facing story to an existing epic
+"edit story"     -- update an existing Story; AC changes re-validate against Given/When/Then rules
 "report bug"     -- document a defect with reproduction steps and severity
 "create issue"   -- file an internal work item (infra, refactor, tooling, research)
 "create release" -- group stories across epics for delivery
@@ -59,6 +60,10 @@ Configure via `configure tracker` (runs bootstrap once) or by editing `.artifact
 "configure tracker"  -- run bootstrap to set or change tracker config
 "handoff"        -- prepare story for spec-driven implementation
 ```
+
+## Story Acceptance Criteria
+
+Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then -- no compound clauses. The skill validates on Story create and on edits that change AC text. Stories created before this convention are not retroactively validated. See [`references/ac-validation.md`](skills/(product)/epic-tracker/references/ac-validation.md) for the seven rules and error format.
 
 ## Output
 

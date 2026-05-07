@@ -9,15 +9,16 @@ description: >-
   configured.
 when_to_use: >-
   Triggers on "create epic", "new epic", "create story", "new story",
-  "add story", "create issue", "new issue", "add issue", "report bug",
-  "bug report", "create release", "new release", "update status", "mark
-  done", "show roadmap", "list epics", "epic status", "sync to tracker",
-  "push to linear", "push to github", "push to jira", "pull from tracker",
-  "configure tracker", "handoff to spec-driven". Not for implementing a
-  named story with an existing spec (use spec-driven "implement story
-  S###"), project-wide overview (use project-index), feature status
-  within a spec (use spec-driven "show feature status"), or quick fixes
-  and small changes (use spec-driven "quick task", "quick fix").
+  "add story", "edit story", "update story body", "create issue", "new
+  issue", "add issue", "report bug", "bug report", "create release",
+  "new release", "update status", "mark done", "show roadmap", "list
+  epics", "epic status", "sync to tracker", "push to linear", "push to
+  github", "push to jira", "pull from tracker", "configure tracker",
+  "handoff to spec-driven". Not for implementing a named story with an
+  existing spec (use spec-driven "implement story S-1"), project-wide
+  overview (use project-index), feature status within a spec (use
+  spec-driven "show feature status"), or quick fixes and small changes
+  (use spec-driven "quick task", "quick fix").
 ---
 
 # Epic Tracker
@@ -43,6 +44,7 @@ falls back to markdown when not.
 |-----------------|-----------|
 | Create epic, new epic | [epic.md](references/epic.md) |
 | Create story, new story, add story | [story.md](references/story.md) |
+| Edit story, update story body, change story | [edit-story.md](references/edit-story.md) |
 | Create bug, report bug, bug report | [bug.md](references/bug.md) |
 | Create issue, new issue, add issue, create chore, create task, add task | [issue.md](references/issue.md) |
 | Create release, new release | [release.md](references/release.md) |
@@ -64,6 +66,11 @@ Notes:
   is not `none`.
 - `adapters/{linear,github,jira}.md` are not direct triggers. They are
   loaded by `sync.md` based on `tracker.kind` from config.
+- `ac-validation.md` is not a direct trigger. It is auto-loaded by
+  `story.md` (create) and `edit-story.md` (edit when AC text changes).
+- `edit-story.md` is the documented edit path. Edits that don't touch
+  AC text skip validation (legacy tolerance). `sync.md` pull does not
+  validate -- the planner consumer handles legacy AC.
 
 ## Cross-References
 
@@ -85,7 +92,12 @@ status.md ---------> sync.md           (overview reads from tracker when configu
 story.md ----------> handoff.md        (story hands off to spec-driven)
 bug.md ------------> handoff.md        (bug hands off to spec-driven)
 issue.md ----------> handoff.md        (issue can hand off to spec-driven)
+story.md ----------> ac-validation.md  (validate AC on create, before save/push)
+edit-story.md -----> ac-validation.md  (validate AC when edit changes AC text)
+edit-story.md -----> sync.md           (push edit when tracker configured)
+edit-story.md -----> status.md         (status changes route through status.md)
 epic-tracker ------> spec-driven       (handoff feeds implementation)
+epic-tracker ------> planner           (parseable AC blocks in story body, cross-repo consumer)
 ```
 
 ## Guidelines
@@ -95,11 +107,13 @@ epic-tracker ------> spec-driven       (handoff feeds implementation)
 - Keep each file to a single artifact type in its proper folder
 - Present the artifact for user review before saving or pushing
 - Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
+- Validate Story AC against ac-validation rules V1-V7 on create and on edits that change AC text
 - Delegate sizing to spec-driven
 
 **DON'T:**
 - Mix artifact types in a single file (contrasts: single type per file in its folder)
 - Handle tracker push/pull directly in core refs (contrasts: route through sync.md)
+- Validate AC on pull or read-only navigation (contrasts: validate on create and on edits that change AC text)
 - Create an index file or add size fields (contrasts: delegate sizing to spec-driven)
 
 ## Output

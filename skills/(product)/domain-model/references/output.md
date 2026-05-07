@@ -4,7 +4,7 @@ Produce the domain artifact and hand off to the next skill.
 
 ## When to Use
 
-Load after all BR-xxx rules are assigned and the quality gate passes.
+Load after all BR-N rules are assigned and the quality gate passes.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -49,7 +49,7 @@ Before presenting the artifact:
 
 - [ ] All sections complete (no empty sections)
 - [ ] Every entity has at least one invariant
-- [ ] Every BR-xxx appears in exactly one lifecycle assignment
+- [ ] Every BR-N appears in exactly one lifecycle assignment
 - [ ] Bounded context map is present
 - [ ] No implementation concepts (table names, column types, ORM models)
 

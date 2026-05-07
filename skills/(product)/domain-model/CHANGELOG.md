@@ -6,6 +6,12 @@ name: domain-model
 
 All notable changes to this skill will be documented in this file.
 
+## 2026-05-07
+
+### Changed
+
+- BR, FR, EC id format aligned to dash-separated with no padding (`BR-1`, `FR-1`, `EC-1`) following the PRD source convention; placeholder shape standardized to `BR-N` / `FR-N` / `EC-N`
+
 ## 2026-05-06
 
 ### Added
