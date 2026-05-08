@@ -2,17 +2,17 @@
 
 Define how content is organized before visual style is applied. Owns the `## Layout` and `## Screen Flow` prose sections of `DESIGN.md`. Behavior bifurcates by project type: page-based products ask layout questions; screen-based products ask flow questions.
 
-## Prerequisites
-
-- `<project-root>/DESIGN.md` exists with frontmatter populated by [inputs.md](inputs.md) — at minimum `spacing` tokens
-- `.artifacts/design/copy.yaml` (optional) — content payload for context
-- PRD, brief, or discovery context
-
 ## When to Use
 
 - After tokens are extracted and validated
 - When defining page layout, content hierarchy, or screen flow
 - When validating an existing wireframe against tokens and intent
+
+## Prerequisites
+
+- `<project-root>/DESIGN.md` exists with frontmatter populated by [inputs.md](inputs.md) — at minimum `spacing` tokens
+- `.artifacts/design/copy.yaml` (optional) — content payload for context
+- PRD, brief, or discovery context
 
 ## Output
 
@@ -23,9 +23,10 @@ Patch `<project-root>/DESIGN.md`:
 
 Never overwrite frontmatter, `## Overview`, `## Colors`, `## Typography`, `## Elevation & Depth`, `## Shapes`, `## Motion`, `## Components`, `## Variants`, or `## Do's and Don'ts` — those are owned by [inputs.md](inputs.md). Never overwrite content payload — owned by [copy.md](copy.md).
 
-**USE TEMPLATE:** [`../templates/design.md`](../templates/design.md) (Layout and Screen Flow sections only).
-
-The template file is lowercase (`design.md`) by skill convention. The artifact written into the user's project root must use the uppercase filename `DESIGN.md`.
+The DESIGN.md template lives in [inputs.md](inputs.md) — patch only the
+`## Layout` and `## Screen Flow` sections, leave everything else
+untouched. The artifact written into the user's project root must use
+the uppercase filename `DESIGN.md`.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 

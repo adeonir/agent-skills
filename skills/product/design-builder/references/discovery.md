@@ -15,7 +15,7 @@ Look for:
 - `<project-root>/DESIGN.md` — already-authored visual identity
 - `.artifacts/docs/prd.md` — PRD
 - `.artifacts/docs/brief.md` — Brief
-- `.artifacts/brainstorm/` — brainstorming direction
+- `.artifacts/brainstorm/` — direction artifacts
 - `.artifacts/docs/*-research.md` — naming research
 - `.artifacts/design/copy.yaml` — extracted content payload
 

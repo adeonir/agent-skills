@@ -3,14 +3,14 @@
 Audit an existing `DESIGN.md` against the spec. Read-only: never patches the
 file, never rewrites tokens. Reports findings; user decides what to fix.
 
-Use ultrathink for cross-layer checks (contrast pairs, scale ratio, hierarchy)
-where small mistakes cascade across every screen.
+Cross-layer checks (contrast pairs, scale ratio, hierarchy) deserve careful
+reasoning — small mistakes cascade across every screen.
 
 ## When to Use
 
 - User asks to validate, check, or audit `DESIGN.md`
 - After a manual edit to `DESIGN.md` outside the skill
-- Before handoff to spec-driven, an external design tool, or a teammate
+- Before handoff to the implementation phase, an external design tool, or a teammate
 - Auto-loaded by [inputs.md](inputs.md) Step 5 as the gate before reporting done
 
 ## Prerequisites

@@ -2,7 +2,7 @@
 
 Take input sources and write the visual identity portion of `DESIGN.md`. Covers tokens (frontmatter) and rationale prose for every section except Layout and Screen Flow, which are owned by [structure.md](structure.md).
 
-Use ultrathink when extracting tokens from images, codebase, or design tools — small mistakes in tokens cascade into every preview and handoff.
+Token extraction deserves careful reasoning — small mistakes in tokens cascade into every preview and handoff.
 
 ## When to Use
 
@@ -21,9 +21,9 @@ Patch `<project-root>/DESIGN.md` section by section:
 
 Never overwrite `## Layout` or `## Screen Flow` — those are owned by [structure.md](structure.md). Never overwrite content payload — that lives in `.artifacts/design/copy.yaml` and is owned by [copy.md](copy.md).
 
-**USE TEMPLATE:** [`../templates/design.md`](../templates/design.md)
-
-The template file is lowercase (`design.md`) by skill convention. The artifact written into the user's project root must use the uppercase filename `DESIGN.md`.
+Use the DESIGN.md template (see "DESIGN.md Template" below). The
+artifact written into the user's project root must use the uppercase
+filename `DESIGN.md`.
 
 ## Workflow
 
@@ -113,7 +113,7 @@ Show the user:
 - Pull exact values from the source (hex, font name, px) rather than rounding
 - Reference token names in prose so rationale stays anchored to frontmatter
 - Ask the user when two sources conflict on the same token
-- Use ultrathink for token extraction, especially from images
+- Reason carefully during token extraction, especially from images
 
 **DON'T:**
 
@@ -133,6 +133,179 @@ Show the user:
 - Existing DESIGN.md uses spec aliases (Brand & Style, Layout & Spacing, Elevation): treat as the canonical section (Overview, Layout, Elevation & Depth) -- not as unknown
 - Two sources conflict on a token: ask user which is authoritative
 - Validation gate fails with errors: do not report done; surface findings, ask user to fix or accept trade-off
+
+## DESIGN.md Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+version: alpha
+name: {{Project Name}}
+description: {{One sentence summary of the brand and product}}
+
+colors:
+  {Required base palette. Hex SRGB only. Add semantic surface variants and on-X pairs as needed. Common convention: primary, secondary, tertiary, neutral.}
+  primary: "{{#hex}}"
+  on-primary: "{{#hex}}"
+  primary-container: "{{#hex}}"
+  on-primary-container: "{{#hex}}"
+  secondary: "{{#hex}}"
+  on-secondary: "{{#hex}}"
+  tertiary: "{{#hex}}"
+  on-tertiary: "{{#hex}}"
+  background: "{{#hex}}"
+  on-background: "{{#hex}}"
+  surface: "{{#hex}}"
+  on-surface: "{{#hex}}"
+  surface-container: "{{#hex}}"
+  outline: "{{#hex}}"
+  error: "{{#hex}}"
+  on-error: "{{#hex}}"
+
+typography:
+  {Semantic categories: display, headline, body, label. Each may divide into sm, md, lg. Fields: fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, fontFeature, fontVariation. Populate every field the source supports; omit those it does not.}
+  display-lg:
+    fontFamily: {{Font Family}}
+    fontSize: {{Npx}}
+    fontWeight: {{number}}
+    lineHeight: {{Dimension or number}}
+    letterSpacing: {{em or px}}
+    fontFeature: {{"ss01", "tnum", etc.}}
+    fontVariation: {{"opsz" 14, "wght" 600, etc.}}
+  headline-lg:
+    fontFamily: {{Font Family}}
+    fontSize: {{Npx}}
+    fontWeight: {{number}}
+    lineHeight: {{Dimension or number}}
+  body-lg:
+    fontFamily: {{Font Family}}
+    fontSize: {{Npx}}
+    fontWeight: {{number}}
+    lineHeight: {{Dimension or number}}
+  body-md:
+    fontFamily: {{Font Family}}
+    fontSize: {{Npx}}
+    fontWeight: {{number}}
+    lineHeight: {{Dimension or number}}
+  label-sm:
+    fontFamily: {{Font Family}}
+    fontSize: {{Npx}}
+    fontWeight: {{number}}
+    lineHeight: {{Dimension or number}}
+    letterSpacing: {{em or px}}
+
+rounded:
+  {Scale levels are descriptive strings. Common: none, sm, md, lg, xl, full.}
+  none: 0px
+  sm: {{Dimension}}
+  md: {{Dimension}}
+  lg: {{Dimension}}
+  xl: {{Dimension}}
+  full: 9999px
+
+spacing:
+  {Scale levels are descriptive strings. Mix unit base with named tokens.}
+  unit: {{Npx}}
+  container-padding: {{Dimension}}
+  card-gap: {{Dimension}}
+  section-margin: {{Dimension}}
+
+components:
+  {Each component maps a name to props from the allowlist: backgroundColor, textColor, typography, rounded, padding, size, height, width. Variants use sibling keys: button-primary, button-primary-hover, button-primary-disabled. Reference syntax: "{colors.primary}".}
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.label-sm}"
+    rounded: "{rounded.md}"
+    height: 48px
+    padding: 0 24px
+  button-primary-hover:
+    backgroundColor: "{colors.primary-container}"
+  card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.lg}"
+    padding: "{spacing.container-padding}"
+
+motion:
+  {Cover duration scale and easing language.}
+  duration:
+    fast: {{Nms}}
+    base: {{Nms}}
+    slow: {{Nms}}
+  easing:
+    standard: {{cubic-bezier(...) or named curve}}
+    accelerate: {{cubic-bezier(...)}}
+    decelerate: {{cubic-bezier(...)}}
+
+variants:
+  {Each named variant overrides one or more token blocks. Use for themes (light/dark), density modes (comfortable/compact), brand variants (A/B). Omit the block entirely if no variants are defined.}
+  {{variant-name}}:
+    colors:
+      {Token overrides — only the keys that change}
+    typography:
+      {Token overrides — only the keys that change}
+---
+
+# {{Project Name}}
+
+## Overview
+
+{Holistic description of look and feel. Cover brand personality, target audience, emotional response (playful vs professional, dense vs spacious), and the foundational stylistic context the agent draws on when a specific token is not defined. Two to four short paragraphs.}
+
+## Colors
+
+{Describe key color palettes by descriptive name (e.g. "Midnight Forest Green") and explain how each maps to the semantic tokens above. Cover tone, contrast goals, accent usage, and any palette-to-role assignment (primary, secondary, tertiary, neutral).}
+
+## Typography
+
+{Describe font choices and pairing rationale. Explain the role of each typography token and how the display/headline/body/label scales map to UI hierarchy. Note any letter-spacing or line-height conventions.}
+
+## Layout
+
+{Cover spacing rhythm (e.g. 8px scale), container conventions, grid behavior, and density choices. Reference spacing tokens by name. If the product is screen-based, summarize navigation pattern and primary action placement here and detail flow in the Screen Flow section that follows.}
+
+## Screen Flow
+
+{Screen-based products only (web-app, mobile-app). Describe screen inventory, primary user paths, modal vs full-screen patterns, and required state variants (empty, loading, error). Omit this section for page-based products (landing-page, website).}
+
+## Elevation & Depth
+
+{Describe how depth is communicated (shadows, surfaces, layering, blur). If using surface-tint or surface-container variants, explain their role.}
+
+## Shapes
+
+{Describe corner radius philosophy (e.g. "soft, organic" or "sharp, technical"), border treatments, and how the rounded scale maps to component categories.}
+
+## Motion
+
+{Describe motion philosophy: easing language, duration ranges, and what motion communicates (responsiveness, hierarchy, emphasis). Reference the motion tokens above. Note any reduced-motion fallbacks.}
+
+## Components
+
+{Describe each component's role and behavior. Cover variants (hover, pressed, disabled), sizing rules, and when to use each variant. Reference the component tokens above.}
+
+## Variants
+
+{Describe non-component variants: themes (light/dark), density modes (comfortable/compact), brand variants (A/B). Explain when each applies and how token overrides cascade. Omit this section if no variants are defined.}
+
+## Do's and Don'ts
+
+**Do:**
+
+{One bullet per pattern the design system endorses. Lead with the action.}
+
+- {Action — short rationale}
+- {Action — short rationale}
+
+**Don't:**
+
+{One bullet per anti-pattern. Each bullet contrasts a corresponding Do above.}
+
+- {Anti-pattern — short rationale}
+- {Anti-pattern — short rationale}
+````
 
 ## Next Steps
 

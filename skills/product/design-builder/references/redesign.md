@@ -5,8 +5,8 @@ preserving others. Brownfield workflow with explicit slice mapping -- you say
 which part of DESIGN.md comes from where, the skill composes the result and
 explores variants.
 
-Use ultrathink for slice extraction and Step 5 variant generation -- small
-mistakes in token or layout extraction cascade across every variant.
+Slice extraction and Step 5 variant generation deserve careful reasoning --
+small mistakes in token or layout extraction cascade across every variant.
 
 ## When to Use
 
@@ -143,10 +143,10 @@ Run [validate.md](validate.md) as the gate. Do not declare done with errors.
 
 ### Step 8: Implementation Handoff (optional)
 
-After approval, hand off to spec-driven for implementation. The redesigned
-DESIGN.md carries the new slices; spec-driven generates migration tasks (CSS
-custom property swap, component reskinning, layout reflow if structural
-slices changed, design-token export to Tailwind or DTCG).
+After approval, hand off to the implementation phase. The redesigned
+DESIGN.md carries the new slices; the implementation generates migration
+tasks (CSS custom property swap, component reskinning, layout reflow if
+structural slices changed, design-token export to Tailwind or DTCG).
 
 ## Examples
 
@@ -225,6 +225,6 @@ slices changed, design-token export to Tailwind or DTCG).
 
 After Redesign approved:
 
-- "Hand the redesigned DESIGN.md to spec-driven for migration tasks (layout reflow if applicable, CSS swap, component reskinning, token export)"
+- "Hand the redesigned DESIGN.md to the implementation phase for migration tasks (layout reflow if applicable, CSS swap, component reskinning, token export)"
 - "Push the redesigned design to an external design tool" (`preview.md` push targets)
 - "Re-run inputs to refresh tokens if external design-tool file was edited after handoff"

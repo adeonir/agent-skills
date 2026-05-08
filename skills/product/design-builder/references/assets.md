@@ -145,6 +145,6 @@ Extension matches the MCP output format; default to `png` if unspecified.
 
 After generating assets:
 
-- Assets approved: return to `preview.md` for final approval (when sub-phase), or hand off to `spec-driven` for implementation
+- Assets approved: return to `preview.md` for final approval (when sub-phase), or hand off to the implementation phase
 - Prompts written: remind user to generate externally and place files in `.artifacts/design/assets/` for preview injection
 - Tokens need adjustment based on asset output: route back to `inputs.md` for a targeted patch

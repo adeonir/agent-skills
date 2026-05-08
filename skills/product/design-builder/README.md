@@ -2,22 +2,15 @@
 
 Greenfield design pipeline for any digital product: extract content, author `DESIGN.md` (visual identity tokens plus rationale), define layout or screen flow, preview and refine designs, push to an external design tool when available.
 
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill design-builder
-```
-
 ## What It Does
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[URL / Images / Brief / Codebase / Design-tool file] -->|copy + inputs| B[copy.yaml + DESIGN.md]
     B -->|structure| C[Layout + Screen Flow in DESIGN.md]
     C -->|preview| D[Variants + Refinement]
     D -->|tune / comment / apply-across| D
     D -->|approved| E[Approved Design]
-    E -->|implement| F[spec-driven]
     E -.->|push| G[External design tool]
     G -.->|pull refresh| B
 ```
@@ -95,7 +88,7 @@ push the design to my design-tool file
 3. define the structure (or screen flow)
 4. preview design (guided or exploratory)
 5. tune / comment / apply-across until approved
-6. hand off to spec-driven for implementation
+6. hand off to implementation
 ```
 
 ## Output
@@ -120,14 +113,6 @@ External design-tool files (when used) live at the user's path and are user-owne
 - Optional: any design-tool MCP for push or pull operations
 - Optional: Claude Chrome extension (enables region web capture)
 
-## Integration
-
-| Skill | Connection |
-| ----- | ---------- |
-| **brainstorming** | Direction feeds discovery context |
-| **docs-writer** | PRD/Brief provides product context for extraction |
-| **spec-driven** | Approved design feeds implementation |
-
 ## FAQ
 
 **Q: Is this for landing pages only?**
@@ -149,17 +134,3 @@ A: A single human-and-machine readable file is easier to share, review in pull r
 **Q: Do I need a design-tool MCP?**
 
 A: No. Default preview is HTML via a local Bun server. Design-tool MCPs are optional inputs (pull tokens) and outputs (push the design) when the user has them configured.
-
-## Compact Instructions
-
-Preserve:
-
-- Current phase and loaded reference file
-- Project type (page-based or screen-based), name, purpose, audience
-- Path to `DESIGN.md` and which sections were patched in the current session
-- Open user decisions or pending approvals
-
-Drop:
-
-- Raw tool outputs and intermediate extraction results
-- Scratch reasoning and discarded design directions

@@ -2,14 +2,7 @@
 
 Visual preview of the design before implementation. Two base modes — guided (per-question decisions) and exploratory (complete variants) — plus three refinement tools available after a variant is chosen: tune, comment, and apply-across. Default push target is HTML via the preview server; the user may also push to an external design tool when the matching MCP is available.
 
-Use ultrathink when generating variants or resolving comments — visual choices compound and are hard to undo.
-
-## Prerequisites
-
-- `<project-root>/DESIGN.md` with frontmatter and prose populated by [inputs.md](inputs.md) and [structure.md](structure.md)
-- `.artifacts/design/copy.yaml` (optional) — structured content
-- [aesthetics.md](aesthetics.md) (required) — design principles
-- [web-standards.md](web-standards.md) (required) — implementation rules
+Variant generation and comment resolution deserve careful reasoning — visual choices compound and are hard to undo.
 
 ## When to Use
 
@@ -19,6 +12,13 @@ Use ultrathink when generating variants or resolving comments — visual choices
 - User wants to refine a chosen variant (tune tokens, comment on elements)
 - User wants to preview a single component in isolation
 - User wants to push the current design into an external design tool
+
+## Prerequisites
+
+- `<project-root>/DESIGN.md` with frontmatter and prose populated by [inputs.md](inputs.md) and [structure.md](structure.md)
+- `.artifacts/design/copy.yaml` (optional) — structured content
+- [aesthetics.md](aesthetics.md) (required) — design principles
+- [web-standards.md](web-standards.md) (required) — implementation rules
 
 ## Project Type Routes the Presets
 
@@ -245,5 +245,5 @@ Push direction from skill is **write-only** from DESIGN.md to the target. Revers
 
 After preview is approved, suggest:
 
-- "Hand the approved design to spec-driven for implementation"
+- "Hand the approved design to the implementation phase"
 - "Run inputs again to pull any refinements from an external design tool back into DESIGN.md"
