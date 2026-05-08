@@ -31,9 +31,10 @@ Do not add a second question after the interpretation. End on the invite
 
 ## Workflow
 
-Never assume context. Always interview before generating alternatives. Unlike
-docs-writer discovery (which refines an existing idea), brainstorming discovery
-maps the space of possibilities before any direction exists.
+Never assume context. Always interview before generating alternatives.
+Brainstorming discovery maps the space of possibilities before any
+direction exists — different from skills that refine an already-chosen
+idea.
 
 Interview is adaptive, not scripted. Walk the decision tree: each answer reveals
 which branch to explore next. Resolve dependencies between decisions before

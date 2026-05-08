@@ -114,8 +114,8 @@ Reach the minimum bar before advancing to converge.
 ## Error Handling
 
 - User wants to skip to a specific solution: warn that brainstorming value
-  comes from exploring alternatives, suggest docs-writer if they already have
-  a direction
+  comes from exploring alternatives; suggest formalizing as a document
+  if they already have a direction
 - Alternatives feel too similar: apply inversion or constraint removal to
   generate genuinely different options
 - Problem is too narrow for 4 alternatives: check if the problem is too

@@ -127,7 +127,81 @@ If issues found: fix inline before saving. Don't deliver a flawed artifact.
 
 ## Next Steps
 
-After user approves a direction, capture it using
-**USE TEMPLATE:** `templates/brainstorm.md` and save to
-`.artifacts/brainstorm/{topic}.md`. Then suggest the appropriate next
-skill (docs-writer, spec-driven, or design-builder).
+After the user approves a direction, capture it and save to
+`.artifacts/brainstorm/{topic}.md` (`{topic}` in kebab-case, derived from
+the brainstorm subject). Then suggest the appropriate next step:
+formalize the direction as a document, specify and implement directly,
+or explore the visual direction.
+
+## Capture Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+topic: {{topic}}
+status: draft
+created: {{YYYY-MM-DD}}
+---
+
+# Brainstorm: {{Topic Title}}
+
+## Context
+
+{{Summary of motivation, current state, and timing from discovery}}
+
+## Constraints
+
+### Hard Constraints
+
+- {{Non-negotiable boundary}}
+
+### Soft Constraints
+
+- {{Preference that can flex}}
+
+## Success Criteria
+
+- {{How the direction will be evaluated}}
+
+## Alternatives Explored
+
+### {{Alternative 1 Name}} (chosen)
+
+{{One-paragraph description}}
+
+**Strengths:** {{key advantages}}
+**Weaknesses:** {{key disadvantages}}
+**Key Assumption:** {{what must hold for this to work}}
+
+### {{Alternative 2 Name}} (rejected)
+
+{{One-paragraph description}}
+
+**Strengths:** {{key advantages}}
+**Weaknesses:** {{key disadvantages}}
+**Rejected Because:** {{one-sentence rationale}}
+
+{Repeat for each alternative explored}
+
+## Decision
+
+**Chosen Direction:** {{name of chosen alternative}}
+
+**Rationale:** {{why this direction over the others}}
+
+**Key Trade-offs Accepted:**
+
+- {{what was given up and why it is acceptable}}
+
+## Open Questions
+
+- [ ] TBD: {{question that needs answering before proceeding}}
+
+## Next Step
+
+{{Recommended next action and which workflow to use:}}
+{- Formalize direction into a PRD, epic, or design doc}
+{- Specify and implement directly}
+{- Explore visual direction}
+````
