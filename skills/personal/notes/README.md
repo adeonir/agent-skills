@@ -1,4 +1,4 @@
-# Session Notes
+# Notes
 
 Structured note creation for Obsidian using MCPVault MCP.
 

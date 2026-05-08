@@ -1,5 +1,5 @@
 ---
-name: session-notes
+name: notes
 description: >-
   Creates and manages Obsidian notes for projects, technical challenges,
   brag documents, meeting transcriptions, and company tracking using
@@ -14,7 +14,7 @@ description: >-
   or for initializing repository-wide project context.
 ---
 
-# Session Notes
+# Notes
 
 Creates and manages Obsidian notes using MCPVault MCP for structured documentation.
 
