@@ -1,25 +1,20 @@
-# system-design
+# System Design
 
 Guided system design from problem to architecture blueprint.
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill system-design
-```
 
 ## What It Does
 
 ```mermaid
-flowchart LR
+flowchart TD
     D[discovery] -->|problem framed| R[requirements]
     R -->|NFRs clear| T[trade-offs]
+    R -.->|gaps surface| D
     T -->|decisions resolved| A[architecture]
     A -->|blueprint approved| O[output]
-    O -->|handoff| DW[docs-writer]
-    O -->|handoff| SD[spec-driven]
-    R -->|unclear| D
 ```
+
+Dashed arrow: requirements may surface unanswered framing questions and
+loop back to discovery.
 
 | Phase | Output |
 |-------|--------|
@@ -40,12 +35,6 @@ my monolith is struggling under load — help me plan the migration
 
 ## Output
 
-System brief saved to `.artifacts/docs/system-brief.md`.
-
-## Integration
-
-| Skill | Connection |
-|-------|-----------|
-| docs-writer | Brief feeds TDD (component design) or ADR (trade-off decisions) |
-| spec-driven | Architecture constraints feed feature specification |
-| brainstorming | Brainstorm output can initiate a system design session |
+```
+.artifacts/docs/system-brief.md
+```
