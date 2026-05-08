@@ -466,6 +466,17 @@ Before finalizing a new skill, verify:
 - [ ] Skill listed in repo `README.md` table
 - [ ] Security audit checklist passes
 
+## Reference Exemplars
+
+When in doubt about how a pattern is applied, study these two skills:
+
+- **`brainstorming`** (simple) — argument-hint exception, template
+  inline 1:1 strict, three Anti-Patterns in prose, three refs covering
+  distinct phases.
+- **`spec-driven`** (complex) — eight templates inline 1:1, sub-agent
+  fan-out + Plan dispatch, Knowledge Verification Chain, Artifact
+  Structure Authority. Demonstrates the refactor at scale.
+
 ## Skill Installation
 
 Source of truth is `skills/`. Never edit `~/.agents/skills/` or
