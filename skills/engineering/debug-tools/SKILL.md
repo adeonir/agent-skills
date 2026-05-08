@@ -2,18 +2,15 @@
 name: debug-tools
 description: >-
   Iterative debugging workflow with confidence scoring, pattern
-  comparison, and strategic log injection. Use when diagnosing unexpected
-  behavior, silent errors, intermittent failures, or when something isn't
-  working, tests pass but app fails, or works in dev but not in prod.
-  For known fixes where the user names the file and line, defer to
-  spec-driven quick-mode.
-when_to_use: >-
-  Triggers on "debug this", "investigate", "trace issue",
-  "add debug logs", "cleanup debug logs", "why is this broken",
-  "why is X not working", "tests pass but app fails",
-  "works in dev but not prod". Not for known one-line fixes with file and
-  line given (use spec-driven), PM bug reports (use epic-tracker), or
-  runtime error review on a deployed service (different domain).
+  comparison, and strategic log injection. Investigate, fix, verify loop
+  with auto-cleanup of debug logs and escalation to architectural review
+  after 3 failed attempts. Use when diagnosing unexpected behavior,
+  silent errors, intermittent failures, "tests pass but app fails", or
+  "works in dev but not in prod". Triggers: "debug this", "investigate",
+  "trace issue", "add debug logs", "cleanup debug logs", "why is this
+  broken", "why is X not working". Not for known one-line fixes where
+  the user names file and line, runtime error review on deployed
+  services, or PM bug-report triage.
 ---
 
 # Debug Tools
@@ -28,55 +25,52 @@ investigate --> fix --> verify --> done
 ```
 
 Core loop: investigate, fix, verify. Techniques (log injection, pattern
-comparison, focus area analysis) are tools within investigation, not mandatory
-phases. Log cleanup happens automatically after verification succeeds.
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. Multiple references may be
-loaded during a full debugging session (investigation often leads to log injection).
+comparison, focus area analysis) are tools within investigation, not
+mandatory phases. Log cleanup happens automatically after verification
+succeeds.
 
 ## Triggers
 
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Debug issue, investigate bug, fix bug | [investigation.md](references/investigation.md) |
-| Add debug logs, inject logs, trace with logs | [log-injection.md](references/log-injection.md) |
-| Remove debug logs, cleanup logs | [log-cleanup.md](references/log-cleanup.md) |
-| Debug patterns, log format, common bugs | [debugging-patterns.md](references/debugging-patterns.md) |
+- **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug",
+  "why is X broken") → [investigation.md](references/investigation.md)
+- **Add debug logs** ("add debug logs", "inject logs", "trace with logs")
+  → [log-injection.md](references/log-injection.md)
+- **Cleanup logs** ("remove debug logs", "cleanup logs") →
+  [log-cleanup.md](references/log-cleanup.md)
+- **Pattern lookup** ("debug patterns", "common bugs", "log format") →
+  [debugging-patterns.md](references/debugging-patterns.md)
 
-## Cross-References
-
-```
-investigation.md <---> log-injection.md (investigation may request logs)
-investigation.md <---> log-cleanup.md (after fix verified)
-investigation.md <---> debugging-patterns.md (pattern comparison)
-log-injection.md ----> log-cleanup.md (cleanup removes injected logs)
-```
+Multiple references may load during one debugging session — investigation
+often leads to log injection, then back to investigation.
 
 ## Guidelines
 
-**DO:**
-- Use confidence scoring: >= 70 report as probable cause, 50-69 suggest logs
+- Use confidence scoring honestly: ≥70 reports as probable cause, 50-69
+  suggests logs, <50 stays internal
 - Compare broken code against working examples when root cause is unclear
-- Always use `[DEBUG]` prefix for injected logs (enables cleanup)
+- Always use `[DEBUG]` prefix for injected logs (enables grep + cleanup)
 - Apply minimal fix: smallest change that resolves the issue
 - Redact sensitive values (passwords, tokens, PII) in injected logs
-- Clean up debug logs automatically after fix is verified
-- Track fix attempts: after 3 failed fixes, escalate on the 4th to architectural review
-- Use whatever debugging tools are available in the environment
+- Track fix attempts: escalate to architectural review on the 4th
 
-**DON'T:**
-- Report findings with confidence < 50 (contrasts: >= 70 probable cause, 50-69 suggest logs)
-- Log sensitive data (contrasts: redact sensitive values in injected logs)
-- Apply large refactors as part of a bug fix (contrasts: smallest change that resolves the issue)
-- Leave debug logs in production code (contrasts: clean up debug logs after verification)
-- Keep retrying the same approach when fixes fail repeatedly (contrasts: track attempts and escalate on the 4th)
+## Anti-Pattern: Confidence Inflation
 
-## Error Handling
+Reporting a "fix" with confidence below 70 wastes attempts. Inflated
+scores hide the real picture: a fix offered at 60 confidence is a guess.
+When evidence is missing, drop down — load logs, gather runtime data,
+re-rank — instead of pushing a low-confidence fix through.
 
-- No bug description provided: ask user to describe the issue
-- Cannot reproduce: suggest adding debug logs
-- Fix doesn't work: return to investigation with new evidence
-- Three failed fix attempts: escalate to architectural review on the next attempt
-- Logs left behind: user can request cleanup anytime
+## Anti-Pattern: Symptom Whack-a-Mole
+
+Fixing the same symptom in multiple places signals an architectural
+issue, not a localized bug. When fix N introduces bug N+1, stop. The
+4th attempt must escalate to architectural review: re-examine the
+abstraction, the missing layer, or the flawed assumption — not retry a
+deeper version of the same approach.
+
+## Anti-Pattern: Production Log Residue
+
+Debug logs left after verification become noise in production output and
+risk leaking sensitive context. Cleanup is part of the verify phase, not
+a polish step. Run `grep '\[DEBUG\]'` after every fix; remaining matches
+are bugs in the workflow.
