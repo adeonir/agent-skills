@@ -4,8 +4,6 @@ Update an existing Story body (title, prose, AC, rabbit holes, references)
 with diff-based AC re-validation. AC text changes re-run V1-V7 strict;
 edits that don't touch AC text skip validation (legacy tolerance).
 
-> **LOAD FIRST:** [ac-validation.md](ac-validation.md) -- Edits that change AC text re-validate.
-
 ## When to Use
 
 - User says "edit story", "update story body", "change story"
@@ -120,5 +118,5 @@ this ref handles body only.
   route through `status.md`.
 - On successful push: tracker entity updated; `tracker.last_synced`
   refreshed in markdown frontmatter when a local cache exists.
-- If the Story is being prepared for spec-driven implementation after
+- If the Story is being prepared for implementation after
   the edit, route to [handoff.md](handoff.md).

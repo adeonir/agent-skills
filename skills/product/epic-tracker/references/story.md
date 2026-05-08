@@ -3,8 +3,6 @@
 Define a unit of deliverable work within an epic, with acceptance criteria
 that can be verified independently.
 
-> **LOAD FIRST:** [ac-validation.md](ac-validation.md) -- Story create requires AC validation before save or push.
-
 ## When to Use
 
 - User wants to detail a story from an epic's checklist
@@ -25,9 +23,7 @@ that can be verified independently.
 
 ### 2. Draft
 
-**USE TEMPLATE:** `templates/story.md`
-
-Fill the template:
+Fill the template (below):
 
 - **Name**: kebab-case, descriptive, no numeric prefix (`add-pix-payment`,
   `reset-password-flow`) -- the prefix lives in the filename only
@@ -49,9 +45,7 @@ Present the draft to the user. Wait for feedback before saving.
 
 ### 4. Validate Acceptance Criteria
 
-**LOAD:** [ac-validation.md](ac-validation.md)
-
-Run V1-V7 on the drafted AC. Strict by default (V1-V5, V7); V6 surfaces a
+Load [ac-validation.md](ac-validation.md) and run V1-V7 on the drafted AC. Strict by default (V1-V5, V7); V6 surfaces a
 warning with confirm-to-continue.
 
 If any strict rule fails: surface the structured error (AC id, rule name,
@@ -93,12 +87,12 @@ replace the plain story name with a linked, numbered entry:
 **DO:**
 - Write acceptance criteria that are testable without knowing
   implementation
-- Keep scope tight -- one story should map to one spec-driven feature
+- Keep scope tight — one story should map to one implementation feature
 - Reference the parent epic for broader context
 - Update the epic's story checklist after creating the story
 
 **DON'T:**
-- Add a size field -- spec-driven sizes during handoff
+- Add a size field — sizing happens at implementation time
 - Include implementation details or technical design
 - Create stories without a parent epic (ask to create the epic first)
 - Duplicate acceptance criteria from the epic level

@@ -91,9 +91,10 @@ When the user creates a Release in Linear:
 
 ## Sub-issues
 
-Linear supports sub-issues. Use them when a Story needs explicit breakdown
-that doesn't justify spec-driven (rare). Spec-driven owns implementation
-breakdown; sub-issues here are for tracker-level grouping only.
+Linear supports sub-issues. Use them when a Story needs explicit
+breakdown that does not justify a full implementation spec (rare).
+Implementation specs own the task-level breakdown; Linear sub-issues
+here are for tracker-level grouping only.
 
 ## Error Handling
 

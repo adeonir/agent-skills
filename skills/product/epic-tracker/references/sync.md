@@ -4,8 +4,8 @@ Orchestrate push and pull between markdown artifacts and an external
 tracker. Detect the configured tracker, dispatch to the matching adapter,
 surface conflicts, update frontmatter on success.
 
-Use ultrathink for conflict resolution and adapter dispatch -- a wrong
-push can clobber tracker state that other people rely on.
+Conflict resolution and adapter dispatch deserve careful reasoning — a
+wrong push can clobber tracker state that other people rely on.
 
 ## When to Use
 
@@ -106,9 +106,9 @@ user updates the cache mid-session.
 2. Validate config: `tracker.kind` must be set and not `none`. Otherwise
    fall back to markdown-only and inform the user.
 3. Load the adapter matching `tracker.kind`:
-   - `linear` -> [adapters/linear.md](adapters/linear.md)
-   - `github-issues` or `github-projects` -> [adapters/github.md](adapters/github.md)
-   - `jira` -> [adapters/jira.md](adapters/jira.md)
+   - `linear` → [adapters/linear.md](adapters/linear.md)
+   - `github-issues` or `github-projects` → [adapters/github.md](adapters/github.md)
+   - `jira` → [adapters/jira.md](adapters/jira.md)
 4. Adapter creates or updates the entity in the tracker via MCP.
 5. On success:
    - If a markdown file exists: patch its frontmatter with tracker info:

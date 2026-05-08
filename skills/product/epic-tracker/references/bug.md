@@ -39,9 +39,7 @@ Ask the user for (skip what's already provided):
 
 ### 3. Draft
 
-**USE TEMPLATE:** `templates/bug.md`
-
-Fill the template:
+Fill the template (below):
 
 - **Name**: kebab-case, descriptive (`broken-pix-redirect`,
   `login-timeout-error`)
@@ -88,9 +86,72 @@ first push, then proceed.
 
 **DON'T:**
 - Guess the severity -- ask the user if unclear
-- Include fix suggestions -- that's spec-driven's job
+- Include fix suggestions — implementation is a downstream concern
 - Skip the environment section for UI bugs
 - Create a bug when the user actually wants a story (ask if ambiguous)
+
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+name: {{bug-name}}
+title: {{Bug Title}}
+epic: {{epic-name or omit for standalone}}
+type: bug
+status: planned
+severity: {{critical/high/medium/low}}
+created: {{YYYY-MM-DD}}
+# tracker block populated by sync.md after first push (omit until then):
+# tracker:
+#   kind: linear | github-issues | github-projects | jira
+#   id: PROJ-123
+#   url: https://...
+#   last_synced: YYYY-MM-DDTHH:MM:SSZ
+---
+
+# {{Bug Title}}
+
+{{Brief one-sentence description of the defect.}}
+
+## Expected
+
+{{What should happen}}
+
+## Actual
+
+{{What actually happens}}
+
+## Impact
+
+{{Who is affected and how severely}}
+
+## Steps to Reproduce
+
+1. {{First action}}
+2. {{Next step}}
+3. {{Step where the bug manifests}}
+
+## Environment
+
+| Field | Value |
+|-------|-------|
+| Browser | {{e.g., Chrome 122}} |
+| OS | {{e.g., macOS 15}} |
+| Device | {{e.g., Desktop / iPhone 15}} |
+| Version | {{App version or commit hash}} |
+| Environment | {{Production / Staging / Local}} |
+
+## Workaround
+
+{{Known mitigation, or "None known"}}
+
+## References
+
+- **Epic:** {{link to parent epic, or "None"}}
+- **Related stories:** {{links or "None"}}
+````
 
 ## Error Handling
 

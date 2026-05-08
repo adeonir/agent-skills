@@ -1,7 +1,7 @@
 # Handoff
 
 Suggest next steps for implementing a story or fixing a bug. Bridge
-between epic-tracker (what) and spec-driven (how).
+between planning (what) and implementation (how).
 
 ## When to Use
 
@@ -23,28 +23,29 @@ between epic-tracker (what) and spec-driven (how).
 Gather context for the handoff:
 
 - Story/bug title and description
-- Acceptance criteria (these become spec-driven's requirements)
+- Acceptance criteria (these become the implementation requirements)
 - Parent epic context (scope, rabbit holes)
-- Tracker URL when `tracker.url` is present in frontmatter -- include it so spec-driven can link back
+- Tracker URL when `tracker.url` is present in frontmatter — include it
+  so the implementation can link back
 - Related references (PRD, design doc)
 
 ### 3. Suggest Next Steps
 
 Present options to the user:
 
-**Option A: Hand off to spec-driven**
+**Option A: Implementation spec**
 
-Suggest using spec-driven to create a feature spec from the story:
+Suggest creating a feature spec from the story:
 
 ```
-Use spec-driven to specify this story:
+Specify this story:
 "create feature {story-name}: {brief description}"
 ```
 
 The story's acceptance criteria feed directly into the spec's
 requirements. The story's rabbit holes inform the spec's constraints.
-When `tracker.url` is set, surface it so spec-driven can reference the
-tracker entity from the spec.
+When `tracker.url` is set, surface it so the implementation can
+reference the tracker entity from the spec.
 
 **Option B: Push to external tracker**
 
@@ -54,36 +55,39 @@ artifact has not yet been synced (no `tracker.id` in frontmatter):
 - Suggest running [sync.md](sync.md) push to create the tracker entity
 - After push, the tracker holds the canonical record; markdown becomes a cache
 
-When `tracker.id` is already present, the entity is already in the tracker
--- surface its URL.
+When `tracker.id` is already present, the entity is already in the
+tracker — surface its URL.
 
 **Option C: Mark as in-progress**
 
-If the user wants to start working without spec-driven:
+If the user wants to start working directly:
 
-- Update the artifact's status to "in-progress" via [status.md](status.md) (which routes through sync.md when tracker is configured)
+- Update the artifact's status to "in-progress" via
+  [status.md](status.md) (which routes through sync.md when tracker is
+  configured)
 - Remind that acceptance criteria should be verified when done
 
 ### 4. Update Status
 
-After handoff, suggest updating the artifact status to "in-progress"
-if not already. [status.md](status.md) handles the tracker dispatch when
+After handoff, suggest updating the artifact status to "in-progress" if
+not already. [status.md](status.md) handles the tracker dispatch when
 configured.
 
 ## Guidelines
 
-**DO:**
 - Always show the acceptance criteria during handoff
-- Suggest spec-driven as the primary implementation path
+- Suggest the implementation spec path first when one is appropriate
 - Include parent epic context for broader understanding
-- Surface tracker URLs from frontmatter when present so spec-driven can link back
+- Surface tracker URLs from frontmatter when present so the
+  implementation can link back
 - Let the user choose the handoff path
 
-**DON'T:**
-- Auto-trigger spec-driven -- always suggest, never invoke
-- Push to the tracker directly from this ref -- route through `sync.md`
-- Hand off stories without acceptance criteria -- ask to add them first
-- Skip status update after handoff
+## Anti-Pattern: Auto-Triggering Downstream Work
+
+The handoff ref suggests; it never invokes. Auto-triggering an
+implementation workflow takes the choice away from the user — they may
+want to push to the tracker first, mark in-progress without specifying,
+or simply note the handoff for later.
 
 ## Error Handling
 
@@ -91,5 +95,3 @@ configured.
   handoff
 - Story status is "done": warn that it's already completed
 - Story status is "blocked": warn and ask if the blocker is resolved
-- Spec-driven not installed: suggest manual implementation, note that
-  spec-driven would provide structured workflow
