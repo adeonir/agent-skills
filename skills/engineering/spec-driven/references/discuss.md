@@ -11,9 +11,9 @@ Resolve gray areas and ambiguities through structured conversation with the user
 
 ## Output
 
-Creates `.artifacts/features/{ID}-{name}/decisions.md` with user decisions on gray areas.
-
-**USE TEMPLATE:** `templates/decisions.md`
+Creates `.artifacts/features/{ID}-{name}/decisions.md` with user
+decisions on gray areas. Use the template at the bottom of this
+reference.
 
 ## Workflow
 
@@ -85,9 +85,8 @@ For each resolved gray area, record:
 
 ### Step 6: Generate decisions.md
 
-**USE TEMPLATE:** `templates/decisions.md`
-
-Create `.artifacts/features/{ID}-{name}/decisions.md` with all decisions.
+Use the template (below). Create
+`.artifacts/features/{ID}-{name}/decisions.md` with all decisions.
 
 ### Step 7: Update spec.md
 
@@ -118,6 +117,41 @@ Inform user:
 - Resolve ambiguities on behalf of the user
 - Ask 15 questions one by one -- group related decisions
 - Present options without trade-off analysis
+
+## Decisions Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+id: {{ID}}
+feature: {{name}}
+created: {{YYYY-MM-DD}}
+---
+
+# Decisions: {{Feature}}
+
+Decisions on gray areas and ambiguities resolved during discussion.
+
+## Resolved
+
+### {{Gray Area Title}}
+
+- **Question:** {{the ambiguity or question}}
+- **Decision:** {{what was decided}}
+- **Rationale:** {{why this option was chosen}}
+- **Caveats:** {{conditions or things to revisit, if any}}
+
+## Tentative
+
+Decisions marked as tentative — revisit if assumptions change.
+
+### {{Gray Area Title}}
+
+- **Question:** {{the ambiguity}}
+- **Tentative Decision:** {{safest default chosen}}
+- **Revisit when:** {{condition that should trigger re-evaluation}}
+````
 
 ## Error Handling
 

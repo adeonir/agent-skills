@@ -1,10 +1,8 @@
 # Code Correctness Analysis
 
-Deep analysis of generated code for semantic correctness, logic errors, and
-issues that tooling cannot catch. Runs as part of verify after every task or
-range.
-
-> **LOADED BY:** [verify.md](verify.md) -- not triggered directly
+Deep analysis of generated code for semantic correctness, logic errors,
+and issues that tooling cannot catch. Runs as part of verify after every
+task or range. Loaded by [verify.md](verify.md) — not triggered directly.
 
 ## When to Use
 

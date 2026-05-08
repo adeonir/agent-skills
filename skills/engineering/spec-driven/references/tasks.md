@@ -45,9 +45,9 @@ Read `package.json`:
 ### Step 4: Dispatch Tasks Plan subagent
 
 Steps 5-7 are owned by a Plan subagent. Main agent dispatches once,
-receives structured slot fillers, composes tasks.md per
-`templates/tasks.md`, then runs Step 8 pre-approval checks against
-the artifact before advancing to Step 9.
+receives structured slot fillers, composes tasks.md per the tasks
+template (below), then runs Step 8 pre-approval checks against the
+artifact before advancing to Step 9.
 
 Why dispatched: Steps 5-7 are intelligence-sensitive (story grouping,
 top-to-bottom ID monotonicity, forward-dependency detection, execution
@@ -68,8 +68,9 @@ Subagent brief:
   - `.artifacts/features/{ID}-{name}/design.md`
   - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
   - Quality gate commands from Step 3 (lint, typecheck, test)
-- Reference: `templates/tasks.md` -- return chunks matching the
-  template section order and table shapes exactly
+- Reference: the tasks template inlined at the bottom of this
+  reference — return chunks matching the template section order and
+  table shapes exactly
 - Process: follow Step 5 (Decompose Tasks, including story order,
   ID monotonicity, commit boundary, forward-dependency rules), Step 6
   (Execution Plan diagram), Step 7 prep (organize chunks per template
@@ -99,8 +100,8 @@ Subagent brief:
   structure, Commit-Boundary Viability Check `[pass]` lines (silent
   per Step 8)
 
-Main agent composes `tasks.md` by writing Plan's chunks into
-`templates/tasks.md` slots. Preserve template section order, story
+Main agent composes `tasks.md` by writing Plan's chunks into the
+tasks template (below) slots. Preserve template section order, story
 order from spec.md, and ID monotonicity exactly. After writing, run
 Step 8 pre-approval checks against the composed artifact -- display
 each item as `[pass]` or `[fail]`. If any item fails, re-dispatch
@@ -209,9 +210,9 @@ execution order. Main agent does not consume the diagram for fan-out.
 
 ### Step 7: Generate tasks.md
 
-**LOAD ORDER:** Load this template before reading any existing tasks.md in `.artifacts/features/`. Existing task breakdowns may be stale -- template wins on structure.
-
-**USE TEMPLATE:** `templates/tasks.md`
+Use the template (at the bottom of this reference) before reading any
+existing tasks.md in `.artifacts/features/`. Existing task breakdowns
+may be stale — template wins on structure.
 
 Generate tasks following the template structure:
 - Summary (total count)
@@ -386,6 +387,80 @@ Example:
 ```
 
 After completing all tasks in a group, the code is in a stable, committable state.
+
+## Tasks Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+id: {{ID}}
+feature: {{name}}
+created: {{YYYY-MM-DD}}
+---
+
+# Tasks: {{Feature}}
+
+## Summary
+
+Total: {{count}} | Completed: 0 | Remaining: {{count}}
+
+## Execution Plan
+
+```
+T-1 --> T-2 --> T-3
+                 ├--> T-4 --┐
+                 └--> T-5 --┼--> T-7
+                 T-6 -------┘
+```
+
+## Quality Gates
+
+Run after each task or batch:
+
+- {{lint command}}
+- {{typecheck command}}
+- {{test command}}
+
+## Tasks
+
+### S-1 [P1] {{Story Title}}
+
+- [ ] T-1 [P] {{verb}} {{what}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
+
+- [ ] T-2 [B:T-1] {{dependent task}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
+
+### S-2 [P2] {{Story Title}}
+
+- [ ] T-3 [B:T-2] {{verb}} {{what}}
+  - **Tests:** {{unit|integration|e2e|none}}
+  - **Gate:** {{quick|full|build}}
+  - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
+  - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
+  - **Candidate trace:** (investigation tasks only — omit otherwise)
+    | Candidate | Evidence For | Evidence Against | Status |
+    |-----------|--------------|------------------|--------|
+    | {{name}} | {{observation}} | {{observation}} | {{chosen / ruled out}} |
+
+## Requirements Coverage
+
+| Story | Tasks         |
+|-------|---------------|
+| S-1   | T-1, T-2      |
+| S-2   | T-3           |
+
+| Requirement | Tasks      |
+| ----------- | ---------- |
+| AC-1        | T-1, T-2   |
+````
 
 ## Error Handling
 

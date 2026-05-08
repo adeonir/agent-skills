@@ -1,12 +1,12 @@
 # Audit Feature
 
-Validate Goals and Success Criteria against evidence, mark the corresponding
-checkboxes in spec.md, and transition status from `to-review` to `done`. ultrathink
+Validate Goals and Success Criteria against evidence, mark the
+corresponding checkboxes in spec.md, and transition status from
+`to-review` to `done`.
 
-**Recommended effort:** xhigh — auditing requires evidence-based reasoning
-across spec, design, and implementation. Lower effort risks rubber-stamp.
-
-> **LOAD FIRST:** [status-workflow.md](status-workflow.md) -- required for correct status management
+Auditing requires evidence-based reasoning across spec, design, and
+implementation — shallow checks risk rubber-stamping. Load
+[status-workflow.md](status-workflow.md) for correct status management.
 
 ## When to Use
 
@@ -138,7 +138,7 @@ Flag as structural delta if any of the following is true:
 
 If any flag fires, append exactly one line to the audit report:
 
-> Structural changes detected -- consider running `/project-index re-index` to refresh `.agents/codebase/*.md`.
+> Structural changes detected — consider re-indexing the codebase to refresh `.agents/codebase/*.md`.
 
 If no flag fires, emit no output for this step.
 
@@ -160,7 +160,7 @@ is user-observation based and interactive. They do not block each other:
 - Leave Unmeasurable targets unchecked and flag the spec for rewrite
 - Keep audit deterministic -- same evidence yields same classification
 - Consult UAT notes if validate ran before audit
-- Suggest `/project-index re-index` when structural deltas exist -- inform only, never prompt
+- Suggest re-indexing the codebase when structural deltas exist — inform only, never prompt
 - Treat `## Operational Follow-ups` as non-audit -- route those items to runbooks or issues outside the spec, never as a blocker for `done`
 
 **DON'T:**

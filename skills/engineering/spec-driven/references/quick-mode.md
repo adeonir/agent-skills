@@ -58,9 +58,9 @@ run in Step 7. If a gate doesn't exist, write `n/a` instead of inventing one.
 
 ### Step 4: Create Task File
 
-**LOAD ORDER:** Load this template before reading any existing quick task in `.artifacts/quick/`. Existing tasks may be stale -- template wins on structure.
-
-**USE TEMPLATE:** `templates/quick-task.md`
+Use the template (below) before reading any existing quick task in
+`.artifacts/quick/`. Existing tasks may be stale — template wins on
+structure.
 
 Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Description of what needs to change
@@ -162,9 +162,10 @@ Targets:
 - **Gotchas** -> `## Gotchas`
 - **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
-Format per [knowledge.md](knowledge.md). Never write to `.agents/codebase/*.md` --
-those are owned by project-index. No prompt to integrate -- the next design or
-implement flow will surface queued items.
+Format per [knowledge.md](knowledge.md). Never write to
+`.agents/codebase/*.md` — those are owned by the codebase-indexing
+workflow. No prompt to integrate — the next design or implement flow
+will surface queued items.
 
 ### Step 9: Update Task File
 
@@ -176,7 +177,7 @@ Set in `task.md` frontmatter:
 
 ### Step 10: Suggest Commit
 
-Suggest a commit message following git-helpers conventions:
+Suggest a commit message following conventional commit conventions:
 - Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
 - Format: `type: concise description in imperative mood`
 - Imperative mood: "add", "fix", "implement" (not "added", "fixes")
@@ -213,6 +214,44 @@ When escalating, the quick task file serves as input for the specify phase.
 - Implement task-as-written without enumerating alternatives when trigger signals fire (contrasts: treat task.md as hypothesis)
 - Ask permission to record gotchas (contrasts: save by default)
 - Force quick mode when scope is uncertain (contrasts: escalate when in doubt)
+
+## Quick Task Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+slug: {{slug}}
+status: pending
+branch: {{branch-name or main}}
+created: {{YYYY-MM-DD}}
+completed: {{YYYY-MM-DD or empty}}
+patterns_discovered: {{list or empty}}
+follow_up: {{list or empty}}
+---
+
+# Quick Task: {{Description}}
+
+## What
+
+{{One-sentence description of the change}}
+
+## Files
+
+- {{file to modify, if known}}
+
+## Expected Outcome
+
+{{What should be different after the change}}
+
+## Quality Gates
+
+Run after the change, before marking done:
+
+- {{lint command}}
+- {{typecheck command}}
+- {{test command}}
+````
 
 ## Error Handling
 

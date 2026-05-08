@@ -18,7 +18,7 @@ finish phase -> [offer dump] -> clean window* -> start next phase
                                                    ...
                                                  (more phases)
                                                    ...
-                               end of session -> wrap-up (reads dump)
+                               end of session -> end-of-session wrap-up (reads dump)
 ```
 
 (*clean window only if user accepts the dump)
@@ -32,8 +32,9 @@ finish phase -> [offer dump] -> clean window* -> start next phase
 3. If accepted: clear the context window
 4. Start the next phase in a clean window, loading only the artifacts it needs
 
-The session dump is ephemeral -- wrap-up reads it at end of session to compose
-notes, then the file is disposable. It is not a project artifact.
+The session dump is ephemeral — the end-of-session wrap-up reads it
+to compose notes, then the file is disposable. It is not a project
+artifact.
 
 ## Sub-Agent Dispatch
 
@@ -55,7 +56,34 @@ Full dispatch instructions live in each reference that uses them:
 | Tasks Plan sub-agent | [tasks.md](tasks.md) Step 4 |
 | Implement sub-agent | [implement.md](implement.md) Step 5 |
 
-Research and exploration sub-agents in design.md run in the same dispatch
-turn (independent). The Design Plan sub-agent runs after exploration
-artifacts exist. The Tasks Plan sub-agent runs after design.md exists.
-The implement sub-agent runs after design/tasks artifacts exist.
+Research and exploration sub-agents in design.md run in the same
+dispatch turn (independent). The Design Plan sub-agent runs after
+exploration artifacts exist. The Tasks Plan sub-agent runs after
+design.md exists. The implement sub-agent runs after design/tasks
+artifacts exist.
+
+## Session Dump Template
+
+Each phase appends one block to `.artifacts/.session-dump.md`. ALWAYS
+use this exact template structure:
+
+````markdown
+## {{YYYY-MM-DD HH:MM}} — {{phase}}
+
+**Feature:** {{ID}}-{{name}}
+**Status transition:** {{from}} → {{to}}
+
+**Decisions:**
+- {Key decisions made this phase, beyond what is captured in artifacts. Write "none" if all decisions already live in spec.md / design.md.}
+
+**Discoveries:**
+- {Anything found that is not already in spec.md / design.md / tasks.md. Write "none" if no out-of-artifact findings.}
+
+**Blockers:**
+- {Open blockers preventing the next phase; otherwise "none".}
+
+**Open items:**
+- {Questions or follow-ups for the next phase; otherwise "none".}
+
+**Next phase:** {{next phase or "done"}}
+````

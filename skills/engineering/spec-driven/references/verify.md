@@ -1,9 +1,9 @@
 # Verify Implementation
 
-Check implementation against the spec design, project patterns, code correctness,
-and visual references. Runs after every task or range -- never deferred to the end.
-
-> **LOADS:** [code-correctness.md](code-correctness.md) -- code correctness analysis (Step 5)
+Check implementation against the spec design, project patterns, code
+correctness, and visual references. Runs after every task or range —
+never deferred to the end. Loads [code-correctness.md](code-correctness.md)
+during Step 5 for the code correctness analysis.
 
 ## When to Use
 
@@ -171,4 +171,4 @@ Never loop indefinitely.
 - No design.md: verify against spec.md acceptance criteria only
 - No .agents/codebase/: skip pattern adherence or use quick scan baseline
 - No visual references: skip visual adherence entirely
-- All sources missing: inform user, suggest running design or project-index first
+- All sources missing: inform user, suggest running design or the codebase-indexing workflow first

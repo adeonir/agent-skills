@@ -1,8 +1,9 @@
 # Implement Tasks
 
-Implement, verify, and complete tasks. Verification happens continuously -- after each task or range, never deferred to the end.
-
-> **LOAD FIRST:** [status-workflow.md](status-workflow.md) - Required for correct status management
+Implement, verify, and complete tasks. Verification happens
+continuously — after each task or range, never deferred to the end.
+Load [status-workflow.md](status-workflow.md) for correct status
+management.
 
 ## When to Use
 
@@ -289,17 +290,17 @@ If the user accepts:
 
 - If `.artifacts/.session-dump.md` does not exist, create it with
   `# Session Dump` as the H1
-- Append one block using `templates/session-dump.md` — record only what
-  an artifact does not already capture (unstated decisions, runtime
-  surprises, follow-ups for audit). Do not duplicate spec.md / design.md
-  / tasks.md content
+- Append one block using the session dump template (see
+  [phases.md](phases.md)) — record only what an artifact does not
+  already capture (unstated decisions, runtime surprises, follow-ups
+  for audit). Do not duplicate spec.md / design.md / tasks.md content
 - Confirm the dump was written; the user clears the window manually
 
 If the user declines or skips: continue in the current window without
 dumping.
 
-The dump is ephemeral cross-phase memory — wrap-up reads it at end of
-session, then the file is disposable.
+The dump is ephemeral cross-phase memory — the end-of-session wrap-up
+reads it, then the file is disposable.
 
 ### Step 10: Queue Discoveries
 
@@ -310,15 +311,15 @@ Append discoveries from implementation to `.agents/knowledge.md`:
 - **Runtime constraints, API quirks, workarounds** -> `## Gotchas`
 - **New patterns, conventions, integration details, workflows, or tech debt observed in code** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
 
-Never write to `.agents/codebase/*.md` -- those are owned by project-index.
+Never write to `.agents/codebase/*.md` — those are owned by the codebase-indexing workflow.
 
 If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
 
 After appending, if `## Codebase Feedback` has rows, count by target and prompt the user:
 
-> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Run `/project-index integrate feedback` now? (y/n)
+> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Integrate codebase feedback now? (y/n)
 
-Do not auto-invoke project-index -- the user controls integration timing.
+Do not auto-invoke the codebase-indexing workflow — the user controls integration timing.
 
 ### Step 11: Approval Gate
 
@@ -374,7 +375,7 @@ Audit is mandatory before `done`. UAT is on-demand.
 
 After completing a task or range, suggest a commit message based on what was actually changed.
 
-**Follow git-helpers conventions:**
+**Follow conventional commit conventions:**
 
 - Use conventional commit types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`, `ci`, `build`
 - Format: `type: concise description in imperative mood`
