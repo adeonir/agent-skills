@@ -1,3 +1,40 @@
+# Conventions
+
+Generate `.agents/codebase/conventions.md` — observed patterns with code snippets, project abstractions, and inconsistencies.
+
+## When to Use
+
+- Sub-agent dispatched during codebase summary fan-out
+- User explicitly asks to refresh `conventions.md` after pattern shifts
+
+## Scope
+
+Naming, imports, error handling, types, styling, state management, async patterns, and project-specific abstractions (custom hooks, components, helpers, tokens). Every pattern must have evidence from actual source files.
+
+## Reading Priorities
+
+1. Config files (framework config, theme files, style tokens, env.example) — actual choices, not framework defaults
+2. Custom hooks (all hooks in `hooks/` or equivalent)
+3. Business logic files (services, use cases, domain modules)
+4. UI components if applicable
+5. Utilities (helpers, constants, shared types)
+6. **Stop when** new files reveal no new patterns
+
+## Source Boundary
+
+Document conventions as **observed**, not as prescribed. Never document patterns based on dependency names alone — read actual config and usage. Projects often override or extend framework defaults.
+
+Project-specific abstractions are high priority. When a project wraps framework primitives (custom components, variables, tokens, helpers, hooks), agents need to know they exist and use them instead of underlying primitives.
+
+## Output
+
+Save to `.agents/codebase/conventions.md`. Update existing on re-run (merge, never overwrite).
+
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
 ---
 project: {{project-name}}
 created: {{YYYY-MM-DD}}
@@ -130,5 +167,13 @@ logic that agents should use instead of reimplementing.
 ## Inconsistencies
 
 {{Patterns that are implemented differently across the codebase. List each
-with the files where divergence was observed -- useful for agents to know
+with the files where divergence was observed — useful for agents to know
 which pattern to follow.}}
+````
+
+## Guidelines
+
+- Every pattern must have a code snippet from a real source file
+- Note inconsistencies when the same pattern is implemented differently
+- "Avoid" entries describe anti-patterns observed or implied, never theoretical
+- Document project abstractions with import paths and usage examples

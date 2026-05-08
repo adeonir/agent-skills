@@ -5,8 +5,8 @@ Set up the `.agents/` directory with project context and codebase analysis.
 ## When to Use
 
 - Starting work on a new or existing project
-- First time running project-index commands
-- `.agents/` doesn't exist yet
+- First time running project-index
+- `.agents/` does not exist yet
 
 ## Workflow
 
@@ -19,6 +19,7 @@ ls -la .agents/ 2>/dev/null
 ```
 
 If exists:
+
 - Update existing files, merging new findings
 - Never overwrite blindly
 
@@ -37,40 +38,32 @@ Load [overview.md](overview.md) and generate `.agents/project.md`.
 A project is brownfield if ANY of these conditions is true:
 
 | Signal | Examples |
-|--------|---------|
-| Has a project manifest | package.json, Cargo.toml, go.mod, pyproject.toml, Gemfile, pom.xml, build.gradle, composer.json |
-| Has source code directories | src/, app/, lib/, cmd/, internal/, pkg/, packages/ |
-| Has multiple source files | More than 5 files with code extensions (.ts, .js, .py, .go, .rs, .java, .rb, .php) |
+|--------|----------|
+| Has a project manifest | `package.json`, `Cargo.toml`, `go.mod`, `pyproject.toml`, `Gemfile`, `pom.xml`, `build.gradle`, `composer.json` |
+| Has source code directories | `src/`, `app/`, `lib/`, `cmd/`, `internal/`, `pkg/`, `packages/` |
+| Has multiple source files | More than 5 files with code extensions (`.ts`, `.js`, `.py`, `.go`, `.rs`, `.java`, `.rb`, `.php`) |
 
-If brownfield:
-- Load [summary.md](summary.md)
-- Run codebase summary as part of initialization
-- This generates `.agents/codebase/` with analysis docs
+If brownfield: dispatch the codebase summary fan-out (see SKILL.md).
 
 If none of the above: skip summary, project is greenfield.
 
 ### Step 5: Report
 
 Inform user:
-- Created `.agents/` with project.md
-- If brownfield: also created `.agents/codebase/` with analysis docs
+
+- Created `.agents/` with `project.md`
+- If brownfield: also created `.agents/codebase/` with 6 fan-out docs + `review.md`
 - Next steps:
-  - If using spec-driven: "create feature for..."
-  - Re-run summary later: "map codebase" or "summary"
+  - Re-run codebase mapping later: "map codebase" or "summary"
   - Re-run overview later: "overview"
 
 ## Guidelines
 
-**DO:**
-- Keep project.md focused on context, not implementation
+- Keep `project.md` focused on context, not implementation
 - Initialize once per project, not per feature
-
-**DON'T:**
-- Overwrite existing `.agents/` structure without confirmation
-- Run initialize per feature -- it is a one-time project setup
 
 ## Error Handling
 
-- Directory already exists: Ask before overwriting
-- Permission denied: Inform user to check permissions
-- Git not initialized: Suggest git init
+- Directory already exists: ask before overwriting
+- Permission denied: inform user to check permissions
+- Git not initialized: suggest `git init`

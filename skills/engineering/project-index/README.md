@@ -1,63 +1,40 @@
 # Project Index
 
-Generate project context and codebase documentation for AI agents.
-
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill project-index
-```
+Generates project context and codebase documentation for AI agents.
 
 ## What It Does
 
-Creates an `.agents/` directory with structured documentation that any AI agent can consume to understand your project.
+Creates an `.agents/` directory with structured documentation that any
+AI agent can consume to understand the project.
 
 ```mermaid
 flowchart TD
     A[initialize] --> B[overview]
     A --> C{brownfield?}
-    C -->|yes| D[summary]
+    C -->|yes| D[codebase fan-out]
     C -->|no| E[done]
-    B --> F[.agents/project.md]
-    D --> G[.agents/codebase/]
-    F --> H[AGENTS.md]
-    G --> H
+    D --> F[architecture / conventions / testing / integrations / checklist / workflows]
+    F --> G[review]
+    B --> H[.agents/project.md]
+    G --> I[.agents/codebase/]
 ```
 
 | Command | What It Generates |
 |---------|-------------------|
-| **initialize** | Everything (overview + summary if existing code found) |
-| **overview** | `.agents/project.md` -- project context, users, features |
-| **summary** | `.agents/codebase/` -- up to 8 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and concerns |
-
-All commands also generate/update `AGENTS.md` at the project root.
+| **initialize** | Everything (overview + fan-out + review when brownfield) |
+| **overview** | `.agents/project.md` — project context, users, features |
+| **summary** | `.agents/codebase/` — 7 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and self-assessment |
+| **integrate feedback** | Merges queued items from `.agents/knowledge.md ## Codebase Feedback` into `.agents/codebase/*.md` |
 
 ## Usage
 
 ```
-# Full initialization (recommended for first time)
 initialize project
-
-# Just project context
 overview
-
-# Just codebase analysis
 map codebase
 summary
+integrate feedback
 ```
-
-### How It Works
-
-**Overview** reads project metadata (package.json, README, etc.) and generates a concise project context document covering purpose, users, features, constraints, and stack.
-
-**Summary** does deep analysis of the codebase through 4 phases:
-
-1. **Project Discovery** -- metadata, docs, directory structure
-2. **Deep Code Analysis** -- reads 5-20 representative files, traces data flows
-3. **Testing & Integrations** -- test setup, external services
-4. **Convention Extraction** -- synthesizes patterns with evidence
-
-Re-running summary updates existing docs (merge, never overwrite).
 
 ## Output
 
@@ -66,24 +43,38 @@ Re-running summary updates existing docs (merge, never overwrite).
 ├── project.md              # Project context, purpose, stack
 └── codebase/               # How the code works
     ├── architecture.md     # Patterns, layers, structure, data flow
-    ├── conventions.md      # Naming, imports, types, error handling
+    ├── conventions.md      # Naming, imports, types, error handling, project abstractions
     ├── testing.md          # Test infra, patterns, reference tests
     ├── integrations.md     # External services and APIs
     ├── checklist.md        # Post-task validation steps
     ├── workflows.md        # User and development flows
-    └── review.md           # Self-assessment: consistency, completeness, concerns if any
-
-AGENTS.md                   # Root summary for AI agents
+    └── review.md           # Self-assessment: consistency, completeness, concerns
 ```
 
 ## Requirements
 
-- Existing project with source code (for summary)
+- Existing project with source code (for the codebase summary fan-out)
 - No external dependencies
 
-## Integration
+## FAQ
 
-| Skill | Connection |
-|-------|------------|
-| **docs-writer** | Overview consumes `.artifacts/docs/` (briefs, PRDs, design docs) as context for generating project.md |
-| **spec-driven** | Consumes `.agents/codebase/` for brownfield features. Spec-driven may add discoveries during planning; project-index preserves them when re-running. |
+**Q: When should I run initialize vs map codebase?**
+A: Run `initialize` once per project. After that, re-run individual
+parts (`overview`, `architecture`, `conventions`, etc.) when the
+project changes in that specific area.
+
+**Q: Does it overwrite my existing docs?**
+A: No. Re-runs merge new findings into existing files. Manual edits
+are preserved unless they're clearly outdated.
+
+**Q: How does the codebase fan-out work?**
+A: Six sub-agents run in parallel during one turn, each generating one
+output file (architecture, conventions, testing, integrations,
+checklist, workflows). After the fan-out, the main agent reads all 6
+outputs together and produces `review.md` (self-assessment).
+
+**Q: What's the difference between summary and integrate feedback?**
+A: `summary` regenerates the codebase docs from source code. `integrate
+feedback` merges queued items from `knowledge.md ## Codebase Feedback`
+into the existing docs — used when implementations discover patterns
+worth recording without doing a full re-scan.

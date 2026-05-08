@@ -1,3 +1,39 @@
+# Architecture
+
+Generate `.agents/codebase/architecture.md` — system structure, patterns, layers, data flows, and interfaces.
+
+## When to Use
+
+- Sub-agent dispatched during codebase summary fan-out
+- User explicitly asks to refresh `architecture.md` after major restructure
+
+## Scope
+
+Macro-level structure: how the codebase is organized, where logic lives, how data moves through the system. Not feature-specific implementation details.
+
+## Reading Priorities
+
+1. Project metadata (`package.json`, `tsconfig.json`, `pyproject.toml`, `go.mod`, etc.) — framework, runtime, scripts
+2. Directory tree (top-level + key subdirectories)
+3. Entry points (API routes, CLI commands, main files, layout files)
+4. Layer boundaries — services, modules, packages, domain folders
+5. Sample 2-3 representative files per identified layer to confirm responsibility
+
+## Source Boundary
+
+Map only the observable current state of source code, config, and tooling. **Never** read `.artifacts/` (briefs, PRDs, design docs, epics, roadmaps) as a source of architecture facts. Forward-looking content (`(planned)`, `(TBD)`, milestone tags, feature IDs, "shipped through feature X") belongs to planning artifacts, not the codebase map.
+
+If a module, route, or dependency is described in `.artifacts/` but absent from the filesystem right now, it does not exist and must not appear here.
+
+## Output
+
+Save to `.agents/codebase/architecture.md`. Update existing on re-run (merge, never overwrite).
+
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
 ---
 project: {{project-name}}
 created: {{YYYY-MM-DD}}
@@ -8,7 +44,7 @@ created: {{YYYY-MM-DD}}
 ## Structure
 
 ```
-{{directory tree -- top-level and key subdirectories only}}
+{{directory tree — top-level and key subdirectories only}}
 ```
 
 ## System Overview
@@ -51,7 +87,6 @@ graph TB
         {{ComponentA}}
         {{ComponentB}}
     end
-    {{Repeat for each domain}}
 ```
 
 ### {{Domain Name}} (`{{directory}}`)
@@ -61,8 +96,6 @@ graph TB
 | Component | Purpose |
 |-----------|---------|
 | {{component}} | {{what it does}} |
-
-{{Repeat for each domain}}
 
 ## Data Flows
 
@@ -78,8 +111,6 @@ flowchart LR
 3. **Processing**: {{description}} (`{{file-path}}`)
 4. **Persistence**: {{description}} (`{{file-path}}`)
 5. **Output**: {{description}} (`{{file-path}}`)
-
-{{Repeat for each core flow}}
 
 ## Interfaces and APIs
 
@@ -106,3 +137,11 @@ flowchart LR
 | Decision | Rationale | Evidence |
 |----------|-----------|----------|
 | {{decision}} | {{why}} | {{file or pattern that shows this}} |
+````
+
+## Guidelines
+
+- Read entry points before mapping flows — flows trace from entries
+- Document at least 2 data flows; complex projects warrant 5+
+- Every pattern must cite a source file path as evidence
+- Group components by domain, not by directory alone

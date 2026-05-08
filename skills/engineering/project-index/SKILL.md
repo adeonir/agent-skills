@@ -1,98 +1,104 @@
 ---
 name: project-index
 description: >-
-  Generate project context and codebase documentation for AI agents.
-  Creates .agents/ directory with project overview and deep codebase analysis.
-  Use when starting work on a project, onboarding to an existing codebase,
-  generating project documentation for agents, or mapping codebase patterns
-  and conventions.
-when_to_use: >-
-  Triggers on "initialize .agents", "setup project index", "index project",
-  "map codebase", "analyze codebase", "project overview",
-  "codebase summary", "onboarding to this repo". Not for feature work
-  (use spec-driven), session notes in Obsidian (use session-notes), or
-  dev tooling setup like prettier/eslint (out of scope for all skills).
-effort: high
+  Generates project context and codebase documentation for AI agents.
+  Creates `.agents/` directory with project overview and deep codebase
+  analysis (architecture, conventions, testing, integrations, checklist,
+  workflows, review). Use when starting work on a project, onboarding to
+  an existing codebase, generating project documentation for agents, or
+  mapping codebase patterns. Triggers: "initialize .agents", "setup
+  project index", "index project", "map codebase", "analyze codebase",
+  "project overview", "codebase summary", "onboarding to this repo",
+  "integrate feedback", "sync knowledge". Not for feature work,
+  Obsidian session notes, or dev tooling setup like prettier or eslint.
 ---
 
 # Project Index
 
-**Recommended effort:** xhigh for initialize and summary; medium for overview
-and integrate-feedback.
-
-Generate project context and codebase documentation for AI agents. Use
-ultrathink for initialize and summary phases.
+Generate project context and codebase documentation for AI agents.
 
 ## Workflow
 
 ```
-initialize --> overview + summary
+initialize --> overview + (codebase fan-out + review when brownfield)
 ```
 
-Each command can be used independently or chained via initialize.
+`initialize` is the entrypoint. It always runs `overview`. If the
+project is brownfield (has source code), it dispatches the codebase
+fan-out: 6 sub-agents in parallel (architecture, conventions, testing,
+integrations, checklist, workflows), then the main agent runs `review`
+with the 6 outputs as context.
 
 ## Triggers
 
-| Trigger Pattern                                           | Reference                                                 |
-| --------------------------------------------------------- | --------------------------------------------------------- |
-| Initialize project, setup project, index project          | [initialize.md](references/initialize.md)                 |
-| Overview, project context                                 | [overview.md](references/overview.md)                     |
-| Summary, map codebase, analyze codebase                   | [summary.md](references/summary.md)                       |
-| Integrate feedback, integrate discoveries, sync knowledge | [integrate-feedback.md](references/integrate-feedback.md) |
+- **One-time setup** ("initialize", "setup project index", "index
+  project") → [initialize.md](references/initialize.md)
+- **Project context** ("overview", "project context", "refresh project")
+  → [overview.md](references/overview.md)
+- **Codebase summary** ("map codebase", "analyze codebase", "summary")
+  → dispatch the 6 codebase refs in parallel via sub-agent fan-out, then
+  run [review.md](references/review.md) with the outputs as context
+- **Architecture** (single doc refresh) →
+  [architecture.md](references/architecture.md)
+- **Conventions** (single doc refresh) →
+  [conventions.md](references/conventions.md)
+- **Testing** (single doc refresh) →
+  [testing.md](references/testing.md)
+- **Integrations** (single doc refresh) →
+  [integrations.md](references/integrations.md)
+- **Checklist** (single doc refresh) →
+  [checklist.md](references/checklist.md)
+- **Workflows** (single doc refresh) →
+  [workflows.md](references/workflows.md)
+- **Self-assessment** (post fan-out) → [review.md](references/review.md)
+- **Integrate feedback** ("integrate feedback", "sync knowledge",
+  "integrate discoveries") →
+  [integrate-feedback.md](references/integrate-feedback.md)
 
-Notes:
+## Codebase Fan-Out
 
-- `summary.md` parallelizes doc generation via sub-agent fan-out (see Step 3).
+When mapping the full codebase (initialize on brownfield, or "summary"
+trigger), dispatch all 6 codebase refs as **independent sub-agents in
+the same turn**:
 
-## Cross-References
+| Sub-agent | Reads | Writes |
+|-----------|-------|--------|
+| architecture | Entry points, dir tree, layer boundaries | `.agents/codebase/architecture.md` |
+| conventions | Representative source files | `.agents/codebase/conventions.md` |
+| testing | Test files, test config | `.agents/codebase/testing.md` |
+| integrations | API clients, DB models, env files | `.agents/codebase/integrations.md` |
+| checklist | Scripts (`package.json` / `Makefile`), pre-commit config | `.agents/codebase/checklist.md` |
+| workflows | Entry points to traced data flows | `.agents/codebase/workflows.md` |
 
-```
-initialize.md ----> overview.md
-initialize.md ----> summary.md (if brownfield)
-spec-driven -------> integrate-feedback.md (consumes knowledge.md Codebase Feedback)
-integrate-feedback.md --> knowledge.md (clears Codebase Feedback only)
-```
+Each sub-agent reads only what its domain needs. Outputs land on disk —
+sub-agents do not return findings through context.
 
-- docs-writer (`.artifacts/docs/`) feeds overview.md as context source for project.md
-- spec-driven queues codebase discoveries to `.agents/knowledge.md` `## Codebase Feedback`; integrate-feedback merges them into `codebase/*.md` on demand
-- spec-driven owns `.agents/knowledge.md` (Decisions, Gotchas, Codebase Feedback); project-index reads it but never modifies Decisions or Gotchas
-- project-index is sole writer to `.agents/project.md` and `.agents/codebase/*.md`
+After all 6 finish, the main agent runs `review.md` with all outputs as
+context. Review cannot be split across sub-agents — the main agent owns
+this synthesis.
 
 ## Guidelines
 
-**DO:**
-
 - Read actual code files to extract patterns, not just list them
-- Keep all outputs concise and scannable
 - Document conventions as observed, not as prescribed
-- Document stable patterns and interfaces, not volatile implementation details
-- Cross-reference between output files rather than duplicating content
+- Focus on stable patterns and interfaces, not volatile implementation details
 - Update existing docs when re-running (merge, never overwrite)
+- Be thorough in `.agents/codebase/*.md` — these load on demand, not
+  always in context
 
-**DON'T:**
+## Anti-Pattern: Source Boundary Leak
 
-- Create outputs without reading representative source files (contrasts: read actual code)
-- Generate exhaustive catalogs of every component/file (contrasts: concise and scannable)
-- Include implementation details that change frequently (contrasts: stable patterns and interfaces)
-- Duplicate information across output files (contrasts: cross-reference between files)
+`.agents/codebase/*.md` captures only **current observable state**.
+Never read `.artifacts/` (briefs, PRDs, design docs, epics, roadmaps) as
+a source of codebase facts. Forward-looking content (`(planned)`,
+`(TBD)`, milestone tags, feature IDs, "shipped through feature X")
+belongs to planning artifacts, not the codebase map. If a module, route,
+or dependency is described in `.artifacts/` but absent from the
+filesystem right now, it does not exist.
 
-## Output
+## Anti-Pattern: Convention by Dependency Name
 
-```
-.agents/
-├── project.md              # Project context, purpose, scope, stack
-└── codebase/               # Deep codebase analysis
-    ├── architecture.md     # Mermaid diagrams, component map, layers, data flows, interfaces
-    ├── conventions.md      # Observed patterns with code snippets, abstractions, custom hooks
-    ├── testing.md          # Patterns from actual tests, mocking, fixtures, coverage gaps
-    ├── integrations.md     # External services, env vars, config details
-    ├── checklist.md        # Validation steps after completing a task
-    ├── workflows.md        # Mermaid flowcharts for user and dev workflows
-    └── review.md           # Self-assessment: consistency, completeness, concerns if any
-```
-
-## Error Handling
-
-- No source code found: inform this is for existing projects
-- Empty project: skip summary, generate overview only
-- `.agents/` already exists: update existing files, never overwrite blindly — merge new findings
+Documenting conventions based on what's listed in `package.json` is
+guessing. Read the actual config files and source code to understand
+how the project uses (or extends, or overrides) each library. The
+project's actual values matter, not the framework's defaults.

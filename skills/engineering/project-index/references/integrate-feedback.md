@@ -1,28 +1,29 @@
 # Integrate Codebase Feedback
 
-Consume `.agents/knowledge.md` `## Codebase Feedback` queue, merge items into `.agents/codebase/*.md`, and clear integrated rows.
+Consume `.agents/knowledge.md ## Codebase Feedback` queue, merge items into `.agents/codebase/*.md`, and clear integrated rows.
 
 ## When to Use
 
-- spec-driven design or implement prompted the user to integrate
-- User explicitly ran `/project-index integrate feedback`
-- `.agents/knowledge.md` `## Codebase Feedback` has queued items
+- An implementation skill prompted the user to integrate
+- User explicitly says "integrate feedback", "integrate discoveries", "sync knowledge"
+- `.agents/knowledge.md ## Codebase Feedback` has queued items
 
 ## Workflow
 
 ### Step 1: Verify Preconditions
 
 - `.agents/knowledge.md` exists and has `## Codebase Feedback` section with rows. If missing or empty, exit with "No feedback to integrate."
-- `.agents/codebase/` exists. If missing, exit with "Run `/project-index initialize` first to create `.agents/codebase/`."
+- `.agents/codebase/` exists. If missing, exit with "Run initialize first to create `.agents/codebase/`."
 
 ### Step 2: Sync Decisions
 
 Read `## Decisions` rows from `.agents/knowledge.md` (if the section exists and has rows).
 
 For each decision row:
-1. Check if a matching row already exists in `.agents/codebase/architecture.md` `## Key Decisions` table (substring match on decision text).
+
+1. Check if a matching row already exists in `.agents/codebase/architecture.md ## Key Decisions` table (substring match on decision text).
 2. If not found, append the row to `## Key Decisions`.
-3. Do NOT remove rows from `## Decisions` in knowledge.md — decisions are permanent record.
+3. Do NOT remove rows from `## Decisions` in `knowledge.md` — decisions are a permanent record.
 
 If `architecture.md` does not exist yet, skip this step silently.
 
@@ -36,9 +37,9 @@ For each row under `## Codebase Feedback`:
 
 Classify each row into one of:
 
-- **Integrate** -- content describes current observable state
-- **Skipped (malformed)** -- unknown target or broken metadata
-- **Skipped (forward-looking)** -- content describes future plans, milestones, feature numbers, or markers like `(planned)`, `(TBD)`, `(coming soon)`, `(M{N}+)`, "shipped through feature X"
+- **Integrate** — content describes current observable state
+- **Skipped (malformed)** — unknown target or broken metadata
+- **Skipped (forward-looking)** — content describes future plans, milestones, feature numbers, or markers like `(planned)`, `(TBD)`, `(coming soon)`, `(M{N}+)`, "shipped through feature X"
 
 Forward-looking and malformed rows are listed in the final report. They are never merged into `codebase/*.md`, which captures only current state.
 
@@ -61,12 +62,12 @@ Group parsed items by target. Each target maps to a file:
 
 For each target file:
 
-1. If file doesn't exist, create it using the project-index template (`templates/{name}.md`).
+1. If file does not exist, create it using the template inlined in the matching reference (`architecture.md`, `conventions.md`, etc.).
 2. Read the file's existing structure (table format, section headers).
 3. For each item in the group:
    - Check if content already exists (substring match or `file:line` anchor match). If yes, mark as duplicate.
    - Otherwise, append using the file's existing format.
-4. Preserve the `feature:{ID}` and `date:` metadata by adding an inline note when the target format doesn't have a column for it.
+4. Preserve `feature:{ID}` and `date:` metadata by adding an inline note when the target format does not have a column for it.
 
 ### Step 6: Clear Integrated Rows
 
@@ -90,23 +91,19 @@ Show:
 
 ## Guidelines
 
-**DO:**
 - Preserve each target file's existing format (table columns, section headers)
-- Merge idempotently -- rerunning must be a no-op
-- Clear only `## Codebase Feedback`, never other sections of knowledge.md
-- Use project-index templates when creating a missing target file
+- Merge idempotently — rerunning must be a no-op
+- Clear only `## Codebase Feedback`, never other sections of `knowledge.md`
+- Use the matching ref template when creating a missing target file
 
-**DON'T:**
-- Overwrite existing content in any target file
-- Invent target names outside the canonical set (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `review`)
-- Modify `## Decisions` or `## Gotchas` sections
-- Auto-run without a user trigger (spec-driven prompts, user decides)
-- Merge rows describing future plans, milestones, feature numbers, or `(planned)`/`(TBD)` markers -- skip and list them in the report under "forward-looking" for the user to reconcile at the source
+## Anti-Pattern: Forward-Looking Merge
+
+Rows describing future plans, milestones, feature numbers, or `(planned)` / `(TBD)` markers must be skipped and listed under "forward-looking" in the report. The codebase docs capture only what exists today; the user reconciles forward-looking items at the source.
 
 ## Error Handling
 
 - `.agents/knowledge.md` missing: "No feedback to integrate."
 - `## Codebase Feedback` missing or empty: "No queued items."
-- `.agents/codebase/` missing: "Run `/project-index initialize` first."
+- `.agents/codebase/` missing: "Run initialize first."
 - Unknown target tag on a row: skip, include in malformed report
 - Target file create fails (filesystem error): abort, report state so user can recover
