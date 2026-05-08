@@ -20,18 +20,18 @@ npx skills add adeonir/agent-skills
 
 | Skill | Category | Description |
 |-------|----------|-------------|
-| **[design-builder](skills/(design)/design-builder)** | Design | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
-| **[debug-tools](skills/(development)/debug-tools)** | Development | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
-| **[project-index](skills/(development)/project-index)** | Development | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
-| **[spec-driven](skills/(development)/spec-driven)** | Development | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
-| **[system-design](skills/(development)/system-design)** | Development | Guided system design from problem to architecture: discovery, requirements, trade-offs, components, brief |
-| **[brainstorming](skills/(product)/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
-| **[docs-writer](skills/(product)/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
-| **[domain-model](skills/(product)/domain-model)** | Product | Translate PRD business rules and journeys into domain entities, invariants, bounded contexts, and a living contract for system-design and spec-driven |
-| **[epic-tracker](skills/(product)/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
-| **[git-helpers](skills/(tooling)/git-helpers)** | Tooling | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
-| **[session-notes](skills/(tooling)/session-notes)** | Tooling | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
-| **[wrap-up](skills/(tooling)/wrap-up)** | Tooling | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
+| **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
+| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
+| **[project-index](skills/engineering/project-index)** | Engineering | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
+| **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
+| **[system-design](skills/engineering/system-design)** | Engineering | Guided system design from problem to architecture: discovery, requirements, trade-offs, components, brief |
+| **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
+| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
+| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
+| **[domain-model](skills/product/domain-model)** | Product | Translate PRD business rules and journeys into domain entities, invariants, bounded contexts, and a living contract for system-design and spec-driven |
+| **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
+| **[session-notes](skills/personal/session-notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
+| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
 
 ## How They Connect
 
