@@ -1,7 +1,7 @@
 ---
 name: session-notes
 description: >-
-  Create and manage Obsidian notes for projects, technical challenges,
+  Creates and manages Obsidian notes for projects, technical challenges,
   brag documents, meeting transcriptions, and company tracking using
   MCPVault MCP. Use when documenting projects, recording technical
   challenges, maintaining brag documents, preserving meeting and course
@@ -10,13 +10,13 @@ description: >-
   document", "achievement", "accomplishment", "transcription", "meeting
   notes", "1:1 notes", "feedback notes", "standup notes", "lecture
   notes", "course notes", "company note", "track interview", "job
-  application". Not for end-of-session wrap-up (use wrap-up) or for
-  initializing project context (use project-index).
+  application". Not for end-of-session persistence across memory systems
+  or for initializing repository-wide project context.
 ---
 
 # Session Notes
 
-Create and manage Obsidian notes using MCPVault MCP for structured documentation.
+Creates and manages Obsidian notes using MCPVault MCP for structured documentation.
 
 ## Workflow
 
