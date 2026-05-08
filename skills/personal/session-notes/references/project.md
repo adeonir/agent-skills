@@ -2,12 +2,12 @@
 
 Create structured documentation for a project in the Obsidian vault.
 
-> **LOAD FIRST:** [mapping.md](mapping.md) — resolves vault root and project folder
-
 ## When to Use
 
 - User says "create project", "new project note", "document project"
 - User wants to track project scope or learnings
+- Depends on mapping output (`{VaultFolder}` resolution); load
+  [mapping.md](mapping.md) first
 
 ## Workflow
 
@@ -18,31 +18,71 @@ Create structured documentation for a project in the Obsidian vault.
 
 2. **Generate folder and filename**
    - Folder: `{VaultFolder}/{Project Name}/` in Title Case
-   - The vault folder depends on the project category. Load
-     [mapping.md](mapping.md) to resolve it.
-   - Main file: `{Project Name} Overview.md` (filenames must be unique across the
-     vault for Obsidian wikilinks to work)
+   - Main file: `{Project Name} Overview.md` (filenames must be unique
+     across the vault for Obsidian wikilinks to work)
 
 3. **Check if exists**
+
    ```
    search_notes query="Checkout Refactor Overview" path="{VaultFolder}/"
    ```
+
    If exists, ask to append, choose new name, or cancel.
 
-4. **Compose content**
-   Build the note content following `templates/project.md` structure.
-   Populate Relations with related notes if mentioned.
+4. **Compose content** using the template below.
 
 5. **Write note**
+
    ```
    write_note path="{VaultFolder}/Checkout Refactor/Checkout Refactor Overview.md" content="..."
    ```
 
-## Content Structure
+## Template
 
-Context prose between H1 and Goals is required. Goals is required. All other
-sections are optional -- include only when the user mentions relevant content.
-Omit empty sections.
+ALWAYS use this exact template structure:
+
+````markdown
+---
+title: "{{Project Name}} Overview"
+type: project
+stack:
+  - {{technology}}
+tags:
+  - project
+  - {{dynamic tags based on content}}
+---
+# {{Project Name}} Overview
+
+{{What this project is, why it exists, what problem it solves. Include
+the constraints, trade-offs, and context that shaped the approach —
+enough that someone reading this note later understands the full picture
+without needing to ask.}}
+
+## Goals
+
+- {{goal 1}}
+- {{goal 2}}
+
+## Learnings
+
+- {{what worked well}}
+- {{what didn't work}}
+- {{what to remember next time}}
+
+## Observations
+
+- #decision {{key technical or product decision}}
+- #stack {{technology choice and rationale}}
+- #risk {{known risk or concern}}
+
+## Relations
+
+- [[{{Related Note}}]]
+````
+
+Context prose between H1 and Goals is required. Goals is required. All
+other sections are optional — include only when the user mentions
+relevant content. Omit empty sections.
 
 ## Output Path
 
@@ -50,15 +90,12 @@ Omit empty sections.
 {VaultFolder}/{Project Name}/{Project Name} Overview.md
 ```
 
-The `{VaultFolder}` depends on the project category. Load
-[mapping.md](mapping.md) to resolve it.
-
 ## Guidelines
 
-**DO:**
 - Use `search_notes` to check for existing project notes before creating
+- Populate Relations only with verified existing notes
 
-**DON'T:**
-- Create duplicate project notes
-- Populate sections with placeholder content
+## Error Handling
 
+- Project note already exists: ask to append, choose new name, or cancel
+- Vault folder unresolved: load [mapping.md](mapping.md), bootstrap if needed

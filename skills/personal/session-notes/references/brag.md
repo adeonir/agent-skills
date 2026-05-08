@@ -1,6 +1,6 @@
 # Update Brag Document
 
-Add achievements to brag document for performance reviews and career growth.
+Add achievements to a brag document for performance reviews and career growth.
 
 ## When to Use
 
@@ -10,9 +10,8 @@ Add achievements to brag document for performance reviews and career growth.
 
 ## Vault Resolution
 
-Check `~/.config/wrap-up/vault` for the vault path. If the file exists, use
-it without asking. If missing, ask the user once for the absolute path to their
-Obsidian vault and persist it to `~/.config/wrap-up/vault`.
+Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier
+fallback (local symlink → global pointer → bootstrap).
 
 ## Workflow
 
@@ -22,13 +21,14 @@ Obsidian vault and persist it to `~/.config/wrap-up/vault`.
    - Ask user preference on first use
 
 2. **Check if brag doc exists**
+
    ```
    search_notes query="{{YYYY}}" path="Brags/"
    ```
 
 3. **Create or append**
-   - If doesn't exist: create with template
-   - If exists: append new achievement to the appropriate category
+   - If does not exist: create using the template below
+   - If exists: append the new achievement to the appropriate category
 
 4. **Gather achievement details**
    - What was accomplished
@@ -37,15 +37,63 @@ Obsidian vault and persist it to `~/.config/wrap-up/vault`.
    - Category (impact, technical, growth)
 
 5. **Write note**
+
    New document:
+
    ```
    write_note path="Brags/{{YYYY}}.md" content="..."
    ```
+
    Append to existing:
+
    ```
    read_note path="Brags/{{YYYY}}.md"
    patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
    ```
+
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+title: "{{Month YYYY}}"
+type: brag
+tags:
+  - brag
+  - career
+  - {{dynamic tags based on content}}
+---
+# {{Month YYYY}}
+
+{{What this period looked like — themes, milestones, shifts in focus.
+Write enough context that future-you can reconstruct what mattered and
+why these achievements stand out.}}
+
+## Impact
+
+- **{{achievement with metrics}}**
+  - Context: {{situation}}
+  - Result: {{quantified outcome}}
+
+## Technical
+
+- {{technical achievements, architecture decisions}}
+
+## Growth
+
+- {{new skills, mentoring, feedback received}}
+
+## Observations
+
+- #achievement {{key accomplishment with metrics}}
+- #growth {{skill or area of development}}
+- #impact {{business or team impact}}
+
+## Relations
+
+- [[{{Related Note}}]]
+````
 
 ## Achievement Format
 
@@ -57,27 +105,23 @@ Obsidian vault and persist it to `~/.config/wrap-up/vault`.
 
 ## Guidelines
 
-**DO:**
 - Quantify impact when possible (%, $, time saved)
-- Include both technical and soft skill achievements
-- Record achievements as they happen (don't wait for review)
+- Include both technical and soft-skill achievements
+- Record achievements as they happen — do not wait for review season
 - Categorize by type (impact, technical, growth)
-- Include context for future reference
-
-**DON'T:**
-- Be vague about impact ("improved performance" -> "reduced load time by 2s")
-- Only record big wins - small consistent improvements matter
-- Wait until review season to document
-- Use passive voice ("was responsible for" -> "led", "built", "shipped")
+- Use active voice ("led", "built", "shipped" — not "was responsible for")
 
 ## Categorization
 
 Common categories for organizing brags:
-- **Impact** - Business results, user metrics
-- **Technical** - Architecture, performance, reliability
-- **Growth** - Learning, mentoring, new skills, feedback received
 
-## Next Steps
+- **Impact** — Business results, user metrics
+- **Technical** — Architecture, performance, reliability
+- **Growth** — Learning, mentoring, new skills, feedback received
 
-- User may want to review full document periodically
-- User may extract achievements for resume or performance review
+## Anti-Pattern: Vague Impact Claims
+
+"Improved performance" is invisible at review time. "Reduced p99 latency
+from 800ms to 220ms" is concrete and defensible. Always quantify with a
+metric, a percentage, or a time saved. When data is unavailable, state
+the proxy ("estimated 30% fewer support tickets in the affected flow").

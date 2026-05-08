@@ -4,15 +4,15 @@ Document technical challenges from interview processes.
 
 ## When to Use
 
-- User says "technical challenge", "take-home", "coding interview", "system design"
+- User says "technical challenge", "take-home", "coding interview",
+  "system design"
 - User mentions interview problems or assignments
 - User wants to record solutions to technical problems
 
 ## Vault Resolution
 
-Check `~/.config/wrap-up/vault` for the vault path. If the file exists, use
-it without asking. If missing, ask the user once for the absolute path to their
-Obsidian vault and persist it to `~/.config/wrap-up/vault`.
+Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier
+fallback (local symlink → global pointer → bootstrap).
 
 ## Workflow
 
@@ -33,35 +33,85 @@ Obsidian vault and persist it to `~/.config/wrap-up/vault`.
      - `Challenges/Figma/React Component Library.md`
 
 3. **Check if exists**
+
    ```
    search_notes query="System Design URL Shortener" path="Challenges/"
    ```
 
-4. **Compose content**
-   Build the note content following `templates/challenge.md` structure.
-   Populate Relations with the company note link if part of an interview
-   process. Include any other related notes mentioned by the user.
+4. **Compose content** using the template below.
 
 5. **Write note**
+
    ```
    write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
    ```
 
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+title: "{{Challenge Description}}"
+type: challenge
+company: {{company}}
+stack:
+  - {{technology}}
+status: {{pending / completed / submitted / feedback-received}}
+tags:
+  - challenge
+  - interview
+  - {{dynamic tags based on content}}
+---
+# {{Challenge Description}}
+
+{{What the challenge was about, the constraints (time, tools, scope),
+and the environment. Include the initial reaction and how the problem
+was framed before diving in. Paraphrase — do not copy proprietary
+challenge text verbatim.}}
+
+## Approach
+
+{{How the problem was approached — thought process, trade-offs considered}}
+
+## Solution
+
+{{The solution — code, architecture, diagrams (mermaid)}}
+
+## Learnings
+
+- {{what was learned}}
+- {{what could be done differently}}
+
+## Observations
+
+- #technique {{approach or pattern used}}
+- #complexity {{time/space complexity if algorithmic}}
+- #feedback {{feedback received, if any}}
+- #lesson {{key takeaway}}
+
+## Relations
+
+- [[{{Related Note}}]]
+````
+
 ## Guidelines
 
-**DO:**
-- Include your solution approach and thought process
-- Document what you learned, even if failed
-- Note time complexity and space complexity for algorithms (inside Solution section)
+- Include the solution approach and thought process
+- Document what was learned, even from failures
+- Note time and space complexity for algorithms (inside Solution section)
 - Include diagrams for system design (using mermaid)
-- Record feedback received (if any, in Learnings section)
+- Record feedback received in the Learnings section
+- Paraphrase proprietary challenge text — never copy verbatim
 
-**DON'T:**
-- Copy proprietary challenge text verbatim (paraphrase)
-- Share solutions publicly without permission
-- Skip documenting failed attempts (they're valuable learning)
+## Anti-Pattern: Skipping Failed Attempts
+
+Failed challenges contain the most useful learnings — they reveal which
+assumptions broke and what would be tried differently. Documenting only
+successes turns the brag/challenge log into a vanity record. Capture
+both.
 
 ## Next Steps
 
-- User may want to link to company note
+- User may want to link to a company note (see [company.md](company.md))
 - User may add to brag document if challenge was particularly difficult
