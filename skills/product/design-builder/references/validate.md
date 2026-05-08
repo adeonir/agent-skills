@@ -15,7 +15,7 @@ reasoning — small mistakes cascade across every screen.
 
 ## Prerequisites
 
-- `<project-root>/DESIGN.md` exists with at minimum a YAML frontmatter block
+- `.agents/design/DESIGN.md` exists with at minimum a YAML frontmatter block
 
 ## Output
 
@@ -31,7 +31,7 @@ No files written. No tokens rewritten.
 
 ### Step 1: Read DESIGN.md
 
-Read `<project-root>/DESIGN.md` in full. Parse the YAML frontmatter and the
+Read `.agents/design/DESIGN.md` in full. Parse the YAML frontmatter and the
 markdown body. If parsing fails (invalid YAML, duplicate `##` heading, missing
 fence), stop and report the parse error -- nothing else runs until the file
 parses.
@@ -132,7 +132,7 @@ must:
 
 ## Error Handling
 
-- No DESIGN.md at project root: stop and route the user to `inputs.md` to author one
+- No DESIGN.md in `.agents/design/`: stop and route the user to `inputs.md` to author one
 - DESIGN.md frontmatter empty or absent: report what is missing, suggest running inputs
 - YAML parse error or duplicate heading: report the error path and stop further checks
 - File too large to parse in one pass: read frontmatter and body separately, run checks per layer

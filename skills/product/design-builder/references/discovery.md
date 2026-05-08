@@ -12,7 +12,7 @@ Load at the start of every operation — before any trigger reference is loaded.
 
 Look for:
 
-- `<project-root>/DESIGN.md` — already-authored visual identity
+- `.agents/design/DESIGN.md` — already-authored visual identity
 - `.artifacts/docs/prd.md` — PRD
 - `.artifacts/docs/brief.md` — Brief
 - `.artifacts/brainstorm/` — direction artifacts

@@ -15,7 +15,7 @@ Variant generation and comment resolution deserve careful reasoning — visual c
 
 ## Prerequisites
 
-- `<project-root>/DESIGN.md` with frontmatter and prose populated by [inputs.md](inputs.md) and [structure.md](structure.md)
+- `.agents/design/DESIGN.md` with frontmatter and prose populated by [inputs.md](inputs.md) and [structure.md](structure.md)
 - `.artifacts/design/copy.yaml` (optional) — structured content
 - [aesthetics.md](aesthetics.md) (required) — design principles
 - [web-standards.md](web-standards.md) (required) — implementation rules
@@ -231,7 +231,7 @@ Push direction from skill is **write-only** from DESIGN.md to the target. Revers
 
 ## Error Handling
 
-- No DESIGN.md at project root: suggest running inputs first; do not proceed
+- No DESIGN.md in `.agents/design/`: suggest running inputs first; do not proceed
 - DESIGN.md missing `## Layout`: suggest running structure first; do not proceed
 - No `copy.yaml` (and DESIGN.md is populated): use generic placeholder strings derived from frontmatter `name` and `description`, plus the headings in `## Layout` / `## Screen Flow` prose
 - Server port in use: try alternative port

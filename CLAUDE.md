@@ -392,7 +392,7 @@ Skills write outputs to `.artifacts/` organized by domain:
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
 ├── docs/          # docs-writer: PRD, Brief, Design Doc, TDD
-├── design/        # design-builder: copy, design tokens, variants
+├── design/        # design-builder: copy, preview variants, generated assets
 ├── brainstorm/    # brainstorming: direction artifacts
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
@@ -409,11 +409,13 @@ skills:
 ├── project.md          # project-index: project context
 ├── codebase/           # project-index: deep codebase analysis
 ├── baselines/          # spec-driven: area behavioral baselines
-└── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
+├── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
+└── design/             # design-builder: DESIGN.md (visual identity)
 ```
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
-`spec-driven` writes `knowledge.md` and `baselines/*.md`.
+`spec-driven` writes `knowledge.md` and `baselines/*.md`;
+`design-builder` writes `design/DESIGN.md`.
 
 ## Auto-Memory
 

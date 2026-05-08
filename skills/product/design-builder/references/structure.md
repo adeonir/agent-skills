@@ -10,13 +10,13 @@ Define how content is organized before visual style is applied. Owns the `## Lay
 
 ## Prerequisites
 
-- `<project-root>/DESIGN.md` exists with frontmatter populated by [inputs.md](inputs.md) — at minimum `spacing` tokens
+- `.agents/design/DESIGN.md` exists with frontmatter populated by [inputs.md](inputs.md) — at minimum `spacing` tokens
 - `.artifacts/design/copy.yaml` (optional) — content payload for context
 - PRD, brief, or discovery context
 
 ## Output
 
-Patch `<project-root>/DESIGN.md`:
+Patch `.agents/design/DESIGN.md`:
 
 - `## Layout` — always present
 - `## Screen Flow` — screen-based projects only (`web-app`, `mobile-app`). Omit the section entirely for page-based projects (`landing-page`, `website`)
@@ -25,8 +25,8 @@ Never overwrite frontmatter, `## Overview`, `## Colors`, `## Typography`, `## El
 
 The DESIGN.md template lives in [inputs.md](inputs.md) — patch only the
 `## Layout` and `## Screen Flow` sections, leave everything else
-untouched. The artifact written into the user's project root must use
-the uppercase filename `DESIGN.md`.
+untouched. The artifact written into the user's `.agents/design/`
+directory must use the uppercase filename `DESIGN.md`.
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -165,7 +165,7 @@ Show the user:
 
 ## Error Handling
 
-- No DESIGN.md at project root: ask the user to run inputs first
+- No DESIGN.md in `.agents/design/`: ask the user to run inputs first
 - DESIGN.md frontmatter missing `spacing` tokens: ask user to run inputs to fill them, or fall back to text descriptions in prose
 - Project type unknown: ask user before proceeding (page-based vs screen-based changes the whole flow)
 - Wireframe format unreadable (corrupted image, MCP unavailable): ask user to describe the layout in text

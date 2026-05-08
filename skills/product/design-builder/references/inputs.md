@@ -14,7 +14,7 @@ Token extraction deserves careful reasoning — small mistakes in tokens cascade
 
 ## Output
 
-Patch `<project-root>/DESIGN.md` section by section:
+Patch `.agents/design/DESIGN.md` section by section:
 
 - Frontmatter blocks: `name`, `description`, `colors`, `typography`, `rounded`, `spacing`, `components`, `motion`, `variants`
 - Prose sections: `## Overview`, `## Colors`, `## Typography`, `## Elevation & Depth`, `## Shapes`, `## Motion`, `## Components`, `## Variants`, `## Do's and Don'ts`
@@ -22,8 +22,8 @@ Patch `<project-root>/DESIGN.md` section by section:
 Never overwrite `## Layout` or `## Screen Flow` — those are owned by [structure.md](structure.md). Never overwrite content payload — that lives in `.artifacts/design/copy.yaml` and is owned by [copy.md](copy.md).
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The
-artifact written into the user's project root must use the uppercase
-filename `DESIGN.md`.
+artifact written into the user's `.agents/design/` directory must use
+the uppercase filename `DESIGN.md`.
 
 ## Workflow
 
@@ -33,7 +33,7 @@ If discovery did not capture it, ask one question at a time:
 
 1. Project type: landing-page, website, web-app, or mobile-app?
 2. Source on hand: images, codebase, text description, design-tool file?
-3. Existing `DESIGN.md` at project root — patch it or start fresh?
+3. Existing `DESIGN.md` in `.agents/design/` — patch it or start fresh?
 
 ### Step 2: Get Source
 
@@ -99,7 +99,7 @@ without a clean validation pass.
 
 Show the user:
 
-- The DESIGN.md path (`<project-root>/DESIGN.md`)
+- The DESIGN.md path (`.agents/design/DESIGN.md`)
 - A summary of which sections were patched and which were skipped
 - Any validation findings flagged for review
 - Suggested next step (structure if Layout/Screen Flow are still empty; preview if both inputs and structure are populated)

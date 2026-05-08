@@ -14,7 +14,7 @@ preferred image tool).
 
 ## Prerequisites
 
-- `<project-root>/DESIGN.md` with `colors`, `typography`, and prose sections
+- `.agents/design/DESIGN.md` with `colors`, `typography`, and prose sections
   populated — tokens drive the generated prompts
 - `.artifacts/design/copy.yaml` (optional) — copy informs asset naming and
   content context
@@ -36,7 +36,7 @@ User may also request prompt-only explicitly even when an MCP is present — hon
 
 ### Step 1: Read DESIGN.md
 
-Read `<project-root>/DESIGN.md`. Extract:
+Read `.agents/design/DESIGN.md`. Extract:
 
 - `colors.primary`, `colors.secondary`, `colors.background`, `colors.accent`
   (or equivalents)

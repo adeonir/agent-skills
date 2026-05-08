@@ -35,7 +35,7 @@ Slices are independent. Each can come from a different source. The composition i
 
 ## Prerequisites
 
-- **Anchor source**: existing codebase, live URL, or `<project-root>/DESIGN.md`
+- **Anchor source**: existing codebase, live URL, or `.agents/design/DESIGN.md`
 - **At least one new input** that is NOT the anchor (otherwise this is `inputs.md` refresh, not redesign)
 
 ## Workflow
@@ -50,7 +50,7 @@ Pick the existing app being redesigned. Accepted sources:
 
 **B. Live app URL.** Useful when the codebase is unavailable. Crawl visible pages/screens for structural inventory.
 
-**C. Existing DESIGN.md.** A `<project-root>/DESIGN.md` already populated by `inputs.md` and `structure.md`. Read both frontmatter and prose as the anchor.
+**C. Existing DESIGN.md.** A `.agents/design/DESIGN.md` already populated by `inputs.md` and `structure.md`. Read both frontmatter and prose as the anchor.
 
 ### Step 2: Source the New Input(s)
 
@@ -98,9 +98,9 @@ Build a fresh DESIGN.md by extracting each slice from its mapped source:
 
 - Read each source via the relevant input logic (codebase scan, image analysis, URL crawl, design-tool MCP)
 - Extract only the slices that source contributes -- ignore the rest
-- Assemble into one DESIGN.md at `<project-root>/DESIGN.md`
+- Assemble into one DESIGN.md at `.agents/design/DESIGN.md`
 
-If a DESIGN.md already exists at the project root, ask whether to:
+If a DESIGN.md already exists in `.agents/design/`, ask whether to:
 
 - **Patch (slice-scoped)**: replace only the slices touched by the new inputs; leave anchor slices in place
 - **Full replace**: write fresh; archive previous as `.artifacts/design/DESIGN.previous.md` for diff and rollback

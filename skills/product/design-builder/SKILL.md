@@ -3,7 +3,7 @@ name: design-builder
 description: >-
   Greenfield design pipeline for any digital product (landing pages,
   websites, web apps, mobile apps): extract content, author a single-file
-  visual identity at the project root (DESIGN.md, tokens plus
+  visual identity in .agents/design/ (DESIGN.md, tokens plus
   rationale), define layout or screen flow, preview and refine designs,
   push to an external design tool when available. Use when building
   pages or app screens from references, images, briefs, or an existing
@@ -75,8 +75,8 @@ auto-invoked by `preview.md` after variant approval.
 ## Guidelines
 
 - Ask one question at a time when gathering context from the user
-- Treat `<project-root>/DESIGN.md` as the source of truth for visual
-  identity
+- Treat `.agents/design/DESIGN.md` as the source of truth
+  for visual identity
 - Patch DESIGN.md section by section so each phase preserves the
   others' work
 - Route preset and decision sets by project type (landing-page,

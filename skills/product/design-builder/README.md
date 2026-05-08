@@ -18,10 +18,10 @@ flowchart TD
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Copy** | Extract copy from URL, web capture, brief document | `.artifacts/design/copy.yaml` |
-| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `<project-root>/DESIGN.md` (frontmatter tokens + rationale prose) |
-| **Structure** | Define layout, wireframe, organize content, screen flow | `<project-root>/DESIGN.md` `## Layout` and `## Screen Flow` sections |
+| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (frontmatter tokens + rationale prose) |
+| **Structure** | Define layout, wireframe, organize content, screen flow | `.agents/design/DESIGN.md` `## Layout` and `## Screen Flow` sections |
 | **Preview** | Preview design, generate variants (refined or creative), tune tokens, comment, apply-across (within or cross-variant), push to external design tool | `.artifacts/design/preview/` (HTML, per-variant `tokens.yaml`), or write to a user-owned design-tool file |
-| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices (Layout from X, colors from Y, etc.), explore variants | Patched `<project-root>/DESIGN.md` with slice-scoped updates |
+| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices (Layout from X, colors from Y, etc.), explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
 | **Validate** | Validate `DESIGN.md`, check tokens, audit design system, lint | Findings report (read-only; no file writes) |
 
 ## Project Types
@@ -94,7 +94,7 @@ push the design to my design-tool file
 ## Output
 
 ```
-<project-root>/
+.agents/design/
 └── DESIGN.md             # Visual identity: tokens (frontmatter) + rationale (prose)
 
 .artifacts/design/
@@ -125,7 +125,7 @@ A: Greenfield-first. The primary use case is starting from zero with no existing
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at the project root holding the visual identity. YAML frontmatter carries machine-readable design tokens (colors, typography, spacing, components, motion, variants). Markdown body carries human-readable rationale across sections (Overview, Colors, Typography, Layout, Screen Flow, Elevation & Depth, Shapes, Motion, Components, Variants, Do's and Don'ts). Agents and humans read the same file.
+A: A single file at `.agents/design/DESIGN.md` holding the visual identity. YAML frontmatter carries machine-readable design tokens (colors, typography, spacing, components, motion, variants). Markdown body carries human-readable rationale across sections (Overview, Colors, Typography, Layout, Screen Flow, Elevation & Depth, Shapes, Motion, Components, Variants, Do's and Don'ts). Agents and humans read the same file.
 
 **Q: Why not keep design tokens in JSON?**
 
