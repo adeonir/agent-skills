@@ -16,10 +16,10 @@ read PRD --> extract candidates --> confirm with user --> gate
 
 ### Step 1: Locate PRD
 
-Read `.artifacts/docs/prd.md`. If absent, ask the user to provide
-a path or run docs-writer first.
+Read `.artifacts/docs/prd.md`. If absent, ask the user to provide a
+path or generate the PRD first.
 
-In **update mode** (triggered by spec-driven domain gap): also read
+In **update mode** (triggered by an implementation gap): also read
 `.artifacts/docs/domain.md` and `.agents/knowledge.md` `## Domain Gaps`
 section to understand the current model and queued gaps before narrowing
 scope.

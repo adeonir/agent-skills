@@ -5,10 +5,8 @@ states.
 
 ## When to Use
 
-Load after discovery confirms the candidate entity list.
-
-> **LOAD FIRST:** [discovery.md](discovery.md) — candidate list must
-> exist before enumerating
+Load after discovery confirms the candidate entity list. Discovery must
+have produced a confirmed list before this reference can be applied.
 
 ## Workflow
 

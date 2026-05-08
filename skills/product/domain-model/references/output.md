@@ -1,6 +1,6 @@
 # Output
 
-Produce the domain artifact and hand off to the next skill.
+Produce the domain artifact and hand off downstream.
 
 ## When to Use
 
@@ -14,33 +14,121 @@ Load after all BR-N rules are assigned and the quality gate passes.
 Save to `.artifacts/docs/domain.md`. Create the directory if it does
 not exist.
 
-**USE TEMPLATE:** `../templates/domain.md`
+ALWAYS use this exact template structure:
+
+````markdown
+---
+name: {{project-name}}
+created: {{YYYY-MM-DD}}
+---
+
+# Domain Model — {{Project Name}}
+
+## Bounded Contexts
+
+| Context | Entities | Primary Capability |
+|---------|----------|--------------------|
+| {{ContextName}} | {{Entity1, Entity2}} | {what this context owns} |
+
+## Entities
+
+### {{EntityName}}
+
+**Type:** Entity | Value Object
+**Context:** {{BoundedContextName}}
+**Source:** {{FR-N, journey step, or BR-N that introduced this entity}}
+
+#### Attributes
+
+| Attribute | Type | Required | Source |
+|-----------|------|----------|--------|
+| {{name}} | {{type}} | Yes / No | {{PRD ref}} |
+
+#### Invariants
+
+- `INVARIANT:` {{condition}}. Source: {{BR-N or EC-N}}
+
+#### Lifecycle
+
+```
+{state1} --[transition]--> {state2}
+  guard: {condition}
+{state2} --[transition]--> {state3} (terminal)
+```
+
+| State | Description |
+|-------|-------------|
+| {{state}} | {what it means} |
+
+#### Identity
+
+**Key:** {{natural key field or "surrogate"}}
+
+---
+
+## Relationships
+
+```
+{EntityA} --{verb}--> {EntityB}  [{cardinality}]  owner: {root}
+```
+
+| Relationship | Cardinality | Owner | Source |
+|--------------|-------------|-------|--------|
+| {{EntityA verb EntityB}} | 1..* | {{EntityA}} | {{FR-N}} |
+
+## Context Map
+
+```
+[ContextA] --upstream--> [ContextB]
+[ContextB] --shared kernel-- [ContextC]
+```
+
+| Boundary | Type | Translation Needed |
+|----------|------|--------------------|
+| {{ContextA / ContextB}} | {{upstream/downstream}} | {yes/no — describe} |
+
+## Business Rules Coverage
+
+| Rule ID | Rule Text | Entity | Assignment Type |
+|---------|-----------|--------|-----------------|
+| BR-1 | {{text}} | {{Entity.lifecycle.state}} | precondition |
+| BR-2 | {{text}} | {{Entity}} | invariant |
+
+## Open Questions
+
+- [ ] TBD: {question that needs answering before implementation}
+
+## Processed Gaps
+
+{Empty at creation. Populated when running in update mode, integrating
+entries from knowledge.md ## Domain Gaps.}
+
+| Gap | Discovered During | Processed On | Change Made |
+|-----|-------------------|--------------|-------------|
+| {description} | {{feature ID or story}} | {{YYYY-MM-DD}} | {what was updated} |
+````
 
 ## Update Mode
 
-When running in update mode (triggered by domain gaps from spec-driven):
+When running in update mode (triggered by an implementation surfacing a
+domain gap):
 
 1. Read `.agents/knowledge.md` `## Domain Gaps` section
 2. For each gap entry, update the relevant entity or rule in the artifact
 3. Append each processed gap to `## Processed Gaps` in `domain.md`
 4. Clear processed rows from `knowledge.md ## Domain Gaps`
 
-This follows the same pattern as project-index consuming
-`## Codebase Feedback`. The queue lives in `knowledge.md`; the artifact
-holds the historical record.
-
-Note: `knowledge.md ## Domain Gaps` section does not exist yet — it will
-be added in a follow-up upgrade. Document the integration point here so
-update mode has a clear target when that section lands.
+The queue lives in `knowledge.md`; the artifact holds the historical
+record.
 
 ## Handoff
 
 After saving, ask directly:
 
 > "Domain model saved to `.artifacts/docs/domain.md`. What's next?
-> - **system-design** — bounded contexts inform service boundaries
-> - **spec-driven** — entities and rules become implementation contracts
-> - **epic-tracker** — entity lifecycle states can scope story definition
+> - **Architecture** — bounded contexts inform service boundaries
+> - **Implementation specs** — entities and rules become contracts
+> - **Lifecycle planning** — entity lifecycle states scope story definition
 > - **Nothing for now** — model is enough"
 
 ## Quality Gate
@@ -56,7 +144,7 @@ Before presenting the artifact:
 ## Error Handling
 
 - `.artifacts/docs/` does not exist: create it before saving
-- User wants to add an entity after output: return to `entities.md`,
-  propagate through `relationships.md` and `rules.md` before regenerating
+- User wants to add an entity after output: return to entity enumeration,
+  propagate through relationships and rules before regenerating
 - Update mode — `## Domain Gaps` not found in knowledge.md: note the
   section does not exist yet; ask user to describe the gap directly

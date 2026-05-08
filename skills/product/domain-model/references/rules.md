@@ -5,10 +5,8 @@ Validate full coverage.
 
 ## When to Use
 
-Load after relationships and bounded contexts are stable.
-
-> **LOAD FIRST:** [relationships.md](relationships.md) — bounded context
-> structure must exist before rules can be assigned
+Load after relationships and bounded contexts are stable. The bounded
+context structure must exist before rules can be assigned.
 
 ## Workflow
 

@@ -6,9 +6,7 @@ bounded context grouping.
 ## When to Use
 
 Load after entities are enumerated and their invariants are confirmed.
-
-> **LOAD FIRST:** [entities.md](entities.md) — entities must be
-> enumerated before relationships can be mapped
+Entity enumeration must be complete before relationships can be mapped.
 
 ## Workflow
 
