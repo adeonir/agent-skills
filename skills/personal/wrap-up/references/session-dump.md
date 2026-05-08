@@ -1,7 +1,8 @@
-# Spec-Driven Session Dump Lifecycle
+# Session Dump Lifecycle
 
-Load the ephemeral spec-driven dump for downstream notes, run
-structural-delta detection, and unlink the file at the end of wrap-up.
+Load any ephemeral session dump at `.artifacts/.session-dump.md` for
+downstream notes, run structural-delta detection, and clear the file at
+the end of wrap-up.
 
 ## When to Use
 
@@ -21,7 +22,8 @@ Runs after mapping, before auto-memory.
    Detect and Cleanup will likewise no-op later.
 2. Read the file and locate the latest
    `## YYYY-MM-DD HH:MM -- {phase}` block (the most recent append).
-   spec-driven appends one block per phase across any feature.
+   The dump is appended one block per phase by any skill that opts to
+   write progress checkpoints there.
 3. Surface the block's contents to working context for the rest of
    wrap-up to consume:
    - `**Discoveries:**` bullets
@@ -69,7 +71,7 @@ Flag a structural delta if any of the following is true:
 If Step 1 found a keyword OR Step 2 flagged a delta, append exactly
 one line to wrap-up output:
 
-> Structural changes detected -- consider running `/project-index re-index` to refresh `.agents/codebase/*.md`.
+> Structural changes detected — consider re-indexing the codebase to refresh `.agents/codebase/*.md`.
 
 If neither signal fires, emit nothing.
 
@@ -100,7 +102,7 @@ avoids a Bash permission prompt.
   once, share via context)
 - Skip Cleanup when Detect emits nothing (contrasts: Cleanup is
   independent of signal)
-- Auto-invoke `/project-index re-index` (contrasts: emit one
+- Auto-invoke any re-index command (contrasts: emit one
   suggestion line, user decides)
 - Walk every block in the file (contrasts: read only the latest
   phase entry)

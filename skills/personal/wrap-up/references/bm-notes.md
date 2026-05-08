@@ -1,15 +1,14 @@
 # Write Basic Memory Notes
 
-Create session notes in Basic Memory. Uses BM MCP tools directly —
-no dependency on other skills.
-
-> **LOAD FIRST:** [mapping.md](mapping.md) -- provides BM project, BM path, and base tags
-> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- fold its bullets into matching BM session sections
+Create session notes in Basic Memory using BM MCP tools directly.
 
 ## When to Use
 
 - When the resolved BM project is not `--`
 - Runs after auto-memory, before Obsidian notes
+- Depends on mapping output (BM project, BM path, base tags) and
+  on the session-dump Load phase (latest block folded into BM sections
+  when present)
 
 ## BM Syntax Rules
 

@@ -1,16 +1,16 @@
 # Write Obsidian Notes
 
-Create session notes in the project folder and update the daily note.
-Uses MCPVault MCP tools directly — no dependency on other skills.
-
-> **LOAD FIRST:** [mapping.md](mapping.md) -- provides Obsidian path and base tags
-> **CONSUMES:** [session-dump.md](session-dump.md) latest phase block (when present) -- fold Discoveries → Findings, Decisions → Decisions, Next Context → Next
+Create session notes in the project folder and update the daily note
+using MCPVault MCP tools directly.
 
 ## When to Use
 
 - Obsidian session note: when `obsidian.path` is not `--`
 - Daily note: always (even when session note is skipped)
 - Runs after BM notes
+- Depends on mapping output (Obsidian path, base tags) and on the
+  session-dump Load phase (latest block folded — Discoveries → Findings,
+  Decisions → Decisions, Next Context → Next)
 
 ## Obsidian Syntax Rules
 
