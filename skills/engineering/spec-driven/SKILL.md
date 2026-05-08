@@ -62,7 +62,7 @@ when scope is small enough. Verify runs after every task or range.
 
 ### Methodological refs (loaded by other refs)
 
-- **Phase transitions / session dump protocol** →
+- **Sub-agent dispatch protocol** →
   [phases.md](references/phases.md)
 - **Codebase exploration** →
   [codebase-exploration.md](references/codebase-exploration.md)
@@ -132,4 +132,3 @@ that" without exhausting steps 1-4 of the Knowledge Verification Chain
 produces fabricated patterns that don't match the codebase. Read the
 codebase first, then project docs, then Context7 MCP, then web. Only
 flag or ask after the chain is exhausted.
-

@@ -107,4 +107,3 @@ A single file holding both a story and the bugs it spawned, or an epic
 mixed with its release plan, makes status updates and tracker pushes
 ambiguous. One file = one artifact type. Bugs go to their own file (in
 the epic folder or `standalone/`); releases go to `releases/`.
-

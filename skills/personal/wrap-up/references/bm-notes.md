@@ -7,7 +7,7 @@ Create session notes in Basic Memory using BM MCP tools directly.
 - When the resolved BM project is not `--`
 - Runs after auto-memory, before Obsidian notes
 - Depends on mapping output (BM project, BM path, base tags) and
-  on the session-dump Load phase (latest block folded into BM sections
+  on the handoff Load phase (latest snapshot folded into BM sections
   when present)
 
 ## BM Syntax Rules
@@ -151,19 +151,24 @@ Include file paths, directory names, and technical specifics here.
 - follows [[Previous Session Note]]
 ```
 
-### Folding session-dump content
+### Folding handoff content
 
-When `session-dump.md` Load surfaced a latest phase block, fold its
+When the handoff Load phase surfaced a latest snapshot, fold its
 bullets into the matching BM sections before composing the note:
 
-- `**Discoveries:**` → `## Findings` bullets (one per discovery,
-  preserving values, edge cases, errors)
+- `**Findings:**` → `## Findings` bullets (preserve values, edge
+  cases, errors)
 - `**Decisions:**` → `## Decisions` bullets, merged with reasoning
   derived from session (name rejected alternatives when applicable)
-- `**Next Context:**` → `## Next Context` bullets, preserving the
-  concrete entry point (file, function, path, or command)
+- `**Next step:**` and `**Open threads:**` → `## Next Context`
+  bullets, preserving the concrete entry point (file, function, path,
+  or command)
+- `**Blockers:**` → `## Next Context` bullets flagged as blockers
+  with what needs to unblock them
+- `**Focus:**` and `**References:**` → optional context for the
+  `## Summary` prose; not a dedicated section
 
-When the dump is absent, populate these sections from conversation
+When the handoff is absent, populate these sections from conversation
 review only.
 
 Write:
@@ -215,7 +220,7 @@ Rules:
 - Link to entities in `entities/` when referencing technologies or tools
   (e.g., `uses [[Cloudflare]]`)
 - Create new entity notes for technologies that appear in 2+ session notes
-- Fold session-dump Discoveries / Decisions / Next Context into matching BM sections when present
+- Fold handoff Findings / Decisions / Next step / Open threads / Blockers into matching BM sections when present
 
 **DON'T:**
 - Invoke any skill — use BM MCP tools directly
@@ -223,7 +228,7 @@ Rules:
 - Use plain `[[wikilinks]]` without relation type (that is Obsidian format)
 - Create dedicated decision notes — decisions live inline in sessions
 - Write `# Heading` inside `content` — frontmatter already carries the title
-- Drop session-dump bullets from the BM note without folding them in (contrasts: fold all three categories when present)
+- Drop handoff bullets from the BM note without folding them in (contrasts: fold every present category when the handoff exists)
 
 ## Error Handling
 

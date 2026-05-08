@@ -4,7 +4,7 @@ Review the session and update Claude Code auto-memory files.
 
 ## When to Use
 
-- Runs as the first note-writing step (after mapping and session-dump Load)
+- Runs as the first note-writing step (after mapping and handoff Load)
 - Runs even for trivial sessions (report "nothing to update")
 
 ## Workflow

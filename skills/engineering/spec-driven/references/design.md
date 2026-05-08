@@ -212,32 +212,6 @@ Check if the spec includes a `designs/` folder with visual references:
    - Consider these in component design and implementation
 3. If no designs folder: proceed without visual context
 
-### Step 9a: Mid-Phase Context Checkpoint
-
-Discovery is complete. Write a partial snapshot to disk before the
-context-heavy design generation steps (11-13). Do not wait for user
-confirmation — write immediately and continue.
-
-- If `.artifacts/.session-dump.md` does not exist, create it with
-  `# Session Dump` as the H1
-- Append a partial block (use the session dump template — see
-  [phases.md](phases.md)):
-  - Phase: `design (in progress — entering data model)`
-  - Feature: ID and name
-  - Decisions: open architectural decisions entering the design generation phase
-  - Discoveries: key findings from research and exploration not captured
-    in their respective cache files (e.g. a constraint that affects
-    data model shape)
-  - Blockers: anything flagged during exploration that may affect design
-  - Open items: questions for the data model or component design steps
-  - Next phase: `design (continuing — data model and generation)`
-- Confirm the checkpoint was written, then continue immediately
-
-This checkpoint is partial and automatic. The end-of-phase dump
-(Step 16) remains opt-in and captures the completed phase in full.
-If autocompact fires during Steps 11-13, this checkpoint plus the
-artifacts on disk provide enough context to resume.
-
 ### Step 10: Dispatch Design Plan subagent
 
 Steps 11-13 are owned by a Plan subagent. Main agent dispatches once,
@@ -431,30 +405,6 @@ Whether to stop here depends on the user's original request (see Specify Step 14
 If changes are requested: update design.md, then continue.
 
 Do not start code-producing phases (`implement`) without explicit user approval regardless of the original phrasing.
-
-### Step 16: Suggest Session Dump
-
-Phase complete. Suggest to the user that this is a good moment to dump
-session context and clear the window before the next phase:
-
-> Phase complete. Append a phase summary to `.artifacts/.session-dump.md`
-> and clear the context for the next phase? (y/n)
-
-If the user accepts:
-
-- If `.artifacts/.session-dump.md` does not exist, create it with
-  `# Session Dump` as the H1
-- Append one block using the session dump template (see
-  [phases.md](phases.md)) — record only what an artifact does not
-  already capture (unstated decisions, blockers,
-  follow-ups for the next phase). Do not duplicate spec.md / design.md /
-  tasks.md content
-- Confirm the dump was written; the user clears the window manually
-
-If the user declines or skips: continue in the current window without dumping.
-
-The dump is ephemeral cross-phase memory — the end-of-session wrap-up
-reads it, then the file is disposable.
 
 ## Guidelines
 

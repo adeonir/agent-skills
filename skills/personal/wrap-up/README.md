@@ -6,22 +6,24 @@ End-of-session documentation across auto-memory, Basic Memory, and Obsidian.
 
 ```mermaid
 flowchart TD
-    A[Resolve Project] --> B[Auto-Memory]
-    B --> C[BM Session Note]
-    C --> D[Obsidian Session Note]
-    D --> E[Obsidian Daily Note]
-    E --> F[Detect Structural Delta]
-    F --> G[Clear Session Dump]
+    A[Resolve Project] --> B[Load Handoff]
+    B --> C[Auto-Memory]
+    C --> D[BM Session Note]
+    D --> E[Obsidian Session Note]
+    E --> F[Obsidian Daily Note]
+    F --> G[Detect Structural Delta]
+    G --> H[Clear Handoff opt-in]
 ```
 
 | Step | System | Output | Audience |
 |------|--------|--------|----------|
 | Resolve Project | -- | BM path, Obsidian path, base tags | Internal |
+| Load Handoff | filesystem | Latest snapshot folded into context | Internal |
 | Auto-Memory | Claude Code | Updated memory files | Agents |
 | BM Session | Basic Memory | Session note (facts + reasoning) | Agents |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
-| Cleanup | filesystem | Empty session dump file | Internal |
+| Cleanup | filesystem | Empty handoff file (opt-in) | Internal |
 
 ## Usage
 
@@ -53,9 +55,10 @@ close session
 A: The corresponding step is skipped with a warning. The other steps
 continue. The skill is best-effort across systems.
 
-**Q: Does it ask before clearing the session dump?**
-A: No. The dump is ephemeral by design and is cleared at the end of
-every wrap-up. Cleanup is unconditional.
+**Q: Does it ask before clearing the session handoff?**
+A: Yes. The handoff persists across sessions by design, so wrap-up
+asks before clearing it. Decline to keep snapshot history; accept to
+reset.
 
 **Q: Can I run wrap-up multiple times in a day?**
 A: Yes. Existing notes are detected and appended to rather than

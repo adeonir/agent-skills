@@ -277,31 +277,6 @@ If all tasks done (or all inline steps done for Medium scope):
 - Set `status: to-review`
 - Do NOT set `status: done` -- audit owns that transition
 
-### Step 9a: Session Dump
-
-Implementation is complete. Suggest a context dump before queuing
-discoveries and the approval gate — this is the safest moment to clear
-the window before audit.
-
-> Implementation complete. Append a phase summary to
-> `.artifacts/.session-dump.md` and clear the context before audit? (y/n)
-
-If the user accepts:
-
-- If `.artifacts/.session-dump.md` does not exist, create it with
-  `# Session Dump` as the H1
-- Append one block using the session dump template (see
-  [phases.md](phases.md)) — record only what an artifact does not
-  already capture (unstated decisions, runtime surprises, follow-ups
-  for audit). Do not duplicate spec.md / design.md / tasks.md content
-- Confirm the dump was written; the user clears the window manually
-
-If the user declines or skips: continue in the current window without
-dumping.
-
-The dump is ephemeral cross-phase memory — the end-of-session wrap-up
-reads it, then the file is disposable.
-
 ### Step 10: Queue Discoveries
 
 Load [knowledge.md](knowledge.md) for format.

@@ -112,7 +112,6 @@ modify existing auth flow to add 2FA
 └── knowledge.md                   # Cross-feature decisions and gotchas
 
 .artifacts/
-├── .session-dump.md               # Cumulative phase log (ephemeral, optional)
 ├── features/
 │   └── 001-feature/
 │       ├── spec.md                # Requirements (WHAT)
@@ -173,14 +172,6 @@ across features.
 
 A: Artifacts are disposable — they exist during development and can be
 safely deleted when the feature is complete.
-
-**Q: What is `.session-dump.md`?**
-
-A: An optional cumulative log that records decisions, discoveries, and
-blockers as phases complete. Each phase appends to it, building a
-running record of the session. The end-of-session wrap-up reads it to
-compose notes. The file is ephemeral and can be deleted after the
-session ends.
 
 **Q: When should I use quick mode vs full pipeline?**
 

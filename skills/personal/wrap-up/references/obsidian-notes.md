@@ -9,8 +9,8 @@ using MCPVault MCP tools directly.
 - Daily note: always (even when session note is skipped)
 - Runs after BM notes
 - Depends on mapping output (Obsidian path, base tags) and on the
-  session-dump Load phase (latest block folded — Discoveries → Findings,
-  Decisions → Decisions, Next Context → Next)
+  handoff Load phase (latest snapshot folded — Findings → Findings,
+  Decisions → Decisions, Next step + Open threads → Next)
 
 ## Obsidian Syntax Rules
 
@@ -123,14 +123,18 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for typed edges that add graph value
 
-When `session-dump.md` Load surfaced a latest phase block, fold its
+When the handoff Load phase surfaced a latest snapshot, fold its
 bullets in before composing the note:
 
-- `**Discoveries:**` → brief bullets in `## Findings`
+- `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name
   rejected alternatives when applicable)
-- `**Next Context:**` → `## Next` bullets, preserving the concrete
-  entry point
+- `**Next step:**` and `**Open threads:**` → `## Next` bullets,
+  preserving the concrete entry point
+- `**Blockers:**` → `## Problems` bullets when applicable, or
+  `## Next` flagged as blocking
+- `**Focus:**` and `**References:**` → contribute to the
+  `## Summary` narrative; not a dedicated section
 
 #### Write
 
@@ -264,7 +268,7 @@ Rules:
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
 - Keep daily note as outcomes and tasks in bullets, not a detailed log
-- Map session-dump Discoveries → Findings bullets, Decisions → Decisions, Next Context → Next
+- Map handoff Findings → Findings bullets, Decisions → Decisions, Next step + Open threads → Next, Blockers → Problems or Next
 
 **DON'T:**
 - Call any skill — use MCPVault MCP tools directly

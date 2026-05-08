@@ -108,4 +108,3 @@ images, briefs, or a codebase. Without discovery, the skill misroutes —
 running landing-page presets on a mobile app, or pulling tokens from a
 codebase the user wants to leave alone. The 30 seconds discovery costs
 saves the alternative of redoing the whole flow.
-

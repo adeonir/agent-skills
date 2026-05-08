@@ -30,6 +30,7 @@ npx skills add adeonir/agent-skills
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
 | **[domain-model](skills/product/domain-model)** | Product | Translate PRD business rules and journeys into domain entities, invariants, bounded contexts, and a living contract for system-design and spec-driven |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
+| **[session-handoff](skills/personal/session-handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
 | **[session-notes](skills/personal/session-notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
 
@@ -59,7 +60,7 @@ flowchart TD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
-**debug-tools**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
+**debug-tools**, **session-handoff**, **session-notes**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
 
 ## Typical Greenfield Flow
 
@@ -76,10 +77,11 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 **Always available:**
 
 ```
-debug-tools     --> investigate and fix issues
-project-index   --> scan codebase and generate context (brownfield or re-index)
-session-notes   --> document work in Obsidian
-wrap-up         --> persist session context across memory systems
+debug-tools      --> investigate and fix issues
+project-index    --> scan codebase and generate context (brownfield or re-index)
+session-handoff  --> save/resume conversation state across sessions
+session-notes    --> document work in Obsidian
+wrap-up          --> persist session context across memory systems
 ```
 
 ## Using the Flow

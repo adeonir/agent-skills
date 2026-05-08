@@ -3,9 +3,9 @@ name: wrap-up
 description: >-
   End-of-session command that persists context across auto-memory,
   Basic Memory, and Obsidian. Resolves project from local registry,
-  loads any ephemeral session dump, then writes auto-memory updates,
-  a BM session note, an Obsidian session note (when configured), and
-  an Obsidian daily note. Use when finishing a work session, saving
+  loads any session handoff, then writes auto-memory updates, a BM
+  session note, an Obsidian session note (when configured), and an
+  Obsidian daily note. Use when finishing a work session, saving
   progress before clearing context, or documenting what was
   accomplished. Triggers: "wrap up", "wrap-up", "end session",
   "finish up", "close session". Not for mid-session note-taking
@@ -19,15 +19,15 @@ End-of-session documentation across auto-memory, Basic Memory, and Obsidian.
 ## Workflow
 
 ```
-mapping --> session-dump:Load --> auto-memory --> bm-notes -->
-  obsidian-notes --> session-dump:Detect+Cleanup
+mapping --> handoff:Load --> auto-memory --> bm-notes -->
+  obsidian-notes --> handoff:Detect+Cleanup
 ```
 
-Resolve project from current working directory, load any ephemeral
-session dump (when present), then execute the four note-writing steps
-in sequence. No confirmation between steps. The closing step runs
-structural-delta detection — silent unless a delta fires — and then
-unconditionally clears the dump file.
+Resolve project from current working directory, load any session
+handoff (when present), then execute the four note-writing steps in
+sequence. No confirmation between note-writing steps. The closing
+step runs structural-delta detection — silent unless a delta fires —
+then asks before clearing the handoff file.
 
 ## Triggers
 
@@ -38,11 +38,11 @@ The skill is single-trigger: every invocation runs the full workflow.
 Loading order:
 
 1. [mapping.md](references/mapping.md) — resolve project paths and base tags
-2. [session-dump.md](references/session-dump.md) (Load phase) — fold latest phase block when present
+2. [handoff.md](references/handoff.md) (Load phase) — fold latest snapshot when present
 3. [auto-memory.md](references/auto-memory.md) — update Claude Code memory
 4. [bm-notes.md](references/bm-notes.md) — write Basic Memory session note
 5. [obsidian-notes.md](references/obsidian-notes.md) — write Obsidian session + daily notes
-6. [session-dump.md](references/session-dump.md) (Detect + Cleanup phases) — re-index hint + clear dump
+6. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — re-index hint + opt-in clear
 
 ## Guidelines
 
@@ -71,9 +71,9 @@ uses `#hashtags` and `## Relations` typed edges. Cross-pollinating the
 formats produces invalid notes in both systems. Each tool gets its own
 format, end of story.
 
-## Anti-Pattern: Re-Reading the Session Dump
+## Anti-Pattern: Re-Reading the Session Handoff
 
-The session dump is read once during the Load phase and shared via
+The session handoff is read once during the Load phase and shared via
 working context with downstream references. Re-reading the file in
 bm-notes or obsidian-notes wastes I/O and risks divergence if the file
-changes mid-flow. Load once, share, then clear.
+changes mid-flow. Load once, share, then ask before clearing.
