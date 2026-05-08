@@ -1,26 +1,20 @@
 ---
 name: git-helpers
 description: >-
-  Git workflow helper for conventional commits, confidence-scored
-  code review, pull request management, and branch lifecycle. Use when
-  committing changes, reviewing code, creating PRs, merging branches, or
-  when the user is done coding and ready to commit, wants feedback on
-  changes, needs to push and open a PR, or wants to finish and merge a
-  branch.
-when_to_use: >-
-  Triggers on "commit this", "create a commit", "code review",
-  "review this PR", "review this diff", "review the changes", "push this",
-  "ready to push", "ready to commit", "create PR", "open a pull request",
-  "summarize changes", "finish branch", "merge branch", "merge PR",
-  "cleanup branch". Not for acceptance-criteria verify (use spec-driven
-  "verify implementation"), visual design review (use design-builder
-  "UI design review"), or session wrap-up (use wrap-up).
-effort: medium
+  Git workflow helper for conventional commits, confidence-scored code
+  review (lens fan-out: security, bugs, data-loss, performance,
+  guidelines), PR description generation, pull request creation, and
+  branch lifecycle. Use when committing changes, reviewing code,
+  creating PRs, merging branches, or when ready to commit / push / open
+  a PR / finish a branch. Triggers: "commit this", "create a commit",
+  "code review", "review this PR", "review this diff", "push this",
+  "ready to push", "create PR", "open a pull request", "summarize
+  changes", "finish branch", "merge branch", "merge PR", "cleanup
+  branch". Not for acceptance-criteria verification, visual design
+  review, or session wrap-up.
 ---
 
 # Git Helpers
-
-**Recommended effort:** medium for code review; low for commit, PR, and branch operations.
 
 Git workflow with conventional commits, confidence-scored code review,
 and automated PR management.
@@ -31,71 +25,79 @@ and automated PR management.
 commit --> review --> summary --> create-pull-request --> finish-branch
 ```
 
-Each step is independent. Use any workflow in isolation or chain them together.
-
-## Sub-agent Dispatch
-
-Code review parallelizes via lens fan-out. After the main agent annotates the diff and clears the size gate, it selects active lenses based on the changed files (minimum 3, maximum 5), then dispatches them in a single turn -- each reads the same annotated diff under a focused scope and returns markdown findings. The main agent consolidates (dedup, severity sort, gap detection, partial-run handling) and renders the final report.
-
-- **Lens sub-agents** -- up to five scopes (`security`, `bugs`, `data-loss`, `performance`, `guidelines`). `security`, `bugs`, and `guidelines` always run; `data-loss` and `performance` activate only when the diff contains relevant patterns (see code-review.md Step 7). Each receives `ANNOTATED_DIFF` (with `[L<n>]` line markers as the citation allowlist), the lens-specific scope, and the universal rules block (code-review.md Step 8).
-- **Consolidation is main-agent work** -- dedup across lenses on `file:line`, severity-sorted output, gap detection, highlight collation, and partial-run header when a lens errors (code-review.md Step 9). Cross-lens visibility cannot be split across sub-agents.
-
-Commit, summary, create-pull-request, and finish-branch run inline on the main agent (single-output workflows, no fan-out value).
-
-## Context Loading Strategy
-
-Load only the reference matching the current trigger. Never load multiple references simultaneously unless explicitly noted (code-review.md loads guidelines-audit.md as part of its process).
+Each step is independent. Use any workflow in isolation or chain them
+together.
 
 ## Triggers
 
-| Trigger Pattern | Reference |
-|-----------------|-----------|
-| Commit changes, create commit, done, ready to commit | [commit.md](references/commit.md) |
-| Review code, check changes, check my code | [code-review.md](references/code-review.md) |
-| Summarize changes, generate PR description | [summary.md](references/summary.md) |
-| Push branch, create PR, open pull request, ready to push | [create-pull-request.md](references/create-pull-request.md) |
-| Finish branch, merge branch, merge PR, cleanup branch | [finish-branch.md](references/finish-branch.md) |
+- **Commit changes** ("commit this", "create commit", "ready to commit",
+  "done") → [commit.md](references/commit.md)
+- **Code review** ("review code", "check changes", "review my diff")
+  → [code-review.md](references/code-review.md) (loads
+  [guidelines-audit.md](references/guidelines-audit.md) as a lens prompt)
+- **PR description** ("summarize changes", "generate PR description")
+  → [summary.md](references/summary.md)
+- **Push and open PR** ("push this", "create PR", "open pull request",
+  "ready to push") →
+  [create-pull-request.md](references/create-pull-request.md)
+- **Merge and clean up** ("finish branch", "merge branch", "merge PR",
+  "cleanup branch") → [finish-branch.md](references/finish-branch.md)
 
-Notes:
+`guidelines-audit.md` is not a direct trigger — it is the lens prompt
+loaded by `code-review.md` during the guidelines lens fan-out.
 
-- `guidelines-audit.md` is not a direct trigger. It is loaded by `code-review.md` as part of the review process.
+## Code Review Fan-Out
 
-## Cross-References
+`code-review.md` parallelizes via lens fan-out. After the main agent
+annotates the diff and clears the size gate, it selects active lenses
+based on changed files (minimum 3, maximum 5), then dispatches them in a
+**single turn** — each reads the same annotated diff under a focused
+scope and returns markdown findings.
 
-```
-code-review.md -------------> guidelines-audit.md (loaded by guidelines lens at fan-out)
-create-pull-request.md -----> templates/pull-request.md (PR body template)
-finish-branch.md -----------> commit.md (squash commit message conventions)
-```
+| Lens | Scope | When active |
+|------|-------|-------------|
+| `security` | SQL injection, XSS, auth bypass, secrets, PII | always |
+| `bugs` | Logic errors, runtime failures, swallowed errors | always |
+| `guidelines` | Violations of project guideline files | always |
+| `data-loss` | Destructive migrations, wrong delete predicates | when diff matches data patterns |
+| `performance` | N+1 queries, sequential awaits, unbounded find | when diff matches perf patterns |
+
+After the fan-out, the main agent consolidates: dedup on `file:line`,
+severity sort, gap detection, partial-run handling. Cross-lens
+visibility cannot be split across sub-agents.
+
+Commit, summary, create-pull-request, and finish-branch run inline on
+the main agent (single-output workflows, no fan-out value).
 
 ## Guidelines
 
-**DO:**
-- Preview commit messages before committing -- always show and ask for confirmation
-- Use confidence scoring: only report findings with confidence >= 80
-- Default base branch: main (user can override)
+- Preview commit messages before committing — always show and ask for
+  confirmation
+- Use confidence scoring: only report findings with confidence ≥ 80
+- Default base branch: `main` (user can override)
 - Use imperative mood in commit messages and PR titles
 - Use HEREDOC format for multi-line commit messages
-- Analyze actual diff and staged files
+- Analyze the actual diff and staged files, not conversation context
 - Follow existing project conventions for commit message format
-- Prefer single-line commit messages -- only add body for complex or breaking changes
+- Prefer single-line commit messages — only add a body for complex or
+  breaking changes
 
-**DON'T:**
-- Add attribution lines in commit messages or PRs
-- Base analysis on conversation context instead of actual diff
-- Report findings with confidence < 80
-- Override project conventions with generic rules
+## Anti-Pattern: Conversation-Driven Commits
 
-## Output
+Writing the commit message from chat context produces fabricated quotes,
+restated diff content, and missing rationale. The staged diff is the
+single source of truth. Discard prior context, run `git diff --cached`,
+and write the message from what the diff shows.
 
-| Reference | Output |
-|-----------|--------|
-| summary.md | `PR_SUMMARY.md` (PR description with impact assessment) |
-| code-review.md | Terminal output or PR comment (optionally saved to `CODE_REVIEW.md`) |
+## Anti-Pattern: Confidence Inflation in Code Review
 
-## Error Handling
+Reporting findings below 80 confidence buries real issues under noise.
+The rubric is calibrated: <80 means speculation or style preference, not
+a real bug. When unsure, drop down — gather more context, re-read the
+diff — instead of pushing a low-confidence finding through.
 
-- No changes to commit: inform user working tree is clean
-- gh cli not available: stop and inform user to install it
-- No guideline files found: skip guidelines audit, report it
-- Merge conflicts: stop and inform user to resolve first
+## Anti-Pattern: Default GitHub Merge Subject
+
+The default `Merge pull request #N from {branch}` message strips
+intent and conventional commit type. Always pass a custom subject:
+`{type}: {description} (#{pr-number})`.

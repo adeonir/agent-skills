@@ -60,7 +60,9 @@ Use Write tool to create the file with the template below.
 
 ## PR_SUMMARY.md Template
 
-```markdown
+ALWAYS use this exact template structure:
+
+````markdown
 # Brief Descriptive Title
 
 ## Summary
@@ -136,7 +138,7 @@ Use Write tool to create the file with the template below.
 ## Additional Notes
 
 [Any additional context or considerations]
-```
+````
 
 ## Guidelines
 

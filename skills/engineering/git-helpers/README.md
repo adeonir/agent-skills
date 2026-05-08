@@ -2,12 +2,6 @@
 
 Git workflow skill for conventional commits, confidence-scored code review, PR description generation, and pull request creation.
 
-## Installation
-
-```bash
-npx skills add adeonir/agent-skills --skill git-helpers
-```
-
 ## What It Does
 
 Streamlines the git workflow from local changes to merged PR:
@@ -20,82 +14,60 @@ flowchart LR
     D --> E[Finish]
 ```
 
-1. **Commit** - Creates well-formatted conventional commit messages
-2. **Review** - Finds bugs, security issues, and guideline violations
-3. **Summary** - Generates PR description with impact assessment (saves to `PR_SUMMARY.md`)
-4. **Create PR** - Pushes branch and creates pull request via GitHub CLI
-5. **Finish Branch** - Prepares branch (rebase/squash/merge), merges PR, cleans up
+| Phase | Output |
+|-------|--------|
+| Commit | Conventional commit message based on staged diff |
+| Review | Lens-based findings (security, bugs, data-loss, performance, guidelines) with confidence ≥ 80 |
+| Summary | `PR_SUMMARY.md` with impact assessment |
+| Create PR | Pushed branch + opened pull request via `gh` CLI |
+| Finish Branch | Branch updated, merged, deleted local + remote |
 
 ## Usage
 
-Use any workflow independently or chain them together:
+Use any workflow independently or chain them:
 
 ```
-# Commit
 commit these changes
 commit only staged files
 
-# Review
 review my changes
 review against main
 code review and post as PR comment
 
-# Summary
 summarize these changes
 generate PR description
 
-# Create PR
 push and create PR
 create pull request against main
 
-# Finish Branch
 finish branch
 merge branch
 merge PR
+```
 
-# Chained workflow
+### Quick bug fix
+
+```
+# commit and ship without full review
+commit these changes
+push and create PR
+```
+
+### Feature with full review
+
+```
 commit these changes
 review my changes
 summarize these changes
 push and create PR
 finish branch
-```
-
-### Quick Bug Fix
-
-```
-# You fixed a bug and want to commit
-commit these changes
-# Output: "fix: resolve null pointer in user service"
-
-# Create PR directly (skip review for hotfix)
-push and create PR
-```
-
-### Feature with Full Review
-
-```
-# You implemented a new feature
-commit these changes
-# Output: "feat: add email notifications for orders"
-
-# Review before pushing
-review my changes
-# Output: CODE_REVIEW.md with findings
-
-# Generate detailed PR description
-summarize these changes
-# Output: PR_SUMMARY.md created
-
-# Push and create PR
-push and create PR
 ```
 
 ## Output
 
 | Workflow | Artifact |
 |----------|----------|
-| Review | `CODE_REVIEW.md` (findings with confidence scores) |
+| Review | `CODE_REVIEW.md` (findings with confidence scores) — optional, only when user asks to save |
 | Summary | `PR_SUMMARY.md` (PR description with impact assessment) |
 
 ## Requirements
@@ -103,25 +75,32 @@ push and create PR
 - Git
 - `gh` CLI (for PR operations)
 
-## Integration
-
-| Skill | How git-helpers connects |
-|-------|-------------------------|
-| **spec-driven** | Commit and PR workflows after completing implementation tasks |
-
 ## FAQ
 
 **Q: Do I need to stage files before committing?**
-A: No. By default, the skill stages all modified/new files. Use "commit only staged files" if you prefer to stage manually.
+A: No. By default, the skill stages all modified/new files. Use "commit
+only staged files" if you prefer to stage manually.
 
 **Q: What base branch is used for comparisons?**
-A: Defaults to `main`. You can override by specifying explicitly: "review against develop".
+A: Defaults to `main`. Override by specifying explicitly: "review
+against develop".
 
 **Q: Why are some issues not reported?**
-A: The skill uses conservative confidence scoring (>= 80). Style preferences, hypothetical issues, and "could be simplified" suggestions are intentionally skipped.
+A: The skill uses conservative confidence scoring (≥ 80). Style
+preferences, hypothetical issues, and "could be simplified" suggestions
+are intentionally skipped.
 
 **Q: Can I use this without `gh` CLI?**
-A: Yes, for commit and review workflows. PR creation requires `gh` CLI.
+A: Yes, for commit and review workflows. PR creation and merge
+operations require `gh` CLI.
 
 **Q: How does the guidelines audit work?**
-A: It searches for CLAUDE.md and AGENTS.md files in your repository root and checks if your changes comply with documented rules.
+A: It searches for `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, and
+`.editorconfig` files inside the repository root and checks if changes
+comply with documented rules. Personal global settings (e.g.,
+`~/.claude/CLAUDE.md`) are excluded.
+
+**Q: What's the size limit for code review?**
+A: 3000 lines or 40 files. Above that, the review stops and suggests
+splitting the branch — beyond those limits, fan-out lenses can no
+longer reliably hold the full diff in context.
