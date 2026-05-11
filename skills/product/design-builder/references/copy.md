@@ -108,11 +108,14 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{project-name}}
-source: {{url, captured region, brief file, or description}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources:
+  - {{url, captured region, brief file, or description}}
 project_type: {{landing-page/website/web-app/mobile-app}}
 language: {{en/pt/es/etc}}
 industry: {{fintech/health/saas/ecommerce/etc}}
-created: {{YYYY-MM-DD}}
 ---
 
 # Copy Extraction: {{Project Name}}
