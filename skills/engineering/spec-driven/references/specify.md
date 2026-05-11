@@ -150,6 +150,35 @@ scope and refined with implementation detail.
 **If input is empty:**
 - Ask user for feature description
 
+**Detect defect origin:**
+
+The spec captures WHAT to build, including for fixes. When the input
+originates from a defect, the spec must be framed around the correct
+behavior (the root), not the absence of a symptom.
+
+Defect signals (apply when any match):
+- Input file is a bug or issue ticket artifact (e.g.,
+  `.artifacts/epics/.../bugs/`, `.artifacts/epics/.../issues/`)
+- Input file frontmatter has `type: bug` or `type: issue`
+- Description contains defect keywords: `fix`, `bug`, `error`,
+  `broken`, `regression`, `crash`, `falha`, `quebrou`,
+  `não funciona`, "stopped working", "throws", "fails"
+
+When defect signals match:
+- Set frontmatter `origin: defect` (default `origin: feature`)
+- Frame Goals around the correct behavior, not the absence of a
+  symptom. Prefer "Token expiry check accepts boundary timestamp" over
+  "Users no longer see login errors at boundary times". The first
+  defines the root; the second defines the symptom.
+- Each AC asserts the correct behavior, including for the case that
+  used to fail. Symptom-only ACs ("no 500 in logs", "no toast appears")
+  are insufficient on their own -- pair with a behavior AC.
+
+Investigation of the cause is NOT performed in specify -- that work
+belongs to design (Large/Complex) or to Step 6 Diagnose in quick-mode
+(Small). Specify captures the problem and the success behavior; the
+how comes later.
+
 ### Step 7: Feature Discovery
 
 Load [discovery.md](discovery.md) and conduct feature discovery. If input came
@@ -281,6 +310,7 @@ check silently.
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
 - [ ] Each story is a commit boundary: no AC depends on work belonging to a later story (move it if so)
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
+- [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
@@ -387,6 +417,7 @@ sources: []
 id: {{ID}}
 feature: {{name}}
 type: {{greenfield|brownfield}}
+origin: {{feature|defect}}
 scope: {{medium|large|complex}}
 branch: {{branch-name or main}}
 ---

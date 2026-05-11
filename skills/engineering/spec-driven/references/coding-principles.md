@@ -26,6 +26,7 @@ Auto-loaded by implement.md before writing code. Not a direct trigger.
 | Unnecessary refactoring | Cleaning up code outside the task scope | Only touch files listed in the design |
 | Speculative features | Adding config options "just in case" | Implement exactly what the spec requires |
 | Gold plating | Adding extra error handling, logging, or comments beyond requirements | Match the project's existing level of detail |
+| Symptom masking | Wrapping in `try/catch`, returning a fallback default, or silently recovering to make an error stop appearing | Diagnose the root cause (file:line of the first incorrect decision), fix there. If a workaround is genuinely needed, label it in code with the underlying defect and capture a follow-up |
 
 ## Decision Framework
 
@@ -35,5 +36,9 @@ Before writing code, ask:
 2. Does the design specify this file/component?
 3. Am I following the project's existing pattern for this?
 4. Is this the minimal change that satisfies the task?
+5. If this is a fix: does it address the root cause (file:line of the
+   first incorrect decision), or does it suppress the symptom? If
+   suppressing, is it explicitly labeled as a workaround with a
+   captured follow-up?
 
 If any answer is "no", reconsider the change.

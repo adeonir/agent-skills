@@ -250,13 +250,21 @@ Subagent brief:
 - Process: follow Step 11 (Data Model, including its closing checklist
   criteria internally), Step 12 (Dependency Inversion -- silent
   reasoning, never echoed into chunks), Step 13 prep (organize chunks
-  per template section). Anchor every claim about an existing type
-  with `file:line` from the exploration's Member Enumeration. Resolve
-  any internal `[fail]` against Step 11's checklist criteria before
-  returning.
+  per template section). When `spec.md` frontmatter has `origin:
+  defect`, also produce the Root Cause block (hypothesis at file:line,
+  evidence, confidence, fix-type) -- read the suspected sources to
+  anchor the hypothesis, never speculate. Anchor every claim about an
+  existing type with `file:line` from the exploration's Member
+  Enumeration. Resolve any internal `[fail]` against Step 11's
+  checklist criteria before returning.
 - Return shape (structured slot fillers per template section, no
   surrounding prose):
   - Scope: in-scope, out-of-scope bullets
+  - Root Cause (only when `spec.md` frontmatter has `origin: defect`):
+    hypothesis (one sentence at file:line granularity), evidence rows
+    (repro signal, log/stack/trace, file:line of first incorrect
+    decision), confidence (high/medium/low), fix-type plan
+    (root-fix or workaround with justification)
   - Research Summary: bullets per cached topic (or empty)
   - Patterns & Reuse: Conventions rows, Existing Code rows,
     Reused Component Contracts rows (when feature reuses a shared
@@ -329,6 +337,8 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] Every `Reused Component Contracts` and `Reused Utility Contracts` row has a real `file:line` in Source
 - [ ] When more than one task produces a value another task consumes, `Cross-Task Value Trace` is populated with one row per hop
 - [ ] Every Decisions row that fixes a numeric default, cap, or implicit upper bound has a non-empty `Worst-Case Consumer` cell with `file:line`
+- [ ] If `spec.md` `origin: defect`: `## Root Cause` section is present with hypothesis cited to `file:line`, evidence (repro signal, stack/trace), confidence, and fix-type. If fix-type is `workaround`, the justification names the root defect, why root-fix is out of scope, and the follow-up reference
+- [ ] If `spec.md` `origin: defect`: Decisions includes a row distinguishing the fix mechanism (root-fix vs workaround) with rationale -- never a defensive `try/catch`, fallback default, or silent recovery without explicit workaround labeling
 
 ### Step 12: Dependency Inversion Check (implicit)
 
@@ -368,6 +378,8 @@ stale — template wins on structure.
 
 Generate the design following the template structure:
 - Scope (what is in scope and out of scope)
+- Root Cause (only when `spec.md` `origin: defect`; hypothesis at
+  file:line + evidence + confidence + fix-type)
 - Research Summary (if applicable)
 - Patterns & Reuse (conventions to follow + existing code to reuse + Reused Component Contracts when applicable + Reused Utility Contracts + integration points with existing systems)
 - Data Model (Entities, Relationships, API Contracts, Currently Exposed Fields when ACs enumerate fields)
@@ -420,6 +432,8 @@ Do not start code-producing phases (`implement`) without explicit user approval 
 - Read the source of every reused component and utility before filling its contract row -- preconditions, defaults, internal rules come from the code, not the name
 - Trace cross-task values explicitly when one task produces and another consumes -- one row per hop in `Cross-Task Value Trace`
 - Cite the worst-case consumer (file:line) for every numeric default, cap, or implicit upper bound -- derive the value from that consumer
+- For `origin: defect` specs: produce `## Root Cause` with hypothesis at file:line, evidence, confidence, and fix-type before drafting Decisions
+- For `origin: defect` specs: surface the fix mechanism (root-fix vs workaround) as a Decisions row -- the choice is design-level, not implementation-level
 
 **DON'T:**
 - Start designing with unresolved open questions in the spec
@@ -433,6 +447,7 @@ Do not start code-producing phases (`implement`) without explicit user approval 
 - Treat a reused component or utility as a black box (contrasts: read its source for preconditions, defaults, and internal rules)
 - Lift a numeric default from an existing consumer's intrinsic value (contrasts: derive from the worst-case consumer with file:line)
 - Reason at "checkbox" level about cross-task values ("isXUrl matches, so the path runs") (contrasts: simulate the actual transformation through every hop in `Cross-Task Value Trace`)
+- Propose a defensive `try/catch`, fallback default, or silent recovery as the fix without diagnosing the cause first (contrasts: produce `## Root Cause` with file:line evidence, then either root-fix or labeled workaround with a follow-up)
 
 ## Design Template
 
@@ -454,6 +469,28 @@ feature: {{name}}
 ## Scope
 
 {{What is in scope and out of scope for this feature}}
+
+{{#if defect}}
+## Root Cause
+
+Required when `spec.md` has `origin: defect`. Investigation belongs to
+design, not to the spec or the ticket. Hypothesis must be at file:line
+granularity, anchored by reading the suspected sources -- not by
+restating the symptom.
+
+- **Hypothesis:** {{one sentence naming the wrong behavior at file:line — e.g., "expiry check uses `<` instead of `<=` at auth.ts:42, so boundary timestamps are rejected"}}
+- **Evidence:**
+  - Repro signal: {{log excerpt, failing test name, stack trace, observable behavior}}
+  - First incorrect decision: {{file:line where the path diverges from the correct one}}
+  - Supporting cites: {{additional file:line references that confirm the chain}}
+- **Confidence:** {{high | medium | low}}
+- **Fix type:** {{root-fix | workaround}}
+- **Workaround justification (only if fix type is workaround):** {{why root-fix is out of scope, name of the root defect, follow-up reference (ticket id / spec id / knowledge.md entry)}}
+
+The fix mechanism must appear as a row in `## Decisions` so the choice is
+traceable. Never use a defensive `try/catch`, fallback default, or
+silent recovery without an explicit workaround label.
+{{/if}}
 
 ## Research Summary
 

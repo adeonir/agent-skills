@@ -54,7 +54,7 @@ Read `package.json` (or equivalent for the stack):
 - Test script
 
 Record the actual commands for this project -- they go into the task file and
-run in Step 7. If a gate doesn't exist, write `n/a` instead of inventing one.
+run in Step 8. If a gate doesn't exist, write `n/a` instead of inventing one.
 
 ### Step 4: Create Task File
 
@@ -95,9 +95,52 @@ research in Large/Complex scope.
 If 1-2 queries insufficient (deeper unknowns surface, multiple unfamiliar
 APIs, conflicting docs): stop and escalate via Scope Escalation.
 
+### Step 6: Diagnose Root Cause (defect inputs only)
+
+Skip when the task is a feature addition, config tweak, refactor, or
+text-level change.
+
+**Trigger signals (apply when any match):**
+- Input is a bug/issue ticket artifact (e.g., from epic-tracker)
+- Description contains defect keywords: `fix`, `bug`, `error`, `broken`,
+  `regression`, `crash`, `falha`, `quebrou`, `não funciona`, "stopped
+  working", "throws", "fails"
+
+**Required before Step 7:**
+
+1. **Reproduce or trace the failure**: confirm the symptom from logs,
+   stack trace, repro steps, or a failing test. If you cannot observe
+   the failure, stop and ask the user for repro before proceeding.
+2. **Locate the defect**: identify the file:line where the wrong
+   behavior originates -- not where the symptom surfaces. Follow the
+   call chain back to the first incorrect decision.
+3. **State the hypothesis**: one sentence describing the actual cause
+   ("`<` should be `<=` in expiry check at auth.ts:42", not "auth is
+   broken").
+4. **Capture in `task.md`** under a new `## Diagnosis` section
+   (template below): hypothesis, evidence (file:line + repro signal),
+   confidence (high / medium / low).
+
+**Root-fix vs workaround:**
+
+The default is fix at the root. A workaround is acceptable only when:
+- The root fix is out of scope for this task (different layer, owned
+  by another team, requires migration), AND
+- The workaround is explicitly labeled in code with a comment naming
+  the underlying defect, AND
+- The root defect is captured as a follow-up (`follow_up` in
+  frontmatter, or a separate ticket)
+
+Never use `try/catch`, default fallback, or silent recovery to hide a
+defect whose root cause has not been diagnosed. Suppressing a symptom
+without diagnosis is not a fix.
+
+If confidence is **low** after these steps, stop and escalate via
+Scope Escalation -- diagnosis needs depth quick-mode cannot give.
+
 ### Design is inline, not a phase
 
-Before Step 6, treat `task.md` as a hypothesis, not a contract. The author may
+Before Step 7, treat `task.md` as a hypothesis, not a contract. The author may
 have assumed one approach without weighing alternatives.
 
 Enumerate silently the 2-4 viable approaches. If only one exists, proceed. If
@@ -106,7 +149,7 @@ parity, library surface, reversibility, coupling to internal layouts), surface
 them to the user as a short trade-off table before writing code. Let the user
 pick — do not present a recommendation dressed as analysis.
 
-This is a precondition to Step 6, not a numbered step. Skipping it and
+This is a precondition to Step 7, not a numbered step. Skipping it and
 implementing task-as-written is executing a command, not collaborating on a
 design.
 
@@ -122,14 +165,19 @@ Skip signals (proceed without enumeration):
 - Rename or text-level refactor with no behavioral change
 - Dependency version bump with no API change
 
-### Step 6: Implement
+### Step 7: Implement
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
 
 1. Read relevant files
 2. Make the change -- match the patterns loaded in Step 5
+3. If Step 6 ran: the change must address the diagnosed root cause,
+   not the symptom. A defensive `try/catch`, default fallback, or
+   silent recovery is acceptable only when labeled as a workaround per
+   the rules in Step 6 (root-fix out of scope, comment naming the
+   defect, follow-up captured)
 
-### Step 7: Run Quality Gates and Verify
+### Step 8: Run Quality Gates and Verify
 
 Run in order. Static gates first; static failures short-circuit — do not execute
 the change until static gates pass. A typecheck or lint failure means the
@@ -148,7 +196,7 @@ Skip gates marked `n/a` in the task file. Fix errors before proceeding. If the
 same gate fails 3 times, stop and ask the user how to proceed -- never loop
 indefinitely.
 
-### Step 8: Save Discoveries (default: save)
+### Step 9: Save Discoveries (default: save)
 
 Append non-obvious findings to `.agents/knowledge.md` without asking. Real
 gotchas, verified patterns, and environmental quirks all qualify.
@@ -167,7 +215,7 @@ Format per [knowledge.md](knowledge.md). Never write to
 workflow. No prompt to integrate — the next design or implement flow
 will surface queued items.
 
-### Step 9: Update Task File
+### Step 10: Update Task File
 
 Set in `task.md` frontmatter:
 - `status: done`
@@ -175,7 +223,7 @@ Set in `task.md` frontmatter:
 - `patterns_discovered`: list of new patterns surfaced (or empty)
 - `follow_up`: side effects, related issues, improvements noticed but not addressed (or empty)
 
-### Step 10: Suggest Commit
+### Step 11: Suggest Commit
 
 Suggest a commit message following conventional commit conventions:
 - Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
@@ -208,12 +256,15 @@ When escalating, the quick task file serves as input for the specify phase.
 - Save discoveries by default; skip only when criteria above apply
 - Escalate to specify when in doubt about scope
 - Treat quick task artifacts as disposable after implementation
+- For defect inputs: diagnose before implementing -- hypothesis + evidence + confidence in `## Diagnosis` (Step 6)
+- For defect inputs: fix at the root, or label the workaround with the underlying defect
 
 **DON'T:**
 - Skip quality gates for small changes (contrasts: run static gates before executing)
 - Implement task-as-written without enumerating alternatives when trigger signals fire (contrasts: treat task.md as hypothesis)
 - Ask permission to record gotchas (contrasts: save by default)
 - Force quick mode when scope is uncertain (contrasts: escalate when in doubt)
+- Suppress a symptom with `try/catch`, default fallback, or silent recovery before diagnosing the cause (contrasts: Step 6 Diagnose, then root-fix)
 
 ## Quick Task Template
 
@@ -237,6 +288,16 @@ follow_up: {{list or empty}}
 ## What
 
 {{One-sentence description of the change}}
+
+{{#if defect}}
+## Diagnosis
+
+- **Hypothesis:** {{one-sentence root cause — e.g., "expiry check uses `<` instead of `<=` at auth.ts:42"}}
+- **Evidence:** {{file:line + repro signal — log excerpt, failing test, stack trace, observed behavior}}
+- **Confidence:** {{high | medium | low}}
+- **Fix type:** {{root-fix | workaround}}
+- **Workaround justification (if applicable):** {{why root-fix is out of scope + follow-up reference}}
+{{/if}}
 
 ## Files
 
