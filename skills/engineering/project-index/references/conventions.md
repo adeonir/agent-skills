@@ -36,8 +36,11 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-project: {{project-name}}
+name: {{project-name}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: active
+sources: []
 ---
 
 # Conventions
