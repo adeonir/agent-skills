@@ -199,6 +199,9 @@ ALWAYS use this exact template structure:
 ---
 name: {{document-name}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources: []
 ---
 
 # PRD

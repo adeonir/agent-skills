@@ -184,8 +184,11 @@ the determined size):
 ````markdown
 ---
 name: {{document-name}}
-size: {{core|medium|large}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources: []
+size: {{core|medium|large}}
 ---
 
 # TDD: {{Component Name}}
