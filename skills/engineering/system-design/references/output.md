@@ -11,15 +11,19 @@ Load after the architecture is confirmed by the user.
 
 ## System Brief
 
-Save to `.artifacts/docs/system-brief.md`. Create the directory if it
+Save to `.artifacts/docs/system.md`. Create the directory if it
 does not exist.
 
 ALWAYS use this exact template structure:
 
 ````markdown
 ---
-title: {{system-name}} — System Design Brief
+name: {{system-name}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources:
+  - .artifacts/docs/prd.md
 ---
 
 # {{System Name}} — System Design Brief
