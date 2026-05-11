@@ -20,6 +20,10 @@ ALWAYS use this exact template structure:
 ---
 name: {{project-name}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources:
+  - .artifacts/docs/prd.md
 ---
 
 # Domain Model — {{Project Name}}
