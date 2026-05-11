@@ -17,9 +17,31 @@ environment context.
 > collecting information — `epic.md` sets the scope and existing artifacts
 > provide naming context.
 
-### 1. Collect Information
+### 1. Parse Pasted Context
 
-Ask the user for (skip what's already provided):
+If the user pasted context (logs, error reports, dashboard
+screenshots, runbook output, monitoring data, conversation excerpts):
+
+1. **Extract signals** — pull out and structure:
+   - Links: deployment URLs, error tracker issue URLs,
+     observability/dashboard URLs, repo URLs
+   - Identifiers: request id, trace id, deployment id, commit hash,
+     user id
+   - Timestamps: when the error occurred, when first observed
+   - Environment: production/staging/local, runtime, version
+   - Stack trace and error message verbatim (keep in Signals, not
+     Summary)
+2. **Populate frontmatter `sources`** with every URL or id detected
+3. **Infer what you can** for severity (impact described?), repro
+   (steps mentioned?), workaround (mitigation mentioned?)
+4. **Ask only for gaps** — do not re-ask for fields already in the
+   paste
+
+If no context was pasted, proceed to step 2 and ask for all fields.
+
+### 2. Collect Information
+
+Ask the user for (skip what's already provided or inferred):
 
 1. **What happened vs what should happen** -- expected and actual
    behavior
@@ -31,13 +53,13 @@ Ask the user for (skip what's already provided):
 5. **Workaround** -- any known mitigation
 6. **Related epic** -- which epic this bug belongs to, if any
 
-### 2. Determine Location
+### 3. Determine Location
 
 - If the bug relates to an epic: save in that epic's folder
 - If standalone (no epic): save in `standalone/`
 - If unsure: ask the user
 
-### 3. Draft
+### 4. Draft
 
 Fill the template (below):
 
@@ -49,16 +71,25 @@ Fill the template (below):
 - **Status**: always starts as `planned`
 - **Severity**: critical, high, medium, or low
 - **Description**: expected vs actual behavior, impact statement
+- **Signals**: forensic data from logs/dashboards — links, ids,
+  timestamps, error excerpts; populate from pasted context, omit if
+  empty
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
 - **References**: link to parent epic, related stories, logs
 
-### 4. Review
+### 5. Review
 
-Present the draft to the user. Wait for feedback before saving.
+Present the draft to the user. Apply the resumption gate:
 
-### 5. Save or Push
+> **Resumption gate** — Can a future session resume work from this
+> ticket alone, with no chat history? If no, add the missing piece
+> (link, repro step, error excerpt, signal) before saving.
+
+Wait for feedback before saving.
+
+### 6. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):
@@ -117,6 +148,19 @@ severity: {{critical/high/medium/low}}
 ## Summary
 
 {{Brief one-sentence description of the defect.}}
+
+## Signals
+
+{Forensic data from logs/dashboards/error reports. Populate from pasted context. Remove this section if no signals are available.}
+
+- **Links:** {{deployment URL, error tracker issue, observability dashboard, repo URL}}
+- **Identifiers:** {{request id, trace id, deployment id, commit hash, user id}}
+- **First observed:** {{timestamp}}
+- **Error excerpt:**
+
+  ```
+  {{stack trace or error message verbatim}}
+  ```
 
 ## Expected
 

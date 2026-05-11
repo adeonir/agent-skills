@@ -19,14 +19,32 @@ tooling, research, CI/CD, documentation, or any chore-type work.
 > drafting — `epic.md` sets the scope and existing artifacts provide
 > naming context.
 
-### 1. Identify Epic (optional)
+### 1. Parse Pasted Context
+
+If the user pasted context (PR link, dependency advisory, config dump,
+runbook output, dashboard screenshot, thread excerpt):
+
+1. **Extract signals** — pull out and structure:
+   - Links: PR/issue URLs, advisory URLs, dashboard URLs, runbook URLs,
+     thread permalinks
+   - Identifiers: PR number, commit hash, dep version, deployment id
+   - Scope hints: services, file paths, or area mentioned
+   - Motivation: deadline, blocker, dependency, advisory severity
+2. **Populate frontmatter `sources`** with every URL or id detected
+3. **Infer the outcome** — what success looks like from the paste
+4. **Ask only for gaps** — do not re-ask for fields already in the
+   paste
+
+If no context was pasted, proceed to step 2.
+
+### 2. Identify Epic (optional)
 
 1. Ask the user whether this issue belongs to an epic or is standalone
 2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for
    context
 3. If standalone (no epic): place in `standalone/`
 
-### 2. Draft
+### 3. Draft
 
 Fill the template (below):
 
@@ -37,17 +55,24 @@ Fill the template (below):
 - **Epic**: parent epic name, or omit for standalone issues
 - **Status**: always starts as `planned`
 - **Description**: what needs to be done and why — one clear outcome
+- **Signals**: links and ids from pasted context — PRs, advisories,
+  configs, dashboards; omit if empty
 - **Checklist**: optional breakdown into sub-steps; omit if not needed
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit
   for trivial chores
 - **References**: link to parent epic, related stories, external docs
 
-### 3. Review
+### 4. Review
 
-Present the draft to the user. Wait for feedback before saving or
-pushing.
+Present the draft to the user. Apply the resumption gate:
 
-### 4. Save or Push
+> **Resumption gate** — Can a future session resume work from this
+> ticket alone, with no chat history? If no, add the missing piece
+> (link, advisory, config snippet, signal) before saving.
+
+Wait for feedback before saving or pushing.
+
+### 5. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):
@@ -106,6 +131,13 @@ epic: {{epic-name or omit for standalone}}
 ## Summary
 
 {{What needs to be done and why. One clear outcome.}}
+
+## Signals
+
+{Source links and identifiers from pasted context. Remove this section if not needed.}
+
+- **Links:** {{PR URLs, advisory URLs, dashboard URLs, runbook URLs}}
+- **Identifiers:** {{PR number, commit hash, dep version, deployment id}}
 
 ## Checklist
 
