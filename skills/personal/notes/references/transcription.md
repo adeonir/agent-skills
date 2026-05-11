@@ -59,8 +59,11 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-title: "{{Description}}"
-type: transcription
+name: {{transcription-slug}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: active
+sources: []
 date: {{YYYY-MM-DD}}
 context: {{meeting / 1:1 / feedback / standup / lecture / course / workshop / webinar}}
 tags:

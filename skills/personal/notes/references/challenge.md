@@ -52,12 +52,14 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-title: "{{Challenge Description}}"
-type: challenge
+name: {{challenge-slug}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: {{pending / completed / submitted / feedback-received}}
+sources: []
 company: {{company}}
 stack:
   - {{technology}}
-status: {{pending / completed / submitted / feedback-received}}
 tags:
   - challenge
   - interview

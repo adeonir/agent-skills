@@ -43,8 +43,11 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-title: "{{Project Name}} Overview"
-type: project
+name: {{project-slug}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: active
+sources: []
 stack:
   - {{technology}}
 tags:

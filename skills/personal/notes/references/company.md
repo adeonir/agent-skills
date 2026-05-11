@@ -52,11 +52,13 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-title: "{{Role}} — {{Company Name}}"
-type: company
+name: {{company-slug}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: {{applied / screening / interview / offer / rejected}}
+sources: []
 company: {{company-name}}
 role: {{role}}
-status: {{applied / screening / interview / offer / rejected}}
 stack:
   - {{technology}}
 tags:
