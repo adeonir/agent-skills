@@ -43,7 +43,7 @@ Fill the template (below) with discovered context:
 - **Rabbit Holes**: known complexities to flag early
 - **Acceptance Criteria**: high-level verifiable conditions for the epic
   as a whole (not per-story)
-- **References**: links to PRD, design doc, figma, or other sources
+- **References**: links to PRD, design doc, UI design, or other sources
 
 ### 3. Review
 
@@ -90,9 +90,10 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{epic-name}}
-title: {{Epic Title}}
-status: planned
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: planned
+sources: []
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github-issues | github-projects | jira
@@ -102,6 +103,8 @@ created: {{YYYY-MM-DD}}
 ---
 
 # {{Epic Title}}
+
+## Summary
 
 {{What the epic is about, why it exists, what changes for the user. Use a real scenario to illustrate the problem and the desired outcome.}}
 
@@ -135,7 +138,7 @@ created: {{YYYY-MM-DD}}
 
 - **PRD:** {{link or "None"}}
 - **Design Doc:** {{link or "None"}}
-- **Figma:** {{link or "None"}}
+- **UI Design:** {{link or "None"}}
 ````
 
 ## Error Handling

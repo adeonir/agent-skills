@@ -81,9 +81,10 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{release-name}}
-title: {{Release Title}}
-status: planned
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: planned
+sources: []
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github-issues | github-projects | jira
@@ -93,6 +94,8 @@ created: {{YYYY-MM-DD}}
 ---
 
 # {{Release Title}}
+
+## Summary
 
 {{What this release delivers, why these stories were grouped together, who benefits.}}
 

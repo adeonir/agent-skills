@@ -36,8 +36,8 @@ Fill the template (below):
   single Given/When/Then. Validated in Step 4 against rules V1-V7. See
   [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: known complexities specific to this story
-- **References**: link to parent epic, design doc, figma, or other
-  sources
+- **References**: link to parent epic, design doc, UI design, or
+  other sources
 
 ### 3. Review
 
@@ -96,6 +96,56 @@ replace the plain story name with a linked, numbered entry:
 - Include implementation details or technical design
 - Create stories without a parent epic (ask to create the epic first)
 - Duplicate acceptance criteria from the epic level
+
+## Template
+
+ALWAYS use this exact template structure:
+
+````markdown
+---
+name: {{story-name}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: planned
+sources: []
+epic: {{epic-name}}
+type: story
+# tracker block populated by sync.md after first push (omit until then):
+# tracker:
+#   kind: linear | github-issues | github-projects | jira
+#   id: PROJ-123
+#   url: https://...
+#   last_synced: YYYY-MM-DDTHH:MM:SSZ
+---
+
+# {{Story Title}}
+
+## Summary
+
+{{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
+
+## Acceptance Criteria
+
+### AC-1
+
+**Given** {{precondition}}
+**When** {{action}}
+**Then** {{expected outcome}}
+
+{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then.}
+
+## Rabbit Holes
+
+{Remove this section if not needed.}
+
+- {{Known complexity specific to this story}}
+
+## References
+
+- **Epic:** {{link to parent epic}}
+- **Design Doc:** {{link or "None"}}
+- **UI Design:** {{link or "None"}}
+````
 
 ## Error Handling
 

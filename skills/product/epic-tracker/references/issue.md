@@ -87,11 +87,12 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{issue-name}}
-title: {{Issue Title}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: planned
+sources: []
 type: issue
 epic: {{epic-name or omit for standalone}}
-status: planned
-created: {{YYYY-MM-DD}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github-issues | github-projects | jira
@@ -101,6 +102,8 @@ created: {{YYYY-MM-DD}}
 ---
 
 # {{Issue Title}}
+
+## Summary
 
 {{What needs to be done and why. One clear outcome.}}
 
