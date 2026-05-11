@@ -440,9 +440,13 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
+name: {{name}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources: []
 id: {{ID}}
 feature: {{name}}
-created: {{YYYY-MM-DD}}
 ---
 
 # Technical Design: {{Feature}}

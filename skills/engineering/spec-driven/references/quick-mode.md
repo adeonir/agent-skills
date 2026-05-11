@@ -221,10 +221,12 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-slug: {{slug}}
-status: pending
-branch: {{branch-name or main}}
+name: {{slug}}
 created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: pending
+sources: []
+branch: {{branch-name or main}}
 completed: {{YYYY-MM-DD or empty}}
 patterns_discovered: {{list or empty}}
 follow_up: {{list or empty}}

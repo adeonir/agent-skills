@@ -379,13 +379,16 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
+name: {{name}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: draft
+sources: []
 id: {{ID}}
 feature: {{name}}
 type: {{greenfield|brownfield}}
 scope: {{medium|large|complex}}
-status: draft
 branch: {{branch-name or main}}
-created: {{YYYY-MM-DD}}
 ---
 
 # Feature: {{Title}}

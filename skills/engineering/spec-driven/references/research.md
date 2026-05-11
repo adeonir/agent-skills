@@ -130,8 +130,11 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-topic: {{kebab-case-topic}}
-researched_at: {{YYYY-MM-DD}}
+name: {{kebab-case-topic}}
+created: {{YYYY-MM-DD}}
+updated: {{YYYY-MM-DD}}
+status: active
+sources: []
 version: "{{x.y.z}}"
 sources_hash: "{{hash}}"
 ttl_days: 90
