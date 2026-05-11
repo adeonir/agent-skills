@@ -33,7 +33,7 @@ npx skills add adeonir/agent-skills
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
 | **[domain-model](skills/product/domain-model)** | Product | Translate PRD business rules and journeys into domain entities, invariants, bounded contexts, and a living contract for system-design and spec-driven |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
-| **[main-flows](skills/product/main-flows)** | Product | Trace PRD journeys and background processes (cron, auth, settings) through the system. Cites entity lifecycle transitions from domain.md and verifies BR/EC coverage. Bridges domain-model and system-design |
+| **[main-flows](skills/product/main-flows)** | Product | Trace PRD journeys and system-initiated processes (cron, auth, settings) as use cases. Cites entity lifecycle transitions from domain.md and verifies BR/EC coverage. Bridges domain-model and system-design |
 
 ## How They Connect
 
@@ -50,8 +50,8 @@ flowchart TD
     DM -->|bounded contexts| SYS[system-design]
     DM -->|contracts| SD
     DM -->|lifecycle| ET
-    MF -->|flows| SYS
-    MF -->|flows| SD
+    MF -->|use cases| SYS
+    MF -->|use cases| SD
     ET -->|handoff| SD
     PI[project-index] -->|codebase docs| SD
     DB -->|approved design| SD
@@ -73,7 +73,7 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 1. brainstorming     --> explore ideas, choose direction
 2. docs-writer       --> generate requirements and technical docs
 3. domain-model      --> define entities, invariants, bounded contexts
-4. main-flows        --> trace journeys + background processes through the system
+4. main-flows        --> trace journeys + system-initiated processes as use cases
 5. epic-tracker      --> plan epics, track stories, bugs, and issues
 6. design-builder    --> extract, structure, preview, approve
 7. spec-driven       --> specify, design, tasks, implement
@@ -101,7 +101,7 @@ business logic:
 brainstorming    --> direction and constraints
 docs-writer      --> PRD (what to build, for whom, why)
 domain-model     --> entities, rules, bounded contexts
-main-flows       --> journey + background flows, BR/EC coverage
+main-flows       --> user + system-initiated use cases, BR/EC coverage
 system-design    --> architecture, trade-offs, component brief
 design-builder   --> visual design, tokens, layout
 epic-tracker     --> epics, stories, acceptance criteria
@@ -120,7 +120,7 @@ wrap-up          --> persist session context
 |------|------|
 | `brainstorming` | Direction is already clear |
 | `domain-model` | No business rules or complex entity lifecycle |
-| `main-flows` | Single-actor CRUD, no background processes, no cross-context interactions |
+| `main-flows` | Single-actor CRUD, no system-initiated processes, no cross-context interactions |
 | `system-design` | Frontend-only or trivial backend |
 | `design-builder` | No UI, or design already exists |
 | `docs-writer` | Feature is too small to warrant a PRD |
@@ -149,14 +149,14 @@ spec-driven discovers gap
 ```
 
 `main-flows` follows the same pattern when implementation surfaces a
-missing flow:
+missing use case:
 
 ```
-spec-driven discovers flow gap
+spec-driven discovers use case gap
     --> writes to knowledge.md ## Flow Gaps
     --> user runs main-flows (update mode)
-    --> main-flows updates flows.md, appends ## Processed Gaps
-    --> spec-driven resumes with updated flows
+    --> main-flows updates use-cases.md, appends ## Processed Gaps
+    --> spec-driven resumes with updated use cases
 ```
 
 `project-index integrate feedback` handles codebase discoveries on the
@@ -174,7 +174,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── design/         # design-builder: copy.yaml, design.json, variants/
-├── docs/           # docs-writer + system-design + domain-model + main-flows: PRD, Brief, Design Doc, TDD, system-brief.md, domain.md, flows.md
+├── docs/           # docs-writer + system-design + domain-model + main-flows: PRD, Brief, Design Doc, TDD, system-brief.md, domain.md, use-cases.md
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

@@ -1,7 +1,8 @@
 # Main Flows
 
-Trace each PRD journey and background process through the system as a
-sequence of actor steps, entity transitions, and side effects.
+Trace each PRD journey and system-initiated process as a use case —
+actor, goal, preconditions, main success scenario, extensions, entity
+transitions, and side effects.
 
 ## What It Does
 
@@ -18,11 +19,11 @@ flowchart LR
 
 | Phase | What Happens | Output |
 |-------|--------------|--------|
-| Discovery | Read PRD + domain.md, extract foreground (per journey) and background (per FR trigger) candidates | Candidate list |
-| Inventory | Confirm list with user, group by bounded context | Confirmed flow list |
-| Drafting | Fill the per-flow template (trigger, actors, main success scenario, extensions, side effects, success guarantees) | Drafted flows |
+| Discovery | Read PRD + domain.md, extract user-initiated (per journey) and system-initiated (per FR trigger) candidates | Candidate list |
+| Inventory | Confirm list with user, group by bounded context | Confirmed use case list |
+| Drafting | Fill the per-use-case template (goal, trigger, actors, main success scenario, extensions, side effects, success guarantees) | Drafted use cases |
 | Coverage | Build BR/EC matrix, resolve orphans, document non-exercises | Verified set |
-| Output | Write the artifact and hand off downstream | `flows.md` |
+| Output | Write the artifact and hand off downstream | `use-cases.md` |
 
 ## Usage
 
@@ -30,15 +31,15 @@ flowchart LR
 build main flows from the PRD
 map flows for the journeys
 trace journeys through the system
-show how entities dance
-verify flow coverage
+create use cases from the PRD
+verify coverage
 update flows — implementation found a gap
 ```
 
 ## Output
 
 ```
-.artifacts/docs/flows.md
+.artifacts/docs/use-cases.md
 ```
 
 ## Requirements
@@ -51,23 +52,23 @@ If either input is missing, the discovery phase stops and asks for it.
 ## FAQ
 
 **Q: Are Mermaid diagrams required?**
-A: No — recommended for foreground journeys where the visual aids the
-reader, skipped for single-actor background flows where the diagram
-adds noise.
+A: No — recommended for user-initiated journeys where the visual
+aids the reader, skipped for single-actor system-initiated use cases
+where the diagram adds noise.
 
-**Q: What goes in "Not Exercised by Flows"?**
+**Q: What goes in "Not Exercised by Use Cases"?**
 A: Pure-data invariants (format constraints, enum bounds,
 referential integrity) that live in entity definitions in
 `domain.md`. Listing them keeps the coverage matrix honest without
-forcing a flow that does not exist.
+forcing a use case that does not exist.
 
 **Q: How does update mode work?**
-A: When a downstream skill reports a flow gap, it writes a row to
+A: When a downstream skill reports a gap, it writes a row to
 `## Flow Gaps` in `.agents/knowledge.md`. The discovery phase reads
 that queue, narrows scope to the gap, and after coverage completes,
 appends a row to `## Processed Gaps`.
 
-**Q: Can a flow span multiple bounded contexts?**
+**Q: Can a use case span multiple bounded contexts?**
 A: Yes — assign one primary context (the one that owns the
-triggering entity) and list secondary contexts the flow touches.
-Cross-context flows must name every context they touch.
+triggering entity) and list secondary contexts the use case touches.
+Cross-context use cases must name every context they touch.
