@@ -64,9 +64,6 @@ Schema:
 projects:
   /absolute/path/to/repo:
     name: Project Name
-    bm:
-      project: main
-      path: prefix/project
     obsidian:
       path: Prefix/Project
     tags:
@@ -77,8 +74,6 @@ projects:
 Fields:
 
 - `name`: Title Case project name, used in headers and wikilinks
-- `bm.project`: BM project identifier (default `main`). `--` to skip BM
-- `bm.path`: BM directory (lowercase, mirrors filesystem). `--` to skip BM
 - `obsidian.path`: Obsidian folder (Title Case, mirrors filesystem).
   `--` to skip Obsidian session
 - `tags`: base tags applied to every note — session and daily.
@@ -98,10 +93,8 @@ Fields:
 Ask the user in sequence:
 
 1. Project name (Title Case)
-2. BM project (default `main`, or `--` to skip BM)
-3. BM path (lowercase, e.g. `work/acme`, or `--` to skip BM)
-4. Obsidian path (Title Case, e.g. `Work/Acme`, or `--` to skip session)
-5. Base tags (comma-separated)
+2. Obsidian path (Title Case, e.g. `Work/Acme`, or `--` to skip session)
+3. Base tags (comma-separated)
 
 Append the entry under the existing `projects:` key. Do not create a
 duplicate `projects` key, which would produce invalid YAML. When creating
@@ -111,9 +104,6 @@ the file for the first time, write the full structure:
 projects:
   /absolute/path/to/repo:
     name: Project Name
-    bm:
-      project: main
-      path: prefix/project
     obsidian:
       path: Prefix/Project
     tags:
@@ -127,27 +117,21 @@ Given this entry:
 ```yaml
 /Users/alice/code/acme:
   name: Acme
-  bm:
-    project: main
-    path: work/acme
   obsidian:
     path: Work/Acme
   tags:
     - acme
 ```
 
-- **BM session**: `work/acme/sessions/YYYY-MM-DD — Description.md`
 - **Obsidian session**: `Work/Acme/Sessions/YYYY-MM-DD — Description.md`
 - **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)
 
 ## Rules
 
-- `bm.project` or `bm.path` is `--`: skip auto-memory and BM notes entirely
 - `obsidian.path` is `--`: skip Obsidian session note
-- Daily note always runs, even when all other paths are `--`
+- Daily note always runs, even when `obsidian.path` is `--`
 - Base tags apply to every note — downstream refs append context tags
-- Vault structure mirrors filesystem conventions (`bm.path` lowercase,
-  `obsidian.path` Title Case)
+- Vault structure mirrors filesystem conventions (`obsidian.path` Title Case)
 - New project in existing vault: bootstrap appends one entry, no
   restructuring needed
 

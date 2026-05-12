@@ -7,8 +7,8 @@ clearing.
 ## When to Use
 
 - Invoked twice per wrap-up: once after mapping (Load phase, before
-  auto-memory) and once after obsidian-notes (Detect + Cleanup phases,
-  last)
+  obsidian-notes) and once after obsidian-notes (Detect + Cleanup
+  phases, last)
 - All phases short-circuit silently when
   `.artifacts/.session-handoff.md` is absent
 
@@ -16,7 +16,7 @@ clearing.
 
 ### Load Phase
 
-Runs after mapping, before auto-memory.
+Runs after mapping, before obsidian-notes.
 
 1. Check `.artifacts/.session-handoff.md`. If absent, no-op silently —
    Detect and Cleanup will likewise no-op later.
@@ -38,8 +38,8 @@ Optional sections (`Decisions`, `Findings`, `Open threads`,
 `Blockers`, `References`) are omitted from snapshots when empty.
 Treat absence as silent — do not flag.
 
-bm-notes and obsidian-notes consume from working context — they do
-not re-read the file.
+obsidian-notes consumes from working context — it does not re-read
+the file.
 
 ### Detect Phase
 
@@ -113,8 +113,8 @@ to prepend at the top, preserving the snapshot history.
 **DON'T:**
 - Auto-clear without asking (contrasts: Cleanup is opt-in; the
   handoff is persistent across sessions by design)
-- Re-read the handoff in bm-notes or obsidian-notes (contrasts: load
-  once, share via context)
+- Re-read the handoff in obsidian-notes (contrasts: load once, share
+  via context)
 - Walk every snapshot in the file (contrasts: read only the topmost
   snapshot — latest first)
 - Delete the file — write empty content instead (contrasts: clear

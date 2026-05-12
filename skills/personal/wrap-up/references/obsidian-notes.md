@@ -7,7 +7,7 @@ using MCPVault MCP tools directly.
 
 - Obsidian session note: when `obsidian.path` is not `--`
 - Daily note: always (even when session note is skipped)
-- Runs after BM notes
+- Runs after the handoff Load phase
 - Depends on mapping output (Obsidian path, base tags) and on the
   handoff Load phase (latest snapshot folded — Findings → Findings,
   Decisions → Decisions, Next step + Open threads → Next)

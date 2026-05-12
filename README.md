@@ -26,7 +26,7 @@ npx skills add adeonir/agent-skills
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[notes](skills/personal/notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
 | **[session-handoff](skills/personal/session-handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
-| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence across auto-memory, Basic Memory, and Obsidian |
+| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
@@ -74,7 +74,7 @@ debug-tools      --> investigate and fix issues
 notes            --> document work in Obsidian
 project-index    --> scan codebase and generate context (brownfield or re-index)
 session-handoff  --> save/resume conversation state across sessions
-wrap-up          --> persist session context across memory systems
+wrap-up          --> persist session context to Obsidian
 ```
 
 ## Using the Flow

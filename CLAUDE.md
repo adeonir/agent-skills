@@ -37,7 +37,7 @@ use kebab-case.
 |-----------|-------|
 | engineering | Debugging, specs, system design, codebase indexing, git tooling |
 | product | Brainstorming, design, documentation, domain modeling, epic tracking |
-| personal | Session notes, vault sync, auto-memory wrap-up |
+| personal | Session notes, vault sync, end-of-session wrap-up |
 
 ## Canonical Workflow
 
@@ -52,7 +52,7 @@ brainstorming + project-index (parallel discovery)
     --> epic-tracker (epics --> stories)
     --> spec-driven (per story: spec + design + tasks)
     --> git-helpers (atomic commits per task)
-    --> wrap-up (persist context to BM + Obsidian)
+    --> wrap-up (persist context to Obsidian)
 ```
 
 Skills themselves stay isolated. SKILL.md files do not reference other skills
@@ -415,11 +415,6 @@ skills:
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
 `design-builder` writes `design/DESIGN.md`.
-
-## Auto-Memory
-
-The `wrap-up` skill is the only skill that interacts with auto-memory. No
-other skill reads from or writes to memory.
 
 ## Subagent Fan-Out
 
