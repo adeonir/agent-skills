@@ -47,9 +47,8 @@ repo level only:
 
 ```
 brainstorming + project-index (parallel discovery)
-    --> docs-writer (PRD or Brief)
-    --> domain-model (entities, invariants, bounded contexts)
-    --> system-design + design-builder (parallel)
+    --> docs-writer (product requirements + technical docs)
+    --> design-builder (visual identity + screens)
     --> epic-tracker (epics --> stories)
     --> spec-driven (per story: spec + design + tasks)
     --> git-helpers (atomic commits per task)
@@ -251,7 +250,7 @@ label them — apply the right pattern silently.
 - **Type A — Product discovery.** Understand the problem, user, and
   direction before any execution. Iterative, question-driven, no disk state.
   Lives in `references/discovery.md` of skills like brainstorming,
-  docs-writer, system-design, spec-driven.
+  docs-writer, spec-driven.
 
 - **Type B — Context discovery.** Determine execution state — which
   artifacts exist, which project is active, what the codebase looks like.
