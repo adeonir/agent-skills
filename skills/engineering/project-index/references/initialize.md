@@ -47,12 +47,34 @@ If brownfield: dispatch the codebase summary fan-out (see SKILL.md).
 
 If none of the above: skip summary, project is greenfield.
 
+### Step 4b: Detect Vertical Slicing
+
+Before dispatch, check whether the brownfield project is vertically
+sliced. The `features` sub-agent is added to the fan-out only when it
+is. See [features.md](features.md) Detection Gate for the full signal
+list. Quick check:
+
+| Signal | Examples |
+|--------|----------|
+| Feature directories | `features/<name>/`, `modules/<name>/`, `apps/<name>/`, `domains/<name>/` |
+| Co-located slice files | Handler + view + test + schema share one directory per capability |
+| Domain-prefixed routes | `/billing/*`, `/auth/*`, `/inbox/*` each with its own handler tree |
+| Per-feature workspace packages | Monorepo `packages/<feature>` with no shared `src/services/` layer |
+
+If detection is ambiguous (some signals present, layer-oriented
+elsewhere), ask the user once: "Vertical slicing detected? (y/n)" Skip
+the `features` sub-agent on `n`.
+
+If layer-oriented: skip `features`, dispatch the standard 6.
+
 ### Step 5: Report
 
 Inform user:
 
 - Created `.agents/` with `project.md`
-- If brownfield: also created `.agents/codebase/` with 6 fan-out docs + `review.md`
+- If brownfield: also created `.agents/codebase/` with fan-out docs +
+  `review.md` (6 docs, plus `features.md` when vertical slicing
+  detected)
 - Next steps:
   - Re-run codebase mapping later: "map codebase" or "summary"
   - Re-run overview later: "overview"

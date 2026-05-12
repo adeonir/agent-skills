@@ -19,6 +19,8 @@ All external touchpoints: API calls, database connections, third-party SDKs, env
 4. Database setup files (ORM config, connection pool, migrations)
 5. Third-party SDK initializations (auth, payments, analytics, telemetry)
 
+Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning client wrappers or SDK setup files larger than 300 lines.
+
 ## Source Boundary
 
 List only services with current evidence in code or config. A planned integration mentioned in `.artifacts/` but not yet wired does not appear here.
@@ -27,7 +29,7 @@ If an environment variable is declared in `.env.example` but never read, documen
 
 ## Output
 
-Save to `.agents/codebase/integrations.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/integrations.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -39,7 +41,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Integrations
@@ -60,3 +64,4 @@ sources: []
 - Document auth method per service (API key, OAuth, JWT, none)
 - Mark variables as required only when the code throws or fails without them
 - One row per distinct service — combine related vars under the same row
+- Populate `sources:` with every file actually read; empty list is not acceptable

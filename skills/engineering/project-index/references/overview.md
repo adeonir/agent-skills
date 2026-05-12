@@ -12,7 +12,7 @@ Generate `.agents/project.md` — project context for AI agents.
 
 ### Step 1: Check Existing
 
-If `.agents/project.md` exists, update it — merge new findings, never overwrite blindly.
+If `.agents/project.md` exists, update it — on re-run, follow [merge-policy.md](merge-policy.md).
 
 ### Step 2: Gather Context
 
@@ -64,7 +64,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Project: {{Project Name}}
@@ -125,6 +127,7 @@ sources: []
 - Use one paragraph for purpose
 - List external services in Integration Points; do not list internal modules
 - Keep the stack section as a quick reference, not an exhaustive dependency list
+- Populate `sources:` with every file actually read; empty list is not acceptable
 
 ## Error Handling
 

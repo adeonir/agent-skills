@@ -14,7 +14,10 @@ flowchart TD
     C -->|yes| D[codebase fan-out]
     C -->|no| E[done]
     D --> F[architecture / conventions / testing / integrations / checklist / workflows]
+    D --> J{vertical slicing?}
+    J -->|yes| K[features]
     F --> G[review]
+    K --> G
     B --> H[.agents/project.md]
     G --> I[.agents/codebase/]
 ```
@@ -23,7 +26,7 @@ flowchart TD
 |---------|-------------------|
 | **initialize** | Everything (overview + fan-out + review when brownfield) |
 | **overview** | `.agents/project.md` — project context, users, features |
-| **summary** | `.agents/codebase/` — 7 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and self-assessment |
+| **summary** | `.agents/codebase/` — 7 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and self-assessment (plus `features.md` when vertical slicing detected) |
 | **integrate feedback** | Merges queued items from `.agents/knowledge.md ## Codebase Feedback` into `.agents/codebase/*.md` |
 
 ## Usage
@@ -48,6 +51,7 @@ integrate feedback
     ├── integrations.md     # External services and APIs
     ├── checklist.md        # Post-task validation steps
     ├── workflows.md        # User and development flows
+    ├── features.md         # Vertical slices and cross-feature reuse (when vertical slicing detected)
     └── review.md           # Self-assessment: consistency, completeness, concerns
 ```
 
@@ -70,8 +74,11 @@ are preserved unless they're clearly outdated.
 **Q: How does the codebase fan-out work?**
 A: Six sub-agents run in parallel during one turn, each generating one
 output file (architecture, conventions, testing, integrations,
-checklist, workflows). After the fan-out, the main agent reads all 6
-outputs together and produces `review.md` (self-assessment).
+checklist, workflows). A 7th sub-agent generates `features.md` only
+when the project shows vertical slicing (feature directories,
+co-located slice files, or per-feature workspace packages). After the
+fan-out, the main agent reads all outputs together and produces
+`review.md` (self-assessment).
 
 **Q: What's the difference between summary and integrate feedback?**
 A: `summary` regenerates the codebase docs from source code. `integrate

@@ -20,6 +20,8 @@ Naming, imports, error handling, types, styling, state management, async pattern
 5. Utilities (helpers, constants, shared types)
 6. **Stop when** new files reveal no new patterns
 
+Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
+
 ## Source Boundary
 
 Document conventions as **observed**, not as prescribed. Never document patterns based on dependency names alone — read actual config and usage. Projects often override or extend framework defaults.
@@ -28,7 +30,7 @@ Project-specific abstractions are high priority. When a project wraps framework 
 
 ## Output
 
-Save to `.agents/codebase/conventions.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/conventions.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -40,7 +42,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Conventions
@@ -180,3 +184,4 @@ which pattern to follow.}}
 - Note inconsistencies when the same pattern is implemented differently
 - "Avoid" entries describe anti-patterns observed or implied, never theoretical
 - Document project abstractions with import paths and usage examples
+- Populate `sources:` with every file actually read; empty list is not acceptable

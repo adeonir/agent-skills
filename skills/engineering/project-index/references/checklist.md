@@ -25,7 +25,7 @@ Document commands the project actually exposes. If `npm run typecheck` exists, d
 
 ## Output
 
-Save to `.agents/codebase/checklist.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/checklist.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -37,7 +37,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Checklist
@@ -67,3 +69,4 @@ Run after completing a task:
 - Use the project's actual script names (e.g., `npm run lint`, not generic `eslint .`)
 - Omit sections that don't apply (e.g., no Generation section if no codegen exists)
 - Keep the checklist tight — this gets read every task
+- Populate `sources:` with every file actually read; empty list is not acceptable

@@ -4,13 +4,14 @@ description: >-
   Generates project context and codebase documentation for AI agents.
   Creates `.agents/` directory with project overview and deep codebase
   analysis (architecture, conventions, testing, integrations, checklist,
-  workflows, review). Use when starting work on a project, onboarding to
-  an existing codebase, generating project documentation for agents, or
-  mapping codebase patterns. Triggers: "initialize .agents", "setup
-  project index", "index project", "map codebase", "analyze codebase",
-  "project overview", "codebase summary", "onboarding to this repo",
-  "integrate feedback", "sync knowledge". Not for feature work,
-  Obsidian session notes, or dev tooling setup like prettier or eslint.
+  workflows, features when vertical slicing detected, review). Use when
+  starting work on a project, onboarding to an existing codebase,
+  generating project documentation for agents, or mapping codebase
+  patterns. Triggers: "initialize .agents", "setup project index",
+  "index project", "map codebase", "analyze codebase", "project
+  overview", "codebase summary", "onboarding to this repo", "integrate
+  feedback", "sync knowledge". Not for feature work, Obsidian session
+  notes, or dev tooling setup like prettier or eslint.
 ---
 
 # Project Index
@@ -26,8 +27,9 @@ initialize --> overview + (codebase fan-out + review when brownfield)
 `initialize` is the entrypoint. It always runs `overview`. If the
 project is brownfield (has source code), it dispatches the codebase
 fan-out: 6 sub-agents in parallel (architecture, conventions, testing,
-integrations, checklist, workflows), then the main agent runs `review`
-with the 6 outputs as context.
+integrations, checklist, workflows), plus a 7th (features) when
+vertical slicing is detected, then the main agent runs `review` with
+the fan-out outputs as context.
 
 ## Triggers
 
@@ -50,32 +52,38 @@ with the 6 outputs as context.
   [checklist.md](references/checklist.md)
 - **Workflows** (single doc refresh) →
   [workflows.md](references/workflows.md)
+- **Features** (single doc refresh, vertically sliced projects only) →
+  [features.md](references/features.md)
 - **Self-assessment** (post fan-out) → [review.md](references/review.md)
 - **Integrate feedback** ("integrate feedback", "sync knowledge",
   "integrate discoveries") →
   [integrate-feedback.md](references/integrate-feedback.md)
+- **Merge policy** (loaded by any ref on re-run) →
+  [merge-policy.md](references/merge-policy.md)
 
 ## Codebase Fan-Out
 
 When mapping the full codebase (initialize on brownfield, or "summary"
 trigger), dispatch all 6 codebase refs as **independent sub-agents in
-the same turn**:
+the same turn**. A 7th sub-agent (`features`) is dispatched only when
+the project shows vertical slicing (see [features.md](references/features.md) Detection Gate).
 
-| Sub-agent | Reads | Writes |
-|-----------|-------|--------|
-| architecture | Entry points, dir tree, layer boundaries | `.agents/codebase/architecture.md` |
-| conventions | Representative source files | `.agents/codebase/conventions.md` |
-| testing | Test files, test config | `.agents/codebase/testing.md` |
-| integrations | API clients, DB models, env files | `.agents/codebase/integrations.md` |
-| checklist | Scripts (`package.json` / `Makefile`), pre-commit config | `.agents/codebase/checklist.md` |
-| workflows | Entry points to traced data flows | `.agents/codebase/workflows.md` |
+| Sub-agent | Reads | Writes | Gate |
+|-----------|-------|--------|------|
+| architecture | Entry points, dir tree, layer boundaries | `.agents/codebase/architecture.md` | always |
+| conventions | Representative source files | `.agents/codebase/conventions.md` | always |
+| testing | Test files, test config | `.agents/codebase/testing.md` | always |
+| integrations | API clients, DB models, env files | `.agents/codebase/integrations.md` | always |
+| checklist | Scripts (`package.json` / `Makefile`), pre-commit config | `.agents/codebase/checklist.md` | always |
+| workflows | Entry points to traced data flows | `.agents/codebase/workflows.md` | always |
+| features | Vertical slice dirs, route prefixes, co-located test/handler/view | `.agents/codebase/features.md` | vertical slicing detected |
 
 Each sub-agent reads only what its domain needs. Outputs land on disk —
 sub-agents do not return findings through context.
 
-After all 6 finish, the main agent runs `review.md` with all outputs as
-context. Review cannot be split across sub-agents — the main agent owns
-this synthesis.
+After all sub-agents finish, the main agent runs `review.md` with all
+outputs as context. Review cannot be split across sub-agents — the main
+agent owns this synthesis.
 
 ## Guidelines
 

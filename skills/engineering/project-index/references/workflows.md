@@ -21,13 +21,15 @@ Two categories:
 3. Dev tooling scripts (`scripts/`, `bin/`, npm scripts) — for development workflows
 4. CI config (deploy steps, environment promotions)
 
+Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning handler or controller files larger than 300 lines.
+
 ## Source Boundary
 
 Trace flows that exist in code today. A workflow described in `.artifacts/` (epic, story) but not yet wired must not appear here. Forward-looking content (`(planned)`, `(M5+)`, feature IDs) is excluded.
 
 ## Output
 
-Save to `.agents/codebase/workflows.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/workflows.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -39,7 +41,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Workflows
@@ -95,3 +99,4 @@ flowchart LR
 - Each step cites a file path
 - Each user workflow ends with the visible end state, not the last function call
 - Development workflows include "When to use" so agents pick the right one
+- Populate `sources:` with every file actually read; empty list is not acceptable

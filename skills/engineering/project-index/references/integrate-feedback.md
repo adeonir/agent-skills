@@ -33,7 +33,7 @@ For each row under `## Codebase Feedback`:
 
 - Extract content (text before the HTML comment)
 - Extract target from `<!-- target:{name} -->`
-- Valid targets: `conventions`, `architecture`, `testing`, `integrations`, `workflows`, `review`
+- Valid targets: `conventions`, `architecture`, `testing`, `integrations`, `workflows`, `features`, `review`
 
 Classify each row into one of:
 
@@ -56,6 +56,7 @@ Group parsed items by target. Each target maps to a file:
 | `testing` | `.agents/codebase/testing.md` |
 | `integrations` | `.agents/codebase/integrations.md` |
 | `workflows` | `.agents/codebase/workflows.md` |
+| `features` | `.agents/codebase/features.md` (only when the file exists; skip otherwise) |
 | `review` | `.agents/codebase/review.md` |
 
 ### Step 5: Merge

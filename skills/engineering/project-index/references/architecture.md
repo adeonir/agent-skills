@@ -19,6 +19,8 @@ Macro-level structure: how the codebase is organized, where logic lives, how dat
 4. Layer boundaries — services, modules, packages, domain folders
 5. Sample 2-3 representative files per identified layer to confirm responsibility
 
+Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
+
 ## Source Boundary
 
 Map only the observable current state of source code, config, and tooling. **Never** read `.artifacts/` (briefs, PRDs, design docs, epics, roadmaps) as a source of architecture facts. Forward-looking content (`(planned)`, `(TBD)`, milestone tags, feature IDs, "shipped through feature X") belongs to planning artifacts, not the codebase map.
@@ -27,7 +29,7 @@ If a module, route, or dependency is described in `.artifacts/` but absent from 
 
 ## Output
 
-Save to `.agents/codebase/architecture.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/architecture.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -39,7 +41,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Architecture
@@ -148,3 +152,4 @@ flowchart LR
 - Document at least 2 data flows; complex projects warrant 5+
 - Every pattern must cite a source file path as evidence
 - Group components by domain, not by directory alone
+- Populate `sources:` with every file actually read; empty list is not acceptable

@@ -20,13 +20,15 @@ Test framework, file naming and location, structural patterns (describe/it nesti
    - Large (>100 source files): 5-8 tests across types
 3. Diversity: unit, integration, e2e; happy path, edge cases, error handling
 
+Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning test files larger than 300 lines — same structural signal at a fraction of the tokens.
+
 ## Source Boundary
 
 Read actual test files — do not infer patterns from framework documentation. If the project uses jest with custom matchers, document the custom matchers, not jest's defaults.
 
 ## Output
 
-Save to `.agents/codebase/testing.md`. Update existing on re-run (merge, never overwrite).
+Save to `.agents/codebase/testing.md`. On re-run, follow [merge-policy.md](merge-policy.md).
 
 ## Template
 
@@ -38,7 +40,9 @@ name: {{project-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
+sources:
+  - {{file-path-actually-read}}
+  - {{file-path-actually-read}}
 ---
 
 # Testing
@@ -91,3 +95,4 @@ sources: []
 - Read tests; do not list them
 - Pick reference tests that demonstrate the cleanest version of each pattern
 - Coverage Gaps section: include only when actual gaps were observed, omit otherwise
+- Populate `sources:` with every file actually read; empty list is not acceptable
