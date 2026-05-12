@@ -9,8 +9,7 @@ description: >-
   needed for a project. Triggers: "create PRD", "create design doc",
   "create TDD", "technical design document", "create document", "write
   doc", "document this", "write requirements". Not for feature spec
-  tied to implementation, system architecture discovery, or
-  meeting/session notes.
+  tied to implementation or meeting/session notes.
 ---
 
 # Docs Writer
@@ -56,8 +55,8 @@ type they want.
   on technical strategy; without PRD, covers both product context and
   technical design.
 - **TDD**: prescriptive technical planning for specific components.
-  Auto-sized (core/medium/large). A project can have both a Design Doc
-  and TDDs.
+  Auto-sized (core/medium/large); sizing dimensions depth, never skips
+  sections. A project can have both a Design Doc and TDDs.
 
 ## Guidelines
 

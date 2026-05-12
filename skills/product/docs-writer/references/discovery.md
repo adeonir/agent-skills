@@ -50,11 +50,13 @@ Move on when:
 
 **Full discovery** (adaptive deepening, sufficiency criteria, critical posture):
 
-| Type | Topics | Focus |
-|------|--------|-------|
+| Type | Structure | Focus |
+|------|-----------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
 | Design Doc | 3 topics | System overview, architecture & design, cross-cutting concerns |
-| TDD | 3 topics | Requirements & stack, architecture & integrations, operations & risk |
+| TDD | 5 phases | Phase 0 Context & Sizing → Phase 1 Domain → Phase 2 Use Cases + System Flows → Phase 3 Architecture → Phase 4 Coherence Pass |
+
+TDD discovery is phase-driven (not topic-driven): each phase opens with sufficiency-gated questions scoped to a single output section. Phase 4 cross-checks the prior phases against each other and the PRD before drafting concludes; gaps back-edge to the responsible phase or surface inline for user resolution. See [tdd.md](tdd.md) for the full workflow and the Design Doc auto-trigger that may pause TDD mid-phase.
 
 ## Synthesis Pattern
 
