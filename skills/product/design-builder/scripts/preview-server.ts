@@ -13,6 +13,8 @@
  * - Serves HTML files from the session directory only
  * - Records user events to .events file (JSON lines, append-only)
  * - Wraps HTML fragments in a minimal frame template with interaction scripts
+ * - Live-reloads connected browsers on session-directory changes via SSE
+ *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
  *
  * Event types (one JSON per line in .events):
  *   choice:  { type: "choice",  choice: "a", text: "Option Label", timestamp }
@@ -30,7 +32,7 @@
 import { serve, type Server } from "bun";
 import { readdir, readFile, appendFile, mkdir } from "node:fs/promises";
 import { join, resolve, relative } from "node:path";
-import { existsSync } from "node:fs";
+import { existsSync, watch } from "node:fs";
 
 const args: string[] = process.argv.slice(2);
 const sessionIdx: number = args.indexOf("--session");
@@ -55,6 +57,43 @@ const eventsFile: string = join(sessionDir, ".events");
 function isInsideSessionDir(filePath: string): boolean {
   const rel = relative(sessionDir, filePath);
   return !rel.startsWith("..") && !rel.startsWith("/");
+}
+
+const reloadClients: Set<ReadableStreamDefaultController<Uint8Array>> = new Set();
+const sseEncoder = new TextEncoder();
+// 100ms coalesces bursts (multi-file writes, editor save passes) into one reload
+let reloadTimer: ReturnType<typeof setTimeout> | null = null;
+
+function broadcastReload(): void {
+  for (const controller of reloadClients) {
+    try {
+      controller.enqueue(sseEncoder.encode("data: reload\n\n"));
+    } catch {
+      reloadClients.delete(controller);
+    }
+  }
+}
+
+watch(sessionDir, { recursive: true }, (_event, filename) => {
+  if (!filename) return;
+  const name = filename.toString();
+  // Skip the event log (server writes on every interaction) and hidden files to avoid reload loops
+  if (name === ".events" || name.split("/").pop()?.startsWith(".")) return;
+  if (reloadTimer) clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(broadcastReload, 100);
+});
+
+const reloadScript = `
+try {
+  const __es = new EventSource("/__reload");
+  __es.onmessage = (e) => { if (e.data === "reload") location.reload(); };
+} catch {}
+`;
+
+function injectReloadScript(html: string): string {
+  const tag = `<script>${reloadScript}</script>`;
+  if (html.includes("</body>")) return html.replace("</body>", `${tag}</body>`);
+  return html + tag;
 }
 
 const clientScript = `
@@ -165,6 +204,7 @@ const frameTemplate = (
     .hint { position: fixed; bottom: 1rem; left: 1rem; background: #111; color: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; font: 12px system-ui; opacity: 0.6; pointer-events: none; }
   </style>
   <script>${clientScript}</script>
+  <script>${reloadScript}</script>
 </head>
 <body>${content}<div class="hint">Alt+click to comment</div></body>
 </html>`;
@@ -191,6 +231,26 @@ const server: Server = serve({
       return new Response("ok");
     }
 
+    if (url.pathname === "/__reload") {
+      const stream = new ReadableStream<Uint8Array>({
+        start(controller) {
+          reloadClients.add(controller);
+          controller.enqueue(sseEncoder.encode(": connected\n\n"));
+          req.signal.addEventListener("abort", () => {
+            reloadClients.delete(controller);
+            try { controller.close(); } catch {}
+          });
+        },
+      });
+      return new Response(stream, {
+        headers: {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          Connection: "keep-alive",
+        },
+      });
+    }
+
     const filePath: string = join(
       sessionDir,
       url.pathname === "/" ? "index.html" : url.pathname,
@@ -210,6 +270,12 @@ const server: Server = serve({
         const title: string =
           filePath.split("/").pop()?.replace(".html", "") || "Preview";
         return new Response(frameTemplate(content, title), {
+          headers: { "Content-Type": "text/html" },
+        });
+      }
+
+      if (filePath.endsWith(".html")) {
+        return new Response(injectReloadScript(content), {
           headers: { "Content-Type": "text/html" },
         });
       }
@@ -241,3 +307,4 @@ const server: Server = serve({
 console.log(`Preview server running at http://localhost:${server.port}`);
 console.log(`Session directory: ${sessionDir}`);
 console.log(`Events file: ${eventsFile}`);
+console.log(`Live-reload: watching ${sessionDir} (SSE at /__reload)`);

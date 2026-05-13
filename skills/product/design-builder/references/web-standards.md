@@ -8,6 +8,46 @@ Apply to every component produced by frontend.md and variants.md.
 
 Auto-loaded by preview.md as implementation rules. Not a direct trigger.
 
+## CDN Dependencies (Generated HTML)
+
+Variant HTML loads runtime libraries from CDN -- no build step required.
+
+- **Tailwind CSS** (v4 browser build) in `<head>`:
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  ```
+- **Lucide Icons** (UMD) before `</body>`:
+  ```html
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>lucide.createIcons()</script>
+  ```
+- Use `<i data-lucide="icon-name"></i>` markup; Lucide swaps each tag for an inline SVG at runtime. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
+- Tailwind theme customization (DESIGN.md tokens -> Tailwind theme) goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the CDN tag, mapping DESIGN.md `colors`, `typography`, `rounded`, `spacing` blocks to Tailwind theme keys.
+- After dependency injection, every variant must work offline-of-build: opening the `.html` file directly in a browser renders correctly without a bundler.
+- React/JSX variants follow the same CDN pattern when output is standalone HTML; production builds replace CDN with bundled imports.
+
+## Tailwind Tokens
+
+Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary values bypass the theme, break dark mode and theme switching, and erode design-system consistency.
+
+- Map DESIGN.md tokens into the Tailwind theme via `<style type="text/tailwindcss">@theme { --color-primary: ...; --radius-md: ...; }</style>` so utilities like `bg-primary`, `rounded-md`, `text-lg` resolve to project values.
+- Use the nearest standard token when an exact DESIGN.md value lacks a named theme key (`p-4` vs `p-[15px]`, `rounded-lg` vs `rounded-[10px]`, `text-slate-600` vs `text-[#475569]`).
+- Arbitrary values (`w-[317px]`, `bg-[#abc123]`, `mt-[7px]`) are acceptable only when:
+  - The value is genuinely one-off (computed offset, magic asset width, third-party embed dimension).
+  - No theme extension would be reused -- adding it would bloat the theme for a single site.
+  - The constraint is documented in a comment on the same line or in DESIGN.md.
+- When the same arbitrary value appears 2+ times, promote it to `@theme` instead of repeating the literal.
+- Colors always go through the theme -- never inline hex in class names when the value belongs to the palette.
+
+| Avoid | Prefer |
+|-------|--------|
+| `bg-[#3b82f6]` | `bg-primary` (mapped) or `bg-blue-500` |
+| `p-[16px]` | `p-4` |
+| `text-[14px]` | `text-sm` |
+| `rounded-[8px]` | `rounded-lg` |
+| `gap-[12px]` | `gap-3` |
+| `h-[100vh]` | `h-screen` |
+
 ## Accessibility
 
 - Icon-only buttons need `aria-label`.
@@ -159,3 +199,4 @@ Flag and avoid these in generated code:
 | Icon buttons without `aria-label` | Add descriptive label |
 | Hardcoded date/number formats | Use `Intl.*` formatters |
 | `autoFocus` without justification | Remove or limit to desktop primary input |
+| Tailwind arbitrary values for palette/spacing/typography (`bg-[#...]`, `p-[16px]`, `text-[14px]`) | Map to `@theme` or use nearest standard token |

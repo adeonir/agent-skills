@@ -71,7 +71,7 @@ Custom presets are valid when the user asks for something outside the set.
 
 ## Guided Mode
 
-Per-question visual decisions using the preview server.
+Per-question visual decisions using the preview server. The server live-reloads connected browsers on any file change inside the session directory (debounced 100ms, ignores `.events` to avoid loops) -- regenerate variants or patch HTML and the open tabs refresh on their own.
 
 ### Workflow
 
@@ -111,7 +111,7 @@ Detect the range from the user's intent: words like "polish", "compare colors", 
    bun run scripts/preview-server.ts --session .artifacts/design/preview/variants
    ```
 
-2. **Generate one HTML per preset**. Read DESIGN.md for current tokens and structure.
+2. **Generate one HTML per preset**. Read DESIGN.md for current tokens and structure. Wire Tailwind + Lucide via CDN -- see [web-standards.md](web-standards.md) `## CDN Dependencies` for exact tags and theme mapping.
 
    - **Refined range**: preserve `## Layout` / `## Screen Flow` across all variants. Vary only frontmatter token blocks (colors, typography, rounded, spacing, motion, components, variants).
    - **Creative range**: allow variants to propose alternative `## Layout` and `## Screen Flow` content alongside token variation. Each preset may suggest a different structural skeleton.
