@@ -33,9 +33,15 @@ Detect available states from the workspace via MCP before pushing. If
 
 ### create_epic
 
-1. Create a Linear Project in the configured `workspace`.
-2. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
-3. Return Project id and url.
+1. Strip the `## Stories` section from the body before push. The
+   section is local-only — Linear's native sub-issue panel under the
+   Project is the source of truth for child hierarchy. Drop the
+   heading and all bullets up to (but not including) the next `##`
+   heading.
+2. Create a Linear Project in the configured `workspace` with the
+   stripped body.
+3. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
+4. Return Project id and url.
 
 ### create_story / create_bug / create_issue
 

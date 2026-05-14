@@ -37,7 +37,10 @@ Fill the template (below) with discovered context:
 - **Prose context**: what the epic is about, why it exists, what changes
   for the user -- use a real scenario
 - **Stories**: checklist of stories with brief descriptions. Each story
-  becomes its own artifact later.
+  becomes its own artifact later. **Local-only** — when a tracker is
+  configured, adapters strip this section from the body on push so the
+  tracker's native child panel (Sub-issues, child issues, etc.) stays
+  the single source of truth.
 - **Scope**: explicit in/out boundaries. Describe capabilities, not
   technologies (e.g., "secure password storage" not "bcrypt hashing")
 - **Rabbit Holes**: known complexities to flag early
@@ -109,6 +112,10 @@ sources: []
 {{What the epic is about, why it exists, what changes for the user. Use a real scenario to illustrate the problem and the desired outcome.}}
 
 ## Stories
+
+<!-- Local-only: stripped by adapters on push to a tracker. Tracker's
+native child panel (GitHub Sub-issues, Linear sub-issues, Jira child
+issues) is the source of truth for hierarchy once a tracker is wired. -->
 
 - [ ] {{story-name}} — {{brief description of what this story delivers}}
 - [ ] {{story-name}} — {{brief description}}

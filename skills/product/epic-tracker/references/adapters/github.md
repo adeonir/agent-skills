@@ -51,9 +51,16 @@ GitHub has two classification mechanisms with different scopes:
   its own label set. Never hardcode label names or colors; always query
   the repo's existing labels before assigning (see Label Matching below).
 
-When org issue types are unavailable, the adapter falls back to
-artifact labels (`epic`, `story`, `bug`, `task`) — matched semantically
-against the repo's existing labels, never created automatically.
+Issue Types are an **org-only feature**. Personal/user-owned repos
+(`github.com/{user}/{repo}` where `{user}` is an account, not an org)
+do not have access to Issue Types under any circumstance. For these
+repos the adapter skips Issue Type detection at bootstrap and operates
+in **labels-only mode** — every artifact is classified by repo labels.
+
+When org issue types are unavailable (or repo is user-owned), the
+adapter falls back to artifact labels (`epic`, `story`, `bug`, `task`)
+matched semantically against the repo's existing labels, never created
+automatically.
 
 ## Label Matching
 
@@ -72,10 +79,13 @@ Concepts that use labels:
 
 | Concept | Match strategy |
 |---------|---------------|
-| Artifact type (when no Issue Types) | Look for labels containing `epic`, `story`, `bug`, `task` |
-| Severity | Look for labels containing the severity word (e.g., `high`, `critical`, `severity-high`) |
-| Status (in-progress) | Look for labels containing `progress` or `wip` |
-| Status (blocked) | Look for labels containing `blocked` or `on-hold` |
+| Artifact type: Epic | Labels containing `epic` |
+| Artifact type: Story | Labels containing `story`, `feature`, `user-story` |
+| Artifact type: Bug | Labels containing `bug`, `defect`, `fix` |
+| Artifact type: Issue (generic task) | Labels containing `task`, `chore`, `enhancement`, `work`, `maintenance` |
+| Severity | Labels containing the severity word (e.g., `high`, `critical`, `severity-high`) |
+| Status (in-progress) | Labels containing `progress` or `wip` |
+| Status (blocked) | Labels containing `blocked` or `on-hold` |
 
 ## Status Mapping
 
@@ -96,10 +106,16 @@ the Project field over labels.
 
 ### Bootstrap: Issue Type Detection
 
-During bootstrap, detect whether the org has custom issue types:
+During bootstrap:
 
-1. Query the org's issue types via MCP or `gh api orgs/{org}/issue-types`.
-2. If types are found, store the detected names in config:
+1. Determine repo owner kind via MCP or `gh api repos/{owner}/{repo}`:
+   - `owner.type == "User"`: personal/user-owned repo. Set
+     `issue_types: {}` immediately and skip the rest of this step —
+     Issue Types are not available for user-owned repos.
+   - `owner.type == "Organization"`: continue to step 2.
+2. Query the org's issue types via MCP or
+   `gh api orgs/{org}/issue-types`.
+3. If types are found, store the detected names in config:
    ```yaml
    issue_types:
      epic: Epic
@@ -109,21 +125,25 @@ During bootstrap, detect whether the org has custom issue types:
    ```
    Names may differ from defaults (e.g., the org may use "Chore" instead
    of "Task"). Store whatever name the org configured.
-3. If no types found or query fails: set `issue_types: {}` in config.
+4. If no types found or query fails: set `issue_types: {}` in config.
    Adapter falls back to artifact labels via Label Matching.
 
 Re-detect on demand via "configure tracker".
 
 ### create_epic
 
-1. Create an Issue in the configured `repo`.
-2. Apply artifact type:
+1. Strip the `## Stories` section from the body before push. The
+   section is local-only — GitHub's native Sub-issues panel is the
+   source of truth for child hierarchy. Drop the heading and all
+   bullets up to (but not including) the next `##` heading.
+2. Create an Issue in the configured `repo` with the stripped body.
+3. Apply artifact type:
    - `issue_types.epic` set: assign that Issue Type.
    - otherwise: match repo labels semantically for `epic` and assign;
      surface available labels and ask if no match.
-3. If `project_number` is set: add the Issue to the Project.
-4. If `use_milestones` is true and a milestone is supplied: assign it.
-5. Return Issue number and url.
+4. If `project_number` is set: add the Issue to the Project.
+5. If `use_milestones` is true and a milestone is supplied: assign it.
+6. Return Issue number and url.
 
 ### create_story
 

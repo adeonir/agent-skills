@@ -36,9 +36,14 @@ nearest standard name with a warning when an exact match isn't found.
 
 ### create_epic
 
-1. Create an Issue with `issuetype: Epic` in the configured `project_key`.
-2. Inputs: `name` -> Epic Name field (Jira's custom field), `title` -> Summary, `body` -> Description.
-3. Return Epic key (e.g., `PROJ-123`) and url.
+1. Strip the `## Stories` section from the body before push. The
+   section is local-only — Jira's native child-issue rollup under the
+   Epic is the source of truth for hierarchy. Drop the heading and all
+   bullets up to (but not including) the next `##` heading.
+2. Create an Issue with `issuetype: Epic` in the configured
+   `project_key` using the stripped body.
+3. Inputs: `name` -> Epic Name field (Jira's custom field), `title` -> Summary, `body` -> Description.
+4. Return Epic key (e.g., `PROJ-123`) and url.
 
 ### create_story / create_bug / create_issue
 
