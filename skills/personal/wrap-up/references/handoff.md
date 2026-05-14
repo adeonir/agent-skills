@@ -1,8 +1,8 @@
 # Session Handoff Lifecycle
 
 Load any session handoff at `.artifacts/.session-handoff.md` for
-downstream notes, run structural-delta detection, and ask before
-clearing.
+downstream notes, run structural-delta detection, and clear the file
+at the end so it does not leak into the next session.
 
 ## When to Use
 
@@ -86,39 +86,37 @@ If neither signal fires, emit nothing.
 
 ### Cleanup Phase
 
-Runs last. Cleanup is opt-in: ask before clearing.
+Runs last. Auto-clears without asking — wrap-up has already persisted
+the snapshot to Obsidian, so the on-disk handoff is redundant by the
+end of the workflow.
 
-> Clear `.artifacts/.session-handoff.md`? (y/n)
+Write empty content to `.artifacts/.session-handoff.md`. Do not delete
+the file — an empty file is treated as missing on the next Load, and
+writing avoids a Bash permission prompt.
 
-If accepted: write empty content to `.artifacts/.session-handoff.md`.
-Do not delete the file — an empty file is treated as missing on the
-next Load, and writing avoids a Bash permission prompt.
-
-If declined or skipped: leave the file intact. Future saves continue
-to prepend at the top, preserving the snapshot history.
+Skip silently if Load found no file or no latest snapshot.
 
 ## Guidelines
 
 **DO:**
 - Read the file once in Load and share contents via working context
 - Emit at most one suggestion line in Detect
-- Ask before Cleanup — the handoff persists across sessions by design
-- Clear the handoff by writing empty content when accepted — avoids
-  Bash permission prompts; empty file is treated as missing on next
-  Load
+- Clear the handoff by writing empty content at the end — the
+  snapshot is already in Obsidian; empty file is treated as missing
+  on the next Load and avoids a Bash permission prompt
 - Treat a missing file as a silent no-op in every phase
 - Mirror audit's inform-only pattern — the suggestion is
   informational, never blocking
 
 **DON'T:**
-- Auto-clear without asking (contrasts: Cleanup is opt-in; the
-  handoff is persistent across sessions by design)
 - Re-read the handoff in obsidian-notes (contrasts: load once, share
   via context)
 - Walk every snapshot in the file (contrasts: read only the topmost
   snapshot — latest first)
 - Delete the file — write empty content instead (contrasts: clear
   with empty write, no Bash permission prompt)
+- Prompt y/n before clearing (contrasts: wrap-up has already saved
+  the snapshot to Obsidian, so the on-disk copy is redundant)
 
 ## Error Handling
 
@@ -132,4 +130,3 @@ to prepend at the top, preserving the snapshot history.
   rely on git diff only
 - Handoff file empty or has no `##` blocks: treat as missing,
   skip Detect and Cleanup
-- User declines Cleanup: leave file intact, no-op

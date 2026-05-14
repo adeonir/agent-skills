@@ -24,8 +24,9 @@ mapping --> handoff:Load --> obsidian-notes --> handoff:Detect+Cleanup
 Resolve project from current working directory, load any session
 handoff (when present), then write Obsidian notes. No confirmation
 between note-writing steps. The closing step runs structural-delta
-detection — silent unless a delta fires — then asks before clearing
-the handoff file.
+detection — silent unless a delta fires — then clears the handoff
+file automatically (wrap-up has already persisted the snapshot to
+Obsidian, so the on-disk copy is redundant).
 
 ## Triggers
 
@@ -38,7 +39,7 @@ Loading order:
 1. [mapping.md](references/mapping.md) — resolve project paths and base tags
 2. [handoff.md](references/handoff.md) (Load phase) — fold latest snapshot when present
 3. [obsidian-notes.md](references/obsidian-notes.md) — write Obsidian session + daily notes
-4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — re-index hint + opt-in clear
+4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — re-index hint + auto-clear
 
 ## Guidelines
 
@@ -62,4 +63,4 @@ steps and report at the end.
 The session handoff is read once during the Load phase and shared via
 working context with downstream references. Re-reading the file in
 obsidian-notes wastes I/O and risks divergence if the file changes
-mid-flow. Load once, share, then ask before clearing.
+mid-flow. Load once, share, then clear at the end.

@@ -256,6 +256,7 @@ Rules:
 ## Guidelines
 
 **DO:**
+- Write notes immediately — no preview message, no rendered-content dump, no "about to write..." narration. The user invoked wrap-up to persist, not to review drafts in chat.
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
 - Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
@@ -271,6 +272,8 @@ Rules:
 - Map handoff Findings → Findings bullets, Decisions → Decisions, Next step + Open threads → Next, Blockers → Problems or Next
 
 **DON'T:**
+- Preview note bodies in chat before writing (contrasts: write immediately, the user invoked wrap-up to persist)
+- Announce intent before each MCP write ("now writing the session note...") — execute and report results at the end (contrasts: write immediately)
 - Call any skill — use MCPVault MCP tools directly
 - Use `[brackets]` for observations — use `#hashtags` instead (contrasts: Obsidian Syntax Rules)
 - Add `# H1` to any note — frontmatter `title` is the canonical heading
