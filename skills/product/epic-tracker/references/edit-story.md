@@ -46,7 +46,7 @@ Two branches:
 **Branch 1 -- AC text unchanged:**
 - The user touched only title, prose, rabbit holes, or references.
 - No validation runs.
-- Proceed to Step 5 (Save or Push).
+- Proceed to Step 4 (Save or Push).
 - Covers AC-5 from the spec (legacy tolerance for stories created before
   Gherkin enforcement, when AC stays untouched).
 
@@ -57,16 +57,11 @@ Two branches:
 - If any strict rule fails: surface the structured error, do not save
   or push, loop back to Step 2 (Capture Edit) until the user fixes the
   AC.
-- If validation passes: proceed to Step 5.
+- If validation passes: proceed to Step 4.
 - Covers AC-6 from the spec (any AC text change triggers full
   validation, regardless of pre-edit format).
 
-### 4. Review
-
-Present the validated edit to the user. Wait for confirmation before
-saving.
-
-### 5. Save or Push
+### 4. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`) and the Story has a `tracker.id`:

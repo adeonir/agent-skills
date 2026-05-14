@@ -1,7 +1,8 @@
 # Linear Adapter
 
 Translate generic epic-tracker operations into Linear primitives via the
-Linear MCP. Loaded by [../sync.md](../sync.md) when `tracker.kind: linear`.
+Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
+[../sync.md](../sync.md) when `tracker.kind: linear`.
 
 ## Primitive Mapping
 

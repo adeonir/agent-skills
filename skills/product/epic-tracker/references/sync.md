@@ -74,7 +74,8 @@ Runs when an operation requires a tracker but config is missing or
 2. Detect available integration methods for each tracker:
    - MCP: check if the tracker's MCP server is active in the session
    - CLI: check if the tracker's CLI is installed (`gh`, `linear`, `jira`)
-   - Prefer MCP when both are available; CLI is an equally valid fallback
+   - MCP is always preferred; CLI is the fallback when MCP is missing
+     or fails at runtime
 3. Present detected options plus "none (markdown only)" to the user.
 4. Ask the user to pick one.
 5. Collect tracker-specific fields one question at a time:
@@ -120,7 +121,11 @@ user updates the cache mid-session.
    - `linear` → [adapters/linear.md](adapters/linear.md)
    - `github` → [adapters/github.md](adapters/github.md)
    - `jira` → [adapters/jira.md](adapters/jira.md)
-4. Adapter creates or updates the entity in the tracker via MCP.
+4. Adapter creates or updates the entity. Always attempt MCP first; if
+   MCP is unavailable or fails (auth, server down, tool missing), fall
+   back to the tracker's CLI (`gh`, `linear`, `jira`). The `via` value
+   stored at bootstrap is a preference, not a lock — runtime probing
+   wins.
 5. On success:
    - If a markdown file exists: patch its frontmatter with tracker info:
      ```yaml
@@ -207,7 +212,7 @@ adapter's responsibility; each tracker has its own status enum.
 - Treat the tracker as source of truth for status when `tracker.id` is set in frontmatter
 - Warn the user about every conflict before resolving; never resolve silently
 - Update `last_synced` timestamp on every successful sync
-- Fall back to markdown-only when MCP becomes unavailable mid-session; warn the user
+- Try MCP first on every operation; fall back to CLI when MCP is missing or fails; fall back to markdown-only when both are unavailable, and warn the user
 
 **DON'T:**
 - Push without asking (contrasts: ask once per session, cache the choice)
@@ -220,7 +225,7 @@ adapter's responsibility; each tracker has its own status enum.
 
 - Config missing: route to bootstrap
 - Config has `kind: none`: skip silently; markdown is the source of truth
-- MCP unavailable for the configured tracker: warn user, fall back to markdown for this operation, suggest re-running bootstrap if MCP environment changed
+- MCP unavailable for the configured tracker: try the tracker's CLI (`gh`, `linear`, `jira`); if both fail, warn user, fall back to markdown for this operation, suggest re-running bootstrap if MCP environment changed
 - Push fails (network, auth, tracker rejection): log error, leave markdown untouched, suggest retry
 - Pull fails: log error, keep current markdown state, suggest retry
 - `tracker.id` missing on pull: route to push first or ask user to manually attach an existing tracker entity

@@ -39,20 +39,16 @@ Fill the template (below):
 - **References**: link to parent epic, design doc, UI design, or
   other sources
 
-### 3. Review
-
-Present the draft to the user. Wait for feedback before saving.
-
-### 4. Validate Acceptance Criteria
+### 3. Validate Acceptance Criteria
 
 Load [ac-validation.md](ac-validation.md) and run V1-V7 on the drafted AC. Strict by default (V1-V5, V7); V6 surfaces a
 warning with confirm-to-continue.
 
 If any strict rule fails: surface the structured error (AC id, rule name,
-suggested fix), do not proceed to save or push. Loop back to Review until
+suggested fix), do not proceed to save or push. Loop back to Draft until
 the user fixes the AC.
 
-### 5. Save or Push
+### 4. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):
@@ -60,7 +56,7 @@ the user fixes the AC.
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   pass the parent epic's tracker id (from `epic.md` frontmatter
   `tracker.id`) so the story is linked — no markdown file is created
-- If no: save to markdown and proceed to step 6
+- If no: save to markdown and proceed to step 5
 
 **If no tracker configured** (config missing or `kind: none`):
 - Save to markdown and proceed to step 6
@@ -73,7 +69,7 @@ the user fixes the AC.
 If the config is missing, run [sync.md](sync.md) bootstrap before the
 first push, then proceed.
 
-### 6. Update Epic Checklist *(markdown only)*
+### 5. Update Epic Checklist *(markdown only)*
 
 After saving to markdown, update the parent epic's Stories checklist to
 replace the plain story name with a linked, numbered entry:

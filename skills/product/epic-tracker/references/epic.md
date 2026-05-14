@@ -48,11 +48,7 @@ Fill the template (below) with discovered context:
   as a whole (not per-story)
 - **References**: links to PRD, design doc, UI design, or other sources
 
-### 3. Review
-
-Present the draft to the user. Wait for feedback before saving.
-
-### 4. Save or Push
+### 3. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):

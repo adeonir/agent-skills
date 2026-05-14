@@ -1,7 +1,7 @@
 # Jira Adapter
 
 Translate generic epic-tracker operations into Jira primitives via the
-Jira MCP (or Jira Cloud REST API when MCP is unavailable). Loaded by
+Jira MCP (or `jira` CLI when MCP is unavailable). Loaded by
 [../sync.md](../sync.md) when `tracker.kind: jira`.
 
 ## Primitive Mapping

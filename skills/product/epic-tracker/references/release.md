@@ -36,11 +36,7 @@ Fill the template (below):
   (not acceptance criteria -- those live on stories)
 - **References**: changelog links, milestone links
 
-### 3. Review
-
-Present the draft to the user. Wait for feedback before saving.
-
-### 4. Save or Push
+### 3. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):

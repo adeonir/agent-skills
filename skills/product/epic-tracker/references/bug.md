@@ -79,17 +79,13 @@ Fill the template (below):
 - **Workaround**: known mitigation or "None known"
 - **References**: link to parent epic, related stories, logs
 
-### 5. Review
-
-Present the draft to the user. Apply the resumption gate:
+Apply the resumption gate before proceeding:
 
 > **Resumption gate** — Can a future session resume work from this
 > ticket alone, with no chat history? If no, add the missing piece
 > (link, repro step, error excerpt, signal) before saving.
 
-Wait for feedback before saving.
-
-### 6. Save or Push
+### 5. Save or Push
 
 **If tracker configured** (`.artifacts/epics/.config.yml` exists with
 `tracker.kind` set and not `none`):

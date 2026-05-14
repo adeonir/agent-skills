@@ -78,7 +78,7 @@ not `none`.
 
 - Use kebab-case for all artifact and folder names
 - Keep each file to a single artifact type in its proper folder
-- Present the artifact for user review before saving or pushing
+- Save or push immediately after the draft step — no separate preview gate
 - Route tracker operations through `sync.md` — core artifact refs stay
   tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V7 on create and on
