@@ -1,5 +1,5 @@
 ---
-name: session-handoff
+name: handoff
 description: >-
   Save current conversation state to disk so a later session resumes
   with full context. Captures focus, next step, suggested skills, plus
@@ -14,17 +14,17 @@ description: >-
 argument-hint: "[next session focus]"
 ---
 
-# Session Handoff
+# Handoff
 
-Capture conversation state to `.artifacts/.session-handoff.md` so a
-later session resumes with full context. Three ops: save, load, clear.
+Capture conversation state to `.artifacts/.handoff.md` so a later
+session resumes with full context. Three ops: save, load, clear.
 
 ## Workflow
 
 ```
-save  --> append snapshot at top of .artifacts/.session-handoff.md
-load  --> Read .artifacts/.session-handoff.md; latest snapshot at top
-clear --> overwrite .artifacts/.session-handoff.md with empty content
+save  --> append snapshot at top of .artifacts/.handoff.md
+load  --> Read .artifacts/.handoff.md; latest snapshot at top
+clear --> overwrite .artifacts/.handoff.md with empty content
 ```
 
 ## Triggers
@@ -37,10 +37,10 @@ clear --> overwrite .artifacts/.session-handoff.md with empty content
 
 ## Clear
 
-Write empty content to `.artifacts/.session-handoff.md`. Do not delete
-the file — an empty file is treated as missing on next load, and
-writing avoids a Bash permission prompt. Silent no-op when the file
-is already absent.
+Write empty content to `.artifacts/.handoff.md`. Do not delete the
+file — an empty file is treated as missing on next load, and writing
+avoids a Bash permission prompt. Silent no-op when the file is
+already absent.
 
 ## Guidelines
 

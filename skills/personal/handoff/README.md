@@ -1,4 +1,4 @@
-# Session Handoff
+# Handoff
 
 Capture conversation state so another session can resume.
 
@@ -6,7 +6,7 @@ Capture conversation state so another session can resume.
 
 ```mermaid
 flowchart LR
-    A[save] --> B[.artifacts/.session-handoff.md]
+    A[save] --> B[.artifacts/.handoff.md]
     B --> C[load]
     C --> D[next session resumes]
     B -.-> E[clear]
@@ -14,7 +14,7 @@ flowchart LR
 
 | Op | Output |
 |----|--------|
-| save | New snapshot prepended at the top of `.artifacts/.session-handoff.md` |
+| save | New snapshot prepended at the top of `.artifacts/.handoff.md` |
 | load | Latest snapshot folded into the current session's working context |
 | clear | File overwritten with empty content (opt-in, separate op) |
 
@@ -37,13 +37,13 @@ reset handoff
 
 ## Output
 
-`.artifacts/.session-handoff.md` — newest snapshot at the top.
+`.artifacts/.handoff.md` — newest snapshot at the top.
 
 Three sections are always present (`Focus`, `Next step`,
 `Suggested skills`); five are optional and omitted when empty:
 
 ```markdown
-# Session Handoff
+# Handoff
 
 ## YYYY-MM-DD HH:MM — {title}
 
@@ -88,15 +88,15 @@ A: Load and clear no-op silently. Save creates the file.
 **Q: How does this differ from end-of-session note persistence?**
 
 A: End-of-session flows write a narrative of what happened into memory
-systems (auto-memory, Basic Memory, Obsidian). Session-handoff is an
+systems (auto-memory, Basic Memory, Obsidian). The handoff skill is an
 ephemeral conversation handoff for resuming across sessions — it
 carries focus, next step, and suggested skills rather than a session
 narrative. End-of-session flows may read the latest handoff snapshot
-to compose their notes and then ask before clearing it.
+to compose their notes; whether they clear it afterwards is up to that
+flow.
 
 **Q: Can I describe what the next session should focus on?**
 
-A: Yes. Pass the focus as an argument: `/session-handoff continue
-auth race fix`. Save tailors `Focus`, `Next step`, and `Suggested
-skills` to that focus. Without an argument, save captures generic
-state.
+A: Yes. Pass the focus as an argument: `/handoff continue auth race
+fix`. Save tailors `Focus`, `Next step`, and `Suggested skills` to
+that focus. Without an argument, save captures generic state.

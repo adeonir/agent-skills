@@ -1,7 +1,7 @@
 # Save Snapshot
 
 Append a new snapshot block at the top of
-`.artifacts/.session-handoff.md`.
+`.artifacts/.handoff.md`.
 
 ## When to Use
 
@@ -15,7 +15,7 @@ The skill accepts an optional argument describing what the next
 session will focus on:
 
 ```
-/session-handoff continue debugging the auth race condition
+/handoff continue debugging the auth race condition
 ```
 
 When an argument is present, tailor `Focus`, `Next step`, and
@@ -100,9 +100,9 @@ or expand with adjacent skills the next session may need.
    accordingly.
 4. Decide which optional sections apply. Omit any that would be
    empty — do not include the label.
-5. Check `.artifacts/.session-handoff.md`:
-   - **Absent**: create it with `# Session Handoff` as the H1, then
-     the snapshot block immediately after
+5. Check `.artifacts/.handoff.md`:
+   - **Absent**: create it with `# Handoff` as the H1, then the
+     snapshot block immediately after
    - **Present**: prepend the new snapshot block above existing
      content (after the H1, before the previous topmost block)
 6. Confirm the file was written and report the snapshot title.
@@ -121,7 +121,7 @@ or expand with adjacent skills the next session may need.
 
 - Bash/Write fails to create file: report the error and stop; do not
   retry silently
-- File exists but has no `# Session Handoff` H1: insert the H1 before
+- File exists but has no `# Handoff` H1: insert the H1 before
   prepending the new block
 - Date/time resolution fails: fall back to `YYYY-MM-DD` only (no time
   component) rather than blocking the save
