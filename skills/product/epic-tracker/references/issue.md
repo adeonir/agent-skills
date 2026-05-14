@@ -120,7 +120,7 @@ type: issue
 epic: {{epic-name or omit for standalone}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
-#   kind: linear | github-issues | github-projects | jira
+#   kind: linear | github | jira
 #   id: PROJ-123
 #   url: https://...
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ

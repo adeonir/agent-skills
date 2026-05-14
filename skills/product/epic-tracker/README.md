@@ -27,13 +27,17 @@ markdown in `.artifacts/epics/` is the source of truth.
 
 ## Tracker Integration
 
-| Artifact | Linear | GitHub Issues | GitHub Projects | Jira |
-|----------|--------|---------------|-----------------|------|
-| Epic     | Project | Milestone | Issue parent (sub-issues) | Epic |
-| Story    | Issue | Issue | Sub-issue | Story |
-| Bug      | Issue + label `bug` | Issue + label `bug` | Sub-issue + label `bug` | Bug |
-| Issue    | Issue + label `task` | Issue + label `task` | Sub-issue + label `task` | Task |
-| Release  | Cycle | Release tag | Release tag | Fix Version |
+| Artifact | Linear | GitHub | Jira |
+|----------|--------|--------|------|
+| Epic     | Project | Issue (parent) | Epic |
+| Story    | Issue | Issue (sub-issue of Epic) | Story |
+| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) | Bug |
+| Issue    | Issue + label `task` | Issue (sub-issue of Epic/Story or standalone) | Task |
+| Release  | Cycle | Release tag | Fix Version |
+
+GitHub uses sub-issues as the hierarchy primitive. Milestones and
+Projects v2 are orthogonal opt-in layers (date grouping, custom
+fields/views) — neither encodes Epic→Story.
 
 Release uses each tracker's closest native primitive instead of forcing
 one concept.

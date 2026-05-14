@@ -17,13 +17,18 @@ wrong push can clobber tracker state that other people rely on.
 
 ## Primitive Mapping
 
-| Artifact | Linear | GitHub Issues | GitHub Projects | Jira |
-|----------|--------|---------------|-----------------|------|
-| Epic     | Project | Milestone | Issue parent (with sub-issues) | Epic |
-| Story    | Issue | Issue | Sub-issue | Story |
-| Bug      | Issue + label `bug` | Issue + label `bug` | Sub-issue + label `bug` | Bug |
-| Issue    | Issue | Issue | Sub-issue | Task |
-| Release  | Cycle | Release tag | Release tag | Fix Version |
+| Artifact | Linear | GitHub | Jira |
+|----------|--------|--------|------|
+| Epic     | Project | Issue (parent) | Epic |
+| Story    | Issue | Issue (sub-issue of Epic) | Story |
+| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) | Bug |
+| Issue    | Issue | Issue (sub-issue of Epic/Story or standalone) | Task |
+| Release  | Cycle | Release tag | Fix Version |
+
+GitHub uses sub-issues as the hierarchy primitive. Milestones and
+Projects v2 are orthogonal opt-in layers (date grouping, custom
+fields/views) — neither encodes Epic→Story. See
+[adapters/github.md](adapters/github.md) for details.
 
 Release uses the closest native primitive each tracker offers — no forced
 single concept across trackers.
@@ -36,16 +41,17 @@ Schema:
 
 ```yaml
 tracker:
-  kind: linear | github-issues | github-projects | jira | none
+  kind: linear | github | jira | none
 
   # Linear
   workspace: my-team
 
-  # GitHub (issues or projects)
+  # GitHub
   repo: owner/name
-  project_number: 5          # github-projects only
-  projects_mode: sub-issues | classic    # github-projects only; default sub-issues
-  issue_types:               # github only; detected during bootstrap
+  project_number: 5          # optional — enables Projects v2 enrichment (boards, custom fields)
+  use_milestones: true       # optional — enables Milestone field as date-bound grouping
+  sub_issues: enabled | disabled  # detected during bootstrap; required for hierarchy
+  issue_types:               # detected during bootstrap
     epic: Epic               # org-configured type names; empty object if org has none
     story: Story
     bug: Bug
@@ -71,15 +77,20 @@ Runs when an operation requires a tracker but config is missing or
    - Prefer MCP when both are available; CLI is an equally valid fallback
 3. Present detected options plus "none (markdown only)" to the user.
 4. Ask the user to pick one.
-5. Collect tracker-specific fields (workspace, repo, project_number,
-   base_url, project_key) one question at a time.
-6. For `github-projects`, detect whether the project uses sub-issues
-   (newer) or classic (older); default to sub-issues, fall back to classic
-   if detection fails.
-7. For `github-issues` or `github-projects`, detect whether the org has
-   custom issue types configured (Story, Bug, Task, Epic); store result
-   as `issue_types: true | false` in config. See adapter for detection
-   details and label fallback rules.
+5. Collect tracker-specific fields one question at a time:
+   - Linear: workspace.
+   - GitHub: repo (`owner/name`); optional `project_number` (Projects v2);
+     optional `use_milestones` (Milestone field).
+   - Jira: base_url, project_key.
+6. For GitHub, probe whether the repo has the sub-issues feature
+   available (`addSubIssue` on GraphQL). Store result as
+   `sub_issues: enabled | disabled`. When disabled, warn the user that
+   Stories will be standalone (no Epic→Story link) and ask whether to
+   proceed or abort.
+7. For GitHub, detect whether the org has custom Issue Types configured
+   (Story, Bug, Task, Epic); store names under `issue_types` (empty
+   object when none). See adapter for detection details and label
+   fallback rules.
 8. Write the config to `.artifacts/epics/.config.yml` including the
    integration method chosen (`via: mcp | cli`).
 
@@ -107,7 +118,7 @@ user updates the cache mid-session.
    fall back to markdown-only and inform the user.
 3. Load the adapter matching `tracker.kind`:
    - `linear` → [adapters/linear.md](adapters/linear.md)
-   - `github-issues` or `github-projects` → [adapters/github.md](adapters/github.md)
+   - `github` → [adapters/github.md](adapters/github.md)
    - `jira` → [adapters/jira.md](adapters/jira.md)
 4. Adapter creates or updates the entity in the tracker via MCP.
 5. On success:
