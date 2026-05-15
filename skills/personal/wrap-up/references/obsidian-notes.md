@@ -58,6 +58,27 @@ Always search before creating to avoid duplicates.
 
 ## Workflow
 
+### 0. Enrich working context
+
+Run before composing notes. When the claude-mem MCP is available
+(`mcp__plugin_claude-mem_mcp-search__*`), query for **current-session**
+observations relevant to the resolved project. Fold matches into
+working context so mid-session detail that scrolled out is recovered
+before composition.
+
+**Scoping rules (mandatory — do not pollute working context):**
+
+- **Time**: current session window only — exclude prior sessions
+- **Topic**: filter by project name and the threads already active in
+  the wrap-up; skip parallel unrelated topics from the same session
+- **Budget**: top 5-10 most relevant observations, no broad sweeps
+- **Fallback**: silent skip when MCP unavailable or returns nothing
+
+The goal is recovering lost session detail before composing executive
+narrative — not importing history or adjacent threads. Notes stay
+human-readable: observation IDs do not enter note bodies, consistent
+with the no-commit-hashes rule.
+
 ### 1. Create session note
 
 #### Determine path
@@ -257,6 +278,7 @@ Rules:
 
 **DO:**
 - Write notes immediately — no preview message, no rendered-content dump, no "about to write..." narration. The user invoked wrap-up to persist, not to review drafts in chat.
+- Run Enrich step (0) when claude-mem MCP is available; scope strictly to current session + active project topics; skip silently otherwise
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
 - Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
@@ -285,9 +307,12 @@ Rules:
 - Create empty sections or placeholder content
 - Create wikilinks to files that don't exist (orphan links)
 - Expand Findings or Problems into detailed narratives (contrasts: brief bullets only)
+- Cite claude-mem observation IDs in note bodies (contrasts: Obsidian stays narrative; mem-search drills down)
+- Import observations from prior sessions or parallel unrelated threads during Enrich (contrasts: current session + active topic only)
 
 ## Error Handling
 
 - Obsidian/MCPVault unavailable: skip Obsidian step entirely, warn user
+- claude-mem MCP unavailable, returns nothing, or query times out: skip Enrich step silently and compose from working context only
 - Daily note already exists: read with `read_note`, update with `patch_note`
 - No meaningful session content: keep session brief, still update daily note

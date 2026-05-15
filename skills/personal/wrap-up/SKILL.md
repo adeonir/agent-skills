@@ -18,15 +18,18 @@ End-of-session documentation to Obsidian.
 ## Workflow
 
 ```
-mapping --> handoff:Load --> obsidian-notes --> handoff:Detect+Cleanup
+mapping --> handoff:Load --> obsidian-notes (enrich + compose) --> handoff:Detect+Cleanup
 ```
 
 Resolve project from current working directory, load any session
-handoff (when present), then write Obsidian notes. No confirmation
-between note-writing steps. The closing step runs structural-delta
-detection — silent unless a delta fires — then clears the handoff
-file automatically (wrap-up has already persisted the snapshot to
-Obsidian, so the on-disk copy is redundant).
+handoff (when present), then write Obsidian notes. `obsidian-notes`
+opens with an Enrich step that folds relevant current-session
+observations from claude-mem into working context (silent skip when
+MCP unavailable). No confirmation between note-writing steps. The
+closing step runs structural-delta detection — silent unless a delta
+fires — then clears the handoff file automatically (wrap-up has
+already persisted the snapshot to Obsidian, so the on-disk copy is
+redundant).
 
 ## Triggers
 

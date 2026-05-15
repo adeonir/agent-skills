@@ -63,28 +63,51 @@ write "none").
 ## Anti-Duplication Rule
 
 Do not duplicate content already captured in artifacts on disk,
-commits, PRs, issues, or documentation. Reference them by path or URL
-instead. The handoff carries only context that lives in the
-conversation: unresolved threads, decisions made on the fly, where to
-pick up, which skill to invoke next.
+commits, PRs, issues, documentation, or claude-mem observations.
+Reference them by path or URL instead. The handoff carries only
+context that lives in the conversation: unresolved threads, decisions
+made on the fly, where to pick up, which skill to invoke next.
+
+## Enrich Phase
+
+Run before composing the snapshot. When the claude-mem MCP is
+available (`mcp__plugin_claude-mem_mcp-search__*`), query for
+**current-session** observations relevant to `Focus`. Fold matches
+into working context so mid-session detail that scrolled out is
+recovered before the snapshot is written.
+
+**Scoping rules (mandatory — do not pollute working context):**
+
+- **Time**: current session window only — exclude prior sessions
+- **Topic**: filter by `Focus` keywords; skip parallel unrelated
+  threads even when they belong to the same session
+- **Budget**: top 5-10 most relevant observations, no broad sweeps
+- **Fallback**: silent skip when MCP is unavailable, returns nothing,
+  or the conversation has no clear Focus yet
+
+The goal is recovering lost session detail, not importing history or
+adjacent threads. Snapshot Findings/Decisions stay terse human prose
+— observation IDs do not enter the snapshot body.
 
 ## Workflow
 
 1. Resolve current date and time as `YYYY-MM-DD HH:MM` (local time
    acceptable; pick one convention and keep it).
-2. Compose the snapshot from working context. Apply the
+2. Run the Enrich Phase to fold relevant current-session observations
+   into working context. Skip silently when claude-mem MCP is absent.
+3. Compose the snapshot from working context. Apply the
    anti-duplication rule — reference artifacts by path, do not
    replay them.
-3. If an argument was passed, treat it as the focus of the next
+4. If an argument was passed, treat it as the focus of the next
    session and tailor `Focus` and `Next step` accordingly.
-4. Decide which optional sections apply. Omit any that would be
+5. Decide which optional sections apply. Omit any that would be
    empty — do not include the label.
-5. Check `.artifacts/.handoff.md`:
+6. Check `.artifacts/.handoff.md`:
    - **Absent**: create it with `# Handoff` as the H1, then the
      snapshot block immediately after
    - **Present**: prepend the new snapshot block above existing
      content (after the H1, before the previous topmost block)
-6. Confirm the file was written and report the snapshot title.
+7. Confirm the file was written and report the snapshot title.
 
 ## Guidelines
 
@@ -95,6 +118,8 @@ pick up, which skill to invoke next.
 - Reference artifacts by path or URL; never replay their content
 - Tailor to the argument when present; capture generic state when
   absent
+- Run Enrich Phase when claude-mem MCP is available; scope strictly
+  to current session + Focus topic; skip silently otherwise
 
 ## Error Handling
 
@@ -106,3 +131,5 @@ pick up, which skill to invoke next.
   component) rather than blocking the save
 - Argument is present but unintelligible: treat as no argument and
   fall back to generic capture
+- claude-mem MCP unavailable, returns nothing, or query times out:
+  skip Enrich Phase silently and compose from working context only
