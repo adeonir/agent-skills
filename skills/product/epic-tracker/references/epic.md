@@ -128,14 +128,14 @@ issues) is the source of truth for hierarchy once a tracker is wired. -->
 
 - {{What's explicitly excluded}}
 
-## Rabbit Holes
-
-- {{Known complexity or trap to avoid}}
-
 ## Acceptance Criteria
 
 - [ ] {{High-level verifiable condition for the epic as a whole}}
 - [ ] {{Another testable condition}}
+
+## Rabbit Holes
+
+- {{Known complexity or trap to avoid}}
 
 ## References
 

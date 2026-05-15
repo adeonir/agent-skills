@@ -8,11 +8,11 @@ upstream enforcement, every Story is escalated as ambiguous.
 ## When to Use
 
 - Auto-loaded by `story.md` (Step 4 Validate, before save or push)
-- Auto-loaded by `edit-story.md` when an edit changes AC text
+- Auto-loaded by `update-story.md` when an edit changes AC text
 - Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
 
 This ref is the single home for the AC contract. Do not duplicate the
-rules in `story.md` or `edit-story.md` -- both load this ref at the
+rules in `story.md` or `update-story.md` -- both load this ref at the
 validation step.
 
 ## AC Schema
@@ -109,7 +109,7 @@ Default Y. The user may keep the wording; the warning is informational
 so the planner downstream can attach `validator_note`.
 
 If any strict rule fails: do not proceed to save or push. The caller
-(`story.md` Step 4 or `edit-story.md` validation branch) loops back to
+(`story.md` Step 4 or `update-story.md` validation branch) loops back to
 review until the user fixes the AC.
 
 ## Read-path tolerance
@@ -123,7 +123,7 @@ Read paths do not invoke this ref:
 
 Stories created before this ref existed are not retroactively validated.
 Edits that do not change AC text also skip validation (see
-`edit-story.md` diff branch 1).
+`update-story.md` diff branch 1).
 
 ## Guidelines
 
@@ -138,7 +138,7 @@ Edits that do not change AC text also skip validation (see
 - Invent AC content for the user (contrasts: surface failures, let the user fix)
 - Validate on pull or read-only navigation (contrasts: validate only on create and AC-text-changing edits)
 - Block on V6 (contrasts: warn-only with confirm)
-- Embed validation logic in `story.md` or `edit-story.md` (contrasts: this ref is the single home; both load it)
+- Embed validation logic in `story.md` or `update-story.md` (contrasts: this ref is the single home; both load it)
 
 ## Error Handling
 

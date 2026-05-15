@@ -32,6 +32,8 @@ Fill the template (below):
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what
   changes for the user. Keep it focused -- one story, one outcome.
+- **Out of Scope**: explicit boundaries -- what this story does not
+  cover. Remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
   single Given/When/Then. Validated in Step 4 against rules V1-V7. See
   [ac-validation.md](ac-validation.md).
@@ -119,6 +121,12 @@ type: story
 ## Summary
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
+
+## Out of Scope
+
+{Remove this section if nothing is ambiguous.}
+
+- {{What this story explicitly does not cover}}
 
 ## Acceptance Criteria
 

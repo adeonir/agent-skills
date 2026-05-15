@@ -38,7 +38,7 @@ Falls back to markdown when not.
 - **Story** ("create story", "new story", "add story") →
   [story.md](references/story.md)
 - **Edit Story** ("edit story", "update story body", "change story") →
-  [edit-story.md](references/edit-story.md)
+  [update-story.md](references/update-story.md)
 - **Bug** ("create bug", "report bug", "bug report") →
   [bug.md](references/bug.md)
 - **Issue / Chore / Task** ("create issue", "new issue", "add issue",
@@ -72,7 +72,7 @@ not `none`.
 `tracker.kind`. Not direct triggers.
 
 `ac-validation.md` is auto-loaded by `story.md` (create) and
-`edit-story.md` (when AC text changes). Not a direct trigger.
+`update-story.md` (when AC text changes). Not a direct trigger.
 
 ## Guidelines
 
