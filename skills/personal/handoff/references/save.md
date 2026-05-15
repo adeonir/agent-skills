@@ -18,15 +18,14 @@ session will focus on:
 /handoff continue debugging the auth race condition
 ```
 
-When an argument is present, tailor `Focus`, `Next step`, and
-`Suggested skills` to that focus. Without an argument, capture the
-current state generically.
+When an argument is present, tailor `Focus` and `Next step` to that
+focus. Without an argument, capture the current state generically.
 
 ## Format
 
-ALWAYS use this exact template structure. Three sections are
-required every save; five are optional and must be omitted when
-empty (do not write "none").
+ALWAYS use this exact template structure. Two sections are required
+every save; five are optional and must be omitted when empty (do not
+write "none").
 
 ````markdown
 ## YYYY-MM-DD HH:MM — {one-line title}
@@ -34,9 +33,6 @@ empty (do not write "none").
 **Focus:** {what the next session should pick up; 1 line}
 
 **Next step:** {concrete entry point — file, function, or command}
-
-**Suggested skills:**
-- {skill invocation} — {why the next session should run it}
 
 **Decisions:**
 - {decision + rationale}
@@ -58,7 +54,6 @@ empty (do not write "none").
 |---------|----------|-------|
 | `Focus` | yes | One-line orientation for the next session |
 | `Next step` | yes | Concrete entry point — file, function, command |
-| `Suggested skills` | yes | At least one skill the next session should invoke |
 | `Decisions` | no | Omit when no decisions live outside artifacts |
 | `Findings` | no | Omit when nothing notable to carry |
 | `Open threads` | no | Omit when all threads closed |
@@ -73,21 +68,6 @@ instead. The handoff carries only context that lives in the
 conversation: unresolved threads, decisions made on the fly, where to
 pick up, which skill to invoke next.
 
-## Suggested Skills
-
-List skills the next session should invoke. Be additive to
-`Next step` — do not restate the entry point as a skill bullet.
-Examples:
-
-- `/spec-driven implement story S-2` — implementation phase pending
-  for the auth feature
-- `/git-helpers commit` — atomic commits queued before context loss
-- `/debug-tools` — race condition root cause still unresolved
-
-When the next step itself is a skill invocation, keep `Suggested
-skills` to one bullet that names the same skill plus the rationale,
-or expand with adjacent skills the next session may need.
-
 ## Workflow
 
 1. Resolve current date and time as `YYYY-MM-DD HH:MM` (local time
@@ -96,8 +76,7 @@ or expand with adjacent skills the next session may need.
    anti-duplication rule — reference artifacts by path, do not
    replay them.
 3. If an argument was passed, treat it as the focus of the next
-   session and tailor `Focus`, `Next step`, and `Suggested skills`
-   accordingly.
+   session and tailor `Focus` and `Next step` accordingly.
 4. Decide which optional sections apply. Omit any that would be
    empty — do not include the label.
 5. Check `.artifacts/.handoff.md`:
@@ -109,8 +88,8 @@ or expand with adjacent skills the next session may need.
 
 ## Guidelines
 
-- Three sections required (`Focus`, `Next step`, `Suggested skills`);
-  the rest are optional — omit when empty
+- Two sections required (`Focus`, `Next step`); the rest are optional
+  — omit when empty
 - Bullets, not paragraphs — keep each section terse
 - Append at the top so load consumers always read the latest first
 - Reference artifacts by path or URL; never replay their content

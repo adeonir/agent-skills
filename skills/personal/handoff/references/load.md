@@ -22,7 +22,6 @@ with prior context.
    the session to consume:
    - `**Focus:**` — always present
    - `**Next step:**` — always present
-   - `**Suggested skills:**` — always present
    - `**Decisions:**` — optional, surface when present
    - `**Findings:**` — optional, surface when present
    - `**Open threads:**` — optional, surface when present
@@ -43,9 +42,9 @@ with prior context.
 
 - File missing: silent no-op
 - File empty or no `##` blocks: silent no-op
-- Topmost block missing a required section (`Focus`, `Next step`,
-  `Suggested skills`): surface what is present and flag the gap to
-  the user before continuing
+- Topmost block missing a required section (`Focus`, `Next step`):
+  surface what is present and flag the gap to the user before
+  continuing
 - Optional section absent: skip silently — sections are omitted by
   design when empty
 - Read fails: report the error and stop; do not partial-load

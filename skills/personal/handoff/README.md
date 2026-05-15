@@ -39,8 +39,8 @@ reset handoff
 
 `.artifacts/.handoff.md` — newest snapshot at the top.
 
-Three sections are always present (`Focus`, `Next step`,
-`Suggested skills`); five are optional and omitted when empty:
+Two sections are always present (`Focus`, `Next step`); five are
+optional and omitted when empty:
 
 ```markdown
 # Handoff
@@ -50,9 +50,6 @@ Three sections are always present (`Focus`, `Next step`,
 **Focus:** {one line}
 
 **Next step:** {concrete entry point}
-
-**Suggested skills:**
-- {skill invocation} — {why next session should run it}
 
 **Decisions:**
 - ...
@@ -90,13 +87,12 @@ A: Load and clear no-op silently. Save creates the file.
 A: End-of-session flows write a narrative of what happened into memory
 systems (auto-memory, Basic Memory, Obsidian). The handoff skill is an
 ephemeral conversation handoff for resuming across sessions — it
-carries focus, next step, and suggested skills rather than a session
-narrative. End-of-session flows may read the latest handoff snapshot
+carries focus and next step rather than a session narrative. End-of-session flows may read the latest handoff snapshot
 to compose their notes; whether they clear it afterwards is up to that
 flow.
 
 **Q: Can I describe what the next session should focus on?**
 
 A: Yes. Pass the focus as an argument: `/handoff continue auth race
-fix`. Save tailors `Focus`, `Next step`, and `Suggested skills` to
-that focus. Without an argument, save captures generic state.
+fix`. Save tailors `Focus` and `Next step` to that focus. Without an
+argument, save captures generic state.

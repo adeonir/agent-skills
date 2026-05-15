@@ -2,9 +2,9 @@
 name: handoff
 description: >-
   Save current conversation state to disk so a later session resumes
-  with full context. Captures focus, next step, suggested skills, plus
-  optional decisions, findings, open threads, blockers, and references;
-  appends snapshots newest-at-top. Use when ending a session before
+  with full context. Captures focus and next step, plus optional
+  decisions, findings, open threads, blockers, and references; appends
+  snapshots newest-at-top. Use when ending a session before
   context loss, checkpointing mid-session, or starting a session that
   should continue prior work. Triggers: "save context", "dump
   conversation", "checkpoint this", "session handoff", "save handoff",

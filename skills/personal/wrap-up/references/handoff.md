@@ -27,7 +27,6 @@ Runs after mapping, before obsidian-notes.
    wrap-up to consume:
    - `**Focus:**` line (always present)
    - `**Next step:**` line (always present)
-   - `**Suggested skills:**` bullets (always present)
    - `**Decisions:**` bullets (when present)
    - `**Findings:**` bullets (when present)
    - `**Open threads:**` bullets (when present)
@@ -48,9 +47,9 @@ found no file or no latest snapshot.
 
 #### Step 1: Keyword scan
 
-Scan the in-context `**Findings:**`, `**References:**`, and
-`**Suggested skills:**` bullets for any of these structural keywords
-(skip sections that were omitted from the snapshot):
+Scan the in-context `**Findings:**` and `**References:**` bullets for
+any of these structural keywords (skip sections that were omitted from
+the snapshot):
 
 - `route`, `endpoint`, `api`
 - `module`, `package`, `dependency`, `dep`
