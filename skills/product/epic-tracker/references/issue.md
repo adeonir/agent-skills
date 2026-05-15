@@ -50,7 +50,9 @@ Fill the template (below):
 
 - **Name**: kebab-case, descriptive (`upgrade-node-20-actions`,
   `refactor-auth-middleware`, `setup-sentry`)
-- **Title**: human-readable title
+- **Title**: short human-readable phrase, slug-safe. No commands,
+  flags, file paths, parentheses, brackets, or pipes — becomes branch
+  name slug downstream.
 - **Type**: always `issue`
 - **Epic**: parent epic name, or omit for standalone issues
 - **Status**: always starts as `planned`

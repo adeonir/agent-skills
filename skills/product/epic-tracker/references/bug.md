@@ -65,7 +65,9 @@ Fill the template (below):
 
 - **Name**: kebab-case, descriptive (`broken-pix-redirect`,
   `login-timeout-error`)
-- **Title**: human-readable title describing the defect
+- **Title**: short human-readable phrase describing the defect,
+  slug-safe. No commands, flags, file paths, parentheses, brackets, or
+  pipes — becomes branch name slug downstream.
 - **Epic**: parent epic name, or omit for standalone bugs
 - **Type**: always `bug`
 - **Status**: always starts as `planned`

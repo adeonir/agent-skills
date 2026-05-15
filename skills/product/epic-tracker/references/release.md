@@ -25,7 +25,9 @@ Fill the template (below):
 
 - **Name**: kebab-case, descriptive (`mvp-launch`, `billing-v2`,
   `q2-release`)
-- **Title**: human-readable release title
+- **Title**: short human-readable release phrase, slug-safe. No
+  commands, flags, file paths, parentheses, brackets, or pipes —
+  becomes branch name slug downstream.
 - **Status**: always starts as `planned` (planned, in-progress,
   released)
 - **Prose context**: what this release delivers, why these stories

@@ -32,7 +32,9 @@ Fill the template (below) with discovered context:
 
 - **Name**: kebab-case, descriptive (`user-authentication`,
   `payment-processing`)
-- **Title**: human-readable title
+- **Title**: short human-readable phrase, slug-safe. No commands,
+  flags, file paths, parentheses, brackets, or pipes — becomes branch
+  name slug downstream.
 - **Status**: always starts as `planned`
 - **Prose context**: what the epic is about, why it exists, what changes
   for the user -- use a real scenario

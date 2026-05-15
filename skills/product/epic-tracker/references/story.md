@@ -27,7 +27,9 @@ Fill the template (below):
 
 - **Name**: kebab-case, descriptive, no numeric prefix (`add-pix-payment`,
   `reset-password-flow`) -- the prefix lives in the filename only
-- **Title**: human-readable title
+- **Title**: short human-readable phrase, slug-safe. No commands,
+  flags, file paths, parentheses, brackets, or pipes — becomes branch
+  name slug downstream.
 - **Epic**: parent epic name (must match an existing epic directory)
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what
