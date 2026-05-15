@@ -23,9 +23,9 @@ list items, one per line. No compound clauses.
 ```
 ### AC-1
 
-- **Given:** {single precondition}
-- **When:** {single action}
-- **Then:** {single observable outcome}
+**Given** {single precondition}
+**When** {single action}
+**Then** {single observable outcome}
 ```
 
 Rules:
@@ -45,7 +45,7 @@ Extract the AC section from the Story body:
 - Read until the next `## ` heading or end of document.
 - Inside that section, every `### AC-N` heading begins a new AC block.
 - For each block, read until the next `### ` or the end of the section.
-- Within a block, find lines matching `- **Given:** {value}`, `- **When:** {value}`, `- **Then:** {value}` (case-insensitive bold label, whitespace-tolerant).
+- Within a block, find lines matching `**Given** {value}`, `**When** {value}`, `**Then** {value}` (case-insensitive bold label, whitespace-tolerant).
 
 Tolerate tracker normalization: trailing whitespace, blank lines between
 blocks, single vs double newlines around headings. Linear and Jira
@@ -62,8 +62,8 @@ Run V1-V7 against the parsed tuples and the raw section text.
 |---|------|------------|---------|
 | V1 | Story has at least one AC | strict | parse yields zero `### AC-N` blocks |
 | V2 | Each AC has Given + When + Then | strict | tuple missing any of the three fields, or any field empty |
-| V3 | No compound Given | strict | two `- **Given:**` lines under one `### AC-N`, OR Given line contains case-insensitive substring `and given` |
-| V4 | No compound Then | strict | two `- **Then:**` lines under one `### AC-N`, OR Then line contains ` and ` joining two assertions (heuristic: warn-only sub-rule for `and`-joined Then; hard-strict only on duplicate `Then:` lines) |
+| V3 | No compound Given | strict | two `**Given**` lines under one `### AC-N`, OR Given line contains case-insensitive substring `and given` |
+| V4 | No compound Then | strict | two `**Then**` lines under one `### AC-N`, OR Then line contains ` and ` joining two assertions (heuristic: warn-only sub-rule for `and`-joined Then; hard-strict only on duplicate `Then` lines) |
 | V5 | No duplicate AC | strict | two AC tuples with identical normalized {given, when, then} |
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
 | V7 | Unique AC ids | strict | two `### AC-N` blocks with the same id |
@@ -90,7 +90,7 @@ AC-{id} fails {V#}: {reason}. {suggested fix}.
 Examples:
 
 ```
-AC-1 fails V2: missing Given clause. Add a single line "- **Given:** {precondition}" before the When line.
+AC-1 fails V2: missing Given clause. Add a line "**Given** {precondition}" before the When line.
 
 AC-1 fails V3: compound Given. Split into AC-1 and AC-2, or rephrase as a single precondition. The phrase "and given" is reserved.
 
