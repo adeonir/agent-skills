@@ -145,23 +145,26 @@ name: {{Project Name}}
 description: {{One sentence summary of the brand and product}}
 
 colors:
-  {Required base palette. Hex SRGB only. Add semantic surface variants and on-X pairs as needed. Common convention: primary, secondary, tertiary, neutral.}
-  primary: "{{#hex}}"
-  on-primary: "{{#hex}}"
-  primary-container: "{{#hex}}"
-  on-primary-container: "{{#hex}}"
-  secondary: "{{#hex}}"
-  on-secondary: "{{#hex}}"
-  tertiary: "{{#hex}}"
-  on-tertiary: "{{#hex}}"
+  {Required base palette. Hex SRGB only. Tokens follow shadcn convention: a base pair (background/foreground), surface pairs (card, popover), role pairs (primary, secondary), subdued/highlight pairs (muted, accent), feedback pair (destructive), and atomic tokens (border, input, ring). Every named role has an X and X-foreground.}
   background: "{{#hex}}"
-  on-background: "{{#hex}}"
-  surface: "{{#hex}}"
-  on-surface: "{{#hex}}"
-  surface-container: "{{#hex}}"
-  outline: "{{#hex}}"
-  error: "{{#hex}}"
-  on-error: "{{#hex}}"
+  foreground: "{{#hex}}"
+  card: "{{#hex}}"
+  card-foreground: "{{#hex}}"
+  popover: "{{#hex}}"
+  popover-foreground: "{{#hex}}"
+  primary: "{{#hex}}"
+  primary-foreground: "{{#hex}}"
+  secondary: "{{#hex}}"
+  secondary-foreground: "{{#hex}}"
+  muted: "{{#hex}}"
+  muted-foreground: "{{#hex}}"
+  accent: "{{#hex}}"
+  accent-foreground: "{{#hex}}"
+  destructive: "{{#hex}}"
+  destructive-foreground: "{{#hex}}"
+  border: "{{#hex}}"
+  input: "{{#hex}}"
+  ring: "{{#hex}}"
 
 typography:
   {Semantic categories: display, headline, body, label. Each may divide into sm, md, lg. Fields: fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, fontFeature, fontVariation. Populate every field the source supports; omit those it does not.}
@@ -215,16 +218,17 @@ components:
   {Each component maps a name to props from the allowlist: backgroundColor, textColor, typography, rounded, padding, size, height, width. Variants use sibling keys: button-primary, button-primary-hover, button-primary-disabled. Reference syntax: "{colors.primary}".}
   button-primary:
     backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
+    textColor: "{colors.primary-foreground}"
     typography: "{typography.label-sm}"
     rounded: "{rounded.md}"
     height: 48px
     padding: 0 24px
   button-primary-hover:
-    backgroundColor: "{colors.primary-container}"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.accent-foreground}"
   card:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.on-surface}"
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.card-foreground}"
     rounded: "{rounded.lg}"
     padding: "{spacing.container-padding}"
 
@@ -256,7 +260,7 @@ variants:
 
 ## Colors
 
-{Describe key color palettes by descriptive name (e.g. "Midnight Forest Green") and explain how each maps to the semantic tokens above. Cover tone, contrast goals, accent usage, and any palette-to-role assignment (primary, secondary, tertiary, neutral).}
+{Describe key color palettes by descriptive name (e.g. "Midnight Forest Green") and explain how each maps to the semantic tokens above. Cover tone, contrast goals, accent usage, and any palette-to-role assignment (primary, secondary, muted, accent, destructive).}
 
 ## Typography
 
@@ -272,7 +276,7 @@ variants:
 
 ## Elevation & Depth
 
-{Describe how depth is communicated (shadows, surfaces, layering, blur). If using surface-tint or surface-container variants, explain their role.}
+{Describe how depth is communicated (shadows, layering, blur). Note how card/popover surfaces and border tokens combine to convey elevation.}
 
 ## Shapes
 
