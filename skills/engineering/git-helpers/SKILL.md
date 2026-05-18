@@ -19,19 +19,10 @@ description: >-
 Git workflow with conventional commits, confidence-scored code review,
 and automated PR management.
 
-## Workflow
-
-```
-commit --> review --> summary --> create-pull-request --> finish-branch
-```
-
-Each step is independent. Use any workflow in isolation or chain them
-together.
-
 ## Triggers
 
 - **Commit changes** ("commit this", "create commit", "ready to commit",
-  "done") → [commit.md](references/commit.md)
+  "all done") → [commit.md](references/commit.md)
 - **Code review** ("review code", "check changes", "review my diff")
   → [code-review.md](references/code-review.md) (loads
   [guidelines-audit.md](references/guidelines-audit.md) as a lens prompt)
@@ -45,6 +36,15 @@ together.
 
 `guidelines-audit.md` is not a direct trigger — it is the lens prompt
 loaded by `code-review.md` during the guidelines lens fan-out.
+
+## Workflow
+
+```
+commit --> review --> summary --> create-pull-request --> finish-branch
+```
+
+Each step is independent. Use any workflow in isolation or chain them
+together.
 
 ## Code Review Fan-Out
 
@@ -75,10 +75,8 @@ the main agent (single-output workflows, no fan-out value).
   confirmation
 - Use confidence scoring: only report findings with confidence ≥ 80
 - Default base branch: `main` (user can override)
-- Use imperative mood in commit messages and PR titles
 - Use HEREDOC format for multi-line commit messages
 - Analyze the actual diff and staged files, not conversation context
-- Follow existing project conventions for commit message format
 - Prefer single-line commit messages — only add a body for complex or
   breaking changes
 

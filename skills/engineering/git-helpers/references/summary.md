@@ -60,7 +60,7 @@ Use Write tool to create the file with the template below.
 
 ## PR_SUMMARY.md Template
 
-ALWAYS use this exact template structure:
+ALWAYS use this exact template structure. Inside `## Key Changes`, omit any subsection (Core, API, State, UI, Configuration, Documentation) that has no matching files in the diff — the section headers below are an exhaustive catalogue, not a required list.
 
 ````markdown
 # Brief Descriptive Title
