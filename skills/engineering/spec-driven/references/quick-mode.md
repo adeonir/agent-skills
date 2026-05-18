@@ -82,11 +82,19 @@ Even small changes must follow project patterns.
 
 **Inline micro-research (only if needed):**
 
-Trigger: the task touches a tech the codebase has not used (new library
-call, version bump with API change, unfamiliar API). Skip otherwise.
+Trigger (any of these):
+
+- The task touches a tech the codebase has not used (new library call,
+  version bump with API change, unfamiliar API).
+- The task writes code or config whose correctness depends on a
+  version-sensitive fact of an existing dep or runtime (engine
+  constraints, runtime version pins, default behaviors that changed
+  across versions).
+
+Skip otherwise.
 
 Path: follow Knowledge Verification Chain Steps 1-3 (codebase -> project
-docs -> Context7). Cap at 1-2 queries.
+docs -> external docs). Cap at 1-2 queries.
 
 Capture findings inline in `task.md` under a `## Notes` section. Do **not**
 write to `.artifacts/research/{topic}.md` -- that cache is for full

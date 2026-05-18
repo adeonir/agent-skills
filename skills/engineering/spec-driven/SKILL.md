@@ -10,29 +10,18 @@ description: >-
   closing, or turning a PRD into engineering artifacts. Triggers: "plan
   this feature", "spec this feature", "turn this PRD into a spec",
   "break this into tasks/stories", "create technical design",
-  "implement story S-1", "implement task T-1", "verify
-  implementation", "check acceptance criteria", "audit feature",
-  "audit this spec", "validate goals", "UAT", "manual testing",
+  "implement story S-1", "verify implementation", "check acceptance
+  criteria", "audit feature", "validate goals", "manual testing",
   "discuss this feature", "show feature status", "quick fix", "quick
-  task", "quick mode", "small change", and known one-line fixes where
-  the user names file and line. Not for diagnosing unknown bugs,
-  authoring standalone PRD/RFC/ADR/TDD documents, PR/commit mechanics,
-  or PM backlog tracking.
+  task", "small change", and known one-line fixes where the user names
+  file and line. Not for diagnosing unknown bugs, authoring standalone
+  PRD/RFC/ADR/TDD documents, PR/commit mechanics, or PM backlog
+  tracking.
 ---
 
 # Spec-Driven Development
 
 Structured development workflow with adaptive depth.
-
-## Workflow
-
-```
-specify --> design* --> tasks* --> implement --> verify --> audit --> done
-  ^______________________________________|  (verify after each task)
-```
-
-Adaptive: Specify and Implement always run. Design and Tasks auto-skip
-when scope is small enough. Verify runs after every task or range.
 
 ## Triggers
 
@@ -44,7 +33,7 @@ when scope is small enough. Verify runs after every task or range.
   work") → [discuss.md](references/discuss.md)
 - **Technical design** ("create technical design", "plan feature") →
   [design.md](references/design.md)
-- **Research technology** ("research", "cache research") →
+- **Research technology** ("cache research", "research topic") →
   [research.md](references/research.md)
 - **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
 - **Implement** ("implement task", "execute task", "implement story
@@ -53,8 +42,8 @@ when scope is small enough. Verify runs after every task or range.
   code") → [verify.md](references/verify.md)
 - **Audit** ("audit feature", "validate goals", "audit goals and
   success criteria") → [audit.md](references/audit.md)
-- **UAT / manual testing** ("validate", "UAT", "manual testing", "test
-  manually") → [validate.md](references/validate.md)
+- **Manual testing** ("manual testing", "test manually") →
+  [validate.md](references/validate.md)
 - **Quick mode** ("quick fix", "quick task", "small change", "bug
   fix") → [quick-mode.md](references/quick-mode.md)
 - **Status overview** ("list features", "show status") →
@@ -80,18 +69,33 @@ when scope is small enough. Verify runs after every task or range.
   [code-correctness.md](references/code-correctness.md) (loaded by
   `verify.md` Step 5)
 
+## Workflow
+
+```
+specify --> design* --> tasks* --> implement --> verify --> audit --> done
+  ^______________________________________|  (verify after each task)
+```
+
+Adaptive: Specify and Implement always run. Design and Tasks auto-skip
+when scope is small enough. Verify runs after every task or range.
+
 ## Knowledge Verification Chain
 
 For all technical decisions, follow in order:
 
 1. Codebase
 2. Project docs
-3. Context7 MCP
+3. External docs lookup (documentation service or vendored references)
 4. Web search
 5. Flag or ask
 
 Never skip to step 5 if steps 1-4 are available. **Never assume or
 fabricate** — follow the chain or say "I don't know."
+
+Version-sensitive facts about existing dependencies (engines, defaults,
+API surfaces, deprecations) require the chain. Training memory is no
+substitute for the project's declared dep metadata or the dep's current
+documentation.
 
 ## Artifact Structure Authority
 
@@ -130,5 +134,17 @@ verification reverts checked AC and reopens the relevant tasks.
 Jumping to "I'll guess based on dependency name" or "let me web-search
 that" without exhausting steps 1-4 of the Knowledge Verification Chain
 produces fabricated patterns that don't match the codebase. Read the
-codebase first, then project docs, then Context7 MCP, then web. Only
+codebase first, then project docs, then external docs, then web. Only
 flag or ask after the chain is exhausted.
+
+## Anti-Pattern: Training Memory as Ground Truth
+
+Treating trained-in knowledge as authoritative for version-sensitive
+facts -- engine constraints, default versions, API surfaces,
+deprecations, runtime requirements -- silently bypasses the Knowledge
+Verification Chain, which applies whenever correctness depends on a
+current fact about a dependency, runtime, or external service. Verify
+against the source the project actually declares (its dependency
+metadata, lockfile, and the dep's own current documentation) before
+writing code or config that depends on it. "I already know this" is the
+failure mode -- training data has a cutoff and dep behavior moves past it.

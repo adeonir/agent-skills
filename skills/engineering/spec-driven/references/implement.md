@@ -60,12 +60,16 @@ When operating in **Quick scan mode** (Medium scope, no design.md):
 1. **Check research cache, then inline micro-research if needed**:
    - First, look for `.artifacts/research/{topic}.md` relevant to this
      feature. If exists and valid, use it.
-   - On cache miss, if a step touches a tech the codebase has not used:
-     run inline micro-research. Follow Knowledge Verification Chain Steps
-     1-3 (codebase -> project docs -> Context7). Cap at 1-2 queries.
-     Capture findings inline in spec.md under `## Implementation Notes`.
-     Do **not** write to `.artifacts/research/{topic}.md` -- that cache
-     is for full research in Large/Complex scope.
+   - On cache miss, run inline micro-research when either: (a) a step
+     touches a tech the codebase has not used, OR (b) a step writes code
+     or config whose correctness depends on a version-sensitive fact of
+     an existing dep or runtime (engine constraints, runtime version
+     pins, default behaviors that changed across versions). Follow
+     Knowledge Verification Chain Steps 1-3 (codebase -> project docs ->
+     external docs). Cap at 1-2 queries. Capture findings inline in spec.md
+     under `## Implementation Notes`. Do **not** write to
+     `.artifacts/research/{topic}.md` -- that cache is for full research
+     in Large/Complex scope.
    - If 1-2 queries insufficient: stop and escalate (suggest `design`
      first, which runs full research per design.md Step 5).
 

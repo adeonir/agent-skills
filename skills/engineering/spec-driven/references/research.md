@@ -31,7 +31,7 @@ When researching, prefer sources in this order:
 
 1. **Official documentation** -- the library/framework's own docs site
 2. **Official repositories** -- README, changelogs, migration guides on GitHub/GitLab
-3. **Verified references** -- Context7 documentation lookups, curated API references
+3. **Verified references** -- documentation service lookups, curated API references
 4. **Community sources** -- blog posts, tutorials, Stack Overflow (use for supplementary context only, never as sole source for architectural decisions)
 
 ## Cache Location
