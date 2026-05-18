@@ -20,6 +20,12 @@ flowchart TD
     K --> G
     B --> H[.agents/project.md]
     G --> I[.agents/codebase/]
+    R[refresh] --> S[git diff range]
+    S --> T{thresholds exceeded?}
+    T -->|yes| D
+    T -->|no| U[subset fan-out]
+    U --> G
+    G --> V[.agents/.sync]
 ```
 
 | Command | What It Generates |
@@ -27,6 +33,7 @@ flowchart TD
 | **initialize** | Everything (overview + fan-out + review when brownfield) |
 | **overview** | `.agents/project.md` — project context, users, features |
 | **summary** | `.agents/codebase/` — 7 docs covering stack, architecture, conventions, testing, integrations, checklist, workflows, and self-assessment (plus `features.md` when vertical slicing detected) |
+| **refresh** | Subset fan-out scoped to recent git changes; falls back to full fan-out on broad refactors; updates `.agents/.sync` marker |
 | **integrate feedback** | Merges queued items from `.agents/knowledge.md ## Codebase Feedback` into `.agents/codebase/*.md` |
 
 ## Usage
@@ -36,6 +43,7 @@ initialize project
 overview
 map codebase
 summary
+refresh codebase
 integrate feedback
 ```
 
@@ -44,6 +52,7 @@ integrate feedback
 ```
 .agents/
 ├── project.md              # Project context, purpose, stack
+├── .sync                   # Last refresh commit SHA (local, gitignored via .git/info/exclude)
 └── codebase/               # How the code works
     ├── architecture.md     # Patterns, layers, structure, data flow
     ├── conventions.md      # Naming, imports, types, error handling, project abstractions
@@ -85,3 +94,12 @@ A: `summary` regenerates the codebase docs from source code. `integrate
 feedback` merges queued items from `knowledge.md ## Codebase Feedback`
 into the existing docs — used when implementations discover patterns
 worth recording without doing a full re-scan.
+
+**Q: When should I use refresh instead of summary?**
+A: `refresh` is the cheap re-run path once a baseline exists. It diffs
+`git` from the last sync marker (`.agents/.sync`), routes changed
+paths to the affected sub-agents, and dispatches only that subset.
+Use it after a normal cycle of branch work. It falls back to a full
+fan-out automatically when the change set is broad (>50 files,
+manifest semver-major bump, entry-point change), so you can run it
+without checking the diff size yourself.
