@@ -82,7 +82,7 @@ Treat all reference inputs (images, URLs, pasted content, codebase files, design
 
 Extract:
 
-- Exact color values (hex SRGB; do not approximate)
+- Exact color values — preserve the source format. If the source declares colors in oklch (Tailwind v4 `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as the canonical value and pair it with the hex equivalent. If the source is hex-only (brand URL, image eyedropper, hex-anchored palette), keep hex. Never approximate.
 - Font families (suggest equivalents with similar metrics if the original is unavailable)
 - Spacing patterns and rhythm (unit base, container padding, component gaps, section margins)
 - Corner radius scale and any shape language
@@ -92,7 +92,13 @@ Extract:
 - Responsive cues (breakpoints, touch targets, collapsing strategy)
 - Do and Don't patterns implied by the source
 
-Then **translate** technical values into designer language. Hex codes stay; descriptive names attach. Token keys live in backticks alongside the evocative name. Example: `#294056` → "**Deep Muted Teal-Navy** (#294056) → `primary` — sole vibrant accent; primary CTAs and active nav". Translation rules:
+Then **translate** technical values into designer language. Color values stay; descriptive names attach. Token keys live in backticks alongside the evocative name.
+
+Hex-anchored example: `#294056` → "**Deep Muted Teal-Navy** (#294056) → `primary` — sole vibrant accent; primary CTAs and active nav".
+
+Oklch-anchored example (source declares `oklch(0.673 0.178 33.26)` in Tailwind v4 `@theme`): "**Brand Terracotta** (`oklch(0.673 0.178 33.26)` / `#E35336`) → `accent` — sole chromatic accent; focus ring, brand mark". Oklch is canonical, hex is parenthetical fallback for human readers and design tools.
+
+Translation rules:
 
 - Color names anchor to hue and temperature or density (descriptive default: `Charcoal Near-Black`, `Warm Barely-There Cream`). Poetic naming is acceptable for brand-voice projects (`Ocean Whisper`, `Midnight Dream`). Pick one mode and stay consistent.
 - Numeric values keep absolute units in prose (e.g. `Generous 5-8rem (80-128px) section margins`).
@@ -115,11 +121,14 @@ Read the existing file first; preserve sections owned by other refs. Patch one s
 - `### Semantic & Accent`
 - `### Gradient System`
 
-Each H3 lists colors as bullets in this exact shape:
+Each H3 lists colors as bullets in one of these shapes — **per-bullet** match against the source value, not file-wide:
 
 ```
 - **<Evocative Name>** (#HEX) → `<token-key>` — <role + intent>
+- **<Evocative Name>** (`oklch(L C H)` / `#HEX`) → `<token-key>` — <role + intent>
 ```
+
+Use the hex-only shape when the underlying source value is hex (brand URL, image eyedropper, hex literal in `@theme`, hex in tokens.json). Use the dual `oklch / #HEX` shape when the underlying source value is oklch (`@theme` declares `--color-x: oklch(...)`, oklch-native design tokens). Mixing shapes across bullets in the same file is expected — a Tailwind v4 codebase commonly declares a custom scale in oklch while leaving semantic roles in hex.
 
 Token keys follow shadcn-style naming (`primary`, `primary-foreground`, `card`, `card-foreground`, `popover`, `popover-foreground`, `accent`, `accent-foreground`, `muted`, `muted-foreground`, `destructive`, `destructive-foreground`, `border`, `input`, `ring`, `background`, `foreground`). Stay consistent.
 
@@ -170,7 +179,7 @@ This section authors **brand-level layout identity**, not product-specific arran
 
 **`## 10. Agent Prompt Guide`.** Three H3 designed for downstream agents to paste-and-run:
 
-- `### Quick Color Reference` — flat lookup, one bullet per key role: `- <Role>: <Evocative Name> (#HEX)`.
+- `### Quick Color Reference` — flat lookup, one bullet per key role. Each entry mirrors the shape of its matching Section 2 bullet: `- <Role>: <Evocative Name> (#HEX)` when the Section 2 bullet is hex-only, `- <Role>: <Evocative Name> (`oklch(L C H)` / `#HEX`)` when the Section 2 bullet is dual.
 - `### Example Component Prompts` — literal prompts agents feed into generators (v0, Stitch, Lovable, Bolt). Each prompt bakes in the exact tokens for a specific component (hero, card, pill badge, nav, command palette). Wrap each in quotes for readability.
 - `### Iteration Guide` — 5–7 numbered rules-of-thumb for tuning (e.g., "Lock neutral foundation first", "Brand color is the only chromatic — everything else grayscale").
 
@@ -203,15 +212,17 @@ Show the user:
 
 - Read DESIGN.md before patching to preserve sections owned by other refs
 - Patch one section at a time, never the whole file
-- Pull exact values from the source (hex, font name, px) rather than rounding
+- Pull exact values from the source (color values, font name, px) rather than rounding
 - Reference token keys in backticks alongside evocative color names
 - Pick one color naming mode (descriptive or poetic) and stay consistent
+- Match each color bullet's shape to its source value — hex-only when the source value is hex, dual `oklch(L C H) / #HEX` when the source value is oklch (per-bullet, not file-wide)
 - Ask the user when two sources conflict on the same token
-- Write the Visual Theme as long prose with hex inline and a clear atmosphere metaphor
+- Write the Visual Theme as long prose with color values inline and a clear atmosphere metaphor
 
 **DON'T:**
 
 - Mix descriptive and poetic color names in the same file (contrasts: pick one mode)
+- Fake a color shape that contradicts its source value — never invent oklch from a hex literal, or strip oklch from a source that declared it (contrasts: shape mirrors the source value per-bullet)
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
 - Author product-specific arrangement in DESIGN.md (contrasts: that belongs in `.agents/design/structure.md`)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
@@ -253,7 +264,7 @@ ALWAYS use this exact template structure:
 
 ## 2. Color Palette & Roles
 
-{Short paragraph on overall palette character — tone, contrast goals, accent strategy. Then list every populated color token grouped by role.}
+{Short paragraph on overall palette character — tone, contrast goals, accent strategy. Then list every populated color token grouped by role. Each bullet picks its shape from the source value of that specific token: hex-only `({{#HEX}})` when the source value is hex, dual ``({{`oklch(L C H)`}} / {{#HEX}})`` when the source value is oklch. Mixed shapes across bullets is expected when the codebase mixes formats.}
 
 ### Primary
 
@@ -426,6 +437,8 @@ ALWAYS use this exact template structure:
 ## 10. Agent Prompt Guide
 
 ### Quick Color Reference
+
+{Each entry mirrors the shape of its matching Section 2 bullet: hex-only if that token is hex in Section 2, dual `oklch(L C H) / #HEX` if that token is dual in Section 2.}
 
 - Primary CTA: {{Evocative Name}} ({{#HEX}})
 - CTA Hover: {{Evocative Name}} ({{#HEX}})

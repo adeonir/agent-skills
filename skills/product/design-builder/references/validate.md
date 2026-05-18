@@ -31,7 +31,7 @@ No files written. No tokens rewritten.
 
 Walk the DESIGN.md prose and extract:
 
-- Hex codes and their token keys from `## 2. Color Palette & Roles` bullets (shape `**<Name>** (#HEX) → \`<token-key>\` — <intent>`)
+- Color values and their token keys from `## 2. Color Palette & Roles` bullets. Two accepted shapes: `**<Name>** (#HEX) → \`<token-key>\` — <intent>` (hex-anchored) or `**<Name>** (\`oklch(L C H)\` / #HEX) → \`<token-key>\` — <intent>` (oklch-anchored, dual). Extract every value present.
 - Typography roles, font sizes, line heights from `## 3. Typography Rules > Hierarchy` bullets
 - Spacing scale from `## 5. Layout Principles > Spacing System`
 - Quick Color Reference entries from `## 10. Agent Prompt Guide > Quick Color Reference`
@@ -41,8 +41,11 @@ Walk the DESIGN.md prose and extract:
 | Check | Severity |
 |-------|----------|
 | Every hex is valid SRGB (`#RRGGBB` or `#RGB`) | error |
+| Every oklch value (when present) parses as `oklch(L C H)` with L in `0..1`, C ≥ `0`, H in `0..360` | error |
+| In dual bullets, the oklch and hex values resolve to the same color within 1 sRGB unit per channel | warning |
 | Token keys are unique across the section | error |
 | Foreground/background pairs (`foreground` over `background`, `primary-foreground` over `primary`, `card-foreground` over `card`, `accent-foreground` over `accent`, `muted-foreground` over `muted`, `destructive-foreground` over `destructive`, `popover-foreground` over `popover`) meet WCAG AA: 4.5:1 for body text, 3:1 for large text and UI elements | error |
+| Each Quick Color Reference entry mirrors the shape of its matching Section 2 bullet (hex-only for hex tokens, dual for oklch tokens) | warning |
 | Evocative names follow one mode consistently (descriptive: hue + temperature/density; poetic: brand-voice). Mixing modes within the same file | warning |
 
 ### Step 3: Typography Checks
@@ -65,13 +68,13 @@ Walk the DESIGN.md prose and extract:
 | Check | Severity |
 |-------|----------|
 | Section body length ≥ 1500 chars (target 2000–3000 for full brand voice) | warning |
-| At least one hex code appears inline | info |
+| At least one color value (hex or oklch) appears inline | info |
 
 ### Step 6: Cross-Section Consistency
 
 | Check | Severity |
 |-------|----------|
-| Quick Color Reference entries point at hex values present in Color Palette | warning |
+| Quick Color Reference entries point at color values (hex or oklch) present in Color Palette | warning |
 | Token keys referenced in Visual Theme prose match keys defined in Color Palette | warning |
 | Example Component Prompts in Agent Prompt Guide reference token keys present in Color Palette and Typography Hierarchy | info |
 
