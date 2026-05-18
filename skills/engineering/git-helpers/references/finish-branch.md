@@ -1,190 +1,173 @@
 # Finish Branch
 
-Prepare, merge, and clean up a branch after work is complete.
+Merge a GitHub pull request and clean up the branch.
 
 ## When to Use
 
-When the branch is ready to merge -- PR is approved, or work is done on a
-solo project without PRs. This is the final step in the git workflow.
+When ready to merge a PR -- approved, CI green, ready to ship. GitHub-based workflow only; requires `gh` CLI.
 
 ## Workflow
 
-### Step 0: Verify Tests Pass
-
-Run the project's test suite before anything else:
+### Step 1: Identify PR
 
 ```bash
-# Use whichever applies: npm test / yarn test / pnpm test / pytest / cargo test / go test ./...
+gh pr list --head $(git branch --show-current) --state open --json number,title,baseRefName
 ```
 
-If tests fail: report failures and stop. Do not proceed until tests pass.
-
-### Step 1: Gather Context
+If the list is empty (user is on the base branch, or the current branch has no open PR): ask the user for the PR number, then fetch its metadata:
 
 ```bash
-git branch --show-current
-git log {base}..HEAD --oneline
-git rev-list --left-right --count {base}...HEAD
+gh pr view {pr-number} --json number,title,baseRefName
 ```
 
-Check for open PR:
+Use `baseRefName` from the response as `{base}` for the rest of the workflow.
+
+### Step 2: Resolve Merge Method
+
+Infer the project's convention from recent merges on base:
 
 ```bash
-gh pr list --head $(git branch --show-current) --state open
+git log origin/{base} -10 --format='%P %s'
 ```
 
-### Step 2: Check If Branch Needs Updating
+| Pattern in recent entries | Method |
+|---------------------------|--------|
+| Two parents (two SHAs in `%P`) | `merge` |
+| One parent, subject ends in `(#N)` | `squash` |
+| One parent, no PR ID in subject | `rebase` |
 
-Compare current branch with base:
+If at least 3 of the last entries agree, use that method. If ambiguous or the base has no merge history, ask the user.
+
+| Method | Result |
+|--------|--------|
+| `merge` | Preserves commits + merge commit (parent count 2) |
+| `squash` | Single commit on base |
+| `rebase` | Replays original commits (linear history) |
+
+### Step 3: Preflight Checks
+
+#### CI Status
+
+```bash
+gh pr checks {pr-number}
+```
+
+| State | Action |
+|-------|--------|
+| All passed | Proceed |
+| Any failed | Stop and surface |
+| Any pending | Stop -- wait for CI to finish |
+| No checks configured | Run local tests instead |
+
+If no CI is configured, run the project's test suite:
+
+```bash
+# Use whichever applies: npm test / pnpm test / pytest / cargo test / go test ./...
+```
+
+Local tests failed: stop.
+
+#### Branch Sync
 
 ```bash
 git fetch origin {base}
 git rev-list --left-right --count origin/{base}...HEAD
 ```
 
-If base is ahead (branch diverged):
-- Inform user: "Branch is {N} commits behind {base}."
-- Ask: "Update before merging? (rebase / squash / merge / skip)"
+If behind: **always ask** the user which update method to use (rebase / squash / merge / skip). Do not persist this decision -- the right answer depends on the branch's history each time.
 
-If up to date: skip to Step 4.
-
-### Step 3: Update Branch
-
-Execute the method chosen by the user:
-
-**Rebase:**
+Apply the chosen method:
 
 ```bash
+# rebase
 git rebase origin/{base}
-```
 
-Replays commits on top of base. Results in linear history. If conflicts,
-inform user and help resolve.
-
-**Squash:**
-
-```bash
-git rebase -i origin/{base}
-# or
+# squash
 git reset --soft origin/{base}
 git commit
-```
 
-Combines all branch commits into one. Ask user for the squash commit message.
-Follow commit conventions from [commit.md](commit.md).
-
-**Merge base into branch:**
-
-```bash
+# merge base into branch
 git merge origin/{base}
 ```
 
-Preserves full history. If conflicts, inform user and help resolve.
+If conflicts: help the user resolve, then continue.
 
-After updating, force push to update the remote branch:
+After updating, refresh the remote branch:
 
 ```bash
 git push --force-with-lease
 ```
 
+#### PR Mergeable State
+
+```bash
+gh pr view {pr-number} --json mergeable,mergeStateStatus,reviewDecision
+```
+
+| Field | Required value |
+|-------|----------------|
+| `mergeable` | `MERGEABLE` |
+| `reviewDecision` | `APPROVED` when branch protection requires review |
+
+If not mergeable: stop and surface the specific blocker (conflicts, missing approval, blocked by protection).
+
 ### Step 4: Merge
 
-**If PR exists (default):**
+Compose subject and body:
 
-Ask user which merge method to use:
-
-| Method | Command | Result |
-|--------|---------|--------|
-| Merge commit | `gh pr merge --merge` | Preserves all commits + merge commit |
-| Squash | `gh pr merge --squash` | Single commit on base |
-| Rebase | `gh pr merge --rebase` | Replays commits on base (linear) |
-
-Pass a custom subject citing the PR ID (the default GitHub merge message, e.g. `Merge pull request #19 from adeonir/chore/foundation`, is not acceptable).
-
-Subject format: `{type}: {description} (#{pr-number})` -- follows conventional commit style from [commit.md](commit.md), with PR ID appended.
+- **Subject** -- `{type}: {description} (#{pr-number})`. Conventional commit style from [commit.md](commit.md) with the PR ID appended.
+- **Body** -- contextual bullets describing motivation or impact; omit for trivial merges.
 
 ```bash
-gh pr merge {pr-number} --{method} --subject "{type}: {description} (#{pr-number})"
+gh pr merge {pr-number} --{method} --subject "{type}: {description} (#{pr-number})" --body "{body}"
 ```
 
-For `--squash` and `--merge`, also pass `--body` with contextual bullets when relevant. For `--rebase`, no subject/body is needed (original commits are replayed).
+For `--rebase`, subject and body are not used (the original commits are replayed onto base).
 
-**If no PR (solo project, merge direct):**
+If `gh pr merge` exits non-zero: stop and surface the error.
+
+### Step 5: Cleanup
 
 ```bash
 git switch {base}
-git merge {branch}
-git push origin {base}
-```
-
-### Step 5: Verify Merge
-
-This step covers only the PR path. If the no-PR variant of Step 4 was used, skip to Step 6.
-
-After `gh pr merge` returns, confirm the merge landed as requested before cleanup. Local refs can lag remote state; branch protection can silently override the requested method.
-
-```bash
-git fetch origin {base}
-gh pr view {pr-number} --json state,mergedAt,mergeCommit
-git ls-remote origin {base} | awk '{print $1}'                    # authoritative remote SHA
-git rev-parse origin/{base}                                       # local ref SHA
-git log -1 --format=%s origin/{base}                              # subject of the merge commit
-git cat-file -p origin/{base} | grep -c '^parent '                # parent count
-```
-
-Cross-check:
-
-| Check | Expected |
-|-------|----------|
-| `gh pr view.state` | `MERGED` |
-| `ls-remote` SHA == `rev-parse origin/{base}` | true (else local ref stale -- re-fetch) |
-| Parent count (`grep -c '^parent '`) | `2` for `--merge`; `1` for `--squash` or `--rebase` |
-| Subject (`git log -1 --format=%s`) | matches `{type}: {description} (#{pr-number})` for `--merge` and `--squash`; skipped for `--rebase` (original commits replayed) |
-
-If any check fails:
-
-- **Stale local ref** -- re-fetch (`git fetch origin {base}`) and re-run the cross-check
-- **Wrong parent count** -- branch protection or the CLI fell back to a different merge method silently; surface to user and stop before cleanup
-- **Subject mismatch** -- merge committed with the default GitHub message instead of the custom subject; surface to user and stop
-
-Do not proceed to cleanup until all checks pass.
-
-### Step 6: Cleanup
-
-Delete the branch locally and remotely:
-
-```bash
-git switch {base}
-git pull origin {base}
+git pull --ff-only origin {base}
 git branch -d {branch}
 git push origin --delete {branch}
 ```
 
-Confirm: "Branch `{branch}` merged into `{base}` and deleted."
+The fast-forward pull proves the merge landed on the remote -- if it fails, the merge did not land and the cleanup itself surfaces the failure.
+
+If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` will report the branch already gone -- that is expected, not an error.
+
+Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 
 ## Guidelines
 
 **DO:**
-- Always ask before updating or merging -- never auto-merge
-- Use `--force-with-lease` (not `--force`) when force pushing
-- Confirm the merge method with the user
+- Resolve the PR number from the current branch; ask only when no open PR exists for it
+- Infer the merge method from recent base history before asking the user
+- Stop on CI pending -- do not race the merge
+- Always ask the update method when the branch is behind, per merge
 - Pass a custom subject citing the PR ID on merge commits
-- Verify the merge landed as requested before cleanup
-- Delete both local and remote branch after merge is confirmed
+- Use `--force-with-lease` (not `--force`) when force pushing
+- Trust the `gh pr merge` exit code; let the cleanup pull surface late failures
+- Delete both local and remote branch after the cleanup pull succeeds
 
 **DON'T:**
-- Force push without `--force-with-lease` (contrasts: use --force-with-lease)
-- Merge without checking if branch is up to date (contrasts: always ask before merging)
+- Merge while CI is pending (contrasts: wait for CI to finish)
+- Cross-check the merge against local `origin/{base}` refs (contrasts: trust `gh pr merge` exit code)
 - Use the default `Merge pull request #N from {branch}` message (contrasts: custom subject with PR ID)
-- Delete branch before merge is confirmed (contrasts: delete after merge is confirmed)
-- Skip the verify step or auto-retry on failure (contrasts: verify, then surface failures)
+- Force push without `--force-with-lease` (contrasts: use --force-with-lease)
+- Persist the branch-update method (contrasts: always ask per merge)
 - Skip cleanup -- stale branches accumulate (contrasts: delete both local and remote after merge)
 
 ## Error Handling
 
-- PR not found: ask if user wants to merge directly or create PR first
-- Conflicts during rebase/merge: inform user, help resolve, continue
-- Branch already merged: inform user, offer to clean up
-- Protected base branch: inform user, suggest PR if direct merge fails
-- Force push rejected: inform user to check branch protection rules
-- Verify check fails: surface the specific check (state, ref staleness, parent count, subject) and stop; do not auto-retry beyond the documented stale-ref re-fetch
+- On base branch and user gave no PR number: ask for the number
+- No open PR for current branch: stop and inform user
+- CI failed or pending: stop and surface; do not proceed
+- Local tests fail (no CI configured): stop
+- Branch behind base with conflicts during update: help resolve, then continue
+- PR not mergeable (conflicts, missing approval, blocked): stop and surface the specific blocker
+- `gh pr merge` exits non-zero: surface the error and stop -- do not proceed to cleanup
+- Cleanup pull fails as non-fast-forward: merge did not land as expected; surface and stop
