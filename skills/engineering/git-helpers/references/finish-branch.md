@@ -117,7 +117,39 @@ git merge {branch}
 git push origin {base}
 ```
 
-### Step 5: Cleanup
+### Step 5: Verify Merge
+
+This step covers only the PR path. If the no-PR variant of Step 4 was used, skip to Step 6.
+
+After `gh pr merge` returns, confirm the merge landed as requested before cleanup. Local refs can lag remote state; branch protection can silently override the requested method.
+
+```bash
+git fetch origin {base}
+gh pr view {pr-number} --json state,mergedAt,mergeCommit
+git ls-remote origin {base} | awk '{print $1}'                    # authoritative remote SHA
+git rev-parse origin/{base}                                       # local ref SHA
+git log -1 --format=%s origin/{base}                              # subject of the merge commit
+git cat-file -p origin/{base} | grep -c '^parent '                # parent count
+```
+
+Cross-check:
+
+| Check | Expected |
+|-------|----------|
+| `gh pr view.state` | `MERGED` |
+| `ls-remote` SHA == `rev-parse origin/{base}` | true (else local ref stale -- re-fetch) |
+| Parent count (`grep -c '^parent '`) | `2` for `--merge`; `1` for `--squash` or `--rebase` |
+| Subject (`git log -1 --format=%s`) | matches `{type}: {description} (#{pr-number})` for `--merge` and `--squash`; skipped for `--rebase` (original commits replayed) |
+
+If any check fails:
+
+- **Stale local ref** -- re-fetch (`git fetch origin {base}`) and re-run the cross-check
+- **Wrong parent count** -- branch protection or the CLI fell back to a different merge method silently; surface to user and stop before cleanup
+- **Subject mismatch** -- merge committed with the default GitHub message instead of the custom subject; surface to user and stop
+
+Do not proceed to cleanup until all checks pass.
+
+### Step 6: Cleanup
 
 Delete the branch locally and remotely:
 
@@ -137,6 +169,7 @@ Confirm: "Branch `{branch}` merged into `{base}` and deleted."
 - Use `--force-with-lease` (not `--force`) when force pushing
 - Confirm the merge method with the user
 - Pass a custom subject citing the PR ID on merge commits
+- Verify the merge landed as requested before cleanup
 - Delete both local and remote branch after merge is confirmed
 
 **DON'T:**
@@ -144,6 +177,7 @@ Confirm: "Branch `{branch}` merged into `{base}` and deleted."
 - Merge without checking if branch is up to date (contrasts: always ask before merging)
 - Use the default `Merge pull request #N from {branch}` message (contrasts: custom subject with PR ID)
 - Delete branch before merge is confirmed (contrasts: delete after merge is confirmed)
+- Skip the verify step or auto-retry on failure (contrasts: verify, then surface failures)
 - Skip cleanup -- stale branches accumulate (contrasts: delete both local and remote after merge)
 
 ## Error Handling
@@ -153,3 +187,4 @@ Confirm: "Branch `{branch}` merged into `{base}` and deleted."
 - Branch already merged: inform user, offer to clean up
 - Protected base branch: inform user, suggest PR if direct merge fails
 - Force push rejected: inform user to check branch protection rules
+- Verify check fails: surface the specific check (state, ref staleness, parent count, subject) and stop; do not auto-retry beyond the documented stale-ref re-fetch
