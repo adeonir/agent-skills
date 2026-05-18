@@ -20,7 +20,7 @@ Naming, imports, error handling, types, styling, state management, async pattern
 5. Utilities (helpers, constants, shared types)
 6. **Stop when** new files reveal no new patterns
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
 
 ## Source Boundary
 

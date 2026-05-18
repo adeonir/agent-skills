@@ -20,27 +20,6 @@ description: >-
 
 Generate project context and codebase documentation for AI agents.
 
-## Workflow
-
-```
-initialize --> overview + (codebase fan-out + review when brownfield)
-refresh    --> git diff range --> subset fan-out + review
-                                     (fallback: full fan-out)
-```
-
-`initialize` is the entrypoint for first-time setup. It always runs
-`overview`. If the project is brownfield (has source code), it
-dispatches the codebase fan-out: 6 sub-agents in parallel
-(architecture, conventions, testing, integrations, checklist,
-workflows), plus a 7th (features) when vertical slicing is detected,
-then the main agent runs `review` with the fan-out outputs as context.
-
-`refresh` is the cheaper re-run path once `.agents/codebase/` exists.
-It diffs `git` from the last sync marker, routes changed paths to the
-sub-agents whose domain was touched, and dispatches only that subset.
-Falls back to the full fan-out when thresholds (file count, manifest
-churn, entry-point change) indicate a broad refactor.
-
 ## Triggers
 
 - **One-time setup** ("initialize", "setup project index", "index
@@ -72,6 +51,27 @@ churn, entry-point change) indicate a broad refactor.
   [integrate-feedback.md](references/integrate-feedback.md)
 - **Merge policy** (loaded by any ref on re-run) →
   [merge-policy.md](references/merge-policy.md)
+
+## Workflow
+
+```
+initialize --> overview + (codebase fan-out + review when brownfield)
+refresh    --> git diff range --> subset fan-out + review
+                                     (fallback: full fan-out)
+```
+
+`initialize` is the entrypoint for first-time setup. It always runs
+`overview`. If the project is brownfield (has source code), it
+dispatches the codebase fan-out: 6 sub-agents in parallel
+(architecture, conventions, testing, integrations, checklist,
+workflows), plus a 7th (features) when vertical slicing is detected,
+then the main agent runs `review` with the fan-out outputs as context.
+
+`refresh` is the cheaper re-run path once `.agents/codebase/` exists.
+It diffs `git` from the last sync marker, routes changed paths to the
+sub-agents whose domain was touched, and dispatches only that subset.
+Falls back to the full fan-out when thresholds (file count, manifest
+churn, entry-point change) indicate a broad refactor.
 
 ## Codebase Fan-Out
 

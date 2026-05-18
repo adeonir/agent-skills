@@ -21,7 +21,7 @@ Two categories:
 3. Dev tooling scripts (`scripts/`, `bin/`, npm scripts) — for development workflows
 4. CI config (deploy steps, environment promotions)
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning handler or controller files larger than 300 lines.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning handler or controller files larger than 300 lines.
 
 ## Source Boundary
 

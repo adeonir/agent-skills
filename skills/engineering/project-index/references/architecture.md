@@ -19,7 +19,7 @@ Macro-level structure: how the codebase is organized, where logic lives, how dat
 4. Layer boundaries — services, modules, packages, domain folders
 5. Sample 2-3 representative files per identified layer to confirm responsibility
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning source files larger than 300 lines — same structural signal at a fraction of the tokens.
 
 ## Source Boundary
 

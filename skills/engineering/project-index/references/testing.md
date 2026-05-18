@@ -20,7 +20,7 @@ Test framework, file naming and location, structural patterns (describe/it nesti
    - Large (>100 source files): 5-8 tests across types
 3. Diversity: unit, integration, e2e; happy path, edge cases, error handling
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning test files larger than 300 lines — same structural signal at a fraction of the tokens.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning test files larger than 300 lines — same structural signal at a fraction of the tokens.
 
 ## Source Boundary
 

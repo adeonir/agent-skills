@@ -43,11 +43,11 @@ If ANY of the following is true, abort the incremental path and dispatch the ful
 
 | Threshold | Reason |
 |-----------|--------|
-| More than 50 files changed | Likely large refactor; incremental mapping loses fidelity |
-| More than 20% of tracked source files changed | Same |
-| Entry point file changed (`index.*`, `main.*`, `cmd/**/main.go`, `src/app/**/layout.*`) | Architecture re-derivation needed |
-| Project manifest replaced or major version bump (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod` semver-major change) | Conventions, integrations, checklist all shift |
-| Vertical slicing signal flipped (slice dirs added/removed wholesale) | Re-run detection from `features.md` |
+| More than 50 files changed | Empirical breakpoint where path-mapping fidelity drops — beyond ~50 unrelated touches, the routing table starts marking nearly every sub-agent, so the savings versus full fan-out disappear |
+| More than 20% of tracked source files changed | Catches sweeping refactors that stay under the absolute count (small repos) — proportionally large change sets behave like full re-derivations regardless of file count |
+| Entry point file changed (`index.*`, `main.*`, `cmd/**/main.go`, `src/app/**/layout.*`) | Architecture re-derivation needed; entry points anchor the whole structure map and one change ripples to every downstream doc |
+| Project manifest replaced or major version bump (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod` semver-major change) | Conventions, integrations, checklist all shift simultaneously; routing each separately is more work than rerunning the whole set |
+| Vertical slicing signal flipped (slice dirs added/removed wholesale) | The `features.md` gate must re-evaluate, and that detection lives in initialize, not refresh |
 
 Report the fallback reason to the user before dispatching the full fan-out.
 
@@ -89,7 +89,7 @@ Always run `review.md` after the subset fan-out. Review synthesizes across files
 
 ### Step 7: Update Sync Marker
 
-Capture `HEAD` SHA with `git rev-parse HEAD`, then write it to `.agents/.sync` using the Write tool (single line, no trailing newline beyond what Write adds). Bash redirects (`>`, `>>`) for file creation are forbidden by the harness.
+Capture `HEAD` SHA with `git rev-parse HEAD`, then write it to `.agents/.sync` using the Write tool (single line). Prefer Write over Bash redirects (`>`, `>>`) — many harnesses gate redirects against project files and route them through the file-creation tool instead.
 
 On first write, also add `.agents/.sync` to `.git/info/exclude` if not already present — the marker is local machine state, not project history:
 
@@ -97,7 +97,7 @@ On first write, also add `.agents/.sync` to `.git/info/exclude` if not already p
 grep -qxF '.agents/.sync' .git/info/exclude 2>/dev/null || echo '.agents/.sync' >> .git/info/exclude
 ```
 
-(`echo >>` to `.git/info/exclude` is permitted — that file is git infrastructure, not a project artifact.)
+(Appending to `.git/info/exclude` is a non-project git infrastructure write and is treated separately from project-file creation.)
 
 ### Step 8: Report
 

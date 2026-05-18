@@ -19,7 +19,7 @@ All external touchpoints: API calls, database connections, third-party SDKs, env
 4. Database setup files (ORM config, connection pool, migrations)
 5. Third-party SDK initializations (auth, payments, analytics, telemetry)
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning client wrappers or SDK setup files larger than 300 lines.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning client wrappers or SDK setup files larger than 300 lines.
 
 ## Source Boundary
 

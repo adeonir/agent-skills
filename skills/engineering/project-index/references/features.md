@@ -43,7 +43,7 @@ Do not include capabilities described in `.artifacts/` (briefs, PRDs, epics) but
 4. Shared/common directories (`lib/`, `shared/`, `core/`) — feed the cross-feature reuse section
 5. Sample 1-2 files per feature to confirm responsibility
 
-Prefer AST-aware tooling (e.g., `smart-explore`) over full `Read` when scanning slice files larger than 300 lines.
+Prefer AST-aware tooling that reads structure without loading full contents over full `Read` when scanning slice files larger than 300 lines.
 
 ## Source Boundary
 
