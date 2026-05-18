@@ -140,11 +140,12 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 ```
 .agents/
 ├── codebase/       # project-index: deep codebase analysis
+├── design/         # design-builder: visual identity, structure, content payload
 └── project.md      # project-index: project context
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
-├── design/         # design-builder: copy.yaml, design.json, variants/
+├── design/         # design-builder: preview variants
 ├── docs/           # docs-writer: PRD, Brief, Design Doc, TDD
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks

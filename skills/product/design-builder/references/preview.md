@@ -1,133 +1,92 @@
 # Preview
 
-Visual preview of the design before implementation. Two base modes — guided (per-question decisions) and exploratory (complete variants) — plus three refinement tools available after a variant is chosen: tune, comment, and apply-across. Default push target is HTML via the preview server; the user may also push to an external design tool when the matching MCP is available.
+Visual preview of the design before implementation. Generate variants from DESIGN.md tokens and the structure artifact, refine the chosen variant with tune sliders and inline comments, commit tuned values back to DESIGN.md.
 
-Variant generation and comment resolution deserve careful reasoning — visual choices compound and are hard to undo.
+Variant generation and commit confirmation deserve careful reasoning — visual choices compound and patches mutate the source of truth.
 
 ## When to Use
 
-- After tokens and structure are in DESIGN.md
+- After visual identity is in `.agents/design/DESIGN.md` and arrangement is in `.agents/design/structure.md`
 - User wants to see the design with visual style applied
 - User wants to compare visual directions
 - User wants to refine a chosen variant (tune tokens, comment on elements)
-- User wants to preview a single component in isolation
-- User wants to push the current design into an external design tool
 
 ## Prerequisites
 
-- `.agents/design/DESIGN.md` with frontmatter and prose populated by [inputs.md](inputs.md) and [structure.md](structure.md)
-- `.artifacts/design/copy.yaml` (optional) — structured content
+- `.agents/design/DESIGN.md` — visual identity. Tokens are extracted from its prose at generation time.
+- `.agents/design/structure.md` — page composition or screen flow
+- `.agents/design/copy.yaml` (optional) — structured content
 - [aesthetics.md](aesthetics.md) (required) — design principles
 - [web-standards.md](web-standards.md) (required) — implementation rules
 
-## Project Type Routes the Presets
-
-Read `project_type` from discovery context or `copy.yaml`:
-
-- **page-based** (`landing-page`, `website`): page-based presets and full-page HTML
-- **screen-based** (`web-app`, `mobile-app`): screen-based presets, render the entry screen with navigation affordances, offer device viewport switching
-
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-## Two Base Modes
+## Project Type Routes the Presets
 
-Agent suggests based on context, user chooses.
+Read `project_type` from discovery context or `copy.yaml`. Ask the user if not set.
 
-| Mode | Best for | How it works |
-|------|----------|-------------|
-| **Guided** | New projects, no clear reference, user wants control | One visual decision at a time, accumulates into the final design |
-| **Exploratory** | Strong reference, user wants to see full options | Complete variants (one per preset), pick one, refine |
+Presets are **default starting points** when the user has no specific direction. When the user prompts a direction ("Cyberpunk", "Editorial dark mode", "Bento Grid"), the preset list is ignored and direction comes from the prompt plus the Style Axes in [aesthetics.md](aesthetics.md).
 
-## Prompt Direction
-
-Variants reward specific direction. "Make it different" produces noise; "make
-it minimalist", "shift to a Bento Grid layout with neon accents on dark mode",
-or "redesign with a Cyberpunk vibe" produces signal.
-
-When the user gives broad direction:
-
-- Acknowledge the broad intent
-- Ask one specific axis pivot if context is missing (Layout? Color? Era?)
-- Combine theme + structure changes into a single Exploratory prompt -- variants are the place for big swings, not the chat editor
-- Reference [aesthetics.md](aesthetics.md) Style Axes for orthogonal vocabulary (Layout & Structure, Texture & Depth, Atmosphere & Era, Color & Contrast); compose across axes for distinctive results
-
-## Preset Sets
-
-**Page-based** (landing-page, website):
+**Page-based** (`landing-page`, `website`) defaults:
 
 - Editorial — typography-driven, generous whitespace
 - Marketing — hero-forward, conversion-oriented
 - Product — feature-dense, modular sections
 - Branded — bold color, distinctive shapes
 
-**Screen-based** (web-app, mobile-app):
+**Screen-based** (`web-app`, `mobile-app`) defaults:
 
 - Utilitarian — dense, efficient, power-user
 - Consumer-polished — approachable, friendly, rounded
 - Native-platform — respects platform conventions (iOS/Android/macOS/Windows)
 - Creative-tool — canvas-first, tool palette, minimal chrome
 
-Custom presets are valid when the user asks for something outside the set.
+**Commerce-based** (`e-commerce`) defaults:
 
-## Guided Mode
+- Boutique — minimal, image-led, premium DTC, generous whitespace
+- Marketplace — dense grid, multi-vendor feel, filter-heavy, varied catalog
+- DTC-bold — single brand voice, opinionated, story-driven hero
+- Editorial-shoppable — lookbook or magazine feel, content + commerce mixed
 
-Per-question visual decisions using the preview server. The server live-reloads connected browsers on any file change inside the session directory (debounced 100ms, ignores `.events` to avoid loops) -- regenerate variants or patch HTML and the open tabs refresh on their own.
+## Token Extraction
 
-### Workflow
+DESIGN.md prose is the source of truth for tokens. At variant generation time, the agent reads the prose and embeds CSS custom properties directly in the generated HTML:
 
-1. **Start server** (if not running):
+- **Colors** — from bullets in `## 2. Color Palette & Roles` (shape `**<Name>** (#HEX) → \`<token-key>\` — <intent>`). Token key becomes the CSS custom property name (`--primary`, `--background`, `--accent-foreground`).
+- **Typography** — from bullets in `## 3. Typography Rules > Hierarchy` (shape `**<Role>**: <Font> <Npx> weight <N>, line-height <N>, letter-spacing <Npx>`). Role names map to lower-kebab-case keys (`--font-display-hero`, `--font-body-standard`).
+- **Spacing** — from bullets in `## 5. Layout Principles > Spacing System`.
+- **Radius** — from bullets in `## 5. Layout Principles > Border Radius Scale`.
+- **Motion** — from bullets in `## 7. Motion & Interaction > Duration` and `> Easing`.
 
-   ```bash
-   bun run scripts/preview-server.ts --session .artifacts/design/preview/guided
-   ```
+No external parser, no token endpoint. The agent reads the prose, maps it to CSS variables in the HTML output, ships the file.
 
-2. **Present decisions one at a time.** For each decision, serve an HTML fragment with options. User clicks to choose. Agent reads events and advances to the next decision.
-3. **Accumulate** choices into a final variant. Save as `.artifacts/design/preview/guided/final.html`.
+## Generating Variants
 
-## Exploratory Mode
-
-All presets at once. User picks one.
-
-### Range Parameter
-
-Exploratory variants are generated within a range, set by the user (default: refined):
-
-| Range | Structure | Aesthetic | Best for |
-|-------|-----------|-----------|----------|
-| **Refined** | preserved across variants | varies (palette, typography, spacing, motion) | polish, comparing within a known direction |
-| **Creative** | variants may propose alternative `## Layout` / `## Screen Flow` | varies fully | pivots, getting unstuck, exploring across structural directions |
-
-Refined keeps DESIGN.md `## Layout` / `## Screen Flow` constant; only frontmatter token blocks vary. Creative allows variants to suggest alternative structural skeletons -- when the user picks a creative variant as winner, both the tokens AND the structural sections get committed back to DESIGN.md.
-
-DESIGN.md is a living artifact, not a static input. Structural changes from a creative pick are valid commits, not constraint violations -- `## Layout` and `## Screen Flow` are themselves outcomes of the structure phase and may be revisited at any time.
-
-Detect the range from the user's intent: words like "polish", "compare colors", "tighten" -> refined. Words like "pivot", "different vibe", "what else", "redesign", or explicit aesthetic overhaul -> creative. Ask if ambiguous.
+User asks for N variants (default 4). Agent generates one HTML per variant from DESIGN.md tokens and structure.md arrangement.
 
 ### Workflow
 
-1. **Start server**:
+1. **Confirm count and direction.** If the user did not specify N, default to 4. If they did not give direction, use the project-type preset list above. If they gave direction ("Cyberpunk + Bento Grid"), compose across Style Axes from [aesthetics.md](aesthetics.md).
+
+2. **Start the preview server** (if not running):
 
    ```bash
    bun run scripts/preview-server.ts --session .artifacts/design/preview/variants
    ```
 
-2. **Generate one HTML per preset**. Read DESIGN.md for current tokens and structure. Wire Tailwind + Lucide via CDN -- see [web-standards.md](web-standards.md) `## CDN Dependencies` for exact tags and theme mapping.
+3. **Generate one HTML per variant.** Read DESIGN.md prose for tokens, structure.md for arrangement, copy.yaml for content. Wire Tailwind + Lucide via CDN — see [web-standards.md](web-standards.md) `## CDN Dependencies` for tags and theme mapping. Write each variant to `.artifacts/design/preview/variants/<slug>.html`.
 
-   - **Refined range**: preserve `## Layout` / `## Screen Flow` across all variants. Vary only frontmatter token blocks (colors, typography, rounded, spacing, motion, components, variants).
-   - **Creative range**: allow variants to propose alternative `## Layout` and `## Screen Flow` content alongside token variation. Each preset may suggest a different structural skeleton.
-
-3. **Snapshot per variant**. Write `tokens.yaml` to `.artifacts/design/preview/variants/{preset}/tokens.yaml` capturing the frontmatter values used for that variant. For creative range, also write `structure.md` capturing the proposed `## Layout` and `## Screen Flow` content. These snapshots enable cross-variant borrow during refinement without re-running variants.
 4. **Serve** all variants side by side via the server. User picks one.
-5. **Mark** the chosen variant as `final.html` in its preset directory.
-6. **Commit**. Patch DESIGN.md with the winner's tokens (section-scoped). For creative range, also patch `## Layout` and `## Screen Flow` from the winner's `structure.md` snapshot.
+
+5. **Mark** the chosen variant as `final.html` in the variants directory.
 
 ## Refinement Tools
 
-Once a variant is chosen, three tools refine it without regenerating HTML.
+Once a variant is chosen, two tools refine it without regenerating HTML.
 
 ### Tune (sliders)
 
-Expose key tokens as sliders that re-render the variant live. The server serves a tune fragment alongside the variant iframe; sliders write `tune` events to `.events`, and the page swaps matching CSS custom properties (`--color-primary`, `--spacing-unit`, `--radius-md`, `--font-size-body`, etc.) without regenerating HTML.
+Expose key tokens as sliders that re-render the variant live. The server serves a tune fragment alongside the variant iframe; sliders write `tune` events to `.events`, and the page swaps matching CSS custom properties (`--primary`, `--space-unit`, `--radius-md`, `--font-size-body`, etc.) without regenerating HTML.
 
 Default slider set:
 
@@ -136,13 +95,11 @@ Default slider set:
 - Typography contrast (flat — high-contrast hero vs body ratio)
 - Border radius scale (sharp — pill)
 
-Agent can generate custom sliders when the user wants to tune something specific ("make the accent more lavender", "more compact cards"). Each slider is a `data-tune="<token-key>"` element wired to emit `tune` events.
-
-**Commit:** when the user is done tuning, agent reads the final `tune` events and patches the matching keys in DESIGN.md frontmatter. Section-scoped patch — replace only the affected frontmatter blocks (`colors`, `typography`, `rounded`, `spacing`, `motion`, or `components`). Leave everything else untouched.
+Agent can generate custom sliders when the user wants to tune something specific ("make the accent more lavender", "more compact cards"). Each slider is a `data-tune="<token-key>"` element wired to emit `tune` events. The token-key matches the backticked key in DESIGN.md prose (e.g., `primary`, `body-standard`, `radius-card`).
 
 ### Comment (inline feedback on elements)
 
-User clicks any element in the served preview. An overlay appears with a text input. On submit, the client posts a `comment` event with:
+User alt+clicks any element in the served preview. An overlay appears with a text input. On submit, the client posts a `comment` event with:
 
 - `selector` — CSS path to the clicked element
 - `text` — the user's comment
@@ -150,100 +107,86 @@ User clicks any element in the served preview. An overlay appears with a text in
 
 Agent reads `comment` events on the next turn, addresses each, and shows the updated variant.
 
-### Apply Across
-
-Propagate a chosen attribute beyond its origin point. Two scopes:
-
-**Within-variant.** When a comment affects a repeated element (button, card, list item), ask whether the change should apply across all instances of that component within the current variant. Announce the scope before propagating ("applying to 12 button-primary instances"). If the change maps to a token, fold it into the next tune commit; if it is local (one instance only), regenerate just that fragment.
-
-**Cross-variant (borrow).** When the user picks a winner from Exploratory mode but wants to borrow attributes from a sibling variant ("winner is A, but I want B's typography palette and D's color scheme"):
-
-1. Read sibling variant snapshots from `.artifacts/design/preview/variants/{preset}/tokens.yaml`
-2. Identify the token blocks to borrow (`colors`, `typography`, `rounded`, `spacing`, `motion`, `components`, `variants`)
-3. Patch the winner's DESIGN.md with the borrowed blocks (section-scoped, never overwriting blocks the user did not ask to borrow)
-4. Re-render the winner with the patched tokens by swapping CSS custom properties on the live preview -- no full HTML regeneration when the borrow maps cleanly to tokens
-5. User confirms or iterates with another borrow
-
-For creative range, structural sections (`## Layout`, `## Screen Flow`) can also be borrowed from a sibling's `structure.md` snapshot. Useful when the user wants the layout from one variant and the aesthetic from another. Announce the scope before patching ("borrowing structure from variant B, color tokens from variant D").
-
-Each Exploratory variant writes its snapshot at generation time (Workflow step 3), so cross-variant borrow does not require re-running variants. If a snapshot is missing (older session, manually deleted), ask the user whether to re-run variants or describe the borrow textually.
-
-## Component Isolation
-
-For design system sanity-checking before composing full pages or screens.
-
-1. User requests component preview: "preview the button component"
-2. Agent reads the component definition from DESIGN.md frontmatter (`components.button-primary` and its sibling variants)
-3. Agent generates a clean canvas HTML showing the component in all states (default, hover, focus, active, disabled) and all sizes if defined
-4. Serve via the preview server under `.artifacts/design/preview/components/<name>.html`
-5. Tune and comment tools work the same way
-
 ## Viewport Switching
 
-For screen-based projects, the variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
+Variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
 
-Page-based variants can also use the switcher, but typically default to 1440 unless the user requests mobile preview.
+Default viewport: 1440 for page-based and commerce-based, 375 for screen-based on mobile-app, 1440 for screen-based on web-app.
 
-## Push Targets
+## Commit Back to DESIGN.md
 
-Default target is HTML via the preview server. The user may also push the current design into an external design tool, gated by the matching MCP.
+DESIGN.md is the source of truth. Tune values reach it via confirm-before-write surgical patches — never whole-section rewrites.
 
-| Target | MCP required | File ownership |
-|--------|--------------|----------------|
-| HTML (preview server) | none | skill writes `.artifacts/design/preview/*.html` |
-| External design tool | matching MCP | user owns the file in the external tool |
+### Workflow
 
-Skill never creates files in an external design tool. The user creates the file first, then asks the skill to push into it. If the matching MCP is not available or the file does not exist, report the gap and offer the HTML fallback.
+1. **Read `.events`** for the current session. Collect every `tune` event, keep the **last value** per token-key.
 
-Push direction from skill is **write-only** from DESIGN.md to the target. Reverse flow (pulling changes from an external design tool back into DESIGN.md) is an input source — see [inputs.md](inputs.md).
+2. **Compose a patch list.** For each tuned token-key:
+   - Find the bullet in DESIGN.md that ends with `` `<token-key>` `` in backticks (Color Palette) or starts with `**<Role>**:` (Typography Hierarchy), or matches the scale name (Spacing / Radius / Motion).
+   - Compute the surgical replacement: hex for color tunes, `Npx` for size tunes, `line-height N` for line-height tunes, `Nms` for motion tunes. For multipliers (spacing scale, radius scale), apply the factor to every numeric value in the affected section.
+   - Build a list `{ section, line, old, new }` entries.
+
+3. **Show the user the patch list before writing.** Format:
+
+   ```
+   Proposed patches to DESIGN.md:
+
+   ## 2. Color Palette & Roles > Primary
+   - **Indigo Brand** (#5e6ad2) → `primary`  →  (#7170ff)
+   ## 5. Layout Principles > Spacing System
+   - Base unit: 8px  →  12px
+   - Scale: 4 / 8 / 12 / 16 / 24 / 32  →  6 / 12 / 18 / 24 / 36 / 48
+
+   Apply? [y/n]
+   ```
+
+4. **On approval, write surgical patches** — line-replace each affected bullet only. Never rewrite the surrounding section, never touch unaffected bullets, never touch other sections.
+
+5. **On reject, leave DESIGN.md untouched.** Tuned values stay only in the variant HTML for the session.
+
+### Edge cases
+
+- **Hue shift renders the evocative name stale** (e.g., "Indigo Brand" tuned to red). Agent flags this in the patch list and proposes a name update alongside the hex change. User approves both or only the hex.
+- **Custom slider for a token not yet in DESIGN.md.** Ask the user whether to add a new bullet (in the appropriate H3) before writing, or remap the slider to an existing key.
+- **Multiple tunes on the same token in one session.** Only the last value counts; intermediate values are discarded.
 
 ## Guidelines
 
 **DO:**
 
-- Read DESIGN.md before generating to ground every visual choice in current tokens
-- Route presets by project type — page-based and screen-based have different preset sets
-- Let user choose the base mode — suggest based on context, never force
-- Ask one visual decision at a time in guided mode
-- Generate all presets in exploratory mode
-- Detect the range (refined or creative) from user intent before generating variants; ask if ambiguous
-- Preserve `## Layout` / `## Screen Flow` across variants only in refined range
-- Write a `tokens.yaml` snapshot per variant (and `structure.md` for creative range) to enable cross-variant borrow
+- Read DESIGN.md prose before generating to ground every visual choice in current tokens
+- Read `.agents/design/structure.md` for arrangement; never re-arrange pages or screens inside preview
+- Route presets by project type when the user has no direction; ignore presets when the user prompts direction
+- Default variant count to 4; honor any N the user names
 - Apply [aesthetics.md](aesthetics.md) and [web-standards.md](web-standards.md) to every output
-- Announce apply-across scope before propagating, whether within-variant or cross-variant
-- Compose direction across the four Style Axes when prompts go vague -- pick a Layout, a Texture, an Era, a Color move
 - Serve every generated preview through the preview server
 - Swap CSS custom properties during tune — keep the DOM, change only tokens
-- Patch DESIGN.md frontmatter section by section when committing tune events or cross-variant borrow
+- Show the patch list and ask before writing to DESIGN.md
+- Patch DESIGN.md prose bullet by bullet — never rewrite whole sections
 
 **DON'T:**
 
-- Mix base modes in a single session (contrasts: pick one and commit)
-- Change structural layout between variants in refined range (contrasts: refined preserves the skeleton; creative range allows structural pivots and is the place for those moves)
+- Generate previews without DESIGN.md and structure populated (contrasts: treat them as prerequisites)
+- Change page composition or screen flow between variants (contrasts: arrangement is single-source from `.agents/design/structure.md`; pivots belong there)
 - Use CSS frameworks (contrasts: vanilla CSS only, self-contained)
-- Generate previews without DESIGN.md tokens and structure (contrasts: treat them as prerequisites)
 - Skip serving the result (contrasts: serve every generated preview through the preview server)
 - Regenerate HTML during tune when a CSS custom property swap is enough (contrasts: swap CSS custom properties, keep the DOM)
-- Rewrite the whole DESIGN.md frontmatter when committing tune or borrow (contrasts: patch only affected blocks)
-- Skip variant snapshots (contrasts: write `tokens.yaml` per variant at generation time so cross-variant borrow does not require re-running variants)
+- Write to DESIGN.md without showing the patch list and getting approval (contrasts: confirm-before-write is the contract)
 - Treat "make it different" as actionable (contrasts: ask for one specific axis pivot or compose across Style Axes)
-- Create files in an external design tool (contrasts: treat those files as user-owned; push only when the file already exists)
 
 ## Error Handling
 
 - No DESIGN.md in `.agents/design/`: suggest running inputs first; do not proceed
-- DESIGN.md missing `## Layout`: suggest running structure first; do not proceed
-- No `copy.yaml` (and DESIGN.md is populated): use generic placeholder strings derived from frontmatter `name` and `description`, plus the headings in `## Layout` / `## Screen Flow` prose
+- No `.agents/design/structure.md`: suggest running structure first; do not proceed
+- No `copy.yaml`: use generic placeholder strings derived from H1, Category, and tagline of DESIGN.md
 - Server port in use: try alternative port
-- User wants to switch base modes mid-session: allow it, start fresh
 - Comment event has no selector: ask user to re-click the target element
-- Tune event targets a token not in DESIGN.md frontmatter: ask user whether to add the token or map the slider to an existing key
-- Push target MCP not available: report the gap, offer the HTML fallback
-- Push target file missing (no design-tool file at the user's path): report to user, do not create it
+- Tune event targets a token not in DESIGN.md prose: ask user whether to add the token (as a new bullet) or map the slider to an existing key
+- User rejects the proposed patch list: leave DESIGN.md untouched; tuned values remain in the variant HTML only
 
 ## Next Steps
 
-After preview is approved, suggest:
+After preview is approved:
 
 - "Hand the approved design to the implementation phase"
-- "Run inputs again to pull any refinements from an external design tool back into DESIGN.md"
+- "Run inputs again if a major shift in DESIGN.md is needed"

@@ -25,9 +25,9 @@ If context was not established by SKILL.md discovery, ask:
 
 Sources are accepted in four forms, in order of recommended fidelity:
 
-**A. Full-page URL.** User provides a URL. Fetch the page. Extract across all sections.
+**Full-page URL.** User provides a URL. Fetch the page. Extract across all sections.
 
-**B. Captured region.** User wants only part of a page (a hero, a pricing
+**Captured region.** User wants only part of a page (a hero, a pricing
 table, a specific screen). Four paths:
 
 1. **Claude Chrome extension (preferred when available).** User selects the
@@ -41,18 +41,18 @@ table, a specific screen). Four paths:
 4. **URL + textual description.** User pastes the URL and describes the region
    ("the pricing table section"). Fetch and locate the referenced region.
 
-**C. Brief document.** User provides a PDF or DOCX with content and intent.
+**Brief document.** User provides a PDF or DOCX with content and intent.
 Read the document. Extract content plus any stated constraints (tone,
 audience, mandatory sections).
 
-**D. No source.** User wants to draft from scratch. Skip to Step 4 with
+**No source.** User wants to draft from scratch. Skip to Step 4 with
 user-provided intent.
 
 If any fetch or read fails, ask the user for a screenshot or direct paste.
 
 ### Step 3: Identify Project Type
 
-Ask or infer one of four types. They fall into two groups with different
+Ask or infer one of five types. They fall into three groups with different
 downstream behavior:
 
 **Page-based (single document, linear read):**
@@ -64,6 +64,10 @@ downstream behavior:
 
 - `web-app`: interactive web application with screens, widgets, auth, navigation
 - `mobile-app`: mobile application with screens, tabs, gestures, native features
+
+**Commerce-based (catalog plus purchase flow):**
+
+- `e-commerce`: storefront with PLP, PDP, cart, checkout, account; product catalog as content payload
 
 Confirm with the user when unclear. The project type changes how `copy.yaml`
 is structured and how later phases ask questions.
@@ -85,6 +89,7 @@ Analyze structure and extract:
 
 - Navigation structure (logo, links, primary CTA) — page-based
 - Screen inventory with flow (entry screen, primary paths, exit) — screen-based
+- Catalog inventory with PLP/PDP/cart/checkout surfaces — commerce-based
 - Section or screen hierarchy with layout information
 - Text content (headlines, body, CTAs) preserving original tone
 - Visual placeholders with descriptions for image generation
@@ -98,8 +103,9 @@ Generate structured content using the template below. The schema adapts:
 - **website**: pages with navigation structure and per-page section hierarchy
 - **web-app**: screens (auth, dashboard, settings) with interactive elements and state changes
 - **mobile-app**: screens plus native patterns (tabs, gestures, biometric, sheets)
+- **e-commerce**: marketing sections + product catalog + commerce surfaces (PLP, PDP, cart, checkout, account)
 
-Save to `.artifacts/design/copy.yaml`. Create directories if needed.
+Save to `.agents/design/copy.yaml`. Create directories if needed.
 
 ## Template
 
@@ -113,7 +119,7 @@ updated: {{YYYY-MM-DD}}
 status: draft
 sources:
   - {{url, captured region, brief file, or description}}
-project_type: {{landing-page/website/web-app/mobile-app}}
+project_type: {{landing-page/website/web-app/mobile-app/e-commerce}}
 language: {{en/pt/es/etc}}
 industry: {{fintech/health/saas/ecommerce/etc}}
 ---
@@ -122,7 +128,7 @@ industry: {{fintech/health/saas/ecommerce/etc}}
 
 ## Output
 
-Save as `.artifacts/design/copy.yaml` using the schema below.
+Save as `.agents/design/copy.yaml` using the schema below.
 
 ## Schema
 
@@ -134,13 +140,14 @@ metadata:
 
 project:
   name: "{{project-name}}"
-  type: "{{landing-page/website/web-app/mobile-app}}"
+  type: "{{landing-page/website/web-app/mobile-app/e-commerce}}"
   language: "{{en/pt/es/etc}}"
   industry: "{{fintech/health/saas/ecommerce/etc}}"
   description: "{{Brief project description}}"
 
 # For page-based (landing-page, website): use `sections`.
 # For screen-based (web-app, mobile-app): use `screens`.
+# For commerce-based (e-commerce): use `sections` for marketing surfaces plus `catalog` for product data and `commerce_surfaces` for PLP/PDP/cart/checkout copy.
 
 sections:
   "{{section_id, e.g., hero, features, testimonials}}":
@@ -165,6 +172,40 @@ screens:
       body: ["{{body copy elements}}"]
     states: ["{{empty/loading/error/populated}}"]
 
+catalog:
+  collections:
+    "{{collection_slug}}":
+      name: "{{display name}}"
+      description: "{{intro copy that appears on the PLP}}"
+  products:
+    "{{product_slug}}":
+      name: "{{display name}}"
+      tagline: "{{short positioning line}}"
+      description: ["{{paragraph 1}}", "{{paragraph 2}}"]
+      specs:
+        "{{spec_key}}": "{{spec_value}}"
+      variants: ["{{e.g., size, color}}"]
+
+commerce_surfaces:
+  plp:
+    headline: "{{collection headline}}"
+    empty_state: "{{copy when no products match}}"
+    filter_labels: ["{{labels surfaced in filters}}"]
+  pdp:
+    add_to_cart_label: "{{primary CTA, e.g., Add to bag}}"
+    sold_out_label: "{{fallback when unavailable}}"
+    reviews_intro: "{{copy preceding reviews}}"
+  cart:
+    empty_state: "{{copy when cart is empty}}"
+    summary_label: "{{copy near totals}}"
+    checkout_cta: "{{primary CTA}}"
+  checkout:
+    steps: ["{{e.g., Shipping, Payment, Review}}"]
+    guest_label: "{{copy offering guest checkout}}"
+    confirmation: "{{post-purchase copy}}"
+  account:
+    sections: ["{{e.g., Orders, Wishlist, Addresses}}"]
+
 notes: |
   {{Observations about the extraction — content that was unclear,
   sections or screens that appeared empty or dynamically loaded,
@@ -177,9 +218,10 @@ notes: |
 - **website**: `sections` grouped by page with navigation structure and per-page hierarchy
 - **web-app**: `screens` (auth, dashboard, settings) with interactive elements and states
 - **mobile-app**: `screens` plus native patterns (tabs, gestures, biometric, sheets)
+- **e-commerce**: `sections` (marketing surfaces) + `catalog` (collections, products, specs, variants) + `commerce_surfaces` (PLP, PDP, cart, checkout, account)
 
-Keep only the fields relevant to the project type. Remove the unused
-block (`sections` or `screens`) before saving.
+Keep only the fields relevant to the project type. Remove unused blocks
+(`sections`, `screens`, `catalog`, `commerce_surfaces`) before saving.
 ````
 
 ## Guidelines

@@ -1,39 +1,39 @@
 # Design Builder
 
-Greenfield design pipeline for any digital product: extract content, author `DESIGN.md` (visual identity tokens plus rationale), define layout or screen flow, preview and refine designs, push to an external design tool when available.
+Greenfield design pipeline for any digital product: extract content, author a `DESIGN.md` visual identity, define page composition or screen flow in a separate structure artifact, preview and refine designs.
 
 ## What It Does
 
 ```mermaid
 flowchart TD
     A[URL / Images / Brief / Codebase / Design-tool file] -->|copy + inputs| B[copy.yaml + DESIGN.md]
-    B -->|structure| C[Layout + Screen Flow in DESIGN.md]
-    C -->|preview| D[Variants + Refinement]
-    D -->|tune / comment / apply-across| D
+    B -->|structure| C[.agents/design/structure.md]
+    B --> D[Preview composes both]
+    C --> D
+    D -->|tune / comment| D
     D -->|approved| E[Approved Design]
-    E -.->|push| G[External design tool]
-    G -.->|pull refresh| B
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Copy** | Extract copy from URL, web capture, brief document | `.artifacts/design/copy.yaml` |
-| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (frontmatter tokens + rationale prose) |
-| **Structure** | Define layout, wireframe, organize content, screen flow | `.agents/design/DESIGN.md` `## Layout` and `## Screen Flow` sections |
-| **Preview** | Preview design, generate variants (refined or creative), tune tokens, comment, apply-across (within or cross-variant), push to external design tool | `.artifacts/design/preview/` (HTML, per-variant `tokens.yaml`), or write to a user-owned design-tool file |
-| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices (Layout from X, colors from Y, etc.), explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
-| **Validate** | Validate `DESIGN.md`, check tokens, audit design system, lint | Findings report (read-only; no file writes) |
+| **Copy** | Extract copy from URL, web capture, brief document | `.agents/design/copy.yaml` |
+| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (visual identity in numbered prose sections) |
+| **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `.agents/design/structure.md` (parallel artifact; never touches DESIGN.md) |
+| **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `.agents/design/DESIGN.md` on tune commit |
+| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
+| **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
 ## Project Types
 
 design-builder adapts behavior to project type:
 
-| Type | Flow |
-| ---- | ---- |
-| `landing-page` | Page-based: hero, sections, CTA placement, landing-oriented presets |
-| `website` | Page-based: per-page sections with navigation |
-| `web-app` | Screen-based: screens, navigation pattern, primary actions, app presets |
-| `mobile-app` | Screen-based: screens, tabs/stack/drawer, native patterns, mobile presets |
+| Type | Best For |
+| ---- | -------- |
+| `landing-page` | Single-page marketing, product launch, waitlist, conversion page |
+| `website` | Multi-page brand site, docs, blog, marketing site with navigation |
+| `web-app` | Dashboards, SaaS tools, internal tools, admin panels, productivity apps |
+| `mobile-app` | iOS/Android apps, mobile-first PWAs, hybrid apps |
+| `e-commerce` | Online stores, DTC brands, marketplaces, catalog with checkout |
 
 ## Usage
 
@@ -45,7 +45,7 @@ extract copy from https://example.com
 extract copy from this brief (PDF/DOCX)
 web capture the hero section of https://competitor.com
 
-# Author DESIGN.md (visual identity tokens + rationale)
+# Author DESIGN.md (visual identity in numbered prose sections)
 extract design from this screenshot
 extract design from this codebase
 extract design from https://brand.example.com
@@ -54,30 +54,27 @@ refresh design tokens from this design-tool file
 # Validate DESIGN.md (callable anytime, also runs as gate inside inputs)
 validate DESIGN.md
 check this DESIGN.md
-audit the design tokens
+audit the design system
 
 # Redesign brownfield app (anchor + new inputs + slice mapping)
 redesign my app with a Cyberpunk vibe
 modernize this interface with a Bento Grid layout
 apply this brand's colors to my app, keep my typography
-adopt the layout from https://example.com but keep my current colors
 
-# Define structure (routes by project type)
+# Define structure (separate artifact, never touches DESIGN.md)
 define the layout for this landing page         # page-based
 define the screen flow for this app             # screen-based
 check this wireframe                            # validate existing
 
-# Preview (two base modes)
-preview design          # guided: per-question visual decisions
-generate variants       # exploratory: complete variants per preset
+# Preview
+generate variants                       # N variants from DESIGN.md + structure (default 4)
+generate 6 variants of Cyberpunk vibe   # N + directed prompt
 
 # Refinement on chosen variant
 tune the design         # sliders for spacing, saturation, contrast, radius
 # Alt+click any element in preview to comment
-# Comments on repeated elements propagate via apply-across
 
-# Push to an external design tool (optional, MCP-gated)
-push the design to my design-tool file
+# Tune commits back to DESIGN.md as surgical patches after user approval
 ```
 
 ### Full Greenfield Pipeline
@@ -86,8 +83,8 @@ push the design to my design-tool file
 1. extract copy from https://competitor.com
 2. extract design from [paste screenshots]
 3. define the structure (or screen flow)
-4. preview design (guided or exploratory)
-5. tune / comment / apply-across until approved
+4. generate variants
+5. tune / comment until approved
 6. hand off to implementation
 ```
 
@@ -95,22 +92,21 @@ push the design to my design-tool file
 
 ```
 .agents/design/
-└── DESIGN.md             # Visual identity: tokens (frontmatter) + rationale (prose)
+├── DESIGN.md             # Visual identity in numbered prose sections
+├── structure.md          # Product arrangement, screen flow, or commerce surfaces
+└── copy.yaml             # Structured content payload (optional)
 
 .artifacts/design/
-├── copy.yaml             # Structured content (sections or screens), optional
 └── preview/
-    ├── guided/           # Per-question decisions (guided mode)
-    ├── variants/         # Complete variants (exploratory mode)
-    └── components/       # Isolated component previews (optional)
+    └── variants/         # Variants HTML + .events session log
 ```
 
-External design-tool files (when used) live at the user's path and are user-owned. Skill never creates them.
+External design-tool files (when used as input source) live at the user's path and are user-owned. Skill never creates them.
 
 ## Requirements
 
 - Bun (for preview server)
-- Optional: any design-tool MCP for push or pull operations
+- Optional: any design-tool MCP for pull operations
 - Optional: Claude Chrome extension (enables region web capture)
 
 ## FAQ
@@ -121,16 +117,26 @@ A: No. design-builder adapts to any digital product — landing pages, websites,
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `inputs.md` ("extract from codebase") for redesign or migration work.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `inputs.md` ("extract from codebase") for refresh, plus `redesign.md` for slice-mapped pivots.
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at `.agents/design/DESIGN.md` holding the visual identity. YAML frontmatter carries machine-readable design tokens (colors, typography, spacing, components, motion, variants). Markdown body carries human-readable rationale across sections (Overview, Colors, Typography, Layout, Screen Flow, Elevation & Depth, Shapes, Motion, Components, Variants, Do's and Don'ts). Agents and humans read the same file.
+A: A single file at `.agents/design/DESIGN.md` holding the visual identity across numbered H2 sections covering atmosphere, color palette, typography, component stylings, layout principles, depth and elevation, motion and interaction, responsive behavior, do's and don'ts, and an agent prompt guide.
 
-**Q: Why not keep design tokens in JSON?**
+Tokens live as backticked keys inside bullets (`primary`, `body-standard`, `radius-card`). Downstream agents and tools read these bullets directly — there is no separate token file.
 
-A: A single human-and-machine readable file is easier to share, review in pull requests, and consume across agents. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other.
+**Q: Where do page composition and screen flow live?**
+
+A: In `.agents/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy, border radius scale) inside Layout Principles. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
+
+**Q: Why prose instead of JSON or YAML?**
+
+A: Prose makes the file easy to share, review in pull requests, and consume across agents — the same agent that reads to render also reads to reason about the brand. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other.
 
 **Q: Do I need a design-tool MCP?**
 
-A: No. Default preview is HTML via a local Bun server. Design-tool MCPs are optional inputs (pull tokens) and outputs (push the design) when the user has them configured.
+A: No. Default preview is HTML via a local Bun server. A design-tool MCP is optional and only used as an input source (pull tokens from a user-owned design-tool file).
+
+**Q: How do I update DESIGN.md after the implementation drifted?**
+
+A: Run the Codebase source in `inputs.md`. Triggers: "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase". The skill extracts current values from the implementation, diffs against DESIGN.md, and patches the affected bullets surgically (confirm-before-write). Narrative sections stay untouched; re-run inputs after if narrative needs refresh.

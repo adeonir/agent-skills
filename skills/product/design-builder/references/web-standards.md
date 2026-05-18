@@ -2,7 +2,7 @@
 
 Implementation rules for generated HTML and React code.
 These complement [aesthetics.md](aesthetics.md) (visual principles) with technical correctness.
-Apply to every component produced by frontend.md and variants.md.
+Apply to every preview variant produced by [preview.md](preview.md).
 
 ## When to Use
 
@@ -22,7 +22,7 @@ Variant HTML loads runtime libraries from CDN -- no build step required.
   <script>lucide.createIcons()</script>
   ```
 - Use `<i data-lucide="icon-name"></i>` markup; Lucide swaps each tag for an inline SVG at runtime. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
-- Tailwind theme customization (DESIGN.md tokens -> Tailwind theme) goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the CDN tag, mapping DESIGN.md `colors`, `typography`, `rounded`, `spacing` blocks to Tailwind theme keys.
+- Tailwind theme customization (DESIGN.md tokens -> Tailwind theme) goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the CDN tag, mapping tokens extracted from DESIGN.md prose (`## 2. Color Palette & Roles`, `## 3. Typography Rules > Hierarchy`, `## 5. Layout Principles > Spacing System` and `> Border Radius Scale`) to Tailwind theme keys. The prose extractor lives in `scripts/preview-server.ts`.
 - After dependency injection, every variant must work offline-of-build: opening the `.html` file directly in a browser renders correctly without a bundler.
 - React/JSX variants follow the same CDN pattern when output is standalone HTML; production builds replace CDN with bundled imports.
 
@@ -30,7 +30,7 @@ Variant HTML loads runtime libraries from CDN -- no build step required.
 
 Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary values bypass the theme, break dark mode and theme switching, and erode design-system consistency.
 
-- Map DESIGN.md tokens into the Tailwind theme via `<style type="text/tailwindcss">@theme { --color-primary: ...; --radius-md: ...; }</style>` so utilities like `bg-primary`, `rounded-md`, `text-lg` resolve to project values.
+- Map tokens extracted from DESIGN.md prose into the Tailwind theme via `<style type="text/tailwindcss">@theme { --color-primary: ...; --radius-md: ...; }</style>` so utilities like `bg-primary`, `rounded-md`, `text-lg` resolve to project values. Token keys come from the backticked role in Color Palette bullets (`primary`, `card`, `accent`, `muted`, `destructive`, etc.) and from the role names in Typography Hierarchy (lower-kebab-case: `display-hero`, `body-standard`, `caption`).
 - Use the nearest standard token when an exact DESIGN.md value lacks a named theme key (`p-4` vs `p-[15px]`, `rounded-lg` vs `rounded-[10px]`, `text-slate-600` vs `text-[#475569]`).
 - Arbitrary values (`w-[317px]`, `bg-[#abc123]`, `mt-[7px]`) are acceptable only when:
   - The value is genuinely one-off (computed offset, magic asset width, third-party embed dimension).

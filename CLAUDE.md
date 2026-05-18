@@ -1,16 +1,33 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 Authoring conventions for skills in this repository.
 
 This file is **repo-level guidance for skill authors**. It is never installed
 alongside skills and never reaches the consumer. Each skill ships standalone
 via `skills.sh`.
 
+## Commands
+
+No build, no tests, no linter. Validation is manual: read files, verify
+structure, check cross-references within a skill.
+
+Install all skills from this repo:
+
+```bash
+npx skills add adeonir/agent-skills
+```
+
+Install a single skill:
+
+```bash
+npx skills add adeonir/agent-skills/<skill-name>
+```
+
 ## Overview
 
-Repository of skills for AI coding agents. Markdown-first, no build system, no
-tests, no linter. Validation is manual: read files, verify structure, check
-cross-references within a skill.
+Repository of skills for AI coding agents. Markdown-first.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard.
 
@@ -42,8 +59,9 @@ use kebab-case.
 ## Canonical Workflow
 
 Skills compose via artifacts on disk (`.artifacts/`, `.agents/`), not via
-cross-references inside skill files. The workflow is documented here at the
-repo level only:
+cross-references inside skill files. The repo `README.md` owns the canonical
+pipeline diagram (mermaid with feedback loops). Summary at the repo level
+only:
 
 ```
 brainstorming + project-index (parallel discovery)
@@ -54,6 +72,9 @@ brainstorming + project-index (parallel discovery)
     --> git-helpers (atomic commits per task)
     --> wrap-up (persist context to Obsidian)
 ```
+
+Always-available skills (not tied to the pipeline): `debug-tools`,
+`rule-creator`, `notes`, `handoff`, `wrap-up`.
 
 Skills themselves stay isolated. SKILL.md files do not reference other skills
 by name and do not document this pipeline.
