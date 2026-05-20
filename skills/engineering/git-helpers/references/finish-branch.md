@@ -126,20 +126,59 @@ For `--rebase`, subject and body are not used (the original commits are replayed
 
 If `gh pr merge` exits non-zero: stop and surface the error.
 
-### Step 5: Cleanup
+### Step 5: Confirm Merge Landed
+
+`gh pr merge` exits as soon as GitHub accepts the merge request, but the merge commit and the `{base}` ref pointer are populated asynchronously. Pulling immediately can race the propagation and surface a stale intermediate state (linear history when the convention expected a merge commit, or a missing commit altogether). Confirm the merge commit OID is published before cleanup.
+
+Poll the PR's `mergeCommit.oid` until non-empty (cap at ~10 attempts, ~1s between):
+
+```bash
+for i in {1..10}; do
+  oid=$(gh pr view {pr-number} --json mergeCommit -q .mergeCommit.oid)
+  [ -n "$oid" ] && break
+  sleep 1
+done
+[ -n "$oid" ] || { echo "merge commit not published after 10s — surface and stop"; exit 1; }
+```
+
+Store the returned `oid` as `{merge-oid}` for the next step's verification.
+
+### Step 6: Cleanup
 
 ```bash
 git switch {base}
+git fetch origin {base}
 git pull --ff-only origin {base}
+```
+
+After the pull, verify the local tip matches the API-reported merge commit OID. If they diverge, the pull picked up an intermediate state — re-fetch once more and re-check:
+
+```bash
+local_oid=$(git rev-parse {base})
+if [ "$local_oid" != "{merge-oid}" ]; then
+  git fetch origin {base} && git reset --hard origin/{base}
+  local_oid=$(git rev-parse {base})
+fi
+[ "$local_oid" = "{merge-oid}" ] || { echo "local {base} did not converge on {merge-oid} — surface and stop"; exit 1; }
+```
+
+When the method is `merge`, also assert the tip has two parents:
+
+```bash
+parent_count=$(git cat-file -p HEAD | grep -c '^parent ')
+[ "$parent_count" -eq 2 ] || { echo "expected merge commit (2 parents), got $parent_count — surface and stop"; exit 1; }
+```
+
+Then delete the branches:
+
+```bash
 git branch -d {branch}
 git push origin --delete {branch}
 ```
 
-The fast-forward pull proves the merge landed on the remote -- if it fails, the merge did not land and the cleanup itself surfaces the failure.
-
 If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` will report the branch already gone -- that is expected, not an error.
 
-Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
+Confirm: "PR #{pr-number} merged into `{base}` (`{merge-oid}`) and branch deleted."
 
 ## Guidelines
 
@@ -150,12 +189,15 @@ Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 - Always ask the update method when the branch is behind, per merge
 - Pass a custom subject citing the PR ID on merge commits
 - Use `--force-with-lease` (not `--force`) when force pushing
-- Trust the `gh pr merge` exit code; let the cleanup pull surface late failures
+- Poll `gh pr view --json mergeCommit` until the OID is populated before pulling -- `gh pr merge` exits before propagation
+- Verify the local `{base}` tip equals the API-reported merge OID after pulling; re-fetch once if it diverges
+- For `--merge` method, confirm HEAD has two parents before deleting branches
 - Delete both local and remote branch after the cleanup pull succeeds
 
 **DON'T:**
 - Merge while CI is pending (contrasts: wait for CI to finish)
-- Cross-check the merge against local `origin/{base}` refs (contrasts: trust `gh pr merge` exit code)
+- Pull immediately after `gh pr merge` without confirming the merge commit OID is published -- the API races propagation and the pull can land on an intermediate state (contrasts: poll mergeCommit.oid before pulling)
+- Trust the `gh pr merge` exit code alone as proof of completion -- the exit code only confirms GitHub accepted the request (contrasts: poll mergeCommit.oid before pulling)
 - Use the default `Merge pull request #N from {branch}` message (contrasts: custom subject with PR ID)
 - Force push without `--force-with-lease` (contrasts: use --force-with-lease)
 - Persist the branch-update method (contrasts: always ask per merge)
@@ -170,4 +212,7 @@ Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 - Branch behind base with conflicts during update: help resolve, then continue
 - PR not mergeable (conflicts, missing approval, blocked): stop and surface the specific blocker
 - `gh pr merge` exits non-zero: surface the error and stop -- do not proceed to cleanup
+- `mergeCommit.oid` still empty after the poll window (~10s): surface and stop -- something blocked the merge server-side
 - Cleanup pull fails as non-fast-forward: merge did not land as expected; surface and stop
+- Local `{base}` tip differs from `mergeCommit.oid` after the fallback re-fetch: surface and stop -- do not delete branches
+- HEAD has fewer parents than the method requires (expected 2 for `--merge`): surface and stop -- the merge applied as a different method than intended
