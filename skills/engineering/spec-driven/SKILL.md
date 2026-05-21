@@ -3,20 +3,19 @@ name: spec-driven
 description: >-
   Specification-driven feature development with auto-sized depth.
   Produces spec.md, design.md, and tasks.md artifacts with requirements
-  traceability, plus verify and audit phases tied to acceptance
-  criteria. Use when planning a feature, breaking a change into tasks
-  or stories, implementing a named story or task, verifying
-  implementation against acceptance criteria, auditing goals before
-  closing, or turning a PRD into engineering artifacts. Triggers: "plan
-  this feature", "spec this feature", "turn this PRD into a spec",
-  "break this into tasks/stories", "create technical design",
-  "implement story S-1", "verify implementation", "check acceptance
-  criteria", "audit feature", "validate goals", "manual testing",
-  "discuss this feature", "show feature status", "quick fix", "quick
-  task", "small change", and known one-line fixes where the user names
-  file and line. Not for diagnosing unknown bugs, authoring standalone
-  PRD/RFC/ADR/TDD documents, PR/commit mechanics, or PM backlog
-  tracking.
+  traceability and an audit phase tied to Goals and Success Criteria.
+  Verify runs inside implement per task -- never as a user phase.
+  Use when planning a feature, breaking a change into tasks or
+  stories, implementing a named story or task, auditing goals at a
+  commit boundary or before a PR, or turning a PRD into engineering
+  artifacts. Triggers: "plan this feature", "spec this feature", "turn
+  this PRD into a spec", "break this into tasks/stories", "create
+  technical design", "implement story S-1", "audit feature", "validate
+  goals", "manual testing", "discuss this feature", "show feature
+  status", "quick fix", "quick task", "small change", and known
+  one-line fixes where the user names file and line. Not for
+  diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/TDD
+  documents, PR/commit mechanics, or PM backlog tracking.
 ---
 
 # Spec-Driven Development
@@ -38,8 +37,6 @@ Structured development workflow with adaptive depth.
 - **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
 - **Implement** ("implement task", "execute task", "implement story
   S-1", "implement task T-1") → [implement.md](references/implement.md)
-- **Verify** ("verify implementation", "check adherence", "verify
-  code") → [verify.md](references/verify.md)
 - **Audit** ("audit feature", "validate goals", "audit goals and
   success criteria") → [audit.md](references/audit.md)
 - **Manual testing** ("manual testing", "test manually") →
@@ -51,6 +48,8 @@ Structured development workflow with adaptive depth.
 
 ### Methodological refs (loaded by other refs)
 
+- **Verification (internal check)** →
+  [verify.md](references/verify.md) (loaded by `implement.md` Step 7-After)
 - **Sub-agent dispatch protocol** →
   [phases.md](references/phases.md)
 - **Codebase exploration** →
@@ -72,12 +71,15 @@ Structured development workflow with adaptive depth.
 ## Workflow
 
 ```
-specify --> design* --> tasks* --> implement --> verify --> audit --> done
-  ^______________________________________|  (verify after each task)
+specify --> design* --> tasks* --> implement --> audit --> done
+                                       ^           ^
+                                       |           |__ per-story commit OR pre-PR
+                                       |__ verify runs inside implement per task
 ```
 
-Adaptive: Specify and Implement always run. Design and Tasks auto-skip
-when scope is small enough. Verify runs after every task or range.
+Adaptive: Specify and Implement always run; Design and Tasks auto-skip
+when scope is small. Verify is internal to implement. Audit runs at the
+commit boundary (per-story or end-of-spec), always before PR.
 
 ## Knowledge Verification Chain
 
@@ -92,18 +94,12 @@ For all technical decisions, follow in order:
 Never skip to step 5 if steps 1-4 are available. **Never assume or
 fabricate** — follow the chain or say "I don't know."
 
-Version-sensitive facts about existing dependencies (engines, defaults,
-API surfaces, deprecations) require the chain. Training memory is no
-substitute for the project's declared dep metadata or the dep's current
-documentation.
-
 ## Artifact Structure Authority
 
 Every artifact's structure is canonical in the matching reference (each
-ref carries its template inline, 1:1). Load the relevant reference
-before reading any existing artifact in `.artifacts/` — existing files
-are context, not structural reference. When structure diverges from the
-template, template wins. Do not propagate legacy structure.
+ref carries its template inline, 1:1). Load the reference before reading
+any existing artifact in `.artifacts/` -- existing files are context,
+not structural reference. Template wins on divergence.
 
 ## Guidelines
 
@@ -112,7 +108,7 @@ template, template wins. Do not propagate legacy structure.
 - Use sequential Feature IDs (`001`, `002`); never reuse
 - Reuse research cache across features (`.artifacts/research/`)
 - Auto-size depth based on complexity — skip phases that add no value
-- Run verify after each task or range — never deferred to the end
+- Run audit at the commit boundary, before any PR
 
 ## Anti-Pattern: Forced Full Pipeline
 
@@ -125,9 +121,16 @@ decision.
 ## Anti-Pattern: Deferred Verification
 
 Implementing all tasks first and verifying at the end loses traceability
-between implementation and acceptance criteria. Verify after every task
-or range — `verify.md` is part of the loop, not a final phase. Failed
-verification reverts checked AC and reopens the relevant tasks.
+between implementation and acceptance criteria. Verify runs internally
+after every task or range -- never a final phase, never user-invoked.
+Failed verification reverts checked AC and reopens the relevant tasks.
+
+## Anti-Pattern: PR Before Audit
+
+Opening a PR with `status: to-review` and running `audit` afterwards
+puts Goals and Success Criteria validation on the wrong side of the
+merge gate. Audit runs first at the commit boundary -- per-story or
+end-of-spec -- and only then does the commit/PR proceed.
 
 ## Anti-Pattern: Knowledge Skipping
 
@@ -140,11 +143,7 @@ flag or ask after the chain is exhausted.
 ## Anti-Pattern: Training Memory as Ground Truth
 
 Treating trained-in knowledge as authoritative for version-sensitive
-facts -- engine constraints, default versions, API surfaces,
-deprecations, runtime requirements -- silently bypasses the Knowledge
-Verification Chain, which applies whenever correctness depends on a
-current fact about a dependency, runtime, or external service. Verify
-against the source the project actually declares (its dependency
-metadata, lockfile, and the dep's own current documentation) before
-writing code or config that depends on it. "I already know this" is the
-failure mode -- training data has a cutoff and dep behavior moves past it.
+facts -- engine constraints, defaults, API surfaces, deprecations,
+runtime requirements -- silently bypasses the chain. Verify against the
+project's declared dep metadata, lockfile, and the dep's current
+documentation. Training cutoffs lag dep behavior.

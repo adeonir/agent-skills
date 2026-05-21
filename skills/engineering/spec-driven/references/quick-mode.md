@@ -27,7 +27,7 @@ Check if `.artifacts/quick/` exists. If not:
 mkdir -p .artifacts/quick
 ```
 
-### Step 2: Generate Task ID
+### Step 2: Generate Task ID and Ask About Branch
 
 Scan `.artifacts/quick/` for highest numbered directory:
 
@@ -39,6 +39,15 @@ Next ID = highest + 1 (padded: 001, 002...)
 
 Generate slug from description:
 - "Fix login redirect" -> `fix-login-redirect`
+
+Ask about the branch. Default suggestion is a new branch using the slug. Record the user's choice in `task.md` frontmatter only -- the actual `git switch` happens at Step 7, just before editing.
+
+```
+Branch for this quick task?
+1. New branch: fix/{slug} (recommended)
+2. Current branch ({current-branch})
+3. Other (specify name)
+```
 
 Create directory:
 
@@ -67,7 +76,7 @@ Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Files to modify (if known)
 - Expected outcome
 - Quality Gates filled with commands detected in Step 3
-- Current git branch (or `main`) in frontmatter
+- Branch chosen in Step 2 in frontmatter (creation deferred to Step 7)
 
 ### Step 5: Load Patterns
 
@@ -176,6 +185,14 @@ Skip signals (proceed without enumeration):
 ### Step 7: Implement
 
 Follow [coding-principles.md](coding-principles.md) during implementation.
+
+Before editing, if `branch:` in task.md frontmatter differs from the current git branch and is not `main`/`master`:
+
+```bash
+git switch -c {branch} 2>/dev/null || git switch {branch}
+```
+
+Skip when frontmatter says `main`/`master`, when empty, or when current branch already matches. Step 2 records intent -- this is where the branch actually moves.
 
 1. Read relevant files
 2. Make the change -- match the patterns loaded in Step 5

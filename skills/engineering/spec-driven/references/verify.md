@@ -7,8 +7,9 @@ during Step 5 for the code correctness analysis.
 
 ## When to Use
 
-- After completing a task or range of tasks (any scope)
-- When the user explicitly requests verification
+Loaded internally by `implement.md` Step 7-After. Verify is not a user-invoked phase -- it runs automatically after every task or range, once `implement.md`'s quality gates pass.
+
+- After completing a task or range of tasks (any scope) -- always via implement
 - After quality gates pass in implement.md -- verify is the deeper check
 
 ## When to Skip

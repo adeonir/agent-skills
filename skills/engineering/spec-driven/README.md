@@ -12,13 +12,12 @@ features get full planning.
 flowchart TD
     A[Specify] --> B{Scope?}
     B -->|Small| C[Quick Mode]
-    B -->|Medium| F[Implement]
+    B -->|Medium| F[Implement<br/>verify per task]
     B -->|Large/Complex| D[Design]
     D --> E[Tasks]
     E --> F
-    F --> V[Verify]
-    V --> R[To Review]
-    R --> AU[Audit]
+    F --> R[To Review]
+    R --> AU[Audit<br/>per-story or pre-PR]
     AU --> G[Done]
 ```
 
@@ -28,9 +27,8 @@ flowchart TD
 | **Discuss** | Resolve gray areas and ambiguities | When triggered |
 | **Design** | Technical architecture, codebase exploration, research | Large/Complex |
 | **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
-| **Implement** | Implement tasks with quality gates | Always |
-| **Verify** | Check code against design, patterns, visual references; mark AC `[x]` | After every task/range |
-| **Audit** | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done` | Before `done` (all scopes except Quick) |
+| **Implement** | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`) | Always |
+| **Audit** | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done`; gates PR | At commit boundary or before PR |
 | **Validate** | Interactive UAT with manual testing; may reprove any `[x]` | On-demand |
 | **Quick Mode** | Express lane for small fixes (no audit) | Small scope |
 
@@ -41,7 +39,7 @@ flowchart TD
 | **Small** (≤3 files) | Quick mode — no pipeline |
 | **Medium** (<10 tasks) | Specify → Implement |
 | **Large** (multi-component) | Specify → Design → Tasks → Implement |
-| **Complex** (ambiguity) | Specify (+ Discuss) → Design → Tasks → Implement → Verify |
+| **Complex** (ambiguity) | Specify (+ Discuss) → Design → Tasks → Implement |
 
 ## Usage
 
@@ -63,9 +61,8 @@ improve cache performance
 create technical design
 create tasks
 implement
-verify implementation
 
-# Close the feature
+# Close the feature (per-story commit boundary OR end-of-spec, always before PR)
 audit feature
 validate goals
 
@@ -180,13 +177,15 @@ changes). The agent auto-detects scope and suggests the right mode.
 
 **Q: What's the difference between verify, validate, and audit?**
 
-A: Verify runs continuously during implement (after each task or range)
-— code adherence to design and patterns, marks AC `[x]` on pass.
-Validate is on-demand UAT at any scope — user manually walks scenarios
-and may reprove any `[x]`. Audit is the terminal gate before `done` —
-evidence-based check of Goals and Success Criteria, marks their `[x]`,
-transitions status. Validate may run before or after audit; a reproved
-`[x]` forces verify or audit to re-run.
+A: Verify is internal to implement — it runs automatically after each
+task or range, checks code against design and patterns, and marks AC
+`[x]` on pass. It is never user-invoked. Validate is on-demand UAT at
+any scope — the user walks scenarios and may reprove any `[x]`. Audit
+is the gate before `done` and before any PR — evidence-based check of
+Goals and Success Criteria; marks their `[x]` and transitions status.
+Audit may run per-story at the commit boundary or once at end-of-spec.
+A reproved `[x]` from validate forces the next implement loop or audit
+to re-run.
 
 **Q: How does sub-agent dispatch work?**
 

@@ -19,7 +19,7 @@ Validate is the human-observation layer. Audit ([audit.md](audit.md)) is the
 evidence-based layer.
 
 - Audit transitions status `to-review` -> `done`; validate does **not**
-- Validate may run before or after audit -- no enforced order
+- Audit gates the PR; validate does not. Validate is on-demand and may run before or after audit -- no enforced order
 - If UAT reproves a scenario, validate may revert any `[x]` (AC, Goal, or
   Success Criterion) in spec.md -- after a revert, audit must be re-run
   before the feature can move to `done`

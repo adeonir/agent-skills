@@ -42,6 +42,8 @@ draft --[implement]--> in-progress --[implement done]--> to-review --[audit]--> 
 | `audit.md` | Yes | `to-review` | `done` |
 | `validate.md` | No (may revert AC/Goal/Success `[x]` if UAT reproves) | - | - |
 
+**Branch ownership:** `specify.md` records the intended branch name in spec.md frontmatter only; `implement.md` Step 5 creates/switches to the branch before any code is written. No other reference touches git refs.
+
 ## Critical Rules
 
 1. **ONLY use the 5 values above** - never invent new status values

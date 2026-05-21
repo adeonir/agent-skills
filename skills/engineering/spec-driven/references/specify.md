@@ -230,15 +230,17 @@ Convert description to kebab-case:
 
 ### Step 10: Ask About Branch
 
+Default suggestion is a new branch. Record the user's choice in `branch:` frontmatter only — the branch is created at implement start, not here.
+
 ```
-Associate this feature with a branch?
-1. Keep on current branch (main)
-2. Create new branch: feature/{name}
+Branch for this feature?
+1. New branch: feature/{name} (recommended)
+2. Current branch ({current-branch})
+3. Other (specify name)
 ```
 
-If option 2:
-- Create branch: `git checkout -b feature/{name}`
-- Store branch name in frontmatter
+- Whichever option the user picks, store the resolved branch name in spec.md frontmatter.
+- Do not run `git checkout` or `git switch` in this step. Branch creation belongs to implement.md.
 
 ### Step 11: Create Feature Directory
 
@@ -409,17 +411,17 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
+id: {{ID}}
 name: {{name}}
+scope: {{medium|large|complex}}
+status: draft
+type: {{greenfield|brownfield}}
+feature: {{name}}
+origin: {{feature|defect}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: draft
-sources: []
-id: {{ID}}
-feature: {{name}}
-type: {{greenfield|brownfield}}
-origin: {{feature|defect}}
-scope: {{medium|large|complex}}
 branch: {{branch-name or main}}
+sources: []
 ---
 
 # Feature: {{Title}}

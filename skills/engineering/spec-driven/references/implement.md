@@ -113,7 +113,22 @@ Execution steps:
 
 **If <=5 steps:** Proceed with execution.
 
-### Step 5: Validate Dependencies
+### Step 5: Prepare Branch and Status
+
+Runs before sub-agent dispatch -- the branch must exist before any subagent writes code, and the status flip records that implementation is underway.
+
+**Branch**: Read `branch:` from spec.md frontmatter. If it differs from the current git branch and is not `main`/`master`:
+
+```bash
+git switch -c {branch} 2>/dev/null || git switch {branch}
+```
+
+Skip the switch when frontmatter says `main`/`master`, when the field is empty, or when the current branch already matches. specify.md only records intent — implement owns the actual `git switch`. Never create the branch later than this step (i.e., never after dispatch).
+
+**Status**: If status is `ready` or `draft` (Medium scope may skip ready):
+- Set `status: in-progress`
+
+### Step 6: Validate Dependencies
 
 For each task to implement (when tasks.md exists):
 - Check [P] (parallel) - proceed
@@ -154,14 +169,9 @@ Turn N+1: read tasks.md and per-task status from disk, resume at Step 9.
 
 Map this shape to the subagent dispatch primitive available in the harness.
 
-### Step 6: Update Status
-
-If status is `ready` or `draft` (Medium scope may skip ready):
-- Set `status: in-progress`
-
 ### Step 7: Implement Tasks
 
-**Ownership:** When tasks.md exists and Step 5 dispatched a subagent, the
+**Ownership:** When tasks.md exists and Step 6 dispatched a subagent, the
 subagent runs Step 7 (and Step 8) for every task in its scope. Main agent
 resumes at Step 9. When no dispatch ran (Medium scope or no tasks.md),
 main agent runs Step 7 inline.
@@ -310,14 +320,14 @@ Tasks: {X} done | ACs: {Y}/{Z} verified
 Remaining: {count or "none"}
 Suggested commit: {message}
 
-Approve to proceed to audit, or describe what to fix.
+Approve to proceed, or describe what to fix.
 ```
 
 - If issues remain: fix before presenting gate.
 - If changes requested: address and re-present gate.
-- If approved: run `audit` (mandatory before `done`). For user-facing features, also consider `validate`.
+- If approved: flip status to `to-review` and stop. Implement does not run `audit` -- audit gates the commit boundary (per-story commit or pre-PR) and is invoked separately. For user-facing features, also consider `validate`.
 
-Do not suggest `audit` until approved.
+Never open a PR before `audit` passes for the work being merged.
 
 ## Edge Case Verification
 
