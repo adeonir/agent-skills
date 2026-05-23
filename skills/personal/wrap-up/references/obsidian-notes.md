@@ -34,6 +34,31 @@ sections below, typed relations for graph edges.
 - **H1 heading**: all notes omit the body `# H1` — the frontmatter
   `title` is the canonical heading. Top-level body sections start at `##`.
 
+## Audience and Reference Discipline
+
+Session and daily notes target different audiences. The split is rigid.
+
+**Daily — executive, product/project outcomes:**
+
+- Reader: stakeholder or future-you scanning what moved
+- Refer to projects and features by human-readable name only
+- Forbidden in body: PR numbers, issue numbers, local spec/story/task
+  IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands,
+  branch names, commit hashes
+- Outcomes in prose; do not restate session technical detail
+
+**Session — technical, durable detail:**
+
+- Reader: future-you continuing the work
+- Durable refs allowed: PR `#N`, Issue `#N`
+- Technical detail allowed: file paths, commands, `file:line`
+- Local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) forbidden
+  everywhere — spec artifacts are ephemeral; the spec folder may be
+  deleted, leaving the ID as dead reference
+
+When no durable ref exists, use the feature or project name in prose
+(`Branding copy skill`, not `F-022`).
+
 ## Filename Sanitization
 
 When generating filenames from user input:
@@ -174,7 +199,8 @@ Rules:
 - Relations use typed verbs (`- follows [[X]]`) — fallback for graph edges only
 - Wikilinks only to existing notes/entities; verify with `search_notes` before linking
 - Past tense, natural language
-- No git metadata (branches, commits, PRs) or file lists
+- Durable refs allowed when they exist: PR `#N`, Issue `#N`. Technical detail allowed: file paths, commands, `file:line`
+- Forbidden: branch names, commit hashes, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`)
 - One project per session note
 - Omit empty sections
 
@@ -229,7 +255,9 @@ tags:
 
 Section presence:
 - `## Activities` always present with at least one project subsection
-- `## Open Items` only when there are pending items
+- `## Open Items` only when commitments have an owner, a deadline, or
+  an active blocker — mental follow-ups ("install X locally", "remember
+  to test Y") belong in the handoff or session `## Next`, not here
 - `## Observations` for cross-cutting day-level facts — do not restate
   per-project observations that belong in the session note; common
   categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
@@ -263,8 +291,12 @@ Read first with `read_note`, then use `patch_note`:
 
 Rules:
 - Activities split by project with `### Project Name` headers
-- Bullets per project, mix of outcomes and tasks — count scales with
-  session depth
+- Bullets are executive outcomes — what moved at product or project
+  level, readable by a stakeholder with no repo context
+- Refer to projects and features by human-readable name only
+- Forbidden in body: PR/Issue numbers, local spec/story/task IDs
+  (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch
+  names, commit hashes — those belong in the session note
 - Observations are day-level and cross-cutting — project-specific facts
   stay in the session note
 - Relations use typed verbs (`contains`, `relates_to`); `contains`
@@ -300,7 +332,10 @@ Rules:
 - Use `[brackets]` for observations — use `#hashtags` instead (contrasts: Obsidian Syntax Rules)
 - Add `# H1` to any note — frontmatter `title` is the canonical heading
 - Write changelog-style content or list steps taken
-- List files modified or git metadata
+- Cite local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) in any note — spec artifacts are ephemeral and become dead references (contrasts: Audience and Reference Discipline)
+- Put PR/Issue numbers, file paths, shell commands, branch names, or commit hashes in the daily note — daily is executive prose, technical refs stay in session (contrasts: Audience and Reference Discipline)
+- File Open Items for mental follow-ups without owner, deadline, or active blocker — those belong in the handoff or session `## Next` (contrasts: Open Items section presence)
+- List branch names or commit hashes in any note — both rot fast and add no durable value
 - Blindly append bullets without reading existing content first
 - Write prose paragraphs in Activities — use bullets (contrasts: bullets per project)
 - Turn session notes into detailed logs — keep them brief and human-scannable (contrasts: keep session Summary brief)
