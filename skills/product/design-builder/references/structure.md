@@ -76,7 +76,7 @@ Agent reads a user-supplied wireframe and questions coherence and consistency ag
 - Does information flow match user intent (from discovery or copy)?
 - Are content sections grouped by hierarchy or scattered?
 - Does navigation surface the highest-value paths?
-- Does spacing rhythm match `## 5. Layout Principles > Spacing System` from DESIGN.md?
+- Does spacing rhythm match the `spacing` group in the DESIGN.md frontmatter (narrated in `## 4. Layout > Spacing System`)?
 
 **Validation prompts — screen-based:**
 

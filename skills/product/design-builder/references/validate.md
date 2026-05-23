@@ -1,12 +1,12 @@
 # Validate
 
-Audit semantic quality of `DESIGN.md` — contrast, hex validity, hierarchy ratio, cross-section consistency. Read-only: never patches the file. Reports findings; user decides what to fix.
+Audit `DESIGN.md` against the spec rules and custom extensions. Read-only: never patches the file. Reports findings; user decides what to fix.
 
-Cross-section checks (contrast pairs, scale ratios) deserve careful reasoning — small mistakes cascade across every screen.
+Mirrors the eight Google DESIGN.md linter rules (`broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`) and adds custom checks for our extensions (`oklch-hex-pair`, `custom-groups-shape`, `content-leakage`) plus prose↔YAML parity. Runs inline — no external CLI dependency.
 
 ## When to Use
 
-- User asks to validate, check, or audit `DESIGN.md`
+- User asks to validate, check, audit, or lint `DESIGN.md`
 - After a manual edit to `DESIGN.md`
 - Before handoff to the implementation phase, an external design tool, or a teammate
 - Auto-loaded by [inputs.md](inputs.md) Step 5 as the gate before reporting done
@@ -27,62 +27,129 @@ No files written. No tokens rewritten.
 
 ## Workflow
 
-### Step 1: Extract Values from Prose
+### Step 1: Parse Frontmatter and Body
 
-Walk the DESIGN.md prose and extract:
+Read `.agents/design/DESIGN.md`. Split into:
 
-- Color values and their token keys from `## 2. Color Palette & Roles` bullets. Two accepted shapes: `**<Name>** (#HEX) → \`<token-key>\` — <intent>` (hex-anchored) or `**<Name>** (\`oklch(L C H)\` / #HEX) → \`<token-key>\` — <intent>` (oklch-anchored, dual). Extract every value present.
-- Typography roles, font sizes, line heights from `## 3. Typography Rules > Hierarchy` bullets
-- Spacing scale from `## 5. Layout Principles > Spacing System`
-- Quick Color Reference entries from `## 10. Agent Prompt Guide > Quick Color Reference`
+- **YAML frontmatter** — the block between the opening `---` and closing `---` fences. Parse into the design system state with top-level keys: `name`, `description`, `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`.
+- **Markdown body** — everything after the frontmatter. Walk H2 headings to enumerate sections and their order.
+- **Token reference index** — collect every `{path.to.token}` occurrence inside `components`, `rounded`, and `spacing` values for the `broken-ref` check.
 
-### Step 2: Color Checks
+If the frontmatter block is missing or unparseable, emit a single error and stop — no downstream check is meaningful without it.
 
-| Check | Severity |
-|-------|----------|
-| Every hex is valid SRGB (`#RRGGBB` or `#RGB`) | error |
-| Every oklch value (when present) parses as `oklch(L C H)` with L in `0..1`, C ≥ `0`, H in `0..360` | error |
-| In dual bullets, the oklch and hex values resolve to the same color within 1 sRGB unit per channel | warning |
-| Token keys are unique across the section | error |
-| Foreground/background pairs (`foreground` over `background`, `primary-foreground` over `primary`, `card-foreground` over `card`, `accent-foreground` over `accent`, `muted-foreground` over `muted`, `destructive-foreground` over `destructive`, `popover-foreground` over `popover`) meet WCAG AA: 4.5:1 for body text, 3:1 for large text and UI elements | error |
-| Each Quick Color Reference entry mirrors the shape of its matching Section 2 bullet (hex-only for hex tokens, dual for oklch tokens) | warning |
-| Evocative names follow one mode consistently (descriptive: hue + temperature/density; poetic: brand-voice). Mixing modes within the same file | warning |
+### Step 2: Schema Checks
 
-### Step 3: Typography Checks
+Validate the YAML against the expected shape.
 
 | Check | Severity |
 |-------|----------|
-| Hierarchy forms a clear ratio (display > heading > body > label); no two adjacent levels within 10% of each other | warning |
+| `name` is a non-empty string | error |
+| `description` is a non-empty string when present | warning |
+| Every color value is either a hex string (`#RRGGBB` or `#RGB`) or an object with `hex` (required) and `oklch` (required) keys | error |
+| Every typography entry has `fontFamily` and `fontSize`; optional `fontWeight`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation` typed correctly | error |
+| Every dimension uses a valid unit (`px`, `em`, `rem`) or unitless number where allowed (`lineHeight`) | error |
+| `lineHeight` values are either a Dimension or a unitless number (recommended) | info |
+| Token keys are unique within their group | error |
+| Variant entries follow `<component>-<state>` naming (e.g., `button-primary-hover`) | warning |
+
+### Step 3: Reference Resolution — `broken-ref`
+
+Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
+
+| Check | Severity |
+|-------|----------|
+| Each reference resolves to a defined token at the cited path | error |
+| References inside `components.*` point to primitives in `colors`, `typography`, `rounded`, or `spacing` (component-to-component refs not allowed) | error |
+| References inside `rounded` and `spacing` resolve to siblings in the same group | error |
+
+### Step 4: Color Rules — `missing-primary` + `contrast-ratio` + `orphaned-tokens` + `oklch-hex-pair`
+
+| Check | Severity |
+|-------|----------|
+| `colors.primary` exists when any `colors` are defined | warning |
+| For every `components.<name>` with both `backgroundColor` and `textColor` resolved, contrast ratio meets WCAG AA (4.5:1 for body, 3:1 for large text and UI) | warning |
+| Color tokens defined but not referenced by any `components.*` entry (excluding paired foreground tokens) | warning |
+| When a color is an object `{ hex, oklch }`, both values parse correctly and resolve to the same color within 1 sRGB unit per channel | warning |
+| Object-form color is used only when the source was oklch-native; string hex when source was hex-only (per-token, not file-wide) | info |
+
+### Step 5: Typography Rules — `missing-typography`
+
+| Check | Severity |
+|-------|----------|
+| `typography` is present when `colors` is present | warning |
 | At least one role with weight ≥ 600 OR letter-spacing that signals display-class type | info |
-| Body line-height ≥ 1.4 (readability floor) | warning |
+| Body role line-height ≥ 1.4 (readability floor) | warning |
+| Hierarchy forms a clear ratio (display > heading > body > label); no two adjacent levels within 10% of each other | warning |
 
-### Step 4: Spacing & Rhythm Checks
-
-| Check | Severity |
-|-------|----------|
-| Scale follows a consistent rhythm (multiples of a base unit, geometric, or Fibonacci progression) | info |
-| Base unit present and named explicitly | info |
-
-### Step 5: Visual Theme Checks
+### Step 6: Custom Groups Shape — `custom-groups-shape`
 
 | Check | Severity |
 |-------|----------|
-| Section body length ≥ 1500 chars (target 2000–3000 for full brand voice) | warning |
-| At least one color value (hex or oklch) appears inline | info |
+| `elevation` keys follow Tailwind scale (`2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`); values are valid CSS shadow strings | warning |
+| `duration` keys are named tiers; values use `ms` unit | warning |
+| `easing` values are valid `cubic-bezier(...)` strings or CSS easing keywords (`linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`) | warning |
+| `breakpoints` keys follow Tailwind scale (`sm`, `md`, `lg`, `xl`, `2xl`); values use `rem` unit | warning |
+| `rounded` keys follow Tailwind scale (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `full`) | info |
+| `spacing` keys are numeric strings matching Tailwind scale (`1`, `2`, `3`, `4`, `6`, `8`, ...) | info |
 
-### Step 6: Cross-Section Consistency
+### Step 7: Section Order and Coverage — `section-order` + `missing-sections`
+
+Canonical section order in the markdown body:
+
+1. Overview
+2. Colors
+3. Typography
+4. Layout
+5. Elevation & Depth
+6. Shapes
+7. Components
+8. Do's and Don'ts
+9. Motion & Interaction (custom)
+10. Responsive Behavior (custom)
+11. Agent Prompt Guide (custom)
 
 | Check | Severity |
 |-------|----------|
-| Quick Color Reference entries point at color values (hex or oklch) present in Color Palette | warning |
-| Token keys referenced in Visual Theme prose match keys defined in Color Palette | warning |
-| Example Component Prompts in Agent Prompt Guide reference token keys present in Color Palette and Typography Hierarchy | info |
+| Sections present appear in canonical order | warning |
+| Optional sections (`Elevation & Depth`, `Shapes`, `Motion & Interaction`, `Responsive Behavior`) absent when their matching YAML group is populated | info |
+| Section headings match the canonical names listed above | warning |
+| Duplicate section heading | error |
 
-### Step 7: Report Findings
+### Step 8: Prose↔YAML Parity
+
+| Check | Severity |
+|-------|----------|
+| Token keys cited in prose (backticked) exist in the frontmatter | warning |
+| Each color bullet's value matches its frontmatter shape — hex-only when YAML is a string, dual `oklch / #HEX` when YAML is an object | warning |
+| Quick Token Reference entries in Section 11 mirror the shape of their matching Section 2 bullet | warning |
+| Each populated YAML color token has a bullet in Section 2 (Colors) | info |
+| Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 7 (Components) | info |
+
+### Step 9: Content-Agnostic Check — `content-leakage`
+
+DESIGN.md must render any copy. Flag prose that bakes product-specific content into the brand identity.
+
+| Check | Severity |
+|-------|----------|
+| Section 1 Overview contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
+| Section 7 Components narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
+| Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
+| When `.agents/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
+| Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
+
+### Step 10: Token Summary — `token-summary`
+
+Emit an info finding with counts per group:
+
+```text
+Tokens: N colors, N typography, N rounded, N spacing, N components, N elevation, N duration, N easing, N breakpoints
+```
+
+### Step 11: Report Findings
 
 Group findings by severity. Format:
 
-```
+```text
 DESIGN.md validation -- <path>
 
 Errors (N):
@@ -104,7 +171,7 @@ If errors > 0: do not declare validation passed. Ask the user whether to fix or 
 
 If errors = 0: report passed. Warnings and info remain visible but do not block.
 
-### Step 8: When Called as a Gate
+### Step 12: When Called as a Gate
 
 When this ref is auto-loaded by `inputs.md` as the Step 5 gate, the caller must:
 
@@ -116,22 +183,26 @@ When this ref is auto-loaded by `inputs.md` as the Step 5 gate, the caller must:
 
 **DO:**
 
-- Read DESIGN.md once, run all checks against the extracted values
+- Parse the YAML frontmatter first; treat it as authoritative
+- Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
-- Reference the exact section + sub-heading in findings (e.g., `## 2. Color Palette & Roles > Primary`)
+- Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 7. Components > Buttons`)
 - Use the same checks whether called directly or as a gate by inputs.md
 
 **DON'T:**
 
 - Patch or rewrite `DESIGN.md` (contrasts: read-only audit)
+- Treat prose as the source of truth (contrasts: YAML frontmatter is authoritative)
 - Block on warnings or info (contrasts: only errors block)
 - Re-run discovery or inputs (contrasts: this ref operates on the file as-is)
 - Invent fixes; report findings and let the user decide (contrasts: never auto-fix)
+- Shell out to an external linter binary (contrasts: this ref runs the rules inline)
 
 ## Error Handling
 
 - No DESIGN.md in `.agents/design/`: stop and route the user to `inputs.md` to author one
-- Color Palette section empty or unparseable: report what is missing, suggest running inputs
+- Frontmatter block missing or unparseable: emit one error, stop downstream checks
+- YAML parses but `colors` is empty: report what is missing, suggest running inputs
 
 ## Next Steps
 

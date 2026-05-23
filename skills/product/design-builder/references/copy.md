@@ -23,32 +23,17 @@ If context was not established by SKILL.md discovery, ask:
 
 ### Step 2: Get Source
 
-Sources are accepted in four forms, in order of recommended fidelity:
+Sources are accepted in four shapes. The user provides whatever they have — URL, screenshot, raw HTML, brief, or description; the skill receives the input as-is.
 
-**Full-page URL.** User provides a URL. Fetch the page. Extract across all sections.
+**Full source.** Anything that covers the full surface — public URL, a page-wide screenshot, a complete brief, or raw HTML pasted into the conversation. Extract across every section the source carries.
 
-**Captured region.** User wants only part of a page (a hero, a pricing
-table, a specific screen). Four paths:
+**Partial source.** Anything that covers a specific region only — a hero shot, a pricing table, a single screen. The user may scope by selector, description, or by providing only that fragment. Extract within the scope provided; never invent the surrounding page.
 
-1. **Claude Chrome extension (preferred when available).** User selects the
-   region on the page and the extension passes DOM plus screenshot into the
-   conversation. Use what the extension provides.
-2. **Region screenshot.** User takes a screenshot of the region using the
-   operating system and pastes or uploads it. Analyze the screenshot for
-   text and structure.
-3. **URL + CSS selector.** User pastes URL and a CSS selector (from devtools
-   "Copy selector"). Fetch the page and isolate the matching node.
-4. **URL + textual description.** User pastes the URL and describes the region
-   ("the pricing table section"). Fetch and locate the referenced region.
+**Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections).
 
-**Brief document.** User provides a PDF or DOCX with content and intent.
-Read the document. Extract content plus any stated constraints (tone,
-audience, mandatory sections).
+**No source.** The user wants to draft from intent only. Skip to Step 4 with the description provided.
 
-**No source.** User wants to draft from scratch. Skip to Step 4 with
-user-provided intent.
-
-If any fetch or read fails, ask the user for a screenshot or direct paste.
+If any fetch or read fails, ask the user for an alternative shape (often a screenshot or direct paste).
 
 ### Step 3: Identify Project Type
 
@@ -90,10 +75,10 @@ Analyze structure and extract:
 - Navigation structure (logo, links, primary CTA) — page-based
 - Screen inventory with flow (entry screen, primary paths, exit) — screen-based
 - Catalog inventory with PLP/PDP/cart/checkout surfaces — commerce-based
-- Section or screen hierarchy with layout information
+- Section or screen hierarchy
 - Text content (headlines, body, CTAs) preserving original tone
-- Visual placeholders with descriptions for image generation
-- Copywriting patterns (tone, power words, CTA style)
+- Image descriptions per section or screen — capture URL and alt only when the source provides them (brownfield); greenfield typically has no images
+- Copywriting patterns (tone, power words, CTA style) — record under `notes`
 
 ### Step 5: Generate copy.yaml
 
@@ -111,56 +96,38 @@ Save to `.agents/design/copy.yaml`. Create directories if needed.
 
 ALWAYS use this exact template structure:
 
-````markdown
----
-name: {{project-name}}
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
-status: draft
-sources:
-  - {{url, captured region, brief file, or description}}
-project_type: {{landing-page/website/web-app/mobile-app/e-commerce}}
-language: {{en/pt/es/etc}}
-industry: {{fintech/health/saas/ecommerce/etc}}
----
-
-# Copy Extraction: {{Project Name}}
-
-## Output
-
-Save as `.agents/design/copy.yaml` using the schema below.
-
-## Schema
-
 ```yaml
 metadata:
-  source: "{{url, captured region, brief file, or description}}"
+  source: "{{URL, brief file, screenshot description, or 'none'}}"
   extraction_date: "{{YYYY-MM-DD}}"
   version: "1.0.0"
+  status: "draft"
 
 project:
-  name: "{{project-name}}"
-  type: "{{landing-page/website/web-app/mobile-app/e-commerce}}"
-  language: "{{en/pt/es/etc}}"
-  industry: "{{fintech/health/saas/ecommerce/etc}}"
+  name: "{{Project Name}}"
+  type: "{{landing-page | website | web-app | mobile-app | e-commerce}}"
+  language: "{{en | pt | es | ...}}"
+  industry: "{{fintech | health | saas | ecommerce | ...}}"
   description: "{{Brief project description}}"
 
-# For page-based (landing-page, website): use `sections`.
-# For screen-based (web-app, mobile-app): use `screens`.
-# For commerce-based (e-commerce): use `sections` for marketing surfaces plus `catalog` for product data and `commerce_surfaces` for PLP/PDP/cart/checkout copy.
+# Use the block matching project.type. Remove unused blocks before saving.
 
-sections:
+sections:   # page-based (landing-page, website)
   "{{section_id, e.g., hero, features, testimonials}}":
-    headline: "{{primary heading text as it appears on the page}}"
-    subheadline: "{{secondary text that supports or expands the headline}}"
+    headline: "{{primary heading text}}"
+    subheadline: "{{secondary supporting text}}"
     body:
-      - "{{first block of body copy, preserving original tone and structure}}"
+      - "{{first block of body copy}}"
       - "{{additional body copy if the section has multiple paragraphs}}"
     cta:
-      text: "{{button or link label, e.g., Get Started, Learn More}}"
-      link: "{{destination url or #anchor reference}}"
+      text: "{{button or link label}}"
+      link: "{{destination URL or #anchor}}"
+    images:
+      - description: "{{what the image shows — required}}"
+        url: "{{source URL — optional, when captured from URL}}"
+        alt: "{{alt text — optional, when source declares it}}"
 
-screens:
+screens:    # screen-based (web-app, mobile-app)
   "{{screen_id, e.g., auth, home, detail, settings}}":
     purpose: "{{what this screen does for the user}}"
     entry_points: ["{{how the user arrives here}}"]
@@ -170,9 +137,13 @@ screens:
     content:
       headline: "{{primary text if any}}"
       body: ["{{body copy elements}}"]
-    states: ["{{empty/loading/error/populated}}"]
+    states: ["{{empty | loading | error | populated}}"]
+    images:
+      - description: "{{what the image shows — required}}"
+        url: "{{source URL — optional}}"
+        alt: "{{alt text — optional}}"
 
-catalog:
+catalog:    # commerce-based (e-commerce)
   collections:
     "{{collection_slug}}":
       name: "{{display name}}"
@@ -181,12 +152,18 @@ catalog:
     "{{product_slug}}":
       name: "{{display name}}"
       tagline: "{{short positioning line}}"
-      description: ["{{paragraph 1}}", "{{paragraph 2}}"]
+      description:
+        - "{{paragraph 1}}"
+        - "{{paragraph 2}}"
       specs:
         "{{spec_key}}": "{{spec_value}}"
       variants: ["{{e.g., size, color}}"]
+      images:
+        - description: "{{what the image shows — required}}"
+          url: "{{source URL — optional}}"
+          alt: "{{alt text — optional}}"
 
-commerce_surfaces:
+commerce_surfaces:   # commerce-based (e-commerce)
   plp:
     headline: "{{collection headline}}"
     empty_state: "{{copy when no products match}}"
@@ -209,7 +186,7 @@ commerce_surfaces:
 notes: |
   {{Observations about the extraction — content that was unclear,
   sections or screens that appeared empty or dynamically loaded,
-  tone or language patterns worth preserving}}
+  tone or language patterns worth preserving.}}
 ```
 
 ## Schema Adapts by Project Type
@@ -220,24 +197,22 @@ notes: |
 - **mobile-app**: `screens` plus native patterns (tabs, gestures, biometric, sheets)
 - **e-commerce**: `sections` (marketing surfaces) + `catalog` (collections, products, specs, variants) + `commerce_surfaces` (PLP, PDP, cart, checkout, account)
 
-Keep only the fields relevant to the project type. Remove unused blocks
-(`sections`, `screens`, `catalog`, `commerce_surfaces`) before saving.
-````
+Keep only the fields relevant to the project type. Remove unused blocks (`sections`, `screens`, `catalog`, `commerce_surfaces`) before saving.
 
 ## Guidelines
 
 **DO:**
 - Preserve original tone — structure content, do not rewrite it
-- Use Lucide icon names for icon suggestions
-- Mark visuals with `type: "generate"` and detailed descriptions
-- Capture copywriting patterns in `copywriting_notes`
+- Capture image descriptions per section or screen — URL and alt only when the source provides them
+- Capture copywriting patterns (tone, power words, CTA style) under `notes`
 - Extract every section or screen thoroughly — do not skip content
 - Scope extracted output to what was actually captured — a region input produces region output, not a full-page schema
+- Keep `copy.yaml` independent of design choices — content only; DESIGN.md owns visual identity, and the two artifacts must compose with a `copy.yaml` swapped from a different project
 
 **DON'T:**
 - Rewrite or editorialize the original copy (contrasts: preserve original tone)
 - Skip sections or omit content found in the source (contrasts: extract thoroughly)
-- Use generic icon names (contrasts: pick specific Lucide icons that match the content)
+- Embed visual decisions (icon names, color references, layout hints, font picks) into `copy.yaml` (contrasts: those belong in DESIGN.md; copy carries content only)
 - Treat a captured region as a full page (contrasts: scope output to the captured region)
 
 ## Error Handling

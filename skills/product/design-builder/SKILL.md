@@ -20,13 +20,14 @@ description: >-
 # Design Builder
 
 Greenfield design pipeline for any digital product: discover, extract
-content, author `DESIGN.md` with numbered prose sections, define page
-composition or screen flow in a separate structure artifact, preview,
-refine.
+content, author `DESIGN.md` with a YAML frontmatter holding the
+authoritative design tokens plus numbered prose sections that narrate
+them, define page composition or screen flow in a separate structure
+artifact, preview, refine.
 
 ## Workflow
 
-```
+```text
 copy --> inputs --> structure --> preview --> final
             |          |             ^__|
             |          |           (tune loop)
@@ -40,12 +41,16 @@ Each step is independent. Can run isolated or chained. `discovery.md`
 is auto-loaded before every operation — never skipped, never a step the
 user invokes directly.
 
-DESIGN.md holds the visual identity — numbered prose sections covering
-atmosphere, color, typography, components, layout, depth, motion,
-responsiveness, do's and don'ts, and an agent prompt guide.
+DESIGN.md holds the visual identity in two layers: a YAML frontmatter
+carrying the normative design tokens (`colors`, `typography`, `rounded`,
+`spacing`, `components`, `elevation`, `duration`, `easing`,
+`breakpoints`) plus numbered prose sections that narrate them
+(Overview, Colors, Typography, Layout, Elevation & Depth, Shapes,
+Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior,
+Agent Prompt Guide). Token references use `{path.to.token}` syntax.
 `structure.md` writes a parallel artifact at `.agents/design/structure.md`
-and never touches DESIGN.md. preview composes both at render time,
-extracting tokens from DESIGN.md prose at generation time.
+and never touches DESIGN.md. preview parses the frontmatter at render
+time and resolves references into CSS custom properties.
 
 design-builder is greenfield-first. The codebase source inside
 `inputs.md` doubles as the brownfield path: extracting tokens from an
@@ -90,8 +95,9 @@ Step 5 as the gate before declaring done.
   identity
 - Treat `.agents/design/structure.md` as the source of truth for
   page composition or screen flow
-- Patch DESIGN.md bullet by bullet or section by section so each phase
-  preserves the others' work
+- Patch DESIGN.md frontmatter group by group and prose section by
+  section so each phase preserves the others' work; patch the YAML
+  authoritative layer first, prose follows
 - Route preset and decision sets by project type (landing-page,
   website, web-app, mobile-app, e-commerce)
 - Auto-load `aesthetics.md` and `web-standards.md` for every preview run
@@ -100,11 +106,12 @@ Step 5 as the gate before declaring done.
 
 ## Anti-Pattern: Whole-File Rewrite on Section Edit
 
-Rewriting the entire `DESIGN.md` when only one section changed clobbers
-other sections. Patch bullet by bullet within the affected heading.
-`inputs.md` owns the DESIGN.md sections, `structure.md` owns its own
-artifact at `.agents/design/structure.md`, `copy.md` owns content
-payload in `copy.yaml`.
+Rewriting the entire `DESIGN.md` when only one slice changed clobbers
+other slices. Patch the YAML frontmatter group first, then the prose
+bullets that cite the patched tokens. `inputs.md` owns the DESIGN.md
+frontmatter and prose sections, `structure.md` owns its own artifact at
+`.agents/design/structure.md`, `copy.md` owns content payload in
+`copy.yaml`.
 
 ## Anti-Pattern: Creating External Tool Files
 
@@ -112,6 +119,10 @@ External design-tool files are user-owned. The skill never creates
 them — it pulls when the file already exists and the matching MCP is
 available. Creating files in someone else's tool surprises them and
 risks naming collisions.
+
+## Anti-Pattern: Copy Leakage into DESIGN.md
+
+DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Overview) reads like a product pitch, when Section 7 (Components) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, route every product string into `copy.yaml`, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat copy and design as orthogonal — one DESIGN.md must survive any copy.yaml swap.
 
 ## Anti-Pattern: Skipping Discovery
 

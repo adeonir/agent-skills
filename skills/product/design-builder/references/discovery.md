@@ -20,7 +20,9 @@ Look for:
 - `.agents/design/copy.yaml` — extracted content payload
 
 If found, read and extract purpose, audience, tone, key features, and any
-existing tokens. Skip to the relevant trigger operation.
+existing tokens. Tokens in `DESIGN.md` live in the YAML frontmatter at the top
+of the file — parse that block as the authoritative state. Skip to the
+relevant trigger operation.
 
 ### Step 2: Lightweight Discovery
 

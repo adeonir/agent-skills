@@ -17,7 +17,7 @@ flowchart TD
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Copy** | Extract copy from URL, web capture, brief document | `.agents/design/copy.yaml` |
-| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (visual identity in numbered prose sections) |
+| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
 | **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `.agents/design/structure.md` (parallel artifact; never touches DESIGN.md) |
 | **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `.agents/design/DESIGN.md` on tune commit |
 | **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
@@ -39,13 +39,13 @@ design-builder adapts behavior to project type:
 
 ### Core Pipeline
 
-```
+```text
 # Extract content
 extract copy from https://example.com
 extract copy from this brief (PDF/DOCX)
 web capture the hero section of https://competitor.com
 
-# Author DESIGN.md (visual identity in numbered prose sections)
+# Author DESIGN.md (YAML frontmatter with normative tokens + prose narration)
 extract design from this screenshot
 extract design from this codebase
 extract design from https://brand.example.com
@@ -79,7 +79,7 @@ tune the design         # sliders for spacing, saturation, contrast, radius
 
 ### Full Greenfield Pipeline
 
-```
+```text
 1. extract copy from https://competitor.com
 2. extract design from [paste screenshots]
 3. define the structure (or screen flow)
@@ -90,9 +90,9 @@ tune the design         # sliders for spacing, saturation, contrast, radius
 
 ## Output
 
-```
+```text
 .agents/design/
-├── DESIGN.md             # Visual identity in numbered prose sections
+├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
 ├── structure.md          # Product arrangement, screen flow, or commerce surfaces
 └── copy.yaml             # Structured content payload (optional)
 
@@ -107,7 +107,6 @@ External design-tool files (when used as input source) live at the user's path a
 
 - Bun (for preview server)
 - Optional: any design-tool MCP for pull operations
-- Optional: Claude Chrome extension (enables region web capture)
 
 ## FAQ
 
@@ -121,17 +120,15 @@ A: Greenfield-first. The primary use case is starting from zero with no existing
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at `.agents/design/DESIGN.md` holding the visual identity across numbered H2 sections covering atmosphere, color palette, typography, component stylings, layout principles, depth and elevation, motion and interaction, responsive behavior, do's and don'ts, and an agent prompt guide.
-
-Tokens live as backticked keys inside bullets (`primary`, `body-standard`, `radius-card`). Downstream agents and tools read these bullets directly — there is no separate token file.
+A: A single file at `.agents/design/DESIGN.md` with two layers. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
 
 **Q: Where do page composition and screen flow live?**
 
-A: In `.agents/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy, border radius scale) inside Layout Principles. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
+A: In `.agents/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
 
-**Q: Why prose instead of JSON or YAML?**
+**Q: Why both YAML and prose in the same file?**
 
-A: Prose makes the file easy to share, review in pull requests, and consume across agents — the same agent that reads to render also reads to reason about the brand. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other.
+A: The YAML frontmatter gives downstream tools (preview, exporters, agents) machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two layers stay in sync.
 
 **Q: Do I need a design-tool MCP?**
 
@@ -139,4 +136,4 @@ A: No. Default preview is HTML via a local Bun server. A design-tool MCP is opti
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run the Codebase source in `inputs.md`. Triggers: "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase". The skill extracts current values from the implementation, diffs against DESIGN.md, and patches the affected bullets surgically (confirm-before-write). Narrative sections stay untouched; re-run inputs after if narrative needs refresh.
+A: Run the Codebase source in `inputs.md`. Triggers: "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase". The skill extracts current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches the affected token entries surgically (confirm-before-write). Prose bullets that cite the patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched; re-run inputs after if narrative needs refresh.
