@@ -81,6 +81,8 @@ by name and do not document this pipeline.
 
 ## Skill File Layout
 
+Default — flat `references/` for the on-demand bundle:
+
 ```
 skill-name/
 ├── SKILL.md           # entrypoint (required)
@@ -90,6 +92,35 @@ skill-name/
 ├── scripts/           # executables loaded on demand (optional)
 └── assets/            # static data files for scripts (optional)
 ```
+
+Split — `instructions/` + `references/` when files genuinely mix intent
+(≥2 procedural workflows AND ≥2 lookup-style references). The signal
+is intent mix, not file count.
+
+```
+skill-name/
+├── SKILL.md           # entrypoint (required)
+├── README.md          # user-facing doc (required)
+├── instructions/      # invokable workflow files (e.g. one per trigger)
+│   └── *.md
+├── references/        # lookup tables, principles, enums, rules
+│   └── *.md
+├── scripts/           # executables loaded on demand (optional)
+└── assets/            # static data files for scripts (optional)
+```
+
+Classification rule:
+
+- **Instruction** — procedural workflow the user (or another instruction)
+  invokes to do a job. Has a `## Workflow` with numbered steps. The
+  agent acts on it.
+- **Reference** — lookup material the workflows compose (style axes,
+  validation rules, technical principles, naming taxonomies). The agent
+  reads it for context but does not "run" it.
+
+Stay flat when in doubt. Splitting too early adds path overhead without
+information gain. Split when the directory has both invokable files and
+files that exist purely to be composed by others.
 
 There is no `templates/` directory. Templates live inline in the reference
 that uses them, 1:1 ref:template.
@@ -172,9 +203,15 @@ Imperative neutral by default. Authorial opinionated voice (italics, bold for
 emphasis) is permitted in any section when it adds clarity. No table of
 contents — SKILL.md is short enough to dispense with it.
 
-## References
+## References and Instructions
 
-Layout: `references/` subfolder, kebab-case filenames.
+Layout: `references/` subfolder for lookup material, optional
+`instructions/` subfolder for procedural workflows when the split
+criteria in [Skill File Layout](#skill-file-layout) apply. Same
+internal structure, same kebab-case filenames, same rules apply to both
+buckets — the only difference is intent (workflows act, references
+inform). The rest of this section uses "reference" to mean a file in
+either bucket.
 
 Required internal structure:
 
@@ -201,9 +238,11 @@ After the required header, sections are free (`Workflow`, `Discovery`,
   handle validation failures) belong in `## Error Handling` or a neutral
   `## Outcomes` section, never framed as "after this, run X".
 
-References live one level deep — files at `references/*.md`, no
-subdirectories. Nested directory structures cause partial reads (e.g.
-`head -100`) and miss content carried by deeper files.
+References live one level deep — files at `references/*.md` (or
+`instructions/*.md` when the skill split applies), no nested
+subdirectories under either bucket. Nested directory structures cause
+partial reads (e.g. `head -100`) and miss content carried by deeper
+files.
 
 Cross-links between sibling references **within the same skill** are
 permitted when they explain dependencies, hand-offs, or shared logic
@@ -215,9 +254,9 @@ content.
 
 Cross-references **across skills** remain forbidden. Skills stay
 isolated: SKILL.md never names another skill, references never link to
-files in another skill's `references/`. Composition between skills
-happens via artifacts on disk (`.artifacts/`, `.agents/`), never via
-direct file links.
+files in another skill's `references/` or `instructions/`. Composition
+between skills happens via artifacts on disk (`.artifacts/`, `.agents/`),
+never via direct file links.
 
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in
 references when content is ingested as input by the model. Default to
@@ -454,7 +493,7 @@ was already optimizing for the next phase rather than the current one.
 | Skill directories | kebab-case in `<category>/` | `spec-driven`, `git-helpers` |
 | Category directories | lowercase, kebab-case | `engineering`, `product`, `personal` |
 | Reference files | kebab-case `.md` | `quick-mode.md`, `discovery.md` |
-| Sub-directories | lowercase | `references/`, `scripts/`, `assets/` |
+| Sub-directories | lowercase | `instructions/`, `references/`, `scripts/`, `assets/` |
 
 Slash command name always equals the skill `name` (Claude Code default). No
 aliases.
@@ -530,7 +569,7 @@ Before finalizing a new skill, verify:
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`])
 - [ ] Description in third person or noun phrase, with inline triggers
 - [ ] Triggers ≥ 2 words, no bare single word
-- [ ] References in `references/` with H1 + description + `## When to Use`
+- [ ] References in `references/` (and instructions in `instructions/` if the split applies) with H1 + description + `## When to Use`
 - [ ] Templates inline in their reference, marked strict or flexible
 - [ ] No `## Next Steps` (pipeline fan-forward) — references end where their job ends
 - [ ] No time-sensitive content
