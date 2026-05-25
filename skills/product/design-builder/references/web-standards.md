@@ -2,7 +2,7 @@
 
 Implementation rules for generated HTML and React code.
 These complement [aesthetics.md](aesthetics.md) (visual principles) with technical correctness.
-Apply to every preview variant produced by [preview.md](preview.md).
+Apply to every preview variant produced by [preview.md](../instructions/preview.md).
 
 ## When to Use
 

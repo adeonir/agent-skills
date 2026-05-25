@@ -16,8 +16,8 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 - `.agents/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter.
 - `.agents/design/structure.md` — page composition or screen flow
 - `.agents/design/copy.yaml` (optional) — structured content
-- [aesthetics.md](aesthetics.md) (required) — design principles
-- [web-standards.md](web-standards.md) (required) — implementation rules
+- [aesthetics.md](../references/aesthetics.md) (required) — design principles
+- [web-standards.md](../references/web-standards.md) (required) — implementation rules
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -25,7 +25,7 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 
 Read `project_type` from discovery context or `copy.yaml`. Ask the user if not set.
 
-Presets are **default starting points** when the user has no specific direction. When the user prompts a direction ("Cyberpunk", "Editorial dark mode", "Bento Grid"), the preset list is ignored and direction comes from the prompt plus the Style Axes in [aesthetics.md](aesthetics.md).
+Presets are **default starting points** when the user has no specific direction. When the user prompts a direction ("Cyberpunk", "Editorial dark mode", "Bento Grid"), the preset list is ignored and direction comes from the prompt plus the Style Axes in [aesthetics.md](../references/aesthetics.md).
 
 **Page-based** (`landing-page`, `website`) defaults:
 
@@ -101,7 +101,7 @@ User asks for N variants (default 4). Agent generates one HTML per variant from 
 
 ### Workflow
 
-1. **Confirm count and direction.** If the user did not specify N, default to 4. If they did not give direction, use the project-type preset list above. If they gave direction ("Cyberpunk + Bento Grid"), compose across Style Axes from [aesthetics.md](aesthetics.md).
+1. **Confirm count and direction.** If the user did not specify N, default to 4. If they did not give direction, use the project-type preset list above. If they gave direction ("Cyberpunk + Bento Grid"), compose across Style Axes from [aesthetics.md](../references/aesthetics.md).
 
 2. **Start the preview server** (if not running):
 
@@ -201,7 +201,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Route presets by project type when the user has no direction; ignore presets when the user prompts direction
 - Default variant count to 4; honor any N the user names
-- Apply [aesthetics.md](aesthetics.md) and [web-standards.md](web-standards.md) to every output
+- Apply [aesthetics.md](../references/aesthetics.md) and [web-standards.md](../references/web-standards.md) to every output
 - Serve every generated preview through the preview server
 - Swap CSS custom properties during tune — keep the DOM, change only tokens
 - Show the patch list and ask before writing to DESIGN.md

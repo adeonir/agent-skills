@@ -64,7 +64,7 @@ Each new input is a reference that contributes one or more slices. Sources match
 
 **Codebase.** A reference project (different from the anchor). Extract slices via [identity.md](identity.md) Step 2 codebase logic, scoped to the slices the user wants.
 
-**Text description.** Prompt, Style Axes from [aesthetics.md](aesthetics.md), or Tone Catalog entry. "Apply Cyberpunk + Bento Grid", "make it Editorial / magazine". Contributes whichever slices the prompt names; defaults to aesthetic slices (Colors, Typography, Motion).
+**Text description.** Prompt, Style Axes from [aesthetics.md](../references/aesthetics.md), or Tone Catalog entry. "Apply Cyberpunk + Bento Grid", "make it Editorial / magazine". Contributes whichever slices the prompt names; defaults to aesthetic slices (Colors, Typography, Motion).
 
 **External design-tool file (MCP).** A target file in an external design tool with slices to import. Read via the matching MCP. Skill never creates these.
 

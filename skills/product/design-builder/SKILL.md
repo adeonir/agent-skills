@@ -66,30 +66,30 @@ the final handoff artifact.
 
 - **Copy extraction** ("extract copy", "copy from URL", "web capture",
   "content from website", "brief document") →
-  [copy.md](references/copy.md)
+  [copy.md](instructions/copy.md)
 - **Visual identity (DESIGN.md authoring)** ("extract design tokens",
   "author DESIGN.md", "extract from images", "extract from codebase",
   "extract from URL", "extract from design tool", "refresh DESIGN.md
   from design-tool file") →
-  [identity.md](references/identity.md)
+  [identity.md](instructions/identity.md)
 - **Layout / screen flow / commerce surfaces** ("create a wireframe",
   "layout the page", "structure the content", "screen flow", "PLP",
   "PDP", "cart", "checkout", "validate this wireframe") →
-  [structure.md](references/structure.md)
+  [structure.md](instructions/structure.md)
 - **Preview / variants** ("preview the design", "visual mockup", "tune
   the design", "creative variants", "pivot the design") →
-  [preview.md](references/preview.md)
+  [preview.md](instructions/preview.md)
 - **Validation** ("validate DESIGN.md", "validate the design", "check
   DESIGN.md", "audit design tokens", "lint the design system") →
-  [validate.md](references/validate.md)
+  [validate.md](instructions/validate.md)
 - **Redesign (anchor + new reference)** ("redesign this app", "modernize
   this app", "brand refresh", "change the vibe") →
-  [redesign.md](references/redesign.md)
+  [redesign.md](instructions/redesign.md)
 - **Reconcile (brownfield drift sync)** ("sync design from
   implementation", "update DESIGN.md from code", "reconcile drift",
   "refresh design tokens from this codebase"; not for: applying a new
   reference or vibe — see redesign) →
-  [reconcile.md](references/reconcile.md)
+  [reconcile.md](instructions/reconcile.md)
 
 `discovery.md` is auto-loaded before every operation — never skipped.
 
