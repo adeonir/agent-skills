@@ -191,11 +191,33 @@ One-line description.
 ```
 
 After the required header, sections are free (`Workflow`, `Discovery`,
-`Phases`, `Guidelines`, `Error Handling`, `Next Steps` — all optional).
+`Phases`, `Guidelines`, `Error Handling` — all optional).
 
-References are one level deep. Link them directly from SKILL.md, never from
-another reference. Nested references cause partial reads (`head -100`) and
-miss content.
+**Forbidden sections in references:**
+
+- `## Next Steps` — pushes the agent to invoke a downstream phase before
+  the user decides to. See "Pipeline Fan-Forward" under Authoring
+  Discipline for the full rationale. Operational follow-ups (e.g. how to
+  handle validation failures) belong in `## Error Handling` or a neutral
+  `## Outcomes` section, never framed as "after this, run X".
+
+References live one level deep — files at `references/*.md`, no
+subdirectories. Nested directory structures cause partial reads (e.g.
+`head -100`) and miss content carried by deeper files.
+
+Cross-links between sibling references **within the same skill** are
+permitted when they explain dependencies, hand-offs, or shared logic
+(e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md
+remains the primary routing hub — refs should not re-route operations
+SKILL.md already owns — but an inline sibling link inside prose is the
+natural way to surface a prereq or follow-up without duplicating
+content.
+
+Cross-references **across skills** remain forbidden. Skills stay
+isolated: SKILL.md never names another skill, references never link to
+files in another skill's `references/`. Composition between skills
+happens via artifacts on disk (`.artifacts/`, `.agents/`), never via
+direct file links.
 
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in
 references when content is ingested as input by the model. Default to
@@ -371,6 +393,42 @@ Document what each reference loads and what should never load
 simultaneously. Orthogonal references (e.g., one per business domain) must
 be explicit about their scope so Claude reads only what's needed.
 
+### Pipeline Fan-Forward (rigid)
+
+Multi-phase skills must not push references toward downstream phases.
+When a skill exposes several invokable references (e.g. `copy.md`,
+`identity.md`, `structure.md`, `preview.md`), each reference is a job
+the user invokes independently — not a stage in a mandatory pipeline.
+Skills that look like pipelines from the outside should feel like
+parallel jobs from the inside.
+
+The risk: combined commands and forward-pushing references rush agents
+through phases before the user is ready, so the agent skips discovery,
+closes decisions early, or hands back half-baked artifacts because it
+was already optimizing for the next phase rather than the current one.
+
+**Common leaks:**
+
+- `## Next Steps` sections at the end of references suggesting the
+  agent run the next phase ("After generating X, suggest: run Y").
+- SKILL.md workflow diagram presented as mandatory order, with no
+  "each step is invokable standalone" disclaimer.
+- Prose like "Run next: …" or "Proceed to X" anywhere inside a
+  reference body.
+
+**The fix:**
+
+- Pipeline narrative lives only in SKILL.md, with an explicit disclaimer
+  that each step is invokable standalone and any step is skippable.
+- References end where their job ends. No fan-forward to other refs.
+- If a follow-up genuinely depends on the current job (gate, prereq),
+  document it as a sibling cross-link in prose ("see
+  [validate.md](validate.md) for the gate flow"), not as a closing
+  "Next Steps" section.
+- Operational outcomes (validation passed / failed / warnings) belong in
+  `## Error Handling` or a neutral `## Outcomes` section that reports
+  status without pushing forward.
+
 ### Recommended Patterns
 
 - **Checklist copiável** — Multi-step workflows and decision points may
@@ -474,7 +532,7 @@ Before finalizing a new skill, verify:
 - [ ] Triggers ≥ 2 words, no bare single word
 - [ ] References in `references/` with H1 + description + `## When to Use`
 - [ ] Templates inline in their reference, marked strict or flexible
-- [ ] No cross-references to other skills
+- [ ] No `## Next Steps` (pipeline fan-forward) — references end where their job ends
 - [ ] No time-sensitive content
 - [ ] Consistent terminology across SKILL.md, references, templates
 - [ ] All file paths use forward slashes
