@@ -8,13 +8,15 @@ description: >-
   building pages, app screens, or storefronts from references, images,
   briefs, or a codebase; defining layout or screen flow; previewing and
   tuning designs; authoring or refreshing the visual identity from a
-  source. Triggers: "extract copy", "extract design", "extract from
-  codebase", "web capture", "create a wireframe", "screen flow",
+  source. Triggers: "extract copy", "extract design tokens", "extract
+  from codebase", "web capture", "create a wireframe", "screen flow",
   "layout the page", "preview the design", "creative variants", "tune
-  design", "visual mockup", "redesign this app", "modernize this app",
-  "brand refresh", "validate the design", "refresh design tokens",
-  "sync design from implementation", "reconcile drift". Not for feature
-  implementation spec, system architecture, or PR/code review.
+  the design", "visual mockup", "redesign this app", "modernize this app",
+  "brand refresh", "validate the design", "refresh DESIGN.md from
+  design-tool file", "sync design from implementation", "update
+  DESIGN.md from code", "reconcile drift", "refresh design tokens from
+  this codebase". Not for feature implementation spec, system
+  architecture, or PR/code review.
 ---
 
 # Design Builder
@@ -28,18 +30,20 @@ artifact, preview, refine.
 ## Workflow
 
 ```text
-copy --> inputs --> structure --> preview --> final
-            |          |             ^__|
-            |          |           (tune loop)
-            v          v
-      DESIGN.md   .agents/design/structure.md
-      (visual     (page composition, screen flow,
-      identity)    or commerce surfaces)
+copy --> identity --> structure --> preview
+            |            |             ^__|
+            |            |           (tune loop)
+            v            v
+      DESIGN.md     .agents/design/structure.md
+      (visual       (page composition, screen flow,
+      identity)      or commerce surfaces)
 ```
 
-Each step is independent. Can run isolated or chained. `discovery.md`
-is auto-loaded before every operation — never skipped, never a step the
-user invokes directly.
+Arrows show the suggested greenfield order. Each step is invokable
+standalone — call them in any order, skip any of them, or run only the
+one you need. Brownfield drift after handoff → `reconcile.md`.
+`discovery.md` is auto-loaded before every operation — never skipped,
+never a step the user invokes directly.
 
 DESIGN.md holds the visual identity in two layers: a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
@@ -52,11 +56,11 @@ Agent Prompt Guide). Token references use `{path.to.token}` syntax.
 and never touches DESIGN.md. preview parses the frontmatter at render
 time and resolves references into CSS custom properties.
 
-design-builder is greenfield-first. The codebase source inside
-`inputs.md` doubles as the brownfield path: extracting tokens from an
-existing project at the start, and reverse-syncing DESIGN.md after the
-implementation has drifted. Final design is served as HTML and handed
-to the implementation phase.
+design-builder is greenfield-first. For brownfield drift after handoff,
+`reconcile.md` patches DESIGN.md and copy.yaml back from the
+implementation. HTML preview is a visualization for decision-making —
+output that can feed back into DESIGN.md or copy.yaml via reconcile, not
+the final handoff artifact.
 
 ## Triggers
 
@@ -64,10 +68,10 @@ to the implementation phase.
   "content from website", "brief document") →
   [copy.md](references/copy.md)
 - **Visual identity (DESIGN.md authoring)** ("extract design tokens",
-  "author DESIGN.md", "refresh design tokens", "extract design from
-  images / codebase / design tool", "sync design from implementation",
-  "update DESIGN.md from code", "reconcile drift") →
-  [inputs.md](references/inputs.md)
+  "author DESIGN.md", "extract from images", "extract from codebase",
+  "extract from URL", "extract from design tool", "refresh DESIGN.md
+  from design-tool file") →
+  [identity.md](references/identity.md)
 - **Layout / screen flow / commerce surfaces** ("create a wireframe",
   "layout the page", "structure the content", "screen flow", "PLP",
   "PDP", "cart", "checkout", "validate this wireframe") →
@@ -75,18 +79,25 @@ to the implementation phase.
 - **Preview / variants** ("preview the design", "visual mockup", "tune
   the design", "creative variants", "pivot the design") →
   [preview.md](references/preview.md)
-- **Validation** ("validate DESIGN.md", "check DESIGN.md", "audit
-  design tokens", "lint the design system") →
+- **Validation** ("validate DESIGN.md", "validate the design", "check
+  DESIGN.md", "audit design tokens", "lint the design system") →
   [validate.md](references/validate.md)
-- **Redesign** ("redesign this app", "modernize this interface", "brand
-  refresh", "change the vibe") → [redesign.md](references/redesign.md)
+- **Redesign (anchor + new reference)** ("redesign this app", "modernize
+  this app", "brand refresh", "change the vibe") →
+  [redesign.md](references/redesign.md)
+- **Reconcile (brownfield drift sync)** ("sync design from
+  implementation", "update DESIGN.md from code", "reconcile drift",
+  "refresh design tokens from this codebase"; not for: applying a new
+  reference or vibe — see redesign) →
+  [reconcile.md](references/reconcile.md)
 
 `discovery.md` is auto-loaded before every operation — never skipped.
 
 `aesthetics.md` and `web-standards.md` are auto-loaded by `preview.md`.
 
-`validate.md` is both directly callable and auto-loaded by `inputs.md`
-Step 5 as the gate before declaring done.
+`validate.md` is both directly callable and auto-loaded as a gate by
+`identity.md` and `reconcile.md` — so DESIGN.md never lands invalid for
+downstream consumers (preview, structure, redesign).
 
 ## Guidelines
 
@@ -108,10 +119,11 @@ Step 5 as the gate before declaring done.
 
 Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
-bullets that cite the patched tokens. `inputs.md` owns the DESIGN.md
+bullets that cite the patched tokens. `identity.md` owns the DESIGN.md
 frontmatter and prose sections, `structure.md` owns its own artifact at
 `.agents/design/structure.md`, `copy.md` owns content payload in
-`copy.yaml`.
+`copy.yaml`. `reconcile.md` patches DESIGN.md and copy.yaml from a
+drifted implementation following the same surgical rules.
 
 ## Anti-Pattern: Creating External Tool Files
 

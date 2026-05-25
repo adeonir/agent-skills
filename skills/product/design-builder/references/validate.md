@@ -9,7 +9,7 @@ Mirrors the eight Google DESIGN.md linter rules (`broken-ref`, `missing-primary`
 - User asks to validate, check, audit, or lint `DESIGN.md`
 - After a manual edit to `DESIGN.md`
 - Before handoff to the implementation phase, an external design tool, or a teammate
-- Auto-loaded by [inputs.md](inputs.md) Step 5 as the gate before reporting done
+- Auto-loaded by [identity.md](identity.md) Step 5 as the gate before reporting done
 
 ## Prerequisites
 
@@ -173,7 +173,7 @@ If errors = 0: report passed. Warnings and info remain visible but do not block.
 
 ### Step 12: When Called as a Gate
 
-When this ref is auto-loaded by `inputs.md` as the Step 5 gate, the caller must:
+When this ref is auto-loaded by `identity.md` as the Step 5 gate, the caller must:
 
 - Block the "done" report when `errors > 0`
 - Surface the findings inline in the inputs Step 6 (Present) output
@@ -187,7 +187,7 @@ When this ref is auto-loaded by `inputs.md` as the Step 5 gate, the caller must:
 - Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
 - Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 7. Components > Buttons`)
-- Use the same checks whether called directly or as a gate by inputs.md
+- Use the same checks whether called directly or as a gate by identity.md or reconcile.md
 
 **DON'T:**
 
@@ -200,14 +200,12 @@ When this ref is auto-loaded by `inputs.md` as the Step 5 gate, the caller must:
 
 ## Error Handling
 
-- No DESIGN.md in `.agents/design/`: stop and route the user to `inputs.md` to author one
+- No DESIGN.md in `.agents/design/`: stop and route the user to `identity.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
 - YAML parses but `colors` is empty: report what is missing, suggest running inputs
 
-## Next Steps
+## Outcomes
 
-After validation:
-
-- All passed: suggest `preview`
-- Errors found: ask user to fix in source (re-run inputs) or edit `DESIGN.md` manually, then re-run validate
+- Errors found: ask user to fix in source (re-run identity) or edit `DESIGN.md` manually, then re-run validate
 - Warnings found: present them as trade-offs; user may accept or address
+- All passed: report done

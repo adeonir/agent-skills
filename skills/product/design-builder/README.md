@@ -6,21 +6,26 @@ Greenfield design pipeline for any digital product: extract content, author a `D
 
 ```mermaid
 flowchart TD
-    A[URL / Images / Brief / Codebase / Design-tool file] -->|copy + inputs| B[copy.yaml + DESIGN.md]
-    B -->|structure| C[.agents/design/structure.md]
-    B --> D[Preview composes both]
+    A[URL / Images / Brief / Codebase / Design-tool file] -->|copy| B1[copy.yaml]
+    A -->|identity| B2[DESIGN.md]
+    B2 -->|structure| C[.agents/design/structure.md]
+    B1 --> D[Preview]
+    B2 --> D
     C --> D
     D -->|tune / comment| D
-    D -->|approved| E[Approved Design]
+    D -->|tune commit| B2
+    Impl[Implementation] -->|reconcile| B2
+    Impl -->|reconcile| B1
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Copy** | Extract copy from URL, web capture, brief document | `.agents/design/copy.yaml` |
-| **Inputs** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
+| **Identity** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
 | **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `.agents/design/structure.md` (parallel artifact; never touches DESIGN.md) |
 | **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `.agents/design/DESIGN.md` on tune commit |
-| **Redesign** | Brownfield: anchor an existing app, add new inputs, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
+| **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
+| **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `.agents/design/DESIGN.md` + `.agents/design/copy.yaml` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
 ## Project Types
@@ -46,20 +51,25 @@ extract copy from this brief (PDF/DOCX)
 web capture the hero section of https://competitor.com
 
 # Author DESIGN.md (YAML frontmatter with normative tokens + prose narration)
-extract design from this screenshot
-extract design from this codebase
-extract design from https://brand.example.com
-refresh design tokens from this design-tool file
+extract from this screenshot
+extract from this codebase
+extract from https://brand.example.com
+refresh DESIGN.md from this design-tool file
 
-# Validate DESIGN.md (callable anytime, also runs as gate inside inputs)
+# Validate DESIGN.md (callable anytime, also runs as gate inside identity and reconcile)
 validate DESIGN.md
 check this DESIGN.md
 audit the design system
 
-# Redesign brownfield app (anchor + new inputs + slice mapping)
+# Redesign existing app (anchor + new external reference + slice mapping)
 redesign my app with a Cyberpunk vibe
-modernize this interface with a Bento Grid layout
+modernize this app with a Bento Grid layout
 apply this brand's colors to my app, keep my typography
+
+# Reconcile (brownfield drift sync: implementation back to DESIGN.md + copy.yaml)
+sync DESIGN.md from this codebase
+update DESIGN.md from code
+reconcile drift between implementation and design
 
 # Define structure (separate artifact, never touches DESIGN.md)
 define the layout for this landing page         # page-based
@@ -85,8 +95,13 @@ tune the design         # sliders for spacing, saturation, contrast, radius
 3. define the structure (or screen flow)
 4. generate variants
 5. tune / comment until approved
-6. hand off to implementation
+6. hand DESIGN.md + structure.md + copy.yaml to implementation
 ```
+
+Preview HTML is a decision aid — variant outputs that inform tuning and
+can feed back to DESIGN.md or copy.yaml via reconcile. The handoff to
+implementation is the artifact set (`DESIGN.md`, `structure.md`,
+`copy.yaml`), not the rendered HTML.
 
 ## Output
 
@@ -116,7 +131,7 @@ A: No. design-builder adapts to any digital product — landing pages, websites,
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `inputs.md` ("extract from codebase") for refresh, plus `redesign.md` for slice-mapped pivots.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `identity.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
 
 **Q: What is `DESIGN.md`?**
 
@@ -136,4 +151,4 @@ A: No. Default preview is HTML via a local Bun server. A design-tool MCP is opti
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run the Codebase source in `inputs.md`. Triggers: "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase". The skill extracts current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches the affected token entries surgically (confirm-before-write). Prose bullets that cite the patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched; re-run inputs after if narrative needs refresh.
+A: Run `reconcile.md`. Triggers: "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase". The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md and (when present) `copy.yaml`, and patches both surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke identity again if narrative needs refresh.

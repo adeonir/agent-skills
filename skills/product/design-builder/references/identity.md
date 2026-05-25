@@ -1,8 +1,18 @@
-# Inputs
+# Identity
 
-Take input sources and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from overview to agent prompts.
+Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from overview to agent prompts.
 
 The YAML frontmatter is authoritative — tokens carry the values. Prose cites tokens by name and explains how to apply them. Token extraction and naming deserve careful reasoning — small mistakes cascade into every preview and handoff.
+
+## Contents
+
+- [When to Use](#when-to-use) — triggers and source shapes this reference handles
+- [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
+- [Output](#output) — DESIGN.md two-layer structure (YAML frontmatter + numbered prose sections)
+- [Workflow](#workflow) — five-step flow: establish context, source, deep analysis, patch DESIGN.md, validate
+- [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
+- [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
+- [DESIGN.md Template](#designmd-template) — full YAML + 11-section prose template with placeholders and inline guidance
 
 ## When to Use
 
@@ -11,7 +21,10 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 - User describes the visual identity in text only (no images)
 - User wants to pull tokens from a file in an external design tool via the matching MCP
 - User wants to refresh `DESIGN.md` after editing a design-tool file
-- User wants to reconcile drift after the implementation diverged from `DESIGN.md` (reverse sync — see use case below)
+
+## Prerequisites
+
+None hard. Identity is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `.agents/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
 
 ## Output
 
@@ -357,18 +370,6 @@ Show the user:
 - Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
 - Embed variants nested inside a parent component entry (contrasts: separate entry per variant)
-
-## Use Case: Reverse Sync from Implementation
-
-After hand-off, the implementation may drift from DESIGN.md — a color shifted to pass contrast, spacing tightened to fit a viewport, a new component variant added that was not anticipated. The Codebase source closes the loop:
-
-- User triggers reverse sync with phrases like "sync design from implementation", "update DESIGN.md from code", "reconcile drift", or "refresh design tokens from this codebase"
-- Skill runs the Codebase source flow (Step 2) against the current implementation
-- Skill diffs extracted values against the frontmatter of DESIGN.md and patches the affected token entries surgically (confirm-before-write)
-- Prose bullets that cite the patched tokens are updated to match the new values
-- Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched — the user re-runs inputs after if narrative needs refresh from new tokens
-
-Use this whenever code-side adjustments need to flow back to DESIGN.md so downstream readers (other agents, teammates, design-tool sync) see the current truth.
 
 ## Error Handling
 
@@ -720,11 +721,3 @@ Prompts use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Badge T
 4. {{Brand-specific rule-of-thumb}}
 5. {{Brand-specific rule-of-thumb}}
 ````
-
-## Next Steps
-
-After patching DESIGN.md, suggest:
-
-- "Run structure to define page composition or screen flow in `.agents/design/structure.md`"
-- "Run preview to render the design with the current tokens"
-- "Run copy extraction if content payload is still missing"

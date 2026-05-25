@@ -65,11 +65,12 @@ Load only the reference matching the activated trigger:
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
 | Content extraction | `copy.md` | — |
-| Visual identity / DESIGN.md | `inputs.md` | `validate.md` (Step 5) |
+| Visual identity / DESIGN.md | `identity.md` | `validate.md` |
 | Structure / wireframe | `structure.md` | — |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |
 | Validation only | `validate.md` | — |
-| Redesign | `redesign.md` | — |
+| Redesign (anchor + new reference) | `redesign.md` | — |
+| Reconcile / drift sync | `reconcile.md` | `validate.md` |
 
 Never load multiple operation references simultaneously.
 
