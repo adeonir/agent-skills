@@ -1,5 +1,6 @@
 ---
 name: git-helpers
+allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Read Write Task
 description: >-
   Git workflow helper for conventional commits, confidence-scored code
   review (lens fan-out: security, bugs, data-loss, performance,
