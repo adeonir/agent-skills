@@ -9,17 +9,19 @@ First phase of every brainstorming session. Auto-loaded when brainstorming trigg
 
 ## Path Detection
 
-Before starting, classify the entry state from the user's input:
+Classify entry state from the user's input.
 
-| Signal | Path |
-|--------|------|
-| Vague idea, question, "explore X", "what should we do about Y" | Standard |
-| Existing plan, design, "stress-test this", "grill me on this", `/brainstorming deep` | Relentless |
+**Greenfield** — no concrete idea or plan yet. Exploratory framing,
+open questions, requests to map a space from scratch.
+
+**Relentless** — an idea or plan already exists at any maturity.
+Requests to challenge, validate, refine, pivot, or audit committed
+thinking. The `/brainstorming deep` argument forces this path.
 
 Do not announce the path as a label or headline. Lead directly with a proposed
 interpretation that reflects the detected path. User can redirect at any point.
 
-Standard: open with your read of the situation, invite correction.
+Greenfield: open with your read of the situation, invite correction.
 Relentless: open by acknowledging the committed direction, then probe the
 core assumption behind it. Do not repeat "stress-test" or "pressure-test" as
 labels throughout the response — acknowledge the mode once if at all, then
@@ -80,13 +82,13 @@ Probe further when answers are:
 
 ### Path Differences
 
-**Standard path:** Adaptive deepening applies. When the user genuinely doesn't
-know, mark as TBD and move on. Not all unknowns block advancement.
+**Greenfield path:** Adaptive deepening applies. When the user genuinely
+doesn't know, mark as TBD and move on. Not all unknowns block advancement.
 
 **Relentless path:** Push once more before accepting any TBD on Topics 1 and 2.
 "You said you're not sure — what's your best guess, even if uncertain?" Only
 mark TBD after a genuine second attempt. Topic 3 (success criteria) follows
-standard rules — genuine uncertainty there is acceptable.
+greenfield rules — genuine uncertainty there is acceptable.
 
 ### Topics
 
@@ -117,7 +119,7 @@ flows — explore the codebase to map current state before asking the user about
 - Timing rationale clear or explicitly unknown
 
 **TBD weight:** High. A TBD on motivation means diverge has no anchor. Relentless
-path: push once more before accepting. Standard path: flag the gap explicitly
+path: push once more before accepting. Greenfield path: flag the gap explicitly
 before advancing.
 
 #### Topic 2: Constraints and Boundaries
@@ -145,7 +147,7 @@ Depending on the answer, explore dependent branches:
 - Key stakeholders named or explicitly noted as absent
 
 **TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives.
-Relentless path: push once more before accepting. Standard path: flag explicitly —
+Relentless path: push once more before accepting. Greenfield path: flag explicitly —
 note which alternatives may be affected.
 
 #### Topic 3: Success Criteria
@@ -200,15 +202,10 @@ confirmation.
 - Log open TBDs with their topic weight before advancing
 
 **DON'T:**
-- Follow scripted question lists regardless of answers (contrasts: walk the decision tree)
-- Ask cold neutral questions when you can propose an interpretation (contrasts: propose and let user redirect)
-- Ask about current state when the codebase can answer it (contrasts: explore first)
-- Accept motivation or constraint TBDs without a second push on relentless path (contrasts: push once more)
-- Move past the quality gate without user confirmation (contrasts: confirm summary)
-- Add a second question after the interpretation invite (contrasts: end the turn on the invite, wait for reply)
-- Repeat "stress-test" or "pressure-test" as labels throughout the response (contrasts: acknowledge mode once, focus on substance)
-
-## Next Steps
-
-Load [diverge.md](diverge.md) to generate alternatives.
-Carry open TBDs forward — note them at the start of diverge.
+- Follow scripted question lists regardless of answers
+- Ask cold neutral questions when you can propose an interpretation
+- Ask about current state when the codebase can answer it
+- Accept motivation or constraint TBDs without a second push on relentless path
+- Move past the quality gate without user confirmation
+- Add a second question after the interpretation invite
+- Repeat "stress-test" or "pressure-test" as labels throughout the response

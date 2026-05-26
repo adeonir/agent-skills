@@ -120,7 +120,3 @@ Reach the minimum bar before advancing to converge.
   generate genuinely different options
 - Problem is too narrow for 4 alternatives: check if the problem is too
   specific -- consider broadening scope or decomposing differently
-
-## Next Steps
-
-Load [converge.md](converge.md) to evaluate alternatives.

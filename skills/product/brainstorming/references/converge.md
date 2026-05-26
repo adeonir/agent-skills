@@ -15,8 +15,6 @@ explicit, not hidden. The user decides, the agent informs.
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ### Pre-screen: Surface TBDs
 
 Before screening, check for open TBDs carried from discovery:
@@ -82,23 +80,10 @@ If no clear winner: present the top 2 with the key deciding factor between them.
 
 User picks the direction or asks to loop back.
 
-- If approved: proceed to capture
-- If loop back: return to discovery with refined understanding, articulate what
-  new information is needed before restarting
-
-If approved, proceed to review before capture.
-
-### Step 7: Review Artifact
-
-Before saving, verify the brainstorm artifact:
-
-- [ ] No unresolved TBDs that block the chosen direction
-- [ ] No contradictions between constraints and chosen alternative
-- [ ] Scope is focused enough to act on (one direction, not three)
-- [ ] Trade-offs are explicit (nothing hidden to make the choice look better)
-- [ ] Open questions are genuine unknowns, not laziness
-
-If issues found: fix inline before saving. Don't deliver a flawed artifact.
+- If approved: see [capture.md](capture.md) for review checklist, save
+  format, and pivot handling
+- If loop back: return to discovery with refined understanding,
+  articulate what new information is needed before restarting
 
 ## Guidelines
 
@@ -124,86 +109,3 @@ If issues found: fix inline before saving. Don't deliver a flawed artifact.
   the tie, suggest answering it before deciding
 - User wants to combine everything: warn about complexity, ask which trade-off
   they are trying to avoid
-
-## Next Steps
-
-After the user approves a direction, capture it and save to
-`.artifacts/brainstorm/{topic}.md` (`{topic}` in kebab-case, derived from
-the brainstorm subject). Then suggest the appropriate next step:
-formalize the direction as a document, specify and implement directly,
-or explore the visual direction.
-
-## Capture Template
-
-ALWAYS use this exact template structure:
-
-````markdown
----
-name: {{topic}}
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
-status: draft
-sources: []
----
-
-# Brainstorm: {{Topic Title}}
-
-## Context
-
-{{Summary of motivation, current state, and timing from discovery}}
-
-## Constraints
-
-### Hard Constraints
-
-- {{Non-negotiable boundary}}
-
-### Soft Constraints
-
-- {{Preference that can flex}}
-
-## Success Criteria
-
-- {{How the direction will be evaluated}}
-
-## Alternatives Explored
-
-### {{Alternative 1 Name}} (chosen)
-
-{{One-paragraph description}}
-
-**Strengths:** {{key advantages}}
-**Weaknesses:** {{key disadvantages}}
-**Key Assumption:** {{what must hold for this to work}}
-
-### {{Alternative 2 Name}} (rejected)
-
-{{One-paragraph description}}
-
-**Strengths:** {{key advantages}}
-**Weaknesses:** {{key disadvantages}}
-**Rejected Because:** {{one-sentence rationale}}
-
-{Repeat for each alternative explored}
-
-## Decision
-
-**Chosen Direction:** {{name of chosen alternative}}
-
-**Rationale:** {{why this direction over the others}}
-
-**Key Trade-offs Accepted:**
-
-- {{what was given up and why it is acceptable}}
-
-## Open Questions
-
-- [ ] TBD: {{question that needs answering before proceeding}}
-
-## Next Step
-
-{{Recommended next action and which workflow to use:}}
-{- Formalize direction into a PRD, epic, or design doc}
-{- Specify and implement directly}
-{- Explore visual direction}
-````

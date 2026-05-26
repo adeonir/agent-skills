@@ -1,17 +1,17 @@
 # Brainstorming
 
-Structured idea exploration from vague to direction, or stress-test of an existing plan.
+Structured idea exploration from vague to direction, or pressure-test of an existing idea or plan.
 
 ## What It Does
 
 Explore ideas systematically before committing to a formal document or
-implementation, or stress-test an existing plan before building:
+implementation, or stress-test an existing idea or plan before building:
 
 ```mermaid
 flowchart TD
     T[Trigger] --> P{Detect path}
-    P -->|Vague idea| DS[Discover - Standard]
-    P -->|Existing plan| DR[Discover - Relentless]
+    P -->|Vague idea| DS[Discover - Greenfield]
+    P -->|Existing idea or plan| DR[Discover - Relentless]
     DS --> DV[Diverge]
     DR --> DV
     DV --> C{Direction found?}
@@ -21,11 +21,11 @@ flowchart TD
 
 | Phase | What Happens | Output |
 |-------|-------------|--------|
-| Detect path | Classify entry state: standard (vague idea) or relentless (existing plan) | Path selected |
+| Detect path | Classify entry state: greenfield (vague idea) or relentless (existing idea or plan) | Path selected |
 | Discover | Map context, constraints, success criteria via decision tree | Understanding of the space |
 | Diverge | Generate 4-8 alternatives using structured techniques | Named alternatives |
 | Converge | Evaluate trade-offs, compare, recommend | Chosen direction |
-| Capture | Produce structured artifact | `brainstorm-{topic}.md` |
+| Capture | Produce structured artifact | `docs/product/brainstorm.md` |
 
 ## Usage
 
@@ -35,6 +35,13 @@ explore options for user onboarding
 what should we build for the dashboard
 think through the authentication approach
 compare approaches for real-time updates
+rethink the notification system design
+is this approach still right
+should I keep going with this architecture
+pivot the onboarding flow
+second opinion on the new API design
+find holes in this auth plan
+what am I missing in this proposal
 stress-test my plan for the new API design
 grill me on this architecture before we build it
 /brainstorming deep
@@ -43,8 +50,12 @@ grill me on this architecture before we build it
 ## Output
 
 ```
-.artifacts/brainstorm/{topic}.md
+docs/product/brainstorm.md
 ```
+
+Single project-level file. Relentless re-runs pivot the existing
+file (appending an entry to `## Revision History`) rather than
+creating new artifacts.
 
 ## FAQ
 

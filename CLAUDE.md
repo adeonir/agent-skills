@@ -595,13 +595,17 @@ Skills write outputs to `.artifacts/` organized by domain:
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
 ├── docs/          # docs-writer: PRD, Brief, Design Doc, TDD
 ├── design/        # design-builder: copy, preview variants, generated assets
-├── brainstorm/    # brainstorming: direction artifacts
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
 
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write —
 it stays out of `git status` without touching `.gitignore`. Commit specific
 files only when explicitly requested.
+
+Brainstorming is the exception: it writes a single committed file at
+`docs/product/brainstorm.md` (project-level strategic direction, living
+document, relentless re-runs pivot in place rather than spawning new
+artifacts).
 
 `.agents/` is a separate directory for reference context consumed across
 skills:
