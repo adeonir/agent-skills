@@ -1,6 +1,6 @@
 # Git Helpers
 
-Git workflow skill for conventional commits, confidence-scored code review, PR description generation, and pull request creation.
+Git workflow skill for conventional commits, confidence-scored code review, and pull request creation.
 
 ## What It Does
 
@@ -9,16 +9,14 @@ Streamlines the git workflow from local changes to merged PR:
 ```mermaid
 flowchart LR
     A[Commit] --> B[Review]
-    B --> C[Summary]
-    C --> D[Create PR]
-    D --> E[Finish]
+    B --> C[Create PR]
+    C --> D[Finish]
 ```
 
 | Phase | Output |
 |-------|--------|
 | Commit | Conventional commit message based on staged diff |
 | Review | Lens-based findings (security, bugs, data-loss, performance, guidelines) with confidence ≥ 80 |
-| Summary | `PR_SUMMARY.md` with impact assessment |
 | Create PR | Pushed branch + opened pull request via `gh` CLI |
 | Finish Branch | Branch updated, merged, deleted local + remote |
 
@@ -26,16 +24,13 @@ flowchart LR
 
 Use any workflow independently or chain them:
 
-```
+```text
 commit these changes
 commit only staged files
 
 review my changes
 review against main
 code review and post as PR comment
-
-summarize these changes
-generate PR description
 
 push and create PR
 create pull request against main
@@ -47,7 +42,7 @@ merge PR
 
 ### Quick bug fix
 
-```
+```text
 # commit and ship without full review
 commit these changes
 push and create PR
@@ -55,10 +50,9 @@ push and create PR
 
 ### Feature with full review
 
-```
+```text
 commit these changes
 review my changes
-summarize these changes
 push and create PR
 finish branch
 ```
@@ -68,7 +62,6 @@ finish branch
 | Workflow | Artifact |
 |----------|----------|
 | Review | `CODE_REVIEW.md` (findings with confidence scores) — optional, only when user asks to save |
-| Summary | `PR_SUMMARY.md` (PR description with impact assessment) |
 
 ## Requirements
 

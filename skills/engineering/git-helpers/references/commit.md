@@ -17,8 +17,9 @@ git status
 git log --oneline -10 --no-merges
 ```
 
-Do not read the diff yet. Staging happens first so the message is derived
-strictly from what will be committed.
+The log informs *style* (format, scope usage, tone); the staged diff in Step 3
+is the sole source for *content*. Do not read the diff yet — staging happens
+first so the message is derived strictly from what will be committed.
 
 ### Step 2: Stage Files
 
@@ -68,6 +69,11 @@ Before presenting the message, verify:
 Display the proposed commit message to the user before committing.
 Ask for confirmation. Accept edits if suggested.
 
+In autonomous or non-interactive runs (e.g. background agents, scheduled
+jobs) where no human is available to confirm, skip the confirmation prompt
+and proceed to Step 5. Interactive sessions must always preview and wait
+for explicit approval — drafted messages often have gaps the user catches.
+
 ### Step 5: Create Commit
 
 ```bash
@@ -80,12 +86,20 @@ EOF
 )"
 ```
 
+Never pass `--no-verify`, `--no-gpg-sign`, or any flag that bypasses
+pre-commit hooks or signing. If a hook fails, fix the underlying issue and
+create a new commit (see Error Handling).
+
 ### Step 6: Verify Commit
 
 ```bash
 git log -1 --format="%B"
 git status
 ```
+
+If `git log -1` does not show the expected message, or `git status` still
+lists the intended files as modified/staged, the commit did not land — stop
+and inform the user. Do not retry blindly.
 
 ## Commit Types
 
@@ -123,9 +137,12 @@ git status
    commit rules first. Only fall back to `git log --oneline -10 --no-merges`
    if no rules are documented. When analyzing the log, distinguish between
    regular commits and PR/merge commits, as they may follow different
-   conventions. Never use scope in regular commits. Scope is only allowed in
-   PR titles
-6. **No file names**: Don't mention specific files in the message
+   conventions. Match the project's scope usage (`type(scope):` vs `type:`)
+   from the log — do not add or strip scope against established style
+6. **File names only when they are the subject**: Avoid mentioning specific
+   files in the message. Exception: when the file *is* the change (e.g.
+   `docs: update README`, `chore: add .gitignore`), naming it is clearer
+   than abstracting it
 7. **No versions**: Don't mention package versions
 8. **No attribution**: Never add Co-Authored-By or similar lines
 9. **No future references**: Don't mention upcoming work or architectural
@@ -156,7 +173,8 @@ why, so they can supply context if you missed it.
 When included:
 
 - 1 to 5 bullet points maximum
-- Start each bullet with a lowercase verb (e.g., "- support", "- add", "- remove")
+- Start each bullet with a lowercase verb in imperative mood (e.g.,
+  "- support", "- add", "- remove" — never "- supports", "- added")
 - Add context the diff alone does not communicate (motivation, impact, decisions)
 - No file names or paths
 - No listing every change (the subject line summarizes)
@@ -165,7 +183,7 @@ When included:
 
 **Good:**
 
-```
+```text
 feat: add user authentication flow
 
 - support email/password login
@@ -173,17 +191,17 @@ feat: add user authentication flow
 - include remember me option
 ```
 
-```
+```text
 fix: resolve token refresh race condition
 ```
 
-```
+```text
 refactor: extract validation logic into shared utilities
 ```
 
 **Bad:**
 
-```
+```text
 feat: Added authentication and updated src/auth.ts
 
 Updated lodash to 4.17.21 for security.
@@ -192,7 +210,7 @@ Co-Authored-By: AI Assistant
 
 Changelog-style body that restates the diff instead of adding context:
 
-```
+```text
 ci: consolidate workflows
 
 - replace four workflow files with one
@@ -217,22 +235,22 @@ rewrite the body to explain *why* (e.g., "fail-fast ordering" or
 - When asked to reevaluate a body, rewrite for *why* first; announce any drop
 
 **DON'T:**
-- Skip the preview step (contrasts: preview and confirm)
-- Base the message on conversation context instead of the staged diff (contrasts: analyze the actual diff)
-- Read the diff before staging (contrasts: stage first, then diff `--cached`)
-- Commit files that contain secrets (contrasts: stage only intended files)
-- Add attribution lines or Co-Authored-By (contrasts: keep messages unattributed)
-- Write body as paragraphs (contrasts: use bullets when body is needed)
-- List individual changes in the body (contrasts: subject summarizes)
-- Use abstract framings like "pattern" or "approach" (contrasts: concrete nouns)
-- Delete the body silently when asked to reevaluate (contrasts: rewrite for *why* first)
+- Skip the preview step
+- Base the message on conversation context instead of the staged diff
+- Read the diff before staging
+- Commit files that contain secrets
+- Add attribution lines or Co-Authored-By
+- Write body as paragraphs
+- List individual changes in the body
+- Use abstract framings like "pattern" or "approach"
+- Delete the body silently when asked to reevaluate
 
 ## Error Handling
 
 - No changes to commit: inform user working tree is clean
 - Nothing staged (when user requested staged-only): inform user to stage files first
 - Merge conflicts: stop and inform user to resolve first
-- Pre-commit hook modified files and commit failed: check authorship with
-  `git log -1 --format='%an %ae'`; if HEAD commit was created by you in this
-  conversation and not pushed, amend with modified files; otherwise create a
-  new commit with the fixed files
+- Pre-commit hook modified files and commit failed: stage the
+  hook-modified files and create a new commit. Never amend — amending is
+  a user-only action. The failed commit did not land, so a new commit is
+  the only forward path

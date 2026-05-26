@@ -98,10 +98,10 @@ Output the PR URL when done.
 - Everything in English
 
 **DON'T:**
-- Push without explicit user confirmation (contrasts: preview before pushing)
-- List every file changed (contrasts: 3-7 key items)
-- Include implementation details (contrasts: user's perspective)
-- Add attribution lines to the PR body (contrasts: neutral voice)
+- Push without explicit user confirmation
+- List every file changed
+- Include implementation details
+- Add attribution lines to the PR body
 
 ## Error Handling
 

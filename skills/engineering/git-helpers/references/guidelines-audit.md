@@ -67,6 +67,8 @@ Re-read the diff top to bottom. List every file you did not flag a violation in.
 
 Return a single markdown block under `### Guidelines` followed by a `### Highlights` block (per Universal Rules). The main agent merges this into the consolidated report.
 
+ALWAYS use this exact template structure:
+
 ```markdown
 ### Guidelines
 

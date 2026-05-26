@@ -3,15 +3,14 @@ name: git-helpers
 description: >-
   Git workflow helper for conventional commits, confidence-scored code
   review (lens fan-out: security, bugs, data-loss, performance,
-  guidelines), PR description generation, pull request creation, and
-  branch lifecycle. Use when committing changes, reviewing code,
-  creating PRs, merging branches, or when ready to commit / push / open
-  a PR / finish a branch. Triggers: "commit this", "create a commit",
-  "code review", "review this PR", "review this diff", "push this",
-  "ready to push", "create PR", "open a pull request", "summarize
-  changes", "finish branch", "merge branch", "merge PR", "cleanup
-  branch". Not for acceptance-criteria verification, visual design
-  review, or session wrap-up.
+  guidelines), pull request creation, and branch lifecycle. Use when
+  committing changes, reviewing code, creating PRs, merging branches,
+  or when ready to commit / push / open a PR / finish a branch.
+  Triggers: "commit this", "create a commit", "code review", "review
+  this PR", "review this diff", "push this", "ready to push", "create
+  PR", "open a pull request", "finish branch", "merge branch", "merge
+  PR", "cleanup branch". Not for acceptance-criteria verification,
+  visual design review, or session wrap-up.
 ---
 
 # Git Helpers
@@ -26,8 +25,6 @@ and automated PR management.
 - **Code review** ("review code", "check changes", "review my diff")
   → [code-review.md](references/code-review.md) (loads
   [guidelines-audit.md](references/guidelines-audit.md) as a lens prompt)
-- **PR description** ("summarize changes", "generate PR description")
-  → [summary.md](references/summary.md)
 - **Push and open PR** ("push this", "create PR", "open pull request",
   "ready to push") →
   [create-pull-request.md](references/create-pull-request.md)
@@ -39,8 +36,8 @@ loaded by `code-review.md` during the guidelines lens fan-out.
 
 ## Workflow
 
-```
-commit --> review --> summary --> create-pull-request --> finish-branch
+```text
+commit --> review --> create-pull-request --> finish-branch
 ```
 
 Each step is independent. Use any workflow in isolation or chain them
@@ -66,8 +63,8 @@ After the fan-out, the main agent consolidates: dedup on `file:line`,
 severity sort, gap detection, partial-run handling. Cross-lens
 visibility cannot be split across sub-agents.
 
-Commit, summary, create-pull-request, and finish-branch run inline on
-the main agent (single-output workflows, no fan-out value).
+Commit, create-pull-request, and finish-branch run inline on the main
+agent (single-output workflows, no fan-out value).
 
 ## Guidelines
 

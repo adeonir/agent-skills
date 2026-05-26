@@ -195,13 +195,13 @@ Confirm: "PR #{pr-number} merged into `{base}` (`{merge-oid}`) and branch delete
 - Delete both local and remote branch after the cleanup pull succeeds
 
 **DON'T:**
-- Merge while CI is pending (contrasts: wait for CI to finish)
-- Pull immediately after `gh pr merge` without confirming the merge commit OID is published -- the API races propagation and the pull can land on an intermediate state (contrasts: poll mergeCommit.oid before pulling)
-- Trust the `gh pr merge` exit code alone as proof of completion -- the exit code only confirms GitHub accepted the request (contrasts: poll mergeCommit.oid before pulling)
-- Use the default `Merge pull request #N from {branch}` message (contrasts: custom subject with PR ID)
-- Force push without `--force-with-lease` (contrasts: use --force-with-lease)
-- Persist the branch-update method (contrasts: always ask per merge)
-- Skip cleanup -- stale branches accumulate (contrasts: delete both local and remote after merge)
+- Merge while CI is pending
+- Pull immediately after `gh pr merge` without confirming the merge commit OID is published -- the API races propagation and the pull can land on an intermediate state
+- Trust the `gh pr merge` exit code alone as proof of completion -- the exit code only confirms GitHub accepted the request
+- Use the default `Merge pull request #N from {branch}` message
+- Force push without `--force-with-lease`
+- Persist the branch-update method
+- Skip cleanup -- stale branches accumulate
 
 ## Error Handling
 

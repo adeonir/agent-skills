@@ -21,7 +21,7 @@ npx skills add adeonir/agent-skills
 | Skill | Category | Description |
 |-------|----------|-------------|
 | **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
-| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, confidence-scored code review, PR summaries, pull request creation, and branch lifecycle |
+| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, confidence-scored code review, pull request creation, and branch lifecycle |
 | **[project-index](skills/engineering/project-index)** | Engineering | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
 | **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` with the Incorrect/Correct template. Classifies input, decides scope, supports list, edit, extract from CLAUDE.md, delete |
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
