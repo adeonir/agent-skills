@@ -20,7 +20,7 @@ When creating a prescriptive technical plan for a specific component, service, o
 > Before writing artifacts, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-```
+```text
 Phase 0: Context & Sizing
   --> Phase 1: Domain
     --> Phase 2: Use Cases + System Flows
@@ -232,7 +232,7 @@ When discovery surfaces decisions that span comparable options without an obviou
 
 **On match, prompt:**
 
-```
+```text
 This decision space is trade-off heavy: {{summary}}.
 Pause TDD and run a Design Doc? [yes | no | inline]
 ```

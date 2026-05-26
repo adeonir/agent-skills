@@ -30,7 +30,7 @@ npx skills add adeonir/agent-skills
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
-| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, TDD. Guided discovery per type |
+| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR, TDD. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 
 ## How They Connect
@@ -146,7 +146,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── design/         # design-builder: preview variants
-├── docs/           # docs-writer: PRD, Brief, Design Doc, TDD
+├── docs/           # docs-writer: PRD, Brief, Design Doc, ADR, TDD
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

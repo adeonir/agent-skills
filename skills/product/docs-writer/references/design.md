@@ -28,7 +28,7 @@ a doc.
 > Before writing artifacts, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-```
+```text
 discovery --> analysis --> drafting
 ```
 

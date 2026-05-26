@@ -27,4 +27,17 @@ Before presenting any document to the user, verify:
 - [ ] Cross-references to other docs are valid
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
+## ADR-Specific Gates
+
+When the document is an ADR, additionally verify:
+
+- [ ] Exactly one decision is recorded (not bundled with others)
+- [ ] Decision stated as a positive imperative ("We will...")
+- [ ] Context is value-neutral (states forces, does not advocate)
+- [ ] Consequences include both positive AND negative outcomes
+- [ ] At least one alternative is recorded with a rejection reason
+- [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
+- [ ] When superseding, frontmatter `supersedes` and prior ADR's
+      `superseded-by` are both populated
+
 If issues found: fix inline before presenting.

@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Auto-loaded by PRD, Design Doc, and TDD workflows during the discovery phase. Not a direct trigger.
+Auto-loaded by PRD, Design Doc, ADR, and TDD workflows during the discovery phase. Not a direct trigger.
 
 ## Core Principle
 
@@ -54,6 +54,7 @@ Move on when:
 |------|-----------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
 | Design Doc | 3 topics | System overview, architecture & design, cross-cutting concerns |
+| ADR | 1 topic | The decision: context forces, alternatives, consequences (lightweight; one ADR per decision) |
 | TDD | 5 phases | Phase 0 Context & Sizing → Phase 1 Domain → Phase 2 Use Cases + System Flows → Phase 3 Architecture → Phase 4 Coherence Pass |
 
 TDD discovery is phase-driven (not topic-driven): each phase opens with sufficiency-gated questions scoped to a single output section. Phase 4 cross-checks the prior phases against each other and the PRD before drafting concludes; gaps back-edge to the responsible phase or surface inline for user resolution. See [tdd.md](tdd.md) for the full workflow and the Design Doc auto-trigger that may pause TDD mid-phase.
