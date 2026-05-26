@@ -148,9 +148,34 @@ Rules:
   second person ("I help...", "You can use...").
 - Folded block `>-` with 2-space indentation. Lines under 80 chars to avoid
   obfuscation alerts during security audits.
-- Triggers go inline in the description, not in a separate field.
+- Triggers go inline in `description`. One field per concept.
+- `description` is capped at **1,536 chars** in the skill listing. Tighten
+  the prose if you approach the cap — do not split across fields.
 
-No other frontmatter fields.
+#### Extended Fields
+
+The Claude Code harness accepts additional frontmatter fields beyond
+`name` and `description`. Use them only when the skill needs the behavior
+— every extra field is a maintenance surface and a divergence from the
+open Agent Skills standard.
+
+| Field | When to use |
+|-------|-------------|
+| `allowed-tools` | When the skill always runs the same deterministic tool set (e.g. `git`, `gh`, specific MCPs). Pre-approves them to skip per-use prompts. Space-separated string or YAML list. Example: `Bash(git:*) Bash(gh:*) Read Write Task`. |
+| `argument-hint` | When the skill accepts `/skill <args>`. Shown during autocomplete. |
+| `context: fork` + `agent` | When the skill is a self-contained task that should run in an isolated subagent context with no parent history. `agent` picks the subagent type (e.g. `Explore`). Rare — most skills run inline. |
+| `paths` | Glob patterns that auto-activate the skill on matching files. Comma-separated string or YAML list. |
+| `disable-model-invocation` | `true` blocks automatic loading. Use for irreversible workflows (`/deploy`, `/send-slack`) where the human must control timing. |
+| `user-invocable` | `false` hides from the `/` menu. For background knowledge the user should not invoke directly. |
+| `model` / `effort` | Override the active model or effort for the skill turn. Rare — defaults inherit the session. |
+| `hooks` | Skill-scoped lifecycle hooks. Rare. |
+
+Use the same folded-block `>-` style for any multi-line field.
+
+The spec also defines a `when_to_use` field (appended to `description`
+and sharing its 1,536-char cap). Repo convention rejects it — keep
+trigger phrases inline in `description` so there is one source of truth
+per concept.
 
 ### Triggers
 
@@ -355,6 +380,23 @@ one. Otherwise, add a reference to the existing skill.
 `scripts/` and `assets/` directories are optional. Use them only when the
 skill genuinely needs deterministic operations or static data.
 
+### Skill Directory Variable
+
+When a skill invokes its own bundled scripts, reference them with
+`${CLAUDE_SKILL_DIR}` so they resolve regardless of the user's working
+directory. Plain relative paths (`scripts/foo.py`) break when the
+consumer runs the skill from a project root that does not match the
+install layout.
+
+```bash
+python ${CLAUDE_SKILL_DIR}/scripts/extract.py "$@"
+```
+
+For plugin skills, `${CLAUDE_SKILL_DIR}` resolves to the skill's own
+subdirectory, not the plugin root. Use this variable in
+`` !`<command>` `` injection lines and in bash blocks the skill tells
+Claude to run.
+
 ### MCP Tools
 
 Reference MCP tools by qualified name in SKILL.md and references:
@@ -468,6 +510,42 @@ was already optimizing for the next phase rather than the current one.
   `## Error Handling` or a neutral `## Outcomes` section that reports
   status without pushing forward.
 
+### Dynamic Context Injection
+
+Workflow files (SKILL.md, instructions, references) may embed
+`` !`<command>` `` placeholders. The harness runs the command before
+the file is sent to the model and substitutes the output inline. Claude
+receives data, not the command. Substitution runs once over the
+original file; injected output is not re-scanned for further
+placeholders.
+
+Use this at the top of workflows whose first step is gathering state
+(git status, gh queries, file existence) to remove the "run command,
+then act on output" round-trip:
+
+```markdown
+## Current state
+
+!`git status --short`
+!`git diff --staged`
+!`git log --oneline -10 --no-merges`
+```
+
+Rules:
+- Inline form only. No nested or recursive substitution.
+- Commands must be safe and read-only (`git`, `gh`, `ls`, `cat`, `awk`
+  on local files). Never inject mutating commands (`rm`, `git push`,
+  `gh pr merge`).
+- Steps that consume the output reference the section by name ("the
+  staged diff above"), not re-run the command.
+- Substitutions available inside any skill file: `${CLAUDE_SKILL_DIR}`,
+  `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`, `${CLAUDE_EFFORT}`,
+  `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`.
+- The user can disable injection globally via the
+  `disableSkillShellExecution` setting. Skills must still be readable
+  and useful when that happens — treat injection as a fast path, not a
+  required dependency.
+
 ### Recommended Patterns
 
 - **Checklist copiável** — Multi-step workflows and decision points may
@@ -566,7 +644,9 @@ Before finalizing a new skill, verify:
 
 - [ ] Folder at `skills/<category>/skill-name/`
 - [ ] `SKILL.md` ≤100-150 lines, with required top (H1 + Triggers/Quick start)
-- [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`])
+- [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
+- [ ] `description` ≤ 1,536 chars (skill listing cap)
+- [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
 - [ ] Description in third person or noun phrase, with inline triggers
 - [ ] Triggers ≥ 2 words, no bare single word
 - [ ] References in `references/` (and instructions in `instructions/` if the split applies) with H1 + description + `## When to Use`
@@ -576,6 +656,7 @@ Before finalizing a new skill, verify:
 - [ ] Consistent terminology across SKILL.md, references, templates
 - [ ] All file paths use forward slashes
 - [ ] All code blocks have a language tag
+- [ ] Dynamic context injection (`` !`<cmd>` ``) limited to read-only commands
 - [ ] `README.md` present with mermaid + Usage
 - [ ] Skill listed in repo `README.md` table
 - [ ] Security audit checklist passes
