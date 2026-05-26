@@ -5,13 +5,10 @@ description: >-
   Git workflow helper for conventional commits, confidence-scored code
   review (lens fan-out: security, bugs, data-loss, performance,
   guidelines), pull request creation, and branch lifecycle. Use when
-  committing changes, reviewing code, creating PRs, merging branches,
-  or when ready to commit / push / open a PR / finish a branch.
-  Triggers: "commit this", "create a commit", "code review", "review
-  this PR", "review this diff", "push this", "ready to push", "create
-  PR", "open a pull request", "finish branch", "merge branch", "merge
-  PR", "cleanup branch". Not for acceptance-criteria verification,
-  visual design review, or session wrap-up.
+  committing staged or unstaged changes, reviewing diffs, opening or
+  pushing pull requests, merging branches, or cleaning up after a
+  merge. Not for acceptance-criteria verification, visual design
+  review, or session wrap-up.
 ---
 
 # Git Helpers
