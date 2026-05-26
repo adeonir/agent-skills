@@ -179,14 +179,21 @@ per concept.
 
 ### Triggers
 
-Use `Use when [contexts/keywords] or user [actions/says "X"]`. Mix:
+Embed trigger keywords directly in the use-when prose — action verbs,
+topical nouns, and distinctive vocabulary woven into sentences. Avoid
+a "Triggers:" or "Trigger phrases:" list of literal quoted phrases that
+dwarfs the capability sentence — keyword density inside prose serves the
+same matching need without the asymmetry.
+
+Pattern: `Use when [contexts/keywords] or user [actions]`. Mix:
 - Action verbs ("committing", "reviewing changes")
 - Topical keywords ("Excel files", "spreadsheets")
-- Literal user phrases in quotes ("commit this", "open PR")
 - Negative routing inline when ambiguous ("not for: brainstorming exploration")
 
-Phrases must be ≥ 2 words. Never bare single words — they collide between
-skills.
+Reserve literal quoted phrases for the rare case where user vocabulary
+is highly distinctive (e.g. a slash-command shorthand) and prose cannot
+reproduce it without losing meaning. Phrases must be ≥ 2 words. Never
+bare single words — they collide between skills.
 
 ### Section Order
 
