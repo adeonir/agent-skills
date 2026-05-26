@@ -6,13 +6,15 @@ Merge a GitHub pull request and clean up the branch.
 
 When ready to merge a PR -- approved, CI green, ready to ship. GitHub-based workflow only; requires `gh` CLI.
 
+## PR state
+
+!`gh pr list --head $(git branch --show-current) --state open --json number,title,baseRefName`
+
 ## Workflow
 
 ### Step 1: Identify PR
 
-```bash
-gh pr list --head $(git branch --show-current) --state open --json number,title,baseRefName
-```
+Read the **PR state** block above. It contains the open PR (if any) for the current branch with `number`, `title`, and `baseRefName`.
 
 If the list is empty (user is on the base branch, or the current branch has no open PR): ask the user for the PR number, then fetch its metadata:
 
@@ -20,7 +22,7 @@ If the list is empty (user is on the base branch, or the current branch has no o
 gh pr view {pr-number} --json number,title,baseRefName
 ```
 
-Use `baseRefName` from the response as `{base}` for the rest of the workflow.
+Use `baseRefName` from the response (or from the injected list) as `{base}` for the rest of the workflow.
 
 ### Step 2: Resolve Merge Method
 
