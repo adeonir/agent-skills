@@ -17,7 +17,7 @@ flowchart TD
     PRD --> B[Brief generated alongside]
     PRD --> P[prd.md]
     B --> BR[brief.md]
-    DD --> D[design.md]
+    DD --> D[design-doc.md]
     ADR --> A[adr/NNNN-slug.md]
     TDD --> T2[tdd.md]
 ```
@@ -26,7 +26,7 @@ flowchart TD
 |------|----------|--------|
 | **PRD** | discovery → validation → synthesis → drafting | `prd.md` |
 | **Brief** | generated alongside PRD (no standalone trigger) | `brief.md` |
-| **Design Doc** | discovery → analysis → drafting (informal trade-off discussion) | `design.md` |
+| **Design Doc** | discovery → analysis → drafting (informal trade-off discussion) | `design-doc.md` |
 | **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
 | **TDD** | discovery → analysis → drafting (auto-sized core/medium/large) | `tdd.md` |
 
@@ -45,15 +45,20 @@ appropriate workflow.
 
 ## Output
 
-All documents are saved to:
+Documents are saved by category under `docs/`:
 
 ```text
-.artifacts/docs/{type}.md
-.artifacts/docs/adr/{NNNN}-{slug}.md
+docs/product/prd.md
+docs/product/brief.md
+docs/tech/design-doc.md
+docs/tech/tdd.md
+docs/adr/{NNNN}-{slug}.md
 ```
 
-ADRs accumulate in their own subdirectory as a numbered append-only
-log.
+Committed by default. Product-side artifacts (PRD, Brief) live as
+siblings of the brainstorming output (`docs/product/brainstorm.md`).
+Technical artifacts (Design Doc, TDD) live under `docs/tech/`. ADRs
+accumulate in their own subdirectory as a numbered append-only log.
 
 ## FAQ
 
@@ -98,6 +103,6 @@ infrastructure.
 
 **Q: What if the user has no PRD when starting a Design Doc or TDD?**
 A: Both workflows can start from scratch. When a PRD exists at
-`.artifacts/docs/prd.md`, the workflows extract product context as
+`docs/product/prd.md`, the workflows extract product context as
 starting input. Without one, the discovery phase covers both product
 context and technical design.

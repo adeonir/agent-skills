@@ -16,9 +16,6 @@ phase.
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally:
-> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ```text
 (PRD discovery -> validation -> synthesis) -> drafting -> PRD + Brief
 ```
@@ -56,7 +53,7 @@ status: draft
 sources: []
 ---
 
-# Brief
+# Brief: {{Product Name}}
 
 ## What
 
@@ -113,4 +110,4 @@ specification.
 
 ## Output
 
-Save to: `.artifacts/docs/brief.md`
+Saved to `docs/product/brief.md` by the PRD workflow during drafting.

@@ -29,9 +29,6 @@ the outcomes as ADRs.
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally:
-> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ```text
 context --> validation --> drafting
 ```
@@ -48,15 +45,15 @@ into their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
-| `.artifacts/docs/design.md` | `## 4. Alternatives Considered` rows |
-| `.artifacts/docs/prd.md` | Constraints, NFR rationale, research notes |
-| `.artifacts/docs/tdd.md` | Stack choices, integration patterns |
+| `docs/tech/design-doc.md` | `## 4. Alternatives Considered` rows |
+| `docs/product/prd.md` | Constraints, NFR rationale, research notes |
+| `docs/tech/tdd.md` | Stack choices, integration patterns |
 
 If found, list candidate decisions and ask the user which one this
 ADR records. Multiple decisions in a single source means multiple
 ADRs — one per decision, not one ADR summarizing all of them.
 
-Look for existing ADRs at `.artifacts/docs/adr/`. If found, list them
+Look for existing ADRs at `docs/adr/`. If found, list them
 and ask whether this ADR supersedes any.
 
 **Discovery (1 topic):**
@@ -97,16 +94,17 @@ Before drafting, confirm:
 - [ ] Decision can be stated as a positive imperative ("We will...")
 - [ ] Context is value-neutral (facts, not advocacy)
 - [ ] Consequences include trade-offs accepted, not just benefits
-- [ ] Numbering checked: next sequential ID in `.artifacts/docs/adr/`
+- [ ] Numbering checked: next sequential ID in `docs/adr/`
 
 ### Phase 3: Drafting
 
 Use the template below. Load [quality.md](quality.md) before presenting
 the draft to the user.
 
-**Numbering:** Scan `.artifacts/docs/adr/` for existing files. Next ADR
-takes the next zero-padded ID (`0001`, `0002`, ...). Filename uses
-kebab-case slug derived from the title.
+**Numbering:** Scan `docs/adr/` for existing files. Next ADR
+takes the next zero-padded ID (`001`, `002`, ...). Filename and
+frontmatter `name` use bare ID (`001-slug`); document title heading
+uses prefix (`ADR-001`).
 
 ## ADR Template
 
@@ -114,7 +112,7 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{ADR-NNNN-slug}}
+name: {{NNNN-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: proposed
@@ -196,7 +194,7 @@ W". One decision per ADR. Be specific and unambiguous.}}
   decision has trade-offs
 - ADRs are immutable once accepted — supersede with a new ADR, never
   edit history
-- Number ADRs sequentially with zero-padding (`ADR-0001`, `ADR-0002`)
+- Number ADRs sequentially with zero-padding — filename `001-slug.md`, heading `ADR-001`
 - Link from Design Doc References section when an ADR records a
   decision discussed in that Design Doc
 
@@ -204,8 +202,7 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ```text
 proposed --> accepted --> deprecated
-                |
-                +--> superseded-by ADR-NNNN
+                      --> superseded (by ADR-NNNN)
 ```
 
 - **proposed**: Drafted, awaiting review. Editable.
@@ -245,7 +242,7 @@ ignored (more likely — push back).
 
 ## Output
 
-Save to: `.artifacts/docs/adr/{{NNNN}}-{{slug}}.md`
+Save to: `docs/adr/{{NNNN}}-{{slug}}.md`
 
 ADRs accumulate as an append-only log. Never overwrite a prior ADR;
 write a new one that supersedes it.

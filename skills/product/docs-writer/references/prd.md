@@ -16,9 +16,6 @@ decisions. Those belong to Design Doc, TDD, or visual design artifacts.
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally:
-> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ```text
 discovery --> validation --> synthesis --> drafting
 ```
@@ -26,7 +23,7 @@ discovery --> validation --> synthesis --> drafting
 4 sequential phases. Never skip discovery — always interview the user
 first.
 
-## Phase 1: Discovery (Interview)
+### Phase 1: Discovery
 
 Load [discovery.md](discovery.md) for shared interview patterns and
 critical posture.
@@ -36,7 +33,7 @@ the quality of answers, not a fixed script. Each topic has opening
 questions, signals for when to probe further, and criteria for when to
 move on.
 
-### Topic 1: Problem
+#### Topic 1: Problem
 
 **Opening questions:**
 
@@ -57,7 +54,7 @@ move on.
 - Evidence exists or is explicitly marked as hypothesis
 - Single primary problem identified (secondary problems noted separately)
 
-### Topic 2: Users
+#### Topic 2: Users
 
 **Opening questions:**
 
@@ -78,7 +75,7 @@ move on.
 - Job to be done is specific enough to derive features from
 - If multiple personas, priority between them is understood
 
-### Topic 3: Market & Differentiation
+#### Topic 3: Market & Differentiation
 
 **Opening questions:**
 
@@ -102,7 +99,7 @@ move on.
 **Note:** Market & differentiation feeds the Brief, not the PRD. Still
 essential discovery — it informs scope decisions and validation.
 
-### Topic 4: Value & Scope
+#### Topic 4: Value & Scope
 
 **Opening questions:**
 
@@ -124,7 +121,7 @@ essential discovery — it informs scope decisions and validation.
 - Value generation model is understood or marked as TBD
 - Boundaries are defined (what is explicitly out of scope)
 
-### Topic 5: Journeys & Constraints
+#### Topic 5: Journeys & Constraints
 
 **Opening questions:**
 
@@ -146,7 +143,7 @@ essential discovery — it informs scope decisions and validation.
 - Critical edge cases are surfaced (at least "what if it fails?" for each major action)
 - Alternative flows are acknowledged for the main journey
 
-## Phase 2: Validation
+### Phase 2: Validation
 
 Challenge what was learned. This phase exists to prevent building the
 wrong thing.
@@ -162,7 +159,7 @@ wrong thing.
 
 Do not proceed to synthesis until the user confirms scope and priorities.
 
-## Phase 3: Synthesis
+### Phase 3: Synthesis
 
 Synthesize everything from discovery and validation into a structured summary.
 
@@ -176,7 +173,7 @@ Synthesize everything from discovery and validation into a structured summary.
 8. Present synthesis to user for confirmation
 9. Only proceed to drafting after user confirms
 
-## Phase 4: Drafting
+### Phase 4: Drafting
 
 Use the PRD template below. Generate the Brief alongside using
 [brief.md](brief.md). Load [quality.md](quality.md) before presenting
@@ -204,7 +201,7 @@ status: draft
 sources: []
 ---
 
-# PRD
+# PRD: {{Product Name}}
 
 ## 1. Problem Statement
 
@@ -367,5 +364,5 @@ Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 
 ## Output
 
-- PRD: `.artifacts/docs/prd.md`
-- Brief: `.artifacts/docs/brief.md`
+- PRD: `docs/product/prd.md`
+- Brief: `docs/product/brief.md`

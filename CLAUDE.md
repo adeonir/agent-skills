@@ -585,7 +585,25 @@ aliases.
 
 ## Output Artifacts
 
-Skills write outputs to `.artifacts/` organized by domain:
+Skills split outputs between committed strategic docs (`docs/`) and a
+gitignored agent workspace (`.artifacts/`).
+
+`docs/` — committed, human-readable, audience-first:
+
+```
+docs/
+├── product/
+│   ├── brainstorm.md       # brainstorming: strategic direction (living)
+│   ├── prd.md              # docs-writer: product requirements
+│   └── brief.md            # docs-writer: 1-page PRD summary
+├── tech/
+│   ├── design-doc.md       # docs-writer: trade-off discussion
+│   └── tdd.md              # docs-writer: technical design document
+└── adr/
+    └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
+```
+
+`.artifacts/` — workspace for agent-consumed artifacts:
 
 ```
 .artifacts/
@@ -593,7 +611,6 @@ Skills write outputs to `.artifacts/` organized by domain:
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
-├── docs/          # docs-writer: PRD, Brief, Design Doc, TDD
 ├── design/        # design-builder: copy, preview variants, generated assets
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
@@ -601,11 +618,6 @@ Skills write outputs to `.artifacts/` organized by domain:
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write —
 it stays out of `git status` without touching `.gitignore`. Commit specific
 files only when explicitly requested.
-
-Brainstorming is the exception: it writes a single committed file at
-`docs/product/brainstorm.md` (project-level strategic direction, living
-document, relentless re-runs pivot in place rather than spawning new
-artifacts).
 
 `.agents/` is a separate directory for reference context consumed across
 skills:

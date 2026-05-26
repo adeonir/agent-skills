@@ -6,67 +6,53 @@ description: >-
   alongside PRD), Design Doc (multi-decision trade-off discussion), ADR
   (single architecture decision record, append-only log), TDD
   (prescriptive technical plan, sized core/medium/large). Use when
-  defining products, designing systems, recording decisions, or when a
-  structured document is needed for a project. Triggers: "create PRD",
-  "create design doc", "create ADR", "architecture decision record",
-  "record decision", "create TDD", "technical design document", "create
-  document", "write doc", "document this", "write requirements". Not
-  for feature spec tied to implementation or meeting/session notes.
+  defining product requirements, drafting product specs, designing
+  systems, recording architecture decisions, or writing technical
+  design documents. Not for feature spec tied to implementation or
+  meeting/session notes.
 ---
 
 # Docs Writer
 
-Generates structured documents through guided discovery. 5 document
-types, each with its own workflow depth.
+Generates structured product and technical documents through guided
+discovery. 5 document types, each with its own workflow depth.
 
-## Workflow
+## Quick start
 
 ```text
 trigger --> detect type --> load reference --> discovery --> drafting
 ```
 
-Detect document type from the trigger. If ambiguous, ask the user which
-type they want.
+Detect document type from the trigger. If ambiguous, ask the user.
 
-## Triggers
+| Type | Reference |
+|------|-----------|
+| PRD — product requirements | [prd.md](references/prd.md) |
+| Design Doc — multi-decision trade-off discussion | [design.md](references/design.md) |
+| ADR — single accepted decision record | [adr.md](references/adr.md) |
+| TDD — prescriptive technical plan | [tdd.md](references/tdd.md) |
 
-- **PRD** ("create PRD", "define product", "product requirements",
-  "write PRD") → [prd.md](references/prd.md)
-- **Design Doc** ("create design doc", "design system") →
-  [design.md](references/design.md)
-- **ADR** ("create ADR", "architecture decision record",
-  "record decision") → [adr.md](references/adr.md)
-- **TDD** ("create TDD", "technical design document",
-  "technical design") → [tdd.md](references/tdd.md)
-- **Generic doc** ("create document", "write doc") → ask user which type
+Auto-loaded (no direct triggers):
 
-`discovery.md`, `quality.md`, and `brief.md` are not direct triggers:
-
-- `discovery.md` is loaded automatically by PRD, Design Doc, ADR, and
-  TDD workflows at the start of the discovery phase
-- `quality.md` is loaded automatically before presenting a document draft
-- `brief.md` is loaded by `prd.md` during the drafting phase (the Brief
-  is generated alongside the PRD, never independently)
+- `discovery.md` — by PRD, Design Doc, ADR, TDD at start of discovery
+- `quality.md` — before presenting any draft
+- `brief.md` — by `prd.md` during drafting (Brief is generated alongside
+  the PRD, never independently)
 
 ## Document Boundaries
 
-- **PRD**: product requirements only — problem, users, scope, journeys,
-  business rules, success metrics. Never includes implementation,
-  architecture, tech stack, UI components, or API specs.
-- **Brief**: 1-page executive summary of the PRD. Generated automatically
-  during PRD drafting from data already collected. No standalone trigger.
-- **Design Doc**: informal trade-off discussion. When PRD exists, focuses
-  on technical strategy; without PRD, covers both product context and
-  technical design. Multi-decision and exploratory.
-- **ADR**: single architecture decision record. Captures one decision
-  with its context, consequences, and rejected alternatives. Short
-  (1-2 pages), numbered, immutable once accepted —
-  superseded by new ADRs, never edited in place. Use when extracting
-  decisions embedded in a PRD or Design Doc, or when recording a
-  decision retrospectively.
-- **TDD**: prescriptive technical planning for specific components.
-  Auto-sized (core/medium/large); sizing dimensions depth, never skips
-  sections. A project can have both a Design Doc and TDDs.
+- **PRD** — product only: problem, users, scope, journeys, rules, metrics.
+  No implementation, architecture, tech stack, UI, or API.
+- **Brief** — 1-page narrative summary of the PRD. Generated alongside,
+  no standalone trigger.
+- **Design Doc** — informal multi-decision trade-off discussion. With PRD:
+  technical strategy. Without PRD: covers both product and technical.
+- **ADR** — single architecture decision (1-2 pages). Numbered, immutable
+  once accepted; superseded by new ADRs, never edited. Use when lifting
+  decisions from a PRD/Design Doc or recording retrospectively.
+- **TDD** — prescriptive technical plan for a component. Auto-sized
+  (core/medium/large); sizing controls depth, never skips sections.
+  A project can have both a Design Doc and TDDs.
 
 ## Guidelines
 
@@ -86,15 +72,6 @@ before naming the problem, push back. Ask for evidence, narrow scope,
 challenge weak ideas, suggest pivots when the proposed approach is
 fragile. Gate advancement on understanding, not on willingness to move
 on.
-
-## Anti-Pattern: Mixed Document Types
-
-Including UI components or API specs in a PRD, or product requirements
-in a TDD, makes both documents harder to consume and rotate out of date.
-Each document has a domain — keep visual direction in design tooling,
-technical implementation in Design Doc / TDD, decisions in ADR, and
-product requirements in the PRD. When a section starts to belong
-elsewhere, link to the correct document instead of inlining it.
 
 ## Anti-Pattern: ADR as Design Doc
 

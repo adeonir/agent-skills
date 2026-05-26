@@ -1,6 +1,6 @@
-# Technical Design Document (TDD)
+# TDD — Technical Design Document
 
-Prescriptive technical plan for a component, service, or feature. Bundles Domain, Use Cases, System Flows, and Architecture into one consolidated artifact with cross-section coherence checks. Sized core/medium/large by project complexity — sizing dimensions depth, never skips sections.
+Prescriptive technical plan for a component, service, or feature. Bundles Domain, Use Cases, System Flows, and Architecture into one consolidated artifact with cross-section coherence checks. Sized core/medium/large by project complexity — sizing controls depth, never skips sections.
 
 ## When to Use
 
@@ -16,9 +16,6 @@ When creating a prescriptive technical plan for a specific component, service, o
 - The work is a bug fix or minor enhancement
 
 ## Workflow
-
-> Before writing artifacts, ensure `.artifacts` is excluded locally:
-> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
 ```text
 Phase 0: Context & Sizing
@@ -37,7 +34,7 @@ Load [discovery.md](discovery.md) at the start of every phase for adaptive deepe
 
 **Check existing context.**
 
-Look for existing PRD at `.artifacts/docs/prd.md` and Design Doc at `.artifacts/docs/design.md`.
+Look for existing PRD at `docs/product/prd.md` and Design Doc at `docs/tech/design-doc.md`.
 
 If PRD found: extract product context as starting input.
 If Design Doc found: extract architectural context and decisions.
@@ -64,7 +61,7 @@ If no existing docs: open discovery from scratch.
 
 **Size the project.**
 
-Determine project size from PRD signals and Phase 0 answers. If unclear, ask the user directly. Sizing dimensions section depth — every section in the template is always present, regardless of tier.
+Determine project size from PRD signals and Phase 0 answers. If unclear, ask the user directly. Sizing controls section depth — every section in the template is always present, regardless of tier.
 
 | Signal | Size |
 |--------|------|
@@ -78,9 +75,9 @@ Some sub-sections promote regardless of tier:
 
 | Project Type | Promoted Sub-Sections |
 |--------------|----------------------|
-| Payment / Auth / PII | 7.6 Security & Compliance |
-| Production service | 7.7 Deployment & Rollback, 9 Monitoring & Observability |
-| Migration | 11 Risks, 7.7 Deployment & Rollback |
+| Payment / Auth / PII | 7.7 Security & Compliance |
+| Production service | 7.8 Deployment & Rollback, 9 Monitoring & Observability |
+| Migration | 11 Risks, 7.8 Deployment & Rollback |
 | Infrastructure | 9 Monitoring & Observability, 11 Risks |
 
 **Design Doc detection.**
@@ -489,7 +486,7 @@ Every section is always present. Tier controls depth.
 | 12. Open Questions | Inline TBDs | Inline TBDs | Required dedicated section |
 | 13. References | Required | Required | Required |
 
-**Critical section promotion** (Phase 0): sub-sections in Architecture (7.6, 7.7) and top-level sections (9, 10, 11) promote regardless of tier when project type matches Payment/Auth/PII, Production service, Migration, or Infrastructure.
+**Critical section promotion** (Phase 0): sub-sections in Architecture (7.7, 7.8) and top-level sections (9, 10, 11) promote regardless of tier when project type matches Payment/Auth/PII, Production service, Migration, or Infrastructure.
 
 ## Guidelines
 
@@ -516,4 +513,4 @@ Listing what users need or what the product should do belongs in the PRD. The TD
 
 ## Output
 
-Save to: `.artifacts/docs/tdd.md`.
+Save to: `docs/tech/tdd.md`.

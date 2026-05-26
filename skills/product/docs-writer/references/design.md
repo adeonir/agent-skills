@@ -21,12 +21,9 @@ a doc.
 - The solution is obvious with no meaningful trade-offs
 - The doc would basically say "This is how we are going to implement it" without going into trade-offs, alternatives, and explaining decision-making
 - Overhead of creating and reviewing outweighs the benefits
-- Compatible with rapid prototyping and iteration (though prototyping can be part of design doc creation)
+- Rapid prototyping or iteration is the better fit (though prototyping can also be part of design doc creation)
 
 ## Workflow
-
-> Before writing artifacts, ensure `.artifacts` is excluded locally:
-> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
 ```text
 discovery --> analysis --> drafting
@@ -39,7 +36,7 @@ critical posture.
 
 **Check Existing Context:**
 
-Look for existing PRD at `.artifacts/docs/prd.md`.
+Look for existing PRD at `docs/product/prd.md`.
 
 If found: read and extract product context as starting input.
 
@@ -301,7 +298,7 @@ update the doc when changes are needed.
 
 ## Output
 
-Save to: `.artifacts/docs/design.md`
+Save to: `docs/tech/design-doc.md`
 
 Note: Design docs are informal documents and don't follow strict
 guidelines. The template provides a useful structure, but adapt it to
