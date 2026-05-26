@@ -6,16 +6,16 @@ Create a commit with a well-formatted conventional commit message based on actua
 
 When creating a commit for staged or unstaged changes.
 
+## Current state
+
+!`git status --short`
+!`git log --oneline -10 --no-merges`
+
 ## Workflow
 
 ### Step 1: Gather Context
 
-Check for explicit commit conventions (AGENTS.md or CLAUDE.md at project root: format rules, scope requirements, type preferences), then read current state:
-
-```bash
-git status
-git log --oneline -10 --no-merges
-```
+Check for explicit commit conventions (AGENTS.md or CLAUDE.md at project root: format rules, scope requirements, type preferences). The **Current state** block above already contains the working tree status and the last 10 commits — read those for staging decisions and convention discovery. Do not re-run `git status` or `git log` unless the snapshot looks stale.
 
 The log informs *style* (format, scope usage, tone); the staged diff in Step 3
 is the sole source for *content*. Do not read the diff yet — staging happens
