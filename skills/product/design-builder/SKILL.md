@@ -5,21 +5,13 @@ description: >-
   Greenfield design pipeline for any digital product (landing pages,
   websites, web apps, mobile apps, e-commerce storefronts): extract
   content, author the visual identity, define page composition, screen
-  flow, or commerce surfaces, preview and refine variants. Not for
-  feature implementation spec, system architecture, or PR/code review.
-when_to_use: >-
-  Use when building pages, app screens, or storefronts from references,
-  images, briefs, or a codebase; defining layout or screen flow;
-  previewing and tuning designs; authoring or refreshing the visual
-  identity from a source; or syncing design artifacts back from a
-  drifted implementation. Trigger phrases: "extract copy", "extract
-  design tokens", "extract from codebase", "web capture", "create a
-  wireframe", "screen flow", "layout the page", "preview the design",
-  "creative variants", "tune the design", "visual mockup", "redesign
-  this app", "modernize this app", "brand refresh", "validate the
-  design", "refresh DESIGN.md from design-tool file", "sync design from
-  implementation", "update DESIGN.md from code", "reconcile drift",
-  "refresh design tokens from this codebase".
+  flow, or commerce surfaces, preview and refine variants. Use when
+  building pages, app screens, or storefronts from references, images,
+  briefs, or a codebase; creating wireframes, defining screen flows or
+  layouts; previewing or tuning designs; redesigning, modernizing, or
+  refreshing the visual identity; reconciling design drift or syncing
+  from implementation. Not for feature implementation spec, system
+  architecture, or PR/code review.
 ---
 
 # Design Builder
