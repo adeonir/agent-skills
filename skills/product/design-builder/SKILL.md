@@ -51,48 +51,40 @@ Agent Prompt Guide). Token references use `{path.to.token}` syntax.
 and never touches DESIGN.md. preview parses the frontmatter at render
 time and resolves references into CSS custom properties.
 
-design-builder is greenfield-first. For brownfield drift after handoff,
-`reconcile.md` patches DESIGN.md and copy.yaml back from the
-implementation. HTML preview is a visualization for decision-making —
-output that can feed back into DESIGN.md or copy.yaml via reconcile, not
-the final handoff artifact.
+HTML preview is a visualization for decision-making — output that can
+feed back into DESIGN.md or copy.yaml via reconcile, not the final
+handoff artifact.
 
-## Triggers
+## Three Modes
 
-- **Copy extraction** ("extract copy", "copy from URL", "web capture",
-  "content from website", "brief document") →
-  [copy.md](instructions/copy.md)
-- **Visual identity (DESIGN.md authoring)** ("extract design tokens",
-  "author DESIGN.md", "extract from images", "extract from codebase",
-  "extract from URL", "extract from design tool", "refresh DESIGN.md
-  from design-tool file") →
-  [identity.md](instructions/identity.md)
-- **Layout / screen flow / commerce surfaces** ("create a wireframe",
-  "layout the page", "structure the content", "screen flow", "PLP",
-  "PDP", "cart", "checkout", "validate this wireframe") →
-  [structure.md](instructions/structure.md)
-- **Preview / variants** ("preview the design", "visual mockup", "tune
-  the design", "creative variants", "pivot the design") →
-  [preview.md](instructions/preview.md)
-- **Validation** ("validate DESIGN.md", "validate the design", "check
-  DESIGN.md", "audit design tokens", "lint the design system") →
-  [validate.md](instructions/validate.md)
-- **Redesign (anchor + new reference)** ("redesign this app", "modernize
-  this app", "brand refresh", "change the vibe") →
-  [redesign.md](instructions/redesign.md)
-- **Reconcile (brownfield drift sync)** ("sync design from
-  implementation", "update DESIGN.md from code", "reconcile drift",
-  "refresh design tokens from this codebase"; not for: applying a new
-  reference or vibe — see redesign) →
-  [reconcile.md](instructions/reconcile.md)
+- **Greenfield** — zero to `DESIGN.md` + `structure.md` + `copy.yaml`
+  from raw inputs (URL, images, brief, codebase, design-tool file).
+  Default path; runs copy → identity → structure → preview.
+- **Redesign** — anchor an existing app, ingest a new external
+  reference, map slices to DESIGN.md sections, generate variants.
+  Lives in [redesign.md](instructions/redesign.md).
+- **Reconcile** — sync DESIGN.md and copy.yaml back from a drifted
+  implementation. Brownfield-only. Lives in
+  [reconcile.md](instructions/reconcile.md).
 
-`discovery.md` is auto-loaded before every operation — never skipped.
+## Operations
 
-`aesthetics.md` and `web-standards.md` are auto-loaded by `preview.md`.
+| Operation | File |
+| --------- | ---- |
+| Extract copy from URLs, captures, briefs | [copy.md](instructions/copy.md) |
+| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [identity.md](instructions/identity.md) |
+| Define page composition, screen flow, or commerce surfaces | [structure.md](instructions/structure.md) |
+| Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
+| Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
+| Anchor existing app + apply new reference (redesign mode) | [redesign.md](instructions/redesign.md) |
+| Sync DESIGN.md + copy.yaml from drifted implementation (reconcile mode) | [reconcile.md](instructions/reconcile.md) |
 
-`validate.md` is both directly callable and auto-loaded as a gate by
-`identity.md` and `reconcile.md` — so DESIGN.md never lands invalid for
-downstream consumers (preview, structure, redesign).
+`discovery.md` auto-loads before every operation — never skipped, never
+invoked directly. `aesthetics.md` and `web-standards.md` auto-load
+inside `preview.md`. `validate.md` is both directly callable and
+auto-loaded as a gate by `identity.md` and `reconcile.md`, so DESIGN.md
+never lands invalid for downstream consumers (preview, structure,
+redesign).
 
 ## Guidelines
 
