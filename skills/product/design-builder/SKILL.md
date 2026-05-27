@@ -6,11 +6,13 @@ description: >-
   websites, web apps, mobile apps, e-commerce storefronts): extract
   content, author the visual identity, define page composition, screen
   flow, or commerce surfaces, preview and refine variants. Use when
-  building pages, app screens, or storefronts from references, images,
-  briefs, or a codebase; creating wireframes, defining screen flows or
-  layouts; previewing or tuning designs; redesigning, modernizing, or
-  refreshing the visual identity; reconciling design drift or syncing
-  from implementation. Not for feature implementation spec, system
+  authoring a design system, extracting design tokens, building or
+  refreshing DESIGN.md, building pages, app screens, or storefronts
+  from references, images, briefs, or a codebase; creating wireframes,
+  defining screen flows or layouts; previewing or tuning designs,
+  generating creative variants, applying named tones; redesigning,
+  modernizing, or refreshing the brand identity; reconciling design
+  drift or syncing from implementation. Not for feature implementation spec, system
   architecture, or PR/code review.
 ---
 
@@ -37,8 +39,10 @@ copy --> design --> structure --> preview
 Arrows show the suggested greenfield order. Each step is invokable
 standalone — call them in any order, skip any of them, or run only the
 one you need. Brownfield drift after handoff → `reconcile.md`.
-`discovery.md` is auto-loaded before every operation — never skipped,
-never a step the user invokes directly.
+
+> **Auto-load:** `discovery.md` runs before every operation — never
+> skipped, never invoked directly. It classifies project type, source,
+> and entry mode so downstream phases route correctly.
 
 DESIGN.md holds the visual identity in two layers: a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
@@ -76,8 +80,8 @@ handoff artifact.
 | Define page composition, screen flow, or commerce surfaces | [structure.md](instructions/structure.md) |
 | Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
-| Anchor existing app + apply new reference (redesign mode) | [redesign.md](instructions/redesign.md) |
-| Sync DESIGN.md + copy.yaml from drifted implementation (reconcile mode) | [reconcile.md](instructions/reconcile.md) |
+| Anchor existing app + apply new reference | [redesign.md](instructions/redesign.md) |
+| Sync DESIGN.md + copy.yaml from drifted implementation | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `web-standards.md` auto-load

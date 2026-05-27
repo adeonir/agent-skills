@@ -11,16 +11,18 @@ Also referenced by `preview.md` during variant generation to avoid known failure
 
 ## Categories
 
-- **Typography** — fonts, weights, scale, pairing
-- **Color and Theme** — palette, contrast, theme commitment
-- **Layout and Spacing** — composition, density, alignment, rhythm
-- **Decoration and Depth** — shadow, radius, glass, layering
-- **Component States** — hover, focus, disabled, loading, empty
-- **Motion and Interaction** — easing, transitions, hover feedback
-- **Accessibility** — keyboard nav, semantic HTML, ARIA, contrast ratios
-- **Performance** — CDN abuse, layout shift, blocking renders
-- **Hydration and SSR** — React/Next.js client/server divergence
-- **Drift** — HTML output not aligned with DESIGN.md tokens (single-source violations)
+Jump-table — each category links to its rule section below.
+
+- [Typography](#typography) — fonts, weights, scale, pairing
+- [Color and Theme](#color-and-theme) — palette, contrast, theme commitment
+- [Layout and Spacing](#layout-and-spacing) — composition, density, alignment, rhythm
+- [Decoration and Depth](#decoration-and-depth) — shadow, radius, glass, layering
+- [Component States](#component-states) — hover, focus, disabled, loading, empty
+- [Motion and Interaction](#motion-and-interaction) — easing, transitions, hover feedback
+- [Accessibility](#accessibility) — keyboard nav, semantic HTML, ARIA, contrast ratios
+- [Performance](#performance) — CDN abuse, layout shift, blocking renders
+- [Hydration and SSR](#hydration-and-ssr) — React/Next.js client/server divergence
+- [Drift](#drift) — HTML output not aligned with DESIGN.md tokens (single-source violations)
 
 ## Rule Template
 
@@ -796,6 +798,56 @@ useEffect(() => setNow(new Date().toLocaleString()), [])
 **Example pass:**
 ```html
 <time suppressHydrationWarning>{formattedDate}</time>
+```
+
+### random-value-in-render
+**Category:** Hydration and SSR
+**Severity:** error
+**Check:** `Math.random()`, `Date.now()`, `crypto.randomUUID()` called inline during render. Server and client compute different values, causing hydration mismatch.
+**Fix:** Compute the value in `useEffect` after mount and store in state, or pass a stable value as a prop from the server.
+**Example fail:**
+```html
+<div id={`item-${Math.random()}`}>Card</div>
+```
+**Example pass:**
+```html
+const [id] = useState(() => crypto.randomUUID())
+<div id={`item-${id}`}>Card</div>
+```
+
+### window-access-during-render
+**Category:** Hydration and SSR
+**Severity:** error
+**Check:** `window`, `document`, `localStorage`, `navigator`, or `matchMedia` accessed at the top level of a component body or during initial render. Server has no `window`, so server-render crashes or returns the wrong markup.
+**Fix:** Guard with `typeof window !== "undefined"` only when you need to skip on server; for state derived from the browser, set inside `useEffect` and start with a safe default.
+**Example fail:**
+```html
+function Theme() {
+  const dark = localStorage.getItem("theme") === "dark"
+  return <div className={dark ? "dark" : "light"}>...</div>
+}
+```
+**Example pass:**
+```html
+function Theme() {
+  const [dark, setDark] = useState(false)
+  useEffect(() => { setDark(localStorage.getItem("theme") === "dark") }, [])
+  return <div className={dark ? "dark" : "light"}>...</div>
+}
+```
+
+### list-key-index-or-missing
+**Category:** Hydration and SSR
+**Severity:** warning
+**Check:** `.map()` over a list renders elements without a stable `key` prop, or uses array index as key on a reorderable list. React reconciliation breaks, causing state and DOM mismatches when the list mutates.
+**Fix:** Use a stable identifier from the data (id, slug, uuid) as the `key`. Index keys are acceptable only for static lists that never reorder, insert, or delete.
+**Example fail:**
+```html
+{items.map((item, i) => <li key={i}>{item.label}</li>)}
+```
+**Example pass:**
+```html
+{items.map(item => <li key={item.id}>{item.label}</li>)}
 ```
 
 ## Drift

@@ -52,6 +52,22 @@ ALWAYS use this exact template structure:
 
 ## Presets
 
+### Recipes Index
+
+- [brutally-minimal](#brutally-minimal) — maximum whitespace, near-monochrome
+- [maximalist-chaos](#maximalist-chaos) — dense layered overwhelm
+- [retro-futuristic](#retro-futuristic) — CRT glow, neon on dark, monospace
+- [organic-natural](#organic-natural) — earth tones, soft rounded shapes
+- [luxury-refined](#luxury-refined) — thin serifs, restrained metallics
+- [playful-toy](#playful-toy) — rounded sans, bright primaries, bouncy
+- [editorial-magazine](#editorial-magazine) — warm paper, serif headlines, asymmetric grid
+- [brutalist-raw](#brutalist-raw) — system fonts, hard edges, anti-polish
+- [art-deco](#art-deco) — gold on dark, geometric ornament, symmetric
+- [soft-pastel](#soft-pastel) — diffused pastels, low contrast, gentle
+- [industrial-utilitarian](#industrial-utilitarian) — monospace, data density, terminal feel
+- [neo-grotesque](#neo-grotesque) — Swiss grids, tight leading, objective clarity
+- [kinetic-motion-first](#kinetic-motion-first) — scroll-driven, variable font axes
+
 ### brutally-minimal
 **Vibe:** Maximum whitespace, typography-only hierarchy, near-monochrome — restraint as the design statement.
 **Token overrides:**
