@@ -17,14 +17,19 @@
  *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
  *
  * Event types (one JSON per line in .events):
- *   choice:  { type: "choice",  choice: "a", text: "Option Label", timestamp }
- *   tune:    { type: "tune",    token: "--color-primary", value: "#3b82f6", timestamp }
- *   comment: { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
+ *   choice:      { type: "choice",      choice: "a", text: "Option Label", timestamp }
+ *   tune:        { type: "tune",        token: "--color-primary", value: "#3b82f6", timestamp }
+ *   tune-preset: { type: "tune-preset", preset: "density", value: 0.7, timestamp }
+ *   comment:     { type: "comment",     selector: ".card.primary", text: "too tight", timestamp }
  *
  * Client interactions:
  *   - Click elements with `data-choice` to record a choice
  *   - Move/input controls with `data-tune="<token>"` to update a CSS custom
  *     property live on the document and record a tune event
+ *   - Move/input controls with `data-tune-preset="<preset-name>"` to record
+ *     a tune-preset event. Live preview for preset sliders is agent-driven —
+ *     the agent reads the event and regenerates affected CSS properties via
+ *     the registry in preview.md.
  *   - Alt+click any element to open a comment overlay; submit to record a
  *     comment event with the element's CSS selector
  */
@@ -112,6 +117,19 @@ document.addEventListener("click", async (e) => {
 });
 
 document.addEventListener("input", async (e) => {
+  const presetControl = e.target.closest("[data-tune-preset]");
+  if (presetControl) {
+    const preset = presetControl.dataset.tunePreset;
+    const value = parseFloat(presetControl.value);
+    const label = presetControl.parentElement?.querySelector("[data-tune-value]");
+    if (label) label.textContent = String(value);
+    await fetch("/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "tune-preset", preset, value, timestamp: new Date().toISOString() }),
+    });
+    return;
+  }
   const control = e.target.closest("[data-tune]");
   if (!control) return;
   const token = control.dataset.tune;

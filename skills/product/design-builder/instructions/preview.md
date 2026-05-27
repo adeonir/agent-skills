@@ -125,14 +125,36 @@ Once a variant is chosen, two tools refine it without regenerating HTML.
 
 Expose key tokens as sliders that re-render the variant live. The server serves a tune fragment alongside the variant iframe; sliders write `tune` events to `.events`, and the page swaps matching CSS custom properties (`--primary`, `--spacing-4`, `--rounded-md`, `--font-body-standard-size`, etc.) without regenerating HTML.
 
-Default slider set:
+Default slider set (8 sliders, divided into single-token and preset-composite):
 
-- Spacing scale multiplier (0.75x — 1.5x)
-- Color saturation (desaturated — vivid)
-- Typography contrast (flat — high-contrast hero vs body ratio)
-- Border radius scale (sharp — pill)
+**Single-token sliders** — one slider, one `data-tune="<token-path>"`, one `tune` event per change:
 
-Agent can generate custom sliders when the user wants to tune something specific ("make the accent more lavender", "more compact cards"). Each slider is a `data-tune="<token-path>"` element wired to emit `tune` events. The token-path matches the YAML path in the DESIGN.md frontmatter (e.g., `colors.primary`, `typography.body-standard.fontSize`, `rounded.lg`).
+- Spacing scale multiplier (0.75x — 1.5x) → `data-tune="spacing.scale"`
+- Color saturation (desaturated — vivid) → `data-tune="colors.saturation"`
+- Typography contrast (flat — high-contrast hero vs body ratio) → `data-tune="typography.contrast"`
+- Border radius scale (sharp — pill) → `data-tune="rounded.scale"`
+
+**Preset-composite sliders** — one slider, one `data-tune-preset="<preset-name>"`, one `tune-preset` event per change. The agent expands the event into a grouped patch list via the Preset Registry below.
+
+- Font character (sans — serif, or weight light — heavy) → `data-tune-preset="font-character"`
+- Motion intensity (still — playful) → `data-tune-preset="motion-intensity"`
+- Density (airy — dense) → `data-tune-preset="density"`
+- Decoration (austere — playful) → `data-tune-preset="decoration"`
+
+Agent can generate custom sliders when the user wants to tune something specific ("make the accent more lavender", "more compact cards"). Custom sliders default to `data-tune="<token-path>"` (single-token). The token-path matches the YAML path in the DESIGN.md frontmatter (e.g., `colors.primary`, `typography.body-standard.fontSize`, `rounded.lg`).
+
+### Preset Registry
+
+Maps each preset-composite slider to the token-paths it touches and the transform applied per unit of slider movement. Agent reads this map when expanding `tune-preset` events into the patch list during commit-back.
+
+| Preset | Affected token-paths | Transform |
+|--------|----------------------|-----------|
+| `font-character` | `typography.display.fontFamily`, `typography.body.fontFamily` (and matching `fontWeight` when family swap is unavailable) | swap (slider value picks from a curated stack: sans-grotesk, sans-humanist, serif-display, serif-body, mono) |
+| `motion-intensity` | `duration.fast`, `duration.base`, `duration.slow`, `easing.standard`, `easing.bounce` | scale durations by `value` (0 = none, 1 = base, 2 = playful); pick easing from curated set per intensity tier |
+| `density` | `spacing.*` (all numeric keys), `components.*.padding` (every component that defines padding) | multiply by `value` (0.7 = airy → 1.3 = dense) |
+| `decoration` | `elevation.*`, `rounded.*`, `colors.accent` saturation | combine: elevation scale × `value`, rounded scale × `value`, accent saturation × `value` |
+
+When the user invokes a preset slider, the client emits a single `tune-preset` event of shape `{ type: "tune-preset", preset: "<preset-name>", value: <number>, timestamp }`. Live preview applies the resolved CSS custom properties for all affected token-paths simultaneously (client-side expansion). Commit-back uses the same registry server-side to compose the grouped patch list under a single `Preset: <name> (<old> → <new>)` header.
 
 ### Comment (inline feedback on elements)
 
@@ -156,14 +178,18 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 
 ### Workflow
 
-1. **Read `.events`** for the current session. Collect every `tune` event, keep the **last value** per token-path.
+1. **Read `.events`** for the current session. Collect every `tune` event and every `tune-preset` event, keep the **last value** per token-path (for `tune`) or per preset name (for `tune-preset`).
 
-2. **Compose a patch list.** For each tuned token-path:
-   - **Frontmatter patch** — locate the YAML entry at the cited path (e.g., `colors.primary`, `rounded.lg`, `spacing.4`). Compute the surgical replacement: hex string or `{ hex, oklch }` object for colors, dimension with unit for sizes, `Nms` for durations. For multipliers (spacing scale, radius scale), apply the factor to every numeric value in the affected group.
-   - **Prose patch** — locate the bullet in the markdown body that cites the same token (Section 2 for colors, Section 3 for typography, Section 4 for spacing, Section 6 for radius, Section 9 for motion). Update the displayed value so prose stays in sync with the frontmatter.
-   - Build a list `{ layer, path, old, new }` entries where `layer` is `frontmatter` or `prose`.
+2. **Compose a patch list.** Single-token `tune` events and preset-composite `tune-preset` events follow the same surgical patch shape:
+   - **Single-token (`tune` events)** — for each tuned token-path:
+     - **Frontmatter patch** — locate the YAML entry at the cited path (e.g., `colors.primary`, `rounded.lg`, `spacing.4`). Compute the surgical replacement: hex string or `{ hex, oklch }` object for colors, dimension with unit for sizes, `Nms` for durations. For multipliers (spacing scale, radius scale), apply the factor to every numeric value in the affected group.
+     - **Prose patch** — locate the bullet in the markdown body that cites the same token (Section 2 for colors, Section 3 for typography, Section 4 for spacing, Section 6 for radius, Section 9 for motion). Update the displayed value so prose stays in sync with the frontmatter.
+   - **Preset-composite (`tune-preset` events)** — for each tuned preset:
+     - Look up the preset name in the Preset Registry above to expand into the affected token-paths + transform.
+     - Generate one frontmatter patch + prose patch per resolved token-path (same shape as single-token), but group them under a single `Preset: <name>` header.
+   - Build the patch list as `{ group, layer, path, old, new }` entries where `group` is the preset name (or `null` for single-token), and `layer` is `frontmatter` or `prose`.
 
-3. **Show the user the patch list before writing.** Format:
+3. **Show the user the patch list before writing.** Group preset patches under a single collapsible header; show single-token patches inline. Format:
 
    ```
    Proposed patches to DESIGN.md:
@@ -173,14 +199,15 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
        - **Indigo Brand** (#5e6ad2) → `primary`
        → **Indigo Brand** (#7170ff) → `primary`
 
-   frontmatter: spacing
-       1: 0.25rem  →  0.375rem
-       2: 0.5rem  →  0.75rem
-       4: 1rem    →  1.5rem
-   prose: ## 4. Layout > Spacing System
-       (multiplier 1.5x applied to displayed values)
+   Preset: Density (1.0 → 0.7) — 8 patches [expand?]
+       frontmatter: spacing.1   0.25rem  →  0.175rem
+       frontmatter: spacing.2   0.5rem   →  0.35rem
+       frontmatter: spacing.4   1rem     →  0.7rem
+       frontmatter: components.button.padding   0.5rem  →  0.35rem
+       ... (4 more)
+       prose: ## 4. Layout > Spacing System  (density 0.7x applied)
 
-   Apply? [y/n]
+   Apply? [y/n/expand <preset>]
    ```
 
 4. **On approval, write surgical patches** — patch the YAML entry first, then patch the prose bullet that cites it. Never rewrite the surrounding section, never touch unaffected entries, never touch unrelated sections.
@@ -193,6 +220,8 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 - **Custom slider for a token-path not yet in DESIGN.md.** Ask the user whether to add a new token (and its prose bullet) before writing, or remap the slider to an existing path.
 - **Multiple tunes on the same token-path in one session.** Only the last value counts; intermediate values are discarded.
 - **Tune touches a color object.** When the source token is `{ hex, oklch }`, patch both fields so they stay equivalent within 1 sRGB unit per channel.
+- **Preset slider touches a token-path not present in DESIGN.md.** Skip that token in the expansion silently; still patch the ones that resolve. Surface skipped paths in a footnote under the preset group so the user sees what was ignored.
+- **Single-token tune and preset slider both touch the same path in one session.** The single-token tune wins (most recent timestamp); record the preset override as ignored in a footnote.
 
 ## Guidelines
 
