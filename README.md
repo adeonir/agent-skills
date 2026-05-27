@@ -138,15 +138,19 @@ same cycle — run both after a batch of stories lands.
 Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 
 ```
+docs/
+├── product/        # docs-writer: brainstorm, PRD, brief
+├── tech/           # docs-writer: design-doc, TDD
+├── adr/            # docs-writer: append-only decision log
+└── design/         # design-builder: DESIGN.md, structure.md, copy.yaml
+
 .agents/
 ├── codebase/       # project-index: deep codebase analysis
-├── design/         # design-builder: visual identity, structure, content payload
 └── project.md      # project-index: project context
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── design/         # design-builder: preview variants
-├── docs/           # docs-writer: PRD, Brief, Design Doc, ADR, TDD
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

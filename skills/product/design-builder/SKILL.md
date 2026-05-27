@@ -29,7 +29,7 @@ copy --> design --> structure --> preview
             |            |             ^__|
             |            |           (tune loop)
             v            v
-      DESIGN.md     .agents/design/structure.md
+      DESIGN.md     docs/design/structure.md
       (visual       (page composition, screen flow,
       identity)      or commerce surfaces)
 ```
@@ -47,7 +47,7 @@ carrying the normative design tokens (`colors`, `typography`, `rounded`,
 (Overview, Colors, Typography, Layout, Elevation & Depth, Shapes,
 Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior,
 Agent Prompt Guide). Token references use `{path.to.token}` syntax.
-`structure.md` writes a parallel artifact at `.agents/design/structure.md`
+`structure.md` writes a parallel artifact at `docs/design/structure.md`
 and never touches DESIGN.md. preview parses the frontmatter at render
 time and resolves references into CSS custom properties.
 
@@ -89,9 +89,9 @@ redesign).
 ## Guidelines
 
 - Ask one question at a time when gathering context from the user
-- Treat `.agents/design/DESIGN.md` as the source of truth for visual
+- Treat `docs/design/DESIGN.md` as the source of truth for visual
   identity
-- Treat `.agents/design/structure.md` as the source of truth for
+- Treat `docs/design/structure.md` as the source of truth for
   page composition or screen flow
 - Patch DESIGN.md frontmatter group by group and prose section by
   section so each phase preserves the others' work; patch the YAML
@@ -108,7 +108,7 @@ Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
 bullets that cite the patched tokens. `design.md` owns the DESIGN.md
 frontmatter and prose sections, `structure.md` owns its own artifact at
-`.agents/design/structure.md`, `copy.md` owns content payload in
+`docs/design/structure.md`, `copy.md` owns content payload in
 `copy.yaml`. `reconcile.md` patches DESIGN.md and copy.yaml from a
 drifted implementation following the same surgical rules.
 

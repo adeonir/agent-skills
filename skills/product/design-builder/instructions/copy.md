@@ -90,7 +90,7 @@ Generate structured content using the template below. The schema adapts:
 - **mobile-app**: screens plus native patterns (tabs, gestures, biometric, sheets)
 - **e-commerce**: marketing sections + product catalog + commerce surfaces (PLP, PDP, cart, checkout, account)
 
-Save to `.agents/design/copy.yaml`. Create directories if needed.
+Save to `docs/design/copy.yaml`. Create directories if needed.
 
 ## Template
 

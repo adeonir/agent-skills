@@ -24,11 +24,11 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 ## Prerequisites
 
-None hard. Design is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `.agents/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
+None hard. Design is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `docs/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
 
 ## Output
 
-Write `.agents/design/DESIGN.md`. Two layers:
+Write `docs/design/DESIGN.md`. Two layers:
 
 **Layer 1 — YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries spec groups (`colors`, `typography`, `rounded`, `spacing`, `components`) and custom groups (`elevation`, `duration`, `easing`, `breakpoints`). Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
 
@@ -50,9 +50,9 @@ Sections 1-8 follow the spec ordering and names; sections 9-11 are custom extens
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
-Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `.agents/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `.agents/design/copy.yaml`, owned by [copy.md](copy.md).
+Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, owned by [copy.md](copy.md).
 
-Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `.agents/design/` directory must use the uppercase filename `DESIGN.md`.
+Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
 
 ## Workflow
 
@@ -62,7 +62,7 @@ If discovery did not capture it, ask one question at a time:
 
 1. Project type: landing-page, website, web-app, mobile-app, or e-commerce?
 2. Source on hand: images, codebase, text description, design-tool file?
-3. Existing `DESIGN.md` in `.agents/design/` — patch it or start fresh?
+3. Existing `DESIGN.md` in `docs/design/` — patch it or start fresh?
 
 ### Step 2: Get Source
 
@@ -276,7 +276,7 @@ Bullets mirror the frontmatter shape of their token — hex-only when the YAML c
 - `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
 - `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Overview tone.
 
-This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow live in `.agents/design/structure.md`.
+This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow live in `docs/design/structure.md`.
 
 `## 5. Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
 
@@ -336,7 +336,7 @@ Re-running inputs after a fix should re-run validate; never report "done" withou
 
 Show the user:
 
-- The DESIGN.md path (`.agents/design/DESIGN.md`)
+- The DESIGN.md path (`docs/design/DESIGN.md`)
 - A summary of which frontmatter groups and prose sections were patched and which were skipped
 - Any validation findings flagged for review
 - Suggested next step (structure if product arrangement is missing; preview when DESIGN.md + structure are both populated)
@@ -364,7 +364,7 @@ Show the user:
 - Mix descriptive and poetic color names in the same file (contrasts: pick one mode)
 - Fake a color shape that contradicts its source value — never invent oklch from a hex literal, or strip oklch from a source that declared it (contrasts: shape mirrors the source value per-token)
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
-- Author product-specific arrangement in DESIGN.md (contrasts: that belongs in `.agents/design/structure.md`)
+- Author product-specific arrangement in DESIGN.md (contrasts: that belongs in `docs/design/structure.md`)
 - Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; copy lives in `copy.yaml`)
 - Write Section 1 Overview as a product pitch (contrasts: Overview is brand voice and atmosphere, not what the product does or for whom)
 - Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)

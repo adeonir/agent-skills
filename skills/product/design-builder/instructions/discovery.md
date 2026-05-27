@@ -12,12 +12,12 @@ Load at the start of every operation — before any trigger reference is loaded.
 
 Look for:
 
-- `.agents/design/DESIGN.md` — already-authored visual identity
+- `docs/design/DESIGN.md` — already-authored visual identity
 - `.artifacts/docs/prd.md` — PRD
 - `.artifacts/docs/brief.md` — Brief
 - `.artifacts/brainstorm/` — direction artifacts
 - `.artifacts/docs/*-research.md` — naming research
-- `.agents/design/copy.yaml` — extracted content payload
+- `docs/design/copy.yaml` — extracted content payload
 
 If found, read and extract purpose, audience, tone, key features, and any
 existing tokens. Tokens in `DESIGN.md` live in the YAML frontmatter at the top

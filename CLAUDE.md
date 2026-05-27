@@ -599,8 +599,12 @@ docs/
 ├── tech/
 │   ├── design-doc.md       # docs-writer: trade-off discussion
 │   └── tdd.md              # docs-writer: technical design document
-└── adr/
-    └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
+├── adr/
+│   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
+└── design/
+    ├── DESIGN.md           # design-builder: visual identity (YAML tokens + prose)
+    ├── structure.md        # design-builder: page composition / screen flow
+    └── copy.yaml           # design-builder: structured content payload
 ```
 
 `.artifacts/` — workspace for agent-consumed artifacts:
@@ -627,13 +631,13 @@ skills:
 ├── project.md          # project-index: project context
 ├── codebase/           # project-index: deep codebase analysis
 ├── baselines/          # spec-driven: area behavioral baselines
-├── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
-└── design/             # design-builder: DESIGN.md (visual identity)
+└── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
 ```
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-builder` writes `design/DESIGN.md`.
+`design-builder` writes `docs/design/DESIGN.md`, `docs/design/structure.md`,
+and `docs/design/copy.yaml` (preview variants stay in `.artifacts/design/`).
 
 ## Subagent Fan-Out
 

@@ -8,7 +8,7 @@ Greenfield design pipeline for any digital product: extract content, author a `D
 flowchart TD
     A[URL / Images / Brief / Codebase / Design-tool file] -->|copy| B1[copy.yaml]
     A -->|design| B2[DESIGN.md]
-    B2 -->|structure| C[.agents/design/structure.md]
+    B2 -->|structure| C[docs/design/structure.md]
     B1 --> D[Preview]
     B2 --> D
     C --> D
@@ -20,12 +20,12 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Copy** | Extract copy from URL, web capture, brief document | `.agents/design/copy.yaml` |
-| **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
-| **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `.agents/design/structure.md` (parallel artifact; never touches DESIGN.md) |
-| **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `.agents/design/DESIGN.md` on tune commit |
-| **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
-| **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `.agents/design/DESIGN.md` + `.agents/design/copy.yaml` (confirm-before-write) |
+| **Copy** | Extract copy from URL, web capture, brief document | `docs/design/copy.yaml` |
+| **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
+| **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `docs/design/structure.md` (parallel artifact; never touches DESIGN.md) |
+| **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
+| **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `docs/design/DESIGN.md` with slice-scoped updates |
+| **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `docs/design/DESIGN.md` + `docs/design/copy.yaml` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
 ## Project Types
@@ -106,7 +106,7 @@ implementation is the artifact set (`DESIGN.md`, `structure.md`,
 ## Output
 
 ```text
-.agents/design/
+docs/design/
 ├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
 ├── structure.md          # Product arrangement, screen flow, or commerce surfaces
 └── copy.yaml             # Structured content payload (optional)
@@ -135,11 +135,11 @@ A: Greenfield-first. The primary use case is starting from zero with no existing
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at `.agents/design/DESIGN.md` with two layers. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
+A: A single file at `docs/design/DESIGN.md` with two layers. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
 
 **Q: Where do page composition and screen flow live?**
 
-A: In `.agents/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
+A: In `docs/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
 
 **Q: Why both YAML and prose in the same file?**
 

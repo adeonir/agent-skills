@@ -4,7 +4,7 @@ Patch `DESIGN.md` and `copy.yaml` back from a drifted implementation. Brownfield
 
 ## When to Use
 
-- Implementation drifted from `.agents/design/DESIGN.md` after handoff (color shifted to pass contrast, spacing tightened to fit a viewport, a new component variant added that was not anticipated)
+- Implementation drifted from `docs/design/DESIGN.md` after handoff (color shifted to pass contrast, spacing tightened to fit a viewport, a new component variant added that was not anticipated)
 - User says "sync design from implementation", "update DESIGN.md from code", "reconcile drift", or "refresh design tokens from this codebase" when DESIGN.md already exists
 - Pre-handoff audit before treating DESIGN.md as authoritative for a new feature
 
@@ -12,9 +12,9 @@ Not for: authoring DESIGN.md from scratch (use [design.md](design.md)) or applyi
 
 ## Prerequisites
 
-- `.agents/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design.md](design.md) to author the design first.
+- `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design.md](design.md) to author the design first.
 - Codebase path or live URL available as the implementation source.
-- `.agents/design/copy.yaml` optional. When present, copy drift is part of the diff; when absent, only DESIGN.md reconciles.
+- `docs/design/copy.yaml` optional. When present, copy drift is part of the diff; when absent, only DESIGN.md reconciles.
 
 ## Workflow
 
@@ -22,7 +22,7 @@ Not for: authoring DESIGN.md from scratch (use [design.md](design.md)) or applyi
 
 ### Step 1: Read Current Design
 
-Parse the YAML frontmatter of `.agents/design/DESIGN.md` as the authored state. Parse `.agents/design/copy.yaml` if present.
+Parse the YAML frontmatter of `docs/design/DESIGN.md` as the authored state. Parse `docs/design/copy.yaml` if present.
 
 ### Step 2: Extract Implementation State
 
@@ -56,7 +56,7 @@ Leave narrative sections (`## 1. Overview`, `## 8. Do's and Don'ts`, `## 11. Age
 
 ### Step 6: Patch copy.yaml
 
-Apply approved string patches to `.agents/design/copy.yaml`. Preserve schema shape; never reorganize the file structure during reconciliation.
+Apply approved string patches to `docs/design/copy.yaml`. Preserve schema shape; never reorganize the file structure during reconciliation.
 
 ### Step 7: Validate
 
@@ -76,7 +76,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Patch silently (contrasts: confirm-before-write per row)
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
 - Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design.md)
-- Touch `.agents/design/structure.md` (contrasts: structure is owned by its own reference)
+- Touch `docs/design/structure.md` (contrasts: structure is owned by its own reference)
 - Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use redesign.md for that)
 
 ## Error Handling

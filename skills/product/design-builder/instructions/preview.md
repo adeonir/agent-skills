@@ -6,16 +6,16 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 
 ## When to Use
 
-- After visual identity is in `.agents/design/DESIGN.md` and arrangement is in `.agents/design/structure.md`
+- After visual identity is in `docs/design/DESIGN.md` and arrangement is in `docs/design/structure.md`
 - User wants to see the design with visual style applied
 - User wants to compare visual directions
 - User wants to refine a chosen variant (tune tokens, comment on elements)
 
 ## Prerequisites
 
-- `.agents/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter.
-- `.agents/design/structure.md` — page composition or screen flow
-- `.agents/design/copy.yaml` (optional) — structured content
+- `docs/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter.
+- `docs/design/structure.md` — page composition or screen flow
+- `docs/design/copy.yaml` (optional) — structured content
 - [aesthetics.md](../references/aesthetics.md) (required) — design principles
 - [web-standards.md](../references/web-standards.md) (required) — implementation rules
 - [presets.md](../references/presets.md) (required when user invokes a named tone) — pre-blended direction recipes
@@ -199,7 +199,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 **DO:**
 
 - Read the DESIGN.md frontmatter before generating to ground every visual choice in the current tokens
-- Read `.agents/design/structure.md` for arrangement; never re-arrange pages or screens inside preview
+- Read `docs/design/structure.md` for arrangement; never re-arrange pages or screens inside preview
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Route presets by project type when the user has no direction; ignore presets when the user prompts direction
 - Default variant count to 4; honor any N the user names
@@ -213,7 +213,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 
 - Generate previews without DESIGN.md and structure populated (contrasts: treat them as prerequisites)
 - Treat prose as the source of truth (contrasts: YAML frontmatter is authoritative)
-- Change page composition or screen flow between variants (contrasts: arrangement is single-source from `.agents/design/structure.md`; pivots belong there)
+- Change page composition or screen flow between variants (contrasts: arrangement is single-source from `docs/design/structure.md`; pivots belong there)
 - Use CSS frameworks (contrasts: vanilla CSS only, self-contained)
 - Skip serving the result (contrasts: serve every generated preview through the preview server)
 - Regenerate HTML during tune when a CSS custom property swap is enough (contrasts: swap CSS custom properties, keep the DOM)
@@ -223,8 +223,8 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 
 ## Error Handling
 
-- No DESIGN.md in `.agents/design/`: suggest running inputs first; do not proceed
-- No `.agents/design/structure.md`: suggest running structure first; do not proceed
+- No DESIGN.md in `docs/design/`: suggest running inputs first; do not proceed
+- No `docs/design/structure.md`: suggest running structure first; do not proceed
 - No `copy.yaml`: use generic placeholder strings derived from H1 and `description` of DESIGN.md
 - Frontmatter missing or unparseable: route the user to validate.md before previewing
 - Server port in use: try alternative port

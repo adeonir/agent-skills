@@ -13,7 +13,7 @@ Mirrors the eight Google DESIGN.md linter rules (`broken-ref`, `missing-primary`
 
 ## Prerequisites
 
-- `.agents/design/DESIGN.md` exists
+- `docs/design/DESIGN.md` exists
 
 ## Output
 
@@ -29,7 +29,7 @@ No files written. No tokens rewritten.
 
 ### Step 1: Parse Frontmatter and Body
 
-Read `.agents/design/DESIGN.md`. Split into:
+Read `docs/design/DESIGN.md`. Split into:
 
 - **YAML frontmatter** — the block between the opening `---` and closing `---` fences. Parse into the design system state with top-level keys: `name`, `description`, `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`.
 - **Markdown body** — everything after the frontmatter. Walk H2 headings to enumerate sections and their order.
@@ -134,7 +134,7 @@ DESIGN.md must render any copy. Flag prose that bakes product-specific content i
 | Section 1 Overview contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
 | Section 7 Components narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
 | Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
-| When `.agents/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
+| When `docs/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
 
 ### Step 10: Anti-Pattern Audit
@@ -215,7 +215,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 
 ## Error Handling
 
-- No DESIGN.md in `.agents/design/`: stop and route the user to `design.md` to author one
+- No DESIGN.md in `docs/design/`: stop and route the user to `design.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
 - YAML parses but `colors` is empty: report what is missing, suggest running inputs
 
