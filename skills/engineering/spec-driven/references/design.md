@@ -17,7 +17,7 @@ not from a previous phase's conversation context. See SKILL.md Phase Transitions
 
 ## When to Skip
 
-- Scope is **Medium**: straightforward change, no architectural decisions, no new patterns
+- Scope is **Medium**: canonical pattern already in the codebase, no load-bearing decision new to the codebase
 - When skipped, implement handles a lightweight codebase scan inline (see [implement.md](implement.md))
 
 ## Workflow

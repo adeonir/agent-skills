@@ -63,10 +63,10 @@ Before anything else, determine complexity to auto-size the pipeline:
 
 | Signal | Scope | Pipeline |
 |--------|-------|----------|
-| ≤3 files, one-sentence description, fix or config change | **Small** | Redirect to [quick-mode.md](quick-mode.md) |
-| Clear feature, single component, <10 tasks likely | **Medium** | Specify -> Implement (skip Design, Tasks) |
-| Multi-component, architectural decisions needed | **Large** | Specify -> Design -> Tasks -> Implement |
-| Ambiguity, new domain, multiple unknowns | **Complex** | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
+| Mechanical change, zero decisions, outcome obvious from the description | **Small** | Redirect to [quick-mode.md](quick-mode.md) |
+| Canonical pattern already in the codebase, no new abstraction needed | **Medium** | Specify -> Implement (skip Design, Tasks) |
+| ≥1 load-bearing decision new to the codebase (reviewer cannot predict approach from description) | **Large** | Specify -> Design -> Tasks -> Implement |
+| Ambiguity in the problem itself, solution space open | **Complex** | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
 
 If **Small**: redirect to [quick-mode.md](quick-mode.md) and stop here.
 

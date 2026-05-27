@@ -10,9 +10,9 @@ Break design into implementable tasks.
 
 ## When to Skip
 
-- Scope is **Medium**: ≤3 obvious steps, tasks are implicit in Implement
+- Scope is **Medium**: execution is a single canonical pattern with no branching dependencies; tasks are implicit in Implement
 - When skipped, implement lists steps inline before starting (see [implement.md](implement.md))
-- **Safety valve**: If implement's inline listing reveals >5 steps or complex dependencies, it redirects back here
+- **Safety valve**: If implement's inline listing surfaces hidden decisions or branching dependencies, it redirects back here
 
 ## Workflow
 
@@ -326,11 +326,12 @@ Do not suggest `implement` until approved.
 
 | Size | Description | Example |
 |------|-------------|---------|
-| Small | Single file, simple change | "Add type export" |
-| Medium | 1-3 files, moderate logic | "Create API endpoint" |
-| Large | 3+ files, complex integration | "Implement auth flow" - consider splitting |
+| Small | Mechanical change, no decisions | "Add type export" |
+| Medium | Bounded logic, single concern, reapplies a known pattern | "Create API endpoint" |
+| Large | Multiple concerns or a load-bearing decision inside the task | "Implement auth flow" - split into smaller tasks |
 
-Prefer Small and Medium tasks. If a task feels Large, split it.
+Prefer Small and Medium tasks. If a task carries more than one decision
+or spans multiple concerns, split it — file count is incidental.
 
 ## Dependency Markers
 

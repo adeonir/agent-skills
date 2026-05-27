@@ -34,12 +34,16 @@ flowchart TD
 
 ### Auto-Sizing
 
-| Scope | Pipeline |
-|-------|----------|
-| **Small** (≤3 files) | Quick mode — no pipeline |
-| **Medium** (<10 tasks) | Specify → Implement |
-| **Large** (multi-component) | Specify → Design → Tasks → Implement |
-| **Complex** (ambiguity) | Specify (+ Discuss) → Design → Tasks → Implement |
+Sizing follows the **nature of the change**, not file or task counts. The
+question is how many load-bearing decisions the change requires, and
+whether any are novel to the codebase.
+
+| Scope | Nature of change | Pipeline |
+|-------|------------------|----------|
+| **Small** | Mechanical, zero decisions | Quick mode — no pipeline |
+| **Medium** | Canonical pattern reapplied | Specify → Implement |
+| **Large** | ≥1 load-bearing decision new to the codebase | Specify → Design → Tasks → Implement |
+| **Complex** | Ambiguity in the problem itself | Specify (+ Discuss) → Design → Tasks → Implement |
 
 ## Usage
 
@@ -172,8 +176,10 @@ safely deleted when the feature is complete.
 
 **Q: When should I use quick mode vs full pipeline?**
 
-A: Quick mode for ≤3 file changes with no ambiguity (bug fixes, config
-changes). The agent auto-detects scope and suggests the right mode.
+A: Quick mode for mechanical changes with no decisions or ambiguity
+(bug fixes, config swaps, mechanical renames). The agent auto-detects
+scope from the nature of the change — not file count — and suggests
+the right mode.
 
 **Q: What's the difference between verify, validate, and audit?**
 

@@ -4,13 +4,14 @@ Express lane for small changes. Minimal ceremony, minimal artifacts.
 
 ## When to Use
 
-- Bug fixes, config changes, small tweaks
-- ≤3 files affected (count source files of user-written code only — exclude
-  lock files, `.artifacts/`, `.agents/`, and auto-formatted files with no
-  semantic change)
+- Mechanical changes with zero load-bearing decisions
+- Outcome obvious from the description (typo, config swap, named bug + line, rename with no behavior change, dep bump with no API change)
 - Scope describable in one sentence
-- No architectural decisions needed
 - No ambiguity in requirements
+
+File count is not a criterion — a rename touching 40 files is still
+Quick mode if the change is mechanical. Conversely, a 3-file change
+that requires a novel decision belongs in Specify.
 
 ## Workflow
 
@@ -265,8 +266,8 @@ If during implementation the change turns out to be bigger than expected:
 
 | Signal | Action |
 |--------|--------|
-| >3 files need changes | Stop. Suggest `specify` with Medium scope. |
-| Architectural decision needed | Stop. Suggest `specify` with Large scope. |
+| Canonical pattern needs to be reapplied (not mechanical) | Stop. Suggest `specify` with Medium scope. |
+| Architectural decision needed (novel to the codebase) | Stop. Suggest `specify` with Large scope. |
 | Requirements unclear | Stop. Suggest `specify` to clarify first. |
 | Dependencies on other features | Stop. Suggest `specify` to map dependencies. |
 

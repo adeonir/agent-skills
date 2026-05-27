@@ -88,7 +88,7 @@ When operating in **Quick scan mode** (Medium scope, no design.md):
    - Which custom hooks handle the patterns needed (data fetching, state, etc.)
    - Which variables/tokens to use for styling (not hardcoded values)
 
-4. **Complexity check**: If the quick scan reveals the change is more complex than expected (architectural decisions needed, unknown tech, many dependencies), stop and suggest running `design` first.
+4. **Complexity check**: If the quick scan reveals the change is more complex than expected (load-bearing decisions surface, unknown tech, branching dependencies), stop and suggest running `design` first.
 
 ### Step 4: Safety Valve (inline step listing)
 
@@ -105,13 +105,13 @@ Execution steps:
 ...
 ```
 
-**If >5 steps or complex dependencies detected:**
+**If hidden decisions or branching dependencies surface during listing:**
 - Halt execution
-- Inform user: "This is more complex than expected. Recommend creating formal tasks."
+- Inform user: "Sizing missed a load-bearing decision. Recommend creating formal tasks."
 - Suggest running `tasks` (which requires `design` first if that was also skipped)
 - Exit
 
-**If <=5 steps:** Proceed with execution.
+**If steps are mechanical reapplication of a single canonical pattern:** Proceed with execution.
 
 ### Step 5: Prepare Branch and Status
 
@@ -401,5 +401,5 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 - Tasks not found: Check scope -- Medium may not have tasks.md (use inline mode)
 - Dependency blocked: List prerequisites
 - Quality gate failed: Fix before marking done
-- Scope misjudged: Safety valve catches >5 steps, redirect to tasks/design
+- Scope misjudged: Safety valve catches hidden decisions, redirect to tasks/design
 - Design-gap defect mid-implement: see Design-gap recovery in Step 7 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md and (optionally) `.artifacts/spec-driven-feedback.md`
