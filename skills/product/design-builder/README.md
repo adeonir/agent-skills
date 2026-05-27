@@ -7,7 +7,7 @@ Greenfield design pipeline for any digital product: extract content, author a `D
 ```mermaid
 flowchart TD
     A[URL / Images / Brief / Codebase / Design-tool file] -->|copy| B1[copy.yaml]
-    A -->|identity| B2[DESIGN.md]
+    A -->|design| B2[DESIGN.md]
     B2 -->|structure| C[.agents/design/structure.md]
     B1 --> D[Preview]
     B2 --> D
@@ -21,7 +21,7 @@ flowchart TD
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Copy** | Extract copy from URL, web capture, brief document | `.agents/design/copy.yaml` |
-| **Identity** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
+| **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `.agents/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
 | **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `.agents/design/structure.md` (parallel artifact; never touches DESIGN.md) |
 | **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `.agents/design/DESIGN.md` on tune commit |
 | **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `.agents/design/DESIGN.md` with slice-scoped updates |
@@ -56,7 +56,7 @@ extract from this codebase
 extract from https://brand.example.com
 refresh DESIGN.md from this design-tool file
 
-# Validate DESIGN.md (callable anytime, also runs as gate inside identity and reconcile)
+# Validate DESIGN.md (callable anytime, also runs as gate inside design and reconcile)
 validate DESIGN.md
 check this DESIGN.md
 audit the design system
@@ -131,7 +131,7 @@ A: No. design-builder adapts to any digital product — landing pages, websites,
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `identity.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
 
 **Q: What is `DESIGN.md`?**
 
@@ -151,4 +151,4 @@ A: No. Default preview is HTML via a local Bun server. A design-tool MCP is opti
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md and (when present) `copy.yaml`, and patches both surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke identity again if narrative needs refresh.
+A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md and (when present) `copy.yaml`, and patches both surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke design again if narrative needs refresh.

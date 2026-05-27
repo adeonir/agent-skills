@@ -1,4 +1,4 @@
-# Identity
+# Design
 
 Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from overview to agent prompts.
 
@@ -24,7 +24,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 ## Prerequisites
 
-None hard. Identity is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `.agents/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
+None hard. Design is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `.agents/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
 
 ## Output
 

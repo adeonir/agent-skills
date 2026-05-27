@@ -25,7 +25,7 @@ artifact, preview, refine.
 ## Workflow
 
 ```text
-copy --> identity --> structure --> preview
+copy --> design --> structure --> preview
             |            |             ^__|
             |            |           (tune loop)
             v            v
@@ -59,7 +59,7 @@ handoff artifact.
 
 - **Greenfield** — zero to `DESIGN.md` + `structure.md` + `copy.yaml`
   from raw inputs (URL, images, brief, codebase, design-tool file).
-  Default path; runs copy → identity → structure → preview.
+  Default path; runs copy → design → structure → preview.
 - **Redesign** — anchor an existing app, ingest a new external
   reference, map slices to DESIGN.md sections, generate variants.
   Lives in [redesign.md](instructions/redesign.md).
@@ -72,7 +72,7 @@ handoff artifact.
 | Operation | File |
 | --------- | ---- |
 | Extract copy from URLs, captures, briefs | [copy.md](instructions/copy.md) |
-| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [identity.md](instructions/identity.md) |
+| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
 | Define page composition, screen flow, or commerce surfaces | [structure.md](instructions/structure.md) |
 | Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
@@ -82,7 +82,7 @@ handoff artifact.
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `web-standards.md` auto-load
 inside `preview.md`. `validate.md` is both directly callable and
-auto-loaded as a gate by `identity.md` and `reconcile.md`, so DESIGN.md
+auto-loaded as a gate by `design.md` and `reconcile.md`, so DESIGN.md
 never lands invalid for downstream consumers (preview, structure,
 redesign).
 
@@ -106,7 +106,7 @@ redesign).
 
 Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
-bullets that cite the patched tokens. `identity.md` owns the DESIGN.md
+bullets that cite the patched tokens. `design.md` owns the DESIGN.md
 frontmatter and prose sections, `structure.md` owns its own artifact at
 `.agents/design/structure.md`, `copy.md` owns content payload in
 `copy.yaml`. `reconcile.md` patches DESIGN.md and copy.yaml from a

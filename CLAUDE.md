@@ -485,7 +485,7 @@ be explicit about their scope so Claude reads only what's needed.
 
 Multi-phase skills must not push references toward downstream phases.
 When a skill exposes several invokable references (e.g. `copy.md`,
-`identity.md`, `structure.md`, `preview.md`), each reference is a job
+`design.md`, `structure.md`, `preview.md`), each reference is a job
 the user invokes independently — not a stage in a mandatory pipeline.
 Skills that look like pipelines from the outside should feel like
 parallel jobs from the inside.
