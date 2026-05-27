@@ -142,20 +142,4 @@ Rules for implementation -- see aesthetics.md for color direction.
 - Specific button labels: "Save API Key" not "Continue".
 - Error messages include fix or next step, not just the problem description.
 
-## Anti-Patterns
-
-Flag and avoid these in generated code:
-
-| Pattern | Fix |
-|---------|-----|
-| `user-scalable=no` or `maximum-scale=1` | Remove -- never disable pinch zoom |
-| `onPaste` + `preventDefault` | Remove paste blocking |
-| `transition: all` | List properties explicitly |
-| `outline-none` without `focus-visible` replacement | Add visible focus state |
-| `<div onClick>` / `<span onClick>` for actions | Use `<button>` or `<a>` |
-| Images without `width`/`height` | Add dimensions to prevent CLS |
-| Large arrays with `.map()` and no virtualization | Virtualize lists over 50 items |
-| Form inputs without labels | Add `<label>` or `aria-label` |
-| Icon buttons without `aria-label` | Add descriptive label |
-| Hardcoded date/number formats | Use `Intl.*` formatters |
-| `autoFocus` without justification | Remove or limit to desktop primary input |
+For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).

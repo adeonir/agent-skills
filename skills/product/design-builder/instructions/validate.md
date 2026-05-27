@@ -137,7 +137,22 @@ DESIGN.md must render any copy. Flag prose that bakes product-specific content i
 | When `.agents/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
 
-### Step 10: Token Summary — `token-summary`
+### Step 10: Anti-Pattern Audit
+
+Load [anti-patterns.md](../references/anti-patterns.md). For each rule
+whose `Category` is `Drift`, apply the `Check` against the parsed
+DESIGN.md model (frontmatter tokens + body prose). Emit a finding per
+match using the rule's `id` and `severity`.
+
+| Check | Severity |
+|-------|----------|
+| Drift rule matches (e.g., `font-family-not-in-tokens`, `copy-string-in-design-md`, `arbitrary-tailwind-value-repeated` traces in DESIGN.md prose) | per rule severity |
+
+Other categories (Typography, Color, Layout, Component States, etc.)
+target HTML preview output, not DESIGN.md, and are not applied here —
+they belong to the preview commit-back review handled by `preview.md`.
+
+### Step 11: Token Summary — `token-summary`
 
 Emit an info finding with counts per group:
 
@@ -145,7 +160,7 @@ Emit an info finding with counts per group:
 Tokens: N colors, N typography, N rounded, N spacing, N components, N elevation, N duration, N easing, N breakpoints
 ```
 
-### Step 11: Report Findings
+### Step 12: Report Findings
 
 Group findings by severity. Format:
 
@@ -171,7 +186,7 @@ If errors > 0: do not declare validation passed. Ask the user whether to fix or 
 
 If errors = 0: report passed. Warnings and info remain visible but do not block.
 
-### Step 12: When Called as a Gate
+### Step 13: When Called as a Gate
 
 When this ref is auto-loaded by `identity.md` as the Step 5 gate, the caller must:
 

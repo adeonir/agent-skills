@@ -18,6 +18,8 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 - `.agents/design/copy.yaml` (optional) — structured content
 - [aesthetics.md](../references/aesthetics.md) (required) — design principles
 - [web-standards.md](../references/web-standards.md) (required) — implementation rules
+- [presets.md](../references/presets.md) (required when user invokes a named tone) — pre-blended direction recipes
+- [anti-patterns.md](../references/anti-patterns.md) (required) — failure modes to avoid during generation and review
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -101,7 +103,7 @@ User asks for N variants (default 4). Agent generates one HTML per variant from 
 
 ### Workflow
 
-1. **Confirm count and direction.** If the user did not specify N, default to 4. If they did not give direction, use the project-type preset list above. If they gave direction ("Cyberpunk + Bento Grid"), compose across Style Axes from [aesthetics.md](../references/aesthetics.md).
+1. **Confirm count and direction.** If the user did not specify N, default to 4. If they did not give direction, use the project-type preset list above. If they invoked a named tone ("Editorial", "Brutalist", "Cyberpunk", "Luxury", ...), load the matching recipe from [presets.md](../references/presets.md) and apply its token overrides + prompt addendum + layout hints. If they gave a free-form direction ("Cyberpunk + Bento Grid"), compose across Style Axes from [aesthetics.md](../references/aesthetics.md).
 
 2. **Start the preview server** (if not running):
 
