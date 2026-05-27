@@ -28,6 +28,14 @@ flowchart TD
 | **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `docs/design/DESIGN.md` + `docs/design/copy.yaml` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
+## Three Modes
+
+| Mode | Entry condition | Routes through |
+| ---- | --------------- | -------------- |
+| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `copy → design → structure → preview` |
+| **Redesign** | Existing app + new external reference — map slices to DESIGN.md sections, generate variants | `redesign.md` |
+| **Reconcile** | Brownfield drift — sync DESIGN.md + copy.yaml back from implementation | `reconcile.md` |
+
 ## Project Types
 
 design-builder adapts behavior to project type:
@@ -77,11 +85,13 @@ define the screen flow for this app             # screen-based
 check this wireframe                            # validate existing
 
 # Preview
-generate variants                       # N variants from DESIGN.md + structure (default 4)
-generate 6 variants of Cyberpunk vibe   # N + directed prompt
+generate variants                            # N variants from DESIGN.md + structure (default 4)
+generate 4 variants in editorial preset      # apply named tone from presets.md
+generate 6 variants of bento + duotone       # compose across Style Axes (aesthetics.md)
 
 # Refinement on chosen variant
-tune the design         # sliders for spacing, saturation, contrast, radius
+tune the design         # single-token: spacing, saturation, typography contrast, radius
+                        # preset: font character, motion intensity, density, decoration
 # Alt+click any element in preview to comment
 
 # Tune commits back to DESIGN.md as surgical patches after user approval
@@ -117,6 +127,15 @@ docs/design/
 ```
 
 External design-tool files (when used as input source) live at the user's path and are user-owned. Skill never creates them.
+
+## References
+
+Bundled lookups auto-loaded by the relevant instruction phase:
+
+- `references/aesthetics.md` — Four Questions, Style Axes, UX Heuristics, Visual Design Laws + Principles, Complexity Calibration, Creative Mandate
+- `references/web-standards.md` — implementation rules for HTML and React (accessibility, focus, forms, motion, performance)
+- `references/presets.md` — pre-blended named tones with token recipes, prompt addendum, layout hints, signature move
+- `references/anti-patterns.md` — deterministic failure-mode rules across typography, color, layout, decoration, component states, motion, accessibility, performance, hydration, and drift, each with HTML fail/pass examples
 
 ## Requirements
 
