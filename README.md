@@ -30,7 +30,7 @@ npx skills add adeonir/agent-skills
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
-| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR, TDD. Guided discovery per type |
+| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 
 ## How They Connect
@@ -40,18 +40,19 @@ flowchart TD
     BR[brainstorming] -->|direction| DW_PRD[docs-writer PRD]
     BR -->|direction| DB[design-builder]
     BR -.->|direction| SD[spec-driven]
-    DW_PRD -->|PRD| DW_TDD[docs-writer TDD]
+    DW_PRD -->|PRD| DW_DD[docs-writer Design Doc]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
-    DW_TDD -->|TDD| SD
-    DW_TDD -->|TDD| ET
-    DW_TDD -->|TDD| DB
+    DW_DD -->|Design Doc| SD
+    DW_DD -->|Design Doc| ET
+    DW_DD -->|Design Doc| DB
+    DW_DD -.->|extract decision| DW_ADR[docs-writer ADR]
     ET -->|handoff| SD
     PI[project-index] -->|codebase docs| SD
     DB -->|approved design| SD
     SD -->|commits & PRs| GH[git-helpers]
     SD -->|discoveries| PI
-    SD -.->|coherence gap| DW_TDD
+    SD -.->|coherence gap| DW_DD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
@@ -88,7 +89,7 @@ business logic:
 ```
 brainstorming    --> direction and constraints
 docs-writer      --> PRD (what to build, for whom, why)
-docs-writer      --> TDD (technical doc)
+docs-writer      --> Design Doc (technical doc)
 design-builder   --> visual design, tokens, layout
 epic-tracker     --> epics, stories, acceptance criteria
 spec-driven      --> per-story spec, design, tasks, implementation
@@ -97,7 +98,7 @@ wrap-up          --> persist session context
 ```
 
 `project-index` runs once at project start and re-indexes on demand.
-`design-builder` can run in parallel with the TDD step.
+`design-builder` can run in parallel with the Design Doc step.
 
 ### When to skip steps
 
@@ -116,7 +117,7 @@ Jump in at any step — each skill reads existing artifacts and adapts:
 - Adding a feature to an existing product → start at `epic-tracker` or `spec-driven`
 - Undocumented codebase → run `project-index` first, then `spec-driven`
 - Design before requirements → run `design-builder`, then back-fill with `docs-writer`
-- Architecture question mid-feature → run `docs-writer` scoped to the component, feed result to `spec-driven`
+- Architecture question mid-feature → update the project Design Doc via `docs-writer`, feed result to `spec-driven`
 
 ### Feedback loop
 
@@ -140,7 +141,7 @@ Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
 ```
 docs/
 ├── product/        # docs-writer: brainstorm, PRD, brief
-├── tech/           # docs-writer: design-doc, TDD
+├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-builder: DESIGN.md, structure.md, copy.yaml
 

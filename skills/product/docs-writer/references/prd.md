@@ -12,7 +12,7 @@ specifications.
 
 Product requirements only. Never carries implementation content — no
 architecture, tech stack, UI components, API endpoints, or code-level
-decisions. Those belong to Design Doc, TDD, or visual design artifacts.
+decisions. Those belong to Design Doc, ADR, or visual design artifacts.
 
 ## Workflow
 

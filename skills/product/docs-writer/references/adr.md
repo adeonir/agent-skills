@@ -45,9 +45,8 @@ into their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
-| `docs/tech/design-doc.md` | `## 4. Alternatives Considered` rows |
+| `docs/tech/design-doc.md` | `## 4. Alternatives Considered` rows (rows with `Record = —` are candidates for promotion) |
 | `docs/product/prd.md` | Constraints, NFR rationale, research notes |
-| `docs/tech/tdd.md` | Stack choices, integration patterns |
 
 If found, list candidate decisions and ask the user which one this
 ADR records. Multiple decisions in a single source means multiple
@@ -160,14 +159,15 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ## Alternatives Considered
 
-| Option | Reason Rejected |
-|--------|-----------------|
-| {{Alternative A}} | {{Why this was not chosen}} |
-| {{Alternative B}} | {{Why this was not chosen}} |
+| Option | Reason Rejected | Record |
+|--------|-----------------|--------|
+| {{Alternative A}} | {{Why this was not chosen}} | {{— or ADR-NNNN}} |
+| {{Alternative B}} | {{Why this was not chosen}} | {{— or ADR-NNNN}} |
 
 ## References
 
-- {{Link to Design Doc or PRD that contains broader context}}
+- {{Link to Design Doc section anchor, e.g. `docs/tech/design-doc.md#4-alternatives-considered`}}
+- {{Link to PRD that contains broader context}}
 - {{External RFCs, vendor docs, prior art}}
 ````
 
@@ -181,8 +181,8 @@ W". One decision per ADR. Be specific and unambiguous.}}
 | Context | Forces making the decision necessary | Topic: opening + deepen |
 | Decision | The change, stated as positive imperative | Topic: deepen |
 | Consequences | Positive, negative, neutral outcomes | Topic: deepen |
-| Alternatives Considered | Rejected options with reasoning | Topic: deepen |
-| References | Related Design Doc, PRD, prior ADRs, external links | All phases |
+| Alternatives Considered | Rejected options with reasoning and Record column linking to other ADRs when relevant | Topic: deepen |
+| References | Anchor link back to Design Doc Alternatives row when extracted from one, plus PRD, prior ADRs, external links | All phases |
 
 ## Guidelines
 
@@ -195,8 +195,12 @@ W". One decision per ADR. Be specific and unambiguous.}}
 - ADRs are immutable once accepted — supersede with a new ADR, never
   edit history
 - Number ADRs sequentially with zero-padding — filename `001-slug.md`, heading `ADR-001`
-- Link from Design Doc References section when an ADR records a
-  decision discussed in that Design Doc
+- When extracted from a Design Doc Alternatives row, the ADR's
+  References section links back to the design doc section anchor;
+  the Design Doc row's `Record` column is updated to this ADR's ID
+- Alternatives Considered Record column defaults to `—`; populate
+  with `ADR-NNNN` only when the alternative itself has been
+  recorded as a separate ADR
 
 ## Status Lifecycle
 

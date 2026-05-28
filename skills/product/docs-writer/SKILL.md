@@ -2,20 +2,20 @@
 name: docs-writer
 description: >-
   Generates structured product and technical documents through guided
-  discovery. 5 document types: PRD, Brief (1-page summary generated
-  alongside PRD), Design Doc (multi-decision trade-off discussion), ADR
-  (single architecture decision record, append-only log), TDD
-  (prescriptive technical plan, sized core/medium/large). Use when
-  defining product requirements, drafting product specs, designing
-  systems, recording architecture decisions, or writing technical
-  design documents. Not for feature spec tied to implementation or
-  meeting/session notes.
+  discovery. 4 document types: PRD, Brief (1-page summary generated
+  alongside PRD), Design Doc (single project-wide living technical
+  document covering strategy through prescriptive plan), ADR (single
+  architecture decision record, append-only log). Use when defining
+  product requirements, drafting product specs, designing systems,
+  recording architecture decisions, or maintaining the project's
+  living technical doc. Not for feature spec tied to implementation
+  or meeting/session notes.
 ---
 
 # Docs Writer
 
 Generates structured product and technical documents through guided
-discovery. 5 document types, each with its own workflow depth.
+discovery. 4 document types, each with its own workflow depth.
 
 ## Quick start
 
@@ -28,13 +28,12 @@ Detect document type from the trigger. If ambiguous, ask the user.
 | Type | Reference |
 |------|-----------|
 | PRD — product requirements | [prd.md](references/prd.md) |
-| Design Doc — multi-decision trade-off discussion | [design.md](references/design.md) |
+| Design Doc — single project-wide living technical document | [design.md](references/design.md) |
 | ADR — single accepted decision record | [adr.md](references/adr.md) |
-| TDD — prescriptive technical plan | [tdd.md](references/tdd.md) |
 
 Auto-loaded (no direct triggers):
 
-- `discovery.md` — by PRD, Design Doc, ADR, TDD at start of discovery
+- `discovery.md` — by PRD, Design Doc, ADR at start of discovery
 - `quality.md` — before presenting any draft
 - `brief.md` — by `prd.md` during drafting (Brief is generated alongside
   the PRD, never independently)
@@ -45,14 +44,19 @@ Auto-loaded (no direct triggers):
   No implementation, architecture, tech stack, UI, or API.
 - **Brief** — 1-page narrative summary of the PRD. Generated alongside,
   no standalone trigger.
-- **Design Doc** — informal multi-decision trade-off discussion. With PRD:
-  technical strategy. Without PRD: covers both product and technical.
+- **Design Doc** — single project-wide living technical document.
+  Covers strategy, trade-offs, and prescriptive plan (domain,
+  conventions, architecture, security, observability, testing,
+  deployment). Lifecycle tracked via frontmatter `status`: draft →
+  accepted → in-progress → shipped → superseded. Context section
+  recaps the project in 1-2 paragraphs and links to the PRD; never
+  duplicates product prose.
 - **ADR** — single architecture decision (1-2 pages). Numbered, immutable
   once accepted; superseded by new ADRs, never edited. Use when lifting
-  decisions from a PRD/Design Doc or recording retrospectively.
-- **TDD** — prescriptive technical plan for a component. Auto-sized
-  (core/medium/large); sizing controls depth, never skips sections.
-  A project can have both a Design Doc and TDDs.
+  decisions from a PRD/Design Doc or recording retrospectively. When
+  extracted from a Design Doc Alternatives row, the design doc row's
+  `Record` column is updated to the ADR ID and the ADR's References
+  link back to the design doc section anchor.
 
 ## Guidelines
 
@@ -61,8 +65,9 @@ Auto-loaded (no direct triggers):
 - Present draft for user feedback before saving
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Keep each document within its domain (PRD = product, Design Doc / ADR / TDD = technical)
+- Keep each document within its domain (PRD = product, Design Doc / ADR = technical)
 - One decision per ADR — never bundle multiple decisions into a single record
+- One Design Doc per project — major rewrites spawn `design-doc-v2.md` and supersede the old via frontmatter
 
 ## Anti-Pattern: Yes-Man Discovery
 
@@ -76,13 +81,15 @@ on.
 ## Anti-Pattern: ADR as Design Doc
 
 ADR records *one* decision after it's been made — context, decision,
-consequences, alternatives. Design Doc *explores* multiple decisions
-and trade-offs before they're settled. Writing a long ADR that weighs
-several open options is a Design Doc in disguise; writing a Design Doc
-that captures a single accepted choice is an ADR padded with prose. If
-the decision is still in motion, write a Design Doc. Once accepted,
-extract each decision into its own ADR and link back from the Design
-Doc's References section.
+consequences, alternatives. Design Doc carries the living narrative
+of trade-offs across the project. Writing a long ADR that weighs
+several open options is a Design Doc in disguise; writing a Design
+Doc that captures a single accepted choice is an ADR padded with
+prose. If the decision is still in motion, leave it in the Design
+Doc's Alternatives Considered table with `Record = —`. Once
+accepted, extract it into an ADR, update the design doc row's
+`Record` column to `ADR-NNNN`, and link the ADR's References back
+to the design doc section anchor.
 
 ## Anti-Pattern: Vague Requirements
 
@@ -91,3 +98,25 @@ requirements — they're aspirations. Requirements must be measurable:
 "Search returns results within 200ms", "new users complete onboarding
 in under 2 minutes", "task completion rate above 90% without help text".
 If a requirement can't be measured, it can't be verified.
+
+## Anti-Pattern: Product Prose in Technical Sections
+
+A Design Doc's Context section recaps the project in 1-2 paragraphs
+and links to the PRD. It does not restate Problem Statement, list
+Personas, or walk through Journeys. Goals translate product NFRs
+into technical targets (latency, throughput, isolation); they do
+not echo product KPIs (DAU, conversion, NPS). If a reviewer cannot
+tell whether they are reading the PRD or the Design Doc, the
+Context is too long or the Goals are not technical. Cut and link.
+
+## Anti-Pattern: Technical Detail in PRD
+
+A PRD describes the product: problem, users, scope, journeys,
+business rules, success metrics. It does not specify architecture,
+tech stack, APIs, UI components, or any "how it is built" detail.
+Discussions of microservices vs monolith, SQL vs NoSQL, REST vs
+GraphQL, framework choice, or deployment topology belong in the
+Design Doc. If a PRD section reads like it could be implemented in
+two ways and the reviewer is asked to choose, that section is a
+technical decision in disguise — extract it to the Design Doc or
+ADR and leave a link in its place.

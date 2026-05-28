@@ -45,7 +45,7 @@ These belong in design.md, created during the `design` phase.
 ## Arguments
 
 - `[description]` - Feature description
-- `[@file.md]` - Path to PRD/TDD file
+- `[@file.md]` - Path to PRD/Design Doc file
 - Greenfield: "create new feature for..."
 - Brownfield: "modify feature...", "improve..."
 
@@ -125,8 +125,8 @@ product-level or system-level requirements; the spec defines feature-level,
 implementation-ready requirements. Every item must be narrowed to feature
 scope and refined with implementation detail.
 
-| Source (PRD/TDD) | spec.md |
-|-------------------|---------|
+| Source (PRD/Design Doc) | spec.md |
+|-------------------------|---------|
 | Product-wide user stories | Feature-scoped stories prioritized by implementation order (P1/P2/P3) |
 | Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
 | High-level acceptance criteria | Testable ACs in Given/When/Then format (1:1, no compound) |

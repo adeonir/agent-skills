@@ -143,7 +143,6 @@ issues) is the source of truth for hierarchy once a tracker is wired. -->
 
 - **Brief:** {{link or "None"}}
 - **PRD:** {{link or "None"}}
-- **TDD:** {{link or "None"}}
 - **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}
 ````

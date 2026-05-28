@@ -149,7 +149,7 @@ type: story
 ## References
 
 - **Epic:** {{link to parent epic}}
-- **TDD:** {{link or "None"}}
+- **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}
 ````
 

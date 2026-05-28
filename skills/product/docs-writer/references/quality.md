@@ -40,4 +40,53 @@ When the document is an ADR, additionally verify:
 - [ ] When superseding, frontmatter `supersedes` and prior ADR's
       `superseded-by` are both populated
 
+## Document Boundaries
+
+Applies to PRD and Design Doc. Each document stays in its lane;
+cross-doc content links rather than duplicates.
+
+**When the document is a PRD, verify:**
+
+- [ ] No architecture, tech stack, framework choices, or deployment
+      topology — those belong to the Design Doc
+- [ ] No API contracts, endpoint paths, request/response shapes, or
+      database schema details
+- [ ] No UI component names, library references, or styling
+      directives — those belong to the design artifact
+- [ ] Journeys describe actor goals and product behavior, not
+      implementation steps ("user submits the form" not "POST
+      /orders with payload X")
+- [ ] NFRs state measurable targets without prescribing the
+      mechanism ("p95 latency under 200ms" not "use Redis caching")
+
+**When the document is a Design Doc, verify:**
+
+- [ ] Sections 1-2 carry no copy-paste from PRD — Context recaps in
+      1-2 paragraphs and links to PRD; does not duplicate Problem
+      Statement, Personas, or Journeys
+- [ ] Section 2 Goals are technical (p99 latency, throughput, SLAs,
+      zero-downtime, isolation guarantees) — not product (DAU,
+      conversion, NPS, retention)
+- [ ] Business rules referenced from PRD via link, not restated
+- [ ] No product framing prose ("users will love...", "this drives
+      engagement...") in any section
+
+## Design Doc-Specific Gates
+
+When the document is a Design Doc, additionally verify the
+structural integrity of section 3:
+
+- [ ] Section 3 sub-sections marked "N/A" or omitted when not
+      applicable; no empty placeholders left behind
+- [ ] Alternatives Considered Record column populated where an ADR
+      has been written; rows with `ADR-NNNN` are frozen (reversals
+      require a superseding ADR, not a row edit)
+- [ ] Each Domain entity in 3.4 has a corresponding storage decision
+- [ ] Critical-section promotions enforced:
+      - PII or auth involved: 3.5 Security & Compliance is mandatory
+      - Production service: 3.6 Observability and 3.8 Deployment
+        are mandatory
+      - Migration work: 3.8 Deployment populated; Open Questions
+        captures rollback unknowns
+
 If issues found: fix inline before presenting.

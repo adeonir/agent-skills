@@ -14,8 +14,8 @@ description: >-
   goals", "manual testing", "discuss this feature", "show feature
   status", "quick fix", "quick task", "small change", and known
   one-line fixes where the user names file and line. Not for
-  diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/TDD
-  documents, PR/commit mechanics, or PM backlog tracking.
+  diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design
+  Doc documents, PR/commit mechanics, or PM backlog tracking.
 ---
 
 # Spec-Driven Development

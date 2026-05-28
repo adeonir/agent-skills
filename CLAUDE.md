@@ -597,8 +597,7 @@ docs/
 │   ├── prd.md              # docs-writer: product requirements
 │   └── brief.md            # docs-writer: 1-page PRD summary
 ├── tech/
-│   ├── design-doc.md       # docs-writer: trade-off discussion
-│   └── tdd.md              # docs-writer: technical design document
+│   └── design-doc.md       # docs-writer: project-wide living technical doc
 ├── adr/
 │   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
 └── design/
@@ -646,10 +645,10 @@ fan-out explicitly in their prompt; the skill itself executes inline.
 
 ## Terminology Disambiguation
 
-`TDD` has two meanings depending on the skill:
-- **`docs-writer`** — Technical Design Document (artifact type)
-- **`spec-driven`** — implements red-green-refactor tests, but does not
-  follow strict Test-Driven Development discipline
+`TDD` in this repo always means Test-Driven Development (red-green-refactor
+discipline), referenced by `spec-driven` during implementation. The
+docs-writer skill no longer ships a "Technical Design Document" artifact
+type — that role is now covered by the project-wide Design Doc.
 
 ## Security Audit
 
