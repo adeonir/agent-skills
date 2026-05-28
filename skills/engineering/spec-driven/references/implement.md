@@ -42,7 +42,10 @@ If a story ID argument was given (`[S-1]`):
 
 ### Step 2: Load Context
 
-Read `spec.md` (acceptance criteria).
+Read `spec.md` in full -- acceptance criteria, plus `## Decisions` and
+`## Session Context` for choices, content, and constraints settled during specify
+that the spec body alone does not carry. Follow any `sources:` pointer to
+its durable source before coding.
 If `.agents/knowledge.md` exists, read it for project-level decisions and gotchas.
 
 Check which artifacts exist and adapt:

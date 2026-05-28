@@ -36,7 +36,9 @@ each step as it completes (TaskUpdate).
 
 ### Step 2: Load Spec
 
-Read `.artifacts/features/{ID}-{name}/spec.md`.
+Read `.artifacts/features/{ID}-{name}/spec.md`, including `## Decisions` and
+`## Session Context`. Follow any `sources:` pointer to its durable source
+before designing.
 
 If spec has critical open questions that block architecture decisions:
 - List items

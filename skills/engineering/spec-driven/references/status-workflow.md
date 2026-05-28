@@ -51,18 +51,14 @@ draft --[implement]--> in-progress --[implement done]--> to-review --[audit]--> 
 3. **Update at the END of the phase** - after completing all steps of that reference
 4. **Never skip status** - follow the flow (exceptions: Medium scope can go draft -> in-progress)
 
-## Frontmatter Format
+## Status Field
+
+The full spec.md frontmatter is canonical in [specify.md](specify.md) --
+do not re-spell it here. This reference owns one field, `status`, whose
+only valid values are:
 
 ```yaml
----
-id: "001"
-feature: "auth"
-type: "greenfield"
-scope: "large"
-status: ready  # <-- ONLY: draft, ready, in-progress, to-review, done
-branch: "main"
-created: "2024-01-15"
----
+status: ready  # draft | ready | in-progress | to-review | done
 ```
 
 ## Common Mistakes to AVOID

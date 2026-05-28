@@ -70,7 +70,9 @@ Before anything else, determine complexity to auto-size the pipeline:
 
 If **Small**: redirect to [quick-mode.md](quick-mode.md) and stop here.
 
-Record the assessed scope in spec.md frontmatter as `scope: small|medium|large|complex`.
+Record the assessed scope in spec.md frontmatter as `scope: medium|large|complex`.
+Small never reaches this file -- it redirects to quick-mode above, so `small`
+is not a valid spec.md scope value.
 
 ### Step 2: Check Project Context
 
@@ -149,6 +151,18 @@ scope and refined with implementation detail.
 
 **If input is empty:**
 - Ask user for feature description
+
+**Record sources:**
+
+`sources:` is the spec's list of durable external references it points to
+instead of duplicating their content -- input file paths (`@file.md`, a PRD
+or Design Doc path), tracker ticket IDs or URLs, design-artifact paths. One
+entry per source. A clean session follows these to recover context the spec
+deliberately did not copy, so they are the pointer half of the handoff
+(`## Session Context` holds what has no durable source). Record every input
+that defined this spec here as you process it; leave `[]` only when nothing
+durable defines the work -- the content lived only in conversation and must
+go to `## Session Context` instead.
 
 **Detect defect origin:**
 
@@ -348,15 +362,47 @@ Never duplicate items that also appear in Goals or Success Criteria.
 
 **Notes:** Same behavior vs symbol filter as the rest of the spec -- no libraries, no
 paths, no component or hook names. Omit the section entirely if there is nothing
-behavioral to capture beyond what other sections already cover.
+behavioral to capture beyond what other sections already cover. Boundary vs Session
+Context: Notes holds surrounding evidence (stakeholders, deadlines, prior art);
+Session Context holds prompt-only material that *defines* the work (content/copy,
+constraints, clarifications). If losing it would change what gets built, it is Session
+Context, not Notes.
 
-### Step 14: Approval Gate
+**Decisions and Session Context:** Both sections are always present -- the durable home for
+context settled during specify that would otherwise live only in chat. `## Decisions`
+captures choices made among alternatives at the specify grain (scope, requirements,
+product behavior); `## Session Context` captures content, constraints, and clarifications.
+Boundary: when design.md runs (Large/Complex), technical and architecture decisions
+go in its `## Decisions` instead -- spec.md stays at the specify grain, design.md owns
+the implementation grain, no duplication. When discuss.md runs (Complex gray areas),
+its resolutions stay there; record only their downstream effect on scope or
+requirements here. At Medium, design.md is skipped, so spec.md is the only home --
+capture everything implement needs here. Fill from this
+conversation, or write "None" when a `sources:` pointer covers it. Never delete either
+section -- an explicit "None" asserts nothing was lost; a missing section is an
+omission.
+
+### Step 14: Handoff Completeness Gate
+
+Before presenting the spec as ready, confirm self-sufficiency:
+
+> Could a clean session implement this from `spec.md` plus its `sources:`
+> alone? If anything that bears on implementation was settled only in this
+> conversation -- a decision, content/copy, a constraint, a clarification --
+> capture it in `## Decisions` or `## Session Context` now. If it lives in a durable
+> source the project already tracks, record a `sources:` pointer instead of
+> duplicating.
+
+The artifact is the only thing the next session sees. If it is only in
+chat, it does not exist.
+
+### Step 15: Approval Gate
 
 Present a summary:
 
 ```
 Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
-Type: {greenfield|brownfield} | Scope: {small|medium|large|complex}
+Type: {greenfield|brownfield} | Scope: {medium|large|complex}
 Open questions: {count or "none"} | Gray areas: {yes/no}
 
 Approve to proceed, or describe changes.
@@ -506,6 +552,27 @@ Criteria.
 ## Open Questions
 
 - {{Any unresolved questions, or "None" if all resolved}}
+
+## Decisions
+
+{{Choices settled during this conversation that a clean session could not
+reconstruct from the spec or its `sources:`. Omit self-evident rows;
+write "None" when every choice is obvious or covered by a `sources:`
+pointer. At Large/Complex this is usually "None" -- technical and
+architecture choices belong in design.md.}}
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| {{what was decided}} | {{what was chosen}} | {{why this over alternatives}} |
+
+## Session Context
+
+{{Material that defines the work but lives only in this conversation, not
+in a `sources:` pointer — content/copy to implement, user-stated
+constraints, clarifications that resolved ambiguity. Write "None" when a
+`sources:` entry covers it.}}
+
+- {{captured item, or "None"}}
 
 ## Notes
 

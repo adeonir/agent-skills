@@ -76,8 +76,21 @@ Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
 - Description of what needs to change
 - Files to modify (if known)
 - Expected outcome
+- `sources:` in frontmatter: durable external references the task points to
+  instead of duplicating -- input file paths, tracker ticket IDs or URLs.
+  One entry per source; leave `[]` when nothing durable defines the change
+- Context: anything settled only in this conversation that implement needs
+  -- decisions, content/copy, constraints, clarifications -- or "None" when
+  a `sources:` pointer covers it (see Handoff Completeness below)
 - Quality Gates filled with commands detected in Step 3
 - Branch chosen in Step 2 in frontmatter (creation deferred to Step 7)
+
+**Handoff Completeness:** the task file is the only thing a clean session
+sees. Before moving on, confirm: could a fresh session implement this from
+`task.md` plus its `sources:` alone? If anything that bears on the change
+was settled only in chat, capture it in `## Session Context` now. If it lives in a
+durable source the project already tracks, record a `sources:` pointer
+instead of duplicating. If it is only in chat, it does not exist.
 
 ### Step 5: Load Patterns
 
@@ -195,9 +208,13 @@ git switch -c {branch} 2>/dev/null || git switch {branch}
 
 Skip when frontmatter says `main`/`master`, when empty, or when current branch already matches. Step 2 records intent -- this is where the branch actually moves.
 
-1. Read relevant files
-2. Make the change -- match the patterns loaded in Step 5
-3. If Step 6 ran: the change must address the diagnosed root cause,
+1. Read task.md in full -- including `## Session Context` for decisions,
+   content, and constraints settled earlier -- and follow any `sources:`
+   pointer to its durable source before editing. On a clean-session resume
+   this is the only context the change has
+2. Read relevant files
+3. Make the change -- match the patterns loaded in Step 5
+4. If Step 6 ran: the change must address the diagnosed root cause,
    not the symptom. A defensive `try/catch`, default fallback, or
    silent recovery is acceptable only when labeled as a workaround per
    the rules in Step 6 (root-fix out of scope, comment naming the
@@ -332,6 +349,16 @@ follow_up: {{list or empty}}
 ## Expected Outcome
 
 {{What should be different after the change}}
+
+## Session Context
+
+{{Anything settled in this conversation that a clean session would need and
+that no `sources:` pointer covers -- decisions made, content/copy to
+implement, constraints, clarifications. Always present: write "None" when a
+`sources:` entry covers it. A missing section is an omission; an explicit
+"None" asserts nothing was lost.}}
+
+- {{captured item, or "None"}}
 
 ## Quality Gates
 
