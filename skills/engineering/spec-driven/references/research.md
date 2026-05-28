@@ -45,7 +45,7 @@ Research files must include YAML frontmatter with metadata:
 ```yaml
 ---
 topic: totp-authentication
-researched_at: 2024-01-15
+researched_at: {{YYYY-MM-DD}}
 version: "1.0.0"
 sources_hash: "abc123def456"
 ttl_days: 90

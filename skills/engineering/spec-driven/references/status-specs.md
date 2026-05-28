@@ -38,22 +38,22 @@ status of auth feature
 ### In Progress
 | ID | Feature | Scope | Branch | Created |
 |----|---------|-------|--------|---------|
-| 003 | auth | large | feat/auth | 2024-01-15 |
+| 003 | auth | large | feat/auth | YYYY-MM-DD |
 
 ### Ready
 | ID | Feature | Scope | Branch | Created |
 |----|---------|-------|--------|---------|
-| 002 | payments | complex | feat/payments | 2024-01-10 |
+| 002 | payments | complex | feat/payments | YYYY-MM-DD |
 
 ### To Review
 | ID | Feature | Scope | Branch | Created |
 |----|---------|-------|--------|---------|
-| 004 | checkout | medium | feat/checkout | 2024-01-20 |
+| 004 | checkout | medium | feat/checkout | YYYY-MM-DD |
 
 ### Done
 | ID | Feature | Scope | Branch | Created |
 |----|---------|-------|--------|---------|
-| 001 | onboarding | medium | - | 2024-01-01 |
+| 001 | onboarding | medium | - | YYYY-MM-DD |
 
 Total: 4 features
 ```
@@ -88,7 +88,7 @@ Also check `.artifacts/quick/` for quick mode tasks:
 | Type | greenfield |
 | Scope | large |
 | Branch | feat/auth |
-| Created | 2024-01-15 |
+| Created | YYYY-MM-DD |
 
 ### Artifacts
 | File | Status |
