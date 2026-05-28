@@ -71,8 +71,10 @@ finish branch
 ## FAQ
 
 **Q: Do I need to stage files before committing?**
-A: No. By default, the skill stages all modified/new files. Use "commit
-only staged files" if you prefer to stage manually.
+A: No. By default, the skill stages modified and untracked files by
+name. If you already staged something before asking, the skill gives
+a heads-up so nothing lands silently. Use "commit only staged files"
+if you prefer to stage manually and skip the auto-stage step.
 
 **Q: What base branch is used for comparisons?**
 A: Defaults to `main`. Override by specifying explicitly: "review
