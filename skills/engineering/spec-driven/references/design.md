@@ -460,7 +460,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: draft
 sources: []
-id: {{ID}}
+id: {{NNN}}
 feature: {{name}}
 ---
 

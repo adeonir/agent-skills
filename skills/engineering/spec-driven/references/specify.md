@@ -411,12 +411,11 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{ID}}
+id: {{NNN}}
 name: {{name}}
 scope: {{medium|large|complex}}
 status: draft
 type: {{greenfield|brownfield}}
-feature: {{name}}
 origin: {{feature|defect}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}

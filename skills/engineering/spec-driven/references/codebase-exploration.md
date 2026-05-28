@@ -125,7 +125,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
 sources: []
-id: {{ID}}
+id: {{NNN}}
 feature: {{name}}
 ---
 
