@@ -112,6 +112,11 @@ user updates the cache mid-session.
 
 ## Push Direction (draft or markdown → tracker)
 
+The artifact body — including `## References` and `## Signals` — travels
+into the tracker description, so durable pointers survive the push.
+Frontmatter `sources:` is a markdown-only index mirroring those links; it
+is not pushed separately. Body is the source of truth, frontmatter mirrors.
+
 1. Read artifact content: use the draft data directly when invoked
    immediately after create (no markdown file exists); read from the saved
    markdown file when invoked standalone (e.g., "sync to tracker").
@@ -231,7 +236,7 @@ adapter's responsibility; each tracker has its own status enum.
 - `tracker.id` missing on pull: route to push first or ask user to manually attach an existing tracker entity
 - Bootstrap detects multiple MCPs but user picks "none": persist `kind: none`; skill behaves as markdown-only
 
-## Next Steps
+## Outcomes
 
 - After successful push: artifact lives in the tracker; further status updates flow through the tracker (or via `status.md` which dispatches here)
 - After successful pull: frontmatter and body reflect the tracker; user can keep editing the markdown until the next push

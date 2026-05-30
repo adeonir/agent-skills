@@ -148,7 +148,7 @@ Edits that do not change AC text also skip validation (see
 - Tracker body returns malformed markdown (Linear collapsed list items): widen the parser regex tolerance; if still unparseable, route to manual fix in the tracker UI.
 - V6 false positive (e.g., "the user feels confident" where intent is observable): user accepts the warning; nothing blocks.
 
-## Next Steps
+## Outcomes
 
 - On pass: caller proceeds (Save/Push in create flow, or persist edit in edit flow).
 - On strict fail: caller loops back to review with the structured error visible to the user.

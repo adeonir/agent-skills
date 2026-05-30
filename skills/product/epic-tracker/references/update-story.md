@@ -107,7 +107,7 @@ this ref handles body only.
 - Concurrent tracker change since last sync: surface conflict via
   `sync.md` conflict detection before applying the edit.
 
-## Next Steps
+## Outcomes
 
 - On successful save: artifact reflects the edit; further status updates
   route through `status.md`.

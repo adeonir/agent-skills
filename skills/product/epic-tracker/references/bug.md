@@ -83,9 +83,9 @@ Fill the template (below):
 
 Apply the resumption gate before proceeding:
 
-> **Resumption gate** — Can a future session resume work from this
-> ticket alone, with no chat history? If no, add the missing piece
-> (link, repro step, error excerpt, signal) before saving.
+> **Resumption gate** — Could a fresh session resume the fix from this
+> bug and its references, with no chat history? If no, add the missing
+> piece (link, repro step, error excerpt, signal) before saving.
 
 ### 5. Save or Push
 
@@ -193,6 +193,11 @@ severity: {{critical/high/medium/low}}
 {{Known mitigation, or "None known"}}
 
 ## References
+
+{Durable pointers the next session follows to recover context. Canonical
+home — travels into the tracker description; frontmatter `sources:`
+mirrors these links for sync (markdown only, absent in tracker mode).
+`## Signals` above holds forensic evidence, not context pointers.}
 
 - **Epic:** {{link to parent epic, or "None"}}
 - **Related stories:** {{links or "None"}}

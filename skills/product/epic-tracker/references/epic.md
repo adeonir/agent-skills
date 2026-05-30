@@ -48,7 +48,21 @@ Fill the template (below) with discovered context:
 - **Rabbit Holes**: known complexities to flag early
 - **Acceptance Criteria**: high-level verifiable conditions for the epic
   as a whole (not per-story)
-- **References**: links to PRD, design doc, UI design, or other sources
+- **Open Questions**: strategic unknowns to resolve before or during
+  story breakdown; omit the section when nothing is undecided
+- **References**: durable pointers the next session follows (PRD, design
+  doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
+  the links for sync
+
+Record every durable reference surfaced during Discover (PRD, brief,
+design doc, UI design) in frontmatter `sources:` -- one entry per source.
+These are the pointers the resumption gate relies on.
+
+Apply the resumption gate before proceeding:
+
+> **Resumption gate** — Could a fresh session derive this epic's stories
+> and scope from it and its references, with no chat history? If no, add
+> the missing piece (link, scope boundary, decision) before saving.
 
 ### 3. Save or Push
 
@@ -139,7 +153,18 @@ issues) is the source of truth for hierarchy once a tracker is wired. -->
 
 - {{Known complexity or trap to avoid}}
 
+## Open Questions
+
+{Remove this section if nothing is undecided. Strategic unknowns to
+resolve before or during story breakdown.}
+
+- {{Open question for this epic}}
+
 ## References
+
+{Durable pointers the next session follows to recover context. Canonical
+home — travels into the tracker description; frontmatter `sources:`
+mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Brief:** {{link or "None"}}
 - **PRD:** {{link or "None"}}

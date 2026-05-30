@@ -40,8 +40,21 @@ Fill the template (below):
   single Given/When/Then. Validated in Step 4 against rules V1-V7. See
   [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: known complexities specific to this story
-- **References**: link to parent epic, design doc, UI design, or
-  other sources
+- **Open Questions**: unknowns that seed the spec's discovery; omit the
+  section when nothing is undecided
+- **References**: durable pointers the next session follows (parent epic,
+  design doc, UI design). Canonical in the body; frontmatter `sources:`
+  mirrors the links for sync
+
+Record every durable reference (parent epic, design doc, UI design) in
+frontmatter `sources:` as you draft -- one entry per source. These are
+the pointers the resumption gate relies on.
+
+Apply the resumption gate before proceeding:
+
+> **Resumption gate** — Could a fresh session generate the spec from
+> this story and its references, with no chat history? If no, add the
+> missing piece (decision, content/copy, constraint, link) before saving.
 
 ### 3. Validate Acceptance Criteria
 
@@ -146,7 +159,18 @@ type: story
 
 - {{Known complexity specific to this story}}
 
+## Open Questions
+
+{Remove this section if nothing is undecided. Seeds the spec's discovery
+— capture what's open so a fresh session knows what to ask, not re-decide.}
+
+- {{Unknown to resolve during specify}}
+
 ## References
+
+{Durable pointers the next session follows to recover context. Canonical
+home — travels into the tracker description; frontmatter `sources:`
+mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Epic:** {{link to parent epic}}
 - **Design Doc:** {{link or "None"}}
