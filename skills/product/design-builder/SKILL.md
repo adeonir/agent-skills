@@ -48,8 +48,9 @@ DESIGN.md holds the visual identity in two layers: a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
 `spacing`, `components`, `elevation`, `duration`, `easing`,
 `breakpoints`) plus numbered prose sections that narrate them
-(Overview, Colors, Typography, Layout, Elevation & Depth, Shapes,
-Components, Do's and Don'ts, Motion & Interaction, Responsive Behavior,
+(Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules,
+Component Stylings, Layout Principles, Shapes, Elevation & Depth,
+Motion & Interaction, Responsive Behavior, Do's and Don'ts,
 Agent Prompt Guide). Token references use `{path.to.token}` syntax.
 `structure.md` writes a parallel artifact at `docs/design/structure.md`
 and never touches DESIGN.md. preview parses the frontmatter at render
@@ -125,7 +126,7 @@ risks naming collisions.
 
 ## Anti-Pattern: Copy Leakage into DESIGN.md
 
-DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Overview) reads like a product pitch, when Section 7 (Components) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, route every product string into `copy.yaml`, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat copy and design as orthogonal — one DESIGN.md must survive any copy.yaml swap.
+DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Visual Theme & Atmosphere) reads like a product pitch, when Section 4 (Component Stylings) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, route every product string into `copy.yaml`, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat copy and design as orthogonal — one DESIGN.md must survive any copy.yaml swap.
 
 ## Anti-Pattern: Skipping Discovery
 

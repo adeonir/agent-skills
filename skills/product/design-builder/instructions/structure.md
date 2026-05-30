@@ -76,7 +76,7 @@ Agent reads a user-supplied wireframe and questions coherence and consistency ag
 - Does information flow match user intent (from discovery or copy)?
 - Are content sections grouped by hierarchy or scattered?
 - Does navigation surface the highest-value paths?
-- Does spacing rhythm match the `spacing` group in the DESIGN.md frontmatter (narrated in `## 4. Layout > Spacing System`)?
+- Does spacing rhythm match the `spacing` group in the DESIGN.md frontmatter (narrated in `## 5. Layout Principles > Spacing System`)?
 
 **Validation prompts — screen-based:**
 
@@ -155,7 +155,6 @@ Show the user:
 - Path to written file (`docs/design/structure.md`)
 - Summary of decisions captured
 - Validation findings (if Validate Mode ran)
-- Suggested next step (preview)
 
 ## Guidelines
 

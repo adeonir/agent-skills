@@ -195,7 +195,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
    Proposed patches to DESIGN.md:
 
    frontmatter: colors.primary  →  "#7170ff"  (was "#5e6ad2")
-   prose: ## 2. Colors > Primary
+   prose: ## 2. Color Palette & Roles > Primary
        - **Indigo Brand** (#5e6ad2) → `primary`
        → **Indigo Brand** (#7170ff) → `primary`
 
@@ -205,7 +205,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
        frontmatter: spacing.4   1rem     →  0.7rem
        frontmatter: components.button.padding   0.5rem  →  0.35rem
        ... (4 more)
-       prose: ## 4. Layout > Spacing System  (density 0.7x applied)
+       prose: ## 5. Layout Principles > Spacing System  (density 0.7x applied)
 
    Apply? [y/n/expand <preset>]
    ```

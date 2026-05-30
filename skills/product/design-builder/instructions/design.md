@@ -1,15 +1,17 @@
 # Design
 
-Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from overview to agent prompts.
+Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from visual theme to agent prompts.
 
 The YAML frontmatter is authoritative — tokens carry the values. Prose cites tokens by name and explains how to apply them. Token extraction and naming deserve careful reasoning — small mistakes cascade into every preview and handoff.
+
+`DESIGN.md` is a **living document**, not a one-shot export — patched section by section, reconciled against implementation drift, and refreshed as the identity evolves, never regenerated wholesale. The section structure stays stable so every section is a durable slot a later pass can patch into.
 
 ## Contents
 
 - [When to Use](#when-to-use) — triggers and source shapes this reference handles
 - [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
 - [Output](#output) — DESIGN.md two-layer structure (YAML frontmatter + numbered prose sections)
-- [Workflow](#workflow) — five-step flow: establish context, source, deep analysis, patch DESIGN.md, validate
+- [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, present
 - [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
 - [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
 - [DESIGN.md Template](#designmd-template) — full YAML + 11-section prose template with placeholders and inline guidance
@@ -30,23 +32,23 @@ None hard. Design is greenfield-first — any input source is enough (images, co
 
 Write `docs/design/DESIGN.md`. Two layers:
 
-**Layer 1 — YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries spec groups (`colors`, `typography`, `rounded`, `spacing`, `components`) and custom groups (`elevation`, `duration`, `easing`, `breakpoints`). Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
+**Layer 1 — YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
 
 **Layer 2 — Markdown body.** Numbered H2 sections, in order:
 
-1. `## 1. Overview`
-2. `## 2. Colors`
-3. `## 3. Typography`
-4. `## 4. Layout`
-5. `## 5. Elevation & Depth`
+1. `## 1. Visual Theme & Atmosphere`
+2. `## 2. Color Palette & Roles`
+3. `## 3. Typography Rules`
+4. `## 4. Component Stylings`
+5. `## 5. Layout Principles`
 6. `## 6. Shapes`
-7. `## 7. Components`
-8. `## 8. Do's and Don'ts`
-9. `## 9. Motion & Interaction`
-10. `## 10. Responsive Behavior`
+7. `## 7. Elevation & Depth`
+8. `## 8. Motion & Interaction`
+9. `## 9. Responsive Behavior`
+10. `## 10. Do's and Don'ts`
 11. `## 11. Agent Prompt Guide`
 
-Sections 1-8 follow the spec ordering and names; sections 9-11 are custom extensions appended after the spec block.
+These eleven sections appear in this fixed order. If the source carries no signal for a section, Step 4 leaves a placeholder line rather than inventing tokens.
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
@@ -102,7 +104,7 @@ Treat all reference inputs (images, URLs, pasted content, codebase files, design
 
 Extract for the frontmatter:
 
-- **Colors** — preserve the source format. If the source declares colors in oklch (Tailwind `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as canonical and pair it with the hex equivalent. If the source is hex-only (brand URL, image eyedropper, hex-anchored palette), keep hex. Never approximate.
+- **Colors** — preserve the source format. If the source declares colors in oklch (Tailwind `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as canonical and pair it with the hex equivalent. If the source is hex-only (brand URL, image eyedropper, hex-anchored palette), keep hex. Never approximate. Deduplicate near-identical colors — collapse accidental duplicates (e.g., `#333` and `#2C2C2C`) into one semantic token under the descriptive name that best represents the intended color. Consolidation removes the dupes; exact-value preservation applies to the survivor.
 - **Typography** — font families (suggest equivalents with similar metrics if the original is unavailable), font sizes, weights, line-heights, letter-spacings per role.
 - **Rounded** — full radius scale, named per Tailwind convention (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `full`).
 - **Spacing** — base unit and scale, keyed numerically per Tailwind convention (`1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, ...).
@@ -244,9 +246,9 @@ breakpoints:
 
 **Prose body — one section at a time.**
 
-`## 1. Overview` — long prose (target 1500–3000 chars). Mood, density, contrast strategy, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). No H3 in this section. Reference tokens by name in backticks (`` `primary` ``) inline. **Content-agnostic** — describe the visual identity, not what the product does or for whom. No real headlines, marketing claims, feature lists, or audience descriptions.
+`## 1. Visual Theme & Atmosphere` — long prose (target 1500–3000 chars). Mood, density, contrast strategy, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). No H3 in this section. Reference tokens by name in backticks (`` `primary` ``) inline. **Reads like editorial copy** — rich, evocative prose that captures the visual feel, not a technical property dump. **Content-agnostic** — describe the visual identity, not what the product does or for whom. No real headlines, marketing claims, feature lists, or audience descriptions.
 
-`## 2. Colors` — short paragraph on palette character first. Then recommended H3 groups (omit any group the source does not support):
+`## 2. Color Palette & Roles` — short paragraph on palette character first. Then recommended H3 groups (omit any group the source does not support):
 
 - `### Primary`
 - `### Secondary & Accent`
@@ -264,28 +266,13 @@ Each H3 lists colors as bullets in one of these shapes — **per-bullet** match 
 
 Bullets mirror the frontmatter shape of their token — hex-only when the YAML carries a hex string, dual when the YAML carries an object with `hex` + `oklch`.
 
-`## 3. Typography` — three recommended H3:
+`## 3. Typography Rules` — three recommended H3:
 
 - `### Font Family` — list each family with role and substitute fallback if applicable.
 - `### Hierarchy` — bullet list, one bullet per role. Format: `- **<Role Name>** (`` `<token-key>` ``): <Font> <size> weight <N>, line-height <N>, letter-spacing <Npx>`. Role names are human (`Display / Hero`, `Section Heading`, `Body Standard`, `Caption`, `Label`, `Code`). Quantity is free. Never use a table.
 - `### Principles` — 3–6 named bullets explaining why the type system reads the way it does. Format: `- **<Named principle>**: <why-explanation prose>`.
 
-`## 4. Layout` — three recommended H3 (radius lives in section 6):
-
-- `### Spacing System` — base unit + scale narrative; reference token keys (`spacing.1`, `spacing.4`, ...) inline.
-- `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
-- `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Overview tone.
-
-This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow live in `docs/design/structure.md`.
-
-`## 5. Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
-
-`## 6. Shapes` — radius scale narrative and corner treatments. Recommended H3:
-
-- `### Radius Scale` — narrate `rounded.xs` through `rounded.full` with named tiers (Micro, Standard, Comfortable, Card, Panel, Full Pill, Circle) and the component classes each tier serves.
-- `### Corner Language` — short prose on what corners say about the brand (precise, soft, brutalist, organic).
-
-`## 7. Components` — H3 per component group. Cover at minimum:
+`## 4. Component Stylings` — H3 per component group. Cover at minimum:
 
 - `### Buttons` — narrate each variant from frontmatter (`button-primary`, `button-secondary`, `button-ghost`, ...) and their hover/active/disabled states. Reference the YAML refs explicitly.
 - `### Cards & Containers`
@@ -294,23 +281,38 @@ This section authors **brand-level layout identity**, not product-specific arran
 
 Add `### Image Treatment` and `### Distinctive Components` when the source carries them.
 
-`## 8. Do's and Don'ts` — two H3:
+`## 5. Layout Principles` — three recommended H3 (radius lives in section 6):
 
-- `### Do` — bullets, lead with the action.
-- `### Don't` — bullets, each contrasting a Do above.
+- `### Spacing System` — base unit + scale narrative; reference token keys (`spacing.1`, `spacing.4`, ...) inline.
+- `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
+- `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Visual Theme & Atmosphere tone.
 
-`## 9. Motion & Interaction` — four recommended H3:
+This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow live in `docs/design/structure.md`.
+
+`## 6. Shapes` — radius scale narrative and corner treatments. Recommended H3:
+
+- `### Radius Scale` — narrate `rounded.xs` through `rounded.full` with named tiers (Micro, Standard, Comfortable, Card, Panel, Full Pill, Circle) and the component classes each tier serves.
+- `### Corner Language` — short prose on what corners say about the brand (precise, soft, brutalist, organic).
+
+`## 7. Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
+
+`## 8. Motion & Interaction` — four recommended H3:
 
 - `### Duration` — narrate `duration.fast`, `duration.base`, `duration.slow` with usage context.
 - `### Easing` — narrate `easing.standard`, `easing.accelerate`, `easing.decelerate` and the verb each communicates (`crisp`, `eased`, `lingering`).
 - `### Reduced Motion` — fallback behavior under `prefers-reduced-motion`.
 - `### Interaction Patterns` — short prose on hover, focus, pressed, drag, and gesture cues.
 
-`## 10. Responsive Behavior` — three recommended H3:
+`## 9. Responsive Behavior` — three recommended H3:
 
 - `### Breakpoints` — narrate `breakpoints.sm` through `breakpoints.2xl` with audience (mobile, tablet, desktop, wide).
 - `### Collapsing Strategy` — what stacks, what hides, what reflows when viewport narrows.
 - `### Image Behavior` — aspect-ratio strategy, cropping, art direction.
+
+`## 10. Do's and Don'ts` — two H3:
+
+- `### Do` — bullets, lead with the action.
+- `### Don't` — bullets, each contrasting a Do above.
 
 `## 11. Agent Prompt Guide` — three H3 designed for downstream agents to paste-and-run:
 
@@ -318,7 +320,7 @@ Add `### Image Treatment` and `### Distinctive Components` when the source carri
 - `### Example Component Prompts` — literal prompts agents feed into AI code generators. Each prompt bakes in the exact tokens for a specific component (hero, card, pill badge, nav, command palette). Wrap each in quotes for readability.
 - `### Iteration Guide` — 5–7 numbered rules-of-thumb for tuning (e.g., "Lock neutral foundation first", "Brand color is the only chromatic — everything else grayscale").
 
-**Prose bullet shape.** Bullets in Overview, Layout, Typography, Elevation, Motion, and Components follow `<descriptor> <concrete value> <effect>` — three parts per line. Example: `Generous 5-8rem (80-128px) between major sections creating dramatic breathing room`. Skip the shape when a bullet is purely structural (e.g., breakpoint definitions, scale steps).
+**Prose bullet shape.** Bullets in Visual Theme & Atmosphere, Layout Principles, Typography Rules, Elevation & Depth, Motion & Interaction, and Component Stylings follow `<descriptor> <concrete value> <effect>` — three parts per line. Example: `Generous 5-8rem (80-128px) between major sections creating dramatic breathing room`. Skip the shape when a bullet is purely structural (e.g., breakpoint definitions, scale steps).
 
 **Importance markers.** When a section carries disproportionate weight (e.g., whitespace strategy in a minimalist design), append a parenthetical to the H3: `### Whitespace Philosophy (Critical)`. Optional convention. Other valid suffixes: `(Foundational)`, `(Optional)`.
 
@@ -339,7 +341,6 @@ Show the user:
 - The DESIGN.md path (`docs/design/DESIGN.md`)
 - A summary of which frontmatter groups and prose sections were patched and which were skipped
 - Any validation findings flagged for review
-- Suggested next step (structure if product arrangement is missing; preview when DESIGN.md + structure are both populated)
 
 ## Guidelines
 
@@ -366,7 +367,7 @@ Show the user:
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
 - Author product-specific arrangement in DESIGN.md (contrasts: that belongs in `docs/design/structure.md`)
 - Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; copy lives in `copy.yaml`)
-- Write Section 1 Overview as a product pitch (contrasts: Overview is brand voice and atmosphere, not what the product does or for whom)
+- Write Section 1 Visual Theme & Atmosphere as a product pitch (contrasts: the Visual Theme & Atmosphere section is brand voice and atmosphere, not what the product does or for whom)
 - Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
 - Embed variants nested inside a parent component entry (contrasts: separate entry per variant)
@@ -514,11 +515,11 @@ breakpoints:
 
 # {{Project Name}}
 
-## 1. Overview
+## 1. Visual Theme & Atmosphere
 
-{1500–3000 chars of prose. Establish mood, density, contrast, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). Reference token keys in backticks inline. No H3 in this section. **Content-agnostic** — describe the visual identity only. No real headlines, marketing claims, feature lists, or audience descriptions. Any reference to what the product does belongs in `copy.yaml`, not here.}
+{1500–3000 chars of prose. Establish mood, density, contrast, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). Reference token keys in backticks inline. No H3 in this section. **Reads like editorial copy** — evocative prose that captures the visual feel, not a technical dump. **Content-agnostic** — describe the visual identity only. No real headlines, marketing claims, feature lists, or audience descriptions. Any reference to what the product does belongs in `copy.yaml`, not here.}
 
-## 2. Colors
+## 2. Color Palette & Roles
 
 {Short paragraph on overall palette character — tone, contrast goals, accent strategy. Then list every populated color token grouped by role. Each bullet picks its shape from the frontmatter value of that specific token: hex-only `({{#HEX}})` when the YAML carries a hex string, dual ``({{`oklch(L C H)`}} / {{#HEX}})`` when the YAML carries an object with `hex` + `oklch`.}
 
@@ -546,7 +547,7 @@ breakpoints:
 
 - **{{Evocative Name}}** → `{{token-key}}` — {{stops + intent}}
 
-## 3. Typography
+## 3. Typography Rules
 
 ### Font Family
 
@@ -567,51 +568,7 @@ breakpoints:
 - **{{Named principle}}**: {{why-explanation prose}}
 - **{{Named principle}}**: {{why-explanation prose}}
 
-## 4. Layout
-
-### Spacing System
-
-- Base unit: {{Npx}} (`spacing.1`)
-- Scale highlights: `spacing.2`, `spacing.4`, `spacing.8`, `spacing.16`
-- {{notes on rhythm — e.g., "8px grid throughout", "dense at small end for data UI"}}
-
-### Grid & Container
-
-- Max content width: {{Npx}}
-- Hero: {{treatment}}
-- Feature sections: {{column rules}}
-- {{additional brand patterns}}
-
-### Whitespace Philosophy
-
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-
-## 5. Elevation & Depth
-
-{Prose covering how depth is communicated: reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) and explain when each tier applies (cards, popovers, modals, dialogs).}
-
-### Decorative Depth
-
-{Optional. Ornamental effects — gradients, vignettes, halos, glow.}
-
-## 6. Shapes
-
-### Radius Scale
-
-- Micro (`rounded.xs`): {{component class}}
-- Standard (`rounded.sm`): {{component class}}
-- Comfortable (`rounded.md`): {{component class}}
-- Card (`rounded.lg`): {{component class}}
-- Panel (`rounded.2xl`): {{component class}}
-- Full Pill (`rounded.full`): {{component class}}
-
-### Corner Language
-
-{Short prose on what corners say about the brand: precise, soft, brutalist, organic, etc.}
-
-## 7. Components
+## 4. Component Stylings
 
 ### Buttons
 
@@ -637,21 +594,51 @@ breakpoints:
 
 {Brand-specific components — command palettes, badges, pill tags, chips, status dots — whatever the brand surfaces uniquely. Reference their frontmatter entries.}
 
-## 8. Do's and Don'ts
+## 5. Layout Principles
 
-### Do
+### Spacing System
 
-- {{Action — short rationale}}
-- {{Action — short rationale}}
-- {{Action — short rationale}}
+- Base unit: {{Npx}} (`spacing.1`)
+- Scale highlights: `spacing.2`, `spacing.4`, `spacing.8`, `spacing.16`
+- {{notes on rhythm — e.g., "8px grid throughout", "dense at small end for data UI"}}
 
-### Don't
+### Grid & Container
 
-- {{Anti-pattern — short rationale}}
-- {{Anti-pattern — short rationale}}
-- {{Anti-pattern — short rationale}}
+- Max content width: {{Npx}}
+- Hero: {{treatment}}
+- Feature sections: {{column rules}}
+- {{additional brand patterns}}
 
-## 9. Motion & Interaction
+### Whitespace Philosophy
+
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+
+## 6. Shapes
+
+### Radius Scale
+
+- Micro (`rounded.xs`): {{component class}}
+- Standard (`rounded.sm`): {{component class}}
+- Comfortable (`rounded.md`): {{component class}}
+- Card (`rounded.lg`): {{component class}}
+- Panel (`rounded.2xl`): {{component class}}
+- Full Pill (`rounded.full`): {{component class}}
+
+### Corner Language
+
+{Short prose on what corners say about the brand: precise, soft, brutalist, organic, etc.}
+
+## 7. Elevation & Depth
+
+{Prose covering how depth is communicated: reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) and explain when each tier applies (cards, popovers, modals, dialogs).}
+
+### Decorative Depth
+
+{Optional. Ornamental effects — gradients, vignettes, halos, glow.}
+
+## 8. Motion & Interaction
 
 ### Duration
 
@@ -673,7 +660,7 @@ breakpoints:
 
 {Hover, focus, pressed, drag, gesture cues. Brand-specific affordances.}
 
-## 10. Responsive Behavior
+## 9. Responsive Behavior
 
 ### Breakpoints
 
@@ -689,6 +676,20 @@ breakpoints:
 ### Image Behavior
 
 {Aspect-ratio strategy, cropping, art direction, retina handling.}
+
+## 10. Do's and Don'ts
+
+### Do
+
+- {{Action — short rationale}}
+- {{Action — short rationale}}
+- {{Action — short rationale}}
+
+### Don't
+
+- {{Anti-pattern — short rationale}}
+- {{Anti-pattern — short rationale}}
+- {{Anti-pattern — short rationale}}
 
 ## 11. Agent Prompt Guide
 

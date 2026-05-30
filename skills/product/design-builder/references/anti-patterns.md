@@ -28,7 +28,7 @@ Jump-table — each category links to its rule section below.
 
 ALWAYS use this exact template structure:
 
-```markdown
+````markdown
 ### {rule-id-kebab-case}
 **Category:** {category name from above}
 **Severity:** {error | warning}
@@ -42,7 +42,7 @@ ALWAYS use this exact template structure:
 ```html
 {minimal HTML snippet that satisfies the rule}
 ```
-```
+````
 
 ## Typography
 
@@ -914,7 +914,7 @@ function Theme() {
 ### copy-string-in-design-md
 **Category:** Drift
 **Severity:** warning
-**Check:** DESIGN.md prose (Section 1 Overview, Section 7 Components, Section 11 Agent Prompt Guide) contains literal product copy — real headlines, CTAs, feature names, or product pitches.
+**Check:** DESIGN.md prose (Section 1 Visual Theme & Atmosphere, Section 4 Component Stylings, Section 11 Agent Prompt Guide) contains literal product copy — real headlines, CTAs, feature names, or product pitches.
 **Fix:** Move every product string to `copy.yaml`. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in Section 11 prompts.
 **Example fail:**
 ```markdown

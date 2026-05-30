@@ -78,16 +78,16 @@ For each slice, decide which source provides it. A slice spans the YAML frontmat
 
 | Slice | Frontmatter groups | Prose section | Common contributors |
 |-------|--------------------|----------------|---------------------|
-| Overview | (narrative only) | `## 1. Overview` | Rewritten to match the dominant new input direction; anchor's voice as scaffold when no strong reference |
-| Colors | `colors` | `## 2. Colors` | New input when user names a color direction; anchor as fallback |
-| Typography | `typography` | `## 3. Typography` | New input when user names a typographic direction; anchor as fallback |
-| Layout | `spacing` | `## 4. Layout` | New input when spacing scale, grid, or whitespace philosophy shifts; anchor as fallback |
-| Elevation & Depth | `elevation` | `## 5. Elevation & Depth` | New input when texture/depth axis shifts; anchor as fallback |
+| Visual Theme & Atmosphere | (narrative only) | `## 1. Visual Theme & Atmosphere` | Rewritten to match the dominant new input direction; anchor's voice as scaffold when no strong reference |
+| Color Palette & Roles | `colors` | `## 2. Color Palette & Roles` | New input when user names a color direction; anchor as fallback |
+| Typography Rules | `typography` | `## 3. Typography Rules` | New input when user names a typographic direction; anchor as fallback |
+| Component Stylings | `components` | `## 4. Component Stylings` | New input when component patterns are part of the redesign; anchor as fallback |
+| Layout Principles | `spacing` | `## 5. Layout Principles` | New input when spacing scale, grid, or whitespace philosophy shifts; anchor as fallback |
 | Shapes | `rounded` | `## 6. Shapes` | New input when radius scale or corner language shifts; anchor as fallback |
-| Components | `components` | `## 7. Components` | New input when component patterns are part of the redesign; anchor as fallback |
-| Do's and Don'ts | (narrative only) | `## 8. Do's and Don'ts` | Composed from the dominant new input direction; rewritten to reflect the redesigned identity |
-| Motion & Interaction | `duration`, `easing` | `## 9. Motion & Interaction` | New input when motion language changes; anchor as fallback |
-| Responsive Behavior | `breakpoints` | `## 10. Responsive Behavior` | Anchor as default (responsive rules tend to stay product-specific); new input only when explicitly part of the redesign |
+| Elevation & Depth | `elevation` | `## 7. Elevation & Depth` | New input when texture/depth axis shifts; anchor as fallback |
+| Motion & Interaction | `duration`, `easing` | `## 8. Motion & Interaction` | New input when motion language changes; anchor as fallback |
+| Responsive Behavior | `breakpoints` | `## 9. Responsive Behavior` | Anchor as default (responsive rules tend to stay product-specific); new input only when explicitly part of the redesign |
+| Do's and Don'ts | (narrative only) | `## 10. Do's and Don'ts` | Composed from the dominant new input direction; rewritten to reflect the redesigned identity |
 | Agent Prompt Guide | (narrative only) | `## 11. Agent Prompt Guide` | Regenerated from the final composed tokens after slice mapping is applied |
 | Product arrangement (`docs/design/structure.md`) | — | — | Anchor always -- redesign does not re-arrange pages or screens (that lives in [structure.md](structure.md)) |
 | Content payload (`copy.yaml`) | — | — | Anchor always -- content belongs to the product, not the reference |
@@ -118,8 +118,8 @@ Delegate to [preview.md](preview.md). Compose a directed prompt from the new inp
 User picks a winner from Step 5. Commit follows the `preview.md` confirm-before-write surgical patch flow:
 
 - Patch winner's token values into the DESIGN.md frontmatter first — affected groups: `colors`, `typography`, `spacing`, `rounded`, `elevation`, `duration`, `easing`, `components`
-- Patch the prose bullets that cite the patched tokens — Sections 2, 3, 4, 5, 6, 7, 9 — so prose mirrors the frontmatter
-- Leave narrative sections (`## 1. Overview`, `## 8. Do's and Don'ts`, `## 11. Agent Prompt Guide`) and `## 10. Responsive Behavior` untouched unless the slice mapping explicitly opened them
+- Patch the prose bullets that cite the patched tokens — Sections 2, 3, 4, 5, 6, 7, 8 — so prose mirrors the frontmatter
+- Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`) and `## 9. Responsive Behavior` untouched unless the slice mapping explicitly opened them
 - Tell the user that narrative sections may now be stale relative to the new tokens. To refresh them, re-run [design.md](design.md) against the new tokens — that ref reauthors prose from the current DESIGN.md state.
 
 Run [validate.md](validate.md) as the gate. Do not declare done with errors.

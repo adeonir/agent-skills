@@ -1,8 +1,8 @@
 # Validate
 
-Audit `DESIGN.md` against the spec rules and custom extensions. Read-only: never patches the file. Reports findings; user decides what to fix.
+Audit `DESIGN.md` against the linter rules. Read-only: never patches the file. Reports findings; user decides what to fix.
 
-Mirrors the eight Google DESIGN.md linter rules (`broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`) and adds custom checks for our extensions (`oklch-hex-pair`, `custom-groups-shape`, `content-leakage`) plus prose↔YAML parity. Runs inline — no external CLI dependency.
+Runs eleven linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency.
 
 ## When to Use
 
@@ -81,7 +81,7 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 | Body role line-height ≥ 1.4 (readability floor) | warning |
 | Hierarchy forms a clear ratio (display > heading > body > label); no two adjacent levels within 10% of each other | warning |
 
-### Step 6: Custom Groups Shape — `custom-groups-shape`
+### Step 6: Token Groups Shape — `token-groups-shape`
 
 | Check | Severity |
 |-------|----------|
@@ -96,17 +96,17 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 
 Canonical section order in the markdown body:
 
-1. Overview
-2. Colors
-3. Typography
-4. Layout
-5. Elevation & Depth
+1. Visual Theme & Atmosphere
+2. Color Palette & Roles
+3. Typography Rules
+4. Component Stylings
+5. Layout Principles
 6. Shapes
-7. Components
-8. Do's and Don'ts
-9. Motion & Interaction (custom)
-10. Responsive Behavior (custom)
-11. Agent Prompt Guide (custom)
+7. Elevation & Depth
+8. Motion & Interaction
+9. Responsive Behavior
+10. Do's and Don'ts
+11. Agent Prompt Guide
 
 | Check | Severity |
 |-------|----------|
@@ -122,8 +122,8 @@ Canonical section order in the markdown body:
 | Token keys cited in prose (backticked) exist in the frontmatter | warning |
 | Each color bullet's value matches its frontmatter shape — hex-only when YAML is a string, dual `oklch / #HEX` when YAML is an object | warning |
 | Quick Token Reference entries in Section 11 mirror the shape of their matching Section 2 bullet | warning |
-| Each populated YAML color token has a bullet in Section 2 (Colors) | info |
-| Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 7 (Components) | info |
+| Each populated YAML color token has a bullet in Section 2 (Color Palette & Roles) | info |
+| Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 4 (Component Stylings) | info |
 
 ### Step 9: Content-Agnostic Check — `content-leakage`
 
@@ -131,8 +131,8 @@ DESIGN.md must render any copy. Flag prose that bakes product-specific content i
 
 | Check | Severity |
 |-------|----------|
-| Section 1 Overview contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
-| Section 7 Components narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
+| Section 1 Visual Theme & Atmosphere contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
+| Section 4 Component Stylings narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
 | Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
 | When `docs/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
@@ -201,7 +201,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - Parse the YAML frontmatter first; treat it as authoritative
 - Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
-- Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 7. Components > Buttons`)
+- Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 4. Component Stylings > Buttons`)
 - Use the same checks whether called directly or as a gate by design.md or reconcile.md
 
 **DON'T:**
