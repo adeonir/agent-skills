@@ -9,6 +9,7 @@ flowchart TD
     Intent[Brief / Requirements / Description] -->|write| B[copy.yaml]
     A[URL / Brief / Codebase / Screenshot] -->|extract| B
     Impl[Implementation] -->|reconcile| B
+    B -->|refresh| B
     B --> D[Design work consumes copy.yaml]
 ```
 
@@ -16,6 +17,7 @@ flowchart TD
 | ---- | ------- | ------ |
 | **Write** | Author fresh copy from intent — headlines, body, CTAs | `docs/design/copy.yaml` |
 | **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/design/copy.yaml` |
+| **Refresh** | Tighten existing copy in the same voice — clarity, specificity, proof, cut weak words | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
 
 Content is orthogonal to design: the same `copy.yaml` must render under any
@@ -35,6 +37,11 @@ extract content from this brief (PDF/DOCX)
 web capture the hero section of https://competitor.com
 structure the copy from this codebase
 
+# Refresh / tighten existing copy (same voice)
+tighten the copy in copy.yaml
+refresh this stale page copy
+sharpen the messaging
+
 # Reconcile (brownfield drift: implementation back to copy.yaml)
 sync copy.yaml from this codebase
 update copy.yaml from the implementation
@@ -44,8 +51,9 @@ reconcile content drift
 ## References
 
 Loaded on demand: `references/copy-frameworks.md` (headline formulas, content-part
-types, page shapes, CTA) and `references/voice.md` (voice axes, proof hierarchy,
-dead words).
+types, page shapes, CTA), `references/voice.md` (voice axes, proof hierarchy,
+dead words), and `references/editing-sweeps.md` (Seven Sweeps, quick-pass,
+plain-English).
 
 ## Output
 
