@@ -10,6 +10,7 @@ flowchart TD
     A[URL / Brief / Codebase / Screenshot] -->|extract| B
     Impl[Implementation] -->|reconcile| B
     B -->|refresh| B
+    B -->|revoice| B
     B --> D[Design work consumes copy.yaml]
 ```
 
@@ -18,6 +19,7 @@ flowchart TD
 | **Write** | Author fresh copy from intent — headlines, body, CTAs | `docs/design/copy.yaml` |
 | **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/design/copy.yaml` |
 | **Refresh** | Tighten existing copy in the same voice — clarity, specificity, proof, cut weak words | Patched `docs/design/copy.yaml` (confirm-before-write) |
+| **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
 
 Content is orthogonal to design: the same `copy.yaml` must render under any
@@ -41,6 +43,11 @@ structure the copy from this codebase
 tighten the copy in copy.yaml
 refresh this stale page copy
 sharpen the messaging
+
+# Revoice / rewrite in a new voice (keep the message)
+rewrite this copy in a more playful voice
+revoice copy.yaml to sound more premium
+make the copy drier, less salesy
 
 # Reconcile (brownfield drift: implementation back to copy.yaml)
 sync copy.yaml from this codebase

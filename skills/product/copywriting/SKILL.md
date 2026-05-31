@@ -6,10 +6,10 @@ description: >-
   marketing or product copy from intent, or extract and structure existing
   content from a URL, brief, codebase, or screenshot — content only,
   composable under any design. Use when writing headlines, value
-  propositions, landing-page or CTA copy; extracting, structuring, or
-  tightening content; capturing copy from a screenshot; or preparing
-  copy.yaml for design work. Not for visual identity or design tokens,
-  page layout or screen flow, or standalone social bios.
+  propositions, landing-page or CTA copy; extracting, structuring,
+  tightening, or revoicing content; capturing copy from a screenshot;
+  or preparing copy.yaml for design work. Not for visual identity or
+  design tokens, page layout or screen flow, or standalone social bios.
 ---
 
 # Copywriting
@@ -28,6 +28,8 @@ Produces `copy.yaml`, the content payload a design consumes. Operations:
   codebase, screenshot), preserving tone. → [extract.md](instructions/extract.md)
 - **refresh** — tighten existing copy in the same voice (editing passes).
   → [refresh.md](instructions/refresh.md)
+- **revoice** — rewrite existing copy in a new voice, keeping the message.
+  → [revoice.md](instructions/revoice.md)
 - **reconcile** — sync `copy.yaml` from a drifted implementation.
   → [reconcile.md](instructions/reconcile.md)
 
@@ -45,6 +47,7 @@ mode. See [discovery.md](instructions/discovery.md).
 | Write fresh copy from intent into copy.yaml | [write.md](instructions/write.md) |
 | Extract and structure content into copy.yaml | [extract.md](instructions/extract.md) |
 | Tighten existing copy.yaml in the same voice | [refresh.md](instructions/refresh.md) |
+| Rewrite existing copy.yaml in a new voice | [revoice.md](instructions/revoice.md) |
 | Sync copy.yaml from a drifted implementation | [reconcile.md](instructions/reconcile.md) |
 
 ## Artifact

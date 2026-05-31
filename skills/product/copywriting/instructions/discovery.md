@@ -27,7 +27,8 @@ Infer from source and intent — do not ask explicitly:
 
 - **greenfield** — no existing copy → write fresh from intent.
 - **brownfield** — existing copy or a source → extract to structure it,
-  refresh to tighten it, or reconcile to sync implementation drift.
+  refresh to tighten it, revoice to change its voice, or reconcile to sync
+  implementation drift.
 
 ### Step 3: Route to Operation
 
@@ -36,6 +37,7 @@ Infer from source and intent — do not ask explicitly:
 | Write fresh copy from intent | [write.md](write.md) |
 | Structure existing content from a source | [extract.md](extract.md) |
 | Tighten existing copy in the same voice | [refresh.md](refresh.md) |
+| Rewrite existing copy in a new voice | [revoice.md](revoice.md) |
 | Sync `copy.yaml` from a drifted implementation | [reconcile.md](reconcile.md) |
 
 ### Step 4: Fill Gaps
