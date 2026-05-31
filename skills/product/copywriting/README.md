@@ -6,13 +6,15 @@ Authors `copy.yaml` — the structured content payload a design consumes.
 
 ```mermaid
 flowchart TD
-    A[URL / Brief / Codebase / Screenshot] -->|extract| B[copy.yaml]
+    Intent[Brief / Requirements / Description] -->|write| B[copy.yaml]
+    A[URL / Brief / Codebase / Screenshot] -->|extract| B
     Impl[Implementation] -->|reconcile| B
     B --> D[Design work consumes copy.yaml]
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
+| **Write** | Author fresh copy from intent — headlines, body, CTAs | `docs/design/copy.yaml` |
 | **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/design/copy.yaml` |
 | **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
 
@@ -22,6 +24,11 @@ Content is orthogonal to design: the same `copy.yaml` must render under any
 ## Usage
 
 ```text
+# Write fresh copy from intent
+write landing page copy from this brief
+write the hero and CTA for this product
+draft homepage copy from these requirements
+
 # Extract / structure existing content
 extract copy from https://example.com
 extract content from this brief (PDF/DOCX)
@@ -34,10 +41,16 @@ update copy.yaml from the implementation
 reconcile content drift
 ```
 
+## References
+
+Loaded on demand: `references/copy-frameworks.md` (headline formulas, content-part
+types, page shapes, CTA) and `references/voice.md` (voice axes, proof hierarchy,
+dead words).
+
 ## Output
 
 `docs/design/copy.yaml` — a context-named content tree (surfaces → parts →
-headline, body, cta, images), mirroring the source's structure.
+headline, body, cta, images), mirroring the source or the brief.
 
 ## Requirements
 

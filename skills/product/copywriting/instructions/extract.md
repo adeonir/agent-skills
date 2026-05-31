@@ -31,7 +31,7 @@ Sources are accepted in four shapes. The user provides whatever they have — UR
 
 **Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections).
 
-**No source.** The user wants to draft from intent only. Skip to Step 4 with the description provided.
+**No source.** Nothing to extract — drafting fresh from intent is the write mode. See [write.md](write.md).
 
 If any fetch or read fails, ask the user for an alternative shape (often a screenshot or direct paste).
 

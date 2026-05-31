@@ -29,7 +29,7 @@ npx skills add adeonir/agent-skills
 | **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
-| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: extract and structure existing content into a context-named tree. Write, refresh, and revoice are roadmap |
+| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: write fresh copy from intent, or extract and structure existing content into a context-named tree |
 | **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: author DESIGN.md, structure, preview, tune, sync, handoff |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |

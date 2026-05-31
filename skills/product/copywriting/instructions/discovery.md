@@ -25,8 +25,7 @@ relevant mode.
 
 Infer from source and intent — do not ask explicitly:
 
-- **greenfield** — no existing copy; draft from the description provided
-  (extract, no-source path).
+- **greenfield** — no existing copy → write fresh from intent.
 - **brownfield** — existing copy or a source → extract to structure it, or
   reconcile to sync implementation drift.
 
@@ -34,7 +33,8 @@ Infer from source and intent — do not ask explicitly:
 
 | Intent | Reference |
 |--------|-----------|
-| Structure content from a source, or draft from a description | [extract.md](extract.md) |
+| Write fresh copy from intent | [write.md](write.md) |
+| Structure existing content from a source | [extract.md](extract.md) |
 | Sync `copy.yaml` from a drifted implementation | [reconcile.md](reconcile.md) |
 
 ### Step 4: Fill Gaps
