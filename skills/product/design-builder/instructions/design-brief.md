@@ -53,7 +53,7 @@ These eleven sections appear in this fixed order. If the source carries no signa
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
-Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, owned by [content-extract.md](content-extract.md).
+Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, authored upstream and read here only.
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
 

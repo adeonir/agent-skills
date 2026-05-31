@@ -63,7 +63,6 @@ Load only the reference matching the activated trigger:
 
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
-| Content extraction | `content-extract.md` | — |
 | Visual identity / DESIGN.md | `design-brief.md` | `validate.md` |
 | Structure / wireframe | `structure.md` | — |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |

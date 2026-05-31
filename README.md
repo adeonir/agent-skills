@@ -29,7 +29,8 @@ npx skills add adeonir/agent-skills
 | **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
-| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: extract, structure, preview, tune, sync, handoff |
+| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: extract and structure existing content into a context-named tree. Write, refresh, and revoice are roadmap |
+| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: author DESIGN.md, structure, preview, tune, sync, handoff |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 
@@ -43,6 +44,8 @@ flowchart TD
     DW_PRD -->|PRD| DW_DD[docs-writer Design Doc]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
+    DW_PRD -->|requirements| CW[copywriting]
+    CW -->|copy.yaml| DB
     DW_DD -->|Design Doc| SD
     DW_DD -->|Design Doc| ET
     DW_DD -->|Design Doc| DB
@@ -64,9 +67,10 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 1. brainstorming     --> explore ideas, choose direction
 2. docs-writer       --> draft requirements, brief, technical doc
 3. epic-tracker      --> plan epics, track stories, bugs, and issues
-4. design-builder    --> extract, structure, preview, approve
-5. spec-driven       --> specify, design, tasks, implement
-6. git-helpers       --> commit, code-review, pull-request, finish branch
+4. copywriting       --> extract or write copy.yaml content payload
+5. design-builder    --> design, structure, preview, approve
+6. spec-driven       --> specify, design, tasks, implement
+7. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
 
 **Always available:**
@@ -90,6 +94,7 @@ business logic:
 brainstorming    --> direction and constraints
 docs-writer      --> PRD (what to build, for whom, why)
 docs-writer      --> Design Doc (technical doc)
+copywriting      --> content payload (copy.yaml)
 design-builder   --> visual design, tokens, layout
 epic-tracker     --> epics, stories, acceptance criteria
 spec-driven      --> per-story spec, design, tasks, implementation
@@ -106,6 +111,7 @@ wrap-up          --> persist session context
 |------|------|
 | `brainstorming` | Direction is already clear |
 | `docs-writer` | Bug fix or change with no architectural decisions OR feature is too small to warrant a PRD |
+| `copywriting` | No content payload needed, or copy already exists |
 | `design-builder` | No UI, or design already exists |
 
 `spec-driven` and `git-helpers` are never optional for non-trivial work.
@@ -143,7 +149,7 @@ docs/
 ├── product/        # docs-writer: brainstorm, PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-builder: DESIGN.md, structure.md, copy.yaml
+└── design/         # design-builder: DESIGN.md, structure.md · copywriting: copy.yaml
 
 .agents/
 ├── codebase/       # project-index: deep codebase analysis

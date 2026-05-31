@@ -1,6 +1,6 @@
 # Reconcile
 
-Patch `DESIGN.md` and `copy.yaml` back from a drifted implementation. Brownfield-only: when the running code's tokens, copy, or component variants no longer match the authored design, this reference diffs implementation against the design artifacts and applies surgical patches to both.
+Patch `DESIGN.md` back from a drifted implementation. Brownfield-only: when the running code's tokens or component variants no longer match the authored design, this reference diffs the implementation against DESIGN.md and applies surgical patches. Content drift in `copy.yaml` is out of scope here — this reconciles `DESIGN.md` only.
 
 ## When to Use
 
@@ -14,7 +14,6 @@ Not for: authoring DESIGN.md from scratch or restyling it from a new external re
 
 - `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design-brief.md](design-brief.md) to author the design first.
 - Codebase path or live URL available as the implementation source.
-- `docs/design/copy.yaml` optional. When present, copy drift is part of the diff; when absent, only DESIGN.md reconciles.
 
 ## Workflow
 
@@ -22,7 +21,7 @@ Not for: authoring DESIGN.md from scratch or restyling it from a new external re
 
 ### Step 1: Read Current Design
 
-Parse the YAML frontmatter of `docs/design/DESIGN.md` as the authored state. Parse `docs/design/copy.yaml` if present.
+Parse the YAML frontmatter of `docs/design/DESIGN.md` as the authored state.
 
 ### Step 2: Extract Implementation State
 
@@ -34,15 +33,13 @@ Detect and read in this order (same detection chain as design-brief.md Step 2 Co
 - Component libraries (shadcn under `components/ui`, cva variants, styled-components themes) — component styles and states
 - Font imports in layout or root files — active font families
 
-For copy drift: extract strings from rendered routes or component files. Scope to the content paths present in `copy.yaml`; do not invent new surfaces or keys.
-
 If multiple sources overlap, ask the user which is authoritative.
 
 ### Step 3: Diff
 
-Per frontmatter group (`colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`), list tokens that changed, were added, or are missing in the implementation. For `copy.yaml`, list keys whose values diverged.
+Per frontmatter group (`colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`), list tokens that changed, were added, or are missing in the implementation.
 
-Emit one structured diff per artifact — DESIGN.md diff and copy.yaml diff are separate views, even when both apply.
+Emit one structured diff for DESIGN.md.
 
 ### Step 4: Confirm Before Write
 
@@ -54,11 +51,7 @@ Patch the YAML frontmatter first (authoritative), then patch the prose bullets i
 
 Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design-brief.md](design-brief.md) if narrative refresh is wanted.
 
-### Step 6: Patch copy.yaml
-
-Apply approved string patches to `docs/design/copy.yaml`. Preserve the content tree paths; never rename or reorganize surface keys during reconciliation.
-
-### Step 7: Validate
+### Step 6: Validate
 
 Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not declare done with `errors > 0`. Surface validation findings to the user; let them fix or accept trade-offs.
 

@@ -7,7 +7,7 @@ and organize into `copy.yaml`.
 
 - User provides a URL to extract content from (full page or selected region)
 - User provides a brief document (PDF or DOCX) that contains content and intent
-- User wants to structure content for redesign or greenfield work
+- User wants to structure content from an existing product (new or ongoing work)
 - User needs `copy.yaml` as a structured content payload for later design work
 
 ## Workflow
@@ -16,7 +16,7 @@ and organize into `copy.yaml`.
 
 ### Step 1: Establish Context
 
-If context was not established by SKILL.md discovery, ask:
+If context was not established by discovery, ask:
 
 1. What tone should the copy follow? (professional, casual, bold)
 2. Any content constraints? (word count, mandatory sections)
