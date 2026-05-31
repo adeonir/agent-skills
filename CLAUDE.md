@@ -290,6 +290,20 @@ files in another skill's `references/` or `instructions/`. Composition
 between skills happens via artifacts on disk (`.artifacts/`, `.agents/`),
 never via direct file links.
 
+**Own-artifact isolation.** Isolation extends to the *artifacts* a skill
+owns, not just its files. An authoring skill references only the artifact it
+produces — never a sibling's output by name or path. State boundaries in
+terms of the skill's own concern ("this artifact carries no styling"), not
+by pointing at where the excluded thing lives ("styling belongs to
+`DESIGN.md`"). Naming a sibling artifact is coupling even when no skill name
+or file link appears. The one exception is an **integrator** — a renderer or
+cross-artifact validator whose job *is* to compose several artifacts (e.g. a
+preview that draws `DESIGN.md` + `copy.yaml` + `blueprint.md` together). It
+may read what it integrates; everything upstream of it stays
+single-artifact. A user can still ask a skill to read a sibling at runtime —
+that instruction lives in the prompt, never baked into the skill or its
+references.
+
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in
 references when content is ingested as input by the model. Default to
 markdown; use tags only when structure justifies them.
@@ -602,8 +616,8 @@ docs/
 │   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
 └── design/
     ├── DESIGN.md           # design-builder: visual identity (YAML tokens + prose)
-    ├── structure.md        # design-builder: page composition / screen flow
-    └── copy.yaml           # design-builder: structured content payload
+    ├── blueprint.md      # blueprint: information architecture / region layout / screen flow
+    └── copy.yaml           # copywriting: structured content payload
 ```
 
 `.artifacts/` — workspace for agent-consumed artifacts:
@@ -635,8 +649,9 @@ skills:
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-builder` writes `docs/design/DESIGN.md`, `docs/design/structure.md`,
-and `docs/design/copy.yaml` (preview variants stay in `.artifacts/design/`).
+`design-builder` writes `docs/design/DESIGN.md` (preview variants stay in
+`.artifacts/design/`); `blueprint` writes `docs/design/blueprint.md`;
+`copywriting` writes `docs/design/copy.yaml`.
 
 ## Subagent Fan-Out
 
@@ -678,6 +693,7 @@ Before finalizing a new skill, verify:
 - [ ] References in `references/` (and instructions in `instructions/` if the split applies) with H1 + description + `## When to Use`
 - [ ] Templates inline in their reference, marked strict or flexible
 - [ ] No `## Next Steps` (pipeline fan-forward) — references end where their job ends
+- [ ] Own-artifact isolation — authoring skill names only its own artifact, never a sibling's (only an integrator/renderer composes several)
 - [ ] No time-sensitive content
 - [ ] Consistent terminology across SKILL.md, references, templates
 - [ ] All file paths use forward slashes
