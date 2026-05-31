@@ -45,7 +45,7 @@ handoff → `reconcile.md`.
 > skipped, never invoked directly. It reads the surfaces, source,
 > and entry mode so downstream phases route correctly.
 
-DESIGN.md holds the visual identity in two layers: a YAML frontmatter
+DESIGN.md holds the visual identity as a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
 `spacing`, `components`, `elevation`, `duration`, `easing`,
 `breakpoints`) plus numbered prose sections that narrate them

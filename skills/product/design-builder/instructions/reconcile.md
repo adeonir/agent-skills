@@ -60,7 +60,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 **DO:**
 
 - Treat the implementation as authoritative for drifted values only after the user confirms each patch row
-- Patch YAML frontmatter before prose bullets so the two layers stay in sync
+- Patch YAML frontmatter before prose bullets so the two stay in sync
 - Preserve narrative sections; flag staleness, do not rewrite
 - Run validate as the gate after patching, same pattern as design-brief.md Step 5
 

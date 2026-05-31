@@ -140,7 +140,7 @@ A: Greenfield-first. The primary use case is starting from zero with no existing
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at `docs/design/DESIGN.md` with two layers. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules, Component Stylings, Layout Principles, Shapes, Elevation & Depth, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
+A: A single file at `docs/design/DESIGN.md`. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules, Component Stylings, Layout Principles, Shapes, Elevation & Depth, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
 
 **Q: Where do page composition and screen flow live?**
 
@@ -148,7 +148,7 @@ A: In `docs/design/blueprint.md`, a separate upstream artifact authored before d
 
 **Q: Why both YAML and prose in the same file?**
 
-A: The YAML frontmatter gives the preview renderer machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two layers stay in sync.
+A: The YAML frontmatter gives the preview renderer machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two stay in sync.
 
 **Q: Do I need a design-tool MCP?**
 

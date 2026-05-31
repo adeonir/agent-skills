@@ -10,7 +10,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 - [When to Use](#when-to-use) — triggers and source shapes this reference handles
 - [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
-- [Output](#output) — DESIGN.md two-layer structure (YAML frontmatter + numbered prose sections)
+- [Output](#output) — DESIGN.md structure (YAML frontmatter + numbered prose sections)
 - [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, present
 - [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
 - [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
@@ -31,11 +31,11 @@ None hard. Design is greenfield-first — any input source is enough (images, co
 
 ## Output
 
-Write `docs/design/DESIGN.md`. Two layers:
+Write `docs/design/DESIGN.md`. A YAML frontmatter, then a markdown body:
 
-**Layer 1 — YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
+**YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
 
-**Layer 2 — Markdown body.** Numbered H2 sections, in order:
+**Markdown body.** Numbered H2 sections, in order:
 
 1. `## 1. Visual Theme & Atmosphere`
 2. `## 2. Color Palette & Roles`
