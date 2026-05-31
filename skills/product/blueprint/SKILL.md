@@ -14,9 +14,9 @@ description: >-
 
 # Blueprint
 
-Owns `blueprint.md` — the design-blind layout payload a design consumes, in
-two layers: a YAML frontmatter holding the renderable region tree plus a
-markdown body that narrates it with a screen map and per-surface rationale.
+Owns `blueprint.md` — the design-blind layout payload a design consumes: a
+YAML frontmatter holds the renderable region tree, and a markdown body
+narrates it with a screen map and per-surface rationale.
 Arrangement is orthogonal to visual identity: the same `blueprint.md` must
 hold under any design, so this skill plans structure only — information
 architecture, region layout, and screen flow — never colors, fonts, or tokens.
@@ -46,13 +46,13 @@ plan, or check one. See [discovery.md](references/discovery.md).
 
 ## Artifact
 
-Produces and owns `docs/design/blueprint.md` — two layers. A **YAML
-frontmatter** carries the normative region tree (surfaces → blocks with shape
-hints) plus optional screen flow — the layer a downstream renderer parses to
-draw the low-fi wireframe. A **markdown body** narrates it: a screen map and
-the per-surface rationale a tree alone cannot hold. Block labels come from the
-conversation; shape hints come from a fixed set. Patch the frontmatter first,
-then the prose that describes it, so the two layers stay in sync. Before
+Produces and owns `docs/design/blueprint.md`. A **YAML frontmatter** carries
+the normative region tree (surfaces → blocks with shape hints) plus optional
+screen flow — what a downstream renderer parses to draw the low-fi wireframe. A
+**markdown body** narrates it: a screen map and the per-surface rationale a
+tree alone cannot hold. Block labels come from the conversation; shape hints
+come from a fixed set. Patch the frontmatter first, then the prose that
+describes it, so the two stay in sync. Before
 saving, self-check: the tree is well-formed and carries structure only — no
 colors, fonts, spacing, or tokens, and no copy. It plans arrangement, nothing
 else.
@@ -71,6 +71,6 @@ plan, arrange against it; otherwise plan from intent.
 - Use free block labels; pick shape hints from the fixed set so the plan
   stays renderable.
 - Patch the frontmatter region tree first, then the body that narrates it,
-  so the two layers stay in sync.
+  so the two stay in sync.
 - Ask one decision at a time when walking surfaces, blocks, and flow.
 - Keep content out — plan structure, never author copy here.

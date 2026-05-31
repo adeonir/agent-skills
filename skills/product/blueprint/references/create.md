@@ -43,19 +43,19 @@ with a one-line rationale and let the user pick before writing.
 
 ### Step 4: Write blueprint.md
 
-Save to `docs/design/blueprint.md` using the template below — two layers. The
+Save to `docs/design/blueprint.md` using the template below. The
 **YAML frontmatter** carries the renderable region tree;
 the **markdown body** narrates it with a screen map and per-surface rationale.
 Create directories if needed. The tree mirrors the surfaces established in
 Step 1 — name each surface and block by context, nest to match, and add `note`
 where intent needs words a box cannot show. When a `blueprint.md` already
 exists, patch the frontmatter first, then the body that describes it, so the
-two layers stay in sync.
+two stay in sync.
 
 ## Template
 
-ALWAYS use this exact structure — a YAML frontmatter region tree (the
-renderable layer) followed by a markdown body that narrates it:
+ALWAYS use this exact structure — a YAML frontmatter region tree followed by
+a markdown body that narrates it:
 
 ```markdown
 ---
@@ -95,9 +95,9 @@ alone cannot carry, plus state variants (empty/loading/error) worth planning.
 One H2 per surface.}}
 ```
 
-The **frontmatter** is the normative, renderable layer — a downstream renderer
-parses it to draw the low-fi wireframe. The **body** is for humans: the screen
-map and the per-surface reasoning.
+The **frontmatter** is normative and renderable — a downstream renderer parses
+it to draw the low-fi wireframe. The **body** is for humans: the screen map and
+the per-surface reasoning.
 
 **Shape hints** are a fixed set so a downstream renderer can draw the layout:
 
