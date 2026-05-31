@@ -70,16 +70,13 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 | For every `components.<name>` with both `backgroundColor` and `textColor` resolved, contrast ratio meets WCAG AA (4.5:1 for body, 3:1 for large text and UI) | warning |
 | Color tokens defined but not referenced by any `components.*` entry (excluding paired foreground tokens) | warning |
 | When a color is an object `{ hex, oklch }`, both values parse correctly and resolve to the same color within 1 sRGB unit per channel | warning |
-| Object-form color is used only when the source was oklch-native; string hex when source was hex-only (per-token, not file-wide) | info |
 
 ### Step 5: Typography Rules — `missing-typography`
 
 | Check | Severity |
 |-------|----------|
 | `typography` is present when `colors` is present | warning |
-| At least one role with weight ≥ 600 OR letter-spacing that signals display-class type | info |
 | Body role line-height ≥ 1.4 (readability floor) | warning |
-| Hierarchy forms a clear ratio (display > heading > body > label); no two adjacent levels within 10% of each other | warning |
 
 ### Step 6: Token Groups Shape — `token-groups-shape`
 
@@ -89,8 +86,6 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 | `duration` keys are named tiers; values use `ms` unit | warning |
 | `easing` values are valid `cubic-bezier(...)` strings or CSS easing keywords (`linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`) | warning |
 | `breakpoints` keys follow Tailwind scale (`sm`, `md`, `lg`, `xl`, `2xl`); values use `rem` unit | warning |
-| `rounded` keys follow Tailwind scale (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `full`) | info |
-| `spacing` keys are numeric strings matching Tailwind scale (`1`, `2`, `3`, `4`, `6`, `8`, ...) | info |
 
 ### Step 7: Section Order and Coverage — `section-order` + `missing-sections`
 
@@ -191,7 +186,7 @@ If errors = 0: report passed. Warnings and info remain visible but do not block.
 When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller must:
 
 - Block the "done" report when `errors > 0`
-- Surface the findings inline in the inputs Step 6 (Present) output
+- Surface the findings inline in the design-brief.md Step 6 (Present) output
 - Allow the user to accept warnings as trade-offs without re-running validate
 
 ## Guidelines
@@ -209,7 +204,7 @@ When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller
 - Patch or rewrite `DESIGN.md` (contrasts: read-only audit)
 - Treat prose as the source of truth (contrasts: YAML frontmatter is authoritative)
 - Block on warnings or info (contrasts: only errors block)
-- Re-run discovery or inputs (contrasts: this ref operates on the file as-is)
+- Re-run discovery or design-brief (contrasts: this ref operates on the file as-is)
 - Invent fixes; report findings and let the user decide (contrasts: never auto-fix)
 - Shell out to an external linter binary (contrasts: this ref runs the rules inline)
 
@@ -217,7 +212,7 @@ When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller
 
 - No DESIGN.md in `docs/design/`: stop and route the user to `design-brief.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
-- YAML parses but `colors` is empty: report what is missing, suggest running inputs
+- YAML parses but `colors` is empty: report what is missing, suggest running design-brief
 
 ## Outcomes
 
