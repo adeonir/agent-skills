@@ -34,8 +34,8 @@ Produces `blueprint.md`, the layout plan a design consumes. Operations:
 
 `discovery.md` runs before every operation — never skipped, never invoked
 directly. It checks existing context (an existing `blueprint.md`, the
-conversation, any brief the user provides), classifies the field (greenfield /
-brownfield), and routes to the matching mode. See [discovery.md](references/discovery.md).
+conversation, any brief the user provides) and routes by intent — author a
+plan, or check one. See [discovery.md](references/discovery.md).
 
 ## Operations
 

@@ -1,9 +1,8 @@
 # Create
 
-Author a fresh layout plan into `blueprint.md`. Greenfield: when there is no
-existing arrangement, plan the surfaces, blocks, shapes, and flow a product
-needs, then save the region tree (YAML frontmatter) and narrate it (markdown
-body).
+Author or edit a layout plan in `blueprint.md`. Plan the surfaces, blocks,
+shapes, and flow a product needs — from scratch, or patching an existing plan —
+then save the region tree (YAML frontmatter) and narrate it (markdown body).
 
 ## When to Use
 

@@ -13,7 +13,7 @@ never invoked directly.
 
 Look for:
 
-- an existing `docs/design/blueprint.md` — a prior layout plan (signals brownfield)
+- an existing `docs/design/blueprint.md` — a prior layout plan
 - a wireframe on hand: sketch, mockup, screenshot, or a described layout
 - a brief, PRD, or description the user provides — intent and surfaces
 - existing content the user points to — arrange real blocks against it when given
@@ -21,22 +21,16 @@ Look for:
 Read what is found for surfaces, primary actions, and flow. Skip to the
 relevant mode.
 
-### Step 2: Classify Field
+### Step 2: Route by Intent
 
-Infer from context — do not ask explicitly:
-
-- **greenfield** — no existing plan → create a fresh layout from conversation.
-- **brownfield** — a plan or a wireframe exists → validate it for coherence,
-  then optionally roll into create for missing decisions.
-
-### Step 3: Route to Operation
+Infer from what the user wants — do not ask explicitly:
 
 | Intent | Reference |
 |--------|-----------|
-| Author a fresh layout plan | [create.md](create.md) |
-| Check a wireframe or existing plan | [validate.md](validate.md) |
+| Author or edit a layout plan (fresh, or patch an existing one) | [create.md](create.md) |
+| Check a wireframe or existing plan for coherence | [validate.md](validate.md) |
 
-### Step 4: Fill Gaps
+### Step 3: Fill Gaps
 
 When context is missing, ask one question at a time: which surfaces or screens
 the product has, the primary action per surface, and any flow between them.

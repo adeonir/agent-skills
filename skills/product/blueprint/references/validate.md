@@ -1,8 +1,8 @@
 # Validate
 
 Check a wireframe or an existing `blueprint.md` for information-architecture,
-flow, and intent coherence. Brownfield: when an arrangement already exists,
-question it before any design work consumes it.
+flow, and intent coherence. When an arrangement already exists, question it
+before any design work consumes it.
 
 ## When to Use
 
