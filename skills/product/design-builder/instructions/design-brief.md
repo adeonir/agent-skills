@@ -53,11 +53,11 @@ These eleven sections appear in this fixed order. If the source carries no signa
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
-Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, authored upstream and read here only.
+Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) is out of scope here — DESIGN.md carries brand-level layout identity only, not page composition. Product copy is out of scope too; DESIGN.md stays content-agnostic.
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
 
-**Changing or rebranding an existing identity.** When a `DESIGN.md` already exists and the user brings a new reference to shift the look, treat the current `DESIGN.md` as the baseline and patch only the sections the new reference drives. Default: source the aesthetic sections (Color, Typography, Motion, Shapes, Elevation) from the new reference; keep the structural sections (Layout, Responsive) and `copy.yaml` / `structure.md` from the current product unless the user names them. Confirm the per-section mapping before patching.
+**Changing or rebranding an existing identity.** When a `DESIGN.md` already exists and the user brings a new reference to shift the look, treat the current `DESIGN.md` as the baseline and patch only the sections the new reference drives. Default: source the aesthetic sections (Color, Typography, Motion, Shapes, Elevation) from the new reference; keep the structural sections (Layout, Responsive) from the current product, and leave content and arrangement untouched, unless the user names them. Confirm the per-section mapping before patching.
 
 ## Workflow
 
@@ -290,7 +290,7 @@ Add `### Image Treatment` and `### Distinctive Components` when the source carri
 - `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
 - `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Visual Theme & Atmosphere tone.
 
-This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow live in `docs/design/structure.md`.
+This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow are out of scope here.
 
 `## 6. Shapes` — radius scale narrative and corner treatments. Recommended H3:
 
@@ -359,7 +359,7 @@ Show the user:
 - Use `{path.to.token}` references inside `components`, `rounded`, and `spacing` to keep the YAML coherent
 - Ask the user when two sources conflict on the same token
 - Express variants (hover, active, pressed, disabled) as separate component entries with related key names
-- Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy belongs in `copy.yaml`
+- Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy is out of scope
 - Use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`) in Section 11 example prompts so DESIGN.md renders any product copy
 
 **DON'T:**
@@ -368,8 +368,8 @@ Show the user:
 - Mix descriptive and poetic color names in the same file (contrasts: pick one mode)
 - Fake a color shape that contradicts its source value — never invent oklch from a hex literal, or strip oklch from a source that declared it (contrasts: shape mirrors the source value per-token)
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
-- Author product-specific arrangement in DESIGN.md (contrasts: that belongs in `docs/design/structure.md`)
-- Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; copy lives in `copy.yaml`)
+- Author product-specific arrangement in DESIGN.md (contrasts: product-specific arrangement is out of scope for DESIGN.md)
+- Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; product copy stays out)
 - Write Section 1 Visual Theme & Atmosphere as a product pitch (contrasts: the Visual Theme & Atmosphere section is brand voice and atmosphere, not what the product does or for whom)
 - Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
@@ -520,7 +520,7 @@ breakpoints:
 
 ## 1. Visual Theme & Atmosphere
 
-{1500–3000 chars of prose. Establish mood, density, contrast, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). Reference token keys in backticks inline. No H3 in this section. **Reads like editorial copy** — evocative prose that captures the visual feel, not a technical dump. **Content-agnostic** — describe the visual identity only. No real headlines, marketing claims, feature lists, or audience descriptions. Any reference to what the product does belongs in `copy.yaml`, not here.}
+{1500–3000 chars of prose. Establish mood, density, contrast, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). Reference token keys in backticks inline. No H3 in this section. **Reads like editorial copy** — evocative prose that captures the visual feel, not a technical dump. **Content-agnostic** — describe the visual identity only. No real headlines, marketing claims, feature lists, or audience descriptions. Any reference to what the product does is out of scope here.}
 
 ## 2. Color Palette & Roles
 

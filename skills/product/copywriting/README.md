@@ -22,8 +22,8 @@ flowchart TD
 | **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
 
-Content is orthogonal to design: the same `copy.yaml` must render under any
-`DESIGN.md`, so this skill carries words only — never colors, fonts, or layout.
+Content is orthogonal to design: the same `copy.yaml` works independent of
+visual styling, so this skill carries words only — never colors, fonts, or layout.
 
 ## Usage
 

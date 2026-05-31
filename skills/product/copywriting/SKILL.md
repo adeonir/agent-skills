@@ -55,8 +55,8 @@ mode. See [discovery.md](instructions/discovery.md).
 Produces and owns `docs/design/copy.yaml` — a context-named content tree
 (surfaces → parts → headline, body, cta, images), named to mirror the source.
 Before saving, self-check: the tree is well-formed and carries no design
-decisions (no colors, fonts, or layout — those belong to `DESIGN.md`). The two
-artifacts compose on disk: any `copy.yaml` must render under any `DESIGN.md`.
+decisions — no colors, fonts, or layout, content only. The content stays
+swappable: any `copy.yaml` must work independent of visual styling.
 
 ## References
 

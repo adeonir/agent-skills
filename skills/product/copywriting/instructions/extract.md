@@ -129,12 +129,12 @@ notes: |
 - Capture copywriting patterns (tone, power words, CTA style) under `notes`
 - Extract every surface and part thoroughly — do not skip content
 - Scope extracted output to what was actually captured — a region input produces region output, not a full-surface tree
-- Keep `copy.yaml` independent of design choices — content only; DESIGN.md owns visual identity, and the two artifacts must compose with a `copy.yaml` swapped from a different project
+- Keep `copy.yaml` independent of design choices — content only; visual identity lives elsewhere, and the content must stay swappable across projects
 
 **DON'T:**
 - Rewrite or editorialize the original copy (contrasts: preserve original tone)
 - Skip surfaces or omit content found in the source (contrasts: extract thoroughly)
-- Embed visual decisions (icon names, color references, layout hints, font picks) into `copy.yaml` (contrasts: those belong in DESIGN.md; copy carries content only)
+- Embed visual decisions (icon names, color references, layout hints, font picks) into `copy.yaml` (contrasts: copy carries content only; visual decisions stay out)
 - Treat a captured region as a full page (contrasts: scope output to the captured region)
 
 ## Error Handling

@@ -1,6 +1,6 @@
 # Reconcile
 
-Patch `DESIGN.md` back from a drifted implementation. Brownfield-only: when the running code's tokens or component variants no longer match the authored design, this reference diffs the implementation against DESIGN.md and applies surgical patches. Content drift in `copy.yaml` is out of scope here — this reconciles `DESIGN.md` only.
+Patch `DESIGN.md` back from a drifted implementation. Brownfield-only: when the running code's tokens or component variants no longer match the authored design, this reference diffs the implementation against DESIGN.md and applies surgical patches. Content and arrangement drift are out of scope here — this reconciles `DESIGN.md` only.
 
 ## When to Use
 
@@ -69,7 +69,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Patch silently (contrasts: confirm-before-write per row)
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
 - Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design-brief.md)
-- Touch `docs/design/structure.md` (contrasts: structure is owned by its own reference)
+- Patch artifacts other than DESIGN.md (contrasts: reconcile syncs DESIGN.md only — content and arrangement are out of scope)
 - Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use design-brief.md for that)
 
 ## Error Handling
