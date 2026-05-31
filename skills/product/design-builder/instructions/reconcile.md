@@ -8,7 +8,7 @@ Patch `DESIGN.md` and `copy.yaml` back from a drifted implementation. Brownfield
 - User says "sync design from implementation", "update DESIGN.md from code", "reconcile drift", or "refresh design tokens from this codebase" when DESIGN.md already exists
 - Pre-handoff audit before treating DESIGN.md as authoritative for a new feature
 
-Not for: authoring DESIGN.md from scratch (use [design-brief.md](design-brief.md)) or applying a new external reference / vibe (use [redesign.md](redesign.md)).
+Not for: authoring DESIGN.md from scratch or restyling it from a new external reference / vibe (use [design-brief.md](design-brief.md)).
 
 ## Prerequisites
 
@@ -77,7 +77,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
 - Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design-brief.md)
 - Touch `docs/design/structure.md` (contrasts: structure is owned by its own reference)
-- Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use redesign.md for that)
+- Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use design-brief.md for that)
 
 ## Error Handling
 

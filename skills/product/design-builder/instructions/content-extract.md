@@ -8,7 +8,7 @@ and organize into `copy.yaml`.
 - User provides a URL to extract content from (full page or selected region)
 - User provides a brief document (PDF or DOCX) that contains content and intent
 - User wants to structure content for redesign or greenfield work
-- User needs `copy.yaml` as input for design extraction, structure, or preview
+- User needs `copy.yaml` as a structured content payload for later design work
 
 ## Workflow
 

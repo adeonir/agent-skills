@@ -24,7 +24,6 @@ flowchart TD
 | **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
 | **Structure** | Define page composition for marketing/content surfaces, screen flow for app/dashboard screens, or catalog + commerce surfaces for storefronts | `docs/design/structure.md` (parallel artifact; never touches DESIGN.md) |
 | **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
-| **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `docs/design/DESIGN.md` with slice-scoped updates |
 | **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `docs/design/DESIGN.md` + `docs/design/copy.yaml` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
@@ -33,7 +32,7 @@ flowchart TD
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
 | **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `content → design → structure → preview` |
-| **Redesign** | Existing app + new external reference — map slices to DESIGN.md sections, generate variants | `redesign.md` |
+| **Rebrand** | Existing app + new reference — restyle the sections it drives | `design-brief.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md + copy.yaml back from implementation | `reconcile.md` |
 
 ## What It Designs
@@ -73,7 +72,7 @@ validate DESIGN.md
 check this DESIGN.md
 audit the design system
 
-# Redesign existing app (anchor + new external reference + slice mapping)
+# Rebrand / restyle an existing app from a new reference
 redesign my app with a Cyberpunk vibe
 modernize this app with a Bento Grid layout
 apply this brand's colors to my app, keep my typography
@@ -154,7 +153,7 @@ A: No. design-builder adapts to any digital product — marketing pages, app and
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design-brief.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design-brief.md` ("extract from codebase") for inheriting tokens at the start and for restyling an existing identity from a new reference, plus `reconcile.md` for syncing back after drift.
 
 **Q: What is `DESIGN.md`?**
 

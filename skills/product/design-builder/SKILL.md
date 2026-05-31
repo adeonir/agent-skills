@@ -66,9 +66,9 @@ handoff artifact.
 - **Greenfield** — zero to `DESIGN.md` + `structure.md` + `copy.yaml`
   from raw inputs (URL, images, brief, codebase, design-tool file).
   Default path; runs content → design → structure → preview.
-- **Redesign** — anchor an existing app, ingest a new external
-  reference, map slices to DESIGN.md sections, generate variants.
-  Lives in [redesign.md](instructions/redesign.md).
+- **Rebrand** — restyle an existing `DESIGN.md` from a new reference,
+  patching the sections it drives. Handled by
+  [design-brief.md](instructions/design-brief.md).
 - **Reconcile** — sync DESIGN.md and copy.yaml back from a drifted
   implementation. Brownfield-only. Lives in
   [reconcile.md](instructions/reconcile.md).
@@ -82,15 +82,13 @@ handoff artifact.
 | Define page composition, screen flow, or commerce surfaces | [structure.md](instructions/structure.md) |
 | Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
-| Anchor existing app + apply new reference | [redesign.md](instructions/redesign.md) |
 | Sync DESIGN.md + copy.yaml from drifted implementation | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `web-standards.md` auto-load
 inside `preview.md`. `validate.md` is both directly callable and
 auto-loaded as a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md
-never lands invalid for downstream consumers (preview, structure,
-redesign).
+never lands invalid for downstream consumers (preview, structure).
 
 ## Guidelines
 

@@ -13,10 +13,9 @@ Load at the start of every operation — before any trigger reference is loaded.
 Look for:
 
 - `docs/design/DESIGN.md` — already-authored visual identity
-- `.artifacts/docs/prd.md` — PRD
-- `.artifacts/docs/brief.md` — Brief
-- `.artifacts/brainstorm/` — direction artifacts
-- `.artifacts/docs/*-research.md` — naming research
+- `docs/product/prd.md` — PRD
+- `docs/product/brief.md` — Brief
+- `docs/product/brainstorm.md` — strategic direction
 - `docs/design/copy.yaml` — extracted content payload
 
 If found, read and extract purpose, audience, tone, key features, and any
@@ -69,7 +68,6 @@ Load only the reference matching the activated trigger:
 | Structure / wireframe | `structure.md` | — |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |
 | Validation only | `validate.md` | — |
-| Redesign (anchor + new reference) | `redesign.md` | — |
 | Reconcile / drift sync | `reconcile.md` | `validate.md` |
 
 Never load multiple operation references simultaneously.

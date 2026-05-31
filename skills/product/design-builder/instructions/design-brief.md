@@ -2,7 +2,7 @@
 
 Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from visual theme to agent prompts.
 
-The YAML frontmatter is authoritative — tokens carry the values. Prose cites tokens by name and explains how to apply them. Token extraction and naming deserve careful reasoning — small mistakes cascade into every preview and handoff.
+The YAML frontmatter is authoritative — tokens carry the values. Prose cites tokens by name and explains how to apply them. Token extraction and naming deserve careful reasoning — small mistakes cascade into every downstream use of the tokens.
 
 `DESIGN.md` is a **living document**, not a one-shot export — patched section by section, reconciled against implementation drift, and refreshed as the identity evolves, never regenerated wholesale. The section structure stays stable so every section is a durable slot a later pass can patch into.
 
@@ -23,6 +23,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 - User describes the visual identity in text only (no images)
 - User wants to pull tokens from a file in an external design tool via the matching MCP
 - User wants to refresh `DESIGN.md` after editing a design-tool file
+- User brings a new reference (image, URL, prompt, another codebase) to restyle or rebrand an existing `DESIGN.md`
 
 ## Prerequisites
 
@@ -55,6 +56,8 @@ Lead block above the sections (inside the markdown body): H1 with project name.
 Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, owned by [content-extract.md](content-extract.md).
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
+
+**Changing or rebranding an existing identity.** When a `DESIGN.md` already exists and the user brings a new reference to shift the look, treat the current `DESIGN.md` as the baseline and patch only the sections the new reference drives. Default: source the aesthetic sections (Color, Typography, Motion, Shapes, Elevation) from the new reference; keep the structural sections (Layout, Responsive) and `copy.yaml` / `structure.md` from the current product unless the user names them. Confirm the per-section mapping before patching.
 
 ## Workflow
 
