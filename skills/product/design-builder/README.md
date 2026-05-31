@@ -6,7 +6,7 @@ Greenfield design pipeline for any digital product: extract content, author a `D
 
 ```mermaid
 flowchart TD
-    A[URL / Images / Brief / Codebase / Design-tool file] -->|copy| B1[copy.yaml]
+    A[URL / Images / Brief / Codebase / Design-tool file] -->|content| B1[copy.yaml]
     A -->|design| B2[DESIGN.md]
     B2 -->|structure| C[docs/design/structure.md]
     B1 --> D[Preview]
@@ -20,9 +20,9 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Copy** | Extract copy from URL, web capture, brief document | `docs/design/copy.yaml` |
+| **Content** | Extract copy from URL, web capture, brief document | `docs/design/copy.yaml` |
 | **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
-| **Structure** | Define page composition (page-based), screen flow (screen-based), or catalog + commerce surfaces (commerce-based) | `docs/design/structure.md` (parallel artifact; never touches DESIGN.md) |
+| **Structure** | Define page composition for marketing/content surfaces, screen flow for app/dashboard screens, or catalog + commerce surfaces for storefronts | `docs/design/structure.md` (parallel artifact; never touches DESIGN.md) |
 | **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
 | **Redesign** | Anchor an existing app, add new external references, map slices to DESIGN.md sections, explore variants | Patched `docs/design/DESIGN.md` with slice-scoped updates |
 | **Reconcile** | Brownfield: sync DESIGN.md + copy.yaml back from drifted implementation | Patched `docs/design/DESIGN.md` + `docs/design/copy.yaml` (confirm-before-write) |
@@ -32,21 +32,25 @@ flowchart TD
 
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
-| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `copy → design → structure → preview` |
+| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `content → design → structure → preview` |
 | **Redesign** | Existing app + new external reference — map slices to DESIGN.md sections, generate variants | `redesign.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md + copy.yaml back from implementation | `reconcile.md` |
 
-## Project Types
+## What It Designs
 
-design-builder adapts behavior to project type:
+design-builder adapts to any digital product — it does not force the project
+into a fixed type. It reads the surfaces a project actually has, and a project
+may combine several:
 
-| Type | Best For |
-| ---- | -------- |
-| `landing-page` | Single-page marketing, product launch, waitlist, conversion page |
-| `website` | Multi-page brand site, docs, blog, marketing site with navigation |
-| `web-app` | Dashboards, SaaS tools, internal tools, admin panels, productivity apps |
-| `mobile-app` | iOS/Android apps, mobile-first PWAs, hybrid apps |
-| `e-commerce` | Online stores, DTC brands, marketplaces, catalog with checkout |
+- **Marketing / content surfaces** — landing pages, brand sites, docs, blogs,
+  product launches, conversion pages
+- **App / dashboard screens** — SaaS tools, dashboards, internal tools, admin
+  panels, mobile app screens
+- **Storefront / commerce surfaces** — catalog, product pages, cart, checkout,
+  account (online stores, DTC, marketplaces)
+
+Name surfaces by context; the questions, presets, and structure topics follow
+the surfaces present.
 
 ## Usage
 
@@ -55,7 +59,7 @@ design-builder adapts behavior to project type:
 ```text
 # Extract content
 extract copy from https://example.com
-extract copy from this brief (PDF/DOCX)
+extract content from this brief (PDF/DOCX)
 web capture the hero section of https://competitor.com
 
 # Author DESIGN.md (YAML frontmatter with normative tokens + prose narration)
@@ -80,8 +84,8 @@ update DESIGN.md from code
 reconcile drift between implementation and design
 
 # Define structure (separate artifact, never touches DESIGN.md)
-define the layout for this landing page         # page-based
-define the screen flow for this app             # screen-based
+define the layout for this landing page         # marketing / content surface
+define the screen flow for this app             # app / dashboard screens
 check this wireframe                            # validate existing
 
 # Preview
@@ -146,11 +150,11 @@ Bundled lookups auto-loaded by the relevant instruction phase:
 
 **Q: Is this for landing pages only?**
 
-A: No. design-builder adapts to any digital product — landing pages, websites, web apps, and mobile apps. Project type routes the questions asked and the presets offered in preview.
+A: No. design-builder adapts to any digital product — marketing pages, app and dashboard screens, storefronts, and more. The surfaces a project has route the questions asked and the presets offered in preview.
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design-brief.md` ("extract from codebase") for inheriting tokens at the start, `reconcile.md` for syncing back after drift, plus `redesign.md` for anchor + new-reference slice-mapped pivots.
 
 **Q: What is `DESIGN.md`?**
 

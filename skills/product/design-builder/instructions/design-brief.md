@@ -26,7 +26,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 ## Prerequisites
 
-None hard. Design is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (project type, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `docs/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
+None hard. Design is greenfield-first — any input source is enough (images, codebase, brand URL, text description, design-tool file). Discovery context (surfaces present, field classification) is a soft dependency: when absent, Step 1 collects it. An existing `docs/design/DESIGN.md` is optional — when present, this reference patches; when absent, it authors from scratch.
 
 ## Output
 
@@ -52,7 +52,7 @@ These eleven sections appear in this fixed order. If the source carries no signa
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
-Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, owned by [copy.md](copy.md).
+Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in `docs/design/structure.md`, owned by [structure.md](structure.md). Never write that file from here. Never overwrite content payload — that lives in `docs/design/copy.yaml`, owned by [content-extract.md](content-extract.md).
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
 
@@ -62,7 +62,7 @@ Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact writte
 
 If discovery did not capture it, ask one question at a time:
 
-1. Project type: landing-page, website, web-app, mobile-app, or e-commerce?
+1. Which surfaces does the project have — marketing/content pages, app/dashboard screens, storefront/commerce, or a mix?
 2. Source on hand: images, codebase, text description, design-tool file?
 3. Existing `DESIGN.md` in `docs/design/` — patch it or start fresh?
 

@@ -2,18 +2,19 @@
 name: design-builder
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
 description: >-
-  Greenfield design pipeline for any digital product (landing pages,
-  websites, web apps, mobile apps, e-commerce storefronts): extract
-  content, author the visual identity, define page composition, screen
-  flow, or commerce surfaces, preview and refine variants. Use when
-  authoring a design system, extracting design tokens, building or
-  refreshing DESIGN.md, building pages, app screens, or storefronts
-  from references, images, briefs, or a codebase; creating wireframes,
-  defining screen flows or layouts; previewing or tuning designs,
-  generating creative variants, applying named tones; redesigning,
-  modernizing, or refreshing the brand identity; reconciling design
-  drift or syncing from implementation. Not for feature implementation spec, system
-  architecture, or PR/code review.
+  Greenfield design pipeline for any digital product: extract content
+  or page copy, author the visual identity, define page composition,
+  screen flow, or commerce surfaces, preview and refine variants. Use
+  when designing a landing page, marketing site, web or mobile app,
+  dashboard, or e-commerce store; authoring a design system, extracting
+  design tokens, building or refreshing DESIGN.md, building pages,
+  screens, or storefronts from references, images, briefs, or a
+  codebase; creating wireframes, defining screen flows or layouts;
+  previewing or tuning designs, generating creative variants, applying
+  named tones; redesigning, modernizing, or refreshing the brand
+  identity; reconciling design drift or syncing from implementation.
+  Not for feature implementation spec, system architecture, or
+  PR/code review.
 ---
 
 # Design Builder
@@ -27,7 +28,7 @@ artifact, preview, refine.
 ## Workflow
 
 ```text
-copy --> design --> structure --> preview
+content --> design --> structure --> preview
             |            |             ^__|
             |            |           (tune loop)
             v            v
@@ -41,7 +42,7 @@ standalone — call them in any order, skip any of them, or run only the
 one you need. Brownfield drift after handoff → `reconcile.md`.
 
 > **Auto-load:** `discovery.md` runs before every operation — never
-> skipped, never invoked directly. It classifies project type, source,
+> skipped, never invoked directly. It reads the surfaces, source,
 > and entry mode so downstream phases route correctly.
 
 DESIGN.md holds the visual identity in two layers: a YAML frontmatter
@@ -64,7 +65,7 @@ handoff artifact.
 
 - **Greenfield** — zero to `DESIGN.md` + `structure.md` + `copy.yaml`
   from raw inputs (URL, images, brief, codebase, design-tool file).
-  Default path; runs copy → design → structure → preview.
+  Default path; runs content → design → structure → preview.
 - **Redesign** — anchor an existing app, ingest a new external
   reference, map slices to DESIGN.md sections, generate variants.
   Lives in [redesign.md](instructions/redesign.md).
@@ -76,8 +77,8 @@ handoff artifact.
 
 | Operation | File |
 | --------- | ---- |
-| Extract copy from URLs, captures, briefs | [copy.md](instructions/copy.md) |
-| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
+| Extract content or copy from URLs, captures, briefs | [content-extract.md](instructions/content-extract.md) |
+| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design-brief.md](instructions/design-brief.md) |
 | Define page composition, screen flow, or commerce surfaces | [structure.md](instructions/structure.md) |
 | Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
@@ -87,7 +88,7 @@ handoff artifact.
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `web-standards.md` auto-load
 inside `preview.md`. `validate.md` is both directly callable and
-auto-loaded as a gate by `design.md` and `reconcile.md`, so DESIGN.md
+auto-loaded as a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md
 never lands invalid for downstream consumers (preview, structure,
 redesign).
 
@@ -101,8 +102,8 @@ redesign).
 - Patch DESIGN.md frontmatter group by group and prose section by
   section so each phase preserves the others' work; patch the YAML
   authoritative layer first, prose follows
-- Route preset and decision sets by project type (landing-page,
-  website, web-app, mobile-app, e-commerce)
+- Route preset and decision sets by the surfaces the project has
+  (marketing/content, app/dashboard, storefront/commerce)
 - Auto-load `aesthetics.md` and `web-standards.md` for every preview run
 - Treat external design-tool files as user-owned — read only when the
   user asks and the matching MCP is available
@@ -111,9 +112,9 @@ redesign).
 
 Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
-bullets that cite the patched tokens. `design.md` owns the DESIGN.md
+bullets that cite the patched tokens. `design-brief.md` owns the DESIGN.md
 frontmatter and prose sections, `structure.md` owns its own artifact at
-`docs/design/structure.md`, `copy.md` owns content payload in
+`docs/design/structure.md`, `content-extract.md` owns content payload in
 `copy.yaml`. `reconcile.md` patches DESIGN.md and copy.yaml from a
 drifted implementation following the same surgical rules.
 
@@ -132,6 +133,6 @@ DESIGN.md is content-agnostic by design. The same tokens and brand prose must re
 
 Discovery loads before every operation, even when the user hands you
 images, briefs, or a codebase. Without discovery, the skill misroutes —
-running landing-page presets on a mobile app, or pulling tokens from a
+running marketing-surface presets on an app, or pulling tokens from a
 codebase the user wants to leave alone. The 30 seconds discovery costs
 saves the alternative of redoing the whole flow.

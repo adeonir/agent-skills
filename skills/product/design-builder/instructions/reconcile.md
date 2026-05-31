@@ -8,11 +8,11 @@ Patch `DESIGN.md` and `copy.yaml` back from a drifted implementation. Brownfield
 - User says "sync design from implementation", "update DESIGN.md from code", "reconcile drift", or "refresh design tokens from this codebase" when DESIGN.md already exists
 - Pre-handoff audit before treating DESIGN.md as authoritative for a new feature
 
-Not for: authoring DESIGN.md from scratch (use [design.md](design.md)) or applying a new external reference / vibe (use [redesign.md](redesign.md)).
+Not for: authoring DESIGN.md from scratch (use [design-brief.md](design-brief.md)) or applying a new external reference / vibe (use [redesign.md](redesign.md)).
 
 ## Prerequisites
 
-- `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design.md](design.md) to author the design first.
+- `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design-brief.md](design-brief.md) to author the design first.
 - Codebase path or live URL available as the implementation source.
 - `docs/design/copy.yaml` optional. When present, copy drift is part of the diff; when absent, only DESIGN.md reconciles.
 
@@ -26,7 +26,7 @@ Parse the YAML frontmatter of `docs/design/DESIGN.md` as the authored state. Par
 
 ### Step 2: Extract Implementation State
 
-Detect and read in this order (same detection chain as design.md Step 2 Codebase source):
+Detect and read in this order (same detection chain as design-brief.md Step 2 Codebase source):
 
 - Tailwind theme — `@theme` directive in CSS files (`globals.css`, `app.css`)
 - Design token files (`tokens.json`, `design-tokens.json`, `theme.ts`, `theme.js`) — structured token definitions
@@ -34,7 +34,7 @@ Detect and read in this order (same detection chain as design.md Step 2 Codebase
 - Component libraries (shadcn under `components/ui`, cva variants, styled-components themes) — component styles and states
 - Font imports in layout or root files — active font families
 
-For copy drift: extract strings from rendered routes or component files. Scope to the surfaces represented in `copy.yaml`; do not invent new sections or screens.
+For copy drift: extract strings from rendered routes or component files. Scope to the content paths present in `copy.yaml`; do not invent new surfaces or keys.
 
 If multiple sources overlap, ask the user which is authoritative.
 
@@ -52,11 +52,11 @@ Present the diff inline. User approves, rejects, or edits each patch row. No sil
 
 Patch the YAML frontmatter first (authoritative), then patch the prose bullets in Sections 2, 3, 4, 5, 6, 7, 8 that cite the patched tokens, so prose mirrors the frontmatter.
 
-Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design.md](design.md) if narrative refresh is wanted.
+Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design-brief.md](design-brief.md) if narrative refresh is wanted.
 
 ### Step 6: Patch copy.yaml
 
-Apply approved string patches to `docs/design/copy.yaml`. Preserve schema shape; never reorganize the file structure during reconciliation.
+Apply approved string patches to `docs/design/copy.yaml`. Preserve the content tree paths; never rename or reorganize surface keys during reconciliation.
 
 ### Step 7: Validate
 
@@ -69,19 +69,19 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Treat the implementation as authoritative for drifted values only after the user confirms each patch row
 - Patch YAML frontmatter before prose bullets so the two layers stay in sync
 - Preserve narrative sections; flag staleness, do not rewrite
-- Run validate as the gate after patching, same pattern as design.md Step 5
+- Run validate as the gate after patching, same pattern as design-brief.md Step 5
 
 **DON'T:**
 
 - Patch silently (contrasts: confirm-before-write per row)
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
-- Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design.md)
+- Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design-brief.md)
 - Touch `docs/design/structure.md` (contrasts: structure is owned by its own reference)
 - Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use redesign.md for that)
 
 ## Error Handling
 
-- DESIGN.md missing: stop and route the user to [design.md](design.md) to author one
+- DESIGN.md missing: stop and route the user to [design-brief.md](design-brief.md) to author one
 - Implementation source unreadable (codebase path missing, MCP down for design-tool fallback): ask user to re-supply or provide a live URL fallback
 - Codebase partially defines tokens: report what is present, ask user how to treat missing groups (keep DESIGN.md value or mark as gap)
 - Diff is empty across all groups: report `no drift detected` and stop

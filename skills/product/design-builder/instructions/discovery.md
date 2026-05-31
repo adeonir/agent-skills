@@ -28,7 +28,7 @@ relevant trigger operation.
 
 Ask one question at a time:
 
-1. Project type: landing-page, website, web-app, mobile-app, or e-commerce?
+1. Project surfaces: marketing pages, app screens, commerce (catalog + checkout), or a combination?
 2. Source on hand: URL, images, brief document, codebase, vanilla HTML/CSS,
    design-tool file, or text description?
 3. Visual references or constraints?
@@ -64,8 +64,8 @@ Load only the reference matching the activated trigger:
 
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
-| Content extraction | `copy.md` | — |
-| Visual identity / DESIGN.md | `design.md` | `validate.md` |
+| Content extraction | `content-extract.md` | — |
+| Visual identity / DESIGN.md | `design-brief.md` | `validate.md` |
 | Structure / wireframe | `structure.md` | — |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |
 | Validation only | `validate.md` | — |
@@ -74,10 +74,12 @@ Load only the reference matching the activated trigger:
 
 Never load multiple operation references simultaneously.
 
-Project type routes behavior in all subsequent steps:
+The surface kinds present in the source route behavior in subsequent steps.
+A project may carry several — route by every surface it has, not a single
+declared type:
 
-- **page-based** (landing-page, website): section-oriented questions and presets
-- **screen-based** (web-app, mobile-app): screen-flow and navigation questions,
+- **marketing / content surfaces**: section-oriented questions and presets
+- **app / dashboard screens**: screen-flow and navigation questions,
   app-oriented presets
-- **commerce-based** (e-commerce): product catalog, PLP/PDP, cart and checkout
-  flows, trust-signal presets
+- **storefront / commerce surfaces**: product catalog, PLP/PDP, cart and
+  checkout flows, trust-signal presets

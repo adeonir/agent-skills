@@ -23,27 +23,27 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-## Project Type Routes the Presets
+## Surfaces Route the Presets
 
-Read `project_type` from discovery context or `copy.yaml`. Ask the user if not set.
+Read which surfaces the project has from discovery context or `copy.yaml`. Ask the user if unclear.
 
 Presets are **default starting points** when the user has no specific direction. When the user prompts a direction ("Cyberpunk", "Editorial dark mode", "Bento Grid"), the preset list is ignored and direction comes from the prompt plus the Style Axes in [aesthetics.md](../references/aesthetics.md).
 
-**Page-based** (`landing-page`, `website`) defaults:
+**Marketing / content surfaces** defaults:
 
 - Editorial — typography-driven, generous whitespace
 - Marketing — hero-forward, conversion-oriented
 - Product — feature-dense, modular sections
 - Branded — bold color, distinctive shapes
 
-**Screen-based** (`web-app`, `mobile-app`) defaults:
+**App / dashboard screens** defaults:
 
 - Utilitarian — dense, efficient, power-user
 - Consumer-polished — approachable, friendly, rounded
 - Native-platform — respects platform conventions (iOS/Android/macOS/Windows)
 - Creative-tool — canvas-first, tool palette, minimal chrome
 
-**Commerce-based** (`e-commerce`) defaults:
+**Storefront / commerce surfaces** defaults:
 
 - Boutique — minimal, image-led, premium DTC, generous whitespace
 - Marketplace — dense grid, multi-vendor feel, filter-heavy, varied catalog
@@ -170,7 +170,7 @@ Agent reads `comment` events on the next turn, addresses each, and shows the upd
 
 Variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
 
-Default viewport: 1440 for page-based and commerce-based, 375 for screen-based on mobile-app, 1440 for screen-based on web-app.
+Default viewport: 1440 (desktop) for marketing/content and storefront surfaces, 375 (mobile) for mobile app screens, 1440 for app/dashboard screens on the web.
 
 ## Commit Back to DESIGN.md
 
@@ -230,7 +230,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 - Read the DESIGN.md frontmatter before generating to ground every visual choice in the current tokens
 - Read `docs/design/structure.md` for arrangement; never re-arrange pages or screens inside preview
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
-- Route presets by project type when the user has no direction; ignore presets when the user prompts direction
+- Route presets by the surfaces the project has when the user has no direction; ignore presets when the user prompts direction
 - Default variant count to 4; honor any N the user names
 - Apply [aesthetics.md](../references/aesthetics.md) and [web-standards.md](../references/web-standards.md) to every output
 - Serve every generated preview through the preview server

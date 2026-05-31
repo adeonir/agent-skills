@@ -14,8 +14,8 @@ Slice extraction and Step 5 variant generation deserve careful reasoning -- smal
 
 ## Not For
 
-- Greenfield design (use [design.md](design.md) + [structure.md](structure.md))
-- Refreshing tokens from the same source the original was built from (use [design.md](design.md) refresh path)
+- Greenfield design (use [design-brief.md](design-brief.md) + [structure.md](structure.md))
+- Refreshing tokens from the same source the original was built from (use [design-brief.md](design-brief.md) refresh path)
 - Simple polish on existing variants (use [preview.md](preview.md) tune sliders directly)
 - Re-arranging pages or screens (that lives in [structure.md](structure.md), not here)
 
@@ -34,7 +34,7 @@ Slices are independent. Each can come from a different source. The composition i
 ## Prerequisites
 
 - **Anchor source**: existing codebase, live URL, or `docs/design/DESIGN.md`
-- **At least one new input** that is NOT the anchor (otherwise this is `design.md` refresh, not redesign)
+- **At least one new input** that is NOT the anchor (otherwise this is `design-brief.md` refresh, not redesign)
 
 ## Workflow
 
@@ -42,19 +42,19 @@ Slices are independent. Each can come from a different source. The composition i
 
 ### Step 1: Identify the Anchor
 
-Pick the existing app being redesigned. Anchor sources (subset of the [design.md](design.md) taxonomy):
+Pick the existing app being redesigned. Anchor sources (subset of the [design-brief.md](design-brief.md) taxonomy):
 
-**Codebase (primary).** User points at an existing project. The anchor's current tokens can be extracted as fallback via [design.md](design.md) Step 2 codebase logic.
+**Codebase (primary).** User points at an existing project. The anchor's current tokens can be extracted as fallback via [design-brief.md](design-brief.md) Step 2 codebase logic.
 
 **Brand URL / live site.** Useful when the codebase is unavailable. Crawl visible pages or screens for token cues.
 
 **External design-tool file (MCP).** A user-owned file in an external design tool that holds the anchor's tokens. Read via the matching MCP. Skill never creates these.
 
-**Existing DESIGN.md.** Anchor-only — skill reads the YAML frontmatter of `docs/design/DESIGN.md` already populated by `design.md` as the anchor's authored state.
+**Existing DESIGN.md.** Anchor-only — skill reads the YAML frontmatter of `docs/design/DESIGN.md` already populated by `design-brief.md` as the anchor's authored state.
 
 ### Step 2: Source the New Input(s)
 
-Each new input is a reference that contributes one or more slices. Sources match the full [design.md](design.md) taxonomy:
+Each new input is a reference that contributes one or more slices. Sources match the full [design-brief.md](design-brief.md) taxonomy:
 
 **Reference images.** Mood boards or target UI screenshots. Contributes aesthetic slices by default; can contribute Layout when the user says "spacing from this image".
 
@@ -62,7 +62,7 @@ Each new input is a reference that contributes one or more slices. Sources match
 
 **Vanilla HTML/CSS.** Raw HTML, `.html` file, or a single rendered screen. Contributes whichever slices the user names; defaults to aesthetic slices.
 
-**Codebase.** A reference project (different from the anchor). Extract slices via [design.md](design.md) Step 2 codebase logic, scoped to the slices the user wants.
+**Codebase.** A reference project (different from the anchor). Extract slices via [design-brief.md](design-brief.md) Step 2 codebase logic, scoped to the slices the user wants.
 
 **Text description.** Prompt, Style Axes from [aesthetics.md](../references/aesthetics.md), or Tone Catalog entry. "Apply Cyberpunk + Bento Grid", "make it Editorial / magazine". Contributes whichever slices the prompt names; defaults to aesthetic slices (Colors, Typography, Motion).
 
@@ -100,7 +100,7 @@ Build a fresh DESIGN.md by extracting each slice from its mapped source:
 
 - Read each source via the relevant input logic (codebase scan, image analysis, URL crawl, design-tool MCP)
 - Extract only the slices that source contributes -- ignore the rest
-- Compose into one DESIGN.md at `docs/design/DESIGN.md`, following the template owned by [design.md](design.md). Emit the YAML frontmatter first (authoritative tokens), then the prose body that narrates them.
+- Compose into one DESIGN.md at `docs/design/DESIGN.md`, following the template owned by [design-brief.md](design-brief.md). Emit the YAML frontmatter first (authoritative tokens), then the prose body that narrates them.
 
 If a DESIGN.md already exists in `docs/design/`, ask whether to:
 
@@ -120,7 +120,7 @@ User picks a winner from Step 5. Commit follows the `preview.md` confirm-before-
 - Patch winner's token values into the DESIGN.md frontmatter first — affected groups: `colors`, `typography`, `spacing`, `rounded`, `elevation`, `duration`, `easing`, `components`
 - Patch the prose bullets that cite the patched tokens — Sections 2, 3, 4, 5, 6, 7, 8 — so prose mirrors the frontmatter
 - Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`) and `## 9. Responsive Behavior` untouched unless the slice mapping explicitly opened them
-- Tell the user that narrative sections may now be stale relative to the new tokens. To refresh them, re-run [design.md](design.md) against the new tokens — that ref reauthors prose from the current DESIGN.md state.
+- Tell the user that narrative sections may now be stale relative to the new tokens. To refresh them, re-run [design-brief.md](design-brief.md) against the new tokens — that ref reauthors prose from the current DESIGN.md state.
 
 Run [validate.md](validate.md) as the gate. Do not declare done with errors.
 
@@ -167,7 +167,7 @@ Run [validate.md](validate.md) as the gate. Do not declare done with errors.
 
 ## Error Handling
 
-- Only one source provided (no anchor or no new input): not a redesign -- route to `design.md`
+- Only one source provided (no anchor or no new input): not a redesign -- route to `design-brief.md`
 - Anchor source missing or unreadable: ask for live URL or existing DESIGN.md fallback
 - New input source missing or unreadable: ask user to re-supply or pick from Style Axes / Tone Catalog as text fallback
 - Slice mapping ambiguous (user asked for "vibe" without saying which slices): apply default mapping (aesthetic slices from new input, structural from anchor) and confirm

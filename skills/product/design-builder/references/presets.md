@@ -19,9 +19,9 @@ mutated. If the user approves a variant and runs the preview commit-back
 workflow, the preset overlay propagates through the usual surgical patch
 list (`preview.md` Commit Back to DESIGN.md).
 
-Presets are orthogonal to project type: any preset is usable on
-landing-page, website, web-app, mobile-app, or e-commerce. Layout hints
-adapt the recipe to the project's structure.
+Presets are orthogonal to the surfaces a project has: any preset is usable
+on marketing pages, app screens, or storefronts. Layout hints adapt the
+recipe to the project's structure.
 
 ## Recipe Template
 
@@ -46,8 +46,8 @@ ALWAYS use this exact template structure:
 - {composition hint 2}
 - {density / asymmetry / focal point guidance}
 **Signature move:** {the one unforgettable detail per the Four Questions}
-**Best for:** {project types where preset excels}
-**Avoid for:** {project types where preset misfires}
+**Best for:** {surface kinds where preset excels}
+**Avoid for:** {surface kinds where preset misfires}
 ```
 
 ## Presets
@@ -86,8 +86,8 @@ ALWAYS use this exact template structure:
 - Section padding 8-12rem vertical on desktop
 - One accent color appears in exactly one element per viewport
 **Signature move:** Display heading at 120-160px weight 200, body at 16px weight 400 — 7-8x size ratio.
-**Best for:** landing-page, website (editorial, agency, portfolio)
-**Avoid for:** e-commerce (needs catalog density), web-app dashboards
+**Best for:** marketing and content surfaces (editorial, agency, portfolio)
+**Avoid for:** storefronts (needs catalog density), app dashboards
 
 ### maximalist-chaos
 **Vibe:** Dense layering, clashing textures, overwhelming detail — the design as visual onslaught.
@@ -107,8 +107,8 @@ ALWAYS use this exact template structure:
 - Multiple focal points per viewport, intentionally competing
 - Background patterns, gradient meshes, sticker-style badges, marquee text
 **Signature move:** A floating badge or sticker that rotates `-12deg` and breaks the grid with a 4-color gradient border.
-**Best for:** landing-page (brand statement, music, fashion, creator economy)
-**Avoid for:** web-app, mobile-app (cognitive load), e-commerce checkout
+**Best for:** marketing surfaces (brand statement, music, fashion, creator economy)
+**Avoid for:** app and mobile screens (cognitive load), checkout flows
 
 ### retro-futuristic
 **Vibe:** CRT glow, scanlines, neon on dark, monospace type — late-80s synthwave or early Y2K computer.
@@ -128,7 +128,7 @@ ALWAYS use this exact template structure:
 - Subtle scanline overlay (`repeating-linear-gradient` 1px lines)
 - Glow on every interactive accent
 **Signature move:** Hero headline glows in neon cyan with a soft drop-shadow halo and a subtle TV scanline overlay across the section.
-**Best for:** landing-page (gaming, dev tools, music tech, AI brand)
+**Best for:** marketing surfaces (gaming, dev tools, music tech, AI brand)
 **Avoid for:** financial, healthcare, editorial
 
 ### organic-natural
@@ -149,8 +149,8 @@ ALWAYS use this exact template structure:
 - Mix of sans and serif within hierarchy
 - Subtle grain texture across surfaces
 **Signature move:** A blob-shaped accent color shape sits behind the hero headline, slightly off-axis, with hand-drawn vector decorations nearby.
-**Best for:** website, landing-page (wellness, food, sustainability, lifestyle DTC)
-**Avoid for:** web-app dashboards, fintech
+**Best for:** marketing and content surfaces (wellness, food, sustainability, lifestyle DTC)
+**Avoid for:** app dashboards, fintech
 
 ### luxury-refined
 **Vibe:** Thin serifs, muted metallics, generous spacing, restrained palette — quiet money.
@@ -170,8 +170,8 @@ ALWAYS use this exact template structure:
 - Image-led with one hero photograph at extreme detail
 - Hairline rules (1px) separating sections
 **Signature move:** A 96-128px high-contrast Didone display headline sits above generous whitespace with a single thin gold rule beneath.
-**Best for:** landing-page (luxury brand, jewelry, hospitality, agency), website
-**Avoid for:** SaaS dashboards, gaming, casual e-commerce
+**Best for:** marketing and content surfaces (luxury brand, jewelry, hospitality, agency)
+**Avoid for:** SaaS dashboards, gaming, casual storefronts
 
 ### playful-toy
 **Vibe:** Rounded sans, bright primaries, bouncy motion, oversized elements — toy-like joy.
@@ -191,7 +191,7 @@ ALWAYS use this exact template structure:
 - Sticker badges, bouncy hover transforms
 - Solid block-color sections with rounded transitions between them
 **Signature move:** Hover on the primary CTA triggers a `scale(1.05)` + `rotate(-3deg)` bounce with a cheerful drop-shadow shift.
-**Best for:** landing-page (kids, education, creator tools, casual mobile apps)
+**Best for:** marketing surfaces (kids, education, creator tools, casual mobile apps)
 **Avoid for:** enterprise, finance, healthcare
 
 ### editorial-magazine
@@ -212,8 +212,8 @@ ALWAYS use this exact template structure:
 - Section numbers (`01.`, `02.`) in display weight
 - Drop caps on opening paragraphs
 **Signature move:** Section opens with a large-numbered display character (`01`) at 200px weight 200, followed by a drop-cap paragraph that fills the column.
-**Best for:** landing-page (publication, podcast, long-form storytelling), website
-**Avoid for:** web-app, e-commerce checkout
+**Best for:** marketing and content surfaces (publication, podcast, long-form storytelling)
+**Avoid for:** app screens, checkout flows
 
 ### brutalist-raw
 **Vibe:** System fonts pushed to extremes, exposed structure, anti-polish — ugly-cool.
@@ -233,8 +233,8 @@ ALWAYS use this exact template structure:
 - Marquee headlines at 200-400px
 - Grid lines visible, exposed HTML structure aesthetic
 **Signature move:** A `400px` Helvetica Bold headline runs full-bleed across the hero with a hard black border below and a marquee-style auto-scroll subtext.
-**Best for:** landing-page (agency, fashion, music label, brand statement)
-**Avoid for:** e-commerce, web-app, mobile-app, healthcare
+**Best for:** marketing surfaces (agency, fashion, music label, brand statement)
+**Avoid for:** storefronts, app and mobile screens, healthcare
 
 ### art-deco
 **Vibe:** Gold + black, symmetrical patterns, angular type, ornamental borders — 1920s glamour.
@@ -254,8 +254,8 @@ ALWAYS use this exact template structure:
 - Ornamental geometric borders (chevron, sunburst, fan)
 - Hairline gold rules separating sections
 **Signature move:** A symmetric sunburst geometric ornament sits behind the hero headline in gold leaf.
-**Best for:** landing-page (luxury, hospitality, theatre, event), event microsite
-**Avoid for:** web-app, mobile-app, modern e-commerce
+**Best for:** marketing surfaces (luxury, hospitality, theatre, event), event microsites
+**Avoid for:** app and mobile screens, modern storefronts
 
 ### soft-pastel
 **Vibe:** Low-contrast pastels, diffused gradients, gentle rounded UI — calm bedroom aesthetic.
@@ -275,7 +275,7 @@ ALWAYS use this exact template structure:
 - Card-based layouts with soft shadows in pastel tints
 - Avoid hard color blocks
 **Signature move:** Hero background is a diffuse radial gradient transitioning between three pastel hues (lavender → blush → peach).
-**Best for:** landing-page (wellness, beauty, lifestyle, mental health, journaling apps), mobile-app
+**Best for:** marketing surfaces (wellness, beauty, lifestyle, mental health, journaling apps), mobile app screens
 **Avoid for:** financial, enterprise, gaming
 
 ### industrial-utilitarian
@@ -296,8 +296,8 @@ ALWAYS use this exact template structure:
 - Grid-aligned data tables with hairline borders
 - Dot-grid backgrounds, mono-spaced labels
 **Signature move:** All numerics use tabular figures aligned to a monospace grid; headlines are uppercase with letter-spacing.
-**Best for:** landing-page (dev tools, infra, AI infra, B2B SaaS), web-app dashboards
-**Avoid for:** consumer marketing, lifestyle, e-commerce
+**Best for:** marketing surfaces (dev tools, infra, AI infra, B2B SaaS), app dashboards
+**Avoid for:** consumer marketing, lifestyle, storefronts
 
 ### neo-grotesque
 **Vibe:** Swiss-style grids, tight leading, limited palette, extreme alignment precision — design as system.
@@ -317,7 +317,7 @@ ALWAYS use this exact template structure:
 - Tight letter-spacing on display, generous leading on body
 - One accent color used at exactly one spot per viewport
 **Signature move:** Display headline at weight 900 with `-0.04em` letter-spacing flush-left in column 1, paired with a single small accent dot in column 12.
-**Best for:** website (design portfolio, agency, brand book, editorial), landing-page
+**Best for:** marketing and content surfaces (design portfolio, agency, brand book, editorial)
 **Avoid for:** gaming, kids, festive marketing
 
 ### kinetic-motion-first
@@ -338,5 +338,5 @@ ALWAYS use this exact template structure:
 - Pinned sections that morph over scroll distance
 - Variable font weight/width transitions on hover/scroll
 **Signature move:** Hero headline morphs its variable font weight from 100 to 900 over the first 600px of scroll, while background hue shifts across the spectrum.
-**Best for:** landing-page (brand statement, product launch, portfolio, agency)
-**Avoid for:** web-app, mobile-app, e-commerce checkout, dashboards
+**Best for:** marketing surfaces (brand statement, product launch, portfolio, agency)
+**Avoid for:** app and mobile screens, checkout flows, dashboards

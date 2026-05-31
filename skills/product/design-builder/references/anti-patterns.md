@@ -49,8 +49,8 @@ ALWAYS use this exact template structure:
 ### inter-as-primary-font
 **Category:** Typography
 **Severity:** warning
-**Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing/editorial surface (landing-page, website, e-commerce) without being a declared brand token in DESIGN.md `typography.*.fontFamily`.
-**Fix:** Pick a distinctive display font (Fraunces, Spectral, Crimson, Inter Tight, IBM Plex, JetBrains Mono, etc.) and declare it in DESIGN.md. System fonts are acceptable only for `web-app`/`mobile-app` project types.
+**Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`.
+**Fix:** Pick a distinctive display font (Fraunces, Spectral, Crimson, Inter Tight, IBM Plex, JetBrains Mono, etc.) and declare it in DESIGN.md. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces.
 **Example fail:**
 ```html
 <h1 style="font-family: Inter, system-ui, sans-serif">Welcome</h1>
@@ -656,7 +656,7 @@ ALWAYS use this exact template structure:
 ### autofocus-on-mobile
 **Category:** Accessibility
 **Severity:** warning
-**Check:** `autoFocus` applied to inputs on mobile-app or screen-based project types. Forces keyboard open immediately, jumps the viewport.
+**Check:** `autoFocus` applied to inputs on mobile app screens. Forces keyboard open immediately, jumps the viewport.
 **Fix:** Reserve `autoFocus` for desktop primary input only. Even on desktop, use sparingly.
 **Example fail:**
 ```html
