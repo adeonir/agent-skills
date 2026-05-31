@@ -1,16 +1,15 @@
 # Design Builder
 
-Greenfield design pipeline for any digital product: author a `DESIGN.md` visual identity, define page composition or screen flow in a separate structure artifact, preview and refine designs. Content comes from `copy.yaml`, read as an upstream input.
+Greenfield design pipeline for any digital product: author a `DESIGN.md` visual identity, preview and refine designs. Content (`copy.yaml`) and arrangement (`blueprint.md`) come from upstream inputs.
 
 ## What It Does
 
 ```mermaid
 flowchart TD
     A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2[DESIGN.md]
-    B2 -->|structure| C[docs/design/structure.md]
     Copy[copy.yaml — upstream content] --> D[Preview]
+    Blueprint[blueprint.md — upstream arrangement] --> D
     B2 --> D
-    C --> D
     D -->|tune / comment| D
     D -->|tune commit| B2
     Impl[Implementation] -->|reconcile| B2
@@ -19,8 +18,7 @@ flowchart TD
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
-| **Structure** | Define page composition for marketing/content surfaces, screen flow for app/dashboard screens, or catalog + commerce surfaces for storefronts | `docs/design/structure.md` (parallel artifact; never touches DESIGN.md) |
-| **Preview** | Generate variants from DESIGN.md tokens + structure, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
+| **Preview** | Generate variants from DESIGN.md tokens + blueprint, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
 | **Reconcile** | Brownfield: sync DESIGN.md back from drifted implementation | Patched `docs/design/DESIGN.md` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 
@@ -28,7 +26,7 @@ flowchart TD
 
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
-| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `design → structure → preview` |
+| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `design → preview` |
 | **Rebrand** | Existing app + new reference — restyle the sections it drives | `design-brief.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md back from implementation | `reconcile.md` |
 
@@ -45,7 +43,7 @@ may combine several:
 - **Storefront / commerce surfaces** — catalog, product pages, cart, checkout,
   account (online stores, DTC, marketplaces)
 
-Name surfaces by context; the questions, presets, and structure topics follow
+Name surfaces by context; the questions and presets follow
 the surfaces present.
 
 ## Usage
@@ -74,13 +72,8 @@ sync DESIGN.md from this codebase
 update DESIGN.md from code
 reconcile drift between implementation and design
 
-# Define structure (separate artifact, never touches DESIGN.md)
-define the layout for this landing page         # marketing / content surface
-define the screen flow for this app             # app / dashboard screens
-check this wireframe                            # validate existing
-
 # Preview
-generate variants                            # N variants from DESIGN.md + structure (default 4)
+generate variants                            # N variants from DESIGN.md + blueprint (default 4)
 generate 4 variants in editorial preset      # apply named tone from presets.md
 generate 6 variants of bento + duotone       # compose across Style Axes (aesthetics.md)
 
@@ -95,24 +88,23 @@ tune the design         # single-token: spacing, saturation, typography contrast
 ### Full Greenfield Pipeline
 
 ```text
-1. extract design from [paste screenshots]   # content in copy.yaml authored upstream
-2. define the structure (or screen flow)
-3. generate variants
-4. tune / comment until approved
-5. hand DESIGN.md + structure.md + copy.yaml to implementation
+1. extract design from [paste screenshots]   # copy.yaml + blueprint.md authored upstream
+2. generate variants
+3. tune / comment until approved
+4. hand DESIGN.md + blueprint.md + copy.yaml to implementation
 ```
 
 Preview HTML is a decision aid — variant outputs that inform tuning and
 can feed back to DESIGN.md via reconcile. The handoff to implementation
-is the artifact set (`DESIGN.md`, `structure.md`, and the upstream
-`copy.yaml`), not the rendered HTML.
+is the artifact set (`DESIGN.md` plus the upstream `copy.yaml` and
+`blueprint.md`), not the rendered HTML.
 
 ## Output
 
 ```text
 docs/design/
 ├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
-├── structure.md          # Product arrangement, screen flow, or commerce surfaces
+├── blueprint.md        # Layout plan / arrangement (upstream input, not written here)
 └── copy.yaml             # Structured content payload (upstream input, not written here)
 
 .artifacts/design/
@@ -152,7 +144,7 @@ A: A single file at `docs/design/DESIGN.md` with two layers. A YAML frontmatter 
 
 **Q: Where do page composition and screen flow live?**
 
-A: In `docs/design/structure.md`, a separate artifact owned by `structure.md`. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the structure artifact.
+A: In `docs/design/blueprint.md`, a separate upstream artifact authored before design work. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the blueprint artifact.
 
 **Q: Why both YAML and prose in the same file?**
 

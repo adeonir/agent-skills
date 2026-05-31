@@ -1,12 +1,12 @@
 # Preview
 
-Visual preview of the design before implementation. Generate variants from DESIGN.md tokens and the structure artifact, refine the chosen variant with tune sliders and inline comments, commit tuned values back to DESIGN.md.
+Visual preview of the design before implementation. Generate variants from DESIGN.md tokens and the blueprint layout plan, refine the chosen variant with tune sliders and inline comments, commit tuned values back to DESIGN.md.
 
 Variant generation and commit confirmation deserve careful reasoning — visual choices compound and patches mutate the source of truth.
 
 ## When to Use
 
-- After visual identity is in `docs/design/DESIGN.md` and arrangement is in `docs/design/structure.md`
+- After visual identity is in `docs/design/DESIGN.md` and arrangement is in `docs/design/blueprint.md`
 - User wants to see the design with visual style applied
 - User wants to compare visual directions
 - User wants to refine a chosen variant (tune tokens, comment on elements)
@@ -14,7 +14,7 @@ Variant generation and commit confirmation deserve careful reasoning — visual 
 ## Prerequisites
 
 - `docs/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter.
-- `docs/design/structure.md` — page composition or screen flow
+- `docs/design/blueprint.md` — layout plan (page composition or screen flow)
 - `docs/design/copy.yaml` (optional) — structured content
 - [aesthetics.md](../references/aesthetics.md) (required) — design principles
 - [web-standards.md](../references/web-standards.md) (required) — implementation rules
@@ -99,7 +99,7 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 
 ## Generating Variants
 
-User asks for N variants (default 4). Agent generates one HTML per variant from DESIGN.md tokens and structure.md arrangement.
+User asks for N variants (default 4). Agent generates one HTML per variant from DESIGN.md tokens and blueprint.md arrangement.
 
 ### Workflow
 
@@ -111,7 +111,7 @@ User asks for N variants (default 4). Agent generates one HTML per variant from 
    bun run scripts/preview-server.ts --session .artifacts/design/preview/variants
    ```
 
-3. **Generate one HTML per variant.** Read the DESIGN.md frontmatter for tokens, structure.md for arrangement, copy.yaml for content. Wire Tailwind + iconify-icon via CDN — see `## Generated HTML Stack` and `## Tailwind Token Conventions` above for tags and theme mapping. Write each variant to `.artifacts/design/preview/variants/<slug>.html`.
+3. **Generate one HTML per variant.** Read the DESIGN.md frontmatter for tokens, the blueprint.md frontmatter for arrangement, copy.yaml for content. Wire Tailwind + iconify-icon via CDN — see `## Generated HTML Stack` and `## Tailwind Token Conventions` above for tags and theme mapping. Write each variant to `.artifacts/design/preview/variants/<slug>.html`.
 
 4. **Serve** all variants side by side via the server. User picks one.
 
@@ -228,7 +228,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 **DO:**
 
 - Read the DESIGN.md frontmatter before generating to ground every visual choice in the current tokens
-- Read `docs/design/structure.md` for arrangement; never re-arrange pages or screens inside preview
+- Read `docs/design/blueprint.md` for arrangement; never re-arrange pages or screens inside preview
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Route presets by the surfaces the project has when the user has no direction; ignore presets when the user prompts direction
 - Default variant count to 4; honor any N the user names
@@ -240,9 +240,9 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 
 **DON'T:**
 
-- Generate previews without DESIGN.md and structure populated (contrasts: treat them as prerequisites)
+- Generate previews without DESIGN.md and the blueprint plan populated (contrasts: treat them as prerequisites)
 - Treat prose as the source of truth (contrasts: YAML frontmatter is authoritative)
-- Change page composition or screen flow between variants (contrasts: arrangement is single-source from `docs/design/structure.md`; pivots belong there)
+- Change page composition or screen flow between variants (contrasts: arrangement is single-source from `docs/design/blueprint.md`; pivots belong there)
 - Use CSS frameworks (contrasts: vanilla CSS only, self-contained)
 - Skip serving the result (contrasts: serve every generated preview through the preview server)
 - Regenerate HTML during tune when a CSS custom property swap is enough (contrasts: swap CSS custom properties, keep the DOM)
@@ -253,7 +253,7 @@ DESIGN.md is the source of truth. Tune values reach it via confirm-before-write 
 ## Error Handling
 
 - No DESIGN.md in `docs/design/`: suggest running inputs first; do not proceed
-- No `docs/design/structure.md`: suggest running structure first; do not proceed
+- No `docs/design/blueprint.md`: ensure the layout plan exists; do not proceed
 - No `copy.yaml`: use generic placeholder strings derived from H1 and `description` of DESIGN.md
 - Frontmatter missing or unparseable: route the user to validate.md before previewing
 - Server port in use: try alternative port

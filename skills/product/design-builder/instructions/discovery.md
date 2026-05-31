@@ -64,7 +64,6 @@ Load only the reference matching the activated trigger:
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
 | Visual identity / DESIGN.md | `design-brief.md` | `validate.md` |
-| Structure / wireframe | `structure.md` | — |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |
 | Validation only | `validate.md` | — |
 | Reconcile / drift sync | `reconcile.md` | `validate.md` |
