@@ -9,7 +9,7 @@ Runs eleven linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, 
 - User asks to validate, check, audit, or lint `DESIGN.md`
 - After a manual edit to `DESIGN.md`
 - Before handoff to the implementation phase, an external design tool, or a teammate
-- Auto-loaded by [design-brief.md](design-brief.md) Step 5 as the gate before reporting done
+- Auto-loaded by [design.md](design.md) Step 5 as the gate before reporting done
 
 ## Prerequisites
 
@@ -181,10 +181,10 @@ If errors = 0: report passed. Warnings and info remain visible but do not block.
 
 ### Step 13: When Called as a Gate
 
-When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller must:
+When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 
 - Block the "done" report when `errors > 0`
-- Surface the findings inline in the design-brief.md Step 6 (Present) output
+- Surface the findings inline in the design.md Step 6 (Present) output
 - Allow the user to accept warnings as trade-offs without re-running validate
 
 ## Guidelines
@@ -195,7 +195,7 @@ When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller
 - Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
 - Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 4. Component Stylings > Buttons`)
-- Use the same checks whether called directly or as a gate by design-brief.md or reconcile.md
+- Use the same checks whether called directly or as a gate by design.md or reconcile.md
 
 **DON'T:**
 
@@ -208,7 +208,7 @@ When this ref is auto-loaded by `design-brief.md` as the Step 5 gate, the caller
 
 ## Error Handling
 
-- No DESIGN.md in `docs/design/`: stop and route the user to `design-brief.md` to author one
+- No DESIGN.md in `docs/design/`: stop and route the user to `design.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
 - YAML parses but `colors` is empty: report what is missing, suggest running design-brief
 

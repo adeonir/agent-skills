@@ -9,11 +9,11 @@ Apply a token diff to `DESIGN.md` with surgical, confirm-before-write patches. T
 - Pre-handoff audit before treating DESIGN.md as authoritative for a new feature
 - Persisting tuned token deltas — [preview.md](preview.md) hands over a resolved patch list to commit back into `DESIGN.md`
 
-Not for: authoring DESIGN.md from scratch or restyling it from a new external reference / vibe (use [design-brief.md](design-brief.md)).
+Not for: authoring DESIGN.md from scratch or restyling it from a new external reference / vibe (use [design.md](design.md)).
 
 ## Prerequisites
 
-- `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design-brief.md](design-brief.md) to author the design first.
+- `docs/design/DESIGN.md` exists. If absent, this is not reconciliation — route to [design.md](design.md) to author the design first.
 - A change source: a codebase path or live URL (implementation drift), **or** a tune patch list handed over by [preview.md](preview.md).
 
 ## Workflow
@@ -33,7 +33,7 @@ Parse the YAML frontmatter of `docs/design/DESIGN.md` as the authored state.
 
 ### Step 2: Extract Implementation State (Mode A)
 
-Detect and read in this order (same detection chain as design-brief.md Step 2 Codebase source):
+Detect and read in this order (same detection chain as design.md Step 2 Codebase source):
 
 - Tailwind theme — `@theme` directive in CSS files (`globals.css`, `app.css`)
 - Design token files (`tokens.json`, `design-tokens.json`, `theme.ts`, `theme.js`) — structured token definitions
@@ -57,7 +57,7 @@ Present the diff inline. User approves, rejects, or edits each patch row. No sil
 
 Patch the YAML frontmatter first (authoritative), then patch the prose bullets in Sections 2, 3, 4, 5, 6, 7, 8 that cite the patched tokens, so prose mirrors the frontmatter.
 
-Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design-brief.md](design-brief.md) if narrative refresh is wanted.
+Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design.md](design.md) if narrative refresh is wanted.
 
 ### Step 6: Validate
 
@@ -70,20 +70,20 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Treat the implementation as authoritative for drifted values only after the user confirms each patch row
 - Patch YAML frontmatter before prose bullets so the two stay in sync
 - Preserve narrative sections; flag staleness, do not rewrite
-- Run validate as the gate after patching, same pattern as design-brief.md Step 5
+- Run validate as the gate after patching, same pattern as design.md Step 5
 - In Mode B, accept the tune patch list from preview as the diff — do not re-derive it from an implementation
 
 **DON'T:**
 
 - Patch silently (contrasts: confirm-before-write per row)
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
-- Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design-brief.md)
+- Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design.md)
 - Patch artifacts other than DESIGN.md (contrasts: reconcile syncs DESIGN.md only — content and arrangement are out of scope)
-- Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use design-brief.md for that)
+- Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use design.md for that)
 
 ## Error Handling
 
-- DESIGN.md missing: stop and route the user to [design-brief.md](design-brief.md) to author one
+- DESIGN.md missing: stop and route the user to [design.md](design.md) to author one
 - Implementation source unreadable (codebase path missing, MCP down for design-tool fallback): ask user to re-supply or provide a live URL fallback
 - Codebase partially defines tokens: report what is present, ask user how to treat missing groups (keep DESIGN.md value or mark as gap)
 - Diff is empty across all groups: report `no drift detected` and stop

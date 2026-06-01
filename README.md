@@ -29,9 +29,9 @@ npx skills add adeonir/agent-skills
 | **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
 | **[blueprint](skills/product/blueprint)** | Product | Plans `blueprint.md`, the design-blind layout payload a design consumes: information architecture, region layout, and screen flow from conversation or a brief |
-| **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
+| **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-brief |
 | **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: write fresh copy from intent, or extract and structure existing content into a context-named tree |
-| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: explore a visual direction when none exists, author and refine DESIGN.md, preview and tune tokens visually, validate, reconcile drift |
+| **[design-brief](skills/product/design-brief)** | Product | Greenfield design pipeline for any digital product: explore a visual direction when none exists, author and refine DESIGN.md, preview and tune tokens visually, validate, reconcile drift |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 
@@ -40,7 +40,7 @@ npx skills add adeonir/agent-skills
 ```mermaid
 flowchart TD
     BR[brainstorming] -->|direction| DW_PRD[docs-writer PRD]
-    BR -->|direction| DB[design-builder]
+    BR -->|direction| DB[design-brief]
     BR -.->|direction| SD[spec-driven]
     DW_PRD -->|PRD| DW_DD[docs-writer Design Doc]
     DW_PRD -->|requirements| ET[epic-tracker]
@@ -72,7 +72,7 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 3. epic-tracker      --> plan epics, track stories, bugs, and issues
 4. copywriting       --> extract or write copy.yaml content payload
 5. blueprint         --> plan blueprint.md layout and screen flow
-6. design-builder    --> author the DESIGN.md visual identity
+6. design-brief    --> author the DESIGN.md visual identity
 7. spec-driven       --> specify, design, tasks, implement
 8. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
@@ -100,7 +100,7 @@ docs-writer      --> PRD (what to build, for whom, why)
 docs-writer      --> Design Doc (technical doc)
 copywriting      --> content payload (copy.yaml)
 blueprint        --> layout plan (blueprint.md)
-design-builder   --> visual identity, tokens (DESIGN.md)
+design-brief   --> visual identity, tokens (DESIGN.md)
 epic-tracker     --> epics, stories, acceptance criteria
 spec-driven      --> per-story spec, design, tasks, implementation
 git-helpers      --> commit, review, pull request
@@ -108,7 +108,7 @@ wrap-up          --> persist session context
 ```
 
 `project-index` runs once at project start and re-indexes on demand.
-`design-builder` can run in parallel with the Design Doc step.
+`design-brief` can run in parallel with the Design Doc step.
 
 ### When to skip steps
 
@@ -118,7 +118,7 @@ wrap-up          --> persist session context
 | `docs-writer` | Bug fix or change with no architectural decisions OR feature is too small to warrant a PRD |
 | `copywriting` | No content payload needed, or copy already exists |
 | `blueprint` | No layout planning needed, or arrangement already exists |
-| `design-builder` | No UI, or design already exists |
+| `design-brief` | No UI, or design already exists |
 
 `spec-driven` and `git-helpers` are never optional for non-trivial work.
 
@@ -128,7 +128,7 @@ Jump in at any step — each skill reads existing artifacts and adapts:
 
 - Adding a feature to an existing product → start at `epic-tracker` or `spec-driven`
 - Undocumented codebase → run `project-index` first, then `spec-driven`
-- Design before requirements → run `design-builder`, then back-fill with `docs-writer`
+- Design before requirements → run `design-brief`, then back-fill with `docs-writer`
 - Architecture question mid-feature → update the project Design Doc via `docs-writer`, feed result to `spec-driven`
 
 ### Feedback loop
@@ -155,7 +155,7 @@ docs/
 ├── product/        # docs-writer: brainstorm, PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-builder: moodboard.md · DESIGN.md · blueprint: blueprint.md · copywriting: copy.yaml
+└── design/         # design-brief: moodboard.md · DESIGN.md · blueprint: blueprint.md · copywriting: copy.yaml
 
 .agents/
 ├── codebase/       # project-index: deep codebase analysis

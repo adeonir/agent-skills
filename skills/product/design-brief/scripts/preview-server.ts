@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Preview server for design-builder skill.
+ * Preview server for design-brief skill.
  * Serves HTML fragments and records user interactions.
  *
  * Security: local-only server (127.0.0.1), read-only filesystem access

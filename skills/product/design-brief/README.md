@@ -1,4 +1,4 @@
-# Design Builder
+# Design Brief
 
 Greenfield design pipeline for any digital product: explore a visual direction when none exists, then author and refine the `DESIGN.md` visual identity. DESIGN.md is the single artifact this skill owns.
 
@@ -28,12 +28,12 @@ flowchart TD
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
 | **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file), or explore a mood first when no reference exists | `direction → design` (direction skips when a reference is given) |
-| **Rebrand** | Existing app + new reference — restyle the sections it drives | `design-brief.md` |
+| **Rebrand** | Existing app + new reference — restyle the sections it drives | `design.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md back from implementation | `reconcile.md` |
 
 ## What It Designs
 
-design-builder adapts to any digital product — it does not force the project
+design-brief adapts to any digital product — it does not force the project
 into a fixed type. It reads the surfaces a project actually has, and a project
 may combine several:
 
@@ -119,11 +119,11 @@ Bundled lookups auto-loaded by the relevant instruction phase:
 
 **Q: Is this for landing pages only?**
 
-A: No. design-builder adapts to any digital product — marketing pages, app and dashboard screens, storefronts, and more. The surfaces a project has route the questions asked and the presets offered during direction.
+A: No. design-brief adapts to any digital product — marketing pages, app and dashboard screens, storefronts, and more. The surfaces a project has route the questions asked and the presets offered during direction.
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design-brief.md` ("extract from codebase") for inheriting tokens at the start and for restyling an existing identity from a new reference, plus `reconcile.md` for syncing back after drift.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start and for restyling an existing identity from a new reference, plus `reconcile.md` for syncing back after drift.
 
 **Q: What if I have no reference or moodboard to start from?**
 

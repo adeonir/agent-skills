@@ -1,5 +1,5 @@
 ---
-name: design-builder
+name: design-brief
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
 description: >-
   Greenfield design pipeline for any digital product: explore a visual
@@ -17,7 +17,7 @@ description: >-
   architecture, or PR/code review.
 ---
 
-# Design Builder
+# Design Brief
 
 Greenfield design pipeline for any digital product: discover, author
 `DESIGN.md` with a YAML frontmatter holding the authoritative design
@@ -68,7 +68,7 @@ content are separate concerns, not part of DESIGN.md.
   first) → design.
 - **Rebrand** — restyle an existing `DESIGN.md` from a new reference,
   patching the sections it drives. Handled by
-  [design-brief.md](instructions/design-brief.md).
+  [design.md](instructions/design.md).
 - **Reconcile** — patch DESIGN.md from a drifted implementation, or
   apply tuned token deltas handed over by `preview`. Lives in
   [reconcile.md](instructions/reconcile.md).
@@ -78,7 +78,7 @@ content are separate concerns, not part of DESIGN.md.
 | Operation | File |
 | --------- | ---- |
 | Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
-| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design-brief.md](instructions/design-brief.md) |
+| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
 | Preview DESIGN.md tokens as a specimen sheet and tune them live | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
 | Patch DESIGN.md from drifted implementation or tuned deltas | [reconcile.md](instructions/reconcile.md) |
@@ -88,7 +88,7 @@ invoked directly. `aesthetics.md` and `presets.md` auto-load inside
 `direction.md`; `aesthetics.md` and `anti-patterns.md` auto-load inside
 `preview.md`, which serves the specimen sheet through
 `scripts/preview-server.ts`. `validate.md` is both directly callable and
-auto-loaded as a gate by `design-brief.md` and `reconcile.md`, so
+auto-loaded as a gate by `design.md` and `reconcile.md`, so
 DESIGN.md never lands invalid.
 
 ## Guidelines
@@ -108,7 +108,7 @@ DESIGN.md never lands invalid.
 
 Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
-bullets that cite the patched tokens. `design-brief.md` owns the DESIGN.md
+bullets that cite the patched tokens. `design.md` owns the DESIGN.md
 frontmatter and prose sections. `reconcile.md` patches DESIGN.md from a
 drifted implementation or from tuned deltas, following the same surgical
 rules. `preview.md` produces tuned deltas but never writes DESIGN.md —

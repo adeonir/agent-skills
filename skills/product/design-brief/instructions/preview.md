@@ -19,7 +19,7 @@ This is an optional phase that runs after `design`. It needs a populated
 
 ## Prerequisites
 
-- `docs/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter. **Hard prerequisite** — if absent, route to [design-brief.md](design-brief.md) to author one first; there is nothing to preview otherwise.
+- `docs/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter. **Hard prerequisite** — if absent, route to [design.md](design.md) to author one first; there is nothing to preview otherwise.
 - [aesthetics.md](../references/aesthetics.md) (required) — design principles applied to every specimen.
 - [anti-patterns.md](../references/anti-patterns.md) (required) — failure modes. Only token-value rules (contrast, drift) judge the specimen sheet; the page-layout rules do not (see [Neutral Scaffolding](#neutral-scaffolding)).
 
@@ -214,7 +214,7 @@ the patch list, hand it over, let reconcile confirm, patch, and validate.
 
 ## Error Handling
 
-- No `DESIGN.md` in `docs/design/`: route the user to [design-brief.md](design-brief.md); do not proceed
+- No `DESIGN.md` in `docs/design/`: route the user to [design.md](design.md); do not proceed
 - Frontmatter missing or unparseable: route the user to [validate.md](validate.md) before previewing
 - Server port in use: try an alternative port
 - Comment event has no selector: ask the user to re-click the target element

@@ -66,7 +66,7 @@ only:
 ```
 brainstorming + project-index (parallel discovery)
     --> docs-writer (product requirements + technical docs)
-    --> design-builder (visual identity)
+    --> design-brief (visual identity)
     --> epic-tracker (epics --> stories)
     --> spec-driven (per story: spec + design + tasks)
     --> git-helpers (atomic commits per task)
@@ -298,7 +298,7 @@ by pointing at where the excluded thing lives ("styling belongs to
 `DESIGN.md`"). Naming a sibling artifact is coupling even when no skill name
 or file link appears. The one exception is an **integrator** — a renderer or
 cross-artifact validator whose job *is* to compose several artifacts (e.g. a
-preview that draws `DESIGN.md` + `copy.yaml` + `blueprint.md` together). It
+page renderer that draws `DESIGN.md` + `copy.yaml` + `blueprint.md` together). It
 may read what it integrates; everything upstream of it stays
 single-artifact. A user can still ask a skill to read a sibling at runtime —
 that instruction lives in the prompt, never baked into the skill or its
@@ -615,8 +615,8 @@ docs/
 ├── adr/
 │   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
 └── design/
-    ├── moodboard.md        # design-builder: locked visual direction (mood diverge/converge)
-    ├── DESIGN.md           # design-builder: visual identity (YAML tokens + prose)
+    ├── moodboard.md        # design-brief: locked visual direction (mood diverge/converge)
+    ├── DESIGN.md           # design-brief: visual identity (YAML tokens + prose)
     ├── blueprint.md      # blueprint: information architecture / region layout / screen flow
     └── copy.yaml           # copywriting: structured content payload
 ```
@@ -629,7 +629,7 @@ docs/
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
-├── design/        # design-builder: ephemeral token specimen sheet (preview)
+├── design/        # design-brief: ephemeral token specimen sheet (preview)
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
 
@@ -650,7 +650,7 @@ skills:
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-builder` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`;
+`design-brief` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`;
 `blueprint` writes `docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.
 
