@@ -629,6 +629,7 @@ docs/
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
+├── design/        # design-builder: ephemeral token specimen sheet (preview)
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
 

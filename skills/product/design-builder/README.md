@@ -9,6 +9,8 @@ flowchart TD
     Brief[Audience / PRD / feeling — no reference] -->|direction| MB[moodboard.md]
     MB -->|design| B2[DESIGN.md]
     A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2
+    B2 -->|preview / tune| SG[styleguide.html]
+    SG -->|reconcile tuned deltas| B2
     B2 -->|validate| V[Findings]
     Impl[Implementation] -->|reconcile| B2
 ```
@@ -17,8 +19,9 @@ flowchart TD
 | ---- | ------- | ------ |
 | **Direction** | No reference on hand — explore visual mood from audience/PRD, diverge across aesthetic directions, converge on one | `docs/design/moodboard.md` (locked direction: Mood, Style Axes, Signature, Touchstones) |
 | **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
+| **Preview** | `DESIGN.md` exists — render its tokens as a specimen sheet, tune them live, hand the tuned deltas to reconcile | `.artifacts/design/preview/styleguide.html` (ephemeral; tuned deltas commit back via reconcile) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
-| **Reconcile** | Brownfield: sync DESIGN.md back from drifted implementation | Patched `docs/design/DESIGN.md` (confirm-before-write) |
+| **Reconcile** | Sync DESIGN.md from drifted implementation, or apply tuned deltas from preview | Patched `docs/design/DESIGN.md` (confirm-before-write) |
 
 ## Three Modes
 
@@ -78,12 +81,15 @@ reconcile drift between implementation and design
 ```text
 1. explore a direction          # direction → moodboard.md (only when no reference)
 2. author DESIGN.md             # design → tokens + prose
-3. validate DESIGN.md           # audit before handoff
-4. hand DESIGN.md to the rest of the pipeline
+3. preview & tune (optional)    # preview → specimen sheet; tuned deltas → reconcile
+4. validate DESIGN.md           # audit before handoff
+5. hand DESIGN.md to the rest of the pipeline
 ```
 
-DESIGN.md is the handoff artifact — the visual identity. Rendering it into
-product pages is a separate concern, not part of this skill.
+DESIGN.md is the handoff artifact — the visual identity. Preview renders the
+tokens as a design-system specimen sheet (the system, not a product page);
+rendering DESIGN.md into actual product pages is a separate concern, not part
+of this skill.
 
 ## Output
 
@@ -92,6 +98,8 @@ docs/design/
 ├── moodboard.md          # Locked visual direction (Mood, Style Axes, Signature) — direction-absent flow
 └── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
 ```
+
+Preview writes an ephemeral `.artifacts/design/preview/styleguide.html` (the token specimen sheet) served by `scripts/preview-server.ts` — not committed. The tuned values it produces land in `DESIGN.md` via reconcile.
 
 External design-tool files (when used as input source) live at the user's path and are user-owned. Skill never creates them.
 
@@ -132,6 +140,10 @@ A: No. DESIGN.md covers brand-level layout identity (spacing scale, grid contain
 **Q: Why both YAML and prose in the same file?**
 
 A: The YAML frontmatter gives machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two stay in sync.
+
+**Q: Can I see and tune the tokens visually?**
+
+A: Yes — run `preview.md` once `DESIGN.md` exists. It renders the tokens as a specimen sheet (color swatches, type ramp, component samples — the design system, not a product page) served by a local preview server, with live sliders to tune spacing, color, typography, radius, density, and more. Tuning is live and throwaway; when you commit, preview hands the tuned deltas to `reconcile.md`, which patches `DESIGN.md` (confirm-before-write). Rendering the tokens into actual product pages is a separate concern, not part of this skill.
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
