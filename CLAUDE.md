@@ -66,7 +66,7 @@ only:
 ```
 brainstorming + project-index (parallel discovery)
     --> docs-writer (product requirements + technical docs)
-    --> design-builder (visual identity + screens)
+    --> design-builder (visual identity)
     --> epic-tracker (epics --> stories)
     --> spec-driven (per story: spec + design + tasks)
     --> git-helpers (atomic commits per task)
@@ -498,8 +498,8 @@ be explicit about their scope so Claude reads only what's needed.
 ### Pipeline Fan-Forward (rigid)
 
 Multi-phase skills must not push references toward downstream phases.
-When a skill exposes several invokable references (e.g. `copy.md`,
-`design.md`, `structure.md`, `preview.md`), each reference is a job
+When a skill exposes several invokable references (e.g. `extract.md`,
+`compose.md`, `refine.md`, `publish.md`), each reference is a job
 the user invokes independently — not a stage in a mandatory pipeline.
 Skills that look like pipelines from the outside should feel like
 parallel jobs from the inside.
@@ -629,7 +629,6 @@ docs/
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
-├── design/        # design-builder: copy, preview variants, generated assets
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
 
@@ -650,9 +649,8 @@ skills:
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-builder` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`
-(preview variants stay in `.artifacts/design/`); `blueprint` writes
-`docs/design/blueprint.md`;
+`design-builder` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`;
+`blueprint` writes `docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.
 
 ## Subagent Fan-Out

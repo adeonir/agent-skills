@@ -1,13 +1,13 @@
 # Anti-Patterns
 
-Deterministic anti-pattern catalog for design validation and HTML preview checks.
+Deterministic anti-pattern catalog for DESIGN.md validation.
 Each rule documents a recognizable failure mode with the smallest sufficient fix
 and a paired HTML example.
 
 ## When to Use
 
-Auto-loaded by `validate.md` as a gate before DESIGN.md lands and during HTML preview review.
-Also referenced by `preview.md` during variant generation to avoid known failure shapes upfront.
+Auto-loaded by `validate.md` as a gate before DESIGN.md lands. Only the Drift
+category applies to DESIGN.md; the rendered-HTML categories are not checked here.
 
 ## Categories
 
@@ -915,7 +915,7 @@ function Theme() {
 **Category:** Drift
 **Severity:** warning
 **Check:** DESIGN.md prose (Section 1 Visual Theme & Atmosphere, Section 4 Component Stylings, Section 11 Agent Prompt Guide) contains literal product copy — real headlines, CTAs, feature names, or product pitches.
-**Fix:** Move every product string to `copy.yaml`. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in Section 11 prompts.
+**Fix:** Move every product string out of DESIGN.md. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in Section 11 prompts.
 **Example fail:**
 ```markdown
 ## 11. Agent Prompt Guide

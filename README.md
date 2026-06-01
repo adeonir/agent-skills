@@ -31,7 +31,7 @@ npx skills add adeonir/agent-skills
 | **[blueprint](skills/product/blueprint)** | Product | Plans `blueprint.md`, the design-blind layout payload a design consumes: information architecture, region layout, and screen flow from conversation or a brief |
 | **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-builder |
 | **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: write fresh copy from intent, or extract and structure existing content into a context-named tree |
-| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: explore a visual direction when none exists, author DESIGN.md, preview, tune, sync, handoff |
+| **[design-builder](skills/product/design-builder)** | Product | Greenfield design pipeline for any digital product: explore a visual direction when none exists, author and refine DESIGN.md, validate, reconcile drift |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
 
@@ -47,15 +47,15 @@ flowchart TD
     DW_PRD -->|requirements| DB
     DW_PRD -->|requirements| BP[blueprint]
     DW_PRD -->|requirements| CW[copywriting]
-    BP -->|blueprint.md| DB
-    CW -->|copy.yaml| DB
+    BP -->|blueprint.md| SD
+    CW -->|copy.yaml| SD
+    DB -->|DESIGN.md| SD
     DW_DD -->|Design Doc| SD
     DW_DD -->|Design Doc| ET
     DW_DD -->|Design Doc| DB
     DW_DD -.->|extract decision| DW_ADR[docs-writer ADR]
     ET -->|handoff| SD
     PI[project-index] -->|codebase docs| SD
-    DB -->|approved design| SD
     SD -->|commits & PRs| GH[git-helpers]
     SD -->|discoveries| PI
     SD -.->|coherence gap| DW_DD
@@ -72,7 +72,7 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 3. epic-tracker      --> plan epics, track stories, bugs, and issues
 4. copywriting       --> extract or write copy.yaml content payload
 5. blueprint         --> plan blueprint.md layout and screen flow
-6. design-builder    --> design, preview, approve
+6. design-builder    --> author the DESIGN.md visual identity
 7. spec-driven       --> specify, design, tasks, implement
 8. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
@@ -100,7 +100,7 @@ docs-writer      --> PRD (what to build, for whom, why)
 docs-writer      --> Design Doc (technical doc)
 copywriting      --> content payload (copy.yaml)
 blueprint        --> layout plan (blueprint.md)
-design-builder   --> visual design, tokens
+design-builder   --> visual identity, tokens (DESIGN.md)
 epic-tracker     --> epics, stories, acceptance criteria
 spec-driven      --> per-story spec, design, tasks, implementation
 git-helpers      --> commit, review, pull request
@@ -163,7 +163,6 @@ docs/
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts
-├── design/         # design-builder: preview variants
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks

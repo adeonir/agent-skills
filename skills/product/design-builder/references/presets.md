@@ -1,23 +1,22 @@
 # Presets
 
-Curated tone library for variant generation. Each preset is a pre-blended
+Curated tone library for visual direction. Each preset is a pre-blended
 direction across the Style Axes — token overrides, prompt addendum, and
 layout hints packed into a single named recipe.
 
 ## When to Use
 
-Auto-loaded by `preview.md` whenever the user invokes a named vibe
+Auto-loaded by `direction.md` whenever the user invokes a named vibe
 ("Editorial", "Cyberpunk", "Bento", "Luxury", ...) instead of composing
 freely across Style Axes. Presets are *starting points*, not constraints —
 the agent may compose further or blend two adjacent presets.
 
 ## How Presets Work
 
-A preset overlays its token map on top of the project's `DESIGN.md`
-frontmatter for variant generation only — the underlying DESIGN.md is not
-mutated. If the user approves a variant and runs the preview commit-back
-workflow, the preset overlay propagates through the usual surgical patch
-list (`preview.md` Commit Back to DESIGN.md).
+In visual direction a preset is read as a **mood seed**: its Vibe, Signature
+move, and layout hints inform a candidate direction, and its token
+characterizations describe the look in words. The token overrides are not
+applied to DESIGN.md here — tokens do not exist yet at the direction stage.
 
 Presets are orthogonal to the surfaces a project has: any preset is usable
 on marketing pages, app screens, or storefronts. Layout hints adapt the

@@ -129,7 +129,6 @@ DESIGN.md must render any copy. Flag prose that bakes product-specific content i
 | Section 1 Visual Theme & Atmosphere contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
 | Section 4 Component Stylings narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
 | Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
-| When `docs/design/copy.yaml` exists, any string ≥ 4 words from `copy.yaml` appears verbatim inside DESIGN.md prose | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
 
 ### Step 10: Anti-Pattern Audit
@@ -144,8 +143,7 @@ match using the rule's `id` and `severity`.
 | Drift rule matches (e.g., `font-family-not-in-tokens`, `copy-string-in-design-md`, `arbitrary-tailwind-value-repeated` traces in DESIGN.md prose) | per rule severity |
 
 Other categories (Typography, Color, Layout, Component States, etc.)
-target HTML preview output, not DESIGN.md, and are not applied here —
-they belong to the preview commit-back review handled by `preview.md`.
+target rendered HTML output, not DESIGN.md, and are not applied here.
 
 ### Step 11: Token Summary — `token-summary`
 

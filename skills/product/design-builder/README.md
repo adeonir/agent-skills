@@ -1,6 +1,6 @@
 # Design Builder
 
-Greenfield design pipeline for any digital product: explore a visual direction when none exists, author a `DESIGN.md` visual identity, preview and refine designs. Content (`copy.yaml`) and arrangement (`blueprint.md`) come from upstream inputs.
+Greenfield design pipeline for any digital product: explore a visual direction when none exists, then author and refine the `DESIGN.md` visual identity. DESIGN.md is the single artifact this skill owns.
 
 ## What It Does
 
@@ -9,11 +9,7 @@ flowchart TD
     Brief[Audience / PRD / feeling — no reference] -->|direction| MB[moodboard.md]
     MB -->|design| B2[DESIGN.md]
     A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2
-    Copy[copy.yaml — upstream content] --> D[Preview]
-    Blueprint[blueprint.md — upstream arrangement] --> D
-    B2 --> D
-    D -->|tune / comment| D
-    D -->|tune commit| B2
+    B2 -->|validate| V[Findings]
     Impl[Implementation] -->|reconcile| B2
 ```
 
@@ -21,15 +17,14 @@ flowchart TD
 | ---- | ------- | ------ |
 | **Direction** | No reference on hand — explore visual mood from audience/PRD, diverge across aesthetic directions, converge on one | `docs/design/moodboard.md` (locked direction: Mood, Style Axes, Signature, Touchstones) |
 | **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
-| **Preview** | Generate variants from DESIGN.md tokens + blueprint, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
-| **Reconcile** | Brownfield: sync DESIGN.md back from drifted implementation | Patched `docs/design/DESIGN.md` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
+| **Reconcile** | Brownfield: sync DESIGN.md back from drifted implementation | Patched `docs/design/DESIGN.md` (confirm-before-write) |
 
 ## Three Modes
 
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
-| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file), or explore a mood first when no reference exists | `direction → design → preview` (direction skips when a reference is given) |
+| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file), or explore a mood first when no reference exists | `direction → design` (direction skips when a reference is given) |
 | **Rebrand** | Existing app + new reference — restyle the sections it drives | `design-brief.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md back from implementation | `reconcile.md` |
 
@@ -46,12 +41,9 @@ may combine several:
 - **Storefront / commerce surfaces** — catalog, product pages, cart, checkout,
   account (online stores, DTC, marketplaces)
 
-Name surfaces by context; the questions and presets follow
-the surfaces present.
+Name surfaces by context; the questions and presets follow the surfaces present.
 
 ## Usage
-
-### Core Pipeline
 
 ```text
 # Explore a visual direction when no reference exists (mood diverge/converge)
@@ -79,46 +71,26 @@ apply this brand's colors to my app, keep my typography
 sync DESIGN.md from this codebase
 update DESIGN.md from code
 reconcile drift between implementation and design
-
-# Preview
-generate variants                            # N variants from DESIGN.md + blueprint (default 4)
-generate 4 variants in editorial preset      # apply named tone from presets.md
-generate 6 variants of bento + duotone       # compose across Style Axes (aesthetics.md)
-
-# Refinement on chosen variant
-tune the design         # single-token: spacing, saturation, typography contrast, radius
-                        # preset: font character, motion intensity, density, decoration
-# Alt+click any element in preview to comment
-
-# Tune commits back to DESIGN.md as surgical patches after user approval
 ```
 
 ### Full Greenfield Pipeline
 
 ```text
-1. extract design from [paste screenshots]   # copy.yaml + blueprint.md authored upstream
-2. generate variants
-3. tune / comment until approved
-4. hand DESIGN.md + blueprint.md + copy.yaml to implementation
+1. explore a direction          # direction → moodboard.md (only when no reference)
+2. author DESIGN.md             # design → tokens + prose
+3. validate DESIGN.md           # audit before handoff
+4. hand DESIGN.md to the rest of the pipeline
 ```
 
-Preview HTML is a decision aid — variant outputs that inform tuning and
-can feed back to DESIGN.md via reconcile. The handoff to implementation
-is the artifact set (`DESIGN.md` plus the upstream `copy.yaml` and
-`blueprint.md`), not the rendered HTML.
+DESIGN.md is the handoff artifact — the visual identity. Rendering it into
+product pages is a separate concern, not part of this skill.
 
 ## Output
 
 ```text
 docs/design/
 ├── moodboard.md          # Locked visual direction (Mood, Style Axes, Signature) — direction-absent flow
-├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
-├── blueprint.md        # Layout plan / arrangement (upstream input, not written here)
-└── copy.yaml             # Structured content payload (upstream input, not written here)
-
-.artifacts/design/
-└── preview/
-    └── variants/         # Variants HTML + .events session log
+└── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
 ```
 
 External design-tool files (when used as input source) live at the user's path and are user-owned. Skill never creates them.
@@ -128,20 +100,18 @@ External design-tool files (when used as input source) live at the user's path a
 Bundled lookups auto-loaded by the relevant instruction phase:
 
 - `references/aesthetics.md` — Four Questions, Style Axes, UX Heuristics, Visual Design Laws + Principles, Complexity Calibration, Creative Mandate
-- `references/web-standards.md` — implementation rules for HTML and React (accessibility, focus, forms, motion, performance)
-- `references/presets.md` — pre-blended named tones with token recipes, prompt addendum, layout hints, signature move
-- `references/anti-patterns.md` — deterministic failure-mode rules across typography, color, layout, decoration, component states, motion, accessibility, performance, hydration, and drift, each with HTML fail/pass examples
+- `references/presets.md` — pre-blended named tones read as mood seeds during direction
+- `references/anti-patterns.md` — deterministic failure-mode rules; the Drift category gates DESIGN.md during validate
 
 ## Requirements
 
-- Bun (for preview server)
 - Optional: any design-tool MCP for pull operations
 
 ## FAQ
 
 **Q: Is this for landing pages only?**
 
-A: No. design-builder adapts to any digital product — marketing pages, app and dashboard screens, storefronts, and more. The surfaces a project has route the questions asked and the presets offered in preview.
+A: No. design-builder adapts to any digital product — marketing pages, app and dashboard screens, storefronts, and more. The surfaces a project has route the questions asked and the presets offered during direction.
 
 **Q: Greenfield or brownfield?**
 
@@ -155,18 +125,14 @@ A: Run `direction.md` — explore a mood from scratch. It diverges across aesthe
 
 A: A single file at `docs/design/DESIGN.md`. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules, Component Stylings, Layout Principles, Shapes, Elevation & Depth, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
 
-**Q: Where do page composition and screen flow live?**
+**Q: Does DESIGN.md cover page layout and screen flow?**
 
-A: In `docs/design/blueprint.md`, a separate upstream artifact authored before design work. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement (which pages exist, hero treatment, screen inventory, navigation pattern, primary actions per screen) lives in the blueprint artifact.
+A: No. DESIGN.md covers brand-level layout identity (spacing scale, grid container, whitespace philosophy) inside the Layout section and corner language inside Shapes. Product-specific arrangement — which pages exist, hero treatment, screen inventory, navigation pattern — is a separate layout-planning concern, not part of DESIGN.md.
 
 **Q: Why both YAML and prose in the same file?**
 
-A: The YAML frontmatter gives the preview renderer machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two stay in sync.
-
-**Q: Do I need a design-tool MCP?**
-
-A: No. Default preview is HTML via a local Bun server. A design-tool MCP is optional and only used as an input source (pull tokens from a user-owned design-tool file).
+A: The YAML frontmatter gives machine-readable tokens with `{path.to.token}` references that resolve into CSS custom properties without parsing prose. The prose body gives humans rationale, naming, and how-to-apply context that no token table can carry. Section-scoped patches let multiple workflow phases write into the same file without clobbering each other — the YAML is patched first, then the prose bullet that cites the same token follows so the two stay in sync.
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches it surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Visual Theme & Atmosphere, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke design again if narrative needs refresh. Content drift in `copy.yaml` is reconciled separately, not here.
+A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches it surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Visual Theme & Atmosphere, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke design again if narrative needs refresh.

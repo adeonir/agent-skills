@@ -1,35 +1,33 @@
 ---
 name: design-builder
-allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
+allowed-tools: Read Write Edit Grep Glob WebFetch
 description: >-
   Greenfield design pipeline for any digital product: explore a visual
-  direction when no reference exists, author the visual identity,
-  preview and refine variants. Use when designing a landing page,
-  marketing site, web or mobile app, dashboard, or e-commerce store;
-  exploring or deciding a mood or visual direction from scratch with no
-  reference or moodboard; authoring a design system, extracting design
-  tokens, building or refreshing DESIGN.md, building pages, screens, or
-  storefronts from references, images, briefs, or a codebase; previewing
-  or tuning designs, generating creative variants, applying named tones;
-  redesigning, modernizing, or refreshing the brand identity; reconciling
-  design drift or syncing from implementation. Not for feature
-  implementation spec, system architecture, or PR/code review.
+  direction when no reference exists, then author and refine the visual
+  identity in DESIGN.md. Use when designing a landing page, marketing
+  site, web or mobile app, dashboard, or e-commerce store; exploring or
+  deciding a mood or visual direction from scratch with no reference or
+  moodboard; authoring a design system, extracting design tokens,
+  building or refreshing DESIGN.md from references, images, briefs, or a
+  codebase; applying named tones to the identity; redesigning,
+  modernizing, or refreshing the brand identity; reconciling design drift
+  or syncing from implementation. Not for rendering page variants,
+  feature implementation spec, system architecture, or PR/code review.
 ---
 
 # Design Builder
 
 Greenfield design pipeline for any digital product: discover, author
 `DESIGN.md` with a YAML frontmatter holding the authoritative design
-tokens plus numbered prose sections that narrate them, preview, refine.
-Content (`copy.yaml`) and arrangement (`blueprint.md`) come from
-upstream — read here, never authored or owned by this skill.
+tokens plus numbered prose sections that narrate them, and refine that
+identity. DESIGN.md is the single artifact this skill authors and owns.
 
 ## Workflow
 
 ```text
-direction --> design --> preview
-  |             |          ^__|
-  v             v        (tune loop)
+direction --> design
+  |             |
+  v             v
 moodboard.md  DESIGN.md
 (mood)        (visual identity)
 ```
@@ -39,9 +37,7 @@ visual direction is already given (reference images, URL, codebase, text
 description); it runs only when the direction is absent, exploring a mood
 into `moodboard.md` that `design` then authors tokens from. Each step is
 invokable standalone — call them in any order, skip any of them, or run
-only the one you need. Content (`copy.yaml`) and arrangement
-(`blueprint.md`) are read as upstream inputs, not produced here.
-Brownfield drift after handoff → `reconcile.md`.
+only the one you need. Brownfield drift after handoff → `reconcile.md`.
 
 > **Auto-load:** `discovery.md` runs before every operation — never
 > skipped, never invoked directly. It reads the surfaces, source,
@@ -54,21 +50,16 @@ carrying the normative design tokens (`colors`, `typography`, `rounded`,
 (Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules,
 Component Stylings, Layout Principles, Shapes, Elevation & Depth,
 Motion & Interaction, Responsive Behavior, Do's and Don'ts,
-Agent Prompt Guide). Token references use `{path.to.token}` syntax.
-preview parses the frontmatter at render time and resolves references
-into CSS custom properties. Arrangement lives upstream in
-`docs/design/blueprint.md` — read by preview, never part of DESIGN.md.
-
-HTML preview is a visualization for decision-making — output that can
-feed back into DESIGN.md via reconcile, not the final handoff artifact.
+Agent Prompt Guide). Token references use `{path.to.token}` syntax. The
+frontmatter is the authoritative state; the prose narrates it. Layout and
+content are separate concerns, not part of DESIGN.md.
 
 ## Three Modes
 
 - **Greenfield** — zero to `DESIGN.md` from raw inputs (URL, images,
-  brief, codebase, design-tool file); content comes from `copy.yaml` and
-  arrangement from `blueprint.md` upstream. Default path; runs
-  design → preview, preceded by `direction` when no visual reference
-  exists (mood explored into `moodboard.md` first).
+  brief, codebase, design-tool file). Default path; runs `direction`
+  (when no visual reference exists, mood explored into `moodboard.md`
+  first) → design.
 - **Rebrand** — restyle an existing `DESIGN.md` from a new reference,
   patching the sections it drives. Handled by
   [design-brief.md](instructions/design-brief.md).
@@ -81,30 +72,25 @@ feed back into DESIGN.md via reconcile, not the final handoff artifact.
 | --------- | ---- |
 | Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
 | Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design-brief.md](instructions/design-brief.md) |
-| Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
 | Sync DESIGN.md from drifted implementation | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `presets.md` auto-load inside
-`direction.md`; `aesthetics.md` and `web-standards.md` auto-load inside
-`preview.md`. `validate.md` is both directly callable and auto-loaded as
-a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md never lands
-invalid for downstream consumers (preview).
+`direction.md`. `validate.md` is both directly callable and auto-loaded
+as a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md never
+lands invalid.
 
 ## Guidelines
 
 - Ask one question at a time when gathering context from the user
 - Treat `docs/design/DESIGN.md` as the source of truth for visual
   identity
-- Read `docs/design/blueprint.md` as the upstream arrangement input;
-  never author it here
 - Patch DESIGN.md frontmatter group by group and prose section by
   section so each phase preserves the others' work; patch the YAML
   authoritative layer first, prose follows
 - Route preset and decision sets by the surfaces the project has
   (marketing/content, app/dashboard, storefront/commerce)
-- Auto-load `aesthetics.md` and `web-standards.md` for every preview run
 - Treat external design-tool files as user-owned — read only when the
   user asks and the matching MCP is available
 
@@ -113,8 +99,7 @@ invalid for downstream consumers (preview).
 Rewriting the entire `DESIGN.md` when only one slice changed clobbers
 other slices. Patch the YAML frontmatter group first, then the prose
 bullets that cite the patched tokens. `design-brief.md` owns the DESIGN.md
-frontmatter and prose sections. `copy.yaml` (content) and `blueprint.md`
-(arrangement) are authored upstream — read here, never written. `reconcile.md` patches DESIGN.md from a
+frontmatter and prose sections. `reconcile.md` patches DESIGN.md from a
 drifted implementation following the same surgical rules.
 
 ## Anti-Pattern: Creating External Tool Files
@@ -126,7 +111,7 @@ risks naming collisions.
 
 ## Anti-Pattern: Copy Leakage into DESIGN.md
 
-DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Visual Theme & Atmosphere) reads like a product pitch, when Section 4 (Component Stylings) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it (those live in `copy.yaml`), and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat copy and design as orthogonal — one DESIGN.md must survive any copy.yaml swap.
+DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Visual Theme & Atmosphere) reads like a product pitch, when Section 4 (Component Stylings) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat content and design as orthogonal — one DESIGN.md must survive any content swap.
 
 ## Anti-Pattern: Skipping Discovery
 

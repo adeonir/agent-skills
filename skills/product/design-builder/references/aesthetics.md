@@ -1,11 +1,11 @@
 # Design Aesthetics
 
-Self-contained design principles for variant generation and frontend building.
+Self-contained design principles for visual direction and design authoring.
 Apply these guidelines to every visual decision -- they replace any external design skill dependency.
 
 ## When to Use
 
-Auto-loaded by preview.md as design principles. Not a direct trigger.
+Auto-loaded by direction.md as design principles. Not a direct trigger.
 
 ## Design Thinking
 
