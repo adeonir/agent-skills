@@ -66,7 +66,9 @@ only:
 ```
 brainstorming + project-index (parallel discovery)
     --> docs-writer (product requirements + technical docs)
+    --> blueprint (information architecture + screen flow)
     --> design-brief (visual identity)
+    --> copywriting (content payload)
     --> epic-tracker (epics --> stories)
     --> spec-driven (per story: spec + design + tasks)
     --> git-helpers (atomic commits per task)

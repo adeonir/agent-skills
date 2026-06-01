@@ -69,10 +69,10 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 ```
 1. brainstorming     --> explore ideas, choose direction
 2. docs-writer       --> draft requirements, brief, technical doc
-3. epic-tracker      --> plan epics, track stories, bugs, and issues
-4. copywriting       --> extract or write copy.yaml content payload
-5. blueprint         --> plan blueprint.md layout and screen flow
-6. design-brief    --> author the DESIGN.md visual identity
+3. blueprint         --> plan blueprint.md layout and screen flow
+4. design-brief      --> author the DESIGN.md visual identity
+5. copywriting       --> extract or write copy.yaml content payload
+6. epic-tracker      --> plan epics, track stories, bugs, and issues
 7. spec-driven       --> specify, design, tasks, implement
 8. git-helpers       --> commit, code-review, pull-request, finish branch
 ```
