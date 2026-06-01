@@ -1,12 +1,14 @@
 # Design Builder
 
-Greenfield design pipeline for any digital product: author a `DESIGN.md` visual identity, preview and refine designs. Content (`copy.yaml`) and arrangement (`blueprint.md`) come from upstream inputs.
+Greenfield design pipeline for any digital product: explore a visual direction when none exists, author a `DESIGN.md` visual identity, preview and refine designs. Content (`copy.yaml`) and arrangement (`blueprint.md`) come from upstream inputs.
 
 ## What It Does
 
 ```mermaid
 flowchart TD
-    A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2[DESIGN.md]
+    Brief[Audience / PRD / feeling — no reference] -->|direction| MB[moodboard.md]
+    MB -->|design| B2[DESIGN.md]
+    A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2
     Copy[copy.yaml — upstream content] --> D[Preview]
     Blueprint[blueprint.md — upstream arrangement] --> D
     B2 --> D
@@ -17,7 +19,8 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Design** | Extract design from images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
+| **Direction** | No reference on hand — explore visual mood from audience/PRD, diverge across aesthetic directions, converge on one | `docs/design/moodboard.md` (locked direction: Mood, Style Axes, Signature, Touchstones) |
+| **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) |
 | **Preview** | Generate variants from DESIGN.md tokens + blueprint, tune sliders, comment inline; tuned values commit back to DESIGN.md as surgical patches | `.artifacts/design/preview/variants/` (HTML); patched `docs/design/DESIGN.md` on tune commit |
 | **Reconcile** | Brownfield: sync DESIGN.md back from drifted implementation | Patched `docs/design/DESIGN.md` (confirm-before-write) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
@@ -26,7 +29,7 @@ flowchart TD
 
 | Mode | Entry condition | Routes through |
 | ---- | --------------- | -------------- |
-| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file) | `design → preview` |
+| **Greenfield** | Zero existing design — author from raw inputs (URL, images, brief, codebase, design-tool file), or explore a mood first when no reference exists | `direction → design → preview` (direction skips when a reference is given) |
 | **Rebrand** | Existing app + new reference — restyle the sections it drives | `design-brief.md` |
 | **Reconcile** | Brownfield drift — sync DESIGN.md back from implementation | `reconcile.md` |
 
@@ -51,6 +54,11 @@ the surfaces present.
 ### Core Pipeline
 
 ```text
+# Explore a visual direction when no reference exists (mood diverge/converge)
+help me find a direction for this app
+explore some moods, I have no reference
+I'm not sure what it should feel like
+
 # Author DESIGN.md (YAML frontmatter with normative tokens + prose narration)
 extract from this screenshot
 extract from this codebase
@@ -103,6 +111,7 @@ is the artifact set (`DESIGN.md` plus the upstream `copy.yaml` and
 
 ```text
 docs/design/
+├── moodboard.md          # Locked visual direction (Mood, Style Axes, Signature) — direction-absent flow
 ├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
 ├── blueprint.md        # Layout plan / arrangement (upstream input, not written here)
 └── copy.yaml             # Structured content payload (upstream input, not written here)
@@ -137,6 +146,10 @@ A: No. design-builder adapts to any digital product — marketing pages, app and
 **Q: Greenfield or brownfield?**
 
 A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design-brief.md` ("extract from codebase") for inheriting tokens at the start and for restyling an existing identity from a new reference, plus `reconcile.md` for syncing back after drift.
+
+**Q: What if I have no reference or moodboard to start from?**
+
+A: Run `direction.md` — explore a mood from scratch. It diverges across aesthetic directions (Style Axes + named tones), converges on one, and writes `docs/design/moodboard.md`. `design` then authors `DESIGN.md` tokens from that moodboard, the same way it would from a reference. When you already have a reference (images, URL, codebase, text description), direction auto-skips and design extracts directly.
 
 **Q: What is `DESIGN.md`?**
 

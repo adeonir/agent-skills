@@ -2,17 +2,18 @@
 name: design-builder
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
 description: >-
-  Greenfield design pipeline for any digital product: author the
-  visual identity, preview and refine variants. Use
-  when designing a landing page, marketing site, web or mobile app,
-  dashboard, or e-commerce store; authoring a design system, extracting
-  design tokens, building or refreshing DESIGN.md, building pages,
-  screens, or storefronts from references, images, briefs, or a
-  codebase; previewing or tuning designs, generating creative variants,
-  applying named tones; redesigning, modernizing, or refreshing the
-  brand identity; reconciling design drift or syncing from
-  implementation. Not for feature implementation spec, system
-  architecture, or PR/code review.
+  Greenfield design pipeline for any digital product: explore a visual
+  direction when no reference exists, author the visual identity,
+  preview and refine variants. Use when designing a landing page,
+  marketing site, web or mobile app, dashboard, or e-commerce store;
+  exploring or deciding a mood or visual direction from scratch with no
+  reference or moodboard; authoring a design system, extracting design
+  tokens, building or refreshing DESIGN.md, building pages, screens, or
+  storefronts from references, images, briefs, or a codebase; previewing
+  or tuning designs, generating creative variants, applying named tones;
+  redesigning, modernizing, or refreshing the brand identity; reconciling
+  design drift or syncing from implementation. Not for feature
+  implementation spec, system architecture, or PR/code review.
 ---
 
 # Design Builder
@@ -26,20 +27,21 @@ upstream — read here, never authored or owned by this skill.
 ## Workflow
 
 ```text
-design --> preview
-  |          ^__|
-  |        (tune loop)
-  v
-DESIGN.md
-(visual
-identity)
+direction --> design --> preview
+  |             |          ^__|
+  v             v        (tune loop)
+moodboard.md  DESIGN.md
+(mood)        (visual identity)
 ```
 
-Arrows show the suggested greenfield order. Each step is invokable
-standalone — call them in any order, skip any of them, or run only the
-one you need. Content (`copy.yaml`) and arrangement (`blueprint.md`)
-are read as upstream inputs, not produced here. Brownfield drift after
-handoff → `reconcile.md`.
+Arrows show the suggested greenfield order. `direction` auto-skips when a
+visual direction is already given (reference images, URL, codebase, text
+description); it runs only when the direction is absent, exploring a mood
+into `moodboard.md` that `design` then authors tokens from. Each step is
+invokable standalone — call them in any order, skip any of them, or run
+only the one you need. Content (`copy.yaml`) and arrangement
+(`blueprint.md`) are read as upstream inputs, not produced here.
+Brownfield drift after handoff → `reconcile.md`.
 
 > **Auto-load:** `discovery.md` runs before every operation — never
 > skipped, never invoked directly. It reads the surfaces, source,
@@ -65,7 +67,8 @@ feed back into DESIGN.md via reconcile, not the final handoff artifact.
 - **Greenfield** — zero to `DESIGN.md` from raw inputs (URL, images,
   brief, codebase, design-tool file); content comes from `copy.yaml` and
   arrangement from `blueprint.md` upstream. Default path; runs
-  design → preview.
+  design → preview, preceded by `direction` when no visual reference
+  exists (mood explored into `moodboard.md` first).
 - **Rebrand** — restyle an existing `DESIGN.md` from a new reference,
   patching the sections it drives. Handled by
   [design-brief.md](instructions/design-brief.md).
@@ -76,16 +79,18 @@ feed back into DESIGN.md via reconcile, not the final handoff artifact.
 
 | Operation | File |
 | --------- | ---- |
+| Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
 | Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design-brief.md](instructions/design-brief.md) |
 | Generate variants, tune sliders, comment inline, commit back to DESIGN.md | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
 | Sync DESIGN.md from drifted implementation | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
-invoked directly. `aesthetics.md` and `web-standards.md` auto-load
-inside `preview.md`. `validate.md` is both directly callable and
-auto-loaded as a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md
-never lands invalid for downstream consumers (preview).
+invoked directly. `aesthetics.md` and `presets.md` auto-load inside
+`direction.md`; `aesthetics.md` and `web-standards.md` auto-load inside
+`preview.md`. `validate.md` is both directly callable and auto-loaded as
+a gate by `design-brief.md` and `reconcile.md`, so DESIGN.md never lands
+invalid for downstream consumers (preview).
 
 ## Guidelines
 

@@ -13,6 +13,7 @@ Load at the start of every operation — before any trigger reference is loaded.
 Look for:
 
 - `docs/design/DESIGN.md` — already-authored visual identity
+- `docs/design/moodboard.md` — locked visual direction (feeds token authoring)
 - `docs/product/prd.md` — PRD
 - `docs/product/brief.md` — Brief
 - `docs/product/brainstorm.md` — strategic direction
@@ -20,8 +21,9 @@ Look for:
 
 If found, read and extract purpose, audience, tone, key features, and any
 existing tokens. Tokens in `DESIGN.md` live in the YAML frontmatter at the top
-of the file — parse that block as the authoritative state. Skip to the
-relevant trigger operation.
+of the file — parse that block as the authoritative state. A `moodboard.md` with
+`status: locked` is a settled visual direction: treat it as a given direction
+for token authoring. Skip to the relevant trigger operation.
 
 ### Step 2: Lightweight Discovery
 
@@ -39,7 +41,12 @@ Infer field from source and intent — no explicit question to the user:
 - **Greenfield** — no existing visual identity to preserve. Source is
   inspiration, not constraint. Typical sources: reference images, brand
   URL used as reference, text description. No legacy tokens; `DESIGN.md`
-  starts from scratch.
+  starts from scratch. Greenfield splits on whether a direction is
+  **given** or **absent**: a reference (images, URL, text description) or a
+  locked `moodboard.md` is a given direction — route straight to token
+  authoring, which extracts it. When only audience, PRD, or a vague feeling
+  exists with no reference, the direction is absent — route to `direction.md`
+  first to explore and lock a mood.
 - **Brownfield** — existing visual identity must be honored, refactored,
   or replaced. Typical sources: codebase, vanilla HTML/CSS export,
   external design-tool file. Legacy tokens exist; `DESIGN.md` may
@@ -63,6 +70,7 @@ Load only the reference matching the activated trigger:
 
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
+| Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `presets.md` |
 | Visual identity / DESIGN.md | `design-brief.md` | `validate.md` |
 | Preview / refinement | `preview.md` | `aesthetics.md`, `web-standards.md` |
 | Validation only | `validate.md` | — |

@@ -615,6 +615,7 @@ docs/
 ├── adr/
 │   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
 └── design/
+    ├── moodboard.md        # design-builder: locked visual direction (mood diverge/converge)
     ├── DESIGN.md           # design-builder: visual identity (YAML tokens + prose)
     ├── blueprint.md      # blueprint: information architecture / region layout / screen flow
     └── copy.yaml           # copywriting: structured content payload
@@ -649,8 +650,9 @@ skills:
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-builder` writes `docs/design/DESIGN.md` (preview variants stay in
-`.artifacts/design/`); `blueprint` writes `docs/design/blueprint.md`;
+`design-builder` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`
+(preview variants stay in `.artifacts/design/`); `blueprint` writes
+`docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.
 
 ## Subagent Fan-Out

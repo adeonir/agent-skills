@@ -73,6 +73,8 @@ If discovery did not capture it, ask one question at a time:
 
 Sources accepted, in order of recommended fidelity:
 
+**Locked moodboard (`docs/design/moodboard.md`).** When discovery found a `moodboard.md` with `status: locked`, it is the authoritative visual direction — the converged output of mood exploration for the direction-absent case (no reference image exists, so the moodboard carries the direction). Author Section 1 (Visual Theme & Atmosphere) from its Mood prose, map its four Style Axes and Signature into the token choices, and treat its Constraints as hard requirements. Generate tokens from it as you would from a rich text description, below. When no moodboard exists, use the sources below directly.
+
 **Reference images.** User pastes screenshots, mockups, or mood boards, or provides file paths or URLs. Best for greenfield work with a strong visual direction.
 
 **Brand URL or live site.** User points at an existing live site, brand kit page, or marketing site URL. Extract palette, typography, spacing rhythm, and component patterns from the rendered page or referenced assets. Same fidelity as reference images when the source is a real product surface.
