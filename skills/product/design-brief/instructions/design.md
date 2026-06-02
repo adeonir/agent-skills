@@ -204,7 +204,7 @@ spacing:
   16: 4rem
 ```
 
-**Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases.
+**Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`, `opacity`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases.
 
 Variants are separate entries with a related key name:
 
