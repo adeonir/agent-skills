@@ -39,7 +39,7 @@ reference, and embed CSS custom properties directly in the generated HTML:
 - **Elevation** — from `elevation.*`. Scale keys become `--elevation-sm`, ... carrying CSS shadow strings.
 - **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--ease-in`, ... — easing maps to Tailwind's `--ease-*` namespace.
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
-- **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain.
+- **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain. A color reference with a `/NN` opacity modifier (`{colors.primary}/90`) emits `color-mix(in oklab, var(--color-primary) NN%, transparent)`.
 
 No external parser, no token endpoint. Read the YAML, resolve references, map
 everything to CSS variables in the HTML output, ship the file.

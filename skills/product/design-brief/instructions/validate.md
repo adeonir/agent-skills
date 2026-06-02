@@ -33,7 +33,7 @@ Read `docs/design/DESIGN.md`. Split into:
 
 - **YAML frontmatter** — the block between the opening `---` and closing `---` fences. Parse into the design system state with top-level keys: `name`, `description`, `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`.
 - **Markdown body** — everything after the frontmatter. Walk H2 headings to enumerate sections and their order.
-- **Token reference index** — collect every `{path.to.token}` occurrence inside `components`, `rounded`, and `spacing` values for the `broken-ref` check.
+- **Token reference index** — collect every `{path.to.token}` occurrence inside `components`, `rounded`, and `spacing` values for the `broken-ref` check. A color reference may carry a trailing `/NN` opacity modifier; strip it to the base path before resolving.
 
 If the frontmatter block is missing or unparseable, emit a single error and stop — no downstream check is meaningful without it.
 
@@ -61,6 +61,7 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 | Each reference resolves to a defined token at the cited path | error |
 | References inside `components.*` point to primitives in `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, or `elevation` (component-to-component refs not allowed) | error |
 | References inside `rounded` and `spacing` resolve to siblings in the same group | error |
+| A color reference's optional `/NN` opacity modifier is an integer 0–100; the base token resolves after stripping it | error |
 
 ### Step 4: Color Rules — `missing-primary` + `contrast-ratio` + `orphaned-tokens` + `oklch-hex-pair`
 

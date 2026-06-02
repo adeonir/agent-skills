@@ -33,7 +33,7 @@ None hard. Design is greenfield-first — any input source is enough (images, co
 
 Write `docs/design/DESIGN.md`. A YAML frontmatter, then a markdown body:
 
-**YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
+**YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. A color reference may carry a Tailwind opacity modifier — `{colors.primary}/90` means 90% opacity, matching Tailwind's `bg-primary/90`.
 
 **Markdown body.** Numbered H2 sections, in order:
 
@@ -204,7 +204,7 @@ spacing:
   16: 4rem
 ```
 
-**Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`, `opacity`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases.
+**Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`, `opacity`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases. For a translucent color, append the opacity modifier to the reference — `{colors.primary}/90` — never an inlined `rgb(...)`/`rgba(...)` of a palette color.
 
 Variants are separate entries with a related key name:
 
@@ -371,7 +371,7 @@ Show the user:
 - Reference token keys in backticks alongside evocative names in prose
 - Pick one color naming mode (descriptive or poetic) and stay consistent
 - Match each color token's frontmatter shape to its source value — hex string when the source value is hex, object `{ hex, oklch }` when the source value is oklch (per-token, not file-wide)
-- Use `{path.to.token}` references inside `components`, `rounded`, and `spacing` to keep the YAML coherent
+- Use `{path.to.token}` references inside `components`, `rounded`, and `spacing` to keep the YAML coherent; add the `/NN` opacity modifier for a translucent color (`{colors.primary}/90`)
 - Ask the user when two sources conflict on the same token
 - Express variants (hover, active, pressed, disabled) as separate component entries with related key names
 - Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy is out of scope
