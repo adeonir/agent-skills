@@ -116,7 +116,7 @@ Extract for the frontmatter:
 - **Spacing** — base unit and scale, keyed numerically per Tailwind convention (`1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, ...).
 - **Components** — buttons, cards, badges, inputs, navigation. Capture variants (hover, active, pressed, disabled) as separate entries with related names.
 - **Elevation** — shadow stack, surface tints, blur, layering. Named per Tailwind shadow scale (`2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`).
-- **Duration & easing** — motion durations (named tiers like `fast`, `base`, `slow`) and easing curves (named verbs paired with cubic-bezier values).
+- **Duration & easing** — motion durations (named tiers like `fast`, `base`, `slow`) and easing curves, keyed per Tailwind convention (`in`, `out`, `in-out`) with cubic-bezier values.
 - **Breakpoints** — viewport widths in `rem`, named per Tailwind scale (`sm`, `md`, `lg`, `xl`, `2xl`).
 
 Extract for the prose:
@@ -241,13 +241,13 @@ duration:
   slow: 400ms
 ```
 
-**Frontmatter — easing.** Named curves with cubic-bezier values.
+**Frontmatter — easing.** Tailwind easing keys with cubic-bezier values.
 
 ```yaml
 easing:
-  standard: "cubic-bezier(0.4, 0, 0.2, 1)"
-  accelerate: "cubic-bezier(0.4, 0, 1, 1)"
-  decelerate: "cubic-bezier(0, 0, 0.2, 1)"
+  in: "cubic-bezier(0.4, 0, 1, 1)"
+  out: "cubic-bezier(0, 0, 0.2, 1)"
+  in-out: "cubic-bezier(0.4, 0, 0.2, 1)"
 ```
 
 **Frontmatter — breakpoints.** Tailwind scale in `rem`.
@@ -317,7 +317,7 @@ This section authors **brand-level layout identity**, not product-specific arran
 `## 8. Motion & Interaction` — four recommended H3:
 
 - `### Duration` — narrate `duration.fast`, `duration.base`, `duration.slow` with usage context.
-- `### Easing` — narrate `easing.standard`, `easing.accelerate`, `easing.decelerate` and the verb each communicates (`crisp`, `eased`, `lingering`).
+- `### Easing` — narrate `easing.in`, `easing.out`, `easing.in-out` and the motion each communicates (accelerating from rest, settling to rest, symmetric ease).
 - `### Reduced Motion` — fallback behavior under `prefers-reduced-motion`.
 - `### Interaction Patterns` — short prose on hover, focus, pressed, drag, and gesture cues.
 
@@ -527,9 +527,9 @@ duration:
   base: 250ms
   slow: 400ms
 easing:
-  standard: "cubic-bezier(0.4, 0, 0.2, 1)"
-  accelerate: "cubic-bezier(0.4, 0, 1, 1)"
-  decelerate: "cubic-bezier(0, 0, 0.2, 1)"
+  in: "cubic-bezier(0.4, 0, 1, 1)"
+  out: "cubic-bezier(0, 0, 0.2, 1)"
+  in-out: "cubic-bezier(0.4, 0, 0.2, 1)"
 breakpoints:
   sm: 40rem
   md: 48rem
@@ -678,9 +678,9 @@ breakpoints:
 
 ### Easing
 
-- Standard (`easing.standard`): {{verb that describes feel}}
-- Accelerate (`easing.accelerate`): {{verb}}
-- Decelerate (`easing.decelerate`): {{verb}}
+- Ease In (`easing.in`): {{verb that describes feel}}
+- Ease Out (`easing.out`): {{verb}}
+- Ease In-Out (`easing.in-out`): {{verb}}
 
 ### Reduced Motion
 

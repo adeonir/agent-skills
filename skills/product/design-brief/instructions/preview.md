@@ -37,7 +37,7 @@ reference, and embed CSS custom properties directly in the generated HTML:
 - **Radius** — from `rounded.*`. Scale keys become `--rounded-xs`, `--rounded-sm`, ...
 - **Border width** — from `borderWidth.*`. Scale keys become `--border-width-default`, `--border-width-2`, ... carrying `px` values. No Tailwind `@theme` namespace exists for border width, so specimens read these custom properties directly rather than mapping to a theme key.
 - **Elevation** — from `elevation.*`. Scale keys become `--elevation-sm`, ... carrying CSS shadow strings.
-- **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--easing-standard`, ...
+- **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--ease-in`, ... — easing maps to Tailwind's `--ease-*` namespace.
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
 - **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain.
 
@@ -160,7 +160,7 @@ patch list during commit-back.
 | Preset | Affected token-paths | Transform |
 |--------|----------------------|-----------|
 | `font-character` | `typography.display.fontFamily`, `typography.body.fontFamily` (and matching `fontWeight` when a family swap is unavailable) | swap (slider picks from a curated stack: sans-grotesk, sans-humanist, serif-display, serif-body, mono) |
-| `motion-intensity` | `duration.fast`, `duration.base`, `duration.slow`, `easing.standard`, `easing.bounce` | scale durations by `value` (0 = none, 1 = base, 2 = playful); pick easing per intensity tier |
+| `motion-intensity` | `duration.fast`, `duration.base`, `duration.slow`, `easing.in-out`, `easing.bounce` | scale durations by `value` (0 = none, 1 = base, 2 = playful); pick easing per intensity tier |
 | `density` | `spacing.*` (all numeric keys), `components.*.padding` | multiply by `value` (0.7 = airy → 1.3 = dense) |
 | `decoration` | `elevation.*`, `rounded.*`, `colors.accent` saturation | elevation scale × `value`, rounded scale × `value`, accent saturation × `value` |
 
