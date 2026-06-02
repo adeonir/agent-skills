@@ -19,8 +19,8 @@ flowchart TD
 
 Arrangement is orthogonal to visual identity: the same `blueprint.md` holds
 independent of visual styling, so this skill plans structure only — never
-colors, fonts, or tokens. It emits the plan; a downstream renderer draws the
-wireframe.
+colors, fonts, tokens, copy strings, or requirement IDs. It emits the plan; a
+downstream renderer draws the wireframe.
 
 ## Usage
 

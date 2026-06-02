@@ -16,7 +16,7 @@ Look for:
 - an existing `docs/design/blueprint.md` — a prior layout plan
 - a wireframe on hand: sketch, mockup, screenshot, or a described layout
 - a brief, PRD, or description the user provides — intent and surfaces
-- existing content the user points to — arrange real blocks against it when given
+- existing content the user points to — infer which blocks and what order from it; never import its copy strings or requirement IDs
 
 Read what is found for surfaces, primary actions, and flow. Skip to the
 relevant mode.

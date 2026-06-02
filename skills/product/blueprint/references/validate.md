@@ -30,12 +30,26 @@ Walk these prompts — they probe structure and flow only, never visual styling:
 - Are state variants (empty, loading, error) covered where they matter?
 - Do nested regions belong to their parent, or should they split out?
 
-### Step 3: Report Findings
+### Step 3: Leakage Check
+
+Scan the **frontmatter** (surface keys, block labels, `note` values) **and the
+markdown body** (screen map, per-surface narration) for tokens that do not
+belong in a design-blind plan:
+
+| Check | Flag |
+|-------|------|
+| Requirement, milestone, journey, or story IDs (`fr-1`, `m1`, `j1`, `us-3`, `epic-2`) in any key, label, note, or prose | strip — PRD/epic traceability, not layout |
+| Copy strings — headlines, sentences, marketing phrases, button labels — in labels, notes, or narration | replace with an abstract slot label — copy is a separate concern |
+
+Report each leak with its location; the user decides whether to strip it before
+design consumes the plan.
+
+### Step 4: Report Findings
 
 List what holds and what does not, each with a one-line reason. Do not edit the
 plan yet — the user decides what to change.
 
-### Step 4: Roll Into Create (optional)
+### Step 5: Roll Into Create (optional)
 
 When the user wants the findings applied, hand off to [create.md](create.md) to
 patch the affected surfaces. Confirm each change before writing — never patch

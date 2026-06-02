@@ -54,8 +54,8 @@ tree alone cannot hold. Block labels come from the conversation; shape hints
 come from a fixed set. Patch the frontmatter first, then the prose that
 describes it, so the two stay in sync. Before
 saving, self-check: the tree is well-formed and carries structure only — no
-colors, fonts, spacing, or tokens, and no copy. It plans arrangement, nothing
-else.
+colors, fonts, spacing, or tokens, no copy strings, and no requirement IDs
+(`fr-1`, `m1`, `j1`, `us-3`). It plans arrangement, nothing else.
 
 ## Inputs
 
@@ -73,4 +73,4 @@ plan, arrange against it; otherwise plan from intent.
 - Patch the frontmatter region tree first, then the body that narrates it,
   so the two stay in sync.
 - Ask one decision at a time when walking surfaces, blocks, and flow.
-- Keep content out — plan structure, never author copy here.
+- Keep content out — plan structure; never author or import copy, and never carry requirement IDs (`fr-1`, `m1`, `j1`).
