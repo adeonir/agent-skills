@@ -35,6 +35,7 @@ reference, and embed CSS custom properties directly in the generated HTML:
 - **Typography** — from `typography.*`. Each role becomes related properties (`--font-display-family`, `--font-display-size`, `--font-display-weight`, ...). Role keys map 1:1 to kebab-case prefixes.
 - **Spacing** — from `spacing.*`. Numeric Tailwind scale keys become `--spacing-1`, `--spacing-2`, ...
 - **Radius** — from `rounded.*`. Scale keys become `--rounded-xs`, `--rounded-sm`, ...
+- **Border width** — from `borderWidth.*`. Scale keys become `--border-width-default`, `--border-width-2`, ... carrying `px` values. No Tailwind `@theme` namespace exists for border width, so specimens read these custom properties directly rather than mapping to a theme key.
 - **Elevation** — from `elevation.*`. Scale keys become `--elevation-sm`, ... carrying CSS shadow strings.
 - **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--easing-standard`, ...
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
@@ -72,7 +73,7 @@ bypass the theme and erode design-system consistency.
 
 ## Specimen Sheet
 
-One self-contained `styleguide.html` that renders all nine token groups as a
+One self-contained `styleguide.html` that renders all ten token groups as a
 design-system reference. It is the visual proof of `DESIGN.md` — the kind of page
 a real design system ships as its styleguide.
 
@@ -87,7 +88,7 @@ The sheet has two layers, kept strictly separate:
 
 This sheet is looked at, so it must read well — internal, but good:
 
-- A sticky top bar with jump-nav to the nine groups.
+- A sticky top bar with jump-nav to the ten groups.
 - Each group is a titled section with a one-line caption and generous neutral spacing.
 - A consistent token-card system: the rendered specimen, its key, its value, its role.
 - The tune panel is a sticky side or bottom panel — grouped sliders, live value readouts, a reset.
@@ -99,6 +100,7 @@ This sheet is looked at, so it must read well — internal, but good:
 - **`typography`** — type ramp, one row per role: the role name and spec (font / size / weight / line-height / letter-spacing) beside a live specimen rendered at the actual values. Name the loaded family.
 - **`spacing`** — a ruler of horizontal bars, one per scale step, bar length equal to the value, labeled key + rem/px.
 - **`rounded`** — a row of squares each with its corner radius applied, labeled key + value.
+- **`borderWidth`** — a row of boxes each rendered with its border thickness applied, labeled key + value.
 - **`elevation`** — a row of resting cards each at its shadow tier, labeled key.
 - **`duration` / `easing`** — animated chips: a small element that loops a transform using each duration and easing pairing, labeled; hover to replay.
 - **`components`** — each entry rendered live, resolved through `{path.to.token}`: `button-primary` with its hover/active/disabled variants side by side, `card`, `input`, plus any badge / nav / distinctive entries the frontmatter defines.
@@ -200,7 +202,7 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 - Read the `DESIGN.md` frontmatter before generating, so every specimen is grounded in the current tokens
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Keep chrome neutral (system UI) and let only the specimens carry the project tokens
-- Render all nine groups; show a quiet placeholder for an empty group rather than dropping it
+- Render all ten groups; show a quiet placeholder for an empty group rather than dropping it
 - Serve every generated sheet through the preview server
 - Swap CSS custom properties during tune — keep the DOM, change only tokens
 - Hand tuned deltas to `reconcile.md`; never write `DESIGN.md` from here

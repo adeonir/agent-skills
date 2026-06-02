@@ -2,7 +2,7 @@
 
 Audit `DESIGN.md` against the linter rules. Read-only: never patches the file. Reports findings; user decides what to fix.
 
-Runs eleven linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency.
+Runs twelve linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage`, `library-name-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency.
 
 ## When to Use
 
@@ -31,7 +31,7 @@ No files written. No tokens rewritten.
 
 Read `docs/design/DESIGN.md`. Split into:
 
-- **YAML frontmatter** — the block between the opening `---` and closing `---` fences. Parse into the design system state with top-level keys: `name`, `description`, `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`.
+- **YAML frontmatter** — the block between the opening `---` and closing `---` fences. Parse into the design system state with top-level keys: `name`, `description`, `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`.
 - **Markdown body** — everything after the frontmatter. Walk H2 headings to enumerate sections and their order.
 - **Token reference index** — collect every `{path.to.token}` occurrence inside `components`, `rounded`, and `spacing` values for the `broken-ref` check.
 
@@ -59,7 +59,7 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 | Check | Severity |
 |-------|----------|
 | Each reference resolves to a defined token at the cited path | error |
-| References inside `components.*` point to primitives in `colors`, `typography`, `rounded`, or `spacing` (component-to-component refs not allowed) | error |
+| References inside `components.*` point to primitives in `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, or `elevation` (component-to-component refs not allowed) | error |
 | References inside `rounded` and `spacing` resolve to siblings in the same group | error |
 
 ### Step 4: Color Rules — `missing-primary` + `contrast-ratio` + `orphaned-tokens` + `oklch-hex-pair`
@@ -82,6 +82,7 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 
 | Check | Severity |
 |-------|----------|
+| `borderWidth` keys follow Tailwind border-width scale (`0`, `DEFAULT`, `2`, `4`, `8`); values use `px` (or unitless `0`) | warning |
 | `elevation` keys follow Tailwind scale (`2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`); values are valid CSS shadow strings | warning |
 | `duration` keys are named tiers; values use `ms` unit | warning |
 | `easing` values are valid `cubic-bezier(...)` strings or CSS easing keywords (`linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`) | warning |
@@ -120,9 +121,9 @@ Canonical section order in the markdown body:
 | Each populated YAML color token has a bullet in Section 2 (Color Palette & Roles) | info |
 | Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 4 (Component Stylings) | info |
 
-### Step 9: Content-Agnostic Check — `content-leakage`
+### Step 9: Content & Tooling-Agnostic Check — `content-leakage` + `library-name-leakage`
 
-DESIGN.md must render any copy. Flag prose that bakes product-specific content into the brand identity.
+DESIGN.md must render any copy and stay tool-agnostic. Flag prose that bakes product-specific content into the brand identity, or that names the UI library or design system used only as reference.
 
 | Check | Severity |
 |-------|----------|
@@ -130,6 +131,7 @@ DESIGN.md must render any copy. Flag prose that bakes product-specific content i
 | Section 4 Component Stylings narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
 | Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
+| Prose or `description` names a specific UI library or design system (`shadcn`, `Tailwind`, `Material UI`, `Bootstrap`, `Chakra`, `Radix`, ...) — reference/inspiration only, never part of the brand identity; name the value, not the tool | warning |
 
 ### Step 10: Anti-Pattern Audit
 
@@ -150,7 +152,7 @@ target rendered HTML output, not DESIGN.md, and are not applied here.
 Emit an info finding with counts per group:
 
 ```text
-Tokens: N colors, N typography, N rounded, N spacing, N components, N elevation, N duration, N easing, N breakpoints
+Tokens: N colors, N typography, N rounded, N borderWidth, N spacing, N components, N elevation, N duration, N easing, N breakpoints
 ```
 
 ### Step 12: Report Findings

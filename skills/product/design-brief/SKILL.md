@@ -51,8 +51,8 @@ after handoff → `reconcile.md`.
 
 DESIGN.md holds the visual identity as a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
-`spacing`, `components`, `elevation`, `duration`, `easing`,
-`breakpoints`) plus numbered prose sections that narrate them
+`borderWidth`, `spacing`, `components`, `elevation`, `duration`,
+`easing`, `breakpoints`) plus numbered prose sections that narrate them
 (Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules,
 Component Stylings, Layout Principles, Shapes, Elevation & Depth,
 Motion & Interaction, Responsive Behavior, Do's and Don'ts,

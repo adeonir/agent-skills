@@ -45,7 +45,7 @@ If multiple sources overlap, ask the user which is authoritative.
 
 ### Step 3: Diff (Mode A)
 
-Per frontmatter group (`colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`), list tokens that changed, were added, or are missing in the implementation.
+Per frontmatter group (`colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`), list tokens that changed, were added, or are missing in the implementation.
 
 Emit one structured diff for DESIGN.md. In Mode B this diff is the patch list preview already handed over — skip to Step 4.
 

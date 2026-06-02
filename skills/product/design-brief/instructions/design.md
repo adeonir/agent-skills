@@ -33,7 +33,7 @@ None hard. Design is greenfield-first — any input source is enough (images, co
 
 Write `docs/design/DESIGN.md`. A YAML frontmatter, then a markdown body:
 
-**YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
+**YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`.
 
 **Markdown body.** Numbered H2 sections, in order:
 
@@ -112,6 +112,7 @@ Extract for the frontmatter:
 - **Colors** — preserve the source format. If the source declares colors in oklch (Tailwind `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as canonical and pair it with the hex equivalent. If the source is hex-only (brand URL, image eyedropper, hex-anchored palette), keep hex. Never approximate. Deduplicate near-identical colors — collapse accidental duplicates (e.g., `#333` and `#2C2C2C`) into one semantic token under the descriptive name that best represents the intended color. Consolidation removes the dupes; exact-value preservation applies to the survivor.
 - **Typography** — font families (suggest equivalents with similar metrics if the original is unavailable), font sizes, weights, line-heights, letter-spacings per role.
 - **Rounded** — full radius scale, named per Tailwind convention (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `full`).
+- **Border width** — border-thickness scale, keyed per Tailwind border-width convention (`0`, `DEFAULT`, `2`, `4`, `8`) with `px` values.
 - **Spacing** — base unit and scale, keyed numerically per Tailwind convention (`1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, ...).
 - **Components** — buttons, cards, badges, inputs, navigation. Capture variants (hover, active, pressed, disabled) as separate entries with related names.
 - **Elevation** — shadow stack, surface tints, blur, layering. Named per Tailwind shadow scale (`2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`).
@@ -176,6 +177,17 @@ rounded:
   2xl: 1rem
   3xl: 1.5rem
   full: 9999px
+```
+
+**Frontmatter — borderWidth.** Tailwind border-width scale mapped to dimensions. Omit steps the source does not use.
+
+```yaml
+borderWidth:
+  0: 0px
+  DEFAULT: 1px
+  2: 2px
+  4: 4px
+  8: 8px
 ```
 
 **Frontmatter — spacing.** Tailwind numeric scale mapped to dimensions. Omit steps the source does not use.
@@ -294,9 +306,10 @@ Add `### Image Treatment` and `### Distinctive Components` when the source carri
 
 This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow are out of scope here.
 
-`## 6. Shapes` — radius scale narrative and corner treatments. Recommended H3:
+`## 6. Shapes` — radius, border-width, and corner treatments. Recommended H3:
 
 - `### Radius Scale` — narrate `rounded.xs` through `rounded.full` with named tiers (Micro, Standard, Comfortable, Card, Panel, Full Pill, Circle) and the component classes each tier serves.
+- `### Border Width` — narrate `borderWidth.DEFAULT` through `borderWidth.8` and the stroke each tier serves (hairline dividers, input and card borders, emphasis outlines).
 - `### Corner Language` — short prose on what corners say about the brand (precise, soft, brutalist, organic).
 
 `## 7. Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
@@ -372,6 +385,7 @@ Show the user:
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
 - Author product-specific arrangement in DESIGN.md (contrasts: product-specific arrangement is out of scope for DESIGN.md)
 - Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; product copy stays out)
+- Name the toolkit in DESIGN.md — no UI library or design-system names in prose or `description` (shadcn, Tailwind, Material UI, Bootstrap, ...); they inspire the tokens but are not the brand (contrasts: describe the identity in its own terms — token keys may follow a library's scale, but the prose names the value, not the tool)
 - Write Section 1 Visual Theme & Atmosphere as a product pitch (contrasts: the Visual Theme & Atmosphere section is brand voice and atmosphere, not what the product does or for whom)
 - Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
@@ -458,6 +472,12 @@ rounded:
   2xl: 1rem
   3xl: 1.5rem
   full: 9999px
+borderWidth:
+  0: 0px
+  DEFAULT: 1px
+  2: 2px
+  4: 4px
+  8: 8px
 spacing:
   1: 0.25rem
   2: 0.5rem
@@ -493,7 +513,7 @@ components:
     rounded: "{rounded.md}"
     padding: "{spacing.3}"
     borderColor: "{colors.input}"
-    borderWidth: 1px
+    borderWidth: "{borderWidth.DEFAULT}"
 elevation:
   2xs: "{{shadow string}}"
   xs: "{{shadow string}}"
@@ -585,7 +605,7 @@ breakpoints:
 
 ### Inputs & Forms
 
-{Reference `input` and any variants. Describe stroke (`{colors.input}`, `1px`), background, focus ring (`{colors.ring}`), density, label placement.}
+{Reference `input` and any variants. Describe stroke (`{colors.input}`, `{borderWidth.DEFAULT}`), background, focus ring (`{colors.ring}`), density, label placement.}
 
 ### Navigation
 
@@ -630,6 +650,11 @@ breakpoints:
 - Card (`rounded.lg`): {{component class}}
 - Panel (`rounded.2xl`): {{component class}}
 - Full Pill (`rounded.full`): {{component class}}
+
+### Border Width
+
+- Hairline (`borderWidth.DEFAULT`): {{component class}}
+- Emphasis (`borderWidth.2`): {{component class}}
 
 ### Corner Language
 
