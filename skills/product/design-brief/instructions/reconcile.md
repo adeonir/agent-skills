@@ -68,7 +68,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 Update `docs/design/styleguide.html` to match the patched tokens:
 
 - **Value change** — patch the token's `var(--token)` definition in the theme block.
-- **Structural change** (token added or removed, a new component or specimen group) — regenerate the affected section per the Specimen Sheet spec in [preview.md](preview.md).
+- **Structural change** (token added or removed, a new component or specimen group) — regenerate the affected section per the Styleguide spec in [preview.md](preview.md).
 
 ## Guidelines
 

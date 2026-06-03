@@ -1,6 +1,6 @@
 # Preview
 
-Render the `DESIGN.md` tokens as a visual specimen sheet, serve it with
+Render the `DESIGN.md` tokens as a visual styleguide, serve it with
 live-reload, and refine the tokens — by conversation for most groups, or through
 an optional color tuner. This previews the **design system**, not a product page
 — swatches, type ramp, component samples, all from `DESIGN.md` alone.
@@ -20,8 +20,7 @@ This is an optional phase that runs after `design`. It needs a populated
 ## Prerequisites
 
 - `docs/design/DESIGN.md` — visual identity. Tokens are read from the YAML frontmatter. **Hard prerequisite** — if absent, route to [design.md](design.md) to author one first; there is nothing to preview otherwise.
-- [aesthetics.md](../references/aesthetics.md) (required) — design principles applied to every specimen.
-- [anti-patterns.md](../references/anti-patterns.md) (required) — failure modes. Only token-value rules (contrast, drift) judge the specimen sheet; the page-layout rules do not (see [Neutral Scaffolding](#neutral-scaffolding)).
+- [anti-patterns.md](../references/anti-patterns.md) (required) — the contrast and drift rules that judge the styleguide; chrome is never judged (see [Neutral Scaffolding](#neutral-scaffolding)).
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -31,12 +30,12 @@ The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens
 At generation time, parse the frontmatter, resolve every `{path.to.token}`
 reference, and embed CSS custom properties directly in the generated HTML:
 
-- **Colors** — from `colors.*`. Each token becomes a CSS custom property (`--primary`, `--background`, `--accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment.
+- **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind v4's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment.
 - **Typography** — from `typography.*`. Each role becomes related properties (`--font-display-family`, `--font-display-size`, `--font-display-weight`, ...). Role keys map 1:1 to kebab-case prefixes.
 - **Spacing** — from `spacing.*`. Numeric Tailwind scale keys become `--spacing-1`, `--spacing-2`, ...
-- **Radius** — from `rounded.*`. Scale keys become `--rounded-xs`, `--rounded-sm`, ...
+- **Radius** — from `rounded.*`. Scale keys become Tailwind v4's `--radius-*` (`--radius-xs`, `--radius-sm`, ...).
 - **Border width** — from `borderWidth.*`. Scale keys become `--border-width-default`, `--border-width-2`, ... carrying `px` values. No Tailwind `@theme` namespace exists for border width, so specimens read these custom properties directly rather than mapping to a theme key.
-- **Elevation** — from `elevation.*`. Scale keys become `--elevation-sm`, ... carrying CSS shadow strings.
+- **Elevation** — from `elevation.*`. Scale keys become Tailwind v4's `--shadow-*` (`--shadow-sm`, ...) carrying CSS shadow strings.
 - **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--ease-in`, ... — easing maps to Tailwind's `--ease-*` namespace.
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
 - **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain. A color reference with a `/NN` opacity modifier (`{colors.primary}/90`) emits `color-mix(in oklab, var(--color-primary) NN%, transparent)`.
@@ -76,7 +75,7 @@ bypass the theme and erode design-system consistency.
 | `text-[14px]` | `text-sm` |
 | `rounded-[8px]` | `rounded-lg` |
 
-## Specimen Sheet
+## Styleguide
 
 One self-contained `styleguide.html` that renders all ten token groups as a
 design-system reference. It is the visual proof of `DESIGN.md` — the kind of page
@@ -113,7 +112,7 @@ This sheet is looked at, so it must read well — internal, but good:
 If a group is empty in the frontmatter, render a quiet placeholder for it rather
 than omitting the section silently.
 
-## Generating the Specimen Sheet
+## Generating the Styleguide
 
 ### Workflow
 
@@ -125,7 +124,7 @@ than omitting the section silently.
    bun run ${CLAUDE_SKILL_DIR}/scripts/preview-server.ts --root docs/design
    ```
 
-3. **Generate `styleguide.html`.** Build the one sheet per [Specimen Sheet](#specimen-sheet) above — neutral chrome, token specimens, Tailwind + iconify wired per [Generated HTML Stack](#generated-html-stack). Write it to `docs/design/styleguide.html`.
+3. **Generate `styleguide.html`.** Build the one sheet per [Styleguide](#styleguide) above — neutral chrome, token specimens, Tailwind + iconify wired per [Generated HTML Stack](#generated-html-stack). Write it to `docs/design/styleguide.html`.
 
 4. **Serve** through the server and let the user view it. The server live-reloads the browser when the file changes, and injects a **Tune colors** toggle that opens the color tuner overlay over the page.
 

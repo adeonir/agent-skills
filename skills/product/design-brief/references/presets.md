@@ -1,8 +1,8 @@
 # Presets
 
 Curated tone library for visual direction. Each preset is a pre-blended
-direction across the Style Axes — token overrides, prompt addendum, and
-layout hints packed into a single named recipe.
+direction across the Style Axes — a named mood with its signature move and
+layout character.
 
 ## When to Use
 
@@ -13,14 +13,13 @@ the agent may compose further or blend two adjacent presets.
 
 ## How Presets Work
 
-In visual direction a preset is read as a **mood seed**: its Vibe, Signature
-move, and layout hints inform a candidate direction, and its token
-characterizations describe the look in words. The token overrides are not
-applied to DESIGN.md here — tokens do not exist yet at the direction stage.
+A preset is read as a **mood seed**: its Vibe, Signature move, and layout hints
+inform a candidate direction. Tokens do not exist yet at the direction stage —
+a preset describes the look in words; token values are chosen later in design.
 
-Presets are orthogonal to the surfaces a project has: any preset is usable
-on marketing pages, app screens, or storefronts. Layout hints adapt the
-recipe to the project's structure.
+Presets are orthogonal to the surfaces a project has: any preset is usable on
+marketing pages, app screens, or storefronts. Layout hints adapt the recipe to
+the project's structure.
 
 ## Recipe Template
 
@@ -29,17 +28,6 @@ ALWAYS use this exact template structure:
 ```markdown
 ### {preset-name}
 **Vibe:** {one-line aesthetic description}
-**Token overrides:**
-- `colors.background`: {value or characterization}
-- `colors.primary`: {value or characterization}
-- `colors.accent`: {value or characterization}
-- `typography.display.fontFamily`: {value or characterization}
-- `typography.body.fontFamily`: {value or characterization}
-- `spacing` scale multiplier: {factor}
-- `rounded` scale: {sharp | subtle | medium | pill}
-- `elevation` profile: {flat | subtle | layered | dramatic}
-- `duration` profile: {snappy | gentle | bouncy | none}
-**Prompt addendum:** "{one-sentence aesthetic guidance appended to variant generation prompt}"
 **Layout hints:**
 - {composition hint 1}
 - {composition hint 2}
@@ -69,17 +57,6 @@ ALWAYS use this exact template structure:
 
 ### brutally-minimal
 **Vibe:** Maximum whitespace, typography-only hierarchy, near-monochrome — restraint as the design statement.
-**Token overrides:**
-- `colors.background`: warm off-white (`#fafaf7`) or true white
-- `colors.primary`: near-black (`#0a0a0a`)
-- `colors.accent`: single charged hue used 5% of the surface only
-- `typography.display.fontFamily`: refined sans (Inter Tight, GT America, Söhne) at weight 200-300
-- `typography.body.fontFamily`: matching sans at weight 400
-- `spacing` scale multiplier: `1.5x` (generous gaps)
-- `rounded` scale: sharp (0-2px)
-- `elevation` profile: flat (no shadows)
-- `duration` profile: snappy (150-200ms)
-**Prompt addendum:** "Strip every non-essential element; let one typographic move carry the entire screen."
 **Layout hints:**
 - Single column, left-aligned, max-measure 60ch
 - Section padding 8-12rem vertical on desktop
@@ -90,17 +67,6 @@ ALWAYS use this exact template structure:
 
 ### maximalist-chaos
 **Vibe:** Dense layering, clashing textures, overwhelming detail — the design as visual onslaught.
-**Token overrides:**
-- `colors.background`: gradient mesh or noise overlay (warm + cool + neutral mixed)
-- `colors.primary`: high-saturation brand color
-- `colors.accent`: three to four conflicting accents (orange, magenta, lime, electric blue)
-- `typography.display.fontFamily`: characterful display (Cabinet Grotesk, Migra, Editorial New, custom)
-- `typography.body.fontFamily`: contrasting sans (mono or condensed grotesk)
-- `spacing` scale multiplier: `0.85x` (tight density)
-- `rounded` scale: mixed (sharp + pill in same layout)
-- `elevation` profile: dramatic (heavy layered shadows + glow + grain)
-- `duration` profile: bouncy + snappy mix
-**Prompt addendum:** "Pile texture, color, and decoration on top of each other; commit fully to overwhelm."
 **Layout hints:**
 - Overlap elements across grid boundaries
 - Multiple focal points per viewport, intentionally competing
@@ -111,17 +77,6 @@ ALWAYS use this exact template structure:
 
 ### retro-futuristic
 **Vibe:** CRT glow, scanlines, neon on dark, monospace type — late-80s synthwave or early Y2K computer.
-**Token overrides:**
-- `colors.background`: deep navy / purple-black (`#0a0420` or `#100822`)
-- `colors.primary`: neon cyan or magenta (`oklch(0.75 0.25 200)`)
-- `colors.accent`: complement neon (yellow on cyan, lime on magenta)
-- `typography.display.fontFamily`: monospace display (JetBrains Mono, Berkeley Mono, Departure Mono)
-- `typography.body.fontFamily`: matching mono at smaller size
-- `spacing` scale multiplier: `1x`
-- `rounded` scale: subtle (2-4px) with sharp corners on cards
-- `elevation` profile: glow-shadow (neon-tinted box-shadow blur)
-- `duration` profile: snappy with occasional bounce
-**Prompt addendum:** "Treat the screen as a CRT terminal; let neon glow and scanline texture carry the era signal."
 **Layout hints:**
 - Grid-locked composition, wireframe horizons, sunset gradient overlays
 - Subtle scanline overlay (`repeating-linear-gradient` 1px lines)
@@ -132,17 +87,6 @@ ALWAYS use this exact template structure:
 
 ### organic-natural
 **Vibe:** Soft shapes, earth tones, hand-drawn textures, rounded corners — calm and rooted.
-**Token overrides:**
-- `colors.background`: cream / sand (`#f5efe3` or `oklch(0.96 0.02 80)`)
-- `colors.primary`: forest green / clay / terracotta
-- `colors.accent`: warm rust or muted ochre
-- `typography.display.fontFamily`: humanist serif (Source Serif, Lora, Crimson) or warm sans (Quincy)
-- `typography.body.fontFamily`: friendly sans (Plus Jakarta Sans, Inter at relaxed leading)
-- `spacing` scale multiplier: `1.3x`
-- `rounded` scale: medium (12-20px on cards, full on buttons)
-- `elevation` profile: subtle (soft warm-tinted shadows)
-- `duration` profile: gentle (300-400ms)
-**Prompt addendum:** "Use warm earth tones, generous rounded shapes, hand-touched textures; feel inhabited rather than engineered."
 **Layout hints:**
 - Asymmetric layered composition (organic blob shapes behind content)
 - Mix of sans and serif within hierarchy
@@ -153,17 +97,6 @@ ALWAYS use this exact template structure:
 
 ### luxury-refined
 **Vibe:** Thin serifs, muted metallics, generous spacing, restrained palette — quiet money.
-**Token overrides:**
-- `colors.background`: ivory / champagne / charcoal
-- `colors.primary`: brass, deep oxblood, ink black
-- `colors.accent`: single jewel-tone (emerald, ruby, sapphire) used 3% of surface
-- `typography.display.fontFamily`: high-contrast serif (Didone — Bodoni, Didot, GT Sectra)
-- `typography.body.fontFamily`: classic sans or refined serif at small size
-- `spacing` scale multiplier: `1.6x`
-- `rounded` scale: sharp (0-2px)
-- `elevation` profile: subtle (no flashy shadows; rely on color contrast for hierarchy)
-- `duration` profile: gentle (400-600ms with elegant easing)
-**Prompt addendum:** "Restrained palette, generous whitespace, high-contrast serif headlines; let absence of decoration signal quality."
 **Layout hints:**
 - Center-anchored composition with breathing room
 - Image-led with one hero photograph at extreme detail
@@ -174,17 +107,6 @@ ALWAYS use this exact template structure:
 
 ### playful-toy
 **Vibe:** Rounded sans, bright primaries, bouncy motion, oversized elements — toy-like joy.
-**Token overrides:**
-- `colors.background`: cream or pastel tint
-- `colors.primary`: candy red, bright cobalt, sunshine yellow
-- `colors.accent`: complementary candy color
-- `typography.display.fontFamily`: rounded geometric sans (Recoleta, Nunito, Quicksand, DM Sans)
-- `typography.body.fontFamily`: matching rounded sans
-- `spacing` scale multiplier: `1x`
-- `rounded` scale: pill (full radius on buttons; 20-32px on cards)
-- `elevation` profile: layered (cheerful drop shadows in primary color)
-- `duration` profile: bouncy (`cubic-bezier(0.34, 1.56, 0.64, 1)`)
-**Prompt addendum:** "Round every corner, oversize the headline, animate with bounce; aim for childlike delight."
 **Layout hints:**
 - Oversized hero copy (`text-9xl` or larger)
 - Sticker badges, bouncy hover transforms
@@ -195,17 +117,6 @@ ALWAYS use this exact template structure:
 
 ### editorial-magazine
 **Vibe:** High-contrast serif headings, warm neutrals, editorial grid, section numbering — long-form sanctuary.
-**Token overrides:**
-- `colors.background`: warm paper (`#faf7f0` or `oklch(0.97 0.015 75)`)
-- `colors.primary`: deep ink (`#1a1410`)
-- `colors.accent`: single muted hue (terracotta, mustard, deep teal)
-- `typography.display.fontFamily`: characterful serif (Fraunces, GT Super, Tiempos Headline, Spectral)
-- `typography.body.fontFamily`: refined body serif (Source Serif, Lora) or grotesk for contrast
-- `spacing` scale multiplier: `1.4x`
-- `rounded` scale: subtle (2-4px)
-- `elevation` profile: flat (rely on rule lines and typography)
-- `duration` profile: gentle (300-400ms)
-**Prompt addendum:** "Treat the page as a magazine spread: numbered sections, drop caps, hairline rules, asymmetric grid placement."
 **Layout hints:**
 - Asymmetric multi-column grid with text wrapping image
 - Section numbers (`01.`, `02.`) in display weight
@@ -216,17 +127,6 @@ ALWAYS use this exact template structure:
 
 ### brutalist-raw
 **Vibe:** System fonts pushed to extremes, exposed structure, anti-polish — ugly-cool.
-**Token overrides:**
-- `colors.background`: stark white or stark black
-- `colors.primary`: pure black or pure white
-- `colors.accent`: single shocking color (electric blue, hazard yellow, blood red)
-- `typography.display.fontFamily`: system grotesque or Helvetica at extreme size
-- `typography.body.fontFamily`: same system font
-- `spacing` scale multiplier: `0.9x` (tight)
-- `rounded` scale: sharp (0px everywhere)
-- `elevation` profile: flat (zero shadows)
-- `duration` profile: none (no transitions, instant state changes)
-**Prompt addendum:** "Push system fonts to extreme sizes; expose grid lines; refuse to soften anything; commit fully to anti-polish."
 **Layout hints:**
 - Hard rule borders (`border: 2px solid black`) everywhere
 - Marquee headlines at 200-400px
@@ -237,17 +137,6 @@ ALWAYS use this exact template structure:
 
 ### art-deco
 **Vibe:** Gold + black, symmetrical patterns, angular type, ornamental borders — 1920s glamour.
-**Token overrides:**
-- `colors.background`: deep navy / charcoal / ivory
-- `colors.primary`: brass / gold leaf
-- `colors.accent`: emerald or oxblood
-- `typography.display.fontFamily`: geometric display (Limelight, Poiret One, custom angular)
-- `typography.body.fontFamily`: refined serif or geometric sans
-- `spacing` scale multiplier: `1.4x`
-- `rounded` scale: sharp (0px)
-- `elevation` profile: subtle with metallic gradient borders
-- `duration` profile: gentle
-**Prompt addendum:** "Symmetric ornamental layout, gold-on-dark color, angular geometric type; lean theatrical."
 **Layout hints:**
 - Symmetric centered composition
 - Ornamental geometric borders (chevron, sunburst, fan)
@@ -258,17 +147,6 @@ ALWAYS use this exact template structure:
 
 ### soft-pastel
 **Vibe:** Low-contrast pastels, diffused gradients, gentle rounded UI — calm bedroom aesthetic.
-**Token overrides:**
-- `colors.background`: lavender mist / blush / mint pastel
-- `colors.primary`: dusty rose / soft lilac / pale teal
-- `colors.accent`: warm peach or butter yellow
-- `typography.display.fontFamily`: friendly rounded sans (DM Sans, Nunito, Quicksand)
-- `typography.body.fontFamily`: same family
-- `spacing` scale multiplier: `1.2x`
-- `rounded` scale: medium (16-24px)
-- `elevation` profile: subtle with diffused color-tinted shadows
-- `duration` profile: gentle
-**Prompt addendum:** "Diffuse pastel gradients, soft rounded cards, low-contrast hierarchy; aim for calm and welcoming."
 **Layout hints:**
 - Diffused radial gradient backgrounds
 - Card-based layouts with soft shadows in pastel tints
@@ -279,17 +157,6 @@ ALWAYS use this exact template structure:
 
 ### industrial-utilitarian
 **Vibe:** Monospace, high-density data, dark UI, minimal ornamentation — terminal as design language.
-**Token overrides:**
-- `colors.background`: dark gray (`#0f0f10`) or near-black
-- `colors.primary`: white or pale green-tinted neutral
-- `colors.accent`: amber, terminal green, or single bright signal color
-- `typography.display.fontFamily`: monospace (Berkeley Mono, JetBrains Mono, IBM Plex Mono)
-- `typography.body.fontFamily`: same monospace
-- `spacing` scale multiplier: `0.85x` (data density)
-- `rounded` scale: sharp (0-2px)
-- `elevation` profile: flat
-- `duration` profile: snappy (100-150ms)
-**Prompt addendum:** "Treat the screen as a developer terminal; monospace everything; expose data density; minimal chrome."
 **Layout hints:**
 - Tabular numerics (`font-variant-numeric: tabular-nums`)
 - Grid-aligned data tables with hairline borders
@@ -300,17 +167,6 @@ ALWAYS use this exact template structure:
 
 ### neo-grotesque
 **Vibe:** Swiss-style grids, tight leading, limited palette, extreme alignment precision — design as system.
-**Token overrides:**
-- `colors.background`: pure white or near-black
-- `colors.primary`: black or white
-- `colors.accent`: single bold color (red, blue, yellow — Bauhaus primaries)
-- `typography.display.fontFamily`: neo-grotesk (Helvetica Now, GT America, Söhne, Inter Tight)
-- `typography.body.fontFamily`: same family
-- `spacing` scale multiplier: `1.1x`
-- `rounded` scale: sharp (0px)
-- `elevation` profile: flat
-- `duration` profile: snappy
-**Prompt addendum:** "Strict Swiss grid, tight leading, flush-left alignment, single accent; objectivity and clarity."
 **Layout hints:**
 - 12-column grid visible in baseline
 - Tight letter-spacing on display, generous leading on body
@@ -321,19 +177,8 @@ ALWAYS use this exact template structure:
 
 ### kinetic-motion-first
 **Vibe:** Interface built around transition — parallax, morphing shapes, scroll-driven narrative.
-**Token overrides:**
-- `colors.background`: dynamic (changes per scroll section)
-- `colors.primary`: vibrant accent that morphs per section
-- `colors.accent`: contrast color for motion focus
-- `typography.display.fontFamily`: variable font (Inter Variable, Recursive, Mona Sans) for motion-tuned axes
-- `typography.body.fontFamily`: matching variable font
-- `spacing` scale multiplier: `1.2x`
-- `rounded` scale: medium (8-16px)
-- `elevation` profile: layered (depth via motion + parallax)
-- `duration` profile: gentle long (600-1200ms with scroll-driven keyframes)
-**Prompt addendum:** "Choreograph the page around scroll progress; let motion carry the narrative; use variable font axes for transition moments."
 **Layout hints:**
-- Scroll-triggered reveals with `IntersectionObserver` or `animation-timeline: scroll()`
+- Scroll-triggered reveals (`IntersectionObserver` or `animation-timeline: scroll()`)
 - Pinned sections that morph over scroll distance
 - Variable font weight/width transitions on hover/scroll
 **Signature move:** Hero headline morphs its variable font weight from 100 to 900 over the first 600px of scroll, while background hue shifts across the spectrum.

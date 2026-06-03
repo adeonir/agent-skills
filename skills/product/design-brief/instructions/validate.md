@@ -147,8 +147,8 @@ match using the rule's `id` and `severity`.
 |-------|----------|
 | Drift rule matches (e.g., `font-family-not-in-tokens`, `copy-string-in-design-md`, `arbitrary-tailwind-value-repeated` traces in DESIGN.md prose) | per rule severity |
 
-Other categories (Typography, Color, Layout, Component States, etc.)
-target rendered HTML output, not DESIGN.md, and are not applied here.
+The Color & Contrast rule targets rendered output (preview judges the
+styleguide with it), not the DESIGN.md model, so it is not applied here.
 
 ### Step 11: Token Summary — `token-summary`
 

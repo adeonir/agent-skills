@@ -70,8 +70,8 @@ Load only the reference matching the activated trigger:
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
 | Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `presets.md` |
-| Visual identity / DESIGN.md | `design.md` | `validate.md` |
-| Token preview / tune (DESIGN.md exists) | `preview.md` | `aesthetics.md`, `anti-patterns.md` |
+| Visual identity / DESIGN.md | `design.md` | `aesthetics.md`, `validate.md` |
+| Token preview / tune (DESIGN.md exists) | `preview.md` | `anti-patterns.md` |
 | Validation only | `validate.md` | — |
 | Reconcile / drift sync | `reconcile.md` | `validate.md` |
 

@@ -24,12 +24,10 @@
  *   (`/__reload` endpoint, debounced 100ms, ignores hidden files)
  *
  * Event types (one JSON per line in .events):
- *   choice:   { type: "choice",  choice: "a", text: "Option Label", timestamp }
  *   tune:     { type: "tune",    token: "colors.primary", value: "#3b82f6", timestamp }
  *   comment:  { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
  *
  * Client interactions:
- *   - Click elements with `data-choice` to record a choice
  *   - A color tuner row (`data-tune-row`) wires OKLCH sliders (`data-oklch`)
  *     and an optional hex input (`data-hex`): editing swaps the row's
  *     `--color-*` custom property live, recomputes the paired WCAG contrast,
@@ -150,6 +148,7 @@ function __hexToRgb(hex){
 function __rgbToHex(c){
   return '#' + [c.r,c.g,c.b].map(function(x){ return x.toString(16).padStart(2,'0'); }).join('');
 }
+// WCAG 2.x relative luminance + contrast ratio; thresholds 4.5 = AA, 7 = AAA.
 function __relLum(c){
   var a = [c.r,c.g,c.b].map(function(v){ v/=255; return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); });
   return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];
@@ -223,20 +222,6 @@ function __initRow(row){
 `;
 
 const clientScript = `
-document.addEventListener("click", async (e) => {
-  const option = e.target.closest("[data-choice]");
-  if (!option || e.altKey) return;
-  const choice = option.dataset.choice;
-  const text = option.querySelector("h3")?.textContent || "";
-  document.querySelectorAll("[data-choice]").forEach((el) => el.classList.remove("selected"));
-  option.classList.add("selected");
-  await fetch("/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "choice", choice, text, timestamp: new Date().toISOString() }),
-  });
-});
-
 document.addEventListener("input", async (e) => {
   const row = e.target.closest("[data-tune-row]");
   if (row) {
@@ -323,7 +308,7 @@ function openCommentOverlay(target) {
 
 document.addEventListener("click", (e) => {
   if (!e.altKey) return;
-  if (e.target.closest("[data-choice], [data-tune], [data-tune-row]")) return;
+  if (e.target.closest("[data-tune], [data-tune-row]")) return;
   e.preventDefault();
   e.stopPropagation();
   openCommentOverlay(e.target);
@@ -447,14 +432,6 @@ const frameTemplate = (
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: #fafafa; padding: 2rem; }
-    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .option {
-      border: 2px solid #e5e5e5; border-radius: 12px; padding: 1.5rem;
-      cursor: pointer; transition: border-color 0.2s, transform 0.2s;
-    }
-    .option:hover { border-color: #3b82f6; transform: translateY(-2px); }
-    .option h3 { margin-bottom: 0.75rem; font-size: 1.1rem; }
-    .option.selected { border-color: #3b82f6; background: #eff6ff; }
     .hint { position: fixed; bottom: 1rem; left: 1rem; background: #111; color: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; font: 12px system-ui; opacity: 0.6; pointer-events: none; }
   </style>
   <script>${colorScript}</script>

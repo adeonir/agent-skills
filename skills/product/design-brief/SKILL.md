@@ -11,7 +11,7 @@ description: >-
   building or refreshing DESIGN.md from references, images, briefs, or a
   codebase; applying named tones to the identity; redesigning,
   modernizing, or refreshing the brand identity; previewing and tuning
-  the design tokens as a visual specimen sheet then committing tuned
+  the design tokens as a visual styleguide then committing tuned
   values back; reconciling design drift or syncing from implementation.
   Not for rendering page variants, feature implementation spec, system
   architecture, or PR/code review.
@@ -80,14 +80,15 @@ content are separate concerns, not part of DESIGN.md.
 | --------- | ---- |
 | Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
 | Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
-| Preview DESIGN.md tokens as a specimen sheet and tune them live | [preview.md](instructions/preview.md) |
+| Preview DESIGN.md tokens as a styleguide and tune them live | [preview.md](instructions/preview.md) |
 | Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
 | Patch DESIGN.md from drifted implementation or tuned deltas | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
 invoked directly. `aesthetics.md` and `presets.md` auto-load inside
-`direction.md`; `aesthetics.md` and `anti-patterns.md` auto-load inside
-`preview.md`, which serves the specimen sheet through
+`direction.md`; `aesthetics.md` also auto-loads inside `design.md` for
+token-authoring principles; `anti-patterns.md` auto-loads inside
+`preview.md`, which serves the styleguide through
 `scripts/preview-server.ts`. `validate.md` is both directly callable and
 auto-loaded as a gate by `design.md` and `reconcile.md`, so
 DESIGN.md never lands invalid.
