@@ -1,11 +1,11 @@
 # Preview
 
-Render the `DESIGN.md` tokens as a visual specimen sheet, tune them live with
-sliders, and hand the tuned deltas to reconcile for commit-back. This previews
-the **design system**, not a product page — swatches, type ramp, component
-samples, all from `DESIGN.md` alone.
+Render the `DESIGN.md` tokens as a visual specimen sheet, serve it with
+live-reload, and refine the tokens — by conversation for most groups, or through
+an optional color tuner. This previews the **design system**, not a product page
+— swatches, type ramp, component samples, all from `DESIGN.md` alone.
 
-Visual choices compound and a commit mutates the source of truth, so tune is
+Visual choices compound and a commit mutates the source of truth, so tuning is
 live-and-throwaway while the patch back goes through confirm-before-write.
 
 ## When to Use
@@ -44,6 +44,11 @@ reference, and embed CSS custom properties directly in the generated HTML:
 No external parser, no token endpoint. Read the YAML, resolve references, map
 everything to CSS variables in the HTML output, ship the file.
 
+**Render through variables, never literals.** Define each token once in the theme
+block, then render every specimen through `var(--token)` — never a literal hex or
+value in markup or an inline `style`. A token's literal value appears only as
+displayed label text.
+
 ## Generated HTML Stack
 
 Dependencies load via CDN — no build step. Resolve the canonical CDN entry from
@@ -81,7 +86,7 @@ a real design system ships as its styleguide.
 
 The sheet has two layers, kept strictly separate:
 
-- **Chrome** — section headers, labels, jump-nav, cards, the tune panel. Styled with **neutral system UI** (`system-ui`, a grey scale), never the project tokens. The chrome must stay legible even when a token is broken or mid-tune. The page-layout anti-patterns (hero-centered, section-rhythm-flat, all-sections-centered) describe *product pages* and do **not** judge this systematic chrome.
+- **Chrome** — section headers, labels, jump-nav, cards. Styled with **neutral system UI** (`system-ui`, a grey scale), never the project tokens. The chrome must stay legible even when a token is broken or mid-tune. The page-layout anti-patterns (hero-centered, section-rhythm-flat, all-sections-centered) describe *product pages* and do **not** judge this systematic chrome.
 - **Specimens** — the actual rendered tokens. These use the project's values. Only token-value rules apply here: contrast (`gray-text-on-saturated-color`), drift (`font-family-not-in-tokens`, `inline-hex-not-in-tokens`).
 
 ### UI Quality
@@ -89,14 +94,13 @@ The sheet has two layers, kept strictly separate:
 This sheet is looked at, so it must read well — internal, but good:
 
 - A sticky top bar with jump-nav to the ten groups.
-- Each group is a titled section with a one-line caption and generous neutral spacing.
+- Each group is a titled section with a one-line caption — no token counts — and generous neutral spacing.
 - A consistent token-card system: the rendered specimen, its key, its value, its role.
-- The tune panel is a sticky side or bottom panel — grouped sliders, live value readouts, a reset.
 - Responsive grids for swatches and cards; nothing cramped.
 
 ### Per-group specimens
 
-- **`colors`** — swatch grid grouped by role (Primary, Secondary & Accent, Surface, Neutrals, Semantic) mirroring DESIGN.md Section 2. Each swatch: the color chip, evocative name, token key, hex (and `oklch` when the YAML carries the object), role. For any token with a paired `-foreground`, show a text-on-fill sample plus the computed WCAG contrast ratio and an AA / AAA badge.
+- **`colors`** — when the palette has a **raw layer** (brand-named hues that the semantic roles alias — detected by color keys outside the standard role vocabulary, or semantic values referencing `{colors.*}`), lead with a **Brand Raw** subgroup showing those canonical hues, then the semantic role groups. Otherwise go straight to the role groups. Role groups follow DESIGN.md Section 2 (Primary, Secondary & Accent, Surface, Neutrals, Semantic). Each swatch: the color chip, evocative name, token key, hex (and `oklch` when the YAML carries the object), role. For any color that carries text or sits as a fill, show a text-on-fill sample plus the computed WCAG contrast ratio and an AA / AAA badge — paired against the color it meets in use: a fill pairs with the `textColor` its component sets, a text color pairs with its surface (usually `background`). Derive the pairing from `components.*`, with `<token>-foreground` as the common shortcut — not the token name alone. Each swatch carries tuner metadata — `data-tune-swatch`, `data-token`, `data-var`, `data-pair` (the pairing), `data-original` (the hex) — so the preview server can build the color tuner overlay from the swatches, no separate file.
 - **`typography`** — type ramp, one row per role: the role name and spec (font / size / weight / line-height / letter-spacing) beside a live specimen rendered at the actual values. Name the loaded family.
 - **`spacing`** — a ruler of horizontal bars, one per scale step, bar length equal to the value, labeled key + rem/px.
 - **`rounded`** — a row of squares each with its corner radius applied, labeled key + value.
@@ -118,55 +122,50 @@ than omitting the section silently.
 2. **Start the preview server** (if not running):
 
    ```bash
-   bun run ${CLAUDE_SKILL_DIR}/scripts/preview-server.ts --session .artifacts/design/preview
+   bun run ${CLAUDE_SKILL_DIR}/scripts/preview-server.ts --root docs/design
    ```
 
-3. **Generate `styleguide.html`.** Build the one sheet per [Specimen Sheet](#specimen-sheet) above — neutral chrome, token specimens, Tailwind + iconify wired per [Generated HTML Stack](#generated-html-stack). Write it to `.artifacts/design/preview/styleguide.html`.
+3. **Generate `styleguide.html`.** Build the one sheet per [Specimen Sheet](#specimen-sheet) above — neutral chrome, token specimens, Tailwind + iconify wired per [Generated HTML Stack](#generated-html-stack). Write it to `docs/design/styleguide.html`.
 
-4. **Serve** through the server and let the user view it. The server live-reloads the browser when the file changes.
+4. **Serve** through the server and let the user view it. The server live-reloads the browser when the file changes, and injects a **Tune colors** toggle that opens the color tuner overlay over the page.
 
 ## Tune
 
-Sliders adjust tokens live without regenerating the HTML — they swap CSS custom
-properties on the document. The server serves the sheet; sliders write `tune` and
-`tune-preset` events to `.events`.
+Two paths refine the tokens. Both keep `DESIGN.md` the source of truth — the
+patch back always goes through [reconcile.md](reconcile.md).
 
-### Sliders
+**Conversational (default).** No UI. The user views the served sheet and
+describes the change ("primary too saturated", "spacing feels tight", "softer
+radius"). Hand it to reconcile; the server live-reloads the regenerated sheet.
+Spacing, typography, radius, and shadow follow the Tailwind scale — discrete
+steps, nothing continuous to drag — so they are tuned by description, not sliders.
 
-**Single-token** — one slider, one `data-tune="<token-path>"`, one `tune` event per change. The token-path matches the YAML path (`colors.primary`, `rounded.lg`, `spacing.4`):
+**Color tuner (optional).** Color is the one continuous axis the eye can't judge
+— WCAG contrast — so it gets an interactive tuner when the user asks ("tune the
+colors", "let me adjust the palette"). The tuner is an **overlay the preview
+server injects over the committed styleguide** — no separate file. A **Tune
+colors** toggle (server-injected) opens a panel built from the styleguide's
+`data-tune-swatch` color swatches. Tuning swaps the token's `var(--color-<key>)`
+live, so the whole styleguide is the preview — every specimen that references the
+token shifts at once.
 
-- Spacing scale multiplier (0.75x — 1.5x) → `data-tune="spacing.scale"`
-- Color saturation (desaturated — vivid) → `data-tune="colors.saturation"`
-- Typography contrast (flat — high-contrast hero vs body) → `data-tune="typography.contrast"`
-- Border radius scale (sharp — pill) → `data-tune="rounded.scale"`
+### Color tuner overlay
 
-**Preset-composite** — one slider, one `data-tune-preset="<preset-name>"`, one `tune-preset` event per change. The agent expands the event into a grouped patch list via the Preset Registry below:
+The engine (OKLCH ↔ sRGB, gamut clamp, WCAG contrast) lives in
+`scripts/preview-server.ts` and is injected at serve-time. The agent generates
+**only the clean styleguide** with swatch metadata; it never authors tuner HTML or
+JS. The server reads each `data-tune-swatch` swatch (`data-token`, `data-var`,
+`data-pair`, `data-original`) and builds one row per color:
 
-- Font character (sans — serif, or light — heavy) → `data-tune-preset="font-character"`
-- Motion intensity (still — playful) → `data-tune-preset="motion-intensity"`
-- Density (airy — dense) → `data-tune-preset="density"`
-- Decoration (austere — playful) → `data-tune-preset="decoration"`
+- **Current / New** — the original color (frozen) beside the live `var(--color-<key>)`, each with its WCAG ratio and AA / AAA / fail badge.
+- **Pairing sample** — an `Aa` specimen rendered in the actual pairing (a fill shows its text on the color; a text color shows the color on its surface), so the contrast target is visible, not just named.
+- **OKLCH sliders** — `L`, `C`, `H`, each with a reset to its original.
+- **Hex input** — optional, to set or paste an exact hex.
 
-Custom sliders are fine when the user wants to tune something specific ("more
-lavender accent", "tighter cards"). Custom sliders default to single-token
-`data-tune="<token-path>"`.
-
-### Preset Registry
-
-Maps each preset-composite slider to the token-paths it touches and the transform
-per unit of movement. Read this when expanding a `tune-preset` event into the
-patch list during commit-back.
-
-| Preset | Affected token-paths | Transform |
-|--------|----------------------|-----------|
-| `font-character` | `typography.display.fontFamily`, `typography.body.fontFamily` (and matching `fontWeight` when a family swap is unavailable) | swap (slider picks from a curated stack: sans-grotesk, sans-humanist, serif-display, serif-body, mono) |
-| `motion-intensity` | `duration.fast`, `duration.base`, `duration.slow`, `easing.in-out`, `easing.bounce` | scale durations by `value` (0 = none, 1 = base, 2 = playful); pick easing per intensity tier |
-| `density` | `spacing.*` (all numeric keys), `components.*.padding` | multiply by `value` (0.7 = airy → 1.3 = dense) |
-| `decoration` | `elevation.*`, `rounded.*`, `colors.accent` saturation | elevation scale × `value`, rounded scale × `value`, accent saturation × `value` |
-
-The client emits a single `tune-preset` event `{ type: "tune-preset", preset, value, timestamp }`. Live preview applies the resolved properties for all affected
-paths at once (client-side expansion). Commit-back uses the same registry to
-compose the grouped patch list under one `Preset: <name>` header.
+Editing a control swaps `--color-<key>` on the document (cascading through every
+specimen), recomputes the paired contrast live, and records a `tune` event keyed
+by the token path. A **Commit** button in the panel records a `commit` event. All
+contrast is engine-computed — never hand-entered.
 
 ## Comment
 
@@ -183,15 +182,13 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 
 ### Workflow
 
-1. **Read `.events`** for the session. Keep the **last value** per token-path (`tune`) and per preset name (`tune-preset`).
+1. **Read `.events`** for the session — triggered by a `commit` event (the panel's Commit button) or a chat request. The `commit` event marks intent; keep the **last value** per token path from the `tune` events.
 
-2. **Resolve into a patch list.** For each `tune`, take the token-path and new value directly. For each `tune-preset`, expand via the [Preset Registry](#preset-registry) into the affected single-token paths and their new values. Build entries `{ group, path, old, new }`, where `group` is the preset name (or `null` for single-token). Compute `old` from the current frontmatter value.
+2. **Resolve into a patch list.** For each `tune`, take the token path and new hex. Build entries `{ path, old, new }`; compute `old` from the current frontmatter value.
 
 3. **Flag edge cases on the list:**
-   - **Stale evocative name** — a hue shift (e.g. "Indigo Brand" tuned toward red) makes the prose name stale. Note a suggested rename alongside the hex change.
-   - **Token-path not in `DESIGN.md`** — ask whether to add a new token (and its prose bullet) or remap to an existing path.
    - **Color object token** — when the source is `{ hex, oklch }`, patch both fields so they stay equivalent.
-   - **Same path tuned by a single-token slider and a preset** — the single-token (most recent) wins; record the preset override as ignored.
+   - **Stale evocative name** — a large hue shift (e.g. an "Indigo" token tuned toward red) makes the prose name stale. Note a suggested rename alongside the hex change.
 
 4. **Hand the patch list to [reconcile.md](reconcile.md)** as its Mode B input. reconcile presents the diff (confirm-before-write), patches the YAML frontmatter first and the citing prose bullets second, and runs validate as the gate. preview produces the diff; reconcile applies it.
 
@@ -201,10 +198,13 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 
 - Read the `DESIGN.md` frontmatter before generating, so every specimen is grounded in the current tokens
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
+- Define each token once and render every specimen through `var(--token)`; the literal value shows only as label text
+- Write the committed styleguide to `docs/design/styleguide.html` with `data-tune-swatch` metadata on color swatches; the server builds the tuner overlay and records events in `.artifacts/design/preview`
+- Never hand-author tuner HTML or JS — the OKLCH/WCAG engine and the panel are the server's job; contrast is always engine-computed, never hand-entered
 - Keep chrome neutral (system UI) and let only the specimens carry the project tokens
 - Render all ten groups; show a quiet placeholder for an empty group rather than dropping it
-- Serve every generated sheet through the preview server
-- Swap CSS custom properties during tune — keep the DOM, change only tokens
+- Serve the sheet through the preview server so the browser live-reloads on change
+- Tune most groups by conversation; reach for the color tuner only for palette and contrast work
 - Hand tuned deltas to `reconcile.md`; never write `DESIGN.md` from here
 
 ## Anti-Pattern: Writing `DESIGN.md` from Preview
@@ -220,5 +220,5 @@ the patch list, hand it over, let reconcile confirm, patch, and validate.
 - Frontmatter missing or unparseable: route the user to [validate.md](validate.md) before previewing
 - Server port in use: try an alternative port
 - Comment event has no selector: ask the user to re-click the target element
-- Tune event targets a token-path not in the frontmatter: ask whether to add the token or remap the slider to an existing path
+- Tune event targets a color not in the frontmatter: ask whether to add the token or remap to an existing one
 - `.events` empty at commit-back: nothing to commit; report and stop

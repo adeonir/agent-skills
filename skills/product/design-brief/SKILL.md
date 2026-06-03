@@ -22,7 +22,8 @@ description: >-
 Greenfield design pipeline for any digital product: discover, author
 `DESIGN.md` with a YAML frontmatter holding the authoritative design
 tokens plus numbered prose sections that narrate them, and refine that
-identity. DESIGN.md is the single artifact this skill authors and owns.
+identity. DESIGN.md is the primary artifact this skill authors and owns;
+`docs/design/styleguide.html` is its rendered styleguide.
 
 ## Workflow
 

@@ -619,6 +619,7 @@ docs/
 └── design/
     ├── moodboard.md        # design-brief: locked visual direction (mood diverge/converge)
     ├── DESIGN.md           # design-brief: visual identity (YAML tokens + prose)
+    ├── styleguide.html     # design-brief: token specimen sheet rendered from DESIGN.md
     ├── blueprint.md      # blueprint: information architecture / region layout / screen flow
     └── copy.yaml           # copywriting: structured content payload
 ```
@@ -631,7 +632,7 @@ docs/
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
-├── design/        # design-brief: ephemeral token specimen sheet (preview)
+├── design/        # design-brief: color-tuner variant + tune session events
 └── changelog.md   # consolidated repo changelog (local-only narrative)
 ```
 
@@ -652,7 +653,7 @@ skills:
 
 Ownership: `project-index` writes `project.md` and `codebase/*.md`;
 `spec-driven` writes `knowledge.md` and `baselines/*.md`;
-`design-brief` writes `docs/design/moodboard.md` and `docs/design/DESIGN.md`;
+`design-brief` writes `docs/design/moodboard.md`, `docs/design/DESIGN.md`, and `docs/design/styleguide.html`;
 `blueprint` writes `docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.
 

@@ -11,7 +11,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 - [When to Use](#when-to-use) — triggers and source shapes this reference handles
 - [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
 - [Output](#output) — DESIGN.md structure (YAML frontmatter + numbered prose sections)
-- [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, present
+- [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, regenerate styleguide and present
 - [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
 - [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
 - [DESIGN.md Template](#designmd-template) — full YAML + 11-section prose template with placeholders and inline guidance
@@ -291,7 +291,7 @@ Bullets mirror the frontmatter shape of their token — hex-only when the YAML c
 
 `## 4. Component Stylings` — H3 per component group. Cover at minimum:
 
-- `### Buttons` — narrate each variant from frontmatter (`button-primary`, `button-secondary`, `button-ghost`, ...) and their hover/active/disabled states. Reference the YAML refs explicitly.
+- `### Buttons` — narrate each variant from frontmatter (`button-primary`, `button-secondary`, `button-ghost`, ...) and their hover/active/disabled states. Reference the YAML refs explicitly. State behavior is project-driven — narrate each variant by its actual token value. When the source gives no signal, default to a restrained state (the fill dims or lifts) rather than an inversion, but honor whatever the source shows.
 - `### Cards & Containers`
 - `### Inputs & Forms`
 - `### Navigation`
@@ -335,7 +335,7 @@ This section authors **brand-level layout identity**, not product-specific arran
 `## 11. Agent Prompt Guide` — three H3 designed for downstream agents to paste-and-run:
 
 - `### Quick Token Reference` — flat lookup, one bullet per key role. Each entry mirrors the shape of its matching Section 2 bullet (hex-only or dual).
-- `### Example Component Prompts` — literal prompts agents feed into AI code generators. Each prompt bakes in the exact tokens for a specific component (hero, card, pill badge, nav, command palette). Wrap each in quotes for readability.
+- `### Example Component Prompts` — literal prompts agents feed into AI code generators. Reference `{components.<name>}` for any component defined in the frontmatter rather than re-spelling its properties; bake in individual tokens only for properties no component entry covers (layout, one-off spacing). Wrap each in quotes for readability.
 - `### Iteration Guide` — 5–7 numbered rules-of-thumb for tuning (e.g., "Lock neutral foundation first", "Brand color is the only chromatic — everything else grayscale").
 
 **Prose bullet shape.** Bullets in Visual Theme & Atmosphere, Layout Principles, Typography Rules, Elevation & Depth, Motion & Interaction, and Component Stylings follow `<descriptor> <concrete value> <effect>` — three parts per line. Example: `Generous 5-8rem (80-128px) between major sections creating dramatic breathing room`. Skip the shape when a bullet is purely structural (e.g., breakpoint definitions, scale steps).
@@ -352,11 +352,13 @@ This step is a hard gate. Do not advance to Step 6 (Present) when validation rep
 
 Re-running inputs after a fix should re-run validate; never report "done" without a clean validation pass.
 
-### Step 6: Present
+### Step 6: Regenerate Styleguide and Present
 
-Show the user:
+Regenerate `docs/design/styleguide.html` from DESIGN.md per the Specimen Sheet spec in [preview.md](preview.md).
 
-- The DESIGN.md path (`docs/design/DESIGN.md`)
+Then show the user:
+
+- The DESIGN.md path (`docs/design/DESIGN.md`) and the styleguide path (`docs/design/styleguide.html`)
 - A summary of which frontmatter groups and prose sections were patched and which were skipped
 - Any validation findings flagged for review
 
@@ -376,6 +378,7 @@ Show the user:
 - Express variants (hover, active, pressed, disabled) as separate component entries with related key names
 - Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy is out of scope
 - Use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`) in Section 11 example prompts so DESIGN.md renders any product copy
+- Reference `{components.X}` in Section 11 example prompts for any component defined in the frontmatter; re-spell properties only for what no component token covers
 
 **DON'T:**
 

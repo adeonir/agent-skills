@@ -1,6 +1,6 @@
 # Reconcile
 
-Apply a token diff to `DESIGN.md` with surgical, confirm-before-write patches. Two sources feed the same patcher: a **drifted implementation** (brownfield — running code whose tokens or component variants no longer match the authored design) and **tuned token deltas from preview** (a patch list the preview phase already resolved). Content and arrangement are out of scope here — this reconciles `DESIGN.md` only.
+Apply a token diff to `DESIGN.md` with surgical, confirm-before-write patches. Two sources feed the same patcher: a **drifted implementation** (brownfield — running code whose tokens or component variants no longer match the authored design) and **tuned token deltas from preview** (a patch list the preview phase already resolved). Content and arrangement are out of scope here — this reconciles `DESIGN.md` and refreshes its derived `styleguide.html`.
 
 ## When to Use
 
@@ -63,6 +63,13 @@ Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Do
 
 Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not declare done with `errors > 0`. Surface validation findings to the user; let them fix or accept trade-offs.
 
+### Step 7: Sync Styleguide
+
+Update `docs/design/styleguide.html` to match the patched tokens:
+
+- **Value change** — patch the token's `var(--token)` definition in the theme block.
+- **Structural change** (token added or removed, a new component or specimen group) — regenerate the affected section per the Specimen Sheet spec in [preview.md](preview.md).
+
 ## Guidelines
 
 **DO:**
@@ -72,13 +79,14 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 - Preserve narrative sections; flag staleness, do not rewrite
 - Run validate as the gate after patching, same pattern as design.md Step 5
 - In Mode B, accept the tune patch list from preview as the diff — do not re-derive it from an implementation
+- Sync `docs/design/styleguide.html` after patching — patch the `var(--token)` definition for value changes, regenerate for structural ones
 
 **DON'T:**
 
 - Patch silently (contrasts: confirm-before-write per row)
 - Rewrite narrative sections (contrasts: only token-citing bullets follow the patched YAML)
 - Run from scratch when DESIGN.md is missing (contrasts: this is reconciliation, not authoring — route to design.md)
-- Patch artifacts other than DESIGN.md (contrasts: reconcile syncs DESIGN.md only — content and arrangement are out of scope)
+- Patch content or arrangement artifacts (contrasts: reconcile syncs DESIGN.md and regenerates its derived `styleguide.html` — copy and layout stay out of scope)
 - Import a new visual direction from the implementation (contrasts: implementation reflects accepted drift, not a fresh identity — use design.md for that)
 
 ## Error Handling

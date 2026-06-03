@@ -1,36 +1,39 @@
 #!/usr/bin/env bun
 /**
  * Preview server for design-brief skill.
- * Serves HTML fragments and records user interactions.
+ * Serves the styleguide and records user interactions.
  *
  * Security: local-only server (127.0.0.1), read-only filesystem access
- * scoped to session directory, append-only event recording.
+ * scoped to the served root, append-only event recording.
  *
  * Usage:
- *   bun run scripts/preview-server.ts --session <path>
- *   bun run scripts/preview-server.ts --session <path> --port 8080
+ *   bun run scripts/preview-server.ts --root docs/design
+ *   bun run scripts/preview-server.ts --root docs/design --session .artifacts/design/preview
+ *   bun run scripts/preview-server.ts --root .artifacts/design/preview --port 8080
+ *
+ * --root    directory served and watched (default docs/design) — the committed
+ *           styleguide, or a tuner variant directory under .artifacts.
+ * --session directory holding the .events log (default .artifacts/design/preview),
+ *           kept out of the served root so events never land in committed docs.
  *
  * The server:
- * - Serves HTML files from the session directory only
- * - Records user events to .events file (JSON lines, append-only)
- * - Wraps HTML fragments in a minimal frame template with interaction scripts
- * - Live-reloads connected browsers on session-directory changes via SSE
- *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
+ * - Serves HTML files from the served root only
+ * - Records user events to .events (JSON lines, append-only) in the session dir
+ * - Injects client interaction + live-reload scripts into served HTML
+ * - Live-reloads connected browsers on root changes via SSE
+ *   (`/__reload` endpoint, debounced 100ms, ignores hidden files)
  *
  * Event types (one JSON per line in .events):
- *   choice:      { type: "choice",      choice: "a", text: "Option Label", timestamp }
- *   tune:        { type: "tune",        token: "--color-primary", value: "#3b82f6", timestamp }
- *   tune-preset: { type: "tune-preset", preset: "density", value: 0.7, timestamp }
- *   comment:     { type: "comment",     selector: ".card.primary", text: "too tight", timestamp }
+ *   choice:   { type: "choice",  choice: "a", text: "Option Label", timestamp }
+ *   tune:     { type: "tune",    token: "colors.primary", value: "#3b82f6", timestamp }
+ *   comment:  { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
  *
  * Client interactions:
  *   - Click elements with `data-choice` to record a choice
- *   - Move/input controls with `data-tune="<token>"` to update a CSS custom
- *     property live on the document and record a tune event
- *   - Move/input controls with `data-tune-preset="<preset-name>"` to record
- *     a tune-preset event. Live preview for preset sliders is agent-driven —
- *     the agent reads the event and regenerates affected CSS properties via
- *     the registry in preview.md.
+ *   - A color tuner row (`data-tune-row`) wires OKLCH sliders (`data-oklch`)
+ *     and an optional hex input (`data-hex`): editing swaps the row's
+ *     `--color-*` custom property live, recomputes the paired WCAG contrast,
+ *     and records a tune event keyed by the row's token path
  *   - Alt+click any element to open a comment overlay; submit to record a
  *     comment event with the element's CSS selector
  */
@@ -41,8 +44,11 @@ import { join, resolve, relative } from "node:path";
 import { existsSync, watch } from "node:fs";
 
 const args: string[] = process.argv.slice(2);
+const rootIdx: number = args.indexOf("--root");
 const sessionIdx: number = args.indexOf("--session");
 const portIdx: number = args.indexOf("--port");
+const rootDir: string =
+  rootIdx !== -1 ? resolve(args[rootIdx + 1]) : resolve("docs/design");
 const sessionDir: string =
   sessionIdx !== -1
     ? resolve(args[sessionIdx + 1])
@@ -54,14 +60,17 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   process.exit(1);
 }
 
+if (!existsSync(rootDir)) {
+  await mkdir(rootDir, { recursive: true });
+}
 if (!existsSync(sessionDir)) {
   await mkdir(sessionDir, { recursive: true });
 }
 
 const eventsFile: string = join(sessionDir, ".events");
 
-function isInsideSessionDir(filePath: string): boolean {
-  const rel = relative(sessionDir, filePath);
+function isInsideRoot(filePath: string): boolean {
+  const rel = relative(rootDir, filePath);
   return !rel.startsWith("..") && !rel.startsWith("/");
 }
 
@@ -80,11 +89,11 @@ function broadcastReload(): void {
   }
 }
 
-watch(sessionDir, { recursive: true }, (_event, filename) => {
+watch(rootDir, { recursive: true }, (_event, filename) => {
   if (!filename) return;
   const name = filename.toString();
-  // Skip the event log (server writes on every interaction) and hidden files to avoid reload loops
-  if (name === ".events" || name.split("/").pop()?.startsWith(".")) return;
+  // Skip hidden files to avoid reload loops
+  if (name.split("/").pop()?.startsWith(".")) return;
   if (reloadTimer) clearTimeout(reloadTimer);
   reloadTimer = setTimeout(broadcastReload, 100);
 });
@@ -96,11 +105,122 @@ try {
 } catch {}
 `;
 
-function injectReloadScript(html: string): string {
-  const tag = `<script>${reloadScript}</script>`;
-  if (html.includes("</body>")) return html.replace("</body>", `${tag}</body>`);
-  return html + tag;
+// Color math (OKLCH <-> sRGB) per Bjorn Ottosson's OKLab spec
+// (https://bottosson.github.io/posts/oklab/) plus WCAG relative luminance.
+// Shipped to the browser so the color tuner resolves slider values to hex,
+// swaps the CSS custom property live, and recomputes contrast as you drag.
+const colorScript = `
+function __srgbToLinear(c){ return c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+function __linearToSrgb(c){ return c <= 0.0031308 ? 12.92*c : 1.055*Math.pow(c, 1/2.4) - 0.055; }
+function __clamp01(x){ return Math.min(1, Math.max(0, x)); }
+function __oklchToRgb(L, C, H){
+  var hr = H * Math.PI / 180;
+  var a = C * Math.cos(hr), b = C * Math.sin(hr);
+  var l_ = L + 0.3963377774*a + 0.2158037573*b;
+  var m_ = L - 0.1055613458*a - 0.0638541728*b;
+  var s_ = L - 0.0894841775*a - 1.2914855480*b;
+  var l = l_*l_*l_, m = m_*m_*m_, s = s_*s_*s_;
+  var r = 4.0767416621*l - 3.3077115913*m + 0.2309699292*s;
+  var g = -1.2684380046*l + 2.6097574011*m - 0.3413193965*s;
+  var bl = -0.0041960863*l - 0.7034186147*m + 1.7076147010*s;
+  // clamp to sRGB gamut after gamma encoding
+  r = Math.round(__clamp01(__linearToSrgb(r))*255);
+  g = Math.round(__clamp01(__linearToSrgb(g))*255);
+  bl = Math.round(__clamp01(__linearToSrgb(bl))*255);
+  return { r: r, g: g, b: bl };
 }
+function __rgbToOklch(r, g, b){
+  var lr = __srgbToLinear(r/255), lg = __srgbToLinear(g/255), lb = __srgbToLinear(b/255);
+  var l = Math.cbrt(0.4122214708*lr + 0.5363325363*lg + 0.0514459929*lb);
+  var m = Math.cbrt(0.2119034982*lr + 0.6806995451*lg + 0.1073969566*lb);
+  var s = Math.cbrt(0.0883024619*lr + 0.2817188376*lg + 0.6299787005*lb);
+  var L = 0.2104542553*l + 0.7936177850*m - 0.0040720468*s;
+  var a = 1.9779984951*l - 2.4285922050*m + 0.4505937099*s;
+  var bb = 0.0259040371*l + 0.7827717662*m - 0.8086757660*s;
+  var C = Math.sqrt(a*a + bb*bb);
+  var H = Math.atan2(bb, a) * 180 / Math.PI;
+  if (H < 0) H += 360;
+  return { L: L, C: C, H: H };
+}
+function __hexToRgb(hex){
+  hex = hex.replace('#','');
+  if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+  return { r: parseInt(hex.slice(0,2),16), g: parseInt(hex.slice(2,4),16), b: parseInt(hex.slice(4,6),16) };
+}
+function __rgbToHex(c){
+  return '#' + [c.r,c.g,c.b].map(function(x){ return x.toString(16).padStart(2,'0'); }).join('');
+}
+function __relLum(c){
+  var a = [c.r,c.g,c.b].map(function(v){ v/=255; return v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4); });
+  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];
+}
+function __contrast(c1, c2){
+  var l1 = __relLum(c1), l2 = __relLum(c2);
+  var hi = Math.max(l1,l2), lo = Math.min(l1,l2);
+  return (hi+0.05)/(lo+0.05);
+}
+function __wcagLevel(ratio){ return ratio>=7 ? 'AAA' : ratio>=4.5 ? 'AA' : 'fail'; }
+// Resolve any CSS color (hex, oklch, named) to rgb via a hidden probe — the
+// browser does the conversion, so the tuner never parses oklch by hand.
+var __probe = null;
+function __resolveVarRgb(varName){
+  if (!__probe){ __probe = document.createElement('span'); __probe.style.display='none'; document.body.appendChild(__probe); }
+  __probe.style.color = 'var(' + varName + ')';
+  var m = getComputedStyle(__probe).color.match(/\\d+/g);
+  return m ? { r:+m[0], g:+m[1], b:+m[2] } : null;
+}
+function __applyColorTune(row, target){
+  var varName = row.dataset.var;
+  var rgb;
+  if (target.matches('[data-hex]')) {
+    var hv = target.value.trim();
+    if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hv)) return null;
+    rgb = __hexToRgb(hv);
+    var o = __rgbToOklch(rgb.r, rgb.g, rgb.b);
+    var ls = row.querySelector('[data-oklch="l"]'), cs = row.querySelector('[data-oklch="c"]'), hs = row.querySelector('[data-oklch="h"]');
+    if (ls) ls.value = o.L; if (cs) cs.value = o.C; if (hs) hs.value = o.H;
+  } else {
+    var L = parseFloat(row.querySelector('[data-oklch="l"]').value);
+    var C = parseFloat(row.querySelector('[data-oklch="c"]').value);
+    var H = parseFloat(row.querySelector('[data-oklch="h"]').value);
+    rgb = __oklchToRgb(L, C, H);
+    var picker = row.querySelector('[data-hex]');
+    if (picker) picker.value = __rgbToHex(rgb);
+  }
+  var hex = __rgbToHex(rgb);
+  document.documentElement.style.setProperty(varName, hex);
+  var hexEl = row.querySelector('[data-hex-new]');
+  if (hexEl) hexEl.textContent = hex;
+  var pairVar = row.dataset.pairVar;
+  if (pairVar) {
+    var pair = __resolveVarRgb(pairVar);
+    if (pair) {
+      var ratio = __contrast(rgb, pair), lvl = __wcagLevel(ratio);
+      var ratioEl = row.querySelector('[data-ratio-new]');
+      var badge = row.querySelector('[data-badge-new]');
+      if (ratioEl) ratioEl.textContent = ratio.toFixed(2) + ':1';
+      if (badge) { badge.textContent = lvl; badge.dataset.level = lvl; }
+    }
+  }
+  return hex;
+}
+// Compute Current and New contrast from the row's original hex on load, so
+// displayed ratios are always engine-derived — never hand-entered (and wrong).
+function __initRow(row){
+  var orig = row.dataset.original ? __hexToRgb(row.dataset.original) : null;
+  if (!orig) return;
+  document.documentElement.style.setProperty(row.dataset.var, row.dataset.original);
+  var hexEl = row.querySelector('[data-hex-new]');
+  if (hexEl) hexEl.textContent = row.dataset.original;
+  var pairVar = row.dataset.pairVar;
+  if (!pairVar) return;
+  var pair = __resolveVarRgb(pairVar);
+  if (!pair) return;
+  var ratio = __contrast(orig, pair), lvl = __wcagLevel(ratio);
+  ['[data-ratio-current]','[data-ratio-new]'].forEach(function(s){ var el = row.querySelector(s); if (el) el.textContent = ratio.toFixed(2) + ':1'; });
+  ['[data-badge-current]','[data-badge-new]'].forEach(function(s){ var el = row.querySelector(s); if (el) { el.textContent = lvl; el.dataset.level = lvl; } });
+}
+`;
 
 const clientScript = `
 document.addEventListener("click", async (e) => {
@@ -118,16 +238,13 @@ document.addEventListener("click", async (e) => {
 });
 
 document.addEventListener("input", async (e) => {
-  const presetControl = e.target.closest("[data-tune-preset]");
-  if (presetControl) {
-    const preset = presetControl.dataset.tunePreset;
-    const value = parseFloat(presetControl.value);
-    const label = presetControl.parentElement?.querySelector("[data-tune-value]");
-    if (label) label.textContent = String(value);
-    await fetch("/event", {
+  const row = e.target.closest("[data-tune-row]");
+  if (row) {
+    const hex = __applyColorTune(row, e.target);
+    if (hex) await fetch("/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "tune-preset", preset, value, timestamp: new Date().toISOString() }),
+      body: JSON.stringify({ type: "tune", token: row.dataset.token, value: hex, timestamp: new Date().toISOString() }),
     });
     return;
   }
@@ -142,6 +259,22 @@ document.addEventListener("input", async (e) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type: "tune", token, value, timestamp: new Date().toISOString() }),
+  });
+});
+
+document.addEventListener("click", async (e) => {
+  const resetBtn = e.target.closest("[data-reset]");
+  if (!resetBtn) return;
+  e.preventDefault();
+  const row = resetBtn.closest("[data-tune-row]");
+  const slider = resetBtn.parentElement?.querySelector('input[type="range"]');
+  if (!row || !slider) return;
+  slider.value = slider.getAttribute("value");
+  const hex = __applyColorTune(row, slider);
+  if (hex) await fetch("/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ type: "tune", token: row.dataset.token, value: hex, timestamp: new Date().toISOString() }),
   });
 });
 
@@ -190,12 +323,117 @@ function openCommentOverlay(target) {
 
 document.addEventListener("click", (e) => {
   if (!e.altKey) return;
-  if (e.target.closest("[data-choice], [data-tune]")) return;
+  if (e.target.closest("[data-choice], [data-tune], [data-tune-row]")) return;
   e.preventDefault();
   e.stopPropagation();
   openCommentOverlay(e.target);
 }, true);
+
+document.querySelectorAll("[data-tune-row]").forEach(__initRow);
 `;
+
+// Builds the color tuner as an overlay over the served styleguide — no separate
+// file. Scans color swatches marked data-tune-swatch (carrying token/var/pair/
+// original) and creates one OKLCH row each, wired to the engine above. Tuning a
+// var cascades to every specimen on the page. A live "Aa" sample renders the
+// color on its actual pairing so the contrast target is visible, not just named.
+const tunerScript = `
+function __mkTunerRow(sw){
+  var token = sw.dataset.token, v = sw.dataset.var, pair = sw.dataset.pair || "", orig = sw.dataset.original;
+  var c = __hexToRgb(orig), o = __rgbToOklch(c.r, c.g, c.b);
+  var fill = pair.indexOf("-foreground") > -1;
+  var sBg = fill ? "var(" + v + ")" : "var(" + pair + ")";
+  var sFg = fill ? "var(" + pair + ")" : "var(" + v + ")";
+  var pairLabel = pair ? pair.replace(/^--color-/, "") : "—";
+  var row = document.createElement("div");
+  row.className = "__trow";
+  row.setAttribute("data-tune-row", "");
+  row.dataset.token = token; row.dataset.var = v; row.dataset.pairVar = pair; row.dataset.original = orig;
+  row.innerHTML =
+    "<div class='__thead'><span class='__tname'>" + token.replace(/^colors\\./, "") + "</span><span class='__tpair'>vs " + pairLabel + "</span></div>" +
+    "<div class='__tsw'>" +
+      "<div class='__tcell'><span class='__tchip' style='background:" + orig + "'></span><span class='__tlab'>current<br><b data-ratio-current></b> <span class='__tbadge' data-badge-current></span></span></div>" +
+      "<div class='__tcell'><span class='__tchip' style='background:var(" + v + ")'></span><span class='__tlab'>new <span data-hex-new></span><br><b data-ratio-new></b> <span class='__tbadge' data-badge-new></span></span></div>" +
+      "<span class='__tsample' title='contrast vs " + pairLabel + "' style='background:" + sBg + ";color:" + sFg + "'>Aa</span>" +
+    "</div>" +
+    "<label>L<input type='range' data-oklch='l' min='0' max='1' step='0.001' value='" + o.L.toFixed(4) + "'><button data-reset>&#8635;</button></label>" +
+    "<label>C<input type='range' data-oklch='c' min='0' max='0.4' step='0.001' value='" + o.C.toFixed(4) + "'><button data-reset>&#8635;</button></label>" +
+    "<label>H<input type='range' data-oklch='h' min='0' max='360' step='0.1' value='" + o.H.toFixed(2) + "'><button data-reset>&#8635;</button></label>" +
+    "<input type='text' data-hex value='" + orig + "' spellcheck='false'>";
+  return row;
+}
+function __buildTuner(){
+  var sws = document.querySelectorAll("[data-tune-swatch]");
+  if (!sws.length) return null;
+  var panel = document.createElement("aside");
+  panel.id = "__tuner";
+  var head = document.createElement("div");
+  head.className = "__tphead";
+  head.innerHTML = "<span>Color Tuner</span><button id='__tunerClose' title='close'>&times;</button>";
+  panel.appendChild(head);
+  sws.forEach(function(sw){ var r = __mkTunerRow(sw); panel.appendChild(r); __initRow(r); });
+  var commit = document.createElement("button");
+  commit.id = "__tunerCommit"; commit.textContent = "Commit to DESIGN.md";
+  commit.addEventListener("click", function(){
+    fetch("/event", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "commit", timestamp: new Date().toISOString() }) });
+    commit.textContent = "Committed — apply from chat";
+    commit.disabled = true;
+  });
+  panel.appendChild(commit);
+  return panel;
+}
+function __injectTunerStyles(){
+  if (document.getElementById("__tuner-css")) return;
+  var s = document.createElement("style");
+  s.id = "__tuner-css";
+  s.textContent =
+    "#__tunerBtn{position:fixed;top:16px;right:16px;z-index:99998;background:#111;color:#fff;border:0;border-radius:8px;padding:10px 14px;font:600 13px system-ui;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);}" +
+    "#__tuner{position:fixed;top:0;right:0;height:100vh;width:340px;overflow:auto;z-index:99997;background:#fff;border-left:1px solid #e7e5e4;padding:16px;display:flex;flex-direction:column;gap:14px;font-family:system-ui,sans-serif;box-shadow:-8px 0 24px rgba(0,0,0,.12);}" +
+    "#__tuner .__tphead{display:flex;justify-content:space-between;align-items:center;font:600 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;color:#78716c;}" +
+    "#__tunerClose{border:0;background:none;color:#78716c;font-size:20px;line-height:1;cursor:pointer;padding:0 4px;}" +
+    "#__tunerCommit{margin-top:4px;border:0;border-radius:6px;background:#111;color:#fff;padding:10px;font:600 13px system-ui;cursor:pointer;}#__tunerCommit:disabled{background:#16a34a;cursor:default;}" +
+    ".__trow{border:1px solid #e7e5e4;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:10px;}" +
+    ".__thead{display:flex;justify-content:space-between;align-items:baseline;}" +
+    ".__tname{font:600 13px ui-monospace,monospace;}.__tpair{font:11px ui-monospace,monospace;color:#78716c;}" +
+    ".__tsw{display:flex;gap:10px;align-items:center;}.__tcell{flex:1;display:flex;gap:8px;align-items:center;min-width:0;}" +
+    ".__tchip{width:44px;height:44px;border-radius:6px;border:1px solid #e7e5e4;flex-shrink:0;}" +
+    ".__tlab{font:11px ui-monospace,monospace;color:#78716c;line-height:1.35;}" +
+    ".__tsample{width:44px;height:44px;border-radius:6px;border:1px solid #e7e5e4;display:flex;align-items:center;justify-content:center;font:700 16px system-ui;flex-shrink:0;}" +
+    "#__tuner label{display:grid;grid-template-columns:14px 1fr auto;gap:8px;align-items:center;font:11px ui-monospace,monospace;color:#78716c;}" +
+    "#__tuner input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:#e7e5e4;outline:none;}" +
+    "#__tuner input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:#6366f1;cursor:pointer;}" +
+    "#__tuner input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#6366f1;cursor:pointer;}" +
+    "#__tuner input[type=text]{font:12px ui-monospace,monospace;padding:4px 6px;border:1px solid #e7e5e4;border-radius:4px;}" +
+    "#__tuner label button{border:1px solid #e7e5e4;background:#fff;color:#78716c;border-radius:4px;width:22px;height:22px;font-size:12px;line-height:1;cursor:pointer;}" +
+    ".__tbadge{display:inline-block;padding:1px 6px;border-radius:3px;font:600 10px ui-monospace,monospace;}" +
+    ".__tbadge[data-level=AAA]{background:#bbf7d0;color:#14532d;}.__tbadge[data-level=AA]{background:#dcfce7;color:#166534;}.__tbadge[data-level=fail]{background:#fee2e2;color:#991b1b;}";
+  document.head.appendChild(s);
+}
+(function(){
+  if (!document.querySelector("[data-tune-swatch]")) return;
+  __injectTunerStyles();
+  var btn = document.createElement("button");
+  btn.id = "__tunerBtn"; btn.textContent = "Tune colors";
+  var panel = null;
+  function __closeTuner(){ if (panel) panel.style.display = "none"; btn.style.display = "block"; }
+  btn.addEventListener("click", function(){
+    if (!panel) {
+      panel = __buildTuner();
+      if (panel) { document.body.appendChild(panel); var x = panel.querySelector("#__tunerClose"); if (x) x.addEventListener("click", __closeTuner); }
+    }
+    if (panel) panel.style.display = "flex";
+    btn.style.display = "none";
+  });
+  document.body.appendChild(btn);
+  if (location.search.indexOf("tune") > -1) btn.click();
+})();
+`;
+
+function injectClientScripts(html: string): string {
+  const tag = `<script>${colorScript}</script><script>${clientScript}</script><script>${tunerScript}</script><script>${reloadScript}</script>`;
+  if (html.includes("</body>")) return html.replace("</body>", `${tag}</body>`);
+  return html + tag;
+}
 
 const frameTemplate = (
   content: string,
@@ -217,12 +455,11 @@ const frameTemplate = (
     .option:hover { border-color: #3b82f6; transform: translateY(-2px); }
     .option h3 { margin-bottom: 0.75rem; font-size: 1.1rem; }
     .option.selected { border-color: #3b82f6; background: #eff6ff; }
-    .tune-panel { display: grid; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; margin-bottom: 1.5rem; }
-    .tune-panel label { display: grid; gap: 0.25rem; font-size: 0.875rem; }
-    .tune-panel input[type="range"] { width: 100%; }
     .hint { position: fixed; bottom: 1rem; left: 1rem; background: #111; color: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; font: 12px system-ui; opacity: 0.6; pointer-events: none; }
   </style>
+  <script>${colorScript}</script>
   <script>${clientScript}</script>
+  <script>${tunerScript}</script>
   <script>${reloadScript}</script>
 </head>
 <body>${content}<div class="hint">Alt+click to comment</div></body>
@@ -271,11 +508,11 @@ const server: Server = serve({
     }
 
     const filePath: string = join(
-      sessionDir,
-      url.pathname === "/" ? "index.html" : url.pathname,
+      rootDir,
+      url.pathname === "/" ? "styleguide.html" : url.pathname,
     );
 
-    if (!isInsideSessionDir(filePath)) {
+    if (!isInsideRoot(filePath)) {
       return new Response("Forbidden", { status: 403 });
     }
 
@@ -284,7 +521,8 @@ const server: Server = serve({
 
       if (
         filePath.endsWith(".html") &&
-        !content.trimStart().startsWith("<!DOCTYPE")
+        !content.trimStart().startsWith("<!DOCTYPE") &&
+        !content.trimStart().startsWith("<!doctype")
       ) {
         const title: string =
           filePath.split("/").pop()?.replace(".html", "") || "Preview";
@@ -294,7 +532,7 @@ const server: Server = serve({
       }
 
       if (filePath.endsWith(".html")) {
-        return new Response(injectReloadScript(content), {
+        return new Response(injectClientScripts(content), {
           headers: { "Content-Type": "text/html" },
         });
       }
@@ -306,7 +544,7 @@ const server: Server = serve({
     }
 
     if (url.pathname === "/") {
-      const files: string[] = await readdir(sessionDir);
+      const files: string[] = await readdir(rootDir);
       const htmlFiles: string[] = files.filter((f: string) =>
         f.endsWith(".html"),
       );
@@ -314,7 +552,7 @@ const server: Server = serve({
         .map((f: string) => `<li><a href="/${f}">${f}</a></li>`)
         .join("\n");
       return new Response(
-        frameTemplate(`<h1>Preview Session</h1><ul>${list}</ul>`, "Preview"),
+        frameTemplate(`<h1>Preview</h1><ul>${list}</ul>`, "Preview"),
         { headers: { "Content-Type": "text/html" } },
       );
     }
@@ -324,6 +562,6 @@ const server: Server = serve({
 });
 
 console.log(`Preview server running at http://localhost:${server.port}`);
-console.log(`Session directory: ${sessionDir}`);
-console.log(`Events file: ${eventsFile}`);
-console.log(`Live-reload: watching ${sessionDir} (SSE at /__reload)`);
+console.log(`Served root:    ${rootDir}`);
+console.log(`Events file:    ${eventsFile}`);
+console.log(`Live-reload: watching ${rootDir} (SSE at /__reload)`);

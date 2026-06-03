@@ -121,6 +121,8 @@ Canonical section order in the markdown body:
 | Quick Token Reference entries in Section 11 mirror the shape of their matching Section 2 bullet | warning |
 | Each populated YAML color token has a bullet in Section 2 (Color Palette & Roles) | info |
 | Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 4 (Component Stylings) | info |
+| A Section 11 Example Component Prompt spells out the property bundle of a component defined in `components.*` (background/text/border/radius/padding) instead of referencing `{components.<name>}` | warning |
+| Component-variant behavior narrated in Section 4 agrees with that variant's token value (flag a disagreement; do not prescribe which side is right) | warning |
 
 ### Step 9: Content & Tooling-Agnostic Check — `content-leakage` + `library-name-leakage`
 
@@ -208,6 +210,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - Re-run discovery or design-brief (contrasts: this ref operates on the file as-is)
 - Invent fixes; report findings and let the user decide (contrasts: never auto-fix)
 - Shell out to an external linter binary (contrasts: this ref runs the rules inline)
+- Judge which state behavior is correct, or flag it for differing from a convention — state behavior is a project choice; check prose↔token consistency, not behavioral preference
 
 ## Error Handling
 
