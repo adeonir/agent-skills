@@ -64,7 +64,7 @@ pipeline diagram (mermaid with feedback loops). Summary at the repo level
 only:
 
 ```
-brainstorming + project-index (parallel discovery)
+brainstorming (discovery)
     --> docs-writer (product requirements + technical docs)
     --> blueprint (information architecture + screen flow)
     --> design-brief (visual identity)
@@ -645,14 +645,11 @@ skills:
 
 ```
 .agents/
-├── project.md          # project-index: project context
-├── codebase/           # project-index: deep codebase analysis
 ├── baselines/          # spec-driven: area behavioral baselines
 └── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
 ```
 
-Ownership: `project-index` writes `project.md` and `codebase/*.md`;
-`spec-driven` writes `knowledge.md` and `baselines/*.md`;
+Ownership: `spec-driven` writes `knowledge.md` and `baselines/*.md`;
 `design-brief` writes `docs/design/moodboard.md`, `docs/design/DESIGN.md`, and `docs/design/styleguide.html`;
 `blueprint` writes `docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.

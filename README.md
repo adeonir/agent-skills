@@ -22,7 +22,6 @@ npx skills add adeonir/agent-skills
 |-------|----------|-------------|
 | **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, confidence-scored code review, pull request creation, and branch lifecycle |
-| **[project-index](skills/engineering/project-index)** | Engineering | Generate project context and deep codebase documentation with code snippets. Creates `.agents/` with depth over brevity |
 | **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` with the Incorrect/Correct template. Classifies input, decides scope, supports list, edit, extract from CLAUDE.md, delete |
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[notes](skills/personal/notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
@@ -55,9 +54,7 @@ flowchart TD
     DW_DD -->|Design Doc| DB
     DW_DD -.->|extract decision| DW_ADR[docs-writer ADR]
     ET -->|handoff| SD
-    PI[project-index] -->|codebase docs| SD
     SD -->|commits & PRs| GH[git-helpers]
-    SD -->|discoveries| PI
     SD -.->|coherence gap| DW_DD
 ```
 
@@ -82,7 +79,6 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 ```
 debug-tools      --> investigate and fix issues
 notes            --> document work in Obsidian
-project-index    --> scan codebase and generate context (brownfield or re-index)
 handoff          --> save/resume conversation state across sessions
 wrap-up          --> persist session context to Obsidian
 ```
@@ -107,7 +103,6 @@ git-helpers      --> commit, review, pull request
 wrap-up          --> persist session context
 ```
 
-`project-index` runs once at project start and re-indexes on demand.
 `design-brief` can run in parallel with the Design Doc step.
 
 ### When to skip steps
@@ -127,7 +122,7 @@ wrap-up          --> persist session context
 Jump in at any step — each skill reads existing artifacts and adapts:
 
 - Adding a feature to an existing product → start at `epic-tracker` or `spec-driven`
-- Undocumented codebase → run `project-index` first, then `spec-driven`
+- Undocumented codebase → `spec-driven` explores it on demand during specify and design
 - Design before requirements → run `design-brief`, then back-fill with `docs-writer`
 - Architecture question mid-feature → update the project Design Doc via `docs-writer`, feed result to `spec-driven`
 
@@ -143,9 +138,6 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
     --> spec-driven resumes with updated technical doc
 ```
 
-`project-index integrate feedback` handles codebase discoveries on the
-same cycle — run both after a batch of stories lands.
-
 ## Output Structure
 
 Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
@@ -158,8 +150,8 @@ docs/
 └── design/         # design-brief: moodboard.md · DESIGN.md · blueprint: blueprint.md · copywriting: copy.yaml
 
 .agents/
-├── codebase/       # project-index: deep codebase analysis
-└── project.md      # project-index: project context
+├── baselines/      # spec-driven: area behavioral baselines
+└── knowledge.md    # spec-driven: decisions, gotchas, feedback queue
 
 .artifacts/
 ├── brainstorm/     # brainstorming: ideation artifacts

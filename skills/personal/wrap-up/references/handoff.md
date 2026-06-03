@@ -79,7 +79,7 @@ Flag a structural delta if any of the following is true:
 If Step 1 found a keyword OR Step 2 flagged a delta, append exactly
 one line to wrap-up output:
 
-> Structural changes detected — consider re-indexing the codebase to refresh `.agents/codebase/*.md`.
+> Structural changes detected — consider refreshing `CLAUDE.md ## Architecture` to reflect them.
 
 If neither signal fires, emit nothing.
 
