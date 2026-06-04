@@ -46,7 +46,7 @@ Read `spec.md` in full -- acceptance criteria, plus `## Decisions` and
 `## Session Context` for choices, content, and constraints settled during specify
 that the spec body alone does not carry. Follow any `sources:` pointer to
 its durable source before coding.
-If `.agents/knowledge.md` exists, read it for project-level decisions and gotchas.
+If `.artifacts/knowledge.md` exists, read it for project-level decisions and gotchas.
 
 Check which artifacts exist and adapt:
 
@@ -77,13 +77,13 @@ When operating in **Quick scan mode** (Medium scope, no design.md):
      first, which runs full research per design.md Step 5).
 
 2. **Load project conventions**:
-   - If `.agents/codebase/` exists: READ `conventions.md` (project abstractions,
-     custom hooks, styling tokens -- these tell you what to use instead of
-     framework primitives). READ relevant sections of `architecture.md`
-     (component map, data flows)
-   - If `.agents/codebase/` does not exist: scan 5-8 representative files.
-     Prioritize shared component directories (find barrel exports / index files),
-     custom hooks directories, style/theme files (variables, tokens), then files
+   - If `.artifacts/codebase/{area}.md` cache exists for this area: read it
+     for project abstractions, custom hooks, styling tokens, and the
+     component map -- these tell you what to use instead of framework
+     primitives
+   - Otherwise: scan 5-8 representative files. Prioritize shared component
+     directories (find barrel exports / index files), custom hooks
+     directories, style/theme files (variables, tokens), then files
      similar to what needs to be built
 
 3. **Identify required abstractions**: Before writing any code, list:
@@ -224,8 +224,8 @@ Any failed check: resolve before writing code.
 - Apply research findings if applicable
 - Follow Knowledge Verification Chain for any technical decisions
 - **Scope guardrail:** if something outside the task definition is noticed (bug, improvement,
-  tech debt), queue it to `.agents/knowledge.md ## Codebase Feedback` -- do not act on it inline.
-  The heuristic: "Is this in my task definition?" If no, queue and move on.
+  tech debt), record it in `.artifacts/knowledge.md ## Gotchas` -- do not act on it inline.
+  The heuristic: "Is this in my task definition?" If no, record and move on.
 
 ##### Design-gap recovery
 
@@ -240,7 +240,7 @@ When a design gap is identified mid-implement, pause and pick the cleaner recove
 1. `git reset --soft` to the pre-defect commit (or the commit that introduced the wrong premise) -- preserves the staged corrective work without keeping the contradicting commit history
 2. Re-commit in the corrected shape, with the new mechanism reflecting what design.md should have said
 3. Append the gap to the feature's `design.md` under a new section `## Design Gaps Discovered During Implementation` -- one bullet stating what the assumption was and how implementation invalidated it
-4. Optionally, when the gap reveals a class of issue the spec-driven skill itself should catch, append to `.artifacts/spec-driven-feedback.md` as input for future skill iteration (this file is opt-in, not part of `.agents/knowledge.md`)
+4. Optionally, when the gap reveals a class of issue the spec-driven skill itself should catch, append to `.artifacts/spec-driven-feedback.md` as input for future skill iteration (this file is opt-in, not part of `.artifacts/knowledge.md`)
 
 Never use `--no-verify` or `--amend` to mask a design gap. The corrective commit must run hooks normally. Destructive history rewriting (`reset --hard`, force push) requires explicit user confirmation.
 
@@ -294,24 +294,20 @@ If all tasks done (or all inline steps done for Medium scope):
 - Set `status: to-review`
 - Do NOT set `status: done` -- audit owns that transition
 
-### Step 10: Queue Discoveries
+### Step 10: Record Discoveries
 
 Load [knowledge.md](knowledge.md) for format.
 
-Append discoveries from implementation to `.agents/knowledge.md`:
+Route the cross-feature knowledge implementation surfaced to
+`.artifacts/knowledge.md`:
 
-- **Runtime constraints, API quirks, workarounds** -> `## Gotchas`
-- **New patterns, conventions, integration details, workflows, or tech debt observed in code** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
+- **Runtime constraints, API quirks, workarounds, tech debt** -> `## Gotchas`
+- **Cross-feature decisions** -> `## Decisions`
+- **Normative conventions the codebase follows** -> `## Conventions`
 
-Never write to `.agents/codebase/*.md` — those are owned by the codebase-indexing workflow.
+If `.artifacts/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Conventions`).
 
-If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
-
-After appending, if `## Codebase Feedback` has rows, count by target and prompt the user:
-
-> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Integrate codebase feedback now? (y/n)
-
-Do not auto-invoke the codebase-indexing workflow — the user controls integration timing.
+Descriptive area patterns belong in the `.artifacts/codebase/{area}.md` cache, written by exploration — not here. Record only what crosses features; feature-specific detail stays in this feature's artifacts, and inventory facts (packages, routes, modules) are re-derivable and not recorded.
 
 ### Step 11: Approval Gate
 

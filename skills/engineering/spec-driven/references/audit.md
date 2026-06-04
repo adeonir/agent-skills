@@ -122,9 +122,9 @@ needs a rewrite, not an audit pass.
 
 ### Step 8: Structural Delta Check
 
-Independent of audit outcome. Inform the user when `.agents/codebase/*.md` may
-be stale so they can decide whether to refresh it. Never prompt, never block
-the status transition.
+Independent of audit outcome. Inform the user when structural changes may
+have outdated `CLAUDE.md ## Architecture` so they can decide whether to
+refresh it. Never prompt, never block the status transition.
 
 Run against the feature branch:
 
@@ -141,7 +141,7 @@ Flag as structural delta if any of the following is true:
 
 If any flag fires, append exactly one line to the audit report:
 
-> Structural changes detected — consider re-indexing the codebase to refresh `.agents/codebase/*.md`.
+> Structural changes detected — consider refreshing `CLAUDE.md ## Architecture` to reflect them.
 
 If no flag fires, emit no output for this step.
 
@@ -163,7 +163,7 @@ is user-observation based and interactive. They do not block each other:
 - Leave Unmeasurable targets unchecked and flag the spec for rewrite
 - Keep audit deterministic -- same evidence yields same classification
 - Consult UAT notes if validate ran before audit
-- Suggest re-indexing the codebase when structural deltas exist — inform only, never prompt
+- Suggest refreshing CLAUDE.md ## Architecture when structural deltas exist — inform only, never prompt
 - Treat `## Operational Follow-ups` as non-audit -- route those items to runbooks or issues outside the spec, never as a blocker for `done`
 
 **DON'T:**

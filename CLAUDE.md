@@ -52,13 +52,13 @@ use kebab-case.
 
 | Directory | Usage |
 |-----------|-------|
-| engineering | Debugging, specs, system design, codebase indexing, git tooling |
+| engineering | Debugging, specs, system design, git tooling |
 | product | Brainstorming, design, documentation, domain modeling, epic tracking |
 | personal | Session notes, vault sync, end-of-session wrap-up |
 
 ## Canonical Workflow
 
-Skills compose via artifacts on disk (`.artifacts/`, `.agents/`), not via
+Skills compose via artifacts on disk (`.artifacts/`), not via
 cross-references inside skill files. The repo `README.md` owns the canonical
 pipeline diagram (mermaid with feedback loops). Summary at the repo level
 only:
@@ -289,7 +289,7 @@ content.
 Cross-references **across skills** remain forbidden. Skills stay
 isolated: SKILL.md never names another skill, references never link to
 files in another skill's `references/` or `instructions/`. Composition
-between skills happens via artifacts on disk (`.artifacts/`, `.agents/`),
+between skills happens via artifacts on disk (`.artifacts/`),
 never via direct file links.
 
 **Own-artifact isolation.** Isolation extends to the *artifacts* a skill
@@ -628,6 +628,8 @@ docs/
 
 ```
 .artifacts/
+├── knowledge.md   # spec-driven: cross-feature decisions, gotchas, conventions
+├── codebase/      # spec-driven: area exploration cache (reusable)
 ├── features/      # spec-driven: specs, designs, tasks
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
@@ -640,16 +642,7 @@ docs/
 it stays out of `git status` without touching `.gitignore`. Commit specific
 files only when explicitly requested.
 
-`.agents/` is a separate directory for reference context consumed across
-skills:
-
-```
-.agents/
-├── baselines/          # spec-driven: area behavioral baselines
-└── knowledge.md        # spec-driven: decisions, gotchas, feedback queue
-```
-
-Ownership: `spec-driven` writes `knowledge.md` and `baselines/*.md`;
+Ownership: `spec-driven` writes `.artifacts/knowledge.md` and `.artifacts/codebase/{area}.md`;
 `design-brief` writes `docs/design/moodboard.md`, `docs/design/DESIGN.md`, and `docs/design/styleguide.html`;
 `blueprint` writes `docs/design/blueprint.md`;
 `copywriting` writes `docs/design/copy.yaml`.

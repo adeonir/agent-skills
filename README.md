@@ -140,7 +140,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ## Output Structure
 
-Skills write artifacts to `.artifacts/` and reference context to `.agents/`:
+Skills write artifacts to `.artifacts/`:
 
 ```
 docs/
@@ -149,11 +149,9 @@ docs/
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: moodboard.md · DESIGN.md · blueprint: blueprint.md · copywriting: copy.yaml
 
-.agents/
-├── baselines/      # spec-driven: area behavioral baselines
-└── knowledge.md    # spec-driven: decisions, gotchas, feedback queue
-
 .artifacts/
+├── knowledge.md    # spec-driven: cross-feature decisions, gotchas, conventions
+├── codebase/       # spec-driven: area exploration cache (reusable)
 ├── brainstorm/     # brainstorming: ideation artifacts
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks

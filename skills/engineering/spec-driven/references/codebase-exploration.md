@@ -17,7 +17,9 @@ Patterns for analyzing existing code for a specific feature.
 - Integration patterns
 - Testing approaches
 
-For **general codebase mapping**, run the codebase-indexing workflow (creates `.agents/codebase/` docs).
+Durable, area-level findings from this exploration are cached at
+`.artifacts/codebase/{area}.md` for reuse by future features in the same
+area (see Integration with Design).
 
 ## Tools
 
@@ -215,13 +217,27 @@ Use findings in design.md:
 - Patterns to use
 - Code to reuse
 
-After exploration, if `.agents/codebase/` exists, new findings are
-queued for persistence in `.agents/knowledge.md ## Codebase Feedback`
-(see [design.md](design.md) Step 8: Queue Codebase Discoveries). The
-codebase-indexing step integrates the queue back into
-`.agents/codebase/*.md` on demand, so patterns discovered during one
-feature's design become available to future features without
-rediscovery.
+### Caching for reuse
+
+An **area** is the cohesive part of the codebase a feature touches — a
+module, domain, or feature directory (`auth`, `billing`, `dashboard`),
+not a single file and not the whole repo. Derive `{area}` as the
+kebab-case name of that directory or domain, reusing the existing name
+so the same area always maps to the same file — stable keys are what
+make the cache reusable. A feature spanning two areas reads and writes
+both.
+
+Before exploring, check `.artifacts/codebase/{area}.md` for this
+feature's area. On a cache hit, reuse those findings instead of
+re-deriving from scratch. After exploring, write the durable,
+area-level findings (patterns, integration points, reference files)
+back to `.artifacts/codebase/{area}.md` so the next feature in the same
+area reuses them without rediscovery.
+
+The cache is regenerable — treat a stale or missing entry as a cache
+miss and re-explore. Durable *why* (decisions, gotchas) and normative
+conventions are recorded separately in `.artifacts/knowledge.md`, not
+in the area cache.
 
 ## Guidelines
 

@@ -96,8 +96,9 @@ instead of duplicating. If it is only in chat, it does not exist.
 
 Even small changes must follow project patterns.
 
-- If `.agents/codebase/conventions.md` exists: read it. Pay attention to
-  Project Abstractions and Custom Hooks -- use these instead of primitives
+- If `.artifacts/codebase/{area}.md` cache exists for this area: read it.
+  Pay attention to Project Abstractions and Custom Hooks -- use these
+  instead of primitives
 - If not: follow patterns already present in the files being modified
 - Read 2-3 files near the target (siblings in the same directory or
   closest peers in the layer being touched) to extract local patterns
@@ -241,7 +242,7 @@ indefinitely.
 
 ### Step 9: Save Discoveries (default: save)
 
-Append non-obvious findings to `.agents/knowledge.md` without asking. Real
+Append non-obvious findings to `.artifacts/knowledge.md` without asking. Real
 gotchas, verified patterns, and environmental quirks all qualify.
 
 SKIP only when:
@@ -251,12 +252,10 @@ SKIP only when:
 
 Targets:
 - **Gotchas** -> `## Gotchas`
-- **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
+- **Normative conventions the codebase follows** -> `## Conventions`
 
-Format per [knowledge.md](knowledge.md). Never write to
-`.agents/codebase/*.md` — those are owned by the codebase-indexing
-workflow. No prompt to integrate — the next design or implement flow
-will surface queued items.
+Format per [knowledge.md](knowledge.md). No prompt — the next design or
+implement flow reads these on load.
 
 ### Step 10: Update Task File
 

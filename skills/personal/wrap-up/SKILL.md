@@ -42,7 +42,7 @@ Loading order:
 1. [mapping.md](references/mapping.md) — resolve project paths and base tags
 2. [handoff.md](references/handoff.md) (Load phase) — fold latest snapshot when present
 3. [obsidian-notes.md](references/obsidian-notes.md) — write Obsidian session + daily notes
-4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — re-index hint + auto-clear
+4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — architecture-refresh hint + auto-clear
 
 ## Guidelines
 

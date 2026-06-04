@@ -13,7 +13,7 @@ Auto-loaded by implement.md before writing code. Not a direct trigger.
 | Simplicity first | Write the simplest code that satisfies the requirement |
 | Surgical changes | Modify only what is necessary, leave unrelated code untouched |
 | Goal-driven | Every change must trace back to a requirement or acceptance criterion |
-| Follow existing patterns | Match the project's conventions exactly. When `.agents/codebase/conventions.md` exists, treat it as the source of truth -- especially Project Abstractions and Custom Hooks |
+| Follow existing patterns | Match the project's conventions exactly. When the `.artifacts/codebase/{area}.md` cache exists for the area, use it for Project Abstractions and Custom Hooks; otherwise read representative files |
 | Test first (when tests exist) | If the project has test infrastructure, write the failing test before the implementation |
 | Verify before moving on | Run quality gates after each task, fix issues immediately |
 

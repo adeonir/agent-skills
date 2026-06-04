@@ -32,7 +32,7 @@ Gather the references to verify against:
 |--------|----------|---------|
 | Spec | `.artifacts/features/{ID}-{name}/spec.md` | Acceptance criteria, user stories, edge cases |
 | Design | `.artifacts/features/{ID}-{name}/design.md` | Architecture, data model, file list, patterns |
-| Project patterns | `.agents/codebase/` | Conventions, naming, error handling, data fetching |
+| Project patterns | `.artifacts/codebase/{area}.md` cache | Conventions, naming, error handling, data fetching |
 | Visual references | `.artifacts/features/{ID}-{name}/designs/` or MCP | Layout, UI behavior (optional) |
 
 Skip sources that don't exist. Design and project patterns are the primary
@@ -58,8 +58,9 @@ Report findings as:
 
 ### Step 4: Pattern Adherence
 
-Compare implementation against project conventions in `.agents/codebase/`
-(if exists) or against patterns observed during quick scan:
+Compare implementation against project conventions in the
+`.artifacts/codebase/{area}.md` cache (if exists) or against patterns
+observed during quick scan:
 
 - **Naming**: files, components, functions, variables follow project conventions
 - **File structure**: new files placed in correct directories per project patterns
@@ -170,6 +171,6 @@ Never loop indefinitely.
 ## Error Handling
 
 - No design.md: verify against spec.md acceptance criteria only
-- No .agents/codebase/: skip pattern adherence or use quick scan baseline
+- No area cache: skip pattern adherence or scan representative files
 - No visual references: skip visual adherence entirely
-- All sources missing: inform user, suggest running design or the codebase-indexing workflow first
+- All sources missing: inform user, suggest running design first

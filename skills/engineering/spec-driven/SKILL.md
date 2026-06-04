@@ -58,7 +58,7 @@ Structured development workflow with adaptive depth.
   [coding-principles.md](references/coding-principles.md)
 - **Status workflow** ("when to update status") →
   [status-workflow.md](references/status-workflow.md)
-- **Knowledge / Codebase Feedback format** →
+- **Knowledge format** (decisions, gotchas, conventions) →
   [knowledge.md](references/knowledge.md)
 - **Auto-sizing scope assessment** →
   [auto-sizing.md](references/auto-sizing.md) (loaded by `specify.md` Step 1)

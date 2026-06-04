@@ -49,8 +49,8 @@ If decisions.md exists, load it for resolved gray areas.
 
 ### Step 3: Load Project Knowledge
 
-If `.agents/knowledge.md` exists, read it before designing. It contains
-cross-feature decisions, gotchas, and patterns accumulated from previous
+If `.artifacts/knowledge.md` exists, read it before designing. It contains
+cross-feature decisions, gotchas, and conventions accumulated from previous
 features. Use it to:
 
 - Avoid repeating past mistakes
@@ -64,24 +64,17 @@ If it doesn't exist, skip this step.
 Load each of the following if it exists. Skip silently if absent.
 
 **Project root:**
-- `CLAUDE.md` — project conventions and agent constraints
+- `CLAUDE.md` — project conventions, architecture, and agent constraints
 - `AGENTS.md` — agent instructions
 
-**Project intelligence (only if `.agents/` exists):**
-- `.agents/project.md` — project context
-- Every `.md` file in `.agents/codebase/` — list the directory and read
-  each file present (architecture, conventions, integrations, concerns,
-  plus any others the codebase index has generated). Do not hardcode
-  names — enumerate the directory and read what is there.
-- `.agents/baselines/` — load only the baseline matching the area this
-  feature touches, if any
+**Cached area context:**
+- `.artifacts/codebase/{area}.md` — the area cache, if a prior feature
+  already explored the area this feature touches
 
-`.agents/knowledge.md` is already loaded in Step 3 — do not re-read.
+`.artifacts/knowledge.md` is already loaded in Step 3 — do not re-read.
 
-`.agents/` may not exist (greenfield, or codebase index never run).
 Greenfield projects may have only `CLAUDE.md`. Never block on a missing
-file — load what's there. If nothing exists in either location, proceed
-with spec.md only.
+file — load what's there. If nothing exists, proceed with spec.md only.
 
 ### Step 5: Research Phase
 
@@ -140,7 +133,7 @@ the artifact, never the raw file content.
 Subagent brief:
 
 - Paths to `spec.md`, [codebase-exploration.md](codebase-exploration.md)
-- Path to `.agents/codebase/` (if it exists)
+- Path to `.artifacts/codebase/{area}.md` cache (if it exists)
 - "Follow codebase-exploration.md end to end. Write findings per the
   template inlined there. Anchor every claim with file:line. Member
   enumeration must be exhaustive, not sampled."
@@ -175,33 +168,29 @@ If any criterion fails, return to [codebase-exploration.md](codebase-exploration
 
 ### Step 7: Check Concerns
 
-If `.agents/codebase/concerns.md` exists, read it before designing.
+Review the gotchas loaded in Step 3 (`.artifacts/knowledge.md ## Gotchas`)
+for components flagged as fragile, carrying tech debt, or having test
+coverage gaps.
 
-Any component flagged as fragile, carrying tech debt, or having test coverage gaps requires extra care. Document in the Considerations section how the design mitigates those concerns.
+Any such component requires extra care. Document in the Considerations
+section how the design mitigates those concerns.
 
-If concerns.md does not exist, skip this step.
+If no relevant gotchas exist, skip this step.
 
-### Step 8: Queue Codebase Discoveries
+### Step 8: Record Discoveries
 
 Load [knowledge.md](knowledge.md) for format.
 
-Append to `.agents/knowledge.md`:
+Route the cross-feature knowledge this design surfaced to
+`.artifacts/knowledge.md`:
 
 1. **Cross-feature decisions** -> `## Decisions`, with rationale
 2. **Gotchas** -> `## Gotchas`, with context
-3. **Codebase discoveries** -> `## Codebase Feedback` with target tag (`conventions`, `architecture`, `testing`, `integrations`, `workflows`, `concerns`)
+3. **Normative conventions** the codebase follows -> `## Conventions`, with where they apply
 
-Never write to `.agents/codebase/*.md` — those are owned by the codebase-indexing workflow.
+If `.artifacts/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Conventions`).
 
-If `.agents/knowledge.md` doesn't exist, create it with the three empty section headers (`## Decisions`, `## Gotchas`, `## Codebase Feedback`).
-
-After appending, always report the `## Codebase Feedback` state to the user -- even when nothing was added. Count by target and prompt:
-
-> N discoveries queued in knowledge.md (X conventions, Y architecture, Z testing, W integrations). Integrate codebase feedback now? (y/n)
-
-If N is 0, say "No new codebase discoveries this run" and skip the prompt. Never silently proceed to Step 9 without reporting -- this step is mandatory and user-facing.
-
-Do not auto-invoke the codebase-indexing workflow — the user controls integration timing.
+Descriptive area patterns (reference files, integration points) are written to `.artifacts/codebase/{area}.md` by exploration (Step 6) — do not duplicate them here. Record only what crosses features; feature-specific detail stays in this feature's design.md, and inventory facts (packages, routes, modules) are re-derivable and not recorded.
 
 ### Step 9: Check Visual References
 
@@ -239,12 +228,10 @@ Subagent brief:
   - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
   - Exploration artifact path (from Step 6)
   - `.artifacts/research/*.md` (cached topics from Step 5)
-  - `.agents/knowledge.md` (if exists)
-  - Every `.md` file in `.agents/codebase/` (if exists; enumerate the
-    directory, do not hardcode names)
-  - `.agents/baselines/` matching the feature's area (if any)
-  - `.agents/project.md`, `CLAUDE.md`, `AGENTS.md` (project root, if
-    exist)
+  - `.artifacts/knowledge.md` (if exists)
+  - `.artifacts/codebase/{area}.md` cache matching the feature's area
+    (if exists)
+  - `CLAUDE.md`, `AGENTS.md` (project root, if exist)
   - `.artifacts/features/{ID}-{name}/designs/` (if exists)
 - Reference: the design template inlined at the bottom of this
   reference — return chunks matching the template section order and
@@ -295,7 +282,7 @@ Subagent brief:
 - Do NOT return: prose narration, process logs, dependency-inversion
   reasoning (silent per Step 12), Gotcha subsections (design-level
   gotchas with rationale go to Decisions; cross-feature gotchas go to
-  `.agents/knowledge.md`)
+  `.artifacts/knowledge.md`)
 
 Main agent composes `design.md` by writing Plan's chunks into the
 design template (below) slots. Preserve template section order and
@@ -444,7 +431,7 @@ Do not start code-producing phases (`implement`) without explicit user approval 
 - Sample touched types -- enumerate them
 - Claim "already returns X" / "no additional join" / "contract unchanged" without a file:line anchor
 - Collapse multi-field ACs into a single traceability row
-- Add `### Gotcha` subsections to Considerations -- design-level gotchas with rationale go to Decisions; cross-feature gotchas go to `.agents/knowledge.md ## Gotchas`
+- Add `### Gotcha` subsections to Considerations -- design-level gotchas with rationale go to Decisions; cross-feature gotchas go to `.artifacts/knowledge.md ## Gotchas`
 - Substitute the Entities table for prose or bullets -- the table is the index; member enumeration goes in sub-blocks below
 - Treat a reused component or utility as a black box (contrasts: read its source for preconditions, defaults, and internal rules)
 - Lift a numeric default from an existing consumer's intrinsic value (contrasts: derive from the worst-case consumer with file:line)

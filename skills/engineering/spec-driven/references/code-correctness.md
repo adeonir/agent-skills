@@ -31,15 +31,16 @@ Read active rules and plugins to determine what is already covered.
 | Security scanner | Dedicated tools or linter plugins with security rules |
 | Accessibility checker | Linter plugins with a11y rules |
 | Test framework | Scripts or configs in manifest |
-| Project conventions | .agents/codebase/ (if exists) |
+| Project conventions | `.artifacts/codebase/{area}.md` cache (if exists), else representative files |
 
 Build a **tooling coverage map**: for each category below, note whether
 active tooling already covers it (fully, partially, or not at all).
 
-If `.agents/codebase/` exists, read project patterns (error handling
-conventions, data fetching approach, auth strategy, etc.) to better
-calibrate which categories are most relevant and what the project
-already handles by convention.
+If the `.artifacts/codebase/{area}.md` cache exists for this area, read
+project patterns (error handling conventions, data fetching approach,
+auth strategy, etc.) to better calibrate which categories are most
+relevant and what the project already handles by convention. Otherwise
+scan a few representative files.
 
 ### Step 2: Select Relevant Categories
 
@@ -149,5 +150,5 @@ Findings merge into verify.md's outcome determination (Step 7).
   covered by project tooling" and skip analysis
 - Uncertain finding: flag as "(uncertain)" in description, never mark as
   critical or high severity
-- .agents/codebase/ missing: rely on config file scan only
+- No area cache: rely on config file scan only
 - Changed files not identifiable: ask user which files to analyze
