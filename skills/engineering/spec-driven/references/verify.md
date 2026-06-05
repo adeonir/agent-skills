@@ -97,6 +97,19 @@ mapping in the Step 8 outcome:
 |----|------------------|
 | AC-1 | {{test name or describe block}} |
 
+**Checks.** From the map, assert:
+
+- **No uncovered AC** — every AC this task covers has at least one covering test
+- **No orphan test** — every new test traces to an AC or Edge Case; a test mapping to
+  nothing is dead or testing the wrong thing
+- **No untraced task** — the task maps to at least one AC (cross-check tasks.md
+  `## Requirements Coverage`)
+- **No orphan code** *(only when a coverage tool is detected)* — every changed symbol
+  is exercised by at least one test
+
+A failed check is a finding (high for uncovered AC or orphan code, medium for orphan
+test or untraced task) — fix before the task passes.
+
 ### Step 7: Visual Adherence (optional)
 
 Only runs when visual references exist or user explicitly requests.
