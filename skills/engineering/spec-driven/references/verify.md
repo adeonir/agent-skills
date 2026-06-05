@@ -110,6 +110,11 @@ mapping in the Step 8 outcome:
 A failed check is a finding (high for uncovered AC or orphan code, medium for orphan
 test or untraced task) — fix before the task passes.
 
+**Coverage (only when a coverage tool is detected).** Report changed-file coverage from
+the tool's output. Flag a drop against the pre-change baseline as a finding — do not
+enforce a fixed threshold; the project owns its threshold. Skip silently when no
+coverage tool exists.
+
 ### Step 7: Visual Adherence (optional)
 
 Only runs when visual references exist or user explicitly requests.
