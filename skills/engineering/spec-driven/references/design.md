@@ -278,7 +278,7 @@ Subagent brief:
   - Requirements Traceability: rows (requirement, component, file,
     status); expand to one row per field for multi-field ACs
   - Test Strategy: Infrastructure, Reference Tests, New Tests rows
-  - Considerations: Error Handling rows, Security bullets
+  - Considerations: Error Handling rows, Security bullets, Rollout & Reversibility (only for risky cutovers)
   - Open Questions: checklist items
 - Do NOT return: prose narration, process logs, dependency-inversion
   reasoning (silent per Step 12), Gotcha subsections (design-level
@@ -378,7 +378,7 @@ Generate the design following the template structure:
 - Data Flow (use mermaid for complex flows; Cross-Task Value Trace when more than one task produces a value another task consumes)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
 - Test Strategy
-- Considerations (Error Handling, Security, Concerns mitigation -- no Gotcha subsections)
+- Considerations (Error Handling, Security, Rollout & Reversibility for risky cutovers, Concerns mitigation -- no Gotcha subsections)
 - Open Questions
 
 After generating design.md, update spec.md: for each AC mapped in Requirements Traceability,
@@ -656,6 +656,15 @@ value at every consumer without reading code.
 ### Security
 
 - {{concerns if applicable}}
+
+### Rollout & Reversibility
+
+Only when this change is a user-visible cutover, migration, or behavior swap.
+Omit otherwise.
+
+- Cutover: {{what user-visible behavior changes}}
+- Guard: {{feature flag, phased rollout, or none}} — {{why}}
+- Rollback: {{how to revert if it goes wrong}}
 
 ## Open Questions
 
