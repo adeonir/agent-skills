@@ -70,6 +70,9 @@ choice, the trap behind a behavior, the convention behind a pattern.
 
 - Record cross-feature decisions in `## Decisions` with rationale (the
   *why*, not the *what*)
+- When a `## Decisions` entry is a project-wide architectural choice (not
+  feature-grain), note it as an ADR candidate — promoting it to a formal ADR
+  is the user's call; recording it here is a valid resting place either way
 - Record gotchas in `## Gotchas` with enough context for a future reader
 - Record normative patterns in `## Conventions` with where they apply
 - Use ISO date and feature ID in every row
