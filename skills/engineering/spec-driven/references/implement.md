@@ -221,7 +221,11 @@ Any failed check: resolve before writing code.
 
 #### During (Implementation)
 
-- When TDD is active: write failing test first, then implement, then refactor
+- **Test-first (only when a test runner is detected):** if the project has a test
+  command from the quality gates, author the task's tests first — write a failing test
+  for each AC the task covers, make it pass with the minimum code, then refactor with
+  the test green. This authoring loop is separate from the After quality gate, which
+  *runs* the resulting suite; when no test runner exists, skip it and implement directly
 - Follow design.md architecture precisely (if design exists)
 - Match patterns from reference files exactly
 - Use project's error handling approach
