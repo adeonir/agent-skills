@@ -22,7 +22,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 
 - Goals (measurable outcomes)
 - Out of scope (explicit exclusions)
-- User stories with acceptance criteria inline (AC-N IDs, `Given/When/Then` format 1:1 (no compound), status starts as `` `pending` ``)
+- User stories with acceptance criteria inline (AC-N IDs, EARS-lite shape 1:1 (no compound), status starts as `` `pending` ``)
 - Edge cases (boundary conditions, error scenarios)
 - Success criteria (measurable outcomes)
 - For brownfield: current behavior description (high-level, no code)
@@ -131,7 +131,7 @@ scope and refined with implementation detail.
 |-------------------------|---------|
 | Product-wide user stories | Feature-scoped stories prioritized by implementation order (P1/P2/P3) |
 | Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
-| High-level acceptance criteria | Testable ACs in Given/When/Then format (1:1, no compound) |
+| High-level acceptance criteria | Testable ACs in EARS-lite shape (1:1, no compound) |
 | Product KPIs and success metrics | Feature-specific success criteria (demo-able) |
 | No edge cases | Edge cases (boundaries, errors, invalid inputs) |
 
@@ -141,7 +141,7 @@ scope and refined with implementation detail.
 3. Filter each item: relevant → transform; not relevant → note WHY in Notes;
    partially relevant → extract only the applicable part
 4. Transform (never copy verbatim): narrow broad stories to feature scope, make
-   ACs testable (Given/When/Then 1:1), add missing edge cases and success criteria
+   ACs testable (EARS-lite shape, 1:1), add missing edge cases and success criteria
    derived from requirements
 5. Output extraction summary in Notes section before generating spec -- the
    "Transformed To" column must show the refined version, not a copy
@@ -347,11 +347,28 @@ primitive's story earlier, merging it into the first consumer, or making the ear
 story ship an inline implementation that the later story refactors into the shared
 primitive. Never leave the inversion implicit.
 
-**Acceptance Criteria:** Use Given/When/Then format, 1:1 per AC. No compound clauses.
-Happy paths go in ACs; boundary conditions go in Edge Cases. When an AC references a
-third-party audit tool, append an `Audit-tool measurement` sub-bullet:
+**Acceptance Criteria:** Use EARS-lite — one of five clause shapes, 1:1 per AC, no
+compound clauses. The shape names how the requirement is triggered; the sentence
+states one observable obligation:
+
+```text
+Ubiquitous:  The system shall {action}.
+Event:       When {trigger}, the system shall {action}.
+State:       While {state}, the system shall {action}.
+Optional:    Where {feature}, the system shall {action}.
+Unwanted:    If {unwanted condition}, then the system shall {mitigation}.
 ```
-- [ ] AC-1: GIVEN {precondition} WHEN {action} THEN {observable outcome}
+
+One trigger, one outcome per AC. Each shape maps cleanly to a Given/When/Then or
+property-based test downstream — that mapping lives in the tests, not the spec.
+Happy paths go in ACs; boundary conditions go in Edge Cases. AC IDs are monotonic
+and never reused: removing an AC retires its ID with a tombstone entry — status
+`removed` plus a one-line reason — instead of renumbering, so existing task and
+test references stay stable. When an AC references a third-party audit tool, append
+an `Audit-tool measurement` sub-bullet:
+
+```markdown
+- [ ] AC-1: When {trigger}, the system shall {observable outcome}
   - **Audit-tool measurement:** {tool name} -- {exact metric the tool reports} -- pass threshold: {numeric or boolean}
 ```
 Required only when the AC references a third-party audit tool. Omit the sub-line otherwise.
@@ -496,9 +513,9 @@ sources: []
 
 **Acceptance Criteria:**
 
-- [ ] AC-1 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
+- [ ] AC-1 `pending`: When {{trigger}}, the system shall {{observable outcome}}
   - **Audit-tool measurement:** {{tool name}} — {{exact metric}} — pass threshold: {{numeric or boolean}}
-- [ ] AC-2 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
+- [ ] AC-2 `pending`: While {{state}}, the system shall {{observable outcome}}
 
 ### S-2 [P2] {{Story Title}}
 
@@ -507,7 +524,7 @@ sources: []
 
 **Acceptance Criteria:**
 
-- [ ] AC-3 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
+- [ ] AC-3 `pending`: The system shall {{observable outcome}}
 
 ### S-3 [P3] {{Story Title}}
 
@@ -516,7 +533,7 @@ sources: []
 
 **Acceptance Criteria:**
 
-- [ ] AC-4 `pending`: GIVEN {{precondition}} WHEN {{action}} THEN {{observable outcome}}
+- [ ] AC-4 `pending`: If {{unwanted condition}}, then the system shall {{mitigation}}
 
 {{#if designs}}
 ## Visual References
@@ -530,9 +547,9 @@ sources: []
 
 ## Edge Cases
 
-- GIVEN {{precondition}} WHEN {{boundary condition}} THEN {{observable handling}}
-- GIVEN {{precondition}} WHEN {{error scenario}} THEN {{graceful handling}}
-- GIVEN {{precondition}} WHEN {{unexpected input}} THEN {{validation response}}
+- If {{boundary condition}}, then the system shall {{observable handling}}
+- If {{error scenario}}, then the system shall {{graceful handling}}
+- If {{unexpected input}}, then the system shall {{validation response}}
 
 ## Success Criteria
 
