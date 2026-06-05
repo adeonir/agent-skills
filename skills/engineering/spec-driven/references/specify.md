@@ -304,7 +304,7 @@ Use the template (below) before reading any existing spec in
 structure.
 
 Generate the spec following the template structure:
-- Frontmatter with ID, feature name, type, scope, status, branch, created date
+- Frontmatter with ID, feature name, type, scope, status, review, branch, created date
 - Greenfield: Overview, Goals, Out of Scope, User Stories (with ACs inline), Edge Cases, Success Criteria, Operational Follow-ups, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
@@ -405,6 +405,27 @@ conversation, or write "None" when a `sources:` pointer covers it. Never delete 
 section -- an explicit "None" asserts nothing was lost; a missing section is an
 omission.
 
+### Step 13b: Spec Review
+
+After generating spec.md, review the written artifact against the criteria below and
+record the verdict in frontmatter `review:`. This is the spec's own review gate —
+there is no separate review file. Show `[pass]` or `[fail]` per line.
+
+- [ ] Every AC matches one EARS-lite shape (ubiquitous, event, state, optional, unwanted)
+- [ ] Every AC is atomic — one trigger, one outcome, no compound "and"
+- [ ] Every AC is testable — a Given/When/Then test is describable without guessing intent
+- [ ] Every Goal maps to at least one Success Criterion
+- [ ] Every domain term used in an AC is defined (no undefined jargon)
+- [ ] Open Questions are each resolved or explicitly deferred with a reason
+
+Set the verdict:
+
+- All pass → `review: pass`
+- Any fail → `review: changes`; report the failing lines, fix them, re-run until `pass`
+
+Downstream phases (design, tasks, implement) expect `review: pass`. A spec edited after
+review resets to `review: pending` and must be re-reviewed before proceeding.
+
 ### Step 14: Handoff Completeness Gate
 
 Before presenting the spec as ready, confirm self-sufficiency:
@@ -426,7 +447,7 @@ Present a summary:
 ```
 Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
 Type: {greenfield|brownfield} | Scope: {medium|large|complex}
-Open questions: {count or "none"} | Gray areas: {yes/no}
+Review: {pass|changes} | Open questions: {count or "none"} | Gray areas: {yes/no}
 
 Approve to proceed, or describe changes.
 ```
@@ -484,6 +505,7 @@ id: {{NNN}}
 name: {{name}}
 scope: {{medium|large|complex}}
 status: draft
+review: pending
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
 created: {{YYYY-MM-DD}}
