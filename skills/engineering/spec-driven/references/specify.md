@@ -324,6 +324,7 @@ check silently.
 - [ ] Out of Scope entries describe behavior, not code symbols
 - [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
+- [ ] Every non-functional claim is quantified (e.g. `p95 ≤ 200ms`) or demoted to an Open Question — no vague "fast", "scalable", "responsive"
 - [ ] Each story is a commit boundary: no AC depends on work belonging to a later story (move it if so)
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
@@ -372,6 +373,11 @@ an `Audit-tool measurement` sub-bullet:
   - **Audit-tool measurement:** {tool name} -- {exact metric the tool reports} -- pass threshold: {numeric or boolean}
 ```
 Required only when the AC references a third-party audit tool. Omit the sub-line otherwise.
+
+**Non-functional criteria:** Any performance, latency, throughput, capacity, or
+availability claim must carry a number and the condition it holds under (`p95 ≤ 200ms
+under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question.
+Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as ACs.
 
 **Operational Follow-ups:** Plain bullets (no `[ ]` -- the absence of a checkbox makes
 the non-gating intent explicit). Use "None" if every criterion is pre-merge verifiable.
