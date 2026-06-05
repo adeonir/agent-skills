@@ -278,7 +278,7 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 **If no images:**
 - Skip this step (designs/ folder is optional)
 
-### Step 12b: Propose Approaches (Large/Complex only)
+### Step 13: Propose Approaches (Large/Complex only)
 
 Skip for Small and Medium scope.
 
@@ -297,7 +297,7 @@ Example structure:
 Do not draft spec.md until user confirms an approach. Record the chosen approach in
 spec.md Notes section.
 
-### Step 13: Generate spec.md
+### Step 14: Generate spec.md
 
 Use the template (below) before reading any existing spec in
 `.artifacts/features/`. Existing specs may be stale — template wins on
@@ -405,7 +405,7 @@ conversation, or write "None" when a `sources:` pointer covers it. Never delete 
 section -- an explicit "None" asserts nothing was lost; a missing section is an
 omission.
 
-### Step 13b: Spec Review
+### Step 15: Spec Review
 
 After generating spec.md, review the written artifact against the criteria below and
 record the verdict in frontmatter `review:`. This is the spec's own review gate —
@@ -426,7 +426,7 @@ Set the verdict:
 Downstream phases (design, tasks, implement) expect `review: pass`. A spec edited after
 review resets to `review: pending` and must be re-reviewed before proceeding.
 
-### Step 14: Handoff Completeness Gate
+### Step 16: Handoff Completeness Gate
 
 Before presenting the spec as ready, confirm self-sufficiency:
 
@@ -440,7 +440,7 @@ Before presenting the spec as ready, confirm self-sufficiency:
 The artifact is the only thing the next session sees. If it is only in
 chat, it does not exist.
 
-### Step 15: Approval Gate
+### Step 17: Approval Gate
 
 Present a summary:
 

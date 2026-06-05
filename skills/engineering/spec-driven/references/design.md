@@ -399,7 +399,7 @@ Decisions: {count} | Open questions: {count or "none"}
 Approve to proceed, or describe changes.
 ```
 
-Whether to stop here depends on the user's original request (see Specify Step 14 for the same rule):
+Whether to stop here depends on the user's original request (see Specify Step 17 for the same rule):
 
 - User asked only for design (rare): stop and wait.
 - User asked for the full planning bundle ("plan and break into tasks", "turn this into a spec for us to implement", "figure this out and spec it", etc.): present this as a waypoint, then continue into `tasks`. Collect approval once at the end of planning.
