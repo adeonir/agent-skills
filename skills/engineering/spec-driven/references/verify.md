@@ -82,9 +82,22 @@ auto-detects project tooling and skips categories already covered.
 Skip this step when the task only changed configuration, documentation,
 or static assets.
 
-Findings merge into the outcome table in Step 7.
+Findings merge into the outcome table in Step 8.
 
-### Step 6: Visual Adherence (optional)
+### Step 6: Test Coverage
+
+Only when the project has a test runner (a test command from implement's quality
+gates). Skip entirely otherwise — there is nothing to bind to.
+
+**AC → test map.** For each AC this task covers, identify the test(s) that exercise it
+— match by the behavior the test asserts, not by any tag or annotation. Report the
+mapping in the Step 8 outcome:
+
+| AC | Covering test(s) |
+|----|------------------|
+| AC-1 | {{test name or describe block}} |
+
+### Step 7: Visual Adherence (optional)
 
 Only runs when visual references exist or user explicitly requests.
 
@@ -100,11 +113,11 @@ Compare:
 - Responsive behavior matches reference (if specified)
 - Spacing, alignment, visual hierarchy are consistent
 
-### Step 7: Determine Outcome
+### Step 8: Determine Outcome
 
 **If all checks pass:**
 - Report "Verification passed" with summary
-- Mark covered ACs as `[x]` in spec.md (see [Step 8](#step-8-sync-ac-checkboxes))
+- Mark covered ACs as `[x]` in spec.md (see [Step 9](#step-9-sync-ac-checkboxes))
 - Continue to next task or mark done
 
 **If issues found:**
@@ -113,7 +126,7 @@ Compare:
 - Fix issues immediately (verify --> fix --> verify loop)
 - Re-run only the failed checks after fix
 
-### Step 8: Sync AC Checkboxes
+### Step 9: Sync AC Checkboxes
 
 After verification passes for a task, update spec.md acceptance criteria.
 
@@ -138,7 +151,7 @@ status always reflect current verification state, not historical pass.
 
 **Never touch Goals or Success Criteria here** -- those are audit.md's job.
 
-### Step 9: Loop Escape
+### Step 10: Loop Escape
 
 Track fix attempts per finding. If the same finding fails N times (default: 3):
 - Stop the loop
@@ -153,7 +166,7 @@ Never loop indefinitely.
 
 **DO:**
 - Run after every task or range, regardless of scope
-- Check design adherence first, then patterns, then code correctness, then visual
+- Check design adherence first, then patterns, then code correctness, then test coverage, then visual
 - Fix issues before moving to the next task
 - Report findings with severity (high/medium/low)
 - Skip visual check when no references exist
