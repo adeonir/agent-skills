@@ -98,7 +98,7 @@ results from disk after dispatch completes.
 
 Single-turn dispatch shape (three unknown techs):
 
-```
+```text
 Turn N (one message):
   - dispatch subagent for {topic-1}, brief = {research.md + topic-1 + spec context}
   - dispatch subagent for {topic-2}, brief = {research.md + topic-2 + spec context}
@@ -143,7 +143,7 @@ Subagent brief:
 subagent are independent. Dispatch all in a single turn -- emit multiple
 dispatch calls in one message:
 
-```
+```text
 Turn N (one message):
   - dispatch research subagent for {topic-1}
   - dispatch research subagent for {topic-2}
@@ -392,7 +392,7 @@ Set spec.md frontmatter: `status: ready`
 
 Present a summary:
 
-```
+```text
 Design ready: `.artifacts/features/{ID}-{name}/design.md`
 Decisions: {count} | Open questions: {count or "none"}
 

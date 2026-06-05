@@ -247,7 +247,7 @@ Convert description to kebab-case:
 
 Default suggestion is a new branch. Record the user's choice in `branch:` frontmatter only — the branch is created at implement start, not here.
 
-```
+```text
 Branch for this feature?
 1. New branch: feature/{name} (recommended)
 2. Current branch ({current-branch})
@@ -289,7 +289,7 @@ option to 3-4 sentences. Wait for user to choose before proceeding.
 
 Example structure:
 
-```
+```text
 **Option A (recommended):** {approach} — {why it fits, trade-off}
 **Option B:** {approach} — {why it fits, trade-off}
 **Option C:** {approach} — {why it fits, trade-off}
@@ -449,7 +449,7 @@ chat, it does not exist.
 
 Present a summary:
 
-```
+```text
 Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
 Type: {greenfield|brownfield} | Scope: {medium|large|complex}
 Review: {pass|changes} | Open questions: {count or "none"} | Gray areas: {yes/no}

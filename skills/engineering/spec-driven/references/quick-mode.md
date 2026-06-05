@@ -43,7 +43,7 @@ Generate slug from description:
 
 Ask about the branch. Default suggestion is a new branch using the slug. Record the user's choice in `task.md` frontmatter only -- the actual `git switch` happens at Step 7, just before editing.
 
-```
+```text
 Branch for this quick task?
 1. New branch: fix/{slug} (recommended)
 2. Current branch ({current-branch})
@@ -228,7 +228,7 @@ the change until static gates pass. A typecheck or lint failure means the
 runtime behavior is moot; running the script or hitting the endpoint just burns
 cycles before you have to come back and fix the static issue anyway.
 
-```
+```text
 1. {lint command} --fix       (static)
 2. {typecheck command}        (static)
 3. {test command}             (static, if any)

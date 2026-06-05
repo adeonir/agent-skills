@@ -157,14 +157,14 @@ Each task should be:
 **Task description format:**
 
 Without test infrastructure:
-```
+```text
 - [ ] T-1 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
   - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
 ```
 
 With test infrastructure (test script detected in Step 3):
-```
+```text
 - [ ] T-1 [P] {verb} {what}
   - **Tests:** unit|integration|e2e|none
   - **Gate:** quick|full|build
@@ -186,7 +186,7 @@ must include a `Candidate trace` sub-block enumerating every candidate from the 
 with evidence for and against each. A mitigation may only be chosen after every candidate
 is evaluated; premature rejection is a smell.
 
-```
+```text
 - [ ] T-1 [P] {verb} {what}
   - **Done when:** {verifiable outcome}
   - **Satisfaction sketch:** {one line: why this implementation actually moves the criterion}
@@ -316,7 +316,7 @@ the end" is not an acceptable execution plan.
 
 Present a summary and wait for approval:
 
-```
+```text
 Tasks ready: `.artifacts/features/{ID}-{name}/tasks.md`
 Tasks: {count} | Components: {list}
 

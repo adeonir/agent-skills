@@ -105,7 +105,7 @@ is already the execution plan — re-deriving steps adds no value.
 
 Apply only in **Inline mode** or **Quick scan mode** (no tasks.md):
 
-```
+```text
 Execution steps:
 1. {step}
 2. {step}
@@ -170,7 +170,7 @@ tasks.md and per-task status from disk, resumes at Step 9.
 
 Dispatch shape:
 
-```
+```text
 Turn N:   dispatch one subagent for the invocation scope.
 Turn N+1: read tasks.md and per-task status from disk, resume at Step 9.
 ```
@@ -193,7 +193,7 @@ For each task, follow the 3-phase cycle:
 - Check the conventions table (naming, imports, error handling)
 - State the pre-implementation declaration before writing any code:
 
-```
+```text
 Assumptions: {what am I assuming about existing code -- verify each}
 Files: {exhaustive list of files to create/modify -- only these}
 Success criteria: {which ACs and Done when this task satisfies}
@@ -324,7 +324,7 @@ Descriptive area patterns belong in the `.artifacts/codebase/{area}.md` cache, w
 
 When all tasks are done and Final Verification passes, present a summary and wait for approval:
 
-```
+```text
 Implementation ready: `.artifacts/features/{ID}-{name}/`
 Tasks: {X} done | ACs: {Y}/{Z} verified
 Remaining: {count or "none"}
@@ -384,7 +384,7 @@ After completing a task or range, suggest a commit message based on what was act
 - No scope, no file names, no versions, no attribution, no future references
 - Optional body: 1-5 bullet points explaining HOW (no file paths)
 
-```
+```text
 type: what changed from the user's perspective
 
 - Optional: how it was implemented 1

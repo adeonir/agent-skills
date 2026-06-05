@@ -10,14 +10,14 @@ When listing features or checking the status of a specific feature.
 
 ### List All Features
 
-```
+```text
 list features
 show specs
 ```
 
 ### Show Specific Feature
 
-```
+```text
 show status
 status of auth feature
 ```

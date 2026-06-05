@@ -70,7 +70,7 @@ Structured development workflow with adaptive depth.
 
 ## Workflow
 
-```
+```text
 specify --> design* --> tasks* --> implement --> audit --> done
                                        ^           ^
                                        |           |__ per-story commit OR pre-PR

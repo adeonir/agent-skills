@@ -56,7 +56,7 @@ Group ambiguities by type:
 
 For each gray area, present to user:
 
-```
+```text
 Gray Area: {description}
 Context: {why this matters for the feature}
 
