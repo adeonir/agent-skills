@@ -61,6 +61,9 @@ only valid values are:
 status: ready  # draft | ready | in-progress | to-review | done
 ```
 
+The `review` field (`pending | pass | changes`) is a separate spec-quality gate
+owned by specify.md Step 15 -- it does not transition with `status`.
+
 ## Common Mistakes to AVOID
 
 - `status: planned` -> Use `ready`

@@ -276,6 +276,8 @@ Run [verify.md](verify.md) to check implementation against design, project
 patterns, and visual references (if provided). Verify handles:
 - Design adherence (code matches spec/design)
 - Pattern adherence (code follows project conventions)
+- Code correctness (semantic checks linters and type-checkers miss)
+- Test coverage (AC-to-test map and traceability checks, when a test runner exists)
 - Visual adherence (layout matches references, optional)
 
 If verify finds issues, fix them before moving to the next task. See
