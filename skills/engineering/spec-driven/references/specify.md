@@ -21,7 +21,8 @@ Each artifact has a distinct purpose. Never mix these concerns.
 ### spec.md MUST contain ONLY:
 
 - Goals (measurable outcomes)
-- Out of scope (explicit exclusions)
+- Non-goals (explicit exclusions)
+- Glossary (domain terms used in ACs, defined behaviorally; "None" when empty)
 - User stories with acceptance criteria inline (AC-N IDs, EARS-lite shape 1:1 (no compound), status starts as `` `pending` ``)
 - Edge cases (boundary conditions, error scenarios)
 - Success criteria (measurable outcomes)
@@ -38,7 +39,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 - Architecture decisions
 - Milestones, epics, sprints, release names, or roadmap references (e.g., "part of Q2 epic", "blocked by milestone 3", "planned for v2")
 
-These apply to ALL sections -- Overview, Goals, Out of Scope, Stories, ACs, Edge Cases, Success Criteria, Operational Follow-ups, Notes, Baseline. Behavior always trumps symbols.
+These apply to ALL sections -- Overview, Goals, Non-Goals, Glossary, Stories, ACs, Edge Cases, Success Criteria, Operational Follow-ups, Notes, Baseline. Behavior always trumps symbols.
 
 These belong in design.md, created during the `design` phase.
 
@@ -305,7 +306,7 @@ structure.
 
 Generate the spec following the template structure:
 - Frontmatter with ID, feature name, type, scope, status, review, branch, created date
-- Greenfield: Overview, Goals, Out of Scope, User Stories (with ACs inline), Edge Cases, Success Criteria, Operational Follow-ups, Open Questions, Notes
+- Greenfield: Overview, Goals, Non-Goals, Glossary, User Stories (with ACs inline), Edge Cases, Success Criteria, Operational Follow-ups, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
@@ -321,7 +322,7 @@ check silently.
 - [ ] No technology or library names anywhere (no React, TanStack, shadcn, Radix)
 - [ ] No component, hook, function, or class names from the codebase
 - [ ] No file paths or directory names
-- [ ] Out of Scope entries describe behavior, not code symbols
+- [ ] Non-Goals entries describe behavior, not code symbols
 - [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
 - [ ] Every non-functional claim is quantified (e.g. `p95 ≤ 200ms`) or demoted to an Open Question — no vague "fast", "scalable", "responsive"
@@ -379,6 +380,10 @@ availability claim must carry a number and the condition it holds under (`p95 �
 under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question.
 Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as ACs.
 
+**Glossary:** Define every domain term that appears in an AC, behaviorally — no code
+identifiers, libraries, or component names. Write "None" when the feature introduces no
+domain vocabulary. This is where Spec Review confirms each term is defined.
+
 **Operational Follow-ups:** Plain bullets (no `[ ]` -- the absence of a checkbox makes
 the non-gating intent explicit). Use "None" if every criterion is pre-merge verifiable.
 Never duplicate items that also appear in Goals or Success Criteria.
@@ -388,13 +393,13 @@ paths, no component or hook names. Omit the section entirely if there is nothing
 behavioral to capture beyond what other sections already cover. Boundary vs Session
 Context: Notes holds surrounding evidence (stakeholders, deadlines, prior art);
 Session Context holds prompt-only material that *defines* the work (content/copy,
-constraints, clarifications). If losing it would change what gets built, it is Session
-Context, not Notes.
+constraints, clarifications, user/source-stated assumptions). If losing it would change
+what gets built, it is Session Context, not Notes.
 
 **Decisions and Session Context:** Both sections are always present -- the durable home for
 context settled during specify that would otherwise live only in chat. `## Decisions`
 captures choices made among alternatives at the specify grain (scope, requirements,
-product behavior); `## Session Context` captures content, constraints, and clarifications.
+product behavior); `## Session Context` captures content, constraints, clarifications, and user/source-stated assumptions.
 Boundary: when design.md runs (Large/Complex), technical and architecture decisions
 go in its `## Decisions` instead -- spec.md stays at the specify grain, design.md owns
 the implementation grain, no duplication. When discuss.md runs (Complex gray areas),
@@ -525,11 +530,18 @@ sources: []
 - [ ] {{Primary goal with measurable outcome}}
 - [ ] {{Secondary goal with measurable outcome}}
 
-## Out of Scope
+## Non-Goals
 
 | Feature | Reason |
 |---------|--------|
 | {{feature}} | {{why excluded}} |
+
+## Glossary
+
+{{Domain terms used in the acceptance criteria, defined behaviorally. Write "None"
+when the feature introduces no domain vocabulary.}}
+
+- **{{Term}}** — {{definition, no code identifiers, libraries, or component names}}
 
 ## User Stories
 
@@ -613,8 +625,8 @@ architecture choices belong in design.md.}}
 ## Session Context
 
 {{Material that defines the work but lives only in this conversation, not
-in a `sources:` pointer — content/copy to implement, user-stated
-constraints, clarifications that resolved ambiguity. Write "None" when a
+in a `sources:` pointer — content/copy to implement, user-stated constraints
+and assumptions, clarifications that resolved ambiguity. Write "None" when a
 `sources:` entry covers it.}}
 
 - {{captured item, or "None"}}
