@@ -365,7 +365,13 @@ property-based test downstream — that mapping lives in the tests, not the spec
 Happy paths go in ACs; boundary conditions go in Edge Cases. AC IDs are monotonic
 and never reused: removing an AC retires its ID with a tombstone entry — status
 `removed` plus a one-line reason — instead of renumbering, so existing task and
-test references stay stable. When an AC references a third-party audit tool, append
+test references stay stable. A retired AC keeps its line, e.g.:
+
+```text
+- AC-3 `removed`: folded into AC-1
+```
+
+When an AC references a third-party audit tool, append
 an `Audit-tool measurement` sub-bullet:
 
 ```markdown
@@ -427,8 +433,9 @@ Set the verdict:
 - All pass → `review: pass`
 - Any fail → `review: changes`; report the failing lines, fix them, re-run until `pass`
 
-Downstream phases (design, tasks, implement) expect `review: pass`. A spec edited after
-review resets to `review: pending` and must be re-reviewed before proceeding.
+The review verdict gates specify's own approval gate (Step 17), not the downstream
+phases — a spec edited after review resets `review` to `pending` and must be
+re-reviewed before that gate.
 
 ### Step 16: Handoff Completeness Gate
 
