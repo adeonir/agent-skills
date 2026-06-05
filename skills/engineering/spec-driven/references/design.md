@@ -40,10 +40,11 @@ Read `.artifacts/features/{ID}-{name}/spec.md`, including `## Decisions` and
 `## Session Context`. Follow any `sources:` pointer to its durable source
 before designing.
 
-If spec has critical open questions that block architecture decisions:
-- List items
-- Suggest running [discuss](discuss.md) to resolve them
-- Exit
+**Blocking-question gate:** If spec.md `## Open Questions` holds any question that
+would change the architecture you are about to define (a blocking question), halt:
+list the blocking items, route to [discuss](discuss.md) or the user to resolve, then
+exit. Non-blocking questions — tentative, deferred-with-reason, or immaterial to this
+phase — do not gate; proceed.
 
 If decisions.md exists, load it for resolved gray areas.
 

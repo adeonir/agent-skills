@@ -35,6 +35,12 @@ Read:
 - `design.md` (architecture)
 - `decisions.md` (if exists, for resolved gray areas)
 
+**Blocking-question gate:** If spec.md `## Open Questions` holds any question that
+would change the task breakdown you are about to produce (a blocking question), halt:
+list the blocking items, route to [discuss](discuss.md) or the user to resolve, then
+exit. Non-blocking questions — tentative, deferred-with-reason, or immaterial to this
+phase — do not gate; proceed.
+
 ### Step 3: Detect Quality Gates
 
 Read `package.json`:

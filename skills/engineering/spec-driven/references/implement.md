@@ -48,6 +48,11 @@ that the spec body alone does not carry. Follow any `sources:` pointer to
 its durable source before coding.
 If `.artifacts/knowledge.md` exists, read it for project-level decisions and gotchas.
 
+**Blocking-question gate:** If spec.md `## Open Questions` holds any question that
+would change what you are about to build (a blocking question), halt: list the blocking
+items, route to [discuss](discuss.md) or the user to resolve, then exit. Non-blocking
+questions — tentative, deferred-with-reason, or immaterial — do not gate; proceed.
+
 Check which artifacts exist and adapt:
 
 | Artifacts Found | Mode |
