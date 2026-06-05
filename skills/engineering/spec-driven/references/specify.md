@@ -172,8 +172,7 @@ originates from a defect, the spec must be framed around the correct
 behavior (the root), not the absence of a symptom.
 
 Defect signals (apply when any match):
-- Input file is a bug or issue ticket artifact (e.g.,
-  `.artifacts/epics/.../bugs/`, `.artifacts/epics/.../issues/`)
+- Input file is a bug or issue ticket artifact
 - Input file frontmatter has `type: bug` or `type: issue`
 - Description contains defect keywords: `fix`, `bug`, `error`,
   `broken`, `regression`, `crash`, `falha`, `quebrou`,

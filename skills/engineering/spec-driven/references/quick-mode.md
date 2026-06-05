@@ -133,7 +133,7 @@ Skip when the task is a feature addition, config tweak, refactor, or
 text-level change.
 
 **Trigger signals (apply when any match):**
-- Input is a bug/issue ticket artifact (e.g., from epic-tracker)
+- Input is a bug/issue ticket artifact (e.g., from an issue tracker)
 - Description contains defect keywords: `fix`, `bug`, `error`, `broken`,
   `regression`, `crash`, `falha`, `quebrou`, `não funciona`, "stopped
   working", "throws", "fails"
