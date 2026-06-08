@@ -21,6 +21,11 @@ that can be verified independently.
 3. If no epics exist, ask whether to create the epic first or place
    the story in a new epic
 
+Read the parent epic for scope and naming context only. Its content does
+not cross into the story: do not copy epic-level acceptance criteria (see
+DON'T), pull in sibling stories, or reference future stories not yet in
+scope. This story carries one outcome of its own.
+
 ### 2. Draft
 
 Fill the template (below):

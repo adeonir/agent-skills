@@ -170,7 +170,11 @@ Section presence:
 - `## Relations` for typed edges that add graph value
 
 When the handoff Load phase surfaced a latest snapshot, fold its
-bullets in before composing the note:
+bullets in before composing the note. Re-apply the Audience and
+Reference Discipline as you fold — the handoff's scope is not the
+note's scope: strip local spec/story/task IDs (`S-022`, `task-3.2`)
+and translate them to feature or project names, and keep daily-note
+bodies free of the paths and IDs a handoff may carry.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name

@@ -19,6 +19,11 @@ Group stories from one or more epics into a cross-cutting delivery slice.
 2. List stories by status to help the user choose what to include
 3. If no stories exist, suggest creating epics and stories first
 
+A release references its member stories by path, not their contents. Read
+story summaries to choose what ships; do not copy story-internal detail
+(acceptance criteria, implementation) into the release — link by
+`epic-name/story-name` and let each story stay the source of truth.
+
 ### 2. Draft
 
 Fill the template (below):

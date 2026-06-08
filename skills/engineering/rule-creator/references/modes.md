@@ -102,6 +102,9 @@ split it.
    - Run the same gates as create: classify, context, scope, render,
      verifiability. The classifier protects against extracting
      something that was procedural after all.
+   - Scope each rule to its own topic — drop cross-references to other
+     CLAUDE.md sections or sibling rule files; carry only the section's
+     own instruction so the rule stands alone.
    - Write the new rule file.
    - Remove the corresponding section from CLAUDE.md.
 6. After all extractions, output a summary listing files created and

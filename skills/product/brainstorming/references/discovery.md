@@ -60,6 +60,10 @@ explore the codebase, then: "I found the current flow in `src/onboarding/` —
 it has 3 steps with drop-off tracking on step 2. Does that match your
 understanding?"
 
+Extract the current-state answer, not the code: file paths, symbols, and
+implementation detail inform your understanding but do not cross into the
+brainstorm artifact, which stays at the problem-and-direction level.
+
 **One question at a time:** Never batch questions. Propose one interpretation
 with its redirect invite, OR ask one question — not both. The interpretation
 with invite ("It sounds like X — is that right?") is the complete turn. Do not

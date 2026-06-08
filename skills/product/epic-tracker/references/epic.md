@@ -26,6 +26,12 @@ Check for existing context before asking questions:
    - Who benefits?
    - What changes for the user when this is done?
 
+Treat upstream docs as read-only input scoped to **this epic**. Extract
+only what maps to it; the source's own tokens do not cross into the epic.
+Do not carry forward other milestones, sibling epics, future-phase
+references, or roadmap language — one milestone maps to this epic (see
+Error Handling), the rest stay out.
+
 ### 2. Draft
 
 Fill the template (below) with discovered context:

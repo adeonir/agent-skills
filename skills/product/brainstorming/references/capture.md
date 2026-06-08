@@ -20,6 +20,7 @@ Verify the artifact before saving:
 - [ ] Scope is focused enough to act on (one direction, not three)
 - [ ] Trade-offs are explicit (nothing hidden to make the choice look better)
 - [ ] Open questions are genuine unknowns, not laziness
+- [ ] No implementation detail or codebase symbols (file paths, function or class names) — the artifact stays at the problem-and-direction level
 
 If issues found: fix inline before saving. Don't deliver a flawed
 artifact.

@@ -58,6 +58,11 @@ features. Use it to:
 - Follow established architectural patterns
 - Respect decisions already made for the project
 
+knowledge.md is cross-feature context, not this feature's content. Let it
+shape your approach; do not carry other features' decisions, IDs, or
+file references into this design unless this feature actually touches
+them. design.md stays scoped to this feature.
+
 If it doesn't exist, skip this step.
 
 ### Step 4: Load Architecture Context
