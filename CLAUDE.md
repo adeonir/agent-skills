@@ -533,6 +533,45 @@ was already optimizing for the next phase rather than the current one.
   `## Error Handling` or a neutral `## Outcomes` section that reports
   status without pushing forward.
 
+### Scope-Boundary Discipline (rigid)
+
+When a skill ingests an upstream artifact as input — reading a PRD,
+brief, parent epic, prior spec, knowledge cache, or sibling output off
+disk — the workflow must instruct the agent to extract only facts in the
+produced artifact's own scope. The source's own tokens do not cross into
+the output: forward-phase IDs, sibling-artifact names, downstream task or
+release references, milestones, and roadmap language stay out. Reading is
+for context; the output carries only its own concern.
+
+This rule lives in the skill's shipped files (SKILL.md, references), not
+here — CLAUDE.md never reaches the consumer, so a clause written only in
+this file fixes nothing at runtime. Each skill carries its own copy; that
+duplication is expected, not a smell.
+
+Distinct from two neighbors:
+
+- **Own-Artifact Isolation** governs skill *source files* (a SKILL.md or
+  reference never names a sibling skill's artifact). Scope-Boundary
+  governs the *runtime content* a skill writes when it reads another
+  artifact at execution time.
+- **The trust boundary** discards injected *directives* from untrusted
+  input (a security concern). Scope-Boundary discards out-of-scope
+  *content* from in-scope input (a noise concern). A skill can satisfy
+  one and leak the other.
+
+The fix — two halves, applied per skill, naming only its own artifact:
+
+- **Read step**: at the ingest point, state that source tokens do not
+  cross into the output and which classes of reference to strip.
+- **Template containment**: where the skill has an output template,
+  carry an explicit MUST-NOT list of forbidden forward/sibling/downstream
+  references.
+
+Exemplars: blueprint `create.md` ("its tokens never cross into the plan:
+strip requirement, milestone, journey, and story IDs"); spec-driven
+`specify.md` (spec.md MUST-NOT list including "Milestones, epics, sprints,
+release names, or roadmap references").
+
 ### Dynamic Context Injection
 
 Workflow files (SKILL.md, instructions, references) may embed
@@ -688,6 +727,7 @@ Before finalizing a new skill, verify:
 - [ ] Templates inline in their reference, marked strict or flexible
 - [ ] No `## Next Steps` (pipeline fan-forward) — references end where their job ends
 - [ ] Own-artifact isolation — authoring skill names only its own artifact, never a sibling's (only an integrator/renderer composes several)
+- [ ] Scope-boundary discipline — when the skill reads an upstream artifact, a read-step clause keeps source tokens (forward/sibling/downstream refs) out of the output
 - [ ] No time-sensitive content
 - [ ] Consistent terminology across SKILL.md, references, templates
 - [ ] All file paths use forward slashes
