@@ -40,7 +40,10 @@ Fill the template (below) with discovered context:
   `payment-processing`)
 - **Title**: short human-readable phrase, slug-safe. No commands,
   flags, file paths, parentheses, brackets, or pipes — becomes branch
-  name slug downstream.
+  name slug downstream. Declarative — names the capability
+  (`User authentication`), never a narrative outcome (`Users can sign
+  in securely`). The title maps to the tracker's summary field on
+  push; outcome prose lives only in the body's Summary section.
 - **Status**: always starts as `planned`
 - **Prose context**: what the epic is about, why it exists, what changes
   for the user -- use a real scenario

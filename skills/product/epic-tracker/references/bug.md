@@ -67,7 +67,11 @@ Fill the template (below):
   `login-timeout-error`)
 - **Title**: short human-readable phrase describing the defect,
   slug-safe. No commands, flags, file paths, parentheses, brackets, or
-  pipes — becomes branch name slug downstream.
+  pipes — becomes branch name slug downstream. Declarative — names the
+  defect (`Login fails with expired token`), never a narrative of the
+  fix or its outcome (`Users stay logged in after token refresh`). The
+  title maps to the tracker's summary field on push; outcome prose
+  lives only in the body's Summary section.
 - **Epic**: parent epic name, or omit for standalone bugs
 - **Type**: always `bug`
 - **Status**: always starts as `planned`

@@ -31,6 +31,11 @@ Present the current body to the user. Capture the proposed edit (full
 revised body or a targeted section change). Hold the edit in memory; do
 not write yet.
 
+If the edit touches the title, keep it declarative — it names the
+deliverable and maps to the tracker's summary field; narrative outcome
+prose belongs only in the body's Summary section (see the Title rules
+in [story.md](story.md)).
+
 ### 3. Diff AC Section
 
 Extract the AC section from the pre-edit body and the post-edit body:

@@ -52,7 +52,11 @@ Fill the template (below):
   `refactor-auth-middleware`, `setup-sentry`)
 - **Title**: short human-readable phrase, slug-safe. No commands,
   flags, file paths, parentheses, brackets, or pipes — becomes branch
-  name slug downstream.
+  name slug downstream. Declarative — names the work
+  (`Upgrade CI runner image`), never a narrative outcome (`Builds run
+  faster on the new image`). The title maps to the tracker's summary
+  field on push; outcome prose lives only in the body's Summary
+  section.
 - **Type**: always `issue`
 - **Epic**: parent epic name, or omit for standalone issues
 - **Status**: always starts as `planned`

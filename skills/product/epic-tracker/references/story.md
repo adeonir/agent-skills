@@ -34,7 +34,11 @@ Fill the template (below):
   `reset-password-flow`) -- the prefix lives in the filename only
 - **Title**: short human-readable phrase, slug-safe. No commands,
   flags, file paths, parentheses, brackets, or pipes — becomes branch
-  name slug downstream.
+  name slug downstream. Declarative — names the deliverable
+  (`Reset password flow`), never a narrative outcome (`User can reset
+  their password to regain access`). The title maps to the tracker's
+  summary field on push; outcome prose lives only in the body's
+  Summary section.
 - **Epic**: parent epic name (must match an existing epic directory)
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what

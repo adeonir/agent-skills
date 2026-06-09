@@ -32,7 +32,11 @@ Fill the template (below):
   `q2-release`)
 - **Title**: short human-readable release phrase, slug-safe. No
   commands, flags, file paths, parentheses, brackets, or pipes —
-  becomes branch name slug downstream.
+  becomes branch name slug downstream. Declarative — names the release
+  (`Billing v2 launch`), never a narrative outcome (`Customers get
+  consolidated invoices`). The title maps to the tracker's summary
+  field on push; outcome prose lives only in the body's Summary
+  section.
 - **Status**: always starts as `planned` (planned, in-progress,
   released)
 - **Prose context**: what this release delivers, why these stories
