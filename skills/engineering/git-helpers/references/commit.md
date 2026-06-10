@@ -106,7 +106,8 @@ Before presenting the message, verify:
 
 - Subject uses imperative mood, under 72 characters
 - Body (if present) uses bullet points, not paragraphs
-- Body adds context the diff alone does not communicate
+- Every body bullet traces to the staged diff or an explicit user
+  directive — nothing sourced from conversation narrative
 - No file names, paths, versions, or attribution in the message
 
 Display the proposed commit message to the user before committing.
@@ -123,8 +124,8 @@ for explicit approval — drafted messages often have gaps the user catches.
 git commit -m "$(cat <<'EOF'
 type: concise description
 
-- Context that the diff alone does not communicate
-- Motivation, impact, or key decisions behind the change
+- Diff-observable impact the subject cannot carry
+- Motivation explicitly supplied by the user, if any
 EOF
 )"
 ```
@@ -198,26 +199,30 @@ or breaking change.
 
 **The body is not a changelog.** Do not restate what the diff already shows.
 If a bullet could be inferred by reading the diff, omit it. The body exists
-to capture what the diff cannot express: motivation, trade-offs, decisions,
-and impact on the user or system.
+to capture *why* — but only from the two allowed sources: what the staged
+diff itself makes observable (a breaking signature change, a migration
+implied by a schema change) and explicit user directives in the request.
+Session narrative — features discussed, plans drafted, alternatives debated
+in conversation — is not a source for the body any more than for the subject.
 
 Before adding a body, ask: "Does this explain *why*, or just re-describe *what*?"
-If it's the latter, **first try to rewrite it** to capture motivation,
-trade-offs, or impact. Only drop the body if no such context exists.
+If it's the latter, **first try to rewrite it** from the allowed sources.
+If neither the staged diff nor an explicit user directive carries a real
+*why*, drop the body and keep only the subject.
 
 When the user asks to reevaluate or fix a changelog-style body, do not
-silently delete it. Attempt a rewrite first using the conversation context
-(why the change was needed, what it unblocks, what alternative was rejected).
-If after the rewrite there is still no real *why* to capture, then drop the
-body and keep only the subject — and tell the user that's what you did and
-why, so they can supply context if you missed it.
+silently delete it. Attempt a rewrite first from the allowed sources (the
+staged diff and explicit user directives). If neither carries a real *why*,
+drop the body and keep only the subject — and tell the user that's what you
+did and why, so they can supply the missing context as an explicit directive.
 
 When included:
 
 - 1 to 5 bullet points maximum
 - Start each bullet with a lowercase verb in imperative mood (e.g.,
   "- support", "- add", "- remove" — never "- supports", "- added")
-- Add context the diff alone does not communicate (motivation, impact, decisions)
+- Add context from the allowed sources only (diff-observable impact,
+  user-supplied motivation)
 - No file names or paths
 - No listing every change (the subject line summarizes)
 

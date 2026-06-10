@@ -35,6 +35,25 @@ git diff {base}...HEAD
 
 ### Step 4: Analyze Changes
 
+**The branch diff and commit log are the single source of truth.** Agents
+tend to drag session narrative into PR bodies — block that instinct.
+Features discussed, plans drafted, alternatives debated in conversation
+are not content unless the diff shows them.
+
+**Discard for content generation:**
+
+- Prior conversation narrative and agent intuition about the work
+- Future work, follow-ups, or roadmap context from the session
+
+**Retain:**
+
+- The `{base}...HEAD` diff and commit subjects from Step 3
+- Explicit user directives about the PR itself — title override, base
+  branch, issue number to close. They shape format and metadata, not
+  invented content.
+
+Based only on those sources:
+
 - Review commits and diff
 - Determine appropriate PR type
 
@@ -55,7 +74,7 @@ ALWAYS use this exact template structure:
 ````markdown
 ## Summary
 
-{{What changed and why (2-3 sentences focusing on the motivation and impact)}}
+{{What changed and why, derived from the diff and commit log (2-3 sentences)}}
 
 **Type:** {{bug fix | new feature | refactor | breaking change | documentation | configuration}}
 
@@ -74,6 +93,14 @@ ALWAYS use this exact template structure:
 
 Closes #{{issue-number}}
 ````
+
+The body MUST NOT contain:
+
+- Session narrative — discussions, plans, or decisions from the
+  conversation that the diff does not show
+- Alternatives debated in chat or rejected approaches
+- Future work, follow-ups, or roadmap references
+- Attribution lines
 
 ### Step 6: Push and Create PR
 
