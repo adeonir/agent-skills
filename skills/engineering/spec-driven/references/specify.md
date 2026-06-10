@@ -360,8 +360,8 @@ Optional:    Where {feature}, the system shall {action}.
 Unwanted:    If {unwanted condition}, then the system shall {mitigation}.
 ```
 
-One trigger, one outcome per AC. Each shape maps cleanly to a Given/When/Then or
-property-based test downstream — that mapping lives in the tests, not the spec.
+One trigger, one outcome per AC. Each AC maps to a test downstream — that
+mapping lives in the tests, not the spec.
 Happy paths go in ACs; boundary conditions go in Edge Cases. AC IDs are monotonic
 and never reused: removing an AC retires its ID with a tombstone entry — status
 `removed` plus a one-line reason — instead of renumbering, so existing task and
@@ -423,7 +423,7 @@ there is no separate review file. Show `[pass]` or `[fail]` per line.
 
 - [ ] Every AC matches one EARS-lite shape (ubiquitous, event, state, optional, unwanted)
 - [ ] Every AC is atomic — one trigger, one outcome, no compound "and"
-- [ ] Every AC is testable — a Given/When/Then test is describable without guessing intent
+- [ ] Every AC is testable — a concrete test is describable without guessing intent
 - [ ] Every Goal maps to at least one Success Criterion
 - [ ] Every domain term used in an AC is defined (no undefined jargon)
 - [ ] Open Questions are each resolved or explicitly deferred with a reason
