@@ -89,7 +89,9 @@ invoked directly. `aesthetics.md` and `presets.md` auto-load inside
 `direction.md`; `aesthetics.md` also auto-loads inside `design.md` for
 token-authoring principles; `anti-patterns.md` auto-loads inside
 `preview.md`, which serves the styleguide through
-`scripts/preview-server.ts`. `validate.md` is both directly callable and
+`scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG
+contrast through `scripts/check-contrast.ts` — ratios are computed,
+never estimated. `validate.md` is both directly callable and
 auto-loaded as a gate by `design.md` and `reconcile.md`, so
 DESIGN.md never lands invalid.
 

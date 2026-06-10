@@ -92,6 +92,7 @@ Bundled lookups auto-loaded by the relevant instruction phase:
 ## Requirements
 
 - Optional: any design-tool MCP for pull operations
+- Optional: `bun` runtime for the bundled scripts (styleguide preview server, WCAG contrast checker); contrast checks fall back to manual computation when absent
 
 ## FAQ
 

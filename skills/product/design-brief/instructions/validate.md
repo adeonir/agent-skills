@@ -2,7 +2,7 @@
 
 Audit `DESIGN.md` against the linter rules. Read-only: never patches the file. Reports findings; user decides what to fix.
 
-Runs twelve linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage`, `library-name-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency.
+Runs twelve linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage`, `library-name-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency; only the `contrast-ratio` rule delegates its arithmetic to the skill's bundled contrast script (Step 4).
 
 ## When to Use
 
@@ -65,10 +65,21 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 
 ### Step 4: Color Rules — `missing-primary` + `contrast-ratio` + `orphaned-tokens` + `oklch-hex-pair`
 
+Contrast ratios are computed, never estimated by eye. Run the bundled script (execute it; do not read it as reference):
+
+```bash
+bun run ${CLAUDE_SKILL_DIR}/scripts/check-contrast.ts docs/design/DESIGN.md
+```
+
+It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. Map its output onto the `contrast-ratio` checks below. If `bun` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.
+
 | Check | Severity |
 |-------|----------|
 | `colors.primary` exists when any `colors` are defined | warning |
+| Every `colors.<base>` / `colors.<base>-foreground` pair meets 4.5:1 — a `*-foreground` token is text on its base surface by construction (`foreground` itself pairs with `background`) | error |
+| `colors.muted-foreground` meets 4.5:1 against `colors.background` and `colors.card` — it doubles as secondary text on those surfaces | error |
 | For every `components.<name>` with both `backgroundColor` and `textColor` resolved, contrast ratio meets WCAG AA (4.5:1 for body, 3:1 for large text and UI) | warning |
+| `-disabled` component variants are exempt from contrast checks — WCAG 1.4.3 excludes inactive UI; the script reports them as SKIP | info |
 | Color tokens defined but not referenced by any `components.*` entry (excluding paired foreground tokens) | warning |
 | When a color is an object `{ hex, oklch }`, both values parse correctly and resolve to the same color within 1 sRGB unit per channel | warning |
 
@@ -209,7 +220,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - Block on warnings or info (contrasts: only errors block)
 - Re-run discovery or design-brief (contrasts: this ref operates on the file as-is)
 - Invent fixes; report findings and let the user decide (contrasts: never auto-fix)
-- Shell out to an external linter binary (contrasts: this ref runs the rules inline)
+- Shell out to an external linter binary (contrasts: rules run inline; the bundled contrast script ships with the skill and is the only executable step)
 - Judge which state behavior is correct, or flag it for differing from a convention — state behavior is a project choice; check prose↔token consistency, not behavioral preference
 
 ## Error Handling
@@ -217,6 +228,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - No DESIGN.md in `docs/design/`: stop and route the user to `design.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
 - YAML parses but `colors` is empty: report what is missing, suggest running design-brief
+- `bun` unavailable for the contrast script: compute ratios manually from the hex values and mark every contrast finding as estimated
 
 ## Outcomes
 
