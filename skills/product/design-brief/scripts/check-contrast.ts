@@ -18,8 +18,19 @@
  *   - `-disabled` component variants reported SKIP (inactive UI is
  *     exempt under WCAG 1.4.3)
  *
- * Object-form colors ({ hex, oklch }) are checked through their `hex`
- * member; hex↔oklch agreement is a separate validate rule.
+ * The `colors:` block may be flat, or grouped into skins (light/dark
+ * or any other name). Skin groups are detected structurally — a child
+ * map without a `hex`/`oklch` member is a group — never by name. Each
+ * skin's pairs are checked independently; component references resolve
+ * once per skin.
+ *
+ * Object-form colors are checked through their `hex` member, in both
+ * block form (nested `hex:` line) and inline flow form
+ * (`{ hex: "#...", oklch: "..." }`); hex↔oklch agreement is a separate
+ * validate rule.
+ *
+ * A run where every pair skips verifies nothing and exits 2 — an
+ * all-SKIP result must never read as a passing gate.
  *
  * Exit codes: 0 = no failures, 1 = at least one FAIL, 2 = usage/IO error.
  */
@@ -108,32 +119,93 @@ function extractFrontmatter(markdown: string): string | null {
   return match ? match[1] : null;
 }
 
-// Minimal parser for the flat `colors:` block: values are hex strings
-// or two-key objects whose `hex` member carries the checkable value.
-function parseColors(yaml: string): Record<string, string> {
-  const colors: Record<string, string> = {};
-  let inBlock = false;
-  let pendingKey: string | null = null;
-  for (const line of yaml.split(/\r?\n/)) {
-    if (/^colors:\s*$/.test(line)) {
-      inBlock = true;
-      continue;
-    }
-    if (inBlock && /^\S/.test(line)) break; // next top-level key ends the block
-    if (!inBlock || !line.trim()) continue;
-    const flat = /^ {2}([\w-]+):\s*(\S.*)$/.exec(line);
-    const nested = /^ {2}([\w-]+):\s*$/.exec(line);
-    const hexProp = /^ {4,}hex:\s*(\S.*)$/.exec(line);
-    if (flat) {
-      colors[flat[1]] = unquote(flat[2]);
-      pendingKey = null;
-    } else if (nested) {
-      pendingKey = nested[1];
-    } else if (hexProp && pendingKey) {
-      colors[pendingKey] = unquote(hexProp[1]);
+type ColorMap = Record<string, string>;
+// Skin name -> token -> raw color value. The "" key is the default
+// skin holding flat (ungrouped) tokens.
+type Skins = Record<string, ColorMap>;
+
+type YamlNode = string | { [key: string]: YamlNode };
+
+// Minimal indentation walker: returns the subtree under a column-0
+// `rootKey:` as nested maps of raw string values. Inline flow values
+// (`{ ... }`) stay as the raw string for the caller to inspect.
+function parseSubtree(yaml: string, rootKey: string): YamlNode | null {
+  const lines = yaml.split(/\r?\n/);
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i] === `${rootKey}:` || lines[i].startsWith(`${rootKey}: `)) {
+      start = i;
+      break;
     }
   }
-  return colors;
+  if (start === -1) return null;
+  const root: { [key: string]: YamlNode } = {};
+  const stack: Array<{ indent: number; node: { [key: string]: YamlNode } }> = [
+    { indent: 0, node: root },
+  ];
+  for (let i = start + 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line.trim() || /^\s*#/.test(line)) continue;
+    const entry = /^( +)([\w-]+):\s*(.*)$/.exec(line);
+    if (!entry) break; // column-0 key or non-key line ends the block
+    const indent = entry[1].length;
+    while (stack.length > 1 && indent <= stack[stack.length - 1].indent) {
+      stack.pop();
+    }
+    const parent = stack[stack.length - 1].node;
+    if (entry[3]) {
+      parent[entry[2]] = unquote(entry[3]);
+    } else {
+      const child: { [key: string]: YamlNode } = {};
+      parent[entry[2]] = child;
+      stack.push({ indent, node: child });
+    }
+  }
+  return root;
+}
+
+// A color leaf carries its checkable value as a literal string, an
+// inline flow map with a `hex:` member, or a block map with a `hex`
+// key. Returns the raw candidate (parseHex validates later); a leaf
+// with only `oklch` returns that string so the pair surfaces as SKIP
+// instead of vanishing.
+function colorLeafValue(node: YamlNode): string | null {
+  if (typeof node === "string") {
+    const flow = /^\{.*\bhex:\s*([^,}]+)/.exec(node);
+    return flow ? unquote(flow[1]) : node;
+  }
+  if (typeof node.hex === "string") return unquote(node.hex);
+  if (typeof node.oklch === "string") return unquote(node.oklch);
+  return null;
+}
+
+function isColorLeaf(node: YamlNode): boolean {
+  return typeof node === "string" || "hex" in node || "oklch" in node;
+}
+
+// Interpret the `colors:` subtree. Flat tokens land in the "" skin; a
+// child map without a `hex`/`oklch` member is a skin group (light,
+// dark, any name — groups are structural, never name-matched) holding
+// its own token map.
+function parseColors(yaml: string): Skins {
+  const tree = parseSubtree(yaml, "colors");
+  const skins: Skins = {};
+  if (!tree || typeof tree === "string") return skins;
+  const put = (skin: string, token: string, raw: string) => {
+    (skins[skin] ??= {})[token] = raw;
+  };
+  for (const [key, value] of Object.entries(tree)) {
+    if (isColorLeaf(value)) {
+      const raw = colorLeafValue(value);
+      if (raw !== null) put("", key, raw);
+      continue;
+    }
+    for (const [token, tokenValue] of Object.entries(value)) {
+      const raw = isColorLeaf(tokenValue) ? colorLeafValue(tokenValue) : null;
+      if (raw !== null) put(key, token, raw);
+    }
+  }
+  return skins;
 }
 
 // Minimal parser for `components:`: name -> { prop: rawValue }.
@@ -161,14 +233,22 @@ function parseComponents(yaml: string): Record<string, Record<string, string>> {
 }
 
 // Resolve a component color prop: a literal hex value, or a
-// `{colors.<token>}` reference with an optional `/NN` opacity modifier.
+// `{colors.<token>}` reference with an optional `/NN` opacity
+// modifier. References resolve in the active skin first, then the
+// flat default skin; a dotted path (`{colors.<skin>.<token>}`) pins a
+// specific skin.
 function resolveColor(
   raw: string,
-  colors: Record<string, string>,
+  colors: ColorMap,
+  skins: Skins,
 ): { rgb: Rgb; alpha: number } | null {
-  const ref = /^\{colors\.([\w-]+)\}(?:\/(\d{1,3}))?$/.exec(unquote(raw));
+  const ref = /^\{colors\.([\w.-]+)\}(?:\/(\d{1,3}))?$/.exec(unquote(raw));
   if (ref) {
-    const hex = colors[ref[1]];
+    let hex: string | undefined = colors[ref[1]] ?? skins[""]?.[ref[1]];
+    if (!hex && ref[1].includes(".")) {
+      const dot = ref[1].indexOf(".");
+      hex = skins[ref[1].slice(0, dot)]?.[ref[1].slice(dot + 1)];
+    }
     if (!hex) return null;
     const rgb = parseHex(hex);
     if (!rgb) return null;
@@ -196,8 +276,9 @@ function checkFile(path: string, asJson: boolean): never {
     console.error(`No YAML frontmatter found in ${path}`);
     process.exit(2);
   }
-  const colors = parseColors(yaml);
-  if (Object.keys(colors).length === 0) {
+  const skins = parseColors(yaml);
+  const skinNames = Object.keys(skins);
+  if (skinNames.length === 0) {
     console.error(`No parseable color tokens found in ${path}`);
     process.exit(2);
   }
@@ -219,35 +300,44 @@ function checkFile(path: string, asJson: boolean): never {
     });
   };
 
-  const checkTokenPair = (baseKey: string, fgKey: string) => {
-    const bg = parseHex(colors[baseKey]);
-    const fg = parseHex(colors[fgKey]);
-    if (!bg || !fg) {
-      findings.push({
-        status: "SKIP",
-        ratio: null,
-        pair: `colors.${fgKey} on colors.${baseKey}`,
-        note: "unparseable hex value",
-      });
-      return;
-    }
-    check(bg, fg, `colors.${fgKey} on colors.${baseKey}`);
-  };
+  for (const skinName of skinNames) {
+    const colors = skins[skinName];
+    const label = (token: string) =>
+      skinName ? `colors.${skinName}.${token}` : `colors.${token}`;
 
-  for (const name of Object.keys(colors)) {
-    if (!name.endsWith("foreground")) continue;
-    const base =
-      name === "foreground" ? "background" : name.replace(/-foreground$/, "");
-    if (base !== name && colors[base]) checkTokenPair(base, name);
+    const checkTokenPair = (baseKey: string, fgKey: string) => {
+      const bg = parseHex(colors[baseKey]);
+      const fg = parseHex(colors[fgKey]);
+      if (!bg || !fg) {
+        findings.push({
+          status: "SKIP",
+          ratio: null,
+          pair: `${label(fgKey)} on ${label(baseKey)}`,
+          note: "unparseable hex value",
+        });
+        return;
+      }
+      check(bg, fg, `${label(fgKey)} on ${label(baseKey)}`);
+    };
+
+    for (const name of Object.keys(colors)) {
+      if (!name.endsWith("foreground")) continue;
+      const base =
+        name === "foreground" ? "background" : name.replace(/-foreground$/, "");
+      if (base !== name && colors[base]) checkTokenPair(base, name);
+    }
+
+    // muted-foreground doubles as secondary text on background and card
+    if (colors["muted-foreground"]) {
+      for (const surface of ["background", "card"]) {
+        if (colors[surface]) checkTokenPair(surface, "muted-foreground");
+      }
+    }
   }
 
-  // muted-foreground doubles as secondary text on background and card
-  if (colors["muted-foreground"]) {
-    for (const surface of ["background", "card"]) {
-      if (colors[surface]) checkTokenPair(surface, "muted-foreground");
-    }
-  }
-
+  // Component references carry no skin name, so each pair resolves and
+  // checks once per skin that can resolve it; a single SKIP surfaces
+  // only when no skin resolves the pair.
   for (const [name, props] of Object.entries(components)) {
     const bgRaw = props.backgroundColor;
     const fgRaw = props.textColor;
@@ -261,29 +351,39 @@ function checkFile(path: string, asJson: boolean): never {
       });
       continue;
     }
-    const bg = resolveColor(bgRaw, colors);
-    const fg = resolveColor(fgRaw, colors);
-    if (!bg || !fg) {
+    let resolvedAny = false;
+    for (const skinName of skinNames) {
+      const colors = skins[skinName];
+      const bg = resolveColor(bgRaw, colors, skins);
+      const fg = resolveColor(fgRaw, colors, skins);
+      if (!bg || !fg) continue;
+      resolvedAny = true;
+      // A translucent background composites over the page; approximate the
+      // page with colors.background, falling back to opaque white.
+      const page = parseHex(
+        colors.background ?? skins[""]?.background ?? "#FFFFFF",
+      ) ?? { r: 255, g: 255, b: 255 };
+      const bgRgb = bg.alpha < 1 ? blend(bg.rgb, page, bg.alpha) : bg.rgb;
+      const fgRgb = fg.alpha < 1 ? blend(fg.rgb, bgRgb, fg.alpha) : fg.rgb;
+      const suffix = skinName ? ` [${skinName}]` : "";
+      check(
+        bgRgb,
+        fgRgb,
+        `components.${name} textColor on backgroundColor${suffix}`,
+      );
+    }
+    if (!resolvedAny) {
       findings.push({
         status: "SKIP",
         ratio: null,
         pair: `components.${name}`,
         note: "color did not resolve to a hex value",
       });
-      continue;
     }
-    // A translucent background composites over the page; approximate the
-    // page with colors.background, falling back to opaque white.
-    const page = parseHex(colors.background ?? "#FFFFFF") ?? {
-      r: 255,
-      g: 255,
-      b: 255,
-    };
-    const bgRgb = bg.alpha < 1 ? blend(bg.rgb, page, bg.alpha) : bg.rgb;
-    const fgRgb = fg.alpha < 1 ? blend(fg.rgb, bgRgb, fg.alpha) : fg.rgb;
-    check(bgRgb, fgRgb, `components.${name} textColor on backgroundColor`);
   }
 
+  const fails = findings.filter((f) => f.status === "FAIL").length;
+  const skips = findings.filter((f) => f.status === "SKIP").length;
   if (asJson) {
     console.log(JSON.stringify(findings, null, 2));
   } else {
@@ -291,10 +391,16 @@ function checkFile(path: string, asJson: boolean): never {
       const ratio = f.ratio === null ? "  --  " : formatRatio(f.ratio).padStart(7);
       console.log(`${f.status.padEnd(4)} ${ratio}  ${f.pair}${f.note ? ` (${f.note})` : ""}`);
     }
-    const fails = findings.filter((f) => f.status === "FAIL").length;
-    console.log(`\n${findings.length} pairs checked, ${fails} failing`);
+    console.log(`\n${findings.length} pairs checked, ${fails} failing, ${skips} skipped`);
   }
-  process.exit(findings.some((f) => f.status === "FAIL") ? 1 : 0);
+  // An all-SKIP run verified nothing; never let it read as a pass.
+  if (findings.length > 0 && skips === findings.length) {
+    console.error(
+      "Every pair was skipped — nothing verified. Check the color token shapes.",
+    );
+    process.exit(2);
+  }
+  process.exit(fails > 0 ? 1 : 0);
 }
 
 function checkPair(a: string, b: string): never {
