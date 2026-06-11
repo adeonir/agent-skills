@@ -18,11 +18,15 @@
  *   - `-disabled` component variants reported SKIP (inactive UI is
  *     exempt under WCAG 1.4.3)
  *
- * The `colors:` block may be flat, or grouped into skins (light/dark
+ * The `colors:` block may be flat, or carry skin groups (light/dark
  * or any other name). Skin groups are detected structurally — a child
- * map without a `hex`/`oklch` member is a group — never by name. Each
- * skin's pairs are checked independently; component references resolve
- * once per skin.
+ * map without a `hex`/`oklch` member is a group — never by name. Flat
+ * tokens form the default skin; each named group is an override skin
+ * inheriting every flat token it does not redefine. Which tone is the
+ * default and which overrides is the author's call. Override skins
+ * re-check only the pairs an override touches (the inherited rest is
+ * identical to the default-skin result); a file with only groups and
+ * no flat tokens checks each group standalone.
  *
  * Object-form colors are checked through their `hex` member, in both
  * block form (nested `hex:` line) and inline flow form
@@ -247,7 +251,8 @@ function resolveColor(
     let hex: string | undefined = colors[ref[1]] ?? skins[""]?.[ref[1]];
     if (!hex && ref[1].includes(".")) {
       const dot = ref[1].indexOf(".");
-      hex = skins[ref[1].slice(0, dot)]?.[ref[1].slice(dot + 1)];
+      const token = ref[1].slice(dot + 1);
+      hex = skins[ref[1].slice(0, dot)]?.[token] ?? skins[""]?.[token];
     }
     if (!hex) return null;
     const rgb = parseHex(hex);
@@ -277,10 +282,35 @@ function checkFile(path: string, asJson: boolean): never {
     process.exit(2);
   }
   const skins = parseColors(yaml);
-  const skinNames = Object.keys(skins);
-  if (skinNames.length === 0) {
+  if (Object.keys(skins).length === 0) {
     console.error(`No parseable color tokens found in ${path}`);
     process.exit(2);
+  }
+
+  // Flat tokens form the default skin; each named group is an override
+  // skin inheriting every flat token it does not redefine. No group
+  // name is special — the author picks which tone is the default.
+  const flat = skins[""] ?? {};
+  const flatHasTokens = Object.keys(flat).length > 0;
+  const skinEntries: Array<{
+    name: string;
+    colors: ColorMap;
+    overrides: Set<string>;
+  }> = [];
+  if (flatHasTokens) {
+    skinEntries.push({
+      name: "",
+      colors: flat,
+      overrides: new Set(Object.keys(flat)),
+    });
+  }
+  for (const name of Object.keys(skins)) {
+    if (name === "") continue;
+    skinEntries.push({
+      name,
+      colors: { ...flat, ...skins[name] },
+      overrides: new Set(Object.keys(skins[name])),
+    });
   }
   const components = parseComponents(yaml);
   const findings: Finding[] = [];
@@ -300,10 +330,14 @@ function checkFile(path: string, asJson: boolean): never {
     });
   };
 
-  for (const skinName of skinNames) {
-    const colors = skins[skinName];
+  for (const { name: skinName, colors, overrides } of skinEntries) {
     const label = (token: string) =>
       skinName ? `colors.${skinName}.${token}` : `colors.${token}`;
+
+    // In an override skin, a pair neither side of which is overridden
+    // is byte-identical to the default-skin check — skip the duplicate.
+    const touchesOverride = (a: string, b: string) =>
+      overrides.has(a) || overrides.has(b);
 
     const checkTokenPair = (baseKey: string, fgKey: string) => {
       const bg = parseHex(colors[baseKey]);
@@ -324,20 +358,35 @@ function checkFile(path: string, asJson: boolean): never {
       if (!name.endsWith("foreground")) continue;
       const base =
         name === "foreground" ? "background" : name.replace(/-foreground$/, "");
-      if (base !== name && colors[base]) checkTokenPair(base, name);
+      if (base !== name && colors[base] && touchesOverride(base, name)) {
+        checkTokenPair(base, name);
+      }
     }
 
     // muted-foreground doubles as secondary text on background and card
     if (colors["muted-foreground"]) {
       for (const surface of ["background", "card"]) {
-        if (colors[surface]) checkTokenPair(surface, "muted-foreground");
+        if (colors[surface] && touchesOverride(surface, "muted-foreground")) {
+          checkTokenPair(surface, "muted-foreground");
+        }
       }
     }
   }
 
+  // A `{colors.<token>}` reference varies with the active skin; a
+  // skin-pinned (`{colors.<skin>.<token>}`) or literal value does not.
+  const skinVaryingToken = (raw: string): string | null => {
+    const ref = /^\{colors\.([\w.-]+)\}/.exec(unquote(raw));
+    return ref && !ref[1].includes(".") ? ref[1] : null;
+  };
+  const hasOpacity = (raw: string): boolean =>
+    /\}\/\d{1,3}$/.test(unquote(raw));
+
   // Component references carry no skin name, so each pair resolves and
   // checks once per skin that can resolve it; a single SKIP surfaces
-  // only when no skin resolves the pair.
+  // only when no skin resolves the pair. In an override skin the pair
+  // re-checks only when an override touches it — via either referenced
+  // token, or via `background` when a translucent value blends over it.
   for (const [name, props] of Object.entries(components)) {
     const bgRaw = props.backgroundColor;
     const fgRaw = props.textColor;
@@ -351,9 +400,18 @@ function checkFile(path: string, asJson: boolean): never {
       });
       continue;
     }
+    const bgToken = skinVaryingToken(bgRaw);
+    const fgToken = skinVaryingToken(fgRaw);
+    const blendsOverPage = hasOpacity(bgRaw) || hasOpacity(fgRaw);
     let resolvedAny = false;
-    for (const skinName of skinNames) {
-      const colors = skins[skinName];
+    for (const { name: skinName, colors, overrides } of skinEntries) {
+      const inherited =
+        skinName !== "" &&
+        flatHasTokens &&
+        !(bgToken && overrides.has(bgToken)) &&
+        !(fgToken && overrides.has(fgToken)) &&
+        !(blendsOverPage && overrides.has("background"));
+      if (inherited) continue; // identical to the default-skin check
       const bg = resolveColor(bgRaw, colors, skins);
       const fg = resolveColor(fgRaw, colors, skins);
       if (!bg || !fg) continue;
