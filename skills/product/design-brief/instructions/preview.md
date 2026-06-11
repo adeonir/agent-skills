@@ -30,7 +30,7 @@ The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens
 At generation time, parse the frontmatter, resolve every `{path.to.token}`
 reference, and embed CSS custom properties directly in the generated HTML:
 
-- **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind v4's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment.
+- **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind v4's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment. Flat tokens emit into the root theme block; a skin override group (`colors.<skin>.*`) emits a scoped block — `[data-skin="<name>"] { --color-background: ...; }` — redefining only the variables it overrides, so everything else inherits from the root through the cascade, mirroring the frontmatter's inheritance.
 - **Typography** — from `typography.*`. Each role becomes related properties (`--font-display-family`, `--font-display-size`, `--font-display-weight`, ...). Role keys map 1:1 to kebab-case prefixes.
 - **Spacing** — from `spacing.*`. Numeric Tailwind scale keys become `--spacing-1`, `--spacing-2`, ...
 - **Radius** — from `rounded.*`. Scale keys become Tailwind v4's `--radius-*` (`--radius-xs`, `--radius-sm`, ...).
@@ -93,13 +93,14 @@ The sheet has two layers, kept strictly separate:
 This sheet is looked at, so it must read well — internal, but good:
 
 - A sticky top bar with jump-nav to the ten groups.
+- When `colors` carries a skin override group, the top bar adds a skin switcher that toggles `data-skin` on `<body>` (never `<html>` — root-level inline tunes must not out-cascade the skin blocks), re-rendering every specimen under the active skin. The switcher is chrome — neutral styling, never project tokens.
 - Each group is a titled section with a one-line caption — no token counts — and generous neutral spacing.
 - A consistent token-card system: the rendered specimen, its key, its value, its role.
 - Responsive grids for swatches and cards; nothing cramped.
 
 ### Per-group specimens
 
-- **`colors`** — when the palette has a **raw layer** (brand-named hues that the semantic roles alias — detected by color keys outside the standard role vocabulary, or semantic values referencing `{colors.*}`), lead with a **Brand Raw** subgroup showing those canonical hues, then the semantic role groups. Otherwise go straight to the role groups. Role groups follow DESIGN.md Section 2 (Primary, Secondary & Accent, Surface, Neutrals, Semantic). Each swatch: the color chip, evocative name, token key, hex (and `oklch` when the YAML carries the object), role. For any color that carries text or sits as a fill, show a text-on-fill sample plus the computed WCAG contrast ratio and an AA / AAA badge — paired against the color it meets in use: a fill pairs with the `textColor` its component sets, a text color pairs with its surface (usually `background`). Derive the pairing from `components.*`, with `<token>-foreground` as the common shortcut — not the token name alone. Each swatch carries tuner metadata — `data-tune-swatch`, `data-token`, `data-var`, `data-pair` (the pairing), `data-original` (the hex) — so the preview server can build the color tuner overlay from the swatches, no separate file.
+- **`colors`** — when the palette has a **raw layer** (brand-named hues that the semantic roles alias — detected by color keys outside the standard role vocabulary, or semantic values referencing `{colors.*}`), lead with a **Brand Raw** subgroup showing those canonical hues, then the semantic role groups. Otherwise go straight to the role groups. Role groups follow DESIGN.md Section 2 (Primary, Secondary & Accent, Surface, Neutrals, Semantic). Each swatch: the color chip, evocative name, token key, hex (and `oklch` when the YAML carries the object), role. For any color that carries text or sits as a fill, show a text-on-fill sample plus the computed WCAG contrast ratio and an AA / AAA badge — paired against the color it meets in use: a fill pairs with the `textColor` its component sets, a text color pairs with its surface (usually `background`). Derive the pairing from `components.*`, with `<token>-foreground` as the common shortcut — not the token name alone. When a skin override group exists, each overridden token gets its own swatch under the active skin with `data-token` carrying the full skinned path (`colors.<skin>.<token>`), and contrast badges recompute against the skin's resolved pairing — an inherited partner resolves to its flat value. Each swatch carries tuner metadata — `data-tune-swatch`, `data-token`, `data-var`, `data-pair` (the pairing), `data-original` (the hex) — so the preview server can build the color tuner overlay from the swatches, no separate file.
 - **`typography`** — type ramp, one row per role: the role name and spec (font / size / weight / line-height / letter-spacing) beside a live specimen rendered at the actual values. Name the loaded family.
 - **`spacing`** — a ruler of horizontal bars, one per scale step, bar length equal to the value, labeled key + rem/px.
 - **`rounded`** — a row of squares each with its corner radius applied, labeled key + value.
@@ -163,8 +164,10 @@ JS. The server reads each `data-tune-swatch` swatch (`data-token`, `data-var`,
 
 Editing a control swaps `--color-<key>` on the document (cascading through every
 specimen), recomputes the paired contrast live, and records a `tune` event keyed
-by the token path. A **Commit** button in the panel records a `commit` event. All
-contrast is engine-computed — never hand-entered.
+by the token path. A skinned swatch (`data-token` with a skin segment) swaps the
+variable inside that skin's scoped block, leaving the root values untouched, and
+its `tune` event keys by the full skinned path. A **Commit** button in the panel
+records a `commit` event. All contrast is engine-computed — never hand-entered.
 
 ## Comment
 
@@ -187,6 +190,7 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 
 3. **Flag edge cases on the list:**
    - **Color object token** — when the source is `{ hex, oklch }`, patch both fields so they stay equivalent.
+   - **Skinned token** — the path keeps its skin segment (`colors.<skin>.<token>`) so the patch lands inside that override group, never on the flat token.
    - **Stale evocative name** — a large hue shift (e.g. an "Indigo" token tuned toward red) makes the prose name stale. Note a suggested rename alongside the hex change.
 
 4. **Hand the patch list to [reconcile.md](reconcile.md)** as its Mode B input. reconcile presents the diff (confirm-before-write), patches the YAML frontmatter first and the citing prose bullets second, and runs validate as the gate. preview produces the diff; reconcile applies it.

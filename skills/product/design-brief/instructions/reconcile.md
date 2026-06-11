@@ -43,9 +43,13 @@ Detect and read in this order (same detection chain as design.md Step 2 Codebase
 
 If multiple sources overlap, ask the user which is authoritative.
 
+When the implementation carries two tones (e.g. `:root` plus a `.dark` or `.light` variant block, or a dual-tone `@theme`), map them onto the `colors` encoding: the tone the implementation treats as its root state corresponds to the flat tokens, the variant block to the named override group. Either tone may be the default — follow the implementation, not a fixed convention.
+
 ### Step 3: Diff (Mode A)
 
 Per frontmatter group (`colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`), list tokens that changed, were added, or are missing in the implementation.
+
+Diff `colors` per skin: flat tokens against the implementation's root tone, each override group against its variant block. A token that drifted only in the variant patches only the override group; report a variant token with no counterpart in DESIGN.md as an addition under that group, using its skinned path (e.g. `colors.light.background`).
 
 Emit one structured diff for DESIGN.md. In Mode B this diff is the patch list preview already handed over — skip to Step 4.
 
@@ -67,7 +71,7 @@ Run [validate.md](validate.md) against the patched DESIGN.md as the gate. Do not
 
 Update `docs/design/styleguide.html` to match the patched tokens:
 
-- **Value change** — patch the token's `var(--token)` definition in the theme block.
+- **Value change** — patch the token's `var(--token)` definition in the theme block. A skinned token (`colors.<skin>.<token>`) patches inside that skin's override block, not the root theme block.
 - **Structural change** (token added or removed, a new component or specimen group) — regenerate the affected section per the Styleguide spec in [preview.md](preview.md).
 
 ## Guidelines

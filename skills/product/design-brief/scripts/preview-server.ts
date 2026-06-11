@@ -161,12 +161,41 @@ function __contrast(c1, c2){
 function __wcagLevel(ratio){ return ratio>=7 ? 'AAA' : ratio>=4.5 ? 'AA' : 'fail'; }
 // Resolve any CSS color (hex, oklch, named) to rgb via a hidden probe — the
 // browser does the conversion, so the tuner never parses oklch by hand.
+// Passing a skin sets data-skin on the probe so [data-skin] override rules
+// apply and the var resolves to that skin's value.
 var __probe = null;
-function __resolveVarRgb(varName){
+function __resolveVarRgb(varName, skin){
   if (!__probe){ __probe = document.createElement('span'); __probe.style.display='none'; document.body.appendChild(__probe); }
+  if (skin) __probe.setAttribute('data-skin', skin); else __probe.removeAttribute('data-skin');
   __probe.style.color = 'var(' + varName + ')';
   var m = getComputedStyle(__probe).color.match(/\\d+/g);
   return m ? { r:+m[0], g:+m[1], b:+m[2] } : null;
+}
+// A skinned token path (colors.<skin>.<token>) names the override skin its
+// value belongs to; a flat path returns "".
+function __rowSkin(row){
+  var parts = (row.dataset.token || '').split('.');
+  return parts.length === 3 ? parts[1] : '';
+}
+// Apply a tuned value in the right scope. Flat tokens go inline on the root
+// element; the styleguide's [data-skin] blocks still win inside a switched
+// skin, mirroring the frontmatter's inheritance. Skinned tokens rebuild a
+// last-position style element whose [data-skin] rules out-cascade the
+// styleguide's own skin block (same specificity, later in document order)
+// without touching the root values.
+var __skinTunes = {};
+function __applyVar(skin, varName, hex){
+  if (!skin){ document.documentElement.style.setProperty(varName, hex); return; }
+  (__skinTunes[skin] = __skinTunes[skin] || {})[varName] = hex;
+  var el = document.getElementById('__tune-skin-overrides');
+  if (!el){ el = document.createElement('style'); el.id = '__tune-skin-overrides'; document.head.appendChild(el); }
+  var css = '';
+  Object.keys(__skinTunes).forEach(function(s){
+    css += '[data-skin="' + s + '"]{';
+    Object.keys(__skinTunes[s]).forEach(function(v){ css += v + ':' + __skinTunes[s][v] + ';'; });
+    css += '}';
+  });
+  el.textContent = css;
 }
 function __applyColorTune(row, target){
   var varName = row.dataset.var;
@@ -187,12 +216,13 @@ function __applyColorTune(row, target){
     if (picker) picker.value = __rgbToHex(rgb);
   }
   var hex = __rgbToHex(rgb);
-  document.documentElement.style.setProperty(varName, hex);
+  var skin = __rowSkin(row);
+  __applyVar(skin, varName, hex);
   var hexEl = row.querySelector('[data-hex-new]');
   if (hexEl) hexEl.textContent = hex;
   var pairVar = row.dataset.pairVar;
   if (pairVar) {
-    var pair = __resolveVarRgb(pairVar);
+    var pair = __resolveVarRgb(pairVar, skin);
     if (pair) {
       var ratio = __contrast(rgb, pair), lvl = __wcagLevel(ratio);
       var ratioEl = row.querySelector('[data-ratio-new]');
@@ -208,12 +238,15 @@ function __applyColorTune(row, target){
 function __initRow(row){
   var orig = row.dataset.original ? __hexToRgb(row.dataset.original) : null;
   if (!orig) return;
-  document.documentElement.style.setProperty(row.dataset.var, row.dataset.original);
+  var skin = __rowSkin(row);
+  // Assert the original only for flat tokens — an inline root assertion of a
+  // skinned original would bleed the skin's value into the default scope.
+  if (!skin) document.documentElement.style.setProperty(row.dataset.var, row.dataset.original);
   var hexEl = row.querySelector('[data-hex-new]');
   if (hexEl) hexEl.textContent = row.dataset.original;
   var pairVar = row.dataset.pairVar;
   if (!pairVar) return;
-  var pair = __resolveVarRgb(pairVar);
+  var pair = __resolveVarRgb(pairVar, skin);
   if (!pair) return;
   var ratio = __contrast(orig, pair), lvl = __wcagLevel(ratio);
   ['[data-ratio-current]','[data-ratio-new]'].forEach(function(s){ var el = row.querySelector(s); if (el) el.textContent = ratio.toFixed(2) + ':1'; });
@@ -334,6 +367,11 @@ function __mkTunerRow(sw){
   row.className = "__trow";
   row.setAttribute("data-tune-row", "");
   row.dataset.token = token; row.dataset.var = v; row.dataset.pairVar = pair; row.dataset.original = orig;
+  // A skinned row carries its skin attribute so [data-skin] override rules
+  // apply inside the row — its var() chips and Aa sample render the skin's
+  // values regardless of which skin the sheet is switched to.
+  var skinSeg = token.split(".").length === 3 ? token.split(".")[1] : "";
+  if (skinSeg) row.setAttribute("data-skin", skinSeg);
   row.innerHTML =
     "<div class='__thead'><span class='__tname'>" + token.replace(/^colors\\./, "") + "</span><span class='__tpair'>vs " + pairLabel + "</span></div>" +
     "<div class='__tsw'>" +
