@@ -87,3 +87,6 @@ dead-words list in [voice.md](voice.md).
 - **Weak opening** → lead with the reader's problem or outcome, not history.
 - **Buried CTA** → make the ask obvious and early.
 - **Generic claim** ("we help businesses grow") → specify who, how, how much.
+- **Hollow structure** ("it wasn't a detour, it was an evolution") → strip the
+  false antithesis and say the real thing; thin out em-dashes used for drama.
+  See dead structures in [voice.md](voice.md).

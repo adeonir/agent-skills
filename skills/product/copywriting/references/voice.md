@@ -90,3 +90,46 @@ Dead phrases to remove on sight: "I am a [adjective] [role] with a passion for
 [noun]", "in today's fast-paced world", "welcome to our site", "Let's connect"
 (name the real next step). The test for any line: would a real person say this
 out loud? If not, rewrite until yes.
+
+## Dead Structures
+
+Dead words are vocabulary; these are *shapes*. A line can use only plain words
+and still read as machine-written, because its skeleton is a rhetorical
+template carrying no information. Learn the shape, not a phrase list: the same
+hollow frame reappears in every language and rewording, so a blocklist of
+literal strings never catches it.
+
+### Empty antithesis
+
+The tell is a contrast scaffold that sounds profound and says nothing. It sets
+up a thing, negates it, then pivots to a grander thing: "It wasn't a detour, it
+was the natural path." The negated half is a strawman the reader never
+proposed; the pivot half is abstract enough to mean anything. It performs
+insight instead of delivering it.
+
+Recognize the move however it is worded ("not X, but Y", "it's not about X,
+it's about Y", "more than X, it's Y"). The example is an illustration, not a
+string to match — what repeats is the frame, not the words.
+
+Fix by deleting the false setup and stating the real thing, anchored to a
+concrete detail only this person could say:
+
+- Hollow: "Switching to code wasn't a detour, it was a natural evolution."
+- Real: "I switched to code and kept designing. Now I do both on one screen."
+
+The rewrite is not shorter for its own sake; it trades a borrowed frame for a
+specific fact. If stripping the antithesis leaves nothing behind, the line had
+nothing — write the actual claim instead.
+
+Related hollow frames: the inflated rule-of-three ("design, code, and purpose")
+where the third item is filler for rhythm, and the portentous one-line reframe
+that restates the previous sentence as if it were a revelation.
+
+### Em-dash density
+
+The em-dash is one of the most over-used machine tells. It manufactures a
+dramatic pause the sentence did not earn, and a page sprinkled with them reads
+as generated even when every line is otherwise fine. Default to a comma,
+period, or colon; reach for an em-dash only for a genuine aside, and rarely.
+Density is the giveaway, not the single mark: if a paragraph holds more than
+one, most are doing a comma's job.

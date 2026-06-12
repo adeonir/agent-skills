@@ -63,7 +63,7 @@ swappable: any `copy.yaml` must work independent of visual styling.
 Loaded on demand by the workflows:
 
 - `references/copy-frameworks.md` — headline formulas, content-part types, page shapes, CTA patterns
-- `references/voice.md` — voice axes, proof hierarchy, dead words to strip
+- `references/voice.md` — voice axes, proof hierarchy, dead words and structures to strip
 - `references/editing-sweeps.md` — Seven Sweeps, quick-pass checks, plain-English
 
 ## Guidelines

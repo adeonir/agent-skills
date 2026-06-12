@@ -59,7 +59,7 @@ reconcile content drift
 
 Loaded on demand: `references/copy-frameworks.md` (headline formulas, content-part
 types, page shapes, CTA), `references/voice.md` (voice axes, proof hierarchy,
-dead words), and `references/editing-sweeps.md` (Seven Sweeps, quick-pass,
+dead words and structures), and `references/editing-sweeps.md` (Seven Sweeps, quick-pass,
 plain-English).
 
 ## Output

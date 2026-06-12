@@ -56,7 +56,8 @@ rationale; let the user pick before writing.
 
 Before saving:
 
-- Strip dead words and phrases (voice.md) — would a real person say this aloud?
+- Strip dead words and dead structures (voice.md) — no empty antithesis or
+  em-dash drama; would a real person say this aloud?
 - Every claim is specific and proof is outward.
 - **No design leakage** — no colors, fonts, icons, or layout in `copy.yaml`.
 - The content tree is well-formed and named by context.
