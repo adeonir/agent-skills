@@ -10,16 +10,16 @@ flowchart TD
     B --> C[Obsidian Session Note]
     C --> D[Obsidian Daily Note]
     D --> E[Detect Structural Delta]
-    E --> F[Clear Handoff opt-in]
+    E --> F[Clear Handoff auto]
 ```
 
 | Step | System | Output | Audience |
 |------|--------|--------|----------|
 | Resolve Project | -- | Obsidian path, base tags | Internal |
-| Load Handoff | filesystem | Latest snapshot folded into context | Internal |
+| Load Handoff | filesystem | All snapshots folded, grouped by date | Internal |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
-| Cleanup | filesystem | Empty handoff file (opt-in) | Internal |
+| Cleanup | filesystem | Empty handoff file (auto) | Internal |
 
 ## Usage
 
@@ -48,9 +48,9 @@ A: The session step is skipped with a warning. The daily note still
 attempts to write. The skill is best-effort.
 
 **Q: Does it ask before clearing the session handoff?**
-A: Yes. The handoff persists across sessions by design, so wrap-up
-asks before clearing it. Decline to keep snapshot history; accept to
-reset.
+A: No. Wrap-up has already persisted every snapshot to Obsidian, so the
+on-disk handoff is redundant by the end — Cleanup auto-clears it
+(writes empty content) without asking.
 
 **Q: Can I run wrap-up multiple times in a day?**
 A: Yes. Existing notes are detected and appended to rather than
