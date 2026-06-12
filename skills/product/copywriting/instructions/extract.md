@@ -12,8 +12,6 @@ and organize into `copy.yaml`.
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ### Step 1: Establish Context
 
 If context was not established by discovery, ask:
@@ -29,9 +27,9 @@ Sources are accepted in four shapes. The user provides whatever they have — UR
 
 **Partial source.** Anything that covers a specific region only — a hero shot, a pricing table, a single screen. The user may scope by selector, description, or by providing only that fragment. Extract within the scope provided; never invent the surrounding page.
 
-**Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections).
+**Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections). Pull copy-relevant facts only; requirement IDs, milestones, sprint or release names, roadmap language, and sibling-artifact references stay out of `copy.yaml`.
 
-**No source.** Nothing to extract — drafting fresh from intent is the write mode. See [write.md](write.md).
+**No source.** Nothing to extract — drafting fresh from intent is the write operation. See [write.md](write.md).
 
 If any fetch or read fails, ask the user for an alternative shape (often a screenshot or direct paste).
 
@@ -96,6 +94,8 @@ project:
   description: "{{Brief project description}}"
 
 # The content tree mirrors the source. Name surfaces and parts by context.
+# MUST NOT carry upstream scaffolding: no requirement IDs, milestones, sprint
+# or release names, roadmap language, or sibling-artifact references — copy only.
 
 content:
   "{{surface key, named by context — home, dashboard, product, checkout}}":
@@ -129,7 +129,7 @@ notes: |
 - Capture copywriting patterns (tone, power words, CTA style) under `notes`
 - Extract every surface and part thoroughly — do not skip content
 - Scope extracted output to what was actually captured — a region input produces region output, not a full-surface tree
-- Keep `copy.yaml` independent of design choices — content only; visual identity lives elsewhere, and the content must stay swappable across projects
+- Keep `copy.yaml` independent of design choices — content only; the payload stays swappable across any visual identity
 
 **DON'T:**
 - Rewrite or editorialize the original copy (contrasts: preserve original tone)

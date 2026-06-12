@@ -38,17 +38,7 @@ Produces `copy.yaml`, the content payload a design consumes. Operations:
 `discovery.md` runs before every operation — never skipped, never invoked
 directly. It checks existing context (`copy.yaml`, source, upstream intent),
 classifies the field (greenfield / brownfield), and routes to the matching
-mode. See [discovery.md](instructions/discovery.md).
-
-## Operations
-
-| Operation | File |
-| --------- | ---- |
-| Write fresh copy from intent into copy.yaml | [write.md](instructions/write.md) |
-| Extract and structure content into copy.yaml | [extract.md](instructions/extract.md) |
-| Tighten existing copy.yaml in the same voice | [refresh.md](instructions/refresh.md) |
-| Rewrite existing copy.yaml in a new voice | [revoice.md](instructions/revoice.md) |
-| Sync copy.yaml from a drifted implementation | [reconcile.md](instructions/reconcile.md) |
+operation. See [discovery.md](instructions/discovery.md).
 
 ## Artifact
 

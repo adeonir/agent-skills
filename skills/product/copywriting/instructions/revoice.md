@@ -18,8 +18,6 @@ net-new copy (see [write.md](write.md)), or syncing from code (see
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ### Step 1: Read Current Copy
 
 Parse `docs/design/copy.yaml`. Note the current voice — you are replacing it.

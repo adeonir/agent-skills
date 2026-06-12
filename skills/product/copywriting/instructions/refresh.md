@@ -17,8 +17,6 @@ structuring net-new content (see [extract.md](extract.md) or
 
 ## Workflow
 
-> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
-
 ### Step 1: Read Current Copy
 
 Parse `docs/design/copy.yaml`. Note the established voice — refresh preserves

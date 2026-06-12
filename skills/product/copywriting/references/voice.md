@@ -5,9 +5,9 @@ keeps written copy sounding like someone and earning trust.
 
 ## When to Use
 
-Loaded by the write workflow to set a target voice, keep proof outward, and cut
-empty language before copy lands in `copy.yaml`. Applies to any surface;
-calibrate intensity by context.
+Loaded by the write, refresh, and revoice workflows to set or hold a target
+voice, keep proof outward, and cut empty language before copy lands in
+`copy.yaml`. Applies to any surface; calibrate intensity by context.
 
 ## Voice Axes
 

@@ -1,7 +1,7 @@
 # Editing Sweeps
 
 Focused passes that tighten existing copy without changing its voice — the
-craft behind the refresh mode.
+craft behind the refresh operation.
 
 ## When to Use
 

@@ -1,11 +1,11 @@
 # Discovery
 
-Establishes content context and routes to the right mode.
+Establishes content context and routes to the right operation.
 
 ## When to Use
 
-Load at the start of every copywriting operation — before any mode runs,
-never invoked directly.
+Load at the start of every copywriting operation, before the routed work
+begins — never invoked directly.
 
 ## Workflow
 
@@ -18,8 +18,10 @@ Look for:
 - `docs/product/prd.md`, `docs/product/brief.md`, `docs/product/brainstorm.md`
   — intent and requirements when writing fresh
 
-If found, read and extract purpose, audience, tone, and surfaces. Skip to the
-relevant mode.
+If found, read and extract purpose, audience, tone, and surfaces — copy-relevant
+facts only; requirement IDs, milestones, sprint or release names, roadmap
+language, and sibling-artifact references stay out of `copy.yaml`. Skip to the
+relevant operation.
 
 ### Step 2: Classify Field
 
