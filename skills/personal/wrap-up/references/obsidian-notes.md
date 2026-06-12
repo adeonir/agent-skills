@@ -9,8 +9,8 @@ using MCPVault MCP tools directly.
 - Daily note: always (even when session note is skipped)
 - Runs after the handoff Load phase
 - Depends on mapping output (Obsidian path, base tags) and on the
-  handoff Load phase (latest snapshot folded — Findings → Findings,
-  Decisions → Decisions, Next step + Open threads → Next)
+  handoff Load phase (all snapshots folded, grouped by date — Findings
+  → Findings, Decisions → Decisions, Next step + Open threads → Next)
 
 ## Obsidian Syntax Rules
 
@@ -104,6 +104,14 @@ narrative — not importing history or adjacent threads. Notes stay
 human-readable: observation IDs do not enter note bodies, consistent
 with the no-commit-hashes rule.
 
+### Per-date handling
+
+The handoff Load phase groups loaded snapshots by date. When the
+snapshots span multiple dates, run steps 1-2 once **per date group**:
+each date gets its own session note(s) and its own daily note, folding
+only that date's blocks. A single date is the common case — treat
+multi-date as the exception, not the default.
+
 ### 1. Create session note
 
 #### Determine path
@@ -169,12 +177,15 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for typed edges that add graph value
 
-When the handoff Load phase surfaced a latest snapshot, fold its
-bullets in before composing the note. Re-apply the Audience and
-Reference Discipline as you fold — the handoff's scope is not the
+When the handoff Load phase surfaced grouped snapshots, fold this
+date's bullets in before composing the note — the deduplicated union
+across that day's blocks, not just the latest. Re-apply the Audience
+and Reference Discipline as you fold — the handoff's scope is not the
 note's scope: strip local spec/story/task IDs (`S-022`, `task-3.2`)
 and translate them to feature or project names, and keep daily-note
-bodies free of the paths and IDs a handoff may carry.
+bodies free of the paths and IDs a handoff may carry. Implementation
+detail stays out of the executive note — it lives in claude-mem; the
+note carries the summary.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name

@@ -40,7 +40,7 @@ The skill is single-trigger: every invocation runs the full workflow.
 Loading order:
 
 1. [mapping.md](references/mapping.md) — resolve project paths and base tags
-2. [handoff.md](references/handoff.md) (Load phase) — fold latest snapshot when present
+2. [handoff.md](references/handoff.md) (Load phase) — fold all snapshots, grouped by date, when present
 3. [obsidian-notes.md](references/obsidian-notes.md) — write Obsidian session + daily notes
 4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — architecture-refresh hint + auto-clear
 
@@ -63,7 +63,8 @@ steps and report at the end.
 
 ## Anti-Pattern: Re-Reading the Session Handoff
 
-The session handoff is read once during the Load phase and shared via
-working context with downstream references. Re-reading the file in
-obsidian-notes wastes I/O and risks divergence if the file changes
-mid-flow. Load once, share, then clear at the end.
+The session handoff is read once during the Load phase — the whole
+file, every snapshot — and shared via working context with downstream
+references. Re-reading the file in obsidian-notes wastes I/O and risks
+divergence if the file changes mid-flow. Load once, share, then clear
+at the end.

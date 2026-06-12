@@ -20,11 +20,21 @@ Runs after mapping, before obsidian-notes.
 
 1. Check `.artifacts/.handoff.md`. If absent, no-op silently —
    Detect and Cleanup will likewise no-op later.
-2. Read the file and locate the topmost
-   `## YYYY-MM-DD HH:MM — {title}` block (the latest snapshot).
-   Snapshots are appended newest-at-top by the producer.
-3. Surface the block's contents to working context for the rest of
-   wrap-up to consume:
+2. Read the **whole file**. Collect **every**
+   `## YYYY-MM-DD HH:MM — {title}` block — not just the topmost. A
+   long session may append many snapshots across distinct threads and
+   dates; each carries context worth persisting. A newer snapshot does
+   not supersede an older one. Walking every block is specific to
+   wrap-up, which persists the full session — a mid-session resume
+   only needs the latest.
+3. Group the collected blocks by date (the `YYYY-MM-DD` in each
+   header). Deduplicate within and across blocks: a finding or
+   decision repeated across checkpoints collapses to one item;
+   genuinely distinct items are all kept. Read every block before
+   deciding duplicates — never drop an older item just because a
+   newer block exists.
+4. Surface the grouped, deduplicated contents to working context for
+   the rest of wrap-up to consume, per section:
    - `**Focus:**` line (always present)
    - `**Next step:**` line (always present)
    - `**Decisions:**` bullets (when present)
@@ -43,13 +53,13 @@ the file.
 ### Detect Phase
 
 Runs after obsidian-notes, before Cleanup. Skipped silently if Load
-found no file or no latest snapshot.
+found no file or no snapshot.
 
 #### Step 1: Keyword scan
 
-Scan the in-context `**Findings:**` and `**References:**` bullets for
-any of these structural keywords (skip sections that were omitted from
-the snapshot):
+Scan the in-context `**Findings:**` and `**References:**` bullets from
+all loaded snapshots for any of these structural keywords (skip
+sections that were omitted from a snapshot):
 
 - `route`, `endpoint`, `api`
 - `module`, `package`, `dependency`, `dep`
@@ -93,12 +103,15 @@ Write empty content to `.artifacts/.handoff.md`. Do not delete
 the file — an empty file is treated as missing on the next Load, and
 writing avoids a Bash permission prompt.
 
-Skip silently if Load found no file or no latest snapshot.
+Skip silently if Load found no file or no snapshot.
 
 ## Guidelines
 
 **DO:**
-- Read the file once in Load and share contents via working context
+- Read the whole file once in Load — every snapshot block — and share
+  contents via working context
+- Group loaded snapshots by date and deduplicate before surfacing —
+  collapse repeats, keep distinct items from every block
 - Emit at most one suggestion line in Detect
 - Clear the handoff by writing empty content at the end — the
   snapshot is already in Obsidian; empty file is treated as missing
@@ -110,8 +123,10 @@ Skip silently if Load found no file or no latest snapshot.
 **DON'T:**
 - Re-read the handoff in obsidian-notes (contrasts: load once, share
   via context)
-- Walk every snapshot in the file (contrasts: read only the topmost
-  snapshot — latest first)
+- Read only the topmost block (contrasts: walk every snapshot — a
+  resume needs only the latest, but wrap-up persists the whole session)
+- Drop older snapshots as superseded (contrasts: newest does not
+  replace older — merge distinct items, collapse only true repeats)
 - Delete the file — write empty content instead (contrasts: clear
   with empty write, no Bash permission prompt)
 - Prompt y/n before clearing (contrasts: wrap-up has already saved
@@ -125,7 +140,7 @@ Skip silently if Load found no file or no latest snapshot.
   keyword scan only
 - `git merge-base` fails (no `main` branch, shallow clone): skip
   the diff, rely on keyword scan only
-- Latest snapshot has no Findings section or only "none" bullets:
-  rely on git diff only
+- No loaded snapshot has a Findings section, or all are "none"
+  bullets: rely on git diff only
 - Handoff file empty or has no `##` blocks: treat as missing,
   skip Detect and Cleanup
