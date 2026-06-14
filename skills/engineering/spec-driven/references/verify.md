@@ -7,7 +7,7 @@ during Step 5 for the code correctness analysis.
 
 ## When to Use
 
-Loaded internally by `implement.md` Step 7-After. Verify is not a user-invoked phase -- it runs automatically after every task or range, once `implement.md`'s quality gates pass.
+Loaded internally by `implement.md` Step 5-After. Verify is not a user-invoked phase -- it runs automatically after every task or range, once `implement.md`'s quality gates pass.
 
 - After completing a task or range of tasks (any scope) -- always via implement
 - After quality gates pass in implement.md -- verify is the deeper check
@@ -60,7 +60,7 @@ Report findings as:
 
 Compare implementation against project conventions in the
 `.artifacts/codebase/{area}.md` cache (if exists) or against patterns
-observed during quick scan:
+observed during exploration:
 
 - **Naming**: files, components, functions, variables follow project conventions
 - **File structure**: new files placed in correct directories per project patterns
@@ -152,7 +152,7 @@ After verification passes for a task, update spec.md acceptance criteria.
 
 1. If `tasks.md` exists: read `## Requirements Coverage` table -- mark every
    AC whose task list is fully verified (all listed tasks passed verify)
-2. If no `tasks.md` (Medium scope): map by user story containing the code
+2. If no `tasks.md` (fallback): map by user story containing the code
    changed -- mark ACs inside that P1/P2/P3 story
 
 **How to mark:**

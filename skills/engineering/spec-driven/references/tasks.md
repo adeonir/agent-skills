@@ -4,15 +4,25 @@ Break design into implementable tasks.
 
 ## When to Use
 
-- Scope is **Large** or **Complex** (check `scope:` in spec.md frontmatter)
+- Scope is **Medium**, **Large**, or **Complex** (check `scope:` in spec.md frontmatter) — depth scales with scope (see Depth Scaling below)
 - design.md is complete
 - Ready to define implementation steps
 
-## When to Skip
+## Depth Scaling
 
-- Scope is **Medium**: execution is a single canonical pattern with no branching dependencies; tasks are implicit in Implement
-- When skipped, implement lists steps inline before starting (see [implement.md](implement.md))
-- **Safety valve**: If implement's inline listing surfaces hidden decisions or branching dependencies, it redirects back here
+Tasks runs at every scope above Small. What scales is depth:
+
+- **Medium — light (flat step list).** Emit the canonical steps as a flat task
+  list, each with Done-when and a Satisfaction sketch, plus Quality Gates and
+  Requirements Coverage. Run inline (no Plan-subagent dispatch). Skip the heavy
+  execution-plan diagram and cross-story dependency analysis — a canonical
+  reapplication has no branching to graph.
+- **Large/Complex — full.** The full breakdown below: story grouping, ID
+  monotonicity, dependency markers, execution-plan diagram, and Plan-subagent
+  dispatch (Step 4).
+
+If the flat Medium list surfaces hidden decisions or branching dependencies,
+escalate Medium → Large (see [auto-sizing.md](auto-sizing.md) Safety Valve).
 
 ## Workflow
 
@@ -64,8 +74,9 @@ excluded), so it returns structured slot fillers; main composes the
 artifact via the canonical template (pattern A1: Plan returns slots,
 main fills template).
 
-Skip dispatch when subagent support is unavailable; main agent
-executes Steps 5-7 directly in that case.
+Skip dispatch at **Medium** scope (run Steps 5-7 inline at light depth), or
+when subagent support is unavailable; main agent executes Steps 5-7 directly
+in that case.
 
 Subagent brief:
 
@@ -203,6 +214,9 @@ Do not duplicate them per task -- tasks own Tests, Gate, Done when, Satisfaction
 and (when applicable) Candidate trace only.
 
 ### Step 6: Create Execution Plan
+
+**Large/Complex only.** At Medium the flat step list has no branching to show —
+skip the diagram.
 
 Before writing tasks, create an ASCII diagram showing the execution flow:
 - Sequential dependencies as arrows (`-->`)
@@ -475,5 +489,5 @@ Run after each task or batch:
 
 ## Error Handling
 
-- Design not found: Suggest `design` (or skip if Medium scope)
+- Design not found: Suggest `design`
 - No clear components: Ask for clarification

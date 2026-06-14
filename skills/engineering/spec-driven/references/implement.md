@@ -7,7 +7,7 @@ management.
 
 ## When to Use
 
-When implementing tasks from a feature's tasks.md, or when scope is Medium and design/tasks were skipped.
+When implementing tasks from a feature's tasks.md.
 
 Start with a clean context window. Load artifacts from disk (spec.md, design.md,
 tasks.md), not from a previous phase's conversation context. See SKILL.md Phase
@@ -45,7 +45,8 @@ If a story ID argument was given (`[S-1]`):
 Read `spec.md` in full -- acceptance criteria, plus `## Decisions` and
 `## Session Context` for choices, content, and constraints settled during specify
 that the spec body alone does not carry. Follow any `sources:` pointer to
-its durable source before coding.
+its durable source before coding. Read `design.md` (decisions with Source/Scope,
+patterns, component design) and `tasks.md` (the steps to execute).
 If `.artifacts/knowledge.md` exists, read it for project-level decisions and gotchas.
 
 **Blocking-question gate:** If spec.md `## Open Questions` holds any question that
@@ -53,75 +54,12 @@ would change what you are about to build (a blocking question), halt: list the b
 items, route to [discuss](discuss.md) or the user to resolve, then exit. Non-blocking
 questions — tentative, deferred-with-reason, or immaterial — do not gate; proceed.
 
-Check which artifacts exist and adapt:
+Implement always runs in **Full mode**: spec + design + tasks all exist (every
+scope above Small produces them). Follow tasks.md. There is no inline
+step-derivation or codebase scanning in implement -- discovery, research, and
+grounding happened in design; implement executes and verifies.
 
-| Artifacts Found | Mode |
-|-----------------|------|
-| spec + design + tasks | **Full mode**: follow tasks.md |
-| spec + design (no tasks) | **Inline mode**: list steps from design, then implement |
-| spec only (Medium scope) | **Quick scan mode**: lightweight exploration, then implement |
-
-### Step 3: Quick Scan (when design was skipped)
-
-When operating in **Quick scan mode** (Medium scope, no design.md):
-
-1. **Check research cache, then inline micro-research if needed**:
-   - First, look for `.artifacts/research/{topic}.md` relevant to this
-     feature. If exists and valid, use it.
-   - On cache miss, run inline micro-research when either: (a) a step
-     touches a tech the codebase has not used, OR (b) a step writes code
-     or config whose correctness depends on a version-sensitive fact of
-     an existing dep or runtime (engine constraints, runtime version
-     pins, default behaviors that changed across versions). Follow
-     Knowledge Verification Chain Steps 1-3 (codebase -> project docs ->
-     external docs). Cap at 1-2 queries. Capture findings inline in spec.md
-     under `## Implementation Notes`. Do **not** write to
-     `.artifacts/research/{topic}.md` -- that cache is for full research
-     in Large/Complex scope.
-   - If 1-2 queries insufficient: stop and escalate (suggest `design`
-     first, which runs full research per design.md Step 5).
-
-2. **Load project conventions**:
-   - If `.artifacts/codebase/{area}.md` cache exists for this area: read it
-     for project abstractions, custom hooks, styling tokens, and the
-     component map -- these tell you what to use instead of framework
-     primitives
-   - Otherwise: scan 5-8 representative files. Prioritize shared component
-     directories (find barrel exports / index files), custom hooks
-     directories, style/theme files (variables, tokens), then files
-     similar to what needs to be built
-
-3. **Identify required abstractions**: Before writing any code, list:
-   - Which shared components exist that should be used (not raw elements)
-   - Which custom hooks handle the patterns needed (data fetching, state, etc.)
-   - Which variables/tokens to use for styling (not hardcoded values)
-
-4. **Complexity check**: If the quick scan reveals the change is more complex than expected (load-bearing decisions surface, unknown tech, branching dependencies), stop and suggest running `design` first.
-
-### Step 4: Safety Valve (inline step listing)
-
-**Skip this step in Full mode** (spec + design + tasks all exist). Tasks.md
-is already the execution plan — re-deriving steps adds no value.
-
-Apply only in **Inline mode** or **Quick scan mode** (no tasks.md):
-
-```text
-Execution steps:
-1. {step}
-2. {step}
-3. {step}
-...
-```
-
-**If hidden decisions or branching dependencies surface during listing:**
-- Halt execution
-- Inform user: "Sizing missed a load-bearing decision. Recommend creating formal tasks."
-- Suggest running `tasks` (which requires `design` first if that was also skipped)
-- Exit
-
-**If steps are mechanical reapplication of a single canonical pattern:** Proceed with execution.
-
-### Step 5: Prepare Branch and Status
+### Step 3: Prepare Branch and Status
 
 Runs before sub-agent dispatch -- the branch must exist before any subagent writes code, and the status flip records that implementation is underway.
 
@@ -131,14 +69,14 @@ Runs before sub-agent dispatch -- the branch must exist before any subagent writ
 git switch -c {branch} 2>/dev/null || git switch {branch}
 ```
 
-Skip the switch when frontmatter says `main`/`master`, when the field is empty, or when the current branch already matches. specify.md only records intent — implement owns the actual `git switch`. Never create the branch later than this step (i.e., never after dispatch).
+Skip the switch when frontmatter says `main`/`master`, when the field is empty, or when the current branch already matches. specify.md only records intent -- implement owns the actual `git switch`. Never create the branch later than this step (i.e., never after dispatch).
 
-**Status**: If status is `ready` or `draft` (Medium scope may skip ready):
+**Status**: If status is `ready` or `draft`:
 - Set `status: in-progress`
 
-### Step 6: Validate Dependencies
+### Step 4: Validate Dependencies
 
-For each task to implement (when tasks.md exists):
+For each task to implement:
 - Check [P] (parallel) - proceed
 - Check [B:T-X] - verify T-X is done
 
@@ -150,46 +88,45 @@ follows the invocation argument:
 - `[S-1]`: one subagent for the whole story.
 - `[--all]`: one subagent for all pending tasks.
 
-The subagent owns Steps 7-8 for every task in its scope. It implements
+The subagent owns Steps 5-6 for every task in its scope. It implements
 tasks in dependency order (`[B:T-X]` waits for `T-X`), resolves order
-internally, runs verify per task (Step 7-After), and marks `[x]` in
-tasks.md (Step 8). Main agent does not fan out across tasks -- it
-dispatches once and resumes at Step 9 (Check Completion) after the
+internally, runs verify per task (Step 5-After), and marks `[x]` in
+tasks.md (Step 6). Main agent does not fan out across tasks -- it
+dispatches once and resumes at Step 7 (Check Completion) after the
 subagent returns.
 
 Subagent brief includes:
 - Paths to spec.md, design.md, tasks.md, coding-principles.md
 - Task list within scope (T-X, ...) with `[P]`/`[B:T-X]` markers
 - Acceptance criteria per task
-- "Run Steps 7-8 for each task in dependency order. Implement, verify per
+- "Run Steps 5-6 for each task in dependency order. Implement, verify per
   task, mark `[x]` in tasks.md. Write code and updates to disk. Report
   files changed and per-task status."
 
 Subagent writes code, runs verify, and updates tasks.md. Main agent reads
-tasks.md and per-task status from disk, resumes at Step 9.
+tasks.md and per-task status from disk, resumes at Step 7.
 
 Dispatch shape:
 
 ```text
 Turn N:   dispatch one subagent for the invocation scope.
-Turn N+1: read tasks.md and per-task status from disk, resume at Step 9.
+Turn N+1: read tasks.md and per-task status from disk, resume at Step 7.
 ```
 
 Map this shape to the subagent dispatch primitive available in the harness.
 
-### Step 7: Implement Tasks
+### Step 5: Implement Tasks
 
-**Ownership:** When tasks.md exists and Step 6 dispatched a subagent, the
-subagent runs Step 7 (and Step 8) for every task in its scope. Main agent
-resumes at Step 9. When no dispatch ran (Medium scope or no tasks.md),
-main agent runs Step 7 inline.
+**Ownership:** When Step 4 dispatched a subagent, the subagent runs Step 5
+(and Step 6) for every task in its scope. Main agent resumes at Step 7. When
+no dispatch ran (subagent support unavailable), main agent runs Step 5 inline.
 
 For each task, follow the 3-phase cycle:
 
 #### Before (Preparation)
 
 - Load [coding-principles.md](coding-principles.md)
-- Read the relevant reference files from design.md or quick scan (patterns to follow)
+- Read the relevant reference files from design.md (patterns to follow)
 - Check the conventions table (naming, imports, error handling)
 - State the pre-implementation declaration before writing any code:
 
@@ -205,17 +142,15 @@ Do not proceed without stating all three explicitly.
 
 **Pre-Implementation Checklist:**
 
-In **Full mode** (spec + design + tasks exist), files and success criteria
-are already resolved — check only assumptions and risk:
+Files and success criteria are already resolved by design.md and tasks.md —
+check only assumptions and risk:
 
-| Check | Question | Full mode |
+| Check | Question | Required? |
 |-------|----------|-----------|
 | Assumptions | Are all assumptions verified against actual code, not memory? | Required |
 | Files | Do listed files match design.md component locations? | Skip — use design.md |
 | Success criteria | Does it map directly to the task's Done when and AC-xxx? | Skip — use tasks.md |
 | Risk | Could this change break existing functionality? | Required |
-
-In **Inline mode** or **Quick scan mode**, all four checks are required.
 
 Any failed check: resolve before writing code.
 
@@ -226,11 +161,11 @@ Any failed check: resolve before writing code.
   for each AC the task covers, make it pass with the minimum code, then refactor with
   the test green. This authoring loop is separate from the After quality gate, which
   *runs* the resulting suite; when no test runner exists, skip it and implement directly
-- Follow design.md architecture precisely (if design exists)
+- Follow design.md architecture precisely
 - Match patterns from reference files exactly
 - Use project's error handling approach
 - Follow naming conventions documented
-- Apply research findings if applicable
+- Apply research findings from design.md if applicable
 - Follow Knowledge Verification Chain for any technical decisions
 - **Scope guardrail:** if something outside the task definition is noticed (bug, improvement,
   tech debt), record it in `.artifacts/knowledge.md ## Gotchas` -- do not act on it inline.
@@ -283,11 +218,11 @@ patterns, and visual references (if provided). Verify handles:
 If verify finds issues, fix them before moving to the next task. See
 verify.md for the full workflow including loop escape.
 
-### Step 8: Update Progress
+### Step 6: Update Progress
 
-**Ownership:** When dispatched, the subagent runs Step 8 for each task it
-completes (right after Step 7-After verify passes). Main agent runs Step 8
-inline only when no dispatch ran (Medium scope).
+**Ownership:** When dispatched, the subagent runs Step 6 for each task it
+completes (right after Step 5-After verify passes). Main agent runs Step 6
+inline only when no dispatch ran.
 
 If tasks.md exists:
 1. Verify the "Done when" criteria for the task are met
@@ -298,14 +233,14 @@ If tasks.md exists:
 ```
 3. Update task counters in tasks.md header.
 
-### Step 9: Check Completion
+### Step 7: Check Completion
 
-If all tasks done (or all inline steps done for Medium scope):
+If all tasks done:
 - Run final verification (see [Final Verification](#final-verification))
 - Set `status: to-review`
 - Do NOT set `status: done` -- audit owns that transition
 
-### Step 10: Record Discoveries
+### Step 8: Record Discoveries
 
 Load [knowledge.md](knowledge.md) for format.
 
@@ -320,7 +255,7 @@ If `.artifacts/knowledge.md` doesn't exist, create it with the three empty secti
 
 Descriptive area patterns belong in the `.artifacts/codebase/{area}.md` cache, written by exploration — not here. Record only what crosses features; feature-specific detail stays in this feature's artifacts, and inventory facts (packages, routes, modules) are re-derivable and not recorded.
 
-### Step 11: Approval Gate
+### Step 9: Approval Gate
 
 When all tasks are done and Final Verification passes, present a summary and wait for approval:
 
@@ -408,8 +343,8 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 
 ## Error Handling
 
-- Tasks not found: Check scope -- Medium may not have tasks.md (use inline mode)
+- Tasks not found: tasks.md exists at every scope above Small; if missing, run `tasks` first
 - Dependency blocked: List prerequisites
 - Quality gate failed: Fix before marking done
-- Scope misjudged: Safety valve catches hidden decisions, redirect to tasks/design
-- Design-gap defect mid-implement: see Design-gap recovery in Step 7 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md and (optionally) `.artifacts/spec-driven-feedback.md`
+- Scope misjudged: if a load-bearing decision surfaces, escalate Medium → Large via design (see [auto-sizing.md](auto-sizing.md) Safety Valve)
+- Design-gap defect mid-implement: see Design-gap recovery in Step 5 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md and (optionally) `.artifacts/spec-driven-feedback.md`

@@ -65,7 +65,7 @@ Before anything else, determine complexity to auto-size the pipeline:
 | Signal | Scope | Pipeline |
 |--------|-------|----------|
 | Mechanical change, zero decisions, outcome obvious from the description | **Small** | Redirect to [quick-mode.md](quick-mode.md) |
-| Canonical pattern already in the codebase, no new abstraction needed | **Medium** | Specify -> Implement (skip Design, Tasks) |
+| Canonical pattern already in the codebase, no new abstraction needed | **Medium** | Specify -> Design (light) -> Tasks (light) -> Implement |
 | ≥1 load-bearing decision new to the codebase (reviewer cannot predict approach from description) | **Large** | Specify -> Design -> Tasks -> Implement |
 | Ambiguity in the problem itself, solution space open | **Complex** | Specify (+ Discuss) -> Design -> Tasks -> Implement (+ UAT) |
 
@@ -405,15 +405,13 @@ what gets built, it is Session Context, not Notes.
 context settled during specify that would otherwise live only in chat. `## Decisions`
 captures choices made among alternatives at the specify grain (scope, requirements,
 product behavior); `## Session Context` captures content, constraints, clarifications, and user/source-stated assumptions.
-Boundary: when design.md runs (Large/Complex), technical and architecture decisions
-go in its `## Decisions` instead -- spec.md stays at the specify grain, design.md owns
-the implementation grain, no duplication. When discuss.md runs (Complex gray areas),
-its resolutions stay there; record only their downstream effect on scope or
-requirements here. At Medium, design.md is skipped, so spec.md is the only home --
-capture everything implement needs here. Fill from this
-conversation, or write "None" when a `sources:` pointer covers it. Never delete either
-section -- an explicit "None" asserts nothing was lost; a missing section is an
-omission.
+Boundary: design.md runs at every scope above Small, so technical and architecture
+decisions go in its `## Decisions` instead -- spec.md stays at the specify grain,
+design.md owns the implementation grain, no duplication. When discuss.md runs (Complex
+gray areas), its resolutions stay there; record only their downstream effect on scope or
+requirements here. Fill from this conversation, or write "None" when a `sources:` pointer
+covers it. Never delete either section -- an explicit "None" asserts nothing was lost; a
+missing section is an omission.
 
 ### Step 15: Spec Review
 
@@ -471,7 +469,7 @@ Whether to stop here depends on what the user actually asked for. Read the origi
 Apply the pipeline by scope once you have decided to continue:
 
 - Small: Quick mode handles the whole job -- Specify was not invoked. If you are reading this, the scope assessment was wrong; back out and route through `quick-mode`.
-- Medium: Specify finishes, then `implement` waits for user go
+- Medium: Specify → `design` (light) → `tasks` (light), then wait for user go before `implement`
 - Large: Specify → `design` → `tasks`, then wait for user go before `implement`
 - Complex: Specify → (`discuss` if gray areas) → `research` (if new tech) → `design` → `tasks`, then wait for user go before `implement`
 

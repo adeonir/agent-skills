@@ -8,17 +8,31 @@ reasoning — shallow analysis produces shallow design. Load
 
 ## When to Use
 
-- Scope is **Large** or **Complex** (check `scope:` in spec.md frontmatter)
+- Scope is **Medium**, **Large**, or **Complex** (check `scope:` in spec.md frontmatter) — depth scales with scope (see Depth Scaling below)
 - Spec is complete (no open questions blocking progress)
 - Ready to define HOW to build
 
 Start with a clean context window. Load artifacts from disk (spec.md, decisions.md),
 not from a previous phase's conversation context. See SKILL.md Phase Transitions.
 
-## When to Skip
+## Depth Scaling
 
-- Scope is **Medium**: canonical pattern already in the codebase, no load-bearing decision new to the codebase
-- When skipped, implement handles a lightweight codebase scan inline (see [implement.md](implement.md))
+Design runs at every scope above Small. What scales is depth:
+
+- **Medium — light.** Capture Scope, Decisions (with Source
+  and Scope), light Patterns & Reuse, Subsystem Presence claims, Component
+  Design, and Requirements Traceability. Run inline (no Plan-subagent dispatch).
+  Skip the heavy data-model work: full member enumeration, Reused Component /
+  Utility Contracts, Cross-Task Value Trace, and the Dependency Inversion check.
+  The closing checklist runs only its grounding items (member-enumeration items
+  are Large/Complex-only).
+- **Large/Complex — full.** Everything below, including full member
+  enumeration, contracts, cross-task value trace, dependency inversion, and
+  Plan-subagent dispatch (Step 10).
+
+If the light Medium design surfaces a load-bearing decision novel to the
+codebase, escalate Medium → Large: run the full design and tasks (see
+[auto-sizing.md](auto-sizing.md) Safety Valve).
 
 ## Workflow
 
@@ -224,8 +238,9 @@ harness contract (Edit/Write/NotebookEdit excluded), so it returns
 structured slot fillers; main composes the artifact via the canonical
 template (pattern A1: Plan returns slots, main fills template).
 
-Skip dispatch when subagent support is unavailable; main agent executes
-Steps 11-13 directly in that case.
+Skip dispatch at **Medium** scope (run Steps 11-13 inline at light depth), or
+when subagent support is unavailable; main agent executes Steps 11-13 directly
+in that case.
 
 Subagent brief:
 
@@ -309,6 +324,9 @@ dispatch is skipped._
 
 ### Step 11: Data Model Definition
 
+**Large/Complex only.** At Medium, capture only the entities the change touches
+at a light grain — skip exhaustive member enumeration.
+
 Define the data model before component design. Every statement about an existing type must cite `file:line` from the exploration's Member Enumeration.
 
 - **Entities**: Every member the feature reads or writes, cited to `file:line`. Not "attributes" in the abstract -- the actual exposed members in source
@@ -336,6 +354,9 @@ design.md. Fix all `[fail]` items first. Do not run this check silently.**
 - [ ] If `spec.md` `origin: defect`: Decisions includes a row distinguishing the fix mechanism (root-fix vs workaround) with rationale -- never a defensive `try/catch`, fallback default, or silent recovery without explicit workaround labeling
 
 ### Step 12: Dependency Inversion Check (implicit)
+
+**Large/Complex only.** Skip at Medium — a flat step list has no cross-story
+ownership to invert.
 
 Reason about this silently before writing design.md. Do not echo this check
 into the artifact -- the design stays focused on the design, not on a process

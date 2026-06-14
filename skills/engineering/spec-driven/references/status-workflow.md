@@ -24,11 +24,6 @@ Use ONLY these values in spec.md frontmatter:
 draft --[design]--> ready --[implement]--> in-progress --[implement done]--> to-review --[audit]--> done
 ```
 
-**For Medium scope** (design/tasks skipped):
-```text
-draft --[implement]--> in-progress --[implement done]--> to-review --[audit]--> done
-```
-
 ## Who Updates What
 
 | Reference | Updates Status | From | To |
@@ -42,14 +37,14 @@ draft --[implement]--> in-progress --[implement done]--> to-review --[audit]--> 
 | `audit.md` | Yes | `to-review` | `done` |
 | `validate.md` | No (may revert AC/Goal/Success `[x]` if UAT reproves) | - | - |
 
-**Branch ownership:** `specify.md` records the intended branch name in spec.md frontmatter only; `implement.md` Step 5 creates/switches to the branch before any code is written. No other reference touches git refs.
+**Branch ownership:** `specify.md` records the intended branch name in spec.md frontmatter only; `implement.md` Step 3 creates/switches to the branch before any code is written. No other reference touches git refs.
 
 ## Critical Rules
 
 1. **ONLY use the 5 values above** - never invent new status values
 2. **Check current status before updating** - read spec.md frontmatter first
 3. **Update at the END of the phase** - after completing all steps of that reference
-4. **Never skip status** - follow the flow (exceptions: Medium scope can go draft -> in-progress)
+4. **Never skip status** - follow the flow
 
 ## Status Field
 
@@ -77,7 +72,7 @@ owned by specify.md Step 15 -- it does not transition with `status`.
 ## Quick Reference
 
 - Just created feature? -> `draft`
-- Design complete (or skipped for Medium)? -> `ready` (or stay `draft` if Medium)
+- Design complete? -> `ready`
 - Started coding? -> `in-progress`
 - All tasks done, per-task verify passed? -> `to-review`
 - Goals and Success Criteria audited and met? -> `done`

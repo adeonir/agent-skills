@@ -49,7 +49,7 @@ Structured development workflow with adaptive depth.
 ### Methodological refs (loaded by other refs)
 
 - **Verification (internal check)** →
-  [verify.md](references/verify.md) (loaded by `implement.md` Step 7-After)
+  [verify.md](references/verify.md) (loaded by `implement.md` Step 5-After)
 - **Sub-agent dispatch protocol** →
   [phases.md](references/phases.md)
 - **Codebase exploration** →
@@ -71,15 +71,17 @@ Structured development workflow with adaptive depth.
 ## Workflow
 
 ```text
-specify --> design* --> tasks* --> implement --> audit --> done
-                                       ^           ^
-                                       |           |__ per-story commit OR pre-PR
-                                       |__ verify runs inside implement per task
+specify --> design --> tasks --> implement --> audit --> done
+                                     ^           ^
+                                     |           |__ per-story commit OR pre-PR
+                                     |__ verify runs inside implement per task
 ```
 
-Adaptive: Specify and Implement always run; Design and Tasks auto-skip
-when scope is small. Verify is internal to implement. Audit runs at the
-commit boundary (per-story or end-of-spec), always before PR.
+Adaptive by depth, not by skipping: Specify and Implement always run. Design
+and Tasks run at every scope above Small -- light at Medium, full at
+Large/Complex. Small routes to quick-mode and skips the pipeline. Verify is
+internal to implement. Audit runs at the commit boundary (per-story or
+end-of-spec), always before PR.
 
 ## Knowledge Verification Chain
 
@@ -110,13 +112,14 @@ not structural reference. Template wins on divergence.
 - Auto-size depth based on complexity — skip phases that add no value
 - Run audit at the commit boundary, before any PR
 
-## Anti-Pattern: Forced Full Pipeline
+## Anti-Pattern: Forced Full Depth
 
-Forcing every change through specify → design → tasks → implement on
-small or medium scopes is process tax. Auto-sizing exists for a reason:
-small fixes go through `quick-mode.md`, medium scopes skip design and
-tasks, large/complex scopes get the full pipeline. Respect the sizing
-decision.
+Running every scope at full depth is process tax. Auto-sizing scales depth,
+not phases: small fixes go through `quick-mode.md`; medium scopes run a *light*
+design and *flat* tasks; large/complex scopes run the full
+design (with Plan dispatch) and full breakdown. Forcing the heavy data-model
+work and dependency graph onto a canonical reapplication is the tax to avoid --
+respect the depth the sizing assigned.
 
 ## Anti-Pattern: Deferred Verification
 

@@ -5,7 +5,7 @@ workflow.
 
 ## When to Use
 
-- Loaded by `design.md` Step 8 and `implement.md` Step 10 before appending
+- Loaded by `design.md` Step 8 and `implement.md` Step 8 before appending
 - Loaded by `quick-mode.md` Step 9 before appending
 - Loaded by `design.md` Step 3 before designing, for project-level context
 

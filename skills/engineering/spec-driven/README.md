@@ -12,9 +12,9 @@ features get full planning.
 flowchart TD
     A[Specify] --> B{Scope?}
     B -->|Small| C[Quick Mode]
-    B -->|Medium| F[Implement<br/>verify per task]
-    B -->|Large/Complex| D[Design]
-    D --> E[Tasks]
+    B -->|Medium| D[Design + Tasks<br/>light depth]
+    B -->|Large/Complex| E[Design + Tasks<br/>full depth]
+    D --> F[Implement<br/>verify per task]
     E --> F
     F --> R[To Review]
     R --> AU[Audit<br/>per-story or pre-PR]
@@ -25,8 +25,8 @@ flowchart TD
 | ----- | ------- | -------- |
 | **Specify** | Define requirements (greenfield or brownfield) | Always |
 | **Discuss** | Resolve gray areas and ambiguities | When triggered |
-| **Design** | Technical architecture, codebase exploration, research | Large/Complex |
-| **Tasks** | Granular, atomic tasks with dependencies | Large/Complex |
+| **Design** | Grounding + architecture (light at Medium, full at Large/Complex) | Medium+ |
+| **Tasks** | Implementation steps (flat at Medium, full breakdown at Large/Complex) | Medium+ |
 | **Implement** | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`) | Always |
 | **Audit** | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done`; gates PR | At commit boundary or before PR |
 | **Validate** | Interactive UAT with manual testing; may reprove any `[x]` | On-demand |
@@ -41,7 +41,7 @@ whether any are novel to the codebase.
 | Scope | Nature of change | Pipeline |
 |-------|------------------|----------|
 | **Small** | Mechanical, zero decisions | Quick mode — no pipeline |
-| **Medium** | Canonical pattern reapplied | Specify → Implement |
+| **Medium** | Canonical pattern reapplied | Specify → Design (light) → Tasks (light) → Implement |
 | **Large** | ≥1 load-bearing decision new to the codebase | Specify → Design → Tasks → Implement |
 | **Complex** | Ambiguity in the problem itself | Specify (+ Discuss) → Design → Tasks → Implement |
 
@@ -90,8 +90,8 @@ create new feature for user authentication
 # Agent assesses scope, asks for requirements
 # Creates: .artifacts/features/001-user-auth/spec.md
 
-create technical design             # Large/Complex only
-create tasks                        # Large/Complex only
+create technical design             # Medium and up
+create tasks                        # Medium and up
 implement
 ```
 
@@ -114,8 +114,8 @@ modify existing auth flow to add 2FA
 │   └── 001-feature/
 │       ├── spec.md                # Requirements (WHAT)
 │       ├── decisions.md           # Gray area decisions (WHY, optional)
-│       ├── design.md              # Architecture (HOW, Large/Complex only)
-│       ├── tasks.md               # Implementation tasks (WHEN, Large/Complex only)
+│       ├── design.md              # Architecture (HOW)
+│       ├── tasks.md               # Implementation tasks (WHEN)
 │       └── designs/               # Screenshots, mockups (optional)
 ├── quick/
 │   └── 001-fix-redirect/
@@ -130,7 +130,7 @@ modify existing auth flow to add 2FA
 Features track status in spec.md frontmatter:
 
 - **draft**: Created, may have open questions
-- **ready**: Spec complete, design done (or skipped for Medium)
+- **ready**: Spec complete, design and tasks done
 - **in-progress**: Execution started
 - **to-review**: Implementation complete, awaiting Goals/Success audit
 - **done**: Audit passed, feature closed
