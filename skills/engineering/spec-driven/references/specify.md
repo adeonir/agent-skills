@@ -473,7 +473,7 @@ Apply the pipeline by scope once you have decided to continue:
 - Large: Specify → `design` → `tasks`, then wait for user go before `implement`
 - Complex: Specify → (`discuss` if gray areas) → `research` (if new tech) → `design` → `tasks`, then wait for user go before `implement`
 
-The approval gates exist to catch user disagreement, not to impose a phase-by-phase checkpoint when the user has already asked for the whole planning bundle. Stopping prematurely on a phrase like "a spec" when the user clearly meant "the full plan, starting from the spec" forces the user to re-ask for every downstream phase -- that is ceremony, not safety.
+Approval gates catch user disagreement; they do not re-checkpoint every phase when the user already asked for the whole planning bundle. When the request clearly means "the full plan, starting from the spec," continue through the pipeline and collect approval once at the end.
 
 If changes are requested at any gate: update the relevant artifact, re-run its pre-write checks, then continue.
 

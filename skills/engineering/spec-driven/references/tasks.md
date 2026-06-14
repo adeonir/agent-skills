@@ -149,7 +149,7 @@ Never assign a low ID (e.g. `T-1`) to a task that appears later in the document 
 
 If a task seems to need something from a later story, the dependency is a signal the stories are wrong -- either merge them, reorder them in spec.md (then reflect here), or pull the shared prerequisite into the earlier story.
 
-**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S-1. Do not invent a "Phase 0" or "Setup" section outside the story structure. A story exists precisely because it delivers user value; setup that serves one story lives in that story.
+**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S-1. Do not invent a "Phase 0" or "Setup" section outside the story structure; setup that serves one story lives in that story.
 
 Within each story group, generate tasks following natural order:
 1. Setup (config, deps) -- only if not already done in an earlier story
