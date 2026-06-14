@@ -48,21 +48,14 @@ Research files are stored at `.artifacts/research/{topic}.md`.
 
 ## Cache File Structure
 
-Research files must include YAML frontmatter with metadata:
+Research files carry YAML frontmatter — full shape in the Research File
+Template below. The fields the cache logic relies on:
 
-```yaml
----
-topic: totp-authentication
-researched_at: {{YYYY-MM-DD}}
-version: "1.0.0"
-sources_hash: "abc123def456"
-ttl_days: 90
-keywords:
-  - totp
-  - 2fa
-  - authentication
----
-```
+- `created` — date the topic was researched; drives TTL age
+- `ttl_days` — cache lifetime in days
+- `version` — the dependency version the research targeted
+- `sources_hash` — fingerprint of the sources, for staleness detection
+- `keywords` — match terms for partial-cache reuse
 
 ## Cache Check Process
 
@@ -72,9 +65,9 @@ Before researching, always check for existing cache:
 
 ```bash
 if [ -f ".artifacts/research/{topic}.md" ]; then
-  researched_at=$(grep "researched_at:" .artifacts/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
+  created=$(grep "created:" .artifacts/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
   ttl_days=$(grep "ttl_days:" .artifacts/research/{topic}.md | head -1 | cut -d: -f2 | tr -d ' ')
-  # Calculate age and check if still valid
+  # Calculate age (today - created) and check if still valid
 fi
 ```
 
@@ -82,7 +75,7 @@ fi
 
 Cache is automatically invalidated when:
 
-1. **TTL expired**: Days since research > ttl_days
+1. **TTL expired**: Days since `created` > `ttl_days`
 2. **Source 404**: Main documentation URL returns 404
 3. **Version mismatch**: Spec mentions different version than cached
 4. **Breaking changes**: Changelog indicates breaking changes since research date
