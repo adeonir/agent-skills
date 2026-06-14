@@ -6,11 +6,11 @@ description: >-
   traceability and an audit phase tied to Goals and Success Criteria.
   Verify runs inside implement per task -- never as a user phase.
   Use when planning a feature, breaking a change into tasks or
-  stories, implementing a named story or task, auditing goals at a
-  commit boundary or before a PR, or turning a PRD into engineering
+  user stories, implementing a named user story or task, auditing goals
+  at a commit boundary or before a PR, or turning a PRD into engineering
   artifacts. Triggers: "plan this feature", "spec this feature", "turn
   this PRD into a spec", "break this into tasks/stories", "create
-  technical design", "implement story S-1", "audit feature", "validate
+  technical design", "implement user story US-1", "audit feature", "validate
   goals", "manual testing", "discuss this feature", "show feature
   status", "quick fix", "quick task", "small change", and known
   one-line fixes where the user names file and line. Not for
@@ -35,8 +35,8 @@ Structured development workflow with adaptive depth.
 - **Research technology** ("cache research", "research topic") →
   [research.md](references/research.md)
 - **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
-- **Implement** ("implement task", "execute task", "implement story
-  S-1", "implement task T-1") → [implement.md](references/implement.md)
+- **Implement** ("implement task", "execute task", "implement user story
+  US-1", "implement task T-1") → [implement.md](references/implement.md)
 - **Audit** ("audit feature", "validate goals", "audit goals and
   success criteria") → [audit.md](references/audit.md)
 - **Manual testing** ("manual testing", "test manually") →

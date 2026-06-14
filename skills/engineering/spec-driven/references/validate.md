@@ -48,7 +48,7 @@ If not complete, inform user and suggest finishing implementation first.
 From spec.md, extract testable scenarios:
 
 1. For each P1 user story: create a step-by-step test
-2. For P2/P3 stories: create key scenario tests (not exhaustive)
+2. For P2/P3 user stories: create key scenario tests (not exhaustive)
 3. Include edge cases from spec.md that are user-facing
 
 Present the test plan to the user before starting.
@@ -80,14 +80,14 @@ Walk the user through each scenario:
 **DO:**
 - Let the user drive -- they decide when to run UAT
 - Focus on behavior, not code quality (verify handles that)
-- Prioritize P1 stories in test scenarios
+- Prioritize P1 user stories in test scenarios
 - Keep test steps concrete and actionable
 - Revert `[x]` to `[ ]` in spec.md when the user reproves a previously-checked item
 
 **DON'T:**
 - Run UAT automatically without user request
 - Report code style or pattern issues (that's verify's job)
-- Make UAT exhaustive for non-P1 stories
+- Make UAT exhaustive for non-P1 user stories
 - Block completion on minor P3 issues
 - Transition `status: done` -- that is audit.md's exclusive job
 

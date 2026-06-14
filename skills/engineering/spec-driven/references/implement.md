@@ -17,7 +17,7 @@ Transitions.
 
 - `[T-1]` - Single task
 - `[T-1..T-5]` - Range
-- `[S-1]` - All tasks under story S-1
+- `[US-1]` - All tasks under user story US-1
 - `[--all]` - All pending
 - Empty - Next pending task
 
@@ -35,8 +35,8 @@ each step as it completes (TaskUpdate).
 2. If no feature ID -> match current git branch to `branch:` in spec.md frontmatter
 3. If no match -> list available features and ask user
 
-If a story ID argument was given (`[S-1]`):
-- Read tasks.md, find the `### S-1 ...` section
+If a user story ID argument was given (`[US-1]`):
+- Read tasks.md, find the `### US-1 ...` section
 - Collect all tasks under that section header
 - Treat them as the task range for this run
 
@@ -96,7 +96,7 @@ follows the invocation argument:
 
 - `[T-1]`: one subagent for the single task.
 - `[T-1..T-5]`: one subagent for the whole range.
-- `[S-1]`: one subagent for the whole story.
+- `[US-1]`: one subagent for the whole user story.
 - `[--all]`: one subagent for all pending tasks.
 
 The subagent owns Steps 5-6 for every task in its scope. It implements

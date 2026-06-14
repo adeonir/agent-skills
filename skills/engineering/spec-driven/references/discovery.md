@@ -40,12 +40,12 @@ context and skip questions already answered by the document.
 - No clear core --> "What needs to work first for this feature to be useful?"
 - Scope keeps expanding --> "We started with X, now it's X+Y+Z. Should we narrow down?"
 - No success criteria --> "How would you demo this working? What does the user see?"
-- Stories without user connection --> "Which user needs this? What problem does it solve for them?"
+- User stories without user connection --> "Which user needs this? What problem does it solve for them?"
 - No priority order --> "If you implement these one at a time, what order makes sense?"
 
 **Sufficient when:**
-- Stories are prioritized by implementation order (P1 core, P2 increment, P3 polish)
-- P1 stories form a working feature on their own
+- User stories are prioritized by implementation order (P1 core, P2 increment, P3 polish)
+- P1 user stories form a working feature on their own
 - At least one measurable success criterion exists
 - Boundaries are defined (what is explicitly out of scope)
 

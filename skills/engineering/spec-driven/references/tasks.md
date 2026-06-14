@@ -100,7 +100,7 @@ Subagent brief:
   - Execution Plan: ASCII diagram (sequential `-->`, parallel
     branches `├-->`/`└-->`, convergence points)
   - Quality Gates: lint, typecheck, test commands from Step 3
-  - Tasks: story groups in spec.md order (`### S-N [Px] Title`),
+  - Tasks: story groups in spec.md order (`### US-N [Px] Title`),
     each containing tasks with monotonic IDs top-to-bottom, dependency
     markers (`[P]`, `[B:T-X]`), Tests / Gate / Done when fields
     (Tests and Gate only when test infrastructure detected in Step 3),
@@ -130,29 +130,29 @@ dispatch is skipped._
 
 ### Step 5: Decompose Tasks
 
-Group tasks by story. Each story in spec.md becomes a `### S-N [Px] {Story Title}` section in tasks.md. Tasks within a group implement that story's acceptance criteria.
+Group tasks by user story. Each user story in spec.md becomes a `### US-N [Px] {User Story Title}` section in tasks.md. Tasks within a group implement that user story's acceptance criteria.
 
-**Story order is fixed.** Emit stories in the exact order they appear in spec.md: S-1 first, then S-2, then S-3, and so on. Do not reorder stories by technical dependency, risk, or setup-first instinct -- the user reads and commits stories in the order the spec declares them.
+**Story order is fixed.** Emit user stories in the exact order they appear in spec.md: US-1 first, then US-2, then US-3, and so on. Do not reorder user stories by technical dependency, risk, or setup-first instinct -- the user reads and commits user stories in the order the spec declares them.
 
 **Task IDs are assigned top-to-bottom, in document order.** The first task listed in tasks.md is `T-1`. The second is `T-2`. Numbering is monotonic as the reader scrolls down. This means:
 
-- All of S-1's tasks are listed first and get IDs `T-1..T-k`
-- S-2's tasks follow and get `T-(k+1)..T-m`
-- S-3 continues from there, and so on
+- All of US-1's tasks are listed first and get IDs `T-1..T-k`
+- US-2's tasks follow and get `T-(k+1)..T-m`
+- US-3 continues from there, and so on
 
 Never assign a low ID (e.g. `T-1`) to a task that appears later in the document than a higher ID. A reader scanning top-to-bottom must see ascending IDs.
 
-**Commit boundary: each story is independently shippable.** The user must be able to execute and commit only S-1's tasks without pulling in work from S-2 or later stories. This forbids **forward dependencies**:
+**Commit boundary: each user story is independently shippable.** The user must be able to execute and commit only US-1's tasks without pulling in work from US-2 or later user stories. This forbids **forward dependencies**:
 
-- Allowed: `T-5 [B:T-2]` inside S-2 blocking on T-2 inside S-1 (backward dep)
-- Forbidden: `T-2 [B:T-5]` inside S-1 blocking on T-5 inside S-2 (forward dep)
+- Allowed: `T-5 [B:T-2]` inside US-2 blocking on T-2 inside US-1 (backward dep)
+- Forbidden: `T-2 [B:T-5]` inside US-1 blocking on T-5 inside US-2 (forward dep)
 
-If a task seems to need something from a later story, the dependency is a signal the stories are wrong -- either merge them, reorder them in spec.md (then reflect here), or pull the shared prerequisite into the earlier story.
+If a task seems to need something from a later user story, the dependency is a signal the user stories are wrong -- either merge them, reorder them in spec.md (then reflect here), or pull the shared prerequisite into the earlier user story.
 
-**Shared infrastructure tasks** (test tooling, lint config, base types used by every story) belong to the first story that needs them -- typically S-1. Do not invent a "Phase 0" or "Setup" section outside the story structure; setup that serves one story lives in that story.
+**Shared infrastructure tasks** (test tooling, lint config, base types used by every user story) belong to the first user story that needs them -- typically US-1. Do not invent a "Phase 0" or "Setup" section outside the story structure; setup that serves one user story lives in that user story.
 
 Within each story group, generate tasks following natural order:
-1. Setup (config, deps) -- only if not already done in an earlier story
+1. Setup (config, deps) -- only if not already done in an earlier user story
 2. Types (interfaces)
 3. Implementation (core logic, tests included per task)
 4. Integration (connect)
@@ -257,13 +257,13 @@ focused on tasks, not process logs.
 
 Verify the document order enforces the commit-boundary contract.
 
-- `[pass|fail]` Stories appear in spec.md order (S-1 first, then S-2, ...)
+- `[pass|fail]` User stories appear in spec.md order (US-1 first, then US-2, ...)
 - `[pass|fail]` Task IDs are monotonic top-to-bottom (first listed task = T-1)
-- `[pass|fail]` Each story's tasks are contiguous -- no story is split across non-adjacent sections
+- `[pass|fail]` Each user story's tasks are contiguous -- no user story is split across non-adjacent sections
 - `[pass|fail]` No forward dependencies -- no task blocks on a task with a higher ID
-- `[pass|fail]` Shared setup (test infra, types) lives inside the first story that needs it, not in a separate "Phase 0"
+- `[pass|fail]` Shared setup (test infra, types) lives inside the first user story that needs it, not in a separate "Phase 0"
 
-If any fail: re-emit stories in spec.md order, reassign IDs top-to-bottom, and move or rewrite any forward-dependent task.
+If any fail: re-emit user stories in spec.md order, reassign IDs top-to-bottom, and move or rewrite any forward-dependent task.
 
 #### Diagram-Definition Cross-Check
 
@@ -302,22 +302,22 @@ If any task defers its tests: merge them in before proceeding.
 Reason about this silently. Do not print `[pass]` lines for this check into
 tasks.md -- the artifact should not contain a compile/test log per prefix.
 
-For each story prefix (S-1, then S-1+S-2, then S-1+S-2+S-3, ...), the
+For each user story prefix (US-1, then US-1+US-2, then US-1+US-2+US-3, ...), the
 codebase state after applying those tasks in order must stand alone:
 
 - Compiles, lint and typecheck pass, tests (if present) pass
-- No unresolved reference to a primitive owned by a later story
-- No task in an earlier story silently depends on a symbol, function, or
-  module that a later story defines
+- No unresolved reference to a primitive owned by a later user story
+- No task in an earlier user story silently depends on a symbol, function, or
+  module that a later user story defines
 
 If an intermediate state would fail, the problem is a hidden forward
 dependency the `[B:T-X]` markers did not surface. Resolve it before writing
 the artifact -- pick one:
 
-- Restructure: have the earlier story ship an inline implementation that the
-  later story refactors into a shared primitive, and add a `[B:T-X]`
+- Restructure: have the earlier user story ship an inline implementation that the
+  later user story refactors into a shared primitive, and add a `[B:T-X]`
   refactor marker
-- Reorder stories in spec.md so the primitive is owned by an earlier story
+- Reorder user stories in spec.md so the primitive is owned by an earlier user story
   (keep IDs monotonic after the reorder)
 - Escalate to design.md: relocate component ownership and update the
   Requirements Traceability table, then regenerate tasks.md against the new
@@ -448,7 +448,7 @@ Run after each task or batch:
 
 ## Tasks
 
-### S-1 [P1] {{Story Title}}
+### US-1 [P1] {{User Story Title}}
 
 - [ ] T-1 [P] {{verb}} {{what}}
   - **Tests:** {{unit|integration|e2e|none}}
@@ -462,7 +462,7 @@ Run after each task or batch:
   - **Done when:** {{verifiable outcome}}; gate passes, no tests deleted
   - **Satisfaction sketch:** {{one line: why this implementation actually moves the criterion}}
 
-### S-2 [P2] {{Story Title}}
+### US-2 [P2] {{User Story Title}}
 
 - [ ] T-3 [B:T-2] {{verb}} {{what}}
   - **Tests:** {{unit|integration|e2e|none}}
@@ -476,10 +476,10 @@ Run after each task or batch:
 
 ## Requirements Coverage
 
-| Story | Tasks         |
-|-------|---------------|
-| S-1   | T-1, T-2      |
-| S-2   | T-3           |
+| User Story | Tasks    |
+|------------|----------|
+| US-1       | T-1, T-2 |
+| US-2       | T-3      |
 
 | Requirement | Tasks      |
 | ----------- | ---------- |

@@ -10,7 +10,7 @@ implementation — shallow checks risk rubber-stamping. Load
 
 ## When to Use
 
-- After a story completes (commit boundary) -- partial pass validates the Goals/Success Criteria the story unblocks
+- After a user story completes (commit boundary) -- partial pass validates the Goals/Success Criteria the user story unblocks
 - After the entire spec is implemented -- gates the PR
 - User explicitly requests `audit` or `validate goals`
 - Before closing a feature -- `done` requires audit
@@ -19,7 +19,7 @@ Audit may run per-story (incremental) or once at the end. Status only flips to `
 
 ## When to Skip
 
-- Feature is still `in-progress` -- finish the current story first
+- Feature is still `in-progress` -- finish the current user story first
 - Feature is already `done` -- re-audit only if requested
 
 ## Workflow

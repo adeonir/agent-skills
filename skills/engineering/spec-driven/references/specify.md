@@ -39,7 +39,7 @@ Each artifact has a distinct purpose. Never mix these concerns.
 - Architecture decisions
 - Milestones, epics, sprints, release names, or roadmap references (e.g., "part of Q2 epic", "blocked by milestone 3", "planned for v2")
 
-These apply to ALL sections -- Overview, Goals, Non-Goals, Glossary, Stories, ACs, Edge Cases, Success Criteria, Operational Follow-ups, Notes, Baseline. Behavior always trumps symbols.
+These apply to ALL sections -- Overview, Goals, Non-Goals, Glossary, User Stories, ACs, Edge Cases, Success Criteria, Operational Follow-ups, Notes, Baseline. Behavior always trumps symbols.
 
 These belong in design.md, created during the `design` phase.
 
@@ -130,7 +130,7 @@ scope and refined with implementation detail.
 
 | Source (PRD/Design Doc) | spec.md |
 |-------------------------|---------|
-| Product-wide user stories | Feature-scoped stories prioritized by implementation order (P1/P2/P3) |
+| Product-wide user stories | Feature-scoped user stories prioritized by implementation order (P1/P2/P3) |
 | Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
 | High-level acceptance criteria | Testable ACs in EARS-lite shape (1:1, no compound) |
 | Product KPIs and success metrics | Feature-specific success criteria (demo-able) |
@@ -141,7 +141,7 @@ scope and refined with implementation detail.
    constraints ("only if", "when", "unless"), and examples
 3. Filter each item: relevant → transform; not relevant → note WHY in Notes;
    partially relevant → extract only the applicable part
-4. Transform (never copy verbatim): narrow broad stories to feature scope, make
+4. Transform (never copy verbatim): narrow broad user stories to feature scope, make
    ACs testable (EARS-lite shape, 1:1), add missing edge cases and success criteria
    derived from requirements
 5. Output extraction summary in Notes section before generating spec -- the
@@ -309,7 +309,7 @@ Generate the spec following the template structure:
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
 
-Each story includes "Why Px" to justify its priority level. P1 stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 story includes an Independent Test. Acceptance criteria are inline per story with AC-xxx IDs for traceability.
+Each user story includes "Why Px" to justify its priority level. P1 user stories must be vertical slices -- complete, demo-able features (not just backend or frontend). Each P1 user story includes an Independent Test. Acceptance criteria are inline per user story with AC-xxx IDs for traceability.
 
 #### Pre-write checklist
 
@@ -325,7 +325,7 @@ check silently.
 - [ ] Notes contains only behavioral context -- no HOW, no libraries, no component names
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
 - [ ] Every non-functional claim is quantified (e.g. `p95 ≤ 200ms`) or demoted to an Open Question — no vague "fast", "scalable", "responsive"
-- [ ] Each story is a commit boundary: no AC depends on work belonging to a later story (move it if so)
+- [ ] Each user story is a commit boundary: no AC depends on work belonging to a later user story (move it if so)
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
 
@@ -339,13 +339,13 @@ one Success Criterion. Future-tense observation windows ("for N days after deplo
 architectural/instrumentation claim in Goals and move the observation window to
 `## Operational Follow-ups`.
 
-**User Stories:** All stories WILL be implemented. Priorities define implementation
-order, not whether something ships. Each story is a commit boundary -- an AC that
-requires work from a later story must be moved to that story. Watch for narrative vs
-build order inversions: if a story defines a reusable primitive that an earlier-numbered
-story consumes, the inversion breaks the commit-boundary contract. Fix by moving the
-primitive's story earlier, merging it into the first consumer, or making the earlier
-story ship an inline implementation that the later story refactors into the shared
+**User Stories:** All user stories WILL be implemented. Priorities define implementation
+order, not whether something ships. Each user story is a commit boundary -- an AC that
+requires work from a later user story must be moved to that user story. Watch for narrative vs
+build order inversions: if a user story defines a reusable primitive that an earlier-numbered
+user story consumes, the inversion breaks the commit-boundary contract. Fix by moving the
+primitive's user story earlier, merging it into the first consumer, or making the earlier
+user story ship an inline implementation that the later user story refactors into the shared
 primitive. Never leave the inversion implicit.
 
 **Acceptance Criteria:** Use EARS-lite — one of five clause shapes, 1:1 per AC, no
@@ -549,11 +549,11 @@ when the feature introduces no domain vocabulary.}}
 
 ## User Stories
 
-### S-1 [P1] {{Story Title}}
+### US-1 [P1] {{User Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P1:** {{why this is critical for MVP}}
-- **Independent Test:** {{how to verify this story works alone}}
+- **Independent Test:** {{how to verify this user story works alone}}
 
 **Acceptance Criteria:**
 
@@ -561,7 +561,7 @@ when the feature introduces no domain vocabulary.}}
   - **Audit-tool measurement:** {{tool name}} — {{exact metric}} — pass threshold: {{numeric or boolean}}
 - [ ] AC-2 `pending`: While {{state}}, the system shall {{observable outcome}}
 
-### S-2 [P2] {{Story Title}}
+### US-2 [P2] {{User Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P2:** {{why this matters but is not MVP}}
@@ -570,7 +570,7 @@ when the feature introduces no domain vocabulary.}}
 
 - [ ] AC-3 `pending`: The system shall {{observable outcome}}
 
-### S-3 [P3] {{Story Title}}
+### US-3 [P3] {{User Story Title}}
 
 - As a {{user}}, I want {{goal}} so that {{benefit}}
 - **Why P3:** {{why this is nice-to-have}}

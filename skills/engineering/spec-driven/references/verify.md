@@ -153,7 +153,7 @@ After verification passes for a task, update spec.md acceptance criteria.
 1. If `tasks.md` exists: read `## Requirements Coverage` table -- mark every
    AC whose task list is fully verified (all listed tasks passed verify)
 2. If no `tasks.md` (fallback): map by user story containing the code
-   changed -- mark ACs inside that P1/P2/P3 story
+   changed -- mark ACs inside that P1/P2/P3 user story
 
 **How to mark:**
 

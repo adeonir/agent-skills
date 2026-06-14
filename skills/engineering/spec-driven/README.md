@@ -206,7 +206,7 @@ A: Auto-Sizing decides depth. When activities run in full form
   via the canonical template
 - **Tasks Plan sub-agent** — one per tasks phase, owns decomposition
   reasoning; read-only, returns slot fillers
-- **Implement sub-agent** — one per user invocation (T-1, range, S-1,
+- **Implement sub-agent** — one per user invocation (T-1, range, US-1,
   --all), owns the per-task implement and verify cycle
 
 Discovery sub-agents (research, exploration) hand off via disk

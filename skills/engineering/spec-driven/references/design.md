@@ -382,23 +382,23 @@ Reason about this silently before writing design.md. Do not echo this check
 into the artifact -- the design stays focused on the design, not on a process
 log.
 
-For each component, module, type, or primitive you are placing into a story:
+For each component, module, type, or primitive you are placing into a user story:
 
-- Identify which story *owns* it (the story that introduces it)
-- Identify every story that *consumes* it
-- The owning story must be numbered ≤ the earliest consuming story
+- Identify which user story *owns* it (the user story that introduces it)
+- Identify every user story that *consumes* it
+- The owning user story must be numbered ≤ the earliest consuming user story
 
-If inverted -- owning story has a higher number than a consuming story --
+If inverted -- owning user story has a higher number than a consuming user story --
 resolve before writing, by picking one:
 
 - **Relocate ownership**: move the component into the earliest consuming
-  story. Often the right answer for shared primitives that were mentally
+  user story. Often the right answer for shared primitives that were mentally
   "grouped with their caller"
-- **Reorder stories**: if the primitive is conceptually a prerequisite, move
-  its story earlier in spec.md. Remember to keep Story IDs aligned with the
+- **Reorder user stories**: if the primitive is conceptually a prerequisite, move
+  its user story earlier in spec.md. Remember to keep user story IDs aligned with the
   new order
-- **Inline then refactor**: leave the earlier story shipping an inline
-  implementation, and let the later story's scope explicitly include the
+- **Inline then refactor**: leave the earlier user story shipping an inline
+  implementation, and let the later user story's scope explicitly include the
   refactor to a shared primitive. Record this decision in Decisions so tasks
   can plan the refactor as an explicit task
 
