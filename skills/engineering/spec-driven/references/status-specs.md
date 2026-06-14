@@ -117,7 +117,7 @@ Next-step rules by status:
 
 | Status | Next Step |
 |--------|-----------|
-| `draft` | Run `design` (or `implement` for Medium scope) |
+| `draft` | Run `design` |
 | `ready` | Run `implement` |
 | `in-progress` | Run `implement` to continue |
 | `to-review` | Run `audit` to validate Goals/Success Criteria (and optionally `validate` for UAT) |

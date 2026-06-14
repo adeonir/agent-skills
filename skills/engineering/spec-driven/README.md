@@ -211,5 +211,6 @@ A: Auto-Sizing decides depth. When activities run in full form
 
 Discovery sub-agents (research, exploration) hand off via disk
 artifacts. Plan sub-agents hand off via structured chunks because the
-harness blocks Edit/Write for the built-in Plan agent. Inline forms
-(Quick mode, Medium scope) run without dispatch.
+harness blocks Edit/Write for the built-in Plan agent. At Medium, planning
+(research, exploration, Plan) runs inline without dispatch; the implement
+sub-agent still dispatches. Quick mode runs entirely without dispatch.

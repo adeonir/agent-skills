@@ -109,7 +109,8 @@ For each new tech:
 - If exists: use cached research
 - If not: research and create cache (follow [research.md](research.md) trust boundary rules)
 
-If multiple unknown technologies, dispatch one research subagent per topic in
+At **Medium**, research runs inline (no dispatch). At **Large/Complex**, if
+multiple unknown technologies, dispatch one research subagent per topic in
 a single turn -- emit multiple dispatch calls in one message, never
 sequentially. Each subagent follows research.md and writes to
 `.artifacts/research/{topic}.md`. Output is the cache file; main agent reads
@@ -147,12 +148,14 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-**Sub-agent dispatch:** Codebase exploration is context-heavy
+**Sub-agent dispatch (Large/Complex):** Codebase exploration is context-heavy
 (multi-phase workflow with exhaustive member enumeration). Dispatch as
 a single subagent that owns the entire exploration end to end and
 writes findings to disk per the exploration template (see
 [codebase-exploration.md](codebase-exploration.md)). Main agent reads
-the artifact, never the raw file content.
+the artifact, never the raw file content. At **Medium**, exploration runs
+inline at light depth (no dispatch) — capture Subsystem Presence and the
+touched entities directly.
 
 Subagent brief:
 
@@ -162,7 +165,7 @@ Subagent brief:
   template inlined there. Anchor every claim with file:line. Member
   enumeration must be exhaustive, not sampled."
 
-**Discovery batch:** Step 5 research subagents and this exploration
+**Discovery batch (Large/Complex):** Step 5 research subagents and this exploration
 subagent are independent. Dispatch all in a single turn -- emit multiple
 dispatch calls in one message:
 
@@ -178,6 +181,8 @@ Turn N+1: read .artifacts/research/*.md and exploration artifact from disk,
 Map this shape to the subagent dispatch primitive available in the harness.
 
 ### Step 6a: Exploration Depth Gate
+
+**Large/Complex only** — Medium skips exhaustive member enumeration (see Depth Scaling).
 
 Before proceeding to the design generation phase (Steps 10-13), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
 

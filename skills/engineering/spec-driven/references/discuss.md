@@ -101,8 +101,7 @@ Inform user:
 - Remaining: {count} open questions (if any)
 - Created: `decisions.md`
 - Next step based on scope:
-  - **Large/Complex**: Run `design`
-  - **Medium**: Run `implement`
+  - **Medium/Large/Complex**: Run `design`
 
 ## Guidelines
 
