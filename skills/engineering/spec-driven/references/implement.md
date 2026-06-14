@@ -59,6 +59,17 @@ scope above Small produces them). Follow tasks.md. There is no inline
 step-derivation or codebase scanning in implement -- discovery, research, and
 grounding happened in design; implement executes and verifies.
 
+**Grounding gate (paper check, no codebase reads):** confirm the design is
+grounded on its face before executing — verification was design's job, not
+implement's. Halt and route back to `design` if any holds:
+
+- a Decision has a blank Source or Scope
+- a Decision's Source points to external/web with no codebase or docs anchor
+- the design assumes a subsystem with no Subsystem Presence verdict backing it
+- a premise's recorded Scope does not cover this feature's context (per spec)
+
+List the ungrounded items and stop; resolving them is design's job.
+
 ### Step 3: Prepare Branch and Status
 
 Runs before sub-agent dispatch -- the branch must exist before any subagent writes code, and the status flip records that implementation is underway.
@@ -102,6 +113,10 @@ Subagent brief includes:
 - "Run Steps 5-6 for each task in dependency order. Implement, verify per
   task, mark `[x]` in tasks.md. Write code and updates to disk. Report
   files changed and per-task status."
+- "For every fact you reproduce (identifiers, tokens, copy, config values,
+  identity strings), read it from the source of truth named in design.md or
+  spec.md. If the fact is not in that source, STOP and report — never invent
+  or default it."
 
 Subagent writes code, runs verify, and updates tasks.md. Main agent reads
 tasks.md and per-task status from disk, resumes at Step 7.
@@ -137,6 +152,11 @@ Success criteria: {which ACs and Done when this task satisfies}
 ```
 
 Do not proceed without stating all three explicitly.
+
+**Source of truth:** for every fact this task reproduces (identifiers, tokens,
+copy, config values, identity strings), name the source it comes from
+(design.md, a `file:line`, spec.md, a project doc). If the fact is not in that
+source, STOP and ask — never invent or default it.
 
 - Verify the declaration against the checklist:
 

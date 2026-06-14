@@ -104,7 +104,14 @@ Before closing Architecture Analysis, list every entity, projection, contract, D
 
     For every claim of the form "already returns X", "no additional join needed", "signature unchanged", "contract already covers this", attach the `file:line` of the member that backs the claim. Unanchored absence claims are rejected.
 
-**Exit criterion:** No claim about an existing type's contents stands without (a) a full member list with `file:line` and (b) anchors on every absence assertion.
+**Subsystem Presence.** For every subsystem, capability, or integration the
+feature assumes available (i18n, auth, a runtime, a deployed service, a
+dependency), record a present/absent verdict anchored to the `file:line` of the
+wiring that proves it — config, route registration, provider setup, lockfile
+entry. "Documented" or "planned" does not satisfy the claim; only wired
+evidence does.
+
+**Exit criterion:** No claim about an existing type's contents stands without (a) a full member list with `file:line` and (b) anchors on every absence assertion; and every assumed subsystem has a present/absent verdict anchored to wiring.
 
 ### Phase 5: Consolidation
 
@@ -173,6 +180,16 @@ must cite the member that backs the claim.
 | Claim | Anchor (file:line) |
 |-------|--------------------|
 | {{e.g. "response shape already exposes field X"}} | {{path:line}} |
+
+### Subsystem Presence
+
+Every subsystem, capability, or integration the feature assumes available —
+each with a present/absent verdict anchored to the wiring that proves it.
+"Documented" / "planned" is not "wired".
+
+| Subsystem / Capability | Present? | Wiring anchor (file:line) |
+|------------------------|----------|---------------------------|
+| {{e.g. i18n routing}} | {{wired / absent}} | {{path:line of config/route/provider, or "none found"}} |
 
 ## Conventions
 

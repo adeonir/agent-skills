@@ -96,6 +96,9 @@ For all technical decisions, follow in order:
 Never skip to step 5 if steps 1-4 are available. **Never assume or
 fabricate** — follow the chain or say "I don't know."
 
+Record the source that grounded each decision and the scope the premise holds
+under — a decision with no codebase, docs, or ADR anchor is a red flag.
+
 ## Artifact Structure Authority
 
 Every artifact's structure is canonical in the matching reference (each

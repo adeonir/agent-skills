@@ -221,6 +221,10 @@ Skip when frontmatter says `main`/`master`, when empty, or when current branch a
    the rules in Step 6 (root-fix out of scope, comment naming the
    defect, follow-up captured)
 
+**Source of truth:** reproduce every fact (identifiers, tokens, copy, config
+values) from task.md `## Session Context`, a `sources:` pointer, or the
+codebase. If a fact is in none of these, STOP and ask — never invent or default it.
+
 ### Step 8: Run Quality Gates and Verify
 
 Run in order. Static gates first; static failures short-circuit — do not execute

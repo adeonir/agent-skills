@@ -130,6 +130,10 @@ Single unknown tech: research inline, no dispatch needed.
 
 Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
+When composing the research brief, state the question open — enumerate the
+options to weigh against project conventions; never pre-load the recommended
+conclusion (see [research.md](research.md) Brief Neutrality).
+
 When incorporating research into the design, validate findings against the spec's requirements.
 Research informs decisions but the spec remains the single source of truth for what to build.
 
@@ -286,10 +290,12 @@ Subagent brief:
     Contracts rows; Currently Exposed Fields rows (one per AC-named
     field when ACs enumerate output, display, response, or persisted
     fields)
-  - Decisions: rows (decision, choice, worst-case consumer file:line
-    or `n/a` for non-numeric decisions, rationale -- when the choice
-    fixes a numeric default, cap, or implicit upper bound, rationale
-    must show derivation from the worst-case consumer)
+  - Decisions: rows (decision, choice, source (file:line / ADR / doc,
+    per the Knowledge Verification Chain order), scope (context the
+    premise holds under), worst-case consumer file:line or `n/a` for
+    non-numeric decisions, rationale -- when the choice fixes a numeric
+    default, cap, or implicit upper bound, rationale must show derivation
+    from the worst-case consumer)
   - Component Design: rows (component, file, action, responsibility)
   - Visual Design Considerations: bullets (only when designs/ exists)
   - Data Flow: numbered steps or mermaid; Cross-Task Value Trace rows
@@ -339,6 +345,15 @@ Define the data model before component design. Every statement about an existing
 
 **Closing checklist — display each item as `[pass]` or `[fail]` before writing
 design.md. Fix all `[fail]` items first. Do not run this check silently.**
+
+Grounding (all scopes):
+
+- [ ] Every Decision row has a non-empty Source grounded per the Knowledge Verification Chain order — a Source pointing to external/web with no codebase or docs anchor is a red flag
+- [ ] Every Decision row has a Scope naming the context the premise holds under
+- [ ] Every subsystem the design assumes present has a Subsystem Presence verdict anchored to wiring (`file:line`) — "documented" / "planned" does not satisfy it
+- [ ] Every premise's Scope covers this feature's context — a premise true elsewhere but out of scope here is not applied
+
+Member enumeration (Large/Complex):
 
 - [ ] Every field named in any acceptance criterion has a row in `Currently Exposed Fields`
 - [ ] Every Source cell cites a real `file:line`
@@ -399,7 +414,7 @@ Generate the design following the template structure:
 - Research Summary (if applicable)
 - Patterns & Reuse (conventions to follow + existing code to reuse + Reused Component Contracts when applicable + Reused Utility Contracts + integration points with existing systems)
 - Data Model (Entities, Relationships, API Contracts, Currently Exposed Fields when ACs enumerate fields)
-- Decisions (architecture approach + secondary decisions; any decision that fixes a numeric default, cap, or implicit upper bound must cite the worst-case consumer in the codebase that the value must satisfy, and the rationale must show derivation from that consumer -- never from a typical or lifted value)
+- Decisions (architecture approach + secondary decisions; every decision records its Source — where it is grounded (codebase file:line, ADR, or project doc), per the Knowledge Verification Chain order — and its Scope, the context the premise holds under; any decision that fixes a numeric default, cap, or implicit upper bound must cite the worst-case consumer in the codebase that the value must satisfy, and the rationale must show derivation from that consumer -- never from a typical or lifted value)
 - Component Design (component, file, action, responsibility)
 - Data Flow (use mermaid for complex flows; Cross-Task Value Trace when more than one task produces a value another task consumes)
 - Requirements Traceability (AC -> Component -> File; ACs enumerating N fields expand to N rows: field -> source file:line)
@@ -597,11 +612,13 @@ response, or persisted fields. One row per AC-named field.
 ## Decisions
 
 {Non-obvious decisions only. If the choice is self-evident from the
-spec, omit it.}
+spec, omit it. Every decision records its Source — where it is grounded
+(codebase file:line, ADR, or project doc), following the Knowledge
+Verification Chain order — and its Scope, the context the premise holds under.}
 
-| Decision | Choice | Worst-Case Consumer (file:line) | Rationale |
-|----------|--------|---------------------------------|-----------|
-| {{what was decided}} | {{what was chosen}} | {{file:line of largest realistic consumer the value must satisfy, or `n/a` for non-numeric decisions}} | {{why this over alternatives — when the choice fixes a numeric default, cap, or implicit upper bound, the rationale must show the value derives from the worst-case consumer}} |
+| Decision | Choice | Source (file:line / ADR / doc) | Scope | Worst-Case Consumer (file:line) | Rationale |
+|----------|--------|--------------------------------|-------|---------------------------------|-----------|
+| {{what was decided}} | {{what was chosen}} | {{where the decision is grounded — codebase file:line, ADR id, or project doc, per the Knowledge Verification Chain order}} | {{the context the choice holds under — e.g. client bundle, server runtime, this feature only}} | {{file:line of largest realistic consumer the value must satisfy, or `n/a` for non-numeric decisions}} | {{why this over alternatives — when the choice fixes a numeric default, cap, or implicit upper bound, the rationale must show the value derives from the worst-case consumer}} |
 
 ## Component Design
 

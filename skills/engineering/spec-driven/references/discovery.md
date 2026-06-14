@@ -101,9 +101,14 @@ During discovery, watch for signals that indicate ambiguous areas needing deeper
 - Requirements that could be interpreted multiple ways
 - Missing domain knowledge
 - Trade-offs without clear preference
+- Implementation forks the build would otherwise default — theme/skin, locale/routing, brand strings, runtime target
 
 If detected and scope is **Complex**: note them as Open Questions and suggest running
 [discuss.md](discuss.md) after spec is created.
+
+Implementation forks must be pinned into spec.md (`## Decisions` or `## Session
+Context`) or explicitly marked TBD before drafting — never left to be defaulted
+during design or implement.
 
 ## Quality Gate
 

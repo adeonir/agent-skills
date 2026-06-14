@@ -21,7 +21,7 @@ workflow.
 
 Cross-feature decisions with rationale. One bullet per decision.
 
-- {decision} — {rationale} <!-- feature:{ID} date:YYYY-MM-DD -->
+- {decision} — {rationale}; source: {file:line / ADR / doc}; scope: {context it holds under} <!-- feature:{ID} date:YYYY-MM-DD -->
 
 ## Gotchas
 
