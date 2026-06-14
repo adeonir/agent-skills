@@ -146,8 +146,6 @@ keywords:
 
 # {{Topic Title}}
 
-> Researched: {{YYYY-MM-DD}}
-
 ## Summary
 
 {{2-3 sentences of key findings}}
