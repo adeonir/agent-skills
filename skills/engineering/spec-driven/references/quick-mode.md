@@ -319,11 +319,11 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{slug}}
+status: pending
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: pending
-sources: []
 branch: {{branch-name or main}}
+sources: []
 completed: {{YYYY-MM-DD or empty}}
 patterns_discovered: {{list or empty}}
 follow_up: {{list or empty}}

@@ -139,9 +139,9 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{kebab-case-topic}}
+status: active
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: active
 sources: []
 version: "{{x.y.z}}"
 sources_hash: "{{hash}}"

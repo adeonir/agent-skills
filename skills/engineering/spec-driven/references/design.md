@@ -491,13 +491,12 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
+id: {{NNN}}
 name: {{name}}
+status: draft
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: draft
 sources: []
-id: {{NNN}}
-feature: {{name}}
 ---
 
 # Technical Design: {{Feature}}

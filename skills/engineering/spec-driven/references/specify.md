@@ -513,10 +513,10 @@ ALWAYS use this exact template structure:
 id: {{NNN}}
 name: {{name}}
 scope: {{medium|large|complex}}
-status: draft
-review: pending
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
+status: draft
+review: pending
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 branch: {{branch-name or main}}

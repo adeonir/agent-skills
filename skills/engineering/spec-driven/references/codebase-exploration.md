@@ -129,13 +129,12 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
+id: {{NNN}}
 name: {{name}}
+status: active
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: active
 sources: []
-id: {{NNN}}
-feature: {{name}}
 ---
 
 ## Documentation Findings
