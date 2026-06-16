@@ -1,6 +1,6 @@
-# Technical Design
+# Feature Design
 
-Create technical design from specification.
+Create feature design from specification.
 
 Architectural decisions and contract enumeration deserve careful
 reasoning — shallow analysis produces shallow design. Load

@@ -6,10 +6,9 @@ description: >-
   alongside PRD), Design Doc (single project-wide living technical
   document covering strategy through prescriptive plan), ADR (single
   architecture decision record, append-only log). Use when defining
-  product requirements, drafting product specs, designing systems,
-  recording architecture decisions, or maintaining the project's
-  living technical doc. Not for feature spec tied to implementation
-  or meeting/session notes.
+  product requirements, drafting product specs, authoring the design doc,
+  or writing ADRs. Not for feature spec tied to implementation or
+  meeting/session notes.
 ---
 
 # Docs Writer

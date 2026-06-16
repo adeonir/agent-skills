@@ -5,15 +5,10 @@ description: >-
   Produces spec.md, design.md, and tasks.md artifacts with requirements
   traceability and an audit phase tied to Goals and Success Criteria.
   Verify runs inside implement per task -- never as a user phase.
-  Use when planning a feature, breaking a change into tasks or
-  user stories, implementing a named user story or task, auditing goals
-  at a commit boundary or before a PR, or turning a PRD into engineering
-  artifacts. Triggers: "plan this feature", "spec this feature", "turn
-  this PRD into a spec", "break this into tasks/stories", "create
-  technical design", "implement user story US-1", "audit feature", "validate
-  goals", "manual testing", "discuss this feature", "show feature
-  status", "quick fix", "quick task", "small change", and known
-  one-line fixes where the user names file and line. Not for
+  Use when planning a feature, specing a feature, turning a PRD into a
+  spec, breaking a change into tasks or user stories, designing a feature,
+  implementing a named user story or task, auditing goals at a commit
+  boundary or before a PR, or discussing how to build a feature. Not for
   diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design
   Doc documents, PR/commit mechanics, or PM backlog tracking.
 ---
@@ -30,8 +25,8 @@ Structured development workflow with adaptive depth.
   "modify feature") → [specify.md](references/specify.md)
 - **Discuss / capture context** ("discuss feature", "how should this
   work") → [discuss.md](references/discuss.md)
-- **Technical design** ("create technical design", "plan feature") →
-  [design.md](references/design.md)
+- **Feature design** ("design this feature", "designing a feature",
+  "plan feature") → [design.md](references/design.md)
 - **Research technology** ("cache research", "research topic") →
   [research.md](references/research.md)
 - **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
