@@ -1,83 +1,73 @@
 # Review Lens
 
-Confidence-scored code review — quick single-pass by default, deep lens fan-out on demand.
+Confidence-scored code review in two modes — a fast walkthrough-plus-findings pass by default, a multi-material fan-out on demand. Runs before a pull request.
 
 ## What It Does
 
-Annotates the diff with line markers, then reviews it in one of two modes
-and reports severity-sorted findings:
+Annotates the diff with line markers, then reviews it in one of two modes and reports a change summary plus severity-sorted findings with suggested fixes:
 
 ```mermaid
 flowchart TD
     A[Get diff] --> N[Annotate lines L&lt;n&gt;]
     N --> G{Mode}
-    G -->|quick · default| Q[Single-pass review]
-    G -->|deep| F[Fan out 3-5 lenses]
-    F --> M[Consolidate]
-    Q --> R[Severity-sorted report]
-    M --> R
+    G -->|quick · default| Q1[Haiku: walkthrough]
+    G -->|quick · default| Q2[Sonnet: findings]
+    G -->|deep| D1[Sonnet: bug-scan]
+    G -->|deep| D2[Haiku: compliance]
+    G -->|deep| D3[Sonnet: git-history]
+    G -->|deep| D4[Haiku: prior-PRs]
+    Q1 --> R[Report: summary + findings + fixes]
+    Q2 --> R
+    D1 --> J[Haiku judge]
+    D2 --> J
+    D3 --> J
+    D4 --> J
+    J --> R
 ```
 
 | Phase | Output |
 |-------|--------|
 | Annotate | Diff with `[L<n>]` post-image markers (anti-hallucination allowlist) |
-| Quick (default) | One-pass findings across every scope, confidence ≥ 80 |
-| Deep (on demand) | Parallel lens findings (security, bugs, data-loss, performance, guidelines), consolidated |
-| Report | Severity-sorted findings + highlights + coverage gaps; terminal or PR comment |
+| Quick (default) | Change walkthrough (Haiku) + generalist findings (Sonnet), in parallel |
+| Deep (on demand) | Fan-out by material (diff, guideline files, git history, prior PRs) + an independent confidence judge |
+| Report | Summary + severity-sorted findings with suggested fixes; chat output, optional `CODE_REVIEW.md` |
 
 ## Usage
 
 ```text
 review my changes          # quick (default)
 review against main        # quick
-deep review my changes     # lens fan-out
-full review                # lens fan-out
-review and post as PR comment
+deep review my changes     # multi-material fan-out
+full review                # deep
+apply the suggested fixes  # opt-in, with confirmation
 re-review (check if the issues are fixed)
 ```
 
 ## Output
 
-| Workflow | Artifact |
-|----------|----------|
-| Review | `CODE_REVIEW.md` (findings with confidence scores) — optional, only when user asks to save |
-
-Otherwise the report is printed to the terminal, or posted to the PR when
-requested.
+The report prints to the chat by default. On request it can be saved to `CODE_REVIEW.md`, and the suggested fixes can be applied to the working tree (opt-in, with confirmation). The review runs before a pull request exists, so it never posts to a PR.
 
 ## Requirements
 
 - Git
-- `gh` CLI (only for posting the review as a PR comment)
+- `gh` CLI — optional, only for the deep review's prior-PRs pass; it is skipped gracefully when `gh` or a GitHub remote is absent
 
 ## FAQ
 
 **Q: Quick vs deep — when do I use which?**
-A: Quick is the default: a single agent reviews the whole diff in one pass
-across every scope — fast, good for everyday changes. Deep fans out to 3–5
-lens sub-agents in parallel and consolidates — use it on risky or
-wide-reaching diffs, or say "deep review" / "full review".
+A: Quick is the default: two cheap agents (a walkthrough and a generalist findings pass) over the diff — fast, good for everyday changes. Deep fans out across different materials — the diff, your guideline files, git history, and prior PRs — with a separate judge, and costs more. Use it on risky or wide-reaching changes, or say "deep review".
 
-**Q: What base branch is used for comparisons?**
-A: Defaults to `main`. Override by specifying explicitly: "review against
-develop".
+**Q: How does it keep cost down?**
+A: Model tiering. Quick runs a Haiku walkthrough and a Sonnet findings pass. Deep uses the stronger model only for the two reasoning passes (bug-scan and git-history); compliance, prior-PRs, and the batched judge run on Haiku, and the history/PR passes are skipped when there is nothing to read.
+
+**Q: Will it change my code?**
+A: It suggests fixes as code blocks in the report. It only edits the working tree if you explicitly confirm.
+
+**Q: What guideline files does it read?**
+A: `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `.editorconfig`, and `.claude/rules/*.md` inside the repository root. Personal global settings (e.g. `~/.claude/`) are excluded.
 
 **Q: Why are some issues not reported?**
-A: Conservative confidence scoring (≥ 80) in both modes. Style preferences,
-hypothetical issues, and "could be simplified" suggestions are
-intentionally skipped.
+A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Style preferences, hypotheticals, and "could be simplified" suggestions are intentionally skipped.
 
 **Q: What's the size limit?**
-A: 3000 lines or 40 files. Above that, the review stops and suggests
-splitting the branch — beyond those limits a single pass (or a lens) can no
-longer reliably hold the full diff in context.
-
-**Q: How does the guidelines audit work?**
-A: Both modes search for `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, and
-`.editorconfig` inside the repository root and check whether changes comply
-with documented rules. Personal global settings (e.g., `~/.claude/CLAUDE.md`)
-are excluded.
-
-**Q: Do I need `gh` CLI?**
-A: Only to post the review as a PR comment. Terminal output and
-`CODE_REVIEW.md` work without it.
+A: 3000 lines or 40 files. Above that, the review stops and suggests splitting the branch.
