@@ -52,7 +52,7 @@ use kebab-case.
 
 | Directory | Usage |
 |-----------|-------|
-| engineering | Debugging, specs, system design, git tooling |
+| engineering | Debugging, specs, system design, code review, git tooling |
 | product | Brainstorming, design, documentation, domain modeling, epic tracking |
 | personal | Session notes, vault sync, end-of-session wrap-up |
 
@@ -76,7 +76,7 @@ brainstorming (discovery)
 ```
 
 Always-available skills (not tied to the pipeline): `debug-tools`,
-`rule-creator`, `notes`, `handoff`, `wrap-up`.
+`review-lens`, `rule-creator`, `notes`, `handoff`, `wrap-up`.
 
 Skills themselves stay isolated. SKILL.md files do not reference other skills
 by name and do not document this pipeline.

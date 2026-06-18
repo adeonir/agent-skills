@@ -21,7 +21,8 @@ npx skills add adeonir/agent-skills
 | Skill | Category | Description |
 |-------|----------|-------------|
 | **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
-| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, confidence-scored code review, pull request creation, and branch lifecycle |
+| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull request creation, and branch lifecycle |
+| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored code review via lens fan-out (security, bugs, data-loss, performance, guidelines): annotated diff, parallel lenses, consolidated findings |
 | **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` with the Incorrect/Correct template. Classifies input, decides scope, supports list, edit, extract from CLAUDE.md, delete |
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Feature Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[notes](skills/personal/notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
@@ -59,7 +60,7 @@ flowchart TD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
-**debug-tools**, **notes**, **handoff**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
+**debug-tools**, **review-lens**, **notes**, **handoff**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
 
 ## Typical Greenfield Flow
 
@@ -71,13 +72,14 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 5. copywriting       --> extract or write copy.yaml content payload
 6. epic-tracker      --> plan epics, track stories, bugs, and issues
 7. spec-driven       --> specify, design, tasks, implement
-8. git-helpers       --> commit, code-review, pull-request, finish branch
+8. git-helpers       --> commit, pull request, finish branch
 ```
 
 **Always available:**
 
 ```
 debug-tools      --> investigate and fix issues
+review-lens      --> confidence-scored code review by lenses
 notes            --> document work in Obsidian
 handoff          --> save/resume conversation state across sessions
 wrap-up          --> persist session context to Obsidian
@@ -99,7 +101,7 @@ blueprint        --> layout plan (blueprint.md)
 design-brief   --> visual identity, tokens (DESIGN.md)
 epic-tracker     --> epics, stories, acceptance criteria
 spec-driven      --> per-story spec, design, tasks, implementation
-git-helpers      --> commit, review, pull request
+git-helpers      --> commit, pull request, finish branch
 wrap-up          --> persist session context
 ```
 
