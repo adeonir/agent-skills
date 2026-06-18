@@ -5,6 +5,17 @@ continuously — after each task or range, never deferred to the end.
 Load [status-workflow.md](status-workflow.md) for correct status
 management.
 
+## Contents
+
+- [When to Use](#when-to-use)
+- [Arguments](#arguments)
+- [Workflow](#workflow) — Steps 1-8
+- [Edge Case Verification](#edge-case-verification)
+- [Final Verification](#final-verification)
+- [Commit Suggestion](#commit-suggestion)
+- [Guidelines](#guidelines)
+- [Error Handling](#error-handling)
+
 ## When to Use
 
 When implementing tasks from a feature's tasks.md.
@@ -72,7 +83,7 @@ List the ungrounded items and stop; resolving them is design's job.
 
 ### Step 3: Prepare Branch and Status
 
-Runs before sub-agent dispatch -- the branch must exist before any subagent writes code, and the status flip records that implementation is underway.
+Runs before subagent dispatch -- the branch must exist before any subagent writes code, and the status flip records that implementation is underway.
 
 **Branch**: Read `branch:` from spec.md frontmatter. If it differs from the current git branch and is not `main`/`master`:
 
@@ -91,7 +102,7 @@ For each task to implement:
 - Check [P] (parallel) - proceed
 - Check [B:T-X] - verify T-X is done
 
-**Sub-agent dispatch:** Dispatch one subagent per user invocation. Scope
+**Subagent dispatch:** Dispatch one subagent per user invocation. Scope
 follows the invocation argument:
 
 - `[T-1]`: one subagent for the single task.
@@ -369,4 +380,4 @@ Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 - Dependency blocked: List prerequisites
 - Quality gate failed: Fix before marking done
 - Scope misjudged: if a load-bearing decision surfaces, escalate Medium → Large via design (see [auto-sizing.md](auto-sizing.md) Safety Valve)
-- Design-gap defect mid-implement: see Design-gap recovery in Step 5 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md and (optionally) `.artifacts/spec-driven-feedback.md`
+- Design-gap defect mid-implement: see Design-gap recovery in Step 5 During -- prefer `git reset --soft` over additive corrective commits, then record the gap in the feature's design.md (always), `.artifacts/knowledge.md ## Gotchas` (when it encodes a durable cross-feature fact), and `.artifacts/spec-driven-feedback.md` (opt-in skill-class issues)

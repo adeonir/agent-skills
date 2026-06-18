@@ -7,7 +7,7 @@ Research technologies and cache findings for reuse across features.
 When researching technologies referenced in a feature design.
 
 Research is invoked from design.md Step 5. Single topic runs inline within
-design. Multi-topic dispatches per-topic sub-agents in a single turn (see
+design. Multi-topic dispatches per-topic subagents in a single turn (see
 design.md Step 5). Output is self-contained in
 `.artifacts/research/{topic}.md` -- the artifact is the handoff mechanism.
 

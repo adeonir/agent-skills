@@ -2,6 +2,15 @@
 
 Express lane for small changes. Minimal ceremony, minimal artifacts.
 
+## Contents
+
+- [When to Use](#when-to-use)
+- [Workflow](#workflow)
+- [Scope Escalation](#scope-escalation)
+- [Guidelines](#guidelines)
+- [Quick Task Template](#quick-task-template)
+- [Error Handling](#error-handling)
+
 ## When to Use
 
 - Mechanical changes with zero load-bearing decisions

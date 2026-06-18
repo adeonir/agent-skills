@@ -6,6 +6,15 @@ Architectural decisions and contract enumeration deserve careful
 reasoning — shallow analysis produces shallow design. Load
 [status-workflow.md](status-workflow.md) for correct status management.
 
+## Contents
+
+- [When to Use](#when-to-use)
+- [Depth Scaling](#depth-scaling)
+- [Workflow](#workflow) — Steps 1-15
+- [Guidelines](#guidelines)
+- [Design Template](#design-template)
+- [Error Handling](#error-handling)
+
 ## When to Use
 
 - Scope is **Medium**, **Large**, or **Complex** (check `scope:` in spec.md frontmatter) — depth scales with scope (see Depth Scaling below)
@@ -148,7 +157,7 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-**Sub-agent dispatch (Large/Complex):** Codebase exploration is context-heavy
+**Subagent dispatch (Large/Complex):** Codebase exploration is context-heavy
 (multi-phase workflow with exhaustive member enumeration). Dispatch as
 a single subagent that owns the entire exploration end to end and
 writes findings to disk per the exploration template (see

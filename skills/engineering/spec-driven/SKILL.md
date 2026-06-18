@@ -45,7 +45,7 @@ Structured development workflow with adaptive depth.
 
 - **Verification (internal check)** →
   [verify.md](references/verify.md) (loaded by `implement.md` Step 5-After)
-- **Sub-agent dispatch protocol** →
+- **Subagent dispatch protocol** →
   [phases.md](references/phases.md)
 - **Codebase exploration** →
   [codebase-exploration.md](references/codebase-exploration.md)

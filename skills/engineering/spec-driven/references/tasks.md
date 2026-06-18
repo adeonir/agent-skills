@@ -2,6 +2,18 @@
 
 Break design into implementable tasks.
 
+## Contents
+
+- [When to Use](#when-to-use)
+- [Depth Scaling](#depth-scaling)
+- [Workflow](#workflow)
+- [Task Size Guidelines](#task-size-guidelines)
+- [Dependency Markers](#dependency-markers)
+- [Guidelines](#guidelines)
+- [Commit Boundary Grouping](#commit-boundary-grouping)
+- [Tasks Template](#tasks-template)
+- [Error Handling](#error-handling)
+
 ## When to Use
 
 - Scope is **Medium**, **Large**, or **Complex** (check `scope:` in spec.md frontmatter) — depth scales with scope (see Depth Scaling below)
@@ -431,7 +443,7 @@ Total: {{count}} | Completed: 0 | Remaining: {{count}}
 
 ## Execution Plan
 
-```
+```text
 T-1 --> T-2 --> T-3
                  ├--> T-4 --┐
                  └--> T-5 --┼--> T-7

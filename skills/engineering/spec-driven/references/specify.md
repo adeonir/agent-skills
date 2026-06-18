@@ -3,6 +3,17 @@
 Create a new feature specification with adaptive depth. Load
 [status-workflow.md](status-workflow.md) for correct status management.
 
+## Contents
+
+- [When to Use](#when-to-use)
+- [Content Separation (CRITICAL)](#content-separation-critical)
+- [Arguments](#arguments)
+- [Workflow](#workflow) — Steps 1-17
+- [Codebase Mapping Note](#codebase-mapping-note)
+- [Guidelines](#guidelines)
+- [Spec Template](#spec-template)
+- [Error Handling](#error-handling)
+
 ## When to Use
 
 When creating a new feature spec or modifying an existing one.

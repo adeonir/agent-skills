@@ -47,7 +47,7 @@ whether any are novel to the codebase.
 
 ## Usage
 
-```
+```text
 # Create a feature (greenfield)
 create new feature for user authentication
 new feature: payment processing
@@ -85,7 +85,7 @@ how should session timeout work?
 
 ### New Feature (Greenfield)
 
-```
+```text
 create new feature for user authentication
 # Agent assesses scope, asks for requirements
 # Creates: .artifacts/features/001-user-auth/spec.md
@@ -97,7 +97,7 @@ implement
 
 ### Brownfield Feature
 
-```
+```text
 # Create a feature that modifies existing code
 modify existing auth flow to add 2FA
 # Creates .artifacts/features/001-add-2fa/spec.md with Baseline section
@@ -105,7 +105,7 @@ modify existing auth flow to add 2FA
 
 ## Output
 
-```
+```text
 .artifacts/
 ├── knowledge.md                  # Cross-feature decisions, gotchas, conventions
 ├── codebase/
@@ -190,27 +190,27 @@ Audit may run per-story at the commit boundary or once at end-of-spec.
 A reproved `[x]` from validate forces the next implement loop or audit
 to re-run.
 
-**Q: How does sub-agent dispatch work?**
+**Q: How does subagent dispatch work?**
 
 A: Auto-Sizing decides depth. When activities run in full form
-(Large/Complex), they may dispatch to sub-agents for context isolation:
+(Large/Complex), they may dispatch to subagents for context isolation:
 
-- **Research sub-agents** — one per unknown topic, write to
+- **Research subagents** — one per unknown topic, write to
   `.artifacts/research/{topic}.md`
-- **Codebase exploration sub-agent** — one per design phase, runs the
+- **Codebase exploration subagent** — one per design phase, runs the
   full multi-phase exploration, writes to disk
-- **Design Plan sub-agent** — one per design phase, owns architectural
+- **Design Plan subagent** — one per design phase, owns architectural
   reasoning (data model with file:line cites, dependency inversion,
   decisions, traceability); read-only by harness contract, returns
   structured slot fillers that the main agent composes into `design.md`
   via the canonical template
-- **Tasks Plan sub-agent** — one per tasks phase, owns decomposition
+- **Tasks Plan subagent** — one per tasks phase, owns decomposition
   reasoning; read-only, returns slot fillers
-- **Implement sub-agent** — one per user invocation (T-1, range, US-1,
+- **Implement subagent** — one per user invocation (T-1, range, US-1,
   --all), owns the per-task implement and verify cycle
 
-Discovery sub-agents (research, exploration) hand off via disk
-artifacts. Plan sub-agents hand off via structured chunks because the
+Discovery subagents (research, exploration) hand off via disk
+artifacts. Plan subagents hand off via structured chunks because the
 harness blocks Edit/Write for the built-in Plan agent. At Medium, planning
 (research, exploration, Plan) runs inline without dispatch; the implement
-sub-agent still dispatches. Quick mode runs entirely without dispatch.
+subagent still dispatches. Quick mode runs entirely without dispatch.
