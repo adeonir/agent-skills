@@ -60,7 +60,7 @@ For any candidate Medium vs Large, ask:
 Examples:
 
 - Rename `UserService` → `AccountService` across 40 files → **Medium**. Mechanical reapplication, file count is incidental.
-- Dark-mode toggle (localStorage + system pref + CSS vars) → **Medium**. Canonical pattern, reviewer predicts it.
+- Dark-mode toggle (persisted preference + system default + theme variables) → **Medium**. Canonical pattern, reviewer predicts it.
 - Add "remember me" checkbox to existing login → **Medium**. Pattern known, scope bounded.
 - Add role-based access control to an app with no prior auth model → **Large**. Novel decision: where does role live (JWT vs DB lookup), how does the enforcement layer work. Reviewer cannot reconstruct from description.
 - Offline-first sync with conflict resolution, no prior CRDT experience → **Complex**. Problem itself is ambiguous (LWW vs CRDT vs event sourcing), new domain.

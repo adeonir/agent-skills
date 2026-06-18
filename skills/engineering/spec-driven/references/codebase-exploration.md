@@ -202,10 +202,10 @@ each with a present/absent verdict anchored to the wiring that proves it.
 
 ## Test Infrastructure
 
-- **Framework**: {{jest/vitest/etc}}
+- **Framework**: {{test runner}}
 - **Location**: {{test directory pattern}}
-- **Command**: {{npm test/etc}}
-- **Patterns**: {{describe/it structure, mocking approach}}
+- **Command**: {{test command}}
+- **Patterns**: {{test structure, mocking approach}}
 
 ## Essential Files
 

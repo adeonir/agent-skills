@@ -203,8 +203,10 @@ When a design gap is identified mid-implement, pause and pick the cleaner recove
 
 1. `git reset --soft` to the pre-defect commit (or the commit that introduced the wrong premise) -- preserves the staged corrective work without keeping the contradicting commit history
 2. Re-commit in the corrected shape, with the new mechanism reflecting what design.md should have said
-3. Append the gap to the feature's `design.md` under a new section `## Design Gaps Discovered During Implementation` -- one bullet stating what the assumption was and how implementation invalidated it
-4. Optionally, when the gap reveals a class of issue the spec-driven skill itself should catch, append to `.artifacts/spec-driven-feedback.md` as input for future skill iteration (this file is opt-in, not part of `.artifacts/knowledge.md`)
+3. Record the gap in the right sink(s) -- a single gap can hit more than one:
+   - **Feature-local audit trail (always):** append to the feature's `design.md` under a new section `## Design Gaps Discovered During Implementation` -- one bullet stating what the assumption was and how implementation invalidated it. This documents why the commit was reset; it is feature-scoped and is not read by later features, so it is not where a reusable learning survives.
+   - **Cross-feature gotcha (when the gap encodes a durable project fact a future feature would otherwise rediscover):** record it in `.artifacts/knowledge.md ## Gotchas` -- the sink design.md Step 3 reads before designing the next feature. This is what keeps the learning from dying in the feature-local section.
+   - **Skill-class issue (opt-in, when the gap reveals a class of issue the spec-driven skill itself should catch):** append to `.artifacts/spec-driven-feedback.md` as input for future skill iteration (this file is opt-in, not part of `.artifacts/knowledge.md`)
 
 Never use `--no-verify` or `--amend` to mask a design gap. The corrective commit must run hooks normally. Destructive history rewriting (`reset --hard`, force push) requires explicit user confirmation.
 

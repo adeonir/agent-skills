@@ -357,6 +357,7 @@ Grounding (all scopes):
 - [ ] Every Decision row has a Scope naming the context the premise holds under
 - [ ] Every subsystem the design assumes present has a Subsystem Presence verdict anchored to wiring (`file:line`) — "documented" / "planned" does not satisfy it
 - [ ] Every premise's Scope covers this feature's context — a premise true elsewhere but out of scope here is not applied
+- [ ] Every integration-tool decision — a tech new to the codebase whose job is runtime wiring with existing config — cites an executed spike result against the real project config; external docs alone do not satisfy it
 
 Member enumeration (Large/Complex):
 
@@ -678,8 +679,8 @@ value at every consumer without reading code.
 
 | Aspect | Detail |
 |--------|--------|
-| Framework | {{jest/vitest/etc}} |
-| Command | {{npm test/etc}} |
+| Framework | {{test runner}} |
+| Command | {{test command}} |
 | Location | {{test directory pattern}} |
 
 ### Reference Tests

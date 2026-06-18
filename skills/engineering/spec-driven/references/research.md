@@ -117,6 +117,21 @@ Default to conceptual. Escalate to integration when the feature
 spec involves connecting to, deploying to, or automating through
 an external tool or platform.
 
+**Executable spike — runtime-wiring subclass.** When an integration
+topic is new to the codebase **and** its job is runtime wiring with
+the project's own config — it sits in the build / test / bundler /
+adapter / runtime-env / plugin-host layer and must coexist with
+existing adapters, plugins, or environment globals — docs are
+necessary but not sufficient. Docs describe the tool in isolation;
+they cannot predict its conflict with this project's existing
+configuration. "Research how X works in practice" here means: run a
+minimal throwaway spike that exercises the *real* project config
+(one disposable test or build) and record the observed result —
+pass, or the actual failure — in the cache's Integration Constraints.
+A doc-only Research entry for a tool whose job is runtime integration
+is a smell. The spike is throwaway: record only the result, never
+commit spike code.
+
 ## Research Process
 
 1. **Check Cache** - Look for `.artifacts/research/{topic}.md`
@@ -170,6 +185,7 @@ keywords:
 - **Environment variables**: {{vars required per stage — build, bundle, runtime}}
 - **Runtime constraints**: {{container limitations, missing binaries, edge vs serverless}}
 - **Error modes**: {{what fails silently, what throws, common misconfigurations}}
+- **Spike result**: {{what a minimal throwaway run against the real project config produced — pass, or the actual error/behavior; required when the topic is runtime wiring, omit otherwise}}
 
 ## Recommendations
 
