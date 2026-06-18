@@ -8,7 +8,7 @@ Loaded by the `guidelines` lens during code-review fan-out (Step 7). Not a direc
 
 ## Purpose
 
-Verify changes follow explicit rules documented in project guideline files (CLAUDE.md, AGENTS.md, CONTRIBUTING.md, .editorconfig, and similar). The lens receives `ANNOTATED_DIFF` + `CHANGED_FILES` from the main agent and must obey all Universal Rules from [review.md](review.md) (line allowlist, confidence `>= 80`, second-pass coverage, never modify files).
+Verify changes follow explicit rules documented in project guideline files (CLAUDE.md, AGENTS.md, CONTRIBUTING.md, .editorconfig, and similar). The lens receives `ANNOTATED_DIFF` + `CHANGED_FILES` from the main agent and must obey all Universal Rules from [deep-review.md](deep-review.md) (line allowlist, confidence `>= 80`, second-pass coverage, never modify files).
 
 ## Workflow
 
@@ -44,7 +44,7 @@ Check each change in `ANNOTATED_DIFF` against the extracted guidelines. Cite onl
 
 ### Step 4: Score Violations
 
-Only report violations with `>= 80` confidence (see [review.md](review.md) for the calibrated rubric).
+Only report violations with `>= 80` confidence (see [deep-review.md](deep-review.md) for the calibrated rubric).
 
 ### Step 5: Second-Pass Coverage
 

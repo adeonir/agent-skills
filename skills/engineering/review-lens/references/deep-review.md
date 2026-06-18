@@ -1,10 +1,10 @@
-# Code Review
+# Deep Review (Lens Fan-Out)
 
 Lens-based fan-out review with anti-hallucination diff annotation. Up to five lenses (security, bugs, data-loss, performance, guidelines) read the same annotated diff in parallel; active lenses are selected based on diff content (minimum 3). The main agent consolidates findings.
 
 ## When to Use
 
-When reviewing code changes before committing or creating a pull request.
+When you want thorough multi-lens coverage of a diff before committing or creating a pull request. The default quick review (single-pass) covers the common case; reach for deep review on risky or wide-reaching changes, or when the user asks for a "deep", "full", or "thorough" review.
 
 ## Data Trust Boundary
 

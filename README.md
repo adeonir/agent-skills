@@ -22,7 +22,7 @@ npx skills add adeonir/agent-skills
 |-------|----------|-------------|
 | **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
 | **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull request creation, and branch lifecycle |
-| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored code review via lens fan-out (security, bugs, data-loss, performance, guidelines): annotated diff, parallel lenses, consolidated findings |
+| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored code review in two modes: quick single-pass (default) and deep lens fan-out (security, bugs, data-loss, performance, guidelines), with annotated-diff anti-hallucination |
 | **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` with the Incorrect/Correct template. Classifies input, decides scope, supports list, edit, extract from CLAUDE.md, delete |
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Feature Design, Tasks, Implement. Auto-sized by complexity, full traceability |
 | **[notes](skills/personal/notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
@@ -79,7 +79,7 @@ Dashed arrow: optional shortcut for small, well-scoped work.
 
 ```
 debug-tools      --> investigate and fix issues
-review-lens      --> confidence-scored code review by lenses
+review-lens      --> confidence-scored code review
 notes            --> document work in Obsidian
 handoff          --> save/resume conversation state across sessions
 wrap-up          --> persist session context to Obsidian
