@@ -4,7 +4,7 @@ A personal collection of skills for AI coding agents. Each skill packages instru
 
 ## What are Skills?
 
-Skills are packaged instructions that teach AI agents new workflows and specialized knowledge. Think of them as plugins -- a `SKILL.md` file with YAML frontmatter tells the agent when to activate, and markdown content tells it what to do. Supporting files (references, templates, scripts) are loaded on demand to keep context usage minimal.
+Skills are packaged instructions that teach AI agents new workflows and specialized knowledge. Think of them as plugins — a `SKILL.md` file with YAML frontmatter tells the agent when to activate, and markdown content tells it what to do. Supporting files (references, templates, scripts) are loaded on demand to keep context usage minimal.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard, which originated in Claude Code and has been adopted across all major AI coding agents.
 
@@ -16,24 +16,30 @@ Install any skill with a single command using the [Skills CLI](https://skills.sh
 npx skills add adeonir/agent-skills
 ```
 
+Or install a single skill:
+
+```bash
+npx skills add adeonir/agent-skills/<skill-name>
+```
+
 ## Skills
 
 | Skill | Category | Description |
 |-------|----------|-------------|
-| **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative debugging: investigate, fix, verify loop with pattern comparison and escalation. Confidence scoring |
-| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull request creation, and branch lifecycle |
-| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored code review in two modes: quick single-pass (default) and deep lens fan-out (security, bugs, data-loss, performance, guidelines), with annotated-diff anti-hallucination |
-| **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` with the Incorrect/Correct template. Classifies input, decides scope, supports list, edit, extract from CLAUDE.md, delete |
-| **[spec-driven](skills/engineering/spec-driven)** | Engineering | Specification-driven development: Specify, Feature Design, Tasks, Implement. Auto-sized by complexity, full traceability |
-| **[notes](skills/personal/notes)** | Personal | Obsidian note creation for projects, companies, challenges, brags, daily logs, sessions, and conversations |
-| **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions: snapshots focus, decisions, findings, open threads, next step, blockers, references |
-| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian session and daily notes |
-| **[blueprint](skills/product/blueprint)** | Product | Plans `blueprint.md`, the design-blind layout payload a design consumes: information architecture, region layout, and screen flow from conversation or a brief |
-| **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration or plan stress-test: two-path discovery (standard/relentless), diverge with techniques, converge on direction. Feeds docs-writer, spec-driven, design-brief |
-| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml`, the content payload a design consumes: write fresh copy from intent, or extract and structure existing content into a context-named tree |
-| **[design-brief](skills/product/design-brief)** | Product | Greenfield design pipeline for any digital product: explore a visual direction when none exists, author and refine DESIGN.md, preview and tune tokens visually, validate, reconcile drift |
-| **[docs-writer](skills/product/docs-writer)** | Product | Structured document generation: PRD, Brief, Design Doc, ADR. Guided discovery per type |
-| **[epic-tracker](skills/product/epic-tracker)** | Product | Delivery lifecycle management: plan epics, track stories, bugs, and issues, group releases. Tracker-first via MCP or CLI; markdown fallback when no tracker is configured. Feeds spec-driven |
+| **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative investigate–fix–verify debugging with confidence scoring |
+| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull requests, and branch lifecycle |
+| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored pre-PR code review in quick and deep modes |
+| **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` |
+| **[spec-driven](skills/engineering/spec-driven)** | Engineering | Spec-driven feature development with auto-sizing and full traceability |
+| **[notes](skills/personal/notes)** | Personal | Obsidian notes for projects, meetings, challenges, and brag docs |
+| **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions |
+| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian |
+| **[blueprint](skills/product/blueprint)** | Product | Plans `blueprint.md` — information architecture, layout, and screen flow |
+| **[brainstorming](skills/product/brainstorming)** | Product | Structured idea exploration and plan stress-testing, diverge to converge |
+| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml` — fresh copy or structured existing content |
+| **[design-brief](skills/product/design-brief)** | Product | Greenfield visual identity — explore a direction and author `DESIGN.md` |
+| **[docs-writer](skills/product/docs-writer)** | Product | Structured docs: PRD, Brief, Design Doc, ADR |
+| **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and releases — tracker-first or markdown |
 
 ## How They Connect
 
@@ -47,65 +53,43 @@ flowchart TD
     DW_PRD -->|requirements| DB
     DW_PRD -->|requirements| BP[blueprint]
     DW_PRD -->|requirements| CW[copywriting]
-    BP -->|blueprint.md| SD
-    CW -->|copy.yaml| SD
-    DB -->|DESIGN.md| SD
+    BP -->|layout| SD
+    CW -->|content| SD
+    DB -->|design| SD
     DW_DD -->|Design Doc| SD
     DW_DD -->|Design Doc| ET
     DW_DD -->|Design Doc| DB
     DW_DD -.->|extract decision| DW_ADR[docs-writer ADR]
-    ET -->|handoff| SD
+    ET -->|stories| SD
     SD -->|commits & PRs| GH[git-helpers]
     SD -.->|coherence gap| DW_DD
 ```
 
 Dashed arrow: optional shortcut for small, well-scoped work.
-**debug-tools**, **review-lens**, **notes**, **handoff**, and **wrap-up** are independent — available at any point, not tied to the pipeline.
-
-## Typical Greenfield Flow
-
-```
-1. brainstorming     --> explore ideas, choose direction
-2. docs-writer       --> draft requirements, brief, technical doc
-3. blueprint         --> plan blueprint.md layout and screen flow
-4. design-brief      --> author the DESIGN.md visual identity
-5. copywriting       --> extract or write copy.yaml content payload
-6. epic-tracker      --> plan epics, track stories, bugs, and issues
-7. spec-driven       --> specify, design, tasks, implement
-8. git-helpers       --> commit, pull request, finish branch
-```
-
-**Always available:**
-
-```
-debug-tools      --> investigate and fix issues
-review-lens      --> confidence-scored code review
-notes            --> document work in Obsidian
-handoff          --> save/resume conversation state across sessions
-wrap-up          --> persist session context to Obsidian
-```
+**debug-tools**, **review-lens**, **rule-creator**, **notes**, **handoff**, and **wrap-up** are available at any point — utilities and reviews used as needed, not mandatory pipeline stages.
 
 ## Using the Flow
 
-### Full product-first flow
-
-Use all steps when building a new product or feature with non-trivial
+The full flow when building a new product or feature with non-trivial
 business logic:
 
 ```
-brainstorming    --> direction and constraints
-docs-writer      --> PRD (what to build, for whom, why)
-docs-writer      --> Design Doc (technical doc)
-copywriting      --> content payload (copy.yaml)
-blueprint        --> layout plan (blueprint.md)
-design-brief   --> visual identity, tokens (DESIGN.md)
-epic-tracker     --> epics, stories, acceptance criteria
-spec-driven      --> per-story spec, design, tasks, implementation
-git-helpers      --> commit, pull request, finish branch
-wrap-up          --> persist session context
+1.  brainstorming --> direction and constraints
+2.  docs-writer   --> PRD (what to build, for whom, why)
+3.  docs-writer   --> Design Doc (technical decisions)
+4.  blueprint     --> layout and screen flow
+5.  design-brief  --> visual identity and design tokens
+6.  copywriting   --> content and copy
+7.  epic-tracker  --> epics, stories, acceptance criteria
+8.  spec-driven   --> per-story spec, design, tasks, implementation
+9.  review-lens   --> review changes before commit (quick or deep)
+10. git-helpers   --> commit, pull request, finish branch
+11. wrap-up       --> persist session context
 ```
 
-`design-brief` can run in parallel with the Design Doc step.
+`design-brief` can run in parallel with the Design Doc step. The
+always-available skills (see [How They Connect](#how-they-connect)) slot in
+at any point.
 
 ### When to skip steps
 
@@ -142,26 +126,25 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ## Output Structure
 
-Skills write artifacts to `.artifacts/`:
+Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace):
 
 ```
 docs/
-├── product/        # docs-writer: brainstorm, PRD, brief
+├── product/        # brainstorming: brainstorm · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: moodboard.md · DESIGN.md · blueprint: blueprint.md · copywriting: copy.yaml
+└── design/         # design-brief: design tokens, moodboard
 
 .artifacts/
 ├── knowledge.md    # spec-driven: cross-feature decisions, gotchas, conventions
 ├── codebase/       # spec-driven: area exploration cache (reusable)
-├── brainstorm/     # brainstorming: ideation artifacts
 ├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ├── features/       # spec-driven: feature specs, designs, tasks
 ├── quick/          # spec-driven: quick mode tasks
 └── research/       # spec-driven: research cache
 ```
 
-This directory is gitignored by default but can be committed for team collaboration.
+The `.artifacts` directory is gitignored by default but can be committed for team collaboration.
 
 ## License
 

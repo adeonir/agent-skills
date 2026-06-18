@@ -13,6 +13,17 @@ via `skills.sh`.
 No build, no tests, no linter. Validation is manual: read files, verify
 structure, check cross-references within a skill.
 
+After editing a skill, the self-checks worth running over its directory
+(`skills/<category>/<skill>/`):
+
+```bash
+grep -rn '^```$' .              # bare fences are closings; every opening must carry a language
+grep -rn '\.md)' .             # spot-check that every relative link target still exists
+grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty)
+```
+
+Also confirm the `description` stays within the 1,536-char listing cap.
+
 Install all skills from this repo:
 
 ```bash
@@ -145,7 +156,10 @@ argument-hint: [optional-arg]    # only when skill accepts /skill <args>
 
 Rules:
 - `name`: kebab-case, ≤64 chars, lowercase + digits + hyphens. Forbidden:
-  `anthropic`, `claude`.
+  `anthropic`, `claude`. The `name` becomes the slash command, so avoid
+  collisions with Claude Code built-ins (`code-review`, `simplify`,
+  `review`, `security-review`, …); pick a distinct name when a skill's job
+  overlaps a built-in's.
 - `description`: ≤1024 chars, third person or noun phrase. Never first or
   second person ("I help...", "You can use...").
 - Folded block `>-` with 2-space indentation. Lines under 80 chars to avoid
@@ -673,8 +687,7 @@ docs/
 ├── quick/         # spec-driven: quick mode tasks
 ├── research/      # spec-driven: research cache
 ├── epics/         # epic-tracker: epics, stories, bugs, releases
-├── design/        # design-brief: color-tuner variant + tune session events
-└── changelog.md   # consolidated repo changelog (local-only narrative)
+└── design/        # design-brief: color-tuner variant + tune session events
 ```
 
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write —
@@ -739,7 +752,7 @@ Before finalizing a new skill, verify:
 
 ## Reference Exemplars
 
-When in doubt about how a pattern is applied, study these two skills:
+When in doubt about how a pattern is applied, study these skills:
 
 - **`brainstorming`** (simple) — argument-hint exception, template
   inline 1:1 strict, three Anti-Patterns in prose, three refs covering
@@ -747,6 +760,10 @@ When in doubt about how a pattern is applied, study these two skills:
 - **`spec-driven`** (complex) — eight templates inline 1:1, sub-agent
   fan-out + Plan dispatch, Knowledge Verification Chain, Artifact
   Structure Authority. Demonstrates the refactor at scale.
+- **`review-lens`** (two-mode) — a shared `common.md` reference composed
+  by both modes (neither owns the other), model tiering (Haiku/Sonnet by
+  role), and sub-agent fan-out by material. Demonstrates peer modes sharing
+  one rubric.
 
 ## Skill Installation
 
