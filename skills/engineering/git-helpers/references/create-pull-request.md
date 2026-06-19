@@ -86,9 +86,12 @@ ALWAYS use this exact template structure:
 
 ## Test Plan
 
-{{Commands a reviewer can run to verify, each paired with its expected
-outcome — not the results you measured this run (no test counts, scores,
-or specific fixes).}}
+{{Commands a reviewer can run to verify this change, each paired with the
+outcome they should observe. Each step exercises the behavior this PR
+introduces — skip whole-project gates (full suite, typecheck, build) that
+pass regardless of the diff and that CI already runs. State what the
+reviewer sees, not the change's internals or the results you measured this
+run (no test counts, scores, or measured values).}}
 
 1. `{{command}}` — {{expected outcome}}
 2. `{{command}}` — {{expected outcome}}
@@ -104,6 +107,11 @@ The body MUST NOT contain:
 - Future work, follow-ups, or roadmap references
 - Run-specific results in the Test Plan — test counts, scores, or measured
   values; list reproducible commands and their expected outcomes instead
+- Whole-project gates that pass independently of this change — running the
+  full suite, typecheck, or build for ceremony rather than to exercise the
+  diff
+- Implementation internals in the expected outcome — binding or symbol
+  names, or which code path ran; state only what the reviewer observes
 - Attribution lines
 
 ### Step 6: Push and Create PR
