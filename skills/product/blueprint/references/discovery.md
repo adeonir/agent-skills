@@ -36,3 +36,8 @@ When context is missing, ask one question at a time: which surfaces or screens
 the product has, the primary action per surface, and any flow between them.
 Derive topics from the conversation — do not force a project type or a fixed
 surface set.
+
+When a surface's arrangement stays ambiguous, an optional probe sharpens it:
+"what arrangement would be wrong for this surface?" An anti-goal — a layout the
+user knows does not fit — often pins the structure faster than asking what does.
+Keep it structural; styling anti-goals are out of scope.

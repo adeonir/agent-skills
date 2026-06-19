@@ -39,12 +39,25 @@ List the surfaces, then the ordered blocks each needs — named by context
 each block a shape hint from the fixed set (Step 4 template). Nest blocks with
 `children` when a region contains sub-regions.
 
+Arrange each surface by what it is for, not by reflex. Defaulting every surface
+to a card grid (`grid-N`) or a centered stack is structural slop — it reads as
+generic because the shape was never chosen for the content. Let the primary
+action and the content hierarchy pick the shape: a comparison wants columns, a
+focused task wants a narrow stack, a browse wants a grid.
+
 ### Step 3: Walk Decisions
 
 One decision at a time. Skip anything obvious from the conversation or any
 content provided. For each surface: the block order, the shape of each block, and
-the flow links out of it. When a choice is genuinely open, offer 2-3 options
-with a one-line rationale and let the user pick before writing.
+the flow links out of it.
+
+Match the cadence to how settled the decision is. When the arrangement is
+already clear from the context, assert it and ask for confirmation rather than
+staging a menu — "This reads as a sidebar layout, list left, detail right —
+confirm?" moves faster than "Sidebar / Stack / Or something else?" and still
+lets the user redirect. Reserve the 2-3 option menu, each with a one-line
+rationale, for when the choice is genuinely open. Either way, let the user
+settle it before writing.
 
 ### Step 4: Write blueprint.md
 
