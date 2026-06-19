@@ -86,10 +86,12 @@ ALWAYS use this exact template structure:
 
 ## Test Plan
 
-{{How to verify this works — steps the reviewer can follow to test}}
+{{Commands a reviewer can run to verify, each paired with its expected
+outcome — not the results you measured this run (no test counts, scores,
+or specific fixes).}}
 
-1. {{Step to reproduce or verify}}
-2. {{Expected result}}
+1. `{{command}}` — {{expected outcome}}
+2. `{{command}}` — {{expected outcome}}
 
 Closes #{{issue-number}}
 ````
@@ -100,6 +102,8 @@ The body MUST NOT contain:
   conversation that the diff does not show
 - Alternatives debated in chat or rejected approaches
 - Future work, follow-ups, or roadmap references
+- Run-specific results in the Test Plan — test counts, scores, or measured
+  values; list reproducible commands and their expected outcomes instead
 - Attribution lines
 
 ### Step 6: Push and Create PR
