@@ -37,40 +37,29 @@ directly. It checks existing context (an existing `blueprint.md`, the
 conversation, any brief the user provides) and routes by intent — author a
 plan, or check one. See [discovery.md](references/discovery.md).
 
-## Operations
-
-| Operation | File |
-| --------- | ---- |
-| Author a fresh layout plan into blueprint.md | [create.md](references/create.md) |
-| Check a wireframe or plan for coherence | [validate.md](references/validate.md) |
-
 ## Artifact
 
-Produces and owns `docs/design/blueprint.md`. A **YAML frontmatter** carries
-the normative region tree (surfaces → blocks with shape hints) plus optional
-screen flow — what a downstream renderer parses to draw the low-fi wireframe. A
-**markdown body** narrates it: a screen map and the per-surface rationale a
-tree alone cannot hold. Block labels come from the conversation; shape hints
-come from a fixed set. Patch the frontmatter first, then the prose that
-describes it, so the two stay in sync. Before
-saving, self-check: the tree is well-formed and carries structure only — no
-colors, fonts, spacing, or tokens, no copy strings, and no requirement IDs
-(`fr-1`, `m1`, `j1`, `us-3`). It plans arrangement, nothing else.
+Produces and owns `docs/design/blueprint.md`: a **YAML frontmatter** region
+tree (surfaces → blocks with shape hints, plus optional screen flow) that a
+downstream renderer parses to draw the low-fi wireframe, and a **markdown
+body** that narrates it with a screen map and the per-surface rationale a tree
+alone cannot hold. The full template, the shape vocabulary, and the pre-save
+self-check live in [create.md](references/create.md).
 
 ## Inputs
 
 Plan from the conversation. Beyond that, the only inputs are what the user
-provides — a brief, a PRD, a description, or existing material they point to;
-nothing is auto-loaded. If the user hands over existing content or a prior
-plan, arrange against it; otherwise plan from intent.
+provides — a brief, a PRD, a description, a reference URL, or existing material
+they point to; nothing is auto-loaded. If the user hands over existing content
+or a prior plan, arrange against it; otherwise plan from intent.
 
 ## Guidelines
 
-- Plan structure only — never embed colors, fonts, spacing, or tokens.
+- Plan structure only — never embed visual decisions (colors, fonts, spacing,
+  tokens), copy strings, or requirement IDs (`fr-1`, `m1`, `j1`, `us-3`).
 - Derive surfaces and topics from the conversation; no fixed project types.
 - Use free block labels; pick shape hints from the fixed set so the plan
   stays renderable.
 - Patch the frontmatter region tree first, then the body that narrates it,
   so the two stay in sync.
 - Ask one decision at a time when walking surfaces, blocks, and flow.
-- Keep content out — plan structure; never author or import copy, and never carry requirement IDs (`fr-1`, `m1`, `j1`).
