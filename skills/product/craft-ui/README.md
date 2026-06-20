@@ -82,7 +82,8 @@ The shared rubric every mode composes:
 - `references/color.md` — OKLCH, palette, contrast, dark mode
 - `references/typography.md` — scale, pairing, loading
 - `references/layout.md` — spacing, grid, hierarchy, depth
-- `references/motion.md` — timing, easing, materials, ambitious tier
+- `references/motion.md` — timing, easing, materials
+- `references/overdrive.md` — the ambitious-tier motion tune (brand only)
 - `references/interaction.md` — states, focus, overlays, keyboard
 - `references/responsive.md` — breakpoints, input method, safe areas
 - `references/tune.md` — render/critique tune directions (bolder, quieter, distill, delight, harden)

@@ -9,8 +9,9 @@ DESIGN.md, blueprint.md, copy.yaml, or production code.
 
 Composed by `render.md` when the user names a tune on the chosen variant, and by
 `critique.md` (Step 6) when a priority issue maps to a tune. Not a direct
-trigger. Motion tunes (`animate`, `overdrive`) live in
-[motion.md](motion.md) — this file owns the five that reshape the look itself.
+trigger. The motion tunes live elsewhere — `animate` in [motion.md](motion.md),
+`overdrive` in [overdrive.md](overdrive.md); this file owns the five that reshape
+the look itself.
 
 Each verb reads differently for brand vs product — name the register first
 ([brand.md](brand.md) / [product.md](product.md)). The moves below are
@@ -29,9 +30,10 @@ More effects is not bolder; a committed decision is.
   primary action, widen the type-scale contrast, let one screen carry a category
   color. Restraint stays the baseline.
 
-Moves: raise display weight/size contrast; commit the color step up one level;
-exaggerate the spatial rhythm around the focal element; give the signature detail
-room. Re-render, don't redecorate.
+Moves: push display contrast hard — 3–5× scale jumps, not a timid 1.5×, and
+weight pairings at the extremes (900 against 200, not 600/400); commit the color
+step up one level toward a ~60% dominant; exaggerate the spatial rhythm around the
+focal element; give the signature detail room. Re-render, don't redecorate.
 
 ## quieter
 
@@ -44,9 +46,10 @@ view; the signature survives, the clutter goes.
 - **Product** — desaturate toward tinted neutrals, drop weight, shorten and
   soften motion, let whitespace carry the structure.
 
-Moves: cut accent surface area; lower saturation and font-weight; reduce
-elevation and radius emphasis; remove decorative motion (keep state feedback).
-Quieter is a deliberate strategy, not an absence of one.
+Moves: cut accent surface area; pull saturation back toward 70–85% and drop
+weight a full step (900→600); reduce elevation and radius emphasis; shorten or
+remove decorative motion — keep state feedback. Quieter is a deliberate strategy,
+not an absence of one.
 
 ## distill
 
@@ -95,8 +98,9 @@ Re-render the chosen variant against:
 - **Long and short text** — a name at 100+ characters, an empty field, a
   headline that wraps to three lines; confirm truncation/clamp/wrap holds
   ([typography.md](typography.md), [layout.md](layout.md)).
-- **Empty, loading, and error states** — the panel with no data, mid-load, and
-  after a failure, each with a clear next action ([interaction.md](interaction.md)).
+- **Empty, loading, error, and blocked states** — the panel with no data,
+  mid-load, after a failure, plus permission-denied and rate-limited, each with a
+  clear next action ([interaction.md](interaction.md)).
 - **Density extremes** — a list at 1000+ rows and at zero; a table column with
   an outlier value.
 - **Internationalization shape** — a 30–40% longer translation and an RTL
@@ -109,11 +113,11 @@ direction that survives reality, not a hardened codebase.
 
 ## Motion tunes (cross-link)
 
-`animate` (motion that conveys state — transitions, feedback, reveals) and
-`overdrive` (the ambitious tier — view transitions, scroll-driven choreography,
-GPU effects; brand register only, product stays calm) are defined in
-[motion.md](motion.md). Apply them as re-renders the same way: the motion lives
-in the variant HTML for the session, never in a source artifact.
+`animate` (motion that conveys state — transitions, feedback, reveals) is defined
+in [motion.md](motion.md); `overdrive` (the ambitious tier — view transitions,
+scroll-driven choreography, GPU effects; brand register only, product stays calm)
+in [overdrive.md](overdrive.md). Apply them as re-renders the same way: the motion
+lives in the variant HTML for the session, never in a source artifact.
 
 ## Guidelines
 

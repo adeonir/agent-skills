@@ -60,6 +60,18 @@ condensed + wide (proportion). Never pair two fonts that are similar but not
 identical (two geometric sans). System fonts are underrated for app UI where
 performance beats personality (`-apple-system, system-ui` loads instantly).
 
+## Selection reflexes to resist
+
+The lazy move maps a brief straight to its cliché font — resist these:
+
+- A technical or developer brief does not need a serif for "warmth".
+- An editorial or premium brief does not need the trendy expressive serif.
+- A children's product does not need a rounded display font — real kids' books
+  use real type.
+- A modern brief does not need yet another geometric sans.
+
+The cliché is the AI default; pick type from the actual voice, not the category.
+
 ## Web font loading
 
 The layout-shift problem: fonts load late, text reflows, content jumps.

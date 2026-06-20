@@ -68,18 +68,29 @@ walk the primary action as each. Report the exact elements that fail them — no
 generic descriptions. personas.md carries the five archetypes, the
 selection-by-surface table, and a template for project-specific personas.
 
+As you walk each path, trace the **emotional journey** — where it dips
+(confusion, friction, anxiety) and whether the high-stakes moments (payment,
+deletion, irreversible submits) offer reassurance. Peak-end weighs the worst
+moment and the last one most, so one unhandled valley colours the whole read.
+
 ### Step 6: Direction verdict and refinements
 
 Write the verdict using the template in [scoring.md](../references/scoring.md):
 slop verdict, the heuristic table and total, the priority issues (P0–P3), and
 2–3 strengths. Then map each priority issue to a render tune verb so the loop
 can continue — verb definitions live in [tune.md](../references/tune.md)
-(motion verbs in [motion.md](../references/motion.md)); render invokes them:
+(motion verbs in [motion.md](../references/motion.md) /
+[overdrive.md](../references/overdrive.md)); render invokes them:
 
 - reads safe / undifferentiated → `bolder` or a committed color strategy
 - noisy / over-decorated → `quieter` or `distill`
 - flat, no feedback → `animate` (state) or `delight` (earned moments)
 - thin on edge states → `harden` (preview empty / loading / error)
+
+Close with 2–3 questions that open the next iteration instead of only grading
+this one — "What would a more confident version of this look like?", "Does this
+need to feel this complex?", "What if the primary action were twice as prominent?"
+They aim render's next pass.
 
 Hand the refinements back to render; re-render and re-critique until the
 direction holds. Critique never edits the variant itself.

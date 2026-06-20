@@ -45,7 +45,7 @@ Required references, auto-loaded:
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](../references/typography.md) — scale, pairing, loading
 - [layout.md](../references/layout.md) — spacing, grid, hierarchy, depth
-- [motion.md](../references/motion.md) — timing, easing, materials, ambitious tier
+- [motion.md](../references/motion.md) — timing, easing, materials
 - [interaction.md](../references/interaction.md) — states, focus, overlays
 - [responsive.md](../references/responsive.md) — breakpoints, input, safe areas
 - [web-standards.md](../references/web-standards.md) — implementation rules
@@ -141,8 +141,10 @@ never DESIGN.md. Critique drives these in its refinement loop.
 
 - **bolder / quieter / distill / delight / harden** — the look-reshaping
   directions, defined in [tune.md](../references/tune.md).
-- **animate / overdrive** — the motion directions, defined in
-  [motion.md](../references/motion.md).
+- **animate** — the everyday motion direction (state, feedback, reveals), defined
+  in [motion.md](../references/motion.md).
+- **overdrive** — the ambitious-tier direction (view transitions, scroll-driven,
+  GPU), brand register only, defined in [overdrive.md](../references/overdrive.md).
 
 Each reads differently for brand vs product — read the register file first. Wording
 and labels stay out of scope — copy is a content concern, not a tune.

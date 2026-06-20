@@ -2,8 +2,9 @@
 
 Motion that conveys state, gives feedback, and clarifies hierarchy — and the cut
 of motion that exists only for decoration. Animation fatigue is a real cost;
-spend the budget on the moments that need it. Includes the ambitious tier
-(scroll-driven, view transitions, GPU rendering) for surfaces that earn it.
+spend the budget on the moments that need it. The ambitious tier (scroll-driven,
+view transitions, GPU rendering) is its own brand-only tune — see
+[overdrive.md](overdrive.md).
 
 ## When to Use
 
@@ -92,38 +93,17 @@ Reveal animations must enhance an already-visible default — never gate content
 visibility on a class-triggered transition (it pauses on hidden tabs and
 headless renderers, shipping the section blank).
 
-## Pushing further (ambitious tier)
+## animate (tune verb)
 
-When the surface earns it, go beyond CSS — but the experience without the
-enhancement must still be good (progressive enhancement is non-negotiable).
+The everyday motion tune render re-renders a variant along — motion that conveys
+state: feedback, reveals, transitions, loading. Like every tune it is a
+direction, not an edit; the motion lives only in the variant HTML for the
+session, never in a source artifact. Reach for it when a variant reads flat or
+gives no feedback, and apply the timing, easing, and materials above within the
+register's budget.
 
-- **View Transitions API** — shared-element morphing (list item → detail, button
-  → dialog). `@starting-style` animates from `display: none` with CSS only.
-- **Scroll-driven** (`animation-timeline: scroll()`) — parallax, progress,
-  reveals; CSS-only; always a static fallback (`@supports`).
-- **Spring physics** — natural motion with mass/tension/damping (motion, GSAP).
-- **WebGL / Canvas / OffscreenCanvas** — shaders, particles, GPU charts for
-  effects/datasets CSS can't express; lazy-init near viewport, pause off-screen,
-  fall back to WebGL2 / CSS.
-- **Virtual scrolling** — tens of thousands of rows at 60fps.
-
-Focus creates impact; layering multiple competing "extraordinary" moments
-creates noise. Context decides: a particle system wows on a portfolio,
-embarrasses on a settings page.
-
-## Tune verbs: animate / overdrive
-
-The two motion tune verbs render and critique invoke. Each re-renders the chosen
-variant along a motion direction — non-mutating, living only in the variant HTML
-for the session, never in a source artifact.
-
-- **animate** — motion that conveys state: transitions, feedback, reveals. Reach
-  for it when a variant reads flat or gives no feedback. Apply the Timing,
-  Easing, and Motion materials above, within the register's budget.
-- **overdrive** — the ambitious tier: view transitions, scroll-driven
-  choreography, GPU effects (see Pushing further above). Brand register only;
-  product stays calm and in-task. Every overdrive moment keeps a functional
-  fallback.
+The ambitious tier — view transitions, scroll-driven choreography, GPU effects —
+is a separate, brand-only tune: see [overdrive.md](overdrive.md).
 
 ## Motion anti-defaults
 
