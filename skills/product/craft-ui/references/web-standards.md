@@ -132,12 +132,12 @@ Rules for implementation — see color.md for color direction.
 - Buttons and links need `hover:` state for visual feedback.
 - Interactive states increase contrast progressively: rest < hover < active < focus.
 
-## Content and Copy
+## Content and copy
 
-- Active voice: "Install the CLI" not "The CLI will be installed".
-- Title Case for headings and button labels (Chicago style).
-- Numerals for counts: "8 deployments" not "eight deployments".
-- Specific button labels: "Save API Key" not "Continue".
-- Error messages include fix or next step, not just the problem description.
+Wording, voice, casing, and message content are a content concern — they ride in
+on `copy.yaml` (or placeholder), and a variant renders the copy it is given
+rather than authoring or editing it; audit judges the five dimensions, not the
+prose. The render-deterministic text rules — curly quotes, ellipsis, non-breaking
+spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).
