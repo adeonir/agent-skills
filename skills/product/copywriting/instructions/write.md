@@ -31,8 +31,13 @@ names, roadmap language, and sibling-artifact references stay out of
 
 ### Step 2: Plan Surfaces and Parts
 
-List the surfaces and the parts each needs, named by context (mirror the
-planned surfaces when known). Draft only the parts a surface actually has.
+Name the **register** per surface (brand or product —
+[../references/brand.md](../references/brand.md) /
+[../references/product.md](../references/product.md)); it sets the voice. Then
+list the surfaces and the parts each needs, named by context (mirror the planned
+surfaces when known). A surface's parts include its microcopy where it has
+it — labels, button text, states, navigation — not only marketing parts. Draft
+only the parts a surface actually has.
 
 ### Step 3: Draft Each Part
 
@@ -46,7 +51,10 @@ Apply the craft in [../references/copy-frameworks.md](../references/copy-framewo
 - **CTA** — `[action verb] + [what they get] + [qualifier]`.
 
 Hold the target voice from [../references/voice.md](../references/voice.md);
-keep proof **outward** (the work, not the person).
+keep proof **outward** (the work, not the person). Keep every line clear — apply
+the clarity method and principles in
+[../references/ux-writing.md](../references/ux-writing.md), which also carries the
+craft for microcopy (labels, errors, states, navigation).
 
 ### Step 4: Offer Options
 
@@ -57,7 +65,8 @@ rationale; let the user pick before writing.
 
 Before saving:
 
-- Strip dead words and dead structures (voice.md) — no empty antithesis or
+- Strip dead words and dead structures (see
+  [../references/voice.md](../references/voice.md)) — no empty antithesis or
   em-dash drama; would a real person say this aloud?
 - Every claim is specific and proof is outward.
 - **No design leakage** — no colors, fonts, icons, or layout in `copy.yaml`.

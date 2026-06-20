@@ -29,7 +29,9 @@ content part: clarity → voice consistency → so-what → prove-it → specifi
 emotion → zero-risk, then the quick-pass word/sentence/paragraph checks. Pull
 proof and dead-adjective guidance from
 [../references/voice.md](../references/voice.md). The voice pass checks
-*consistency* only — never change the voice.
+*consistency* only — never change the voice. For microcopy
+(labels, errors, states, navigation), also run the clarity method in
+[../references/ux-writing.md](../references/ux-writing.md).
 
 ### Step 3: Propose Edits
 

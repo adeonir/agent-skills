@@ -5,8 +5,11 @@ writing fresh copy.
 
 ## When to Use
 
-Loaded by the write workflow when drafting copy from intent. Apply by the
-surfaces a project has — these are part patterns, not a project-type gate.
+Loaded by the write workflow when drafting brand-register copy from intent —
+headlines, value props, landing and CTA patterns. Apply by the surfaces a
+project has; these are part patterns, not a project-type gate. Product-register
+surfaces (dashboards, forms, settings) carry microcopy instead — see
+[ux-writing.md](ux-writing.md).
 
 ## Headline Formulas
 

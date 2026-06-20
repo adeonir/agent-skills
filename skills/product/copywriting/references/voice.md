@@ -22,18 +22,20 @@ Pick a point on each axis and hold it across the copy.
 - **Plain — Playful** — straight delivery vs well-placed wit. One good line
   beats five attempts.
 
-## Voice by Context
+## Register sets the voice
 
-Voice is set by the product and audience, not a fixed mode — read it from the
-brief and calibrate:
+Register is the posture — **brand** (the words are the product) or **product**
+(the words serve the task). Set or confirm it, and read the matching file
+([brand.md](brand.md) / [product.md](product.md)) when establishing or
+changing it; it calibrates the axes above:
 
-- **Marketing / conversion** — confident, benefit-forward, scannable; bolder in
-  headlines, clearer in body, action-oriented in CTAs.
-- **Product / app UI** — concise, calm, instructional; verbs first, no hype.
-- **Personal-site** — first person, present tense ("I build", not "Builds"),
-  sounds like the person talking over coffee.
+- **Brand** — distinctive and confident; bolder in headlines, scannable in body,
+  action-oriented in CTAs. A personal site leans first person, present tense
+  ("I build", not "Builds").
+- **Product** — concise, calm, instructional; verbs first, no hype.
 
-Read copy out loud. If it sounds like a brochure, rewrite it.
+Read copy out loud. If it sounds like a brochure where it should instruct — or
+flat where it should sell — the register is wrong.
 
 ## Finding the Voice
 

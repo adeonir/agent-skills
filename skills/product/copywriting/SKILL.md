@@ -3,13 +3,14 @@ name: copywriting
 allowed-tools: Read Write Edit Grep Glob WebFetch
 description: >-
   Authors copy.yaml, the content payload a design consumes: write fresh
-  marketing or product copy from intent, or extract and structure existing
+  brand or product copy from intent, or extract and structure existing
   content from a URL, brief, codebase, or screenshot — content only,
   composable under any design. Use when writing headlines, value
   propositions, landing-page or CTA copy; extracting, structuring,
   tightening, or revoicing content; capturing copy from a screenshot;
-  or preparing copy.yaml for design work. Not for visual identity or
-  design tokens, page layout or screen flow, or standalone social bios.
+  syncing copy.yaml from a drifted implementation; or preparing
+  copy.yaml for design work. Not for visual identity or design tokens,
+  page layout or screen flow, or standalone social bios.
 ---
 
 # Copywriting
@@ -43,18 +44,33 @@ operation. See [discovery.md](instructions/discovery.md).
 ## Artifact
 
 Produces and owns `docs/design/copy.yaml` — a context-named content tree
-(surfaces → parts → headline, body, cta, images), named to mirror the source.
+(surfaces → parts — headline, body, cta, labels, states, images — named by
+context), mirroring the source.
 Before saving, self-check: the tree is well-formed and carries no design
 decisions — no colors, fonts, or layout, content only. The content stays
 swappable: any `copy.yaml` must work independent of visual styling.
+
+## Register and surface
+
+Two axes, set before writing:
+
+- **register** — the posture: **brand** (the words are the product) or
+  **product** (the words serve the task). Sets the voice. Read the matching
+  [brand.md](references/brand.md) / [product.md](references/product.md) first.
+- **surface** — the granular type the copy serves, named by context (landing,
+  dashboard, form, empty-state…). A surface sits under a register; the content
+  tree is named by context, never forced into a fixed list. Storefronts straddle
+  — catalog copy is brand, checkout / account copy is product.
 
 ## References
 
 Loaded on demand by the workflows:
 
+- `references/brand.md` / `references/product.md` — register (brand vs product) posture; read the matching one first
 - `references/copy-frameworks.md` — headline formulas, content-part types, page shapes, CTA patterns
-- `references/voice.md` — voice axes, proof hierarchy, dead words and structures to strip
+- `references/voice.md` — how register sets the voice, voice axes, proof hierarchy, dead words and structures
 - `references/editing-sweeps.md` — Seven Sweeps, quick-pass checks, plain-English
+- `references/ux-writing.md` — clarity craft: the assess→plan→improve→verify method, clarity principles, microcopy (errors, labels, states), a11y/i18n/terminology
 
 ## Guidelines
 

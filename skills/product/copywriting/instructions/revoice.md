@@ -25,7 +25,11 @@ Parse `docs/design/copy.yaml`. Note the current voice — you are replacing it.
 ### Step 2: Establish Target Voice
 
 Get the target from the user (stated — "more playful", "luxury", "drier" — or a
-sample to match) and set the axes from
+sample to match). Hold the surface's **register** (brand or product —
+[../references/brand.md](../references/brand.md) /
+[../references/product.md](../references/product.md)); it bounds how far the
+voice can move — a product surface stays calm and instructional even when
+revoiced. Then set the axes from
 [../references/voice.md](../references/voice.md). Confirm it back in one line
 before recasting.
 
@@ -33,7 +37,7 @@ before recasting.
 
 Rewrite each line into the target voice, preserving the message, every claim,
 and the structure. Change *how* it is said, never *what*. Do not introduce dead
-adjectives or drop proof (voice.md).
+adjectives or drop proof (see [../references/voice.md](../references/voice.md)).
 
 ### Step 4: Confirm Before Write
 

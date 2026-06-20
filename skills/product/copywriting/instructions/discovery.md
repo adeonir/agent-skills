@@ -18,10 +18,10 @@ Look for:
 - `docs/product/prd.md`, `docs/product/brief.md`, `docs/product/brainstorm.md`
   — intent and requirements when writing fresh
 
-If found, read and extract purpose, audience, tone, and surfaces — copy-relevant
-facts only; requirement IDs, milestones, sprint or release names, roadmap
-language, and sibling-artifact references stay out of `copy.yaml`. Skip to the
-relevant operation.
+If found, read and extract purpose, audience, tone, register (brand or product),
+and surfaces — copy-relevant facts only; requirement IDs, milestones, sprint or
+release names, roadmap language, and sibling-artifact references stay out of
+`copy.yaml`. Skip to the relevant operation.
 
 ### Step 2: Classify Field
 
@@ -44,6 +44,7 @@ Infer from source and intent — do not ask explicitly:
 
 ### Step 4: Fill Gaps
 
-When context is missing, ask one question at a time: source, tone
-(professional, casual, bold), which surfaces the content covers, and any
-constraints (word count, mandatory sections).
+When context is missing, ask one question at a time: source, the surfaces the
+copy covers (landing, dashboard, form…) and their register (brand or product —
+usually inferable from the surface), and any constraints (word count, mandatory
+sections).

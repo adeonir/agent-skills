@@ -44,12 +44,8 @@ order to (→ to), that (often), things / stuff.
 | Weak | Strong |
 |------|--------|
 | utilize | use |
-| leverage | use |
 | facilitate | help |
 | implement | set up |
-| seamless | smooth |
-| robust | strong |
-| cutting-edge | new / modern |
 
 **Sentence-level:** one idea per sentence; vary length; front-load the
 important part; usually ≤25 words.
@@ -64,9 +60,7 @@ Swap pompous words for plain ones.
 | Complex | Plain |
 |---------|-------|
 | commence | start |
-| utilise | use |
 | ascertain | find out |
-| in order to | to |
 | due to the fact that | because |
 | in the event of | if |
 | prior to | before |
@@ -75,7 +69,7 @@ Swap pompous words for plain ones.
 | approximately | about |
 
 Delete filler phrases outright: "a total of", "at this moment in time",
-"basically", "of course", "the fact of the matter is", "needless to say".
+"of course", "the fact of the matter is", "needless to say".
 
 For dead marketing adjectives (passionate, world-class, synergy, …) see the
 dead-words list in [voice.md](voice.md).

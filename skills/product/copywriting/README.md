@@ -25,6 +25,10 @@ flowchart TD
 Content is orthogonal to design: the same `copy.yaml` works independent of
 visual styling, so this skill carries words only — never colors, fonts, or layout.
 
+Copy is set by **register** (brand — the words are the product; or product — the
+words serve the task) and organized by **surface** (the granular type, named by
+context). A surface sits under a register; storefronts straddle.
+
 ## Usage
 
 ```text
@@ -57,15 +61,19 @@ reconcile content drift
 
 ## References
 
-Loaded on demand: `references/copy-frameworks.md` (headline formulas, content-part
-types, page shapes, CTA), `references/voice.md` (voice axes, proof hierarchy,
-dead words and structures), and `references/editing-sweeps.md` (Seven Sweeps, quick-pass,
-plain-English).
+Loaded on demand: `references/brand.md` / `references/product.md` (register
+posture — read the matching one first), `references/copy-frameworks.md` (headline
+formulas, content-part types, page shapes, CTA), `references/voice.md` (register
+bias, voice axes, proof hierarchy, dead words and structures),
+`references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), and
+`references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method,
+clarity principles, microcopy, a11y/i18n/terminology).
 
 ## Output
 
-`docs/design/copy.yaml` — a context-named content tree (surfaces → parts →
-headline, body, cta, images), mirroring the source or the brief.
+`docs/design/copy.yaml` — a context-named content tree (surfaces → parts —
+headline, body, cta, labels, states, images — named by context), mirroring the
+source or the brief.
 
 ## Requirements
 
