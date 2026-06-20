@@ -46,6 +46,18 @@ body** that narrates it with a screen map and the per-surface rationale a tree
 alone cannot hold. The full template, the shape vocabulary, and the pre-save
 self-check live in [create.md](references/create.md).
 
+## Register and surface
+
+Two axes, set before arranging:
+
+- **register** — the posture: **brand** (the surface communicates — landing,
+  campaign, portfolio) or **product** (the surface serves a task — dashboard,
+  form, settings). Biases the arrangement, never gates it. Read the matching
+  [brand.md](references/brand.md) / [product.md](references/product.md) first.
+- **surface** — the granular type, named by context. A surface sits under a
+  register; surfaces come from the conversation, never a fixed set. Storefronts
+  straddle — the marketing shell is brand, the checkout / account flow is product.
+
 ## Inputs
 
 Plan from the conversation. Beyond that, the only inputs are what the user
@@ -58,6 +70,8 @@ or a prior plan, arrange against it; otherwise plan from intent.
 - Plan structure only — never embed visual decisions (colors, fonts, spacing,
   tokens), copy strings, or requirement IDs (`fr-1`, `m1`, `j1`, `us-3`).
 - Derive surfaces and topics from the conversation; no fixed project types.
+- Name the register (brand or product) per surface; it biases the arrangement, never gates the shape.
+- Plan each surface for real conditions — its reflow on narrow viewports and its content volume (none/typical/many) — as structural intent in the narration, never pixels or breakpoints.
 - Use free block labels; pick shape hints from the fixed set so the plan
   stays renderable.
 - Patch the frontmatter region tree first, then the body that narrates it,

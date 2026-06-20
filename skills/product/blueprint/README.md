@@ -22,6 +22,14 @@ independent of visual styling, so this skill plans structure only — never
 colors, fonts, tokens, copy strings, or requirement IDs. It emits the plan; a
 downstream renderer draws the wireframe.
 
+Each surface is arranged under a **register** — brand (the surface communicates)
+or product (the surface serves a task) — which biases the block order and shapes.
+Surfaces are named by context; storefronts straddle the two registers.
+
+Each surface is also planned for real conditions — how it reflows on narrow
+viewports and how it holds real data volume (none / typical / many) — as
+structural intent, never pixels.
+
 ## Usage
 
 ```text

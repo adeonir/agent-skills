@@ -18,10 +18,11 @@ then save the region tree (YAML frontmatter) and narrate it (markdown body).
 
 From discovery, or ask one question at a time:
 
-1. Which surfaces or screens does the product have? (named by context)
+1. Which surfaces or screens does the product have, named by context, and the register of each — brand (the surface communicates) or product (the surface serves a task)?
 2. The primary action on each — what the user is meant to do.
 3. The content hierarchy — what leads, what supports.
 4. Any flow between surfaces — entry, key paths, exit.
+5. Real conditions — the realistic data volume per data-heavy region (none / typical / many) and how each surface should reflow on narrow viewports ([reflow.md](reflow.md)).
 
 When the user provides a PRD, brief, or existing content (including an
 already-written copy payload), read it to learn **which** blocks exist and
@@ -39,11 +40,21 @@ List the surfaces, then the ordered blocks each needs — named by context
 each block a shape hint from the fixed set (Step 4 template). Nest blocks with
 `children` when a region contains sub-regions.
 
-Arrange each surface by what it is for, not by reflex. Defaulting every surface
-to a card grid (`grid-N`) or a centered stack is structural slop — it reads as
-generic because the shape was never chosen for the content. Let the primary
-action and the content hierarchy pick the shape: a comparison wants columns, a
-focused task wants a narrow stack, a browse wants a grid.
+Arrange each surface by what it is for, not by reflex — its **register** sets the
+posture: a **brand** surface builds a narrative toward a conversion
+([brand.md](brand.md)); a **product** surface follows the task with familiar
+navigation and planned states ([product.md](product.md)). Defaulting every
+surface to a card grid (`grid-N`) or a centered stack is structural slop — it
+reads as generic because the shape was never chosen for the content. Let the
+register, the primary action, and the content hierarchy pick the shape: a
+comparison wants columns, a focused task wants a narrow stack, a browse wants a
+grid.
+
+Plan each surface for real conditions, not just the happy path: how it **reflows**
+on narrow viewports (what stacks, collapses, or defers) and the **content volume**
+it must hold (none / typical / many → the empty state, pagination, and a shape
+that survives scale). Both are structural intent for the narration and block
+`note`s — never pixels or breakpoints in the tree. See [reflow.md](reflow.md).
 
 ### Step 3: Walk Decisions
 
@@ -73,7 +84,8 @@ two stay in sync.
 Before saving, self-check the tree: it is valid YAML rooted at `surfaces:`,
 every block carries a shape from the fixed set, and it holds structure only —
 no colors, fonts, spacing, or tokens, no copy strings, and no requirement IDs
-(`fr-1`, `m1`, `j1`, `us-3`).
+(`fr-1`, `m1`, `j1`, `us-3`). Reflow and volume stay as structural intent in
+`note`s and the body — never pixels or breakpoints in the tree.
 
 ## Template
 
@@ -115,8 +127,9 @@ marketing page, a one-line section order is enough.}}
 ## {{surface name}}
 
 {{Ordered blocks and why they sit in this order — the rationale a region tree
-alone cannot carry, plus state variants (empty/loading/error) worth planning.
-One H2 per surface.}}
+alone cannot carry, plus state variants (empty/loading/error) worth planning,
+the reflow on narrow viewports (collapsing strategy), and the content volume
+that drives them. One H2 per surface.}}
 ```
 
 The **frontmatter** is normative and renderable — a downstream renderer parses
