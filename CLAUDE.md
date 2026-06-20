@@ -69,28 +69,12 @@ use kebab-case.
 
 ## Canonical Workflow
 
-Skills compose via artifacts on disk (`.artifacts/`), not via
-cross-references inside skill files. The repo `README.md` owns the canonical
-pipeline diagram (mermaid with feedback loops). Summary at the repo level
-only:
+Skills compose via artifacts on disk (`.artifacts/`), not via cross-references
+inside skill files. The repo `README.md` owns the pipeline diagram and the skill
+index — this file does not duplicate them.
 
-```
-brainstorming (discovery)
-    --> docs-writer (product requirements + technical docs)
-    --> blueprint (information architecture + screen flow)
-    --> design-brief (visual identity)
-    --> copywriting (content payload)
-    --> epic-tracker (epics --> stories)
-    --> spec-driven (per story: spec + design + tasks)
-    --> git-helpers (atomic commits per task)
-    --> wrap-up (persist context to Obsidian)
-```
-
-Always-available skills (not tied to the pipeline): `debug-tools`,
-`review-lens`, `rule-creator`, `notes`, `handoff`, `wrap-up`.
-
-Skills themselves stay isolated. SKILL.md files do not reference other skills
-by name and do not document this pipeline.
+Skills themselves stay isolated. SKILL.md files do not reference other skills by
+name and do not document the pipeline.
 
 ## Skill File Layout
 
@@ -657,47 +641,26 @@ aliases.
 Skills split outputs between committed strategic docs (`docs/`) and a
 gitignored agent workspace (`.artifacts/`).
 
-`docs/` — committed, human-readable, audience-first:
+`docs/` — committed, human-readable, audience-first; `.artifacts/` — gitignored
+agent workspace. The owning skill is in the comment; each skill documents its own
+outputs in its README.
 
 ```
 docs/
-├── product/
-│   ├── brainstorm.md       # brainstorming: strategic direction (living)
-│   ├── prd.md              # docs-writer: product requirements
-│   └── brief.md            # docs-writer: 1-page PRD summary
-├── tech/
-│   └── design-doc.md       # docs-writer: project-wide living technical doc
-├── adr/
-│   └── {NNNN}-{slug}.md    # docs-writer: append-only decision log
-└── design/
-    ├── moodboard.md        # design-brief: locked visual direction (mood diverge/converge)
-    ├── DESIGN.md           # design-brief: visual identity (YAML tokens + prose)
-    ├── styleguide.html     # design-brief: token specimen sheet rendered from DESIGN.md
-    ├── blueprint.md      # blueprint: information architecture / region layout / screen flow
-    └── copy.yaml           # copywriting: structured content payload
-```
+├── product/   # brainstorming, docs-writer
+├── tech/      # docs-writer
+├── adr/       # docs-writer
+└── design/    # design-brief, blueprint, copywriting
 
-`.artifacts/` — workspace for agent-consumed artifacts:
-
-```
 .artifacts/
-├── knowledge.md   # spec-driven: cross-feature decisions, gotchas, conventions
-├── codebase/      # spec-driven: area exploration cache (reusable)
-├── features/      # spec-driven: specs, designs, tasks
-├── quick/         # spec-driven: quick mode tasks
-├── research/      # spec-driven: research cache
-├── epics/         # epic-tracker: epics, stories, bugs, releases
-└── design/        # design-brief: color-tuner variant + tune session events
+├── knowledge.md, codebase/, features/, quick/, research/   # spec-driven
+├── epics/     # epic-tracker
+└── design/    # design-brief; design/variants/ # craft-ui
 ```
 
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write —
 it stays out of `git status` without touching `.gitignore`. Commit specific
 files only when explicitly requested.
-
-Ownership: `spec-driven` writes `.artifacts/knowledge.md` and `.artifacts/codebase/{area}.md`;
-`design-brief` writes `docs/design/moodboard.md`, `docs/design/DESIGN.md`, and `docs/design/styleguide.html`;
-`blueprint` writes `docs/design/blueprint.md`;
-`copywriting` writes `docs/design/copy.yaml`.
 
 ## Subagent Fan-Out
 
@@ -710,6 +673,11 @@ fan-out explicitly in their prompt; the skill itself executes inline.
 discipline), referenced by `spec-driven` during implementation. The
 docs-writer skill no longer ships a "Technical Design Document" artifact
 type — that role is now covered by the project-wide Design Doc.
+
+`register` / `surface` are shared design vocabulary across `craft-ui`,
+`design-brief`, `copywriting`, and `blueprint`: **register** = posture (`brand`
+vs `product`, two values), **surface** = granular type named by context. Each
+skill carries its own `brand.md` + `product.md`; the terms must not diverge.
 
 ## Security Audit
 
@@ -752,18 +720,10 @@ Before finalizing a new skill, verify:
 
 ## Reference Exemplars
 
-When in doubt about how a pattern is applied, study these skills:
-
-- **`brainstorming`** (simple) — argument-hint exception, template
-  inline 1:1 strict, three Anti-Patterns in prose, three refs covering
-  distinct phases.
-- **`spec-driven`** (complex) — eight templates inline 1:1, sub-agent
-  fan-out + Plan dispatch, Knowledge Verification Chain, Artifact
-  Structure Authority. Demonstrates the refactor at scale.
-- **`review-lens`** (two-mode) — a shared `common.md` reference composed
-  by both modes (neither owns the other), model tiering (Haiku/Sonnet by
-  role), and sub-agent fan-out by material. Demonstrates peer modes sharing
-  one rubric.
+When in doubt about a pattern, study `brainstorming` (simple — inline templates,
+prose Anti-Patterns), `spec-driven` (complex — many templates, sub-agent fan-out,
+the refactor at scale), or `review-lens` (two peer modes sharing one rubric, model
+tiering).
 
 ## Skill Installation
 
