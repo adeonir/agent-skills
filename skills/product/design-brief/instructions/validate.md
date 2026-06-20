@@ -2,7 +2,7 @@
 
 Audit `DESIGN.md` against the linter rules. Read-only: never patches the file. Reports findings; user decides what to fix.
 
-Runs twelve linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage`, `library-name-leakage` — plus prose↔YAML parity. Runs inline — no external CLI dependency; only the `contrast-ratio` rule delegates its arithmetic to the skill's bundled contrast script (Step 4).
+Runs twelve named linter rules — `broken-ref`, `missing-primary`, `contrast-ratio`, `orphaned-tokens`, `token-summary`, `missing-sections`, `missing-typography`, `section-order`, `oklch-hex-pair`, `token-groups-shape`, `content-leakage`, `library-name-leakage` — plus schema checks, prose↔YAML parity, and a Drift anti-pattern audit. Runs inline — no external CLI dependency; only the `contrast-ratio` rule delegates its arithmetic to the skill's bundled contrast script (Step 4).
 
 ## When to Use
 
@@ -71,7 +71,7 @@ Contrast ratios are computed, never estimated by eye. Run the bundled script (ex
 bun run ${CLAUDE_SKILL_DIR}/scripts/check-contrast.ts docs/design/DESIGN.md
 ```
 
-It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. It accepts every token shape (hex string, inline flow `{ hex, oklch }`, block map with a `hex` member) and a `colors` block that is flat or carries skin groups — groups are detected structurally, never by name. Flat tokens form the default skin; each named group is an override skin inheriting every flat token it does not redefine (which tone is default is the author's call), and pairs an override touches re-check under that skin. Map its output onto the `contrast-ratio` checks below; a run where every pair skips exits 2 and counts as a failed gate, not a pass. If `bun` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.
+It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. It accepts every token shape (hex string, inline flow `{ hex, oklch }`, block map with a `hex` member) and a `colors` block that is flat or carries skin groups — groups are detected structurally, never by name. Flat tokens form the default skin; each named group is an override skin inheriting every flat token it does not redefine (which skin is default is the author's call), and pairs an override touches re-check under that skin. Map its output onto the `contrast-ratio` checks below; a run where every pair skips exits 2 and counts as a failed gate, not a pass. If `bun` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.
 
 | Check | Severity |
 |-------|----------|
@@ -158,7 +158,7 @@ match using the rule's `id` and `severity`.
 |-------|----------|
 | Drift rule matches (e.g., `font-family-not-in-tokens`, `copy-string-in-design-md`, `arbitrary-tailwind-value-repeated` traces in DESIGN.md prose) | per rule severity |
 
-The Color & Contrast rule targets rendered output (preview judges the
+The Color and Theme rule targets rendered output (preview judges the
 styleguide with it), not the DESIGN.md model, so it is not applied here.
 
 ### Step 11: Token Summary — `token-summary`

@@ -22,7 +22,7 @@
  * or any other name). Skin groups are detected structurally — a child
  * map without a `hex`/`oklch` member is a group — never by name. Flat
  * tokens form the default skin; each named group is an override skin
- * inheriting every flat token it does not redefine. Which tone is the
+ * inheriting every flat token it does not redefine. Which skin is the
  * default and which overrides is the author's call. Override skins
  * re-check only the pairs an override touches (the inherited rest is
  * identical to the default-skin result); a file with only groups and
@@ -289,7 +289,7 @@ function checkFile(path: string, asJson: boolean): never {
 
   // Flat tokens form the default skin; each named group is an override
   // skin inheriting every flat token it does not redefine. No group
-  // name is special — the author picks which tone is the default.
+  // name is special — the author picks which skin is the default.
   const flat = skins[""] ?? {};
   const flatHasTokens = Object.keys(flat).length > 0;
   const skinEntries: Array<{

@@ -40,13 +40,12 @@ Lock **Purpose** and **Constraints** — Four Questions 1 and 3 in
 Generate **3 candidate moods** (honor any N the user names). Each candidate is
 composed, not rendered:
 
+- Name the **register** (brand or product — [brand.md](../references/brand.md) /
+  [product.md](../references/product.md)) and the **surface(s)** the project has.
 - Compose across the **Style Axes** in
   [aesthetics.md](../references/aesthetics.md) — pick one pattern per axis
   (Layout & Structure, Texture & Depth, Atmosphere & Era, Color & Contrast), or
-  blend two within an axis.
-- Seed from a **named tone** in [presets.md](../references/presets.md) when one
-  fits — read its Vibe, Signature move, and layout-hint prose. Ignore its token
-  overrides; tokens do not exist yet.
+  blend two within an axis — biased by the register and fitting the surface.
 - Make the three genuinely distinct — different atmospheres, not three shades of
   one idea.
 

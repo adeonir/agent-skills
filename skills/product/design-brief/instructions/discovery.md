@@ -28,7 +28,7 @@ for token authoring. Skip to the relevant trigger operation.
 
 Ask one question at a time:
 
-1. Project surfaces: marketing pages, app screens, commerce (catalog + checkout), or a combination?
+1. Project surfaces, named by context (landing, dashboard, form, checkout…), and the register of each — brand (the design is the product) or product (the design serves a task)?
 2. Source on hand: URL, images, brief document, codebase, vanilla HTML/CSS,
    design-tool file, or text description?
 3. Visual references or constraints?
@@ -69,20 +69,23 @@ Load only the reference matching the activated trigger:
 
 | Trigger intent | Reference | Auto-loads |
 |----------------|-----------|------------|
-| Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `presets.md` |
-| Visual identity / DESIGN.md | `design.md` | `aesthetics.md`, `validate.md` |
+| Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `brand.md` / `product.md` |
+| Visual identity / DESIGN.md | `design.md` | `aesthetics.md`, `brand.md` / `product.md`, `validate.md` |
 | Token preview / tune (DESIGN.md exists) | `preview.md` | `anti-patterns.md` |
 | Validation only | `validate.md` | — |
 | Reconcile / drift sync | `reconcile.md` | `validate.md` |
 
 Never load multiple operation references simultaneously.
 
-The surface kinds present in the source route behavior in subsequent steps.
-A project may carry several — route by every surface it has, not a single
-declared type:
+The surfaces present in the source route behavior in subsequent steps, each
+under a register (brand or product). A project may carry several — route by every
+surface it has, named by context, not a single declared type:
 
-- **marketing / content surfaces**: section-oriented questions and presets
-- **app / dashboard screens**: screen-flow and navigation questions,
-  app-oriented presets
-- **storefront / commerce surfaces**: product catalog, PLP/PDP, cart and
-  checkout flows, trust-signal presets
+- **brand surfaces** (landing, campaign, portfolio, about): section-oriented,
+  conversion-facing questions
+- **product surfaces** (dashboard, settings, forms, data tables): screen-flow,
+  navigation, and state questions
+- **storefronts straddle**: the marketing / catalog shell is brand, the
+  checkout / account flow is product (see
+  [../references/brand.md](../references/brand.md) /
+  [../references/product.md](../references/product.md))

@@ -61,18 +61,22 @@ Agent Prompt Guide). Token references use `{path.to.token}` syntax. The
 frontmatter is the authoritative state; the prose narrates it. Layout and
 content are separate concerns, not part of DESIGN.md.
 
-## Three Modes
+## Fields
 
-- **Greenfield** — zero to `DESIGN.md` from raw inputs (URL, images,
-  brief, codebase, design-tool file). Default path; runs `direction`
-  (when no visual reference exists, mood explored into `moodboard.md`
-  first) → design.
-- **Rebrand** — restyle an existing `DESIGN.md` from a new reference,
-  patching the sections it drives. Handled by
-  [design.md](instructions/design.md).
-- **Reconcile** — patch DESIGN.md from a drifted implementation, or
-  apply tuned token deltas handed over by `preview`. Lives in
-  [reconcile.md](instructions/reconcile.md).
+Discovery classifies every engagement by field, then routes:
+
+- **Greenfield** — no existing identity. Author `DESIGN.md` from raw
+  inputs (URL, images, brief, codebase, design-tool file). Default
+  path; runs `direction` first when no visual reference exists (mood
+  explored into `moodboard.md`), then `design`.
+- **Brownfield** — an existing identity to inherit, refresh, or
+  rebrand from a new reference. Handled by
+  [design.md](instructions/design.md); discovery picks the sub-mode
+  by intent.
+
+`reconcile` is the drift operation, not a field — patch `DESIGN.md`
+from a drifted implementation or apply tuned deltas from `preview`.
+Lives in [reconcile.md](instructions/reconcile.md).
 
 ## Operations
 
@@ -85,9 +89,10 @@ content are separate concerns, not part of DESIGN.md.
 | Patch DESIGN.md from drifted implementation or tuned deltas | [reconcile.md](instructions/reconcile.md) |
 
 `discovery.md` auto-loads before every operation — never skipped, never
-invoked directly. `aesthetics.md` and `presets.md` auto-load inside
-`direction.md`; `aesthetics.md` also auto-loads inside `design.md` for
-token-authoring principles; `anti-patterns.md` auto-loads inside
+invoked directly. `aesthetics.md` and the register files (`brand.md` /
+`product.md`) auto-load inside `direction.md`; `aesthetics.md` and the matching
+register file also auto-load inside `design.md` for token-authoring principles;
+`anti-patterns.md` auto-loads inside
 `preview.md`, which serves the styleguide through
 `scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG
 contrast through `scripts/check-contrast.ts` — ratios are computed,
@@ -103,8 +108,9 @@ DESIGN.md never lands invalid.
 - Patch DESIGN.md frontmatter group by group and prose section by
   section so each phase preserves the others' work; patch the YAML
   authoritative layer first, prose follows
-- Route preset and decision sets by the surfaces the project has
-  (marketing/content, app/dashboard, storefront/commerce)
+- Name the register (brand or product) and route by the surfaces the project
+  has, named by context; storefronts straddle (marketing shell is brand,
+  checkout/account is product)
 - Treat external design-tool files as user-owned — read only when the
   user asks and the matching MCP is available
 
@@ -133,6 +139,6 @@ DESIGN.md is content-agnostic by design. The same tokens and brand prose must re
 
 Discovery loads before every operation, even when the user hands you
 images, briefs, or a codebase. Without discovery, the skill misroutes —
-running marketing-surface presets on an app, or pulling tokens from a
+authoring brand-register tokens for a product app, or pulling tokens from a
 codebase the user wants to leave alone. The 30 seconds discovery costs
 saves the alternative of redoing the whole flow.

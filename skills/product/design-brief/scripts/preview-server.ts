@@ -26,6 +26,7 @@
  * Event types (one JSON per line in .events):
  *   tune:     { type: "tune",    token: "colors.primary", value: "#3b82f6", timestamp }
  *   comment:  { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
+ *   commit:   { type: "commit",  timestamp }
  *
  * Client interactions:
  *   - A color tuner row (`data-tune-row`) wires OKLCH sliders (`data-oklch`)

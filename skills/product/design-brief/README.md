@@ -25,18 +25,18 @@ flowchart TD
 
 ## What It Designs
 
-design-brief adapts to any digital product — it does not force the project
-into a fixed type. It reads the surfaces a project actually has, and a project
-may combine several:
+design-brief adapts to any digital product — it does not force the project into a
+fixed type. It reads the surfaces a project actually has, each under a
+**register** (brand — the design is the product; or product — the design serves a
+task). A project may combine several:
 
-- **Marketing / content surfaces** — landing pages, brand sites, docs, blogs,
-  product launches, conversion pages
-- **App / dashboard screens** — SaaS tools, dashboards, internal tools, admin
-  panels, mobile app screens
-- **Storefront / commerce surfaces** — catalog, product pages, cart, checkout,
-  account (online stores, DTC, marketplaces)
+- **Brand surfaces** — landing pages, brand sites, campaigns, portfolios,
+  long-form, about, the marketing shell of a storefront
+- **Product surfaces** — app screens, dashboards, settings, forms, data tables,
+  onboarding, the checkout / account flow of a storefront
 
-Name surfaces by context; the questions and presets follow the surfaces present.
+Name surfaces by context; storefronts straddle the two registers. The register
+sets the posture; the questions follow the surfaces present.
 
 ## Usage
 
@@ -85,8 +85,8 @@ External design-tool files (when used as input source) live at the user's path a
 
 Bundled lookups auto-loaded by the relevant instruction phase:
 
+- `references/brand.md` / `references/product.md` — register (brand vs product) posture; biases mood and token choices
 - `references/aesthetics.md` — Four Questions, Style Axes, UX Heuristics, Visual Design Laws + Principles, Complexity Calibration, Creative Mandate
-- `references/presets.md` — pre-blended named tones read as mood seeds during direction
 - `references/anti-patterns.md` — deterministic failure-mode rules; the Drift category gates DESIGN.md during validate
 
 ## Requirements
@@ -102,7 +102,7 @@ A: Greenfield-first. The primary use case is starting from zero with no existing
 
 **Q: What if I have no reference or moodboard to start from?**
 
-A: Run `direction.md` — explore a mood from scratch. It diverges across aesthetic directions (Style Axes + named tones), converges on one, and writes `docs/design/moodboard.md`. `design` then authors `DESIGN.md` tokens from that moodboard, the same way it would from a reference. When you already have a reference (images, URL, codebase, text description), direction auto-skips and design extracts directly.
+A: Run `direction.md` — explore a mood from scratch. It diverges across aesthetic directions (Style Axes, biased by register), converges on one, and writes `docs/design/moodboard.md`. `design` then authors `DESIGN.md` tokens from that moodboard, the same way it would from a reference. When you already have a reference (images, URL, codebase, text description), direction auto-skips and design extracts directly.
 
 **Q: What is `DESIGN.md`?**
 

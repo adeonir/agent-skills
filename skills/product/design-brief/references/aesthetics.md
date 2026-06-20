@@ -16,7 +16,7 @@ Depth). Not a direct trigger.
 Before any visual work, answer these to lock in a direction:
 
 1. **Purpose**: What problem does this interface solve? Who uses it?
-2. **Tone**: Pick a clear aesthetic — invoke a named tone from [presets.md](presets.md) or compose across Style Axes below.
+2. **Tone**: Pick a clear aesthetic — compose across the Style Axes below, biased by the register ([brand.md](brand.md) / [product.md](product.md)).
 3. **Constraints**: Technical requirements (framework, performance, accessibility).
 4. **Signature**: What single detail will make this _unforgettable_? (A motion moment, a typographic trick, an unusual color move.) Every project needs one.
 
@@ -34,12 +34,10 @@ produce more distinctive results than single-tone choices.
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
 
-For pre-blended named tones, see [presets.md](presets.md).
-
 ## Token Authoring Principles
 
-What makes a good choice for each token group. Compose these with the named
-tones in [presets.md](presets.md).
+What makes a good choice for each token group. Compose these biased by the
+register ([brand.md](brand.md) / [product.md](product.md)).
 
 ### Typography
 

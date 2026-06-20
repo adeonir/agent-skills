@@ -92,7 +92,7 @@ The sheet has two layers, kept strictly separate:
 
 This sheet is looked at, so it must read well — internal, but good:
 
-- A sticky top bar with jump-nav to the ten groups.
+- A sticky top bar with jump-nav to each token group (`duration` and `easing` share one motion specimen).
 - When `colors` carries a skin override group, the top bar adds a skin switcher that toggles `data-skin` on `<body>` (never `<html>` — root-level inline tunes must not out-cascade the skin blocks), re-rendering every specimen under the active skin. The switcher is chrome — neutral styling, never project tokens.
 - Each group is a titled section with a one-line caption — no token counts — and generous neutral spacing.
 - A consistent token-card system: the rendered specimen, its key, its value, its role.

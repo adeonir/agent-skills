@@ -8,8 +8,8 @@ sufficient fix and a paired example.
 
 Auto-loaded by `validate.md` as a gate before DESIGN.md lands, and by
 `preview.md` to judge the styleguide. Two families apply: **Drift**
-(single-source violations between DESIGN.md and rendered output) and **Color &
-Contrast** (token-value legibility). Page-rendering anti-patterns (layout,
+(single-source violations between DESIGN.md and rendered output) and **Color
+and Theme** (token-value legibility). Page-rendering anti-patterns (layout,
 motion, component states, hydration, performance) are out of scope — this skill
 authors tokens, it does not render product pages.
 
