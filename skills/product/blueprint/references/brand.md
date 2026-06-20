@@ -37,7 +37,7 @@ granular type the plan arranges (landing, campaign, portfolio, about…). A surf
 sits under a register, but the register is not a finer surface list. Surfaces
 under this register:
 
-**brand surfaces** — landing, campaign, portfolio, long-form / editorial, about,
+**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, about,
 the marketing shell of a storefront. Storefronts straddle: the marketing /
 catalog shell is brand, the checkout / account flow is product (see
 [product.md](product.md)).

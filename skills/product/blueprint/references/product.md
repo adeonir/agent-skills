@@ -38,7 +38,7 @@ granular type the plan arranges (dashboard, settings, data-table, onboarding…)
 surface sits under a register, but the register is not a finer surface list.
 Surfaces under this register:
 
-**product surfaces** — dashboard, settings, form / wizard, data-table,
+**Product surfaces** — dashboard, settings, form / wizard, data-table,
 onboarding, empty-state, checkout / account, authenticated tools. Storefronts
 straddle: the checkout / account flow is product, the marketing / catalog shell
 is brand (see [brand.md](brand.md)).
