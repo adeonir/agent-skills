@@ -23,14 +23,14 @@ Before any visual work, answer these to lock in a direction:
 ### Style Axes
 
 Visual direction is a composition of four orthogonal axes. Pick one pattern
-from each axis -- or blend two within the same axis -- to construct a unique
+from each axis — or blend two within the same axis — to construct a unique
 direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone"
 produce more distinctive results than single-tone choices.
 
 | Axis | Patterns |
 |------|----------|
 | **Layout & Structure** | Bento Grid (modular boxy cards), Editorial (magazine feel, large serifs, asymmetric placement, generous whitespace), Swiss Style (strict grids, sans-serif, flush-left, objective clarity), Split-Screen (vertical division, color block paired with full-bleed imagery), Asymmetric Modular (intentional off-grid composition with rhythm) |
-| **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials -- leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
+| **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials — leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
 
@@ -44,6 +44,7 @@ register ([brand.md](brand.md) / [product.md](product.md)).
 - **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for a marketing or editorial identity. Pair a characterful display font with a refined body font. System stacks are acceptable for app and dashboard surfaces where performance and native feel matter.
 - **Weight extremes**: use 100-200 for subtlety and 800-900 for impact within the same scale.
 - **Size jumps**: display should be at least 3x body size. Timid 1.5x ratios flatten hierarchy.
+- **Loading strategy**: author `font-display: swap` (or `optional` for zero layout shift) with a metric-matched fallback (`size-adjust`) to tame it; preload only the critical above-the-fold weight, and reach for a variable font once a family needs 3+ weights.
 
 ### Color and Theme
 
@@ -51,12 +52,15 @@ register ([brand.md](brand.md) / [product.md](product.md)).
 - **60-30-10**: 60% dominant surface, 30% secondary, 10% accent. Sharp accents on a committed base outperform timid evenly-distributed palettes.
 - **Dominant + accent**: pick one hero color and one contrast accent. Two accents maximum.
 - **Theme commitment**: go fully dark or fully light per surface. Half-measures read as unfinished.
+- **Tinted neutrals**: pure gray is dead — give each neutral a trace of chroma (~0.005–0.015 in OKLCH) hued toward the brand. Don't reflexively reach for warm-orange or cool-blue neutrals; the tint is a deliberate choice.
+- **Alpha is a smell**: heavy `rgba`/`hsla` overlays signal an incomplete palette — author explicit overlay and surface tokens instead of leaning on opacity.
+- **Dark mode is not inverted light**: build depth from a stepped surface-lightness scale, not borrowed shadows, and desaturate accents so they don't vibrate on dark.
 
 ### Spatial Composition and Whitespace
 
 - **Generous whitespace or controlled density**: both work — the crime is the lukewarm middle. Pick a spacing scale that commits.
 - **Rhythm**: a consistent base unit (4px / 8px grid) with a deliberate scale reads as intentional; ad-hoc values read as noise.
-- **Measure**: body copy at 60-75 characters per line — size the body token and container width to land there.
+- **Measure & leading**: body copy at 60-75 characters per line — size the body token and container width to land there; loosen line-height as the measure widens, since long lines need more leading to track.
 
 ### Motion and Interaction
 
