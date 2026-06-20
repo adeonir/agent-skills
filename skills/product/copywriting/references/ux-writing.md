@@ -45,8 +45,9 @@ Every line, persuasive or functional:
 One area of clarity — the interface text that carries a task, where vague copy
 hurts most. Write each by what the reader needs at that moment:
 
-- **error** — what happened, why, how to fix. *"Invalid input" → "Email needs an
-  @ symbol. Try name@example.com."* Never blame the user; never a bare code.
+- **error** — what happened, why, how to fix; name the situation (network,
+  server, permission, validation) so the fix fits. *"Invalid input" → "Email needs
+  an @ symbol. Try name@example.com."* Never blame the user; never a bare code.
 - **form label** — specific, format by example, the why when not obvious. *"Enter
   value" → "Your work email."* Labels, not placeholder-only (they vanish on type).
 - **button** — verb + object, the outcome. *"OK / Submit" → "Save changes /
@@ -91,8 +92,10 @@ build concern, out of scope here.
 
 Author strings that survive other languages:
 
-- **Budget for expansion** — German runs ~30% longer, Finnish 30–40%; write so a
-  longer string still reads. The layout that holds it is a build concern.
+- **Budget for expansion and contraction** — German runs ~30% longer, Finnish
+  30–40%, and some languages contract (Chinese ~30% shorter at similar width);
+  write so the layout survives either way. The layout that holds it is a build
+  concern.
 - **Keep variables separate** — *"You have 3 new messages" → "New messages: 3."*
 - **One sentence, one string** — never concatenate fragments.
 - **No abbreviations** — *"5 mins ago" → "5 minutes ago."*
@@ -107,6 +110,9 @@ Pick one term per concept and hold it — varying it reads as different features
 | Delete / Remove / Trash | Delete |
 | Settings / Preferences / Options | Settings |
 | Sign in / Log in / Enter | Sign in |
+
+Pick the truthful term, not just the consistent one — *Delete* (permanent) is not
+*Remove* (recoverable); collapsing them hides a real difference from the reader.
 
 Keep a small per-project glossary and enforce it across every line.
 
