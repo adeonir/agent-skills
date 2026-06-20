@@ -1,6 +1,6 @@
 ---
 name: blueprint
-allowed-tools: Read Write Edit Grep Glob WebFetch
+allowed-tools: Read Write Edit WebFetch
 description: >-
   Plans blueprint.md, the design-blind layout payload a design
   consumes: a region tree plus screen flow that arranges surfaces
@@ -23,28 +23,26 @@ architecture, region layout, and screen flow — never colors, fonts, or tokens.
 
 ## Quick start
 
-Produces `blueprint.md`, the layout plan a design consumes. Operations:
+Operations:
 
 - **create** — author a fresh layout plan from conversation (surfaces,
-  blocks, shapes, flow). → [create.md](references/create.md)
+  blocks, shapes, flow). → [create.md](instructions/create.md)
 - **validate** — check a wireframe or existing plan for IA, flow, and
-  intent coherence. → [validate.md](references/validate.md)
+  intent coherence. → [validate.md](instructions/validate.md)
 
 ## Discovery
 
 `discovery.md` runs before every operation — never skipped, never invoked
 directly. It checks existing context (an existing `blueprint.md`, the
 conversation, any brief the user provides) and routes by intent — author a
-plan, or check one. See [discovery.md](references/discovery.md).
+plan, or check one. See [discovery.md](instructions/discovery.md).
 
 ## Artifact
 
-Produces and owns `docs/design/blueprint.md`: a **YAML frontmatter** region
-tree (surfaces → blocks with shape hints, plus optional screen flow) that a
-downstream renderer parses to draw the low-fi wireframe, and a **markdown
-body** that narrates it with a screen map and the per-surface rationale a tree
-alone cannot hold. The full template, the shape vocabulary, and the pre-save
-self-check live in [create.md](references/create.md).
+Produces and owns `docs/design/blueprint.md`. The **frontmatter** region tree
+is normative — a downstream renderer parses it to draw the low-fi wireframe;
+the **body** is for humans. The full template, the shape vocabulary, and the
+pre-save self-check live in [create.md](instructions/create.md).
 
 ## Register and surface
 
@@ -72,8 +70,5 @@ or a prior plan, arrange against it; otherwise plan from intent.
 - Derive surfaces and topics from the conversation; no fixed project types.
 - Name the register (brand or product) per surface; it biases the arrangement, never gates the shape.
 - Plan each surface for real conditions — its reflow on narrow viewports and its content volume (none/typical/many) — as structural intent in the narration, never pixels or breakpoints.
-- Use free block labels; pick shape hints from the fixed set so the plan
-  stays renderable.
 - Patch the frontmatter region tree first, then the body that narrates it,
   so the two stay in sync.
-- Ask one decision at a time when walking surfaces, blocks, and flow.

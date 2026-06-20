@@ -25,7 +25,7 @@ trigger.
 - **Lead with a hero** that states the one idea; let the fold do work.
 - **Sequence sections as an argument** — problem, value, proof, objection, close
   — not an undifferentiated stack.
-- **Vary block shapes to the content** — a comparison wants columns, a story
+- **Vary block shapes to the content** — a comparison wants columns (`split`), a story
   wants full-width. Defaulting every section to a grid is structural slop.
 - **End on conversion** — a final CTA block that recaps and asks.
 - Flow is usually one long surface or a small set (home → pricing → signup).
@@ -37,7 +37,7 @@ granular type the plan arranges (landing, campaign, portfolio, about…). A surf
 sits under a register, but the register is not a finer surface list. Surfaces
 under this register:
 
-**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, about,
+**brand surfaces** — landing, campaign, portfolio, long-form / editorial, about,
 the marketing shell of a storefront. Storefronts straddle: the marketing /
-catalog shell is Brand, the checkout / account flow is Product (see
+catalog shell is brand, the checkout / account flow is product (see
 [product.md](product.md)).
