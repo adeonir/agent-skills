@@ -111,6 +111,20 @@ Focus creates impact; layering multiple competing "extraordinary" moments
 creates noise. Context decides: a particle system wows on a portfolio,
 embarrasses on a settings page.
 
+## Tune verbs: animate / overdrive
+
+The two motion tune verbs render and critique invoke. Each re-renders the chosen
+variant along a motion direction — non-mutating, living only in the variant HTML
+for the session, never in a source artifact.
+
+- **animate** — motion that conveys state: transitions, feedback, reveals. Reach
+  for it when a variant reads flat or gives no feedback. Apply the Timing,
+  Easing, and Motion materials above, within the register's budget.
+- **overdrive** — the ambitious tier: view transitions, scroll-driven
+  choreography, GPU effects (see Pushing further above). Brand register only;
+  product stays calm and in-task. Every overdrive moment keeps a functional
+  fallback.
+
 ## Motion anti-defaults
 
 - Bounce/elastic easing; animating layout properties casually; durations >500ms

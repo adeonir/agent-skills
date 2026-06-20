@@ -45,7 +45,7 @@ Required references, auto-loaded:
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](../references/typography.md) — scale, pairing, loading
 - [layout.md](../references/layout.md) — spacing, grid, hierarchy, depth
-- [motion.md](../references/motion.md) — timing, easing, materials
+- [motion.md](../references/motion.md) — timing, easing, materials, ambitious tier
 - [interaction.md](../references/interaction.md) — states, focus, overlays
 - [responsive.md](../references/responsive.md) — breakpoints, input, safe areas
 - [web-standards.md](../references/web-standards.md) — implementation rules
@@ -99,7 +99,7 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 | `p-[16px]` | `p-4` |
 | `rounded-[8px]` | `rounded-lg` |
 
-## Generating Variants
+## Workflow
 
 User asks for N variants (default 4). Generate one HTML per variant from the tokens (DESIGN.md or a composed seed), the arrangement (blueprint.md or fallback layout), and the content (copy.yaml or placeholders).
 

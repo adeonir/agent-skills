@@ -62,7 +62,7 @@ Every mode composes the same references, so judgment and generation stay aligned
 - [color.md](references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](references/typography.md) — scale, pairing, loading
 - [layout.md](references/layout.md) — spacing, grid, hierarchy, depth
-- [motion.md](references/motion.md) — timing, easing, materials
+- [motion.md](references/motion.md) — timing, easing, materials, ambitious tier
 - [interaction.md](references/interaction.md) — states, focus, overlays
 - [responsive.md](references/responsive.md) — breakpoints, input, safe areas
 - [tune.md](references/tune.md) — render/critique tune directions (bolder, quieter, distill, delight, harden)

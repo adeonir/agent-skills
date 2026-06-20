@@ -15,12 +15,12 @@ rubric, mapped to its five dimensions). Not a direct trigger.
 - Icon-only buttons need `aria-label`.
 - Form controls need `<label>` (with `htmlFor`) or `aria-label`.
 - Interactive elements need keyboard handlers (`onKeyDown`/`onKeyUp`) when not using native elements.
-- `<button>` for actions, `<a>`/`<Link>` for navigation -- never `<div onClick>` or `<span onClick>`.
+- `<button>` for actions, `<a>`/`<Link>` for navigation — never `<div onClick>` or `<span onClick>`.
 - Images need `alt` (or `alt=""` if decorative).
 - Decorative icons need `aria-hidden="true"`.
 - Async updates (toasts, validation messages) need `aria-live="polite"`.
-- Use semantic HTML before ARIA -- `<button>`, `<a>`, `<label>`, `<table>`, `<nav>`, `<dialog>`.
-- Headings follow hierarchical order `<h1>` through `<h6>` -- never skip levels.
+- Use semantic HTML before ARIA — `<button>`, `<a>`, `<label>`, `<table>`, `<nav>`, `<dialog>`.
+- Headings follow hierarchical order `<h1>` through `<h6>` — never skip levels.
 - Include skip-to-content link as first focusable element.
 - Anchor targets with `scroll-margin-top` to clear fixed headers.
 
@@ -28,7 +28,7 @@ rubric, mapped to its five dimensions). Not a direct trigger.
 
 - Every interactive element needs visible focus: `focus-visible:ring-*` or equivalent outline.
 - Never `outline-none` / `outline: none` without a `focus-visible` replacement.
-- Use `:focus-visible` over `:focus` -- avoids focus ring on mouse click.
+- Use `:focus-visible` over `:focus` — avoids focus ring on mouse click.
 - Group focus with `:focus-within` for compound controls (search bar with button, input groups).
 
 ## Forms
@@ -36,7 +36,7 @@ rubric, mapped to its five dimensions). Not a direct trigger.
 - Inputs need `autocomplete` and meaningful `name` attributes.
 - Use correct `type` (`email`, `tel`, `url`, `number`) and `inputmode` for mobile keyboards.
 - Never block paste (`onPaste` + `preventDefault`).
-- Labels must be clickable -- `htmlFor` or wrapping the control.
+- Labels must be clickable — `htmlFor` or wrapping the control.
 - `spellCheck={false}` on emails, codes, usernames.
 - Checkbox/radio: label + control share a single hit target with no dead zones.
 - Submit button stays enabled until request starts; show spinner during request.
@@ -47,18 +47,18 @@ rubric, mapped to its five dimensions). Not a direct trigger.
 
 ## Animation (Technical)
 
-Rules for implementation -- see motion.md for creative direction.
+Rules for implementation — see motion.md for creative direction.
 
 - Honor `prefers-reduced-motion`: provide reduced variant or disable entirely.
 - Animate only `transform` and `opacity` (compositor-friendly, no layout thrashing).
-- Never `transition: all` -- list properties explicitly.
+- Never `transition: all` — list properties explicitly.
 - Set correct `transform-origin` for scale and rotation.
 - SVG transforms go on `<g>` wrapper with `transform-box: fill-box; transform-origin: center`.
-- Animations must be interruptible -- respond to user input mid-animation.
+- Animations must be interruptible — respond to user input mid-animation.
 
 ## Typography (Technical)
 
-Rules for text rendering -- see typography.md for pairing and heuristics.md for hierarchy.
+Rules for text rendering — see typography.md for pairing and heuristics.md for hierarchy.
 
 - Ellipsis character: `...` not `...` in static text (use CSS `text-overflow: ellipsis` for truncation).
 - Curly quotes `\u201c` `\u201d` in copy, not straight `"`.
@@ -71,7 +71,7 @@ Rules for text rendering -- see typography.md for pairing and heuristics.md for 
 
 - Text containers must handle long content: `truncate`, `line-clamp-*`, or `break-words`.
 - Flex children need `min-w-0` (or `min-width: 0`) to allow text truncation.
-- Handle empty states -- never render broken UI for empty strings or arrays.
+- Handle empty states — never render broken UI for empty strings or arrays.
 - Anticipate short, average, and very long user-generated content.
 
 ## Images
@@ -88,10 +88,10 @@ Loading, rendering, network, framework, and Core Web Vitals live in
 
 ## Navigation and State
 
-- URL reflects meaningful state -- filters, tabs, pagination, expanded panels in query params.
+- URL reflects meaningful state — filters, tabs, pagination, expanded panels in query params.
 - Links use `<a>` / `<Link>` for proper Cmd/Ctrl+click and middle-click support.
 - Deep-link all stateful UI: if it uses `useState`, consider URL sync (nuqs, searchParams).
-- Destructive actions need confirmation modal or undo window -- never immediate delete.
+- Destructive actions need confirmation modal or undo window — never immediate delete.
 
 ## Touch and Interaction
 
@@ -99,7 +99,7 @@ Loading, rendering, network, framework, and Core Web Vitals live in
 - `-webkit-tap-highlight-color` set intentionally (transparent or themed).
 - `overscroll-behavior: contain` in modals, drawers, and sheets.
 - During drag operations: disable text selection, `inert` on dragged element.
-- `autoFocus` sparingly -- desktop only, single primary input. Avoid on mobile.
+- `autoFocus` sparingly — desktop only, single primary input. Avoid on mobile.
 
 ## Safe Areas
 
@@ -109,7 +109,7 @@ Loading, rendering, network, framework, and Core Web Vitals live in
 
 ## Dark Mode (Technical)
 
-Rules for implementation -- see color.md for color direction.
+Rules for implementation — see color.md for color direction.
 
 - `color-scheme: dark` on `<html>` for dark themes (fixes scrollbar and input colors).
 - `<meta name="theme-color">` matches the page background color.
@@ -125,7 +125,7 @@ Rules for implementation -- see color.md for color direction.
 
 - Inputs with `value` need `onChange` handler (or use `defaultValue` for uncontrolled).
 - Date/time rendering: guard against server/client mismatch with `useEffect` or `suppressHydrationWarning`.
-- `suppressHydrationWarning` only where genuinely needed -- never as a blanket fix.
+- `suppressHydrationWarning` only where genuinely needed — never as a blanket fix.
 
 ## Hover and Interactive States
 
