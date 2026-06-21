@@ -108,7 +108,8 @@ Before presenting the message, verify:
 - Body (if present) uses bullet points, not paragraphs
 - Every body bullet traces to the staged diff or an explicit user
   directive — nothing sourced from conversation narrative
-- No file names, paths, versions, or attribution in the message
+- No *where* (file names, paths) or *how* (versions, exact values) in the
+  message; no attribution
 
 Display the proposed commit message to the user before committing.
 Ask for confirmation. Accept edits if suggested.
@@ -173,8 +174,10 @@ commit did not land — stop and inform the user. Do not retry blindly.
    - `refactor: swap client and adapter for d1 pattern`
    Avoid vague verbs like "improve", "update", "tweak", "rework" unless
    paired with a concrete object.
-4. **Focus on WHAT**: Describe the change and the observable behavior from the
-   user's perspective
+4. **What and why, never where or how**: Carry *what* changed (the
+   user-observable effect) and *why*. Keep out *where* (file names, paths, the
+   location touched) and *how* (mechanics, specific values, counts, version
+   numbers) — those live in the diff and the code
 5. **Follow project conventions**: Check AGENTS.md or CLAUDE.md for explicit
    commit rules first. Only fall back to `git log --oneline -10 --no-merges`
    if no rules are documented. When analyzing the log, distinguish between
@@ -191,40 +194,85 @@ commit did not land — stop and inform the user. Do not retry blindly.
 9. **No future references**: Don't mention upcoming work or architectural
    reasoning
 
+## Anti-Pattern: AI-slop subject
+
+AI-slop has two opposite shapes, and "just be concrete" pushes you out of the
+first and straight into the second. Watch for both.
+
+**Shape 1 — empty abstraction.** The subject names a filler word instead of
+the thing that moved. The tells cluster in a small vocabulary:
+
+- Filler verbs: *enhance, streamline, leverage, utilize, facilitate,
+  optimize* (when nothing was measured), *revamp*
+- Filler adjectives: *robust, comprehensive, seamless, proper, modern*
+- Abstract nouns standing in for the real object: *logic, functionality,
+  handling, behavior, mechanism, capability*
+
+**Shape 2 — fake concreteness.** Over-correcting for Shape 1 yields a subject
+that *sounds* specific but reads like a spec or release note, not a
+developer's log:
+
+- Specific values are *how*, not *what* — counts, thresholds, version numbers:
+  `retry failed uploads three times`, `pin node to 20`. Strip them to the
+  structural *what* (`retry failed uploads`, `pin node version`); the exact
+  value lives in the code, never the message.
+- Prose locators are *where* — `... in CI` spells out a location the `ci:`
+  scope already carries. Drop it.
+
+A human subject is terse and structural: it names what moved in the code, in
+the developer's own shorthand, at topic altitude. The exact values and
+locations stay in the diff.
+
+| AI-slop | Human |
+|---------|-------|
+| `feat: enhance error handling` | `feat: retry failed uploads` (the count stays in the code) |
+| `refactor: streamline auth logic` | `refactor: move token refresh into the request interceptor` |
+| `chore: pin node to 20 in CI` | `ci: pin node version` (the exact version stays in the config) |
+
+When unsure what terse reads like for this project, the `git log` from Step 1
+is the calibration — match how its authors actually write, not an idealized
+sentence.
+
 ## Body Guidelines
 
-Most commits need only the subject line. A body is the exception, not the
-rule. Only add a body when the subject line alone cannot explain a complex
-or breaking change.
+The body makes the commit self-sufficient: a reader should understand what
+changed from the message alone, without opening the diff. When a body earns
+its place, write it as a **curated mini-changelog** — the handful of
+meaningful changes, phrased for a reader, with the *why* folded in where the
+changes alone don't carry it.
 
-**The body is not a changelog.** Do not restate what the diff already shows.
-If a bullet could be inferred by reading the diff, omit it. The body exists
-to capture *why* — but only from the two allowed sources: what the staged
-diff itself makes observable (a breaking signature change, a migration
-implied by a schema change) and explicit user directives in the request.
-Session narrative — features discussed, plans drafted, alternatives debated
-in conversation — is not a source for the body any more than for the subject.
+"Curated" is the whole game. The body summarizes the change at the altitude a
+reader cares about — it is not a hunk-by-hunk transcript of the diff:
 
-Before adding a body, ask: "Does this explain *why*, or just re-describe *what*?"
-If it's the latter, **first try to rewrite it** from the allowed sources.
-If neither the staged diff nor an explicit user directive carries a real
-*why*, drop the body and keep only the subject.
+- Curated (good): one bullet per *meaningful* change, named the way you would
+  explain it to a teammate. Group related edits; drop the incidental ones.
+- Mechanical (bad): one bullet per file or hunk — the *where* and *how*
+  ("remove lint.yml, test.yml, build.yml"). That transcript is what the diff
+  already is — collapse it into the *what* it adds up to.
 
-When the user asks to reevaluate or fix a changelog-style body, do not
-silently delete it. Attempt a rewrite first from the allowed sources (the
-staged diff and explicit user directives). If neither carries a real *why*,
-drop the body and keep only the subject — and tell the user that's what you
-did and why, so they can supply the missing context as an explicit directive.
+A trivial commit still needs no body. When the subject already says everything
+(`fix: resolve token refresh race condition`), stop there. Reach for a body
+when the change has several meaningful parts worth listing, or a *why* the
+changes themselves don't reveal.
+
+**Sources, and only these:** the staged diff (what changed) and explicit user
+directives (the *why* behind it). Session narrative — features discussed,
+plans drafted, alternatives debated in conversation — is never a source for
+the body, any more than for the subject.
 
 When included:
 
-- 1 to 5 bullet points maximum
+- 1 to 5 bullet points — the meaningful changes, not every change
 - Start each bullet with a lowercase verb in imperative mood (e.g.,
   "- support", "- add", "- remove" — never "- supports", "- added")
-- Add context from the allowed sources only (diff-observable impact,
-  user-supplied motivation)
-- No file names or paths
-- No listing every change (the subject line summarizes)
+- Fold in the *why* when the changes alone don't carry it
+- Name the change, not the file it lives in — no file names or paths
+
+When the user asks to reevaluate or fix a bloated body, do not silently delete
+it. Curate it down first — collapse the hunk-by-hunk bullets into the
+meaningful changes and fold in any *why*. Drop the body entirely only when the
+subject already says everything, and tell the user that is what you did and
+why.
 
 ## Examples
 
@@ -259,7 +307,8 @@ Updated lodash to 4.17.21 for security.
 Co-Authored-By: AI Assistant
 ```
 
-Changelog-style body that restates the diff instead of adding context:
+Mechanical, hunk-by-hunk body — one bullet per file operation instead of the
+change they add up to:
 
 ```text
 ci: consolidate workflows
@@ -270,9 +319,14 @@ ci: consolidate workflows
 - update deploy.yml to chain smoke
 ```
 
-Every bullet is visible in the diff. Prefer the subject line alone, or
-rewrite the body to explain *why* (e.g., "fail-fast ordering" or
-"reduce parallel runner cost").
+Curate it into the meaningful changes a reader needs, folding in the why:
+
+```text
+ci: consolidate workflows
+
+- collapse the four CI workflows into one pipeline
+- chain jobs so a failed step stops the run early
+```
 
 ## Guidelines
 
@@ -283,8 +337,8 @@ rewrite the body to explain *why* (e.g., "fail-fast ordering" or
 - Preview and confirm before committing
 - Stage files by name; reserve `git add .` for explicit "stage everything"
 - Keep commit messages unattributed
-- Use bullets in the body when one is needed; let the subject summarize
-- When asked to reevaluate a body, rewrite for *why* first; announce any drop
+- Write the body as a curated mini-changelog of the meaningful changes
+- When asked to reevaluate a body, curate it down first; announce any drop
 
 **DON'T:**
 - Skip the preview step
@@ -294,7 +348,7 @@ rewrite the body to explain *why* (e.g., "fail-fast ordering" or
 - Use `git add -A` or `git add .` by default — name files explicitly
 - Add attribution lines or Co-Authored-By
 - Write body as paragraphs
-- List individual changes in the body
+- Transcribe the diff hunk-by-hunk — collapse it into the meaningful changes
 - Use abstract framings like "pattern" or "approach"
 - Delete the body silently when asked to reevaluate
 
