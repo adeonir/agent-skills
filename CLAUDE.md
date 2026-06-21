@@ -175,11 +175,17 @@ Permitted sections:
 
 ### Workflow Notation
 
-Use `→` arrows. No box-drawing, no pipes. Lines under 70 chars.
+Use `→` arrows. Box-drawing is welcome where it sharpens structure — branches
+and convergence read best with `├ └ ┐ ┴ ┼ ┘ │`. Keep simple flows linear and
+lines under 70 chars.
 
 ```
 phase-1 → phase-2 → phase-3 → output
-  ^_________________________|  (note about loop)
+  ^_________________________|  (loop back)
+
+a → b → c
+    ├→ d ┐
+    └→ e ┴→ f
 ```
 
 ### Voice / Tone
