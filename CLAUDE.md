@@ -1,12 +1,31 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 Authoring conventions for skills in this repository.
 
 This file is **repo-level guidance for skill authors**. It is never installed
 alongside skills and never reaches the consumer. Each skill ships standalone
 via `skills.sh`.
+
+## Rules
+
+Verifiable conventions live as path-scoped rules in `.claude/rules/`, loaded
+automatically when editing skill files. Each is an Incorrect/Correct rule
+managed with the rule-creator skill. This file keeps the structural and
+narrative guidance that is not a discrete rule.
+
+| Rule file | Scope | Covers |
+|-----------|-------|--------|
+| `markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
+| `naming-conventions` | global | file and directory casing, slash command equals name |
+| `skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
+| `skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use` |
+| `skillmd-structure` | `SKILL.md` | required top, forbidden sections, body length |
+| `skill-references` | `skills/**` | one level deep, required header, no fan-forward |
+| `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
+| `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
+| `skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
+| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
+| `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 
 ## Commands
 
@@ -23,18 +42,6 @@ grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expec
 ```
 
 Also confirm the `description` stays within the 1,536-char listing cap.
-
-Install all skills from this repo:
-
-```bash
-npx skills add adeonir/agent-skills
-```
-
-Install a single skill:
-
-```bash
-npx skills add adeonir/agent-skills/<skill-name>
-```
 
 ## Overview
 
@@ -72,9 +79,6 @@ use kebab-case.
 Skills compose via artifacts on disk (`.artifacts/`), not via cross-references
 inside skill files. The repo `README.md` owns the pipeline diagram and the skill
 index — this file does not duplicate them.
-
-Skills themselves stay isolated. SKILL.md files do not reference other skills by
-name and do not document the pipeline.
 
 ## Skill File Layout
 
@@ -119,9 +123,6 @@ Stay flat when in doubt. Splitting too early adds path overhead without
 information gain. Split when the directory has both invokable files and
 files that exist purely to be composed by others.
 
-There is no `templates/` directory. Templates live inline in the reference
-that uses them, 1:1 ref:template.
-
 There is no `CHANGELOG.md` per skill. Git history is the source.
 
 ## SKILL.md
@@ -137,20 +138,6 @@ description: >-
 argument-hint: [optional-arg]    # only when skill accepts /skill <args>
 ---
 ```
-
-Rules:
-- `name`: kebab-case, ≤64 chars, lowercase + digits + hyphens. Forbidden:
-  `anthropic`, `claude`. The `name` becomes the slash command, so avoid
-  collisions with Claude Code built-ins (`code-review`, `simplify`,
-  `review`, `security-review`, …); pick a distinct name when a skill's job
-  overlaps a built-in's.
-- `description`: ≤1024 chars, third person or noun phrase. Never first or
-  second person ("I help...", "You can use...").
-- Folded block `>-` with 2-space indentation. Lines under 80 chars to avoid
-  obfuscation alerts during security audits.
-- Triggers go inline in `description`. One field per concept.
-- `description` is capped at **1,536 chars** in the skill listing. Tighten
-  the prose if you approach the cap — do not split across fields.
 
 #### Extended Fields
 
@@ -172,29 +159,6 @@ open Agent Skills standard.
 
 Use the same folded-block `>-` style for any multi-line field.
 
-The spec also defines a `when_to_use` field (appended to `description`
-and sharing its 1,536-char cap). Repo convention rejects it — keep
-trigger phrases inline in `description` so there is one source of truth
-per concept.
-
-### Triggers
-
-Embed trigger keywords directly in the use-when prose — action verbs,
-topical nouns, and distinctive vocabulary woven into sentences. Avoid
-a "Triggers:" or "Trigger phrases:" list of literal quoted phrases that
-dwarfs the capability sentence — keyword density inside prose serves the
-same matching need without the asymmetry.
-
-Pattern: `Use when [contexts/keywords] or user [actions]`. Mix:
-- Action verbs ("committing", "reviewing changes")
-- Topical keywords ("Excel files", "spreadsheets")
-- Negative routing inline when ambiguous ("not for: brainstorming exploration")
-
-Reserve literal quoted phrases for the rare case where user vocabulary
-is highly distinctive (e.g. a slash-command shorthand) and prose cannot
-reproduce it without losing meaning. Phrases must be ≥ 2 words. Never
-bare single words — they collide between skills.
-
 ### Section Order
 
 Required at the top:
@@ -209,23 +173,12 @@ Permitted sections:
 - `## Workflow` / `## Phases` / `## <domain>` — domain-specific
 - `## Guidelines` — short DO list (4-6 non-obvious items)
 
-Forbidden sections:
-- `## Cross-References` — skills are isolated
-- `## Compact Instructions` — skills are stateless
-- `## Output` — output spec lives in the reference that produces it
-- `## Error Handling` — errors handled inline in the workflow
-- `**Recommended effort:**` line — not used
-
-### Body Length
-
-Prefer ≤100 lines. Acceptable up to 150. Beyond that, split into references.
-
 ### Workflow Notation
 
-ASCII with `-->` arrows. No box-drawing, no pipes. Lines under 70 chars.
+Use `→` arrows. No box-drawing, no pipes. Lines under 70 chars.
 
 ```
-phase-1 --> phase-2 --> phase-3 --> output
+phase-1 → phase-2 → phase-3 → output
   ^_________________________|  (note about loop)
 ```
 
@@ -262,20 +215,6 @@ One-line description.
 After the required header, sections are free (`Workflow`, `Discovery`,
 `Phases`, `Guidelines`, `Error Handling` — all optional).
 
-**Forbidden sections in references:**
-
-- `## Next Steps` — pushes the agent to invoke a downstream phase before
-  the user decides to. See "Pipeline Fan-Forward" under Authoring
-  Discipline for the full rationale. Operational follow-ups (e.g. how to
-  handle validation failures) belong in `## Error Handling` or a neutral
-  `## Outcomes` section, never framed as "after this, run X".
-
-References live one level deep — files at `references/*.md` (or
-`instructions/*.md` when the skill split applies), no nested
-subdirectories under either bucket. Nested directory structures cause
-partial reads (e.g. `head -100`) and miss content carried by deeper
-files.
-
 Cross-links between sibling references **within the same skill** are
 permitted when they explain dependencies, hand-offs, or shared logic
 (e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md
@@ -284,39 +223,9 @@ SKILL.md already owns — but an inline sibling link inside prose is the
 natural way to surface a prereq or follow-up without duplicating
 content.
 
-Cross-references **across skills** remain forbidden. Skills stay
-isolated: SKILL.md never names another skill, references never link to
-files in another skill's `references/` or `instructions/`. Composition
-between skills happens via artifacts on disk (`.artifacts/`),
-never via direct file links.
-
-**Own-artifact isolation.** Isolation extends to the *artifacts* a skill
-owns, not just its files. An authoring skill references only the artifact it
-produces — never a sibling's output by name or path. State boundaries in
-terms of the skill's own concern ("this artifact carries no styling"), not
-by pointing at where the excluded thing lives ("styling belongs to
-`DESIGN.md`"). Naming a sibling artifact is coupling even when no skill name
-or file link appears. The one exception is an **integrator** — a renderer or
-cross-artifact validator whose job *is* to compose several artifacts (e.g. a
-page renderer that draws `DESIGN.md` + `copy.yaml` + `blueprint.md` together). It
-may read what it integrates; everything upstream of it stays
-single-artifact. A user can still ask a skill to read a sibling at runtime —
-that instruction lives in the prompt, never baked into the skill or its
-references.
-
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in
 references when content is ingested as input by the model. Default to
 markdown; use tags only when structure justifies them.
-
-## Templates
-
-Templates are inline in the reference that uses them. One template per
-reference (1:1). No reuse between references. No `templates/` folder.
-
-Every template explicitly marks expected behavior:
-
-- **Strict** — `ALWAYS use this exact template structure:`
-- **Flexible** — `Here is a sensible default format, but use your best judgment:`
 
 ## Guidelines
 
@@ -401,174 +310,25 @@ one. Otherwise, add a reference to the existing skill.
 `scripts/` and `assets/` directories are optional. Use them only when the
 skill genuinely needs deterministic operations or static data.
 
-### Skill Directory Variable
+State whether Claude should run a script or read it: "Run `analyze.py` to
+extract fields" vs "See `analyze.py` for the extraction algorithm".
 
-When a skill invokes its own bundled scripts, reference them with
-`${CLAUDE_SKILL_DIR}` so they resolve regardless of the user's working
-directory. Plain relative paths (`scripts/foo.py`) break when the
-consumer runs the skill from a project root that does not match the
-install layout.
-
-```bash
-python ${CLAUDE_SKILL_DIR}/scripts/extract.py "$@"
-```
-
-For plugin skills, `${CLAUDE_SKILL_DIR}` resolves to the skill's own
-subdirectory, not the plugin root. Use this variable in
-`` !`<command>` `` injection lines and in bash blocks the skill tells
-Claude to run.
-
-### MCP Tools
-
-Reference MCP tools by qualified name in SKILL.md and references:
-`ServerName:tool_name` (e.g., `BigQuery:bigquery_schema`,
-`GitHub:create_issue`). Without the prefix, Claude may fail when multiple
-servers expose tools with the same name.
-
-Skills using MCP must:
-- Detect availability before invoking the tool
-- Document fallback when MCP is unavailable
-- Mark each MCP dependency as hard-required or optional
-
-### Authoring Rules
-
-- **Solve, don't punt.** Scripts handle errors with explicit fallbacks
-  (try/except, default values). Don't return raw exceptions for Claude to
-  resolve.
-- **No voodoo constants.** Justify every numeric constant with a comment.
-  If you don't know the right value, Claude won't either.
-- **Execute vs read intent.** State whether Claude should run a script or
-  read it as reference: "Run `analyze.py` to extract fields" vs "See
-  `analyze.py` for the extraction algorithm".
+Skills using MCP must detect availability before invoking the tool, document a
+fallback when the MCP is unavailable, and mark each dependency hard-required or
+optional.
 
 ## Authoring Discipline
 
-These rules apply to the moment of writing skills. They affect the output,
-not the runtime — consumer Claude never sees CLAUDE.md.
-
-### Time-Sensitive Content (rigid)
-
-Skills must be timeless. No absolute dates, no mutable version pins, no
-ephemeral product state, no "soon we will" language. When legacy content
-must coexist with current content, use:
-
-```markdown
-## Current method
-
-Use the v2 endpoint: `api.example.com/v2/messages`
-
-## Old patterns
-
-<details>
-<summary>Legacy v1 API (deprecated)</summary>
-
-Historical context here.
-
-</details>
-```
-
-### Consistent Terminology (rigid, with enforcement)
-
-Choose one term per concept and keep it across SKILL.md, references, and
-templates within a single skill. Mixing "field" / "box" / "element" or
-"extract" / "pull" / "get" / "retrieve" makes Claude work harder.
-
-### Output Language (rigid)
-
-All files in the repository — SKILL.md, references, templates, README,
-CLAUDE.md — are written in English. Conversation in chat may be in any
-language; output files are always English.
-
-### File Paths (rigid)
-
-Always use forward slashes (`scripts/helper.py`, not `scripts\helper.py`).
-Forward slashes work cross-platform; Windows-style paths break on Unix.
-
-### Code Blocks (rigid)
-
-Every fenced code block declares its language: ` ```bash `, ` ```python `,
-` ```yaml `, ` ```markdown `, etc. No untagged fences.
+These conventions apply at the moment of writing skills; they affect the output,
+not the runtime — consumer Claude never sees CLAUDE.md. The rigid, verifiable
+ones are enforced by rules in `.claude/rules/`; what remains here is guidance
+that is not a discrete rule.
 
 ### Token Budget Awareness
 
 Document what each reference loads and what should never load
 simultaneously. Orthogonal references (e.g., one per business domain) must
 be explicit about their scope so Claude reads only what's needed.
-
-### Pipeline Fan-Forward (rigid)
-
-Multi-phase skills must not push references toward downstream phases.
-When a skill exposes several invokable references (e.g. `extract.md`,
-`compose.md`, `refine.md`, `publish.md`), each reference is a job
-the user invokes independently — not a stage in a mandatory pipeline.
-Skills that look like pipelines from the outside should feel like
-parallel jobs from the inside.
-
-The risk: combined commands and forward-pushing references rush agents
-through phases before the user is ready, so the agent skips discovery,
-closes decisions early, or hands back half-baked artifacts because it
-was already optimizing for the next phase rather than the current one.
-
-**Common leaks:**
-
-- `## Next Steps` sections at the end of references suggesting the
-  agent run the next phase ("After generating X, suggest: run Y").
-- SKILL.md workflow diagram presented as mandatory order, with no
-  "each step is invokable standalone" disclaimer.
-- Prose like "Run next: …" or "Proceed to X" anywhere inside a
-  reference body.
-
-**The fix:**
-
-- Pipeline narrative lives only in SKILL.md, with an explicit disclaimer
-  that each step is invokable standalone and any step is skippable.
-- References end where their job ends. No fan-forward to other refs.
-- If a follow-up genuinely depends on the current job (gate, prereq),
-  document it as a sibling cross-link in prose ("see
-  [validate.md](validate.md) for the gate flow"), not as a closing
-  "Next Steps" section.
-- Operational outcomes (validation passed / failed / warnings) belong in
-  `## Error Handling` or a neutral `## Outcomes` section that reports
-  status without pushing forward.
-
-### Scope-Boundary Discipline (rigid)
-
-When a skill ingests an upstream artifact as input — reading a PRD,
-brief, parent epic, prior spec, knowledge cache, or sibling output off
-disk — the workflow must instruct the agent to extract only facts in the
-produced artifact's own scope. The source's own tokens do not cross into
-the output: forward-phase IDs, sibling-artifact names, downstream task or
-release references, milestones, and roadmap language stay out. Reading is
-for context; the output carries only its own concern.
-
-This rule lives in the skill's shipped files (SKILL.md, references), not
-here — CLAUDE.md never reaches the consumer, so a clause written only in
-this file fixes nothing at runtime. Each skill carries its own copy; that
-duplication is expected, not a smell.
-
-Distinct from two neighbors:
-
-- **Own-Artifact Isolation** governs skill *source files* (a SKILL.md or
-  reference never names a sibling skill's artifact). Scope-Boundary
-  governs the *runtime content* a skill writes when it reads another
-  artifact at execution time.
-- **The trust boundary** discards injected *directives* from untrusted
-  input (a security concern). Scope-Boundary discards out-of-scope
-  *content* from in-scope input (a noise concern). A skill can satisfy
-  one and leak the other.
-
-The fix — two halves, applied per skill, naming only its own artifact:
-
-- **Read step**: at the ingest point, state that source tokens do not
-  cross into the output and which classes of reference to strip.
-- **Template containment**: where the skill has an output template,
-  carry an explicit MUST-NOT list of forbidden forward/sibling/downstream
-  references.
-
-Exemplars: blueprint `create.md` ("its tokens never cross into the plan:
-strip requirement, milestone, journey, and story IDs"); spec-driven
-`specify.md` (spec.md MUST-NOT list including "Milestones, epics, sprints,
-release names, or roadmap references").
 
 ### Dynamic Context Injection
 
@@ -623,19 +383,6 @@ Rules:
 - **Tool-stack neutrality.** Describe behavior, not specific tools. When a
   concrete library helps, mention it as an example, not a hard requirement.
 
-## Naming Conventions
-
-| Element | Convention | Example |
-|---------|-----------|---------|
-| Fixed files | UPPERCASE.md | `SKILL.md`, `README.md`, `CLAUDE.md` |
-| Skill directories | kebab-case in `<category>/` | `spec-driven`, `git-helpers` |
-| Category directories | lowercase, kebab-case | `engineering`, `product`, `personal` |
-| Reference files | kebab-case `.md` | `quick-mode.md`, `discovery.md` |
-| Sub-directories | lowercase | `instructions/`, `references/`, `scripts/`, `assets/` |
-
-Slash command name always equals the skill `name` (Claude Code default). No
-aliases.
-
 ## Output Artifacts
 
 Skills split outputs between committed strategic docs (`docs/`) and a
@@ -662,11 +409,6 @@ docs/
 it stays out of `git status` without touching `.gitignore`. Commit specific
 files only when explicitly requested.
 
-## Subagent Fan-Out
-
-Skills never delegate to subagents automatically. The user can request
-fan-out explicitly in their prompt; the skill itself executes inline.
-
 ## Terminology Disambiguation
 
 `TDD` in this repo always means Test-Driven Development (red-green-refactor
@@ -679,44 +421,25 @@ type — that role is now covered by the project-wide Design Doc.
 vs `product`, two values), **surface** = granular type named by context. Each
 skill carries its own `brand.md` + `product.md`; the terms must not diverge.
 
-## Security Audit
-
-`skills.sh` audits every published skill (Gen Agent Trust Hub, Socket,
-Snyk). Run this self-check after any skill change:
-
-- No plaintext passwords or API keys (use `$ENV_VAR` or `{placeholder}`)
-- No `curl | sh` or piped download-and-execute patterns
-- No links to untrusted or non-official domains
-- External content ingestion has a trust boundary in the relevant
-  reference file
-- Shell commands limited to non-destructive operations (`mkdir`, `ls`,
-  `grep`)
-- No instructions that could exfiltrate local data to external services
-
 ## New Skill Checklist
 
-Before finalizing a new skill, verify:
+Before finalizing a new skill, verify the items the path-scoped rules in
+`.claude/rules/` do not enforce — the rules cover the rest automatically when
+you edit a skill file:
 
 - [ ] Folder at `skills/<category>/skill-name/`
-- [ ] `SKILL.md` ≤100-150 lines, with required top (H1 + Triggers/Quick start)
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
 - [ ] `description` ≤ 1,536 chars (skill listing cap)
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
-- [ ] Description in third person or noun phrase, with inline triggers
-- [ ] Triggers ≥ 2 words, no bare single word
-- [ ] References in `references/` (and instructions in `instructions/` if the split applies) with H1 + description + `## When to Use`
-- [ ] Templates inline in their reference, marked strict or flexible
-- [ ] No `## Next Steps` (pipeline fan-forward) — references end where their job ends
-- [ ] Own-artifact isolation — authoring skill names only its own artifact, never a sibling's (only an integrator/renderer composes several)
-- [ ] Scope-boundary discipline — when the skill reads an upstream artifact, a read-step clause keeps source tokens (forward/sibling/downstream refs) out of the output
-- [ ] No time-sensitive content
-- [ ] Consistent terminology across SKILL.md, references, templates
-- [ ] All file paths use forward slashes
-- [ ] All code blocks have a language tag
 - [ ] Dynamic context injection (`` !`<cmd>` ``) limited to read-only commands
 - [ ] `README.md` present with mermaid + Usage
 - [ ] Skill listed in repo `README.md` table
-- [ ] Security audit checklist passes
+- [ ] No links to untrusted or non-official domains
+
+`skills.sh` runs the published security audit (Gen Agent Trust Hub, Socket,
+Snyk) on every skill. The `skill-security` rule already covers secrets, piped
+download-execute, trust boundaries, and safe shell — the domain-trust check
+above is the one audit item that lives outside the rules.
 
 ## Reference Exemplars
 
