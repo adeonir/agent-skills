@@ -55,49 +55,68 @@ are not content unless the diff shows them.
 Based only on those sources:
 
 - Review commits and diff
-- Determine appropriate PR type
+- Determine the conventional type for the title
 
 ### Step 5: Preview and Confirm
 
 Compose the PR title and body. Show the PR title, body, and base branch for
 user confirmation before executing.
 
-**Title:** `type: concise description` or `type(scope): concise description`
-(lowercase, imperative mood)
+**Title:** `type: concise description` or `type(scope): concise description`,
+lowercase — the same discipline as a commit subject: terse and structural,
+*what* and *why* (never *where* or *how*), and free of AI-slop. See the
+AI-slop anti-pattern and Format Rules in [commit.md](commit.md).
 
 **Body:** Use the template below.
 
 ## PR Body Template
 
-ALWAYS use this exact template structure:
+Sections are earned, not mandatory — size the body to the PR. Always write the
+Summary. Add **Changes** only when the PR has several distinct changes worth
+listing (otherwise the Summary covers it). Add **Test Plan** only when there is
+reviewer-runnable behavior. A trivial PR (a typo, a one-line fix) is often just
+a Summary and `Closes #N`.
+
+Here is the full-size shape — use your best judgment and drop the sections the
+PR has not earned:
 
 ````markdown
 ## Summary
 
-{{What changed and why, derived from the diff and commit log (2-3 sentences)}}
-
-**Type:** {{bug fix | new feature | refactor | breaking change | documentation | configuration}}
+{{What changed and why, in a short paragraph a reviewer can read at a glance}}
 
 ## Changes
 
-- {{Key change in imperative mood}}
+- {{Meaningful change in imperative mood}}
 
-{3-7 items describing the key changes, each in imperative mood}
+{the curated set of meaningful changes — what changed and why, not a
+file-by-file transcript}
 
 ## Test Plan
 
-{{Commands a reviewer can run to verify this change, each paired with the
-outcome they should observe. Each step exercises the behavior this PR
-introduces — skip whole-project gates (full suite, typecheck, build) that
-pass regardless of the diff and that CI already runs. State what the
-reviewer sees, not the change's internals or the results you measured this
-run (no test counts, scores, or measured values).}}
+{{Commands a reviewer can run to verify this PR's behavior, each paired with
+the outcome they should observe. Skip whole-project gates (full suite,
+typecheck, build) that pass regardless of the diff and that CI already runs.
+State what the reviewer sees, not the change's internals or measured values.}}
 
 1. `{{command}}` — {{expected outcome}}
 2. `{{command}}` — {{expected outcome}}
 
 Closes #{{issue-number}}
 ````
+
+**Filling the Test Plan — reviewer-facing, not machine gates:** this is the
+step most often filled with the wrong thing. List commands that exercise
+*this* PR's behavior, each paired with what the reviewer observes:
+
+- `curl localhost:3000/api/orders/42` — returns 404 with `{"error":"not found"}`
+- submit the login form with a blank password — inline "required" error appears
+- run the migration, then query `users` — the email column is lowercased
+
+Skip the whole-project gates (`npm test`, `tsc`, `npm run build`): they pass
+regardless of the diff and CI already runs them, so a reviewer learns nothing
+about the change. If the PR has no reviewer-runnable behavior (a pure internal
+refactor), say so in one line rather than padding the plan with green gates.
 
 The body MUST NOT contain:
 
@@ -130,16 +149,19 @@ Output the PR URL when done.
 
 **DO:**
 - Preview the PR title and body before pushing
-- Use imperative mood in PR title and changes list
+- Size the body to the PR — drop the sections it has not earned
+- Use imperative mood in the PR title and Changes list
+- Keep Changes a curated set of meaningful changes (*what* and *why*), not a
+  file-by-file list; 3-7 items at most
 - Include `Closes #N` when there is a related issue
-- Keep the changes list to 3-7 key items, from the user's perspective
 - Write the PR body in neutral voice (no attribution)
 - Everything in English
 
 **DON'T:**
 - Push without explicit user confirmation
-- List every file changed
-- Include implementation details
+- Describe the branch file-by-file — that is *where*, not *what*
+- Include implementation *how* — mechanics, internals, exact values
+- Restate the title's type as a `**Type:**` line in the body
 - Add attribution lines to the PR body
 
 ## Error Handling
