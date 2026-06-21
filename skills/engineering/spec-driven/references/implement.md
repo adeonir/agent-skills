@@ -259,10 +259,12 @@ inline only when no dispatch ran.
 
 If tasks.md exists:
 1. Verify the "Done when" criteria for the task are met
-2. Mark completed tasks:
+2. Mark completed tasks by flipping `[ ]` to `[x]`. The checkbox alone
+   signals completion -- do not append `VERIFIED`, a status word, or a
+   parenthetical note to the "Done when" line; leave it as authored:
 ```markdown
 - [x] T-1 [P] {description}
-  - **Done when:** {verifiable outcome} -- VERIFIED
+  - **Done when:** {verifiable outcome}
 ```
 3. Update task counters in tasks.md header.
 
