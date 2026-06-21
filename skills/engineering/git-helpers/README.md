@@ -63,8 +63,8 @@ a heads-up so nothing lands silently. Use "commit only staged files"
 if you prefer to stage manually and skip the auto-stage step.
 
 **Q: What base branch is used for pull requests?**
-A: Defaults to `main`. Override by specifying explicitly: "create PR
-against develop".
+A: The repo's default branch, detected via `gh` (with `main` as fallback).
+Override by specifying explicitly: "create PR against develop".
 
 **Q: Can I use this without `gh` CLI?**
 A: Yes, for the commit workflow. PR creation and merge operations

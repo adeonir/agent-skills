@@ -1,6 +1,6 @@
 ---
 name: git-helpers
-allowed-tools: Bash(git:*) Bash(gh:*) Read Write
+allowed-tools: Bash(git:*) Bash(gh:*) Read
 description: >-
   Git workflow helper for conventional commits, pull request creation,
   and branch lifecycle. Use when committing staged or unstaged changes,
@@ -34,13 +34,14 @@ together.
 
 ## Guidelines
 
-- Preview commit messages before committing — always show and ask for
-  confirmation
-- Default base branch: `main` (user can override)
+- Always preview and confirm the commit message before committing — a
+  deliberate guard against weak drafts; skipped only in autonomous/headless
+  runs where no human is present
+- Base branch: the repo's default (user can override)
 - Use HEREDOC format for multi-line commit messages
 - Analyze the actual diff and staged files, not conversation context
-- Prefer single-line commit messages — only add a body for complex or
-  breaking changes
+- Prefer single-line commit messages — add a body only when the change
+  has several meaningful parts or a *why* the diff doesn't show
 
 ## Anti-Pattern: Conversation-Driven Commits
 
