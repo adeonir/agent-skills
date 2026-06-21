@@ -19,7 +19,7 @@ discovery. 4 document types, each with its own workflow depth.
 ## Quick start
 
 ```text
-trigger --> detect type --> load reference --> discovery --> drafting
+trigger → detect type → load reference → discovery → drafting
 ```
 
 Detect document type from the trigger. If ambiguous, ask the user.

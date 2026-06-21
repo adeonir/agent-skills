@@ -17,7 +17,7 @@ decisions. Those belong to Design Doc, ADR, or visual design artifacts.
 ## Workflow
 
 ```text
-discovery --> validation --> synthesis --> drafting
+discovery → validation → synthesis → drafting
 ```
 
 4 sequential phases. Never skip discovery — always interview the user

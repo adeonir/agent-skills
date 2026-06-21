@@ -19,10 +19,10 @@ context and skip questions already answered by the document.
 - How do you know this is a real problem? (evidence, feedback, observation)
 
 **Deepen when:**
-- User describes a solution, not a problem --> "What problem does this solve? Let's start there."
-- No evidence --> "What would convince you this is real? Have you seen users struggle with this?"
-- Multiple problems mixed --> "These sound like separate issues. Which one is primary?"
-- Vague audience --> "Who specifically? Describe the person who hits this problem most."
+- User describes a solution, not a problem → "What problem does this solve? Let's start there."
+- No evidence → "What would convince you this is real? Have you seen users struggle with this?"
+- Multiple problems mixed → "These sound like separate issues. Which one is primary?"
+- Vague audience → "Who specifically? Describe the person who hits this problem most."
 
 **Sufficient when:**
 - Problem can be stated in one clear sentence
@@ -37,11 +37,11 @@ context and skip questions already answered by the document.
 - How will you know this feature succeeded? (measurable outcome)
 
 **Deepen when:**
-- No clear core --> "What needs to work first for this feature to be useful?"
-- Scope keeps expanding --> "We started with X, now it's X+Y+Z. Should we narrow down?"
-- No success criteria --> "How would you demo this working? What does the user see?"
-- User stories without user connection --> "Which user needs this? What problem does it solve for them?"
-- No priority order --> "If you implement these one at a time, what order makes sense?"
+- No clear core → "What needs to work first for this feature to be useful?"
+- Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
+- No success criteria → "How would you demo this working? What does the user see?"
+- User stories without user connection → "Which user needs this? What problem does it solve for them?"
+- No priority order → "If you implement these one at a time, what order makes sense?"
 
 **Sufficient when:**
 - User stories are prioritized by implementation order (P1 core, P2 increment, P3 polish)
@@ -61,11 +61,11 @@ context and skip questions already answered by the document.
 
 Probe further when answers are:
 
-- **Vague**: "users want something better" --> ask for specifics
-- **Assumed**: stated as fact without evidence --> ask for evidence or mark as hypothesis
-- **Conflated**: multiple concepts mixed --> separate and explore each
-- **Solution-first**: describes what to build before why --> redirect to the problem
-- **Overly broad**: "everyone", "all cases" --> narrow to most important
+- **Vague**: "users want something better" → ask for specifics
+- **Assumed**: stated as fact without evidence → ask for evidence or mark as hypothesis
+- **Conflated**: multiple concepts mixed → separate and explore each
+- **Solution-first**: describes what to build before why → redirect to the problem
+- **Overly broad**: "everyone", "all cases" → narrow to most important
 
 Move on when:
 

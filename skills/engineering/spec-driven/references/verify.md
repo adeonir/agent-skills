@@ -141,7 +141,7 @@ Compare:
 **If issues found:**
 - List findings with severity
 - If a previously-marked AC is now failing, revert its `[x]` to `[ ]` in spec.md
-- Fix issues immediately (verify --> fix --> verify loop)
+- Fix issues immediately (verify → fix → verify loop)
 - Re-run only the failed checks after fix
 
 ### Step 9: Sync AC Checkboxes

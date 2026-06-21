@@ -21,7 +21,7 @@ Creates and manages Obsidian notes using MCPVault MCP for structured documentati
 ## Workflow
 
 ```
-resolve-vault --> select-type --> compose-note --> write --> link-related
+resolve-vault → select-type → compose-note → write → link-related
 ```
 
 Each note type has its own workflow. Use any type independently.

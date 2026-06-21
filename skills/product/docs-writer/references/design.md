@@ -40,7 +40,7 @@ Both coexist; they reference each other.
 ## Workflow
 
 ```text
-discovery --> analysis --> drafting
+discovery → analysis → drafting
 ```
 
 Discovery expands into 5 topics covering the full surface of the
@@ -492,7 +492,7 @@ records of trade-offs explored along the way.
 Frontmatter `status` field tracks the doc through the project:
 
 ```text
-draft --> accepted --> in-progress --> shipped --> superseded
+draft → accepted → in-progress → shipped → superseded
 ```
 
 - **draft**: Discovery and initial trade-off mapping. Editable

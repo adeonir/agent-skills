@@ -21,7 +21,7 @@ Structured idea exploration from vague to direction.
 ## Workflow
 
 ```
-trigger --> detect path --> discover --> diverge --> converge --> capture
+trigger → detect path → discover → diverge → converge → capture
               ^________________________________|  (if no viable direction)
 ```
 

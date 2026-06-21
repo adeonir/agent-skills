@@ -22,9 +22,9 @@ session resumes with full context. Three ops: save, load, clear.
 ## Workflow
 
 ```
-save  --> append snapshot at top of .artifacts/.handoff.md
-load  --> Read .artifacts/.handoff.md; latest snapshot at top
-clear --> overwrite .artifacts/.handoff.md with empty content
+save  → append snapshot at top of .artifacts/.handoff.md
+load  → Read .artifacts/.handoff.md; latest snapshot at top
+clear → overwrite .artifacts/.handoff.md with empty content
 ```
 
 ## Triggers

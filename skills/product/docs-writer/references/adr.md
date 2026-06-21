@@ -30,7 +30,7 @@ the outcomes as ADRs.
 ## Workflow
 
 ```text
-context --> validation --> drafting
+context → validation → drafting
 ```
 
 ### Phase 1: Context
@@ -205,8 +205,8 @@ W". One decision per ADR. Be specific and unambiguous.}}
 ## Status Lifecycle
 
 ```text
-proposed --> accepted --> deprecated
-                      --> superseded (by ADR-NNNN)
+proposed → accepted → deprecated
+                      → superseded (by ADR-NNNN)
 ```
 
 - **proposed**: Drafted, awaiting review. Editable.

@@ -20,7 +20,7 @@ Iterative debugging workflow with flexible technique selection and escalation.
 ## Workflow
 
 ```
-investigate --> fix --> verify --> done
+investigate → fix → verify → done
   ^_______________________|  (max 3 attempts, then escalate)
 ```
 

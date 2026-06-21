@@ -122,7 +122,7 @@ flow:
 
 ## Screen Map
 
-{{ASCII flow — screen --> screen, branches indented with `└-->`. For a single
+{{ASCII flow — screen → screen, branches indented with `└→`. For a single
 marketing page, a one-line section order is enough.}}
 
 ## {{surface name}}

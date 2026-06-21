@@ -21,7 +21,7 @@ Use ONLY these values in spec.md frontmatter:
 ## Status Transitions
 
 ```text
-draft --[design]--> ready --[implement]--> in-progress --[implement done]--> to-review --[audit]--> done
+draft --[design]→ ready --[implement]→ in-progress --[implement done]→ to-review --[audit]→ done
 ```
 
 ## Who Updates What

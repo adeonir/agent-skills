@@ -25,7 +25,7 @@ hand off to implementation.
 ## Workflow
 
 ```
-discover --> create --> sync* --> track --> handoff
+discover → create → sync* → track → handoff
                           ^_______|  (sync is optional, gated by config)
 ```
 

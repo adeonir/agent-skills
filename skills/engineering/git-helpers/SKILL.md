@@ -26,7 +26,7 @@ Git workflow with conventional commits and automated PR management.
 ## Workflow
 
 ```text
-commit --> create-pull-request --> finish-branch
+commit → create-pull-request → finish-branch
 ```
 
 Each step is independent. Use any workflow in isolation or chain them

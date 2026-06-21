@@ -28,7 +28,7 @@ identity. DESIGN.md is the primary artifact this skill authors and owns;
 ## Workflow
 
 ```text
-direction --> design --> preview (optional)
+direction → design → preview (optional)
   |             |           |
   v             v           v
 moodboard.md  DESIGN.md   styleguide.html (tune live)

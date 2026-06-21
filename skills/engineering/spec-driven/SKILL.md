@@ -66,7 +66,7 @@ Structured development workflow with adaptive depth.
 ## Workflow
 
 ```text
-specify --> design --> tasks --> implement --> audit --> done
+specify → design → tasks → implement → audit → done
                                      ^           ^
                                      |           |__ per-story commit OR pre-PR
                                      |__ verify runs inside implement per task

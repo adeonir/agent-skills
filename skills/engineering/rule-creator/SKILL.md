@@ -24,7 +24,7 @@ Creates well-scoped rules in `.claude/rules/` and manages the rule set.
 ## Workflow
 
 ```
-trigger --> dispatch --> classify --> context --> render --> write
+trigger → dispatch → classify → context → render → write
               |              |
               v              v
            list/edit     refuse (procedural / lifecycle / one-off)

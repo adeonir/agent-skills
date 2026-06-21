@@ -23,8 +23,8 @@ artifacts in `.artifacts/epics/`.
 ### Status Transitions
 
 ```
-planned --> in-progress --> done
-planned --> blocked --> in-progress --> done
+planned → in-progress → done
+planned → blocked → in-progress → done
 ```
 
 Releases use `released` instead of `done`.

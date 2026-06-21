@@ -18,7 +18,7 @@ End-of-session documentation to Obsidian.
 ## Workflow
 
 ```
-mapping --> handoff:Load --> obsidian-notes (enrich + compose) --> handoff:Detect+Cleanup
+mapping → handoff:Load → obsidian-notes (enrich + compose) → handoff:Detect+Cleanup
 ```
 
 Resolve project from current working directory, load any session

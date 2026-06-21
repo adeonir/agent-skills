@@ -109,8 +109,8 @@ Subagent brief:
 - Return shape (structured slot fillers per template section, no
   surrounding prose):
   - Summary: total task count
-  - Execution Plan: ASCII diagram (sequential `-->`, parallel
-    branches `├-->`/`└-->`, convergence points)
+  - Execution Plan: ASCII diagram (sequential `→`, parallel
+    branches `├→`/`└→`, convergence points)
   - Quality Gates: lint, typecheck, test commands from Step 3
   - Tasks: story groups in spec.md order (`### US-N [Px] Title`),
     each containing tasks with monotonic IDs top-to-bottom, dependency
@@ -231,8 +231,8 @@ and (when applicable) Candidate trace only.
 skip the diagram.
 
 Before writing tasks, create an ASCII diagram showing the execution flow:
-- Sequential dependencies as arrows (`-->`)
-- Parallel tasks as branches (`├-->`, `└-->`)
+- Sequential dependencies as arrows (`→`)
+- Parallel tasks as branches (`├→`, `└→`)
 - Convergence points where branches merge
 
 This gives an overview of parallelism and critical path before the detailed
@@ -444,9 +444,9 @@ Total: {{count}} | Completed: 0 | Remaining: {{count}}
 ## Execution Plan
 
 ```text
-T-1 --> T-2 --> T-3
-                 ├--> T-4 --┐
-                 └--> T-5 --┼--> T-7
+T-1 → T-2 → T-3
+                 ├→ T-4 --┐
+                 └→ T-5 --┼→ T-7
                  T-6 -------┘
 ```
 
