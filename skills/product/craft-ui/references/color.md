@@ -81,6 +81,30 @@ Consistent meaning across the whole surface — green always = success.
 Primary actions, links (keep contrast), key icons, active headers, hover/focus.
 Reserve heavy color for active states; inactive stays neutral.
 
+## Harmony & orphan accents
+
+Every accent derives from the palette's hue family — never dropped in from
+outside it. An accent whose hue has no relation to the brand reads as a mistake,
+however small the element (a divider rule, an icon glyph, a badge).
+
+Choose the wheel relationship on purpose:
+
+- **Analogous** (hues within ~30°) — cohesive; the calm brand harmony.
+- **Complementary** (~180° apart) — high tension, deliberate only and dosed: one
+  side dominant, the other a sharp accent. Two saturated complements at equal
+  weight vibrate; the red↔green pair also fails color-blind users.
+- **Triadic / split-complementary** — lively, but needs one clear dominant;
+  rarely does more than one true accent earn the page.
+
+Two failure shapes:
+
+- **Orphan accent** — a hue that belongs to no defined role. A red divider and a
+  green icon on a warm-brown brand are two orphans that also clash across the
+  wheel; neither derives from the palette.
+- **Borrowed brand color used raw** — a service's own color (a messaging green, a
+  social blue) dropped in at full saturation. Reconcile it: tint or desaturate
+  toward the palette, or render the mark in a brand or neutral color.
+
 ## Backgrounds & atmosphere
 
 - **Create depth, not flatness** — gradient meshes, noise, grain, layered
