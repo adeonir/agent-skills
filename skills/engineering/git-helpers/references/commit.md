@@ -6,17 +6,6 @@ Create a commit with a well-formatted conventional commit message based on actua
 
 When creating a commit for staged or unstaged changes.
 
-## Contents
-
-- [Workflow](#workflow) — steps 1-5, gather context through verify commit
-- [Commit Types](#commit-types) — type selection table
-- [Format Rules](#format-rules) — subject-line discipline
-- [Anti-Pattern: AI-slop subject](#anti-pattern-ai-slop-subject) — filler to avoid
-- [Body Guidelines](#body-guidelines) — when a body is earned and how to curate it
-- [Examples](#examples) — good and bad messages
-- [Guidelines](#guidelines) — DO/DON'T recap of the non-obvious traps
-- [Error Handling](#error-handling) — clean tree, conflicts, hook failures
-
 ## Workflow
 
 ### Step 1: Gather Context
@@ -112,6 +101,11 @@ user and ask whether to split into separate commits.
   in the body if they need calling out.
 
 ### Step 4: Create Commit
+
+Compose subject and optional body:
+
+- **Subject** — `type: concise description`; see [Format Rules](#format-rules)
+- **Body** — curated bullets when the change has several meaningful parts or a *why* the diff doesn't reveal; see [Body Guidelines](#body-guidelines)
 
 ```bash
 git commit -m "$(cat <<'EOF'

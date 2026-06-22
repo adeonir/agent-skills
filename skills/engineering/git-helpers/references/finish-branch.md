@@ -46,30 +46,7 @@ If at least 3 of the last entries agree, use that method. If ambiguous or the ba
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-### Step 3: Preflight Checks
-
-#### CI Status
-
-```bash
-gh pr checks {pr-number}
-```
-
-| State | Action |
-|-------|--------|
-| All passed | Proceed |
-| Any failed | Stop and surface |
-| Any pending | Stop — wait for CI to finish |
-| No checks configured | Run local tests instead |
-
-If no CI is configured, run the project's test suite:
-
-```bash
-# Use whichever applies: npm test / pnpm test / pytest / cargo test / go test ./...
-```
-
-Local tests failed: stop.
-
-#### Branch Sync
+### Step 3: Branch Sync
 
 ```bash
 git fetch origin {base}
@@ -107,38 +84,22 @@ After updating, refresh the remote branch:
 git push --force-with-lease
 ```
 
-A force-push replaces the state CI ran against and starts a fresh run, so the
-earlier pass no longer reflects what will merge. Re-run the **CI Status** check
-above on the new state before proceeding.
-
-#### PR Mergeable State
+### Step 4: Verify Mergeability
 
 ```bash
-gh pr view {pr-number} --json mergeable,mergeStateStatus,reviewDecision
+gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 ```
-
-| Field | Required value |
-|-------|----------------|
-| `mergeable` | `MERGEABLE` |
-| `mergeStateStatus` | `CLEAN` — see the table below for the other states |
-| `reviewDecision` | `APPROVED` when branch protection requires review |
-
-`mergeStateStatus` carries what the other two fields miss — read it, do not
-discard it. It is the field that catches a branch that fell behind or a check
-that is still settling after a sync:
 
 | `mergeStateStatus` | Action |
 |--------------------|--------|
 | `CLEAN` | Proceed |
-| `BEHIND` | Base moved ahead — loop back to Branch Sync, then re-check |
-| `BLOCKED` | Required review or check unmet — stop and surface |
-| `DIRTY` | Conflicts — stop and surface |
-| `UNSTABLE` | A check is still pending or failing — stop and wait, do not race |
-| `UNKNOWN` | GitHub is still computing mergeability — wait and re-query |
+| `BEHIND` | Base moved — re-run Step 3 |
+| `BLOCKED` | Stop and surface — review or check unmet |
+| `DIRTY` | Stop and surface — conflicts |
+| `UNSTABLE` | Stop and wait — CI still settling |
+| `UNKNOWN` | Wait and re-query |
 
-If not mergeable: stop and surface the specific blocker (conflicts, missing approval, blocked by protection).
-
-### Step 4: Merge
+### Step 5: Merge
 
 Compose subject and body:
 
@@ -153,53 +114,26 @@ For `--rebase`, subject and body are not used (the original commits are replayed
 
 If `gh pr merge` exits non-zero: stop and surface the error.
 
-### Step 5: Confirm Merge Landed
+### Step 6: Confirm Merge Landed
 
-`gh pr merge` exits as soon as GitHub accepts the merge request, but the merge commit and the `{base}` ref pointer are populated asynchronously. Pulling immediately can race the propagation and surface a stale intermediate state (linear history when the convention expected a merge commit, or a missing commit altogether). Confirm the merge commit OID is published before cleanup.
-
-Poll the PR's `mergeCommit.oid` until non-empty (cap at ~10 attempts, ~1s between):
+`gh pr merge` exits before GitHub propagates the merge commit. Confirm the PR reached `MERGED` state before pulling:
 
 ```bash
-for i in {1..10}; do
-  oid=$(gh pr view {pr-number} --json mergeCommit -q .mergeCommit.oid)
-  [ -n "$oid" ] && break
-  sleep 1
-done
-[ -n "$oid" ] || { echo "merge commit not published after 10s — surface and stop"; exit 1; }
+gh pr view {pr-number} --json state -q .state
 ```
 
-Store the returned `oid` as `{merge-oid}` for the next step's verification.
+If state is not `MERGED`, wait a moment and retry once. If still not `MERGED`, surface and stop.
 
-### Step 6: Cleanup
+### Step 7: Cleanup
 
 ```bash
 git switch {base}
-git fetch origin {base}
 git pull --ff-only origin {base}
 ```
 
-After the pull, verify the local tip matches the API-reported merge commit OID. If they diverge, the pull picked up an intermediate state — re-fetch once more and re-check. The `git reset --hard` below is a deliberate, bounded exception to the usual confirm-before-reset rule: it discards only the stale local `{base}` pointer so it matches the authoritative remote, with no working-tree changes at risk — the prior steps only switched to and pulled `{base}`, never a branch carrying uncommitted work.
+If the pull fails as non-fast-forward, the merge has not propagated — surface and stop.
 
-```bash
-local_oid=$(git rev-parse {base})
-if [ "$local_oid" != "{merge-oid}" ]; then
-  git fetch origin {base} && git reset --hard origin/{base}
-  local_oid=$(git rev-parse {base})
-fi
-[ "$local_oid" = "{merge-oid}" ] || { echo "local {base} did not converge on {merge-oid} — surface and stop"; exit 1; }
-```
-
-When the method is `merge`, also assert the tip has two parents:
-
-```bash
-parent_count=$(git cat-file -p HEAD | grep -c '^parent ')
-[ "$parent_count" -eq 2 ] || { echo "expected merge commit (2 parents), got $parent_count — surface and stop"; exit 1; }
-```
-
-Then delete the branches. Use `-D`, not `-d`: after a squash or rebase merge the
-branch's commits are never ancestors of `{base}`, so `-d`'s safety check refuses
-the delete even though the merge landed. That safety is already redundant here —
-Step 5's published OID and the tip check above prove the merge is in `{base}`.
+Delete the branches. Use `-D`, not `-d`: after a squash or rebase merge the branch's commits are not ancestors of `{base}`, so `-d` refuses the delete even though the merge landed.
 
 ```bash
 git branch -D {branch}
@@ -208,27 +142,21 @@ git push origin --delete {branch}
 
 If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` will report the branch already gone — that is expected, not an error.
 
-Confirm: "PR #{pr-number} merged into `{base}` (`{merge-oid}`) and branch deleted."
+Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 
 ## Guidelines
 
 **DO:**
 - Resolve the PR number from the current branch; ask only when no open PR exists for it
 - Infer the merge method from recent base history before asking the user
-- Stop on CI pending — do not race the merge
-- After a sync force-push, re-check CI and gate on `mergeStateStatus` (stop on `BEHIND`/`BLOCKED`/`UNSTABLE`) — `mergeable` alone misses a stale or settling state
-- Always ask the update method when the branch is behind, per merge
+- Always ask the update method when the branch is behind
 - Pass a custom subject citing the PR ID on merge commits
 - Use `--force-with-lease` (not `--force`) when force pushing
-- Poll `gh pr view --json mergeCommit` until the OID is populated before pulling — `gh pr merge` exits before propagation
-- Verify the local `{base}` tip equals the API-reported merge OID after pulling; re-fetch once if it diverges
-- For `--merge` method, confirm HEAD has two parents before deleting branches
+- Confirm `MERGED` state before pulling — `gh pr merge` exits before propagation
 - Delete both local and remote branch after the cleanup pull succeeds
 
 **DON'T:**
-- Merge while CI is pending
-- Pull immediately after `gh pr merge` without confirming the merge commit OID is published — the API races propagation and the pull can land on an intermediate state
-- Trust the `gh pr merge` exit code alone as proof of completion — the exit code only confirms GitHub accepted the request
+- Pull immediately after `gh pr merge` without confirming `MERGED` state
 - Use the default `Merge pull request #N from {branch}` message
 - Force push without `--force-with-lease`
 - Persist the branch-update method
@@ -238,12 +166,7 @@ Confirm: "PR #{pr-number} merged into `{base}` (`{merge-oid}`) and branch delete
 
 - On base branch and user gave no PR number: ask for the number
 - No open PR for current branch: stop and inform user
-- CI failed or pending: stop and surface; do not proceed
-- Local tests fail (no CI configured): stop
 - Branch behind base with conflicts during update: help resolve, then continue
-- PR not mergeable (conflicts, missing approval, blocked): stop and surface the specific blocker
 - `gh pr merge` exits non-zero: surface the error and stop — do not proceed to cleanup
-- `mergeCommit.oid` still empty after the poll window (~10s): surface and stop — something blocked the merge server-side
-- Cleanup pull fails as non-fast-forward: merge did not land as expected; surface and stop
-- Local `{base}` tip differs from `mergeCommit.oid` after the fallback re-fetch: surface and stop — do not delete branches
-- HEAD has fewer parents than the method requires (expected 2 for `--merge`): surface and stop — the merge applied as a different method than intended
+- State not `MERGED` after retry: surface and stop
+- Cleanup pull fails as non-fast-forward: surface and stop

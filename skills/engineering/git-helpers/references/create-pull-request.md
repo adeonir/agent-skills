@@ -66,16 +66,7 @@ Based only on those sources:
 - Review commits and diff
 - Determine the conventional type for the title
 
-### Step 5: Draft PR
-
-**Title:** `type: concise description` or `type(scope): concise description`,
-lowercase — the same discipline as a commit subject: terse and structural,
-*what* and *why* (never *where* or *how*), and free of AI-slop. See the
-AI-slop anti-pattern and Format Rules in [commit.md](commit.md).
-
-**Body:** Use the template below.
-
-## PR Body Template
+### PR Body Template
 
 Sections are earned, not mandatory — size the body to the PR. Always write the
 Summary. Add **Changes** only when the PR has several distinct changes worth
@@ -139,7 +130,12 @@ The body MUST NOT contain:
   names, or which code path ran; state only what the reviewer observes
 - Attribution lines
 
-### Step 6: Push and Create PR
+### Step 5: Push and Create PR
+
+Compose title and body:
+
+- **Title** — `type: concise description` or `type(scope): concise description`, lowercase — same discipline as a commit subject: terse and structural, *what* and *why* (never *where* or *how*), free of AI-slop. See the AI-slop anti-pattern and Format Rules in [commit.md](commit.md).
+- **Body** — use the [PR Body Template](#pr-body-template) below.
 
 ```bash
 git push -u origin $(git branch --show-current)
