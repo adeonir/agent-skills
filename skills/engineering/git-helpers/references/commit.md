@@ -8,7 +8,7 @@ When creating a commit for staged or unstaged changes.
 
 ## Contents
 
-- [Workflow](#workflow) — steps 1-6, gather context through verify commit
+- [Workflow](#workflow) — steps 1-5, gather context through verify commit
 - [Commit Types](#commit-types) — type selection table
 - [Format Rules](#format-rules) — subject-line discipline
 - [Anti-Pattern: AI-slop subject](#anti-pattern-ai-slop-subject) — filler to avoid
@@ -111,28 +111,7 @@ user and ask whether to split into separate commits.
   combined diff and proceed to Step 4. Surface the secondary changes
   in the body if they need calling out.
 
-### Step 4: Preview and Confirm
-
-Before presenting the message, verify it holds up against the canonical
-rules:
-
-- Subject obeys the Format Rules (imperative, concise, *what/why* not
-  *where/how*)
-- Body, if present, obeys the Body Guidelines (curated bullets, not
-  paragraphs or a hunk-by-hunk transcript)
-- Every line traces to the staged diff or an explicit user directive —
-  nothing sourced from conversation narrative
-
-Display the proposed commit message to the user before committing.
-Ask for confirmation. Accept edits if suggested.
-
-This preview is a deliberate guard, not ceremony: drafted messages often
-have gaps the user catches, so interactive sessions must always preview and
-wait for explicit approval. The one exception is autonomous or
-non-interactive runs (e.g. background agents, scheduled jobs) with no human
-to confirm — there, skip the prompt and proceed to Step 5.
-
-### Step 5: Create Commit
+### Step 4: Create Commit
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -148,7 +127,7 @@ Never pass `--no-verify`, `--no-gpg-sign`, or any flag that bypasses
 pre-commit hooks or signing. If a hook fails, fix the underlying issue and
 create a new commit (see Error Handling).
 
-### Step 6: Verify Commit
+### Step 5: Verify Commit
 
 ```bash
 git status

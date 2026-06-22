@@ -34,9 +34,6 @@ together.
 
 ## Guidelines
 
-- Always preview and confirm the commit message before committing — a
-  deliberate guard against weak drafts; skipped only in autonomous/headless
-  runs where no human is present
 - Base branch: the repo's default (user can override)
 - Use HEREDOC format for multi-line commit messages
 - Analyze the actual diff and staged files, not conversation context

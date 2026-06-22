@@ -66,10 +66,7 @@ Based only on those sources:
 - Review commits and diff
 - Determine the conventional type for the title
 
-### Step 5: Preview and Confirm
-
-Compose the PR title and body. Show the PR title, body, and base branch for
-user confirmation before executing.
+### Step 5: Draft PR
 
 **Title:** `type: concise description` or `type(scope): concise description`,
 lowercase — the same discipline as a commit subject: terse and structural,
@@ -157,7 +154,6 @@ Output the PR URL when done.
 ## Guidelines
 
 **DO:**
-- Preview the PR title and body before pushing
 - Size the body to the PR — drop the sections it has not earned
 - Use imperative mood in the PR title and Changes list
 - Keep Changes a curated set of meaningful changes (*what* and *why*), not a
@@ -167,7 +163,6 @@ Output the PR URL when done.
 - Everything in English
 
 **DON'T:**
-- Push without explicit user confirmation
 - Describe the branch file-by-file — that is *where*, not *what*
 - Include implementation *how* — mechanics, internals, exact values
 - Restate the title's type as a `**Type:**` line in the body
