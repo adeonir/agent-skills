@@ -234,6 +234,22 @@ both kinds during generation; critique and audit report both.
 <section style="background: #111; color: #fff">Fully committed dark section</section>
 ```
 
+### orphan-accent-color
+**Category:** Color and Theme
+**Severity:** warning
+**Check:** An accent — on a divider, icon, glyph, badge, or small decoration — whose hue is not part of the brand palette's hue family, or a third-party service color (messaging green, social blue) rendered raw. Two or more unrelated accents (a red divider beside a green icon) compound into an accidental clash.
+**Fix:** Pull every accent from the defined palette — the brand hue or a semantic token. Reconcile a borrowed service color toward the palette (tint or desaturate), or render the mark in a brand or neutral color. Decoration carries brand color, never an arbitrary hue.
+**Example fail:**
+```html
+<hr style="border-color: #c0392b">
+<svg style="color: #25d366"><!-- raw WhatsApp green on a warm-brown brand --></svg>
+```
+**Example pass:**
+```html
+<hr style="border-color: var(--accent)">
+<svg style="color: var(--foreground)"><!-- icon in a brand color --></svg>
+```
+
 ## Layout and Spacing
 
 ### all-sections-centered

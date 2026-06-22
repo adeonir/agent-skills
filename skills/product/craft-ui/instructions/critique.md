@@ -18,6 +18,7 @@ Composes:
 
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
 - [design-thinking.md](../references/design-thinking.md) — visual direction, color strategy, slop test
+- [color.md](../references/color.md) — palette coherence, harmony, orphan accents
 - [heuristics.md](../references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws
 - [cognitive-load.md](../references/cognitive-load.md) — load checklist, working-memory rule, overload patterns
 - [personas.md](../references/personas.md) — the five archetypes to test through
