@@ -26,19 +26,36 @@ Use `baseRefName` from the response (or from the injected list) as `{base}` for 
 
 ### Step 2: Resolve Merge Method
 
-Infer the project's convention from recent merges on base:
+```bash
+git config --get git-helpers.merge-method
+```
+
+If a value is returned (`squash`, `merge`, or `rebase`), use it directly —
+skip the rest of this step.
+
+If no value is set, infer from recent merges on base:
 
 ```bash
 git log origin/{base} -10 --format='%P %s'
 ```
 
-| Pattern in recent entries | Method |
-|---------------------------|--------|
+| Pattern | Method |
+|---------|--------|
 | Two parents (two SHAs in `%P`) | `merge` |
 | One parent, subject ends in `(#N)` | `squash` |
 | One parent, no PR ID in subject | `rebase` |
 
-If at least 3 of the last entries agree, use that method. If ambiguous or the base has no merge history, ask the user.
+If at least 3 of the last entries agree, persist and use that method:
+
+```bash
+git config --local git-helpers.merge-method {method}
+```
+
+If ambiguous or no merge history, ask the user, then persist:
+
+```bash
+git config --local git-helpers.merge-method {method}
+```
 
 | Method | Result |
 |--------|--------|
@@ -46,45 +63,35 @@ If at least 3 of the last entries agree, use that method. If ambiguous or the ba
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-### Step 3: Branch Sync
+### Step 3: Sync and Verify
 
 ```bash
 git fetch origin {base}
 git rev-list --left-right --count origin/{base}...HEAD
 ```
 
-If behind: **always ask** the user which update method to use (rebase / squash / merge / skip). Do not persist this decision — the right answer depends on the branch's history each time.
-
-Apply the chosen method:
+If the branch is behind, rebase automatically:
 
 ```bash
-# rebase
 git rebase origin/{base}
-
-# squash
-git reset --soft origin/{base}
-git commit -m "$(cat <<'EOF'
-{type}: {description}
-EOF
-)"
-
-# merge base into branch
-git merge origin/{base}
 ```
 
-The squash path collapses the branch into one commit — give it a message with
-the same conventional-commit discipline as a fresh commit. Never leave `git
-commit` bare; an empty `-m` opens an editor that stalls a non-interactive run.
+If rebase conflicts: surface and stop — inform the user to resolve and re-run.
 
-If conflicts: help the user resolve, then continue.
-
-After updating, refresh the remote branch:
+After a successful rebase, refresh the remote branch:
 
 ```bash
 git push --force-with-lease
 ```
 
-### Step 4: Verify Mergeability
+Gather branch context for Step 4:
+
+```bash
+git log origin/{base}..HEAD --oneline
+git diff origin/{base}...HEAD
+```
+
+Verify mergeability:
 
 ```bash
 gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
@@ -93,28 +100,44 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 | `mergeStateStatus` | Action |
 |--------------------|--------|
 | `CLEAN` | Proceed |
-| `BEHIND` | Base moved — re-run Step 3 |
 | `BLOCKED` | Stop and surface — review or check unmet |
 | `DIRTY` | Stop and surface — conflicts |
 | `UNSTABLE` | Stop and wait — CI still settling |
 | `UNKNOWN` | Wait and re-query |
 
-### Step 5: Merge
+### Step 4: Merge
 
-Compose subject and body:
+Spawn an isolated Agent with only the following as input — no conversation
+context passes through:
 
-- **Subject** — `{type}: {description} (#{pr-number})`. Conventional commit style from [commit.md](commit.md) with the PR ID appended.
-- **Body** — contextual bullets describing motivation or impact; omit for trivial merges.
+1. PR title and number from Step 1
+2. Branch diff and commit log gathered in Step 3
 
-```bash
-gh pr merge {pr-number} --{method} --subject "{type}: {description} (#{pr-number})" --body "{body}"
+Instruct the agent to return a structured object:
+
+```json
+{
+  "subject": "string ({pr-title} (#{pr-number}) if conventional, generated otherwise)",
+  "body": ["contextual bullet describing motivation or impact"]
+}
 ```
 
-For `--rebase`, subject and body are not used (the original commits are replayed onto base).
+Use `null` for `body` when the subject is self-sufficient. The subject uses the
+PR title directly when it follows `type: description` convention; the agent
+generates a conforming subject only when it does not.
+
+```bash
+gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
+```
+
+Omit `--body` when `body` is null.
+
+For `--rebase`, subject and body are not used (the original commits are replayed
+onto base).
 
 If `gh pr merge` exits non-zero: stop and surface the error.
 
-### Step 6: Confirm Merge Landed
+### Step 5: Confirm Merge Landed
 
 `gh pr merge` exits before GitHub propagates the merge commit. Confirm the PR reached `MERGED` state before pulling:
 
@@ -124,7 +147,7 @@ gh pr view {pr-number} --json state -q .state
 
 If state is not `MERGED`, wait a moment and retry once. If still not `MERGED`, surface and stop.
 
-### Step 7: Cleanup
+### Step 6: Cleanup
 
 ```bash
 git switch {base}
@@ -148,11 +171,11 @@ Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 
 **DO:**
 - Resolve the PR number from the current branch; ask only when no open PR exists for it
-- Infer the merge method from recent base history before asking the user
+- Read merge method from `git config --get git-helpers.merge-method`; infer and persist on first run
 - Always ask the update method when the branch is behind
 - Pass a custom subject citing the PR ID on merge commits
 - Use `--force-with-lease` (not `--force`) when force pushing
-- Confirm `MERGED` state before pulling — `gh pr merge` exits before propagation
+- Confirm `MERGED` state before pulling in Step 5 — `gh pr merge` exits before propagation
 - Delete both local and remote branch after the cleanup pull succeeds
 
 **DON'T:**
