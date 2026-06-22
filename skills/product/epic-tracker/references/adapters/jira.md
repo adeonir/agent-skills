@@ -2,7 +2,7 @@
 
 Translate generic epic-tracker operations into Jira primitives via the
 Jira MCP (or `jira` CLI when MCP is unavailable). Loaded by
-[../sync.md](../sync.md) when `tracker.kind: jira`.
+[../sync.md](../sync.md) when `epic-tracker.kind: jira`.
 
 ## Primitive Mapping
 
@@ -40,15 +40,15 @@ nearest standard name with a warning when an exact match isn't found.
    section is local-only — Jira's native child-issue rollup under the
    Epic is the source of truth for hierarchy. Drop the heading and all
    bullets up to (but not including) the next `##` heading.
-2. Create an Issue with `issuetype: Epic` in the configured
-   `project_key` using the stripped body.
+2. Create an Issue with `issuetype: Epic` in the project (from
+   `epic-tracker.project-key`) using the stripped body.
 3. Inputs: `name` -> Epic Name field (Jira's custom field), `title` -> Summary, `body` -> Description.
 4. Return Epic key (e.g., `PROJ-123`) and url.
 
 ### create_story / create_bug / create_issue
 
 1. Create an Issue with `issuetype: Story`, `Bug`, or `Task` in the
-   `project_key`.
+   project (from `epic-tracker.project-key`).
 2. Inputs: `title` -> Summary, `body` -> Description (acceptance criteria
    for Story, repro steps for Bug, plain description for Task). For
    stories, the body must include the validated `### AC-N`
@@ -65,7 +65,7 @@ nearest standard name with a warning when an exact match isn't found.
 
 ### create_release
 
-1. Create a Fix Version in the `project_key`.
+1. Create a Fix Version in the project (from `epic-tracker.project-key`).
 2. Inputs: `name` -> Version name (e.g., "v1.2.0"), `title` -> Description, `target_date` -> Release date.
 3. Link Issues to the Fix Version: for each Story/Bug in `story_ids`, set its `fixVersions` field to include the new version.
 4. Return Fix Version id and url.
@@ -117,7 +117,7 @@ fills them in Jira UI.
 
 ## Error Handling
 
-- Project not found: ask user to verify `project_key`; offer to re-run bootstrap
+- Project not found: ask user to verify `epic-tracker.project-key`; offer to re-run bootstrap
 - Issue type unavailable in project (e.g., "Bug" or "Task" disabled): fall back to Story with appropriate label (`bug` or `task`), warn user
 - Workflow transition not reachable: list the legal transitions and ask user to pick or fix the workflow in Jira
 - Auth error: route to Jira MCP setup

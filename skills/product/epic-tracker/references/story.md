@@ -81,15 +81,14 @@ the user fixes the AC.
 
 ### 4. Save or Push
 
-**If tracker configured** (`.artifacts/epics/.config.yml` exists with
-`tracker.kind` set and not `none`):
+**If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
 - Ask the user (per session, cached) whether to push to the tracker
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   pass the parent epic's tracker id (from `epic.md` frontmatter
   `tracker.id`) so the story is linked — no markdown file is created
 - If no: save to markdown and proceed to step 5
 
-**If no tracker configured** (config missing or `kind: none`):
+**If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to markdown and proceed to step 6
 
 **Saving to markdown:**
@@ -97,8 +96,7 @@ the user fixes the AC.
    (exclude `epic.md`); zero-pad to 3 digits
 2. Save to `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md`
 
-If the config is missing, run [sync.md](sync.md) bootstrap before the
-first push, then proceed.
+If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 ### 5. Update Epic Checklist *(markdown only)*
 

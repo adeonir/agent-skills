@@ -46,7 +46,7 @@ Releases use `released` instead of `done`.
 
 Source depends on tracker config:
 
-**Without tracker (or `tracker.kind: none`):** read markdown directly.
+**Without tracker (or `epic-tracker.kind: none`):** read markdown directly.
 
 1. List directories in `.artifacts/epics/`
 2. For each epic directory, read `epic.md` frontmatter (status, title)

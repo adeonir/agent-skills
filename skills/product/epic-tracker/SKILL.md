@@ -65,11 +65,10 @@ questions when neither file exists.
 `status.md` covers both status updates and roadmap reads.
 
 `sync.md` is also auto-loaded by core refs (epic, story, bug, release)
-after the artifact is saved when tracker config is present and `kind` is
-not `none`.
+after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 
 `adapters/{linear,github,jira}.md` are loaded by `sync.md` based on
-`tracker.kind`. Not direct triggers.
+`epic-tracker.kind`. Not direct triggers.
 
 `ac-validation.md` is auto-loaded by `story.md` (create) and
 `update-story.md` (when AC text changes). Not a direct trigger.

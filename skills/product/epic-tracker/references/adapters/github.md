@@ -32,10 +32,10 @@ sub-issues enabled.
 Two opt-in layers wrap the same Issue substrate. Both are independent
 of hierarchy and of each other.
 
-| Layer | What it adds | Config |
-|-------|--------------|--------|
-| **Milestones** | Date-bound grouping for releases or campaigns. Issue belongs to at most one Milestone. Does not encode Epic→Story. | `use_milestones: true` |
-| **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `project_number: <n>` |
+| Layer | What it adds | Activation |
+|-------|--------------|------------|
+| **Milestones** | Date-bound grouping for releases or campaigns. Issue belongs to at most one Milestone. Does not encode Epic→Story. | Inferred: used when the repo has milestones and a milestone is supplied. |
+| **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
 
 Neither layer changes how Issues are created or how parent/child links
 are formed. Issue creation flow is identical with or without them.
@@ -95,38 +95,31 @@ GitHub Issues have an `open` / `closed` state plus optional state reason
 | Generic | GitHub state |
 |---------|--------------|
 | planned | open (no reason) |
-| in-progress | open + label `in-progress` (or Project Status field "In Progress" when `project_number` is set) |
+| in-progress | open + label `in-progress` (or Project Status field "In Progress" when `epic-tracker.project-number` is set) |
 | done | closed + reason `completed` |
 | blocked | open + label `blocked` |
 
-When `project_number` is set and the Project has a Status field, prefer
-the Project field over labels.
+When `epic-tracker.project-number` is set and the Project has a Status
+field, prefer the Project field over labels.
 
 ## Operations
 
-### Bootstrap: Issue Type Detection
+### Issue Type Detection (runtime)
 
-During bootstrap:
+Detected once per session and cached in memory. Run before the first
+operation that assigns an artifact type.
 
-1. Determine repo owner kind via MCP or `gh api repos/{owner}/{repo}`:
-   - `owner.type == "User"`: personal/user-owned repo. Set
-     `issue_types: {}` immediately and skip the rest of this step —
-     Issue Types are not available for user-owned repos.
-   - `owner.type == "Organization"`: continue to step 2.
-2. Query the org's issue types via MCP or
-   `gh api orgs/{org}/issue-types`.
-3. If types are found, store the detected names in config:
-   ```yaml
-   issue_types:
-     epic: Epic
-     story: Story
-     bug: Bug
-     task: Task
-   ```
-   Names may differ from defaults (e.g., the org may use "Chore" instead
-   of "Task"). Store whatever name the org configured.
-4. If no types found or query fails: set `issue_types: {}` in config.
-   Adapter falls back to artifact labels via Label Matching.
+1. Infer repo from `git remote get-url origin` (extract `owner/name`).
+2. Determine repo owner kind via MCP or `gh api repos/{owner}/{repo}`:
+   - `owner.type == "User"`: personal/user-owned repo — Issue Types
+     unavailable. Cache `issue_types: {}` and fall back to Label Matching.
+   - `owner.type == "Organization"`: continue to step 3.
+3. Query the org's issue types via MCP or `gh api orgs/{org}/issue-types`.
+4. If types are found, cache detected names in memory (keys: `epic`,
+   `story`, `bug`, `task` → org-configured names; may differ from
+   defaults, e.g., "Chore" instead of "Task").
+5. If no types found or query fails: cache `issue_types: {}` and fall
+   back to Label Matching.
 
 Re-detect on demand via "configure tracker".
 
@@ -136,18 +129,18 @@ Re-detect on demand via "configure tracker".
    section is local-only — GitHub's native Sub-issues panel is the
    source of truth for child hierarchy. Drop the heading and all
    bullets up to (but not including) the next `##` heading.
-2. Create an Issue in the configured `repo` with the stripped body.
+2. Create an Issue in the repo (inferred from `git remote get-url origin`) with the stripped body.
 3. Apply artifact type:
-   - `issue_types.epic` set: assign that Issue Type.
+   - session cache has `epic` issue type: assign it.
    - otherwise: match repo labels semantically for `epic` and assign;
      surface available labels and ask if no match.
-4. If `project_number` is set: add the Issue to the Project.
-5. If `use_milestones` is true and a milestone is supplied: assign it.
+4. If `epic-tracker.project-number` is set: add the Issue to the Project.
+5. If the repo has milestones and a milestone is supplied: assign it.
 6. Return Issue number and url.
 
 ### create_story
 
-1. Create an Issue in the `repo` with title, body, and AC. The body
+1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, body, and AC. The body
    must include the validated `### AC-N` Given/When/Then blocks
    verbatim — adapters do not transform AC structure. The planner
    subagent (consumer in a separate repo) parses these blocks back to
@@ -155,23 +148,23 @@ Re-detect on demand via "configure tracker".
    the contract.
 2. Attach the Issue as a sub-issue under the parent Epic (`epic_id`
    required). Stories are always children of an Epic.
-3. Apply artifact type (`issue_types.story` or `story` label).
-4. If `project_number` is set: add to the Project.
-5. If `use_milestones` is true and the Epic has a Milestone: inherit
+3. Apply artifact type (session cache `story` issue type, or `story` label).
+4. If `epic-tracker.project-number` is set: add to the Project.
+5. If the repo has milestones and the Epic has a Milestone: inherit
    it unless overridden.
 6. Return Issue number and url.
 
 ### create_bug
 
-1. Create an Issue in the `repo` with title, repro steps, severity,
+1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, repro steps, severity,
    and any other Bug-specific fields.
 2. If `parent_id` is provided: attach as sub-issue under that parent
    (Epic or Story). Otherwise create as standalone.
-3. Apply artifact type (`issue_types.bug` or `bug` label).
+3. Apply artifact type (session cache `bug` issue type, or `bug` label).
 4. If severity is provided: fetch repo labels, match semantically;
    assign if found, surface labels and ask otherwise.
-5. If `project_number` is set: add to the Project.
-6. If `use_milestones` is true and a milestone is supplied: assign it.
+5. If `epic-tracker.project-number` is set: add to the Project.
+6. If the repo has milestones and a milestone is supplied: assign it.
 7. Return Issue number and url.
 
 ### create_issue
@@ -179,17 +172,17 @@ Re-detect on demand via "configure tracker".
 Generic task/chore artifact — distinct from Bug (no severity, no repro
 steps, plain description body).
 
-1. Create an Issue in the `repo` with title and body.
+1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title and body.
 2. If `parent_id` is provided: attach as sub-issue under the parent
    (Epic or Story). Otherwise create as standalone.
-3. Apply artifact type (`issue_types.task` or `task` label).
-4. If `project_number` is set: add to the Project.
-5. If `use_milestones` is true and a milestone is supplied: assign it.
+3. Apply artifact type (session cache `task` issue type, or `task` label).
+4. If `epic-tracker.project-number` is set: add to the Project.
+5. If the repo has milestones and a milestone is supplied: assign it.
 6. Return Issue number and url.
 
 ### create_release
 
-1. Create a Release in the `repo` against the target commit (default:
+1. Create a Release in the repo (inferred from `git remote get-url origin`) against the target commit (default:
    current HEAD or `main`).
 2. Inputs: `name` -> tag name (e.g., `v1.2.0`), `title` -> release title,
    `body` -> release notes (auto-generate from linked Issues when
@@ -206,9 +199,9 @@ or neither.
 1. Map generic status to GitHub state via the Status Mapping table.
 2. For `done`: close Issue with reason `completed`.
 3. For `planned` -> `in-progress`: prefer Project Status field when
-   `project_number` is set; otherwise fetch repo labels, match
-   semantically (look for `progress` or `wip`); assign if found, skip
-   with a note if not.
+   `epic-tracker.project-number` is set; otherwise fetch repo labels,
+   match semantically (look for `progress` or `wip`); assign if found,
+   skip with a note if not.
 4. For `blocked`: prefer Project Status field when present; otherwise
    match repo labels semantically (`blocked` or `on-hold`).
 
@@ -227,12 +220,14 @@ or neither.
 ## Sub-Issues Detection
 
 Hierarchy requires the sub-issues feature on the source repository.
-During bootstrap:
+Detected at runtime before the first `create_story` call and cached in
+memory for the session.
 
-1. Probe via GraphQL whether `addSubIssue` is available on the repo.
-2. If unavailable: warn the user and ask whether to proceed without
+1. Infer repo from `git remote get-url origin`.
+2. Probe via GraphQL whether `addSubIssue` is available on the repo.
+3. If unavailable: warn the user and ask whether to proceed without
    hierarchy (every artifact is standalone — Stories cannot be linked
-   to Epics). Persist the choice in config (`sub_issues: disabled`).
+   to Epics). Cache the choice in memory.
 
 There is no legacy "classic Projects" fallback. When sub-issues are
 disabled, Stories are simply created without a parent — the model
@@ -243,12 +238,12 @@ flattens, but artifact creation continues.
 - Repo not accessible: route to GitHub MCP auth setup.
 - Sub-issues feature disabled: warn user; offer to proceed without
   hierarchy or to abort.
-- `project_number` set but Project not found: ask user to verify config
+- `epic-tracker.project-number` set but Project not found: ask user to
+  verify or offer to create.
+- Milestone not found (when a milestone is supplied): ask user to verify
   or offer to create.
-- Milestone not found (when `use_milestones` is true and a milestone is
-  supplied): ask user to verify or offer to create.
-- Issue type not found in org (type was deleted or renamed after
-  bootstrap): warn user, suggest re-running "configure tracker" to
+- Issue type not found in org (type was deleted or renamed since last
+  detection): warn user, suggest re-running "configure tracker" to
   re-detect; fall back to label matching for this operation.
 - Severity or status label not found in repo: surface available labels
   to user, ask which to use or confirm to skip; never create labels

@@ -68,8 +68,7 @@ Two branches:
 
 ### 4. Save or Push
 
-**If tracker configured** (`.artifacts/epics/.config.yml` exists with
-`tracker.kind` set and not `none`) and the Story has a `tracker.id`:
+**If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`) and the Story has a `tracker.id`:
 - Load [sync.md](sync.md) push direction; dispatch the edit to the
   matching adapter.
 - The adapter updates the tracker entity in place; no markdown file is

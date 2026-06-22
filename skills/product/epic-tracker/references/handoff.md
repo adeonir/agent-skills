@@ -49,8 +49,8 @@ reference the tracker entity from the spec.
 
 **Option B: Push to external tracker**
 
-When `tracker.kind` is set in `.artifacts/epics/.config.yml` and the
-artifact has not yet been synced (no `tracker.id` in frontmatter):
+When `epic-tracker.kind` is set and the artifact has not yet been synced
+(no `tracker.id` in frontmatter):
 
 - Suggest running [sync.md](sync.md) push to create the tracker entity
 - After push, the tracker holds the canonical record; markdown becomes a cache

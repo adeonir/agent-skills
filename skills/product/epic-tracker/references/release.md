@@ -49,8 +49,7 @@ Fill the template (below):
 
 ### 3. Save or Push
 
-**If tracker configured** (`.artifacts/epics/.config.yml` exists with
-`tracker.kind` set and not `none`):
+**If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
 - Ask the user (per session, cached) whether to push to the tracker
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   the adapter maps Release to the closest native primitive (Linear: Cycle,
@@ -58,12 +57,11 @@ Fill the template (below):
   bugs to the release — no markdown file is created
 - If no: save to `.artifacts/epics/releases/{release-name}.md`
 
-**If no tracker configured** (config missing or `kind: none`):
+**If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to `.artifacts/epics/releases/{release-name}.md`; create the
   directory if it doesn't exist
 
-If the config is missing, run [sync.md](sync.md) bootstrap before the
-first push, then proceed.
+If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 ## Guidelines
 

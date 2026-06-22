@@ -42,10 +42,10 @@ fields/views) — neither encodes Epic→Story.
 Release uses each tracker's closest native primitive instead of forcing
 one concept.
 
-Configure via `configure tracker` (runs bootstrap once) or by editing
-`.artifacts/epics/.config.yml` directly. Bootstrap detects available
-MCPs and CLIs; both are supported. When no integration is detected, the
-skill stays in markdown-only mode.
+Configure via `configure tracker` (runs bootstrap once). Bootstrap
+detects available MCPs and CLIs; both are supported. Config is stored
+in `git config --local`. When no integration is detected, the skill
+stays in markdown-only mode.
 
 ## Usage
 
@@ -79,7 +79,6 @@ declines push).
 
 ```
 .artifacts/epics/
-├── .config.yml             # tracker config (created by bootstrap)
 ├── epic-name/
 │   ├── epic.md
 │   ├── 001-story-name.md
@@ -100,13 +99,13 @@ declines push).
 ## FAQ
 
 **Q: Do I have to use a tracker?**
-A: No. Without a tracker configured (`tracker.kind: none` or no config),
+A: No. Without a tracker configured (`epic-tracker.kind: none` or unset),
 markdown in `.artifacts/epics/` is the source of truth. All workflows
 work without an external system.
 
 **Q: How do I switch trackers?**
 A: Run `configure tracker`. Bootstrap re-detects available MCPs/CLIs and
-updates the config. Existing artifacts keep their `tracker.id` from the
+updates git config. Existing artifacts keep their `tracker.id` from the
 previous tracker; you can manually attach to the new tracker by editing
 the frontmatter or by re-creating the artifact.
 

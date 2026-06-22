@@ -10,7 +10,7 @@ wrong push can clobber tracker state that other people rely on.
 ## When to Use
 
 - Direct trigger: "sync to tracker", "push to {linear,github,jira}", "pull from tracker", "configure tracker"
-- Auto-loaded by core refs (epic, story, bug, release) after the artifact is saved when config has `tracker.kind != none`
+- Auto-loaded by core refs (epic, story, bug, release) after the artifact is saved when `epic-tracker.kind` is set and not `none`
 - Auto-loaded by `status.md` to read overview state from the tracker when configured
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -35,42 +35,25 @@ single concept across trackers.
 
 ## Config
 
-Path: `<project-root>/.artifacts/epics/.config.yml`
+Read and written via `git config --local`. Keys:
 
-Schema:
+| Key | Trackers | Description |
+|-----|----------|-------------|
+| `epic-tracker.kind` | all | `linear`, `github`, `jira`, or `none` |
+| `epic-tracker.workspace` | Linear | team workspace slug |
+| `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
+| `epic-tracker.base-url` | Jira | `https://company.atlassian.net` |
+| `epic-tracker.project-key` | Jira | project key (e.g., `PROJ`) |
 
-```yaml
-tracker:
-  kind: linear | github | jira | none
-
-  # Linear
-  workspace: my-team
-
-  # GitHub
-  repo: owner/name
-  project_number: 5          # optional — enables Projects v2 enrichment (boards, custom fields)
-  use_milestones: true       # optional — enables Milestone field as date-bound grouping
-  sub_issues: enabled | disabled  # detected during bootstrap; required for hierarchy
-  issue_types:               # detected during bootstrap
-    epic: Epic               # org-configured type names; empty object if org has none
-    story: Story
-    bug: Bug
-    task: Task
-
-  # Jira
-  base_url: https://company.atlassian.net
-  project_key: PROJ
-```
-
-When `kind: none`, the skill skips all tracker operations; markdown is the
-sole source of truth.
+When `epic-tracker.kind` is `none` or unset, the skill skips all tracker
+operations; markdown is the sole source of truth.
 
 ## Bootstrap (first-time setup)
 
-Runs when an operation requires a tracker but config is missing or
-`kind` is unset.
+Runs when an operation requires a tracker but `epic-tracker.kind` is not
+set in git config.
 
-1. Read `<project-root>/.artifacts/epics/.config.yml`. If valid, skip bootstrap.
+1. Check `git config --get epic-tracker.kind`. If set and not `none`, skip bootstrap.
 2. Detect available integration methods for each tracker:
    - MCP: check if the tracker's MCP server is active in the session
    - CLI: check if the tracker's CLI is installed (`gh`, `linear`, `jira`)
@@ -80,20 +63,13 @@ Runs when an operation requires a tracker but config is missing or
 4. Ask the user to pick one.
 5. Collect tracker-specific fields one question at a time:
    - Linear: workspace.
-   - GitHub: repo (`owner/name`); optional `project_number` (Projects v2);
-     optional `use_milestones` (Milestone field).
-   - Jira: base_url, project_key.
-6. For GitHub, probe whether the repo has the sub-issues feature
-   available (`addSubIssue` on GraphQL). Store result as
-   `sub_issues: enabled | disabled`. When disabled, warn the user that
-   Stories will be standalone (no Epic→Story link) and ask whether to
-   proceed or abort.
-7. For GitHub, detect whether the org has custom Issue Types configured
-   (Story, Bug, Task, Epic); store names under `issue_types` (empty
-   object when none). See adapter for detection details and label
-   fallback rules.
-8. Write the config to `.artifacts/epics/.config.yml` including the
-   integration method chosen (`via: mcp | cli`).
+   - GitHub: optional `project-number` (Projects v2).
+   - Jira: base-url, project-key.
+6. Persist config with `git config --local`:
+   - All trackers: `git config --local epic-tracker.kind {kind}`
+   - Linear: `git config --local epic-tracker.workspace {workspace}`
+   - GitHub: `git config --local epic-tracker.project-number {n}` (when provided)
+   - Jira: `git config --local epic-tracker.base-url {url}` and `git config --local epic-tracker.project-key {key}`
 
 Bootstrap runs at most once per project. Re-run on demand by triggering
 "configure tracker".
@@ -120,17 +96,17 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
 1. Read artifact content: use the draft data directly when invoked
    immediately after create (no markdown file exists); read from the saved
    markdown file when invoked standalone (e.g., "sync to tracker").
-2. Validate config: `tracker.kind` must be set and not `none`. Otherwise
-   fall back to markdown-only and inform the user.
-3. Load the adapter matching `tracker.kind`:
+2. Read `git config --get epic-tracker.kind`; if not set or `none`, fall
+   back to markdown-only and inform the user.
+3. Load the adapter matching `epic-tracker.kind`:
    - `linear` → [adapters/linear.md](adapters/linear.md)
    - `github` → [adapters/github.md](adapters/github.md)
    - `jira` → [adapters/jira.md](adapters/jira.md)
 4. Adapter creates or updates the entity. Always attempt MCP first; if
    MCP is unavailable or fails (auth, server down, tool missing), fall
-   back to the tracker's CLI (`gh`, `linear`, `jira`). The `via` value
-   stored at bootstrap is a preference, not a lock — runtime probing
-   wins.
+   back to the tracker's CLI (`gh`, `linear`, `jira`). Runtime probing
+   always wins — MCP is preferred regardless of how the tracker was
+   configured.
 5. On success:
    - If a markdown file exists: patch its frontmatter with tracker info:
      ```yaml
@@ -228,13 +204,13 @@ adapter's responsibility; each tracker has its own status enum.
 
 ## Error Handling
 
-- Config missing: route to bootstrap
-- Config has `kind: none`: skip silently; markdown is the source of truth
+- `epic-tracker.kind` not set: route to bootstrap
+- `epic-tracker.kind` is `none`: skip silently; markdown is the source of truth
 - MCP unavailable for the configured tracker: try the tracker's CLI (`gh`, `linear`, `jira`); if both fail, warn user, fall back to markdown for this operation, suggest re-running bootstrap if MCP environment changed
 - Push fails (network, auth, tracker rejection): log error, leave markdown untouched, suggest retry
 - Pull fails: log error, keep current markdown state, suggest retry
 - `tracker.id` missing on pull: route to push first or ask user to manually attach an existing tracker entity
-- Bootstrap detects multiple MCPs but user picks "none": persist `kind: none`; skill behaves as markdown-only
+- Bootstrap user picks "none": `git config --local epic-tracker.kind none`; skill behaves as markdown-only
 
 ## Outcomes
 

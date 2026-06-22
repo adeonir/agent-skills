@@ -76,8 +76,7 @@ Apply the resumption gate before proceeding:
 
 ### 4. Save or Push
 
-**If tracker configured** (`.artifacts/epics/.config.yml` exists with
-`tracker.kind` set and not `none`):
+**If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
 - Ask the user (per session, cached) whether to push to the tracker
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   pass the parent epic's tracker id (from `epic.md` frontmatter
@@ -85,12 +84,11 @@ Apply the resumption gate before proceeding:
 - If no: save to `.artifacts/epics/{epic-name}/{issue-name}.md` or
   `.artifacts/epics/standalone/{issue-name}.md`
 
-**If no tracker configured** (config missing or `kind: none`):
+**If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to `.artifacts/epics/{epic-name}/{issue-name}.md` or
   `.artifacts/epics/standalone/{issue-name}.md`
 
-If the config is missing, run [sync.md](sync.md) bootstrap before the
-first push, then proceed.
+If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 ## Guidelines
 

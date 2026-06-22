@@ -2,7 +2,7 @@
 
 Translate generic epic-tracker operations into Linear primitives via the
 Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
-[../sync.md](../sync.md) when `tracker.kind: linear`.
+[../sync.md](../sync.md) when `epic-tracker.kind: linear`.
 
 ## Primitive Mapping
 
@@ -39,7 +39,7 @@ Detect available states from the workspace via MCP before pushing. If
    Project is the source of truth for child hierarchy. Drop the
    heading and all bullets up to (but not including) the next `##`
    heading.
-2. Create a Linear Project in the configured `workspace` with the
+2. Create a Linear Project in the workspace (from `epic-tracker.workspace`) with the
    stripped body.
 3. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
 4. Return Project id and url.
@@ -105,7 +105,7 @@ here are for tracker-level grouping only.
 
 ## Error Handling
 
-- Workspace not found: ask user to verify config; offer to re-run bootstrap
+- Workspace not found: ask user to verify `epic-tracker.workspace`; offer to re-run bootstrap
 - Project not found by id: ask user whether to create a new Project or attach to an existing one
 - State name not found in workspace: fall back to closest standard name with a warning
 - API rate limit: surface the error, suggest waiting a minute before retry
