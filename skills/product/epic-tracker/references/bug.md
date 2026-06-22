@@ -83,7 +83,7 @@ Fill the template (below):
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
-- **References**: link to parent epic, related stories, logs
+- **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
 Apply the resumption gate before proceeding:
 

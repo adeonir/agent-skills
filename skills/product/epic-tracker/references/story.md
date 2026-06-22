@@ -21,10 +21,12 @@ that can be verified independently.
 3. If no epics exist, ask whether to create the epic first or place
    the story in a new epic
 
-Read the parent epic for scope and naming context only. Its content does
-not cross into the story: do not copy epic-level acceptance criteria (see
-DON'T), pull in sibling stories, or reference future stories not yet in
-scope. This story carries one outcome of its own.
+Read the parent epic for scope and naming context only. **Translate,
+don't replicate.** Its tokens never cross into the story: strip epic IDs,
+upstream document codes (§x.x, EC-N, ADR-NNN), sibling story names,
+milestone language, and any cross-reference that doesn't stand alone.
+Do not copy epic-level acceptance criteria. This story carries one
+outcome of its own.
 
 ### 2. Draft
 
@@ -42,13 +44,16 @@ Fill the template (below):
 - **Epic**: parent epic name (must match an existing epic directory)
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what
-  changes for the user. Keep it focused -- one story, one outcome.
+  changes for the user. Keep it focused — one story, one outcome.
+  No upstream IDs, section numbers, or cross-references.
 - **Out of Scope**: explicit boundaries -- what this story does not
   cover. Remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
   single Given/When/Then. Validated in Step 4 against rules V1-V7. See
   [ac-validation.md](ac-validation.md).
-- **Rabbit Holes**: known complexities specific to this story
+- **Rabbit Holes**: execution traps specific to this story — edge
+  cases, ordering constraints, integration quirks; not implementation
+  advice or upstream design notes
 - **Open Questions**: unknowns that seed the spec's discovery; omit the
   section when nothing is undecided
 - **References**: durable pointers the next session follows (parent epic,
@@ -116,6 +121,7 @@ replace the plain story name with a linked, numbered entry:
 **DON'T:**
 - Add a size field — sizing happens at implementation time
 - Include implementation details or technical design
+- Carry upstream IDs, section numbers, or doc-internal codes (§x.x, EC-N, ADR-NNN) — translate to plain language
 - Create stories without a parent epic (ask to create the epic first)
 - Duplicate acceptance criteria from the epic level
 
@@ -146,6 +152,8 @@ type: story
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
 
+MUST NOT contain: upstream IDs (§x.x, EC-N, ADR-NNN), sibling story names, epic-level acceptance criteria, roadmap language, or implementation details.
+
 ## Out of Scope
 
 {Remove this section if nothing is ambiguous.}
@@ -166,7 +174,9 @@ type: story
 
 {Remove this section if not needed.}
 
-- {{Known complexity specific to this story}}
+- {{Execution trap specific to this story — edge case, ordering constraint, or integration quirk}}
+
+MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
 
 ## Open Questions
 

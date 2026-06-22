@@ -26,11 +26,12 @@ Check for existing context before asking questions:
    - Who benefits?
    - What changes for the user when this is done?
 
-Treat upstream docs as read-only input scoped to **this epic**. Extract
-only what maps to it; the source's own tokens do not cross into the epic.
-Do not carry forward other milestones, sibling epics, future-phase
-references, or roadmap language — one milestone maps to this epic (see
-Error Handling), the rest stay out.
+**Translate, don't replicate.** Upstream docs (PRD, design doc, brief) stay
+read-only and scoped to this epic. Extract only what maps to it, then
+**translate into epic language**: strip technical IDs (§3.7, EC-2, ADR-001),
+internal reference codes, sibling artifact names, roadmap milestones, and
+domain jargon that doesn't stand alone. The epic carries the facts (not the
+source document's framing).
 
 ### 2. Draft
 
@@ -46,7 +47,8 @@ Fill the template (below) with discovered context:
   push; outcome prose lives only in the body's Summary section.
 - **Status**: always starts as `planned`
 - **Prose context**: what the epic is about, why it exists, what changes
-  for the user -- use a real scenario
+  for the user -- two or three sentences; no scenario narrative, no
+  upstream IDs or section references
 - **Stories**: checklist of stories with brief descriptions. Each story
   becomes its own artifact later. **Local-only** — when a tracker is
   configured, adapters strip this section from the body on push so the
@@ -54,7 +56,9 @@ Fill the template (below) with discovered context:
   the single source of truth.
 - **Scope**: explicit in/out boundaries. Describe capabilities, not
   technologies (e.g., "secure password storage" not "bcrypt hashing")
-- **Rabbit Holes**: known complexities to flag early
+- **Rabbit Holes**: execution traps specific to this epic — integration
+  quirks, ordering constraints, or scope edge cases that will catch
+  stories by surprise. Not implementation advice or upstream design notes
 - **Acceptance Criteria**: high-level verifiable conditions for the epic
   as a whole (not per-story)
 - **Open Questions**: strategic unknowns to resolve before or during
@@ -102,10 +106,11 @@ first push, then proceed.
 - Hand sizing off to the implementation phase
 
 **DON'T:**
-- Include implementation details (contrasts: criteria stay implementation-agnostic)
-- Create story artifacts during epic creation (contrasts: list stories in checklist, create on demand later)
-- Skip discover (contrasts: run discover first regardless of provided context)
-- Add size estimates (contrasts: sizing is an implementation concern)
+- Include implementation details (criteria stay implementation-agnostic)
+- Carry upstream IDs, section numbers, or doc-internal codes (§3.7, EC-2, ADR-001) into the epic — translate to plain language
+- Create story artifacts during epic creation (list stories in checklist, create on demand later)
+- Skip discover (run discover first regardless of provided context)
+- Add size estimates (sizing is an implementation concern)
 
 ## Template
 
@@ -130,7 +135,9 @@ sources: []
 
 ## Summary
 
-{{What the epic is about, why it exists, what changes for the user. Use a real scenario to illustrate the problem and the desired outcome.}}
+{{What the epic is about, why it exists, what changes for the user when it ships. Two to three sentences.}}
+
+MUST NOT contain: scenario narratives, upstream IDs (§x.x, EC-N, ADR-NNN), section or document references, sibling epic names, roadmap language, or implementation details.
 
 ## Stories
 
@@ -160,7 +167,9 @@ issues) is the source of truth for hierarchy once a tracker is wired. -->
 
 ## Rabbit Holes
 
-- {{Known complexity or trap to avoid}}
+- {{Execution trap specific to this epic — integration quirk, ordering constraint, or scope edge case}}
+
+MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
 
 ## Open Questions
 
