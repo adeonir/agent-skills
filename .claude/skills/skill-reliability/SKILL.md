@@ -2,144 +2,115 @@
 name: skill-reliability
 argument-hint: <skill-name>
 description: >-
-  Analyzes a skill's workflows for compound reliability risks — step count,
-  step nature, and variance hotspots. Use when evaluating a skill's hit rate,
-  identifying prompt-driven or generation steps that drag end-to-end reliability,
-  or finding where scripts, idempotence, or explicit inputs/outputs would help most.
-  Invoke as /skill-reliability <skill-name> or when the user asks about steps
-  vs reliability, hit rate, or confiabilidade of a specific skill.
+  Analyzes a skill's end-to-end reliability — trigger precision plus compound
+  workflow risk (step count, step nature, variance hotspots) — and proposes
+  verifiable fixes it can apply on confirmation. Use when evaluating a skill's
+  hit rate, checking whether a description fires on the right requests, finding
+  prompt-driven or generation steps that drag reliability, or deciding where
+  scripts, idempotence, or explicit inputs/outputs help most. Invoke as
+  /skill-reliability with a skill name, or when the user asks about steps vs
+  reliability, hit rate, trigger precision, or confiabilidade of a specific skill.
 ---
 
 # Skill Reliability Analysis
 
-Maps a skill's workflow steps through the compound-reliability lens: each step
-multiplies risk, and step nature determines baseline variance.
+Scores a skill's reliability as two factors — trigger precision and compound
+workflow risk — and proposes verifiable fixes.
 
 ## Triggers
 
 - `/skill-reliability <skill-name>` — analyze a named skill
-- "steps vs reliability", "hit rate", "confiabilidade" for a skill → run analysis
+- "steps vs reliability", "hit rate", "trigger precision", "confiabilidade" for
+  a skill → run analysis
 
-## Framework
+## Model
 
-Step natures and their baseline reliability:
+A skill is only useful when it fires AND finishes:
 
-| Nature | Examples | Baseline |
-|--------|----------|----------|
-| Deterministic | git command, API call + lookup table, script | ~99% |
-| Conditional | path A/B branch based on state | ~93% |
-| Generation (isolated) | schema-validated output, narrow input, no conversation history | ~90% |
-| Prompt-driven | instruction guard ("discard X", "block Y") | ~88% |
-| Generation (free-form) | unconstrained text output (message, body, summary) | ~82% |
+```text
+P(useful) = P(triggers correctly) × P(workflow completes | triggered)
+```
 
-Multiply the per-step baselines for an end-to-end product, and report it with a
-tier label. Always show the per-step baselines that produced it — the product
-is only as honest as its visible inputs:
-
-| Tier | Product |
-|------|---------|
-| Strong | ≥ ~90% |
-| Moderate | ~75–90% |
-| Fragile | < ~75% |
-
-Baselines are heuristic and assume step failures are roughly independent; the
-product is a transparent calculation over visible inputs, not a hit-rate
-prediction. As a rule of thumb, even 95%/step compounds to ~74% over six
-steps — step count is itself a reliability lever.
-
-Three levers to raise reliability (highest to lowest impact):
-
-1. **Scripts > prompts** — when the work is mechanical, write code. The model
-   decides *when*; the script decides *how*.
-2. **Idempotence** — read state before writing; running twice produces one change.
-3. **Explicit inputs/outputs** — declare what enters, what exits, validate
-   deterministically.
+Step 3 scores the first factor (trigger reliability); Steps 4–5 score the second
+(compound workflow reliability). See [framework.md](references/framework.md) for
+step natures, baselines, tiers, and the three reliability levers.
 
 ## Workflow
 
 ### Step 1: Locate Skill
 
-If `$ARGUMENTS` is empty or the user's request is broad ("all skills",
-"which skill to start with"), read
-[discovery.md](references/discovery.md) first to determine scope and focus.
-
-Otherwise resolve `$ARGUMENTS` to a skill path. Search in order:
-1. `skills/` subdirectories of the current repo
-2. `.claude/skills/` (project-scoped)
-3. `~/.claude/skills/` (global)
-
-If not found, inform the user and stop.
+If `$ARGUMENTS` is empty or the request is broad ("all skills", "which skill to
+start with"), read [discovery.md](references/discovery.md) first to set scope.
+Otherwise resolve `$ARGUMENTS` to a skill path, searching in order: `skills/`
+subdirectories of the current repo, then `.claude/skills/`, then
+`~/.claude/skills/`. If not found, inform the user and stop.
 
 ### Step 2: Read Skill Files
 
-Read SKILL.md and all files under `references/` (and `instructions/` if
-present). Build a complete picture of every workflow the skill defines.
+Read SKILL.md and all files under `references/` (and `instructions/` if present).
+Build a complete picture of every workflow the skill defines.
 
-### Step 3: Map Steps
+### Step 3: Trigger Reliability
 
-For each workflow file, list every numbered step:
+Run the deterministic linter first:
 
-- **Name** — what the step does
-- **Nature** — deterministic / conditional / prompt-driven / generation
-- **Baseline** — the nature's value from the Framework table
-- **Risk** — low / medium / high (derived from nature and internal complexity)
-
-### Step 4: Assess Compound Reliability
-
-For each workflow: multiply the baselines to get the end-to-end product and its
-tier from the Framework table. Report both, and keep the per-step baselines
-visible so the number stays auditable.
-
-If the skill chains multiple workflows (e.g., commit → PR → finish), compute the
-full-chain product and tier as well.
-
-### Step 5: Identify Top Variance Points
-
-Rank the three steps with the highest variance. For each:
-
-- Why it is high-variance (nature + what can go wrong in practice)
-- Which lever applies (scripts / idempotence / explicit I/O)
-- What a concrete change would look like
-
-### Step 6: Output Analysis
-
-ALWAYS use this exact template structure:
-
-```text
-## <Skill Name>: Reliability Analysis
-
-### Workflow: <filename> — N steps, ~X% (<tier>)
-
-| Step | Nature | Baseline | Risk |
-|------|--------|----------|------|
-| 1. <name> | deterministic | ~99% | low |
-| 2. <name> | generation (free-form) | ~82% | high |
-
-End-to-end: ~99% × … × ~82% ≈ X% (<tier>)
-
-### Full chain (if chained): M total steps, ~Y% (<tier>)
-
-### Top Variance Points
-
-**1. <workflow> Step N — <name>**
-<Why this step is high-variance and what can go wrong>
-Lever: <scripts / idempotence / explicit I/O>
-Change: <concrete description of what to do differently>
-
-**2. ...**
-
-**3. ...**
-
-### Summary
-<2–3 sentences on where to focus for the highest reliability gain>
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/trigger_lint.py <skill-dir>
 ```
+
+Then follow [trigger-eval.md](references/trigger-eval.md): probe the
+name + description with explicit, implicit, negative, and ambiguous requests,
+reason fire-vs-should-fire, and draft a description fix when a probe misses.
+Produce a verdict (Clean / Leaky / Narrow) and any rewrite.
+
+### Step 4: Map Steps
+
+Enumerate the workflows and their numbered steps deterministically:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/inventory.py <skill-dir>
+```
+
+For each step assign Nature, Baseline, and Risk from
+[framework.md](references/framework.md).
+
+### Step 5: Assess Compound Reliability
+
+Multiply the baselines into the end-to-end product and tier; feed the values to
+`inventory.py --product "<b1> <b2> …"` for the deterministic arithmetic. Keep the
+per-step baselines visible so the number stays auditable. For a chained skill
+(commit → PR → finish), compute the full-chain product too.
+
+### Step 6: Identify Top Variance Points
+
+Rank the three highest-variance steps. Write each as a labelled block:
+
+- **Failure mode** — what concretely goes wrong (an observed bad output, not "it varies")
+- **Why it varies** — the nature plus its internal complexity
+- **Lever** — scripts / idempotence / explicit I/O
+- **Suggestion** — the concrete fix; for a trigger fix, a ready-to-paste description rewrite
+- **Expected gain** — the baseline shift and its effect on the workflow product
+
+### Step 7: Output Analysis
+
+Produce the report with the strict template in
+[output-template.md](references/output-template.md).
+
+### Step 8: Apply Fixes
+
+Apply a change only after the user confirms it.
+
+- Description rewrite → write it directly to the target's SKILL.md.
+- Workflow or script change → implement on request, one at a time, re-running
+  its verification check after each.
+
+Do not apply a change whose verification step (Step 7) you cannot state.
 
 ## Guidelines
 
-- Use the step-nature table as the classification guide — do not invent new categories
-- Prompt-driven guards ("discard X", "block Y instinct") are never as reliable as
-  structural isolation; call them out explicitly
-- A step with conditional branching counts as one step at the conditional-baseline,
-  not multiple steps
-- When a workflow chains to another (e.g., SKILL.md → commit.md → Step 3), count
-  each numbered sub-step individually
+- Classify steps only with the [framework.md](references/framework.md) natures — do not invent categories
+- Prompt-driven guards ("discard X", "block Y") never match structural isolation; call them out
+- A conditional branch counts as one step at the conditional baseline, not several
+- Count each numbered sub-step of a chained workflow individually
+- Trigger reliability gates the chain: a Leaky or Narrow verdict caps P(useful) regardless of the workflow score
+- Every suggestion carries an expected gain and a verification step; never propose a change you cannot verify
