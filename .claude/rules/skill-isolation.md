@@ -51,9 +51,11 @@ This plan carries no styling; it describes structure only.
 
 **Impact: MEDIUM**
 
-A skill executes inline and never delegates to subagents on its own. The user
-can request fan-out explicitly in the prompt, but the skill must not spawn
-subagents as part of its own workflow.
+A skill executes inline by default. It may spawn a subagent only when
+**context isolation** is the goal — the subagent receives a narrow,
+task-specific input (a diff, a file) with no conversation history and returns
+structured output. Spawning subagents for arbitrary parallelism or convenience
+is not allowed.
 
 **Incorrect:**
 
@@ -64,5 +66,6 @@ Spawn one subagent per file to review them in parallel.
 **Correct:**
 
 ```markdown
-Review each file in turn. The user may still request parallel subagents.
+Spawn an isolated subagent with only the staged diff and the message schema —
+no conversation context. The subagent returns `{type, subject, body}`.
 ```
