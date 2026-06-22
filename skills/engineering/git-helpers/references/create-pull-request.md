@@ -32,8 +32,8 @@ git diff {base}...HEAD
 
 ### Step 3: Generate PR Content
 
-Spawn an isolated Agent with only the following as input — no conversation
-context passes through:
+Spawn an isolated Agent (`model: haiku`) with only the following as input —
+no conversation context passes through:
 
 1. The branch diff and commit log from Step 2
 2. The [PR Body Template](#pr-body-template) and its MUST NOT list

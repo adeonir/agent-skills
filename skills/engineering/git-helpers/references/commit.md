@@ -67,8 +67,8 @@ split.
   commit, then loop back to Step 2 with the deferred changes.
 - If user declines split: note the primary type and proceed.
 
-Spawn an isolated Agent with only the following as input — no conversation
-context passes through:
+Spawn an isolated Agent (`model: haiku`) with only the following as input —
+no conversation context passes through:
 
 1. The staged diff output
 2. The [Commit Types](#commit-types) table

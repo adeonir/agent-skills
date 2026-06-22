@@ -107,8 +107,8 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 
 ### Step 4: Merge
 
-Spawn an isolated Agent with only the following as input — no conversation
-context passes through:
+Spawn an isolated Agent (`model: haiku`) with only the following as input —
+no conversation context passes through:
 
 1. PR title and number from Step 1
 2. Branch diff and commit log gathered in Step 3

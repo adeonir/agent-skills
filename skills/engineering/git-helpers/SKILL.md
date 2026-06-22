@@ -1,6 +1,5 @@
 ---
 name: git-helpers
-model: haiku
 allowed-tools: Bash(git:*) Bash(gh:*) Read
 description: >-
   Git workflow helper for conventional commits, pull request creation,
