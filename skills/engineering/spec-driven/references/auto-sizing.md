@@ -25,7 +25,7 @@ Counting files first inverts cause and effect.
 |-------|------------------|---------|--------|-------|-----------|
 | **Small** | Mechanical. Zero decisions. Outcome obvious from the description (typo, config swap, named bug + line, rename with no behavior change, dep bump with no API change). | **Quick mode** -- skip pipeline entirely | - | - | - |
 | **Medium** | Canonical pattern already present in the codebase. The only decision is "reapply pattern X here." No new abstractions. | Spec (brief) | Light design | Light -- flat steps | Implement + verify per task |
-| **Large** | ≥1 load-bearing decision new to the codebase. A peer reviewer reading the feature description alone could not predict the approach. | Full spec + requirement IDs | Full design + Plan dispatch | Full breakdown + dependencies | Implement + verify per task |
+| **Large** | ≥1 load-bearing decision new to the codebase. A peer reviewer reading the feature description alone could not predict the approach. | Full spec + requirement IDs | Full design | Full breakdown + dependencies | Implement + verify per task |
 | **Complex** | Ambiguity in the problem itself. Solution space is open — needs exploration before design can converge. | Full spec + [discuss.md](discuss.md) | Research + full design | Breakdown + parallel design | Implement + verify per task |
 
 ## Depth Scaling
@@ -34,16 +34,17 @@ Above Small, Design and Tasks always run; depth scales with scope.
 
 **Medium design — light.** Captures Scope, Decisions (with Source and Scope),
 Patterns & Reuse, Subsystem Presence claims, Component Design, and Requirements
-Traceability. Runs inline (no Plan dispatch). Omits full member enumeration,
-Reused Component / Utility Contracts, Cross-Task Value Trace, and the Dependency
-Inversion check.
+Traceability. Dispatches the Plan subagent at light depth. Omits full member
+enumeration, Reused Component / Utility Contracts, Cross-Task Value Trace, and the
+Dependency Inversion check.
 
 **Large/Complex design — full.** Adds full member enumeration, contracts,
-Cross-Task Value Trace, dependency inversion, and Plan-subagent dispatch.
+Cross-Task Value Trace, and dependency inversion; the Plan subagent runs at full
+depth.
 
 **Medium tasks — light.** A flat task list (Done-when + Satisfaction sketch),
-Quality Gates, and Requirements Coverage. Runs inline. Omits the execution-plan
-diagram and Plan dispatch.
+Quality Gates, and Requirements Coverage. Dispatches the Plan subagent at light
+depth. Omits the execution-plan diagram.
 
 **Large/Complex tasks — full.** Adds the dependency graph and execution plan.
 
@@ -72,7 +73,7 @@ decision is novel to the codebase.
 ## Rules
 
 - **Specify and Implement are always required** -- you always need to know WHAT and DO it
-- **Design depth scales** -- Medium runs a light design, Large/Complex the full design with Plan dispatch (see Depth Scaling). Never skipped above Small.
+- **Design depth scales** -- Medium runs a light design, Large/Complex the full design (see Depth Scaling); both dispatch the Plan subagent, only the depth differs. Never skipped above Small.
 - **Tasks depth scales** -- Medium runs a flat step list, Large/Complex the full breakdown with dependency graph. Never skipped above Small.
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
 - **Verify runs after every task/range** -- checks design adherence, pattern adherence, code correctness (tooling-aware deep analysis), and visual adherence (optional); also marks AC `[x]` in spec.md on pass

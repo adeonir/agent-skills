@@ -197,8 +197,8 @@ to re-run.
 
 **Q: How does subagent dispatch work?**
 
-A: Auto-Sizing decides depth. When activities run in full form
-(Large/Complex), they may dispatch to subagents for context isolation:
+A: Every phase that runs above Small dispatches to a subagent for context
+isolation; Auto-Sizing decides the depth, not whether to dispatch:
 
 - **Research subagents** — one per unknown topic, write to
   `.artifacts/research/{topic}.md`
@@ -216,9 +216,12 @@ A: Auto-Sizing decides depth. When activities run in full form
   (implied by `--all`) it auto-commits each boundary it completes via
   commit-conventions.md; without a flag, implement stops and announces the
   work is ready for review/commit
+- **Audit subagent** — one per audit, read-only; gathers evidence and returns
+  a structured verdict (which Goals/Success Criteria are Met) that the main
+  agent applies
 
 Discovery subagents (research, exploration) hand off via disk
-artifacts. Plan subagents hand off via structured chunks because the
-harness blocks Edit/Write for the built-in Plan agent. At Medium, planning
-(research, exploration, Plan) runs inline without dispatch; the implement
-subagent still dispatches. Quick mode runs entirely without dispatch.
+artifacts. Plan and audit subagents hand off via structured chunks because the
+harness blocks Edit/Write for read-only subagents. At Medium the same subagents
+dispatch but at light depth; only quick mode (Small) runs entirely without
+dispatch.

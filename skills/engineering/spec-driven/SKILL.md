@@ -125,7 +125,7 @@ into the current one. The only cross-feature input a new spec draws on is
 Running every scope at full depth is process tax. Auto-sizing scales depth,
 not phases: small fixes go through `quick-mode.md`; medium scopes run a *light*
 design and *flat* tasks; large/complex scopes run the full
-design (with Plan dispatch) and full breakdown. Forcing the heavy data-model
+design and full breakdown. Forcing the heavy data-model
 work and dependency graph onto a canonical reapplication is the tax to avoid --
 respect the depth the sizing assigned.
 

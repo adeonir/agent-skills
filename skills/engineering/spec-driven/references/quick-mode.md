@@ -128,8 +128,8 @@ Path: follow Knowledge Verification Chain Steps 1-3 (codebase -> project
 docs -> external docs). Cap at 1-2 queries.
 
 Capture findings inline in `task.md` under a `## Notes` section. Do **not**
-write to `.artifacts/research/{topic}.md` -- that cache is for full
-research in Large/Complex scope.
+write to `.artifacts/research/{topic}.md` -- that cache is for the pipeline's
+research phase (Medium and up), not quick mode.
 
 If 1-2 queries insufficient (deeper unknowns surface, multiple unfamiliar
 APIs, conflicting docs): stop and escalate via Scope Escalation.

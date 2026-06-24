@@ -30,14 +30,14 @@ Design runs at every scope above Small. What scales is depth:
 
 - **Medium — light.** Capture Scope, Decisions (with Source
   and Scope), light Patterns & Reuse, Subsystem Presence claims, Component
-  Design, and Requirements Traceability. Run inline (no Plan-subagent dispatch).
-  Skip the heavy data-model work: full member enumeration, Reused Component /
-  Utility Contracts, Cross-Task Value Trace, and the Dependency Inversion check.
-  The closing checklist runs only its grounding items (member-enumeration items
-  are Large/Complex-only).
+  Design, and Requirements Traceability. Dispatch the Plan subagent (Step 10) at
+  light depth. Skip the heavy data-model work: full member enumeration, Reused
+  Component / Utility Contracts, Cross-Task Value Trace, and the Dependency
+  Inversion check. The closing checklist runs only its grounding items
+  (member-enumeration items are Large/Complex-only).
 - **Large/Complex — full.** Everything below, including full member
-  enumeration, contracts, cross-task value trace, dependency inversion, and
-  Plan-subagent dispatch (Step 10).
+  enumeration, contracts, cross-task value trace, and dependency inversion; the
+  Plan subagent (Step 10) runs at full depth.
 
 If the light Medium design surfaces a load-bearing decision novel to the
 codebase, escalate Medium → Large: run the full design and tasks (see
@@ -118,10 +118,10 @@ For each new tech:
 - If exists: use cached research
 - If not: research and create cache (follow [research.md](research.md) trust boundary rules)
 
-At **Medium**, research runs inline (no dispatch). At **Large/Complex**, if
-multiple unknown technologies, dispatch one research subagent per topic in
-a single turn -- emit multiple dispatch calls in one message, never
-sequentially. Each subagent follows research.md and writes to
+When there are unknowns, dispatch research -- one subagent per unknown topic, in
+a single turn (emit multiple dispatch calls in one message, never sequentially).
+A Medium scope typically has at most one unknown (one subagent); Large/Complex
+often has several (fan-out). Each subagent follows research.md and writes to
 `.artifacts/research/{topic}.md`. Output is the cache file; main agent reads
 results from disk after dispatch completes.
 
@@ -136,7 +136,7 @@ Turn N+1: read .artifacts/research/{topic-N}.md for each, validate against spec.
 ```
 
 Map this shape to the subagent dispatch primitive available in the harness.
-Single unknown tech: research inline, no dispatch needed.
+No unknowns: no research runs. One unknown: one research subagent.
 
 Follow the [Knowledge Verification Chain](../SKILL.md#knowledge-verification-chain) for all research.
 
@@ -157,14 +157,14 @@ Focus areas:
 - Patterns to follow
 - Integration points
 
-**Subagent dispatch (Large/Complex):** Codebase exploration is context-heavy
+**Subagent dispatch:** Codebase exploration is context-heavy
 (multi-phase workflow with exhaustive member enumeration). Dispatch as
 a single subagent that owns the entire exploration end to end and
 writes findings to disk per the exploration template (see
 [codebase-exploration.md](codebase-exploration.md)). Main agent reads
-the artifact, never the raw file content. At **Medium**, exploration runs
-inline at light depth (no dispatch) — capture Subsystem Presence and the
-touched entities directly.
+the artifact, never the raw file content. Depth scales: at **Large/Complex**
+the subagent does exhaustive member enumeration; at **Medium** it runs light --
+Subsystem Presence and the touched entities only.
 
 Subagent brief:
 
@@ -174,7 +174,7 @@ Subagent brief:
   template inlined there. Anchor every claim with file:line. Member
   enumeration must be exhaustive, not sampled."
 
-**Discovery batch (Large/Complex):** Step 5 research subagents and this exploration
+**Discovery batch:** Step 5 research subagents and this exploration
 subagent are independent. Dispatch all in a single turn -- emit multiple
 dispatch calls in one message:
 
@@ -256,9 +256,9 @@ harness contract (Edit/Write/NotebookEdit excluded), so it returns
 structured slot fillers; main composes the artifact via the canonical
 template (pattern A1: Plan returns slots, main fills template).
 
-Skip dispatch at **Medium** scope (run Steps 11-13 inline at light depth), or
-when subagent support is unavailable; main agent executes Steps 11-13 directly
-in that case.
+At **Medium**, dispatch the Plan subagent at light depth (Steps 11-13 with the
+reduced slot set). Run Steps 11-13 inline only when subagent support is
+unavailable; main agent executes them directly in that case.
 
 Subagent brief:
 

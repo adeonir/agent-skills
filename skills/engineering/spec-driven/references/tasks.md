@@ -26,12 +26,12 @@ Tasks runs at every scope above Small. What scales is depth:
 
 - **Medium — light (flat step list).** Emit the canonical steps as a flat task
   list, each with Done-when and a Satisfaction sketch, plus Quality Gates and
-  Requirements Coverage. Run inline (no Plan-subagent dispatch). Skip the heavy
-  execution-plan diagram and cross-story dependency analysis — a canonical
-  reapplication has no branching to graph.
+  Requirements Coverage. Dispatch the Plan subagent (Step 4) at light depth. Skip
+  the heavy execution-plan diagram and cross-story dependency analysis — a
+  canonical reapplication has no branching to graph.
 - **Large/Complex — full.** The full breakdown below: story grouping, ID
-  monotonicity, dependency markers, execution-plan diagram, and Plan-subagent
-  dispatch (Step 4).
+  monotonicity, dependency markers, execution-plan diagram; the Plan subagent
+  (Step 4) runs at full depth.
 
 If the flat Medium list surfaces hidden decisions or branching dependencies,
 escalate Medium → Large (see [auto-sizing.md](auto-sizing.md) Safety Valve).
@@ -86,9 +86,9 @@ excluded), so it returns structured slot fillers; main composes the
 artifact via the canonical template (pattern A1: Plan returns slots,
 main fills template).
 
-Skip dispatch at **Medium** scope (run Steps 5-7 inline at light depth), or
-when subagent support is unavailable; main agent executes Steps 5-7 directly
-in that case.
+At **Medium**, dispatch the Plan subagent at light depth (Steps 5-7 with the
+reduced slot set). Run Steps 5-7 inline only when subagent support is
+unavailable; main agent executes them directly in that case.
 
 Subagent brief:
 

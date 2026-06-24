@@ -48,7 +48,41 @@ Read spec.md frontmatter. If `status` is not `to-review`:
 | `in-progress` | Stop. Inform user to finish implement (which sets `to-review`). |
 | `done` | Ask user if they want to re-audit. If yes, proceed. |
 
+### Step 2a: Dispatch Audit subagent
+
+Steps 3-5 are owned by a read-only audit subagent. Main agent resolves the
+feature and clears the pre-audit gate (Steps 1-2, including any user
+interaction), then dispatches once, receives a structured verdict, and applies
+it in Steps 6-8.
+
+Why dispatched: evidence gathering reads spec, design, source, tests, and UAT
+notes -- context-heavy and read-only. Isolating it keeps the main context clean
+for the user-visible checkbox and status writes. The subagent is read-only by
+harness contract (Edit/Write/NotebookEdit excluded), so it returns the verdict;
+main applies it (pattern: subagent returns slots, main fills the result).
+
+Subagent brief:
+
+- Inputs (paths only -- subagent reads from disk): `spec.md` (Goals + Success
+  Criteria), `design.md`, the feature's source and test files, and
+  `.artifacts/specs/{date}-{name}/validate.md` if it exists
+- "Run Steps 3-5: load every `- [ ]` under `## Goals` and `## Success Criteria`
+  (never `## Operational Follow-ups`, never ACs), gather evidence per the
+  evidence-source order, and classify each target Met / Unmet / Unmeasurable
+  with an evidence cite. Return the verdict; do not edit any file."
+
+Return shape:
+
+```text
+{ targets: [{ name, classification, evidence }],
+  all_met: bool, unmet: int, unmeasurable: int }
+```
+
+When subagent support is unavailable, main runs Steps 3-5 inline.
+
 ### Step 3: Load Audit Targets
+
+_Steps 3-5 run inside the audit subagent dispatched in Step 2a._
 
 Read spec.md and extract every `- [ ]` item under:
 
@@ -94,6 +128,8 @@ Report a table:
 | G2: Improve conversion | Unmeasurable | No metric defined -- needs spec update before re-audit |
 
 ### Step 6: Update spec.md
+
+_Steps 6-8 run in the main agent, applying the verdict from Step 2a._
 
 For every target classified **Met**:
 
