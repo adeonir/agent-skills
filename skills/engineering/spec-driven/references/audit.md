@@ -32,9 +32,11 @@ each step as it completes (TaskUpdate).
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob
+   `*-{name}` or `*-{name}-*` for a collision variant); a re-audit target
+   may already live in `.artifacts/archive/`, so check there too
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter, checking `.artifacts/specs/` then `.artifacts/archive/`
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Pre-Audit Check
 
@@ -72,7 +74,7 @@ of preference:
 | Code inspection | Relevant files from design.md | Goals tied to presence of a capability |
 | Manual observation | UAT session notes or user-supplied evidence | Subjective user-facing behavior |
 
-If `.artifacts/features/{ID}-{name}/validate.md` or UAT notes exist, consult
+If `.artifacts/specs/{date}-{name}/validate.md` or UAT notes exist, consult
 them -- validate may have already confirmed some targets.
 
 ### Step 5: Classify Each Target
@@ -109,6 +111,12 @@ needs a rewrite, not an audit pass.
 **If every Goal and Success Criterion is Met:**
 
 - Set `status: done` in spec.md frontmatter
+- If the spec still lives in `.artifacts/specs/`, move it out so a later
+  spec never forages it: `mv .artifacts/specs/{date}-{name}
+  .artifacts/archive/{date}-{name}`. On a re-audit it is already in
+  `archive/` -- leave it there. If a different spec already occupies the
+  archive path, suffix the name. The archive is never read during
+  discovery.
 - Report "Audit passed. Feature closed."
 - Suggest commit for the audit updates (if any checkboxes flipped)
 

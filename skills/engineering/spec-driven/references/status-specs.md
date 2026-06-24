@@ -26,9 +26,10 @@ status of auth feature
 
 ### List Features
 
-1. Scan `.artifacts/features/`
-2. Read spec.md frontmatter from each
-3. Group by status
+1. Scan `.artifacts/specs/` (active work) and `.artifacts/archive/`
+   (closed work)
+2. Read spec.md (or task.md) frontmatter from each
+3. Group by status; `done` items live under `.artifacts/archive/`
 4. Display table
 
 **Output:**
@@ -36,24 +37,24 @@ status of auth feature
 ## Features
 
 ### In Progress
-| ID | Feature | Scope | Branch | Created |
-|----|---------|-------|--------|---------|
-| 003 | auth | large | feat/auth | YYYY-MM-DD |
+| Feature | Scope | Branch | Created |
+|---------|-------|--------|---------|
+| auth | large | feat/auth | YYYY-MM-DD |
 
 ### Ready
-| ID | Feature | Scope | Branch | Created |
-|----|---------|-------|--------|---------|
-| 002 | payments | complex | feat/payments | YYYY-MM-DD |
+| Feature | Scope | Branch | Created |
+|---------|-------|--------|---------|
+| payments | complex | feat/payments | YYYY-MM-DD |
 
 ### To Review
-| ID | Feature | Scope | Branch | Created |
-|----|---------|-------|--------|---------|
-| 004 | checkout | medium | feat/checkout | YYYY-MM-DD |
+| Feature | Scope | Branch | Created |
+|---------|-------|--------|---------|
+| checkout | medium | feat/checkout | YYYY-MM-DD |
 
-### Done
-| ID | Feature | Scope | Branch | Created |
-|----|---------|-------|--------|---------|
-| 001 | onboarding | medium | - | YYYY-MM-DD |
+### Done (archived)
+| Feature | Scope | Branch | Created |
+|---------|-------|--------|---------|
+| onboarding | medium | - | YYYY-MM-DD |
 
 Total: 4 features
 ```
@@ -61,26 +62,28 @@ Total: 4 features
 Group order matches status flow: In Progress -> Ready -> To Review -> Done.
 Draft features appear before Ready when present.
 
-Also check `.artifacts/quick/` for quick mode tasks:
+Quick tasks share the same `.artifacts/specs/` and `.artifacts/archive/`
+namespace (scope `quick` in frontmatter):
 
 ```markdown
 ### Quick Tasks
-| ID | Task | Status |
-|----|------|--------|
-| 001 | fix-login-redirect | done |
-| 002 | update-env-config | done |
+| Task | Status |
+|------|--------|
+| fix-login-redirect | done |
+| update-env-config | done |
 ```
 
 ### Show Status
 
-1. Resolve feature (ID, branch, or single)
+1. Resolve feature by name (glob `*-{name}` or `*-{name}-*` in
+   `.artifacts/specs/` then `.artifacts/archive/`), branch, or single match
 2. Read spec.md, design.md, tasks.md (whichever exist)
 3. Parse task progress (if tasks.md exists)
 4. Determine next action
 
 **Output:**
 ```markdown
-## Feature: 003-auth
+## Feature: auth
 
 | Property | Value |
 |----------|-------|

@@ -76,7 +76,7 @@ decision is novel to the codebase.
 - **Tasks depth scales** -- Medium runs a flat step list, Large/Complex the full breakdown with dependency graph. Never skipped above Small.
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
 - **Verify runs after every task/range** -- checks design adherence, pattern adherence, code correctness (tooling-aware deep analysis), and visual adherence (optional); also marks AC `[x]` in spec.md on pass
-- **Audit runs before done** -- validates Goals and Success Criteria against evidence, marks their `[x]`, and transitions `to-review` -> `done`; mandatory for every `.artifacts/features/` feature (Medium/Large/Complex)
+- **Audit runs before done** -- validates Goals and Success Criteria against evidence, marks their `[x]`, and transitions `to-review` -> `done`; mandatory for every `.artifacts/specs/` feature (Medium/Large/Complex)
 - **Validate (UAT) is on-demand** -- user requests it when they want to manually test, any scope; may revert any `[x]` if user reproves
 - **Quick mode** is the express lane -- mechanical changes with zero decisions (no audit needed)
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end

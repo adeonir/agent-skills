@@ -31,21 +31,18 @@ the next edit — branch, status, or scope may have drifted.
 
 ### Step 1: Ensure Structure
 
-Check if `.artifacts/quick/` exists. If not:
+Check if `.artifacts/specs/` exists. If not:
 
 ```bash
-mkdir -p .artifacts/quick
+mkdir -p .artifacts/specs
 ```
 
-### Step 2: Generate Task ID and Ask About Branch
+### Step 2: Derive Directory Name and Ask About Branch
 
-Scan `.artifacts/quick/` for highest numbered directory:
-
-```bash
-ls .artifacts/quick/ | sort -V | tail -1
-```
-
-Next ID = highest + 1 (padded: 001, 002...)
+The directory is `{YYYY-MM-DD}-{slug}`: the creation date (the same value
+written to `created` in the task frontmatter) plus the slug. No counter,
+no scan. If it already exists (same slug, same day), suffix the slug
+(`{slug}-2`).
 
 Generate slug from description:
 - "Fix login redirect" -> `fix-login-redirect`
@@ -62,7 +59,7 @@ Branch for this quick task?
 Create directory:
 
 ```bash
-mkdir -p .artifacts/quick/{NNN}-{slug}
+mkdir -p .artifacts/specs/{date}-{slug}
 ```
 
 ### Step 3: Detect Quality Gates
@@ -77,11 +74,12 @@ run in Step 8. If a gate doesn't exist, write `n/a` instead of inventing one.
 
 ### Step 4: Create Task File
 
-Use the template (below) before reading any existing quick task in
-`.artifacts/quick/`. Existing tasks may be stale — template wins on
-structure.
+Use the template (below) as the canonical structure — it wins over any
+existing task. Do not read sibling specs in `.artifacts/specs/` for shape
+or decisions, and never read `.artifacts/archive/`. The only cross-feature
+input is `.artifacts/knowledge.md`.
 
-Create `.artifacts/quick/{NNN}-{slug}/task.md` with:
+Create `.artifacts/specs/{date}-{slug}/task.md` with:
 - Description of what needs to change
 - Files to modify (if known)
 - Expected outcome
@@ -289,6 +287,18 @@ Suggest a commit message following conventional commit conventions:
 - Body only for complex changes: 1-5 bullet points starting with lowercase
 - Preview message and ask for confirmation before committing
 
+### Step 12: Archive
+
+After the commit lands, move the task out of the live spec directory so a
+later spec never forages it:
+
+```bash
+mv .artifacts/specs/{date}-{slug} .artifacts/archive/{date}-{slug}
+```
+
+If `.artifacts/archive/{date}-{slug}/` already exists, suffix the slug
+(`{slug}-2`). The archive is never read during discovery.
+
 ## Scope Escalation
 
 If during implementation the change turns out to be bigger than expected:
@@ -310,7 +320,7 @@ When escalating, the quick task file serves as input for the specify phase.
 - Run static gates before executing the change
 - Save discoveries by default; skip only when criteria above apply
 - Escalate to specify when in doubt about scope
-- Treat quick task artifacts as disposable after implementation
+- Treat the task as transitory: archived to `.artifacts/archive/` once committed (Step 12)
 - For defect inputs: diagnose before implementing -- hypothesis + evidence + confidence in `## Diagnosis` (Step 6)
 - For defect inputs: fix at the root, or label the workaround with the underlying defect
 

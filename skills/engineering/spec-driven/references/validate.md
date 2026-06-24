@@ -30,9 +30,9 @@ evidence-based layer.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant); a completed feature may live in `.artifacts/archive/`, so check there too
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter, checking `.artifacts/specs/` then `.artifacts/archive/`
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Pre-UAT Check
 

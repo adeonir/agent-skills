@@ -42,9 +42,9 @@ each step as it completes (TaskUpdate).
 
 ### Step 1: Resolve Feature
 
-1. If feature ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no feature ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a feature name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant)
+2. If no feature name -> match current git branch to `branch:` in spec.md frontmatter
+3. If multiple or no match -> list available specs and ask user
 
 If a user story ID argument was given (`[US-1]`):
 - Read tasks.md, find the `### US-1 ...` section
@@ -295,7 +295,7 @@ Descriptive area patterns belong in the `.artifacts/codebase/{area}.md` cache, w
 When all tasks are done and Final Verification passes, present a summary and wait for approval:
 
 ```text
-Implementation ready: `.artifacts/features/{ID}-{name}/`
+Implementation ready: `.artifacts/specs/{date}-{name}/`
 Tasks: {X} done | ACs: {Y}/{Z} verified
 Remaining: {count or "none"}
 Suggested commit: {message}

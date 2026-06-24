@@ -94,18 +94,26 @@ fabricate** — follow the chain or say "I don't know."
 Record the source that grounded each decision and the scope the premise holds
 under — a decision with no codebase, docs, or ADR anchor is a red flag.
 
-## Artifact Structure Authority
+## Artifact Authority and Lifecycle
 
 Every artifact's structure is canonical in the matching reference (each
 ref carries its template inline, 1:1). Load the reference before reading
 any existing artifact in `.artifacts/` -- existing files are context,
 not structural reference. Template wins on divergence.
 
+A spec lives in `.artifacts/specs/{date}-{name}/` while it is built and
+moves to `.artifacts/archive/` once `done` (quick mode: once committed).
+Discovery never forages siblings or `archive/` for shape or decisions --
+a pile of old specs out-votes the template and leaks superseded decisions
+into the current one. The only cross-feature input a new spec draws on is
+`.artifacts/knowledge.md`. Reading `archive/` is reserved for locating a
+*named* spec to re-audit or UAT.
+
 ## Guidelines
 
 - Separate content by purpose: spec = WHAT, design = HOW, tasks = WHEN
 - Follow status flow: `draft → ready → in-progress → to-review → done`
-- Use sequential Feature IDs (`001`, `002`); never reuse
+- Name spec dirs `{date}-{name}` — date-keyed, no counters
 - Reuse research cache across features (`.artifacts/research/`)
 - Auto-size depth based on complexity — skip phases that add no value
 - Run audit at the commit boundary, before any PR

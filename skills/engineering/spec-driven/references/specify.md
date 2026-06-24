@@ -97,23 +97,20 @@ Load whatever project context exists:
 | Neither exists (greenfield) | Proceed without — project context is optional for new projects |
 | Neither exists (brownfield) | Scan a few representative files when discovery needs codebase context |
 
-### Step 3: Ensure Project Structure
+### Step 3: Ensure Spec Structure
 
-Check if `.artifacts/features/` parent exists. If not:
-
-```bash
-mkdir -p .artifacts/features
-```
-
-### Step 4: Generate Feature ID
-
-Scan `.artifacts/features/` for highest ID:
+Check if `.artifacts/specs/` parent exists. If not:
 
 ```bash
-ls .artifacts/features/ | sort -V | tail -1
+mkdir -p .artifacts/specs
 ```
 
-Next ID = highest + 1 (padded: 001, 002...)
+### Step 4: Derive Spec Directory Name
+
+The directory is `{YYYY-MM-DD}-{name}`: the creation date (the same value
+written to `created` in the spec frontmatter) plus the feature slug. No
+counter, no scan. If `.artifacts/specs/{YYYY-MM-DD}-{name}/` already
+exists (same name, same day), suffix the slug (`{name}-2`).
 
 ### Step 5: Determine Type (Greenfield vs Brownfield)
 
@@ -267,10 +264,10 @@ Branch for this feature?
 - Whichever option the user picks, store the resolved branch name in spec.md frontmatter.
 - Do not run `git checkout` or `git switch` in this step. Branch creation belongs to implement.md.
 
-### Step 11: Create Feature Directory
+### Step 11: Create Spec Directory
 
 ```bash
-mkdir -p .artifacts/features/{ID}-{name}
+mkdir -p .artifacts/specs/{date}-{name}
 ```
 
 ### Step 12: Include Visual References
@@ -280,7 +277,7 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 **If images are present:**
 1. Create `designs/` subdirectory:
    ```bash
-   mkdir -p .artifacts/features/{ID}-{name}/designs
+   mkdir -p .artifacts/specs/{date}-{name}/designs
    ```
 2. Save each image to the designs folder with descriptive filenames:
    - `{brief-description}.{ext}` (e.g., `login-screen.png`, `user-flow.jpg`)
@@ -310,12 +307,14 @@ spec.md Notes section.
 
 ### Step 14: Generate spec.md
 
-Use the template (below) before reading any existing spec in
-`.artifacts/features/`. Existing specs may be stale — template wins on
-structure.
+Use the template (below) as the canonical structure — it wins over any
+existing spec. Do not read sibling specs in `.artifacts/specs/` for shape
+or decisions, and never read `.artifacts/archive/`: archived specs are
+superseded and out-vote both the template and the current spec. The only
+cross-feature input a new spec draws on is `.artifacts/knowledge.md`.
 
 Generate the spec following the template structure:
-- Frontmatter with ID, feature name, type, scope, status, review, branch, created date
+- Frontmatter with feature name, type, scope, status, review, branch, created date
 - Greenfield: Overview, Goals, Non-Goals, Glossary, User Stories (with ACs inline), Edge Cases, Success Criteria, Operational Follow-ups, Open Questions, Notes
 - Brownfield: Same structure plus Baseline section (Current Behavior, Gaps/Limitations)
 - **If images were saved to designs/**: Include Visual References section with markdown image references (e.g., `![Description](designs/filename.png)`)
@@ -465,7 +464,7 @@ chat, it does not exist.
 Present a summary:
 
 ```text
-Spec ready: `.artifacts/features/{ID}-{name}/spec.md`
+Spec ready: `.artifacts/specs/{date}-{name}/spec.md`
 Type: {greenfield|brownfield} | Scope: {medium|large|complex}
 Review: {pass|changes} | Open questions: {count or "none"} | Gray areas: {yes/no}
 
@@ -521,7 +520,6 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{NNN}}
 name: {{name}}
 scope: {{medium|large|complex}}
 type: {{greenfield|brownfield}}

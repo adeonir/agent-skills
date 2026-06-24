@@ -11,7 +11,7 @@ Resolve gray areas and ambiguities through structured conversation with the user
 
 ## Output
 
-Creates `.artifacts/features/{ID}-{name}/decisions.md` with user
+Creates `.artifacts/specs/{date}-{name}/decisions.md` with user
 decisions on gray areas. Use the template at the bottom of this
 reference.
 
@@ -21,13 +21,13 @@ reference.
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant)
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Load Spec
 
-Read `.artifacts/features/{ID}-{name}/spec.md`.
+Read `.artifacts/specs/{date}-{name}/spec.md`.
 
 Extract:
 - Open Questions section
@@ -86,7 +86,7 @@ For each resolved gray area, record:
 ### Step 6: Generate decisions.md
 
 Use the template (below). Create
-`.artifacts/features/{ID}-{name}/decisions.md` with all decisions.
+`.artifacts/specs/{date}-{name}/decisions.md` with all decisions.
 
 ### Step 7: Update spec.md
 
@@ -123,7 +123,6 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{NNN}}
 name: {{name}}
 status: draft
 created: {{YYYY-MM-DD}}

@@ -53,13 +53,13 @@ each step as it completes (TaskUpdate).
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant)
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Load Spec
 
-Read `.artifacts/features/{ID}-{name}/spec.md`, including `## Decisions` and
+Read `.artifacts/specs/{date}-{name}/spec.md`, including `## Decisions` and
 `## Session Context`. Follow any `sources:` pointer to its durable source
 before designing.
 
@@ -234,7 +234,7 @@ Descriptive area patterns (reference files, integration points) are written to `
 
 Check if the spec includes a `designs/` folder with visual references:
 
-1. Look for `.artifacts/features/{ID}-{name}/designs/`
+1. Look for `.artifacts/specs/{date}-{name}/designs/`
 2. If images exist (screenshots, mockups, wireframes):
    - Review each image to understand visual requirements
    - Note UI/UX patterns, layout, components shown
@@ -263,15 +263,15 @@ in that case.
 Subagent brief:
 
 - Inputs (paths only -- Plan reads from disk):
-  - `.artifacts/features/{ID}-{name}/spec.md`
-  - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
+  - `.artifacts/specs/{date}-{name}/spec.md`
+  - `.artifacts/specs/{date}-{name}/decisions.md` (if exists)
   - Exploration artifact path (from Step 6)
   - `.artifacts/research/*.md` (cached topics from Step 5)
   - `.artifacts/knowledge.md` (if exists)
   - `.artifacts/codebase/{area}.md` cache matching the feature's area
     (if exists)
   - `CLAUDE.md`, `AGENTS.md` (project root, if exist)
-  - `.artifacts/features/{ID}-{name}/designs/` (if exists)
+  - `.artifacts/specs/{date}-{name}/designs/` (if exists)
 - Reference: the design template inlined at the bottom of this
   reference — return chunks matching the template section order and
   table shapes exactly
@@ -418,9 +418,10 @@ commit-boundary contract that spec-driven relies on.
 
 ### Step 13: Generate design.md
 
-Use the template (at the bottom of this reference) before reading any
-existing design in `.artifacts/features/`. Existing designs may be
-stale — template wins on structure.
+Use the template (at the bottom of this reference) as the canonical
+structure — it wins over any existing design. Do not read sibling specs
+in `.artifacts/specs/` or anything in `.artifacts/archive/`; the only
+cross-feature input is `.artifacts/knowledge.md`.
 
 Generate the design following the template structure:
 - Scope (what is in scope and out of scope)
@@ -449,7 +450,7 @@ Set spec.md frontmatter: `status: ready`
 Present a summary:
 
 ```text
-Design ready: `.artifacts/features/{ID}-{name}/design.md`
+Design ready: `.artifacts/specs/{date}-{name}/design.md`
 Decisions: {count} | Open questions: {count or "none"}
 
 Approve to proceed, or describe changes.
@@ -501,7 +502,6 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{NNN}}
 name: {{name}}
 status: draft
 created: {{YYYY-MM-DD}}

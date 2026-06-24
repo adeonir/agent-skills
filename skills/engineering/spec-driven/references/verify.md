@@ -20,9 +20,9 @@ Loaded internally by `implement.md` Step 5-After. Verify is not a user-invoked p
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant)
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Load Sources of Truth
 
@@ -30,10 +30,10 @@ Gather the references to verify against:
 
 | Source | Location | Purpose |
 |--------|----------|---------|
-| Spec | `.artifacts/features/{ID}-{name}/spec.md` | Acceptance criteria, user stories, edge cases |
-| Design | `.artifacts/features/{ID}-{name}/design.md` | Architecture, data model, file list, patterns |
+| Spec | `.artifacts/specs/{date}-{name}/spec.md` | Acceptance criteria, user stories, edge cases |
+| Design | `.artifacts/specs/{date}-{name}/design.md` | Architecture, data model, file list, patterns |
 | Project patterns | `.artifacts/codebase/{area}.md` cache | Conventions, naming, error handling, data fetching |
-| Visual references | `.artifacts/features/{ID}-{name}/designs/` or MCP | Layout, UI behavior (optional) |
+| Visual references | `.artifacts/specs/{date}-{name}/designs/` or MCP | Layout, UI behavior (optional) |
 
 Skip sources that don't exist. Design and project patterns are the primary
 sources. Visual references only when provided or explicitly requested.
@@ -120,7 +120,7 @@ coverage tool exists.
 Only runs when visual references exist or user explicitly requests.
 
 Sources of visual references:
-- Screenshots or mockups in `.artifacts/features/{ID}-{name}/designs/`
+- Screenshots or mockups in `.artifacts/specs/{date}-{name}/designs/`
 - Figma via MCP (if available in session)
 - Pencil via MCP (if available in session)
 - Any reference the user provides during Specify phase

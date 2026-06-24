@@ -21,16 +21,16 @@ flowchart TD
     AU --> G[Done]
 ```
 
-| Phase | Purpose | Required |
-| ----- | ------- | -------- |
-| **Specify** | Define requirements (greenfield or brownfield) | Always |
-| **Discuss** | Resolve gray areas and ambiguities | When triggered |
-| **Design** | Grounding + architecture (light at Medium, full at Large/Complex) | Medium+ |
-| **Tasks** | Implementation steps (flat at Medium, full breakdown at Large/Complex) | Medium+ |
-| **Implement** | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`) | Always |
-| **Audit** | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done`; gates PR | At commit boundary or before PR |
-| **Validate** | Interactive UAT with manual testing; may reprove any `[x]` | On-demand |
-| **Quick Mode** | Express lane for small fixes (no audit) | Small scope |
+| Phase          | Purpose                                                                                             | Required                        |
+| -------------- | --------------------------------------------------------------------------------------------------- | ------------------------------- |
+| **Specify**    | Define requirements (greenfield or brownfield)                                                      | Always                          |
+| **Discuss**    | Resolve gray areas and ambiguities                                                                  | When triggered                  |
+| **Design**     | Grounding + architecture (light at Medium, full at Large/Complex)                                   | Medium+                         |
+| **Tasks**      | Implementation steps (flat at Medium, full breakdown at Large/Complex)                              | Medium+                         |
+| **Implement**  | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`)         | Always                          |
+| **Audit**      | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done`; gates PR | At commit boundary or before PR |
+| **Validate**   | Interactive UAT with manual testing; may reprove any `[x]`                                          | On-demand                       |
+| **Quick Mode** | Express lane for small fixes (no audit)                                                             | Small scope                     |
 
 ### Auto-Sizing
 
@@ -38,12 +38,12 @@ Sizing follows the **nature of the change**, not file or task counts. The
 question is how many load-bearing decisions the change requires, and
 whether any are novel to the codebase.
 
-| Scope | Nature of change | Pipeline |
-|-------|------------------|----------|
-| **Small** | Mechanical, zero decisions | Quick mode — no pipeline |
-| **Medium** | Canonical pattern reapplied | Specify → Design (light) → Tasks (light) → Implement |
-| **Large** | ≥1 load-bearing decision new to the codebase | Specify → Design → Tasks → Implement |
-| **Complex** | Ambiguity in the problem itself | Specify (+ Discuss) → Design → Tasks → Implement |
+| Scope       | Nature of change                             | Pipeline                                             |
+| ----------- | -------------------------------------------- | ---------------------------------------------------- |
+| **Small**   | Mechanical, zero decisions                   | Quick mode — no pipeline                             |
+| **Medium**  | Canonical pattern reapplied                  | Specify → Design (light) → Tasks (light) → Implement |
+| **Large**   | ≥1 load-bearing decision new to the codebase | Specify → Design → Tasks → Implement                 |
+| **Complex** | Ambiguity in the problem itself              | Specify (+ Discuss) → Design → Tasks → Implement     |
 
 ## Usage
 
@@ -88,7 +88,7 @@ how should session timeout work?
 ```text
 create new feature for user authentication
 # Agent assesses scope, asks for requirements
-# Creates: .artifacts/features/001-user-auth/spec.md
+# Creates: .artifacts/specs/{date}-user-auth/spec.md
 
 create technical design             # Medium and up
 create tasks                        # Medium and up
@@ -100,27 +100,27 @@ implement
 ```text
 # Create a feature that modifies existing code
 modify existing auth flow to add 2FA
-# Creates .artifacts/features/001-add-2fa/spec.md with Baseline section
+# Creates .artifacts/specs/{date}-add-2fa/spec.md with Baseline section
 ```
 
 ## Output
 
 ```text
 .artifacts/
-├── knowledge.md                  # Cross-feature decisions, gotchas, conventions
+├── knowledge.md                   # Cross-feature decisions, gotchas, conventions
 ├── codebase/
-│   └── {area}.md                 # Area exploration cache (reusable)
-├── features/
-│   └── 001-feature/
-│       ├── spec.md                # Requirements (WHAT)
-│       ├── decisions.md           # Gray area decisions (WHY, optional)
-│       ├── design.md              # Architecture (HOW)
-│       ├── tasks.md               # Implementation tasks (WHEN)
-│       └── designs/               # Screenshots, mockups (optional)
-├── quick/
-│   └── 001-fix-redirect/
-│       ├── task.md                # Quick mode task record
-│       └── summary.md             # Post-execution summary
+│   └── {area}.md                  # Area exploration cache (reusable)
+├── specs/                         # Active work (features and quick tasks)
+│   ├── {date}-feature/
+│   │   ├── spec.md                # Requirements (WHAT)
+│   │   ├── decisions.md           # Gray area decisions (WHY, optional)
+│   │   ├── design.md              # Architecture (HOW)
+│   │   ├── tasks.md               # Implementation tasks (WHEN)
+│   │   └── designs/               # Screenshots, mockups (optional)
+│   └── {date}-fix-redirect/
+│       └── task.md                # Quick mode task record
+├── archive/                       # Closed work; never read during discovery
+│   └── {date}-feature/            # Moved here at done / on quick completion
 └── research/
     └── {topic}.md                 # Research cache (reusable)
 ```
@@ -168,8 +168,11 @@ across features.
 
 **Q: What happens to artifacts after the feature is done?**
 
-A: Artifacts are disposable — they exist during development and can be
-safely deleted when the feature is complete.
+A: A spec is transitory — it does its job during construction. At `done`
+it moves to `.artifacts/archive/` (not deleted): out of the working set
+so a new spec never forages a stale one, but kept for re-audit, UAT, or
+history. The durable knowledge worth carrying forward already lives in
+`.artifacts/knowledge.md`, which is never archived.
 
 **Q: When should I use quick mode vs full pipeline?**
 

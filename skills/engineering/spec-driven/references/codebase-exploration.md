@@ -129,7 +129,6 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{NNN}}
 name: {{name}}
 status: active
 created: {{YYYY-MM-DD}}

@@ -46,9 +46,9 @@ each step as it completes (TaskUpdate).
 
 ### Step 1: Resolve Feature
 
-1. If ID provided -> use `.artifacts/features/{ID}-{name}/`
-2. If no ID -> match current git branch to `branch:` in spec.md frontmatter
-3. If no match -> list available features and ask user
+1. If a name is given -> match `.artifacts/specs/{date}-{name}/` (glob `*-{name}` or `*-{name}-*` for a collision variant)
+2. If no name -> match current git branch to `branch:` in spec.md frontmatter
+3. If multiple or no match -> list available specs and ask user
 
 ### Step 2: Load Context
 
@@ -93,9 +93,9 @@ in that case.
 Subagent brief:
 
 - Inputs (paths only -- Plan reads from disk):
-  - `.artifacts/features/{ID}-{name}/spec.md`
-  - `.artifacts/features/{ID}-{name}/design.md`
-  - `.artifacts/features/{ID}-{name}/decisions.md` (if exists)
+  - `.artifacts/specs/{date}-{name}/spec.md`
+  - `.artifacts/specs/{date}-{name}/design.md`
+  - `.artifacts/specs/{date}-{name}/decisions.md` (if exists)
   - Quality gate commands from Step 3 (lint, typecheck, test)
 - Reference: the tasks template inlined at the bottom of this
   reference — return chunks matching the template section order and
@@ -242,9 +242,10 @@ execution order. Main agent does not consume the diagram for fan-out.
 
 ### Step 7: Generate tasks.md
 
-Use the template (at the bottom of this reference) before reading any
-existing tasks.md in `.artifacts/features/`. Existing task breakdowns
-may be stale — template wins on structure.
+Use the template (at the bottom of this reference) as the canonical
+structure — it wins over any existing breakdown. Do not read sibling
+specs in `.artifacts/specs/` or anything in `.artifacts/archive/`; the
+only cross-feature input is `.artifacts/knowledge.md`.
 
 Generate tasks following the template structure:
 - Summary (total count)
@@ -343,7 +344,7 @@ the end" is not an acceptable execution plan.
 Present a summary and wait for approval:
 
 ```text
-Tasks ready: `.artifacts/features/{ID}-{name}/tasks.md`
+Tasks ready: `.artifacts/specs/{date}-{name}/tasks.md`
 Tasks: {count} | Components: {list}
 
 Approve to proceed, or describe changes.
@@ -427,7 +428,6 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-id: {{NNN}}
 name: {{name}}
 status: draft
 created: {{YYYY-MM-DD}}

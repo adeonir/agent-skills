@@ -21,14 +21,14 @@ workflow.
 
 Cross-feature decisions with rationale. One bullet per decision.
 
-- {decision} — {rationale}; source: {file:line / ADR / doc}; scope: {context it holds under} <!-- feature:{ID} date:YYYY-MM-DD -->
+- {decision} — {rationale}; source: {file:line / ADR / doc}; scope: {context it holds under} <!-- date:YYYY-MM-DD -->
 
 ## Gotchas
 
 Traps discovered during design or implementation that would cost time
 to rediscover.
 
-- {gotcha} — {context} <!-- feature:{ID} date:YYYY-MM-DD -->
+- {gotcha} — {context} <!-- date:YYYY-MM-DD -->
 
 ## Conventions
 
@@ -38,7 +38,7 @@ this codebase does things. Normative means a standard worth keeping
 consistent; descriptive "where things live / how an area works" detail
 belongs in the `.artifacts/codebase/{area}.md` cache instead.
 
-- {convention} — {where it applies / why it holds} <!-- feature:{ID} date:YYYY-MM-DD -->
+- {convention} — {where it applies / why it holds} <!-- date:YYYY-MM-DD -->
 ```
 
 Always keep all three section headers, even when empty. Writers rely on
@@ -75,7 +75,7 @@ choice, the trap behind a behavior, the convention behind a pattern.
   is the user's call; recording it here is a valid resting place either way
 - Record gotchas in `## Gotchas` with enough context for a future reader
 - Record normative patterns in `## Conventions` with where they apply
-- Use ISO date and feature ID in every row
+- Use ISO date in every row
 - Create the file with all three headers if it doesn't exist
 
 ## Anti-Pattern: Recording Inventory Facts

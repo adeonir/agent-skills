@@ -16,7 +16,7 @@ Use ONLY these values in spec.md frontmatter:
 | `ready` | Ready for implementation | After `design` - spec complete, architecture defined |
 | `in-progress` | Being implemented | After first `implement` task starts |
 | `to-review` | Implementation complete, awaiting Goals/Success audit | After `implement` finishes all tasks and per-task verify passes |
-| `done` | Complete | After `audit` confirms Goals and Success Criteria are met |
+| `done` | Complete | After `audit` confirms Goals and Success Criteria are met; the spec dir moves to `.artifacts/archive/` |
 
 ## Status Transitions
 
@@ -67,7 +67,7 @@ owned by specify.md Step 15 -- it does not transition with `status`.
 - `status: finished` -> Use `done`
 - `status: in_review` -> Use `to-review`
 - `status: pending` -> Use `draft` or `ready`
-- `status: archived` -> Use `done` (no archive phase)
+- `status: archived` -> Use `done` (archiving is a file move at `done`, not a status: the dir moves to `.artifacts/archive/`)
 
 ## Quick Reference
 
