@@ -107,13 +107,13 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 
 ### Step 4: Merge
 
-Spawn an isolated Agent (`model: haiku`) with only the following as input —
-no conversation context passes through:
+Write the merge commit from the PR title and branch context, never from the
+conversation. Sources:
 
 1. PR title and number from Step 1
-2. Branch diff and commit log gathered in Step 3
+2. Branch diff and commit log from Step 3
 
-Instruct the agent to return a structured object:
+Shape the merge commit as:
 
 ```json
 {
@@ -122,9 +122,10 @@ Instruct the agent to return a structured object:
 }
 ```
 
-Use `null` for `body` when the subject is self-sufficient. The subject uses the
-PR title directly when it follows `type: description` convention; the agent
-generates a conforming subject only when it does not.
+The subject uses the PR title directly when it follows `type: description`
+convention; generate a conforming subject only when it does not. Use `null` for
+`body` when the subject is self-sufficient; when a body is warranted, its bullet
+traces to the branch diff, never to session narrative.
 
 ```bash
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"

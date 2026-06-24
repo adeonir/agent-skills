@@ -40,12 +40,14 @@ together.
 - Prefer single-line commit messages — add a body only when the change
   has several meaningful parts or a *why* the diff doesn't show
 
-## Anti-Pattern: Conversation-Driven Commits
+## Anti-Pattern: Conversation-Driven Messages
 
-Writing the commit message from chat context produces fabricated quotes,
-restated diff content, and missing rationale. The staged diff is the
-single source of truth. Discard prior context, run `git diff --cached`,
-and write the message from what the diff shows.
+Writing a commit, PR, or merge message from chat context produces fabricated
+quotes, rejected approaches presented as fact, and restated diff content. The
+diff is the single source of *what* changed; the conversation supplies at most
+an explicit *why* the user stated. Before writing, trace every line back to a
+hunk in the diff — a line that names a change the diff does not show came from
+the conversation, so drop it.
 
 ## Anti-Pattern: Default GitHub Merge Subject
 
