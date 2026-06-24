@@ -276,16 +276,10 @@ Set in `task.md` frontmatter:
 - `patterns_discovered`: list of new patterns surfaced (or empty)
 - `follow_up`: side effects, related issues, improvements noticed but not addressed (or empty)
 
-### Step 11: Suggest Commit
+### Step 11: Commit
 
-Suggest a commit message following conventional commit conventions:
-- Conventional commit type: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`
-- Format: `type: concise description in imperative mood`
-- Imperative mood: "add", "fix", "implement" (not "added", "fixes")
-- First line under 72 characters
-- No scope, no file names, no versions, no attribution
-- Body only for complex changes: 1-5 bullet points starting with lowercase
-- Preview message and ask for confirmation before committing
+Build the commit message per [commit-conventions.md](commit-conventions.md) and
+commit (hooks run normally).
 
 ### Step 12: Archive
 

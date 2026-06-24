@@ -27,7 +27,7 @@ flowchart TD
 | **Discuss**    | Resolve gray areas and ambiguities                                                                  | When triggered                  |
 | **Design**     | Grounding + architecture (light at Medium, full at Large/Complex)                                   | Medium+                         |
 | **Tasks**      | Implementation steps (flat at Medium, full breakdown at Large/Complex)                              | Medium+                         |
-| **Implement**  | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`)         | Always                          |
+| **Implement**  | Implement tasks with quality gates; runs verify internally after each task (marks AC `[x]`); `--commit` auto-commits each boundary         | Always                          |
 | **Audit**      | Validate Goals and Success Criteria against evidence; mark their `[x]`; transition `done`; gates PR | At commit boundary or before PR |
 | **Validate**   | Interactive UAT with manual testing; may reprove any `[x]`                                          | On-demand                       |
 | **Quick Mode** | Express lane for small fixes (no audit)                                                             | Small scope                     |
@@ -64,7 +64,9 @@ improve cache performance
 # Development workflow
 create technical design
 create tasks
-implement
+implement                           # implement, then stop ready for review/commit
+implement US-1 --commit             # auto-commit each boundary in US-1
+implement --all                     # implement all pending, auto-commit per boundary
 
 # Close the feature (per-story commit boundary OR end-of-spec, always before PR)
 audit feature
@@ -210,7 +212,10 @@ A: Auto-Sizing decides depth. When activities run in full form
 - **Tasks Plan subagent** — one per tasks phase, owns decomposition
   reasoning; read-only, returns slot fillers
 - **Implement subagent** — one per user invocation (T-1, range, US-1,
-  --all), owns the per-task implement and verify cycle
+  --all), owns the per-task implement and verify cycle. With `--commit`
+  (implied by `--all`) it auto-commits each boundary it completes via
+  commit-conventions.md; without a flag, implement stops and announces the
+  work is ready for review/commit
 
 Discovery subagents (research, exploration) hand off via disk
 artifacts. Plan subagents hand off via structured chunks because the

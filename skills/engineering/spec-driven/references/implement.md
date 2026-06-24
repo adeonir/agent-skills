@@ -12,7 +12,6 @@ management.
 - [Workflow](#workflow) — Steps 1-8
 - [Edge Case Verification](#edge-case-verification)
 - [Final Verification](#final-verification)
-- [Commit Suggestion](#commit-suggestion)
 - [Guidelines](#guidelines)
 - [Error Handling](#error-handling)
 
@@ -26,11 +25,24 @@ Transitions.
 
 ## Arguments
 
+**Selection** (what to implement):
+
 - `[T-1]` - Single task
 - `[T-1..T-5]` - Range
 - `[US-1]` - All tasks under user story US-1
 - `[--all]` - All pending
 - Empty - Next pending task
+
+**Commit behavior:**
+
+- Default (no flag) - implement the selection, then stop and announce it is
+  ready for review/commit. No commit is made; the human commits.
+- `[--commit]` - auto-commit each boundary the selection fully completes.
+- `[--all]` implies `[--commit]` - walking all pending work is always
+  auto-committed.
+
+Default commit granularity is one commit per user story. A prompt instruction
+("atomic commits per task") overrides it for the run.
 
 ## Workflow
 
@@ -112,8 +124,9 @@ follows the invocation argument:
 
 The subagent owns Steps 5-6 for every task in its scope. It implements
 tasks in dependency order (`[B:T-X]` waits for `T-X`), resolves order
-internally, runs verify per task (Step 5-After), and marks `[x]` in
-tasks.md (Step 6). Main agent does not fan out across tasks -- it
+internally, runs verify per task (Step 5-After), marks `[x]` in
+tasks.md (Step 6), and -- when auto-commit is on -- commits each boundary it
+completes. Main agent does not fan out across tasks -- it
 dispatches once and resumes at Step 7 (Check Completion) after the
 subagent returns.
 
@@ -124,6 +137,13 @@ Subagent brief includes:
 - "Run Steps 5-6 for each task in dependency order. Implement, verify per
   task, mark `[x]` in tasks.md. Write code and updates to disk. Report
   files changed and per-task status."
+- Auto-commit mode (on when `--commit` or `--all`, else off). When on: the
+  commit granularity (default one commit per user story; per task if the prompt
+  asked) and "after a commit boundary's last task passes verify and is marked
+  `[x]`, build the message per [commit-conventions.md](commit-conventions.md)
+  and `git commit` that boundary. Commit a boundary only when this scope fully
+  completes it; one covered in part is left for a later run. Run hooks normally
+  -- never `--no-verify` or `--amend`."
 - "For every fact you reproduce (identifiers, tokens, copy, config values,
   identity strings), read it from the source of truth named in design.md or
   spec.md. If the fact is not in that source, STOP and report — never invent
@@ -267,6 +287,12 @@ If tasks.md exists:
   - **Done when:** {verifiable outcome}
 ```
 3. Update task counters in tasks.md header.
+4. **Commit boundary (auto-commit on only):** when the task just marked closes
+   a commit boundary this scope fully completes, build the message per
+   [commit-conventions.md](commit-conventions.md), stage the boundary's changes,
+   and `git commit` (hooks run normally). A boundary this scope completes only
+   in part is left uncommitted. When a defect later invalidates a landed commit,
+   see Design-gap recovery (Step 5 During).
 
 ### Step 7: Check Completion
 
@@ -290,22 +316,36 @@ If `.artifacts/knowledge.md` doesn't exist, create it with the three empty secti
 
 Descriptive area patterns belong in the `.artifacts/codebase/{area}.md` cache, written by exploration — not here. Record only what crosses features; feature-specific detail stays in this feature's artifacts, and inventory facts (packages, routes, modules) are re-derivable and not recorded.
 
-### Step 9: Approval Gate
+### Step 9: Completion Gate
 
-When all tasks are done and Final Verification passes, present a summary and wait for approval:
+When all tasks in scope are done and Final Verification passes, behavior depends
+on auto-commit mode.
+
+**Auto-commit off (default):** stop and announce the work is ready -- no commit
+is made; the human commits with their own flow.
 
 ```text
 Implementation ready: `.artifacts/specs/{date}-{name}/`
 Tasks: {X} done | ACs: {Y}/{Z} verified
 Remaining: {count or "none"}
-Suggested commit: {message}
 
-Approve to proceed, or describe what to fix.
+Ready for review/commit, or describe what to fix.
 ```
 
-- If issues remain: fix before presenting gate.
-- If changes requested: address and re-present gate.
-- If approved: flip status to `to-review` and stop. Implement does not run `audit` -- audit gates the commit boundary (per-story commit or pre-PR) and is invoked separately. For user-facing features, also consider `validate`.
+**Auto-commit on (`--commit` / `--all`):** boundaries already committed as they
+completed -- report what landed, no blocking gate.
+
+```text
+Implementation committed: `.artifacts/specs/{date}-{name}/`
+Tasks: {X} done | ACs: {Y}/{Z} verified | Commits: {N}
+Remaining: {count or "none"}
+```
+
+- If issues remain: fix before presenting.
+- If changes requested (off mode): address and re-present.
+- Then flip status to `to-review` and stop. Implement does not run `audit` --
+  audit gates the commit boundary (per-story or pre-PR) and is invoked
+  separately. For user-facing features, also consider `validate`.
 
 Never open a PR before `audit` passes for the work being merged.
 
@@ -339,29 +379,6 @@ Goals and Success Criteria are NOT checked here -- they are audit.md's job.
 Do not mark their `[ ]` from this reference.
 
 Audit is mandatory before `done`. UAT is on-demand.
-
-## Commit Suggestion
-
-After completing a task or range, suggest a commit message based on what was actually changed.
-
-**Follow conventional commit conventions:**
-
-- Use conventional commit types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`, `perf`, `ci`, `build`
-- Format: `type: concise description in imperative mood`
-- Imperative mood: "add", "fix", "implement" (not "added", "fixes")
-- First line under 72 characters
-- Focus on WHAT changed from the user's perspective
-- No scope, no file names, no versions, no attribution, no future references
-- Optional body: 1-5 bullet points explaining HOW (no file paths)
-
-```text
-type: what changed from the user's perspective
-
-- Optional: how it was implemented 1
-- Optional: how it was implemented 2
-```
-
-Suggest atomic, logical commits at natural checkpoints (task group boundaries).
 
 ## Guidelines
 

@@ -398,29 +398,31 @@ or spans multiple concerns, split it — file count is incidental.
 
 ## Commit Boundary Grouping
 
-Tasks are grouped so each group = one atomic commit. A group must be:
-- **Self-contained**: The codebase compiles and works after the group is done
-- **Logically cohesive**: All tasks in the group serve the same purpose
-- **Minimal but complete**: No half-implemented features left behind
+Each user story group (`### US-N`) is one atomic commit boundary -- the default
+unit a commit closes. A user story's tasks must leave the codebase in a stable,
+committable state once all of them are done:
+- **Self-contained**: the codebase compiles and works after the story is done
+- **Logically cohesive**: every task in the story serves that story's purpose
+- **Minimal but complete**: no half-implemented feature left behind
+
+Finer-than-story commits (one per task) are an implement-time choice, requested
+in the implement prompt -- not declared here. tasks.md groups by user story only.
 
 ### Dependencies
 
-Never create a dedicated "install all dependencies" task. Each dependency is installed in the task that first needs it, as part of its implementation. This keeps each commit group self-contained with only the deps it actually uses.
+Never create a dedicated "install all dependencies" task. Each dependency is installed in the task that first needs it, as part of its implementation. This keeps each user story self-contained with only the deps it actually uses.
 
 Example:
 ```markdown
-### Authentication Setup
+### US-1 [P1] Authentication
 
 - [ ] T-1 [P] Create auth types in types/auth.ts
 - [ ] T-2 [B:T-1] Implement AuthService in services/auth.ts
-
-### Auth Middleware
-
 - [ ] T-3 [B:T-2] Add auth middleware in middleware.ts
 - [ ] T-4 [B:T-3] Protect routes with auth middleware
 ```
 
-After completing all tasks in a group, the code is in a stable, committable state.
+After completing the user story's tasks, the code is in a stable, committable state.
 
 ## Tasks Template
 

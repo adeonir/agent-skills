@@ -11,6 +11,7 @@ description: >-
   boundary or before a PR, or discussing how to build a feature. Not for
   diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design
   Doc documents, PR/commit mechanics, or PM backlog tracking.
+argument-hint: "[t-N | us-N | --all] [--commit]"
 ---
 
 # Spec-Driven Development
@@ -31,7 +32,8 @@ Structured development workflow with adaptive depth.
   [research.md](references/research.md)
 - **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
 - **Implement** ("implement task", "execute task", "implement user story
-  US-1", "implement task T-1") → [implement.md](references/implement.md)
+  US-1", "implement task T-1"; add `--commit` to auto-commit each boundary,
+  `--all` auto-commits implicitly) → [implement.md](references/implement.md)
 - **Audit** ("audit feature", "validate goals", "audit goals and
   success criteria") → [audit.md](references/audit.md)
 - **Manual testing** ("manual testing", "test manually") →
