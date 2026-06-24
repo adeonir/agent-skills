@@ -36,7 +36,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[wrap-up](skills/personal/wrap-up)**              | Personal    | End-of-session context persistence to Obsidian                                |
 | **[blueprint](skills/product/blueprint)**           | Product     | Plans `blueprint.md` — information architecture, layout, and screen flow      |
 | **[brainstorming](skills/product/brainstorming)**   | Product     | Structured idea exploration and plan stress-testing, diverge to converge      |
-| **[copywriting](skills/product/copywriting)**       | Product     | Authors `copy.yaml` — fresh copy or structured existing content               |
+| **[copywriting](skills/product/copywriting)**       | Product     | Authors `copy.yaml` — write, extract, refresh, plus critique and audit        |
 | **[craft-ui](skills/product/craft-ui)**             | Product     | Render design variants, critique a variant, audit a running UI — non-mutating |
 | **[design-brief](skills/product/design-brief)**     | Product     | Greenfield visual identity — explore a direction and author `DESIGN.md`       |
 | **[docs-writer](skills/product/docs-writer)**       | Product     | Structured docs: PRD, Brief, Design Doc, ADR                                  |

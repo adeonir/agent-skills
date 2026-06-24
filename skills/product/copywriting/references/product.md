@@ -7,9 +7,9 @@ and the copy helps them through it.
 ## When to Use
 
 Read by the write and revoice workflows when the surface is product — to set the
-voice posture. Name the register first, then read only the matching
-file: product here, or [brand.md](brand.md) when the words are the product. Not a
-direct trigger.
+voice posture — and by critique and audit to set the bar when judging product
+copy. Name the register first, then read only the matching file: product here, or
+[brand.md](brand.md) when the words are the product. Not a direct trigger.
 
 ## Posture
 
@@ -37,7 +37,7 @@ says how to fix it, a button that doesn't name its action.
 - Tone shifts with the moment (success, error, loading) on top of a constant
   voice ([voice.md](voice.md)).
 
-## Product bans (on top of the dead language in [voice.md](voice.md))
+## Product bans (on top of the dead language in [anti-patterns.md](anti-patterns.md))
 
 - Jargon or internal labels where plain user language belongs.
 - Bare error codes or "Something went wrong" with no next step.

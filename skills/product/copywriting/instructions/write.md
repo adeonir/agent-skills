@@ -66,8 +66,8 @@ rationale; let the user pick before writing.
 Before saving:
 
 - Strip dead words and dead structures (see
-  [../references/voice.md](../references/voice.md)) — no empty antithesis or
-  em-dash drama; would a real person say this aloud?
+  [../references/anti-patterns.md](../references/anti-patterns.md)) — no empty
+  antithesis or em-dash drama; would a real person say this aloud?
 - Every claim is specific and proof is outward.
 - **No design leakage** — no colors, fonts, icons, or layout in `copy.yaml`.
 - The content tree is well-formed and named by context.
@@ -76,7 +76,15 @@ Before saving:
 
 Save to `docs/design/copy.yaml` using the content-tree structure — see
 [extract.md](extract.md) for the exact template. Content-only: the payload is
-independent of visual styling.
+independent of visual styling. After saving, run the deterministic floor for
+the self-check above:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+```
+
+Resolve any structure or design-leakage flags before done (advisory — judge
+false positives like a product named "Grid").
 
 ## Guidelines
 

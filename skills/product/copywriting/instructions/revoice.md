@@ -37,7 +37,8 @@ before recasting.
 
 Rewrite each line into the target voice, preserving the message, every claim,
 and the structure. Change *how* it is said, never *what*. Do not introduce dead
-adjectives or drop proof (see [../references/voice.md](../references/voice.md)).
+adjectives (see [../references/anti-patterns.md](../references/anti-patterns.md))
+or drop proof (see [../references/voice.md](../references/voice.md)).
 
 ### Step 4: Confirm Before Write
 
@@ -53,7 +54,14 @@ claim; only the voice changes.
 ### Step 6: Self-Check
 
 Before done: every claim from the original is still present (none added,
-none lost), no design leakage, well-formed content tree.
+none lost), no design leakage, well-formed content tree. Run the deterministic
+floor for the last two:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+```
+
+Resolve any flags (advisory — judge false positives like a product named "Grid").
 
 ## Guidelines
 
@@ -68,7 +76,7 @@ none lost), no design leakage, well-formed content tree.
 
 - Add or drop claims (contrasts: revoice changes tone, not substance)
 - Restructure the content tree (contrasts: patch values, not shape)
-- Reintroduce dead adjectives or marketing clichés (contrasts: see voice.md)
+- Reintroduce dead adjectives or marketing clichés (contrasts: see anti-patterns.md)
 - Embed visual decisions in `copy.yaml` (contrasts: content-only)
 
 ## Error Handling

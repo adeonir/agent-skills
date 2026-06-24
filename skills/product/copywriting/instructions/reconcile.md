@@ -11,7 +11,9 @@ confirmed patches.
   edited directly in components, new strings added, labels changed)
 - User says "sync copy from code", "update copy.yaml from the implementation",
   or "reconcile content drift" when `copy.yaml` already exists
-- Pre-handoff audit before treating `copy.yaml` as authoritative
+- Pre-handoff drift check against the implementation, before treating
+  `copy.yaml` as authoritative (this syncs drifted strings; for a quality
+  verdict with no code involved, that is audit)
 
 Not for: authoring `copy.yaml` from scratch (see [extract.md](extract.md)) —
 this only syncs drifted values, it does not write or restyle content.
@@ -50,7 +52,15 @@ silent writes. If the user rejects every row, stop with `no patches applied`.
 ### Step 5: Patch copy.yaml
 
 Apply approved string patches to `docs/design/copy.yaml`. Preserve the content
-tree paths; never rename or reorganize surface keys during reconciliation.
+tree paths; never rename or reorganize surface keys during reconciliation. After
+patching, run the deterministic floor to confirm the tree stayed well-formed and
+content-only:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+```
+
+Resolve any flags (advisory — judge false positives like a product named "Grid").
 
 ## Guidelines
 

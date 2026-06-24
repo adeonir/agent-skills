@@ -86,7 +86,16 @@ Generate structured content using the template below. The `content` tree
 mirrors the source read in Step 3 — name each surface and part by context,
 nest to match the source, and add whatever fields a surface needs (states,
 entry points, product specs, variants, prices). Do not force a predefined set
-of blocks. Save to `docs/design/copy.yaml`. Create directories if needed.
+of blocks. Save to `docs/design/copy.yaml`. Create directories if needed. After
+saving, run the deterministic floor for the well-formedness and design-leakage
+check:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+```
+
+Resolve any flags before done (advisory — judge false positives like a product
+named "Grid").
 
 ## Template
 

@@ -25,11 +25,12 @@ it.
 ### Step 2: Run the Sweeps
 
 Apply [../references/editing-sweeps.md](../references/editing-sweeps.md) per
-content part: clarity → voice consistency → so-what → prove-it → specificity →
-emotion → zero-risk, then the quick-pass word/sentence/paragraph checks. Pull
-proof and dead-adjective guidance from
-[../references/voice.md](../references/voice.md). The voice pass checks
-*consistency* only — never change the voice. For microcopy
+content part: clarity → voice consistency → so what → prove it → specificity →
+heightened emotion → zero risk, then the quick-pass word/sentence/paragraph checks. Pull
+proof guidance from [../references/voice.md](../references/voice.md); the
+dead-word and dead-structure catalogue is in
+[../references/anti-patterns.md](../references/anti-patterns.md). The voice pass
+checks *consistency* only — never change the voice. For microcopy
 (labels, errors, states, navigation), also run the clarity method in
 [../references/ux-writing.md](../references/ux-writing.md).
 
@@ -51,7 +52,13 @@ never change the voice or reorganize the structure.
 ### Step 6: Self-Check
 
 Before done: well-formed content tree, no design leakage, core message and
-voice intact.
+voice intact. Run the deterministic floor for the first two:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+```
+
+Resolve any flags (advisory — judge false positives like a product named "Grid").
 
 ## Guidelines
 

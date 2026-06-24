@@ -8,9 +8,9 @@ merely inform.
 ## When to Use
 
 Read by the write and revoice workflows when the surface is brand — to set the
-voice posture. Name the register first, then read only the matching file:
-brand here, or [product.md](product.md) when the words serve a task. Not a direct
-trigger.
+voice posture — and by critique and audit to set the bar when judging brand
+copy. Name the register first, then read only the matching file: brand here, or
+[product.md](product.md) when the words serve a task. Not a direct trigger.
 
 The register spans every genre — a SaaS landing page, a luxury brand story, a
 musician's site, a studio portfolio. They share the stance — *persuade and
@@ -31,7 +31,7 @@ If the copy could sit on any competitor's page unchanged, it has no point of
 view. Brand copy earns attention with specificity and a voice — a real number, a
 named outcome, a line only this company could write. Stacked adjectives
 ("innovative", "seamless", "world-class") are the tell; replace them with the
-specific thing. (See dead words and structures in [voice.md](voice.md).)
+specific thing. (See dead words and structures in [anti-patterns.md](anti-patterns.md).)
 
 ## Voice and proof
 
@@ -42,7 +42,7 @@ specific thing. (See dead words and structures in [voice.md](voice.md).)
 - Personality is permission here — wit, rhythm, a strong opener — when the brand
   invites it.
 
-## Brand bans (on top of the dead language in [voice.md](voice.md))
+## Brand bans (on top of the dead language in [anti-patterns.md](anti-patterns.md))
 
 - Adjective stacks standing in for proof ("powerful, intuitive, seamless").
 - Hedged claims that commit to nothing ("helps you do more").

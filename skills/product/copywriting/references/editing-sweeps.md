@@ -8,7 +8,9 @@ craft behind the refresh operation.
 Loaded by the refresh workflow to improve copy already in `copy.yaml`. Each
 sweep targets one dimension; run them in order and loop back after edits so a
 later pass does not undo an earlier one. Edits enhance, they do not rewrite —
-preserve the core message and the voice.
+preserve the core message and the voice. critique scores these same seven
+sweeps as judgment axes and audit pulls the readability checks; in those modes
+the sweeps grade rather than edit.
 
 ## The Seven Sweeps
 
@@ -72,7 +74,7 @@ Delete filler phrases outright: "a total of", "at this moment in time",
 "of course", "the fact of the matter is", "needless to say".
 
 For dead marketing adjectives (passionate, world-class, synergy, …) see the
-dead-words list in [voice.md](voice.md).
+dead-words catalogue in [anti-patterns.md](anti-patterns.md).
 
 ## Common Problems
 
@@ -83,4 +85,4 @@ dead-words list in [voice.md](voice.md).
 - **Generic claim** ("we help businesses grow") → specify who, how, how much.
 - **Hollow structure** ("it wasn't a detour, it was an evolution") → strip the
   false antithesis and say the real thing; thin out em-dashes used for drama.
-  See dead structures in [voice.md](voice.md).
+  See dead structures in [anti-patterns.md](anti-patterns.md).

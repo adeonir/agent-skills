@@ -23,14 +23,19 @@ and surfaces — copy-relevant facts only; requirement IDs, milestones, sprint o
 release names, roadmap language, and sibling-artifact references stay out of
 `copy.yaml`. Skip to the relevant operation.
 
-### Step 2: Classify Field
+### Step 2: Classify the Request
 
-Infer from source and intent — do not ask explicitly:
+Infer from source and intent — do not ask explicitly. First fork on what the
+request wants done to the copy:
 
-- **greenfield** — no existing copy → write fresh from intent.
-- **brownfield** — existing copy or a source → extract to structure it,
-  refresh to tighten it, revoice to change its voice, or reconcile to sync
-  implementation drift.
+- **author** — produce or change copy. Then split by field:
+  - **greenfield** — no existing copy → write fresh from intent.
+  - **brownfield** — existing copy or a source → extract to structure it,
+    refresh to tighten it, revoice to change its voice, or reconcile to sync
+    implementation drift.
+- **judge** — a non-mutating verdict on existing copy, no change applied →
+  critique for a quality / slop verdict that loops to refresh, or audit for a
+  ship-readiness defect report before handoff.
 
 ### Step 3: Route to Operation
 
@@ -41,6 +46,13 @@ Infer from source and intent — do not ask explicitly:
 | Tighten existing copy in the same voice | [refresh.md](refresh.md) |
 | Rewrite existing copy in a new voice | [revoice.md](revoice.md) |
 | Sync `copy.yaml` from a drifted implementation | [reconcile.md](reconcile.md) |
+| Judge copy quality — is this slop, score it, verdict before more editing | [critique.md](critique.md) |
+| Pre-ship quality pass on `copy.yaml` before handoff | [audit.md](audit.md) |
+
+Disambiguation — "before handoff" matches two operations. A judge request with
+no implementation source → **audit** (quality verdict on the copy itself). A
+sync request naming code or a live URL as the source of truth → **reconcile**
+(drift check against the implementation).
 
 ### Step 4: Fill Gaps
 

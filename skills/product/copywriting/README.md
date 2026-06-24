@@ -1,6 +1,6 @@
 # Copywriting
 
-Authors `copy.yaml` — the structured content payload a design consumes.
+Authors and judges `copy.yaml` — the structured content payload a design consumes.
 
 ## What It Does
 
@@ -11,6 +11,8 @@ flowchart TD
     Impl[Implementation] -->|reconcile| B
     B -->|refresh| B
     B -->|revoice| B
+    B -->|critique / audit| V[Verdict: score + P0-P3 findings]
+    V -.->|apply via refresh / revoice / write| B
     B --> D[Design work consumes copy.yaml]
 ```
 
@@ -21,6 +23,8 @@ flowchart TD
 | **Refresh** | Tighten existing copy in the same voice — clarity, specificity, proof, cut weak words | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
+| **Critique** | Quality and slop verdict on a draft — scores the seven sweeps, loops to refresh | Verdict + score (no write) |
+| **Audit** | Ship-readiness defect report on `copy.yaml` before handoff — P0–P3 | Report + score (no write) |
 
 Content is orthogonal to design: the same `copy.yaml` works independent of
 visual styling, so this skill carries words only — never colors, fonts, or layout.
@@ -57,6 +61,12 @@ make the copy drier, less salesy
 sync copy.yaml from this codebase
 update copy.yaml from the implementation
 reconcile content drift
+
+# Critique / audit (judge existing copy, non-mutating)
+critique this copy — does it read as AI slop?
+score this landing page copy
+audit copy.yaml before handoff
+is this copy ready to ship?
 ```
 
 ## References
@@ -64,10 +74,12 @@ reconcile content drift
 Loaded on demand: `references/brand.md` / `references/product.md` (register
 posture — read the matching one first), `references/copy-frameworks.md` (headline
 formulas, content-part types, page shapes, CTA), `references/voice.md` (register
-bias, voice axes, proof hierarchy, dead words and structures),
-`references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), and
-`references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method,
-clarity principles, microcopy, a11y/i18n/terminology).
+bias, voice axes, proof hierarchy), `references/editing-sweeps.md` (Seven Sweeps,
+quick-pass, plain-English), `references/ux-writing.md` (clarity craft: the
+assess→plan→improve→verify method, clarity principles, microcopy,
+a11y/i18n/terminology), `references/anti-patterns.md` (copy slop catalog — dead
+words, dead structures, AI tells, proof failures), and `references/scoring.md`
+(severity, bands, and the report template critique and audit share).
 
 ## Output
 
@@ -79,3 +91,6 @@ source or the brief.
 
 - `WebFetch` for URL extraction (optional — screenshots and pasted content work
   without it).
+- `python3` for the bundled scripts — `slop_scan.py` (slop scan for critique and
+  audit) and `validate_copy.py` (well-formedness and design-leakage scan for the
+  authoring self-checks). Optional — the judgment and self-checks work without them.

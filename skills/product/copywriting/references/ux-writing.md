@@ -9,8 +9,9 @@ them.
 
 ## When to Use
 
-Loaded by the write and refresh workflows to keep copy clear and effective.
-Composes with [voice.md](voice.md) (voice, proof, dead language) and
+Loaded by the write and refresh workflows to keep copy clear and effective, and
+by audit for the microcopy, i18n, and terminology checks.
+Composes with [voice.md](voice.md) (voice, proof) and
 [editing-sweeps.md](editing-sweeps.md) (tightening passes for persuasive prose) —
 this file does not repeat them. It owns the clarity method and the microcopy
 craft those two do not cover.
