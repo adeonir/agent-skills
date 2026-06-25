@@ -29,9 +29,14 @@ Check for existing context before asking questions:
 **Translate, don't replicate.** Upstream docs (PRD, design doc, brief) stay
 read-only and scoped to this epic. Extract only what maps to it, then
 **translate into epic language**: strip technical IDs (§3.7, EC-2, ADR-001),
-internal reference codes, sibling artifact names, roadmap milestones, and
-domain jargon that doesn't stand alone. The epic carries the facts (not the
-source document's framing).
+internal reference codes, sibling artifact names, milestone content and
+roadmap/sequencing framing, and domain jargon that doesn't stand alone. The
+epic carries the facts, not the source document's framing.
+
+Recording *which* milestone the epic serves is the one exception — its direct
+parent, captured as the `milestone:` pointer in frontmatter (same as a
+story's `epic:`). The pointer names the parent; it never pulls the milestone's
+deliverables, success criteria, or phase ordering into the epic body.
 
 ### 2. Draft
 
@@ -66,6 +71,9 @@ Fill the template (below) with discovered context:
 - **Blocked by**: other epics or stories that must finish before this one
   can start, listed in frontmatter `blocked_by` by path. Lets the tracker
   enforce delivery order; leave empty when nothing blocks it.
+- **Milestone**: the PRD milestone this epic serves, as the frontmatter
+  `milestone:` pointer (its direct parent). Omit when there is no PRD
+  milestone; record the parent only, never the milestone's content.
 - **References**: durable pointers the next session follows (PRD, design
   doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
   the links for sync
@@ -125,6 +133,7 @@ updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
 blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
+milestone: {{milestone-name or omit when no PRD milestone}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github
@@ -186,6 +195,7 @@ resolve before or during story breakdown.}
 home — travels into the tracker description; frontmatter `sources:`
 mirrors these links for sync (markdown only, absent in tracker mode).}
 
+- **Milestone:** {{PRD milestone name or "None"}}
 - **Brief:** {{link or "None"}}
 - **PRD:** {{link or "None"}}
 - **Design Doc:** {{link or "None"}}

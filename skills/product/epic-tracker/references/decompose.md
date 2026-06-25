@@ -1,0 +1,82 @@
+# Decompose Milestone
+
+Turn a PRD milestone into the set of epics it needs, seeding each from the
+milestone's expected-epics sketch.
+
+## When to Use
+
+- User says "decompose milestone", "break down PRD", "plan milestone",
+  "create epics from PRD"
+- A PRD with defined milestones exists and its epics have not been created
+- A milestone needs its delivery broken into epics before story work begins
+
+## Workflow
+
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
+### 1. Locate the Milestone
+
+1. Read `.artifacts/docs/prd.md`. If no PRD exists, route the user to create
+   one first (epics can still be created directly via [epic.md](epic.md)).
+2. List the PRD's milestones. If more than one, ask which to decompose.
+3. Read the chosen milestone's Outcome, Success criteria, Scope boundary,
+   and Expected epics.
+
+**Read for context only.** The milestone stays in the PRD; its tokens never
+cross verbatim into any epic. The Expected epics sketch is a set of seeds —
+capability area plus a one-line expectation each — not epic definitions.
+
+### 2. Confirm the Epic Set
+
+1. Present the sketched epics as a proposed set.
+2. Let the user add, drop, merge, split, or rename. The sketch is a starting
+   point, not a fixed list — the delivery breakdown is decided here, not in
+   the PRD.
+3. Settle the epic set before creating anything.
+
+### 3. Create Each Epic
+
+For each confirmed epic, run the [epic.md](epic.md) creation flow, with two
+additions specific to decomposition:
+
+- Set frontmatter `milestone: {milestone-name}` — the epic's direct parent
+  (see the translate-don't-replicate note in [epic.md](epic.md)). Record the
+  pointer only; never copy the milestone's outcome, success criteria, or
+  deliverables into the epic body.
+- Add a **Milestone** entry under the epic's References so the link travels
+  into the tracker on push.
+
+Each epic carries its own scope, acceptance criteria, rabbit holes, and
+stories — derived here, never inherited from the sketch line.
+
+### 4. Offer Story Breakdown
+
+After the epics exist, offer to break each into stories via
+[story.md](story.md), or leave story creation for later. Do not auto-create
+stories — the user chooses when to go deeper.
+
+## Guidelines
+
+**DO:**
+- Treat the Expected epics sketch as seeds, not specifications
+- Confirm the epic set with the user before creating any epic
+- Record the `milestone:` pointer on every epic created from a milestone
+- Let each epic define its own scope and AC, independent of the sketch
+
+**DON'T:**
+- Copy the milestone's outcome, success criteria, or deliverables into an
+  epic body (contrasts: record the `milestone:` pointer, strip the content)
+- Create epics the user has not confirmed (contrasts: settle the set first)
+- Create stories automatically (contrasts: offer, let the user choose)
+
+## Error Handling
+
+- No PRD found: route to creating a PRD first, or to `epic.md` for direct
+  epic creation without a milestone
+- PRD has no milestones defined: route the user to define them in the PRD
+  first, or proceed with direct epic creation
+- Milestone has no Expected epics sketch: ask the user to outline the epics,
+  or derive candidates from the milestone's Outcome and Scope boundary and
+  confirm before creating
+- Epic name conflicts with an existing epic: suggest an alternative or
+  confirm overwrite (defer to `epic.md` handling)

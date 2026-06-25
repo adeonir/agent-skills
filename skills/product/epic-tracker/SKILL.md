@@ -8,7 +8,8 @@ description: >-
   tracker with no local files. Falls back to markdown as source of
   truth when no tracker is configured. Triggers: "create epic", "new
   epic", "create story", "new story", "edit story", "create issue",
-  "report bug", "create release", "update status", "show roadmap",
+  "report bug", "create release", "decompose milestone", "update status",
+  "show roadmap",
   "list epics", "sync to tracker", "push to linear", "push to github",
   "pull from tracker", "configure tracker", "handoff".
   Not for implementing a named story with an existing spec, project-
@@ -35,6 +36,9 @@ Falls back to markdown when not.
 ## Triggers
 
 - **Epic** ("create epic", "new epic") → [epic.md](references/epic.md)
+- **Decompose** ("decompose milestone", "break down PRD", "plan
+  milestone", "create epics from PRD") →
+  [decompose.md](references/decompose.md)
 - **Story** ("create story", "new story", "add story") →
   [story.md](references/story.md)
 - **Edit Story** ("edit story", "update story body", "change story") →
@@ -60,6 +64,10 @@ Falls back to markdown when not.
 and `.artifacts/docs/brief.md` before prompting; falls back to direct
 questions when neither file exists.
 
+`decompose.md` reads a chosen PRD milestone and creates its epic set,
+composing `epic.md` (and optionally `story.md`); the epics it creates carry
+a `milestone:` pointer to their parent.
+
 `status.md` covers both status updates and roadmap reads.
 
 `sync.md` is also auto-loaded by core refs (epic, story, bug, release)
@@ -82,6 +90,8 @@ after the artifact is saved when `epic-tracker.kind` is set and not `none`.
   edits that change AC text
 - Capture cross-artifact order with `blocked_by`; sync maps it to the
   tracker's native dependency relation
+- Decompose a PRD milestone into its epics with `decompose.md`; record the
+  `milestone:` parent pointer on each epic
 - Delegate sizing to the implementation phase
 
 ## Anti-Pattern: Tracker Operations in Core Refs

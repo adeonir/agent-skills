@@ -60,6 +60,7 @@ stored — the inverse is derived, and the tracker keeps both sides in sync.
 
 ```
 create epic                -- plan a new epic with stories, scope, and acceptance criteria
+decompose milestone        -- break a PRD milestone into its epics
 create story               -- add a user-facing story to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
