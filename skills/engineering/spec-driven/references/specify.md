@@ -283,9 +283,9 @@ Reconcile against Step 1:
 - Lower → **de-escalate only** with positive evidence that every decision is
   canonical (`file:line` or area-cache anchor); otherwise hold the higher size.
 
-Set frontmatter `scope` to the reconciled size and `scope-calibration:
-confirmed | escalated | de-escalated`. Record the load-bearing decisions that
-drove the verdict as a row in `## Decisions`.
+Set frontmatter `scope` to the reconciled size. Record the verdict (confirmed,
+escalated, or de-escalated) and the load-bearing decisions that drove it as a row
+in `## Decisions`.
 
 If the gate escalates to **Complex**, note any gray areas as Open Questions and
 suggest [discuss.md](discuss.md), consistent with discovery's Gray Area Detection.
@@ -396,7 +396,7 @@ check silently.
 - [ ] No speculative Goal or User Story (YAGNI): each solves a present need within the Success Criteria; speculative items moved to Non-Goals, not Open Questions
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
-- [ ] scope-calibration verdict is recorded in frontmatter and the load-bearing decisions that set the scope appear in `## Decisions`
+- [ ] the scope verdict (confirmed/escalated/de-escalated) and the load-bearing decisions that set the scope appear in `## Decisions`
 - [ ] Every agent gap-fill is in `## Assumptions` as `agent-assumed` — none left as a stated fact in Goals, User Stories, or ACs
 - [ ] `discovery:` provenance is resolved to `human` or `autonomous-assumed` (not the placeholder)
 
@@ -560,8 +560,11 @@ Subagent brief (task-specific input, no conversation history):
   ("a delete exists elsewhere, so its absence here is a real gap")
 - The lenses below
 
-**Lenses.** Select only those that apply (a data migration skips actor and state);
-each is answerable from the spec's contents.
+**Lenses.** Depth scales with scope, like the design and tasks Plan dispatch: at
+**Medium** the subagent runs light — only the three a canonical reapplication still
+tends to drop (happy↔failure symmetry, CRUD/lifecycle symmetry, actor coverage); at
+**Large/Complex** it runs all six. Select only those that apply (a data migration
+skips actor and state); each is answerable from the spec's contents.
 
 | Lens | Asks |
 |------|------|
@@ -685,7 +688,6 @@ ALWAYS use this exact template structure:
 ---
 name: {{name}}
 scope: {{medium|large|complex}}
-scope-calibration: {{confirmed|escalated|de-escalated}}
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
 user-facing: {{true|false}}

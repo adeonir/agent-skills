@@ -131,9 +131,9 @@ size:
   confirmed canonical with a `file:line` or area-cache anchor. Absent that
   evidence, never lower the size — the asymmetry is deliberate.
 
-Record the verdict in spec.md frontmatter (`scope` = the reconciled size,
-`scope-calibration: confirmed | escalated | de-escalated`) and the load-bearing
-decisions that drove it as a row in `## Decisions`. On escalation the rest of the
+Record the reconciled size in `scope`, and the verdict (confirmed, escalated, or
+de-escalated) plus the load-bearing decisions that drove it as a row in
+`## Decisions`. On escalation the rest of the
 pipeline follows the new size — including the approaches step only Large/Complex
 runs.
 
