@@ -113,6 +113,7 @@ essential discovery — it informs scope decisions and validation.
 - Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
 - Features without clear user connection → "Which persona needs this? What problem does it solve for them?"
 - No clear value model → "Who pays? How? What justifies the cost?"
+- Scope is one undifferentiated blob → "If you shipped in phases, what's the first coherent slice that delivers value on its own? What waits for later?"
 
 **Sufficient when:**
 
@@ -120,6 +121,7 @@ essential discovery — it informs scope decisions and validation.
 - Each must-have connects to the primary problem and persona
 - Value generation model is understood or marked as TBD
 - Boundaries are defined (what is explicitly out of scope)
+- Delivery phases are identifiable — the prioritized scope groups into milestones, each with a coherent outcome
 
 #### Topic 5: Journeys & Constraints
 
@@ -186,7 +188,7 @@ the drafts to the user.
 - Journeys should be product-level (actor, goal, flow, conditions) — no UI components, endpoints, or implementation details
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
-- Each milestone should represent a coherent deliverable that can feed downstream feature planning
+- Each milestone is defined by its outcome, success criteria, and scope boundary, plus a light sketch of the epics it expects — seeds that feed downstream delivery planning without dictating epic scope, AC, or stories
 
 ## PRD Template
 
@@ -300,10 +302,19 @@ sources: []
 
 ## 9. Milestones
 
-| Milestone | Deliverables |
-|-----------|-------------|
-| {{milestone_1}} | {{key features and capabilities included}} |
-| {{milestone_2}} | {{key features and capabilities included}} |
+### {{Milestone Name}}
+
+- **Outcome:** {{capability this milestone delivers and the value it unlocks}}
+- **Success criteria:** {{observable signal it is done; ties back to Goals}}
+- **Scope boundary:** {{what this phase includes and what it defers}}
+- **Expected epics:** light sketch of the epics this milestone needs —
+  capability area + one line each. Seeds for delivery planning, not
+  definitions; they never dictate an epic's scope, AC, or stories.
+  - {{epic-name}} — {{one-line expectation}}
+  - {{epic-name}} — {{one-line expectation}}
+
+{Repeat this subsection for each milestone. A milestone groups several
+epics; sequencing between milestones is a roadmap concern, not defined here.}
 
 ## 10. Assumptions
 
@@ -342,7 +353,7 @@ sources: []
 | 6. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
 | 7. Edge Cases | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
 | 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
-| 9. Milestones | Key deliverables per phase — each can generate a spec | Topic 4: Value & Scope |
+| 9. Milestones | Per-milestone outcome, success criteria, scope boundary, and a light sketch of expected epics (seeds for delivery planning) | Topic 4: Value & Scope |
 | 10. Assumptions | What we believe to be true that underpins the plan | Validation phase |
 | 11. Risks | What could go wrong and how to address it | Validation phase |
 | 12. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
