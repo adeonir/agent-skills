@@ -213,9 +213,12 @@ Any failed check: resolve before writing code.
 #### During (Implementation)
 
 - **Test-first (only when a test runner is detected):** if the project has a test
-  command from the quality gates, author the task's tests first — write a failing test
-  for each AC the task covers, make it pass with the minimum code, then refactor with
-  the test green. This authoring loop is separate from the After quality gate, which
+  command from the quality gates, author the task's tests first — write a test for
+  each AC the task covers, run it and confirm it fails (the red), make it pass with
+  the minimum code (the green), then refactor with the test green. Record the
+  red→green per AC: that observed transition is the binding evidence verify's AC→test
+  map consumes (see [verify.md](verify.md) Step 6) — a test that was never red may
+  pass vacuously. This authoring loop is separate from the After quality gate, which
   *runs* the resulting suite; when no test runner exists, skip it and implement directly
 - Follow design.md architecture precisely
 - Match patterns from reference files exactly
@@ -270,7 +273,7 @@ patterns, and visual references (if provided). Verify handles:
 - Design adherence (code matches spec/design)
 - Pattern adherence (code follows project conventions)
 - Code correctness (semantic checks linters and type-checkers miss)
-- Test coverage (AC-to-test map and traceability checks, when a test runner exists)
+- Test coverage (AC→test map with red→green binding plus traceability when a test runner exists; announces read-only mode when none)
 - Visual adherence (layout matches references, optional)
 
 If verify finds issues, fix them before moving to the next task. See

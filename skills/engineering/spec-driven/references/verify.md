@@ -86,20 +86,37 @@ Findings merge into the outcome table in Step 8.
 
 ### Step 6: Test Coverage
 
-Only when the project has a test runner (a test command from implement's quality
-gates). Skip entirely otherwise — there is nothing to bind to.
+Branch on whether the project has a test runner (a test command from implement's
+quality gates):
+
+- **No test runner.** Do not skip silently — there is nothing to bind to, and the
+  user must not read green as tested. Report in the Step 8 outcome that AC
+  verification is read-only here (design adherence + code correctness only): no
+  execution proof, no AC→test binding. Add a one-line Operational Follow-up to
+  spec.md ("no test runner — ACs unverified by test") so the gap is durable, not
+  assumed-green. Then skip the map, binding, and checks below.
+- **Test runner present.** Run the map, binding, and checks below.
 
 **AC → test map.** For each AC this task covers, identify the test(s) that exercise it
 — match by the behavior the test asserts, not by any tag or annotation. Report the
 mapping in the Step 8 outcome:
 
-| AC | Covering test(s) |
-|----|------------------|
-| AC-1 | {{test name or describe block}} |
+| AC | Covering test(s) | Red→green observed |
+|----|------------------|--------------------|
+| AC-1 | {{test name or describe block}} | {{yes / no}} |
+
+**Binding.** Matching by asserted behavior says a test *looks* right; the red→green
+transition says it *binds*. A covering test counts only if it was observed to fail
+when the behavior was absent and pass once present — the red→green recorded by
+implement's test-first (see [implement.md](implement.md) During). A
+test that maps to an AC but was never observed red may pass vacuously: flag it
+(medium) and re-derive it red→green before the AC counts as covered. An AC covered
+only by a pre-existing test has no fresh red→green — confirm its binding before
+counting it, never assume it.
 
 **Checks.** From the map, assert:
 
-- **No uncovered AC** — every AC this task covers has at least one covering test
+- **No uncovered AC** — every AC this task covers has at least one covering test with an observed red→green
 - **No orphan test** — every new test traces to an AC or Edge Case; a test mapping to
   nothing is dead or testing the wrong thing
 - **No untraced task** — the task maps to at least one AC (cross-check tasks.md
@@ -108,7 +125,7 @@ mapping in the Step 8 outcome:
   is exercised by at least one test
 
 A failed check is a finding (high for uncovered AC or orphan code, medium for orphan
-test or untraced task) — fix before the task passes.
+test, untraced task, or unbound test) — fix before the task passes.
 
 **Coverage (only when a coverage tool is detected).** Report changed-file coverage from
 the tool's output. Flag a drop against the pre-change baseline as a finding — do not
