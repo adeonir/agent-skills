@@ -87,10 +87,18 @@ sees what gates it.
 ### Roadmap (grouped by milestone)
 
 For "show roadmap", group epics by their `milestone:` pointer instead of
-listing them flat. Order milestones by the PRD's section 9 sequence when the
-PRD is available; epics with no `milestone:` go in a final "No milestone"
-group. Show the milestone name only — its definition lives in the PRD, not
-restated here.
+listing them flat. The view is **epic-driven**: only milestones that have
+epics appear — a PRD milestone stays absent until `decompose.md` turns it
+into epics, so tentative or future milestones never clutter the roadmap.
+Order milestones by the PRD's section 9 sequence when the PRD is available;
+epics with no `milestone:` go in a final "No milestone" group. Show the
+milestone name only — its definition lives in the PRD, not restated here.
+
+The view is recomputed each time, so it always reflects the current (living)
+PRD and epics — no stored roadmap to go stale. It is slug-tolerant: an epic
+whose `milestone:` no longer matches any PRD milestone still groups under
+that slug, so a renamed or removed milestone degrades gracefully instead of
+dropping the epic.
 
 ```text
 ## Milestone: {milestone-name} (2/3 epics done)

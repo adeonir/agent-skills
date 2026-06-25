@@ -28,11 +28,19 @@ capability area plus a one-line expectation each — not epic definitions.
 
 ### 2. Confirm the Epic Set
 
-1. Present the sketched epics as a proposed set.
-2. Let the user add, drop, merge, split, or rename. The sketch is a starting
+1. Check which epics already exist for this milestone — scan
+   `.artifacts/epics/` (or the tracker) for epics whose `milestone:` matches.
+   Re-running over a living PRD is expected: propose only the **missing**
+   epics, and never recreate or overwrite one that exists.
+2. Present the missing sketched epics as a proposed set.
+3. Let the user add, drop, merge, split, or rename. The sketch is a starting
    point, not a fixed list — the delivery breakdown is decided here, not in
    the PRD.
-3. Settle the epic set before creating anything.
+4. Settle the epic set before creating anything.
+
+This workflow only *adds* epics. When a milestone's definition changed and an
+existing epic needs adjusting, that is a manual call — decompose does not
+reconcile drift against epics already created.
 
 ### 3. Create Each Epic
 
@@ -62,6 +70,7 @@ stories — the user chooses when to go deeper.
 - Confirm the epic set with the user before creating any epic
 - Record the `milestone:` pointer on every epic created from a milestone
 - Let each epic define its own scope and AC, independent of the sketch
+- Re-run safely over a living PRD: add only epics missing for the milestone, leaving existing ones untouched
 
 **DON'T:**
 - Copy the milestone's outcome, success criteria, or deliverables into an
