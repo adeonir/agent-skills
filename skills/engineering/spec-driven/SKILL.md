@@ -58,7 +58,7 @@ Structured development workflow with adaptive depth.
 - **Knowledge format** (decisions, gotchas, conventions) →
   [knowledge.md](references/knowledge.md)
 - **Auto-sizing scope assessment** →
-  [auto-sizing.md](references/auto-sizing.md) (loaded by `specify.md` Step 1)
+  [auto-sizing.md](references/auto-sizing.md) (loaded by `specify.md` Steps 1 and 9)
 - **Discovery topics** →
   [discovery.md](references/discovery.md) (loaded by `specify.md` Step 7)
 - **Code-correctness analysis** →

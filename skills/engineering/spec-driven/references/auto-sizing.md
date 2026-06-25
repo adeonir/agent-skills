@@ -82,7 +82,86 @@ decision is novel to the codebase.
 - **Quick mode** is the express lane -- mechanical changes with zero decisions (no audit needed)
 - **Verification is continuous** -- quality gates and acceptance criteria run after each task or range, never deferred to the end
 
+## Recalibration Gate
+
+The Sizing Criterion and Reviewer Test run twice. The first pass (specify.md
+Step 1) sizes the raw input before the problem is understood. This gate is the
+**second pass**: it re-sizes after discovery, when the load-bearing decisions are
+actually visible, and before the spec binds. It is the primary catch for a
+mis-sized feature — the Safety Valve below is only the emergency net for what
+this gate still misses.
+
+### Why a second pass
+
+First-pass sizing is a self-judgment on the raw input. An agent that reads a
+feature as canonical records Medium and never looks again — and the old
+escalation trigger ("the light design surfaces a novel decision") is circular,
+because a design built at Medium depth may never dig deep enough to surface what
+it under-sized. The gate replaces that circular trigger with a direct,
+post-discovery enumeration.
+
+### Procedure
+
+Run after discovery (and brownfield baseline), before approaches and spec
+generation. Independence from the first pass is the point — achieve it by
+isolation, not by re-reading the first verdict.
+
+1. **Enumerate** the load-bearing decisions discovery surfaced — every choice the
+   build cannot make mechanically (data location, enforcement layer, conflict
+   strategy, integration wiring, an implementation fork discovery flagged).
+2. **Classify novelty** per decision: is the codebase's answer already canonical
+   (a pattern present, citable to `file:line` or the area cache), or novel (no
+   precedent)? Cite evidence per decision — a `file:line` for canonical, or
+   "no precedent found" for novel.
+3. **Default adversarially:** a decision whose novelty cannot be ruled out without
+   exploration counts as novel. When in doubt, it is novel.
+4. **Derive the size** from that enumeration, not from the first pass: zero novel
+   decisions → Medium; ≥1 novel → Large; ambiguity in the problem itself (the
+   decision set is not yet knowable) → Complex.
+
+### Verdict and reconciliation
+
+The gate returns a size and the decision list. Reconcile against the first-pass
+size:
+
+- **Escalate** (Medium → Large, Large → Complex) whenever the gate's size is
+  higher. Escalation is cheap and always wins ties.
+- **Confirm** when they agree.
+- **De-escalate** only with positive evidence: every load-bearing decision is
+  confirmed canonical with a `file:line` or area-cache anchor. Absent that
+  evidence, never lower the size — the asymmetry is deliberate.
+
+Record the verdict in spec.md frontmatter (`scope` = the reconciled size,
+`scope-calibration: confirmed | escalated | de-escalated`) and the load-bearing
+decisions that drove it as a row in `## Decisions`. On escalation the rest of the
+pipeline follows the new size — including the approaches step only Large/Complex
+runs.
+
+### Dispatch
+
+Isolation is what removes the first-pass anchor, so dispatch the recalibration as
+an isolated subagent that never sees the Step 1 verdict. Brief (task-specific
+input, no conversation history):
+
+- Raw feature description (or extracted PRD content)
+- Discovery synthesis: problem, scope, the candidate decisions and forks
+  surfaced, gray areas; brownfield baseline if any
+- The Sizing Criterion, Reviewer Test, and this procedure
+- Paths to `.artifacts/codebase/{area}.md` and `CLAUDE.md` if they exist, so
+  novelty is checked against real patterns
+
+Return shape (structured, no prose): `{ size, decisions: [{ decision, novel,
+evidence }] }`. The subagent is never told the first-pass size — that omission is
+the isolation. Main agent reconciles per the verdict rules above.
+
+Run inline only when subagent support is unavailable. Inline independence is
+weaker (the Step 1 verdict sits in context); mitigate by re-deriving the decision
+list from scratch before consulting the first-pass size.
+
 ## Safety Valve
+
+The Recalibration Gate above is the planned catch; this valve is the emergency
+net for a decision that slips past it and only becomes visible during design.
 
 If the light Medium design surfaces a load-bearing decision novel to the
 codebase — branching dependencies, multiple viable approaches, or unknowns

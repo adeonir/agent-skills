@@ -8,7 +8,7 @@ Create a new feature specification with adaptive depth. Load
 - [When to Use](#when-to-use)
 - [Content Separation (CRITICAL)](#content-separation-critical)
 - [Arguments](#arguments)
-- [Workflow](#workflow) — Steps 1-17
+- [Workflow](#workflow) — Steps 1-18
 - [Codebase Mapping Note](#codebase-mapping-note)
 - [Guidelines](#guidelines)
 - [Spec Template](#spec-template)
@@ -85,6 +85,10 @@ If **Small**: redirect to [quick-mode.md](quick-mode.md) and stop here.
 Record the assessed scope in spec.md frontmatter as `scope: medium|large|complex`.
 Small never reaches this file -- it redirects to quick-mode above, so `small`
 is not a valid spec.md scope value.
+
+This is the first-pass size on the raw input, and it is **provisional**: Step 9
+recalibrates it after discovery, when the load-bearing decisions are visible. Do
+not treat the Step 1 size as final, and do not let it anchor the recalibration.
 
 ### Step 2: Check Project Context
 
@@ -245,12 +249,41 @@ If no `.artifacts/codebase/{area}.md` cache exists for the area:
 - Scan a few representative files for brownfield context
 - Proceed with limited codebase understanding if that is enough
 
-### Step 9: Generate Feature Name
+### Step 9: Recalibrate Scope
+
+Discovery has now surfaced the load-bearing decisions the raw input hid. Re-size
+before the spec binds. Load [auto-sizing.md](auto-sizing.md) and run its
+**Recalibration Gate**: enumerate the load-bearing decisions, classify each as
+canonical or novel to the codebase with evidence, default novel when novelty
+cannot be ruled out, and derive the size from that enumeration — independently of
+the Step 1 size.
+
+Dispatch the gate as an isolated subagent that never sees the Step 1 verdict (see
+auto-sizing.md Dispatch). Run inline only when subagent support is unavailable;
+inline independence is weaker, so re-derive the decision list from scratch before
+consulting the Step 1 size.
+
+Reconcile against Step 1:
+
+- Gate size higher → **escalate** and carry the new size forward (Step 14 Propose
+  Approaches now runs if the size reached Large/Complex).
+- Agreement → **confirm**.
+- Lower → **de-escalate only** with positive evidence that every decision is
+  canonical (`file:line` or area-cache anchor); otherwise hold the higher size.
+
+Set frontmatter `scope` to the reconciled size and `scope-calibration:
+confirmed | escalated | de-escalated`. Record the load-bearing decisions that
+drove the verdict as a row in `## Decisions`.
+
+If the gate escalates to **Complex**, note any gray areas as Open Questions and
+suggest [discuss.md](discuss.md), consistent with discovery's Gray Area Detection.
+
+### Step 10: Generate Feature Name
 
 Convert description to kebab-case:
 - "Add user authentication" -> `add-user-auth`
 
-### Step 10: Ask About Branch
+### Step 11: Ask About Branch
 
 Default suggestion is a new branch. Record the user's choice in `branch:` frontmatter only — the branch is created at implement start, not here.
 
@@ -264,13 +297,13 @@ Branch for this feature?
 - Whichever option the user picks, store the resolved branch name in spec.md frontmatter.
 - Do not run `git checkout` or `git switch` in this step. Branch creation belongs to implement.md.
 
-### Step 11: Create Spec Directory
+### Step 12: Create Spec Directory
 
 ```bash
 mkdir -p .artifacts/specs/{date}-{name}
 ```
 
-### Step 12: Include Visual References
+### Step 13: Include Visual References
 
 Check if the prompt includes images (screenshots, mockups, wireframes, diagrams):
 
@@ -286,7 +319,7 @@ Check if the prompt includes images (screenshots, mockups, wireframes, diagrams)
 **If no images:**
 - Skip this step (designs/ folder is optional)
 
-### Step 13: Propose Approaches (Large/Complex only)
+### Step 14: Propose Approaches (Large/Complex only)
 
 Skip for Small and Medium scope.
 
@@ -305,7 +338,7 @@ Example structure:
 Do not draft spec.md until user confirms an approach. Record the chosen approach in
 spec.md Notes section.
 
-### Step 14: Generate spec.md
+### Step 15: Generate spec.md
 
 Use the template (below) as the canonical structure — it wins over any
 existing spec. Do not read sibling specs in `.artifacts/specs/` for shape
@@ -339,6 +372,7 @@ check silently.
 - [ ] No speculative Goal or User Story (YAGNI): each solves a present need within the Success Criteria; speculative items moved to Non-Goals, not Open Questions
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
+- [ ] scope-calibration verdict is recorded in frontmatter and the load-bearing decisions that set the scope appear in `## Decisions`
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
@@ -431,7 +465,7 @@ requirements here. Fill from this conversation, or write "None" when a `sources:
 covers it. Never delete either section -- an explicit "None" asserts nothing was lost; a
 missing section is an omission.
 
-### Step 15: Spec Review
+### Step 16: Spec Review
 
 After generating spec.md, review the written artifact against the criteria below and
 record the verdict in frontmatter `review:`. This is the spec's own review gate —
@@ -449,11 +483,11 @@ Set the verdict:
 - All pass → `review: pass`
 - Any fail → `review: changes`; report the failing lines, fix them, re-run until `pass`
 
-The review verdict gates specify's own approval gate (Step 17), not the downstream
+The review verdict gates specify's own approval gate (Step 18), not the downstream
 phases — a spec edited after review resets `review` to `pending` and must be
 re-reviewed before that gate.
 
-### Step 16: Handoff Completeness Gate
+### Step 17: Handoff Completeness Gate
 
 Before presenting the spec as ready, confirm self-sufficiency:
 
@@ -467,13 +501,13 @@ Before presenting the spec as ready, confirm self-sufficiency:
 The artifact is the only thing the next session sees. If it is only in
 chat, it does not exist.
 
-### Step 17: Approval Gate
+### Step 18: Approval Gate
 
 Present a summary:
 
 ```text
 Spec ready: `.artifacts/specs/{date}-{name}/spec.md`
-Type: {greenfield|brownfield} | Scope: {medium|large|complex}
+Type: {greenfield|brownfield} | Scope: {medium|large|complex} ({confirmed|escalated|de-escalated})
 Review: {pass|changes} | Open questions: {count or "none"} | Gray areas: {yes/no}
 
 Approve to proceed, or describe changes.
@@ -530,6 +564,7 @@ ALWAYS use this exact template structure:
 ---
 name: {{name}}
 scope: {{medium|large|complex}}
+scope-calibration: {{confirmed|escalated|de-escalated}}
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
 status: draft
