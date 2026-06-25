@@ -177,6 +177,18 @@ that defined this spec here as you process it; leave `[]` only when nothing
 durable defines the work -- the content lived only in conversation and must
 go to `## Session Context` instead.
 
+**Snapshot the raw input:**
+
+Beyond the `sources:` pointer, the raw input that defined this spec is frozen
+verbatim into `inputs/` (written at Step 12). Three homes, three jobs, no overlap:
+
+- `sources:` -- a *pointer* to where the live source lives; it may drift or move.
+- `## Session Context` -- *distilled* prompt-only material with no durable source.
+- `inputs/` -- the *raw, verbatim* copy of what was ingested, kept frozen so a
+  later audit can check the delivered feature against the original source, not only
+  the spec. Distinct from `designs/` (visual references) and `design.md` (the
+  technical design doc).
+
 **Detect defect origin:**
 
 The spec captures WHAT to build, including for fixes. When the input
@@ -302,6 +314,18 @@ Branch for this feature?
 ```bash
 mkdir -p .artifacts/specs/{date}-{name}
 ```
+
+Snapshot the raw input into `inputs/` -- the frozen copy the audit oracle reads
+(distinct from the `sources:` pointer; see Step 6). Non-destructive copy only:
+
+```bash
+mkdir -p .artifacts/specs/{date}-{name}/inputs
+cp -R {input-path} .artifacts/specs/{date}-{name}/inputs/   # @file.md or a directory of docs
+```
+
+When the input was conversational (no file), write the prompt or ticket text
+verbatim to `inputs/prompt.md` instead. Skip the snapshot entirely when nothing
+durable defined the spec (the `sources: []` case).
 
 ### Step 13: Include Visual References
 

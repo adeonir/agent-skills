@@ -53,7 +53,7 @@ Read spec.md frontmatter. If `status` is not `to-review`:
 Steps 3-5 are owned by a read-only audit subagent. Main agent resolves the
 feature and clears the pre-audit gate (Steps 1-2, including any user
 interaction), re-runs the test suite (see Test Re-run below), then dispatches
-once, receives a structured verdict, and applies it in Steps 6-8.
+once, receives a structured verdict, and applies it in Steps 6-9.
 
 Why dispatched: evidence gathering reads spec, design, source, tests, and UAT
 notes -- context-heavy and read-only. Isolating it keeps the main context clean
@@ -78,21 +78,26 @@ recorded at implement time (see [verify.md](verify.md) Step 6), not on this re-r
 Subagent brief:
 
 - Inputs (paths only -- subagent reads from disk): `spec.md` (Goals + Success
-  Criteria), `design.md`, the feature's source and test files, and
-  `.artifacts/specs/{date}-{name}/validate.md` if it exists
+  Criteria), `design.md`, the feature's source and test files,
+  `.artifacts/specs/{date}-{name}/validate.md` if it exists, and
+  `.artifacts/specs/{date}-{name}/inputs/` (the raw input snapshot) if it exists
 - The test-suite re-run result from the main agent (green, or red with the
   failing tests) -- use it as the automated-test evidence; never infer test
   status from reading the test files
 - "Run Steps 3-5: load every `- [ ]` under `## Goals` and `## Success Criteria`
   (never `## Operational Follow-ups`, never ACs), gather evidence per the
   evidence-source order, and classify each target Met / Unmet / Unmeasurable
-  with an evidence cite. Return the verdict; do not edit any file."
+  with an evidence cite. If `inputs/` exists, also compare the delivered feature
+  and spec against the original input and report divergences -- each marked
+  accounted-for (a Non-Goal or Decision explains it) or unaccounted. Return the
+  verdict; do not edit any file."
 
 Return shape:
 
 ```text
 { targets: [{ name, classification, evidence }],
-  all_met: bool, unmet: int, unmeasurable: int }
+  all_met: bool, unmet: int, unmeasurable: int,
+  input_divergences: [{ what, accounted_for: bool, note }] }
 ```
 
 When subagent support is unavailable, main runs Steps 3-5 inline.
@@ -220,7 +225,24 @@ If any flag fires, append exactly one line to the audit report:
 
 If no flag fires, emit no output for this step.
 
-### Step 9: Relationship to Validate
+### Step 9: Input Divergence Check
+
+Independent of audit outcome, and only when `inputs/` exists. The audit subagent
+(Step 2a) returns `input_divergences` from comparing the delivered feature and
+spec against the raw input snapshot. Surface the **unaccounted** ones -- divergences
+no Non-Goal or Decision explains -- as advisory lines; never block the status
+transition. An accounted-for divergence (an intentional scope cut recorded in
+Non-Goals or Decisions) is not reported.
+
+For each unaccounted divergence, append one line to the audit report:
+
+> Source divergence (unaccounted): {what} -- in `inputs/` but not in the delivered feature; no Non-Goal or Decision explains it.
+
+If `inputs/` is absent or every divergence is accounted-for, emit no output for
+this step. This is the oracle outside the spec: it catches silent narrowing of the
+source, but it informs -- the user adjudicates whether a divergence matters.
+
+### Step 10: Relationship to Validate
 
 Audit is evidence-based and automated. Validate ([validate.md](validate.md))
 is user-observation based and interactive.

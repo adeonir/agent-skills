@@ -119,6 +119,7 @@ modify existing auth flow to add 2FA
 │   │   ├── design.md              # Architecture (HOW)
 │   │   ├── tasks.md               # Implementation tasks (WHEN)
 │   │   ├── test-evidence.md       # Captured red→green test runs (when a runner exists)
+│   │   ├── inputs/                # Raw input snapshot — PRD/ticket/prompt (frozen oracle)
 │   │   └── designs/               # Screenshots, mockups (optional)
 │   └── {date}-fix-redirect/
 │       └── task.md                # Quick mode task record
