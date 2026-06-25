@@ -137,26 +137,17 @@ decisions that drove it as a row in `## Decisions`. On escalation the rest of th
 pipeline follows the new size — including the approaches step only Large/Complex
 runs.
 
-### Dispatch
+### Running it
 
-Isolation is what removes the first-pass anchor, so dispatch the recalibration as
-an isolated subagent that never sees the Step 1 verdict. Brief (task-specific
-input, no conversation history):
-
-- Raw feature description (or extracted PRD content)
-- Discovery synthesis: problem, scope, the candidate decisions and forks
-  surfaced, gray areas; brownfield baseline if any
-- The Sizing Criterion, Reviewer Test, and this procedure
-- Paths to `.artifacts/codebase/{area}.md` and `CLAUDE.md` if they exist, so
-  novelty is checked against real patterns
-
-Return shape (structured, no prose): `{ size, decisions: [{ decision, novel,
-evidence }] }`. The subagent is never told the first-pass size — that omission is
-the isolation. Main agent reconciles per the verdict rules above.
-
-Run inline only when subagent support is unavailable. Inline independence is
-weaker (the Step 1 verdict sits in context); mitigate by re-deriving the decision
-list from scratch before consulting the first-pass size.
+Run inline, after discovery and before the spec binds. This is a re-classification
+(enumerate the decisions, derive a size), not a review of a written artifact, so
+the modest isolation a separate context would add does not justify a dispatch. The
+independence comes from the *framing*, not from a fresh context: re-derive the
+load-bearing decision list from scratch and only then compare against the first-pass
+size, so the Step 1 verdict does not lead the enumeration. The adversarial default
+(novelty that cannot be ruled out counts as novel) is the guard against confirming a
+wrong first pass. Produce the size and the decision list, then reconcile per the
+verdict rules above.
 
 ## Safety Valve
 

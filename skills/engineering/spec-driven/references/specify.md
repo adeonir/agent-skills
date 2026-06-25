@@ -270,10 +270,10 @@ canonical or novel to the codebase with evidence, default novel when novelty
 cannot be ruled out, and derive the size from that enumeration — independently of
 the Step 1 size.
 
-Dispatch the gate as an isolated subagent that never sees the Step 1 verdict (see
-auto-sizing.md Dispatch). Run inline only when subagent support is unavailable;
-inline independence is weaker, so re-derive the decision list from scratch before
-consulting the Step 1 size.
+Run the gate inline (see auto-sizing.md "Running it"): re-derive the load-bearing
+decision list from scratch and only then compare against the Step 1 size, so the
+first pass does not lead the enumeration. This is a re-classification, not a review
+of a written artifact, so it does not warrant an isolated subagent.
 
 Reconcile against Step 1:
 

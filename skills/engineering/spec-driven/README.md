@@ -210,10 +210,6 @@ to re-run.
 A: Every phase that runs above Small dispatches to a subagent for context
 isolation; Auto-Sizing decides the depth, not whether to dispatch:
 
-- **Scope recalibration subagent** — one per specify phase, re-sizes after
-  discovery with no view of the first-pass size (the isolation removes the
-  anchor); read-only, returns a structured verdict (size + load-bearing
-  decisions) the main agent reconciles
 - **Coverage review subagent** — one per specify phase, reads the drafted spec
   fresh and hunts requirement-set gaps along structural lenses (happy↔failure,
   CRUD/lifecycle, state closure, actor, Goal sufficiency, preconditions);
@@ -239,7 +235,7 @@ isolation; Auto-Sizing decides the depth, not whether to dispatch:
   agent applies
 
 Discovery subagents (research, exploration) hand off via disk
-artifacts. Scope-recalibration, Coverage, Plan, and audit subagents hand off via structured
+artifacts. Coverage, Plan, and audit subagents hand off via structured
 chunks because the harness blocks Edit/Write for read-only subagents. At Medium the same subagents
 dispatch but at light depth; only quick mode (Small) runs entirely without
 dispatch.
