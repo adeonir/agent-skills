@@ -167,6 +167,14 @@ means the implementation is not in its verified state, so no Goal tied to
 behavior can be Met. Skip this gate only when no test runner exists -- audit
 noted that limitation at re-run time.
 
+**Hard gate -- UAT (user-facing only).** If spec.md frontmatter has
+`user-facing: true` and `uat` is not `pass`, audit cannot set `done` even when
+every Goal and Success Criterion is Met: keep `status: to-review`, report that UAT
+is required, and direct the user to [validate.md](validate.md). A user-facing
+feature reaches `done` only after a human walks the scenarios -- in autonomous
+runs this is the point that requires a person. Features with `user-facing: false`
+skip this gate.
+
 **If every Goal and Success Criterion is Met:**
 
 - Set `status: done` in spec.md frontmatter
@@ -215,12 +223,16 @@ If no flag fires, emit no output for this step.
 ### Step 9: Relationship to Validate
 
 Audit is evidence-based and automated. Validate ([validate.md](validate.md))
-is user-observation based and interactive. They do not block each other:
+is user-observation based and interactive.
 
-- Audit can run before or after validate
-- Audit transitions status to `done`; validate does not
-- Validate may revert any `[x]` (AC, Goal, Success Criterion) if the user
-  reproves a scenario -- audit must be re-run after such a revert
+- For a **user-facing** feature (`user-facing: true`), validate gates `done`:
+  audit holds at `to-review` until `uat: pass` (Step 7). For a non-user-facing
+  feature the two are independent and may run in any order
+- Audit transitions status to `done`; validate does not -- it records the `uat:`
+  verdict that audit's user-facing gate reads
+- Validate may revert any `[x]` (AC, Goal, Success Criterion) and set
+  `uat: changes` if the user reproves a scenario -- audit must be re-run after
+  such a revert
 
 ## Guidelines
 
@@ -237,6 +249,7 @@ is user-observation based and interactive. They do not block each other:
 **DON'T:**
 - Touch AC checkboxes or status tags -- those belong to verify.md
 - Set `status: done` if any Goal or Success Criterion is Unmet or Unmeasurable
+- Close a user-facing feature (`status: done`) before `uat: pass`
 - Rewrite Goals or Success Criteria during audit -- route to specify instead
 - Assume Met because the code exists -- check the observable outcome
 - Read or classify items under `## Operational Follow-ups` -- that section is non-audit by design and never gates status

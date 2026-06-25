@@ -34,8 +34,8 @@ draft --[design]→ ready --[implement]→ in-progress --[implement done]→ to-
 | `implement.md` | Yes | `draft` or `ready` | `in-progress` |
 | `implement.md` | Yes | (all tasks done + per-task verify passed) | `to-review` |
 | `verify.md` | No (only marks AC `[x]` in spec.md body) | - | - |
-| `audit.md` | Yes | `to-review` | `done` |
-| `validate.md` | No (may revert AC/Goal/Success `[x]` if UAT reproves) | - | - |
+| `audit.md` | Yes | `to-review` (+ tests green, + `uat: pass` if user-facing) | `done` |
+| `validate.md` | No (sets `uat:`; may revert AC/Goal/Success `[x]` if UAT reproves) | - | - |
 
 **Branch ownership:** `specify.md` records the intended branch name in spec.md frontmatter only; `implement.md` Step 3 creates/switches to the branch before any code is written. No other reference touches git refs.
 
@@ -58,6 +58,10 @@ status: ready  # draft | ready | in-progress | to-review | done
 
 The `review` field (`pending | pass | changes`) is a separate spec-quality gate
 owned by specify.md Step 16 -- it does not transition with `status`.
+
+The `uat` field (`pending | pass | changes`) is the UAT verdict owned by
+validate.md; for `user-facing: true` features audit holds `done` until `uat: pass`.
+Like `review`, it does not transition with `status`.
 
 ## Common Mistakes to AVOID
 

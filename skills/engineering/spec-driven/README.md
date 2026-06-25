@@ -144,6 +144,10 @@ Each acceptance criterion tracks its own status inline in spec.md:
 - **`in-tasks`**: Assigned to a task in tasks
 - **`verified`**: Confirmed by verify after implementation
 
+A user-facing feature (`user-facing: true`) also carries a `uat:` verdict
+(`pending | pass | changes`): audit holds `done` until UAT passes. Non-user-facing
+features skip that gate.
+
 ## Requirements
 
 - Existing project directory
@@ -187,10 +191,12 @@ the right mode.
 
 A: Verify is internal to implement — it runs automatically after each
 task or range, checks code against design and patterns, and marks AC
-`[x]` on pass. It is never user-invoked. Validate is on-demand UAT at
-any scope — the user walks scenarios and may reprove any `[x]`. Audit
-is the gate before `done` and before any PR — evidence-based check of
-Goals and Success Criteria; marks their `[x]` and transitions status.
+`[x]` on pass. It is never user-invoked. Validate is UAT — the user
+walks scenarios and may reprove any `[x]`; it is required before `done`
+for user-facing features and on-demand otherwise. Audit is the gate
+before `done` and before any PR — evidence-based check of Goals and
+Success Criteria; it re-runs the test suite, holds `done` until UAT
+passes for user-facing features, marks their `[x]`, and transitions status.
 Audit may run per-story at the commit boundary or once at end-of-spec.
 A reproved `[x]` from validate forces the next implement loop or audit
 to re-run.

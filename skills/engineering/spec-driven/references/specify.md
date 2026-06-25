@@ -400,6 +400,11 @@ move it to Non-Goals with the reason. Do not route it to Open Questions: an Open
 may return, and spec-driven ships every User Story it keeps, so the screen happens here,
 before the spec binds, not at implementation.
 
+**User-facing flag:** Set `user-facing: true` when any user story or AC describes
+behavior a person observes or interacts with (a screen, an output, a user-visible
+response); set `false` only for purely backend or infrastructure work with no observable
+surface. The flag gates whether UAT is required before `done` — when in doubt, `true`.
+
 **Acceptance Criteria:** Use EARS-lite — one of five clause shapes, 1:1 per AC, no
 compound clauses. The shape names how the requirement is triggered; the sentence
 states one observable obligation:
@@ -629,8 +634,10 @@ scope: {{medium|large|complex}}
 scope-calibration: {{confirmed|escalated|de-escalated}}
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
+user-facing: {{true|false}}
 status: draft
 review: pending
+uat: pending
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 branch: {{branch-name or main}}

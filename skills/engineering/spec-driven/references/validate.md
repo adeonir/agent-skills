@@ -1,28 +1,32 @@
 # Interactive UAT
 
-User acceptance testing where the user manually verifies behavior. On-demand -- the user requests it when they want to test.
+User acceptance testing where the user manually verifies behavior. Required before `done` for user-facing features (`user-facing: true`); on-demand for the rest.
 
 ## When to Use
 
-- User explicitly requests UAT or manual testing
-- Feature is in `to-review` (implement finished) -- audit and validate can run in any order
+- Required before `done` when spec.md has `user-facing: true` -- audit blocks the close until UAT passes
+- User explicitly requests UAT or manual testing (any feature)
+- Feature is in `to-review` (implement finished)
 - Any scope -- not restricted to Complex
 
 ## When to Skip
 
-- User does not request it
-- Feature has no user-facing behavior (purely backend/infrastructure)
+- Feature has `user-facing: false` (purely backend/infrastructure) and the user does not request UAT
 
 ## Relationship to Audit
 
 Validate is the human-observation layer. Audit ([audit.md](audit.md)) is the
 evidence-based layer.
 
-- Audit transitions status `to-review` -> `done`; validate does **not**
-- Audit gates the PR; validate does not. Validate is on-demand and may run before or after audit -- no enforced order
+- Audit transitions status `to-review` -> `done`; validate does **not** -- it
+  records the UAT verdict in `uat:` (`pass` / `changes`), and audit reads it
+- For a **user-facing** feature, validate gates `done`: audit will not close until
+  `uat: pass`. For a non-user-facing feature the two are independent and may run in
+  any order
+- Audit gates the PR; validate does not
 - If UAT reproves a scenario, validate may revert any `[x]` (AC, Goal, or
-  Success Criterion) in spec.md -- after a revert, audit must be re-run
-  before the feature can move to `done`
+  Success Criterion) in spec.md and set `uat: changes` -- after a revert, audit
+  must be re-run before the feature can move to `done`
 
 ## Workflow
 
@@ -65,11 +69,13 @@ Walk the user through each scenario:
 
 **If all pass:**
 - Confirm feature is validated by user observation
+- Set `uat: pass` in spec.md frontmatter
 - Suggest running `audit` (if not already run) to close status `to-review` -> `done`
 - Suggest commit if not already committed
 
 **If issues found:**
 - List what needs fixing with severity
+- Set `uat: changes` in spec.md frontmatter
 - If a previously-checked AC, Goal, or Success Criterion is reproved, revert
   its `[x]` to `[ ]` in spec.md and tell the user audit must be re-run
 - Suggest specific areas to re-implement
