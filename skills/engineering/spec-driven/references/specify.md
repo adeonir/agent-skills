@@ -398,6 +398,7 @@ check silently.
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
 - [ ] scope-calibration verdict is recorded in frontmatter and the load-bearing decisions that set the scope appear in `## Decisions`
 - [ ] Every agent gap-fill is in `## Assumptions` as `agent-assumed` — none left as a stated fact in Goals, User Stories, or ACs
+- [ ] `discovery:` provenance is resolved to `human` or `autonomous-assumed` (not the placeholder)
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 

@@ -401,7 +401,8 @@ When all tasks are complete, run a final pass before setting `status: to-review`
 Goals and Success Criteria are NOT checked here -- they are audit.md's job.
 Do not mark their `[ ]` from this reference.
 
-Audit is mandatory before `done`. UAT is on-demand.
+Audit is mandatory before `done`. UAT is on-demand, except required before `done`
+for user-facing features (`user-facing: true`).
 
 ## Guidelines
 

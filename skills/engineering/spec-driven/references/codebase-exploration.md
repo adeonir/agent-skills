@@ -60,7 +60,7 @@ The agent discovers and uses whatever tools are available in the environment.
 6. **Extract Code Patterns**
 
    Document specific patterns with file:line references:
-   ```
+   ```text
    Pattern: Function naming
    - Project uses: camelCase for functions
    - Example: src/utils/helpers.ts:15
