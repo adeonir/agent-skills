@@ -188,7 +188,7 @@ the drafts to the user.
 - Journeys should be product-level (actor, goal, flow, conditions) — no UI components, endpoints, or implementation details
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
-- Each milestone is defined by its outcome, success criteria, and scope boundary, plus a light sketch of the epics it expects — seeds that feed downstream delivery planning without dictating epic scope, AC, or stories
+- Milestones are optional — include them only when the delivery splits into phases. Each milestone is defined by its outcome, success criteria, and scope boundary, plus a light sketch of the epics it expects — seeds that feed downstream delivery planning without dictating epic scope, AC, or stories
 
 ## PRD Template
 
@@ -302,6 +302,9 @@ sources: []
 
 ## 9. Milestones
 
+{Optional — omit this section for an un-phased product. Include it when the
+delivery splits into phases.}
+
 ### {{Milestone Name}}
 
 - **Outcome:** {{capability this milestone delivers and the value it unlocks}}
@@ -353,7 +356,7 @@ epics; sequencing between milestones is a roadmap concern, not defined here.}
 | 6. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
 | 7. Edge Cases | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
 | 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
-| 9. Milestones | Per-milestone outcome, success criteria, scope boundary, and a light sketch of expected epics (seeds for delivery planning) | Topic 4: Value & Scope |
+| 9. Milestones | Optional. Per-milestone outcome, success criteria, scope boundary, and a light sketch of expected epics (seeds for delivery planning) | Topic 4: Value & Scope |
 | 10. Assumptions | What we believe to be true that underpins the plan | Validation phase |
 | 11. Risks | What could go wrong and how to address it | Validation phase |
 | 12. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
