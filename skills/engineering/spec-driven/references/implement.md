@@ -114,21 +114,24 @@ For each task to implement:
 - Check [P] (parallel) - proceed
 - Check [B:T-X] - verify T-X is done
 
-**Subagent dispatch:** Dispatch one subagent per user invocation. Scope
-follows the invocation argument:
+**Subagent dispatch:** The user story is the dispatch grain. Dispatch one
+subagent per user story in the selection, sequentially in spec order:
 
 - `[T-1]`: one subagent for the single task.
-- `[T-1..T-5]`: one subagent for the whole range.
-- `[US-1]`: one subagent for the whole user story.
-- `[--all]`: one subagent for all pending tasks.
+- `[T-1..T-5]`: one subagent per user story the range spans, in spec order.
+- `[US-1]`: one subagent for that user story.
+- `[--all]`: one subagent per pending user story, in spec order.
 
-The subagent owns Steps 5-6 for every task in its scope. It implements
+Each subagent owns Steps 5-6 for the tasks of its user story. It implements
 tasks in dependency order (`[B:T-X]` waits for `T-X`), resolves order
-internally, runs verify per task (Step 5-After), marks `[x]` in
-tasks.md (Step 6), and -- when auto-commit is on -- commits each boundary it
-completes. Main agent does not fan out across tasks -- it
-dispatches once and resumes at Step 7 (Check Completion) after the
-subagent returns.
+internally, runs verify per task (Step 5-After), marks `[x]` in tasks.md
+(Step 6), and -- when auto-commit is on -- commits the boundary it completes.
+
+Main agent dispatches one user story at a time and waits for it to return
+before dispatching the next -- a single active writer, never concurrent
+across stories, never fanning out across tasks. Between stories it reads
+tasks.md and per-task status from disk. After the last user story in the
+selection returns, it resumes at Step 7 (Check Completion).
 
 Subagent brief includes:
 - Paths to spec.md, design.md, tasks.md, coding-principles.md
@@ -155,8 +158,10 @@ tasks.md and per-task status from disk, resumes at Step 7.
 Dispatch shape:
 
 ```text
-Turn N:   dispatch one subagent for the invocation scope.
-Turn N+1: read tasks.md and per-task status from disk, resume at Step 7.
+For each user story US-k in the selection (spec order):
+  dispatch one subagent for US-k; wait for it to return;
+  read tasks.md and per-task status from disk.
+After the last user story: resume at Step 7.
 ```
 
 Map this shape to the subagent dispatch primitive available in the harness.
