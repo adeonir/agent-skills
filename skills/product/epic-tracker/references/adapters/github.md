@@ -224,13 +224,29 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking
 is not assumed. Releases are tags, not Issues, so they carry no
 dependencies.
 
+### set_milestone
+
+Mirrors an epic's `milestone:` pointer to a GitHub Milestone, gated by the
+milestone mirror (see Milestones in ../sync.md). GitHub Milestones are
+repo-level; an Issue belongs to at most one.
+
+1. Inputs: the Issue number and the milestone name (the epic's `milestone:`
+   slug).
+2. Find the repo Milestone whose title matches the name; create it if absent
+   — title only, no due date (a milestone defines delivery, not a deadline;
+   an optional link back to the PRD may go in its description).
+3. Assign the Issue to that Milestone, replacing any previous one.
+4. Stories under the epic inherit the Milestone (see create_story) unless
+   overridden.
+5. Return success.
+
 ### fetch_artifact
 
 1. Fetch the Issue, Milestone, or Release by id/number via MCP.
 2. Return: state (mapped from open/closed + labels or Project fields),
    title, body, labels, sub-issue parent (when present), blocked-by Issue
    numbers (via the dependencies endpoints, or `gh issue view --json
-   blockedBy`), url.
+   blockedBy`), milestone (when assigned), url.
 
 ### list_artifacts
 

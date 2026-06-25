@@ -56,6 +56,16 @@ dependencies, Linear issue relations); in markdown-only mode the field is
 the source of truth and surfaces in the overview. Only `blocked_by` is
 stored — the inverse is derived, and the tracker keeps both sides in sync.
 
+## Milestones & Roadmap
+
+An epic can point to a PRD milestone via `milestone:` (its direct parent).
+"show roadmap" groups epics by milestone — a markdown view that needs no
+tracker, with a "No milestone" bucket for unassigned epics. Milestones are
+optional; mirroring them to the tracker's native grouping (GitHub Milestone,
+Linear Initiative) is opt-in, asked once when a tracker is configured. The
+milestone's definition lives in the PRD — epic-tracker only references and
+groups by it.
+
 ## Usage
 
 ```

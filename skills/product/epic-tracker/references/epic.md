@@ -204,7 +204,8 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 
 ## Error Handling
 
-- PRD has multiple milestones: ask which milestone maps to this epic
+- PRD has milestones: ask which one this epic serves, or none — the
+  `milestone:` pointer is optional and an epic may sit outside any milestone
 - User provides vague context: ask clarifying questions, don't assume
 - Epic name conflicts with existing: suggest alternative or confirm
   overwrite
