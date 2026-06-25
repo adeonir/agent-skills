@@ -27,13 +27,13 @@ markdown in `.artifacts/epics/` is the source of truth.
 
 ## Tracker Integration
 
-| Artifact | Linear | GitHub | Jira |
-|----------|--------|--------|------|
-| Epic     | Project | Issue (parent) | Epic |
-| Story    | Issue | Issue (sub-issue of Epic) | Story |
-| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) | Bug |
-| Issue    | Issue + label `task` | Issue (sub-issue of Epic/Story or standalone) | Task |
-| Release  | Cycle | Release tag | Fix Version |
+| Artifact | Linear | GitHub |
+|----------|--------|--------|
+| Epic     | Project | Issue (parent) |
+| Story    | Issue | Issue (sub-issue of Epic) |
+| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
+| Issue    | Issue + label `task` | Issue (sub-issue of Epic/Story or standalone) |
+| Release  | Cycle | Release tag |
 
 GitHub uses sub-issues as the hierarchy primitive. Milestones and
 Projects v2 are orthogonal opt-in layers (date grouping, custom
@@ -93,7 +93,7 @@ declines push).
 
 ## Requirements
 
-- Optional: tracker MCP or CLI for push/pull operations (Linear, GitHub, Jira)
+- Optional: tracker MCP or CLI for push/pull operations (Linear, GitHub)
 - Falls back to markdown-only when no integration is available
 
 ## FAQ

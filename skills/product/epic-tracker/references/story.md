@@ -138,7 +138,7 @@ epic: {{epic-name}}
 type: story
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
-#   kind: linear | github | jira
+#   kind: linear | github
 #   id: PROJ-123
 #   url: https://...
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ

@@ -96,8 +96,8 @@ Apply the resumption gate before proceeding:
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
 - Ask the user (per session, cached) whether to push to the tracker
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
-  the adapter adds `bug` label and severity labels (Jira uses the native
-  `Bug` issue type) — no markdown file is created
+  the adapter adds `bug` label and severity labels — no markdown file is
+  created
 - If no: save to `.artifacts/epics/{epic-name}/{bug-name}.md` or
   `.artifacts/epics/standalone/{bug-name}.md`
 
@@ -137,7 +137,7 @@ type: bug
 severity: {{critical/high/medium/low}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
-#   kind: linear | github | jira
+#   kind: linear | github
 #   id: PROJ-123
 #   url: https://...
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ

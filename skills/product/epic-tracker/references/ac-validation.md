@@ -48,8 +48,8 @@ Extract the AC section from the Story body:
 - Within a block, find lines matching `**Given** {value}`, `**When** {value}`, `**Then** {value}` (case-insensitive bold label, whitespace-tolerant).
 
 Tolerate tracker normalization: trailing whitespace, blank lines between
-blocks, single vs double newlines around headings. Linear and Jira
-occasionally reflow paragraphs; the parser must not break on these.
+blocks, single vs double newlines around headings. Linear occasionally
+reflows paragraphs; the parser must not break on these.
 
 Output a list of `{id, given, when, then}` tuples plus any malformed
 blocks (those that didn't yield all three fields).

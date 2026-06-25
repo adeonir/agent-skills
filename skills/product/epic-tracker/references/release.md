@@ -53,7 +53,7 @@ Fill the template (below):
 - Ask the user (per session, cached) whether to push to the tracker
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   the adapter maps Release to the closest native primitive (Linear: Cycle,
-  GitHub: Release tag, Jira: Fix Version) and links included stories/tasks/
+  GitHub: Release tag) and links included stories/tasks/
   bugs to the release — no markdown file is created
 - If no: save to `.artifacts/epics/releases/{release-name}.md`
 
@@ -92,8 +92,8 @@ status: planned
 sources: []
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
-#   kind: linear | github | jira
-#   id: PROJ-123  # Linear Cycle id, GitHub Release tag, or Jira Fix Version id
+#   kind: linear | github
+#   id: PROJ-123  # Linear Cycle id or GitHub Release tag
 #   url: https://...
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ
 ---

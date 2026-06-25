@@ -123,7 +123,7 @@ status: planned
 sources: []
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
-#   kind: linear | github | jira
+#   kind: linear | github
 #   id: PROJ-123
 #   url: https://...
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ
@@ -140,8 +140,8 @@ MUST NOT contain: scenario narratives, upstream IDs (§x.x, EC-N, ADR-NNN), sect
 ## Stories
 
 <!-- Local-only: stripped by adapters on push to a tracker. Tracker's
-native child panel (GitHub Sub-issues, Linear sub-issues, Jira child
-issues) is the source of truth for hierarchy once a tracker is wired. -->
+native child panel (GitHub Sub-issues, Linear sub-issues) is the source
+of truth for hierarchy once a tracker is wired. -->
 
 - [ ] {{story-name}} — {{brief description of what this story delivers}}
 - [ ] {{story-name}} — {{brief description}}

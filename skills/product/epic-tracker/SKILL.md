@@ -4,13 +4,13 @@ description: >-
   Manages the delivery lifecycle from epic planning through story
   tracking to implementation handoff. 5 artifact types: Epic, Story,
   Bug, Issue, Release. Tracker-first when configured (Linear, GitHub
-  Issues/Projects, Jira) via MCP or CLI — artifacts go directly to the
+  Issues/Projects) via MCP or CLI — artifacts go directly to the
   tracker with no local files. Falls back to markdown as source of
   truth when no tracker is configured. Triggers: "create epic", "new
   epic", "create story", "new story", "edit story", "create issue",
   "report bug", "create release", "update status", "show roadmap",
   "list epics", "sync to tracker", "push to linear", "push to github",
-  "push to jira", "pull from tracker", "configure tracker", "handoff".
+  "pull from tracker", "configure tracker", "handoff".
   Not for implementing a named story with an existing spec, project-
   wide overview, feature status within a spec, or quick fixes.
 ---
@@ -47,7 +47,7 @@ Falls back to markdown when not.
   [release.md](references/release.md)
 - **Status / roadmap** ("status", "update status", "mark done", "show
   roadmap", "list epics", "overview") → [status.md](references/status.md)
-- **Sync** ("sync to tracker", "push to linear/github/jira", "pull from
+- **Sync** ("sync to tracker", "push to linear/github", "pull from
   tracker", "configure tracker") → [sync.md](references/sync.md)
 - **Handoff** ("handoff", "implement story", "start story") →
   [handoff.md](references/handoff.md)
@@ -55,8 +55,6 @@ Falls back to markdown when not.
   [adapters/linear.md](references/adapters/linear.md)
 - **GitHub adapter** (auto-loaded by sync) →
   [adapters/github.md](references/adapters/github.md)
-- **Jira adapter** (auto-loaded by sync) →
-  [adapters/jira.md](references/adapters/jira.md)
 
 `epic.md` opens with context discovery — reads `.artifacts/docs/prd.md`
 and `.artifacts/docs/brief.md` before prompting; falls back to direct
@@ -67,7 +65,7 @@ questions when neither file exists.
 `sync.md` is also auto-loaded by core refs (epic, story, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 
-`adapters/{linear,github,jira}.md` are loaded by `sync.md` based on
+`adapters/{linear,github}.md` are loaded by `sync.md` based on
 `epic-tracker.kind`. Not direct triggers.
 
 `ac-validation.md` is auto-loaded by `story.md` (create) and
