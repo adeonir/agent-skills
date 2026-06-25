@@ -153,7 +153,9 @@ features skip that gate.
 ## Requirements
 
 - Existing project directory
-- No external dependencies
+- No external dependencies; `python3` (standard library only) is needed solely for the
+  optional `scripts/verify-citations.py` — citation resolution at the exploration gate
+  (Step 6a), which falls back to a manual check without it
 
 ## FAQ
 

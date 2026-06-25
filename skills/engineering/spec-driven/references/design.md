@@ -195,10 +195,29 @@ Map this shape to the subagent dispatch primitive available in the harness.
 
 Before proceeding to the design generation phase (Steps 10-13), verify the exploration artifact's `Touched Types -- Member Enumeration` table is populated for every entity, projection, or contract the feature will read or modify.
 
+**Citation resolution (deterministic).** Run the bundled script against the exploration
+artifact:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/scripts/verify-citations.py .artifacts/codebase/{area}.md
+```
+
+It extracts every `file:line` citation and checks each resolves against the repo (file
+exists, line in range), exiting non-zero with the unresolved list if any fail. An
+unresolved citation is poisoned ground -- the checklists downstream would `[pass]`
+against it -- so a non-zero exit fails this gate. Review the printed list: a genuine
+miss returns to exploration; a rare false positive (e.g. a URL the regex caught) the
+agent disregards. If the script is unavailable, open each cited `file:line` by hand.
+
+**Content match (spot-check).** For the load-bearing citations -- the touched types the
+feature reads or writes -- open the cited `file:line` and confirm it holds the claimed
+member. Resolution proves the line exists, not that it says what the row claims.
+
 **Exit criterion (all must hold):**
 
 - Every touched type named in the spec or data flow has at least one row in the enumeration table
-- Every row cites a real `file:line`
+- `verify-citations.py` exits zero -- every cited `file:line` resolves against the repo
+- Every load-bearing citation's content matches its claimed member (spot-check above)
 - Every absence claim in the Absence Claims table has a `file:line` anchor
 - No row has a blank Member cell or TBD `file:line`
 

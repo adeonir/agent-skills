@@ -164,7 +164,9 @@ sources: []
 
 Every entity, projection, contract, or type the feature reads or writes.
 All exposed members listed — no sampling. Every "no change needed"
-claim anchored to `file:line`.
+claim anchored to `file:line`. Every `file:line` is script-verified at the
+design gate (Step 6a), so it must resolve against the repo — a formatted-but-wrong
+cite fails the gate.
 
 | Type / Entity | Member | file:line | Notes (feature reads? writes? nullable?) |
 |---------------|--------|-----------|------------------------------------------|
