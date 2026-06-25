@@ -52,8 +52,8 @@ Read spec.md frontmatter. If `status` is not `to-review`:
 
 Steps 3-5 are owned by a read-only audit subagent. Main agent resolves the
 feature and clears the pre-audit gate (Steps 1-2, including any user
-interaction), then dispatches once, receives a structured verdict, and applies
-it in Steps 6-8.
+interaction), re-runs the test suite (see Test Re-run below), then dispatches
+once, receives a structured verdict, and applies it in Steps 6-8.
 
 Why dispatched: evidence gathering reads spec, design, source, tests, and UAT
 notes -- context-heavy and read-only. Isolating it keeps the main context clean
@@ -61,11 +61,28 @@ for the user-visible checkbox and status writes. The subagent is read-only by
 harness contract (Edit/Write/NotebookEdit excluded), so it returns the verdict;
 main applies it (pattern: subagent returns slots, main fills the result).
 
+**Test Re-run (main agent, before dispatch).** When the project has a test
+runner, the main agent runs the full suite once and captures the result --
+green, or red with the failing tests. This is the audit's own execution, not a
+trust of verify's per-task claims: a suite green during implement can be red at
+audit (a later task regressed it, or it was never actually green). The result
+becomes the automated-test evidence the subagent uses (Step 4) and a hard gate
+on the outcome (Step 7). When no test runner exists, skip the re-run and report
+that audit cannot re-validate tests -- Goals tied to behavior rest on code
+inspection only.
+
+A green re-run confirms the suite passes now; it does not confirm each test binds
+to its AC (a test can pass vacuously). Binding rests on the red->green evidence
+recorded at implement time (see [verify.md](verify.md) Step 6), not on this re-run.
+
 Subagent brief:
 
 - Inputs (paths only -- subagent reads from disk): `spec.md` (Goals + Success
   Criteria), `design.md`, the feature's source and test files, and
   `.artifacts/specs/{date}-{name}/validate.md` if it exists
+- The test-suite re-run result from the main agent (green, or red with the
+  failing tests) -- use it as the automated-test evidence; never infer test
+  status from reading the test files
 - "Run Steps 3-5: load every `- [ ]` under `## Goals` and `## Success Criteria`
   (never `## Operational Follow-ups`, never ACs), gather evidence per the
   evidence-source order, and classify each target Met / Unmet / Unmeasurable
@@ -103,7 +120,7 @@ of preference:
 
 | Evidence Type | Source | When to Use |
 |---------------|--------|-------------|
-| Automated test | Test files matching the behavior | Goals tied to behavior |
+| Automated test | The main agent's test re-run result (Step 2a), matched to the behavior | Goals tied to behavior |
 | Metric measurement | Benchmark, profiler, instrumentation output | Success Criteria with numbers ("under 2 minutes", "zero errors") |
 | Code inspection | Relevant files from design.md | Goals tied to presence of a capability |
 | Manual observation | UAT session notes or user-supplied evidence | Subjective user-facing behavior |
@@ -143,6 +160,12 @@ For **Unmeasurable** targets: leave `- [ ]` unchanged and report -- the spec
 needs a rewrite, not an audit pass.
 
 ### Step 7: Determine Outcome
+
+**Hard gate -- test re-run.** If the Step 2a re-run was red, audit cannot pass:
+keep `status: to-review`, report the failing tests, and stop. A failing suite
+means the implementation is not in its verified state, so no Goal tied to
+behavior can be Met. Skip this gate only when no test runner exists -- audit
+noted that limitation at re-run time.
 
 **If every Goal and Success Criterion is Met:**
 
@@ -204,6 +227,7 @@ is user-observation based and interactive. They do not block each other:
 **DO:**
 - Require evidence for every `[x]` mark -- never flip based on plausibility
 - Prefer automated evidence (tests, metrics) over manual observation
+- Re-run the test suite during audit when a runner exists -- the evidence is the run, not verify's earlier claim; a red re-run blocks `done`
 - Leave Unmeasurable targets unchecked and flag the spec for rewrite
 - Keep audit deterministic -- same evidence yields same classification
 - Consult UAT notes if validate ran before audit
