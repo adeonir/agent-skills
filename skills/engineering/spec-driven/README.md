@@ -205,6 +205,23 @@ Audit may run per-story at the commit boundary or once at end-of-spec.
 A reproved `[x]` from validate forces the next implement loop or audit
 to re-run.
 
+**Q: How do the evidence and provenance artifacts fit together?**
+
+A: Three artifacts form a thin layer so a later phase can check an earlier one
+against something concrete instead of trusting its word — each authored where it is
+produced and read downstream:
+
+- **`test-evidence.md`** — implement's test-first captures each AC's real red→green
+  run; verify reads it to confirm a covering test actually binds, and audit re-runs
+  the suite.
+- **`inputs/`** — specify freezes the raw input (PRD/ticket/prompt); audit's oracle
+  checks the delivered feature against it, catching where the spec narrowed the source.
+- **`## Assumptions`** (in spec.md) — discovery records every unverified premise,
+  tagged `user-hypothesis` or `agent-assumed`; audit surfaces the unconfirmed
+  `agent-assumed` ones as advisory.
+
+Each artifact's format lives in the reference that authors it; this is just the map.
+
 **Q: How does subagent dispatch work?**
 
 A: Every phase that runs above Small dispatches to a subagent for context
