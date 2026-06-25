@@ -426,10 +426,16 @@ move it to Non-Goals with the reason. Do not route it to Open Questions: an Open
 may return, and spec-driven ships every User Story it keeps, so the screen happens here,
 before the spec binds, not at implementation.
 
-**User-facing flag:** Set `user-facing: true` when any user story or AC describes
-behavior a person observes or interacts with (a screen, an output, a user-visible
-response); set `false` only for purely backend or infrastructure work with no observable
-surface. The flag gates whether UAT is required before `done` — when in doubt, `true`.
+**User-facing flag:** Set `user-facing: true` when the feature delivers something that
+needs **visual approval** — a screen, layout, component, button, copy/text, visual
+state, or flow the user sees: what an automated test confirms *functions* but not that
+it *looks or reads right*. Set `false` for backend, API, data, infrastructure, library,
+or logic work with no such surface — correctness there is fully verifiable by automated
+tests (which the audit re-run already enforces), so there is nothing for a human to
+approve by sight. Test: would a human need to look at this and approve that it is
+visually and textually correct and the UX makes sense? Notification, email, or CLI text
+a human reads counts (it is copy to approve); pure machine-to-machine output does not.
+The flag gates whether UAT is required before `done` — when in doubt, `true`.
 
 **Acceptance Criteria:** Use EARS-lite — one of five clause shapes, 1:1 per AC, no
 compound clauses. The shape names how the requirement is triggered; the sentence

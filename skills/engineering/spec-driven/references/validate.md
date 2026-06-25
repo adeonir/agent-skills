@@ -11,7 +11,7 @@ User acceptance testing where the user manually verifies behavior. Required befo
 
 ## When to Skip
 
-- Feature has `user-facing: false` (purely backend/infrastructure) and the user does not request UAT
+- Feature has `user-facing: false` (no visual surface to approve — backend/API/logic) and the user does not request UAT
 
 ## Relationship to Audit
 
