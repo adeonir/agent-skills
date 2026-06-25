@@ -19,7 +19,7 @@ narrative guidance that is not a discrete rule.
 | `naming-conventions` | global | file and directory casing, slash command equals name |
 | `skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
 | `skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use` |
-| `skillmd-structure` | `SKILL.md` | required top, forbidden sections, body length |
+| `skill-md-structure` | `SKILL.md` | required top, forbidden sections, body length |
 | `skill-references` | `skills/**` | one level deep, required header, no fan-forward |
 | `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
 | `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
