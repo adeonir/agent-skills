@@ -118,6 +118,7 @@ modify existing auth flow to add 2FA
 │   │   ├── decisions.md           # Gray area decisions (WHY, optional)
 │   │   ├── design.md              # Architecture (HOW)
 │   │   ├── tasks.md               # Implementation tasks (WHEN)
+│   │   ├── test-evidence.md       # Captured red→green test runs (when a runner exists)
 │   │   └── designs/               # Screenshots, mockups (optional)
 │   └── {date}-fix-redirect/
 │       └── task.md                # Quick mode task record

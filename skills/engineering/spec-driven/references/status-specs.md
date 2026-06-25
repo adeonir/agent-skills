@@ -100,6 +100,7 @@ namespace (scope `quick` in frontmatter):
 | decisions.md | Present |
 | design.md | Present |
 | tasks.md | Present |
+| test-evidence.md | Present |
 
 ### Progress
 [=========> ] 45% (5/11 tasks)

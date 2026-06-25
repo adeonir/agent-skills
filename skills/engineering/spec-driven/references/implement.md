@@ -215,11 +215,26 @@ Any failed check: resolve before writing code.
 - **Test-first (only when a test runner is detected):** if the project has a test
   command from the quality gates, author the task's tests first — write a test for
   each AC the task covers, run it and confirm it fails (the red), make it pass with
-  the minimum code (the green), then refactor with the test green. Record the
-  red→green per AC: that observed transition is the binding evidence verify's AC→test
-  map consumes (see [verify.md](verify.md) Step 6) — a test that was never red may
-  pass vacuously. This authoring loop is separate from the After quality gate, which
-  *runs* the resulting suite; when no test runner exists, skip it and implement directly
+  the minimum code (the green), then refactor with the test green. **Capture** the
+  red→green per AC to `test-evidence.md` (format below): the test command, the red
+  run's exit code and failing assertion, and the green confirmation. The captured
+  output -- not a prose claim -- is the binding evidence verify's AC→test map
+  consumes (see [verify.md](verify.md) Step 6); a test that was never red may pass
+  vacuously. This authoring loop is separate from the After quality gate, which
+  *runs* the resulting suite; when no test runner exists, skip it (write no evidence
+  file) and implement directly
+
+  `test-evidence.md` format (sensible default -- adapt to the runner's output):
+
+  ```markdown
+  # Test Evidence: {feature}
+
+  ## AC-1
+  - Test: {test name or describe block}
+  - Command: `{invocation}`
+  - Red (behavior absent): exit {non-zero} -- {failing assertion or error excerpt}
+  - Green (behavior present): exit 0
+  ```
 - Follow design.md architecture precisely
 - Match patterns from reference files exactly
 - Use project's error handling approach

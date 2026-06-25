@@ -107,12 +107,13 @@ mapping in the Step 8 outcome:
 
 **Binding.** Matching by asserted behavior says a test *looks* right; the red→green
 transition says it *binds*. A covering test counts only if it was observed to fail
-when the behavior was absent and pass once present — the red→green recorded by
-implement's test-first (see [implement.md](implement.md) During). A
-test that maps to an AC but was never observed red may pass vacuously: flag it
-(medium) and re-derive it red→green before the AC counts as covered. An AC covered
-only by a pre-existing test has no fresh red→green — confirm its binding before
-counting it, never assume it.
+when the behavior was absent and pass once present — the red→green **captured in
+`test-evidence.md`** by implement's test-first (see [implement.md](implement.md)
+During). Read the recorded red-run output (exit code + failing assertion), not a
+prose claim. A test with no entry in `test-evidence.md`, or one whose recorded run
+was never red, may pass vacuously: flag it (medium) and re-derive it red→green
+before the AC counts as covered. An AC covered only by a pre-existing test has no
+fresh red→green — confirm its binding before counting it, never assume it.
 
 **Checks.** From the map, assert:
 
