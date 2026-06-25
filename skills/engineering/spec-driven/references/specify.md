@@ -502,8 +502,15 @@ asserted it as fact without evidence -- the old "mark as hypothesis") or `agent-
 (the agent filled a gap the human did not answer). Anti-fabrication rule: an
 `agent-assumed` premise is recorded here, never written as a stated fact in Goals, User
 Stories, or ACs. A load-bearing assumption that cannot be confirmed without the user is
-also raised as an Open Question, so it gates the build instead of riding silently. The
-"How it gets confirmed" column gives audit and UAT a target.
+also raised as a `[blocking]` Open Question, so it gates the build instead of riding
+silently. The "How it gets confirmed" column gives audit and UAT a target.
+
+**Open Questions:** Each unresolved item is tagged `[blocking]` (the build cannot
+proceed -- a design or implement decision depends on the answer) or `[deferrable]`
+(captured, resolved later, build proceeds). Discovery sets the tag with the context it
+has. A `[blocking]` question does not stop spec *creation*, but it surfaces at the
+approval gate and halts the phase it bears on -- design and implement read the tag.
+Write "None" when all resolved.
 
 ### Step 16: Spec Review
 
@@ -610,10 +617,15 @@ Present a summary:
 ```text
 Spec ready: `.artifacts/specs/{date}-{name}/spec.md`
 Type: {greenfield|brownfield} | Scope: {medium|large|complex} ({confirmed|escalated|de-escalated})
-Review: {pass|changes} | Open questions: {count or "none"} | Gray areas: {yes/no}
+Review: {pass|changes} | Open questions: {count} ({N blocking}) | Gray areas: {yes/no}
+Discovery: {human|autonomous-assumed} | Assumptions: {count} ({N agent-assumed})
 
 Approve to proceed, or describe changes.
 ```
+
+List every `[blocking]` Open Question and every `agent-assumed` assumption explicitly
+under the summary -- these are the unresolved premises the user approves over, not just
+a count.
 
 Whether to stop here depends on what the user actually asked for. Read the original request:
 
@@ -670,6 +682,7 @@ scope-calibration: {{confirmed|escalated|de-escalated}}
 type: {{greenfield|brownfield}}
 origin: {{feature|defect}}
 user-facing: {{true|false}}
+discovery: {{human|autonomous-assumed}}
 status: draft
 review: pending
 uat: pending
@@ -768,7 +781,10 @@ Criteria.
 
 ## Open Questions
 
-- {{Any unresolved questions, or "None" if all resolved}}
+{{Each tagged `[blocking]` (build cannot proceed without it) or `[deferrable]`
+(resolve later). Write "None" if all resolved.}}
+
+- [deferrable] {{unresolved question}}
 
 ## Decisions
 

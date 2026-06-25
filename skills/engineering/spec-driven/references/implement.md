@@ -72,10 +72,10 @@ its durable source before coding. Read `design.md` (decisions with Source/Scope,
 patterns, component design) and `tasks.md` (the steps to execute).
 If `.artifacts/knowledge.md` exists, read it for project-level decisions and gotchas.
 
-**Blocking-question gate:** If spec.md `## Open Questions` holds any question that
-would change what you are about to build (a blocking question), halt: list the blocking
-items, route to [discuss](discuss.md) or the user to resolve, then exit. Non-blocking
-questions — tentative, deferred-with-reason, or immaterial — do not gate; proceed.
+**Blocking-question gate:** If spec.md `## Open Questions` holds any `[blocking]`
+question, halt: list the blocking items, route to [discuss](discuss.md) or the user to
+resolve, then exit. `[deferrable]` questions do not gate; proceed. For an untagged
+legacy spec, judge whether a question would change what you are about to build.
 
 Implement always runs in **Full mode**: spec + design + tasks all exist (every
 scope above Small produces them). Follow tasks.md. There is no inline

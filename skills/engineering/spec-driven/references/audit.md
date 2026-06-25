@@ -225,22 +225,29 @@ If any flag fires, append exactly one line to the audit report:
 
 If no flag fires, emit no output for this step.
 
-### Step 9: Input Divergence Check
+### Step 9: Source and Discovery Advisories
 
-Independent of audit outcome, and only when `inputs/` exists. The audit subagent
-(Step 2a) returns `input_divergences` from comparing the delivered feature and
-spec against the raw input snapshot. Surface the **unaccounted** ones -- divergences
-no Non-Goal or Decision explains -- as advisory lines; never block the status
-transition. An accounted-for divergence (an intentional scope cut recorded in
+Independent of audit outcome; informing, never blocking. Two advisories.
+
+**Input divergence (only when `inputs/` exists).** The audit subagent (Step 2a)
+returns `input_divergences` from comparing the delivered feature and spec against the
+raw input snapshot. Surface the **unaccounted** ones -- divergences no Non-Goal or
+Decision explains. An accounted-for divergence (an intentional scope cut recorded in
 Non-Goals or Decisions) is not reported.
-
-For each unaccounted divergence, append one line to the audit report:
 
 > Source divergence (unaccounted): {what} -- in `inputs/` but not in the delivered feature; no Non-Goal or Decision explains it.
 
-If `inputs/` is absent or every divergence is accounted-for, emit no output for
-this step. This is the oracle outside the spec: it catches silent narrowing of the
-source, but it informs -- the user adjudicates whether a divergence matters.
+**Discovery risk.** If spec.md frontmatter is `discovery: autonomous-assumed`, or
+`## Assumptions` holds `agent-assumed` rows the audit did not confirm, surface them --
+the spec rests on premises no human validated, and the user should see that before
+`done`.
+
+> Discovery risk: {N} unvalidated agent-assumed assumption(s); discovery: {human|autonomous-assumed}. Review before close.
+
+Emit nothing for an advisory whose condition does not fire (no `inputs/`, every
+divergence accounted-for, `discovery: human` with no unconfirmed assumptions).
+Together these are the oracle outside the spec: they catch silent narrowing of the
+source and unvalidated premises, but inform -- the user adjudicates.
 
 ### Step 10: Relationship to Validate
 

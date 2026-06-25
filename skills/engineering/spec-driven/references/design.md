@@ -63,11 +63,11 @@ Read `.artifacts/specs/{date}-{name}/spec.md`, including `## Decisions` and
 `## Session Context`. Follow any `sources:` pointer to its durable source
 before designing.
 
-**Blocking-question gate:** If spec.md `## Open Questions` holds any question that
-would change the architecture you are about to define (a blocking question), halt:
-list the blocking items, route to [discuss](discuss.md) or the user to resolve, then
-exit. Non-blocking questions — tentative, deferred-with-reason, or immaterial to this
-phase — do not gate; proceed.
+**Blocking-question gate:** If spec.md `## Open Questions` holds any `[blocking]`
+question, halt: list the blocking items, route to [discuss](discuss.md) or the user to
+resolve, then exit. `[deferrable]` questions do not gate; proceed. For an untagged
+legacy spec, judge whether a question would change the architecture you are about to
+define.
 
 If decisions.md exists, load it for resolved gray areas.
 

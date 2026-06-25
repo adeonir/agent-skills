@@ -119,8 +119,9 @@ During discovery, watch for signals that indicate ambiguous areas needing deeper
 - Trade-offs without clear preference
 - Implementation forks the build would otherwise default — theme/skin, locale/routing, brand strings, runtime target
 
-If detected and scope is **Complex**: note them as Open Questions and suggest running
-[discuss.md](discuss.md) after spec is created.
+If detected and scope is **Complex**: note them as Open Questions (each tagged
+`[blocking]` or `[deferrable]`) and suggest running [discuss.md](discuss.md) after spec
+is created.
 
 Implementation forks must be pinned into spec.md (`## Decisions` or `## Session
 Context`) or explicitly marked TBD before drafting — never left to be defaulted
@@ -135,6 +136,9 @@ Before proceeding to drafting, verify:
 - [ ] User confirmed the synthesis
 - [ ] No critical ambiguity remains
 - [ ] Problem is understood with evidence or recorded in the Assumptions ledger
+- [ ] Each Open Question tagged `[blocking]` or `[deferrable]`
+- [ ] `discovery:` provenance set — `human` if a person answered, `autonomous-assumed` if it ran without human answers (the ledger then carries `agent-assumed` rows)
 
-Items unresolved after discovery go to "Open Questions" in spec.md. Never block
-spec creation on unresolved questions.
+Items unresolved after discovery go to "Open Questions" in spec.md, each tagged
+`[blocking]` or `[deferrable]`. Spec creation is never blocked, but a `[blocking]`
+question surfaces at approval and halts the phase it bears on.
