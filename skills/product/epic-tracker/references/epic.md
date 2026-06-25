@@ -88,6 +88,13 @@ Apply the resumption gate before proceeding:
 > and scope from it and its references, with no chat history? If no, add
 > the missing piece (link, scope boundary, decision) before saving.
 
+Apply the provenance gate as well:
+
+> **Provenance gate** — If the project has a PRD (`.artifacts/docs/prd.md`),
+> does this epic record which PRD it derives from, plus the `milestone:` it
+> serves when applicable? If not, add the reference — or confirm with the
+> user that the epic is independent of the PRD before leaving it blank.
+
 ### 3. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
@@ -112,6 +119,7 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - List stories in the epic checklist; create them as separate artifacts later
 - Run discover first, even when the user provides context directly
+- Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
 - Hand sizing off to the implementation phase
 
 **DON'T:**
@@ -197,7 +205,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Milestone:** {{PRD milestone name or "None"}}
 - **Brief:** {{link or "None"}}
-- **PRD:** {{link or "None"}}
+- **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
 - **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}
 ````
