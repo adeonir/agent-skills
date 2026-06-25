@@ -55,14 +55,16 @@ context and skip questions already answered by the document.
 2. Evaluate answers against sufficiency criteria
 3. If criteria not met, deepen -- ask follow-ups targeting the specific gap
 4. If criteria met, summarize understanding and move to next topic
-5. After both topics, present synthesis for user confirmation
+5. After both topics, present synthesis for user confirmation -- separate what the
+   user **stated** from what was **assumed or inferred**; the assumed items go to the
+   `## Assumptions` ledger
 
 ## Adaptive Deepening
 
 Probe further when answers are:
 
 - **Vague**: "users want something better" → ask for specifics
-- **Assumed**: stated as fact without evidence → ask for evidence or mark as hypothesis
+- **Assumed**: stated as fact without evidence → ask for evidence, or record in the Assumptions ledger as `user-hypothesis`
 - **Conflated**: multiple concepts mixed → separate and explore each
 - **Solution-first**: describes what to build before why → redirect to the problem
 - **Overly broad**: "everyone", "all cases" → narrow to most important
@@ -90,7 +92,21 @@ Discovery is not a formality. Challenge ideas with respect, but never be a yes-m
 | User describes vague problem | "Okay, let's proceed" | "Who specifically has this problem? How often?" |
 | User jumps to solution | "Got it, I'll include that" | "Before we define the solution -- what problem does this solve?" |
 | User adds scope mid-discovery | "I'll add that too" | "This changes the scope. Should we focus on the core first?" |
-| User has no evidence | "Noted" | "Without evidence, this is an assumption. Mark as hypothesis?" |
+| User has no evidence | "Noted" | "Without evidence, this is an assumption -- I'll record it in the Assumptions ledger as `user-hypothesis`." |
+
+## Recording Assumptions
+
+Discovery surfaces premises the build will rest on. Both kinds go to the
+`## Assumptions` ledger in spec.md, never silently into the spec body:
+
+- `user-hypothesis` -- the user asserted it as fact without evidence (the "mark as
+  hypothesis" above, now durable).
+- `agent-assumed` -- a gap the human did not answer that you filled to proceed.
+
+**Anti-fabrication:** never write an `agent-assumed` premise as a stated fact in the
+problem, scope, or success synthesis -- record it as an assumption with how it gets
+confirmed. A load-bearing assumption you cannot confirm without the user is also an
+Open Question, not a quiet guess.
 
 ## Gray Area Detection
 
@@ -118,7 +134,7 @@ Before proceeding to drafting, verify:
 - [ ] Unknowns explicitly marked as TBD
 - [ ] User confirmed the synthesis
 - [ ] No critical ambiguity remains
-- [ ] Problem is understood with evidence or marked as hypothesis
+- [ ] Problem is understood with evidence or recorded in the Assumptions ledger
 
 Items unresolved after discovery go to "Open Questions" in spec.md. Never block
 spec creation on unresolved questions.

@@ -397,6 +397,7 @@ check silently.
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
 - [ ] scope-calibration verdict is recorded in frontmatter and the load-bearing decisions that set the scope appear in `## Decisions`
+- [ ] Every agent gap-fill is in `## Assumptions` as `agent-assumed` — none left as a stated fact in Goals, User Stories, or ACs
 
 If any box fails: rewrite the offending lines behaviorally, or move HOW content to design.md. Never ship a spec that leaks design.
 
@@ -479,13 +480,14 @@ paths, no component or hook names. Omit the section entirely if there is nothing
 behavioral to capture beyond what other sections already cover. Boundary vs Session
 Context: Notes holds surrounding evidence (stakeholders, deadlines, prior art);
 Session Context holds prompt-only material that *defines* the work (content/copy,
-constraints, clarifications, user/source-stated assumptions). If losing it would change
-what gets built, it is Session Context, not Notes.
+constraints, clarifications). Unverified premises go to `## Assumptions`. If losing it
+would change what gets built, it is Session Context, not Notes.
 
 **Decisions and Session Context:** Both sections are always present -- the durable home for
 context settled during specify that would otherwise live only in chat. `## Decisions`
 captures choices made among alternatives at the specify grain (scope, requirements,
-product behavior); `## Session Context` captures content, constraints, clarifications, and user/source-stated assumptions.
+product behavior); `## Session Context` captures content, constraints, and clarifications
+(unverified premises go to `## Assumptions`).
 Boundary: design.md runs at every scope above Small, so technical and architecture
 decisions go in its `## Decisions` instead -- spec.md stays at the specify grain,
 design.md owns the implementation grain, no duplication. When discuss.md runs (Complex
@@ -493,6 +495,15 @@ gray areas), its resolutions stay there; record only their downstream effect on 
 requirements here. Fill from this conversation, or write "None" when a `sources:` pointer
 covers it. Never delete either section -- an explicit "None" asserts nothing was lost; a
 missing section is an omission.
+
+**Assumptions:** The durable ledger of unverified premises the build rests on, always
+present (`None` when empty). Each row carries an **origin**: `user-hypothesis` (the user
+asserted it as fact without evidence -- the old "mark as hypothesis") or `agent-assumed`
+(the agent filled a gap the human did not answer). Anti-fabrication rule: an
+`agent-assumed` premise is recorded here, never written as a stated fact in Goals, User
+Stories, or ACs. A load-bearing assumption that cannot be confirmed without the user is
+also raised as an Open Question, so it gates the build instead of riding silently. The
+"How it gets confirmed" column gives audit and UAT a target.
 
 ### Step 16: Spec Review
 
@@ -774,11 +785,20 @@ architecture choices belong in design.md.}}
 ## Session Context
 
 {{Material that defines the work but lives only in this conversation, not
-in a `sources:` pointer — content/copy to implement, user-stated constraints
-and assumptions, clarifications that resolved ambiguity. Write "None" when a
-`sources:` entry covers it.}}
+in a `sources:` pointer — content/copy to implement, user-stated constraints,
+clarifications that resolved ambiguity. Write "None" when a `sources:` entry
+covers it. Unverified premises go to `## Assumptions`, not here.}}
 
 - {{captured item, or "None"}}
+
+## Assumptions
+
+{{Unverified premises the build rests on, tagged by origin. Always present;
+write "None" when empty.}}
+
+| Assumption | Origin | How it gets confirmed |
+|------------|--------|-----------------------|
+| {{premise}} | {{user-hypothesis / agent-assumed}} | {{test / UAT scenario / ask user / metric}} |
 
 ## Notes
 
