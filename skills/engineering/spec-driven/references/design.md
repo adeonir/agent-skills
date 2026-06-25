@@ -367,6 +367,7 @@ Grounding (all scopes):
 - [ ] Every subsystem the design assumes present has a Subsystem Presence verdict anchored to wiring (`file:line`) — "documented" / "planned" does not satisfy it
 - [ ] Every premise's Scope covers this feature's context — a premise true elsewhere but out of scope here is not applied
 - [ ] Every integration-tool decision — a tech new to the codebase whose job is runtime wiring with existing config — cites an executed spike result against the real project config; external docs alone do not satisfy it
+- [ ] No speculative component or abstraction (YAGNI screen): every entry in Component Design traces to an AC or a stated requirement; anything added for a hypothetical future need is removed
 
 Member enumeration (Large/Complex):
 
@@ -485,7 +486,7 @@ Do not start code-producing phases (`implement`) without explicit user approval 
 **DON'T:**
 - Start designing with unresolved open questions in the spec
 - Fabricate APIs or patterns -- verify first
-- Over-architect beyond the feature scope
+- Over-architect beyond the feature scope -- screen speculative components and abstractions out (YAGNI)
 - Sample touched types -- enumerate them
 - Claim "already returns X" / "no additional join" / "contract unchanged" without a file:line anchor
 - Collapse multi-field ACs into a single traceability row

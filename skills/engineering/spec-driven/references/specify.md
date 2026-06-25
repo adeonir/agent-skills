@@ -336,6 +336,7 @@ check silently.
 - [ ] No milestones, epics, sprints, release names, or roadmap references anywhere
 - [ ] Every non-functional claim is quantified (e.g. `p95 ≤ 200ms`) or demoted to an Open Question — no vague "fast", "scalable", "responsive"
 - [ ] Each user story is a commit boundary: no AC depends on work belonging to a later user story (move it if so)
+- [ ] No speculative Goal or User Story (YAGNI): each solves a present need within the Success Criteria; speculative items moved to Non-Goals, not Open Questions
 - [ ] Baseline (if brownfield) describes user-observable behavior, not code structure
 - [ ] If origin=defect: Goals name the correct root behavior, not the absence of a symptom; every defect AC asserts correct behavior (symptom-only ACs are paired with a behavior AC)
 
@@ -357,6 +358,13 @@ user story consumes, the inversion breaks the commit-boundary contract. Fix by m
 primitive's user story earlier, merging it into the first consumer, or making the earlier
 user story ship an inline implementation that the later user story refactors into the shared
 primitive. Never leave the inversion implicit.
+
+**YAGNI screen:** Before finalizing Goals and User Stories, screen each against present
+need. A Goal or User Story that adds complexity for a hypothetical future need, solves a
+problem that does not exist yet, or reaches beyond the Success Criteria is speculative --
+move it to Non-Goals with the reason. Do not route it to Open Questions: an Open Question
+may return, and spec-driven ships every User Story it keeps, so the screen happens here,
+before the spec binds, not at implementation.
 
 **Acceptance Criteria:** Use EARS-lite — one of five clause shapes, 1:1 per AC, no
 compound clauses. The shape names how the requirement is triggered; the sentence
