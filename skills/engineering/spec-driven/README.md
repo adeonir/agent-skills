@@ -204,6 +204,10 @@ isolation; Auto-Sizing decides the depth, not whether to dispatch:
   discovery with no view of the first-pass size (the isolation removes the
   anchor); read-only, returns a structured verdict (size + load-bearing
   decisions) the main agent reconciles
+- **Coverage review subagent** — one per specify phase, reads the drafted spec
+  fresh and hunts requirement-set gaps along structural lenses (happy↔failure,
+  CRUD/lifecycle, state closure, actor, Goal sufficiency, preconditions);
+  read-only, returns the gaps the main agent resolves into add/exclude/defer
 - **Research subagents** — one per unknown topic, write to
   `.artifacts/research/{topic}.md`
 - **Codebase exploration subagent** — one per design phase, runs the
@@ -225,7 +229,7 @@ isolation; Auto-Sizing decides the depth, not whether to dispatch:
   agent applies
 
 Discovery subagents (research, exploration) hand off via disk
-artifacts. Scope-recalibration, Plan, and audit subagents hand off via structured
+artifacts. Scope-recalibration, Coverage, Plan, and audit subagents hand off via structured
 chunks because the harness blocks Edit/Write for read-only subagents. At Medium the same subagents
 dispatch but at light depth; only quick mode (Small) runs entirely without
 dispatch.

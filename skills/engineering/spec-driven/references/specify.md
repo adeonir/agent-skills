@@ -467,9 +467,78 @@ missing section is an omission.
 
 ### Step 16: Spec Review
 
-After generating spec.md, review the written artifact against the criteria below and
-record the verdict in frontmatter `review:`. This is the spec's own review gate —
-there is no separate review file. Show `[pass]` or `[fail]` per line.
+The spec's own review gate — there is no separate review file. It runs two passes
+over the drafted spec.md and records one verdict in frontmatter `review:`:
+
+- **16a Coverage Review** — what is missing from the requirement set
+- **16b Shape Review** — whether what is present is well-formed
+
+Run 16a before 16b: coverage may add requirements, and those additions must pass
+the shape checks. Set the verdict from both passes:
+
+- Both clear (no unresolved gap, every shape check `[pass]`) → `review: pass`
+- Any unresolved gap or `[fail]` → `review: changes`; report the failing lines,
+  resolve or fix them, re-run both passes until `pass`
+
+The review verdict gates specify's own approval gate (Step 18), not the downstream
+phases — a spec edited after review resets `review` to `pending` and must be
+re-reviewed before that gate.
+
+### Step 16a: Coverage Review
+
+The first pass checks what is *missing* — the requirement-set gaps every
+downstream gate is blind to, because verify and audit trace against the spec and a
+requirement absent from it has nothing to trace. This is coverage, not
+completeness: it cannot prove the set is complete; it hunts known classes of
+incompleteness along lenses answerable from the spec's own contents, so it
+survives a PRD handed off with no human to answer discovery.
+
+**Dispatch.** Independence is the point — whoever drafted the spec is blind to what
+they did not think of. Dispatch an isolated subagent that reads the drafted spec
+fresh, framed adversarially ("assume gaps exist; find them"). Run inline only when
+subagent support is unavailable.
+
+Subagent brief (task-specific input, no conversation history):
+
+- `.artifacts/specs/{date}-{name}/spec.md` (the draft)
+- The discovery synthesis and the input `sources:` (PRD / ticket)
+- `.artifacts/codebase/{area}.md` cache if it exists — to judge precedent
+  ("a delete exists elsewhere, so its absence here is a real gap")
+- The lenses below
+
+**Lenses.** Select only those that apply (a data migration skips actor and state);
+each is answerable from the spec's contents.
+
+| Lens | Asks |
+|------|------|
+| Happy↔failure symmetry | Every AC that touches network, input, or a dependency has a stated behavior for the failure path |
+| Lifecycle / CRUD symmetry | A create has a delete, an enable a disable — where the domain implies the pair |
+| State-transition closure | Every state an entity can enter has a stated way out; no orphan state |
+| Actor coverage | Every named actor has its path specified, and its boundary — what it must not do |
+| Goal sufficiency | Every Goal is actually served by its requirements, not just nominally linked to one tangential AC |
+| Implicit precondition | No AC assumes a precondition that nothing in the spec establishes |
+
+Return shape (structured, no prose): per applied lens, `covered` or a list of
+candidate gaps, each with the spec evidence that triggers it (the AC, Goal,
+entity, or actor).
+
+**Forcing function.** Every candidate gap lands in exactly one destination — never
+dropped silently:
+
+- **add** → a new user story or AC (authored in EARS-lite shape, checked by 16b)
+- **exclude** → a Non-Goal row, with the reason
+- **defer** → an Open Question, with the reason
+
+An unresolved gap holds the verdict at `review: changes` (see Step 16). When this
+pass adds requirements, 16b shape-checks them on the same loop.
+
+This pass hunts known gap-classes; it does not catch a requirement nobody
+conceived. Conceptual gaps still surface only through discovery or UAT.
+
+### Step 16b: Shape Review
+
+Review the written artifact against the criteria below — the shape of what is
+present, including anything 16a added. Show `[pass]` or `[fail]` per line.
 
 - [ ] Every AC matches one EARS-lite shape (ubiquitous, event, state, optional, unwanted)
 - [ ] Every AC is atomic — one trigger, one outcome, no compound "and"
@@ -478,14 +547,7 @@ there is no separate review file. Show `[pass]` or `[fail]` per line.
 - [ ] Every domain term used in an AC is defined (no undefined jargon)
 - [ ] Open Questions are each resolved or explicitly deferred with a reason
 
-Set the verdict:
-
-- All pass → `review: pass`
-- Any fail → `review: changes`; report the failing lines, fix them, re-run until `pass`
-
-The review verdict gates specify's own approval gate (Step 18), not the downstream
-phases — a spec edited after review resets `review` to `pending` and must be
-re-reviewed before that gate.
+Failing lines feed the `review:` verdict in Step 16.
 
 ### Step 17: Handoff Completeness Gate
 
