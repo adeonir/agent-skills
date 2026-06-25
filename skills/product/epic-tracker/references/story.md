@@ -56,6 +56,9 @@ Fill the template (below):
   advice or upstream design notes
 - **Open Questions**: unknowns that seed the spec's discovery; omit the
   section when nothing is undecided
+- **Blocked by**: other stories, bugs, or epics that must finish before
+  this story can start, listed in frontmatter `blocked_by` by path. Lets
+  the tracker enforce order; leave empty when nothing blocks it.
 - **References**: durable pointers the next session follows (parent epic,
   design doc, UI design). Canonical in the body; frontmatter `sources:`
   mirrors the links for sync
@@ -134,6 +137,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
+blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name); omit when nothing blocks this
 epic: {{epic-name}}
 type: story
 # tracker block populated by sync.md after first push (omit until then):

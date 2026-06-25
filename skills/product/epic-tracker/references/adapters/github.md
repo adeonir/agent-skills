@@ -205,11 +205,32 @@ or neither.
 4. For `blocked`: prefer Project Status field when present; otherwise
    match repo labels semantically (`blocked` or `on-hold`).
 
+### set_dependencies
+
+GitHub has native, typed Issue dependencies (`blocked by` / `blocking`),
+maintained on both sides automatically. Every artifact except Release is
+an Issue, so any of them can block any other.
+
+1. Inputs: the Issue number and a list of blocker Issue numbers (resolved
+   from paths by sync.md).
+2. For each blocker, add a `blocked by` link via MCP, or `gh issue edit
+   {n} --add-blocked-by {blocker}` when MCP is unavailable. Setting one
+   side is enough; GitHub records `blocking` on the other.
+3. Remove links no longer listed: `gh issue edit {n} --remove-blocked-by
+   {blocker}`.
+4. Return success.
+
+Dependencies are Issue-to-Issue within the same repo; cross-repo blocking
+is not assumed. Releases are tags, not Issues, so they carry no
+dependencies.
+
 ### fetch_artifact
 
 1. Fetch the Issue, Milestone, or Release by id/number via MCP.
 2. Return: state (mapped from open/closed + labels or Project fields),
-   title, body, labels, sub-issue parent (when present), url.
+   title, body, labels, sub-issue parent (when present), blocked-by Issue
+   numbers (via the dependencies endpoints, or `gh issue view --json
+   blockedBy`), url.
 
 ### list_artifacts
 

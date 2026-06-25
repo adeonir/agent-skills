@@ -63,6 +63,9 @@ Fill the template (below) with discovered context:
   as a whole (not per-story)
 - **Open Questions**: strategic unknowns to resolve before or during
   story breakdown; omit the section when nothing is undecided
+- **Blocked by**: other epics or stories that must finish before this one
+  can start, listed in frontmatter `blocked_by` by path. Lets the tracker
+  enforce delivery order; leave empty when nothing blocks it.
 - **References**: durable pointers the next session follows (PRD, design
   doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
   the links for sync
@@ -121,6 +124,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
+blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github

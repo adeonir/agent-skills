@@ -72,10 +72,26 @@ Detect available states from the workspace via MCP before pushing. If
 1. Map generic status to Linear state via the table above.
 2. Update the Issue's `state` field via MCP.
 
+### set_dependencies
+
+1. Inputs: the entity id and a list of blocker ids (resolved from paths by
+   sync.md).
+2. Issue-level blockers (Story, Bug, Issue → Linear Issues): create a
+   native issue relation of type `blocked by` via MCP for each blocker.
+   Linear maintains both directions.
+3. Epic-level blockers (Epic → Linear Project): use a Project relation
+   when both endpoints are Projects. A dependency mixing a Project and an
+   Issue has no native Linear form — keep it in markdown `blocked_by` and
+   warn the user it is not mirrored in the tracker.
+4. Remove relations no longer listed.
+5. Return success.
+
 ### fetch_artifact
 
 1. Fetch the Project, Issue, or Cycle by id via MCP.
-2. Return: status (mapped from Linear state), title, description, labels, url.
+2. Return: status (mapped from Linear state), title, description, labels,
+   blocked-by relations (issue relations, or project relations for Epics),
+   url.
 
 ### list_artifacts
 

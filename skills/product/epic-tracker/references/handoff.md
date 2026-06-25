@@ -27,6 +27,7 @@ Gather context for the handoff:
 - Parent epic context (scope, rabbit holes)
 - Tracker URL when `tracker.url` is present in frontmatter — include it
   so the implementation can link back
+- Unmet dependencies — any artifact in `blocked_by` not yet `done`
 - Related references (PRD, design doc)
 
 ### 3. Suggest Next Steps
@@ -95,3 +96,5 @@ or simply note the handoff for later.
   handoff
 - Story status is "done": warn that it's already completed
 - Story status is "blocked": warn and ask if the blocker is resolved
+- Story has unmet `blocked_by` dependencies (a referenced artifact is not
+  `done`): name the open blockers and ask whether to proceed anyway

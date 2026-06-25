@@ -66,6 +66,9 @@ Fill the template (below):
 - **Checklist**: optional breakdown into sub-steps; omit if not needed
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit
   for trivial chores
+- **Blocked by**: work that must finish before this issue can start,
+  listed in frontmatter `blocked_by` by path; leave empty when nothing
+  blocks it.
 - **References**: link to parent epic, related stories, external docs
 
 Apply the resumption gate before proceeding:
@@ -116,6 +119,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
+blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
 type: issue
 epic: {{epic-name or omit for standalone}}
 # tracker block populated by sync.md after first push (omit until then):

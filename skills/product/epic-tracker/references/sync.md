@@ -112,6 +112,9 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
      ```
    - If no markdown file (tracker-native workflow): surface the tracker URL
      to the user; nothing is stored locally.
+   - If the artifact declares `blocked_by`, resolve the paths to tracker
+     ids and call `set_dependencies` (see Dependencies). Missing blockers
+     are skipped with a warning, never failing the push.
 6. On failure, surface the error and leave any existing markdown untouched.
    Suggest re-running sync once the issue is resolved.
 
@@ -122,7 +125,9 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
 3. Adapter fetches the entity from the tracker via MCP.
 4. Compare tracker state with local frontmatter and body.
 5. Detect conflicts (see below).
-6. Update markdown content + frontmatter `tracker.last_synced`.
+6. Update markdown content + frontmatter `tracker.last_synced`, and refresh
+   `blocked_by` from the entity's native dependency relations (see
+   Dependencies).
 
 AC validation does not run on pull. Pulled bodies may contain legacy AC
 format from before the Given/When/Then enforcement; the planner subagent
@@ -131,6 +136,42 @@ decides how to handle them. See [ac-validation.md](ac-validation.md)
 
 If `tracker.id` is missing, route the user to push first or to manually
 attach an existing tracker entity.
+
+## Dependencies
+
+An artifact declares `blocked_by` in frontmatter — the artifacts that must
+finish before it proceeds, each referenced by path (`epic-name`,
+`epic-name/story-name`, or `standalone/bug-name`). Only this direction is
+stored; the inverse (`blocking`) is derivable and each tracker maintains
+both sides natively.
+
+Dependencies are structured metadata, not body prose. They never travel in
+the description; each adapter maps them to the tracker's native dependency
+relation:
+
+| Tracker | Native relation |
+|---------|-----------------|
+| GitHub  | Issue dependencies (`blocked by` / `blocking`) |
+| Linear  | Issue relations (`blocked by`) |
+
+`blocked_by` holds local paths; the native relation needs tracker ids:
+
+- **Push:** after the artifact itself is created, resolve each `blocked_by`
+  path to the referenced artifact's frontmatter `tracker.id` and pass the
+  ids to the adapter's `set_dependencies`. When a referenced artifact has
+  no `tracker.id` yet (not pushed), skip that one link, warn which
+  dependency could not be formed, and suggest pushing the referenced
+  artifact first then re-syncing. The artifact's own push still succeeds —
+  a missing blocker never blocks it.
+- **Pull:** the adapter returns native blocked-by relations as tracker ids.
+  Resolve each id back to a local path when an artifact carries that
+  `tracker.id`; otherwise keep the tracker id so the link is not lost.
+  Write the result to `blocked_by`.
+
+`set_dependencies` is idempotent: it adds links present in `blocked_by` and
+removes tracker links no longer listed, so re-running sync after editing the
+field reconciles both sides. In markdown-only mode no resolution runs — the
+field is the source of truth and `status.md` reads it directly.
 
 ## Conflict Detection and Resolution
 
@@ -174,7 +215,8 @@ these operations using its own MCP calls:
 | `create_issue` | epic_id (optional), name, title, body, labels | tracker id + url |
 | `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
-| `fetch_artifact` | tracker_id | full state (status, title, body, labels) |
+| `set_dependencies` | tracker_id, blocked_by_ids | success |
+| `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by) |
 | `list_artifacts` | filter (epic, status, etc.) | list of summaries |
 
 Status mapping (planned -> in-progress -> done -> blocked) is the

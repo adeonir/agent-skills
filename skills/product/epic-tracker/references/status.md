@@ -67,6 +67,7 @@ Present as a structured summary:
   - [x] story-name (done)
   - [x] story-name (done)
   - [ ] story-name (in-progress)
+  - [ ] story-name (planned, blocked by other-epic/api-story)
   - [ ] bug-name [bug] (planned)
 
 ## Standalone Bugs
@@ -77,7 +78,9 @@ Present as a structured summary:
 ```
 
 Use checkmarks for done, empty boxes for other statuses. Always show
-completion ratio for epics (`N/M stories done`) and releases.
+completion ratio for epics (`N/M stories done`) and releases. When an
+artifact lists `blocked_by`, append `blocked by {paths}` so the reader
+sees what gates it.
 
 ## Guidelines
 
@@ -87,6 +90,8 @@ completion ratio for epics (`N/M stories done`) and releases.
 - Delegate to `sync.md` for tracker reads/writes; never call MCPs directly from this ref
 - Suggest cascading updates (all stories done -> suggest epic done)
 - Show completion ratios for epics and releases
+- Surface unmet `blocked_by` dependencies in the overview so the reader
+  knows what is gated
 - Group output by epic for readability
 - Warn the user when overview falls back to markdown cache because tracker MCP is unavailable
 

@@ -47,6 +47,15 @@ detects available MCPs and CLIs; both are supported. Config is stored
 in `git config --local`. When no integration is detected, the skill
 stays in markdown-only mode.
 
+## Dependencies
+
+Any epic, story, bug, or issue can declare `blocked_by` in frontmatter —
+the artifacts that must finish first, referenced by path. When a tracker
+is configured, this maps to its native dependency relation (GitHub issue
+dependencies, Linear issue relations); in markdown-only mode the field is
+the source of truth and surfaces in the overview. Only `blocked_by` is
+stored — the inverse is derived, and the tracker keeps both sides in sync.
+
 ## Usage
 
 ```

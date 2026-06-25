@@ -80,6 +80,8 @@ after the artifact is saved when `epic-tracker.kind` is set and not `none`.
   tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V7 on create and on
   edits that change AC text
+- Capture cross-artifact order with `blocked_by`; sync maps it to the
+  tracker's native dependency relation
 - Delegate sizing to the implementation phase
 
 ## Anti-Pattern: Tracker Operations in Core Refs

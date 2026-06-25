@@ -83,6 +83,9 @@ Fill the template (below):
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
+- **Blocked by**: work that must finish before this bug can be fixed,
+  listed in frontmatter `blocked_by` by path; leave empty when nothing
+  blocks it.
 - **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
 Apply the resumption gate before proceeding:
@@ -132,6 +135,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
+blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
 epic: {{epic-name or omit for standalone}}
 type: bug
 severity: {{critical/high/medium/low}}
