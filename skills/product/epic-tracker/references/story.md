@@ -25,8 +25,7 @@ Read the parent epic for scope and naming context only. **Translate,
 don't replicate.** Its tokens never cross into the story: strip epic IDs,
 upstream document codes (§x.x, EC-N, ADR-NNN), sibling story names,
 milestone language, and any cross-reference that doesn't stand alone.
-Do not copy epic-level acceptance criteria. This story carries one
-outcome of its own.
+This story carries one outcome of its own.
 
 ### 2. Draft
 
@@ -124,7 +123,6 @@ replace the plain story name with a linked, numbered entry:
 - Include implementation details or technical design
 - Carry upstream IDs, section numbers, or doc-internal codes (§x.x, EC-N, ADR-NNN) — translate to plain language
 - Create stories without a parent epic (ask to create the epic first)
-- Duplicate acceptance criteria from the epic level
 
 ## Template
 
@@ -154,7 +152,7 @@ type: story
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
 
-MUST NOT contain: upstream IDs (§x.x, EC-N, ADR-NNN), sibling story names, epic-level acceptance criteria, roadmap language, or implementation details.
+MUST NOT contain: upstream IDs (§x.x, EC-N, ADR-NNN), sibling story names, roadmap language, or implementation details.
 
 ## Out of Scope
 
