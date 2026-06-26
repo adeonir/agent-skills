@@ -32,11 +32,22 @@ capability area plus a one-line expectation each — not epic definitions.
    `.artifacts/epics/` (or the tracker) for epics whose `milestone:` matches.
    Re-running over a living PRD is expected: propose only the **missing**
    epics, and never recreate or overwrite one that exists.
-2. Present the missing sketched epics as a proposed set.
-3. Let the user add, drop, merge, split, or rename. The sketch is a starting
+2. Cleanse each seed before presenting it:
+   - If a seed describes a UI widget, field list, endpoint, technology, or
+     implementation mechanism (e.g., "tooltips no primeiro RPD" or "lista
+     com nome, último registro e atividade"), translate it into an objective
+     or capability (e.g., "conduz o paciente ao primeiro registro sem ajuda
+     externa" or "visão consolidada dos pacientes do terapeuta").
+   - If a seed is just one field, indicator, or small sub-feature of another
+     sketched epic (e.g., "status-engajamento" that is only a weekly activity
+     badge inside a patient dashboard), propose merging it into the broader
+     epic rather than creating a separate one.
+3. Present the cleansed missing epics as a proposed set, noting any
+   translations or merges applied.
+4. Let the user add, drop, merge, split, or rename. The sketch is a starting
    point, not a fixed list — the delivery breakdown is decided here, not in
    the PRD.
-4. Settle the epic set before creating anything.
+5. Settle the epic set before creating anything.
 
 This workflow only *adds* epics. When a milestone's definition changed and an
 existing epic needs adjusting, that is a manual call — decompose does not
