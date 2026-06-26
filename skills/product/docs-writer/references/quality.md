@@ -59,6 +59,20 @@ cross-doc content links rather than duplicates.
 - [ ] NFRs state measurable targets without prescribing the
       mechanism ("p95 latency under 200ms" not "use Redis caching")
 
+**When the PRD includes Milestones, additionally verify:**
+
+- [ ] Each milestone has a clear outcome and scope boundary (what is
+      in and what is deferred)
+- [ ] Expected epics are seeds, not specifications — they describe a
+      capability or objective, not a mechanism
+- [ ] Expected epics avoid UI widgets, field names, endpoints,
+      technologies, or implementation choices
+- [ ] Expected epic names are kebab-case and short enough to become
+      filenames
+- [ ] Scope boundary resolves ambiguity that an epic sketch might
+      introduce (e.g., "roles are fixed user/admin; configurable
+      RBAC/ABAC is deferred")
+
 **When the document is a Design Doc, verify:**
 
 - [ ] Sections 1-2 carry no copy-paste from PRD — Context recaps in
