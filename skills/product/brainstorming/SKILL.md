@@ -16,7 +16,12 @@ argument-hint: "[deep]"
 
 # Brainstorming
 
-Structured idea exploration from vague to direction.
+Structured idea exploration from vague to direction, in two paths —
+**greenfield** from a blank problem space, **relentless** against existing
+thinking. Both run breadth-first: surface the non-obvious option before
+committing, then converge honestly, naming what each direction gives up.
+Problem before solution — a description of what to build is a hypothesis,
+not a direction.
 
 ## Workflow
 
