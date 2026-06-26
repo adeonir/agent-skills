@@ -3,11 +3,11 @@ name: epic-tracker
 description: >-
   Manages the delivery lifecycle from epic planning through story
   tracking to implementation handoff. 5 artifact types: Epic, Story,
-  Bug, Issue, Release. Tracker-first when configured (Linear, GitHub
+  Bug, Task, Release. Tracker-first when configured (Linear, GitHub
   Issues/Projects) via MCP or CLI — artifacts go directly to the
   tracker with no local files. Falls back to markdown as source of
   truth when no tracker is configured. Triggers: "create epic", "new
-  epic", "create story", "new story", "edit story", "create issue",
+  epic", "create story", "new story", "edit story", "create task",
   "report bug", "create release", "decompose milestone", "update status",
   "show roadmap",
   "list epics", "sync to tracker", "push to linear", "push to github",
@@ -19,7 +19,7 @@ description: >-
 # Epic Tracker
 
 Manages the delivery lifecycle with tracker-first integration and
-markdown fallback. Plan epics, track stories, report bugs, file issues,
+markdown fallback. Plan epics, track stories, report bugs, file tasks,
 group releases, push to a tracker (via MCP or CLI) when configured, and
 hand off to implementation.
 
@@ -45,8 +45,8 @@ Falls back to markdown when not.
   [update-story.md](references/update-story.md)
 - **Bug** ("create bug", "report bug", "bug report") →
   [bug.md](references/bug.md)
-- **Issue / Chore / Task** ("create issue", "new issue", "add issue",
-  "create chore", "create task") → [issue.md](references/issue.md)
+- **Task / Chore** ("create task", "new task", "add task",
+  "create chore") → [task.md](references/task.md)
 - **Release** ("create release", "new release") →
   [release.md](references/release.md)
 - **Status / roadmap** ("status", "update status", "mark done", "show

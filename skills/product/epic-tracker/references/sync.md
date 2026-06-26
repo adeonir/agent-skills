@@ -22,7 +22,7 @@ wrong push can clobber tracker state that other people rely on.
 | Epic     | Project | Issue (parent) |
 | Story    | Issue | Issue (sub-issue of Epic) |
 | Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Issue    | Issue | Issue (sub-issue of Epic/Story or standalone) |
+| Task     | Issue | Issue (sub-issue of Epic or standalone) |
 | Release  | Cycle | Release tag |
 
 GitHub uses sub-issues as the hierarchy primitive. Milestones and
@@ -251,7 +251,7 @@ these operations using its own MCP calls:
 | `create_epic` | name, title, body, labels | tracker id + url |
 | `create_story` | epic_id (optional), name, title, body, acceptance criteria, labels | tracker id + url |
 | `create_bug` | epic_id (optional), name, title, severity, body, repro steps | tracker id + url |
-| `create_issue` | epic_id (optional), name, title, body, labels | tracker id + url |
+| `create_task` | epic_id (optional), name, title, body, labels | tracker id + url |
 | `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |

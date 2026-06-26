@@ -11,7 +11,7 @@ Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
 | Epic     | Project | Linear's Project is a thematic container for related issues |
 | Story    | Issue | Standard work unit |
 | Bug      | Issue + label `bug` | Same primitive as Story; `bug` label distinguishes type |
-| Issue    | Issue + label `task` | Same primitive as Story; `task` label distinguishes internal work |
+| Task     | Issue + label `task` | Same primitive as Story; `task` label distinguishes internal work |
 | Release  | Cycle | Linear has no first-class Release; Cycle is the closest native primitive (sprint-like, but used here as the ship-together grouping) |
 
 ## Status Mapping
@@ -44,20 +44,20 @@ Detect available states from the workspace via MCP before pushing. If
 3. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
 4. Return Project id and url.
 
-### create_story / create_bug / create_issue
+### create_story / create_bug / create_task
 
 1. Create a Linear Issue in the project (when `epic_id` provided) or in
    the team backlog (when not).
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include
    acceptance criteria for stories, repro steps for bugs, plain
-   description for issues). For stories, the body must include the
+   description for tasks). For stories, the body must include the
    validated `### AC-N` Given/When/Then blocks verbatim -- adapters do
    not transform AC structure. The planner subagent (consumer in a
    separate repo) parses these blocks back to structured AC. See
    [../ac-validation.md](../ac-validation.md) for the contract.
 3. For `create_bug`: add label `bug`. Add `severity:{level}` label when
    severity is provided.
-4. For `create_issue`: add label `task`.
+4. For `create_task`: add label `task`.
 5. Return Issue id and url.
 
 ### create_release

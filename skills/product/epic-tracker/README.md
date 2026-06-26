@@ -21,7 +21,7 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Phase | What Happens | Output |
 |-------|-------------|--------|
 | Discover | Check for existing PRD, brief, or context | Context for artifact creation |
-| Create | Generate epic, story, bug, issue, or release | Tracker entity or markdown artifact |
+| Create | Generate epic, story, bug, task, or release | Tracker entity or markdown artifact |
 | Track | Update status in tracker when configured, in markdown otherwise | Updated state |
 | Handoff | Surface tracker URLs and prepare for implementation | User picks next step |
 
@@ -32,7 +32,7 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Epic     | Project | Issue (parent) |
 | Story    | Issue | Issue (sub-issue of Epic) |
 | Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Issue    | Issue + label `task` | Issue (sub-issue of Epic/Story or standalone) |
+| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 | Release  | Cycle | Release tag |
 
 GitHub uses sub-issues as the hierarchy primitive. Milestones and
@@ -49,7 +49,7 @@ stays in markdown-only mode.
 
 ## Dependencies
 
-Any epic, story, bug, or issue can declare `blocked_by` in frontmatter —
+Any epic, story, bug, or task can declare `blocked_by` in frontmatter —
 the artifacts that must finish first, referenced by path. When a tracker
 is configured, this maps to its native dependency relation (GitHub issue
 dependencies, Linear issue relations); in markdown-only mode the field is
@@ -74,7 +74,7 @@ decompose milestone        -- break a PRD milestone into its epics
 create story               -- add a user-facing story to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
-create issue               -- file an internal work item (infra, refactor, tooling, research)
+create task                -- file an internal work item (infra, refactor, tooling, research)
 create release             -- group stories across epics for delivery
 show roadmap               -- display delivery status overview
 mark done                  -- update artifact status
@@ -103,10 +103,10 @@ declines push).
 │   ├── epic.md
 │   ├── 001-story-name.md
 │   ├── bug-name.md
-│   └── issue-name.md
+│   └── task-name.md
 ├── standalone/
 │   ├── bug-name.md
-│   └── issue-name.md
+│   └── task-name.md
 └── releases/
     └── release-name.md
 ```
@@ -138,7 +138,7 @@ A: The numeric prefix gives a stable order within an epic folder. The
 prefix is filename-only — the artifact's `name` field stays clean
 (`story-name`).
 
-**Q: Can a bug or issue exist outside an epic?**
-A: Yes. Standalone bugs and issues live in `.artifacts/epics/standalone/`.
+**Q: Can a bug or task exist outside an epic?**
+A: Yes. Standalone bugs and tasks live in `.artifacts/epics/standalone/`.
 When the work later grows into a thematic epic, you can move and
 re-link.

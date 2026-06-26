@@ -1,4 +1,4 @@
-# Create Issue
+# Create Task
 
 Document a unit of internal work that is not user-facing (like a story)
 and not a defect (like a bug). Use for infrastructure, refactoring,
@@ -7,7 +7,7 @@ tooling, research, CI/CD, documentation, or any chore-type work.
 ## When to Use
 
 - User wants to file a chore, internal task, or non-feature work item
-- User says "create issue", "new issue", "add issue", "chore", "task"
+- User says "create task", "new task", "add task", "chore"
 - Work is internal (CI setup, dependency upgrade, refactor) — not a
   user-facing feature and not a defect
 
@@ -25,7 +25,7 @@ If the user pasted context (PR link, dependency advisory, config dump,
 runbook output, dashboard screenshot, thread excerpt):
 
 1. **Extract signals** — pull out and structure:
-   - Links: PR/issue URLs, advisory URLs, dashboard URLs, runbook URLs,
+   - Links: PR/task URLs, advisory URLs, dashboard URLs, runbook URLs,
      thread permalinks
    - Identifiers: PR number, commit hash, dep version, deployment id
    - Scope hints: services, file paths, or area mentioned
@@ -39,7 +39,7 @@ If no context was pasted, proceed to step 2.
 
 ### 2. Identify Epic (optional)
 
-1. Ask the user whether this issue belongs to an epic or is standalone
+1. Ask the user whether this task belongs to an epic or is standalone
 2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for
    context
 3. If standalone (no epic): place in `standalone/`
@@ -57,8 +57,8 @@ Fill the template (below):
   faster on the new image`). The title maps to the tracker's summary
   field on push; outcome prose lives only in the body's Summary
   section.
-- **Type**: always `issue`
-- **Epic**: parent epic name, or omit for standalone issues
+- **Type**: always `task`
+- **Epic**: parent epic name, or omit for standalone tasks
 - **Status**: always starts as `planned`
 - **Description**: what needs to be done and why — one clear outcome
 - **Signals**: links and ids from pasted context — PRs, advisories,
@@ -66,7 +66,7 @@ Fill the template (below):
 - **Checklist**: optional breakdown into sub-steps; omit if not needed
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit
   for trivial chores
-- **Blocked by**: work that must finish before this issue can start,
+- **Blocked by**: work that must finish before this task can start,
   listed in frontmatter `blocked_by` by path; leave empty when nothing
   blocks it.
 - **References**: link to parent epic, related stories, external docs
@@ -74,7 +74,7 @@ Fill the template (below):
 Apply the resumption gate before proceeding:
 
 > **Resumption gate** — Could a fresh session resume the work from this
-> issue and its references, with no chat history? If no, add the missing
+> task and its references, with no chat history? If no, add the missing
 > piece (link, advisory, config snippet, signal) before saving.
 
 ### 4. Save or Push
@@ -84,12 +84,12 @@ Apply the resumption gate before proceeding:
 - If yes: load [sync.md](sync.md) and dispatch using the draft content;
   pass the parent epic's tracker id (from `epic.md` frontmatter
   `tracker.id`) when applicable — no markdown file is created
-- If no: save to `.artifacts/epics/{epic-name}/{issue-name}.md` or
-  `.artifacts/epics/standalone/{issue-name}.md`
+- If no: save to `.artifacts/epics/{epic-name}/{task-name}.md` or
+  `.artifacts/epics/standalone/{task-name}.md`
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
-- Save to `.artifacts/epics/{epic-name}/{issue-name}.md` or
-  `.artifacts/epics/standalone/{issue-name}.md`
+- Save to `.artifacts/epics/{epic-name}/{task-name}.md` or
+  `.artifacts/epics/standalone/{task-name}.md`
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
@@ -97,15 +97,15 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 **DO:**
 - Use for internal work that has no direct user-facing outcome
-- Keep the description focused on one outcome per issue
+- Keep the description focused on one outcome per task
 - Add a checklist when the work has clear sequential sub-steps
-- Link to the parent epic when the issue advances an epic's delivery
+- Link to the parent epic when the task advances an epic's delivery
 
 **DON'T:**
 - Use for user-facing features (contrasts: use story for user outcomes)
 - Use for defects (contrasts: use bug for defects with repro steps)
 - Add acceptance criteria (contrasts: description + checklist is enough)
-- Create an issue when a story or bug is the right type (ask if
+- Create an task when a story or bug is the right type (ask if
   ambiguous)
 
 ## Template
@@ -114,13 +114,13 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{issue-name}}
+name: {{task-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
 blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
-type: issue
+type: task
 epic: {{epic-name or omit for standalone}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
@@ -130,7 +130,7 @@ epic: {{epic-name or omit for standalone}}
 #   last_synced: YYYY-MM-DDTHH:MM:SSZ
 ---
 
-# {{Issue Title}}
+# {{Task Title}}
 
 ## Summary
 
@@ -168,7 +168,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).
 
 ## Error Handling
 
-- Ambiguous type (issue vs bug vs story): ask the user to clarify intent
+- Ambiguous type (task vs bug vs story): ask the user to clarify intent
 - Epic not found: list available epics, offer to create one or go
   standalone
-- Issue name conflicts: suggest alternative or confirm overwrite
+- Task name conflicts: suggest alternative or confirm overwrite

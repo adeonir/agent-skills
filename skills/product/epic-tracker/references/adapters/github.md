@@ -16,10 +16,10 @@ never Milestones, never Projects.
 | Epic     | `Epic`              | always parent |
 | Story    | `Story`             | always child of an Epic |
 | Bug      | `Bug`               | optional child of Epic or Story; may be standalone |
-| Issue    | `Task` (or org default) | optional child of Epic or Story; may be standalone |
+| Task     | `Task` (or org default) | optional child of Epic; may be standalone |
 | Release  | GitHub Release tag (separate primitive, not an Issue) | n/a |
 
-Bug and Issue are distinct artifacts with different purpose/body
+Bug and Task are distinct artifacts with different purpose/body
 (severity + repro steps vs. plain description); both have optional
 parent linkage.
 
@@ -82,7 +82,7 @@ Concepts that use labels:
 | Artifact type: Epic | Labels containing `epic` |
 | Artifact type: Story | Labels containing `story`, `feature`, `user-story` |
 | Artifact type: Bug | Labels containing `bug`, `defect`, `fix` |
-| Artifact type: Issue (generic task) | Labels containing `task`, `chore`, `enhancement`, `work`, `maintenance` |
+| Artifact type: Task | Labels containing `task`, `chore`, `enhancement`, `work`, `maintenance` |
 | Severity | Labels containing the severity word (e.g., `high`, `critical`, `severity-high`) |
 | Status (in-progress) | Labels containing `progress` or `wip` |
 | Status (blocked) | Labels containing `blocked` or `on-hold` |
@@ -167,14 +167,14 @@ Re-detect on demand via "configure tracker".
 6. If the repo has milestones and a milestone is supplied: assign it.
 7. Return Issue number and url.
 
-### create_issue
+### create_task
 
 Generic task/chore artifact — distinct from Bug (no severity, no repro
 steps, plain description body).
 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title and body.
 2. If `parent_id` is provided: attach as sub-issue under the parent
-   (Epic or Story). Otherwise create as standalone.
+   (Epic). Otherwise create as standalone.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
 4. If `epic-tracker.project-number` is set: add to the Project.
 5. If the repo has milestones and a milestone is supplied: assign it.
