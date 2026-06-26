@@ -64,8 +64,6 @@ Fill the template (below) with discovered context:
 - **Rabbit Holes**: execution traps specific to this epic — integration
   quirks, ordering constraints, or scope edge cases that will catch
   stories by surprise. Not implementation advice or upstream design notes
-- **Acceptance Criteria**: high-level verifiable conditions for the epic
-  as a whole (not per-story)
 - **Open Questions**: strategic unknowns to resolve before or during
   story breakdown; omit the section when nothing is undecided
 - **Blocked by**: other epics or stories that must finish before this one
@@ -115,7 +113,6 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 **DO:**
 - Extract context from existing docs before asking questions
-- Write acceptance criteria verifiable without knowing implementation details
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - List stories in the epic checklist; create them as separate artifacts later
 - Run discover first, even when the user provides context directly
@@ -178,11 +175,6 @@ of truth for hierarchy once a tracker is wired. -->
 **Out:**
 
 - {{What's explicitly excluded}}
-
-## Acceptance Criteria
-
-- [ ] {{High-level verifiable condition for the epic as a whole}}
-- [ ] {{Another testable condition}}
 
 ## Rabbit Holes
 

@@ -65,8 +65,8 @@ additions specific to decomposition:
 - Add a **Milestone** entry under the epic's References so the link travels
   into the tracker on push.
 
-Each epic carries its own scope, acceptance criteria, rabbit holes, and
-stories — derived here, never inherited from the sketch line.
+Each epic carries its own scope, rabbit holes, and stories — derived
+here, never inherited from the sketch line.
 
 ### 4. Offer Story Breakdown
 

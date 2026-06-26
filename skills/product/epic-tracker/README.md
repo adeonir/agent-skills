@@ -69,7 +69,7 @@ groups by it.
 ## Usage
 
 ```
-create epic                -- plan a new epic with stories, scope, and acceptance criteria
+create epic                -- plan a new epic with stories and scope
 decompose milestone        -- break a PRD milestone into its epics
 create story               -- add a user-facing story to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
