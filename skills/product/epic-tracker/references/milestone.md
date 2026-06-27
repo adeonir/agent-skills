@@ -43,9 +43,9 @@ Fill the registry-entry template (below):
   **Seeds, not specifications.** Each names a capability or objective, never a
   UI widget, field list, endpoint, or technology. The delivery breakdown is
   decided later in [decompose.md](decompose.md), not here.
-  - Good: `onboarding-guiado — conduz o paciente ao primeiro registro sem ajuda externa`
-  - Bad: `onboarding-guiado — tooltips no primeiro RPD` (a UI mechanism, not a capability)
-  - Bad: `painel-pacientes — lista com nome, último registro e atividade` (UI fields, not the objective)
+  - Good: `checkout-rapido — comprador conclui a compra sem recriar dados a cada vez`
+  - Bad: `checkout-rapido — botão de 1-clique no carrinho` (a UI mechanism, not a capability)
+  - Bad: `historico-pedidos — tabela com data, valor e status` (UI fields, not the objective)
 
 A milestone carries no success criteria and no acceptance criteria — it is
 "done" when its epics are delivered (a rollup).
@@ -59,8 +59,7 @@ The registry is a single file: `.artifacts/epics/milestones.md`.
    duplicate. Otherwise append the new entry.
 3. Entry order is delivery sequence; place the entry where the phase falls.
 
-This workflow only records milestone definitions. Turning a milestone into
-epics is [decompose.md](decompose.md); it reads this registry.
+This workflow only records milestone definitions; it does not create epics.
 
 ## Guidelines
 

@@ -92,9 +92,10 @@ Apply the resumption gate before proceeding:
 Apply the provenance gate as well:
 
 > **Provenance gate** — If the project has a PRD (`.artifacts/docs/prd.md`),
-> does this epic record which PRD it derives from? And does it record the
-> `milestone:` it serves when it belongs to one? If not, add the reference —
-> or confirm with the user that the epic is independent before leaving it blank.
+> does this epic record which PRD it derives from? Separately, if the epic
+> belongs to a milestone, does it record the `milestone:` pointer? Add
+> whichever is missing — or confirm with the user that the epic is
+> independent before leaving it blank.
 
 ### 3. Save or Push
 

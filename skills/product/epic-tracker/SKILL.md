@@ -2,8 +2,8 @@
 name: epic-tracker
 description: >-
   Manages the delivery lifecycle from milestone and epic planning through
-  story tracking to implementation handoff. 5 artifact types: Epic, Story,
-  Bug, Task, Release. Tracker-first when configured (Linear, GitHub
+  story tracking to implementation handoff. 5 artifact types (Epic, Story, Bug,
+  Task, Release) plus a milestones registry. Tracker-first when configured (Linear, GitHub
   Issues/Projects) via MCP or CLI — artifacts go directly to the
   tracker with no local files. Falls back to markdown as source of
   truth when no tracker is configured. Triggers: "create epic", "new

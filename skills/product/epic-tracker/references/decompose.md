@@ -5,7 +5,7 @@ milestone's expected-epics sketch.
 
 ## When to Use
 
-- User says "decompose milestone", "break down milestone", "plan milestone",
+- User says "decompose milestone", "break down milestone",
   "create epics from a milestone"
 - A milestone is defined in the registry and its epics have not been created
 - A milestone needs its delivery broken into epics before story work begins
