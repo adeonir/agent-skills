@@ -319,6 +319,13 @@ skill genuinely needs deterministic operations or static data.
 State whether Claude should run a script or read it: "Run `analyze.py` to
 extract fields" vs "See `analyze.py` for the extraction algorithm".
 
+A script's language follows the job, not the skill: pure computation and text
+validators are Python stdlib (`slop_scan.py`, `validate_copy.py`,
+`check-contrast.py`); live web preview and render servers are bun/TS
+(`render-server.ts`, `preview-server.ts`). Match an existing sibling's
+conventions when adding one — a skill that ships both runtimes declares each in
+`allowed-tools` (`Bash(bun:*) Bash(python3:*)`).
+
 Skills using MCP must detect availability before invoking the tool, document a
 fallback when the MCP is unavailable, and mark each dependency hard-required or
 optional.
