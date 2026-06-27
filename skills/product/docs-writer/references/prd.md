@@ -113,7 +113,6 @@ essential discovery — it informs scope decisions and validation.
 - Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
 - Features without clear user connection → "Which persona needs this? What problem does it solve for them?"
 - No clear value model → "Who pays? How? What justifies the cost?"
-- Scope is one undifferentiated blob → "If you shipped in phases, what's the first coherent slice that delivers value on its own? What waits for later?"
 
 **Sufficient when:**
 
@@ -121,7 +120,6 @@ essential discovery — it informs scope decisions and validation.
 - Each must-have connects to the primary problem and persona
 - Value generation model is understood or marked as TBD
 - Boundaries are defined (what is explicitly out of scope)
-- Delivery phases are identifiable — the prioritized scope groups into milestones, each with a coherent outcome
 
 #### Topic 5: Journeys & Constraints
 
@@ -188,12 +186,6 @@ the drafts to the user.
 - Journeys should be product-level (actor, goal, flow, conditions) — no UI components, endpoints, or implementation details
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
-- Milestones are optional — include them only when the delivery splits into phases. Each milestone is defined by its outcome and scope boundary, plus a light sketch of the epics it expects — seeds that feed downstream delivery planning without dictating epic scope, AC, or stories
-- When milestones are used, keep expected epics as seeds, not specifications. They should name a capability or objective, not a UI widget, field list, endpoint, or technology
-- Good expected epic seed: `onboarding-guiado — conduz o paciente ao primeiro registro sem ajuda externa`
-- Bad expected epic seed: `onboarding-guiado — tooltips no primeiro RPD` (describes a UI mechanism, not a capability)
-- Bad expected epic seed: `painel-pacientes — lista com nome, último registro e atividade` (describes UI fields, not the objective)
-- Omit milestones entirely for small PRDs with a single coherent delivery phase; do not invent phases just to populate the section
 
 ## PRD Template
 
@@ -305,50 +297,32 @@ sources: []
 | NFR-1 | Performance | {{e.g., page load < 2s}} |
 | NFR-2 | Accessibility | {{e.g., WCAG 2.1 AA}} |
 
-## 9. Milestones
-
-{Optional — omit this section for an un-phased product. Include it when the
-delivery splits into phases.}
-
-### {{Milestone Name}}
-
-- **Outcome:** {{capability this milestone delivers and the value it unlocks}}
-- **Scope boundary:** {{what this phase includes and what it defers}}
-- **Expected epics:** light sketch of the epics this milestone needs —
-  capability area + one line each. Seeds for delivery planning, not
-  definitions; they never dictate an epic's scope, AC, or stories.
-  - {{epic-name}} — {{one-line expectation}}
-  - {{epic-name}} — {{one-line expectation}}
-
-{Repeat this subsection for each milestone. A milestone groups several
-epics; sequencing between milestones is a roadmap concern, not defined here.}
-
-## 10. Assumptions
+## 9. Assumptions
 
 - {{Assumption that, if wrong, would change the plan}}
 
-## 11. Risks
+## 10. Risks
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
 | {{what could go wrong}} | High | Medium | {{how to address}} |
 
-## 12. Hypotheses to Validate
+## 11. Hypotheses to Validate
 
 - [ ] {{Hypothesis to be tested and validated with data or user research}}
 
-## 13. Unknowns
+## 12. Unknowns
 
 - [ ] TBD: {{Question that needs answering before implementation}}
 
-## 14. References
+## 13. References
 
 - {{Link to designs, research, prior art, or related documents}}
 ````
 
 ## PRD Schema
 
-14 sections matching the template:
+13 sections matching the template:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
@@ -360,12 +334,11 @@ epics; sequencing between milestones is a roadmap concern, not defined here.}
 | 6. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
 | 7. Edge Cases | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
 | 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
-| 9. Milestones | Optional. Per-milestone outcome, scope boundary, and a light sketch of expected epics (seeds for delivery planning) | Topic 4: Value & Scope |
-| 10. Assumptions | What we believe to be true that underpins the plan | Validation phase |
-| 11. Risks | What could go wrong and how to address it | Validation phase |
-| 12. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
-| 13. Unknowns | Questions that need answering before implementation (TBD) | Validation phase |
-| 14. References | Links to designs, research, related documents | All phases |
+| 9. Assumptions | What we believe to be true that underpins the plan | Validation phase |
+| 10. Risks | What could go wrong and how to address it | Validation phase |
+| 11. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
+| 12. Unknowns | Questions that need answering before implementation (TBD) | Validation phase |
+| 13. References | Links to designs, research, related documents | All phases |
 
 Topic 3 (Market & Differentiation) feeds the Brief, not the PRD.
 
