@@ -15,6 +15,9 @@
  *     `colors.card` at 4.5:1 (it doubles as secondary text there)
  *   - every `components.<name>` with both `backgroundColor` and
  *     `textColor` resolved, at 4.5:1 (3:1 noted for large text / UI)
+ *   - a `transparent`/`none` component fill resolves to the page
+ *     (`colors.background`) — the text sits on the page; SKIP when no
+ *     background is defined (the page is unknown, never assumed white)
  *   - `-disabled` component variants reported SKIP (inactive UI is
  *     exempt under WCAG 1.4.3)
  *
@@ -69,6 +72,13 @@ const LARGE_TEXT_RATIO = 3.0;
 
 function unquote(value: string): string {
   return value.trim().replace(/^["']|["']$/g, "");
+}
+
+// A `transparent`/`none` fill paints nothing; the page shows through.
+// Matched case-insensitively after stripping quotes.
+function isTransparentFill(value: string): boolean {
+  const keyword = unquote(value).toLowerCase();
+  return keyword === "transparent" || keyword === "none";
 }
 
 function parseHex(value: string): Rgb | null {
@@ -260,6 +270,17 @@ function resolveColor(
     const alpha = ref[2] ? Math.min(100, parseInt(ref[2], 10)) / 100 : 1;
     return { rgb, alpha };
   }
+  // A `transparent`/`none` fill has no surface of its own; for contrast the
+  // text sits on the page, which is `colors.background`. Resolve to that
+  // token at alpha 1 so it never enters the translucent blend path (and
+  // that path's "#FFFFFF" page fallback). With no background defined the
+  // page is genuinely unknown — return null so the caller SKIPs instead of
+  // assuming white and reporting a fabricated ratio.
+  if (isTransparentFill(raw)) {
+    const pageHex = colors.background ?? skins[""]?.background;
+    const rgb = pageHex ? parseHex(pageHex) : null;
+    return rgb ? { rgb, alpha: 1 } : null;
+  }
   const literal = parseHex(raw);
   return literal ? { rgb: literal, alpha: 1 } : null;
 }
@@ -382,6 +403,14 @@ function checkFile(path: string, asJson: boolean): never {
   const hasOpacity = (raw: string): boolean =>
     /\}\/\d{1,3}$/.test(unquote(raw));
 
+  // `transparent`/`none` fills resolve to the page (`colors.background`).
+  // Establish once whether any skin defines a usable hex page; without one
+  // a transparent component cannot be checked and must never fall back to
+  // an assumed white page.
+  const pageIsKnown = skinEntries.some(
+    ({ colors }) => parseHex(colors.background ?? "") !== null,
+  );
+
   // Component references carry no skin name, so each pair resolves and
   // checks once per skin that can resolve it; a single SKIP surfaces
   // only when no skin resolves the pair. In an override skin the pair
@@ -400,9 +429,25 @@ function checkFile(path: string, asJson: boolean): never {
       });
       continue;
     }
+    // A transparent/none fill sits on the page (colors.background). With no
+    // page defined the result would rest on an assumed white page, so SKIP
+    // rather than report a fabricated ratio.
+    if (isTransparentFill(bgRaw) && !pageIsKnown) {
+      findings.push({
+        status: "SKIP",
+        ratio: null,
+        pair: `components.${name}`,
+        note: "transparent fill sits on the page, but no colors.background is defined; the page is unknown and never assumed white",
+      });
+      continue;
+    }
     const bgToken = skinVaryingToken(bgRaw);
     const fgToken = skinVaryingToken(fgRaw);
-    const blendsOverPage = hasOpacity(bgRaw) || hasOpacity(fgRaw);
+    // A pair depends on the page when a translucent value blends over it or
+    // a transparent fill resolves to it; either way an override skin that
+    // redefines `background` changes the result and must re-check.
+    const dependsOnPage =
+      hasOpacity(bgRaw) || hasOpacity(fgRaw) || isTransparentFill(bgRaw);
     let resolvedAny = false;
     for (const { name: skinName, colors, overrides } of skinEntries) {
       const inherited =
@@ -410,7 +455,7 @@ function checkFile(path: string, asJson: boolean): never {
         flatHasTokens &&
         !(bgToken && overrides.has(bgToken)) &&
         !(fgToken && overrides.has(fgToken)) &&
-        !(blendsOverPage && overrides.has("background"));
+        !(dependsOnPage && overrides.has("background"));
       if (inherited) continue; // identical to the default-skin check
       const bg = resolveColor(bgRaw, colors, skins);
       const fg = resolveColor(fgRaw, colors, skins);
