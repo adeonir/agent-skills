@@ -21,7 +21,7 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Phase | What Happens | Output |
 |-------|-------------|--------|
 | Discover | Check for existing PRD, brief, or context | Context for artifact creation |
-| Create | Generate epic, story, bug, task, or release | Tracker entity or markdown artifact |
+| Create | Generate milestone, epic, story, bug, task, or release | Tracker entity or markdown artifact |
 | Track | Update status in tracker when configured, in markdown otherwise | Updated state |
 | Handoff | Surface tracker URLs and prepare for implementation | User picks next step |
 
@@ -56,27 +56,28 @@ dependencies, Linear issue relations); in markdown-only mode the field is
 the source of truth and surfaces in the overview. Only `blocked_by` is
 stored — the inverse is derived, and the tracker keeps both sides in sync.
 
-## Milestones & Roadmap
+## Milestones
 
-An epic can point to a PRD milestone via `milestone:` (its direct parent).
-"show roadmap" groups epics by milestone — a markdown view that needs no
-tracker, with a "No milestone" bucket for unassigned epics. Milestones are
-optional; mirroring them to the tracker's native grouping (GitHub Milestone,
-Linear Initiative) is opt-in, asked once when a tracker is configured. The
-milestone's definition lives in the PRD — epic-tracker only references and
-groups by it.
+Milestones are delivery phases, defined in a registry the skill owns:
+`.artifacts/epics/milestones.md` (one entry per milestone — outcome, scope
+boundary, expected epics). `create milestone` adds an entry; `decompose
+milestone` turns one into epics. An epic points to its milestone via the
+`milestone:` frontmatter pointer. Milestones are optional; mirroring them to
+the tracker's native grouping (GitHub Milestone, Linear Initiative) is
+opt-in, asked once when a tracker is configured.
 
 ## Usage
 
 ```
+create milestone           -- define a delivery phase in the registry
 create epic                -- plan a new epic with stories and scope
-decompose milestone        -- break a PRD milestone into its epics
+decompose milestone        -- break a milestone into its epics
 create story               -- add a user-facing story to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
 create task                -- file an internal work item (infra, refactor, tooling, research)
 create release             -- group stories across epics for delivery
-show roadmap               -- display delivery status overview
+list epics                 -- show the delivery overview
 mark done                  -- update artifact status
 sync to tracker            -- push current artifact to configured tracker
 pull from tracker          -- refresh markdown with latest tracker state
@@ -99,6 +100,7 @@ declines push).
 
 ```
 .artifacts/epics/
+├── milestones.md
 ├── epic-name/
 │   ├── epic.md
 │   ├── 001-story-name.md

@@ -233,8 +233,7 @@ repo-level; an Issue belongs to at most one.
 1. Inputs: the Issue number and the milestone name (the epic's `milestone:`
    slug).
 2. Find the repo Milestone whose title matches the name; create it if absent
-   — title only, no due date (a milestone defines delivery, not a deadline;
-   an optional link back to the PRD may go in its description).
+   — title only, no due date (a milestone defines delivery, not a deadline).
 3. Assign the Issue to that Milestone, replacing any previous one.
 4. Stories under the epic inherit the Milestone (see create_story) unless
    overridden.

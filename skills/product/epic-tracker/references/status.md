@@ -6,7 +6,7 @@ artifacts in `.artifacts/epics/`.
 ## When to Use
 
 - User says "status", "update status", "mark done"
-- User says "show roadmap", "list epics", "overview"
+- User says "list epics", "overview"
 - User wants to see delivery progress at a glance
 
 ## Status Updates
@@ -49,12 +49,10 @@ Source depends on tracker config:
 **Without tracker (or `epic-tracker.kind: none`):** read markdown directly.
 
 1. List directories in `.artifacts/epics/`
-2. For each epic directory, read `epic.md` frontmatter (status, title, milestone)
+2. For each epic directory, read `epic.md` frontmatter (status, title)
 3. List story and bug files, read their frontmatter
 4. Read `.artifacts/epics/standalone/` for standalone bugs
 5. Read `.artifacts/epics/releases/` for releases
-6. For the roadmap view, read milestone order from `.artifacts/docs/prd.md`
-   section 9 when it exists; otherwise list milestones as they appear
 
 **With tracker configured:** delegate to [sync.md](sync.md) `list_artifacts`
 which fetches current state from the tracker. Use markdown only as a cache
@@ -84,36 +82,6 @@ completion ratio for epics (`N/M stories done`) and releases. When an
 artifact lists `blocked_by`, append `blocked by {paths}` so the reader
 sees what gates it.
 
-### Roadmap (grouped by milestone)
-
-For "show roadmap", group epics by their `milestone:` pointer instead of
-listing them flat. The view is **epic-driven**: only milestones that have
-epics appear — a PRD milestone stays absent until `decompose.md` turns it
-into epics, so tentative or future milestones never clutter the roadmap.
-Order milestones by the PRD's section 9 sequence when the PRD is available;
-epics with no `milestone:` go in a final "No milestone" group. Show the
-milestone name only — its definition lives in the PRD, not restated here.
-
-The view is recomputed each time, so it always reflects the current (living)
-PRD and epics — no stored roadmap to go stale. It is slug-tolerant: an epic
-whose `milestone:` no longer matches any PRD milestone still groups under
-that slug, so a renamed or removed milestone degrades gracefully instead of
-dropping the epic.
-
-```text
-## Milestone: {milestone-name} (2/3 epics done)
-  - [x] epic-name [done]
-  - [ ] epic-name [in-progress] (1/4 stories done)
-  - [ ] epic-name [planned]
-
-## No milestone
-  - [ ] epic-name [planned]
-```
-
-Milestones live in markdown — this view needs no tracker. When a tracker is
-configured and the milestone mirror is on, the tracker's native roadmap is
-the richer view; this overview stays the always-available baseline.
-
 ## Guidelines
 
 **DO:**
@@ -124,8 +92,6 @@ the richer view; this overview stays the always-available baseline.
 - Show completion ratios for epics and releases
 - Surface unmet `blocked_by` dependencies in the overview so the reader
   knows what is gated
-- For "show roadmap", group epics by milestone with a "No milestone" bucket;
-  this view needs no tracker
 - Group output by epic for readability
 - Warn the user when overview falls back to markdown cache because tracker MCP is unavailable
 

@@ -1,13 +1,13 @@
 # Decompose Milestone
 
-Turn a PRD milestone into the set of epics it needs, seeding each from the
+Turn a milestone into the set of epics it needs, seeding each from the
 milestone's expected-epics sketch.
 
 ## When to Use
 
-- User says "decompose milestone", "break down PRD", "plan milestone",
-  "create epics from PRD"
-- A PRD with defined milestones exists and its epics have not been created
+- User says "decompose milestone", "break down milestone", "plan milestone",
+  "create epics from a milestone"
+- A milestone is defined in the registry and its epics have not been created
 - A milestone needs its delivery broken into epics before story work begins
 
 ## Workflow
@@ -16,13 +16,13 @@ milestone's expected-epics sketch.
 
 ### 1. Locate the Milestone
 
-1. Read `.artifacts/docs/prd.md`. If no PRD exists, route the user to create
-   one first (epics can still be created directly via [epic.md](epic.md)).
-2. List the PRD's milestones. If more than one, ask which to decompose.
-3. Read the chosen milestone's Outcome, Success criteria, Scope boundary,
-   and Expected epics.
+1. Read `.artifacts/epics/milestones.md`. If it does not exist, route the user
+   to define a milestone first via [milestone.md](milestone.md) (epics can
+   still be created directly via [epic.md](epic.md)).
+2. List the registry's milestones. If more than one, ask which to decompose.
+3. Read the chosen milestone's Outcome, Scope boundary, and Expected epics.
 
-**Read for context only.** The milestone stays in the PRD; its tokens never
+**Read for context only.** The milestone stays in the registry; its tokens never
 cross verbatim into any epic. The Expected epics sketch is a set of seeds —
 capability area plus a one-line expectation each — not epic definitions.
 
@@ -30,7 +30,7 @@ capability area plus a one-line expectation each — not epic definitions.
 
 1. Check which epics already exist for this milestone — scan
    `.artifacts/epics/` (or the tracker) for epics whose `milestone:` matches.
-   Re-running over a living PRD is expected: propose only the **missing**
+   Re-running over a living registry is expected: propose only the **missing**
    epics, and never recreate or overwrite one that exists.
 2. Cleanse each seed before presenting it:
    - If a seed describes a UI widget, field list, endpoint, technology, or
@@ -46,7 +46,7 @@ capability area plus a one-line expectation each — not epic definitions.
    translations or merges applied.
 4. Let the user add, drop, merge, split, or rename. The sketch is a starting
    point, not a fixed list — the delivery breakdown is decided here, not in
-   the PRD.
+   the registry.
 5. Settle the epic set before creating anything.
 
 This workflow only *adds* epics. When a milestone's definition changed and an
@@ -60,7 +60,7 @@ additions specific to decomposition:
 
 - Set frontmatter `milestone: {milestone-name}` — the epic's direct parent
   (see the translate-don't-replicate note in [epic.md](epic.md)). Record the
-  pointer only; never copy the milestone's outcome, success criteria, or
+  pointer only; never copy the milestone's outcome, scope boundary, or
   deliverables into the epic body.
 - Add a **Milestone** entry under the epic's References so the link travels
   into the tracker on push.
@@ -81,20 +81,20 @@ stories — the user chooses when to go deeper.
 - Confirm the epic set with the user before creating any epic
 - Record the `milestone:` pointer on every epic created from a milestone
 - Let each epic define its own scope and AC, independent of the sketch
-- Re-run safely over a living PRD: add only epics missing for the milestone, leaving existing ones untouched
+- Re-run safely over a living registry: add only epics missing for the milestone, leaving existing ones untouched
 
 **DON'T:**
-- Copy the milestone's outcome, success criteria, or deliverables into an
+- Copy the milestone's outcome, scope boundary, or deliverables into an
   epic body (contrasts: record the `milestone:` pointer, strip the content)
 - Create epics the user has not confirmed (contrasts: settle the set first)
 - Create stories automatically (contrasts: offer, let the user choose)
 
 ## Error Handling
 
-- No PRD found: route to creating a PRD first, or to `epic.md` for direct
-  epic creation without a milestone
-- PRD has no milestones defined: route the user to define them in the PRD
-  first, or proceed with direct epic creation
+- No registry found: route to defining a milestone first via `milestone.md`,
+  or to `epic.md` for direct epic creation without a milestone
+- Registry has no milestones defined: route the user to define one via
+  `milestone.md` first, or proceed with direct epic creation
 - Milestone has no Expected epics sketch: ask the user to outline the epics,
   or derive candidates from the milestone's Outcome and Scope boundary and
   confirm before creating

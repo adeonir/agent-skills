@@ -16,12 +16,14 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 Check for existing context before asking questions:
 
-1. Look for `.artifacts/docs/prd.md` -- extract relevant milestones,
-   functional requirements, and scope
-2. Look for `.artifacts/docs/brief.md` -- extract value proposition
+1. Look for `.artifacts/docs/prd.md` -- extract relevant functional
+   requirements and scope
+2. Look for `.artifacts/epics/milestones.md` -- find the milestone this
+   epic serves, if any
+3. Look for `.artifacts/docs/brief.md` -- extract value proposition
    and target audience
-3. If found, summarize what was extracted and confirm with user
-4. If not found, ask the user:
+4. If found, summarize what was extracted and confirm with user
+5. If not found, ask the user:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
@@ -36,7 +38,7 @@ epic carries the facts, not the source document's framing.
 Recording *which* milestone the epic serves is the one exception — its direct
 parent, captured as the `milestone:` pointer in frontmatter (same as a
 story's `epic:`). The pointer names the parent; it never pulls the milestone's
-deliverables, success criteria, or phase ordering into the epic body.
+deliverables, scope, or phase ordering into the epic body.
 
 ### 2. Draft
 
@@ -69,9 +71,10 @@ Fill the template (below) with discovered context:
 - **Blocked by**: other epics or stories that must finish before this one
   can start, listed in frontmatter `blocked_by` by path. Lets the tracker
   enforce delivery order; leave empty when nothing blocks it.
-- **Milestone**: the PRD milestone this epic serves, as the frontmatter
-  `milestone:` pointer (its direct parent). Omit when there is no PRD
-  milestone; record the parent only, never the milestone's content.
+- **Milestone**: the milestone this epic serves (from the registry,
+  `.artifacts/epics/milestones.md`), as the frontmatter `milestone:` pointer
+  (its direct parent). Omit when the epic sits outside any milestone; record
+  the parent only, never the milestone's content.
 - **References**: durable pointers the next session follows (PRD, design
   doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
   the links for sync
@@ -89,9 +92,9 @@ Apply the resumption gate before proceeding:
 Apply the provenance gate as well:
 
 > **Provenance gate** — If the project has a PRD (`.artifacts/docs/prd.md`),
-> does this epic record which PRD it derives from, plus the `milestone:` it
-> serves when applicable? If not, add the reference — or confirm with the
-> user that the epic is independent of the PRD before leaving it blank.
+> does this epic record which PRD it derives from? And does it record the
+> `milestone:` it serves when it belongs to one? If not, add the reference —
+> or confirm with the user that the epic is independent before leaving it blank.
 
 ### 3. Save or Push
 
@@ -138,7 +141,7 @@ updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
 blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
-milestone: {{milestone-name or omit when no PRD milestone}}
+milestone: {{milestone-name or omit when the epic sits outside any milestone}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github
@@ -195,7 +198,7 @@ resolve before or during story breakdown.}
 home — travels into the tracker description; frontmatter `sources:`
 mirrors these links for sync (markdown only, absent in tracker mode).}
 
-- **Milestone:** {{PRD milestone name or "None"}}
+- **Milestone:** {{milestone name or "None"}}
 - **Brief:** {{link or "None"}}
 - **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
 - **Design Doc:** {{link or "None"}}
@@ -204,7 +207,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 
 ## Error Handling
 
-- PRD has milestones: ask which one this epic serves, or none — the
+- The registry has milestones: ask which one this epic serves, or none — the
   `milestone:` pointer is optional and an epic may sit outside any milestone
 - User provides vague context: ask clarifying questions, don't assume
 - Epic name conflicts with existing: suggest alternative or confirm

@@ -180,11 +180,11 @@ field is the source of truth and `status.md` reads it directly.
 
 ## Milestones
 
-An epic may carry a `milestone:` pointer (its PRD milestone, see
-[epic.md](epic.md)). Mirroring milestones to the tracker is **opt-in and
-never forced** — the milestone always works in markdown (the pointer plus the
-milestone-grouped view in [status.md](status.md)); the tracker grouping is an
-optional layer on top.
+An epic may carry a `milestone:` pointer (its milestone in the registry, see
+[milestone.md](milestone.md) and [epic.md](epic.md)). Mirroring milestones to
+the tracker is **opt-in and never forced** — the milestone always works in
+markdown (the registry `.artifacts/epics/milestones.md` plus the `milestone:`
+pointer on epics); the tracker grouping is an optional layer on top.
 
 | Tracker | Native grouping |
 |---------|-----------------|
@@ -203,8 +203,8 @@ Re-ask only via "configure tracker".
 
 - **Push:** when both gates pass and the epic has a `milestone:`, call the
   adapter's `set_milestone` after the epic is created. The native grouping
-  stays thin — the milestone's definition lives in the PRD, never copied into
-  the tracker. When the mirror is off or no tracker is configured, the
+  stays thin — the milestone's definition lives in the registry, never copied
+  into the tracker. When the mirror is off or no tracker is configured, the
   milestone stays markdown-only; nothing is pushed.
 - **Pull:** refresh `milestone:` from the entity's native grouping when the
   mirror is enabled; otherwise leave the markdown pointer untouched.

@@ -1,16 +1,16 @@
 ---
 name: epic-tracker
 description: >-
-  Manages the delivery lifecycle from epic planning through story
-  tracking to implementation handoff. 5 artifact types: Epic, Story,
+  Manages the delivery lifecycle from milestone and epic planning through
+  story tracking to implementation handoff. 5 artifact types: Epic, Story,
   Bug, Task, Release. Tracker-first when configured (Linear, GitHub
   Issues/Projects) via MCP or CLI — artifacts go directly to the
   tracker with no local files. Falls back to markdown as source of
   truth when no tracker is configured. Triggers: "create epic", "new
   epic", "create story", "new story", "edit story", "create task",
-  "report bug", "create release", "decompose milestone", "update status",
-  "show roadmap",
-  "list epics", "sync to tracker", "push to linear", "push to github",
+  "report bug", "create release", "create milestone", "decompose milestone",
+  "update status", "list epics", "sync to tracker", "push to linear",
+  "push to github",
   "pull from tracker", "configure tracker", "handoff".
   Not for implementing a named story with an existing spec, project-
   wide overview, feature status within a spec, or quick fixes.
@@ -36,9 +36,10 @@ Falls back to markdown when not.
 ## Triggers
 
 - **Epic** ("create epic", "new epic") → [epic.md](references/epic.md)
-- **Decompose** ("decompose milestone", "break down PRD", "plan
-  milestone", "create epics from PRD") →
-  [decompose.md](references/decompose.md)
+- **Milestone** ("create milestone", "define milestone", "plan
+  milestones") → [milestone.md](references/milestone.md)
+- **Decompose** ("decompose milestone", "break down milestone", "create
+  epics from a milestone") → [decompose.md](references/decompose.md)
 - **Story** ("create story", "new story", "add story") →
   [story.md](references/story.md)
 - **Edit Story** ("edit story", "update story body", "change story") →
@@ -49,8 +50,8 @@ Falls back to markdown when not.
   "create chore") → [task.md](references/task.md)
 - **Release** ("create release", "new release") →
   [release.md](references/release.md)
-- **Status / roadmap** ("status", "update status", "mark done", "show
-  roadmap", "list epics", "overview") → [status.md](references/status.md)
+- **Status** ("status", "update status", "mark done", "list epics",
+  "overview") → [status.md](references/status.md)
 - **Sync** ("sync to tracker", "push to linear/github", "pull from
   tracker", "configure tracker") → [sync.md](references/sync.md)
 - **Handoff** ("handoff", "implement story", "start story") →
@@ -60,15 +61,17 @@ Falls back to markdown when not.
 - **GitHub adapter** (auto-loaded by sync) →
   [adapters/github.md](references/adapters/github.md)
 
-`epic.md` opens with context discovery — reads `.artifacts/docs/prd.md`
-and `.artifacts/docs/brief.md` before prompting; falls back to direct
-questions when neither file exists.
+`epic.md` opens with context discovery — reads `.artifacts/docs/prd.md`,
+`.artifacts/epics/milestones.md`, and `.artifacts/docs/brief.md` before
+prompting; falls back to direct questions when none exist.
 
-`decompose.md` reads a chosen PRD milestone and creates its epic set,
-composing `epic.md` (and optionally `story.md`); the epics it creates carry
-a `milestone:` pointer to their parent.
+`milestone.md` records delivery phases in the registry
+(`.artifacts/epics/milestones.md`); `decompose.md` reads a chosen milestone
+from that registry and creates its epic set, composing `epic.md` (and
+optionally `story.md`); the epics it creates carry a `milestone:` pointer to
+their parent.
 
-`status.md` covers both status updates and roadmap reads.
+`status.md` covers status updates and the delivery overview.
 
 `sync.md` is also auto-loaded by core refs (epic, story, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
@@ -90,7 +93,7 @@ after the artifact is saved when `epic-tracker.kind` is set and not `none`.
   edits that change AC text
 - Capture cross-artifact order with `blocked_by`; sync maps it to the
   tracker's native dependency relation
-- Decompose a PRD milestone into its epics with `decompose.md`; record the
+- Decompose a milestone into its epics with `decompose.md`; record the
   `milestone:` parent pointer on each epic
 - Delegate sizing to the implementation phase
 
@@ -104,7 +107,7 @@ adapter, not a rewrite of every artifact ref.
 
 ## Anti-Pattern: AC Validation on Reads
 
-Validating Acceptance Criteria during pull or roadmap reads breaks
+Validating Acceptance Criteria during pull or status reads breaks
 legacy artifacts that predate the Given/When/Then enforcement. Validate
 on **write paths only** — story create and edit-when-AC-text-changes —
 and let read paths tolerate legacy AC. The implementation consumer
