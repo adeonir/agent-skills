@@ -68,10 +68,10 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 Contrast ratios are computed, never estimated by eye. Run the bundled script (execute it; do not read it as reference):
 
 ```bash
-bun run ${CLAUDE_SKILL_DIR}/scripts/check-contrast.ts docs/design/DESIGN.md
+python3 ${CLAUDE_SKILL_DIR}/scripts/check-contrast.py docs/design/DESIGN.md
 ```
 
-It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. It accepts every token shape (hex string, inline flow `{ hex, oklch }`, block map with a `hex` member) and a `colors` block that is flat or carries skin groups — groups are detected structurally, never by name. Flat tokens form the default skin; each named group is an override skin inheriting every flat token it does not redefine (which skin is default is the author's call), and pairs an override touches re-check under that skin. A component fill of `transparent`/`none` resolves to the page (`colors.background`) so the text is checked where it actually sits; with no `colors.background` defined the page is unknown and the component SKIPs rather than assume white. Map its output onto the `contrast-ratio` checks below; a run where every pair skips exits 2 and counts as a failed gate, not a pass. If `bun` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.
+It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. It accepts every token shape (hex string, inline flow `{ hex, oklch }`, block map with a `hex` member) and a `colors` block that is flat or carries skin groups — groups are detected structurally, never by name. Flat tokens form the default skin; each named group is an override skin inheriting every flat token it does not redefine (which skin is default is the author's call), and pairs an override touches re-check under that skin. A component fill of `transparent`/`none` resolves to the page (`colors.background`) so the text is checked where it actually sits; with no `colors.background` defined the page is unknown and the component SKIPs rather than assume white. Map its output onto the `contrast-ratio` checks below; a run where every pair skips exits 2 and counts as a failed gate, not a pass. If `python3` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.
 
 | Check | Severity |
 |-------|----------|
@@ -229,7 +229,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - No DESIGN.md in `docs/design/`: stop and route the user to `design.md` to author one
 - Frontmatter block missing or unparseable: emit one error, stop downstream checks
 - YAML parses but `colors` is empty: report what is missing, suggest running design-brief
-- `bun` unavailable for the contrast script: compute ratios manually from the hex values and mark every contrast finding as estimated
+- `python3` unavailable for the contrast script: compute ratios manually from the hex values and mark every contrast finding as estimated
 
 ## Outcomes
 

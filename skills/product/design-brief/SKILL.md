@@ -1,6 +1,6 @@
 ---
 name: design-brief
-allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
+allowed-tools: Bash(bun:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
 description: >-
   Greenfield design pipeline for any digital product: explore a visual
   direction when no reference exists, then author and refine the visual
@@ -95,7 +95,7 @@ register file also auto-load inside `design.md` for token-authoring principles;
 `anti-patterns.md` auto-loads inside
 `preview.md`, which serves the styleguide through
 `scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG
-contrast through `scripts/check-contrast.ts` — ratios are computed,
+contrast through `scripts/check-contrast.py` — ratios are computed,
 never estimated. `validate.md` is both directly callable and
 auto-loaded as a gate by `design.md` and `reconcile.md`, so
 DESIGN.md never lands invalid.

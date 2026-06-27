@@ -135,7 +135,7 @@ Token keys follow shadcn-style naming (`primary`, `primary-foreground`, `card`, 
 **Contrast floor (hard constraint).** A `*-foreground` token is text on its base surface by construction: every `colors.<base>` / `colors.<base>-foreground` pair must meet WCAG AA 4.5:1 (`foreground` itself pairs with `background`), and `muted-foreground` must also meet 4.5:1 against `background` and `card`, where it doubles as secondary text. Never estimate a ratio by eye — verify candidate values with the bundled script (execute it; do not read it as reference):
 
 ```bash
-bun run ${CLAUDE_SKILL_DIR}/scripts/check-contrast.ts --pair "#717182" "#ececf0"
+python3 ${CLAUDE_SKILL_DIR}/scripts/check-contrast.py --pair "#717182" "#ececf0"
 ```
 
 When a candidate pair fails, shift the foreground's lightness (oklch `L`) while preserving hue and chroma until it passes. When the source itself carries a failing pair, exact-value preservation and the contrast floor conflict — surface the failing pair and ask the user: keep the source value as a recorded trade-off, or shift lightness to pass.
@@ -179,7 +179,7 @@ The contrast floor applies per skin — every pair must pass as the default and 
 After assembling the group, run the contrast script against the file — the Step 3 contrast floor applies to the values as written, not just the candidates:
 
 ```bash
-bun run ${CLAUDE_SKILL_DIR}/scripts/check-contrast.ts docs/design/DESIGN.md
+python3 ${CLAUDE_SKILL_DIR}/scripts/check-contrast.py docs/design/DESIGN.md
 ```
 
 **Frontmatter — typography.** One entry per role. Required: `fontFamily`, `fontSize`. Optional: `fontWeight`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation`. Dimensions in `px`, `em`, or `rem`. `lineHeight` accepts unitless numbers (recommended).
@@ -374,7 +374,7 @@ Then show the user:
 - Existing DESIGN.md has unknown sections: preserve them, do not error
 - Two sources conflict on a token: ask user which is authoritative
 - Source palette fails the contrast floor: surface the failing pairs; user decides — keep the source value as a recorded trade-off or shift lightness to pass
-- `bun` unavailable for the contrast script: compute ratios manually from the hex values, state they are estimated, and recommend re-checking with the script later
+- `python3` unavailable for the contrast script: compute ratios manually from the hex values, state they are estimated, and recommend re-checking with the script later
 - Validation gate fails with errors: do not report done; surface findings, ask user to fix or accept trade-off
 
 ## DESIGN.md Template
