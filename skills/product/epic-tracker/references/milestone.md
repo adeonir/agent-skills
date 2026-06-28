@@ -32,9 +32,10 @@ never depends on the PRD existing.
 
 Fill the registry-entry template (below):
 
-- **Name**: kebab-case, descriptive, no numeric prefix
-  (`checkout-sem-friccao`, `onboarding-guiado`). Declarative — names the
-  phase, not a narrative outcome.
+- **Name**: kebab-case slug — the stable key the epic's `milestone:` pointer
+  matches (`checkout-sem-friccao`). No numeric prefix, declarative.
+- **Title**: short human-readable phrase (`Checkout sem fricção`) — the name
+  the tracker grouping (GitHub Milestone / Linear Initiative) uses on push.
 - **Outcome**: the capability this phase delivers and the value it unlocks —
   one or two sentences, plain language.
 - **Scope boundary**: what this phase includes and what it defers. Resolves
@@ -79,21 +80,27 @@ This workflow only records milestone definitions; it does not create epics.
 
 ## Template
 
-ALWAYS use this exact template structure for each registry entry:
+The registry is a list: a `# Milestones` heading once, then one `##` block
+per milestone in delivery order. ALWAYS use this exact structure:
 
 ````markdown
 # Milestones
 
 ## {{milestone-name}}
 
+- **Title:** {{Milestone Title}}
 - **Outcome:** {{capability this phase delivers and the value it unlocks}}
 - **Scope boundary:** {{what this phase includes and what it defers}}
 - **Expected epics:**
   - {{epic-name}} — {{one-line capability expectation}}
-  - {{epic-name}} — {{one-line capability expectation}}
 
-{{Repeat the `## {{milestone-name}}` block for each milestone, in delivery
-order. The `# Milestones` heading appears once at the top of the file.}}
+## {{next-milestone-name}}
+
+- **Title:** {{Milestone Title}}
+- **Outcome:** {{capability this phase delivers and the value it unlocks}}
+- **Scope boundary:** {{what this phase includes and what it defers}}
+- **Expected epics:**
+  - {{epic-name}} — {{one-line capability expectation}}
 ````
 
 MUST NOT contain: success criteria, acceptance criteria, per-story detail,

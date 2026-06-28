@@ -230,9 +230,9 @@ Mirrors an epic's `milestone:` pointer to a GitHub Milestone, gated by the
 milestone mirror (see Milestones in ../sync.md). GitHub Milestones are
 repo-level; an Issue belongs to at most one.
 
-1. Inputs: the Issue number and the milestone name (the epic's `milestone:`
-   slug).
-2. Find the repo Milestone whose title matches the name; create it if absent
+1. Inputs: the Issue number and the milestone title (resolved from the
+   registry by sync — the human-readable name, not the slug).
+2. Find the repo Milestone whose title matches; create it if absent
    — title only, no due date (a milestone defines delivery, not a deadline).
 3. Assign the Issue to that Milestone, replacing any previous one.
 4. Stories under the epic inherit the Milestone (see create_story) unless

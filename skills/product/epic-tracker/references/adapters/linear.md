@@ -93,9 +93,10 @@ gated by the milestone mirror (see Milestones in ../sync.md). The likely
 mapping is an Initiative (which groups Projects = epics) — confirm the
 workspace's roadmap primitive before wiring.
 
-1. Inputs: the epic's Project id and the milestone name.
-2. Find the Initiative whose name matches; create it if absent (name only,
-   no target date — a milestone defines delivery, not a deadline).
+1. Inputs: the epic's Project id and the milestone title (resolved from the
+   registry by sync — the human-readable name, not the slug).
+2. Find the Initiative whose name matches the title; create it if absent (name
+   only, no target date — a milestone defines delivery, not a deadline).
 3. Add the Project to that Initiative, replacing any previous one.
 4. Return success.
 

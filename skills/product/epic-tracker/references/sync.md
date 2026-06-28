@@ -201,9 +201,10 @@ When a tracker is configured but `epic-tracker.milestones` is unset, ask once
 the answer with `git config --local epic-tracker.milestones {true|false}`.
 Re-ask only via "configure tracker".
 
-- **Push:** when both gates pass and the epic has a `milestone:`, call the
-  adapter's `set_milestone` after the epic is created. The native grouping
-  stays thin — the milestone's definition lives in the registry, never copied
+- **Push:** when both gates pass and the epic has a `milestone:`, resolve that
+  slug to its **Title** in the registry and call the adapter's `set_milestone`
+  with the title after the epic is created. The native grouping stays thin —
+  the milestone's definition lives in the registry, never copied
   into the tracker. When the mirror is off or no tracker is configured, the
   milestone stays markdown-only; nothing is pushed.
 - **Pull:** refresh `milestone:` from the entity's native grouping when the
@@ -255,7 +256,7 @@ these operations using its own MCP calls:
 | `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
-| `set_milestone` | tracker_id, milestone_name | success |
+| `set_milestone` | tracker_id, milestone_title | success |
 | `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by, milestone) |
 | `list_artifacts` | filter (epic, status, etc.) | list of summaries |
 
