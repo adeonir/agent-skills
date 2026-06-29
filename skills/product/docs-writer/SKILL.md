@@ -2,14 +2,12 @@
 name: docs-writer
 description: >-
   Generates structured product and technical documents through guided
-  discovery. 4 document types: PRD (product requirements), PRODUCT
-  (strategic positioning and identity, generated alongside the PRD or
-  standalone), Design Doc (single project-wide living technical document
-  covering strategy through prescriptive plan), ADR (single architecture
-  decision record, append-only log). Use when defining product
-  requirements, drafting product specs, capturing product positioning,
-  authoring the design doc, or writing ADRs. Not for feature spec tied to
-  implementation or meeting/session notes.
+  discovery: PRDs, product positioning docs, technical design docs, and
+  architecture decision records. Use when defining product requirements,
+  capturing product strategy or positioning, writing a technical design
+  doc to weigh architecture and trade-offs, or recording an architecture
+  decision. Not for visual or UI design, feature specs tied to
+  implementation, or meeting and session notes.
 ---
 
 # Docs Writer
@@ -29,7 +27,7 @@ Detect document type from the trigger. If ambiguous, ask the user.
 |------|-----------|
 | PRD — product requirements | [prd.md](references/prd.md) |
 | PRODUCT — strategic positioning and identity | [product.md](references/product.md) |
-| Design Doc — single project-wide living technical document | [design.md](references/design.md) |
+| Design Doc — lean technical design and trade-offs | [design.md](references/design.md) |
 | ADR — single accepted decision record | [adr.md](references/adr.md) |
 
 Auto-loaded (no direct triggers):
@@ -50,13 +48,10 @@ Auto-loaded (no direct triggers):
   is. Keep three zones clean — audience as relationship (not the PRD's job
   to be done), refused aesthetics (not the PRD's out-of-scope features),
   and differentiation (not the PRD's problem statement).
-- **Design Doc** — single project-wide living technical document.
-  Covers strategy, trade-offs, and prescriptive plan (domain,
-  conventions, architecture, security, observability, testing,
-  deployment). Lifecycle tracked via frontmatter `status`: draft →
-  accepted → in-progress → shipped → superseded. Context section
-  recaps the project in 1-2 paragraphs and links to the PRD; never
-  duplicates product prose.
+- **Design Doc** — lean technical design: the context, the design, and
+  the trade-offs behind it (Google-style). Context recaps the project in
+  1-2 paragraphs and links to the PRD; never duplicates product prose.
+  Not visual or UI design, and not an exhaustive technical spec.
 - **ADR** — single architecture decision (1-2 pages). Numbered, immutable
   once accepted; superseded by new ADRs, never edited. Use when lifting
   decisions from a PRD/Design Doc or recording retrospectively. When
@@ -73,7 +68,6 @@ Auto-loaded (no direct triggers):
 - Use concrete, measurable requirements
 - Keep each document within its domain (PRD = product, Design Doc / ADR = technical)
 - One decision per ADR — never bundle multiple decisions into a single record
-- One Design Doc per project — major rewrites spawn `design-doc-v2.md` and supersede the old via frontmatter
 
 ## Anti-Pattern: Yes-Man Discovery
 
@@ -87,15 +81,14 @@ on.
 ## Anti-Pattern: ADR as Design Doc
 
 ADR records *one* decision after it's been made — context, decision,
-consequences, alternatives. Design Doc carries the living narrative
-of trade-offs across the project. Writing a long ADR that weighs
-several open options is a Design Doc in disguise; writing a Design
-Doc that captures a single accepted choice is an ADR padded with
-prose. If the decision is still in motion, leave it in the Design
-Doc's Alternatives Considered table with `Record = —`. Once
-accepted, extract it into an ADR, update the design doc row's
-`Record` column to `ADR-NNNN`, and link the ADR's References back
-to the design doc section anchor.
+consequences, alternatives. The design doc carries the design and the
+trade-offs behind it. Writing a long ADR that weighs several open
+options is a design doc in disguise; writing a design doc that captures
+a single accepted choice is an ADR padded with prose. If the decision
+is still in motion, leave it in the design doc's Alternatives Considered
+table with `Record = —`. Once recorded, extract it into an ADR, update
+the design doc row's `Record` column to `ADR-NNNN`, and link the ADR's
+References back to the design doc's Alternatives Considered section.
 
 ## Anti-Pattern: Vague Requirements
 

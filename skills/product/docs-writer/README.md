@@ -26,7 +26,7 @@ flowchart TD
 |------|----------|--------|
 | **PRD** | discovery → validation → synthesis → drafting | `PRD.md` |
 | **PRODUCT** | generated alongside PRD by default, or standalone | `PRODUCT.md` |
-| **Design Doc** | discovery (5 topics) → analysis → drafting | `design-doc.md` |
+| **Design Doc** | discovery (4 topics) → analysis → drafting | `design-doc.md` |
 | **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
 
 ## Usage
@@ -55,10 +55,9 @@ docs/adr/{NNNN}-{slug}.md
 
 Committed by default. Product-side artifacts (PRD, PRODUCT) live as
 siblings of the brainstorming output (`docs/product/brainstorm.md`).
-The Design Doc lives under `docs/tech/` as a single living document
-per project. ADRs accumulate in their own subdirectory as a numbered
-append-only log; design doc Alternatives rows link to ADRs via the
-`Record` column once formalized.
+The Design Doc lives under `docs/tech/`. ADRs accumulate in their own
+subdirectory as a numbered append-only log; design doc Alternatives
+rows link to ADRs via the `Record` column once formalized.
 
 ## Document Boundaries
 
@@ -68,36 +67,19 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 |-----|----------|------|---------------|
 | **PRODUCT** | PMs, designers, marketing | Strategic positioning: register, audience posture, brand personality, anti-references, design principles | Requirements, scope, metrics, journeys, technical content |
 | **PRD** | PMs, engineers, designers | Product spec: problem, personas, scope MoSCoW, journeys, business rules, NFRs (as targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
-| **Design Doc** | Engineers, future engineers | Technical strategy: domain, conventions, architecture, security, observability, testing, deployment, trade-offs | Product KPIs, personas, business rule restatement, journey walkthroughs |
+| **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product KPIs, personas, journey walkthroughs, exhaustive spec coverage |
 | **ADR** | Engineers, future engineers | One accepted technical decision with context, consequences, alternatives | Multiple decisions in one file, open trade-offs, advocacy as context |
 
 ### How they relate
 
 - PRODUCT is the product's strategic positioning — generated alongside the PRD by default (shared discovery), and also authored standalone when strategy shifts.
 - PRD is the source of truth for product; Design Doc links to it, never copies prose.
-- Design Doc captures living trade-offs; matured decisions extract into ADRs. The design doc Alternatives row keeps history via the `Record` column.
+- Design Doc carries the design and its trade-offs; matured decisions extract into ADRs, tracked via the Alternatives `Record` column.
 - ADRs are immutable once accepted; supersede with a new ADR, never edit.
 
 When a section feels like it belongs in two docs, it usually belongs in one and gets a link from the other.
 
 ## FAQ
-
-**Q: Why is there a single Design Doc per project instead of one per component or feature?**
-A: The Design Doc is a living technical document that follows the
-project lifecycle. Per-component or per-feature technical plans
-fragment the source of truth and force traceability ceremony that
-the ADR canon already solves: decisions that span scope are recorded
-as ADRs, while the Design Doc keeps the narrative history through
-the Alternatives Considered table. The model mirrors Google's
-"Design Docs at Google" pattern with an explicit ADR linkage layer.
-
-**Q: How does the Design Doc lifecycle work?**
-A: Frontmatter `status` tracks the doc: `draft → accepted →
-in-progress → shipped → superseded`. The doc evolves in place during
-draft and accepted; structural updates continue through in-progress
-as implementation reveals new structure; once shipped, incremental
-updates are allowed but major rewrites spawn a new `design-doc-v2.md`
-that supersedes the original via frontmatter.
 
 **Q: How are ADRs linked to the Design Doc?**
 A: The Design Doc's Alternatives Considered table includes a
@@ -109,13 +91,12 @@ reversals create a superseding ADR and a new row, never an edit to
 the original row.
 
 **Q: When should I use an ADR vs a Design Doc?**
-A: The Design Doc is the project's living technical document — it
-carries the narrative of trade-offs across the project's lifetime.
-The Alternatives Considered table is where decisions get explored
-and recorded. Each row starts with `Record = —`; when a decision
-matures, extract it into an ADR (immutable, numbered, one decision
-per file), update the row's `Record` to `ADR-NNNN`, and link the
-ADR's References back to the design doc anchor. ADRs are the
+A: The Design Doc carries the design and the trade-offs behind it; the
+Alternatives Considered table is where decisions get explored and
+recorded. Each row starts with `Record = —`; when a decision matures,
+extract it into an ADR (immutable, numbered, one decision per file),
+update the row's `Record` to `ADR-NNNN`, and link the ADR's References
+back to the design doc's Alternatives Considered section. ADRs are the
 formal receipt; the Design Doc keeps the surrounding context.
 
 **Q: I have decisions buried in a PRD or research — how do I lift
@@ -134,17 +115,14 @@ also has a standalone trigger, because positioning changes with strategy,
 independent of any PRD revision.
 
 **Q: How is the Design Doc sized?**
-A: No tier-based sizing. The Google convention applies informally:
-mini design docs (1-3 pages) for early-stage or single-service
-projects where many section 3 sub-sections are N/A; larger design
-docs (10-20 pages) for multi-service, multi-team, or
-production-critical projects where most sub-sections are populated.
-Section presence is "include when applicable" — sub-sections under
-3 are explicitly marked `N/A` with a one-line reason, or omitted.
+A: No tier-based sizing — as long as the design needs, as short as it
+allows. A few decisions on a small service is a one-pager; a
+multi-service system with many trade-offs runs longer. The doc grows
+with the decisions, never with a section checklist.
 
 **Q: What if the user has no PRD when starting a Design Doc?**
 A: The Design Doc workflow can start from scratch. When a PRD exists
 at `docs/product/PRD.md`, the discovery phase extracts product
 context as input and the Context section links to it. Without a PRD,
-the discovery phase widens the System Overview topic to capture
+the discovery phase widens the Context & Goals topic to capture
 product framing alongside the technical surface.

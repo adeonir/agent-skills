@@ -45,7 +45,7 @@ into their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
-| `docs/tech/design-doc.md` | `## 4. Alternatives Considered` rows (rows with `Record = —` are candidates for promotion) |
+| `docs/tech/design-doc.md` | `## 4. Alternatives Considered & Trade-offs` rows (rows with `Record = —` are candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
 If found, list candidate decisions and ask the user which one this
@@ -166,7 +166,7 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ## References
 
-- {{Link to Design Doc section anchor, e.g. `docs/tech/design-doc.md#4-alternatives-considered`}}
+- {{Link to the Design Doc's Alternatives Considered section, e.g. `docs/tech/design-doc.md`}}
 - {{Link to PRD that contains broader context}}
 - {{External RFCs, vendor docs, prior art}}
 ````

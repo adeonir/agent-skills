@@ -54,10 +54,10 @@ Move on when:
 |------|-----------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
 | PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (woven into PRD discovery; standalone runs it alone) |
-| Design Doc | 5 topics | System overview, domain & data, architecture & conventions, security & compliance, operations |
+| Design Doc | 4 topics | Context & goals, the design, alternatives & trade-offs, cross-cutting concerns |
 | ADR | 1 topic | The decision: context forces, alternatives, consequences (lightweight; one ADR per decision) |
 
-Design Doc discovery covers the full surface of a project-wide technical document; sub-sections under section 3 of the template may be omitted when not applicable. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes Alternatives rows into formal ADRs.
+Design Doc discovery stays lean and trade-off-focused. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes Alternatives rows into formal ADRs.
 
 ## Synthesis Pattern
 

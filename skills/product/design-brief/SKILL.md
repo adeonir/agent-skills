@@ -13,8 +13,8 @@ description: >-
   modernizing, or refreshing the brand identity; previewing and tuning
   the design tokens as a visual styleguide then committing tuned
   values back; reconciling design drift or syncing from implementation.
-  Not for rendering page variants, feature implementation spec, system
-  architecture, or PR/code review.
+  Not for rendering page variants, feature implementation spec, technical
+  design docs, system architecture, or PR/code review.
 ---
 
 # Design Brief

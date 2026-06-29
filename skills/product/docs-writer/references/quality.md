@@ -76,20 +76,17 @@ cross-doc content links rather than duplicates.
 
 ## Design Doc-Specific Gates
 
-When the document is a Design Doc, additionally verify the
-structural integrity of section 3:
+When the document is a Design Doc, additionally verify:
 
-- [ ] Section 3 sub-sections marked "N/A" or omitted when not
-      applicable; no empty placeholders left behind
-- [ ] Alternatives Considered Record column populated where an ADR
-      has been written; rows with `ADR-NNNN` are frozen (reversals
-      require a superseding ADR, not a row edit)
-- [ ] Each Domain entity in 3.4 has a corresponding storage decision
-- [ ] Critical-section promotions enforced:
-      - PII or auth involved: 3.5 Security & Compliance is mandatory
-      - Production service: 3.6 Observability and 3.8 Deployment
-        are mandatory
-      - Migration work: 3.8 Deployment populated; Open Questions
-        captures rollback unknowns
+- [ ] Every significant decision in Alternatives Considered carries its
+      chosen / rejected / reasoning — the doc reasons, it does not just
+      prescribe
+- [ ] Alternatives Considered Record column populated where an ADR exists;
+      rows with `ADR-NNNN` are frozen (reversals require a superseding ADR,
+      not a row edit)
+- [ ] Context recaps in 1-2 paragraphs and links the PRD — no restated
+      Problem Statement, Personas, or Journeys
+- [ ] Cross-cutting concerns appear only where they shape the design — no
+      exhaustive coverage of axes with no decision behind them
 
 If issues found: fix inline before presenting.
