@@ -13,7 +13,7 @@ never invoked directly.
 
 Look for:
 
-- an existing `docs/design/blueprint.md` — a prior layout plan
+- an existing `docs/design/BLUEPRINT.md` — a prior layout plan
 - a wireframe on hand: sketch, mockup, screenshot, or a described layout
 - a brief, PRD, or description the user provides — intent and surfaces
 - `docs/product/PRODUCT.md` — positioning: the default register and structural anti-references (hero-metric, identical-card grids)

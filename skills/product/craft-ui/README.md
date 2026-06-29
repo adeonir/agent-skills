@@ -8,7 +8,7 @@ craft-ui — build the interface from the upstream design artifacts and pressure
 flowchart TD
     subgraph inputs[Inputs]
       D[DESIGN.md — tokens]
-      B[blueprint.md — layout]
+      B[BLUEPRINT.md — layout]
       C[copy.yaml — content]
     end
     D --> R[render]
@@ -25,12 +25,12 @@ flowchart TD
 
 | Mode | Target | Output |
 | ---- | ------ | ------ |
-| **render** | DESIGN.md + blueprint.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
+| **render** | DESIGN.md + BLUEPRINT.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
 | **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
 | **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
 
 Every mode here works on rendered design, never source. render is the **integrator**
-— the one mode that reads DESIGN.md, blueprint.md, and copy.yaml together — and it
+— the one mode that reads DESIGN.md, BLUEPRINT.md, and copy.yaml together — and it
 writes only variant HTML. critique and audit produce only a judgment. Nothing
 here mutates a source artifact or production code.
 
@@ -68,7 +68,7 @@ judges — none edits.
 
 critique and audit write nothing — the verdict and the report are delivered in
 chat. Variant HTML is a decision aid, not a handoff; the handoff to
-implementation is the source set (`DESIGN.md`, `blueprint.md`, `copy.yaml`).
+implementation is the source set (`DESIGN.md`, `BLUEPRINT.md`, `copy.yaml`).
 
 ## References
 
@@ -98,7 +98,7 @@ The shared rubric every mode composes:
 
 ## FAQ
 
-**Q: Does it edit DESIGN.md, blueprint.md, copy.yaml, or production code?**
+**Q: Does it edit DESIGN.md, BLUEPRINT.md, copy.yaml, or production code?**
 
 A: No — non-mutating end to end. render reads the three inputs and writes only variant HTML to `.artifacts/`; critique and audit produce only a judgment. To make a direction permanent or fix a defect, the change happens in the owning skill or in implementation.
 

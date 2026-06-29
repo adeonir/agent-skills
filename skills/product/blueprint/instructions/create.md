@@ -1,6 +1,6 @@
 # Create
 
-Author or edit a layout plan in `blueprint.md`. Plan the surfaces, blocks,
+Author or edit a layout plan in `BLUEPRINT.md`. Plan the surfaces, blocks,
 shapes, and flow a product needs — from scratch, or patching an existing plan —
 then save the region tree (YAML frontmatter) and narrate it (markdown body).
 
@@ -70,14 +70,14 @@ lets the user redirect. Reserve the 2-3 option menu, each with a one-line
 rationale, for when the choice is genuinely open. Either way, let the user
 settle it before writing.
 
-### Step 4: Write blueprint.md
+### Step 4: Write BLUEPRINT.md
 
-Save to `docs/design/blueprint.md` using the template below. The
+Save to `docs/design/BLUEPRINT.md` using the template below. The
 **YAML frontmatter** carries the renderable region tree;
 the **markdown body** narrates it with a screen map and per-surface rationale.
 Create directories if needed. The tree mirrors the surfaces established in
 Step 1 — name each surface and block by context, nest to match, and add `note`
-where intent needs words a box cannot show. When a `blueprint.md` already
+where intent needs words a box cannot show. When a `BLUEPRINT.md` already
 exists, patch the frontmatter first, then the body that describes it, so the
 two stay in sync.
 

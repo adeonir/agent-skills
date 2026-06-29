@@ -1,7 +1,7 @@
 # Render
 
 Render the real product in N visual directions for decision-making. Combine
-DESIGN.md tokens, blueprint.md arrangement, and copy.yaml content into full-page HTML
+DESIGN.md tokens, BLUEPRINT.md arrangement, and copy.yaml content into full-page HTML
 variants, serve them side by side, refine the visual direction, comment, and
 switch viewports. A decision aid — output is HTML in `.artifacts/`, never a
 source artifact.
@@ -14,7 +14,7 @@ full page.
 - A visual direction needs to be seen on the real product before committing
 - User wants to compare visual directions side by side
 - User wants to explore a layout or style direction on a rendered page
-- After or alongside DESIGN.md, blueprint.md, and copy.yaml — each optional, see Inputs
+- After or alongside DESIGN.md, BLUEPRINT.md, and copy.yaml — each optional, see Inputs
 
 ## Inputs and Fallbacks
 
@@ -23,7 +23,7 @@ a variant always renders:
 
 - `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter).
   **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
-- `docs/design/blueprint.md` — layout plan (page composition or screen flow).
+- `docs/design/BLUEPRINT.md` — layout plan (page composition or screen flow).
   **Absent** → compose a conventional layout from [layout.md](../references/layout.md).
 - `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings
   from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent
@@ -55,7 +55,7 @@ Required references, auto-loaded:
 
 Resolve the **register** (brand or product — [brand.md](../references/brand.md) /
 [product.md](../references/product.md)) and the **surface**; read which surfaces
-the project has from blueprint.md, copy.yaml, or the user. Register comes from
+the project has from BLUEPRINT.md, copy.yaml, or the user. Register comes from
 `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand,
 dashboard/app = product); ask only when neither is available.
 
@@ -103,7 +103,7 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 
 ## Workflow
 
-User asks for N variants (default 4). Generate one HTML per variant from the tokens (DESIGN.md or a composed seed), the arrangement (blueprint.md or fallback layout), and the content (copy.yaml or placeholders).
+User asks for N variants (default 4). Generate one HTML per variant from the tokens (DESIGN.md or a composed seed), the arrangement (BLUEPRINT.md or fallback layout), and the content (copy.yaml or placeholders).
 
 1. **Confirm count and direction.** Default N to 4. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register and fitting the surface.
 
@@ -124,7 +124,7 @@ User asks for N variants (default 4). Generate one HTML per variant from the tok
 Once a variant is chosen, tune its **visual direction** — not its tokens. Variant
 tune re-renders the variant along four direction axes; it never edits DESIGN.md
 and never commits. To make a tuned direction permanent, the user invokes the
-owning skill (layout → blueprint.md, style → DESIGN.md authoring).
+owning skill (layout → BLUEPRINT.md, style → DESIGN.md authoring).
 
 Four axes:
 
@@ -183,4 +183,4 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 - DESIGN.md frontmatter unparseable: compose a seed for this render and suggest the user audit DESIGN.md
 - Server port in use: try an alternative port
 - Comment event has no selector: ask the user to re-click the target element
-- User asks to commit a tuned direction: redirect — layout changes go to blueprint.md, style changes to DESIGN.md authoring; render never writes them
+- User asks to commit a tuned direction: redirect — layout changes go to BLUEPRINT.md, style changes to DESIGN.md authoring; render never writes them

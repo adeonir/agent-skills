@@ -2,7 +2,7 @@
 name: blueprint
 allowed-tools: Read Write Edit WebFetch
 description: >-
-  Plans blueprint.md, the design-blind layout payload a design
+  Plans BLUEPRINT.md, the design-blind layout payload a design
   consumes: a region tree plus screen flow that arranges surfaces
   before any visual identity is styled — structure only, composable
   under any design. Use when planning information architecture, page
@@ -14,10 +14,10 @@ description: >-
 
 # Blueprint
 
-Owns `blueprint.md` — the design-blind layout payload a design consumes: a
+Owns `BLUEPRINT.md` — the design-blind layout payload a design consumes: a
 YAML frontmatter holds the renderable region tree, and a markdown body
 narrates it with a screen map and per-surface rationale.
-Arrangement is orthogonal to visual identity: the same `blueprint.md` must
+Arrangement is orthogonal to visual identity: the same `BLUEPRINT.md` must
 hold under any design, so this skill plans structure only — information
 architecture, region layout, and screen flow — never colors, fonts, or tokens.
 
@@ -33,13 +33,13 @@ Operations:
 ## Discovery
 
 `discovery.md` runs before every operation — never skipped, never invoked
-directly. It checks existing context (an existing `blueprint.md`, the
+directly. It checks existing context (an existing `BLUEPRINT.md`, the
 conversation, any brief the user provides) and routes by intent — author a
 plan, or check one. See [discovery.md](instructions/discovery.md).
 
 ## Artifact
 
-Produces and owns `docs/design/blueprint.md`. The **frontmatter** region tree
+Produces and owns `docs/design/BLUEPRINT.md`. The **frontmatter** region tree
 is normative — a downstream renderer parses it to draw the low-fi wireframe;
 the **body** is for humans. The full template, the shape vocabulary, and the
 pre-save self-check live in [create.md](instructions/create.md).
