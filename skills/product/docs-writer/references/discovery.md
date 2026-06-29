@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Auto-loaded by PRD, PRODUCT.md, Design Doc, and ADR workflows during the discovery phase. Not a direct trigger.
+Auto-loaded by PRD, PRODUCT, Design Doc, and ADR workflows during the discovery phase. Not a direct trigger.
 
 ## Core Principle
 
@@ -53,7 +53,7 @@ Move on when:
 | Type | Structure | Focus |
 |------|-----------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
-| PRODUCT.md | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (woven into PRD discovery; standalone runs it alone) |
+| PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (woven into PRD discovery; standalone runs it alone) |
 | Design Doc | 5 topics | System overview, domain & data, architecture & conventions, security & compliance, operations |
 | ADR | 1 topic | The decision: context forces, alternatives, consequences (lightweight; one ADR per decision) |
 

@@ -96,7 +96,7 @@ move on.
 - Differentiator is articulated beyond feature comparison
 - User understands the competitive context
 
-**Note:** Market & differentiation feeds PRODUCT.md, not the PRD. Still
+**Note:** Market & differentiation feeds PRODUCT, not the PRD. Still
 essential discovery — it informs scope decisions and validation.
 
 #### Topic 4: Value & Scope
@@ -175,15 +175,15 @@ Synthesize everything from discovery and validation into a structured summary.
 
 ### Phase 4: Drafting
 
-Use the PRD template below. Generate PRODUCT.md alongside using
+Use the PRD template below. Generate PRODUCT alongside using
 [product.md](product.md) — create it when absent, never overwrite existing
 positioning. Load [quality.md](quality.md) before presenting the drafts to
 the user.
 
 **Drafting notes:**
 
-- Market & differentiation content goes to PRODUCT.md, not PRD
-- Value proposition content goes to PRODUCT.md, not PRD
+- Market & differentiation content goes to PRODUCT, not PRD
+- Value proposition content goes to PRODUCT, not PRD
 - Journeys should be product-level (actor, goal, flow, conditions) — no UI components, endpoints, or implementation details
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
@@ -205,7 +205,7 @@ sources: []
 
 ## Executive Summary
 
-{{One short paragraph for a quick scan of the spec: the problem, who it is for, the must-have scope, and the primary success metric. Requirements digest only — positioning (what the product is and stands for) lives in PRODUCT.md, never here.}}
+{{One short paragraph for a quick scan of the spec: the problem, who it is for, the must-have scope, and the primary success metric. Requirements digest only — positioning (what the product is and stands for) lives in PRODUCT, never here.}}
 
 ## 1. Problem Statement
 
@@ -346,7 +346,7 @@ A lead Executive Summary plus 13 numbered sections matching the template:
 | 12. Unknowns | Questions that need answering before implementation (TBD) | Validation phase |
 | 13. References | Links to designs, research, related documents | All phases |
 
-Topic 3 (Market & Differentiation) feeds PRODUCT.md, not the PRD.
+Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
 ## Guidelines
 
@@ -355,11 +355,11 @@ Topic 3 (Market & Differentiation) feeds PRODUCT.md, not the PRD.
 - Present draft for user feedback
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Generate PRODUCT.md alongside PRD during drafting
+- Generate PRODUCT alongside PRD during drafting
 - Keep journeys at product level — describe what happens, not how it's built
 - Assign IDs to business rules and edge cases for traceability
 
 ## Output
 
 - PRD: `docs/product/prd.md`
-- PRODUCT.md: `docs/product/PRODUCT.md`
+- PRODUCT: `docs/product/PRODUCT.md`

@@ -28,7 +28,7 @@ Check for existing context before asking questions:
    - Who benefits?
    - What changes for the user when this is done?
 
-**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT.md) stay
+**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay
 read-only and scoped to this epic. Extract only what maps to it, then
 **translate into epic language**: strip technical IDs (§3.7, EC-2, ADR-001),
 internal reference codes, sibling artifact names, milestone content and
@@ -200,7 +200,7 @@ home — travels into the tracker description; frontmatter `sources:`
 mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Milestone:** {{milestone name or "None"}}
-- **PRODUCT.md:** {{link or "None"}}
+- **PRODUCT:** {{link or "None"}}
 - **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
 - **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}

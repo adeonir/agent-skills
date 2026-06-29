@@ -60,7 +60,7 @@ cross-doc content links rather than duplicates.
       mechanism ("p95 latency under 200ms" not "use Redis caching")
 - [ ] Executive Summary is a requirements digest (problem, scope,
       metric) — no positioning (What/Why/Who, personality,
-      anti-references), which lives in PRODUCT.md
+      anti-references), which lives in PRODUCT
 
 **When the document is a Design Doc, verify:**
 
