@@ -200,7 +200,7 @@ home — travels into the tracker description; frontmatter `sources:`
 mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Milestone:** {{milestone name or "None"}}
-- **Brief:** {{link or "None"}}
+- **PRODUCT.md:** {{link or "None"}}
 - **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
 - **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}
