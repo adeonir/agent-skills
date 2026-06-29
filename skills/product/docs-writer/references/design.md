@@ -5,7 +5,7 @@ lean and focused.
 
 ## When to Use
 
-When authoring or reconciling the technical design doc for a software project — the
+When authoring or updating the technical design doc for a software project — the
 source of truth for technical strategy: how the system is built, why those
 choices were made, and which decisions have been formalized as ADRs. Write one
 when there are real technical decisions to weigh; keep it as short as the design
@@ -273,6 +273,26 @@ Process:
 
 Rows with `Record = —` remain editable — design-doc-only records of trade-offs
 explored along the way.
+
+## Updating an Existing Design Doc
+
+The design doc is a living document: once it exists, you revise it in place rather
+than regenerate it. There is no fresh-versus-rerun mode decision — every touch after
+the first is an update.
+
+Read the existing doc as input and scope the change to what actually moved: a new
+decision, a new component, a resolved open question, or structure that drifted from
+the implementation. Work that delta and leave the settled prose alone — an update is
+not a rewrite, and it never pads the doc.
+
+Respect what is frozen. Alternatives Considered rows recorded as an ADR (`Record =
+ADR-NNNN`) are immutable — reverse them with a superseding ADR and a new row, never
+an in-place edit (see the `## ADR Linkage` section above). The editable surface is
+the design prose, rows with `Record = —`, and Open Questions.
+
+Before presenting, re-run the gates in [quality.md](quality.md) against the result
+and bump `updated` in the frontmatter, preserving `created`. The thing to catch is a
+change that contradicts a frozen decision or an untouched section.
 
 ## Anti-Pattern: Implementation Manual Without Trade-offs
 
