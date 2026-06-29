@@ -95,7 +95,7 @@ Discovery is not a formality. Challenge ideas with respect, but never be a yes-m
 Before moving from discovery to drafting, verify:
 
 - [ ] All topics have met their sufficiency criteria or gaps are marked as TBD
-- [ ] Unknowns are explicitly marked as TBD
+- [ ] Open questions and unknowns are explicitly marked (TBD)
 - [ ] User has confirmed the synthesis
 - [ ] No critical ambiguity remains (ask if unclear)
 - [ ] Problem is understood with evidence or explicitly marked as hypothesis

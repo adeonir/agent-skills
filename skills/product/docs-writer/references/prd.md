@@ -167,7 +167,7 @@ Synthesize everything from discovery and validation into a structured summary.
 2. Present the agreed scope (must/should/could)
 3. List user journeys with main and alternative flows
 4. List business rules and edge cases identified
-5. List risks and hypotheses identified during validation
+5. List open questions and hypotheses identified during validation (risks too, when material)
 6. Identify gaps and mark as TBD
 7. Surface assumptions made (distinguish from validated facts)
 8. Present synthesis to user for confirmation
@@ -187,6 +187,7 @@ the user.
 - Journeys should be product-level (actor, goal, flow, conditions) — no UI components, endpoints, or implementation details
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
+- Non-Goals are outcome-level exclusions; features cut from the release go to Scope → Won't Have
 
 ## PRD Template
 
@@ -203,58 +204,31 @@ sources: []
 
 # PRD: {{Product Name}}
 
-## Executive Summary
+## 1. Executive Summary
 
 {{One short paragraph for a quick scan of the spec: the problem, who it is for, the must-have scope, and the primary success metric. Requirements digest only — positioning (what the product is and stands for) lives in PRODUCT, never here.}}
 
-## 1. Problem Statement
+## 2. Problem Statement
 
 {{Describe the problem being solved. What pain point exists? Who is affected? What evidence supports this?}}
 
-## 2. Goals & Success Metrics
+## 3. Goals & Non-Goals
 
 | Goal | Metric | Target |
 |------|--------|--------|
-| {{goal}} | {{how it will be measured}} | {{concrete number or threshold}} |
+| {{goal}} | {{how it will be measured}} | {{concrete number or threshold, or TBD}} |
 
-## 3. User Personas
+### Non-Goals
+
+- {{An outcome this product deliberately does not pursue. Distinct from a cut feature — that goes to Scope → Won't Have.}}
+
+## 4. User Personas
 
 ### {{Persona Name}}
 
 - **Role:** {{role or job title}}
 - **Pain Point:** {{primary frustration or problem}}
 - **Goal:** {{what they want to achieve with this product}}
-
-## 4. Scope Definition
-
-### Must Have
-
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-1 | {{core capability required for launch}} | |
-| FR-2 | {{another core capability}} | |
-
-### Should Have
-
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-3 | {{important but not launch-blocking}} | |
-
-### Could Have
-
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-4 | {{nice-to-have for future iteration}} | |
-
-### Won't Have
-
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-N | {{feature considered and explicitly excluded}} | {{reason for exclusion}} |
-
-### Non-Goals
-
-- {{What is explicitly out of scope and why}}
 
 ## 5. User Journeys
 
@@ -281,70 +255,97 @@ sources: []
 
 - {{what is true after the journey completes}}
 
-## 6. Business Rules
+## 6. Scope
+
+### Must Have
+
+| ID | Requirement | Notes |
+|----|------------|-------|
+| FR-1 | {{core capability required for launch}} | |
+| FR-2 | {{another core capability}} | |
+
+### Should Have
+
+| ID | Requirement | Notes |
+|----|------------|-------|
+| FR-3 | {{important but not launch-blocking}} | |
+
+### Could Have
+
+| ID | Requirement | Notes |
+|----|------------|-------|
+| FR-4 | {{nice-to-have for future iteration}} | |
+
+### Won't Have
+
+| ID | Requirement | Notes |
+|----|------------|-------|
+| FR-N | {{feature considered and cut from this release}} | {{reason for exclusion}} |
+
+## 7. Business Rules
 
 | ID | Rule | Scope |
 |----|------|-------|
 | BR-1 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
 | BR-2 | {{another business rule}} | {{scope}} |
 
-## 7. Edge Cases
+## 8. Edge Cases (optional)
+
+{{Include only when exception scenarios are material to the product.}}
 
 | ID | Scenario | Expected Behavior |
 |----|----------|-------------------|
 | EC-1 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
 | EC-2 | {{another exception scenario}} | {{expected behavior}} |
 
-## 8. Non-Functional Requirements
+## 9. Non-Functional Requirements
 
 | ID | Requirement | Target |
 |----|------------|--------|
 | NFR-1 | Performance | {{e.g., page load < 2s}} |
 | NFR-2 | Accessibility | {{e.g., WCAG 2.1 AA}} |
 
-## 9. Assumptions
+## 10. Risks (optional)
 
-- {{Assumption that, if wrong, would change the plan}}
-
-## 10. Risks
+{{Include only when there are material risks worth tracking.}}
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|------------|------------|
 | {{what could go wrong}} | High | Medium | {{how to address}} |
 
-## 11. Hypotheses to Validate
+## 11. Open Questions & Assumptions
 
-- [ ] {{Hypothesis to be tested and validated with data or user research}}
+### Assumptions
 
-## 12. Unknowns
+- {{Assumption that, if wrong, would change the plan}}
 
-- [ ] TBD: {{Question that needs answering before implementation}}
+### Open Questions
 
-## 13. References
+- [ ] {{Hypothesis to validate with data or user research, or unknown to resolve before implementation (mark TBD)}}
+
+## 12. References
 
 - {{Link to designs, research, prior art, or related documents}}
 ````
 
 ## PRD Schema
 
-A lead Executive Summary plus 13 numbered sections matching the template:
+12 numbered sections matching the template, with Edge Cases and Risks optional:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
-| Executive Summary | Requirements digest for a quick scan — problem, audience, must-have scope, primary metric (no positioning) | Synthesis of Topics 1, 2, 4 |
-| 1. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
-| 2. Goals & Success Metrics | Measurable KPIs (concrete numbers, not vague goals) | Topic 1: Problem |
-| 3. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
-| 4. Scope Definition | Must/Should/Could/Won't have, non-goals (FR-1...) | Topic 4: Value & Scope |
+| 1. Executive Summary | Requirements digest for a quick scan — problem, audience, must-have scope, primary metric (no positioning) | Synthesis of Topics 1, 2, 4 |
+| 2. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
+| 3. Goals & Non-Goals | Measurable goals (concrete numbers, not vague) plus outcomes deliberately not pursued | Topic 1: Problem (goals/metrics), Topic 4: Value & Scope (non-goals) |
+| 4. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
 | 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
-| 6. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
-| 7. Edge Cases | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
-| 8. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
-| 9. Assumptions | What we believe to be true that underpins the plan | Validation phase |
-| 10. Risks | What could go wrong and how to address it | Validation phase |
-| 11. Hypotheses to Validate | Assumptions that need evidence before implementation | Validation phase |
-| 12. Unknowns | Questions that need answering before implementation (TBD) | Validation phase |
-| 13. References | Links to designs, research, related documents | All phases |
+| 6. Scope | Must/Should/Could/Won't have (FR-1...) | Topic 4: Value & Scope |
+| 7. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
+| 8. Edge Cases (optional) | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
+| 9. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
+| 10. Risks (optional) | What could go wrong and how to address it | Validation phase |
+| 11. Open Questions & Assumptions | Assumptions underpinning the plan plus hypotheses to validate and unknowns to resolve | Validation phase |
+| 12. References | Links to designs, research, related documents | All phases |
 
 Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
@@ -358,6 +359,7 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 - Generate PRODUCT alongside PRD during drafting
 - Keep journeys at product level — describe what happens, not how it's built
 - Assign IDs to business rules and edge cases for traceability
+- Edge Cases and Risks are optional — include only when relevant
 
 ## Output
 

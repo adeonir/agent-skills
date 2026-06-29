@@ -2,11 +2,10 @@
 name: docs-writer
 description: >-
   Generates structured product and technical documents through guided
-  discovery: PRDs, product positioning docs, technical design docs, and
-  architecture decision records. Use when defining product requirements,
-  capturing product strategy or positioning, writing a technical design
-  doc to weigh architecture and trade-offs, or recording an architecture
-  decision. Not for visual or UI design, feature specs tied to
+  discovery: PRDs, product positioning docs, Design Docs, and architecture
+  decision records. Use when defining product requirements, capturing product
+  strategy or positioning, weighing architecture and trade-offs, or recording
+  an architecture decision. Not for visual or UI design, feature specs tied to
   implementation, or meeting and session notes.
 ---
 

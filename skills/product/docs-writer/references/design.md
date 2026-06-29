@@ -51,8 +51,8 @@ Considered Record column.
 | PRD Section | Feeds Design Doc |
 |-------------|------------------|
 | Problem Statement | Context (1-2 paragraph recap, link to PRD) |
-| Goals & Metrics | Goals/Non-Goals (technical translation only) |
-| Scope (MoSCoW) | Scope hint for Context (link, do not duplicate) |
+| Goals & Non-Goals | Goals/Non-Goals (technical translation only) |
+| Scope | Scope hint for Context (link, do not duplicate) |
 | NFRs | Goals (measurable targets) and cross-cutting concerns where they shape the design |
 
 If no PRD: open discovery from scratch.
