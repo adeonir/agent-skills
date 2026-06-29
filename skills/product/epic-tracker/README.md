@@ -18,22 +18,22 @@ When a tracker is configured (via MCP or CLI), artifacts go directly to
 the tracker — no local files created. When no tracker is configured,
 markdown in `.artifacts/epics/` is the source of truth.
 
-| Phase | What Happens | Output |
-|-------|-------------|--------|
-| Discover | Check for existing PRD, brief, or context | Context for artifact creation |
-| Create | Generate milestone, epic, story, bug, task, or release | Tracker entity or markdown artifact |
-| Track | Update status in tracker when configured, in markdown otherwise | Updated state |
-| Handoff | Surface tracker URLs and prepare for implementation | User picks next step |
+| Phase    | What Happens                                                    | Output                              |
+| -------- | --------------------------------------------------------------- | ----------------------------------- |
+| Discover | Check for existing PRD, brief, or context                       | Context for artifact creation       |
+| Create   | Generate milestone, epic, story, bug, task, or release          | Tracker entity or markdown artifact |
+| Track    | Update status in tracker when configured, in markdown otherwise | Updated state                       |
+| Handoff  | Surface tracker URLs and prepare for implementation             | User picks next step                |
 
 ## Tracker Integration
 
-| Artifact | Linear | GitHub |
-|----------|--------|--------|
-| Epic     | Project | Issue (parent) |
-| Story    | Issue | Issue (sub-issue of Epic) |
-| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
-| Release  | Cycle | Release tag |
+| Artifact | Linear               | GitHub                                        |
+| -------- | -------------------- | --------------------------------------------- |
+| Epic     | Project              | Issue (parent)                                |
+| Story    | Issue                | Issue (sub-issue of Epic)                     |
+| Bug      | Issue + label `bug`  | Issue (sub-issue of Epic/Story or standalone) |
+| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone)       |
+| Release  | Cycle                | Release tag                                   |
 
 GitHub uses sub-issues as the hierarchy primitive. Milestones and
 Projects v2 are orthogonal opt-in layers (date grouping, custom
@@ -55,16 +55,6 @@ is configured, this maps to its native dependency relation (GitHub issue
 dependencies, Linear issue relations); in markdown-only mode the field is
 the source of truth and surfaces in the overview. Only `blocked_by` is
 stored — the inverse is derived, and the tracker keeps both sides in sync.
-
-## Milestones
-
-Milestones are delivery phases, defined in a registry the skill owns:
-`.artifacts/epics/milestones.md` (one entry per milestone — outcome, scope
-boundary, expected epics). `create milestone` adds an entry; `decompose
-milestone` turns one into epics. An epic points to its milestone via the
-`milestone:` frontmatter pointer. Milestones are optional; mirroring them to
-the tracker's native grouping (GitHub Milestone, Linear Initiative) is
-opt-in, asked once when a tracker is configured.
 
 ## Usage
 
@@ -92,6 +82,26 @@ Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a
 clauses. The skill validates on Story create and on edits that change
 AC text. Stories created before this convention are not retroactively
 validated.
+
+## Requirement Traceability
+
+A story or task that derives from a PRD records the requirement IDs it
+satisfies (`FR/BR/EC/NFR`, plus `ADR-NNN`) in a `## Requirements` section,
+read from the PRD via the parent epic's PRD link. Because the IDs live in
+the body, they travel to the tracker description on push and stay readable
+downstream, where a spec audit validates the implementation against them.
+Epics and milestones stay requirement-ID-free — traceability lives at the
+artifact that gets specced.
+
+## Milestones
+
+Milestones are delivery phases, defined in a registry the skill owns:
+`.artifacts/epics/milestones.md` (one entry per milestone — outcome, scope
+boundary, expected epics). `create milestone` adds an entry; `decompose
+milestone` turns one into epics. An epic points to its milestone via the
+`milestone:` frontmatter pointer. Milestones are optional; mirroring them to
+the tracker's native grouping (GitHub Milestone, Linear Initiative) is
+opt-in, asked once when a tracker is configured.
 
 ## Output
 

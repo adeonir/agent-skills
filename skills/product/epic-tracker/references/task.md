@@ -43,6 +43,11 @@ If no context was pasted, proceed to step 2.
 2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for
    context
 3. If standalone (no epic): place in `standalone/`
+4. When the task implements PRD requirements, read the PRD for context
+   only (via the parent epic's `**PRD:**` link, or directly for a
+   standalone task), propose the requirement IDs it satisfies, confirm
+   with the user, and record them in `## Requirements`. Pure chores that
+   map to no requirement omit the section.
 
 ### 3. Draft
 
@@ -61,6 +66,9 @@ Fill the template (below):
 - **Epic**: parent epic name, or omit for standalone tasks
 - **Status**: always starts as `planned`
 - **Description**: what needs to be done and why — one clear outcome
+- **Requirements**: PRD requirement IDs this task satisfies
+  (`FR/BR/EC/NFR`, plus `ADR-NNN` when it depends on a decision); omit
+  for chores that map to no requirement
 - **Signals**: links and ids from pasted context — PRs, advisories,
   configs, dashboards; omit if empty
 - **Checklist**: optional breakdown into sub-steps; omit if not needed
@@ -148,6 +156,12 @@ epic: {{epic-name or omit for standalone}}
 {Remove this section if not needed.}
 
 - [ ] {{Step or sub-task}}
+
+## Requirements
+
+{Remove this section when the task maps to no PRD requirement.}
+
+- {{PRD requirement IDs this task satisfies — e.g. FR-3, NFR-1; add ADR-NNN when it depends on a decision}}
 
 ## Rabbit Holes
 

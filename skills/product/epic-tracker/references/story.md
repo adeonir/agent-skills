@@ -22,10 +22,17 @@ that can be verified independently.
    the story in a new epic
 
 Read the parent epic for scope and naming context only. **Translate,
-don't replicate.** Its tokens never cross into the story: strip epic IDs,
-upstream document codes (§x.x, EC-N, ADR-NNN), sibling story names,
-milestone language, and any cross-reference that doesn't stand alone.
-This story carries one outcome of its own.
+don't replicate.** Its prose tokens never cross into the story: strip epic
+IDs, `§x.x` section numbers, sibling story names, milestone/roadmap
+language, and any cross-reference that doesn't stand alone. This story
+carries one outcome of its own.
+
+When the parent epic links a PRD (`**PRD:**` in its References), follow it
+and read the PRD for context only to identify which requirements this story
+satisfies. Propose the IDs (`FR/BR/EC/NFR`, plus any `ADR-NNN` it depends
+on), confirm with the user, and record them in `## Requirements` — backward
+provenance for the spec audit, the one upstream reference that crosses.
+Omit the section when there is no PRD or no requirement maps to the story.
 
 ### 2. Draft
 
@@ -44,12 +51,16 @@ Fill the template (below):
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what
   changes for the user. Keep it focused — one story, one outcome.
-  No upstream IDs, section numbers, or cross-references.
+  Requirement IDs go in `## Requirements`, not the prose; no section
+  numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not
   cover. Remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
   single Given/When/Then. Validated in Step 4 against rules V1-V7. See
   [ac-validation.md](ac-validation.md).
+- **Requirements**: the PRD requirement IDs this story satisfies
+  (`FR/BR/EC/NFR`, plus `ADR-NNN` when it depends on a decision), as a
+  flat list. Omit when no PRD requirement maps to the story.
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
   advice or upstream design notes
@@ -121,7 +132,7 @@ replace the plain story name with a linked, numbered entry:
 **DON'T:**
 - Add a size field — sizing happens at implementation time
 - Include implementation details or technical design
-- Carry upstream IDs, section numbers, or doc-internal codes (§x.x, EC-N, ADR-NNN) — translate to plain language
+- Carry requirement IDs in prose — record them in `## Requirements`; still strip `§x.x` section numbers, sibling names, and milestone/roadmap language
 - Create stories without a parent epic (ask to create the epic first)
 
 ## Template
@@ -152,7 +163,7 @@ type: story
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
 
-MUST NOT contain: upstream IDs (§x.x, EC-N, ADR-NNN), sibling story names, roadmap language, or implementation details.
+MUST NOT contain: `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (FR/BR/EC/NFR/ADR-NNN) belong in `## Requirements`, never the Summary.
 
 ## Out of Scope
 
@@ -169,6 +180,12 @@ MUST NOT contain: upstream IDs (§x.x, EC-N, ADR-NNN), sibling story names, road
 **Then** {{expected outcome}}
 
 {Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then.}
+
+## Requirements
+
+{Remove this section when no PRD requirement maps to this story.}
+
+- {{PRD requirement IDs this story satisfies — e.g. FR-3, FR-4, BR-2; add ADR-NNN when it depends on a decision}}
 
 ## Rabbit Holes
 
