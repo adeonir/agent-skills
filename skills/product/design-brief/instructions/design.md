@@ -65,7 +65,7 @@ Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact writte
 
 If discovery did not capture it, ask one question at a time:
 
-1. Which surfaces does the project have, named by context, and the register of each — brand (the design is the product) or product (the design serves a task)?
+1. Which surfaces does the project have, named by context? Register comes from `PRODUCT.md`'s default when present — confirm it per surface only when one diverges or no `PRODUCT.md` exists (brand — the design is the product — or product — the design serves a task).
 2. Source on hand: images, codebase, text description, design-tool file?
 3. Existing `DESIGN.md` in `docs/design/` — patch it or start fresh?
 

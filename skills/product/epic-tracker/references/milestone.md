@@ -17,7 +17,7 @@ epics can be decomposed from it.
 
 ### 1. Read Context
 
-Look for `.artifacts/docs/prd.md`. If it exists, read its requirements,
+Look for `docs/product/prd.md`. If it exists, read its requirements,
 journeys, and scope to decide what each phase delivers.
 
 **Read for context only.** The PRD stays the source of product requirements;

@@ -31,7 +31,8 @@ names, roadmap language, and sibling-artifact references stay out of
 
 ### Step 2: Plan Surfaces and Parts
 
-Name the **register** per surface (brand or product —
+Name the **register** per surface — from `PRODUCT.md`'s default when present,
+resolved per surface (brand or product —
 [../references/brand.md](../references/brand.md) /
 [../references/product.md](../references/product.md)); it sets the voice. Then
 list the surfaces and the parts each needs, named by context (mirror the planned

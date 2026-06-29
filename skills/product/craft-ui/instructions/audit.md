@@ -40,9 +40,10 @@ UI on its own merits, as a user meets it.
 
 A standalone audit has no layout or content plan to read the surface from. Infer
 it from the running UI (a dashboard, a checkout, a landing page), or ask the
-user. Then set the register by reading the matching [brand.md](../references/brand.md)
-or [product.md](../references/product.md) — the
-bar differs for brand vs product.
+user. Set the register from `PRODUCT.md`'s default plus the surface convention
+(landing/marketing = brand, dashboard/app = product), falling back to the running
+UI or the user; then read the matching [brand.md](../references/brand.md)
+or [product.md](../references/product.md) — the bar differs for brand vs product.
 
 ### Step 2: Score five dimensions
 

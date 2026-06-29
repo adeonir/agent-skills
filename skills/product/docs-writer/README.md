@@ -11,11 +11,12 @@ appropriate discovery depth:
 flowchart TD
     T[Trigger] --> R{Document type}
     R -->|PRD| PRD[PRD workflow]
+    R -->|PRODUCT.md| PMW[PRODUCT.md workflow]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
-    PRD --> B[Brief generated alongside]
     PRD --> P[prd.md]
-    B --> BR[brief.md]
+    PRD -.->|alongside, if absent| PM[PRODUCT.md]
+    PMW --> PM
     DD --> D[design-doc.md]
     ADR --> A[adr/NNNN-slug.md]
     D -.->|extract decision| ADR
@@ -24,7 +25,7 @@ flowchart TD
 | Type | Workflow | Output |
 |------|----------|--------|
 | **PRD** | discovery → validation → synthesis → drafting | `prd.md` |
-| **Brief** | generated alongside PRD (no standalone trigger) | `brief.md` |
+| **PRODUCT.md** | generated alongside PRD by default, or standalone | `PRODUCT.md` |
 | **Design Doc** | discovery (5 topics) → analysis → drafting | `design-doc.md` |
 | **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
 
@@ -47,12 +48,12 @@ Documents are saved by category under `docs/`:
 
 ```text
 docs/product/prd.md
-docs/product/brief.md
+docs/product/PRODUCT.md
 docs/tech/design-doc.md
 docs/adr/{NNNN}-{slug}.md
 ```
 
-Committed by default. Product-side artifacts (PRD, Brief) live as
+Committed by default. Product-side artifacts (PRD, PRODUCT.md) live as
 siblings of the brainstorming output (`docs/product/brainstorm.md`).
 The Design Doc lives under `docs/tech/` as a single living document
 per project. ADRs accumulate in their own subdirectory as a numbered
@@ -65,14 +66,14 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 
 | Doc | Audience | Owns | Never carries |
 |-----|----------|------|---------------|
-| **Brief** | Execs, stakeholders, sponsors | One-page narrative: What/Why/Who, must-have scope, success metrics, top risks | Product spec depth, technical content, alternatives |
+| **PRODUCT.md** | PMs, designers, marketing | Strategic positioning: register, audience posture, brand personality, anti-references, design principles | Requirements, scope, metrics, journeys, technical content |
 | **PRD** | PMs, engineers, designers | Product spec: problem, personas, scope MoSCoW, journeys, business rules, NFRs (as targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
 | **Design Doc** | Engineers, future engineers | Technical strategy: domain, conventions, architecture, security, observability, testing, deployment, trade-offs | Product KPIs, personas, business rule restatement, journey walkthroughs |
 | **ADR** | Engineers, future engineers | One accepted technical decision with context, consequences, alternatives | Multiple decisions in one file, open trade-offs, advocacy as context |
 
 ### How they relate
 
-- Brief is the 1-page narrative summary of the PRD — same discovery feeds both, never written standalone.
+- PRODUCT.md is the product's strategic positioning — generated alongside the PRD by default (shared discovery), and also authored standalone when strategy shifts.
 - PRD is the source of truth for product; Design Doc links to it, never copies prose.
 - Design Doc captures living trade-offs; matured decisions extract into ADRs. The design doc Alternatives row keeps history via the `Record` column.
 - ADRs are immutable once accepted; supersede with a new ADR, never edit.
@@ -125,12 +126,12 @@ rationale, Alternatives Considered rows with `Record = —`) and lists
 candidates. Each decision becomes its own ADR — one decision per
 file, never a single ADR summarizing many.
 
-**Q: Why is the Brief generated alongside the PRD?**
-A: The Brief is a 1-page narrative summary of the PRD. It distills
-discovery into a story readable in under a minute, while the PRD
-remains the specification. Having a separate trigger and discovery
-phase would duplicate work — the data is already collected during the
-PRD workflow.
+**Q: Why is PRODUCT.md generated alongside the PRD?**
+A: PRODUCT.md captures the product's strategic positioning — what it is
+and stands for — which the same discovery surfaces while defining the
+PRD. Generating it alongside means positioning is never forgotten. It
+also has a standalone trigger, because positioning changes with strategy,
+independent of any PRD revision.
 
 **Q: How is the Design Doc sized?**
 A: No tier-based sizing. The Google convention applies informally:

@@ -15,11 +15,13 @@ Look for:
 - `docs/design/DESIGN.md` — already-authored visual identity
 - `docs/design/moodboard.md` — locked visual direction (feeds token authoring)
 - `docs/product/prd.md` — PRD
-- `docs/product/brief.md` — Brief
+- `docs/product/PRODUCT.md` — positioning (register, anti-references, principles, personality)
 - `docs/product/brainstorm.md` — strategic direction
 
 If found, read and extract purpose, audience, tone, key features, and any
-existing tokens. Tokens in `DESIGN.md` live in the YAML frontmatter at the top
+existing tokens. From `PRODUCT.md`, read the default register, anti-references,
+principles, and personality as context to translate into tokens — never copy its
+prose verbatim into `DESIGN.md`. Tokens in `DESIGN.md` live in the YAML frontmatter at the top
 of the file — parse that block as the authoritative state. A `moodboard.md` with
 `status: locked` is a settled visual direction: treat it as a given direction
 for token authoring. Skip to the relevant trigger operation.
@@ -28,7 +30,7 @@ for token authoring. Skip to the relevant trigger operation.
 
 Ask one question at a time:
 
-1. Project surfaces, named by context (landing, dashboard, form, checkout…), and the register of each — brand (the design is the product) or product (the design serves a task)?
+1. Project surfaces, named by context (landing, dashboard, form, checkout…). Register comes from `PRODUCT.md`'s default when present; ask it per surface only when no `PRODUCT.md` exists or a surface diverges from the default — brand (the design is the product) or product (the design serves a task)?
 2. Source on hand: URL, images, brief document, codebase, vanilla HTML/CSS,
    design-tool file, or text description?
 3. Visual references or constraints?

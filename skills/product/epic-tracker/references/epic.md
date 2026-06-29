@@ -20,15 +20,15 @@ Check for existing context before asking questions:
    requirements and scope
 2. Look for `.artifacts/epics/milestones.md` -- find the milestone this
    epic serves, if any
-3. Look for `.artifacts/docs/brief.md` -- extract value proposition
-   and target audience
+3. Look for `.artifacts/docs/PRODUCT.md` -- extract positioning (value
+   proposition, audience posture)
 4. If found, summarize what was extracted and confirm with user
 5. If not found, ask the user:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
 
-**Translate, don't replicate.** Upstream docs (PRD, design doc, brief) stay
+**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT.md) stay
 read-only and scoped to this epic. Extract only what maps to it, then
 **translate into epic language**: strip technical IDs (§3.7, EC-2, ADR-001),
 internal reference codes, sibling artifact names, milestone content and

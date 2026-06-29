@@ -62,7 +62,7 @@ Falls back to markdown when not.
   [adapters/github.md](references/adapters/github.md)
 
 `epic.md` opens with context discovery — reads `.artifacts/docs/prd.md`,
-`.artifacts/epics/milestones.md`, and `.artifacts/docs/brief.md` before
+`.artifacts/epics/milestones.md`, and `.artifacts/docs/PRODUCT.md` before
 prompting; falls back to direct questions when none exist.
 
 `milestone.md` records delivery phases in the registry

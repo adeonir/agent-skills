@@ -29,10 +29,12 @@ Composes:
 
 ### Step 1: Fix the register
 
-Name the register and surface, then read the matching [brand.md](../references/brand.md)
+Resolve the register and surface — register from `PRODUCT.md`'s default plus the
+surface convention (landing/marketing = brand, dashboard/app = product), asking
+only when neither is available — then read the matching [brand.md](../references/brand.md)
 or [product.md](../references/product.md).
 Brand judges for distinctiveness; product judges for earned familiarity. The
-register sets every bar below — do not score before it is named.
+register sets every bar below — do not score before it is fixed.
 
 ### Step 2: Slop verdict (two altitudes)
 

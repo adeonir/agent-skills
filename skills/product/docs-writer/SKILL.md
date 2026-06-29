@@ -2,13 +2,14 @@
 name: docs-writer
 description: >-
   Generates structured product and technical documents through guided
-  discovery. 4 document types: PRD, Brief (1-page summary generated
-  alongside PRD), Design Doc (single project-wide living technical
-  document covering strategy through prescriptive plan), ADR (single
-  architecture decision record, append-only log). Use when defining
-  product requirements, drafting product specs, authoring the design doc,
-  or writing ADRs. Not for feature spec tied to implementation or
-  meeting/session notes.
+  discovery. 4 document types: PRD (product requirements), PRODUCT.md
+  (strategic positioning and identity, generated alongside the PRD or
+  standalone), Design Doc (single project-wide living technical document
+  covering strategy through prescriptive plan), ADR (single architecture
+  decision record, append-only log). Use when defining product
+  requirements, drafting product specs, capturing product positioning,
+  authoring the design doc, or writing ADRs. Not for feature spec tied to
+  implementation or meeting/session notes.
 ---
 
 # Docs Writer
@@ -27,6 +28,7 @@ Detect document type from the trigger. If ambiguous, ask the user.
 | Type | Reference |
 |------|-----------|
 | PRD — product requirements | [prd.md](references/prd.md) |
+| PRODUCT.md — strategic positioning and identity | [product.md](references/product.md) |
 | Design Doc — single project-wide living technical document | [design.md](references/design.md) |
 | ADR — single accepted decision record | [adr.md](references/adr.md) |
 
@@ -34,15 +36,20 @@ Auto-loaded (no direct triggers):
 
 - `discovery.md` — by PRD, Design Doc, ADR at start of discovery
 - `quality.md` — before presenting any draft
-- `brief.md` — by `prd.md` during drafting (Brief is generated alongside
-  the PRD, never independently)
+- `product.md` — by `prd.md` during drafting (PRODUCT.md is generated
+  alongside the PRD by default; it also has a standalone trigger above)
 
 ## Document Boundaries
 
 - **PRD** — product only: problem, users, scope, journeys, rules, metrics.
   No implementation, architecture, tech stack, UI, or API.
-- **Brief** — 1-page narrative summary of the PRD. Generated alongside,
-  no standalone trigger.
+- **PRODUCT.md** — strategic positioning and identity: register, audience
+  posture, brand personality, anti-references, design principles. Prose,
+  not requirements. Generated alongside the PRD by default; also authored
+  standalone. The PRD owns what the product does; PRODUCT.md owns what it
+  is. Keep three zones clean — audience as relationship (not the PRD's job
+  to be done), refused aesthetics (not the PRD's out-of-scope features),
+  and differentiation (not the PRD's problem statement).
 - **Design Doc** — single project-wide living technical document.
   Covers strategy, trade-offs, and prescriptive plan (domain,
   conventions, architecture, security, observability, testing,

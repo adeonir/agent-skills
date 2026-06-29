@@ -15,13 +15,13 @@ Look for:
 
 - `docs/design/copy.yaml` — existing content payload (signals brownfield)
 - Source on hand: URL, brief (PDF/DOCX), codebase, screenshot, or raw paste
-- `docs/product/prd.md`, `docs/product/brief.md`, `docs/product/brainstorm.md`
-  — intent and requirements when writing fresh
+- `docs/product/prd.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md`
+  — intent, positioning, and requirements when writing fresh
 
 If found, read and extract purpose, audience, tone, register (brand or product),
-and surfaces — copy-relevant facts only; requirement IDs, milestones, sprint or
-release names, roadmap language, and sibling-artifact references stay out of
-`copy.yaml`. Skip to the relevant operation.
+brand personality, copy anti-references, and surfaces — copy-relevant facts only;
+requirement IDs, milestones, sprint or release names, roadmap language, and
+sibling-artifact references stay out of `copy.yaml`. Skip to the relevant operation.
 
 ### Step 2: Classify the Request
 
@@ -57,6 +57,6 @@ sync request naming code or a live URL as the source of truth → **reconcile**
 ### Step 4: Fill Gaps
 
 When context is missing, ask one question at a time: source, the surfaces the
-copy covers (landing, dashboard, form…) and their register (brand or product —
-usually inferable from the surface), and any constraints (word count, mandatory
-sections).
+copy covers (landing, dashboard, form…) and their register (from `PRODUCT.md`'s
+default when present, else brand or product — usually inferable from the
+surface), and any constraints (word count, mandatory sections).

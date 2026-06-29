@@ -53,9 +53,11 @@ Required references, auto-loaded:
 
 ## Direction
 
-Name the **register** (brand or product — [brand.md](../references/brand.md) /
+Resolve the **register** (brand or product — [brand.md](../references/brand.md) /
 [product.md](../references/product.md)) and the **surface**; read which surfaces
-the project has from blueprint.md, copy.yaml, or the user (ask if unclear).
+the project has from blueprint.md, copy.yaml, or the user. Register comes from
+`PRODUCT.md`'s default plus the surface convention (landing/marketing = brand,
+dashboard/app = product); ask only when neither is available.
 
 Direction comes from [design-thinking.md](../references/design-thinking.md): when
 the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose
