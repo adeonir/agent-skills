@@ -203,6 +203,10 @@ sources: []
 
 # PRD: {{Product Name}}
 
+## Executive Summary
+
+{{One short paragraph for a quick scan of the spec: the problem, who it is for, the must-have scope, and the primary success metric. Requirements digest only — positioning (what the product is and stands for) lives in PRODUCT.md, never here.}}
+
 ## 1. Problem Statement
 
 {{Describe the problem being solved. What pain point exists? Who is affected? What evidence supports this?}}
@@ -323,10 +327,11 @@ sources: []
 
 ## PRD Schema
 
-13 sections matching the template:
+A lead Executive Summary plus 13 numbered sections matching the template:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
+| Executive Summary | Requirements digest for a quick scan — problem, audience, must-have scope, primary metric (no positioning) | Synthesis of Topics 1, 2, 4 |
 | 1. Problem Statement | What problem exists, for whom, with evidence | Topic 1: Problem |
 | 2. Goals & Success Metrics | Measurable KPIs (concrete numbers, not vague goals) | Topic 1: Problem |
 | 3. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |

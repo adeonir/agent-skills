@@ -58,6 +58,9 @@ cross-doc content links rather than duplicates.
       /orders with payload X")
 - [ ] NFRs state measurable targets without prescribing the
       mechanism ("p95 latency under 200ms" not "use Redis caching")
+- [ ] Executive Summary is a requirements digest (problem, scope,
+      metric) — no positioning (What/Why/Who, personality,
+      anti-references), which lives in PRODUCT.md
 
 **When the document is a Design Doc, verify:**
 
