@@ -17,21 +17,26 @@ decisions. Those belong to Design Doc, ADR, or visual design artifacts.
 ## Workflow
 
 ```text
-discovery → validation → synthesis → drafting
+mode by artifact state
+├ PRD absent  → discovery → validation → synthesis → drafting
+└ PRD present → reconcile (reconcile.md)
 ```
 
-4 sequential phases. Never skip discovery — always interview the user
-first.
+Decide the mode from the artifact on disk (see [discovery.md](discovery.md)
+`## Mode by Artifact State`). When `docs/product/PRD.md` does not exist, run the
+four discovery-mode phases below. When it exists, reconcile instead — read it as
+input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT follows
+its own artifact state in parallel.
 
 ### Phase 1: Discovery
 
 Load [discovery.md](discovery.md) for shared interview patterns and
 critical posture.
 
-Never assume context. Discovery is adaptive — deepen topics based on
-the quality of answers, not a fixed script. Each topic has opening
-questions, signals for when to probe further, and criteria for when to
-move on.
+These four phases run in discovery mode — when no PRD exists yet. Never assume
+context. Discovery is adaptive — deepen topics based on the quality of answers,
+not a fixed script. Each topic has opening questions, signals for when to probe
+further, and criteria for when to move on.
 
 #### Topic 1: Problem
 
@@ -175,10 +180,11 @@ Synthesize everything from discovery and validation into a structured summary.
 
 ### Phase 4: Drafting
 
-Use the PRD template below. Generate PRODUCT alongside using
-[product.md](product.md) — create it when absent, never overwrite existing
-positioning. Load [quality.md](quality.md) before presenting the drafts to
-the user.
+Use the PRD template below. Resolve PRODUCT by its own artifact state using
+[product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in
+discovery mode seeded by this PRD; when it exists, reconcile it per
+[reconcile.md](reconcile.md) — never overwrite evidenced positioning. Load
+[quality.md](quality.md) before presenting the drafts to the user.
 
 **Drafting notes:**
 
@@ -351,12 +357,12 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
 ## Guidelines
 
-- Always complete discovery before drafting
-- Challenge ideas during discovery and validation — do not be a yes-man
+- Complete discovery before drafting (discovery mode), or reconcile the delta (existing PRD) — never draft blind
+- Challenge ideas in discovery, validation, and reconcile — do not be a yes-man
 - Present draft for user feedback
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Generate PRODUCT alongside PRD during drafting
+- Resolve PRODUCT by its artifact state — discovery if absent, reconcile if present
 - Keep journeys at product level — describe what happens, not how it's built
 - Assign IDs to business rules and edge cases for traceability
 - Edge Cases and Risks are optional — include only when relevant

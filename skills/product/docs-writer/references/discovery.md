@@ -4,11 +4,26 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Auto-loaded by PRD, PRODUCT, Design Doc, and ADR workflows during the discovery phase. Not a direct trigger.
+Auto-loaded by the product-doc flow (PRD and PRODUCT), Design Doc, and ADR workflows during discovery. Also supplies the mode decision and the critical posture that reconcile reuses. Not a direct trigger.
 
 ## Core Principle
 
-Never assume context. Always ask before drafting. The depth of discovery varies by document type, but the principle is the same: understand the problem before writing the solution.
+Never assume context. In discovery mode (no artifact yet), ask before drafting. In reconcile mode (an artifact already exists), read it as input and ask only about the gap or the change. The critical posture is always on in both modes — depth varies, scrutiny does not. Either way the principle is the same: understand the problem before writing the solution.
+
+## Mode by Artifact State
+
+For the product-doc pair (`docs/product/PRD.md`, `docs/product/PRODUCT.md`), each artifact's mode is decided by whether it already exists on disk. A single run can mix modes — discovery for the absent artifact, reconcile for the present one.
+
+| State on disk | Action |
+|---|---|
+| Neither exists | Discovery on both (the only full-interview case) |
+| PRD exists, PRODUCT absent | Reconcile PRD + discovery PRODUCT seeded by the PRD |
+| PRODUCT exists, PRD absent | Discovery PRD seeded by PRODUCT + reconcile PRODUCT |
+| Both exist | Reconcile both, scoped by declared intent |
+
+Discovery builds an artifact fresh — its depth is the full topic set minus whatever an existing sibling already supplies. Reconcile reads an existing artifact as input and works only the gap or the declared change. The reconcile procedure lives in [reconcile.md](reconcile.md).
+
+This pairing applies to the product docs only. ADRs are append-only (superseded, never reconciled) and the Design Doc runs its own existing-context read — neither follows this matrix.
 
 ## Interview Strategy
 
@@ -53,7 +68,7 @@ Move on when:
 | Type | Structure | Focus |
 |------|-----------|-------|
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
-| PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (woven into PRD discovery; standalone runs it alone) |
+| PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (part of the product-doc pair; depth = full minus what an existing sibling already supplies) |
 | Design Doc | 4 topics | Context & goals, the design, alternatives & trade-offs, cross-cutting concerns |
 | ADR | 1 topic | The decision: context forces, alternatives, consequences (lightweight; one ADR per decision) |
 
@@ -68,6 +83,8 @@ After discovery is complete, synthesize before drafting:
 3. Surface assumptions made
 4. Present synthesis to user for confirmation
 5. Only proceed to drafting after user confirms
+
+This is the discovery-mode gate. In reconcile mode the equivalent is the scoped-plan confirmation in [reconcile.md](reconcile.md) — confirm the delta, not a full re-synthesis.
 
 ## Critical Posture
 
@@ -91,6 +108,8 @@ Discovery is not a formality. Challenge ideas with respect, but never be a yes-m
 | User has no evidence | "Noted" | "Without evidence, this is an assumption. Should we mark it as a hypothesis to validate?" |
 
 ## Quality Gate
+
+These criteria gate discovery mode. In reconcile mode the gate is the scoped-plan confirmation in [reconcile.md](reconcile.md), applied to the delta rather than to every topic.
 
 Before moving from discovery to drafting, verify:
 

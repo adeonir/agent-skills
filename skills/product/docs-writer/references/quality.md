@@ -27,6 +27,11 @@ Before presenting any document to the user, verify:
 - [ ] Cross-references to other docs are valid
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
+**If any gate fails — here or in the type-specific gates below — fix it inline,
+re-verify that gate, and only then present.** This applies in both discovery and
+reconcile mode; a reconcile that touched only part of a doc still re-verifies the
+gate set against the result.
+
 ## ADR-Specific Gates
 
 When the document is an ADR, additionally verify:
@@ -88,5 +93,3 @@ When the document is a Design Doc, additionally verify:
       Problem Statement, Personas, or Journeys
 - [ ] Cross-cutting concerns appear only where they shape the design — no
       exhaustive coverage of axes with no decision behind them
-
-If issues found: fix inline before presenting.

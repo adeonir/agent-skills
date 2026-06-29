@@ -17,7 +17,7 @@ discovery. 4 document types, each with its own workflow depth.
 ## Quick start
 
 ```text
-trigger → detect type → load reference → discovery → drafting
+trigger → detect type → load reference → mode (discovery | reconcile) → drafting
 ```
 
 Detect document type from the trigger. If ambiguous, ask the user.
@@ -31,10 +31,11 @@ Detect document type from the trigger. If ambiguous, ask the user.
 
 Auto-loaded (no direct triggers):
 
-- `discovery.md` — by PRD, Design Doc, ADR at start of discovery
+- `discovery.md` — by the product-doc flow, Design Doc, ADR at start of discovery
 - `quality.md` — before presenting any draft
-- `product.md` — by `prd.md` during drafting (PRODUCT is generated
-  alongside the PRD by default; it also has a standalone trigger above)
+- `reconcile.md` — by the product-doc flow when `PRD.md` or `PRODUCT.md` already exists on disk
+- `product.md` — by `prd.md` when resolving PRODUCT (its mode follows the
+  `PRODUCT.md` artifact state; the PRODUCT row above is the same flow)
 
 ## Document Boundaries
 
@@ -42,8 +43,9 @@ Auto-loaded (no direct triggers):
   No implementation, architecture, tech stack, UI, or API.
 - **PRODUCT** — strategic positioning and identity: register, audience
   posture, brand personality, anti-references, design principles. Prose,
-  not requirements. Generated alongside the PRD by default; also authored
-  standalone. The PRD owns what the product does; PRODUCT owns what it
+  not requirements. Part of the product-doc pair; its mode follows the
+  `PRODUCT.md` artifact state — discovery if absent, reconcile if present.
+  The PRD owns what the product does; PRODUCT owns what it
   is. Keep three zones clean — audience as relationship (not the PRD's job
   to be done), refused aesthetics (not the PRD's out-of-scope features),
   and differentiation (not the PRD's problem statement).
@@ -75,7 +77,10 @@ evidence is thin, scope keeps expanding, or the user jumps to solution
 before naming the problem, push back. Ask for evidence, narrow scope,
 challenge weak ideas, suggest pivots when the proposed approach is
 fragile. Gate advancement on understanding, not on willingness to move
-on.
+on. The same posture governs reconcile: a change to an existing doc earns
+the same scrutiny as a fresh idea, scoped to the delta — question the
+rationale, resist silent scope creep, never overwrite an evidenced
+decision without cause.
 
 ## Anti-Pattern: ADR as Design Doc
 

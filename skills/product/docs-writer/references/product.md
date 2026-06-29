@@ -6,9 +6,12 @@ product does.
 
 ## When to Use
 
-Generated alongside the PRD by default during drafting. Also authored standalone
-to create or update positioning when strategy shifts, independent of any PRD
-revision.
+Loaded by the product-doc flow to author or reconcile `PRODUCT.md`. Its mode follows
+the artifact on disk (see [discovery.md](discovery.md) `## Mode by Artifact State`):
+when `docs/product/PRODUCT.md` is absent, draft it in discovery mode — possibly
+seeded by an existing PRD; when it exists, reconcile only the delta per
+[reconcile.md](reconcile.md). Positioning shifts independently of any PRD revision,
+so a reconcile may touch PRODUCT alone.
 
 ## Scope
 
@@ -31,7 +34,9 @@ Three boundary zones to keep clean — the PRD owns the other side of each:
 
 ## Content Source
 
-Positioning prose, drawn from discovery. Each section maps to a discovery topic:
+Positioning prose, drawn from discovery. Under reconcile, the existing `PRODUCT.md`
+is itself a source — read as input, with only the delta reworked. Each section maps
+to a discovery topic:
 
 | Section | Discovery Source |
 |---------|-----------------|

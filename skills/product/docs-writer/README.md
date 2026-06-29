@@ -10,13 +10,11 @@ appropriate discovery depth:
 ```mermaid
 flowchart TD
     T[Trigger] --> R{Document type}
-    R -->|PRD| PRD[PRD workflow]
-    R -->|PRODUCT| PMW[PRODUCT workflow]
+    R -->|PRD or PRODUCT| PD[Product-doc flow]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
-    PRD --> P[PRD.md]
-    PRD -.->|alongside, if absent| PM[PRODUCT.md]
-    PMW --> PM
+    PD -->|discovery if absent, reconcile if present| P[PRD.md]
+    PD -->|discovery if absent, reconcile if present| PM[PRODUCT.md]
     DD --> D[design-doc.md]
     ADR --> A[adr/NNNN-slug.md]
     D -.->|extract decision| ADR
@@ -24,8 +22,8 @@ flowchart TD
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery → validation → synthesis → drafting | `PRD.md` |
-| **PRODUCT** | generated alongside PRD by default, or standalone | `PRODUCT.md` |
+| **PRD** | discovery (4 phases) if absent, reconcile if present | `PRD.md` |
+| **PRODUCT** | discovery if absent, reconcile if present (per artifact) | `PRODUCT.md` |
 | **Design Doc** | discovery (4 topics) → analysis → drafting | `design-doc.md` |
 | **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
 
@@ -53,9 +51,8 @@ docs/tech/design-doc.md
 docs/adr/{NNNN}-{slug}.md
 ```
 
-Committed by default. Product-side artifacts (PRD, PRODUCT) live as
-siblings of the brainstorming output (`docs/product/brainstorm.md`).
-The Design Doc lives under `docs/tech/`. ADRs accumulate in their own
+Committed by default. Product-side artifacts (PRD, PRODUCT) live under
+`docs/product/`. The Design Doc lives under `docs/tech/`. ADRs accumulate in their own
 subdirectory as a numbered append-only log; design doc Alternatives
 rows link to ADRs via the `Record` column once formalized.
 
@@ -72,7 +69,7 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 
 ### How they relate
 
-- PRODUCT is the product's strategic positioning — generated alongside the PRD by default (shared discovery), and also authored standalone when strategy shifts.
+- PRODUCT is the product's strategic positioning — resolved by the product-doc flow per artifact state: drafted in discovery (shared with the PRD when both are new) if absent, reconciled if it already exists, including on its own when only positioning shifts.
 - PRD is the source of truth for product; Design Doc links to it, never copies prose.
 - Design Doc carries the design and its trade-offs; matured decisions extract into ADRs, tracked via the Alternatives `Record` column.
 - ADRs are immutable once accepted; supersede with a new ADR, never edit.
@@ -107,12 +104,19 @@ rationale, Alternatives Considered rows with `Record = —`) and lists
 candidates. Each decision becomes its own ADR — one decision per
 file, never a single ADR summarizing many.
 
-**Q: Why is PRODUCT generated alongside the PRD?**
+**Q: How does PRODUCT relate to the PRD?**
 A: PRODUCT captures the product's strategic positioning — what it is
 and stands for — which the same discovery surfaces while defining the
-PRD. Generating it alongside means positioning is never forgotten. It
-also has a standalone trigger, because positioning changes with strategy,
-independent of any PRD revision.
+PRD, so a new product drafts both together. After that, each is resolved
+by its own state: positioning changes with strategy, so a reconcile can
+touch PRODUCT alone, independent of any PRD revision.
+
+**Q: What happens when I re-run over an existing PRD or PRODUCT?**
+A: Each artifact is resolved by whether it exists. A present one is
+reconciled — read as input, with only the gap or the change you ask for
+reworked, the delta scrutinized, and the sections taken as settled
+declared before drafting. An absent one is drafted in discovery, seeded
+by the existing sibling. Existing work is never silently overwritten.
 
 **Q: How is the Design Doc sized?**
 A: No tier-based sizing — as long as the design needs, as short as it
@@ -121,8 +125,8 @@ multi-service system with many trade-offs runs longer. The doc grows
 with the decisions, never with a section checklist.
 
 **Q: What if the user has no PRD when starting a Design Doc?**
-A: The Design Doc workflow can start from scratch. When a PRD exists
+A: The Design Doc workflow can start in discovery with no PRD yet. When a PRD exists
 at `docs/product/PRD.md`, the discovery phase extracts product
 context as input and the Context section links to it. Without a PRD,
 the discovery phase widens the Context & Goals topic to capture
-product framing alongside the technical surface.
+product framing together with the technical surface.

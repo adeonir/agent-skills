@@ -5,7 +5,7 @@ lean and focused.
 
 ## When to Use
 
-When authoring or updating the technical design doc for a software project — the
+When authoring or reconciling the technical design doc for a software project — the
 source of truth for technical strategy: how the system is built, why those
 choices were made, and which decisions have been formalized as ADRs. Write one
 when there are real technical decisions to weigh; keep it as short as the design
@@ -55,7 +55,7 @@ Considered Record column.
 | Scope | Scope hint for Context (link, do not duplicate) |
 | NFRs | Goals (measurable targets) and cross-cutting concerns where they shape the design |
 
-If no PRD: open discovery from scratch.
+If no PRD: open discovery with nothing to seed it.
 
 #### Topic 1: Context & Goals
 
