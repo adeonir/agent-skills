@@ -25,7 +25,7 @@ tokens you have crossed into token authoring; stop and hand off the moodboard.
 
 ### Step 1: Frame
 
-Pull the brief from `docs/product/prd.md`, `docs/product/PRODUCT.md`, or
+Pull the brief from `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or
 `docs/product/brainstorm.md` when present. Otherwise ask one question at a time:
 
 1. What is the product, and who uses it?

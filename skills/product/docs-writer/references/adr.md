@@ -46,7 +46,7 @@ into their own ADR:
 | Source | Where decisions hide |
 |--------|---------------------|
 | `docs/tech/design-doc.md` | `## 4. Alternatives Considered` rows (rows with `Record = —` are candidates for promotion) |
-| `docs/product/prd.md` | Constraints, NFR rationale, research notes |
+| `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
 If found, list candidate decisions and ask the user which one this
 ADR records. Multiple decisions in a single source means multiple

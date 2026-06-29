@@ -361,5 +361,5 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
 ## Output
 
-- PRD: `docs/product/prd.md`
+- PRD: `docs/product/PRD.md`
 - PRODUCT: `docs/product/PRODUCT.md`

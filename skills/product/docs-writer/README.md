@@ -14,7 +14,7 @@ flowchart TD
     R -->|PRODUCT| PMW[PRODUCT workflow]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
-    PRD --> P[prd.md]
+    PRD --> P[PRD.md]
     PRD -.->|alongside, if absent| PM[PRODUCT.md]
     PMW --> PM
     DD --> D[design-doc.md]
@@ -24,7 +24,7 @@ flowchart TD
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery → validation → synthesis → drafting | `prd.md` |
+| **PRD** | discovery → validation → synthesis → drafting | `PRD.md` |
 | **PRODUCT** | generated alongside PRD by default, or standalone | `PRODUCT.md` |
 | **Design Doc** | discovery (5 topics) → analysis → drafting | `design-doc.md` |
 | **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
@@ -47,7 +47,7 @@ appropriate workflow.
 Documents are saved by category under `docs/`:
 
 ```text
-docs/product/prd.md
+docs/product/PRD.md
 docs/product/PRODUCT.md
 docs/tech/design-doc.md
 docs/adr/{NNNN}-{slug}.md
@@ -144,7 +144,7 @@ Section presence is "include when applicable" — sub-sections under
 
 **Q: What if the user has no PRD when starting a Design Doc?**
 A: The Design Doc workflow can start from scratch. When a PRD exists
-at `docs/product/prd.md`, the discovery phase extracts product
+at `docs/product/PRD.md`, the discovery phase extracts product
 context as input and the Context section links to it. Without a PRD,
 the discovery phase widens the System Overview topic to capture
 product framing alongside the technical surface.

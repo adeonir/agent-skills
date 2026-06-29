@@ -16,7 +16,7 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 Check for existing context before asking questions:
 
-1. Look for `docs/product/prd.md` -- extract relevant functional
+1. Look for `docs/product/PRD.md` -- extract relevant functional
    requirements and scope
 2. Look for `.artifacts/epics/milestones.md` -- find the milestone this
    epic serves, if any
@@ -91,7 +91,7 @@ Apply the resumption gate before proceeding:
 
 Apply the provenance gate as well:
 
-> **Provenance gate** — If the project has a PRD (`docs/product/prd.md`),
+> **Provenance gate** — If the project has a PRD (`docs/product/PRD.md`),
 > does this epic record which PRD it derives from? Separately, if the epic
 > belongs to a milestone, does it record the `milestone:` pointer? Add
 > whichever is missing — or confirm with the user that the epic is

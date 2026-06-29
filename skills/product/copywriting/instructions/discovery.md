@@ -15,7 +15,7 @@ Look for:
 
 - `docs/design/copy.yaml` — existing content payload (signals brownfield)
 - Source on hand: URL, brief (PDF/DOCX), codebase, screenshot, or raw paste
-- `docs/product/prd.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md`
+- `docs/product/PRD.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md`
   — intent, positioning, and requirements when writing fresh
 
 If found, read and extract purpose, audience, tone, register (brand or product),

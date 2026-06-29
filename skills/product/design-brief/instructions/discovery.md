@@ -14,7 +14,7 @@ Look for:
 
 - `docs/design/DESIGN.md` — already-authored visual identity
 - `docs/design/moodboard.md` — locked visual direction (feeds token authoring)
-- `docs/product/prd.md` — PRD
+- `docs/product/PRD.md` — PRD
 - `docs/product/PRODUCT.md` — positioning (register, anti-references, principles, personality)
 - `docs/product/brainstorm.md` — strategic direction
 

@@ -61,7 +61,7 @@ Falls back to markdown when not.
 - **GitHub adapter** (auto-loaded by sync) →
   [adapters/github.md](references/adapters/github.md)
 
-`epic.md` opens with context discovery — reads `docs/product/prd.md`,
+`epic.md` opens with context discovery — reads `docs/product/PRD.md`,
 `.artifacts/epics/milestones.md`, and `docs/product/PRODUCT.md` before
 prompting; falls back to direct questions when none exist.
 

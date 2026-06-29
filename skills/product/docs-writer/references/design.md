@@ -55,7 +55,7 @@ critical posture.
 
 **Check Existing Context:**
 
-Look for existing PRD at `docs/product/prd.md` and ADRs at
+Look for existing PRD at `docs/product/PRD.md` and ADRs at
 `docs/adr/`.
 
 If PRD found: read and extract product context as input. The Design
@@ -271,7 +271,7 @@ sources: []
 the surrounding system landscape. Keep it succinct — assume the
 reader can follow up via the PRD link below for product depth.}}
 
-> See PRD: `docs/product/prd.md`
+> See PRD: `docs/product/PRD.md`
 
 ---
 
