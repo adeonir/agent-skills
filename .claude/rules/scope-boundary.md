@@ -13,9 +13,11 @@ tokens never cross into the produced artifact. Strip forward-phase IDs,
 sibling-artifact names, downstream task or release references, milestones, and
 roadmap language — reading is for context, and the output carries only its own
 concern. The one exception is backward provenance: a skill may carry upstream
-requirement IDs (`FR/BR/EC/NFR`, `ADR-NNN`) into a dedicated provenance section
-(e.g. a story's `## Requirements`) for downstream traceability — never into
-prose.
+requirement IDs (`FR/BR/EC/NFR`) for downstream traceability — an epic's
+`## Requirements` declares the set it owns, and a story links each AC to the
+requirement it operationalizes on a `**Satisfies**` line — never into prose.
+`ADR-NNN` is a decision dependency, not a carried requirement; it lives in
+References.
 
 **Incorrect:**
 
@@ -30,10 +32,11 @@ Read the parent epic for context, then write the spec.
 ```markdown
 ## Read step
 
-Read the parent epic and its PRD for context only. Its tokens never cross into
-the story: strip epic IDs, milestones, sibling-story names, and release
-references. Record the PRD requirement IDs it satisfies (FR-N, BR-N) in
-`## Requirements` — backward provenance, never in prose.
+Read the parent epic for context only. Its tokens never cross into the story:
+strip epic IDs, milestones, sibling-story names, and release references. The
+epic declares the requirements it owns in `## Requirements`; link each AC to the
+one it operationalizes on a `**Satisfies**` line — backward provenance, never in
+prose.
 ```
 
 ## Contain Forbidden References in Templates
@@ -48,19 +51,19 @@ guard; a template without the list lets stripped tokens leak back in.
 **Incorrect:**
 
 ```markdown
-## Spec template
+## Epic template
 
 ## Requirements
-{{the requirements}}
+{{the FR/BR/EC/NFR the epic owns}}
 ```
 
 **Correct:**
 
 ```markdown
-## Spec template
+## Epic template
 
 ## Requirements
-{{the requirements}}
+{{the FR/BR/EC/NFR the epic owns}}
 
-MUST NOT contain: milestones, epics, sprints, release names, roadmap refs.
+MUST NOT contain: §x.x section numbers, sibling names, milestones, roadmap refs, ADR-NNN.
 ```

@@ -24,7 +24,7 @@ group releases, and push to a tracker (via MCP or CLI) when configured.
 
 ## Workflow
 
-```
+```text
 discover → create → sync* → track
                           ^_______|  (sync is optional, gated by config)
 ```
@@ -86,7 +86,7 @@ after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 - Save or push immediately after the draft step — no separate preview gate
 - Route tracker operations through `sync.md` — core artifact refs stay
   tracker-agnostic
-- Validate Story AC against ac-validation rules V1-V7 on create and on
+- Validate Story AC against ac-validation rules V1-V8 on create and on
   edits that change AC text
 - Capture cross-artifact order with `blocked_by`; sync maps it to the
   tracker's native dependency relation

@@ -27,12 +27,13 @@ IDs, `§x.x` section numbers, sibling story names, milestone/roadmap
 language, and any cross-reference that doesn't stand alone. This story
 carries one outcome of its own.
 
-When the parent epic links a PRD (`**PRD:**` in its References), follow it
-and read the PRD for context only to identify which requirements this story
-satisfies. Propose the IDs (`FR/BR/EC/NFR`, plus any `ADR-NNN` it depends
-on), confirm with the user, and record them in `## Requirements` — backward
-provenance for the spec audit, the one upstream reference that crosses.
-Omit the section when there is no PRD or no requirement maps to the story.
+The parent epic declares the PRD requirements it owns in its
+`## Requirements`. Read that set — it is the menu this story's acceptance
+criteria may operationalize. Each `### AC-N` links the requirement it
+satisfies on a `**Satisfies**` line (see Acceptance Criteria below):
+backward provenance the spec inherits 1:1, the one upstream reference that
+crosses, and never in prose. When the story depends on an architectural
+decision, record `ADR-NNN` in `## References`, not as a requirement.
 
 ### 2. Draft
 
@@ -51,16 +52,15 @@ Fill the template (below):
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what
   changes for the user. Keep it focused — one story, one outcome.
-  Requirement IDs go in `## Requirements`, not the prose; no section
-  numbers or stray cross-references here.
+  Requirement IDs go on each AC's `Satisfies` line, not the prose; no
+  section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not
   cover. Remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
-  single Given/When/Then. Validated in Step 4 against rules V1-V7. See
-  [ac-validation.md](ac-validation.md).
-- **Requirements**: the PRD requirement IDs this story satisfies
-  (`FR/BR/EC/NFR`, plus `ADR-NNN` when it depends on a decision), as a
-  flat list. Omit when no PRD requirement maps to the story.
+  single Given/When/Then plus a `**Satisfies**` line naming the parent
+  epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for
+  an AC that maps to no requirement). Validated in Step 4 against rules
+  V1-V8. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
   advice or upstream design notes
@@ -70,8 +70,8 @@ Fill the template (below):
   this story can start, listed in frontmatter `blocked_by` by path. Lets
   the tracker enforce order; leave empty when nothing blocks it.
 - **References**: durable pointers the next session follows (parent epic,
-  design doc, UI design). Canonical in the body; frontmatter `sources:`
-  mirrors the links for sync
+  design doc, UI design) plus any `ADR-NNN` the story depends on.
+  Canonical in the body; frontmatter `sources:` mirrors the links for sync
 
 Record every durable reference (parent epic, design doc, UI design) in
 frontmatter `sources:` as you draft -- one entry per source. These are
@@ -85,8 +85,8 @@ Apply the resumption gate before proceeding:
 
 ### 3. Validate Acceptance Criteria
 
-Load [ac-validation.md](ac-validation.md) and run V1-V7 on the drafted AC. Strict by default (V1-V5, V7); V6 surfaces a
-warning with confirm-to-continue.
+Load [ac-validation.md](ac-validation.md) and run V1-V8 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is
+strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue.
 
 If any strict rule fails: surface the structured error (AC id, rule name,
 suggested fix), do not proceed to save or push. Loop back to Draft until
@@ -132,7 +132,7 @@ replace the plain story name with a linked, numbered entry:
 **DON'T:**
 - Add a size field — sizing happens at implementation time
 - Include implementation details or technical design
-- Carry requirement IDs in prose — record them in `## Requirements`; still strip `§x.x` section numbers, sibling names, and milestone/roadmap language
+- Carry requirement IDs in prose — link them on each AC's `Satisfies` line; still strip `§x.x` section numbers, sibling names, and milestone/roadmap language
 - Create stories without a parent epic (ask to create the epic first)
 
 ## Template
@@ -163,7 +163,7 @@ type: story
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
 
-MUST NOT contain: `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (FR/BR/EC/NFR/ADR-NNN) belong in `## Requirements`, never the Summary.
+MUST NOT contain: `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong on each AC's `Satisfies` line, never the Summary; `ADR-NNN` belongs in References.
 
 ## Out of Scope
 
@@ -178,14 +178,9 @@ MUST NOT contain: `§x.x` section numbers, sibling story names, roadmap language
 **Given** {{precondition}}
 **When** {{action}}
 **Then** {{expected outcome}}
+**Satisfies** {{parent-epic requirement this AC operationalizes — e.g. FR-3; omit the line when the AC maps to no requirement}}
 
-{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then.}
-
-## Requirements
-
-{Remove this section when no PRD requirement maps to this story.}
-
-- {{PRD requirement IDs this story satisfies — e.g. FR-3, FR-4, BR-2; add ADR-NNN when it depends on a decision}}
+{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`).}
 
 ## Rabbit Holes
 
@@ -211,6 +206,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 - **Epic:** {{link to parent epic}}
 - **Design Doc:** {{link or "None"}}
 - **UI Design:** {{link or "None"}}
+- **Decisions:** {{ADR-NNN this story depends on, or "None"}}
 ````
 
 ## Error Handling

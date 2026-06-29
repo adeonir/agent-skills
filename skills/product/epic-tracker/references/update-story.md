@@ -1,7 +1,7 @@
 # Edit Story
 
 Update an existing Story body (title, prose, AC, rabbit holes, references)
-with diff-based AC re-validation. AC text changes re-run V1-V7 strict;
+with diff-based AC re-validation. AC text changes re-run V1-V8 strict;
 edits that don't touch AC text skip validation (legacy tolerance).
 
 ## When to Use
@@ -44,7 +44,9 @@ Extract the AC section from the pre-edit body and the post-edit body:
 - Read until the next `## ` heading or end of document.
 - Normalize whitespace (collapse runs of blank lines, strip trailing
   spaces).
-- Compare pre vs post by string equality.
+- Compare pre vs post by string equality. The `**Satisfies**` line is
+  part of the AC block — adding, removing, or re-pointing it is an
+  AC-text change.
 
 Two branches:
 
@@ -57,7 +59,7 @@ Two branches:
 
 **Branch 2 -- AC text changed:**
 - The user added, removed, or modified AC text in any way.
-- Load [ac-validation.md](ac-validation.md) and run V1-V7 strict against
+- Load [ac-validation.md](ac-validation.md) and run V1-V8 strict against
   the new AC section.
 - If any strict rule fails: surface the structured error, do not save
   or push, loop back to Step 2 (Capture Edit) until the user fixes the
@@ -85,7 +87,7 @@ this ref handles body only.
 
 **DO:**
 - Diff the AC section before deciding whether to validate
-- Run V1-V7 strict only when AC text actually changed
+- Run V1-V8 strict only when AC text actually changed
 - Preserve legacy informal AC when the user did not touch them
 - Keep status updates routed through `status.md`, not this ref
 - Loop back to Capture Edit on validation failure rather than partial-saving

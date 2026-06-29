@@ -17,7 +17,8 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 Check for existing context before asking questions:
 
 1. Look for `docs/product/PRD.md` -- extract relevant functional
-   requirements and scope
+   requirements and scope, and note the requirement IDs
+   (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below)
 2. Look for `.artifacts/epics/milestones.md` -- find the milestone this
    epic serves, if any
 3. Look for `docs/product/PRODUCT.md` -- extract positioning (value
@@ -30,10 +31,14 @@ Check for existing context before asking questions:
 
 **Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay
 read-only and scoped to this epic. Extract only what maps to it, then
-**translate into epic language**: strip technical IDs (§3.7, EC-2, ADR-001),
-internal reference codes, sibling artifact names, milestone content and
+**translate into epic language**: strip `§3.7` section numbers, internal
+reference codes, sibling artifact names, milestone content and
 roadmap/sequencing framing, and domain jargon that doesn't stand alone. The
-epic carries the facts, not the source document's framing.
+epic carries the facts, not the source document's framing. The one exception is
+backward provenance: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`) are
+recorded in `## Requirements`, never in prose. `ADR-NNN` is a decision
+dependency, not an owned requirement — it stays out of `## Requirements` and
+travels with the Design Doc in References when the epic depends on one.
 
 Recording *which* milestone the epic serves is the one exception — its direct
 parent, captured as the `milestone:` pointer in frontmatter (same as a
@@ -63,6 +68,11 @@ Fill the template (below) with discovered context:
   the single source of truth.
 - **Scope**: explicit in/out boundaries. Describe capabilities, not
   technologies (e.g., "secure password storage" not "bcrypt hashing")
+- **Requirements**: the PRD requirement IDs this epic owns
+  (`FR/BR/EC/NFR`), as a flat list — backward provenance the child
+  stories operationalize, each AC linking back via `Satisfies`. Omit the
+  section when the epic derives from no PRD. `ADR-NNN` is excluded — a
+  decision dependency, not an owned requirement
 - **Rabbit Holes**: execution traps specific to this epic — integration
   quirks, ordering constraints, or scope edge cases that will catch
   stories by surprise. Not implementation advice or upstream design notes
@@ -121,11 +131,12 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - List stories in the epic checklist; create them as separate artifacts later
 - Run discover first, even when the user provides context directly
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
+- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements`; omit when the epic derives from no PRD
 - Hand sizing off to the implementation phase
 
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
-- Carry upstream IDs, section numbers, or doc-internal codes (§3.7, EC-2, ADR-001) into the epic — translate to plain language
+- Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirement IDs are the exception: they go in `## Requirements`)
 - Create story artifacts during epic creation (list stories in checklist, create on demand later)
 - Skip discover (run discover first regardless of provided context)
 - Add size estimates (sizing is an implementation concern)
@@ -157,7 +168,7 @@ milestone: {{milestone-name or omit when the epic sits outside any milestone}}
 
 {{What the epic is about, why it exists, what changes for the user when it ships. Two to three sentences.}}
 
-MUST NOT contain: scenario narratives, upstream IDs (§x.x, EC-N, ADR-NNN), section or document references, sibling epic names, roadmap language, or implementation details.
+MUST NOT contain: scenario narratives, `§x.x` section numbers, document references, sibling epic names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong in `## Requirements`, never the Summary; `ADR-NNN` belongs in References.
 
 ## Stories
 
@@ -179,6 +190,14 @@ of truth for hierarchy once a tracker is wired. -->
 **Out:**
 
 - {{What's explicitly excluded}}
+
+## Requirements
+
+{Remove this section when the epic derives from no PRD.}
+
+- {{PRD requirement IDs this epic owns — e.g. FR-3, FR-4, BR-2. Flat list; the child stories operationalize these, each AC linking back via `Satisfies`.}}
+
+MUST NOT contain: `§x.x` section numbers, sibling names, milestones, roadmap refs, or `ADR-NNN` (a decision dependency → References).
 
 ## Rabbit Holes
 

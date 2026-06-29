@@ -43,11 +43,11 @@ If no context was pasted, proceed to step 2.
 2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for
    context
 3. If standalone (no epic): place in `standalone/`
-4. When the task implements PRD requirements, read the PRD for context
-   only (via the parent epic's `**PRD:**` link, or directly for a
-   standalone task), propose the requirement IDs it satisfies, confirm
-   with the user, and record them in `## Requirements`. Pure chores that
-   map to no requirement omit the section.
+
+A task carries no requirement IDs and no acceptance criteria — it is
+AC-less work measured by its `## Definition of Done`. Work that delivers
+a PRD requirement and needs verifiable acceptance criteria is a story,
+not a task.
 
 ### 3. Draft
 
@@ -66,18 +66,17 @@ Fill the template (below):
 - **Epic**: parent epic name, or omit for standalone tasks
 - **Status**: always starts as `planned`
 - **Description**: what needs to be done and why — one clear outcome
-- **Requirements**: PRD requirement IDs this task satisfies
-  (`FR/BR/EC/NFR`, plus `ADR-NNN` when it depends on a decision); omit
-  for chores that map to no requirement
 - **Signals**: links and ids from pasted context — PRs, advisories,
   configs, dashboards; omit if empty
-- **Checklist**: optional breakdown into sub-steps; omit if not needed
+- **Definition of Done**: the conditions that mark the task complete —
+  its done-contract; verifiable items, not sub-step narration
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit
   for trivial chores
 - **Blocked by**: work that must finish before this task can start,
   listed in frontmatter `blocked_by` by path; leave empty when nothing
   blocks it.
-- **References**: link to parent epic, related stories, external docs
+- **References**: link to parent epic, related stories, external docs,
+  and any `ADR-NNN` the task depends on
 
 Apply the resumption gate before proceeding:
 
@@ -106,13 +105,13 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 **DO:**
 - Use for internal work that has no direct user-facing outcome
 - Keep the description focused on one outcome per task
-- Add a checklist when the work has clear sequential sub-steps
+- Write a Definition of Done — the verifiable conditions that mark the task complete
 - Link to the parent epic when the task advances an epic's delivery
 
 **DON'T:**
 - Use for user-facing features (contrasts: use story for user outcomes)
 - Use for defects (contrasts: use bug for defects with repro steps)
-- Add acceptance criteria (contrasts: description + checklist is enough)
+- Add acceptance criteria — a task is AC-less (contrasts: description + Definition of Done is enough; AC belongs to a story)
 - Create an task when a story or bug is the right type (ask if
   ambiguous)
 
@@ -151,17 +150,9 @@ epic: {{epic-name or omit for standalone}}
 - **Links:** {{PR URLs, advisory URLs, dashboard URLs, runbook URLs}}
 - **Identifiers:** {{PR number, commit hash, dep version, deployment id}}
 
-## Checklist
+## Definition of Done
 
-{Remove this section if not needed.}
-
-- [ ] {{Step or sub-task}}
-
-## Requirements
-
-{Remove this section when the task maps to no PRD requirement.}
-
-- {{PRD requirement IDs this task satisfies — e.g. FR-3, NFR-1; add ADR-NNN when it depends on a decision}}
+- [ ] {{condition that marks this task complete — verifiable, not sub-step narration}}
 
 ## Rabbit Holes
 
@@ -177,6 +168,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).
 `## Signals` above holds forensic links, not context pointers.}
 
 - **Epic:** {{link to parent epic or "None"}}
+- **Decisions:** {{ADR-NNN this task depends on, or "None"}}
 - {{link or "None"}}
 ````
 

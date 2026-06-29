@@ -67,7 +67,7 @@ automatically.
 Labels are repo-specific. Before assigning any label, always fetch the
 repo's label list:
 
-```
+```text
 GET /repos/{owner}/{repo}/labels
 ```
 
@@ -142,9 +142,9 @@ Re-detect on demand via "configure tracker".
 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, body, and AC. The body
    must include the validated `### AC-N` Given/When/Then blocks
-   verbatim — adapters do not transform AC structure. The planner
-   subagent (consumer in a separate repo) parses these blocks back to
-   structured AC. See [../ac-validation.md](../ac-validation.md) for
+   verbatim — adapters do not transform AC structure, so a downstream
+   consumer can parse these blocks back to structured AC. See
+   [../ac-validation.md](../ac-validation.md) for
    the contract.
 2. Attach the Issue as a sub-issue under the parent Epic (`epic_id`
    required). Stories are always children of an Epic.

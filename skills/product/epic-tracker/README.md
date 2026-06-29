@@ -56,7 +56,7 @@ stored — the inverse is derived, and the tracker keeps both sides in sync.
 
 ## Usage
 
-```
+```text
 create milestone           -- define a delivery phase in the registry
 create epic                -- plan a new epic with stories and scope
 decompose milestone        -- break a milestone into its epics
@@ -76,19 +76,21 @@ configure tracker          -- run bootstrap to set or change tracker config
 
 Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a
 `### AC-N` block with one Given, one When, one Then — no compound
-clauses. The skill validates on Story create and on edits that change
-AC text. Stories created before this convention are not retroactively
-validated.
+clauses — plus an optional `**Satisfies**` line linking the parent-epic
+requirement it operationalizes. The skill validates on Story create and
+on edits that change AC text. Stories created before this convention are
+not retroactively validated.
 
 ## Requirement Traceability
 
-A story or task that derives from a PRD records the requirement IDs it
-satisfies (`FR/BR/EC/NFR`, plus `ADR-NNN`) in a `## Requirements` section,
-read from the PRD via the parent epic's PRD link. Because the IDs live in
-the body, they travel to the tracker description on push and stay readable
-downstream, where a spec audit validates the implementation against them.
-Epics and milestones stay requirement-ID-free — traceability lives at the
-artifact that gets specced.
+The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a
+`## Requirements` section, read from the PRD via its PRD link. Each **story**
+operationalizes them: every `### AC-N` links the requirement it satisfies on a
+`**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** carries
+no requirement IDs — it is AC-less work measured by its `## Definition of Done`.
+`ADR-NNN` is a decision dependency recorded in References, not a requirement.
+Requirement coverage is an epic↔story relationship: every requirement the epic
+declares is operationalized by ≥1 story AC.
 
 ## Milestones
 
@@ -105,7 +107,7 @@ opt-in, asked once when a tracker is configured.
 Markdown files created only when no tracker is configured (or user
 declines push).
 
-```
+```text
 .artifacts/epics/
 ├── milestones.md
 ├── epic-name/

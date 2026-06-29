@@ -135,8 +135,8 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
    is enabled (see Milestones).
 
 AC validation does not run on pull. Pulled bodies may contain legacy AC
-format from before the Given/When/Then enforcement; the planner subagent
-decides how to handle them. See [ac-validation.md](ac-validation.md)
+format from before the Given/When/Then enforcement; the implementation
+consumer decides how to handle them. See [ac-validation.md](ac-validation.md)
 "Read-path tolerance" for rationale.
 
 If `tracker.id` is missing, route the user to push first or to manually
@@ -227,7 +227,7 @@ applying changes:
 
 Conflict report format:
 
-```
+```text
 Conflict on {artifact-name}:
   status: local=in-progress, tracker=done
   title: local="Auth flow", tracker="Authentication flow"

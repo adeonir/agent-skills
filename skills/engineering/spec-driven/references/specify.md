@@ -133,15 +133,37 @@ If ambiguous, ask user.
 
 ### Step 6: Process Input
 
-**If input is a file (@file.md):**
+**Classify the seed first** -- it decides whether the spec *reshapes* an
+existing done-contract or *authors* acceptance criteria from scratch:
 
-Extraction is **transformation**, not copying. Source documents define
-product-level or system-level requirements; the spec defines feature-level,
-implementation-ready requirements. Every item must be narrowed to feature
-scope and refined with implementation detail.
+| Seed | Detect by | AC behaviour | `Satisfies` in spec.md |
+|------|-----------|--------------|------------------------|
+| **Story** | input file frontmatter `type: story` with a `## Acceptance Criteria` section | reshape each AC 1:1 | inherited, not written |
+| **Task** | input file frontmatter `type: task` with a `## Definition of Done` | reshape the DoD | none |
+| **PRD / Design Doc** | `# PRD:` / `docs/product/PRD.md`, requirement tables (`FR/BR/EC/NFR`), no AC | author ACs | written here |
+| **Prompt** | conversational text, no file | author ACs | none |
 
-| Source (PRD/Design Doc) | spec.md |
-|-------------------------|---------|
+**Reshape (story, task)** -- the seed already carries a done-contract. Change
+notation, never re-decide substance, never add criteria the seed did not state
+(a real gap goes back to the story, not invented here):
+
+- **Story:** each `### AC-N` (Given/When/Then) maps 1:1 to one EARS-lite AC --
+  `Given`+`When` → the trigger clause, `Then` → "the system shall …". Split only
+  a genuinely compound AC. Do **not** copy the story's `**Satisfies**` link into
+  spec.md: the 1:1 correspondence plus the `sources:` pointer back to the story
+  preserves the trace. After this the spec owns the AC; the story is the frozen
+  seed, not re-read.
+- **Task:** the `## Definition of Done` conditions reshape into EARS-lite ACs (a
+  verifiable condition becomes an AC; a purely-process item like "code reviewed"
+  drops or moves to Success Criteria). No `Satisfies` -- a task carries no
+  requirement.
+
+**Author (PRD / Design Doc, prompt)** -- no AC upstream, so manufacture testable
+ones. Source documents define product- or system-level requirements; the spec
+defines feature-level, implementation-ready ones:
+
+| Source (PRD / Design Doc) | spec.md |
+|---------------------------|---------|
 | Product-wide user stories | Feature-scoped user stories prioritized by implementation order (P1/P2/P3) |
 | Directional requirements (must/should/could) | Implementable FRs with measurable criteria |
 | High-level acceptance criteria | Testable ACs in EARS-lite shape (1:1, no compound) |
@@ -151,19 +173,19 @@ scope and refined with implementation detail.
 1. If path is a directory, list all files: `find {path} -type f -name "*.md"`
 2. Read each file completely -- extract rules ("must", "cannot", "always"),
    constraints ("only if", "when", "unless"), and examples
-3. Filter each item: relevant → transform; not relevant → note WHY in Notes;
-   partially relevant → extract only the applicable part
-4. Transform (never copy verbatim): narrow broad user stories to feature scope, make
+3. Filter each item: relevant → author; not relevant → note WHY in Notes;
+   partially relevant → use only the applicable part
+4. Author (never copy verbatim): narrow broad user stories to feature scope, make
    ACs testable (EARS-lite shape, 1:1), add missing edge cases and success criteria
-   derived from requirements
-5. Output extraction summary in Notes section before generating spec -- the
-   "Transformed To" column must show the refined version, not a copy
-
-**If input is text:**
-- Use as feature description
+   derived from requirements. On the **PRD / Design Doc** path, each AC born
+   against a requirement carries a `**Satisfies**` sub-bullet naming the
+   `FR/BR/EC/NFR` it operationalizes -- the one seed where the spec writes it; the
+   **prompt** path authors ACs with no `Satisfies`
+5. Output the summary in Notes section before generating spec -- show the refined
+   version, not a copy
 
 **If input is empty:**
-- Ask user for feature description
+- Ask user for feature description (prompt seed)
 
 **Record sources:**
 
@@ -469,6 +491,12 @@ an `Audit-tool measurement` sub-bullet:
 ```
 Required only when the AC references a third-party audit tool. Omit the sub-line otherwise.
 
+On the **PRD / Design Doc** seed (Step 6), each AC that operationalizes a
+requirement carries a `**Satisfies**` sub-bullet naming the `FR/BR/EC/NFR` id —
+backward provenance the audit anchors on. Omit it on the **story** seed (the
+link lives in the story, inherited 1:1 via the `sources:` pointer) and on the
+**task / prompt** seeds (no requirement).
+
 **Non-functional criteria:** Any performance, latency, throughput, capacity, or
 availability claim must carry a number and the condition it holds under (`p95 ≤ 200ms
 under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question.
@@ -736,6 +764,7 @@ when the feature introduces no domain vocabulary.}}
 **Acceptance Criteria:**
 
 - [ ] AC-1 `pending`: When {{trigger}}, the system shall {{observable outcome}}
+  - **Satisfies:** {{FR/BR/EC/NFR id — PRD-seeded specs only; omit on a story seed (the link lives upstream, inherited 1:1) and when no requirement backs the AC}}
   - **Audit-tool measurement:** {{tool name}} — {{exact metric}} — pass threshold: {{numeric or boolean}}
 - [ ] AC-2 `pending`: While {{state}}, the system shall {{observable outcome}}
 

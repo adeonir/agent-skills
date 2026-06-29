@@ -22,7 +22,7 @@ artifacts in `.artifacts/epics/`.
 
 ### Status Transitions
 
-```
+```text
 planned → in-progress → done
 planned → blocked → in-progress → done
 ```
@@ -62,7 +62,7 @@ when the tracker MCP is unavailable; warn the user that the view is stale.
 
 Present as a structured summary:
 
-```
+```text
 ## Epic: {title} [{status}] (2/4 stories done)
   - [x] story-name (done)
   - [x] story-name (done)
