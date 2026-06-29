@@ -2,7 +2,7 @@
 name: epic-tracker
 description: >-
   Manages the delivery lifecycle from milestone and epic planning through
-  story tracking to implementation handoff. 5 artifact types (Epic, Story, Bug,
+  story tracking. 5 artifact types (Epic, Story, Bug,
   Task, Release) plus a milestones registry. Tracker-first when configured (Linear, GitHub
   Issues/Projects) via MCP or CLI — artifacts go directly to the
   tracker with no local files. Falls back to markdown as source of
@@ -11,7 +11,7 @@ description: >-
   "report bug", "create release", "create milestone", "decompose milestone",
   "update status", "list epics", "sync to tracker", "push to linear",
   "push to github",
-  "pull from tracker", "configure tracker", "handoff".
+  "pull from tracker", "configure tracker".
   Not for implementing a named story with an existing spec, project-
   wide overview, feature status within a spec, or quick fixes.
 ---
@@ -20,13 +20,12 @@ description: >-
 
 Manages the delivery lifecycle with tracker-first integration and
 markdown fallback. Plan epics, track stories, report bugs, file tasks,
-group releases, push to a tracker (via MCP or CLI) when configured, and
-hand off to implementation.
+group releases, and push to a tracker (via MCP or CLI) when configured.
 
 ## Workflow
 
 ```
-discover → create → sync* → track → handoff
+discover → create → sync* → track
                           ^_______|  (sync is optional, gated by config)
 ```
 
@@ -54,8 +53,6 @@ Falls back to markdown when not.
   "overview") → [status.md](references/status.md)
 - **Sync** ("sync to tracker", "push to linear/github", "pull from
   tracker", "configure tracker") → [sync.md](references/sync.md)
-- **Handoff** ("handoff", "implement story", "start story") →
-  [handoff.md](references/handoff.md)
 - **Linear adapter** (auto-loaded by sync) →
   [adapters/linear.md](references/adapters/linear.md)
 - **GitHub adapter** (auto-loaded by sync) →

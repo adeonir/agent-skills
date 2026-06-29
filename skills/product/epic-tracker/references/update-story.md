@@ -117,5 +117,3 @@ this ref handles body only.
   route through `status.md`.
 - On successful push: tracker entity updated; `tracker.last_synced`
   refreshed in markdown frontmatter when a local cache exists.
-- If the Story is being prepared for implementation after
-  the edit, route to [handoff.md](handoff.md).

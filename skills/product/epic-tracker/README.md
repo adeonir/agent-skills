@@ -1,6 +1,6 @@
 # Epic Tracker
 
-Manages the delivery lifecycle from epic planning through story tracking to implementation handoff.
+Manages the delivery lifecycle from epic planning through story tracking.
 
 ## What It Does
 
@@ -11,7 +11,6 @@ flowchart TD
     C -->|no tracker| MD[Save markdown]
     TR --> T[Track]
     MD --> T
-    T -->|update status| H[Handoff]
 ```
 
 When a tracker is configured (via MCP or CLI), artifacts go directly to
@@ -23,7 +22,6 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Discover | Check for existing PRD, brief, or context                       | Context for artifact creation       |
 | Create   | Generate milestone, epic, story, bug, task, or release          | Tracker entity or markdown artifact |
 | Track    | Update status in tracker when configured, in markdown otherwise | Updated state                       |
-| Handoff  | Surface tracker URLs and prepare for implementation             | User picks next step                |
 
 ## Tracker Integration
 
@@ -72,7 +70,6 @@ mark done                  -- update artifact status
 sync to tracker            -- push current artifact to configured tracker
 pull from tracker          -- refresh markdown with latest tracker state
 configure tracker          -- run bootstrap to set or change tracker config
-handoff                    -- prepare story for implementation
 ```
 
 ## Story Acceptance Criteria
