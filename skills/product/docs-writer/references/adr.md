@@ -124,10 +124,6 @@ sources: []
 
 # ADR-{{NNNN}}: {{Decision Title}}
 
-## Status
-
-{{proposed | accepted | deprecated | superseded by ADR-NNNN}}
-
 ## Context
 
 {{Forces at play that make this decision necessary: technical
@@ -175,11 +171,10 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ## ADR Schema
 
-6 sections matching the template:
+5 sections matching the template:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
-| Status | Lifecycle state (proposed/accepted/deprecated/superseded) | Phase 2 |
 | Context | Forces making the decision necessary | Topic: opening + deepen |
 | Decision | The change, stated as positive imperative | Topic: deepen |
 | Consequences | Positive, negative, neutral outcomes | Topic: deepen |
