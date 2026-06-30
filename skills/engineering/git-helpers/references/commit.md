@@ -118,7 +118,7 @@ Omit the blank line and body section when `body` is null or empty. Never pass
 signing. If a hook fails, fix the underlying issue and create a new commit
 (see Error Handling).
 
-### Step 5: Verify Commit
+### Step 5: Verify and Report Commit
 
 ```bash
 git status
@@ -126,6 +126,10 @@ git status
 
 If `git status` still lists the intended files as modified/staged, the
 commit did not land — stop and inform the user. Do not retry blindly.
+
+Once it lands, report a brief summary in chat: the commit subject
+(`{type}: {subject}`) and its body bullets when present. Report the message
+that was created, not the full diff.
 
 ## Commit Types
 

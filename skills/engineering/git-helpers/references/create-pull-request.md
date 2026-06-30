@@ -155,7 +155,8 @@ EOF
 Omit `## Changes` when `changes` is null. Omit `## Test Plan` when
 `test_plan` is null. Omit `Closes #N` when `closes` is null.
 
-Output the PR URL when done.
+When done, report a brief summary in chat: the PR title and the URL. Report
+what was created, not the full body.
 
 ## Guidelines
 
