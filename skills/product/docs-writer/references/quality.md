@@ -1,11 +1,11 @@
 # Quality Standards
 
-Quality gates for requirements and document integrity before presenting
-any draft to the user.
+Quality gates for requirements and document integrity before writing
+any document to disk.
 
 ## When to Use
 
-Load during the Drafting phase, before presenting any document to the user.
+Load during the Drafting phase, before writing any document to disk.
 
 ## Requirements Quality
 
@@ -19,7 +19,7 @@ Requirements must be concrete and measurable across all document types.
 
 ## Review Checklist
 
-Before presenting any document to the user, verify:
+Before writing any document to disk, verify:
 
 - [ ] No contradictions between sections
 - [ ] No unresolved TBDs that block the document's purpose
@@ -28,7 +28,7 @@ Before presenting any document to the user, verify:
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
 **If any gate fails — here or in the type-specific gates below — fix it inline,
-re-verify that gate, and only then present.** This applies in both discovery and
+re-verify that gate, and only then write.** This applies in both discovery and
 reconcile mode; a reconcile that touched only part of a doc still re-verifies the
 gate set against the result.
 

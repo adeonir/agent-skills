@@ -183,8 +183,12 @@ Synthesize everything from discovery and validation into a structured summary.
 Use the PRD template below. Resolve PRODUCT by its own artifact state using
 [product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in
 discovery mode seeded by this PRD; when it exists, reconcile it per
-[reconcile.md](reconcile.md) — never overwrite evidenced positioning. Load
-[quality.md](quality.md) before presenting the drafts to the user.
+[reconcile.md](reconcile.md) — never overwrite evidenced positioning. Run the
+gates in [quality.md](quality.md) before writing, then write the PRD to
+`docs/product/PRD.md` (and PRODUCT to `docs/product/PRODUCT.md` when drafted
+here) and report a brief prose summary in chat (up to 2-3 paragraphs) — the
+path(s), the scope (must/should/could), and the primary metric. Do not paste
+the full document.
 
 **Drafting notes:**
 
@@ -359,7 +363,7 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
 - Complete discovery before drafting (discovery mode), or reconcile the delta (existing PRD) — never draft blind
 - Challenge ideas in discovery, validation, and reconcile — do not be a yes-man
-- Present draft for user feedback
+- Write the PRD to its path directly, then report a brief prose summary in chat (path, scope, primary metric)
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Resolve PRODUCT by its artifact state — discovery if absent, reconcile if present

@@ -32,7 +32,7 @@ Detect document type from the trigger. If ambiguous, ask the user.
 Auto-loaded (no direct triggers):
 
 - `discovery.md` — by the product-doc flow, Design Doc, ADR at start of discovery
-- `quality.md` — before presenting any draft
+- `quality.md` — before writing any document
 - `reconcile.md` — by the product-doc flow when `PRD.md` or `PRODUCT.md` already exists on disk
 - `product.md` — by `prd.md` when resolving PRODUCT (its mode follows the
   `PRODUCT.md` artifact state; the PRODUCT row above is the same flow)
@@ -63,8 +63,10 @@ Auto-loaded (no direct triggers):
 ## Guidelines
 
 - Always complete discovery before drafting (for types that require it)
-- Review the artifact before presenting (load `quality.md`)
-- Present draft for user feedback before saving
+- Run the quality gates before writing (load `quality.md`)
+- Write the document to its path directly, then report a brief prose summary
+  in chat (up to 2-3 paragraphs) — the path, type, and what it contains; never
+  paste the full document
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Keep each document within its domain (PRD = product, Design Doc / ADR = technical)

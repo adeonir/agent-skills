@@ -97,8 +97,10 @@ Before drafting, confirm:
 
 ### Phase 3: Drafting
 
-Use the template below. Load [quality.md](quality.md) before presenting
-the draft to the user.
+Use the template below. Run the gates in [quality.md](quality.md) before
+writing, then write the ADR to `docs/adr/NNNN-slug.md` and report a brief prose
+summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded.
+Do not paste the full document.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR
 takes the next zero-padded ID (`001`, `002`, ...). Filename and

@@ -34,7 +34,7 @@ discovery → analysis → drafting
 
 Discovery covers four lean topics — context, the design, the trade-offs, and
 cross-cutting concerns. Analysis synthesizes findings and prepares the Record
-column for ADR linkage. Drafting loads quality gates before presenting.
+column for ADR linkage. Drafting runs the quality gates before writing.
 
 ### Phase 1: Discovery
 
@@ -135,7 +135,10 @@ managed services.
 
 ### Phase 3: Drafting
 
-Use the template below. Load [quality.md](quality.md) before presenting the draft.
+Use the template below. Run the gates in [quality.md](quality.md) before
+writing, then write the Design Doc to its path and report a brief prose summary
+in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do
+not paste the full document.
 
 **Drafting notes:**
 
@@ -290,9 +293,10 @@ ADR-NNNN`) are immutable — reverse them with a superseding ADR and a new row, 
 an in-place edit (see the `## ADR Linkage` section above). The editable surface is
 the design prose, rows with `Record = —`, and Open Questions.
 
-Before presenting, re-run the gates in [quality.md](quality.md) against the result
+Before writing, re-run the gates in [quality.md](quality.md) against the result
 and bump `updated` in the frontmatter, preserving `created`. The thing to catch is a
-change that contradicts a frozen decision or an untouched section.
+change that contradicts a frozen decision or an untouched section. After writing,
+report a brief prose summary of the delta in chat — what changed and where.
 
 ## Anti-Pattern: Implementation Manual Without Trade-offs
 

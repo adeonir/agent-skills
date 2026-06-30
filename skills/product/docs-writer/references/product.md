@@ -112,4 +112,6 @@ to the PRD or to downstream design artifacts.
 
 ## Output
 
-Saved to `docs/product/PRODUCT.md`.
+Write to `docs/product/PRODUCT.md` directly, then report a brief prose summary in
+chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the
+full document.

@@ -34,7 +34,8 @@ triage → scope → validate delta → declare settled → confirm → draft
    full re-synthesis.
 6. **Draft.** Apply the change using the artifact's own template — [prd.md](prd.md)
    for the PRD, [product.md](product.md) for PRODUCT — preserving every section the
-   scope did not touch.
+   scope did not touch. Write the change to the artifact's path, then report a brief
+   prose summary of the delta in chat — what changed and where. Do not paste the full document.
 
 ## Reading the Sibling Artifact
 
