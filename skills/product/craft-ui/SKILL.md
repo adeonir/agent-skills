@@ -18,7 +18,7 @@ description: >-
 
 # Craft UI
 
-craft-ui builds the interface — composing DESIGN.md (identity), BLUEPRINT.md
+craft-ui builds the interface — composing DESIGN.md (identity), WIREFRAME.md
 (structure), and copy.yaml (content) into full-page HTML variants — and
 pressure-tests it, without touching production. Its core mode is **render**:
 construct the real UI in several visual directions to decide one. Two judging
@@ -34,7 +34,7 @@ not production components.
 
 | Mode | Verb | Target | Moment | Output |
 | ---- | ---- | ------ | ------ | ------ |
-| **render** | integrate / tune | DESIGN.md + BLUEPRINT.md + copy.yaml → variant HTML | pre-impl | variants side by side (decision aid) |
+| **render** | integrate / tune | DESIGN.md + WIREFRAME.md + copy.yaml → variant HTML | pre-impl | variants side by side (decision aid) |
 | **critique** | evaluate | the chosen variant | pre-impl | direction verdict + refinements |
 | **audit** | evaluate | a running production UI | post-impl | P0–P3 quality report |
 
@@ -75,7 +75,7 @@ Every mode composes the same references, so judgment and generation stay aligned
 ## Inputs
 
 - **render** reads three upstream artifacts, each optional — `DESIGN.md`
-  (tokens), `BLUEPRINT.md` (layout), `copy.yaml` (content). Any missing input
+  (tokens), `WIREFRAME.md` (layout), `copy.yaml` (content). Any missing input
   falls back to a composed seed so a variant always renders. This is the
   **integrator**: the one place that reads all three together. It writes none.
 - **critique** reads the chosen variant HTML in `.artifacts/` (render's output).
@@ -91,7 +91,7 @@ identity, copy). A reported audit defect is fixed in implementation, not here.
 
 ## Anti-Pattern: Writing a Source Artifact
 
-render is the one place allowed to read DESIGN.md, BLUEPRINT.md, and copy.yaml
+render is the one place allowed to read DESIGN.md, WIREFRAME.md, and copy.yaml
 together — precisely because it writes none of them. Writing a source artifact
 here would give it two owners and break the integrator boundary. When a tuned
 direction should become permanent, redirect to the owning skill; when an audit
@@ -100,7 +100,7 @@ judges — none edits.
 
 ## Anti-Pattern: Hard-Gating on Missing Inputs
 
-Refusing to render until DESIGN.md, BLUEPRINT.md, and copy.yaml all exist
+Refusing to render until DESIGN.md, WIREFRAME.md, and copy.yaml all exist
 defeats the purpose — render shows the product at any stage. A missing input is
 a fallback, not a blocker: compose a seed, follow anti-patterns, render the
 best coherent page, and flag what is illustrative. Likewise audit needs only a

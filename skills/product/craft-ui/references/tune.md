@@ -3,7 +3,7 @@
 The named directions render re-renders a chosen variant along — bolder,
 quieter, distill, delight, harden. Each is a *direction*, not an edit: the move
 lives only in the re-rendered variant HTML for the session. None touches
-DESIGN.md, BLUEPRINT.md, copy.yaml, or production code.
+DESIGN.md, WIREFRAME.md, copy.yaml, or production code.
 
 ## When to Use
 

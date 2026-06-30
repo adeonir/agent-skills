@@ -4,7 +4,7 @@ Establishes planning context and routes to the right mode.
 
 ## When to Use
 
-Load at the start of every blueprint operation — before any mode runs,
+Load at the start of every wireframe-sketch operation — before any mode runs,
 never invoked directly.
 
 ## Workflow
@@ -13,7 +13,7 @@ never invoked directly.
 
 Look for:
 
-- an existing `docs/design/BLUEPRINT.md` — a prior layout plan
+- an existing `docs/design/WIREFRAME.md` — a prior layout plan
 - a wireframe on hand: sketch, mockup, screenshot, or a described layout
 - a brief, PRD, or description the user provides — intent and surfaces
 - `docs/product/PRODUCT.md` — positioning: the default register and structural anti-references (hero-metric, identical-card grids)
@@ -32,7 +32,12 @@ Infer from what the user wants — do not ask explicitly:
 | Intent | Reference |
 |--------|-----------|
 | Author or edit a layout plan (fresh, or patch an existing one) | [create.md](create.md) |
+| Render the plan into a low-fi view — HTML, ASCII, or screen flow | [render.md](render.md) |
 | Check a wireframe or existing plan for coherence | [validate.md](validate.md) |
+
+When routing to render, infer the output format from the request — ASCII for a
+quick in-markdown sketch, HTML for a fuller or denser view, Mermaid for screen
+flow — and ask only when it is genuinely unclear.
 
 ### Step 3: Fill Gaps
 

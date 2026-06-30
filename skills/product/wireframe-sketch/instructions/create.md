@@ -1,6 +1,6 @@
 # Create
 
-Author or edit a layout plan in `BLUEPRINT.md`. Plan the surfaces, blocks,
+Author or edit a layout plan in `WIREFRAME.md`. Plan the surfaces, blocks,
 shapes, and flow a product needs — from scratch, or patching an existing plan —
 then save the region tree (YAML frontmatter) and narrate it (markdown body).
 
@@ -70,14 +70,14 @@ lets the user redirect. Reserve the 2-3 option menu, each with a one-line
 rationale, for when the choice is genuinely open. Either way, let the user
 settle it before writing.
 
-### Step 4: Write BLUEPRINT.md
+### Step 4: Write WIREFRAME.md
 
-Save to `docs/design/BLUEPRINT.md` using the template below. The
+Save to `docs/design/WIREFRAME.md` using the template below. The
 **YAML frontmatter** carries the renderable region tree;
 the **markdown body** narrates it with a screen map and per-surface rationale.
 Create directories if needed. The tree mirrors the surfaces established in
 Step 1 — name each surface and block by context, nest to match, and add `note`
-where intent needs words a box cannot show. When a `BLUEPRINT.md` already
+where intent needs words a box cannot show. When a `WIREFRAME.md` already
 exists, patch the frontmatter first, then the body that describes it, so the
 two stay in sync.
 
@@ -118,7 +118,7 @@ flow:
   # Optional. Screen-to-screen paths for app or multi-surface products.
 ---
 
-# {{Project}} Blueprint
+# {{Project}} Wireframe
 
 ## Screen Map
 
@@ -133,11 +133,11 @@ the reflow on narrow viewports (collapsing strategy), and the content volume
 that drives them. One H2 per surface.}}
 ```
 
-The **frontmatter** is normative and renderable — a downstream renderer parses
-it to draw the low-fi wireframe. The **body** is for humans: the screen map and
-the per-surface reasoning.
+The **frontmatter** is normative and renderable — the [render.md](render.md)
+operation parses it to draw the low-fi wireframe. The **body** is for humans: the
+screen map and the per-surface reasoning.
 
-**Shape hints** are a fixed set so a downstream renderer can draw the layout:
+**Shape hints** are a fixed set so the render operation can draw the layout:
 
 - `full-width` — block spans the full width
 - `split` — two side-by-side regions
@@ -158,14 +158,15 @@ vocabulary is fixed.
 - Add `note` where intent needs words a box cannot show
 
 **Out of scope:** visual decisions (colors, fonts, spacing, tokens), copy
-strings, requirement IDs (`fr-1`, `m1`, `j1`, `us-3`), rendering or drawing the
-wireframe, and forcing a fixed project type or surface set. The plan stays
-design-blind and content-blind so it holds under any design and any copy;
-surfaces come from the conversation, and a downstream consumer renders it.
+strings, requirement IDs (`fr-1`, `m1`, `j1`, `us-3`), drawing the wireframe
+(the [render.md](render.md) operation's job), and forcing a fixed project type or
+surface set. The plan stays design-blind and content-blind so it holds under any
+design and any copy; surfaces come from the conversation, and the render
+operation draws it.
 
 ## Error Handling
 
 - Intent too thin to plan from: ask for the surfaces and the primary action on each
 - Surfaces unclear: ask which surfaces or screens the product has before planning
-- User wants a rendered wireframe: blueprint emits the plan only; a downstream renderer draws it
+- User wants a rendered wireframe: create authors the plan; run the render operation ([render.md](render.md)) to draw it
 - Conflicting arrangement signals: ask which source is authoritative

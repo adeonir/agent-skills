@@ -1,23 +1,25 @@
 ---
-name: blueprint
-allowed-tools: Read Write Edit WebFetch
+name: wireframe-sketch
+allowed-tools: Read Write Edit WebFetch Bash(python3:*)
 description: >-
-  Plans BLUEPRINT.md, the design-blind layout payload a design
+  Plans the design-blind layout wireframe payload a design
   consumes: a region tree plus screen flow that arranges surfaces
-  before any visual identity is styled — structure only, composable
-  under any design. Use when planning information architecture, page
-  composition, screen inventory, or screen flow; arranging surfaces,
-  blocks, or navigation; wireframing or validating a wireframe;
-  drafting a layout plan from a brief or conversation. Not for visual
-  identity or design tokens, copy or content, or rendering HTML.
+  before any visual identity is styled, then renders it low-fi and
+  neutral. Structure only, composable under any design. Use when
+  planning information architecture, page composition, screen
+  inventory, or screen flow; arranging surfaces, blocks, or
+  navigation; wireframing, rendering, or validating a wireframe;
+  drawing a low-fi black-and-white wireframe, ASCII sketch, or screen
+  flow; drafting a layout plan from a brief or conversation. Not for
+  visual identity or design tokens, copy or content.
 ---
 
-# Blueprint
+# Wireframe Sketch
 
-Owns `BLUEPRINT.md` — the design-blind layout payload a design consumes: a
+Owns `WIREFRAME.md` — the design-blind layout payload a design consumes: a
 YAML frontmatter holds the renderable region tree, and a markdown body
 narrates it with a screen map and per-surface rationale.
-Arrangement is orthogonal to visual identity: the same `BLUEPRINT.md` must
+Arrangement is orthogonal to visual identity: the same `WIREFRAME.md` must
 hold under any design, so this skill plans structure only — information
 architecture, region layout, and screen flow — never colors, fonts, or tokens.
 
@@ -27,22 +29,25 @@ Operations:
 
 - **create** — author a fresh layout plan from conversation (surfaces,
   blocks, shapes, flow). → [create.md](instructions/create.md)
-- **validate** — check a wireframe or existing plan for IA, flow, and
-  intent coherence. → [validate.md](instructions/validate.md)
+- **render** — project the region tree into a low-fi neutral view —
+  `wireframe.html`, ASCII, or Mermaid flow. → [render.md](instructions/render.md)
+- **validate** — check a wireframe or existing plan for IA, flow, usability
+  heuristics, and intent coherence. → [validate.md](instructions/validate.md)
 
 ## Discovery
 
 `discovery.md` runs before every operation — never skipped, never invoked
-directly. It checks existing context (an existing `BLUEPRINT.md`, the
+directly. It checks existing context (an existing `WIREFRAME.md`, the
 conversation, any brief the user provides) and routes by intent — author a
 plan, or check one. See [discovery.md](instructions/discovery.md).
 
 ## Artifact
 
-Produces and owns `docs/design/BLUEPRINT.md`. The **frontmatter** region tree
-is normative — a downstream renderer parses it to draw the low-fi wireframe;
-the **body** is for humans. The full template, the shape vocabulary, and the
-pre-save self-check live in [create.md](instructions/create.md).
+Produces and owns `docs/design/WIREFRAME.md` and its rendered view
+`docs/design/wireframe.html`. The **frontmatter** region tree is normative — the
+render operation parses it to draw the low-fi wireframe; the **body** is for
+humans. The full template, the shape vocabulary, and the pre-save self-check
+live in [create.md](instructions/create.md).
 
 ## Register and surface
 

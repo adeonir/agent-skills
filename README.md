@@ -34,13 +34,13 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[notes](skills/personal/notes)**                  | Personal    | Obsidian notes for projects, meetings, challenges, and brag docs              |
 | **[handoff](skills/personal/handoff)**              | Personal    | Save and resume conversation state across sessions                            |
 | **[wrap-up](skills/personal/wrap-up)**              | Personal    | End-of-session context persistence to Obsidian                                |
-| **[blueprint](skills/product/blueprint)**           | Product     | Plans `blueprint.md` — information architecture, layout, and screen flow      |
 | **[brainstorming](skills/product/brainstorming)**   | Product     | Structured idea exploration and plan stress-testing, diverge to converge      |
 | **[copywriting](skills/product/copywriting)**       | Product     | Authors `copy.yaml` — write, extract, refresh, plus critique and audit        |
 | **[craft-ui](skills/product/craft-ui)**             | Product     | Render design variants, critique a variant, audit a running UI — non-mutating |
 | **[design-brief](skills/product/design-brief)**     | Product     | Greenfield visual identity — explore a direction and author `DESIGN.md`       |
 | **[docs-writer](skills/product/docs-writer)**       | Product     | Structured docs: PRD, Brief, Design Doc, ADR                                  |
 | **[epic-tracker](skills/product/epic-tracker)**     | Product     | Epics, stories, bugs, and releases — tracker-first or markdown                |
+| **[wireframe-sketch](skills/product/wireframe-sketch)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow  |
 
 ## How They Connect
 
@@ -52,7 +52,7 @@ flowchart TD
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
-    DW_PRD -->|requirements| BP[blueprint]
+    DW_PRD -->|requirements| BP[wireframe-sketch]
     DW_PRD -->|requirements| CW[copywriting]
     BP -->|layout| CU[craft-ui]
     CW -->|content| CU
@@ -76,17 +76,17 @@ The full flow when building a new product or feature with non-trivial
 business logic:
 
 ```
-1.  brainstorming --> direction and constraints
-2.  docs-writer   --> requirements (what to build, for whom, why)
-3.  docs-writer   --> technical decisions and trade-offs
-4.  blueprint     --> layout and screen flow
-5.  design-brief  --> visual identity and design tokens
-6.  copywriting   --> content and copy
-7.  craft-ui      --> build and pressure-test the interface
-8.  epic-tracker  --> epics, stories, acceptance criteria
-9.  spec-driven   --> per-story spec, design, tasks, implementation
-10. review-lens   --> review changes before commit
-11. git-helpers   --> commit, pull request, finish branch
+1.  brainstorming    --> direction and constraints
+2.  docs-writer      --> requirements (what to build, for whom, why)
+3.  docs-writer      --> technical decisions and trade-offs
+4.  wireframe-sketch --> layout and screen flow
+5.  design-brief     --> visual identity and design tokens
+6.  copywriting      --> content and copy
+7.  craft-ui         --> build and pressure-test the interface
+8.  epic-tracker     --> epics, stories, acceptance criteria
+9.  spec-driven      --> per-story spec, design, tasks, implementation
+10. review-lens      --> review changes before commit
+11. git-helpers      --> commit, pull request, finish branch
 ```
 
 ### Feedback loop
@@ -108,7 +108,7 @@ docs/
 ├── product/        # brainstorming: brainstorm · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: visual identity · blueprint: layout · copywriting: content
+└── design/         # design-brief: visual identity · wireframe-sketch: layout · copywriting: content
 
 .artifacts/
 ├── knowledge.md    # spec-driven: cross-feature decisions, gotchas, conventions
