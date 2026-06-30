@@ -198,9 +198,16 @@ W". One decision per ADR. Be specific and unambiguous.}}
 - Alternatives Considered Record column defaults to `—`; populate
   with `ADR-NNNN` only when the alternative itself has been
   recorded as a separate ADR
-- An ADR references only prior ADRs (genuine dependencies); it never
-  anticipates or links a later one. Inter-ADR lifecycle links live in
-  frontmatter (`supersedes`/`superseded-by`), not the body
+- An ADR references only prior ADRs — a genuine backward dependency,
+  never a thematic "see also"; it never anticipates or links a later
+  one. Inter-ADR lifecycle links live in frontmatter
+  (`supersedes`/`superseded-by`), not the body
+- Title and slug name the decision the same way — filename
+  `NNNN-slug.md` and heading `# ADR-NNNN: Title` use the same term
+- Monitoring criteria, confirmation steps, and follow-up actions belong
+  in the issue tracker, not in the ADR
+- External facts (vendor pricing, provider capabilities) are dated and
+  kept verifiable — e.g. "rates valid as of {{Month YYYY}}"
 
 ## Status Lifecycle
 
@@ -256,6 +263,47 @@ future question. The author may know what came next; the ADR must not.
 Legitimate references point backward — to a prior ADR the decision
 genuinely depends on — or state conditional reversibility ("may be
 revisited if volume grows") without naming a future decision.
+
+## Anti-Pattern: Speculative Neutral
+
+The Neutral section records factual downstream consequences — migration
+work, a new dependency, a vocabulary shift, a knock-on decision
+surfaced. It is not a place to speculate about the future of the
+decision itself: "will be revisited if X", "metrics evaluated later",
+"validated live after launch". Those presume the ADR knows whether and
+when the decision will be revised, which it cannot. State the neutral
+fact and stop. If the Neutral section has nothing factual to say, omit
+it rather than fill it with speculation.
+
+## Anti-Pattern: Strawman Alternatives
+
+Rejecting a real alternative with a reason that does not hold makes the
+ADR dishonest and the decision unreviewable. The recurring example:
+dismissing a workspace monorepo because it "forces shared tooling/CI" —
+it does not; workspaces give per-package tooling. Every rejection reason
+must be accurate and must actually apply to that option. If the
+strongest alternative can only be rejected with a weak or false reason,
+the decision itself needs reexamining — not a tidier excuse.
+
+## Anti-Pattern: Planning or Scope in the Decision
+
+The Decision states the choice and the rationale behind it — nothing
+else. It does not carry implementation planning ("automated via CI,
+pipeline TBD") or product scope (feature lists, tier/plan allocation).
+Planning belongs in the tracker or design doc; product scope belongs in
+the PRD. If the Decision reads like a build plan or a requirements
+table, lift that content out and leave only the decision and why.
+
+## Anti-Pattern: Narrative Context
+
+Context states the force that makes the decision necessary — directly,
+in the first sentence. It does not re-introduce the product ("Acme is a
+platform that...", "The product needs a..."), narrate the situation
+conversationally, or smuggle in the argument for the chosen option as
+background (an inventory of everything two options share is an argument
+for merging them, not context). Re-establishing what the product is
+belongs in the PRD or design doc; the argument for the choice belongs in
+the Decision and Alternatives. Open on the force.
 
 ## Output
 
