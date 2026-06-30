@@ -198,6 +198,9 @@ W". One decision per ADR. Be specific and unambiguous.}}
 - Alternatives Considered Record column defaults to `—`; populate
   with `ADR-NNNN` only when the alternative itself has been
   recorded as a separate ADR
+- An ADR references only prior ADRs (genuine dependencies); it never
+  anticipates or links a later one. Inter-ADR lifecycle links live in
+  frontmatter (`supersedes`/`superseded-by`), not the body
 
 ## Status Lifecycle
 
@@ -240,6 +243,19 @@ operational complexity, learning curve, deprecation debt. If the
 Negative section is empty, the decision either has no trade-offs (rare
 — reconsider whether this needs an ADR) or the trade-offs are being
 ignored (more likely — push back).
+
+## Anti-Pattern: Anticipating Future ADRs
+
+An ADR records a decision at a point in time and does not know the
+future — even when authored retroactively. It must not reference, link
+to, or promise an ADR or decision made after it: "will be handled in a
+separate ADR", a "see ADR-012" pointing forward, or a scope note ("this
+decision does not prescribe X") that presupposes X is already a known
+future question. The author may know what came next; the ADR must not.
+
+Legitimate references point backward — to a prior ADR the decision
+genuinely depends on — or state conditional reversibility ("may be
+revisited if volume grows") without naming a future decision.
 
 ## Output
 
