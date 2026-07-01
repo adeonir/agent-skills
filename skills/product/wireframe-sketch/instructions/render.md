@@ -14,7 +14,7 @@ flow. The render makes the structure visible; it never adds a visual identity.
 ## Inputs
 
 Reads only `docs/design/WIREFRAME.md` — its own artifact. The render is a pure
-projection of the region tree: neutral boxes, grayscale only, no color, type
+projection of the region tree: neutral boxes, greyscale only, no color, type
 scale, token, or interactivity. The default projection is a **greybox** — filled
 neutral boxes arranged in 2D by shape; `--outline` swaps it for the annotated
 b&w view. It carries no visual identity, so the same render holds under any
@@ -27,7 +27,7 @@ user names:
 
 | Format | Best for | Lands in |
 |--------|----------|----------|
-| `html` | the default view — a greybox: neutral boxes arranged in 2D | `docs/design/wireframe.html` (committed) |
+| `html` | the primary view — a greybox: neutral boxes arranged in 2D | `docs/design/wireframe.html` (committed) |
 | `html --outline` | eyeballing the tree as an annotated b&w outline | `docs/design/wireframe-outline.html` (scratch, not committed) |
 | `ascii` | simple screens; embeds in markdown and PRs | the `WIREFRAME.md` body |
 | `mermaid` | screen-to-screen flow | the `WIREFRAME.md` body (Screen Map) |
@@ -74,7 +74,7 @@ parse. After any change to the region tree, re-run Step 1 so the view matches.
 ## Guidelines
 
 - Render only what the region tree states — never invent blocks, states, or styling
-- Keep the output neutral: grayscale, no color, type scale, or token
+- Keep the output neutral: greyscale, no color, type scale, or token
 - The greybox `wireframe.html` is the committed view; `--outline` is a scratch alternative, uncommitted
 - Treat `wireframe.html` as generated — regenerate, never hand-edit
 - Route ASCII to simple screens, HTML to dense ones; offer both when useful

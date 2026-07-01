@@ -4,7 +4,7 @@
 Execute this script; never read it as reference.
 
 Reads the YAML frontmatter region tree of a WIREFRAME.md (the `surfaces:` map
-and optional `flow:` list) and projects it into neutral, grayscale output.
+and optional `flow:` list) and projects it into neutral, greyscale output.
 It makes no design decision: no color, no type scale, no token — only the
 structure the region tree already states, made visible.
 
@@ -168,7 +168,7 @@ def blocks_of(surface):
 
 # ---- HTML projection -------------------------------------------------------
 
-# Two grayscale-only stylesheets. Every value is a shade or a structural
+# Two greyscale-only stylesheets. Every value is a shade or a structural
 # primitive (border, gap, padding, min-height) — no hue, no token, no type
 # scale beyond the browser default. Both show arrangement, never a visual
 # identity; they differ only in how a block presents itself.
