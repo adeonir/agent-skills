@@ -48,6 +48,7 @@ Walk these prompts — they probe structure and flow only, never visual styling:
 - Does each surface plan its reflow on narrow viewports — what stacks, collapses, or defers — keeping the IA consistent across contexts ([reflow.md](../references/reflow.md))?
 - Is content volume planned where it drives structure — none / typical / many → empty state, pagination, and a shape that survives scale?
 - Do nested regions belong to their parent, or should they split out?
+- Is each surface decomposed into nested leaf regions, or does a block carry layout detail in a long `note` that should be structure? An under-decomposed surface renders as an outline, not a greybox.
 
 ### Step 4: Check the Heuristics
 

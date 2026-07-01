@@ -4,7 +4,7 @@
 Execute this script; never read it as reference.
 
 Reads the YAML frontmatter region tree of a WIREFRAME.md (the `surfaces:` map
-and optional `flow:` list) and projects it into neutral, black-and-white output.
+and optional `flow:` list) and projects it into neutral, grayscale output.
 It makes no design decision: no color, no type scale, no token — only the
 structure the region tree already states, made visible.
 

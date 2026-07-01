@@ -44,6 +44,7 @@ draft a wireframe plan from this brief
 
 # Render the plan low-fi
 render the wireframe
+render a greybox of this page
 show me an ASCII sketch of this layout
 draw a black-and-white wireframe
 diagram the screen flow

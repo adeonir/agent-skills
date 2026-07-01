@@ -9,9 +9,9 @@ description: >-
   planning information architecture, page composition, screen
   inventory, or screen flow; arranging surfaces, blocks, or
   navigation; wireframing, rendering, or validating a wireframe;
-  drawing a low-fi black-and-white wireframe, ASCII sketch, or screen
-  flow; drafting a layout plan from a brief or conversation. Not for
-  visual identity or design tokens, copy or content.
+  drawing a low-fi greybox or black-and-white wireframe, ASCII sketch,
+  or screen flow; drafting a layout plan from a brief or conversation.
+  Not for visual identity or design tokens, copy or content.
 ---
 
 # Wireframe Sketch
