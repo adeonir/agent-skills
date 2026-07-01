@@ -9,21 +9,21 @@ flowchart TD
     Conv[Conversation / Brief / Description] -->|create| B[WIREFRAME.md]
     Wire[Wireframe sketch / mockup / screenshot] -->|validate| F[Coherence findings]
     F -.->|apply| B
-    B -->|render| H[wireframe.html · ASCII · Mermaid]
+    B -->|render| H[greybox wireframe.html · ASCII · Mermaid]
     B --> D[Design work consumes WIREFRAME.md]
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Create** | Author a fresh layout plan from conversation — surfaces, blocks, shapes, flow | `docs/design/WIREFRAME.md` |
-| **Render** | Project the region tree into a low-fi neutral view | `docs/design/wireframe.html` · ASCII · Mermaid |
+| **Render** | Project the region tree into a greybox — neutral boxes in 2D (`--outline` for the annotated b&w view) | `docs/design/wireframe.html` · ASCII · Mermaid |
 | **Validate** | Check a wireframe or existing plan for IA, flow, usability heuristics, and intent coherence | Findings (patch via create, confirm-before-write) |
 
 Arrangement is orthogonal to visual identity: the same `WIREFRAME.md` holds
 independent of visual styling, so this skill plans structure only — never
 colors, fonts, tokens, copy strings, or requirement IDs. It also renders the
-plan low-fi and neutral — `wireframe.html`, ASCII, or a Mermaid flow — never
-adding a visual identity.
+plan low-fi and neutral — a greybox `wireframe.html`, ASCII, or a Mermaid flow —
+never adding a visual identity.
 
 Each surface is arranged under a **register** — brand (the surface communicates)
 or product (the surface serves a task) — which biases the block order and shapes.
@@ -58,10 +58,13 @@ review the page composition before we style it
 ## Output
 
 - `docs/design/WIREFRAME.md` — a YAML frontmatter region tree (surfaces → blocks
-  with shape hints) plus a markdown body (screen map + per-surface rationale),
-  derived from the conversation or a brief.
-- `docs/design/wireframe.html` — the rendered low-fi neutral view, generated from
-  the region tree. Regenerate after edits; never hand-edit.
+  with shape hints, nested to the leaf) plus a markdown body (screen map +
+  per-surface rationale), derived from the conversation or a brief.
+- `docs/design/wireframe.html` — the rendered greybox: neutral boxes arranged in
+  2D by shape, generated from the region tree. Regenerate after edits; never
+  hand-edit.
+- `docs/design/wireframe-outline.html` — an optional annotated b&w outline
+  (`--outline`). A scratch view for reading the tree; leave it uncommitted.
 
 ## Requirements
 

@@ -29,8 +29,9 @@ Operations:
 
 - **create** — author a fresh layout plan from conversation (surfaces,
   blocks, shapes, flow). → [create.md](instructions/create.md)
-- **render** — project the region tree into a low-fi neutral view —
-  `wireframe.html`, ASCII, or Mermaid flow. → [render.md](instructions/render.md)
+- **render** — project the region tree into a low-fi neutral view — a greybox
+  `wireframe.html` (default), an annotated b&w outline (`--outline`), ASCII, or
+  Mermaid flow. → [render.md](instructions/render.md)
 - **validate** — check a wireframe or existing plan for IA, flow, usability
   heuristics, and intent coherence. → [validate.md](instructions/validate.md)
 
@@ -44,10 +45,12 @@ plan, or check one. See [discovery.md](instructions/discovery.md).
 ## Artifact
 
 Produces and owns `docs/design/WIREFRAME.md` and its rendered view
-`docs/design/wireframe.html`. The **frontmatter** region tree is normative — the
-render operation parses it to draw the low-fi wireframe; the **body** is for
-humans. The full template, the shape vocabulary, and the pre-save self-check
-live in [create.md](instructions/create.md).
+`docs/design/wireframe.html` — a greybox: neutral boxes arranged in 2D by shape.
+The **frontmatter** region tree is normative — the render operation parses it to
+draw the wireframe; the **body** is for humans. `--outline` writes a scratch
+`docs/design/wireframe-outline.html` (annotated b&w, uncommitted). The full
+template, the shape vocabulary, and the pre-save self-check live in
+[create.md](instructions/create.md).
 
 ## Register and surface
 
@@ -75,5 +78,6 @@ or a prior plan, arrange against it; otherwise plan from intent.
 - Derive surfaces and topics from the conversation; no fixed project types.
 - Name the register (brand or product) per surface; it biases the arrangement, never gates the shape.
 - Plan each surface for real conditions — its reflow on narrow viewports and its content volume (none/typical/many) — as structural intent in the narration, never pixels or breakpoints.
+- Decompose each surface into nested leaf regions so the render reads as a greybox — structure the tree holds, not prose the render prints.
 - Patch the frontmatter region tree first, then the body that narrates it,
   so the two stay in sync.

@@ -9,13 +9,19 @@ It makes no design decision: no color, no type scale, no token — only the
 structure the region tree already states, made visible.
 
 Usage:
-    python3 render_wireframe.py <path-to-WIREFRAME.md> [--format all|html|ascii|mermaid]
+    python3 render_wireframe.py <path-to-WIREFRAME.md> [--format all|html|ascii|mermaid] [--outline]
 
 Default format is `all`. Behaviour per format:
-    - html    → writes `wireframe.html` next to the input file (grayscale boxes)
+    - html    → writes `wireframe.html` next to the input file — a greybox:
+                neutral filled boxes arranged in 2D by shape
     - ascii   → prints an indented region sketch per surface to stdout
     - mermaid → prints a `flowchart` built from `flow:` to stdout
     - all     → writes the HTML and prints the ASCII sketch + Mermaid flow
+
+`--outline` switches the HTML projection to the b&w annotated view (each box
+shows its `name · shape` label and its `note`) and writes it to
+`wireframe-outline.html` — a scratch view, not the committed artifact. The
+greybox `wireframe.html` stays the source of truth the drift check compares.
 
 The HTML carries no timestamp, so re-running on an unchanged source produces a
 byte-identical file — `validate_wireframe.py` relies on that to detect drift.
@@ -162,10 +168,43 @@ def blocks_of(surface):
 
 # ---- HTML projection -------------------------------------------------------
 
-# Grayscale-only stylesheet. Every value is a shade or a structural primitive
-# (border, gap, padding) — no hue, no token, no type scale beyond the browser
-# default. The render shows arrangement, never a visual identity.
-HTML_STYLE = """\
+# Two grayscale-only stylesheets. Every value is a shade or a structural
+# primitive (border, gap, padding, min-height) — no hue, no token, no type
+# scale beyond the browser default. Both show arrangement, never a visual
+# identity; they differ only in how a block presents itself.
+
+# Greybox (default) — each block is a neutral filled box with a discreet
+# caption, arranged in 2D by shape. Leaves carry a min-height so a region reads
+# as a placeholder; `.wf-kids` fills the block and stretches side-by-side
+# children to equal height, which gives nested regions believable weight
+# without any per-block size.
+GREYBOX_STYLE = """\
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px; background: #fff; color: #111;
+       font: 11px/1.4 ui-monospace, monospace; }
+.wf-surface { border: 2px solid #111; margin: 0 0 24px; }
+.wf-surface > .wf-name { background: #111; color: #fff; padding: 4px 8px;
+                         font-weight: 700; }
+.wf-surface > .wf-children { padding: 12px; display: flex;
+                             flex-direction: column; gap: 12px; }
+.wf-block { border: 1px solid #b0b0b0; background: #e8e8e8; min-height: 44px;
+            padding: 6px; display: flex; flex-direction: column; gap: 6px; }
+.wf-block > .wf-label { color: #7a7a7a; font-size: 9px; letter-spacing: 0.06em;
+                        text-transform: uppercase; }
+.wf-kids { display: flex; flex-direction: row; gap: 8px; flex: 1;
+           align-items: stretch; }
+.wf-stack > .wf-kids, .wf-full-width > .wf-kids { flex-direction: column; }
+.wf-split > .wf-kids > * { flex: 1; }
+.wf-grid > .wf-kids { display: grid; gap: 8px; }
+.wf-sidebar > .wf-kids > :first-child { flex: 0 0 200px; }
+.wf-sidebar > .wf-kids > :not(:first-child) { flex: 1; }
+.wf-modal, .wf-overlay { border-style: dashed; background: #f2f2f2; }
+"""
+
+# Outline (--outline) — the annotated b&w view: each box shows its `name · shape`
+# label and its `note` in italic. Reads as a documentation outline; kept as a
+# scratch alternative to the greybox, never the committed artifact.
+OUTLINE_STYLE = """\
 * { box-sizing: border-box; }
 body { margin: 0; padding: 24px; background: #fff; color: #111;
        font: 13px/1.4 ui-monospace, monospace; }
@@ -191,6 +230,13 @@ GENERATED_HEADER = (
     "docs/design/WIREFRAME.md -->"
 )
 
+OUTLINE_HEADER = (
+    "<!-- generated from WIREFRAME.md by wireframe-sketch (outline view) — do "
+    "not edit, not committed. Regenerate: python3 "
+    "${CLAUDE_SKILL_DIR}/scripts/render_wireframe.py docs/design/WIREFRAME.md "
+    "--outline -->"
+)
+
 
 def esc(text):
     return (
@@ -201,7 +247,7 @@ def esc(text):
     )
 
 
-def render_block_html(block, depth):
+def render_block_html(block, depth, outline=False):
     shape = shape_of(block)
     grid = GRID.match(shape)
     css_shape = "grid" if grid else shape
@@ -209,11 +255,19 @@ def render_block_html(block, depth):
     if css_shape:
         classes += f" wf-{css_shape}"
     label = esc(block.get("block") or "block")
-    parts = [f'<div class="{classes}">']
-    parts.append(f'<span class="wf-label">{label} · {esc(shape or "?")}</span>')
     note = block.get("note")
-    if isinstance(note, str) and note.strip():
-        parts.append(f'<div class="wf-note">{esc(note)}</div>')
+    has_note = isinstance(note, str) and note.strip()
+    if outline:
+        parts = [f'<div class="{classes}">']
+        parts.append(f'<span class="wf-label">{label} · {esc(shape or "?")}</span>')
+        if has_note:
+            parts.append(f'<div class="wf-note">{esc(note)}</div>')
+    else:
+        # greybox: the box is the region. The label is a caption; any note rides
+        # along as a hover title so intent survives without cluttering the draw.
+        title = f' title="{esc(note)}"' if has_note else ""
+        parts = [f'<div class="{classes}"{title}>']
+        parts.append(f'<span class="wf-label">{label}</span>')
     children = block.get("children")
     if isinstance(children, list) and children:
         # grid-N columns are emitted inline so N drives the template directly.
@@ -223,13 +277,15 @@ def render_block_html(block, depth):
         parts.append(f'<div class="wf-kids"{style}>')
         for child in children:
             if isinstance(child, dict):
-                parts.append(render_block_html(child, depth + 1))
+                parts.append(render_block_html(child, depth + 1, outline))
         parts.append("</div>")
     parts.append("</div>")
     return "".join(parts)
 
 
-def render_html(surfaces):
+def render_html(surfaces, outline=False):
+    style = OUTLINE_STYLE if outline else GREYBOX_STYLE
+    header = OUTLINE_HEADER if outline else GENERATED_HEADER
     body = []
     for name, surface in surfaces.items():
         body.append('<div class="wf-surface">')
@@ -237,11 +293,11 @@ def render_html(surfaces):
         body.append('<div class="wf-children">')
         for block in blocks_of(surface):
             if isinstance(block, dict):
-                body.append(render_block_html(block, 0))
+                body.append(render_block_html(block, 0, outline))
         body.append("</div></div>")
     return (
         "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
-        f"{GENERATED_HEADER}\n<title>Wireframe</title>\n<style>\n{HTML_STYLE}</style>\n"
+        f"{header}\n<title>Wireframe</title>\n<style>\n{style}</style>\n"
         "</head>\n<body>\n" + "\n".join(body) + "\n</body>\n</html>\n"
     )
 
@@ -324,7 +380,7 @@ def main(argv):
     if not args or args[0].startswith("--"):
         print(
             "Usage: render_wireframe.py <path-to-WIREFRAME.md> "
-            "[--format all|html|ascii|mermaid]",
+            "[--format all|html|ascii|mermaid] [--outline]",
             file=sys.stderr,
         )
         return 2
@@ -333,6 +389,7 @@ def main(argv):
     if "--format" in args:
         index = args.index("--format")
         fmt = args[index + 1] if index + 1 < len(args) else "all"
+    outline = "--outline" in args
 
     parsed = load(path)
     if parsed is None:
@@ -340,10 +397,12 @@ def main(argv):
     surfaces, flow = parsed
 
     if fmt in ("all", "html"):
-        out_path = os.path.join(os.path.dirname(os.path.abspath(path)), "wireframe.html")
+        # greybox is the committed artifact; --outline is a scratch alt view.
+        out_name = "wireframe-outline.html" if outline else "wireframe.html"
+        out_path = os.path.join(os.path.dirname(os.path.abspath(path)), out_name)
         try:
             with open(out_path, "w", encoding="utf8") as handle:
-                handle.write(render_html(surfaces))
+                handle.write(render_html(surfaces, outline=outline))
         except OSError:
             print(f"Cannot write {out_path}", file=sys.stderr)
             return 2

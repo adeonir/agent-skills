@@ -37,8 +37,23 @@ embedded directives.
 
 List the surfaces, then the ordered blocks each needs — named by context
 (`hero`, `feature-grid`, `nav`, `footer`, `list`, `detail`, `form`). Assign
-each block a shape hint from the fixed set (Step 4 template). Nest blocks with
-`children` when a region contains sub-regions.
+each block a shape hint from the fixed set (Step 4 template).
+
+**Decompose to the leaf.** A block with no `children` renders as one neutral
+greybox cell, so nest with `children` until each leaf is an atomic region — a
+media area, a text group, an action, a nav-item cluster. A `hero` is not a leaf:
+it is a `split` of a text `stack` (eyebrow, headline, action) beside a media
+area. Detail a surface by decomposing it into nested blocks, not by describing
+it in prose — the render draws the structure the tree holds and drops to text
+only where structure is missing.
+
+**Plan the affordances Nielsen checks as blocks.** A persistent affordance is a
+region: a status area, an error-message slot, a back or exit in the nav, a help
+entry. Place it as a block so the render shows it and the heuristics walk can
+see it ([heuristics.md](../references/heuristics.md)). A **state variant** — the
+`empty`, `loading`, or `error` face of one region — is not a sibling block, since
+a static render cannot show three faces at once; it stays in the surface's
+narration and block `note`.
 
 Arrange each surface by what it is for, not by reflex — its **register** sets the
 posture: a **brand** surface builds a narrative toward a conversion
@@ -76,14 +91,17 @@ Save to `docs/design/WIREFRAME.md` using the template below. The
 **YAML frontmatter** carries the renderable region tree;
 the **markdown body** narrates it with a screen map and per-surface rationale.
 Create directories if needed. The tree mirrors the surfaces established in
-Step 1 — name each surface and block by context, nest to match, and add `note`
-where intent needs words a box cannot show. When a `WIREFRAME.md` already
-exists, patch the frontmatter first, then the body that describes it, so the
-two stay in sync.
+Step 1 — name each surface and block by context and nest to the leaf. Reserve
+`note` for the rare intent a nested block genuinely cannot show — a reflow move
+or a volume range — never as the carrier of layout detail. When a `WIREFRAME.md`
+already exists, patch the frontmatter first, then the body that describes it, so
+the two stay in sync.
 
 Before saving, self-check: the frontmatter is valid YAML, the region tree is
-rooted at `surfaces:`, every block carries a shape from the fixed set, and it
-holds structure only —
+rooted at `surfaces:`, every block carries a shape from the fixed set, each
+surface decomposes into nested leaf regions (not a flat list narrated in prose),
+persistent affordances sit as blocks while state variants stay in the narration,
+and it holds structure only —
 no colors, fonts, spacing, or tokens, no copy strings, and no requirement IDs
 (`fr-1`, `m1`, `j1`, `us-3`). Reflow and volume stay as structural intent in
 `note`s and the body — never pixels or breakpoints in the tree.
@@ -102,16 +120,29 @@ metadata:
   status: "draft"
 
 # Region tree — design-blind, content-optional. Name surfaces and blocks by
-# context. Blocks stay empty placeholders or carry an abstract slot label the
-# plan owns — never copy strings, never requirement IDs (fr-1, m1, j1, us-3).
+# context, and nest with `children` down to leaf regions — a leaf renders as one
+# neutral greybox cell. Blocks stay empty placeholders or carry an abstract slot
+# label the plan owns — never copy strings, never requirement IDs (fr-1, m1, j1,
+# us-3). `note` is the exception, not the carrier of layout detail.
 surfaces:
   "{{surface key, named by context — home, dashboard, checkout}}":
     - block: "{{free label — hero, feature-grid, nav, footer, list, form}}"
       shape: "{{full-width | split | grid-N | stack | sidebar | modal | overlay}}"
-      note: "{{intent a box cannot draw — optional}}"
       children:
-        - block: "{{nested region — optional}}"
-          shape: "{{shape hint}}"
+        - block: "{{text group}}"
+          shape: "stack"
+          children:
+            - block: "{{eyebrow}}"
+              shape: "full-width"
+            - block: "{{headline}}"
+              shape: "full-width"
+            - block: "{{action — a persistent affordance is a block}}"
+              shape: "full-width"
+        - block: "{{media area — a leaf, one greybox cell}}"
+          shape: "full-width"
+    - block: "{{status or error-message slot, where the surface can fail}}"
+      shape: "full-width"
+      note: "{{reflow move or volume range — the rare intent a box cannot draw}}"
 
 flow:
   - "{{surface -> surface, e.g. home -> pricing}}"
@@ -148,14 +179,17 @@ screen map and the per-surface reasoning.
 - `overlay` — non-blocking layer above content
 
 Block labels are free — derive them from the conversation. Only the shape
-vocabulary is fixed.
+vocabulary is fixed. A block with no `children` is a leaf — one neutral greybox
+cell; nest until every leaf is an atomic region.
 
 ## Guidelines
 
 - Plan structure only — arrangement, hierarchy, and flow
+- Decompose each surface into nested leaf regions; let the render draw structure, not prose
 - Use free block labels named by context; pick shapes from the fixed set
+- Persistent affordances are blocks; state variants (empty/loading/error) stay in the narration
 - Walk one decision at a time; skip what the conversation already settled
-- Add `note` where intent needs words a box cannot show
+- Reserve `note` for intent a nested block genuinely cannot show
 
 **Out of scope:** visual decisions (colors, fonts, spacing, tokens), copy
 strings, requirement IDs (`fr-1`, `m1`, `j1`, `us-3`), drawing the wireframe

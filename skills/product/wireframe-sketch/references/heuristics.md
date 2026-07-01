@@ -16,6 +16,11 @@ heuristic — a status region, an exit, an error state — never whether a finis
 UI executes it well. The absence of the affordance is the finding; its quality
 is a later, design-aware concern this skill does not judge.
 
+A persistent affordance is a **block** in the region tree — it renders in the
+greybox and is checkable here. A **state variant** — the empty, loading, or
+error face of one region — lives in the surface's narration; read it there
+rather than flag it as a missing block.
+
 ## Two kinds of check
 
 - **Deterministic** — `validate_wireframe.py` already decides these from the
