@@ -32,12 +32,13 @@ Infer from what the user wants — do not ask explicitly:
 | Intent | Reference |
 |--------|-----------|
 | Author or edit a layout plan (fresh, or patch an existing one) | [create.md](create.md) |
-| Render the plan into a low-fi view — HTML, ASCII, or screen flow | [render.md](render.md) |
+| Render the plan into a low-fi view — greybox HTML, ASCII, or screen flow | [render.md](render.md) |
 | Check a wireframe or existing plan for coherence | [validate.md](validate.md) |
 
 When routing to render, infer the output format from the request — ASCII for a
-quick in-markdown sketch, HTML for a fuller or denser view, Mermaid for screen
-flow — and ask only when it is genuinely unclear.
+quick in-markdown sketch, the greybox HTML for a fuller or denser view
+(`--outline` for the annotated b&w variant), Mermaid for screen flow — and ask
+only when it is genuinely unclear.
 
 ### Step 3: Fill Gaps
 

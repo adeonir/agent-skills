@@ -187,8 +187,9 @@ body { margin: 0; padding: 24px; background: #fff; color: #111;
                          font-weight: 700; }
 .wf-surface > .wf-children { padding: 12px; display: flex;
                              flex-direction: column; gap: 12px; }
-.wf-block { border: 1px solid #b0b0b0; background: #e8e8e8; min-height: 44px;
+.wf-block { border: 1px solid #b0b0b0; background: #e8e8e8;
             padding: 6px; display: flex; flex-direction: column; gap: 6px; }
+.wf-block.wf-leaf { min-height: 32px; }
 .wf-block > .wf-label { color: #7a7a7a; font-size: 9px; letter-spacing: 0.06em;
                         text-transform: uppercase; }
 .wf-kids { display: flex; flex-direction: row; gap: 8px; flex: 1;
@@ -239,11 +240,14 @@ OUTLINE_HEADER = (
 
 
 def esc(text):
+    # Escapes for both text nodes and double-quoted attribute values, so a label
+    # or note carrying a `"` cannot break out of a `class="..."` or `title="..."`.
     return (
         str(text)
         .replace("&", "&amp;")
         .replace("<", "&lt;")
         .replace(">", "&gt;")
+        .replace('"', "&quot;")
     )
 
 
@@ -251,14 +255,18 @@ def render_block_html(block, depth, outline=False):
     shape = shape_of(block)
     grid = GRID.match(shape)
     css_shape = "grid" if grid else shape
+    children = block.get("children")
+    child_blocks = [c for c in children if isinstance(c, dict)] if isinstance(children, list) else []
     classes = "wf-block"
     if css_shape:
         classes += f" wf-{css_shape}"
+    if not child_blocks:
+        classes += " wf-leaf"  # a childless block is a leaf cell — the only box that needs a floor
     label = esc(block.get("block") or "block")
     note = block.get("note")
     has_note = isinstance(note, str) and note.strip()
     if outline:
-        parts = [f'<div class="{classes}">']
+        parts = [f'<div class="{esc(classes)}">']
         parts.append(f'<span class="wf-label">{label} · {esc(shape or "?")}</span>')
         if has_note:
             parts.append(f'<div class="wf-note">{esc(note)}</div>')
@@ -266,18 +274,16 @@ def render_block_html(block, depth, outline=False):
         # greybox: the box is the region. The label is a caption; any note rides
         # along as a hover title so intent survives without cluttering the draw.
         title = f' title="{esc(note)}"' if has_note else ""
-        parts = [f'<div class="{classes}"{title}>']
+        parts = [f'<div class="{esc(classes)}"{title}>']
         parts.append(f'<span class="wf-label">{label}</span>')
-    children = block.get("children")
-    if isinstance(children, list) and children:
+    if child_blocks:
         # grid-N columns are emitted inline so N drives the template directly.
         style = ""
         if grid:
             style = f' style="grid-template-columns: repeat({int(grid.group(1))}, 1fr);"'
         parts.append(f'<div class="wf-kids"{style}>')
-        for child in children:
-            if isinstance(child, dict):
-                parts.append(render_block_html(child, depth + 1, outline))
+        for child in child_blocks:
+            parts.append(render_block_html(child, depth + 1, outline))
         parts.append("</div>")
     parts.append("</div>")
     return "".join(parts)
