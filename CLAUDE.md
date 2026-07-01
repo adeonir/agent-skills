@@ -433,6 +433,9 @@ type — that role is now covered by the project-wide Design Doc.
 `design-brief`, `copywriting`, and `wireframe-sketch`: **register** = posture (`brand`
 vs `product`, two values), **surface** = granular type named by context. Each
 skill carries its own `brand.md` + `product.md`; the terms must not diverge.
+`docs-writer` originates `register` upstream: its `PRODUCT.md` sets the
+product's posture (`brand` vs `product`), which the design skills read from
+that artifact — the definition must not diverge from theirs.
 
 ## New Skill Checklist
 

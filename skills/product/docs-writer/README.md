@@ -15,8 +15,8 @@ flowchart TD
     R -->|ADR| ADR[ADR workflow]
     PD -->|discovery if absent, reconcile if present| P[PRD.md]
     PD -->|discovery if absent, reconcile if present| PM[PRODUCT.md]
-    DD --> D[design-doc.md]
-    ADR --> A[adr/NNNN-slug.md]
+    DD -->|discovery if absent, reconcile if present| D[design-doc.md]
+    ADR --> A[adr/NNN-slug.md]
     D -.->|extract decision| ADR
 ```
 
@@ -24,8 +24,8 @@ flowchart TD
 |------|----------|--------|
 | **PRD** | discovery (4 phases) if absent, reconcile if present | `PRD.md` |
 | **PRODUCT** | discovery if absent, reconcile if present (per artifact) | `PRODUCT.md` |
-| **Design Doc** | discovery (4 topics) → analysis → drafting | `design-doc.md` |
-| **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNNN-slug.md` |
+| **Design Doc** | if absent: discovery (4 topics) → analysis → drafting; reconcile if present | `design-doc.md` |
+| **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNN-slug.md` |
 
 ## Usage
 
@@ -48,7 +48,7 @@ Documents are saved by category under `docs/`:
 docs/product/PRD.md
 docs/product/PRODUCT.md
 docs/tech/design-doc.md
-docs/adr/{NNNN}-{slug}.md
+docs/adr/{NNN}-{slug}.md
 ```
 
 Committed by default. Product-side artifacts (PRD, PRODUCT) live under
@@ -82,7 +82,7 @@ When a section feels like it belongs in two docs, it usually belongs in one and 
 A: The Design Doc's Alternatives Considered table includes a
 `Record` column. Each row starts with `—` (design-doc-only record).
 When a decision matures, extract it into an ADR; the row's `Record`
-is updated to `ADR-NNNN`, and the ADR's References section links
+is updated to `ADR-NNN`, and the ADR's References section links
 back to the design doc section anchor. ADR-linked rows are frozen;
 reversals create a superseding ADR and a new row, never an edit to
 the original row.
@@ -92,7 +92,7 @@ A: The Design Doc carries the design and the trade-offs behind it; the
 Alternatives Considered table is where decisions get explored and
 recorded. Each row starts with `Record = —`; when a decision matures,
 extract it into an ADR (immutable, numbered, one decision per file),
-update the row's `Record` to `ADR-NNNN`, and link the ADR's References
+update the row's `Record` to `ADR-NNN`, and link the ADR's References
 back to the design doc's Alternatives Considered section. ADRs are the
 formal receipt; the Design Doc keeps the surrounding context.
 
@@ -111,12 +111,13 @@ PRD, so a new product drafts both together. After that, each is resolved
 by its own state: positioning changes with strategy, so a reconcile can
 touch PRODUCT alone, independent of any PRD revision.
 
-**Q: What happens when I re-run over an existing PRD or PRODUCT?**
+**Q: What happens when I re-run over an existing PRD, PRODUCT, or Design Doc?**
 A: Each artifact is resolved by whether it exists. A present one is
 reconciled — read as input, with only the gap or the change you ask for
 reworked, the delta scrutinized, and the sections taken as settled
-declared before drafting. An absent one is drafted in discovery, seeded
-by the existing sibling. Existing work is never silently overwritten.
+declared before drafting. An absent one is drafted in discovery (the PRD
+and PRODUCT seed each other; the Design Doc has no sibling). Existing work
+is never silently overwritten.
 
 **Q: How is the Design Doc sized?**
 A: No tier-based sizing — as long as the design needs, as short as it

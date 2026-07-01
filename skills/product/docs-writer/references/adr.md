@@ -87,25 +87,23 @@ and ask whether this ADR supersedes any.
 
 ### Phase 2: Validation
 
-Before drafting, confirm:
-
-- [ ] Exactly one decision (not bundled)
-- [ ] Decision can be stated as a positive imperative ("We will...")
-- [ ] Context is value-neutral (facts, not advocacy)
-- [ ] Consequences include trade-offs accepted, not just benefits
-- [ ] Numbering checked: next sequential ID in `docs/adr/`
+Before drafting, confirm the decision is ready to record: exactly one decision
+(not several bundled), at least one real alternative with an accurate rejection
+reason, and both positive and negative consequences named. If any is missing,
+resolve it in discovery rather than drafting around it — the full gate set runs
+once at drafting.
 
 ### Phase 3: Drafting
 
 Use the template below. Run the gates in [quality.md](quality.md) before
-writing, then write the ADR to `docs/adr/NNNN-slug.md` and report a brief prose
+writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose
 summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded.
 Do not paste the full document.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR
-takes the next zero-padded ID (`001`, `002`, ...). Filename and
-frontmatter `name` use bare ID (`001-slug`); document title heading
-uses prefix (`ADR-001`).
+takes the next ID, zero-padded to three digits (`001`, `002`, ...).
+Filename and frontmatter `name` use bare ID (`001-slug`); document
+title heading uses prefix (`ADR-001`).
 
 ## ADR Template
 
@@ -113,7 +111,7 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{NNNN-slug}}
+name: {{NNN-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: proposed
@@ -122,7 +120,7 @@ superseded-by: []
 sources: []
 ---
 
-# ADR-{{NNNN}}: {{Decision Title}}
+# ADR-{{NNN}}: {{Decision Title}}
 
 ## Context
 
@@ -159,8 +157,8 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 | Option | Reason Rejected | Record |
 |--------|-----------------|--------|
-| {{Alternative A}} | {{Why this was not chosen}} | {{— or ADR-NNNN}} |
-| {{Alternative B}} | {{Why this was not chosen}} | {{— or ADR-NNNN}} |
+| {{Alternative A}} | {{Why this was not chosen}} | {{— or ADR-NNN}} |
+| {{Alternative B}} | {{Why this was not chosen}} | {{— or ADR-NNN}} |
 
 ## References
 
@@ -168,6 +166,10 @@ W". One decision per ADR. Be specific and unambiguous.}}
 - {{Link to PRD that contains broader context}}
 - {{External RFCs, vendor docs, prior art}}
 ````
+
+MUST NOT contain: more than one decision, still-open trade-offs, implementation
+planning, product scope, or references to a later ADR — those belong to separate
+ADRs, the Design Doc, the tracker, or the PRD.
 
 ## ADR Schema
 
@@ -191,19 +193,19 @@ W". One decision per ADR. Be specific and unambiguous.}}
   decision has trade-offs
 - ADRs are immutable once accepted — supersede with a new ADR, never
   edit history
-- Number ADRs sequentially with zero-padding — filename `001-slug.md`, heading `ADR-001`
+- Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
 - When extracted from a Design Doc Alternatives row, the ADR's
   References section links back to the design doc section anchor;
   the Design Doc row's `Record` column is updated to this ADR's ID
 - Alternatives Considered Record column defaults to `—`; populate
-  with `ADR-NNNN` only when the alternative itself has been
+  with `ADR-NNN` only when the alternative itself has been
   recorded as a separate ADR
 - An ADR references only prior ADRs — a genuine backward dependency,
   never a thematic "see also"; it never anticipates or links a later
   one. Inter-ADR lifecycle links live in frontmatter
   (`supersedes`/`superseded-by`), not the body
-- Title and slug name the decision the same way — filename
-  `NNNN-slug.md` and heading `# ADR-NNNN: Title` use the same term
+- Title and slug name the decision with the same words — the slug and
+  the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong
   in the issue tracker, not in the ADR
 - External facts (vendor pricing, provider capabilities) are dated and
@@ -213,7 +215,7 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ```text
 proposed → accepted → deprecated
-                      → superseded (by ADR-NNNN)
+                      → superseded (by ADR-NNN)
 ```
 
 - **proposed**: Drafted, awaiting review. Editable.
@@ -234,13 +236,19 @@ reference, supersede, or reason about. One decision per ADR. If the
 draft has multiple "We will..." statements covering distinct concerns,
 split into separate ADRs.
 
-## Anti-Pattern: Advocacy as Context
+## Anti-Pattern: Advocacy or Narrative as Context
 
-Context that argues for the chosen outcome ("Postgres is the obvious
-choice because...") is not context — it's a sales pitch. Context
-states the forces; the Decision states the choice; the Alternatives
-Considered table justifies the rejection of other options. Keeping
-these separate makes the ADR honest and reviewable.
+Context states the forces that make the decision necessary — directly, in
+the first sentence, value-neutral. It fails two ways. It argues for the
+chosen outcome ("Postgres is the obvious choice because...") — a sales
+pitch, not context; the Decision states the choice and the Alternatives
+Considered table justifies rejecting the rest. Or it narrates:
+re-introducing the product ("Acme is a platform that...", "The product
+needs a..."), setting the scene conversationally, or smuggling the argument
+in as background (an inventory of everything two options share is an
+argument for merging them, not context). Re-establishing what the product
+is belongs in the PRD or design doc; the argument for the choice belongs in
+the Decision and Alternatives. State the force and stop.
 
 ## Anti-Pattern: Consequences Without Trade-offs
 
@@ -294,20 +302,9 @@ Planning belongs in the tracker or design doc; product scope belongs in
 the PRD. If the Decision reads like a build plan or a requirements
 table, lift that content out and leave only the decision and why.
 
-## Anti-Pattern: Narrative Context
-
-Context states the force that makes the decision necessary — directly,
-in the first sentence. It does not re-introduce the product ("Acme is a
-platform that...", "The product needs a..."), narrate the situation
-conversationally, or smuggle in the argument for the chosen option as
-background (an inventory of everything two options share is an argument
-for merging them, not context). Re-establishing what the product is
-belongs in the PRD or design doc; the argument for the choice belongs in
-the Decision and Alternatives. Open on the force.
-
 ## Output
 
-Save to: `docs/adr/{{NNNN}}-{{slug}}.md`
+Save to: `docs/adr/{{NNN}}-{{slug}}.md`
 
 ADRs accumulate as an append-only log. Never overwrite a prior ADR;
 write a new one that supersedes it.

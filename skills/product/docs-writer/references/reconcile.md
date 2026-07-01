@@ -1,10 +1,10 @@
-# Reconcile an Existing Product Doc
+# Reconcile an Existing Document
 
-Update an existing PRD or PRODUCT by reading it as input and scrutinizing only the delta, instead of re-running full discovery or overwriting it.
+Update an existing PRD, PRODUCT, or Design Doc by reading it as input and scrutinizing only the delta, instead of re-running full discovery or overwriting it.
 
 ## When to Use
 
-When `docs/product/PRD.md` or `docs/product/PRODUCT.md` already exists on disk. Applies to both artifacts — each present one reconciles while any absent one runs discovery (see [discovery.md](discovery.md) `## Mode by Artifact State`). Auto-loaded by the product-doc flow when an artifact is present; not a direct trigger.
+When `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/tech/design-doc.md` already exists on disk. A present artifact reconciles while any absent one runs discovery (see [discovery.md](discovery.md) `## Discovery or Reconcile by Artifact State`). Auto-loaded when the target artifact is present; not a direct trigger.
 
 ## Procedure
 
@@ -33,9 +33,15 @@ triage → scope → validate delta → declare settled → confirm → draft
    editing. This replaces the greenfield synthesis gate — confirm the delta, not a
    full re-synthesis.
 6. **Draft.** Apply the change using the artifact's own template — [prd.md](prd.md)
-   for the PRD, [product.md](product.md) for PRODUCT — preserving every section the
-   scope did not touch. Write the change to the artifact's path, then report a brief
-   prose summary of the delta in chat — what changed and where. Do not paste the full document.
+   for the PRD, [product.md](product.md) for PRODUCT, [design.md](design.md) for the
+   Design Doc — preserving every section the scope did not touch. Write the change to
+   the artifact's path, then report a brief prose summary of the delta in chat — what
+   changed and where. Do not paste the full document.
+
+Some artifacts mark regions immutable. A Design Doc's Alternatives Considered rows
+recorded as an ADR (`Record = ADR-NNN`) are frozen — reverse them with a superseding
+ADR and a new row, never an in-place edit (see [design.md](design.md) `## ADR
+Linkage`). Reconcile the editable surface around them.
 
 ## Reading the Sibling Artifact
 
@@ -44,10 +50,12 @@ PRODUCT, or a PRODUCT seeded by an existing PRD), read the sibling for coverage 
 context only. Its tokens never cross verbatim into the artifact being built, and the
 PRD/PRODUCT boundary holds: requirements stay in the PRD, positioning stays in
 PRODUCT, with audience-as-relationship, refused aesthetics, and differentiation on
-the PRODUCT side. The sibling fills discovery gaps; it is not copied.
+the PRODUCT side. The sibling fills discovery gaps; it is not copied. The Design Doc
+has no sibling to seed it, so this applies to the product-doc pair only.
 
 ## Frontmatter on Reconcile
 
 Preserve the existing `created` date and `sources`. Bump `updated` to the current
-date. Leave `status` as it stands — a reconcile does not reset an accepted doc to
-`draft` unless the user is deliberately reopening it.
+date. Where the doc carries a `status` (PRD, PRODUCT), leave it as it stands — a
+reconcile does not reset an accepted doc to `draft` unless the user is deliberately
+reopening it. The Design Doc has no `status` field.

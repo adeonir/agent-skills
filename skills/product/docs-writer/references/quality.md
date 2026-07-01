@@ -28,9 +28,9 @@ Before writing any document to disk, verify:
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
 **If any gate fails — here or in the type-specific gates below — fix it inline,
-re-verify that gate, and only then write.** This applies in both discovery and
-reconcile mode; a reconcile that touched only part of a doc still re-verifies the
-gate set against the result.
+re-verify that gate, and only then write.** This applies whether the document was
+discovered fresh or reconciled; a reconcile that touched only part of a doc still
+re-verifies the gate set against the result.
 
 ## ADR-Specific Gates
 
@@ -87,7 +87,7 @@ When the document is a Design Doc, additionally verify:
       chosen / rejected / reasoning — the doc reasons, it does not just
       prescribe
 - [ ] Alternatives Considered Record column populated where an ADR exists;
-      rows with `ADR-NNNN` are frozen (reversals require a superseding ADR,
+      rows with `ADR-NNN` are frozen (reversals require a superseding ADR,
       not a row edit)
 - [ ] Context recaps in 1-2 paragraphs and links the PRD — no restated
       Problem Statement, Personas, or Journeys

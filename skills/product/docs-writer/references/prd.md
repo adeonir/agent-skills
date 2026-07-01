@@ -12,28 +12,29 @@ specifications.
 
 Product requirements only. Never carries implementation content — no
 architecture, tech stack, UI components, API endpoints, or code-level
-decisions. Those belong to Design Doc, ADR, or visual design artifacts.
+decisions — nor strategic positioning (brand personality, anti-references).
+The former belongs to the Design Doc or ADR; positioning belongs to PRODUCT.
 
 ## Workflow
 
 ```text
-mode by artifact state
+check disk
 ├ PRD absent  → discovery → validation → synthesis → drafting
-└ PRD present → reconcile (reconcile.md)
+└ PRD present → reconcile the delta (reconcile.md)
 ```
 
-Decide the mode from the artifact on disk (see [discovery.md](discovery.md)
-`## Mode by Artifact State`). When `docs/product/PRD.md` does not exist, run the
-four discovery-mode phases below. When it exists, reconcile instead — read it as
-input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT follows
-its own artifact state in parallel.
+Decide by whether the artifact exists on disk (see [discovery.md](discovery.md)
+`## Discovery or Reconcile by Artifact State`). When `docs/product/PRD.md` does not
+exist, run the four discovery phases below. When it exists, reconcile instead — read
+it as input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT
+resolves by its own artifact state in parallel.
 
 ### Phase 1: Discovery
 
 Load [discovery.md](discovery.md) for shared interview patterns and
 critical posture.
 
-These four phases run in discovery mode — when no PRD exists yet. Never assume
+These four phases run when no PRD exists yet. Never assume
 context. Discovery is adaptive — deepen topics based on the quality of answers,
 not a fixed script. Each topic has opening questions, signals for when to probe
 further, and criteria for when to move on.
@@ -182,7 +183,7 @@ Synthesize everything from discovery and validation into a structured summary.
 
 Use the PRD template below. Resolve PRODUCT by its own artifact state using
 [product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in
-discovery mode seeded by this PRD; when it exists, reconcile it per
+discovery seeded by this PRD; when it exists, reconcile it per
 [reconcile.md](reconcile.md) — never overwrite evidenced positioning. Run the
 gates in [quality.md](quality.md) before writing, then write the PRD to
 `docs/product/PRD.md` (and PRODUCT to `docs/product/PRODUCT.md` when drafted
@@ -338,6 +339,11 @@ sources: []
 - {{Link to designs, research, prior art, or related documents}}
 ````
 
+MUST NOT contain: architecture, tech stack, framework or deployment choices, API
+contracts, database schema, or UI components — those belong to the Design Doc or
+ADR; nor strategic positioning (brand personality, anti-references) — that lives
+in PRODUCT.
+
 ## PRD Schema
 
 12 numbered sections matching the template, with Edge Cases and Risks optional:
@@ -361,7 +367,7 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
 ## Guidelines
 
-- Complete discovery before drafting (discovery mode), or reconcile the delta (existing PRD) — never draft blind
+- Complete discovery before drafting when the PRD is absent, or reconcile the delta when it exists — never draft blind
 - Challenge ideas in discovery, validation, and reconcile — do not be a yes-man
 - Write the PRD to its path directly, then report a brief prose summary in chat (path, scope, primary metric)
 - Mark unknowns as TBD rather than inventing constraints

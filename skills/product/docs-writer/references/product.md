@@ -6,12 +6,12 @@ product does.
 
 ## When to Use
 
-Loaded by the product-doc flow to author or reconcile `PRODUCT.md`. Its mode follows
-the artifact on disk (see [discovery.md](discovery.md) `## Mode by Artifact State`):
-when `docs/product/PRODUCT.md` is absent, draft it in discovery mode — possibly
-seeded by an existing PRD; when it exists, reconcile only the delta per
-[reconcile.md](reconcile.md). Positioning shifts independently of any PRD revision,
-so a reconcile may touch PRODUCT alone.
+Loaded by the product-doc flow to author or reconcile `PRODUCT.md`. It resolves by
+whether the artifact exists on disk — see [discovery.md](discovery.md)
+`## Discovery or Reconcile by Artifact State`. When `docs/product/PRODUCT.md` is
+absent, draft it in discovery — possibly seeded by an existing PRD; when it exists,
+reconcile only the delta per [reconcile.md](reconcile.md). Positioning shifts
+independently of any PRD revision, so a reconcile may touch PRODUCT alone.
 
 ## Scope
 
@@ -31,6 +31,46 @@ Three boundary zones to keep clean — the PRD owns the other side of each:
   (anti-references). PRD: features ruled out of scope.
 - **The "why"** — here: differentiation and positioning. PRD: the problem and
   its evidence.
+
+## Discovery
+
+PRODUCT is drawn from a single Positioning topic. When drafted alongside a new PRD,
+it shares that discovery — Users (Topic 2) and Market & Differentiation (Topic 3)
+feed positioning directly, so run this topic against what they surfaced rather than
+re-asking. When drafted alone (the PRD already exists), run it fresh, seeded by the
+PRD.
+
+Load [discovery.md](discovery.md) for the shared interview patterns and critical
+posture.
+
+### Topic: Positioning
+
+**Opening questions:**
+
+- Is the experience itself the product (a landing page, a campaign), or does it serve
+  a task (an app, a dashboard, a tool)? — the register
+- Who is this for, and what relationship does it want with them — expert-to-expert,
+  premium, approachable?
+- In three words, what is the product's character, and what tone do they imply?
+- What does the product refuse to be — the aesthetics, clichés, or postures it rejects?
+- What handful of principles drive its design and copy decisions?
+
+**Deepen when:**
+
+- Register is hedged ("a bit of both") → "Which dominates? Downstream resolves
+  per-surface exceptions; name the default."
+- Personality is generic ("clean, modern, simple") → "Those fit most products. What
+  is specific to this one?"
+- No anti-references → "Name a product in this space whose vibe is wrong for you.
+  What exactly is off?"
+- Principles restate features → "That is a requirement. What conviction sits behind it?"
+
+**Sufficient when:**
+
+- Register is a single dominant value (`brand` or `product`) with a reason
+- The audience relationship is stated as posture, not a job to be done
+- Personality has three adjectives and the tone they imply
+- At least one anti-reference and one design principle are captured
 
 ## Content Source
 
@@ -97,8 +137,7 @@ product always does, stated as commitments.}}
 ````
 
 MUST NOT contain: requirements, scope or feature lists, success metrics, user
-journeys, business rules, accessibility targets, or design tokens — those belong
-to the PRD or to downstream design artifacts.
+journeys, business rules, or accessibility targets — those belong to the PRD.
 
 ## Guidelines
 

@@ -17,7 +17,10 @@ discovery. 4 document types, each with its own workflow depth.
 ## Quick start
 
 ```text
-trigger → detect type → load reference → mode (discovery | reconcile) → drafting
+trigger → detect type → load reference → check disk → drafting
+  artifact exists → reconcile (light discovery on the delta)
+  artifact absent → full discovery
+  ADR → append-only, always a new numbered record (never reconciled)
 ```
 
 Detect document type from the trigger. If ambiguous, ask the user.
@@ -33,9 +36,11 @@ Auto-loaded (no direct triggers):
 
 - `discovery.md` — by the product-doc flow, Design Doc, ADR at start of discovery
 - `quality.md` — before writing any document
-- `reconcile.md` — by the product-doc flow when `PRD.md` or `PRODUCT.md` already exists on disk
-- `product.md` — by `prd.md` when resolving PRODUCT (its mode follows the
-  `PRODUCT.md` artifact state; the PRODUCT row above is the same flow)
+- `reconcile.md` — by PRD, PRODUCT, or Design Doc when the artifact already
+  exists on disk. ADR is append-only — a new numbered record each time, never
+  reconciled
+- `product.md` — by `prd.md` when resolving PRODUCT (reconcile if `PRODUCT.md`
+  exists, discovery if absent; the PRODUCT row above is the same flow)
 
 ## Document Boundaries
 
@@ -43,8 +48,8 @@ Auto-loaded (no direct triggers):
   No implementation, architecture, tech stack, UI, or API.
 - **PRODUCT** — strategic positioning and identity: register, audience
   posture, brand personality, anti-references, design principles. Prose,
-  not requirements. Part of the product-doc pair; its mode follows the
-  `PRODUCT.md` artifact state — discovery if absent, reconcile if present.
+  not requirements. Part of the product-doc pair; resolved by whether
+  `PRODUCT.md` exists — discovery if absent, reconcile if present.
   The PRD owns what the product does; PRODUCT owns what it
   is. Keep three zones clean — audience as relationship (not the PRD's job
   to be done), refused aesthetics (not the PRD's out-of-scope features),
@@ -62,15 +67,15 @@ Auto-loaded (no direct triggers):
 
 ## Guidelines
 
-- Always complete discovery before drafting (for types that require it)
+- Complete discovery when the artifact is absent, or reconcile the delta when
+  it exists — never draft blind
 - Run the quality gates before writing (load `quality.md`)
 - Write the document to its path directly, then report a brief prose summary
   in chat (up to 2-3 paragraphs) — the path, type, and what it contains; never
   paste the full document
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Keep each document within its domain (PRD = product, Design Doc / ADR = technical)
-- One decision per ADR — never bundle multiple decisions into a single record
+- Keep each document within its domain (PRD / PRODUCT = product, Design Doc / ADR = technical)
 
 ## Anti-Pattern: Yes-Man Discovery
 
@@ -93,7 +98,7 @@ options is a design doc in disguise; writing a design doc that captures
 a single accepted choice is an ADR padded with prose. If the decision
 is still in motion, leave it in the design doc's Alternatives Considered
 table with `Record = —`. Once recorded, extract it into an ADR, update
-the design doc row's `Record` column to `ADR-NNNN`, and link the ADR's
+the design doc row's `Record` column to `ADR-NNN`, and link the ADR's
 References back to the design doc's Alternatives Considered section.
 
 ## Anti-Pattern: Vague Requirements
@@ -103,16 +108,6 @@ requirements — they're aspirations. Requirements must be measurable:
 "Search returns results within 200ms", "new users complete onboarding
 in under 2 minutes", "task completion rate above 90% without help text".
 If a requirement can't be measured, it can't be verified.
-
-## Anti-Pattern: Product Prose in Technical Sections
-
-A Design Doc's Context section recaps the project in 1-2 paragraphs
-and links to the PRD. It does not restate Problem Statement, list
-Personas, or walk through Journeys. Goals translate product NFRs
-into technical targets (latency, throughput, isolation); they do
-not echo product KPIs (DAU, conversion, NPS). If a reviewer cannot
-tell whether they are reading the PRD or the Design Doc, the
-Context is too long or the Goals are not technical. Cut and link.
 
 ## Anti-Pattern: Technical Detail in PRD
 

@@ -5,7 +5,7 @@ lean and focused.
 
 ## When to Use
 
-When authoring or updating the technical design doc for a software project — the
+When authoring or reconciling the technical design doc for a software project — the
 source of truth for technical strategy: how the system is built, why those
 choices were made, and which decisions have been formalized as ADRs. Write one
 when there are real technical decisions to weigh; keep it as short as the design
@@ -29,12 +29,16 @@ coexist and reference each other.
 ## Workflow
 
 ```text
-discovery → analysis → drafting
+artifact absent  → discovery → analysis → drafting
+artifact present → reconcile the delta (reconcile.md)
 ```
 
-Discovery covers four lean topics — context, the design, the trade-offs, and
-cross-cutting concerns. Analysis synthesizes findings and prepares the Record
-column for ADR linkage. Drafting runs the quality gates before writing.
+Decide by whether `docs/tech/design-doc.md` exists. Absent → run the three
+discovery-through-drafting phases below. Present → reconcile: read it as input and
+work only the delta, per [reconcile.md](reconcile.md). Discovery covers four lean
+topics — context, the design, the trade-offs, and cross-cutting concerns. Analysis
+synthesizes findings and prepares the Record column for ADR linkage. Drafting runs
+the quality gates before writing.
 
 ### Phase 1: Discovery
 
@@ -126,7 +130,7 @@ Synthesize discovery into the design:
 
 1. Draft the system-context / component sketch
 2. Identify the key decisions and the trade-offs behind each
-3. For each alternative, set the `Record` column to `—` or `ADR-NNNN`
+3. For each alternative, set the `Record` column to `—` or `ADR-NNN`
 4. Present analysis to the user before drafting
 
 For key decisions, weigh axes like complexity vs. maintainability, performance
@@ -201,9 +205,9 @@ Describe the design; do not pad with exhaustive coverage of every axis.}}
 
 | Decision | Chosen | Rejected | Reasoning | Record |
 |----------|--------|----------|-----------|--------|
-| {{what was decided}} | {{what was chosen}} | {{what was rejected}} | {{trade-offs, why this choice}} | {{— or ADR-NNNN}} |
+| {{what was decided}} | {{what was chosen}} | {{what was rejected}} | {{trade-offs, why this choice}} | {{— or ADR-NNN}} |
 
-`—` = the design doc is the only record of this decision. `ADR-NNNN` = the
+`—` = the design doc is the only record of this decision. `ADR-NNN` = the
 decision is formalized as an ADR; the row is then frozen (reversals create a
 superseding ADR and a new row, never an edit).
 
@@ -254,7 +258,7 @@ decisions, never with a section checklist.
 - Use Mermaid for diagrams — version-control friendly
 - Cover cross-cutting concerns only where they shape the design
 - Track ADR linkage via the Record column
-- Update the doc when implementation reveals new structure or new decisions
+- Reconcile the doc when implementation reveals new structure or new decisions
 
 **On diagrams:** Mermaid throughout; a system-context diagram is highly
 recommended; ER or sequence diagrams when relationships or flows are non-trivial.
@@ -268,7 +272,7 @@ without re-reading the design doc — extract it into an ADR.
 Process:
 
 1. Create the ADR (see [adr.md](adr.md)). Number sequentially.
-2. Update the design doc row: set `Record` to `ADR-NNNN`.
+2. Update the design doc row: set `Record` to `ADR-NNN`.
 3. The ADR's References section links back to the design doc's Alternatives
    Considered section.
 4. The row is now frozen. Reversals create a superseding ADR and a new row,
@@ -277,26 +281,22 @@ Process:
 Rows with `Record = —` remain editable — design-doc-only records of trade-offs
 explored along the way.
 
-## Updating an Existing Design Doc
+## Reconciling an Existing Design Doc
 
-The design doc is a living document: once it exists, you revise it in place rather
-than regenerate it. There is no fresh-versus-rerun mode decision — every touch after
-the first is an update.
-
-Read the existing doc as input and scope the change to what actually moved: a new
-decision, a new component, a resolved open question, or structure that drifted from
-the implementation. Work that delta and leave the settled prose alone — an update is
-not a rewrite, and it never pads the doc.
+Once `docs/tech/design-doc.md` exists, a re-run reconciles rather than regenerates:
+read it as input and scope the change to what actually moved — a new decision, a new
+component, a resolved open question, or structure that drifted from the
+implementation. Work that delta and leave the settled prose alone; a reconcile is not
+a rewrite, and it never pads the doc. Follow the procedure in
+[reconcile.md](reconcile.md); the design-doc specifics are below.
 
 Respect what is frozen. Alternatives Considered rows recorded as an ADR (`Record =
-ADR-NNNN`) are immutable — reverse them with a superseding ADR and a new row, never
+ADR-NNN`) are immutable — reverse them with a superseding ADR and a new row, never
 an in-place edit (see the `## ADR Linkage` section above). The editable surface is
 the design prose, rows with `Record = —`, and Open Questions.
 
-Before writing, re-run the gates in [quality.md](quality.md) against the result
-and bump `updated` in the frontmatter, preserving `created`. The thing to catch is a
-change that contradicts a frozen decision or an untouched section. After writing,
-report a brief prose summary of the delta in chat — what changed and where.
+Bump `updated` in the frontmatter, preserving `created`. The thing to catch is a
+change that contradicts a frozen decision or an untouched section.
 
 ## Anti-Pattern: Implementation Manual Without Trade-offs
 
@@ -320,7 +320,7 @@ A design doc is not a technical spec that fills every axis — testing strategy,
 deployment pipeline, observability dashboards, backup posture — whether or not
 the design hinges on them. Cover a concern only where it shapes the design or
 carries a real trade-off. Padding the doc with sections that have no decision
-behind them turns it back into the TDD this skill deliberately is not.
+behind them makes it the exhaustive spec a design doc is not.
 
 ## Output
 
