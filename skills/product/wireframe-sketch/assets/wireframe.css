@@ -1,0 +1,95 @@
+/* wireframe.css — the low-fi glyph kit for the generative render.
+ *
+ * Design-blind: greyscale only, no hue, no brand token, no type scale beyond the
+ * monospace default. Every value is a shade or a structural primitive. The render
+ * operation inlines this stylesheet into the output wireframe.html and composes
+ * the classes below to draw the page — see references/drawing.md for the rubric
+ * that maps a WIREFRAME.md region to these glyphs. */
+
+:root{
+  --ink:#2b2b2b; --muted:#8c8c8c; --line:#c4c4c4;
+  --band:#ededed; --xbg:#f2f2f2; --xln:#cfcfcf; --pill:#4a4a4a;
+}
+*{box-sizing:border-box}
+body{margin:0;padding:28px;background:#dcdcdc;color:var(--ink);
+     font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* page frame — one per surface; the tag reads "{surface} · {register} · {type}" */
+.page{max-width:1180px;margin:0 auto 44px;background:#fff;border:1px solid #111;
+      box-shadow:0 8px 30px #0002;overflow:hidden}
+.page-tag{background:#111;color:#fff;font-weight:700;letter-spacing:.14em;
+          text-transform:uppercase;padding:6px 12px;font-size:11px}
+
+/* section — the horizontal band a block occupies; band/dark set rhythm */
+.sec{padding:40px 48px;position:relative}
+.sec.band{background:var(--band)}
+.sec.dark{background:#232323}
+.annot{position:absolute;top:8px;left:12px;font-size:9px;letter-spacing:.14em;
+       text-transform:uppercase;color:#b3b3b3}
+.sec.dark .annot{color:#5a5a5a}
+
+/* layout primitives */
+.row{display:flex;gap:40px;align-items:flex-start}
+.row.center-v{align-items:center}
+.col{display:flex;flex-direction:column;gap:16px}
+.col.tight{gap:10px}
+.fill{flex:1}
+.center{text-align:center;align-items:center;justify-content:center}
+.between{display:flex;align-items:center;justify-content:space-between;gap:24px}
+
+/* text as bars — the core content glyph. lg = heading, sm = caption/support */
+.bar{height:11px;background:var(--ink);border-radius:2px}
+.bar.lg{height:18px}
+.bar.sm{height:7px;background:var(--muted)}
+.bar.on-dark{background:#e6e6e6}
+.bar.on-dark.sm{background:#9a9a9a}
+.lines>*+*{margin-top:9px}
+.w20{width:20%}.w25{width:25%}.w33{width:33%}.w40{width:40%}.w50{width:50%}
+.w60{width:60%}.w66{width:66%}.w75{width:75%}.w85{width:85%}.w100{width:100%}
+
+/* eyebrow — dash + short label, the kicker above a heading */
+.eyebrow{display:flex;align-items:center;gap:12px}
+.eyebrow .dash{width:30px;height:2px;background:var(--ink)}
+.eyebrow .lbl{height:8px;width:96px;background:var(--ink);border-radius:2px}
+.sec.dark .eyebrow .dash,.sec.dark .eyebrow .lbl{background:#dcdcdc}
+
+/* image / media placeholder — filled area with a crossed X */
+.xbox{position:relative;border:1px solid #bcbcbc;background:var(--xbg)}
+.xbox::before,.xbox::after{content:"";position:absolute;inset:0}
+.xbox::before{background:linear-gradient(to top right,transparent calc(50% - .6px),var(--xln) 50%,transparent calc(50% + .6px))}
+.xbox::after{background:linear-gradient(to bottom right,transparent calc(50% - .6px),var(--xln) 50%,transparent calc(50% + .6px))}
+.h120{height:120px}.h180{height:180px}.h240{height:240px}.h320{height:320px}.h420{height:420px}
+.sq{aspect-ratio:1/1}
+
+/* button — filled (primary) or ghost (secondary); the ::after is the label */
+.pill{display:inline-flex;align-items:center;justify-content:center;
+      background:var(--pill);border-radius:7px;height:44px;min-width:150px;padding:0 20px}
+.pill::after{content:"";width:44px;height:6px;background:#e6e6e6;border-radius:3px}
+.pill.ghost{background:transparent;border:1px solid #9a9a9a}
+.pill.ghost::after{background:#9a9a9a}
+.pill.sm{height:34px;min-width:110px}
+
+/* misc glyphs */
+.divider{width:60px;height:2px;background:#9a9a9a;margin:0 auto}
+.zone{display:flex;align-items:center;justify-content:center;gap:12px}
+.zone .r{width:70px;height:1px;background:#b0b0b0}
+.zone .d{width:12px;height:12px;border:1px solid #8f8f8f;transform:rotate(45deg)}
+.dots{display:flex;gap:8px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#c2c2c2}
+.dots i.on{background:#333}
+.stars{letter-spacing:2px;color:#3a3a3a;font-size:13px}
+.price{font-weight:700;color:#333;font-size:13px}
+.icon{width:24px;height:24px;border:1px solid #bcbcbc;background:#efefef;border-radius:5px}
+.icon.rnd{border-radius:50%}
+.tag{border:1px solid #bdbdbd;border-radius:16px;padding:6px 14px;color:#7a7a7a;
+     font-size:10px;background:#fff;white-space:nowrap}
+.socials{display:flex;gap:12px;flex-direction:column;align-items:center}
+.navlinks{display:flex;gap:22px;align-items:center;justify-content:center}
+.navlinks .lk{height:8px;width:52px;background:#3a3a3a;border-radius:2px}
+.rowline{display:flex;align-items:center;justify-content:space-between;gap:16px;
+         padding:12px 0;border-bottom:1px solid #dcdcdc}
+.rowline:last-child{border-bottom:0}
+.leader{flex:1;border-bottom:1px dotted #b8b8b8;height:0;margin:0 10px 5px}
+.card{border:1px solid #d2d2d2;background:#fafafa;padding:18px;display:flex;
+      flex-direction:column;gap:12px}
+.band .card{background:#fff}

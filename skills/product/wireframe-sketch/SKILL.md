@@ -1,55 +1,56 @@
 ---
 name: wireframe-sketch
-allowed-tools: Read Write Edit WebFetch Bash(python3:*)
+allowed-tools: Read Write Edit WebFetch
 description: >-
-  Plans the design-blind layout wireframe payload a design
-  consumes: a region tree plus screen flow that arranges surfaces
-  before any visual identity is styled, then renders it low-fi and
-  neutral. Structure only, composable under any design. Use when
+  Plans the layout structure a design consumes — a region tree plus
+  screen flow that arranges surfaces before any visual identity — then
+  draws it as a low-fi wireframe, greyscale and content-blind, like a
+  Figma sketch. Structure only, composable under any design. Use when
   planning information architecture, page composition, screen
   inventory, or screen flow; arranging surfaces, blocks, or
-  navigation; wireframing, rendering, or validating a wireframe;
-  drawing a low-fi greybox or black-and-white wireframe, ASCII sketch,
-  or screen flow; drafting a layout plan from a brief or conversation.
-  Not for visual identity or design tokens, copy or content.
+  navigation; wireframing, rendering, or drawing a low-fi wireframe,
+  ASCII sketch, or screen flow; validating a wireframe or reconciling
+  its plan; drafting a layout plan from a brief or conversation. Not
+  for visual identity or design tokens, copy or content.
 ---
 
 # Wireframe Sketch
 
-Owns `WIREFRAME.md` — the design-blind layout payload a design consumes: a
-YAML frontmatter holds the renderable region tree, and a markdown body
-narrates it with a screen map and per-surface rationale.
-Arrangement is orthogonal to visual identity: the same `WIREFRAME.md` must
-hold under any design, so this skill plans structure only — information
-architecture, region layout, and screen flow — never colors, fonts, or tokens.
+Owns `WIREFRAME.md` — the structural layout plan a design consumes: a YAML
+frontmatter holds the region tree, and a markdown body narrates it with a screen
+map and per-surface rationale. From that plan the skill draws a **low-fi
+wireframe** — greyscale, content-blind, the kind you sketch before visual design.
+Arrangement is orthogonal to visual identity: the same plan holds under any
+design, so this skill plans structure only — information architecture, region
+layout, and screen flow — never colors, fonts, or tokens.
 
 ## Quick start
 
 Operations:
 
-- **create** — author a fresh layout plan from conversation (surfaces,
+- **create** — author or patch the layout plan from conversation (surfaces,
   blocks, shapes, flow). → [create.md](instructions/create.md)
-- **render** — project the region tree into a low-fi neutral view — a greybox
-  `wireframe.html` (default), an annotated b&w outline (`--outline`), ASCII, or
-  Mermaid flow. → [render.md](instructions/render.md)
-- **validate** — check a wireframe or existing plan for IA, flow, usability
-  heuristics, and intent coherence. → [validate.md](instructions/validate.md)
+- **render** — draw the plan as a low-fi wireframe — an HTML page or an ASCII
+  sketch — or a Mermaid screen-flow. → [render.md](instructions/render.md)
+- **validate** — check a wireframe or plan for coherence and reconcile the plan
+  in natural language when it should change. → [validate.md](instructions/validate.md)
 
 ## Discovery
 
 `discovery.md` runs before every operation — never skipped, never invoked
 directly. It checks existing context (an existing `WIREFRAME.md`, the
-conversation, any brief the user provides) and routes by intent — author a
-plan, or check one. See [discovery.md](instructions/discovery.md).
+conversation, any brief the user provides) and routes by intent — author a plan,
+draw one, or check one. See [discovery.md](instructions/discovery.md).
 
 ## Artifact
 
-Produces and owns `docs/design/WIREFRAME.md` and its rendered view
-`docs/design/wireframe.html` — a greybox: neutral boxes arranged in 2D by shape.
-The **frontmatter** region tree is normative — the render operation parses it to
-draw the wireframe; the **body** is for humans. `--outline` writes a scratch
-`docs/design/wireframe-outline.html` (annotated b&w, uncommitted). The full
-template, the shape vocabulary, and the pre-save self-check live in
+Produces and owns `docs/design/WIREFRAME.md` and its drawn view
+`docs/design/wireframe.html` — a low-fi wireframe. The **frontmatter** region
+tree is the plan the render draws from; the **body** is for humans. The render is
+**generative**: it reads the plan and draws the page with judgment, guided by the
+bundled glyph kit (`assets/wireframe.css`) and rubric
+([drawing.md](references/drawing.md)) so runs stay consistent in style — not a
+byte-identical projection. The full template and the shape vocabulary live in
 [create.md](instructions/create.md).
 
 ## Register and surface
@@ -78,6 +79,6 @@ or a prior plan, arrange against it; otherwise plan from intent.
 - Derive surfaces and topics from the conversation; no fixed project types.
 - Name the register (brand or product) per surface; it biases the arrangement, never gates the shape.
 - Plan each surface for real conditions — its reflow on narrow viewports and its content volume (none/typical/many) — as structural intent in the narration, never pixels or breakpoints.
-- Decompose each surface into nested leaf regions so the render reads as a greybox — structure the tree holds, not prose the render prints.
+- Draw a low-fi wireframe — glyphs stand in for content; the plan stays greyscale and content-blind so it holds under any design.
 - Patch the frontmatter region tree first, then the body that narrates it,
   so the two stay in sync.

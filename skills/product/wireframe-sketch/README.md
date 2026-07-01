@@ -1,6 +1,7 @@
 # Wireframe Sketch
 
-Plans `WIREFRAME.md` — the design-blind layout payload a design consumes.
+Plans `WIREFRAME.md` — the structural layout a design consumes — and draws it as
+a low-fi wireframe.
 
 ## What It Does
 
@@ -8,22 +9,23 @@ Plans `WIREFRAME.md` — the design-blind layout payload a design consumes.
 flowchart TD
     Conv[Conversation / Brief / Description] -->|create| B[WIREFRAME.md]
     Wire[Wireframe sketch / mockup / screenshot] -->|validate| F[Coherence findings]
-    F -.->|apply| B
-    B -->|render| H[greybox wireframe.html · ASCII · Mermaid]
+    F -.->|reconcile| B
+    B -->|render| H[low-fi wireframe.html · ASCII · Mermaid flow]
     B --> D[Design work consumes WIREFRAME.md]
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Create** | Author a fresh layout plan from conversation — surfaces, blocks, shapes, flow | `docs/design/WIREFRAME.md` |
-| **Render** | Project the region tree into a greybox — neutral boxes in 2D (`--outline` for the annotated b&w view) | `docs/design/wireframe.html` · ASCII · Mermaid |
-| **Validate** | Check a wireframe or existing plan for IA, flow, usability heuristics, and intent coherence | Findings (patch via create, confirm-before-write) |
+| **Render** | Draw the plan as a low-fi wireframe — an HTML page or an ASCII sketch — plus a Mermaid screen-flow | `docs/design/wireframe.html` · ASCII · Mermaid |
+| **Validate** | Check a wireframe or plan for coherence and usability heuristics, then reconcile the plan | Findings + reconciled `WIREFRAME.md` (confirm-before-write) |
 
 Arrangement is orthogonal to visual identity: the same `WIREFRAME.md` holds
-independent of visual styling, so this skill plans structure only — never
-colors, fonts, tokens, copy strings, or requirement IDs. It also renders the
-plan low-fi and neutral — a greybox `wireframe.html`, ASCII, or a Mermaid flow —
-never adding a visual identity.
+independent of visual styling, so this skill plans structure only — never colors,
+fonts, tokens, copy strings, or requirement IDs. The render is **generative and
+low-fi**: it reads the plan and draws a greyscale, content-blind wireframe — bars
+for text, crossed boxes for images, filled shapes for buttons — guided by a
+bundled glyph kit so runs stay consistent in style.
 
 Each surface is arranged under a **register** — brand (the surface communicates)
 or product (the surface serves a task) — which biases the block order and shapes.
@@ -40,35 +42,31 @@ structural intent, never pixels.
 plan the layout for this landing page
 map the information architecture for this app
 arrange the screens and flow from this brief
-draft a wireframe plan from this brief
 
-# Render the plan low-fi
+# Draw the plan as a low-fi wireframe
+draw a low-fi wireframe of this page
 render the wireframe
-render a greybox of this page
-show me an ASCII sketch of this layout
-draw a black-and-white wireframe
+show me an ASCII wireframe of this layout
 diagram the screen flow
 
-# Validate a wireframe or existing plan
+# Validate a wireframe or plan, and reconcile
 check this wireframe for coherence
 does this screen flow hold up?
-validate WIREFRAME.md
-review the page composition before we style it
+validate WIREFRAME.md and reconcile the plan
 ```
 
 ## Output
 
 - `docs/design/WIREFRAME.md` — a YAML frontmatter region tree (surfaces → blocks
-  with shape hints, nested to the leaf) plus a markdown body (screen map +
-  per-surface rationale), derived from the conversation or a brief.
-- `docs/design/wireframe.html` — the rendered greybox: neutral boxes arranged in
-  2D by shape, generated from the region tree. Regenerate after edits; never
-  hand-edit.
-- `docs/design/wireframe-outline.html` — an optional annotated b&w outline
-  (`--outline`). A scratch view for reading the tree; leave it uncommitted.
+  with shape hints) plus a markdown body (screen map + per-surface rationale),
+  derived from the conversation or a brief.
+- `docs/design/wireframe.html` — the drawn low-fi wireframe, generated from the
+  plan with the bundled glyph kit. Regenerate after edits; it is derived, never
+  a source.
 
 ## Requirements
 
-- Python 3 for the render and validate scripts (standard library only).
+- No build and no external tools — the render draws with the bundled glyph kit
+  (`assets/wireframe.css`).
 - `WebFetch` for pulling a reference URL's structure (optional — sketches,
   screenshots, and described layouts work without it).

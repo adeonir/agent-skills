@@ -16,18 +16,17 @@ heuristic — a status region, an exit, an error state — never whether a finis
 UI executes it well. The absence of the affordance is the finding; its quality
 is a later, design-aware concern this skill does not judge.
 
-A persistent affordance is a **block** in the region tree — it renders in the
-greybox and is checkable here. A **state variant** — the empty, loading, or
+A persistent affordance is a **block** in the region tree — it is drawn in the
+wireframe and checkable here. A **state variant** — the empty, loading, or
 error face of one region — lives in the surface's narration; read it there
 rather than flag it as a missing block.
 
-## Two kinds of check
+## Reading the checklist
 
-- **Deterministic** — `validate_wireframe.py` already decides these from the
-  tree: shapes drawn from one fixed vocabulary (consistency), flow reachability,
-  and dangling endpoints. They fire or they do not; the script owns them.
-- **Judgment** — you read the arrangement and decide. Every item below is
-  judgment unless tagged `(script)`.
+Every item is judgment — read the arrangement and the flow and decide. Two are
+mechanical enough to settle by inspection: navigation reaching every surface with
+no dangling or unreachable step in the `flow:`, and every block carrying a shape
+from the fixed vocabulary. The rest ask you to weigh the arrangement.
 
 ## Checklist
 
@@ -36,11 +35,9 @@ rather than flag it as a missing block.
 2. **Match the real world** — surface and block labels follow the user's
    language and mental model, not system or implementation jargon.
 3. **User control and freedom** — the flow offers a back, cancel, or exit path;
-   modals and overlays have a stated way out. `(script)` flags flow that cannot
-   reach a surface.
+   modals and overlays have a stated way out, and the flow can reach every surface.
 4. **Consistency and standards** — navigation sits in a consistent place across
-   surfaces, and patterns are conventional. `(script)` enforces one shape
-   vocabulary.
+   surfaces, patterns are conventional, and every block uses one shape vocabulary.
 5. **Error prevention** — a confirmation step or constraint precedes a
    destructive or irreversible action in the flow.
 6. **Recognition over recall** — information the user needs is visible on the
