@@ -49,6 +49,18 @@ visual treatments.
 | section opener ornament | line · diamond · line | `.zone` |
 | nav links | row of short bars | `.navlinks .lk` |
 | divider | short centered rule | `.divider` |
+| form field / input | bordered box + placeholder bar | `.field` (`.area`, `.sm`) |
+| labelled field | caption bar above the input | `.formrow` (`.cap` + `.field`) |
+| select / dropdown | field with a caret | `.field.select` |
+| search | field with a magnifier | `.field.search` |
+| checkbox / radio | small box / circle | `.check`, `.check.rnd`, `.check.on` |
+| toggle / switch | pill track + knob | `.toggle`, `.toggle.on` |
+| tabs | strip, one active underlined | `.tabs` + `.tab` / `.tab.on` |
+| toolbar | light action bar | `.toolbar` (search + actions inside) |
+| table | header + cell rows | `.table` + `.trow` / `.trow.thead` + `.tcell` |
+| breadcrumb | short bars + separators | `.crumbs` |
+| pagination | small numbered cells | `.pager` with one `.on` |
+| sidebar rail | fixed nav column | `.rail` + `.item` / `.item.on` |
 
 ## Mapping Labels to Glyphs
 
@@ -66,6 +78,12 @@ things by context (`headline`, `hero-image`, `reservation-cta`, `course-list`).
 - `price`, `cost` → `.price`; `rating`, `stars`, `reviews` → `.stars`
 - `scroll-cue`, `carousel`, `dots` → `.dots`
 - `highlight`, `tag`, `badge` → `.tag`; `icon`, `avatar`, `social` → `.icon`
+- `form`, `field`, `input`, `email`, `password` → `.field`, wrapped in a `.formrow` with a caption
+- `select`, `dropdown`, `filter` → `.field.select`; `search` → `.field.search`
+- `checkbox`, `radio`, `option`, `consent` → `.check`; `toggle`, `switch` → `.toggle`
+- `table`, `data-table`, data `grid`, `results` → `.table` (a `.trow.thead` + `.trow`s); `tabs`, `segmented` → `.tabs`
+- `toolbar`, `filters-bar`, `actions` → `.toolbar`; `breadcrumb` → `.crumbs`; `pagination`, `pager` → `.pager`
+- `sidebar`, `side-nav`, `rail` → `.rail`
 
 When a label is unfamiliar, fall back to `.lines` (text) — a bar is the safe
 neutral. Never draw a plain labelled box; that is the diagram we are leaving
@@ -93,6 +111,14 @@ The page is a stack of `.sec`. Give it rhythm and a hierarchy a scanner reads:
 - **Modal / overlay** — a `modal` block draws as a centered `.card` floating over
   a dimmed page; an `overlay` draws as a layer sitting above the section it
   belongs to. Both keep a visible way out (a close control).
+- **Sidebar** — a `sidebar` shape (or a product surface with side-nav) draws as a
+  `.row` of a fixed `.rail` (nav `.item`s, one `.on`) beside a `.fill` main area;
+  run the shell section as `.sec.flush` so the rail meets the edge.
+- **Product surfaces** — lead with a persistent nav or sidebar, not a hero. A data
+  view is a `.toolbar` (search + actions) above a `.table` closed by a `.pager`; a
+  form stacks `.formrow`s with a primary `.pill` to submit. Density over rhythm —
+  quieter bands than a brand page — and plan the empty / loading / error states in
+  the narration.
 - **Reflow** — the plan's narrow-viewport intent is context, not a second
   render; draw the default (wide) arrangement unless asked for the narrow one.
 

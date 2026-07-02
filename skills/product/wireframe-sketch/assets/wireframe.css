@@ -93,3 +93,62 @@ body{margin:0;padding:28px;background:#dcdcdc;color:var(--ink);
 .card{border:1px solid #d2d2d2;background:#fafafa;padding:18px;display:flex;
       flex-direction:column;gap:12px}
 .band .card{background:#fff}
+
+/* ---- product-surface glyphs — forms, data, navigation ---- */
+
+/* form field / input — bordered box with a placeholder bar; .area = textarea */
+.field{height:38px;border:1px solid #bcbcbc;background:#fff;border-radius:5px;
+       display:flex;align-items:center;justify-content:space-between;padding:0 12px;gap:8px}
+.field .ph{height:8px;width:40%;background:#cfcfcf;border-radius:2px}
+.field.area{height:88px;align-items:flex-start;padding-top:12px}
+.field.sm{height:30px}
+.field.select::after{content:"";width:0;height:0;border:5px solid transparent;border-top-color:#8f8f8f;margin-top:4px}
+.field.search::before{content:"⌕";font-size:15px;color:#9a9a9a}
+
+/* labelled field — a caption bar above the input */
+.formrow{display:flex;flex-direction:column;gap:7px}
+.formrow>.cap{height:7px;width:90px;background:var(--muted);border-radius:2px}
+
+/* choice controls */
+.check{width:18px;height:18px;border:1px solid #9a9a9a;background:#fff;border-radius:3px;flex:0 0 auto}
+.check.rnd{border-radius:50%}
+.check.on{background:#3a3a3a;border-color:#3a3a3a}
+.toggle{width:38px;height:20px;border-radius:20px;background:#c2c2c2;position:relative;flex:0 0 auto}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.toggle.on{background:#4a4a4a}
+.toggle.on::after{left:20px}
+
+/* tabs — a strip, one active underlined */
+.tabs{display:flex;gap:26px;border-bottom:1px solid #d2d2d2;padding-bottom:12px}
+.tabs .tab{height:8px;width:64px;background:#bcbcbc;border-radius:2px;position:relative}
+.tabs .tab.on{background:#333}
+.tabs .tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:2px;background:#333}
+
+/* toolbar — a light action bar (compose search + actions inside) */
+.toolbar{background:#f4f4f4;border:1px solid #e2e2e2;border-radius:6px;padding:10px 14px;
+         display:flex;align-items:center;justify-content:space-between;gap:16px}
+
+/* table — header row + cell rows */
+.table{border:1px solid #d2d2d2;border-radius:6px;overflow:hidden;background:#fff}
+.trow{display:flex;gap:16px;padding:12px 16px;border-bottom:1px solid #ececec;align-items:center}
+.trow:last-child{border-bottom:0}
+.trow.thead{background:#f4f4f4}
+.trow.thead .bar{background:#7a7a7a}
+.tcell{flex:1}
+.tcell.narrow{flex:0 0 64px}
+
+/* breadcrumb — short bars with separators */
+.crumbs{display:flex;align-items:center;gap:10px;color:#b0b0b0}
+
+/* pagination — small numbered cells, one active */
+.pager{display:flex;gap:6px}
+.pager i{width:26px;height:26px;border:1px solid #cfcfcf;border-radius:4px;background:#fff}
+.pager i.on{background:#333;border-color:#333}
+
+/* sidebar rail — fixed nav column beside a main area */
+.rail{flex:0 0 210px;background:#f4f4f4;border-right:1px solid #e2e2e2;padding:20px 14px;
+      display:flex;flex-direction:column;gap:8px}
+.rail .item{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:5px}
+.rail .item .bar{width:70%}
+.rail .item.on{background:#e2e2e2}
+.sec.flush{padding:0}
