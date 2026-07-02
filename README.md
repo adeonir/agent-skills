@@ -52,9 +52,9 @@ flowchart TD
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
-    DW_PRD -->|requirements| BP[wireframe-sketch]
+    DW_PRD -->|requirements| WF[wireframe-sketch]
     DW_PRD -->|requirements| CW[copywriting]
-    BP -->|layout| CU[craft-ui]
+    WF -->|layout| CU[craft-ui]
     CW -->|content| CU
     DB -->|tokens| CU
     CU -->|interface| SD

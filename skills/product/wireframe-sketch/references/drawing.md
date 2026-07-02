@@ -40,7 +40,7 @@ visual treatments.
 | eyebrow / kicker | dash + short label | `.eyebrow` |
 | image / media / logo | filled box with an X | `.xbox` + a height (`.h120`–`.h420`, `.sq`) |
 | button / CTA | filled pill (primary) or outline (secondary) | `.pill`, `.pill.ghost`, `.pill.sm` |
-| list / menu rows | name + value rows with rules | `.rowline` (name bar + `.price` or `.bar.sm`) |
+| list / menu rows | name, a dotted leader, then value | `.rowline` (name bar + `.leader` + `.price` or `.bar.sm`) |
 | price | `$—` | `.price` |
 | rating | five stars | `.stars` (`★★★★★`) |
 | carousel / pagination | dots, first active | `.dots` with one `.on` |
@@ -90,6 +90,9 @@ The page is a stack of `.sec`. Give it rhythm and a hierarchy a scanner reads:
 - **Grids** — a `grid-N` block becomes a `.row` of N `.card`s (`.icon` + bars).
 - **Footer** — the last section is `.sec.dark`: logo `.xbox`, a CTA, link
   columns, `.stars`, `.tag`s, `.socials`, and a thin legal row.
+- **Modal / overlay** — a `modal` block draws as a centered `.card` floating over
+  a dimmed page; an `overlay` draws as a layer sitting above the section it
+  belongs to. Both keep a visible way out (a close control).
 - **Reflow** — the plan's narrow-viewport intent is context, not a second
   render; draw the default (wide) arrangement unless asked for the narrow one.
 
