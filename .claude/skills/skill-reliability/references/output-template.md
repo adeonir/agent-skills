@@ -14,7 +14,7 @@ ALWAYS use this exact template structure:
 ## <Skill Name>: Reliability Analysis
 
 ### Trigger reliability: <Clean | Leaky | Narrow>
-<does it fire on the right requests; note any description rewrite>
+<does it fire on the right requests; note any description rewrite and its held-out re-test result>
 
 ### Workflow: <filename> — N steps
 

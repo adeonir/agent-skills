@@ -13,6 +13,7 @@ from pathlib import Path
 
 DESC_HARD_CAP = 1024   # chars; descriptions over this are truncated in the listing
 DESC_BRIEF_WORDS = 10  # below this, a description likely underspecifies triggers
+CAPABILITY_MIN_WORDS = 5  # words of "what it does" expected before the first trigger phrase
 RESERVED_TOKENS = ("claude", "anthropic")  # forbidden inside a skill name
 BUILTIN_COLLISIONS = ("code-review", "review", "simplify", "security-review")
 FILLER_OPENERS = ("helps with", "assists with", "supports", "tool for", "utility for")
@@ -93,8 +94,13 @@ def lint_description(description, findings):
             findings.append(("MINOR", "description", f"description opens with filler '{opener}' — lead with the capability"))
     if re.search(r"\(1\).*\(2\)", description):
         findings.append(("MINOR", "description", "description uses a numbered (1)…(2) trigger list — weave triggers into prose instead"))
-    if not any(phrase in lowered for phrase in TRIGGER_PHRASES):
+    trigger_positions = [lowered.find(phrase) for phrase in TRIGGER_PHRASES if phrase in lowered]
+    if not trigger_positions:
         findings.append(("MINOR", "description", "description states no explicit trigger ('Use when …') — readers can't tell when it fires"))
+    else:
+        capability = description[: min(trigger_positions)]
+        if len(capability.split()) < CAPABILITY_MIN_WORDS:
+            findings.append(("MINOR", "description", "description states no capability before its first trigger — lead with what the skill does"))
 
 
 def main():

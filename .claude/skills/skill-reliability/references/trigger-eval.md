@@ -16,11 +16,11 @@ Run the linter first to catch the mechanical problems before any reasoning:
 python3 ${CLAUDE_SKILL_DIR}/scripts/trigger_lint.py <skill-dir>
 ```
 
-It checks the frontmatter conventions: kebab-case `name`, third-person
-description with inline "Use when" triggers, the length envelope, and the
-anti-patterns (filler openings, a numbered `(1)…(2)` trigger list, first/second
-person, reserved name tokens). Treat its findings as the structural floor; reason
-about the rest below.
+It checks the frontmatter conventions: kebab-case `name`, a third-person
+description that states what the skill does before its inline "Use when"
+triggers, the length envelope, and the anti-patterns (filler openings, a
+numbered `(1)…(2)` trigger list, first/second person, reserved name tokens).
+Treat its findings as the structural floor; reason about the rest below.
 
 ## Probe Set
 
@@ -47,14 +47,28 @@ For each probe, reason about two things and compare them:
 ## Description Rewrite
 
 When a probe misses, propose the smallest description change that fixes it
-without overfitting — generalize to the intent category, never append a growing
-list of literal queries. Hold the rewrite to the repo conventions:
+without overfitting — generalize to the intent category rather than appending a
+growing list of literal queries, but keep the concrete anchors (task family,
+file types, domain nouns, real user phrasings) that let it fire when the user
+never names the skill. Hold the rewrite to the repo conventions:
 
-- imperative and intent-first ("Use when …", not "this skill does …")
-- third person, distinctive enough to compete with sibling skills
+- third-person and intent-first ("Use when …", not "this skill does …")
+- distinctive enough to compete with sibling skills
 - triggers woven into prose, never a separate numbered list
 - under the 1024-character description cap
 
-Report the verdict (Clean / Leaky / Narrow), the probes that drove it, and the
-rewrite if any. The rewrite is applied to the target's SKILL.md only on the
-user's confirmation (Step 8 of the analysis), never silently.
+## Held-Out Re-Test
+
+A rewrite validated only against the probes that produced it can overfit them.
+When you propose a rewrite, re-test it against 5–10 **fresh** phrasings — real
+user wordings not drawn from the probe set or the description's own "Use when"
+list. Include positives that must fire, negatives that must stay quiet, and 1–2
+boundary cases. Judge **Would** vs **Should** for each using only the rewritten
+name + description. The rewrite passes when every positive fires, every negative
+stays quiet, and each boundary case resolves on the intended side; any mismatch
+means iterate the description and re-test. Reason it through — no execution.
+
+Report the verdict (Clean / Leaky / Narrow), the probes that drove it, the
+rewrite if any, and its held-out re-test result. The rewrite is applied to the
+target's SKILL.md only on the user's confirmation (Step 8 of the analysis),
+never silently.
