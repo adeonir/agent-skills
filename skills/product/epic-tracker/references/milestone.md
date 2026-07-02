@@ -51,6 +51,11 @@ Fill the registry-entry template (below):
 A milestone carries no success criteria and no acceptance criteria — it is
 "done" when its epics are delivered (a rollup).
 
+**Declare, don't narrate.** The conversation that derived the phases is
+input, never content. Each entry states standing facts in present tense;
+strip conversation narrative — "as discussed", "the user confirmed",
+"we agreed" — and decision history.
+
 ### 3. Save to the Registry
 
 The registry is a single file: `.artifacts/epics/milestones.md`.
@@ -103,7 +108,8 @@ per milestone in delivery order. ALWAYS use this exact structure:
   - {{epic-name}} — {{one-line capability expectation}}
 ````
 
-MUST NOT contain: success criteria, acceptance criteria, per-story detail,
+MUST NOT contain: conversation narrative ("as discussed", "we agreed"),
+decision history, success criteria, acceptance criteria, per-story detail,
 PRD IDs (FR-N, BR-N, EC-N), section numbers, or implementation specifics.
 
 ## Error Handling

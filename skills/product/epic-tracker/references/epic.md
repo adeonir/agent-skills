@@ -89,6 +89,14 @@ Fill the template (below) with discovered context:
   doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
   the links for sync
 
+**Declare, don't narrate.** The discovery conversation is input, never
+content. The body states standing facts in present tense: a resolved
+decision enters as fact (`Auth uses magic links`), never as its history
+(`we discussed OAuth but the user preferred magic links`). Strip
+conversation narrative — "as discussed", "the user confirmed", "we
+agreed" — and decision history; an unresolved decision goes to Open
+Questions, not the prose.
+
 Record every durable reference surfaced during Discover (PRD, brief,
 design doc, UI design) in frontmatter `sources:` -- one entry per source.
 These are the pointers the resumption gate relies on.
@@ -168,7 +176,7 @@ milestone: {{milestone-name or omit when the epic sits outside any milestone}}
 
 {{What the epic is about, why it exists, what changes for the user when it ships. Two to three sentences.}}
 
-MUST NOT contain: scenario narratives, `§x.x` section numbers, document references, sibling epic names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong in `## Requirements`, never the Summary; `ADR-NNN` belongs in References.
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, scenario narratives, `§x.x` section numbers, document references, sibling epic names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong in `## Requirements`, never the Summary; `ADR-NNN` belongs in References.
 
 ## Stories
 

@@ -47,6 +47,14 @@ Fill the template (below):
   (not acceptance criteria -- those live on stories)
 - **References**: changelog links, milestone links
 
+**Declare, don't narrate.** The discovery conversation is input, never
+content. The body states standing facts in present tense: the grouping
+rationale enters as fact (`Groups the checkout stories that unblock the
+public beta`), never as its history (`we discussed shipping billing
+separately but the user preferred one release`). Strip conversation
+narrative — "as discussed", "the user confirmed", "we agreed" — and
+decision history.
+
 ### 3. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
@@ -103,6 +111,8 @@ sources: []
 ## Summary
 
 {{What this release delivers, why these stories were grouped together, who benefits.}}
+
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed") or decision history.
 
 ## Stories
 

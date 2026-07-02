@@ -78,6 +78,13 @@ Fill the template (below):
 - **References**: link to parent epic, related stories, external docs,
   and any `ADR-NNN` the task depends on
 
+**Declare, don't narrate.** The collected answers and pasted context
+are input, never content. The body states standing facts in present
+tense: a resolved decision enters as fact (`CI runs on the Node 20
+image`), never as its history (`we discussed staying on Node 18 but
+decided to upgrade`). Strip conversation narrative — "as discussed",
+"the user confirmed", "we agreed" — and decision history.
+
 Apply the resumption gate before proceeding:
 
 > **Resumption gate** — Could a fresh session resume the work from this
@@ -142,6 +149,8 @@ epic: {{epic-name or omit for standalone}}
 ## Summary
 
 {{What needs to be done and why. One clear outcome.}}
+
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed") or decision history.
 
 ## Signals
 

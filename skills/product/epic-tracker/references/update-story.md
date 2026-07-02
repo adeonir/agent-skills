@@ -36,6 +36,12 @@ deliverable and maps to the tracker's summary field; narrative outcome
 prose belongs only in the body's Summary section (see the Title rules
 in [story.md](story.md)).
 
+Keep the body declarative as well — the edit conversation is input,
+never content. A revised decision enters as standing fact, never as its
+history (`changed from 24 hours after discussion`); strip conversation
+narrative — "as discussed", "the user confirmed", "we agreed" — and
+decision history.
+
 ### 3. Diff AC Section
 
 Extract the AC section from the pre-edit body and the post-edit body:

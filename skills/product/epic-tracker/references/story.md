@@ -73,6 +73,14 @@ Fill the template (below):
   design doc, UI design) plus any `ADR-NNN` the story depends on.
   Canonical in the body; frontmatter `sources:` mirrors the links for sync
 
+**Declare, don't narrate.** The drafting conversation is input, never
+content. The body states standing facts in present tense: a resolved
+decision enters as fact (`Reset links expire in 15 minutes`), never as
+its history (`we discussed 24 hours but the user preferred 15 minutes`).
+Strip conversation narrative — "as discussed", "the user confirmed",
+"we agreed" — and decision history; an unresolved decision goes to Open
+Questions, not the prose.
+
 Record every durable reference (parent epic, design doc, UI design) in
 frontmatter `sources:` as you draft -- one entry per source. These are
 the pointers the resumption gate relies on.
@@ -163,7 +171,7 @@ type: story
 
 {{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
 
-MUST NOT contain: `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong on each AC's `Satisfies` line, never the Summary; `ADR-NNN` belongs in References.
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong on each AC's `Satisfies` line, never the Summary; `ADR-NNN` belongs in References.
 
 ## Out of Scope
 

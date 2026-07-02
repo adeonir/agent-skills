@@ -88,6 +88,14 @@ Fill the template (below):
   blocks it.
 - **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
+**Declare, don't narrate.** The collected answers and pasted context
+are input, never content. The body states standing facts in present
+tense: `Login fails with an expired token`, never `the user reported
+that login was failing`. Strip conversation narrative — "as discussed",
+"the user confirmed" — and decision history; facts extracted from the
+paste enter as standing statements, verbatim evidence belongs in
+Signals.
+
 Apply the resumption gate before proceeding:
 
 > **Resumption gate** — Could a fresh session resume the fix from this
@@ -152,6 +160,8 @@ severity: {{critical/high/medium/low}}
 ## Summary
 
 {{Brief one-sentence description of the defect.}}
+
+MUST NOT contain: conversation narrative ("as discussed", "the user reported that") or decision history.
 
 ## Signals
 
