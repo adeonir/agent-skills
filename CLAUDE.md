@@ -91,7 +91,7 @@ skill-name/
 ├── references/        # on-demand details (optional)
 │   └── *.md
 ├── scripts/           # executables loaded on demand (optional)
-└── assets/            # static data files for scripts (optional)
+└── assets/            # static files for scripts or render output (optional)
 ```
 
 Split — `instructions/` + `references/` when files genuinely mix intent
@@ -107,7 +107,7 @@ skill-name/
 ├── references/        # lookup tables, principles, enums, rules
 │   └── *.md
 ├── scripts/           # executables loaded on demand (optional)
-└── assets/            # static data files for scripts (optional)
+└── assets/            # static files for scripts or render output (optional)
 ```
 
 Classification rule:
@@ -314,7 +314,8 @@ one. Otherwise, add a reference to the existing skill.
 ## Code and Scripts
 
 `scripts/` and `assets/` directories are optional. Use them only when the
-skill genuinely needs deterministic operations or static data.
+skill genuinely needs deterministic operations or static assets — data files
+for a script, or a file the render inlines into its output (e.g. a stylesheet).
 
 State whether Claude should run a script or read it: "Run `analyze.py` to
 extract fields" vs "See `analyze.py` for the extraction algorithm".
