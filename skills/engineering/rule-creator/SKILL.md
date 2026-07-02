@@ -6,15 +6,12 @@ description: >-
   decides scope, location, and frontmatter from signals in the request.
   Supports create, list, edit, extract from oversized CLAUDE.md, delete,
   and refusal with redirect when the input belongs to a skill or hook.
-  Use this skill whenever the user defines a coding convention, team
-  standard, or constraint Claude should enforce — even when the user
-  does not explicitly say "rule". Also use for scoping a rule to
-  specific paths, splitting a growing CLAUDE.md into rule files, or
-  auditing existing rules. Triggers: "create rule", "add rule",
-  "new rule", "coding standard", "team convention", "list rules",
-  "edit rule", "extract rules from CLAUDE.md", "delete rule". Not
-  for procedural workflows, lifecycle hooks, or one-off task
-  instructions.
+  Use this skill whenever the user defines a coding convention, team standard,
+  or constraint Claude should enforce — even when the user does not explicitly
+  say "rule". Also use for creating, listing, editing, or deleting a rule,
+  scoping a rule to specific paths, splitting a growing CLAUDE.md into rule
+  files, or auditing existing rules. Not for procedural workflows, lifecycle
+  hooks, or one-off task instructions.
 ---
 
 # Rule Creator

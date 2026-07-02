@@ -1,17 +1,12 @@
 ---
 name: notes
 description: >-
-  Creates and manages Obsidian notes for projects, technical challenges,
-  brag documents, meeting transcriptions, and company tracking using
-  MCPVault MCP. Use when documenting projects, recording technical
-  challenges, maintaining brag documents, preserving meeting and course
-  transcriptions, or tracking job applications. Triggers: "create
-  project note", "new project note", "technical challenge", "brag
-  document", "achievement", "accomplishment", "transcription", "meeting
-  notes", "1:1 notes", "feedback notes", "standup notes", "lecture
-  notes", "course notes", "company note", "track interview", "job
-  application". Not for end-of-session persistence across memory systems
-  or for initializing repository-wide project context.
+  Creates and manages Obsidian notes for projects, technical challenges, brag
+  documents, meeting transcriptions, and company tracking. Use when documenting
+  projects, recording technical challenges, maintaining a brag document of
+  achievements, preserving meeting, 1:1, standup, or course transcriptions, or
+  tracking a company or job application. Not for end-of-session persistence
+  across memory systems or for initializing repository-wide project context.
 ---
 
 # Notes

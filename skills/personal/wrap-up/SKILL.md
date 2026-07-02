@@ -1,14 +1,12 @@
 ---
 name: wrap-up
 description: >-
-  End-of-session command that persists context to Obsidian. Resolves
-  project from local registry, loads any session handoff, then writes
-  an Obsidian session note (when configured) and an Obsidian daily
-  note. Use when finishing a work session, saving progress before
-  clearing context, or documenting what was accomplished. Triggers:
-  "wrap up", "wrap-up", "end session", "finish up", "close session".
-  Not for mid-session note-taking (Obsidian writes happen at the end
-  only).
+  End-of-session command that persists context to Obsidian. Resolves project
+  from local registry, loads any session handoff, then writes an Obsidian
+  session note (when configured) and an Obsidian daily note. Use when finishing
+  a work session, saving progress before clearing context, or documenting what
+  was accomplished. Not for mid-session note-taking (Obsidian writes happen at
+  the end only).
 ---
 
 # Wrap Up Session
