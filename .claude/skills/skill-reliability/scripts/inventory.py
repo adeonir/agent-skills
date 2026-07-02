@@ -18,8 +18,14 @@ from pathlib import Path
 TIER_STRONG = 0.90    # product >= 0.90 -> Strong
 TIER_MODERATE = 0.75  # product >= 0.75 -> Moderate, else Fragile
 
-# A workflow "step" is a markdown heading like "### Step 3: Stage Files".
-STEP_HEADING = re.compile(r"^#{2,4}\s+Step\s+(\d+)\s*[:.\-]?\s*(.*)$", re.IGNORECASE)
+# A step heading: "### Step 3: Stage Files", "### Phase 1: Context", or "### 3. Draft".
+STEP_HEADING = re.compile(r"^#{2,4}\s+(?:Step|Phase)\s+(\d+)\s*[:.\-)]?\s*(.*)$", re.IGNORECASE)
+NUM_HEADING = re.compile(r"^#{2,4}\s+(\d+)\s*[:.)]\s+(.*)$")
+# When a file has no step headings, numbered list items under a procedural
+# section (## Workflow, ## Steps, ## Create gates …) are the steps instead.
+WORKFLOW_SECTION = re.compile(r"^##\s+.*\b(?:workflow|steps|phases|process|procedure|gates)\b", re.IGNORECASE)
+SECTION_HEADING = re.compile(r"^##\s+")
+LIST_STEP = re.compile(r"^(\d+)\.\s+(.*)$")
 
 
 def tier(product):
@@ -42,16 +48,50 @@ def find_workflow_files(skill_dir):
     return files
 
 
+def _clean_title(raw):
+    """Reduce a list-item line to a short label (leading bold, or first clause)."""
+    bold = re.match(r"\*\*(.+?)\*\*", raw)
+    if bold:
+        return bold.group(1).strip()
+    return re.split(r"\s+[—–-]\s+|(?<=\w)\. ", raw)[0].strip()[:60]
+
+
 def steps_in(path):
+    """Enumerate a file's workflow steps.
+
+    'Step N'/'Phase N' headings are self-signaling and count anywhere. A bare
+    '### N.' heading or a numbered list item counts only inside a procedural
+    section (## Workflow, ## Create gates …) — outside one, numbered headings
+    are catalog entries (heuristics, personas), not steps.
+    """
     try:
         text = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return []
     steps = []
+    in_workflow = False
+    section_has_headings = False  # a section uses headings OR a numbered list, never both
+    expected = 1
     for line in text.splitlines():
-        match = STEP_HEADING.match(line)
-        if match:
-            steps.append((int(match.group(1)), match.group(2).strip()))
+        if SECTION_HEADING.match(line):
+            in_workflow = bool(WORKFLOW_SECTION.match(line))
+            section_has_headings = False
+            expected = 1
+            continue
+        labeled = STEP_HEADING.match(line)
+        if labeled:
+            steps.append((int(labeled.group(1)), labeled.group(2).strip()))
+            section_has_headings = True
+            continue
+        numbered = NUM_HEADING.match(line)
+        if numbered and in_workflow:
+            steps.append((int(numbered.group(1)), numbered.group(2).strip()))
+            section_has_headings = True
+            continue
+        item = LIST_STEP.match(line)
+        if item and in_workflow and not section_has_headings and int(item.group(1)) == expected:
+            steps.append((expected, _clean_title(item.group(2))))
+            expected += 1
     return steps
 
 
