@@ -1,160 +1,96 @@
 ---
 name: spec-driven
 description: >-
-  Specification-driven feature development with auto-sized depth.
-  Produces spec.md, design.md, and tasks.md artifacts with requirements
-  traceability and an audit phase tied to Goals and Success Criteria.
-  Verify runs inside implement per task -- never as a user phase.
-  Use when planning a feature, specing a feature, turning a PRD into a
-  spec, breaking a change into tasks or user stories, designing a feature,
-  implementing a named user story or task, auditing goals at a commit
-  boundary or before a PR, or discussing how to build a feature. Not for
-  diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design
-  Doc documents, PR/commit mechanics, or PM backlog tracking.
-argument-hint: "[t-N | us-N | --all] [--commit]"
+  Spec-driven feature development with auto-sized depth. Produces
+  spec.md, design.md, tasks.md, and validation.md with requirements
+  traceability, and closes with an independent audit tied to Goals and
+  acceptance criteria. Depth scales to scope — Small runs inline, Medium and
+  up run the full pipeline. Use when planning or specing a feature, turning a
+  PRD into a spec, breaking a change into tasks or user stories, designing a
+  feature, implementing a named task or user story, auditing goals at a commit
+  boundary or before a PR, running UAT on a user-facing change, or discussing
+  how to build a feature. Not for diagnosing unknown bugs, authoring standalone
+  PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking.
+argument-hint: "[t-N | p-N | --all]"
+allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
 # Spec-Driven Development
 
-Structured development workflow with adaptive depth.
+Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor concentrates in a final independent audit, not in heavy intermediate gates.
 
 ## Triggers
 
-### Feature-level (auto-sized)
-
-- **New feature** ("create new feature", "specify feature", "from PRD",
-  "modify feature") → [specify.md](references/specify.md)
-- **Discuss / capture context** ("discuss feature", "how should this
-  work") → [discuss.md](references/discuss.md)
-- **Feature design** ("design this feature", "designing a feature",
-  "plan feature") → [design.md](references/design.md)
-- **Research technology** ("cache research", "research topic") →
-  [research.md](references/research.md)
-- **Tasks** ("create tasks") → [tasks.md](references/tasks.md)
-- **Implement** ("implement task", "execute task", "implement user story
-  US-1", "implement task T-1"; add `--commit` to auto-commit each boundary,
-  `--all` auto-commits implicitly) → [implement.md](references/implement.md)
-- **Audit** ("audit feature", "validate goals", "audit goals and
-  success criteria") → [audit.md](references/audit.md)
-- **Manual testing** ("manual testing", "test manually") →
-  [validate.md](references/validate.md)
-- **Quick mode** ("quick fix", "quick task", "small change", "bug
-  fix") → [quick-mode.md](references/quick-mode.md)
-- **Status overview** ("list features", "show status") →
-  [status-specs.md](references/status-specs.md)
-
-### Methodological refs (loaded by other refs)
-
-- **Verification (internal check)** →
-  [verify.md](references/verify.md) (loaded by `implement.md` Step 5-After)
-- **Subagent dispatch protocol** →
-  [phases.md](references/phases.md)
-- **Codebase exploration** →
-  [codebase-exploration.md](references/codebase-exploration.md)
-- **Coding principles** →
-  [coding-principles.md](references/coding-principles.md)
-- **Status workflow** ("when to update status") →
-  [status-workflow.md](references/status-workflow.md)
-- **Knowledge format** (decisions, gotchas, conventions) →
-  [knowledge.md](references/knowledge.md)
-- **Auto-sizing scope assessment** →
-  [auto-sizing.md](references/auto-sizing.md) (loaded by `specify.md` Steps 1 and 9)
-- **Discovery topics** →
-  [discovery.md](references/discovery.md) (loaded by `specify.md` Step 7)
-- **Code-correctness analysis** →
-  [code-correctness.md](references/code-correctness.md) (loaded by
-  `verify.md` Step 5)
+- **Specify** ("plan feature", "spec this", "from PRD", "modify feature") →
+  [specify.md](instructions/specify.md)
+- **Design** ("design this feature", "technical design", "plan the build") →
+  [design.md](instructions/design.md)
+- **Tasks** ("create tasks", "break into tasks", "task breakdown") →
+  [tasks.md](instructions/tasks.md)
+- **Implement** ("implement task T-1", "implement story P1", "execute tasks";
+  `--all` runs every pending task) → [implement.md](instructions/implement.md)
+- **Audit** ("audit feature", "validate goals", "verify before PR") →
+  [audit.md](instructions/audit.md)
+- **Validate / UAT** ("run UAT", "manual testing", "validate flows") →
+  [validate.md](instructions/validate.md)
 
 ## Workflow
 
 ```text
-specify → design → tasks → implement → audit → done
-                                     ^           ^
-                                     |           |__ per-story commit OR pre-PR
-                                     |__ verify runs inside implement per task
+specify → design → tasks → implement → audit → [validate] → done → [archive]
+   │        │        │          │          │         │
+   │        │        │          │          │         └ only user-facing
+   └────────┴────────┴──────────┴──────────┴ Small skips all of this:
+                                              one-liner → implement inline
 ```
 
-Adaptive by depth, not by skipping: Specify and Implement always run. Design
-and Tasks run at every scope above Small -- light at Medium, full at
-Large/Complex. Small routes to quick-mode and skips the pipeline. Verify is
-internal to implement. Audit runs at the commit boundary (per-story or
-end-of-spec), always before PR.
+Depth follows scope, not phase-skipping above Small. Medium runs the full pipeline without fresh-eyes or heavy research; Large adds fresh-eyes and research; Complex adds `discuss.md` and approaches. Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is an optional post-merge command, never automatic.
 
-## Knowledge Verification Chain
+## References
 
-For all technical decisions, follow in order:
+Loaded on demand:
 
-1. Codebase
-2. Project docs
-3. External docs lookup (documentation service or vendored references)
-4. Web search
-5. Flag or ask
+- [sizing.md](references/sizing.md) — the four scopes, scope table, safety valve
+- [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, case convention
+- [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
+- [memory.md](references/memory.md) — `CONTEXT.md` and `STATE.md` formats, routing, conflicts
+- [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed)
+- [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
+- [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
+- `scripts/lessons.py` — run to add, list, promote, and render lessons
 
-Never skip to step 5 if steps 1-4 are available. **Never assume or
-fabricate** — follow the chain or say "I don't know."
+## Artifacts
 
-Record the source that grounded each decision and the scope the premise holds
-under — a decision with no codebase, docs, or ADR anchor is a red flag.
+Every artifact's structure is canonical in the instruction that produces it, inline and marked strict or flexible. Load the instruction before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-## Artifact Authority and Lifecycle
+A feature lives in `.artifacts/specs/{date}-{slug}/` while built and moves to `.artifacts/archive/{date}-{slug}/` only after merge. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
 
-Every artifact's structure is canonical in the matching reference (each
-ref carries its template inline, 1:1). Load the reference before reading
-any existing artifact in `.artifacts/` -- existing files are context,
-not structural reference. Template wins on divergence.
+## Status
 
-A spec lives in `.artifacts/specs/{date}-{name}/` while it is built and
-moves to `.artifacts/archive/` once `done` (quick mode: once committed).
-Discovery never forages siblings or `archive/` for shape or decisions --
-a pile of old specs out-votes the template and leaks superseded decisions
-into the current one. The only cross-feature input a new spec draws on is
-`.artifacts/knowledge.md`. Reading `archive/` is reserved for locating a
-*named* spec to re-audit or UAT.
+Minimal machine, single source in `spec.md` frontmatter:
+
+- `draft` — specify/design/tasks created the artifacts.
+- `in-progress` — implement started.
+- `done` — audit passed (and UAT, if `user-facing`).
 
 ## Guidelines
 
-- Separate content by purpose: spec = WHAT, design = HOW, tasks = WHEN
-- Follow status flow: `draft → ready → in-progress → to-review → done`
-- Name spec dirs `{date}-{name}` — date-keyed, no counters
-- Reuse research cache across features (`.artifacts/research/`)
-- Auto-size depth based on complexity — skip phases that add no value
-- Run audit at the commit boundary, before any PR
+- Separate by purpose: spec = WHAT + WHY, design = HOW, tasks = WHEN.
+- Size once, after discovery; default adversarial — when in doubt, size up.
+- On a broken scope (a new load-bearing decision, inline steps past ~5), stop
+  and raise a level; never push through in implement.
+- 1 task = 1 commit by default; fixes are new commits, never `--amend`.
+- Author ≠ auditor — the audit runs as an isolated subagent on the diff.
+- Advance by default; ask (discuss) only when the answer changes the next step.
 
 ## Anti-Pattern: Forced Full Depth
 
-Running every scope at full depth is process tax. Auto-sizing scales depth,
-not phases: small fixes go through `quick-mode.md`; medium scopes run a *light*
-design and *flat* tasks; large/complex scopes run the full
-design and full breakdown. Forcing the heavy data-model
-work and dependency graph onto a canonical reapplication is the tax to avoid --
-respect the depth the sizing assigned.
+Running every scope at full depth is process tax. Auto-sizing scales depth, not phases: a mechanical fix is a one-liner, a canonical reapplication runs a light Medium, and only a novel or ambiguous change earns fresh-eyes, approaches, and research. Forcing heavy grounding onto a routine change is the tax to avoid.
 
 ## Anti-Pattern: Deferred Verification
 
-Implementing all tasks first and verifying at the end loses traceability
-between implementation and acceptance criteria. Verify runs internally
-after every task or range -- never a final phase, never user-invoked.
-Failed verification reverts checked AC and reopens the relevant tasks.
+Implementing every task first and checking at the end loses the tie between code and its acceptance criteria. Verify is mental and runs after each task; the independent audit runs once at the end. A failed audit becomes fix tasks, not a silent pass.
 
-## Anti-Pattern: PR Before Audit
+## Anti-Pattern: Author Auditing Itself
 
-Opening a PR with `status: to-review` and running `audit` afterwards
-puts Goals and Success Criteria validation on the wrong side of the
-merge gate. Audit runs first at the commit boundary -- per-story or
-end-of-spec -- and only then does the commit/PR proceed.
-
-## Anti-Pattern: Knowledge Skipping
-
-Jumping to "I'll guess based on dependency name" or "let me web-search
-that" without exhausting steps 1-4 of the Knowledge Verification Chain
-produces fabricated patterns that don't match the codebase. Read the
-codebase first, then project docs, then external docs, then web. Only
-flag or ask after the chain is exhausted.
-
-## Anti-Pattern: Training Memory as Ground Truth
-
-Treating trained-in knowledge as authoritative for version-sensitive
-facts -- engine constraints, defaults, API surfaces, deprecations,
-runtime requirements -- silently bypasses the chain. Verify against the
-project's declared dep metadata, lockfile, and the dep's current
-documentation. Training cutoffs lag dep behavior.
+The agent that wrote the code cannot be the one that clears it — it re-reads its own intent, not the behavior. The audit is a fresh subagent handed only the diff, the artifacts, and the tests; it flags gaps and never edits code.

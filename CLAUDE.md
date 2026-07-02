@@ -41,7 +41,7 @@ grep -rn '\.md)' .             # spot-check that every relative link target stil
 grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty)
 ```
 
-Also confirm the `description` stays within the 1,536-char listing cap.
+Also confirm the `description` stays within the 1,024-char listing cap.
 
 ## Overview
 
@@ -414,7 +414,7 @@ docs/
 └── design/    # design-brief, wireframe-sketch, copywriting
 
 .artifacts/
-├── knowledge.md, codebase/, features/, quick/, research/   # spec-driven
+├── specs/, archive/, CONTEXT.md, STATE.md, lessons.json, LESSONS.md, codebase/, research/   # spec-driven
 ├── epics/     # epic-tracker
 └── design/    # design-brief; design/variants/ # craft-ui
 ```
@@ -446,7 +446,7 @@ you edit a skill file:
 
 - [ ] Folder at `skills/<category>/skill-name/`
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
-- [ ] `description` ≤ 1,536 chars (skill listing cap)
+- [ ] `description` ≤ 1,024 chars (skill listing cap)
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
 - [ ] Dynamic context injection (`` !`<cmd>` ``) limited to read-only commands
 - [ ] `README.md` present with mermaid + Usage

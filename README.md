@@ -95,7 +95,7 @@ business logic:
 
 ```
 spec-driven discovers gap (missing entity, orphan flow, NFR drift)
-    --> writes to knowledge.md ## Coherence Gaps
+    --> records the gap in CONTEXT.md ## Gotchas
     --> user reruns docs-writer with update mode
     --> docs-writer re-enters the responsible phase scoped to the gap
     --> spec-driven resumes with updated technical doc
@@ -111,13 +111,15 @@ docs/
 └── design/         # design-brief: visual identity · wireframe-sketch: layout · copywriting: content
 
 .artifacts/
-├── knowledge.md    # spec-driven: cross-feature decisions, gotchas, conventions
-├── codebase/       # spec-driven: area exploration cache (reusable)
+├── specs/          # spec-driven: per-feature spec, design, tasks, validation
+├── archive/        # spec-driven: features archived after merge
+├── CONTEXT.md      # spec-driven: cross-feature decisions, gotchas, conventions
+├── STATE.md        # spec-driven: active-feature handoff
+├── lessons.json    # spec-driven: canonical lessons (LESSONS.md rendered alongside)
+├── codebase/       # spec-driven: area exploration cache (regenerable)
+├── research/       # spec-driven: research cache
 ├── design/         # design-brief: tune session events · craft-ui: variant HTML
-├── epics/          # epic-tracker: epics, stories, bugs, issues, releases
-├── features/       # spec-driven: feature specs, designs, tasks
-├── quick/          # spec-driven: quick mode tasks
-└── research/       # spec-driven: research cache
+└── epics/          # epic-tracker: epics, stories, bugs, issues, releases
 ```
 
 Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace).

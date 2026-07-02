@@ -1,0 +1,79 @@
+# Specify
+
+Turn a feature intent into a `spec.md` describing observable behavior and the intent behind it — WHAT + WHY, never HOW.
+
+## When to Use
+
+When planning or specing a feature, turning a PRD, ticket, or story into a spec, or reframing a bug as the correct behavior. The first active phase: Small skips it (one-liner straight to implement); Medium and up produce `spec.md`.
+
+## Workflow
+
+1. **Triage** — is this Small (mechanical, zero load-bearing decisions)? If so, state the one-liner, confirm, and route to inline implement — no `spec.md`. Otherwise continue.
+2. **Load knowledge** — read `.artifacts/STATE.md` (if present, for resume), `.artifacts/CONTEXT.md`, confirmed lessons (`.artifacts/lessons.json`), and `AGENTS.md` / `CLAUDE.md`. See [memory.md](../references/memory.md) and [lessons.md](../references/lessons.md).
+3. **Discovery** — adaptive conversation on problem, scope, and priorities plus a completeness sweep; separate stated fact from assumption. See [discovery.md](../references/discovery.md).
+4. **Size** — set `scope` after discovery, default adversarial; infer `branch` from the content, never ask. See [sizing.md](../references/sizing.md).
+5. **Discuss** — only when a gray area is load-bearing and has no safe default. `discuss.md` is written only at Complex; otherwise fold the resolution into the spec. See [discovery.md](../references/discovery.md).
+6. **Write `spec.md`** — fill the template below. Author acceptance criteria per [acceptance-criteria.md](../references/acceptance-criteria.md).
+7. **Self-check** — run the three discriminator questions ([discriminator.md](../references/discriminator.md)) and close ambiguity: no `[needs-clarification]` marker may remain; no `agent`-origin assumption may appear as fact in Overview or Goals.
+8. **Fresh eyes** — Large/Complex only: one light completeness pass over the drafted spec. Found a hole → fix inline → re-check.
+9. **Approval gate** — present name and scope, 2-3 bullets of what changes, the short list of `agent`-origin assumptions and `[blocking]` open questions, then ask *"Move to design?"* Never hide the agent's assumptions.
+
+On writing `spec.md`, set `status: draft`.
+
+## Template: `spec.md`
+
+ALWAYS use this exact template structure. Fixed sections always appear; conditional sections appear only when their trigger is met.
+
+```markdown
+---
+name: {slug}
+scope: medium | large | complex
+sources: []                        # durable pointers (PRD/ticket/story); [] if none
+user-facing: true | false          # true → UAT required before done
+status: draft
+created: {YYYY-MM-DD}
+branch: {slug}                     # inferred from content, not asked
+---
+
+# Feature: {Title}
+
+## Overview
+{2-3 sentences: problem + what changes + why (macro why).}
+
+## Baseline            <!-- conditional: brownfield only, lean -->
+{Only the current behavior relevant to the delta. The agent reads code for the rest.}
+
+## Goals
+- [ ] {measurable observable result, e.g. "Checkout completes in < 3s (p95)"}
+
+## Non-Goals
+- {thing X} — {why it is out}
+
+## Glossary            <!-- conditional: only if a domain term appears -->
+| Term | Definition |
+
+## User Stories
+### P1 {Title}
+**As a** {role}, **I want** {capability}, **so that** {benefit}.
+
+**Acceptance Criteria:**
+- AC-1: {EARS-lite clause} (because {intent})   <!-- rationale inline OPTIONAL, non-obvious AC only -->
+- AC-2: {...}
+
+**Independent Test:** {how to demonstrate this story alone}
+
+## Visual References   <!-- conditional: only if an image/prototype exists -->
+
+## Edge Cases
+- {boundary condition → expected behavior}
+
+## Assumptions & Open Questions
+**Assumptions** — what was assumed to proceed (none of this appears as fact elsewhere)
+- {assumption} — assumed: {default} — because {reason} — origin: agent|user — confirm? yes|no
+
+**Open Questions**
+- [blocking]   {changes the spec/approach — needs an answer before proceeding}
+- [deferrable] {can proceed; revisit later}
+```
+
+MUST NOT contain: tech, library, framework, file path, component / function / class names, data structures, algorithms, architecture, implementation order, step sequences, or design-mechanism rationale. Those are HOW — they belong to design.md. A bug is a normal spec: write the AC as the correct behavior, not the absence of the symptom.
