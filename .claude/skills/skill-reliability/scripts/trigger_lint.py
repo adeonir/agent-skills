@@ -96,6 +96,8 @@ def lint_description(description, findings):
             findings.append(("MINOR", "description", f"description opens with filler '{opener}' — lead with the capability"))
     if re.search(r"\(1\).*\(2\)", description):
         findings.append(("MINOR", "description", "description uses a numbered (1)…(2) trigger list — weave triggers into prose instead"))
+    if "triggers:" in lowered:
+        findings.append(("MINOR", "description", "description uses a separate 'Triggers:' list — weave the phrases into the 'Use when' clause instead"))
     trigger_positions = [lowered.find(phrase) for phrase in TRIGGER_PHRASES if phrase in lowered]
     if not trigger_positions:
         findings.append(("MINOR", "description", "description states no explicit trigger ('Use when …') — readers can't tell when it fires"))
