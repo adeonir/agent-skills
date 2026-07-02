@@ -19,6 +19,8 @@ BUILTIN_COLLISIONS = ("code-review", "review", "simplify", "security-review")
 FILLER_OPENERS = ("helps with", "assists with", "supports", "tool for", "utility for")
 TRIGGER_PHRASES = ("use when", "use this", "use for", "use to")
 FOLD_INDICATORS = (">", ">-", ">+", "|", "|-", "|+")
+MECHANICS_PHRASES = ("under the hood", "behind the scenes", "falls back to")  # generic how-it-runs tells
+MECHANICS_TOKEN_RE = re.compile(r"\b(mcp|cli)\b")  # naming the transport is mechanics, not what/when
 
 
 def parse_frontmatter(text):
@@ -101,6 +103,13 @@ def lint_description(description, findings):
         capability = description[: min(trigger_positions)]
         if len(capability.split()) < CAPABILITY_MIN_WORDS:
             findings.append(("MINOR", "description", "description states no capability before its first trigger — lead with what the skill does"))
+
+    mechanics = next((phrase for phrase in MECHANICS_PHRASES if phrase in lowered), None)
+    if not mechanics:
+        token = MECHANICS_TOKEN_RE.search(lowered)
+        mechanics = token.group(1) if token else None
+    if mechanics:
+        findings.append(("MINOR", "description", f"description names skill mechanics ('{mechanics}') — state what and when, not how it runs; move mechanics to the skill body"))
 
 
 def main():

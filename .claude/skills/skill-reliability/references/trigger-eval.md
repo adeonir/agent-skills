@@ -18,9 +18,10 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/trigger_lint.py <skill-dir>
 
 It checks the frontmatter conventions: kebab-case `name`, a third-person
 description that states what the skill does before its inline "Use when"
-triggers, the length envelope, and the anti-patterns (filler openings, a
-numbered `(1)…(2)` trigger list, first/second person, reserved name tokens).
-Treat its findings as the structural floor; reason about the rest below.
+triggers, the length envelope, and the anti-patterns (filler openings, skill
+mechanics such as MCP/CLI transport or storage plumbing, a numbered `(1)…(2)`
+trigger list, first/second person, reserved name tokens). Treat its findings as
+the structural floor; reason about the rest below.
 
 ## Probe Set
 
@@ -53,6 +54,11 @@ file types, domain nouns, real user phrasings) that let it fire when the user
 never names the skill. Hold the rewrite to the repo conventions:
 
 - third-person and intent-first ("Use when …", not "this skill does …")
+- what + when in the user's vocabulary — keep the concrete anchors a user would
+  say (the anchors above), drop the mechanics a user would not (execution
+  mechanism, tooling, MCP or CLI transport, storage, fallback logic); the test
+  is "would the user say this word?" — mechanics live in the skill body, not the
+  trigger surface
 - distinctive enough to compete with sibling skills
 - triggers woven into prose, never a separate numbered list
 - under the 1024-character description cap
