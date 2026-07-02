@@ -1,19 +1,16 @@
 ---
 name: epic-tracker
 description: >-
-  Manages the delivery lifecycle from milestone and epic planning through
-  story tracking. 5 artifact types (Epic, Story, Bug,
-  Task, Release) plus a milestones registry. Tracker-first when configured (Linear, GitHub
-  Issues/Projects) via MCP or CLI — artifacts go directly to the
-  tracker with no local files. Falls back to markdown as source of
-  truth when no tracker is configured. Triggers: "create epic", "new
-  epic", "create story", "new story", "edit story", "create task",
-  "report bug", "create release", "create milestone", "decompose milestone",
-  "update status", "list epics", "sync to tracker", "push to linear",
-  "push to github",
-  "pull from tracker", "configure tracker".
-  Not for implementing a named story with an existing spec, project-
-  wide overview, feature status within a spec, or quick fixes.
+  Manages the delivery lifecycle from milestone and epic planning through story
+  tracking, across 5 artifact types (Epic, Story, Bug, Task, Release) plus a
+  milestones registry. Tracker-first when configured (Linear, GitHub
+  Issues/Projects) via MCP or CLI — artifacts go directly to the tracker; falls
+  back to local markdown when no tracker is configured. Use when creating or
+  editing an epic, story, task, bug, release, or milestone; decomposing a
+  milestone into epics and stories; updating or listing delivery status; or
+  syncing artifacts to or from Linear or GitHub. Not for implementing a named
+  story with an existing spec, project-wide overview, feature status within a
+  spec, or quick fixes.
 ---
 
 # Epic Tracker
