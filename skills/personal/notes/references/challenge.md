@@ -112,8 +112,3 @@ Failed challenges contain the most useful learnings — they reveal which
 assumptions broke and what would be tried differently. Documenting only
 successes turns the brag/challenge log into a vanity record. Capture
 both.
-
-## Next Steps
-
-- User may want to link to a company note (see [company.md](company.md))
-- User may add to brag document if challenge was particularly difficult
