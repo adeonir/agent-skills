@@ -2,7 +2,7 @@
 
 Translate generic epic-tracker operations into Linear primitives via the
 Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
-[../sync.md](../sync.md) when `epic-tracker.kind: linear`.
+[sync.md](sync.md) when `epic-tracker.kind: linear`.
 
 ## Primitive Mapping
 
@@ -54,7 +54,7 @@ Detect available states from the workspace via MCP before pushing. If
    validated `### AC-N` Given/When/Then blocks verbatim -- adapters do
    not transform AC structure, so a downstream consumer can parse these
    blocks back to structured AC. See
-   [../ac-validation.md](../ac-validation.md) for the contract.
+   [ac-validation.md](ac-validation.md) for the contract.
 3. For `create_bug`: add label `bug`. Add `severity:{level}` label when
    severity is provided.
 4. For `create_task`: add label `task`.

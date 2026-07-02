@@ -2,7 +2,7 @@
 
 Translate generic epic-tracker operations into GitHub primitives via the
 GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
-[../sync.md](../sync.md) when `tracker.kind: github`.
+[sync.md](sync.md) when `tracker.kind: github`.
 
 ## Model
 
@@ -144,7 +144,7 @@ Re-detect on demand via "configure tracker".
    must include the validated `### AC-N` Given/When/Then blocks
    verbatim — adapters do not transform AC structure, so a downstream
    consumer can parse these blocks back to structured AC. See
-   [../ac-validation.md](../ac-validation.md) for
+   [ac-validation.md](ac-validation.md) for
    the contract.
 2. Attach the Issue as a sub-issue under the parent Epic (`epic_id`
    required). Stories are always children of an Epic.

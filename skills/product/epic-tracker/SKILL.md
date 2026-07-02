@@ -3,10 +3,8 @@ name: epic-tracker
 description: >-
   Manages the delivery lifecycle from milestone and epic planning through story
   tracking, across 5 artifact types (Epic, Story, Bug, Task, Release) plus a
-  milestones registry. Tracker-first when configured (Linear, GitHub
-  Issues/Projects) via MCP or CLI — artifacts go directly to the tracker; falls
-  back to local markdown when no tracker is configured. Use when creating or
-  editing an epic, story, task, bug, release, or milestone; decomposing a
+  milestones registry. Use when creating or editing an epic, story, task, bug,
+  release, or milestone; decomposing a
   milestone into epics and stories; updating or listing delivery status; or
   syncing artifacts to or from Linear or GitHub. Not for implementing a named
   story with an existing spec, project-wide overview, feature status within a
@@ -51,9 +49,9 @@ Falls back to markdown when not.
 - **Sync** ("sync to tracker", "push to linear/github", "pull from
   tracker", "configure tracker") → [sync.md](references/sync.md)
 - **Linear adapter** (auto-loaded by sync) →
-  [adapters/linear.md](references/adapters/linear.md)
+  [adapter-linear.md](references/adapter-linear.md)
 - **GitHub adapter** (auto-loaded by sync) →
-  [adapters/github.md](references/adapters/github.md)
+  [adapter-github.md](references/adapter-github.md)
 
 `epic.md` opens with context discovery — reads `docs/product/PRD.md`,
 `.artifacts/epics/milestones.md`, and `docs/product/PRODUCT.md` before
@@ -70,7 +68,7 @@ their parent.
 `sync.md` is also auto-loaded by core refs (epic, story, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 
-`adapters/{linear,github}.md` are loaded by `sync.md` based on
+`adapter-{linear,github}.md` are loaded by `sync.md` based on
 `epic-tracker.kind`. Not direct triggers.
 
 `ac-validation.md` is auto-loaded by `story.md` (create) and

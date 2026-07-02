@@ -28,7 +28,7 @@ wrong push can clobber tracker state that other people rely on.
 GitHub uses sub-issues as the hierarchy primitive. Milestones and
 Projects v2 are orthogonal opt-in layers (date grouping, custom
 fields/views) — neither encodes Epic→Story. See
-[adapters/github.md](adapters/github.md) for details.
+[adapter-github.md](adapter-github.md) for details.
 
 Release uses the closest native primitive each tracker offers — no forced
 single concept across trackers.
@@ -96,8 +96,8 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
 2. Read `git config --get epic-tracker.kind`; if not set or `none`, fall
    back to markdown-only and inform the user.
 3. Load the adapter matching `epic-tracker.kind`:
-   - `linear` → [adapters/linear.md](adapters/linear.md)
-   - `github` → [adapters/github.md](adapters/github.md)
+   - `linear` → [adapter-linear.md](adapter-linear.md)
+   - `github` → [adapter-github.md](adapter-github.md)
 4. Adapter creates or updates the entity. Always attempt MCP first; if
    MCP is unavailable or fails (auth, server down, tool missing), fall
    back to the tracker's CLI (`gh`, `linear`). Runtime probing
