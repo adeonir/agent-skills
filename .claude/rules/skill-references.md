@@ -7,10 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-Reference and instruction files live one level deep, directly under
-`references/` or `instructions/`, with no nested subdirectories. A nested tree
-invites partial reads (e.g. `head -100`) that miss content carried in deeper
-files.
+Reference and instruction files live one level deep, directly under `references/` or `instructions/`, with no nested subdirectories. A nested tree invites partial reads (e.g. `head -100`) that miss content carried in deeper files.
 
 **Incorrect:**
 
@@ -28,9 +25,7 @@ references/auth-login.md
 
 **Impact: MEDIUM**
 
-Every reference opens with an H1 title, a one-line description, and a
-`## When to Use` section before any free sections. The header tells the agent
-when to load the file at all.
+Every reference opens with an H1 title, a one-line description, and a `## When to Use` section before any free sections. The header tells the agent when to load the file at all.
 
 **Incorrect:**
 
@@ -56,10 +51,7 @@ When committing staged or unstaged changes.
 
 **Impact: MEDIUM**
 
-A reference ends where its job ends; it never carries a `## Next Steps` section
-or prose like "Proceed to X" that pushes the agent into a downstream phase. A
-genuine prerequisite is a sibling cross-link in prose, not a closing nudge
-forward.
+A reference ends where its job ends; it never carries a `## Next Steps` section or prose like "Proceed to X" that pushes the agent into a downstream phase. A genuine prerequisite is a sibling cross-link in prose, not a closing nudge forward.
 
 **Incorrect:**
 

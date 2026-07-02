@@ -7,10 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-When a skill runs its own bundled script, reference it through
-`${CLAUDE_SKILL_DIR}` so it resolves regardless of the consumer's working
-directory. A bare relative path breaks when the skill runs from a project root
-that does not match the install layout.
+When a skill runs its own bundled script, reference it through `${CLAUDE_SKILL_DIR}` so it resolves regardless of the consumer's working directory. A bare relative path breaks when the skill runs from a project root that does not match the install layout.
 
 **Incorrect:**
 
@@ -28,9 +25,7 @@ python ${CLAUDE_SKILL_DIR}/scripts/extract.py "$@"
 
 **Impact: MEDIUM**
 
-Reference every MCP tool by its qualified `Server:tool_name`. Without the
-server prefix, the call is ambiguous when two servers expose the same tool
-name, and the agent may invoke the wrong one.
+Reference every MCP tool by its qualified `Server:tool_name`. Without the server prefix, the call is ambiguous when two servers expose the same tool name, and the agent may invoke the wrong one.
 
 **Incorrect:**
 
@@ -48,9 +43,7 @@ Call GitHub:create_issue to open the ticket.
 
 **Impact: MEDIUM**
 
-Every numeric constant in a bundled script carries a comment justifying its
-value. An unexplained constant is one the next author cannot safely change and
-one the model cannot reason about.
+Every numeric constant in a bundled script carries a comment justifying its value. An unexplained constant is one the next author cannot safely change and one the model cannot reason about.
 
 **Incorrect:**
 
@@ -68,9 +61,7 @@ chunk = data[:512]  # 512: provider embedding token limit per request
 
 **Impact: MEDIUM**
 
-A bundled script handles its own errors with explicit fallbacks (try/except,
-default values) instead of surfacing a raw exception for the agent to resolve.
-The script is the deterministic layer; punting defeats its purpose.
+A bundled script handles its own errors with explicit fallbacks (try/except, default values) instead of surfacing a raw exception for the agent to resolve. The script is the deterministic layer; punting defeats its purpose.
 
 **Incorrect:**
 

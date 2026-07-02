@@ -7,10 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-Skill content stays timeless: no absolute dates, no mutable version pins, no
-ephemeral product state, no "soon we will" language. When legacy and current
-content must coexist, mark the old one under a collapsed `<details>` block
-rather than dating it.
+Skill content stays timeless: no absolute dates, no mutable version pins, no ephemeral product state, no "soon we will" language. When legacy and current content must coexist, mark the old one under a collapsed `<details>` block rather than dating it.
 
 **Incorrect:**
 
@@ -28,10 +25,7 @@ Use the v2 endpoint: `api.example.com/v2/messages`.
 
 **Impact: MEDIUM**
 
-Choose one term per concept and keep it across SKILL.md, references, and
-templates within a skill. Mixing synonyms ("field" / "box" / "element", or
-"extract" / "pull" / "get") forces the model to re-map them and weakens
-matching.
+Choose one term per concept and keep it across SKILL.md, references, and templates within a skill. Mixing synonyms ("field" / "box" / "element", or "extract" / "pull" / "get") forces the model to re-map them and weakens matching.
 
 **Incorrect:**
 

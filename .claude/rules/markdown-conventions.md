@@ -2,9 +2,7 @@
 
 **Impact: MEDIUM**
 
-Every fenced code block carries a language tag. An untagged fence trips the
-repo's bare-fence self-check and loses syntax highlighting, and a security
-audit reads an unlabeled block as possible obfuscation.
+Every fenced code block carries a language tag. An untagged fence trips the repo's bare-fence self-check and loses syntax highlighting, and a security audit reads an unlabeled block as possible obfuscation.
 
 **Incorrect:**
 
@@ -26,8 +24,7 @@ npm install
 
 **Impact: MEDIUM**
 
-Write every path with forward slashes. Backslash paths break on Unix, and a
-skill runs on every platform the consumer uses.
+Write every path with forward slashes. Backslash paths break on Unix, and a skill runs on every platform the consumer uses.
 
 **Incorrect:**
 
@@ -45,9 +42,7 @@ scripts/helper.py
 
 **Impact: MEDIUM**
 
-Author every repository file in English — SKILL.md, references, templates, and
-README. Chat may be in any language, but shipped files stay English so the
-model and every reader share one source.
+Author every repository file in English — SKILL.md, references, templates, and README. Chat may be in any language, but shipped files stay English so the model and every reader share one source.
 
 **Incorrect:**
 

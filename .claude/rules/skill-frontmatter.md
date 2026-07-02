@@ -7,10 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-A skill `name` is kebab-case (lowercase letters, digits, hyphens) and never
-contains `anthropic` or `claude`. Because the name becomes the slash command,
-it must not collide with a Claude Code built-in (`code-review`, `review`,
-`simplify`, `security-review`); pick a distinct name when the job overlaps one.
+A skill `name` is kebab-case (lowercase letters, digits, hyphens) and never contains `anthropic` or `claude`. Because the name becomes the slash command, it must not collide with a Claude Code built-in (`code-review`, `review`, `simplify`, `security-review`); pick a distinct name when the job overlaps one.
 
 **Incorrect:**
 
@@ -28,9 +25,7 @@ name: review-lens
 
 **Impact: MEDIUM**
 
-Write `description` in the third person or as a noun phrase, never first or
-second person. A first-person ("I help...") or second-person ("You can
-use...") description reads as marketing and weakens trigger matching.
+Write `description` in the third person or as a noun phrase, never first or second person. A first-person ("I help...") or second-person ("You can use...") description reads as marketing and weakens trigger matching.
 
 **Incorrect:**
 
@@ -48,10 +43,7 @@ description: Git workflow for conventional commits and pull request creation.
 
 **Impact: MEDIUM**
 
-Weave trigger keywords into the description prose — action verbs and topical
-nouns inside sentences. Do not add a separate "Triggers:" list of quoted
-phrases, and never rely on a bare single word, which collides between skills;
-every literal phrase is two words or more.
+Weave trigger keywords into the description prose — action verbs and topical nouns inside sentences. Do not add a separate "Triggers:" list of quoted phrases, and never rely on a bare single word, which collides between skills; every literal phrase is two words or more.
 
 **Incorrect:**
 
@@ -73,10 +65,7 @@ description: >-
 
 **Impact: MEDIUM**
 
-Keep triggers and capability inside `description`; do not add a `when_to_use`
-field. The listing concatenates them under one 1,536-char cap, so a split
-fragments the single source — tighten the prose instead of spilling into a
-second field.
+Keep triggers and capability inside `description`; do not add a `when_to_use` field. The open Agent Skills standard caps `description` at 1,024 chars and defines no `when_to_use`, so a split has nowhere to go and fragments the single source — tighten the prose instead of spilling into a second field.
 
 **Incorrect:**
 
