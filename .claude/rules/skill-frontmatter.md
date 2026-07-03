@@ -81,3 +81,44 @@ description: >-
   Git workflow for commits. Use when committing staged changes or opening
   a pull request.
 ```
+
+## No Angle Brackets in Description
+
+**Impact: LOW**
+
+The `description` field carries no `<` or `>` characters. It is parsed as YAML and surfaced in tooling that may treat angle brackets as markup, so a literal bracket risks broken escaping or a truncated trigger. Name types and placeholders in prose or with square brackets instead. Angle-bracket XML tags stay allowed inside reference files that feed the model — see `skill-references`.
+
+**Incorrect:**
+
+```yaml
+description: Renders <html> artifacts and <svg> charts. Use when...
+```
+
+**Correct:**
+
+```yaml
+description: Renders HTML artifacts and SVG charts. Use when...
+```
+
+## Negative Scope in Description
+
+**Impact: MEDIUM**
+
+Close every `description` with a negative-scope clause that names the adjacent jobs the skill does not cover, opened with `Not for`. Skills coexist, so without an explicit boundary a description overtriggers onto a neighbor's job. Name the neighboring work it should not claim, not a generic disclaimer.
+
+**Incorrect:**
+
+```yaml
+description: >-
+  Git workflow for conventional commits and pull requests. Use when
+  committing staged changes or opening a pull request.
+```
+
+**Correct:**
+
+```yaml
+description: >-
+  Git workflow for conventional commits and pull requests. Use when
+  committing staged changes or opening a pull request. Not for code
+  review, acceptance-criteria verification, or session wrap-up.
+```
