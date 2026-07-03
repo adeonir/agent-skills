@@ -25,7 +25,7 @@ For the product-doc pair (`docs/product/PRD.md`, `docs/product/PRODUCT.md`), eac
 
 The Design Doc resolves the same way against its own artifact (`docs/tech/design-doc.md`): absent → discovery, present → reconcile the delta. It has no sibling to seed it, so it never mixes.
 
-Discovery builds an artifact fresh — its depth is the full topic set minus whatever an existing sibling already supplies. Reconcile reads an existing artifact as input and works only the gap or the declared change. The reconcile procedure lives in [reconcile.md](reconcile.md).
+Discovery builds an artifact fresh — its depth is the full topic set minus whatever an existing sibling already supplies. Reconcile reads an existing artifact as input and works only the gap or the declared change. The reconcile procedure lives in [reconcile.md](reconcile.md). Discovery may also be seeded by an upstream direction artifact when the document type has one — the PRD reads `docs/product/brainstorm.md` when present (see [prd.md](prd.md)). That is the conceptual-upstream axis, distinct from reading the codebase for present-state facts.
 
 ADRs are the exception: append-only, superseded by a new record and never reconciled, so this check does not apply to them.
 

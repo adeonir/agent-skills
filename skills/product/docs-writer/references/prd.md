@@ -25,7 +25,7 @@ check disk
 
 Decide by whether the artifact exists on disk (see [discovery.md](discovery.md)
 `## Discovery or Reconcile by Artifact State`). When `docs/product/PRD.md` does not
-exist, run the four discovery phases below. When it exists, reconcile instead — read
+exist, run the four discovery phases below — Phase 1 first seeds from an upstream direction artifact when present. When it exists, reconcile instead — read
 it as input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT
 resolves by its own artifact state in parallel.
 
@@ -38,6 +38,25 @@ These four phases run when no PRD exists yet. Never assume
 context. Discovery is adaptive — deepen topics based on the quality of answers,
 not a fixed script. Each topic has opening questions, signals for when to probe
 further, and criteria for when to move on.
+
+#### Seed from an upstream direction
+
+Before interviewing, check `docs/product/brainstorm.md` — a decided direction from a prior exploration, present only when one ran. The PRD never depends on it: absent → full discovery below; present → read it as input and discover only the delta.
+
+| Upstream section | Seeds | Behavior |
+|---|---|---|
+| Context | Topic 1 — problem, motivation, current state | confirm; deepen only on evidence gaps |
+| Constraints | Topic 5 constraints, Business Rule candidates | confirm |
+| Success Criteria | Goals & metrics | confirm |
+| Alternatives + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
+| Key Assumption | Assumptions | carry |
+| Open Questions | Open Questions | carry |
+
+Present each seeded topic as one proposed interpretation to confirm or correct — never re-run its opening questions cold. Then run full discovery on what the artifact does not carry: Users (Topic 2), Journeys (Topic 5), scope tiers and FR IDs, Business Rules, Edge Cases, NFRs — the PRD's own structure.
+
+Strip the exploration trail: rejected alternatives, Revision History, and the direction's name informed the decision but never cross into the PRD. Only the confirmed problem, constraints, and criteria carry, at PRD altitude.
+
+This is the conceptual-upstream axis (a decided direction), distinct from codebase exploration (present-state facts from code). Both are optional and independent.
 
 #### Topic 1: Problem
 
