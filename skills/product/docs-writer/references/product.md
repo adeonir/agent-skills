@@ -40,6 +40,15 @@ feed positioning directly, so run this topic against what they surfaced rather t
 re-asking. When drafted alone (the PRD already exists), run it fresh, seeded by the
 PRD.
 
+Seed from an upstream direction when present: check `docs/product/brainstorm.md`. The PRODUCT never depends on it — absent, run discovery as above; present, read it as input and confirm rather than re-ask.
+
+| Upstream section | Seeds | Behavior |
+|---|---|---|
+| Context | Product Purpose — identity, not metrics | confirm |
+| Alternatives + Decision | Anti-references — differentiation and negative space | confirm |
+
+The rejected directions and the deciding factor against the strongest rejected option are what Anti-references captures. Run the rest of the Positioning topic fresh — register, brand personality, design principles, audience posture — which the artifact does not carry. Strip the exploration trail (rejected options as a list, Revision History) and translate to positioning prose, never requirements.
+
 Load [discovery.md](discovery.md) for the shared interview patterns and critical
 posture.
 
