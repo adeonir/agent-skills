@@ -14,7 +14,7 @@ When designing a feature, planning the build, or producing the technical design 
 4. **Research** — only when the knowledge chain (codebase → project docs → Context7 MCP → web) is exhausted without an answer. Inline by default; a subagent only for a large or independent topic. Cache to `.artifacts/research/{topic}.md`. Require a throwaway spike when integration involves runtime wiring new to the codebase.
 5. **Approaches** — Complex only: present 2-3 approaches with trade-offs, recommend one, confirm with the user before detailing.
 6. **Write `design.md`** — fill the template below: components with reuse, decisions, traceability, risks.
-7. **Self-check** — boundaries hold (nothing from spec leaked in, nothing from tasks leaked in — see [discriminator.md](../references/discriminator.md)); any decision conflicting with `CONTEXT.md` is conformed or explicitly superseded, never ignored; every placement or trigger decision can name what it ruled out — if it cannot, the exploration is unfinished, not the design.
+7. **Self-check** — boundaries hold (nothing from spec leaked in, nothing from tasks leaked in — see [discriminator.md](../references/discriminator.md)); any decision conflicting with `CONTEXT.md` is conformed or explicitly superseded, never ignored; every placement or trigger decision fills its `Rejected` cell — an empty cell on a ≥2-entry-point choice means the exploration is unfinished, not the design.
 8. **Approval gate** — present the architecture in 1-2 sentences, main components, non-obvious decisions, 1-2 risks with mitigation, then ask *"Move to tasks?"*
 
 Read `CONTEXT.md` before any design decision. A project-level decision (a convention future features must follow) is appended to `CONTEXT.md ## Decisions`; a local decision stays in `design.md`.
@@ -47,8 +47,8 @@ spec: .artifacts/specs/{date}-{slug}/spec.md
 {Entities and relations; no exhaustive member enumeration.}
 
 ## Decisions
-| Decision | Choice | Source | Rationale |
-|----------|--------|--------|-----------|
+| Decision | Choice | Rejected | Source | Rationale |
+|----------|--------|----------|--------|-----------|
 
 ## Error Handling
 | Scenario | Handling | User Impact |
@@ -69,6 +69,6 @@ spec: .artifacts/specs/{date}-{slug}/spec.md
 {Notes on images/prototypes.}
 ```
 
-A placement or trigger with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the rejected alternative in its Rationale, even when one looks obvious.
+A placement or trigger with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the ruled-out alternative in its `Rejected` cell, even when one looks obvious. A `Rejected` cell is empty only when the decision genuinely had one viable home.
 
 MUST NOT contain: acceptance criteria restated (traceability references `AC-N`, never copies it), observable-behavior clauses (`When Y, then Z` — that is spec), function bodies, tests, step sequences, or commit order (those are tasks). Say *where* and *what responsibility*, never *how the function is written internally*. Subsystem presence is a declared assumption (`assumes X via file:line`), not a proof of wiring.
