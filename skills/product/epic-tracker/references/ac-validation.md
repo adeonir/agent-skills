@@ -8,11 +8,11 @@ ambiguous to anything that consumes it.
 ## When to Use
 
 - Auto-loaded by `story.md` (Step 3 Validate, before save or push)
-- Auto-loaded by `update-story.md` when an edit changes AC text
+- Auto-loaded by `story.md`'s edit branch when an edit changes AC text
 - Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
 
 This ref is the single home for the AC contract. Do not duplicate the
-rules in `story.md` or `update-story.md` -- both load this ref at the
+rules in `story.md` -- its create and edit paths load this ref at the
 validation step.
 
 ## AC Schema
@@ -131,7 +131,7 @@ single-assertion confirmation so the AC stays atomic for the downstream
 1:1 reshape.
 
 If any strict rule fails: do not proceed to save or push. The caller
-(`story.md` Step 3 or `update-story.md` validation branch) loops back to
+(`story.md` Step 3 or its edit branch) loops back to
 review until the user fixes the AC.
 
 ## Satisfies linkage
@@ -159,11 +159,11 @@ Read paths do not invoke this ref:
 - Pull from tracker (`sync.md` Pull Direction) -- legacy bodies may carry
   pre-Gherkin AC; the implementation consumer decides how to handle them.
 - Read-only navigation from epic checklist -- no validation runs.
-- `status.md` overview reads -- no body inspection.
+- Status and overview reads -- no body inspection.
 
 Stories created before this ref existed are not retroactively validated.
-Edits that do not change AC text also skip validation (see
-`update-story.md` diff branch 1).
+Edits that do not change AC text also skip validation (see `story.md`'s
+edit branch).
 
 ## Guidelines
 
@@ -178,7 +178,7 @@ Edits that do not change AC text also skip validation (see
 - Invent AC content for the user (contrasts: surface failures, let the user fix)
 - Validate on pull or read-only navigation (contrasts: validate only on create and AC-text-changing edits)
 - Block on V6 (contrasts: warn-only with confirm)
-- Embed validation logic in `story.md` or `update-story.md` (contrasts: this ref is the single home; both load it)
+- Embed validation logic in `story.md` (contrasts: this ref is the single home; story.md loads it on create and edit)
 
 ## Error Handling
 

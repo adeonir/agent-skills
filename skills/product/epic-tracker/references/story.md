@@ -9,6 +9,7 @@ Task, not a Story — see [discriminator.md](discriminator.md).
 
 - User wants to detail a story from an epic's checklist
 - User says "create story", "new story", "add story"
+- User says "edit story", "update story", "change story" — run the edit branch below
 - Breaking down an epic into actionable work items
 
 ## Workflow
@@ -129,6 +130,15 @@ replace the plain story name with a linked, numbered entry:
 ```markdown
 - [ ] [003-reset-password-flow](003-reset-password-flow.md) -- brief description
 ```
+
+## Editing an Existing Story
+
+Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — not status (status is set directly, against the tracker or the `status:` field). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
+
+1. Load the story (by name, id, or tracker URL) — pull via [sync.md](sync.md) when it carries a `tracker.id`, else read its markdown.
+2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
+3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, load [ac-validation.md](ac-validation.md), run V1-V8 strict, and loop back on failure. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+4. Save or push as create does — dispatch through [sync.md](sync.md) when the story has a `tracker.id`, else write the markdown in place.
 
 ## Guidelines
 

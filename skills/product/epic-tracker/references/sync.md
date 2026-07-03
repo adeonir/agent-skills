@@ -11,7 +11,7 @@ wrong push can clobber tracker state that other people rely on.
 
 - Direct trigger: "sync to tracker", "push to {linear,github}", "pull from tracker", "configure tracker"
 - Auto-loaded by core refs (epic, story, task, bug, release) after the artifact is saved when `epic-tracker.kind` is set and not `none`
-- Auto-loaded by `status.md` to read overview state from the tracker when configured
+- Invoked directly to read overview/list state from the tracker (`list_artifacts`) when reporting status
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -176,7 +176,7 @@ relation:
 `set_dependencies` is idempotent: it adds links present in `blocked_by` and
 removes tracker links no longer listed, so re-running sync after editing the
 field reconciles both sides. In markdown-only mode no resolution runs — the
-field is the source of truth and `status.md` reads it directly.
+field is the source of truth, read directly.
 
 ## Milestones
 
@@ -292,6 +292,6 @@ adapter's responsibility; each tracker has its own status enum.
 
 ## Outcomes
 
-- After successful push: artifact lives in the tracker; further status updates flow through the tracker (or via `status.md` which dispatches here)
+- After successful push: artifact lives in the tracker; further status updates flow through the tracker directly
 - After successful pull: frontmatter and body reflect the tracker; user can keep editing the markdown until the next push
 - After bootstrap: confirm to the user which tracker is now active and remind them how to override (`configure tracker`)

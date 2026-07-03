@@ -20,12 +20,13 @@ group releases, and push to a tracker (via MCP or CLI) when configured.
 ## Workflow
 
 ```text
-discover → create → sync* → track
-                          ^_______|  (sync is optional, gated by config)
+discover → create → sync*
+                    ^__|  (sync is optional, gated by config)
 ```
 
 Tracker-first when configured — artifacts go directly to the tracker.
-Falls back to markdown when not.
+Falls back to markdown when not. Status and overview happen directly — on
+the tracker when configured, else the markdown files; no dedicated ref.
 
 ## Triggers
 
@@ -34,18 +35,14 @@ Falls back to markdown when not.
   milestones") → [milestone.md](references/milestone.md)
 - **Decompose** ("decompose milestone", "break down milestone", "create
   epics from a milestone") → [decompose.md](references/decompose.md)
-- **Story** ("create story", "new story", "add story") →
-  [story.md](references/story.md)
-- **Edit Story** ("edit story", "update story body", "change story") →
-  [update-story.md](references/update-story.md)
+- **Story** ("create story", "new story", "add story", "edit story",
+  "update story", "change story") → [story.md](references/story.md)
 - **Bug** ("create bug", "report bug", "bug report") →
   [bug.md](references/bug.md)
 - **Task / Chore** ("create task", "new task", "add task",
   "create chore") → [task.md](references/task.md)
 - **Release** ("create release", "new release") →
   [release.md](references/release.md)
-- **Status** ("status", "update status", "mark done", "list epics",
-  "overview") → [status.md](references/status.md)
 - **Sync** ("sync to tracker", "push to linear/github", "pull from
   tracker", "configure tracker") → [sync.md](references/sync.md)
 - **Linear adapter** (auto-loaded by sync) →
@@ -63,16 +60,14 @@ from that registry and creates its epic set, composing `epic.md` (and
 optionally `story.md`); the epics it creates carry a `milestone:` pointer to
 their parent.
 
-`status.md` covers status updates and the delivery overview.
-
 `sync.md` is also auto-loaded by core refs (epic, story, task, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 
 `adapter-{linear,github}.md` are loaded by `sync.md` based on
 `epic-tracker.kind`. Not direct triggers.
 
-`ac-validation.md` is auto-loaded by `story.md` (create) and
-`update-story.md` (when AC text changes). Not a direct trigger.
+`ac-validation.md` is auto-loaded by `story.md` on create and on edits
+that change AC text. Not a direct trigger.
 
 `discriminator.md` owns the Bug/Story/Task type rule — loaded when a trigger
 does not name the type, and referenced by the create refs on type disputes.
@@ -92,6 +87,8 @@ Not a direct trigger.
 - Decompose a milestone into its epics with `decompose.md`; record the
   `milestone:` parent pointer on each epic
 - Delegate sizing to the implementation phase
+- Status values: `planned`, `in-progress`, `done`, `blocked` (releases use `released`)
+- Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write
 
 ## Anti-Pattern: Tracker Operations in Core Refs
 
