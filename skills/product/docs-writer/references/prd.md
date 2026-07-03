@@ -83,13 +83,13 @@ further, and criteria for when to move on.
 
 #### Topic 3: Market & Differentiation
 
+**Feeds PRODUCT, not the PRD** — run this topic only when PRODUCT is being drafted this run (both artifacts absent). Skip it entirely for a PRD-only run: nothing in the PRD consumes it. When it runs, it also informs scope decisions and validation.
+
 **Opening questions:**
 
 - How do people solve this today? (existing tools, workarounds, competitors)
 - What makes your approach different or better?
 - Why hasn't this been solved yet? (timing, technology, market gap)
-
-**Codebase trigger:** When "how it's solved today" points at the product's own existing behavior or built-in workarounds — not external competitors — read the code to ground the current-solution picture before asking. External alternatives are not code-answerable; keep asking those.
 
 **Deepen when:**
 
@@ -103,9 +103,6 @@ further, and criteria for when to move on.
 - Clear picture of how the problem is currently solved
 - Differentiator is articulated beyond feature comparison
 - User understands the competitive context
-
-**Note:** Market & differentiation feeds PRODUCT, not the PRD. Still
-essential discovery — it informs scope decisions and validation.
 
 #### Topic 4: Value & Scope
 
