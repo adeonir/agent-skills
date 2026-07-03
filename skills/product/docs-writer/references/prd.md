@@ -89,6 +89,8 @@ further, and criteria for when to move on.
 - What makes your approach different or better?
 - Why hasn't this been solved yet? (timing, technology, market gap)
 
+**Codebase trigger:** When "how it's solved today" points at the product's own existing behavior or built-in workarounds — not external competitors — read the code to ground the current-solution picture before asking. External alternatives are not code-answerable; keep asking those.
+
 **Deepen when:**
 
 - "Nothing like this exists" → "How do people cope today? Even manual workarounds count."
@@ -134,6 +136,8 @@ essential discovery — it informs scope decisions and validation.
 - Walk me through the main flow: what does the user do from start to finish?
 - Are there rules or constraints the product must enforce? (limits, permissions, conditions)
 - What can go wrong? What happens when it does?
+
+**Codebase trigger:** If the journey touches existing features, systems, or flows, explore the codebase to map the current flow before asking the user to describe it. Carry the flow's shape into the journey, not the code.
 
 **Deepen when:**
 
