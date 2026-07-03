@@ -11,7 +11,7 @@ Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
 | Epic     | Project | Linear's Project is a thematic container for related issues |
 | Story    | Issue | Standard work unit |
 | Bug      | Issue + label `bug` | Same primitive as Story; `bug` label distinguishes type |
-| Task     | Issue + label `task` | Same primitive as Story; `task` label distinguishes internal work |
+| Task     | Issue + label `task` | Same primitive as Story; `task` label distinguishes non-story work |
 | Release  | Cycle | Linear has no first-class Release; Cycle is the closest native primitive (sprint-like, but used here as the ship-together grouping) |
 
 ## Status Mapping

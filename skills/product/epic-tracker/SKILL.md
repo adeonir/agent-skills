@@ -74,6 +74,10 @@ after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 `ac-validation.md` is auto-loaded by `story.md` (create) and
 `update-story.md` (when AC text changes). Not a direct trigger.
 
+`discriminator.md` owns the Bug/Story/Task type rule — loaded when a trigger
+does not name the type, and referenced by the create refs on type disputes.
+Not a direct trigger.
+
 ## Guidelines
 
 - Use kebab-case for all artifact and folder names

@@ -1,15 +1,17 @@
 # Create Task
 
-Document a unit of internal work that is not user-facing (like a story)
-and not a defect (like a bug). Use for infrastructure, refactoring,
-tooling, research, CI/CD, documentation, or any chore-type work.
+Document a general unit of actionable work — anything that is not a user
+story with acceptance criteria and not a defect. Commonly infrastructure,
+refactoring, tooling, research, CI/CD, or documentation. A task is defined
+by form, not audience: no user-story frame, no acceptance criteria,
+measured by a Definition of Done.
 
 ## When to Use
 
-- User wants to file a chore, internal task, or non-feature work item
+- User wants to file a task, chore, or general work item
 - User says "create task", "new task", "add task", "chore"
-- Work is internal (CI setup, dependency upgrade, refactor) — not a
-  user-facing feature and not a defect
+- Work is not framed as a user story with acceptance criteria and is not
+  a defect — measured by a Definition of Done, whatever its audience
 
 ## Workflow
 
@@ -47,7 +49,7 @@ If no context was pasted, proceed to step 2.
 A task carries no requirement IDs and no acceptance criteria — it is
 AC-less work measured by its `## Definition of Done`. Work that delivers
 a PRD requirement and needs verifiable acceptance criteria is a story,
-not a task.
+not a task. When the type is unclear, see [discriminator.md](discriminator.md).
 
 ### 3. Draft
 
@@ -110,13 +112,13 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 ## Guidelines
 
 **DO:**
-- Use for internal work that has no direct user-facing outcome
+- Use for general actionable work that isn't a user story with AC or a defect
 - Keep the description focused on one outcome per task
 - Write a Definition of Done — the verifiable conditions that mark the task complete
 - Link to the parent epic when the task advances an epic's delivery
 
 **DON'T:**
-- Use for user-facing features (contrasts: use story for user outcomes)
+- Use for work that delivers a PRD requirement with acceptance criteria (contrasts: that's a story)
 - Use for defects (contrasts: use bug for defects with repro steps)
 - Add acceptance criteria — a task is AC-less (contrasts: description + Definition of Done is enough; AC belongs to a story)
 - Create an task when a story or bug is the right type (ask if

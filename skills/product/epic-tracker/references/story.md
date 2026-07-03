@@ -1,7 +1,9 @@
 # Create Story
 
-Define a unit of deliverable work within an epic, with acceptance criteria
-that can be verified independently.
+Define a story: a demonstrable slice of user-visible value within an epic,
+with acceptance criteria that are verified independently and satisfy a
+parent-epic requirement. Enabling work with no demonstrable user outcome is a
+Task, not a Story — see [discriminator.md](discriminator.md).
 
 ## When to Use
 
@@ -133,7 +135,7 @@ replace the plain story name with a linked, numbered entry:
 **DO:**
 - Write acceptance criteria that are testable without knowing
   implementation
-- Keep scope tight — one story should map to one implementation feature
+- Keep scope tight — one story delivers one demonstrable user outcome, not a horizontal building block
 - Reference the parent epic for broader context
 - Update the epic's story checklist after creating the story
 

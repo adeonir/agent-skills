@@ -63,7 +63,7 @@ decompose milestone        -- break a milestone into its epics
 create story               -- add a user-facing story to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
-create task                -- file an internal work item (infra, refactor, tooling, research)
+create task                -- file a general work item (infra, refactor, tooling, research, ...)
 create release             -- group stories across epics for delivery
 list epics                 -- show the delivery overview
 mark done                  -- update artifact status
