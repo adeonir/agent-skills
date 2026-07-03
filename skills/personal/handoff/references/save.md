@@ -97,7 +97,9 @@ adjacent threads. Snapshot Findings/Decisions stay terse human prose
    into working context. Skip silently when claude-mem MCP is absent.
 3. Compose the snapshot from working context. Apply the
    anti-duplication rule — reference artifacts by path, do not
-   replay them.
+   replay them. Redact secrets: replace API keys, tokens,
+   passwords, PII, and credentials embedded in URLs with
+   `{redacted}` before writing.
 4. If an argument was passed, treat it as the focus of the next
    session and tailor `Focus` and `Next step` accordingly.
 5. Decide which optional sections apply. Omit any that would be
@@ -116,6 +118,9 @@ adjacent threads. Snapshot Findings/Decisions stay terse human prose
 - Bullets, not paragraphs — keep each section terse
 - Append at the top so load consumers always read the latest first
 - Reference artifacts by path or URL; never replay their content
+- Redact secrets before writing — API keys, tokens, passwords,
+  PII, and credentials in URLs become `{redacted}`; conversation
+  context is not a safe place for secrets
 - Tailor to the argument when present; capture generic state when
   absent
 - Run Enrich Phase when claude-mem MCP is available; scope strictly
