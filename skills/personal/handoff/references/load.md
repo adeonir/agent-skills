@@ -1,6 +1,6 @@
 # Load Snapshot
 
-Read `.artifacts/.handoff.md` so the current session resumes
+Read `.artifacts/HANDOFF.md` so the current session resumes
 with prior context.
 
 ## When to Use
@@ -12,7 +12,7 @@ with prior context.
 
 ## Workflow
 
-1. Check `.artifacts/.handoff.md`:
+1. Check `.artifacts/HANDOFF.md`:
    - **Absent**: silent no-op, return without output
    - **Empty or has no `## YYYY-MM-DD HH:MM` blocks**: silent no-op
 2. Read the file.

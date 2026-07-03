@@ -1,6 +1,6 @@
 # Session Handoff Lifecycle
 
-Load any session handoff at `.artifacts/.handoff.md` for
+Load any session handoff at `.artifacts/HANDOFF.md` for
 downstream notes, run structural-delta detection, and clear the file
 at the end so it does not leak into the next session.
 
@@ -10,7 +10,7 @@ at the end so it does not leak into the next session.
   obsidian-notes) and once after obsidian-notes (Detect + Cleanup
   phases, last)
 - All phases short-circuit silently when
-  `.artifacts/.handoff.md` is absent
+  `.artifacts/HANDOFF.md` is absent
 
 ## Workflow
 
@@ -18,7 +18,7 @@ at the end so it does not leak into the next session.
 
 Runs after mapping, before obsidian-notes.
 
-1. Check `.artifacts/.handoff.md`. If absent, no-op silently —
+1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently —
    Detect and Cleanup will likewise no-op later.
 2. Read the **whole file**. Collect **every**
    `## YYYY-MM-DD HH:MM — {title}` block — not just the topmost. A
@@ -99,7 +99,7 @@ Runs last. Auto-clears without asking — wrap-up has already persisted
 the snapshot to Obsidian, so the on-disk handoff is redundant by the
 end of the workflow.
 
-Write empty content to `.artifacts/.handoff.md`. Do not delete
+Write empty content to `.artifacts/HANDOFF.md`. Do not delete
 the file — an empty file is treated as missing on the next Load, and
 writing avoids a Bash permission prompt.
 

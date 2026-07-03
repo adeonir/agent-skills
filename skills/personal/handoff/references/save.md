@@ -1,7 +1,7 @@
 # Save Snapshot
 
 Append a new snapshot block at the top of
-`.artifacts/.handoff.md`.
+`.artifacts/HANDOFF.md`.
 
 ## When to Use
 
@@ -104,7 +104,7 @@ adjacent threads. Snapshot Findings/Decisions stay terse human prose
    session and tailor `Focus` and `Next step` accordingly.
 5. Decide which optional sections apply. Omit any that would be
    empty — do not include the label.
-6. Check `.artifacts/.handoff.md`:
+6. Check `.artifacts/HANDOFF.md`:
    - **Absent**: create it with `# Handoff` as the H1, then the
      snapshot block immediately after
    - **Present**: prepend the new snapshot block above existing

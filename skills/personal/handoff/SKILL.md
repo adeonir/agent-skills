@@ -13,15 +13,15 @@ argument-hint: "[next session focus]"
 
 # Handoff
 
-Capture conversation state to `.artifacts/.handoff.md` so a later
+Capture conversation state to `.artifacts/HANDOFF.md` so a later
 session resumes with full context. Three ops: save, load, clear.
 
 ## Workflow
 
 ```
-save  → append snapshot at top of .artifacts/.handoff.md
-load  → Read .artifacts/.handoff.md; latest snapshot at top
-clear → overwrite .artifacts/.handoff.md with empty content
+save  → append snapshot at top of .artifacts/HANDOFF.md
+load  → Read .artifacts/HANDOFF.md; latest snapshot at top
+clear → overwrite .artifacts/HANDOFF.md with empty content
 ```
 
 ## Triggers
@@ -34,7 +34,7 @@ clear → overwrite .artifacts/.handoff.md with empty content
 
 ## Clear
 
-Write empty content to `.artifacts/.handoff.md`. Do not delete the
+Write empty content to `.artifacts/HANDOFF.md`. Do not delete the
 file — an empty file is treated as missing on next load, and writing
 avoids a Bash permission prompt. Silent no-op when the file is
 already absent.

@@ -6,7 +6,7 @@ Capture conversation state so another session can resume.
 
 ```mermaid
 flowchart LR
-    A[save] --> B[.artifacts/.handoff.md]
+    A[save] --> B[.artifacts/HANDOFF.md]
     B --> C[load]
     C --> D[next session resumes]
     B -.-> E[clear]
@@ -14,7 +14,7 @@ flowchart LR
 
 | Op | Output |
 |----|--------|
-| save | New snapshot prepended at the top of `.artifacts/.handoff.md` |
+| save | New snapshot prepended at the top of `.artifacts/HANDOFF.md` |
 | load | Latest snapshot folded into the current session's working context |
 | clear | File overwritten with empty content (opt-in, separate op) |
 
@@ -37,7 +37,7 @@ reset handoff
 
 ## Output
 
-`.artifacts/.handoff.md` — newest snapshot at the top.
+`.artifacts/HANDOFF.md` — newest snapshot at the top.
 
 Two sections are always present (`Focus`, `Next step`); five are
 optional and omitted when empty:
