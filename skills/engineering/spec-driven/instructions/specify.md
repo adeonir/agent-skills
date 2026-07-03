@@ -14,7 +14,7 @@ When planning or specing a feature, turning a PRD, ticket, or story into a spec,
 4. **Size** — set `scope` after discovery, default adversarial; infer `branch` from the content, never ask. See [sizing.md](../references/sizing.md).
 5. **Discuss** — only when a gray area is load-bearing and has no safe default. `discuss.md` is written only at Complex; otherwise fold the resolution into the spec. See [discovery.md](../references/discovery.md).
 6. **Write `spec.md`** — fill the template below. Author acceptance criteria per [acceptance-criteria.md](../references/acceptance-criteria.md).
-7. **Self-check** — run the three discriminator questions ([discriminator.md](../references/discriminator.md)) and close ambiguity: no `[needs-clarification]` marker may remain; no `agent`-origin assumption may appear as fact in Overview or Goals.
+7. **Self-check** — run the three discriminator questions ([discriminator.md](../references/discriminator.md)) and close ambiguity: no `[needs-clarification]` marker may remain; no `agent`-origin assumption may appear as fact in Overview or Goals. When the spec is PRD-seeded (Author mode from a doc with `FR/BR/EC/NFR` IDs), confirm every source requirement maps to ≥1 AC via `Satisfies` — an uncovered requirement becomes an AC or an explicit Non-Goal / `[deferrable]` open question with a reason, never a silent drop.
 8. **Fresh eyes** — Large/Complex only: one light completeness pass over the drafted spec. Found a hole → fix inline → re-check.
 9. **Approval gate** — present name and scope, 2-3 bullets of what changes, the short list of `agent`-origin assumptions and `[blocking]` open questions, then ask *"Move to design?"* Never hide the agent's assumptions.
 
@@ -58,6 +58,7 @@ branch: {slug}                     # inferred from content, not asked
 
 **Acceptance Criteria:**
 - AC-1: {EARS-lite clause} (because {intent})   <!-- rationale inline OPTIONAL, non-obvious AC only -->
+  **Satisfies:** {FR/BR/EC/NFR-ID}              <!-- conditional: PRD-seed only; the requirement this AC operationalizes -->
 - AC-2: {...}
 
 **Independent Test:** {how to demonstrate this story alone}

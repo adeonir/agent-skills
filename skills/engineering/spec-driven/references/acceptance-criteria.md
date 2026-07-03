@@ -4,7 +4,7 @@ EARS-lite acceptance criteria: the five clause shapes, the two authoring modes, 
 
 ## When to Use
 
-During specify, when writing or reshaping the acceptance criteria under each user story. Also read during audit to confirm each AC maps to a discriminating test.
+During specify, when writing or reshaping the acceptance criteria under each user story, and when confirming every PRD requirement reached an AC. Also read during audit to confirm each AC maps to a discriminating test.
 
 ## EARS-lite — five shapes
 
@@ -37,7 +37,7 @@ The agent judges inline — no formal type detection:
 
 ## Backward provenance — `Satisfies`
 
-Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the audit anchors on. Prompt and story seeds do not write it (a story inherits the link 1:1 via the `sources:` pointer). Keep the link on the `**Satisfies**` line, never in prose.
+Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. Prompt and story seeds do not write it (a story inherits the link 1:1 via the `sources:` pointer). Keep the link on the `**Satisfies**` line, never in prose.
 
 ## Case convention — two classes
 
