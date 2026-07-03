@@ -1,11 +1,11 @@
 ---
 name: epic-tracker
 description: >-
-  Manages the delivery lifecycle from milestone and epic planning through story
+  Manages the delivery lifecycle from roadmap and epic planning through story
   tracking, across 5 artifact types (Epic, Story, Bug, Task, Release) plus a
-  milestones registry. Use when creating or editing an epic, story, task, bug,
-  release, or milestone; decomposing a
-  milestone into epics and stories; updating or listing delivery status; or
+  roadmap. Use when creating or editing an epic, story, task, bug,
+  release, or roadmap; decomposing a
+  roadmap into epics or an epic into stories; updating or listing delivery status; or
   syncing artifacts to or from Linear or GitHub. Not for implementing a named
   story with an existing spec, project-wide overview, feature status within a
   spec, or quick fixes.
@@ -31,10 +31,11 @@ the tracker when configured, else the markdown files; no dedicated ref.
 ## Triggers
 
 - **Epic** ("create epic", "new epic") → [epic.md](references/epic.md)
-- **Milestone** ("create milestone", "define milestone", "plan
-  milestones") → [milestone.md](references/milestone.md)
-- **Decompose** ("decompose milestone", "break down milestone", "create
-  epics from a milestone") → [decompose.md](references/decompose.md)
+- **Roadmap** ("create roadmap", "plan the roadmap", "organize epics",
+  "roadmap the PRD") → [roadmap.md](references/roadmap.md)
+- **Decompose** ("decompose", "break down the roadmap", "break this epic
+  into stories", "materialize the epics") →
+  [decompose.md](references/decompose.md)
 - **Story** ("create story", "new story", "add story", "edit story",
   "update story", "change story") → [story.md](references/story.md)
 - **Bug** ("create bug", "report bug", "bug report") →
@@ -51,14 +52,15 @@ the tracker when configured, else the markdown files; no dedicated ref.
   [adapter-github.md](references/adapter-github.md)
 
 `epic.md` opens with context discovery — reads `docs/product/PRD.md`,
-`.artifacts/epics/milestones.md`, and `docs/product/PRODUCT.md` before
+`docs/ROADMAP.md`, and `docs/product/PRODUCT.md` before
 prompting; falls back to direct questions when none exist.
 
-`milestone.md` records delivery phases in the registry
-(`.artifacts/epics/milestones.md`); `decompose.md` reads a chosen milestone
-from that registry and creates its epic set, composing `epic.md` (and
-optionally `story.md`); the epics it creates carry a `milestone:` pointer to
-their parent.
+`roadmap.md` organizes the project's epics into an ordered flow derived
+from the PRD and writes the living plan to `docs/ROADMAP.md` (committed,
+local — no tracker mirror); it does not create epics. `decompose.md`
+materializes a level: point it at the roadmap to create its epics, or at
+an epic to create its stories and tasks — composing `epic.md`, `story.md`,
+and `task.md` and staying idempotent.
 
 `sync.md` is also auto-loaded by core refs (epic, story, task, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
@@ -84,8 +86,8 @@ Not a direct trigger.
   edits that change AC text
 - Capture cross-artifact order with `blocked_by`; sync maps it to the
   tracker's native dependency relation
-- Decompose a milestone into its epics with `decompose.md`; record the
-  `milestone:` parent pointer on each epic
+- Decompose the roadmap into its epics (or an epic into its stories and
+  tasks) with `decompose.md`
 - Delegate sizing to the implementation phase
 - Status values: `planned`, `in-progress`, `done`, `blocked` (releases use `released`)
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write

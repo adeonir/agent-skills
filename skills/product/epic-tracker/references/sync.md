@@ -25,10 +25,9 @@ wrong push can clobber tracker state that other people rely on.
 | Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 | Release  | Cycle | Release tag |
 
-GitHub uses sub-issues as the hierarchy primitive. Milestones and
-Projects v2 are orthogonal opt-in layers (date grouping, custom
-fields/views) — neither encodes Epic→Story. See
-[adapter-github.md](adapter-github.md) for details.
+GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an
+orthogonal opt-in layer (custom fields/views) — it does not encode
+Epic→Story. See [adapter-github.md](adapter-github.md) for details.
 
 Release uses the closest native primitive each tracker offers — no forced
 single concept across trackers.
@@ -42,7 +41,6 @@ Read and written via `git config --local`. Keys:
 | `epic-tracker.kind` | all | `linear`, `github`, or `none` |
 | `epic-tracker.workspace` | Linear | team workspace slug |
 | `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
-| `epic-tracker.milestones` | all | `true` to mirror epic milestones to the tracker's native grouping; unset or `false` keeps them markdown-only |
 
 When `epic-tracker.kind` is `none` or unset, the skill skips all tracker
 operations; markdown is the sole source of truth.
@@ -116,9 +114,6 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
    - If the artifact declares `blocked_by`, resolve the paths to tracker
      ids and call `set_dependencies` (see Dependencies). Missing blockers
      are skipped with a warning, never failing the push.
-   - If the epic declares `milestone:` and the milestone mirror is enabled,
-     call `set_milestone` (see Milestones). When the mirror is off, skip it
-     silently — the milestone stays markdown-only.
 6. On failure, surface the error and leave any existing markdown untouched.
    Suggest re-running sync once the issue is resolved.
 
@@ -131,8 +126,7 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
 5. Detect conflicts (see below).
 6. Update markdown content + frontmatter `tracker.last_synced`, and refresh
    `blocked_by` from the entity's native dependency relations (see
-   Dependencies) and `milestone:` from the native grouping when the mirror
-   is enabled (see Milestones).
+   Dependencies).
 
 AC validation does not run on pull. Pulled bodies may contain legacy AC
 format from before the Given/When/Then enforcement; the implementation
@@ -178,41 +172,6 @@ removes tracker links no longer listed, so re-running sync after editing the
 field reconciles both sides. In markdown-only mode no resolution runs — the
 field is the source of truth, read directly.
 
-## Milestones
-
-An epic may carry a `milestone:` pointer (its milestone in the registry, see
-[milestone.md](milestone.md) and [epic.md](epic.md)). Mirroring milestones to
-the tracker is **opt-in and never forced** — the milestone always works in
-markdown (the registry `.artifacts/epics/milestones.md` plus the `milestone:`
-pointer on epics); the tracker grouping is an optional layer on top.
-
-| Tracker | Native grouping |
-|---------|-----------------|
-| GitHub  | Milestone (repo-level; an Issue belongs to at most one) |
-| Linear  | Initiative (groups Projects = epics) |
-
-Gate the mirror on two conditions:
-
-1. A tracker is configured (`epic-tracker.kind` set and not `none`).
-2. The mirror is enabled (`epic-tracker.milestones` is `true`).
-
-When a tracker is configured but `epic-tracker.milestones` is unset, ask once
-— "Mirror epic milestones to the tracker's native grouping?" — and persist
-the answer with `git config --local epic-tracker.milestones {true|false}`.
-Re-ask only via "configure tracker".
-
-- **Push:** when both gates pass and the epic has a `milestone:`, resolve that
-  slug to its **Title** in the registry and call the adapter's `set_milestone`
-  with the title after the epic is created. The native grouping stays thin —
-  the milestone's definition lives in the registry, never copied
-  into the tracker. When the mirror is off or no tracker is configured, the
-  milestone stays markdown-only; nothing is pushed.
-- **Pull:** refresh `milestone:` from the entity's native grouping when the
-  mirror is enabled; otherwise leave the markdown pointer untouched.
-
-Stories inherit their epic's milestone grouping where the tracker supports it
-(see the adapters).
-
 ## Conflict Detection and Resolution
 
 When pull state differs from local state, surface the conflict before
@@ -256,8 +215,7 @@ these operations using its own MCP calls:
 | `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
-| `set_milestone` | tracker_id, milestone_title | success |
-| `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by, milestone) |
+| `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by) |
 | `list_artifacts` | filter (epic, status, etc.) | list of summaries |
 
 Status mapping (planned -> in-progress -> done -> blocked) is the

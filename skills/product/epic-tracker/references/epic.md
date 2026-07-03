@@ -19,12 +19,10 @@ Check for existing context before asking questions:
 1. Look for `docs/product/PRD.md` -- extract relevant functional
    requirements and scope, and note the requirement IDs
    (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below)
-2. Look for `.artifacts/epics/milestones.md` -- find the milestone this
-   epic serves, if any
-3. Look for `docs/product/PRODUCT.md` -- extract positioning (value
+2. Look for `docs/product/PRODUCT.md` -- extract positioning (value
    proposition, audience posture)
-4. If found, summarize what was extracted and confirm with user
-5. If not found, ask the user:
+3. If found, summarize what was extracted and confirm with user
+4. If not found, ask the user:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
@@ -32,18 +30,13 @@ Check for existing context before asking questions:
 **Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay
 read-only and scoped to this epic. Extract only what maps to it, then
 **translate into epic language**: strip `§3.7` section numbers, internal
-reference codes, sibling artifact names, milestone content and
-roadmap/sequencing framing, and domain jargon that doesn't stand alone. The
+reference codes, sibling artifact names, roadmap/sequencing framing,
+and domain jargon that doesn't stand alone. The
 epic carries the facts, not the source document's framing. The one exception is
 backward provenance: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`) are
 recorded in `## Requirements`, never in prose. `ADR-NNN` is a decision
 dependency, not an owned requirement — it stays out of `## Requirements` and
 travels with the Design Doc in References when the epic depends on one.
-
-Recording *which* milestone the epic serves is the one exception — its direct
-parent, captured as the `milestone:` pointer in frontmatter (same as a
-story's `epic:`). The pointer names the parent; it never pulls the milestone's
-deliverables, scope, or phase ordering into the epic body.
 
 ### 2. Draft
 
@@ -81,10 +74,6 @@ Fill the template (below) with discovered context:
 - **Blocked by**: other epics or stories that must finish before this one
   can start, listed in frontmatter `blocked_by` by path. Lets the tracker
   enforce delivery order; leave empty when nothing blocks it.
-- **Milestone**: the milestone this epic serves (from the registry,
-  `.artifacts/epics/milestones.md`), as the frontmatter `milestone:` pointer
-  (its direct parent). Omit when the epic sits outside any milestone; record
-  the parent only, never the milestone's content.
 - **References**: durable pointers the next session follows (PRD, design
   doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
   the links for sync
@@ -110,10 +99,9 @@ Apply the resumption gate before proceeding:
 Apply the provenance gate as well:
 
 > **Provenance gate** — If the project has a PRD (`docs/product/PRD.md`),
-> does this epic record which PRD it derives from? Separately, if the epic
-> belongs to a milestone, does it record the `milestone:` pointer? Add
-> whichever is missing — or confirm with the user that the epic is
-> independent before leaving it blank.
+> does this epic record which PRD it derives from? Add it if missing — or
+> confirm with the user that the epic is independent before leaving it
+> blank.
 
 ### 3. Save or Push
 
@@ -161,7 +149,6 @@ updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
 blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
-milestone: {{milestone-name or omit when the epic sits outside any milestone}}
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github
@@ -205,7 +192,7 @@ of truth for hierarchy once a tracker is wired. -->
 
 - {{PRD requirement IDs this epic owns — e.g. FR-3, FR-4, BR-2. Flat list; the child stories operationalize these, each AC linking back via `Satisfies`.}}
 
-MUST NOT contain: `§x.x` section numbers, sibling names, milestones, roadmap refs, or `ADR-NNN` (a decision dependency → References).
+MUST NOT contain: `§x.x` section numbers, sibling names, roadmap refs, or `ADR-NNN` (a decision dependency → References).
 
 ## Rabbit Holes
 
@@ -226,7 +213,6 @@ resolve before or during story breakdown.}
 home — travels into the tracker description; frontmatter `sources:`
 mirrors these links for sync (markdown only, absent in tracker mode).}
 
-- **Milestone:** {{milestone name or "None"}}
 - **PRODUCT:** {{link or "None"}}
 - **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
 - **Design Doc:** {{link or "None"}}
@@ -235,8 +221,6 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 
 ## Error Handling
 
-- The registry has milestones: ask which one this epic serves, or none — the
-  `milestone:` pointer is optional and an epic may sit outside any milestone
 - User provides vague context: ask clarifying questions, don't assume
 - Epic name conflicts with existing: suggest alternative or confirm
   overwrite

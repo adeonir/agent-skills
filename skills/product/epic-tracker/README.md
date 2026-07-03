@@ -20,7 +20,7 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Phase    | What Happens                                                    | Output                              |
 | -------- | --------------------------------------------------------------- | ----------------------------------- |
 | Discover | Check for existing PRD, brief, or context                       | Context for artifact creation       |
-| Create   | Generate milestone, epic, story, bug, task, or release          | Tracker entity or markdown artifact |
+| Create   | Generate epic, story, bug, task, or release                     | Tracker entity or markdown artifact |
 | Track    | Update status in tracker when configured, in markdown otherwise | Updated state                       |
 
 ## Tracker Integration
@@ -33,9 +33,9 @@ markdown in `.artifacts/epics/` is the source of truth.
 | Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone)       |
 | Release  | Cycle                | Release tag                                   |
 
-GitHub uses sub-issues as the hierarchy primitive. Milestones and
-Projects v2 are orthogonal opt-in layers (date grouping, custom
-fields/views) — neither encodes Epic→Story.
+GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an
+orthogonal opt-in layer (custom fields/views) — it does not encode
+Epic→Story.
 
 Release uses each tracker's closest native primitive instead of forcing
 one concept.
@@ -57,9 +57,9 @@ stored — the inverse is derived, and the tracker keeps both sides in sync.
 ## Usage
 
 ```text
-create milestone           -- define a delivery phase in the registry
+create roadmap             -- organize epics into an ordered flow in docs/ROADMAP.md
 create epic                -- plan a new epic with stories and scope
-decompose milestone        -- break a milestone into its epics
+decompose                  -- materialize a roadmap into epics, or an epic into stories/tasks
 create story               -- add a story (a demonstrable slice of user value) to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
@@ -92,24 +92,22 @@ no requirement IDs — it is AC-less work measured by its `## Definition of Done
 Requirement coverage is an epic↔story relationship: every requirement the epic
 declares is operationalized by ≥1 story AC.
 
-## Milestones
+## Roadmap
 
-Milestones are delivery phases, defined in a registry the skill owns:
-`.artifacts/epics/milestones.md` (one entry per milestone — outcome, scope
-boundary, expected epics). `create milestone` adds an entry; `decompose
-milestone` turns one into epics. An epic points to its milestone via the
-`milestone:` frontmatter pointer. Milestones are optional; mirroring them to
-the tracker's native grouping (GitHub Milestone, Linear Initiative) is
-opt-in, asked once when a tracker is configured.
+The roadmap organizes the project's epics into an ordered flow, derived from
+the PRD, in the committed doc `docs/ROADMAP.md`. `create roadmap` writes and
+updates this living plan in place; `decompose` materializes it into epics (and
+an epic into stories and tasks). The roadmap is local — there is no tracker
+mirror. Epics stay self-contained: they never reference the roadmap.
 
 ## Output
 
-Markdown files created only when no tracker is configured (or user
-declines push).
+The roadmap lives in the committed doc `docs/ROADMAP.md`, separate from
+`.artifacts/epics/`. The rest are markdown files created only when no tracker
+is configured (or user declines push).
 
 ```text
 .artifacts/epics/
-├── milestones.md
 ├── epic-name/
 │   ├── epic.md
 │   ├── 001-story-name.md

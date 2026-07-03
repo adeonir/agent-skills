@@ -45,7 +45,7 @@ Fill the template (below):
   included story. Can also include entire epics.
 - **Release Criteria**: conditions that must be met before shipping
   (not acceptance criteria -- those live on stories)
-- **References**: changelog links, milestone links
+- **References**: changelog links
 
 **Declare, don't narrate.** The discovery conversation is input, never
 content. The body states standing facts in present tense: the grouping
@@ -129,7 +129,6 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 {Durable pointers the next session follows. Canonical home — travels into the tracker description; frontmatter `sources:` mirrors these links for sync (markdown only, absent in tracker mode).}
 
 - **Changelog:** {{link or "None"}}
-- **Milestone:** {{link or "None"}}
 ````
 
 ## Error Handling

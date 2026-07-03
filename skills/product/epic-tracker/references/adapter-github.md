@@ -13,7 +13,7 @@ Loaded by `sync.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
 Every artifact except Release is an Issue. Artifact type is carried by
 org-level Issue Types when available, or by a label fallback.
 Hierarchy is always expressed via Issue sub-issue parent links —
-never Milestones, never Projects.
+never Projects.
 
 | Artifact | Issue type / label | Sub-issue role |
 |----------|---------------------|----------------|
@@ -38,7 +38,6 @@ of hierarchy and of each other.
 
 | Layer | What it adds | Activation |
 |-------|--------------|------------|
-| **Milestones** | Date-bound grouping for releases or campaigns. Issue belongs to at most one Milestone. Does not encode Epic→Story. | Inferred: used when the repo has milestones and a milestone is supplied. |
 | **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
 
 Neither layer changes how Issues are created or how parent/child links
@@ -139,8 +138,7 @@ Re-detect on demand via "configure tracker".
    - otherwise: match repo labels semantically for `epic` and assign;
      surface available labels and ask if no match.
 4. If `epic-tracker.project-number` is set: add the Issue to the Project.
-5. If the repo has milestones and a milestone is supplied: assign it.
-6. Return Issue number and url.
+5. Return Issue number and url.
 
 ### create_story
 
@@ -154,9 +152,7 @@ Re-detect on demand via "configure tracker".
    required). Stories are always children of an Epic.
 3. Apply artifact type (session cache `story` issue type, or `story` label).
 4. If `epic-tracker.project-number` is set: add to the Project.
-5. If the repo has milestones and the Epic has a Milestone: inherit
-   it unless overridden.
-6. Return Issue number and url.
+5. Return Issue number and url.
 
 ### create_bug
 
@@ -168,8 +164,7 @@ Re-detect on demand via "configure tracker".
 4. If severity is provided: fetch repo labels, match semantically;
    assign if found, surface labels and ask otherwise.
 5. If `epic-tracker.project-number` is set: add to the Project.
-6. If the repo has milestones and a milestone is supplied: assign it.
-7. Return Issue number and url.
+6. Return Issue number and url.
 
 ### create_task
 
@@ -181,8 +176,7 @@ steps, plain description body).
    (Epic). Otherwise create as standalone.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
 4. If `epic-tracker.project-number` is set: add to the Project.
-5. If the repo has milestones and a milestone is supplied: assign it.
-6. Return Issue number and url.
+5. Return Issue number and url.
 
 ### create_release
 
@@ -193,10 +187,6 @@ steps, plain description body).
    possible), `target_date` -> draft/scheduled release.
 3. Link Issues to the Release via release notes.
 4. Return Release id and url.
-
-Releases are independent of Milestones. A team can use Milestones for
-campaign-style grouping and Releases for shipped versions, or either,
-or neither.
 
 ### update_status
 
@@ -228,33 +218,18 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking
 is not assumed. Releases are tags, not Issues, so they carry no
 dependencies.
 
-### set_milestone
-
-Mirrors an epic's `milestone:` pointer to a GitHub Milestone, gated by the
-milestone mirror (see Milestones in sync.md). GitHub Milestones are
-repo-level; an Issue belongs to at most one.
-
-1. Inputs: the Issue number and the milestone title (resolved from the
-   registry by sync — the human-readable name, not the slug).
-2. Find the repo Milestone whose title matches; create it if absent
-   — title only, no due date (a milestone defines delivery, not a deadline).
-3. Assign the Issue to that Milestone, replacing any previous one.
-4. Stories under the epic inherit the Milestone (see create_story) unless
-   overridden.
-5. Return success.
-
 ### fetch_artifact
 
-1. Fetch the Issue, Milestone, or Release by id/number via MCP.
+1. Fetch the Issue or Release by id/number via MCP.
 2. Return: state (mapped from open/closed + labels or Project fields),
    title, body, labels, sub-issue parent (when present), blocked-by Issue
    numbers (via the dependencies endpoints, or `gh issue view --json
-   blockedBy`), milestone (when assigned), url.
+   blockedBy`), url.
 
 ### list_artifacts
 
 1. Query GitHub for items matching the filter (parent issue, state,
-   label, milestone, project).
+   label, project).
 2. Return summaries with id, title, state, url.
 
 ## Sub-Issues Detection
@@ -280,8 +255,6 @@ flattens, but artifact creation continues.
   hierarchy or to abort.
 - `epic-tracker.project-number` set but Project not found: ask user to
   verify or offer to create.
-- Milestone not found (when a milestone is supplied): ask user to verify
-  or offer to create.
 - Issue type not found in org (type was deleted or renamed since last
   detection): warn user, suggest re-running "configure tracker" to
   re-detect; fall back to label matching for this operation.

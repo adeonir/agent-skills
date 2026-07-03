@@ -26,7 +26,7 @@ Task, not a Story — see [discriminator.md](discriminator.md).
 
 Read the parent epic for scope and naming context only. **Translate,
 don't replicate.** Its prose tokens never cross into the story: strip epic
-IDs, `§x.x` section numbers, sibling story names, milestone/roadmap
+IDs, `§x.x` section numbers, sibling story names, roadmap
 language, and any cross-reference that doesn't stand alone. This story
 carries one outcome of its own.
 
@@ -152,7 +152,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 **DON'T:**
 - Add a size field — sizing happens at implementation time
 - Include implementation details or technical design
-- Carry requirement IDs in prose — link them on each AC's `Satisfies` line; still strip `§x.x` section numbers, sibling names, and milestone/roadmap language
+- Carry requirement IDs in prose — link them on each AC's `Satisfies` line; still strip `§x.x` section numbers, sibling names, and roadmap language
 - Create stories without a parent epic (ask to create the epic first)
 
 ## Template
