@@ -158,7 +158,7 @@ wrong thing.
 1. **Challenge viability**: Point out risks and weak spots identified during discovery
 2. **Question scope**: Is the scope realistic for a first version? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "Do you need X for launch, or can it wait?"
-4. **Propose pivots**: If the idea seems fragile after discovery, suggest alternative approaches
+4. **Flag a fragile direction**: If the direction itself seems fragile after discovery, say so and recommend reopening the direction decision before specifying — the PRD does not generate or choose alternatives
 5. **Define scope**: Categorize features into must/should/could priorities
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 7. **Validate journeys**: Do the described flows cover all must-have features? Are there gaps?

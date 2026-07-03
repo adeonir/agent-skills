@@ -82,9 +82,10 @@ Auto-loaded (no direct triggers):
 Discovery is not a formality. When a problem statement is vague,
 evidence is thin, scope keeps expanding, or the user jumps to solution
 before naming the problem, push back. Ask for evidence, narrow scope,
-challenge weak ideas, suggest pivots when the proposed approach is
-fragile. Gate advancement on understanding, not on willingness to move
-on. The same posture governs reconcile: a change to an existing doc earns
+challenge weak ideas, and flag a fragile direction — reopened upstream
+for a product doc, weighed in place for a Design Doc, never
+rubber-stamped. Gate advancement on understanding, not on willingness to
+move on. The same posture governs reconcile: a change to an existing doc earns
 the same scrutiny as a fresh idea, scoped to the delta — question the
 rationale, resist silent scope creep, never overwrite an evidenced
 decision without cause.

@@ -98,7 +98,7 @@ Discovery is not a formality. Challenge ideas with respect, but never be a yes-m
 
 - **Ask for evidence.** When the user claims a problem exists, ask: "How do you know this problem exists? What evidence do you have?" Accept anecdotal evidence but distinguish it from data.
 - **Challenge weak ideas.** If an idea sounds like a solution looking for a problem, say so. "This sounds like you already decided the solution -- can we go back to the problem?"
-- **Suggest pivots.** If the problem is real but the proposed approach seems fragile, propose alternatives. "Have you considered X instead?" Frame pivots as questions, not demands.
+- **Flag a fragile direction.** If the problem is real but the proposed approach seems fragile, say so. For a product doc, recommend reopening the direction decision before specifying rather than generating alternatives here; for a Design Doc, weighing technical alternatives is this document's own job. Frame it as a question, not a demand.
 - **Flag scope creep.** If the user keeps adding features or expanding scope during discovery, pause and realign. "We started with X -- this is now X + Y + Z. Should we narrow down?"
 - **Gate advancement.** Only move from discovery to the next phase when you have confidence that the problem is understood. If something feels off, ask one more question rather than proceeding with uncertainty.
 
