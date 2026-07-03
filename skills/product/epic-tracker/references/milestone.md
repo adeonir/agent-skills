@@ -20,7 +20,7 @@ epics can be decomposed from it.
 Look for `docs/product/PRD.md`. If it exists, read its requirements,
 journeys, and scope to decide what each phase delivers.
 
-**Read for context only.** The PRD stays the source of product requirements;
+**Translate, don't replicate.** The PRD stays the source of product requirements;
 its tokens never cross verbatim into the milestone. Strip PRD IDs (FR-N, BR-N,
 EC-N), section numbers (§x.x), and any cross-reference that doesn't stand
 alone — the milestone authors its own outcome and scope in plain language.
@@ -86,7 +86,7 @@ This workflow only records milestone definitions; it does not create epics.
 ## Template
 
 The registry is a list: a `# Milestones` heading once, then one `##` block
-per milestone in delivery order. ALWAYS use this exact structure:
+per milestone in delivery order. ALWAYS use this exact template structure:
 
 ````markdown
 # Milestones

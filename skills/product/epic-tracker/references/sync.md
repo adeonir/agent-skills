@@ -10,7 +10,7 @@ wrong push can clobber tracker state that other people rely on.
 ## When to Use
 
 - Direct trigger: "sync to tracker", "push to {linear,github}", "pull from tracker", "configure tracker"
-- Auto-loaded by core refs (epic, story, bug, release) after the artifact is saved when `epic-tracker.kind` is set and not `none`
+- Auto-loaded by core refs (epic, story, task, bug, release) after the artifact is saved when `epic-tracker.kind` is set and not `none`
 - Auto-loaded by `status.md` to read overview state from the tracker when configured
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -22,7 +22,7 @@ wrong push can clobber tracker state that other people rely on.
 | Epic     | Project | Issue (parent) |
 | Story    | Issue | Issue (sub-issue of Epic) |
 | Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Task     | Issue | Issue (sub-issue of Epic or standalone) |
+| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 | Release  | Cycle | Release tag |
 
 GitHub uses sub-issues as the hierarchy primitive. Milestones and

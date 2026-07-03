@@ -61,7 +61,7 @@ Fill the template (below):
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
   single Given/When/Then plus a `**Satisfies**` line naming the parent
   epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for
-  an AC that maps to no requirement). Validated in Step 4 against rules
+  an AC that maps to no requirement). Validated in Step 3 against rules
   V1-V8. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
@@ -112,11 +112,11 @@ the user fixes the AC.
 - If no: save to markdown and proceed to step 5
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
-- Save to markdown and proceed to step 6
+- Save to markdown and proceed to step 5
 
 **Saving to markdown:**
-1. Count existing story and task files in `.artifacts/epics/{epic-name}/`
-   (exclude `epic.md`); zero-pad to 3 digits
+1. Count existing numbered story files (`NNN-` prefixed) in
+   `.artifacts/epics/{epic-name}/`; zero-pad to 3 digits
 2. Save to `.artifacts/epics/{epic-name}/{NNN}-{story-name}.md`
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
@@ -156,7 +156,7 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
-blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name); omit when nothing blocks this
+blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
 epic: {{epic-name}}
 type: story
 # tracker block populated by sync.md after first push (omit until then):

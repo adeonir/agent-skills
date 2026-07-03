@@ -65,7 +65,7 @@ their parent.
 
 `status.md` covers status updates and the delivery overview.
 
-`sync.md` is also auto-loaded by core refs (epic, story, bug, release)
+`sync.md` is also auto-loaded by core refs (epic, story, task, bug, release)
 after the artifact is saved when `epic-tracker.kind` is set and not `none`.
 
 `adapter-{linear,github}.md` are loaded by `sync.md` based on

@@ -121,7 +121,7 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - Use for work that delivers a PRD requirement with acceptance criteria (contrasts: that's a story)
 - Use for defects (contrasts: use bug for defects with repro steps)
 - Add acceptance criteria — a task is AC-less (contrasts: description + Definition of Done is enough; AC belongs to a story)
-- Create an task when a story or bug is the right type (ask if
+- Create a task when a story or bug is the right type (ask if
   ambiguous)
 
 ## Template
@@ -136,8 +136,8 @@ updated: {{YYYY-MM-DD}}
 status: planned
 sources: []
 blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
-type: task
 epic: {{epic-name or omit for standalone}}
+type: task
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github
@@ -170,6 +170,8 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 {Remove this section if not needed.}
 
 - {{Known complexity or hidden risk}}
+
+MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
 
 ## References
 

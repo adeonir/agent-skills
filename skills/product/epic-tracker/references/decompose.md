@@ -22,7 +22,7 @@ milestone's expected-epics sketch.
 2. List the registry's milestones. If more than one, ask which to decompose.
 3. Read the chosen milestone's Outcome, Scope boundary, and Expected epics.
 
-**Read for context only.** The milestone stays in the registry; its tokens never
+**Translate, don't replicate.** The milestone stays in the registry; its tokens never
 cross verbatim into any epic. The Expected epics sketch is a set of seeds —
 capability area plus a one-line expectation each — not epic definitions.
 
@@ -80,7 +80,7 @@ stories — the user chooses when to go deeper.
 - Treat the Expected epics sketch as seeds, not specifications
 - Confirm the epic set with the user before creating any epic
 - Record the `milestone:` pointer on every epic created from a milestone
-- Let each epic define its own scope and AC, independent of the sketch
+- Let each epic define its own scope and stories, independent of the sketch
 - Re-run safely over a living registry: add only epics missing for the milestone, leaving existing ones untouched
 
 **DON'T:**

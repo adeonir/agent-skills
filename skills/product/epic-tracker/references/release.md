@@ -126,6 +126,8 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 ## References
 
+{Durable pointers the next session follows. Canonical home — travels into the tracker description; frontmatter `sources:` mirrors these links for sync (markdown only, absent in tracker mode).}
+
 - **Changelog:** {{link or "None"}}
 - **Milestone:** {{link or "None"}}
 ````

@@ -4,6 +4,10 @@ Translate generic epic-tracker operations into Linear primitives via the
 Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by
 [sync.md](sync.md) when `epic-tracker.kind: linear`.
 
+## When to Use
+
+Loaded by `sync.md` when `epic-tracker.kind` is `linear`. Not a direct trigger.
+
 ## Primitive Mapping
 
 | Artifact | Linear primitive | Notes |
@@ -89,7 +93,7 @@ Detect available states from the workspace via MCP before pushing. If
 ### set_milestone
 
 Mirrors an epic's `milestone:` pointer to a Linear grouping above Projects,
-gated by the milestone mirror (see Milestones in ../sync.md). The likely
+gated by the milestone mirror (see Milestones in sync.md). The likely
 mapping is an Initiative (which groups Projects = epics) — confirm the
 workspace's roadmap primitive before wiring.
 

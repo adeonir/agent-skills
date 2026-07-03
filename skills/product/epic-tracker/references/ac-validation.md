@@ -7,7 +7,7 @@ ambiguous to anything that consumes it.
 
 ## When to Use
 
-- Auto-loaded by `story.md` (Step 4 Validate, before save or push)
+- Auto-loaded by `story.md` (Step 3 Validate, before save or push)
 - Auto-loaded by `update-story.md` when an edit changes AC text
 - Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
 
@@ -131,7 +131,7 @@ single-assertion confirmation so the AC stays atomic for the downstream
 1:1 reshape.
 
 If any strict rule fails: do not proceed to save or push. The caller
-(`story.md` Step 4 or `update-story.md` validation branch) loops back to
+(`story.md` Step 3 or `update-story.md` validation branch) loops back to
 review until the user fixes the AC.
 
 ## Satisfies linkage

@@ -2,7 +2,11 @@
 
 Translate generic epic-tracker operations into GitHub primitives via the
 GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by
-[sync.md](sync.md) when `tracker.kind: github`.
+[sync.md](sync.md) when `epic-tracker.kind: github`.
+
+## When to Use
+
+Loaded by `sync.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
 
 ## Model
 
@@ -227,7 +231,7 @@ dependencies.
 ### set_milestone
 
 Mirrors an epic's `milestone:` pointer to a GitHub Milestone, gated by the
-milestone mirror (see Milestones in ../sync.md). GitHub Milestones are
+milestone mirror (see Milestones in sync.md). GitHub Milestones are
 repo-level; an Issue belongs to at most one.
 
 1. Inputs: the Issue number and the milestone title (resolved from the

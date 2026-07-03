@@ -11,6 +11,8 @@ artifacts in `.artifacts/epics/`.
 
 ## Status Updates
 
+> Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 ### Valid Statuses
 
 | Artifact | Statuses |
@@ -18,6 +20,7 @@ artifacts in `.artifacts/epics/`.
 | Epic | planned, in-progress, done, blocked |
 | Story | planned, in-progress, done, blocked |
 | Bug | planned, in-progress, done, blocked |
+| Task | planned, in-progress, done, blocked |
 | Release | planned, in-progress, released |
 
 ### Status Transitions
@@ -50,8 +53,8 @@ Source depends on tracker config:
 
 1. List directories in `.artifacts/epics/`
 2. For each epic directory, read `epic.md` frontmatter (status, title)
-3. List story and bug files, read their frontmatter
-4. Read `.artifacts/epics/standalone/` for standalone bugs
+3. List story, task, and bug files, read their frontmatter
+4. Read `.artifacts/epics/standalone/` for standalone tasks and bugs
 5. Read `.artifacts/epics/releases/` for releases
 
 **With tracker configured:** delegate to [sync.md](sync.md) `list_artifacts`
@@ -68,10 +71,12 @@ Present as a structured summary:
   - [x] story-name (done)
   - [ ] story-name (in-progress)
   - [ ] story-name (planned, blocked by other-epic/api-story)
+  - [ ] task-name [task] (planned)
   - [ ] bug-name [bug] (planned)
 
-## Standalone Bugs
-  - [ ] bug-name (planned)
+## Standalone Tasks & Bugs
+  - [ ] task-name [task] (planned)
+  - [ ] bug-name [bug] (planned)
 
 ## Releases
   - release-name (planned): 3/5 stories done
@@ -98,7 +103,7 @@ sees what gates it.
 **DON'T:**
 - Auto-update parent status -- always suggest, let user confirm
 - Show file paths in the overview -- use names and titles
-- Skip standalone bugs in the overview
+- Skip standalone tasks or bugs in the overview
 - Update status without user confirmation
 - Read or write the tracker directly -- delegate to `sync.md`
 

@@ -60,7 +60,7 @@ stored — the inverse is derived, and the tracker keeps both sides in sync.
 create milestone           -- define a delivery phase in the registry
 create epic                -- plan a new epic with stories and scope
 decompose milestone        -- break a milestone into its epics
-create story               -- add a user-facing story to an existing epic
+create story               -- add a story (a demonstrable slice of user value) to an existing epic
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
 create task                -- file a general work item (infra, refactor, tooling, research, ...)
