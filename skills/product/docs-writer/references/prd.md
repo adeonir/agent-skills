@@ -49,6 +49,7 @@ Before interviewing, check `docs/product/brainstorm.md` — a decided direction 
 | Constraints | Topic 5 constraints, Business Rule candidates | confirm |
 | Success Criteria | Goals & metrics | confirm |
 | Alternatives Considered + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
+| Trade-offs Accepted | Non-Goals; Risks when a trade-off rests on a fragile assumption | confirm |
 | Key Assumption | Assumptions | carry |
 | Open Questions | Open Questions | carry |
 
