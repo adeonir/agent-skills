@@ -59,8 +59,7 @@ Move on when:
 
 ### Question Principles
 
-- Open-ended first, specific later
-- Never suggest answers in the question (avoid leading questions)
+- Lead with a proposed interpretation that invites redirect ("sounds like the core problem is X — is that right, or more like Y?") rather than a cold open-ended question; it unsticks vague thinking and, because it offers the alternative, is not a biasing leading question. Scale the POV to the document's altitude — a PRD maps understanding, a Design Doc recommends decisions
 - Build follow-ups on what the user actually said, not on a script
 - One question at a time -- never batch multiple questions in a single message
 - Summarize understanding before moving to the next topic
