@@ -64,10 +64,16 @@ Extract the current-state answer, not the code: file paths, symbols, and
 implementation detail inform your understanding but do not cross into the
 brainstorm artifact, which stays at the problem-and-direction level.
 
-**One question at a time:** Never batch questions. Propose one interpretation
-with its redirect invite, OR ask one question — not both. The interpretation
-with invite ("It sounds like X — is that right?") is the complete turn. Do not
-add a second question after it.
+**Always carry a recommendation:** Never ask a cold, open-ended question. Every
+turn states your read — either an interpretation with its redirect invite ("It
+sounds like X — is that right?") or a question paired with your recommended
+answer ("Gate on role or on plan? I'd gate on role, because the plan can change
+mid-session — agree?"). A question without a POV pushes the work the interview
+exists to do back onto the user.
+
+**One question at a time:** Never batch questions. One interpretation, or one
+question-with-recommendation — not both. The turn ends on its invite ("is that
+right?" / "agree?"). Do not add a second question after it.
 
 **Summarize before advancing:** Before moving to the next topic, summarize
 what was learned and confirm with the user.
@@ -207,7 +213,8 @@ confirmation.
 
 **DON'T:**
 - Follow scripted question lists regardless of answers
-- Ask cold neutral questions when you can propose an interpretation
+- Ask any question without attaching your recommended answer — every turn
+  carries a POV, whether an interpretation or a question-with-recommendation
 - Ask about current state when the codebase can answer it
 - Accept motivation or constraint TBDs without a second push on relentless path
 - Move past the quality gate without user confirmation
