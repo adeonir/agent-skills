@@ -45,7 +45,7 @@ Seed from an upstream direction when present: check `docs/product/brainstorm.md`
 | Upstream section | Seeds | Behavior |
 |---|---|---|
 | Context | Product Purpose — identity, not metrics | confirm |
-| Alternatives + Decision | Anti-references — differentiation and negative space | confirm |
+| Alternatives Considered + Decision | Anti-references — differentiation and negative space | confirm |
 
 The rejected directions and the deciding factor against the strongest rejected option are what Anti-references captures. Run the rest of the Positioning topic fresh — register, brand personality, design principles, audience posture — which the artifact does not carry. Strip the exploration trail (rejected options as a list, Revision History) and translate to positioning prose, never requirements.
 

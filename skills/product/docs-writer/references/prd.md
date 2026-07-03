@@ -48,7 +48,7 @@ Before interviewing, check `docs/product/brainstorm.md` — a decided direction 
 | Context | Topic 1 — problem, motivation, current state | confirm; deepen only on evidence gaps |
 | Constraints | Topic 5 constraints, Business Rule candidates | confirm |
 | Success Criteria | Goals & metrics | confirm |
-| Alternatives + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
+| Alternatives Considered + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
 | Key Assumption | Assumptions | carry |
 | Open Questions | Open Questions | carry |
 
