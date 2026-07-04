@@ -20,6 +20,27 @@ Composed by `render.md` (apply while generating), and by `critique.md` /
   reveal, loading, view transitions). No page-load choreography; users are in a
   task. See [product.md](product.md).
 
+Within the budget, match the motion's personality to the mood: a playful brand
+can be springier (still inside the no-bounce rule), a serious dashboard stays
+crisp and fast. Bouncy motion on a finance tool reads as borrowed.
+
+## Should this animate?
+
+Before timing or easing, decide whether it animates at all — most defaults
+over-animate.
+
+- **Frequency gates the budget.** The more often a user sees a motion, the
+  shorter and subtler it must be. Never animate a keyboard-initiated action or an
+  element seen dozens of times a day — the animation becomes friction. Occasional
+  transitions earn standard motion; rare or first-run moments can afford delight.
+- **Name the purpose.** Motion earns its place when it does a job: spatial
+  consistency (where did this come from), state (what changed), explanation (how
+  these relate), feedback (the system heard you), or preventing a jarring cut.
+  "Looks cool" on something seen often is not a purpose — cut it.
+- **Decoration animates, function does not.** Press feedback (a small `:active`
+  scale, 0.95–0.98) and state transitions are fair game; a chart, a live number,
+  or any data the user reads for meaning should not move on its own.
+
 ## Timing: the 100/300/500 rule
 
 Timing matters more than easing for "feels right."
@@ -46,6 +67,14 @@ Never bounce (`0.34, 1.56, …`) or elastic — they read as dated and draw
 attention to the animation itself. Ease-out for entrances; ease-in makes a task
 feel shorter (peak-end weights the final moments).
 
+Match the curve to the motion type: **ease-out** for entrances and anything the
+user watches arrive; **ease-in-out** for an element moving A→B already on screen;
+plain **ease** for hover and color; **linear** only for constant motion (spinners,
+marquees). Reserve **ease-in** for exits — an element the user watches *arrive* on
+ease-in feels sluggish, because it starts slow exactly when attention is on it.
+Beyond the exit-runs-faster rule above, time motion asymmetrically: slow it where
+the user is deciding, speed it where the system is only responding.
+
 ## Motion materials
 
 Transform and opacity are reliable defaults, not the whole palette — premium
@@ -61,6 +90,14 @@ The rule isn't "transform and opacity only" — it's: avoid animating
 layout-driving properties casually (`width`, `height`, `top`, `left`, margins),
 keep expensive effects bounded to small/isolated areas, and verify smoothness
 in-browser.
+
+Two placement disciplines carry meaning: **origin-aware** — a popover or menu
+grows from its trigger, not from its own centre; a modal stays centred.
+**Direction-aware** — forward navigation slides one way and back the opposite, so
+movement encodes direction. Both serve **continuity**: connect before and after
+so the user stays oriented — the point of FLIP and shared-element transitions is
+that the element keeps its identity across the change instead of blinking to a
+new state.
 
 ## List stagger
 

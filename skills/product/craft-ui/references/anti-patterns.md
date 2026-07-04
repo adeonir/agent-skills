@@ -460,6 +460,20 @@ both kinds during generation; critique and audit report both.
 </section>
 ```
 
+### cheap-vs-expensive-depth
+**Category:** Decoration and Depth
+**Severity:** warning
+**Check:** Surfaces are separated by a hard, dark, opaque drop shadow (`rgba(0,0,0,0.3)`-class) or a default 1px solid grey border — the two tells of cheap depth.
+**Fix:** Separate by light, not by lines or hard shadow. A soft, diffused, low-opacity ambient shadow plus a translucent hairline (`rgba(0,0,0,0.05)`) and generous whitespace read premium. Use a border only where a shadow ring cannot define the surface — never as the default edge.
+**Example fail:**
+```html
+<div style="border: 1px solid #e5e7eb; box-shadow: 0 4px 8px rgba(0,0,0,0.3)">Card</div>
+```
+**Example pass:**
+```html
+<div style="box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05)">Card</div>
+```
+
 ## Component States
 
 ### missing-hover-states
@@ -539,8 +553,8 @@ both kinds during generation; critique and audit report both.
 ### ease-default-no-intention
 **Category:** Motion and Interaction
 **Severity:** warning
-**Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone.
-**Fix:** Pick a curve per tone — snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, bouncy (`cubic-bezier(0.34, 1.56, 0.64, 1)`) for playful.
+**Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered.
+**Fix:** Pick a curve per tone — snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, bouncy (`cubic-bezier(0.34, 1.56, 0.64, 1)`) for playful — and interpolate every state change; an instant, un-interpolated jump reads cheaper than a considered 150ms.
 **Example fail:**
 ```html
 <button style="transition: all 200ms ease">A</button>
@@ -597,6 +611,20 @@ both kinds during generation; critique and audit report both.
 .fade-in { animation: fade 600ms ease-out }
 @media (prefers-reduced-motion: reduce) { .fade-in { animation: none } }
 </style>
+```
+
+### nothing-from-nothing
+**Category:** Motion and Interaction
+**Severity:** warning
+**Check:** An element enters from `scale(0)` or full transparency with no grounding — it materializes from nothing instead of settling into place.
+**Fix:** Enter from a near-resting state — `scale(0.95)` plus opacity — so the element appears to arrive, not spawn. Nothing in a considered interface pops out of the void.
+**Example fail:**
+```html
+<div style="animation: in 200ms"><style>@keyframes in { from { transform: scale(0); opacity: 0 } }</style></div>
+```
+**Example pass:**
+```html
+<div style="animation: in 200ms"><style>@keyframes in { from { transform: scale(0.95); opacity: 0 } }</style></div>
 ```
 
 ## Accessibility
@@ -938,7 +966,7 @@ family: render avoids them, critique and audit flag them.
 ### numbered-section-markers
 **Category:** AI Scaffolding Tells
 **Severity:** warning
-**Check:** Sequence numbers (`01 / 02 / 03`) prefixing section headings that are not an actual ordered sequence — scaffolding because "it looks structured", not because order carries meaning.
+**Check:** Sequence numbers (`01 / 02 / 03`) prefixing section headings that are not an actual ordered sequence — scaffolding because "it looks structured", not because order carries meaning. The same tell wears a label: `00 / INDEX`, `002 · Featured` — a number stapled to a category name.
 **Fix:** Remove the numbers unless the section truly is a step in an ordered flow the reader must follow in order.
 **Example fail:**
 ```html
@@ -977,6 +1005,78 @@ family: render avoids them, critique and audit flag them.
 **Example pass:**
 ```html
 <div class="grid grid-cols-[2fr_1fr]"><article class="feature-lead">…</article><aside>…</aside></div>
+```
+
+### version-label-eyebrow
+**Category:** AI Scaffolding Tells
+**Severity:** warning
+**Check:** A fake version or status tag (`V0.6`, `BETA`, `v2.0`) set as a hero eyebrow on a marketing page, dressing the page as a product changelog it is not.
+**Fix:** Drop it. A version label belongs in an app chrome or a real release note, not above a headline where it only performs seriousness.
+**Example fail:**
+```html
+<p class="text-xs uppercase tracking-widest">V0.6 — Beta</p>
+<h1>Ship faster</h1>
+```
+**Example pass:**
+```html
+<h1>Ship faster</h1>
+```
+
+### pagination-index-static
+**Category:** AI Scaffolding Tells
+**Severity:** warning
+**Check:** A `01 / 4` counter or slash-index rendered on content that is not a paged or navigable sequence — pagination chrome as decoration.
+**Fix:** Remove it unless the counter tracks real position in a carousel or stepper the user moves through.
+**Example fail:**
+```html
+<span>01 / 4</span>
+<div class="feature">…</div>
+```
+**Example pass:**
+```html
+<div class="feature">…</div>
+```
+
+### middle-dot-separator-overuse
+**Category:** AI Scaffolding Tells
+**Severity:** warning
+**Check:** The middle dot (`·`) sprinkled through headings, eyebrows, and metadata rows more than once per line as a texture, not a separator.
+**Fix:** Ration it — at most one middle dot per line, and only where two peers genuinely need separating. Reach for space or a line break instead.
+**Example fail:**
+```html
+<p>Design · Build · Ship · Scale · Repeat</p>
+```
+**Example pass:**
+```html
+<p>Design, build, ship</p>
+```
+
+### floating-corner-paragraph
+**Category:** AI Scaffolding Tells
+**Severity:** warning
+**Check:** A small explainer paragraph floated into an otherwise empty corner of a section to fill space, unanchored to any element it describes.
+**Fix:** Anchor the text to what it explains, or cut it. Empty space is a composition choice, not a slot to backfill with prose.
+**Example fail:**
+```html
+<section><h2>Platform</h2><p class="absolute bottom-6 right-6 max-w-xs text-sm">A short note explaining nothing in particular.</p></section>
+```
+**Example pass:**
+```html
+<section><h2>Platform</h2><p>What the platform does, next to the claim it supports.</p></section>
+```
+
+### filled-progress-bar-marketing
+**Category:** AI Scaffolding Tells
+**Severity:** warning
+**Check:** A filled-track progress or score bar (`72%`, a partial meter) on a marketing page where nothing is actually in progress — telemetry cosplay.
+**Fix:** Use a bar only for real, live state (upload, completion, capacity). On a marketing surface, state the number plainly or drop the meter.
+**Example fail:**
+```html
+<div class="track"><div class="fill" style="width:72%"></div></div><span>Performance</span>
+```
+**Example pass:**
+```html
+<p><strong>2.4×</strong> faster builds</p>
 ```
 
 ## Drift
