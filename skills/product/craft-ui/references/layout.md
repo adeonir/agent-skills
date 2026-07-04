@@ -53,6 +53,10 @@ Use the fewest dimensions that work — space alone can carry it; generous
 whitespace around an element draws the eye. The best hierarchy combines 2–3 at
 once (larger + bolder + more space above = primary without trying).
 
+Let spacing do the work — don't manufacture hierarchy with a gradient, a card
+wrapper, a badge, or hero drama when space and weight would carry it. Decoration
+reached for to signal importance usually means the spacing hierarchy is too flat.
+
 | Tool | Strong | Weak |
 |------|--------|------|
 | Size | ≥3:1 | <2:1 |
@@ -63,6 +67,17 @@ once (larger + bolder + more space above = primary without trying).
 
 Squint test: blur your eyes — can you still identify primary, secondary, and the
 groupings? Reorder weight until the survivors match the intended reading order.
+
+## Hero composition
+
+- The hero fits the initial viewport — the primary message and action are visible
+  without scrolling.
+- Headline ≤2 lines; a hero carries ≤4 text elements total (eyebrow, headline,
+  subtext, CTA — rarely all four). More is a hero doing the whole page's job.
+- A headline wrapping to four lines is a font-size error, not a copy problem —
+  size it down before cutting words.
+- Repeat the primary CTA only when it reduces friction (a long page where the top
+  CTA has scrolled away), never as a default rhythm.
 
 ## Cards & monotony
 
@@ -76,6 +91,9 @@ groupings? Reorder weight until the survivors match the intended reading order.
 - Consistent shadow scale (sm → md → lg → xl), subtle; elevation reinforces
   hierarchy, not decoration. Semantic z-index scale (base < cards < dropdowns <
   modals < overlays), never arbitrary 999/9999.
+- One border-radius scale locked page-wide (inputs/buttons small, cards medium,
+  modals large) — sharp and soft corners mixed across peer elements read as no
+  system.
 
 ## Optical adjustments
 
