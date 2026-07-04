@@ -56,14 +56,14 @@ judges a variant); audit stands alone (it judges a shipped UI).
 Every mode composes the same references, so judgment and generation stay aligned:
 
 - [brand.md](references/brand.md) / [product.md](references/product.md) — brand vs product posture (read the matching one, first)
-- [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test
+- [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test, density/variance dials
 - [heuristics.md](references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws
 - [cognitive-load.md](references/cognitive-load.md) — load checklist + working-memory rule
 - [personas.md](references/personas.md) — five archetypes to test through
 - [color.md](references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](references/typography.md) — scale, pairing, loading
-- [layout.md](references/layout.md) — spacing, grid, hierarchy, depth
-- [motion.md](references/motion.md) — timing, easing, materials
+- [layout.md](references/layout.md) — spacing, grid, hierarchy, hero composition, depth
+- [motion.md](references/motion.md) — the animate gate, timing, easing, materials
 - [overdrive.md](references/overdrive.md) — the ambitious-tier motion tune (brand only)
 - [interaction.md](references/interaction.md) — states, focus, overlays
 - [responsive.md](references/responsive.md) — breakpoints, input, safe areas

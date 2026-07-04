@@ -64,8 +64,8 @@ feel laggy.
 ```
 
 Never bounce (`0.34, 1.56, …`) or elastic — they read as dated and draw
-attention to the animation itself. Ease-out for entrances; ease-in makes a task
-feel shorter (peak-end weights the final moments).
+attention to the animation itself. Ease-out for entrances; on exits, ease-in
+makes a task feel shorter (peak-end weights the final moments).
 
 Match the curve to the motion type: **ease-out** for entrances and anything the
 user watches arrive; **ease-in-out** for an element moving A→B already on screen;

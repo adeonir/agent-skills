@@ -23,6 +23,8 @@ Composes:
 - [web-standards.md](../references/web-standards.md) — technical rubric (a11y, theming, forms)
 - [performance.md](../references/performance.md) — perf diagnosis + Core Web Vitals measurement
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
+- [layout.md](../references/layout.md) — hierarchy, hero composition, spacing, depth
+- [motion.md](../references/motion.md) — the animate gate, timing, reduced-motion
 - [anti-patterns.md](../references/anti-patterns.md) — perceptual failure modes
 - [scoring.md](../references/scoring.md) — severity, bands, report template
 

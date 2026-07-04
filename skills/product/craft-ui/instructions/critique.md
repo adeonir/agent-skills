@@ -19,6 +19,8 @@ Composes:
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
 - [design-thinking.md](../references/design-thinking.md) — visual direction, color strategy, slop test
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
+- [layout.md](../references/layout.md) — hierarchy, hero composition, spacing, depth
+- [motion.md](../references/motion.md) — the animate gate, timing, easing, materials
 - [heuristics.md](../references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws
 - [cognitive-load.md](../references/cognitive-load.md) — load checklist, working-memory rule, overload patterns
 - [personas.md](../references/personas.md) — the five archetypes to test through
@@ -57,10 +59,15 @@ A variant that fails either altitude has no point of view yet — say so plainly
 before any number softens it.
 
 Then run the craft checks from [design-thinking.md](../references/design-thinking.md) —
-swap, token, and signature: would swapping the typeface and layout change
-anything, do the tokens belong to this product's world, and where does the
-signature actually appear? A variant that survives the two reflexes but fails
-these is polished default.
+swap, token, signature, and squint: would swapping the typeface and layout change
+anything, do the tokens belong to this product's world, where does the signature
+actually appear, and does the hierarchy survive a blur? A variant that survives
+the two reflexes but fails these is polished default.
+
+Read the density and variance dials (design-thinking.md) against the brief —
+report the level the variant lands at versus the level intended ("reads density
+8, the brief wanted 4"). The dials sharpen the verdict; they do not enter the
+score.
 
 ### Step 3: Score the heuristics
 

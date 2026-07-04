@@ -464,7 +464,7 @@ both kinds during generation; critique and audit report both.
 **Category:** Decoration and Depth
 **Severity:** warning
 **Check:** Surfaces are separated by a hard, dark, opaque drop shadow (`rgba(0,0,0,0.3)`-class) or a default 1px solid grey border — the two tells of cheap depth.
-**Fix:** Separate by light, not by lines or hard shadow. A soft, diffused, low-opacity ambient shadow plus a translucent hairline (`rgba(0,0,0,0.05)`) and generous whitespace read premium. Use a border only where a shadow ring cannot define the surface — never as the default edge.
+**Fix:** Separate by light, not by lines or hard shadow. A soft, diffused, low-opacity ambient shadow plus a translucent hairline (`rgba(0,0,0,0.05)`) and generous whitespace read premium. Use a border only where a shadow ring cannot define the surface — never as the default edge. Shadow *tiering* by elevation is `stock-shadow`; this rule owns the hard-vs-soft and border-vs-light choice.
 **Example fail:**
 ```html
 <div style="border: 1px solid #e5e7eb; box-shadow: 0 4px 8px rgba(0,0,0,0.3)">Card</div>
@@ -554,7 +554,7 @@ both kinds during generation; critique and audit report both.
 **Category:** Motion and Interaction
 **Severity:** warning
 **Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered.
-**Fix:** Pick a curve per tone — snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, bouncy (`cubic-bezier(0.34, 1.56, 0.64, 1)`) for playful — and interpolate every state change; an instant, un-interpolated jump reads cheaper than a considered 150ms.
+**Fix:** Pick a curve per tone — snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, decisive (`cubic-bezier(0.16, 1, 0.3, 1)`) for bold, never an overshoot/bounce curve — and interpolate every state change; an instant, un-interpolated jump reads cheaper than a considered 150ms.
 **Example fail:**
 ```html
 <button style="transition: all 200ms ease">A</button>

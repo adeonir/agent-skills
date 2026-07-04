@@ -65,6 +65,10 @@ from it; with no direction, compose one biased by the register (brand and produc
 permit different things — see their files) and fitting the surface. Vary the
 direction per variant; never converge on a house style.
 
+Set the density and variance dials (design-thinking.md) to the level the brief
+implies — a scanning dashboard runs dense, a premium landing runs sparse — and
+build the variant to that level.
+
 ## Token Extraction
 
 The YAML frontmatter at the top of DESIGN.md is the source of truth for tokens. At variant generation time, parse the frontmatter, resolve every `{path.to.token}` reference, and embed CSS custom properties directly in the generated HTML:
