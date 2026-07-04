@@ -616,7 +616,7 @@ both kinds during generation; critique and audit report both.
 ### nothing-from-nothing
 **Category:** Motion and Interaction
 **Severity:** warning
-**Check:** An element enters from `scale(0)` or full transparency with no grounding — it materializes from nothing instead of settling into place.
+**Check:** An element enters from `scale(0)`, or fades in from `opacity: 0` with no scale to anchor it — it materializes from nothing instead of settling into place.
 **Fix:** Enter from a near-resting state — `scale(0.95)` plus opacity — so the element appears to arrive, not spawn. Nothing in a considered interface pops out of the void.
 **Example fail:**
 ```html

@@ -3,7 +3,7 @@
 Technical correctness rules for rendered UI — the implementation counterpart to
 the craft dimension references' visual recipes. They serve two jobs: rules
 that render applies to every variant it generates, **and** the rubric that audit
-checks a running UI against (accessibility, performance, responsive, theming).
+checks a running UI against (accessibility, theming, forms).
 
 ## When to Use
 

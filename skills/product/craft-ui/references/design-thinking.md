@@ -35,10 +35,10 @@ more distinctive results than single-tone choices.
 Executing a named axis well is not wearing its costume. A cell names the lane; the
 craft is in *how* you build it. Brutalist done right, for instance, is engineered
 extreme type-scale contrast (a heavy grotesque display against small wide-tracked
-mono — not default system fonts), a single utilitarian accent held under strict
-restraint, grid-anchored compartmentalization with 90° rigidity, and bimodal
-density (dense data against vast negative space). The costume version reaches for
-default fonts and hard corners and stops. Test any named style: do its elements
+mono, or a deliberate raw-default-font take), a single utilitarian accent held
+under strict restraint, grid-anchored compartmentalization with 90° rigidity, and
+bimodal density (dense data against vast negative space). The costume version
+copies the hard corners and stops, with no structure beneath. Test any named style: do its elements
 reference a real function, or only cosplay one?
 
 ## Density & Variance

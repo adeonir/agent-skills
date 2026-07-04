@@ -6,9 +6,8 @@ Vitals: how to build fast, what to check, and how to measure.
 
 ## When to Use
 
-Composed by `render.md` (apply while generating) and by `audit.md` (the
-Performance dimension — static checks, plus runtime measurement when a perf tool
-is available). Animation performance lives in [motion.md](motion.md); responsive
+Composed by `audit.md` (the Performance dimension — static checks, plus runtime
+measurement when a perf tool is available). Animation performance lives in [motion.md](motion.md); responsive
 images in [responsive.md](responsive.md). Not a direct trigger.
 
 ## Loading
