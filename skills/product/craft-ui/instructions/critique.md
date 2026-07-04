@@ -19,12 +19,17 @@ Composes:
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
 - [design-thinking.md](../references/design-thinking.md) — visual direction, color strategy, slop test
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
+- [typography.md](../references/typography.md) — scale, pairing, hierarchy, readability
 - [layout.md](../references/layout.md) — hierarchy, hero composition, spacing, depth
 - [motion.md](../references/motion.md) — the animate gate, timing, easing, materials
+- [interaction.md](../references/interaction.md) — states, focus, overlays
+- [responsive.md](../references/responsive.md) — breakpoints, input, safe areas
 - [heuristics.md](../references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws
 - [cognitive-load.md](../references/cognitive-load.md) — load checklist, working-memory rule, overload patterns
 - [personas.md](../references/personas.md) — the five archetypes to test through
 - [anti-patterns.md](../references/anti-patterns.md) — perceptual failure modes
+- [tune.md](../references/tune.md) — tune-verb definitions for the render loop
+- [overdrive.md](../references/overdrive.md) — ambitious-tier motion verbs (brand only)
 - [scoring.md](../references/scoring.md) — severity, score bands, report template
 
 ## Workflow

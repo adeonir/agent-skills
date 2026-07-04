@@ -7,8 +7,8 @@ structure, not the surface. Layout problems are often why an interface feels
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` /
-`audit.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` (apply while generating), and by `critique.md`
+(judge a rendered surface against it). Not a direct trigger.
 
 ## Register sets the composition
 

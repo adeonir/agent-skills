@@ -23,8 +23,7 @@ Composes:
 - [web-standards.md](../references/web-standards.md) — technical rubric (a11y, theming, forms)
 - [performance.md](../references/performance.md) — perf diagnosis + Core Web Vitals measurement
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
-- [layout.md](../references/layout.md) — hierarchy, hero composition, spacing, depth
-- [motion.md](../references/motion.md) — the animate gate, timing, reduced-motion
+- [responsive.md](../references/responsive.md) — breakpoints, touch targets, overflow, text scaling
 - [anti-patterns.md](../references/anti-patterns.md) — perceptual failure modes
 - [scoring.md](../references/scoring.md) — severity, bands, report template
 
@@ -56,7 +55,7 @@ Score each 0–4 (bands in [scoring.md](../references/scoring.md)); total /20.
 
 1. **Accessibility** — contrast, ARIA, keyboard path, semantic HTML, alt text, labelled forms
 2. **Performance** — loading, rendering, network, framework, Core Web Vitals (see [performance.md](../references/performance.md)); measure CWV when a perf tool is available, otherwise judge from static checks
-3. **Responsive** — fixed widths, touch targets ≥44px, overflow, text scaling, breakpoints
+3. **Responsive** — fixed widths, touch targets ≥44px, overflow, text scaling, breakpoints (see [responsive.md](../references/responsive.md))
 4. **Theming** — consistent token use, working dark mode, no orphan hard-coded values
 5. **Anti-patterns** — AI-slop tells from [anti-patterns.md](../references/anti-patterns.md), including color-harmony failures (orphan or clashing accents, palette incoherence) judged against the brand hue family in [color.md](../references/color.md)
 

@@ -44,8 +44,8 @@ Required references, auto-loaded:
 - [heuristics.md](../references/heuristics.md) — heuristics + visual laws
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](../references/typography.md) — scale, pairing, loading
-- [layout.md](../references/layout.md) — spacing, grid, hierarchy, depth
-- [motion.md](../references/motion.md) — timing, easing, materials
+- [layout.md](../references/layout.md) — spacing, grid, hierarchy, hero composition, depth
+- [motion.md](../references/motion.md) — the animate gate, timing, easing, materials
 - [interaction.md](../references/interaction.md) — states, focus, overlays
 - [responsive.md](../references/responsive.md) — breakpoints, input, safe areas
 - [web-standards.md](../references/web-standards.md) — implementation rules

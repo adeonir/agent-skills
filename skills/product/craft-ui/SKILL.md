@@ -53,7 +53,8 @@ judges a variant); audit stands alone (it judges a shipped UI).
 
 ## Shared rubric
 
-Every mode composes the same references, so judgment and generation stay aligned:
+Each mode composes the references its job needs from this shared set, so judgment
+and generation stay aligned:
 
 - [brand.md](references/brand.md) / [product.md](references/product.md) — brand vs product posture (read the matching one, first)
 - [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test, density/variance dials

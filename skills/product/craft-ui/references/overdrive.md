@@ -9,7 +9,8 @@ is implemented downstream — never here.
 
 ## When to Use
 
-Composed by `render.md` when the user names `overdrive` on the chosen variant.
+Composed by `render.md` when the user names `overdrive` on the chosen variant,
+and by `critique.md` when it maps a finding to the overdrive verb.
 **Brand register only** — product surfaces stay calm and in-task; an orchestrated
 WebGL hero that wows on a portfolio embarrasses a settings page. Name the register
 first ([brand.md](brand.md) / [product.md](product.md)); on a product surface

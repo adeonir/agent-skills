@@ -7,8 +7,8 @@ brand font-selection procedure lives in [brand.md](brand.md); this is the *how*.
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` /
-`audit.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` (apply while generating), and by `critique.md`
+(judge a rendered surface against it). Not a direct trigger.
 
 ## Register sets the scale
 
