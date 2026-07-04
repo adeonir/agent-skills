@@ -84,7 +84,7 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 | Color tokens defined but not referenced by any `components.*` entry (excluding paired foreground tokens) | warning |
 | When a color is an object `{ hex, oklch }`, both values parse correctly and resolve to the same color within 1 sRGB unit per channel | warning |
 
-### Step 5: Typography Rules — `missing-typography`
+### Step 5: Typography Checks — `missing-typography`
 
 | Check | Severity |
 |-------|----------|
