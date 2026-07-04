@@ -45,6 +45,10 @@ Tint toward **this project's** brand hue, not a "warm = friendly / cool = tech"
 formula. Always-warm-orange or always-cool-blue are the two laziest defaults and
 breed cross-project monoculture.
 
+One palette per project — the neutral tint points a single direction. Never mix a
+warm grey in one section with a cool grey in another; mixed grey temperatures read
+as two palettes bolted together, not as variety.
+
 ## Palette structure
 
 | Role | Purpose | Shape |
@@ -80,6 +84,10 @@ Consistent meaning across the whole surface — green always = success.
 
 Primary actions, links (keep contrast), key icons, active headers, hover/focus.
 Reserve heavy color for active states; inactive stays neutral.
+
+Lock the accent page-wide: one accent, applied consistently across every section.
+Audit for drift — a slightly different accent hue surfacing in a later section (a
+second blue, a shifted teal) reads as the system slipping, not as variety.
 
 ## Harmony & orphan accents
 

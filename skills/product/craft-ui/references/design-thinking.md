@@ -31,6 +31,33 @@ more distinctive results than single-tone choices.
 | **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials — leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
+
+Executing a named axis well is not wearing its costume. A cell names the lane; the
+craft is in *how* you build it. Brutalist done right, for instance, is engineered
+extreme type-scale contrast (a heavy grotesque display against small wide-tracked
+mono — not default system fonts), a single utilitarian accent held under strict
+restraint, grid-anchored compartmentalization with 90° rigidity, and bimodal
+density (dense data against vast negative space). The costume version reaches for
+default fonts and hard corners and stops. Test any named style: do its elements
+reference a real function, or only cosplay one?
+
+## Density & Variance
+
+Two dials name what the Style Axes leave qualitative — read each 1–10 against the
+brief:
+
+- **Visual density** (1 = art gallery, huge gaps and few elements → 10 = cockpit,
+  tight rows, 1px separators, mono figures). A dashboard for scanning wants high
+  density; a premium landing wants low.
+- **Design variance** (1 = symmetric, predictable grid → 10 = offset overlaps,
+  fractional grids, large empty zones). Low reads calm and safe; high reads
+  editorial and bold.
+
+`render` targets the level the brief implies; `critique` reports the level it
+measures against the level intended ("reads density 8, the brief wanted 4"). The
+dials are a read, not a score — they sharpen the verdict, they do not enter the
+`/40` or `/20`.
+
 ## Scene Sentence
 
 Before choosing light vs dark or warm vs cool, write one sentence of physical
@@ -55,6 +82,12 @@ Restrained, earning Committed only where one screen carries a category color.
 (The register sets which permissions apply — see [brand.md](brand.md) /
 [product.md](product.md).)
 
+Register follows the surface's job, not its name. The default is landing = brand,
+but a landing for a dev tool, CLI, or infra product often reads more premium in a
+compact *product* register — dense command fields, code cards, live micro-demos,
+spacing doing the work — than in a wide brand-marketing layout. Let the audience
+decide the register, not the surface label.
+
 ## The Slop Test
 
 The cheapest way to catch a generic result is to try to guess it from the
@@ -73,6 +106,12 @@ outside. Run two altitudes.
 Then the inverse: describe in one sentence what you are about to build the way a
 competitor would describe theirs. If that sentence fits the modal page in the
 category, restart.
+
+Some categories carry a reflex palette the whole field defaults to — beige-and-
+cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer
+brands; dark-blue gradients for fintech. Reaching for the category's stock palette
+is the anti-reference reflex in color form: name the reflex palette for this
+category and treat it as a default to earn past, not the safe choice.
 
 ### The warm-neutral trap
 
@@ -111,7 +150,12 @@ Match implementation effort to the aesthetic vision:
   animations, textures, custom cursors, parallax, grain overlays. The detail IS
   the design.
 - **Minimal / luxury / neo-grotesque**: restraint is the skill. Fewer elements,
-  each pixel-perfect. Spacing, weight, and color precision carry the result.
+  each pixel-perfect. Spacing, weight, and color precision carry the result. The
+  failure mode is empty, not busy: disciplined minimal still supplies depth —
+  through near-invisible means (low-opacity imagery, a warm radial light, grain,
+  hairline structure), not by adding elements — and lets contrast migrate to
+  type-role (display serif vs sans vs mono) and whitespace rather than color.
+  Motion stays quiet too.
 - **Middle-ground tones** (editorial, startup, organic): balance detail and
   restraint. One or two signature moments plus polished fundamentals.
 
