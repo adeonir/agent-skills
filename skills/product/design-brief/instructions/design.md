@@ -71,6 +71,8 @@ If discovery did not capture it, ask one question at a time:
 2. Source on hand: images, codebase, text description, design-tool file?
 3. Existing `DESIGN.md` in `docs/design/` — patch it or start fresh?
 
+If discovery flagged the `evolve` sub-mode, run the evolve flow (see **Evolving an identity against stated intent** above) before Step 3 — it produces the recommended direction the patch then applies.
+
 ### Step 2: Get Source
 
 Sources accepted, in order of recommended fidelity:

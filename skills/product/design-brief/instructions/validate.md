@@ -90,8 +90,8 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 |-------|----------|
 | `typography` is present when `colors` is present | warning |
 | Body role line-height ≥ 1.4 (readability floor) | warning |
-| A label, caps, or eyebrow role carries `letterSpacing` ≥ 0.06em (ALL-CAPS text reads cramped without positive tracking) | warning |
-| A display or large-heading role carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
+| A `label` or `caption` role — or any role the Typography prose describes as uppercase / ALL-CAPS — carries `letterSpacing` ≥ 0.06em (uppercase text reads cramped without positive tracking) | warning |
+| A `display` or `heading-*` role carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
 
 ### Step 6: Token Groups Shape — `token-groups-shape`
 
@@ -124,7 +124,6 @@ Canonical section order in the markdown body — the eight named sections follow
 | Sections present appear in canonical order | warning |
 | Optional sections (`Elevation & Depth`, `Shapes`, `Motion & Interaction`, `Responsive Behavior`) absent when their matching YAML group is populated | info |
 | Section headings match the canonical names listed above | warning |
-| `Motion & Interaction` present with `duration`/`easing` populated but no `Reduced Motion` subsection, or only a placeholder line (a11y fallback must be authored) | warning |
 | Duplicate section heading | error |
 
 ### Step 8: Prose↔YAML Parity
@@ -138,6 +137,7 @@ Canonical section order in the markdown body — the eight named sections follow
 | Component variants in YAML (`button-primary-hover`, ...) are narrated in the Components section | info |
 | An Agent Prompt Guide Example Component Prompt spells out the property bundle of a component defined in `components.*` (background/text/border/radius/padding) instead of referencing `{components.<name>}` | warning |
 | Component-variant behavior narrated in the Components section agrees with that variant's token value (flag a disagreement; do not prescribe which side is right) | warning |
+| `duration`/`easing` are populated but the Motion & Interaction section's `Reduced Motion` subsection is missing or left as a placeholder — the a11y fallback the tokens imply is unauthored | warning |
 
 ### Step 9: Content & Tooling-Agnostic Check — `content-leakage` + `library-name-leakage`
 

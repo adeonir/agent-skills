@@ -12,9 +12,10 @@ description: >-
   codebase; applying named tones to the identity; redesigning,
   modernizing, or refreshing the brand identity; previewing and tuning
   the design tokens as a visual styleguide then committing tuned
-  values back; reconciling design drift or syncing from implementation.
-  Not for rendering page variants, feature implementation spec, technical
-  design docs, system architecture, or PR/code review.
+  values back; reconciling design drift or syncing from implementation;
+  evolving the identity against a product's stated intent from a PRD or
+  PRODUCT.md. Not for rendering page variants, feature implementation
+  spec, technical design docs, system architecture, or PR/code review.
 ---
 
 # Design Brief
