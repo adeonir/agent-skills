@@ -53,7 +53,7 @@ Infer field from source and intent — no explicit question to the user:
   external design-tool file. Legacy tokens exist; `DESIGN.md` may
   already exist.
 
-Within brownfield, three implicit sub-modes — detect by user vocabulary,
+Within brownfield, four implicit sub-modes — detect by user vocabulary,
 do not ask:
 
 | Sub-mode | Trigger phrases | Skill behavior |
@@ -61,6 +61,7 @@ do not ask:
 | inherit | "extract tokens", "document our current system", "audit design" | Pull legacy as-is, preserve names and roles |
 | refresh | "modernize", "polish", "tighten", "tune" | Keep DNA, tighten scale, refresh prose |
 | rebrand | "rebrand", "new identity", "brand refresh", "change the vibe" | Replace identity, preserve product surfaces and structure |
+| evolve | "evolve", "does our design still fit", "align the design to the strategy", "rethink the direction against the PRD" | Extract the current identity, diff it against the stated intent (`PRODUCT.md` / PRD), propose a delta and recommended direction before authoring |
 
 Partial cases (codebase defines colors but no typography) stay brownfield;
 gaps are filled via images or description without flipping the field.
@@ -73,6 +74,7 @@ Load only the reference matching the activated trigger:
 |----------------|-----------|------------|
 | Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `brand.md` / `product.md` |
 | Visual identity / DESIGN.md | `design.md` | `aesthetics.md`, `brand.md` / `product.md`, `validate.md` |
+| Evolve identity against stated intent (brownfield) | `design.md` | `aesthetics.md`, `brand.md` / `product.md`, `validate.md` |
 | Token preview / tune (DESIGN.md exists) | `preview.md` | `anti-patterns.md` |
 | Validation only | `validate.md` | — |
 | Reconcile / drift sync | `reconcile.md` | `validate.md` |

@@ -118,15 +118,15 @@ ALWAYS use this exact template structure:
 ### copy-string-in-design-md
 **Category:** Drift
 **Severity:** warning
-**Check:** DESIGN.md prose (Section 1 Visual Theme & Atmosphere, Section 4 Component Stylings, Section 11 Agent Prompt Guide) contains literal product copy — real headlines, CTAs, feature names, or product pitches.
-**Fix:** Move every product string out of DESIGN.md. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in Section 11 prompts.
+**Check:** DESIGN.md prose (the Overview, Components, and Agent Prompt Guide sections) contains literal product copy — real headlines, CTAs, feature names, or product pitches.
+**Fix:** Move every product string out of DESIGN.md. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in the Agent Prompt Guide prompts.
 **Example fail:**
 ```markdown
-## 11. Agent Prompt Guide
+## Agent Prompt Guide
 - Use the hero pattern: "Ship Faster With Acme — Start Free Today"
 ```
 **Example pass:**
 ```markdown
-## 11. Agent Prompt Guide
+## Agent Prompt Guide
 - Use the hero pattern: "[Eyebrow] — [Headline] — [CTA Label]"
 ```

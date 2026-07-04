@@ -21,7 +21,7 @@ description: >-
 
 Greenfield design pipeline for any digital product: discover, author
 `DESIGN.md` with a YAML frontmatter holding the authoritative design
-tokens plus numbered prose sections that narrate them, and refine that
+tokens plus prose sections that narrate them, and refine that
 identity. DESIGN.md is the primary artifact this skill authors and owns;
 `docs/design/styleguide.html` is its rendered styleguide.
 
@@ -53,11 +53,11 @@ after handoff → `reconcile.md`.
 DESIGN.md holds the visual identity as a YAML frontmatter
 carrying the normative design tokens (`colors`, `typography`, `rounded`,
 `borderWidth`, `spacing`, `components`, `elevation`, `duration`,
-`easing`, `breakpoints`) plus numbered prose sections that narrate them
-(Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules,
-Component Stylings, Layout Principles, Shapes, Elevation & Depth,
-Motion & Interaction, Responsive Behavior, Do's and Don'ts,
-Agent Prompt Guide). Token references use `{path.to.token}` syntax. The
+`easing`, `breakpoints`) plus prose sections that narrate them, following
+the `design.md` spec order (Overview, Colors, Typography, Layout,
+Elevation & Depth, Shapes, Components, Motion & Interaction,
+Responsive Behavior, Do's and Don'ts, Agent Prompt Guide). Token
+references use `{path.to.token}` syntax. The
 frontmatter is the authoritative state; the prose narrates it. Layout and
 content are separate concerns, not part of DESIGN.md.
 
@@ -69,8 +69,9 @@ Discovery classifies every engagement by field, then routes:
   inputs (URL, images, brief, codebase, design-tool file). Default
   path; runs `direction` first when no visual reference exists (mood
   explored into `moodboard.md`), then `design`.
-- **Brownfield** — an existing identity to inherit, refresh, or
-  rebrand from a new reference. Handled by
+- **Brownfield** — an existing identity to inherit, refresh, rebrand
+  from a new reference, or evolve against stated intent
+  (`PRODUCT.md` / PRD). Handled by
   [design.md](instructions/design.md); discovery picks the sub-mode
   by intent.
 
@@ -133,7 +134,7 @@ risks naming collisions.
 
 ## Anti-Pattern: Copy Leakage into DESIGN.md
 
-DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when Section 1 (Visual Theme & Atmosphere) reads like a product pitch, when Section 4 (Component Stylings) names components by product-specific labels, or when Section 11 (Agent Prompt Guide) bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside Section 11 prompts. Treat content and design as orthogonal — one DESIGN.md must survive any content swap.
+DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when the Overview section reads like a product pitch, when the Components section names components by product-specific labels, or when the Agent Prompt Guide section bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside the Agent Prompt Guide prompts. Treat content and design as orthogonal — one DESIGN.md must survive any content swap.
 
 ## Anti-Pattern: Skipping Discovery
 

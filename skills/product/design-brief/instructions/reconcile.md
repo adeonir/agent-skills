@@ -61,9 +61,9 @@ Present the diff inline. User approves, rejects, or edits each patch row. No sil
 
 ### Step 5: Patch DESIGN.md Surgically
 
-Patch the YAML frontmatter first (authoritative), then patch the prose bullets in Sections 2, 3, 4, 5, 6, 7, 8 that cite the patched tokens, so prose mirrors the frontmatter.
+Patch the YAML frontmatter first (authoritative), then patch the prose bullets in the token-bearing sections (Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Motion & Interaction) that cite the patched tokens, so prose mirrors the frontmatter.
 
-Leave narrative sections (`## 1. Visual Theme & Atmosphere`, `## 10. Do's and Don'ts`, `## 11. Agent Prompt Guide`, `## 9. Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design.md](design.md) if narrative refresh is wanted.
+Leave narrative sections (`## Overview`, `## Do's and Don'ts`, `## Agent Prompt Guide`, `## Responsive Behavior`) untouched. Flag them as potentially stale relative to the new tokens; recommend re-running [design.md](design.md) if narrative refresh is wanted.
 
 ### Step 6: Validate
 

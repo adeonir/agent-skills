@@ -18,7 +18,7 @@ flowchart TD
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Direction** | No reference on hand — explore visual mood from audience/PRD, diverge across aesthetic directions, converge on one | `docs/design/moodboard.md` (locked direction: Mood, Style Axes, Signature, Touchstones) |
-| **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + numbered prose sections narrating them) + `docs/design/styleguide.html` |
+| **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + prose sections narrating them) + `docs/design/styleguide.html` |
 | **Preview** | `DESIGN.md` exists — render its tokens as a styleguide, tune by conversation or the optional color tuner, hand tuned deltas to reconcile | `docs/design/styleguide.html` (rendered styleguide; color tuner is a server-injected overlay) |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
 | **Reconcile** | Sync DESIGN.md from drifted implementation, or apply tuned deltas from preview | Patched `docs/design/DESIGN.md` (confirm-before-write) + `docs/design/styleguide.html` |
@@ -62,6 +62,11 @@ redesign my app with a Cyberpunk vibe
 modernize this app with a Bento Grid layout
 apply this brand's colors to my app, keep my typography
 
+# Evolve the identity against the product's stated intent
+does our design still fit the strategy?
+align the design to the PRD
+rethink the direction against PRODUCT.md
+
 # Reconcile (brownfield drift sync: implementation back to DESIGN.md)
 sync DESIGN.md from this codebase
 update DESIGN.md from code
@@ -73,7 +78,7 @@ reconcile drift between implementation and design
 ```text
 docs/design/
 ├── moodboard.md          # Locked visual direction (Mood, Style Axes, Signature) — direction-absent flow
-├── DESIGN.md             # YAML frontmatter (normative tokens) + numbered prose sections
+├── DESIGN.md             # YAML frontmatter (normative tokens) + prose sections
 └── styleguide.html       # Styleguide rendered from DESIGN.md
 ```
 
@@ -98,7 +103,7 @@ Bundled lookups auto-loaded by the relevant instruction phase:
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start and for restyling an existing identity from a new reference, plus `reconcile.md` for syncing back after drift.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start, for restyling an existing identity from a new reference, and for evolving it against the product's stated intent (`PRODUCT.md` / PRD), plus `reconcile.md` for syncing back after drift.
 
 **Q: What if I have no reference or moodboard to start from?**
 
@@ -106,7 +111,7 @@ A: Run `direction.md` — explore a mood from scratch. It diverges across aesthe
 
 **Q: What is `DESIGN.md`?**
 
-A: A single file at `docs/design/DESIGN.md`. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, numbered H2 sections narrate the tokens: Visual Theme & Atmosphere, Color Palette & Roles, Typography Rules, Component Stylings, Layout Principles, Shapes, Elevation & Depth, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
+A: A single file at `docs/design/DESIGN.md`. A YAML frontmatter at the top carries the normative design tokens — `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. Below the frontmatter, H2 sections narrate the tokens in the `design.md` spec order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide. The frontmatter is authoritative; prose cites tokens by name in backticks (`` `primary` ``, `` `body-standard` ``, `` `rounded.lg` ``) and explains how to apply them.
 
 **Q: Does DESIGN.md cover page layout and screen flow?**
 
@@ -122,4 +127,4 @@ A: Yes — run `preview.md` once `DESIGN.md` exists. It renders the tokens as a 
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches it surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Visual Theme & Atmosphere, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke design again if narrative needs refresh.
+A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches it surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide, Responsive Behavior) stay untouched; invoke design again if narrative needs refresh.

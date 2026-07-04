@@ -90,6 +90,8 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 |-------|----------|
 | `typography` is present when `colors` is present | warning |
 | Body role line-height ≥ 1.4 (readability floor) | warning |
+| A label, caps, or eyebrow role carries `letterSpacing` ≥ 0.06em (ALL-CAPS text reads cramped without positive tracking) | warning |
+| A display or large-heading role carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
 
 ### Step 6: Token Groups Shape — `token-groups-shape`
 
@@ -103,15 +105,15 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 
 ### Step 7: Section Order and Coverage — `section-order` + `missing-sections`
 
-Canonical section order in the markdown body:
+Canonical section order in the markdown body — the eight named sections follow the `design.md` spec (Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts); the rest are permitted extras that keep their slot in this order:
 
-1. Visual Theme & Atmosphere
-2. Color Palette & Roles
-3. Typography Rules
-4. Component Stylings
-5. Layout Principles
+1. Overview
+2. Colors
+3. Typography
+4. Layout
+5. Elevation & Depth
 6. Shapes
-7. Elevation & Depth
+7. Components
 8. Motion & Interaction
 9. Responsive Behavior
 10. Do's and Don'ts
@@ -122,6 +124,7 @@ Canonical section order in the markdown body:
 | Sections present appear in canonical order | warning |
 | Optional sections (`Elevation & Depth`, `Shapes`, `Motion & Interaction`, `Responsive Behavior`) absent when their matching YAML group is populated | info |
 | Section headings match the canonical names listed above | warning |
+| `Motion & Interaction` present with `duration`/`easing` populated but no `Reduced Motion` subsection, or only a placeholder line (a11y fallback must be authored) | warning |
 | Duplicate section heading | error |
 
 ### Step 8: Prose↔YAML Parity
@@ -130,11 +133,11 @@ Canonical section order in the markdown body:
 |-------|----------|
 | Token keys cited in prose (backticked) exist in the frontmatter | warning |
 | Each color bullet's value matches its frontmatter shape — hex-only when YAML is a string, dual `oklch / #HEX` when YAML is an object | warning |
-| Quick Token Reference entries in Section 11 mirror the shape of their matching Section 2 bullet | warning |
-| Each populated YAML color token has a bullet in Section 2 (Color Palette & Roles) | info |
-| Component variants in YAML (`button-primary-hover`, ...) are narrated in Section 4 (Component Stylings) | info |
-| A Section 11 Example Component Prompt spells out the property bundle of a component defined in `components.*` (background/text/border/radius/padding) instead of referencing `{components.<name>}` | warning |
-| Component-variant behavior narrated in Section 4 agrees with that variant's token value (flag a disagreement; do not prescribe which side is right) | warning |
+| Quick Token Reference entries in the Agent Prompt Guide section mirror the shape of their matching Colors section bullet | warning |
+| Each populated YAML color token has a bullet in the Colors section | info |
+| Component variants in YAML (`button-primary-hover`, ...) are narrated in the Components section | info |
+| An Agent Prompt Guide Example Component Prompt spells out the property bundle of a component defined in `components.*` (background/text/border/radius/padding) instead of referencing `{components.<name>}` | warning |
+| Component-variant behavior narrated in the Components section agrees with that variant's token value (flag a disagreement; do not prescribe which side is right) | warning |
 
 ### Step 9: Content & Tooling-Agnostic Check — `content-leakage` + `library-name-leakage`
 
@@ -142,9 +145,9 @@ DESIGN.md must render any copy and stay tool-agnostic. Flag prose that bakes pro
 
 | Check | Severity |
 |-------|----------|
-| Section 1 Visual Theme & Atmosphere contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
-| Section 4 Component Stylings narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
-| Section 11 Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
+| The Overview section contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
+| The Components section narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
+| The Agent Prompt Guide Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
 | Prose or `description` names a specific UI library or design system (`shadcn`, `Tailwind`, `Material UI`, `Bootstrap`, `Chakra`, `Radix`, ...) — reference/inspiration only, never part of the brand identity; name the value, not the tool | warning |
 
@@ -211,7 +214,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - Parse the YAML frontmatter first; treat it as authoritative
 - Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
-- Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## 4. Component Stylings > Buttons`)
+- Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## Components > Buttons`)
 - Use the same checks whether called directly or as a gate by design.md or reconcile.md
 
 **DON'T:**

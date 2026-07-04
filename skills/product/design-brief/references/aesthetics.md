@@ -44,6 +44,7 @@ register ([brand.md](brand.md) / [product.md](product.md)).
 - **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for a marketing or editorial identity. Pair a characterful display font with a refined body font. System stacks are acceptable for app and dashboard surfaces where performance and native feel matter.
 - **Weight extremes**: use 100-200 for subtlety and 800-900 for impact within the same scale.
 - **Size jumps**: display should be at least 3x body size. Timid 1.5x ratios flatten hierarchy.
+- **Letter-spacing is the tell**: tune tracking per role, never leave it default-zero everywhere. Tighten display and large headings with negative tracking as size grows (roughly `-0.01em` to `-0.03em`); keep body near `0`; give ALL-CAPS labels and eyebrows positive tracking of at least `0.06em` or they read cramped. Flat, untuned letter-spacing is the highest-signal sign of careless type.
 - **Loading strategy**: author `font-display: swap` (or `optional` for zero layout shift) with a metric-matched fallback (`size-adjust`) to tame it; preload only the critical above-the-fold weight, and reach for a variable font once a family needs 3+ weights.
 
 ### Color and Theme
@@ -65,7 +66,8 @@ register ([brand.md](brand.md) / [product.md](product.md)).
 ### Motion and Interaction
 
 - **Easing per tone**: pick `cubic-bezier` curves that match the tone — snappy (`0.22, 1, 0.36, 1`) for tech, gentle (`0.25, 0.1, 0.25, 1`) for editorial, bouncy (`0.34, 1.56, 0.64, 1`) for playful. Never leave `ease` as default without intention.
-- **Duration tiers**: a fast tier for state feedback (hover/focus), a base tier for transitions, a slow tier for deliberate reveals. Keep the spread perceptible.
+- **Duration tiers**: a fast tier for state feedback (hover/focus), a base tier for transitions, a slow tier for deliberate reveals. Anchor the base tier around 150–200ms and keep the spread perceptible; sub-100ms feels instant, over-500ms feels sluggish for interface feedback.
+- **Honor `prefers-reduced-motion`**: pair every non-essential transition or animation with a `prefers-reduced-motion: reduce` fallback that collapses motion to an instant state change or a minimal opacity fade. Motion that ignores the OS setting is an accessibility failure, not a flourish.
 
 ### Depth and Elevation
 

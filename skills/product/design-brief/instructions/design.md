@@ -1,6 +1,6 @@
 # Design
 
-Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of numbered prose sections that narrate the brand from visual theme to agent prompts.
+Take any input source and author the visual identity in `DESIGN.md`. Output is a YAML frontmatter holding the normative design tokens plus a markdown body of prose sections that narrate the brand from overview to agent prompts.
 
 The YAML frontmatter is authoritative — tokens carry the values. Prose cites tokens by name and explains how to apply them. Token extraction and naming deserve careful reasoning — small mistakes cascade into every downstream use of the tokens.
 
@@ -10,7 +10,7 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 - [When to Use](#when-to-use) — triggers and source shapes this reference handles
 - [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
-- [Output](#output) — DESIGN.md structure (YAML frontmatter + numbered prose sections)
+- [Output](#output) — DESIGN.md structure (YAML frontmatter + prose sections)
 - [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, regenerate styleguide and present
 - [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
 - [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
@@ -35,21 +35,21 @@ Write `docs/design/DESIGN.md`. A YAML frontmatter, then a markdown body:
 
 **YAML frontmatter.** Machine-readable tokens, delimited by `---` fences. Carries the token groups `colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, and `breakpoints`. Token references use `{path.to.token}` syntax inside `components`, `rounded`, and `spacing`. A color reference may carry a Tailwind opacity modifier — `{colors.primary}/90` means 90% opacity, matching Tailwind's `bg-primary/90`.
 
-**Markdown body.** Numbered H2 sections, in order:
+**Markdown body.** H2 sections in the `design.md` spec order — the eight canonical section names plus three permitted extras:
 
-1. `## 1. Visual Theme & Atmosphere`
-2. `## 2. Color Palette & Roles`
-3. `## 3. Typography Rules`
-4. `## 4. Component Stylings`
-5. `## 5. Layout Principles`
-6. `## 6. Shapes`
-7. `## 7. Elevation & Depth`
-8. `## 8. Motion & Interaction`
-9. `## 9. Responsive Behavior`
-10. `## 10. Do's and Don'ts`
-11. `## 11. Agent Prompt Guide`
+1. `## Overview`
+2. `## Colors`
+3. `## Typography`
+4. `## Layout`
+5. `## Elevation & Depth`
+6. `## Shapes`
+7. `## Components`
+8. `## Motion & Interaction`
+9. `## Responsive Behavior`
+10. `## Do's and Don'ts`
+11. `## Agent Prompt Guide`
 
-These eleven sections appear in this fixed order. If the source carries no signal for a section, Step 4 leaves a placeholder line rather than inventing tokens.
+These eleven sections appear in this fixed order. Sections 1–7 and 10 are the spec's eight canonical sections; `Motion & Interaction`, `Responsive Behavior`, and `Agent Prompt Guide` are extras the spec permits beyond them. If the source carries no signal for a section, Step 4 leaves a placeholder line rather than inventing tokens.
 
 Lead block above the sections (inside the markdown body): H1 with project name.
 
@@ -57,7 +57,9 @@ Product-specific arrangement (which pages exist, hero treatment, screen inventor
 
 Use the DESIGN.md template (see "DESIGN.md Template" below). The artifact written into the user's `docs/design/` directory must use the uppercase filename `DESIGN.md`.
 
-**Changing or rebranding an existing identity.** When a `DESIGN.md` already exists and the user brings a new reference to shift the look, treat the current `DESIGN.md` as the baseline and patch only the sections the new reference drives. Default: source the aesthetic sections (Color, Typography, Motion, Shapes, Elevation) from the new reference; keep the structural sections (Layout, Responsive) from the current product, and leave content and arrangement untouched, unless the user names them. Confirm the per-section mapping before patching.
+**Changing or rebranding an existing identity.** When a `DESIGN.md` already exists and the user brings a new reference to shift the look, treat the current `DESIGN.md` as the baseline and patch only the sections the new reference drives. Default: source the aesthetic sections (Colors, Typography, Motion & Interaction, Shapes, Elevation & Depth) from the new reference; keep the structural sections (Layout, Responsive Behavior) from the current product, and leave content and arrangement untouched, unless the user names them. Confirm the per-section mapping before patching.
+
+**Evolving an identity against stated intent (`evolve` sub-mode).** When discovery detects the `evolve` sub-mode — "does our design still fit", "align the design to the strategy", "rethink the direction against the PRD" — do not jump straight to patching. First extract the current identity as the `inherit` sub-mode would (baseline tokens plus prose). Then read `docs/product/PRODUCT.md` and `docs/product/PRD.md` as **context only**: strip every upstream token — requirement IDs, milestones, feature names, roadmap language — so nothing crosses into `DESIGN.md`. Diff the current identity against the intent those artifacts state (register, principles, anti-references) and present a short delta: where the current look still serves the intent, where it has drifted, and a recommended direction. On the user's confirmation, author the change through the `refresh` or `rebrand` path above. Evolve produces the recommendation; the existing patch flow applies it.
 
 ## Workflow
 
@@ -73,7 +75,7 @@ If discovery did not capture it, ask one question at a time:
 
 Sources accepted, in order of recommended fidelity:
 
-**Locked moodboard (`docs/design/moodboard.md`).** When discovery found a `moodboard.md` with `status: locked`, it is the authoritative visual direction — the converged output of mood exploration for the direction-absent case (no reference image exists, so the moodboard carries the direction). Author Section 1 (Visual Theme & Atmosphere) from its Mood prose, map its four Style Axes and Signature into the token choices, and treat its Constraints as hard requirements. Generate tokens from it as you would from a rich text description, below. When no moodboard exists, use the sources below directly.
+**Locked moodboard (`docs/design/moodboard.md`).** When discovery found a `moodboard.md` with `status: locked`, it is the authoritative visual direction — the converged output of mood exploration for the direction-absent case (no reference image exists, so the moodboard carries the direction). Author the Overview section from its Mood prose, map its four Style Axes and Signature into the token choices, and treat its Constraints as hard requirements. Generate tokens from it as you would from a rich text description, below. When no moodboard exists, use the sources below directly.
 
 **Reference images.** User pastes screenshots, mockups, or mood boards, or provides file paths or URLs. Best for greenfield work with a strong visual direction.
 
@@ -231,9 +233,9 @@ components:
 
 **Prose body — one section at a time.**
 
-`## 1. Visual Theme & Atmosphere` — long prose (target 1500–3000 chars). Mood, density, contrast strategy, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). No H3 in this section. Reference tokens by name in backticks (`` `primary` ``) inline. **Reads like editorial copy** — rich, evocative prose that captures the visual feel, not a technical property dump. **Content-agnostic** — describe the visual identity, not what the product does or for whom. No real headlines, marketing claims, feature lists, or audience descriptions.
+`## Overview` — long prose (target 1500–3000 chars). Mood, density, contrast strategy, primary palette character, atmosphere metaphor, project category (e.g., Productivity & SaaS, Editorial, AI & LLM). No H3 in this section. Reference tokens by name in backticks (`` `primary` ``) inline. **Reads like editorial copy** — rich, evocative prose that captures the visual feel, not a technical property dump. **Content-agnostic** — describe the visual identity, not what the product does or for whom. No real headlines, marketing claims, feature lists, or audience descriptions.
 
-`## 2. Color Palette & Roles` — short paragraph on palette character first. Then recommended H3 groups (omit any group the source does not support):
+`## Colors` — short paragraph on palette character first. Then recommended H3 groups (omit any group the source does not support):
 
 - `### Primary`
 - `### Secondary & Accent`
@@ -251,13 +253,29 @@ Each H3 lists colors as bullets in one of these shapes — **per-bullet** match 
 
 Bullets mirror the frontmatter shape of their token — hex-only when the YAML carries a hex string, dual when the YAML carries an object with `hex` + `oklch`.
 
-`## 3. Typography Rules` — three recommended H3:
+`## Typography` — three recommended H3:
 
 - `### Font Family` — list each family with role and substitute fallback if applicable.
 - `### Hierarchy` — bullet list, one bullet per role. Format: `- **<Role Name>** (`` `<token-key>` ``): <Font> <size> weight <N>, line-height <N>, letter-spacing <Npx>`. Role names are human (`Display / Hero`, `Section Heading`, `Body Standard`, `Caption`, `Label`, `Code`). Quantity is free. Never use a table.
 - `### Principles` — 3–6 named bullets explaining why the type system reads the way it does. Format: `- **<Named principle>**: <why-explanation prose>`.
 
-`## 4. Component Stylings` — H3 per component group. Cover at minimum:
+`## Layout` — three recommended H3 (radius lives in the Shapes section):
+
+- `### Spacing System` — base unit + scale narrative; reference token keys (`spacing.1`, `spacing.4`, ...) inline.
+- `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
+- `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Overview tone.
+
+This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow are out of scope here.
+
+`## Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
+
+`## Shapes` — radius, border-width, and corner treatments. Recommended H3:
+
+- `### Radius Scale` — narrate `rounded.xs` through `rounded.full` with named tiers (Micro, Standard, Comfortable, Card, Panel, Full Pill, Circle) and the component classes each tier serves.
+- `### Border Width` — narrate `borderWidth.DEFAULT` through `borderWidth.8` and the stroke each tier serves (hairline dividers, input and card borders, emphasis outlines).
+- `### Corner Language` — short prose on what corners say about the brand (precise, soft, brutalist, organic).
+
+`## Components` — H3 per component group. Cover at minimum:
 
 - `### Buttons` — narrate each variant from frontmatter (`button-primary`, `button-secondary`, `button-ghost`, ...) and their hover/active/disabled states. Reference the YAML refs explicitly. State behavior is project-driven — narrate each variant by its actual token value. When the source gives no signal, default to a restrained state (the fill dims or lifts) rather than an inversion, but honor whatever the source shows.
 - `### Cards & Containers`
@@ -266,47 +284,31 @@ Bullets mirror the frontmatter shape of their token — hex-only when the YAML c
 
 Add `### Image Treatment` and `### Distinctive Components` when the source carries them.
 
-`## 5. Layout Principles` — three recommended H3 (radius lives in section 6):
-
-- `### Spacing System` — base unit + scale narrative; reference token keys (`spacing.1`, `spacing.4`, ...) inline.
-- `### Grid & Container` — max content width, hero treatment, feature section layout, brand-immersive sections.
-- `### Whitespace Philosophy` — 2–4 named bullets framing whitespace as identity (e.g., "Darkness as space", "Precision spacing", "Section isolation"). Match the Visual Theme & Atmosphere tone.
-
-This section authors **brand-level layout identity**, not product-specific arrangement. Page composition and screen flow are out of scope here.
-
-`## 6. Shapes` — radius, border-width, and corner treatments. Recommended H3:
-
-- `### Radius Scale` — narrate `rounded.xs` through `rounded.full` with named tiers (Micro, Standard, Comfortable, Card, Panel, Full Pill, Circle) and the component classes each tier serves.
-- `### Border Width` — narrate `borderWidth.DEFAULT` through `borderWidth.8` and the stroke each tier serves (hairline dividers, input and card borders, emphasis outlines).
-- `### Corner Language` — short prose on what corners say about the brand (precise, soft, brutalist, organic).
-
-`## 7. Elevation & Depth` — prose covering how depth is communicated. Reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) inline; explain when each tier applies (cards, overlays, popovers, modals). Optional `### Decorative Depth` H3 for ornamental effects (gradients, vignettes, halos).
-
-`## 8. Motion & Interaction` — four recommended H3:
+`## Motion & Interaction` — four recommended H3:
 
 - `### Duration` — narrate `duration.fast`, `duration.base`, `duration.slow` with usage context.
 - `### Easing` — narrate `easing.in`, `easing.out`, `easing.in-out` and the motion each communicates (accelerating from rest, settling to rest, symmetric ease).
 - `### Reduced Motion` — fallback behavior under `prefers-reduced-motion`.
 - `### Interaction Patterns` — short prose on hover, focus, pressed, drag, and gesture cues.
 
-`## 9. Responsive Behavior` — three recommended H3:
+`## Responsive Behavior` — three recommended H3:
 
 - `### Breakpoints` — narrate `breakpoints.sm` through `breakpoints.2xl` with audience (mobile, tablet, desktop, wide).
 - `### Collapsing Strategy` — what stacks, what hides, what reflows when viewport narrows.
 - `### Image Behavior` — aspect-ratio strategy, cropping, art direction.
 
-`## 10. Do's and Don'ts` — two H3:
+`## Do's and Don'ts` — two H3:
 
 - `### Do` — bullets, lead with the action.
 - `### Don't` — bullets, each contrasting a Do above.
 
-`## 11. Agent Prompt Guide` — three H3 designed for downstream agents to paste-and-run:
+`## Agent Prompt Guide` — three H3 designed for downstream agents to paste-and-run:
 
-- `### Quick Token Reference` — flat lookup, one bullet per key role. Each entry mirrors the shape of its matching Section 2 bullet (hex-only or dual).
+- `### Quick Token Reference` — flat lookup, one bullet per key role. Each entry mirrors the shape of its matching Colors section bullet (hex-only or dual).
 - `### Example Component Prompts` — literal prompts agents feed into AI code generators. Reference `{components.<name>}` for any component defined in the frontmatter rather than re-spelling its properties; bake in individual tokens only for properties no component entry covers (layout, one-off spacing). Wrap each in quotes for readability.
 - `### Iteration Guide` — 5–7 numbered rules-of-thumb for tuning (e.g., "Lock neutral foundation first", "Brand color is the only chromatic — everything else grayscale").
 
-**Prose bullet shape.** Bullets in Visual Theme & Atmosphere, Layout Principles, Typography Rules, Elevation & Depth, Motion & Interaction, and Component Stylings follow `<descriptor> <concrete value> <effect>` — three parts per line. Example: `Generous 5-8rem (80-128px) between major sections creating dramatic breathing room`. Skip the shape when a bullet is purely structural (e.g., breakpoint definitions, scale steps).
+**Prose bullet shape.** Bullets in Overview, Layout, Typography, Elevation & Depth, Motion & Interaction, and Components follow `<descriptor> <concrete value> <effect>` — three parts per line. Example: `Generous 5-8rem (80-128px) between major sections creating dramatic breathing room`. Skip the shape when a bullet is purely structural (e.g., breakpoint definitions, scale steps).
 
 **Importance markers.** When a section carries disproportionate weight (e.g., whitespace strategy in a minimalist design), append a parenthetical to the H3: `### Whitespace Philosophy (Critical)`. Optional convention. Other valid suffixes: `(Foundational)`, `(Optional)`.
 
@@ -347,8 +349,8 @@ Then show the user:
 - Ask the user when two sources conflict on the same token
 - Express variants (hover, active, pressed, disabled) as separate component entries with related key names
 - Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy is out of scope
-- Use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`) in Section 11 example prompts so DESIGN.md renders any product copy
-- Reference `{components.X}` in Section 11 example prompts for any component defined in the frontmatter; re-spell properties only for what no component token covers
+- Use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`) in the Agent Prompt Guide example prompts so DESIGN.md renders any product copy
+- Reference `{components.X}` in the Agent Prompt Guide example prompts for any component defined in the frontmatter; re-spell properties only for what no component token covers
 
 **DON'T:**
 
@@ -359,8 +361,8 @@ Then show the user:
 - Author product-specific arrangement in DESIGN.md (contrasts: product-specific arrangement is out of scope for DESIGN.md)
 - Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; product copy stays out)
 - Name the toolkit in DESIGN.md — no UI library or design-system names in prose or `description` (shadcn, Tailwind, Material UI, Bootstrap, ...); they inspire the tokens but are not the brand (contrasts: describe the identity in its own terms — token keys may follow a library's scale, but the prose names the value, not the tool)
-- Write Section 1 Visual Theme & Atmosphere as a product pitch (contrasts: the Visual Theme & Atmosphere section is brand voice and atmosphere, not what the product does or for whom)
-- Bake real copy strings into Section 11 example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
+- Write the Overview section as a product pitch (contrasts: the Overview section is brand voice and atmosphere, not what the product does or for whom)
+- Bake real copy strings into the Agent Prompt Guide example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
 - Treat MCP availability as guaranteed (contrasts: fall back to another source when a design-tool MCP is missing)
 - Embed variants nested inside a parent component entry (contrasts: separate entry per variant)
 - Ship a `*-foreground` token that fails WCAG AA 4.5:1 against its base, or silently rewrite a failing source value (contrasts: verify with the contrast script; a failing source is a user decision — keep as recorded trade-off or shift lightness)
@@ -516,11 +518,11 @@ breakpoints:
 
 # {{Project Name}}
 
-## 1. Visual Theme & Atmosphere
+## Overview
 
 {Mood prose per the Step 4 spec — atmosphere, density, contrast strategy, palette character, project category. Token keys in backticks; no H3.}
 
-## 2. Color Palette & Roles
+## Colors
 
 {Short paragraph on palette character (tone, contrast goals, accent strategy), then the role groups below. Each bullet's shape — hex-only or dual oklch — per the Step 4 spec.}
 
@@ -548,7 +550,7 @@ breakpoints:
 
 - **{{Evocative Name}}** → `{{token-key}}` — {{stops + intent}}
 
-## 3. Typography Rules
+## Typography
 
 ### Font Family
 
@@ -569,7 +571,56 @@ breakpoints:
 - **{{Named principle}}**: {{why-explanation prose}}
 - **{{Named principle}}**: {{why-explanation prose}}
 
-## 4. Component Stylings
+## Layout
+
+### Spacing System
+
+- Base unit: {{Npx}} (`spacing.1`)
+- Scale highlights: `spacing.2`, `spacing.4`, `spacing.8`, `spacing.16`
+- {{notes on rhythm — e.g., "8px grid throughout", "dense at small end for data UI"}}
+
+### Grid & Container
+
+- Max content width: {{Npx}}
+- Hero: {{treatment}}
+- Feature sections: {{column rules}}
+- {{additional brand patterns}}
+
+### Whitespace Philosophy
+
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+- **{{Named principle}}**: {{prose framing whitespace as identity}}
+
+## Elevation & Depth
+
+{Prose covering how depth is communicated: reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) and explain when each tier applies (cards, popovers, modals, dialogs).}
+
+### Decorative Depth
+
+{Optional. Ornamental effects — gradients, vignettes, halos, glow.}
+
+## Shapes
+
+### Radius Scale
+
+- Micro (`rounded.xs`): {{component class}}
+- Standard (`rounded.sm`): {{component class}}
+- Comfortable (`rounded.md`): {{component class}}
+- Card (`rounded.lg`): {{component class}}
+- Panel (`rounded.2xl`): {{component class}}
+- Full Pill (`rounded.full`): {{component class}}
+
+### Border Width
+
+- Hairline (`borderWidth.DEFAULT`): {{component class}}
+- Emphasis (`borderWidth.2`): {{component class}}
+
+### Corner Language
+
+{Short prose on what corners say about the brand: precise, soft, brutalist, organic, etc.}
+
+## Components
 
 ### Buttons
 
@@ -595,56 +646,7 @@ breakpoints:
 
 {Brand-specific components — command palettes, badges, pill tags, chips, status dots — whatever the brand surfaces uniquely. Reference their frontmatter entries.}
 
-## 5. Layout Principles
-
-### Spacing System
-
-- Base unit: {{Npx}} (`spacing.1`)
-- Scale highlights: `spacing.2`, `spacing.4`, `spacing.8`, `spacing.16`
-- {{notes on rhythm — e.g., "8px grid throughout", "dense at small end for data UI"}}
-
-### Grid & Container
-
-- Max content width: {{Npx}}
-- Hero: {{treatment}}
-- Feature sections: {{column rules}}
-- {{additional brand patterns}}
-
-### Whitespace Philosophy
-
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-- **{{Named principle}}**: {{prose framing whitespace as identity}}
-
-## 6. Shapes
-
-### Radius Scale
-
-- Micro (`rounded.xs`): {{component class}}
-- Standard (`rounded.sm`): {{component class}}
-- Comfortable (`rounded.md`): {{component class}}
-- Card (`rounded.lg`): {{component class}}
-- Panel (`rounded.2xl`): {{component class}}
-- Full Pill (`rounded.full`): {{component class}}
-
-### Border Width
-
-- Hairline (`borderWidth.DEFAULT`): {{component class}}
-- Emphasis (`borderWidth.2`): {{component class}}
-
-### Corner Language
-
-{Short prose on what corners say about the brand: precise, soft, brutalist, organic, etc.}
-
-## 7. Elevation & Depth
-
-{Prose covering how depth is communicated: reference `elevation.sm`, `elevation.md`, `elevation.lg` (etc.) and explain when each tier applies (cards, popovers, modals, dialogs).}
-
-### Decorative Depth
-
-{Optional. Ornamental effects — gradients, vignettes, halos, glow.}
-
-## 8. Motion & Interaction
+## Motion & Interaction
 
 ### Duration
 
@@ -666,7 +668,7 @@ breakpoints:
 
 {Hover, focus, pressed, drag, gesture cues. Brand-specific affordances.}
 
-## 9. Responsive Behavior
+## Responsive Behavior
 
 ### Breakpoints
 
@@ -683,7 +685,7 @@ breakpoints:
 
 {Aspect-ratio strategy, cropping, art direction, retina handling.}
 
-## 10. Do's and Don'ts
+## Do's and Don'ts
 
 ### Do
 
@@ -697,11 +699,11 @@ breakpoints:
 - {{Anti-pattern — short rationale}}
 - {{Anti-pattern — short rationale}}
 
-## 11. Agent Prompt Guide
+## Agent Prompt Guide
 
 ### Quick Token Reference
 
-{Each entry mirrors the shape of its matching Section 2 bullet.}
+{Each entry mirrors the shape of its matching Colors section bullet.}
 
 - Primary CTA: {{Evocative Name}} ({{#HEX}})
 - CTA Hover: {{Evocative Name}} ({{#HEX}})
