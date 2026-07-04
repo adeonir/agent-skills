@@ -60,6 +60,9 @@ performs no sync of its own.
 - Idempotent: create only the missing children; never recreate or overwrite
 - Delegate every artifact to its create ref — canonical shape and validation are
   non-negotiable
+- Route cross-cutting concerns by domain, not by order — a foundational decision
+  spanning stories, and a domain-specific trap, each belong to the artifact that
+  owns them, never parked on whichever story is created first
 - Offer to go deeper (a created epic → its stories) but never auto-create the
   next level
 

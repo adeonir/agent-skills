@@ -66,9 +66,18 @@ Fill the template (below):
   V1-V8. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
-  advice or upstream design notes
-- **Open Questions**: unknowns that seed the spec's discovery; omit the
-  section when nothing is undecided
+  advice or upstream design notes. A trap belongs to the story whose
+  domain owns it, not the story you were authoring when it surfaced —
+  being the first story of an initiative does not make it the owner. If
+  it affects other stories, relocate it to the sibling that owns the
+  domain: the trap moves, it is not cross-referenced
+- **Open Questions**: unknowns that seed *this story's* spec discovery;
+  omit the section when nothing is undecided. An unknown that gates no AC
+  here is not this story's question — it belongs to the story whose
+  domain it gates. A foundational decision spanning stories may be kept
+  as a blocked open question that suggests an ADR to settle it; a story
+  suggests an ADR, never generates one, and never parks the decision on
+  whichever story is created first
 - **Blocked by**: other stories, bugs, or epics that must finish before
   this story can start, listed in frontmatter `blocked_by` by path. Lets
   the tracker enforce order; leave empty when nothing blocks it.
@@ -208,14 +217,16 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 - {{Execution trap specific to this story — edge case, ordering constraint, or integration quirk}}
 
-MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, or a trap that belongs to a sibling story's domain (relocate it there).
 
 ## Open Questions
 
 {Remove this section if nothing is undecided. Seeds the spec's discovery
 — capture what's open so a fresh session knows what to ask, not re-decide.}
 
-- {{Unknown to resolve during specify}}
+- {{Unknown to resolve during specify. A cross-cutting foundational decision may be marked blocked and suggest an ADR to settle it — never generate the ADR here.}}
+
+MUST NOT contain: an unknown that gates no AC in this story (move it to the story whose domain it gates), or an authored ADR (suggest one, never generate it).
 
 ## References
 
