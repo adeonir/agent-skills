@@ -72,17 +72,17 @@ implementation is the source set (`DESIGN.md`, `WIREFRAME.md`, `copy.yaml`).
 
 ## References
 
-The shared rubric every mode composes:
+Each mode composes the references its job needs from this shared set:
 
 - `references/brand.md` / `references/product.md` — brand vs product posture (set first)
-- `references/design-thinking.md` — Four Questions, direction, slop test
+- `references/design-thinking.md` — Four Questions, color strategy, slop test, density/variance dials
 - `references/heuristics.md` — Nielsen heuristics + 0–4 scoring + visual laws
 - `references/cognitive-load.md` — load checklist + working-memory rule
 - `references/personas.md` — five archetypes to test through
 - `references/color.md` — OKLCH, palette, contrast, dark mode
 - `references/typography.md` — scale, pairing, loading
-- `references/layout.md` — spacing, grid, hierarchy, depth
-- `references/motion.md` — timing, easing, materials
+- `references/layout.md` — spacing, grid, hierarchy, hero composition, depth
+- `references/motion.md` — the animate gate, timing, easing, materials
 - `references/overdrive.md` — the ambitious-tier motion tune (brand only)
 - `references/interaction.md` — states, focus, overlays, keyboard
 - `references/responsive.md` — breakpoints, input method, safe areas
