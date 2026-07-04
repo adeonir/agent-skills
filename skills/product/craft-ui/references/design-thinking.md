@@ -65,9 +65,10 @@ outside. Run two altitudes.
    gradient and a hero metric." If the category predicts the design, it is the
    first-order training-data default.
 2. **Anti-reference reflex.** Name the aesthetic lane the work is actually in
-   (the reference). Could someone guess that lane from "category plus the obvious
-   anti-references"? Reaching for editorial-magazine on a brief that is not
-   editorial is the trap one tier deeper.
+   (the reference). Could someone guess that lane from "category plus the
+   anti-references"? Judge against the anti-references declared in `PRODUCT.md`
+   when present, inferring the obvious ones only when it is absent. Reaching for
+   editorial-magazine on a brief that is not editorial is the trap one tier deeper.
 
 Then the inverse: describe in one sentence what you are about to build the way a
 competitor would describe theirs. If that sentence fits the modal page in the
@@ -82,6 +83,25 @@ in the warm range) reads as cream/sand whatever the token is named. Renaming it
 `--paper`, `--bone`, `--linen`, or `--parchment` does not make it a decision.
 "Warm" does not mean near-white-with-a-tint — commit to an actual color strategy
 instead of defaulting to the warm-neutral wash.
+
+### The craft checks
+
+Four cheap reflexes catch a default before it ships. Run them on any variant:
+
+- **Swap test** — swap the typeface for the category's usual one and the layout
+  for a standard template. If nothing would feel different, that is where you
+  defaulted.
+- **Token test** — read the CSS variable names and values aloud. Do they belong
+  to *this* product's world, or would they sit in any project? A `--paper` /
+  `--gray-200` / `--space-4` that fits any file signals no system.
+- **Signature test** — point to specific elements where the Signature (Question 4)
+  actually appears. "The overall feel" does not count; name the elements.
+- **Squint test** — blur your eyes; hierarchy still readable, nothing jumping out
+  harshly. (Defined in [heuristics.md](heuristics.md) and [layout.md](layout.md).)
+
+Name the defaults before avoiding them: list the 3 obvious choices for this
+interface type — visual *and* structural — so the reflexes above have something
+concrete to reject. You cannot avoid a pattern you have not named.
 
 ## Complexity Calibration
 

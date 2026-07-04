@@ -36,6 +36,10 @@ or [product.md](../references/product.md).
 Brand judges for distinctiveness; product judges for earned familiarity. The
 register sets every bar below — do not score before it is fixed.
 
+When `PRODUCT.md` is present, also read its declared anti-references and
+personality as context for the slop verdict below — read only; critique never
+edits `PRODUCT.md`.
+
 ### Step 2: Slop verdict (two altitudes)
 
 Start here, honestly. Two passes:
@@ -44,12 +48,19 @@ Start here, honestly. Two passes:
    look (theme + palette + layout) from the category alone? That is the
    first-order AI default.
 2. **Anti-reference reflex** — name the aesthetic lane the variant is actually
-   in. Could someone guess that lane from "category plus the obvious
-   anti-references"? That is the trap one tier deeper. (See the slop test in
-   [design-thinking.md](../references/design-thinking.md).)
+   in. Could someone guess that lane from "category plus the anti-references"?
+   Judge against the anti-references declared in `PRODUCT.md` when present,
+   inferring the obvious ones only when it is absent. That is the trap one tier
+   deeper. (See the slop test in [design-thinking.md](../references/design-thinking.md).)
 
 A variant that fails either altitude has no point of view yet — say so plainly
 before any number softens it.
+
+Then run the craft checks from [design-thinking.md](../references/design-thinking.md) —
+swap, token, and signature: would swapping the typeface and layout change
+anything, do the tokens belong to this product's world, and where does the
+signature actually appear? A variant that survives the two reflexes but fails
+these is polished default.
 
 ### Step 3: Score the heuristics
 

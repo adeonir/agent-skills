@@ -45,6 +45,9 @@ user. Set the register from `PRODUCT.md`'s default plus the surface convention
 UI or the user; then read the matching [brand.md](../references/brand.md)
 or [product.md](../references/product.md) — the bar differs for brand vs product.
 
+When `PRODUCT.md` is present, also read its declared anti-references as context
+for the anti-pattern verdict below — read only; audit never edits `PRODUCT.md`.
+
 ### Step 2: Score five dimensions
 
 Score each 0–4 (bands in [scoring.md](../references/scoring.md)); total /20.
@@ -64,6 +67,11 @@ Start the report here, honestly: does the UI read as AI-generated? List the
 specific tells. Some are deterministic checks you verify against the markup,
 others are perceptual reads you weigh by eye — cover both (see the two kinds of
 check in [anti-patterns.md](../references/anti-patterns.md)).
+
+Apply the token test — read the token names and values; do they belong to this
+product's world, or would they fit any project? — and name where the product's
+signature actually appears. When `PRODUCT.md` declares anti-references, judge
+whether the build has drifted into one of those named lanes.
 
 ### Step 4: Findings by severity
 
