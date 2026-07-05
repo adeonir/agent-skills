@@ -8,7 +8,7 @@ When implementing a named task, range, or user story, or executing a whole featu
 
 ## Workflow
 
-1. **Resolve feature** — find the active `.artifacts/specs/{date}-{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, `.artifacts/STATE.md`, and `AGENTS.md` / `CLAUDE.md`.
+1. **Resolve feature** — find the active `.artifacts/specs/{date}-{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field: `git switch -c {branch} 2>/dev/null || git switch {branch}`. Skip if already on it or on `main`/`master`.
 3. **Update status** — if `status` is `draft`, set it to `in-progress` in `spec.md`.
 4. **Run each task sequentially** — Before / During / After below.
@@ -36,7 +36,7 @@ Small ends inline after the one-liner — no approval gate, no audit prompt; the
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
 5. **Commit** if 1 task = 1 commit, per [commit-conventions.md](../references/commit-conventions.md).
 6. Announce: *"T-N done. Committing — stop me to review."*
-7. Update `STATE.md ## Progress` — mark the task done, point `Next` at the following one.
+7. Update `STATE.md ## Progress` — point `Next` at the following task, or at the audit after the last.
 
 ## Commits
 

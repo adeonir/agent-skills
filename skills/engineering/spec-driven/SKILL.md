@@ -81,7 +81,7 @@ Minimal machine, single source in `spec.md` frontmatter:
   and raise a level; never push through in implement.
 - 1 task = 1 commit by default; fixes are new commits, never `--amend`.
 - Author ≠ auditor — the audit runs as an isolated subagent on the diff.
-- Advance by default; ask (discuss) only when the answer changes the next step.
+- Advance by default; ask (discuss) only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
 
 ## Anti-Pattern: Forced Full Depth
 

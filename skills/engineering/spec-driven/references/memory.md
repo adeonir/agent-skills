@@ -11,7 +11,7 @@ At the load-context step of every phase (read), and whenever a phase discovers a
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `.artifacts/CONTEXT.md` | cross-feature, persistent, append-only | when design/implement/audit find a cross-feature lesson | every phase |
-| `.artifacts/STATE.md` | active feature | at each approval gate, and after each task in implement | before the next task, to see what is done and what remains |
+| `.artifacts/STATE.md` | active feature | at each approval gate, and after each task in implement | at each phase's load step, and before each task in implement |
 
 `CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary — it holds only the feature's current progress — and is cleared only after merge (during archive), never when the audit passes.
 
@@ -36,9 +36,8 @@ No mandatory date. No rigid routing rules. Routing by intent: a project-level de
 ## Progress
 
 - **Feature:** {slug}
-- **Phase:** specify | design | tasks | implement | audit | validate
-- **Done:** {completed tasks/phases, e.g. T-1, T-2}
-- **Next:** {T-3, run gate X, etc.}
+- **Phase:** specify | design | tasks | implement
+- **Next:** {the next task or step, e.g. T-3, run audit}
 - **Blockers:** {none | ...}
 
 ## Notes
