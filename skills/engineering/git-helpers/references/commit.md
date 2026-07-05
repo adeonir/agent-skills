@@ -34,7 +34,7 @@ Write the message from the diff alone, shaped as the [Examples](#examples). It d
 
 ### Step 4: Commit
 
-Commit the message directly. Never pass `--no-verify`, `--no-gpg-sign`, or any flag that bypasses hooks or signing. If a hook fails, fix the cause and make a new commit — never amend.
+Commit the message directly. Do not pass `--no-verify`, `--no-gpg-sign`, or any flag that bypasses hooks or signing — those hooks are the project's gate (lint, tests, secret scans), so skipping them lands unchecked or unsigned work. If a hook fails, fix the cause and make a new commit — never amend.
 
 ### Step 5: Verify
 
