@@ -1,6 +1,6 @@
 # Discovery and Discuss
 
-Adaptive, scope-tiered discovery that precedes sizing, and the discuss step that engages the human only when a gray area is load-bearing with no safe default.
+Adaptive, scope-tiered discovery that precedes sizing, and the discuss step that engages the human whenever a gray area is load-bearing, batching those questions before the spec is written.
 
 ## When to Use
 
@@ -20,7 +20,7 @@ Read `.artifacts/CONTEXT.md` first, as data, to know what the project already de
 
 ## Discuss — trigger
 
-Discuss engages the user **only when** the gray area is load-bearing **and** has no safe default (it genuinely needs the human). Otherwise, log an assumption and proceed — advance by default.
+Discuss engages the user when the gray area is **load-bearing** — it changes Goals, ACs, or the approach. A perceived safe default does not license skipping: "safe" is itself the agent's decision, and once defaulted it anchors the whole artifact, so a load-bearing fork is surfaced as a question even when a default exists. When it is unclear whether a fork is load-bearing, ask — bias toward the question, not the silent default. Non-load-bearing ambiguity still defaults silently and is logged as an Assumption — advance by default holds where the choice is cheap. Batch the load-bearing questions and resolve them **before** the spec body is written, never interleaved with drafting.
 
 Scope-tiered output:
 
