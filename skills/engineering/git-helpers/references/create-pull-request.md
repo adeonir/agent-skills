@@ -1,6 +1,6 @@
 # Create Pull Request
 
-Push current branch and create Pull Request via `gh` cli.
+Push the current branch and create a pull request via `gh` CLI.
 
 ## When to Use
 
