@@ -14,7 +14,7 @@ When breaking a change into tasks or user stories, or producing the task breakdo
 4. **Fill the Coverage Matrix** — map every AC to at least one task and test.
 5. **Self-check** — every AC in the matrix maps to a task/test; no task depends on a later task without a note; tests are co-located with the code they cover, never deferred. Watch for scope breaking the sizing — see the safety valve in [sizing.md](../references/sizing.md).
 6. **Approval gate** — present the task count, a short execution order, tasks that can run in parallel (if any), 1-2 execution risks, then ask *"Move to implement?"*
-7. **Update `STATE.md`** if the session is ending. See [memory.md](../references/memory.md).
+7. **Update `STATE.md ## Progress`** at the approval gate — phase and next step. See [memory.md](../references/memory.md).
 
 Default commit boundary is 1 task = 1 commit; document any grouping or split in `## Commit Boundary Notes` — the fact only, no long justification.
 

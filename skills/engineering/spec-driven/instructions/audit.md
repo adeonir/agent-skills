@@ -113,7 +113,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py add --text "..." --origin "valida
 Optional, invoked by the user after merge — never automatic (the skill does not observe the merge event). When invoked:
 
 1. Move `.artifacts/specs/{date}-{slug}/` to `.artifacts/archive/{date}-{slug}/`.
-2. Clear `.artifacts/STATE.md ## Handoff`.
+2. Clear `.artifacts/STATE.md ## Progress`.
 3. Keep `spec.md` at `status: done`.
 
 The agent never reads `.artifacts/archive/` when creating a new spec.

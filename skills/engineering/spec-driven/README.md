@@ -66,7 +66,7 @@ python3 scripts/lessons.py list --status confirmed
 ```text
 .artifacts/
 ├── CONTEXT.md                     # cross-feature decisions, gotchas, conventions
-├── STATE.md                       # active-feature session handoff
+├── STATE.md                       # active-feature progress pointer
 ├── lessons.json                   # canonical lessons state (machine-owned)
 ├── LESSONS.md                     # rendered lessons (never hand-edit)
 ├── specs/
@@ -108,4 +108,4 @@ A: After an audit FAIL worth recording, `scripts/lessons.py add` stores a candid
 
 **Q: What happens to a feature after it is done?**
 
-A: Nothing automatic. Merge is external. The optional archive command (run after merge) moves the spec to `.artifacts/archive/` and clears the `STATE.md` handoff. The agent never reads `archive/` when creating a new spec.
+A: Nothing automatic. Merge is external. The optional archive command (run after merge) moves the spec to `.artifacts/archive/` and clears the `STATE.md` progress. The agent never reads `archive/` when creating a new spec.

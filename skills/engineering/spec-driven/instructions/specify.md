@@ -17,6 +17,7 @@ When planning or specing a feature, turning a PRD, ticket, or story into a spec,
 7. **Self-check** — run the three discriminator questions ([discriminator.md](../references/discriminator.md)) and close ambiguity: no `[needs-clarification]` marker may remain; no `agent`-origin assumption may appear as fact in Overview or Goals. When the spec is PRD-seeded (Author mode from a doc with `FR/BR/EC/NFR` IDs), confirm every source requirement maps to ≥1 AC via `Satisfies` — an uncovered requirement becomes an AC or an explicit Non-Goal / `[deferrable]` open question with a reason, never a silent drop.
 8. **Fresh eyes** — Large/Complex only: one light completeness pass over the drafted spec. Found a hole → fix inline → re-check.
 9. **Approval gate** — present name and scope, 2-3 bullets of what changes, the short list of `agent`-origin assumptions and `[blocking]` open questions, then ask *"Move to design?"* Never hide the agent's assumptions.
+10. **Update `STATE.md ## Progress`** — phase and next step. See [memory.md](../references/memory.md).
 
 On writing `spec.md`, set `status: draft`.
 

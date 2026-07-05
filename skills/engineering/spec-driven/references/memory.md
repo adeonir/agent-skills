@@ -1,19 +1,19 @@
-# Memory and Handoff
+# Memory and Progress
 
-The two cross-cutting memory files: `CONTEXT.md` (persistent, cross-feature) and `STATE.md` (session handoff for the active feature). Their formats, when each is read and written, and how conflicts resolve.
+The two cross-cutting memory files: `CONTEXT.md` (persistent, cross-feature) and `STATE.md` (progress of the active feature). Their formats, when each is read and written, and how conflicts resolve.
 
 ## When to Use
 
-At the load-context step of every phase (read), and whenever a phase discovers a durable fact or ends a session with unfinished work (write).
+At the load-context step of every phase (read), and whenever a phase discovers a durable fact (`CONTEXT.md`) or reaches an approval gate or finishes a task (`STATE.md`).
 
 ## The two files
 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `.artifacts/CONTEXT.md` | cross-feature, persistent, append-only | when design/implement/audit find a cross-feature lesson | every phase |
-| `.artifacts/STATE.md` | active feature/session | every phase, if the session ends with unfinished work | every phase, to resume |
+| `.artifacts/STATE.md` | active feature | at each approval gate, and after each task in implement | before the next task, to see what is done and what remains |
 
-`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten on each pause — it holds only the current state — and is cleared only after merge (during archive), never when the audit passes.
+`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary — it holds only the feature's current progress — and is cleared only after merge (during archive), never when the audit passes.
 
 ## `CONTEXT.md` format
 
@@ -33,22 +33,20 @@ No mandatory date. No rigid routing rules. Routing by intent: a project-level de
 ## `STATE.md` format
 
 ```markdown
-## Handoff
+## Progress
 
 - **Feature:** {slug}
 - **Phase:** specify | design | tasks | implement | audit | validate
-- **Next action:** {T-3, run gate X, etc.}
+- **Done:** {completed tasks/phases, e.g. T-1, T-2}
+- **Next:** {T-3, run gate X, etc.}
 - **Blockers:** {none | ...}
-- **Uncommitted files:** {list}
-- **Branch:** {name}
-- **Last updated:** {YYYY-MM-DD HH:MM}
 
 ## Notes
 
 - {feature-local observations, e.g. a design gap found during implement}
 ```
 
-Written when a session will end with unfinished work; read at the start of any phase to resume.
+Task-level done/remaining lives in the `tasks.md` heading checkboxes; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate and after each task; read before the next task to see what is done and what remains.
 
 ## Conflicts with `CONTEXT.md`
 

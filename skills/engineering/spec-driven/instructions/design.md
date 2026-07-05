@@ -16,6 +16,7 @@ When designing a feature, planning the build, or producing the technical design 
 6. **Write `design.md`** — fill the template below from resolved inputs: components with reuse, decisions, traceability, risks. Record each resolved decision in the Decisions table, never the deliberation that produced it.
 7. **Self-check** — boundaries hold (nothing from spec leaked in, nothing from tasks leaked in — see [discriminator.md](../references/discriminator.md)); any decision conflicting with `CONTEXT.md` is conformed or explicitly superseded, never ignored; every placement or trigger decision fills its `Rejected` cell — an empty cell on a ≥2-entry-point choice means the exploration is unfinished, not the design.
 8. **Approval gate** — present the architecture in 1-2 sentences, main components, non-obvious decisions, 1-2 risks with mitigation, then ask *"Move to tasks?"*
+9. **Update `STATE.md ## Progress`** — phase and next step. See [memory.md](../references/memory.md).
 
 Read `CONTEXT.md` before any design decision. A project-level decision (a convention future features must follow) is appended to `CONTEXT.md ## Decisions`; a local decision stays in `design.md`.
 

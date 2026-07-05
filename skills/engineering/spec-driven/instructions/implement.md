@@ -1,6 +1,6 @@
 # Implement
 
-Execute the tasks in `tasks.md` per `design.md` and `spec.md`. No dedicated artifact — progress lives in `tasks.md`, session state in `STATE.md`.
+Execute the tasks in `tasks.md` per `design.md` and `spec.md`. No dedicated artifact — task-level progress lives in `tasks.md` checkboxes, the coarse pointer in `STATE.md`.
 
 ## When to Use
 
@@ -18,7 +18,7 @@ Small ends inline after the one-liner — no approval gate, no audit prompt; the
 
 ### Per task — Before
 
-1. Read the task and confirm its `Depends on:` are complete.
+1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
 2. Load the relevant slices of `spec.md` and `design.md`.
 3. State the files to touch, the AC / `Done when` this task satisfies, and the main risks.
 
@@ -36,7 +36,7 @@ Small ends inline after the one-liner — no approval gate, no audit prompt; the
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
 5. **Commit** if 1 task = 1 commit, per [commit-conventions.md](../references/commit-conventions.md).
 6. Announce: *"T-N done. Committing — stop me to review."*
-7. Update `STATE.md ## Handoff` if the session is ending.
+7. Update `STATE.md ## Progress` — mark the task done, point `Next` at the following one.
 
 ## Commits
 
