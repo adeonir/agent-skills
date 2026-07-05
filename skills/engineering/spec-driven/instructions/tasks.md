@@ -35,7 +35,7 @@ design: .artifacts/specs/{date}-{slug}/design.md
 
 ## Task List
 
-### T-1: {title}
+### [ ] T-1: {title}
 - **Story:** P1/P2/P3 — {title}
 - **Description:** {what to do}
 - **Depends on:** T-N, T-M (none if first)
@@ -44,7 +44,7 @@ design: .artifacts/specs/{date}-{slug}/design.md
 - **Discrimination:** {does the test fail if X is removed/relaxed?} <!-- relevant tasks only -->
 - **Done when:** {observable result}
 
-### T-2: ...
+### [ ] T-2: ...
 
 ## Coverage Matrix       <!-- conditional: Medium/Large/Complex -->
 | AC | Task | Test File | Notes |

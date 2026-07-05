@@ -33,7 +33,7 @@ Small ends inline after the one-liner — no approval gate, no audit prompt; the
 1. Run the task's **Gate** (command or descriptive check).
 2. Run project quality gates (lint, typecheck) if fast.
 3. Run **verify** (mental — no artifact): design adherence, AC coverage against the Coverage Matrix, pattern adherence, and the discrimination check when the task carries a `Discrimination:` field. Any "no" → fix before marking done.
-4. Mark `[x]` on the task in `tasks.md`.
+4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
 5. **Commit** if 1 task = 1 commit, per [commit-conventions.md](../references/commit-conventions.md).
 6. Announce: *"T-N done. Committing — stop me to review."*
 7. Update `STATE.md ## Handoff` if the session is ending.
