@@ -231,6 +231,14 @@ reader cares about — it is not a hunk-by-hunk transcript of the diff:
   ("remove lint.yml, test.yml, build.yml"). That transcript is what the diff
   already is — collapse it into the *what* it adds up to.
 
+Curation is one axis; altitude is the other. A curated bullet can still smuggle
+literal instance data — an exact value in parentheses, a proper noun (a specific
+item or tool name), a quoted copy string. These read as helpful concreteness but
+only repeat what the diff already holds. Strip them when the bullet's structural
+description already carries the meaning; keep a literal only when it *is* the
+change (a config value whose number is the decision). It is the subject's
+fake-concreteness trap (Shape 2), applied to bullets.
+
 A trivial commit still needs no body. When the subject already says everything
 (`fix: resolve token refresh race condition`), stop there. Reach for a body
 when the change has several meaningful parts worth listing, or a *why* the
@@ -304,6 +312,27 @@ ci: consolidate workflows
 
 - collapse the four CI workflows into one pipeline
 - chain jobs so a failed step stops the run early
+```
+
+Curated bullets that still smuggle literal instance data — a parenthesized
+value, a proper noun, a quoted copy string the diff already holds:
+
+```text
+docs: align menu docs with the authoring base
+
+- show the cork fee as a set value ("R$ 70,00") in copy, preview and design
+- model the lunch set-menu as its own collection, separate from list categories
+- split authoring access (the CMS login) from the publish secret
+```
+
+Strip the literal each bullet's structural description already carries:
+
+```text
+docs: align menu docs with the authoring base
+
+- show the cork fee as a set value in copy, preview and design
+- model the set-menu as its own collection, separate from list categories
+- split authoring access from the publish secret
 ```
 
 ## Guidelines
