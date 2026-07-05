@@ -14,15 +14,13 @@ When ready to merge a PR — approved, CI green, ready to ship. GitHub-based wor
 
 ### Step 1: Identify PR
 
-Read the **PR state** block above. It contains the open PR (if any) for the current branch with `number`, `title`, and `baseRefName`. If that block is missing or shows the raw command (shell injection disabled), run `gh pr list --head $(git branch --show-current) --state open --json number,title,baseRefName` yourself to get the same data.
-
-If the list is empty (user is on the base branch, or the current branch has no open PR): ask the user for the PR number, then fetch its metadata:
+Read the **PR state** block above for the current branch's open PR (`number`, `title`, `baseRefName`). If it is missing or shows the raw command (injection disabled), run it yourself. If empty (on the base branch, or no open PR), ask the user for the PR number and fetch its metadata:
 
 ```bash
 gh pr view {pr-number} --json number,title,baseRefName
 ```
 
-Use `baseRefName` from the response (or from the injected list) as `{base}` for the rest of the workflow.
+Use `baseRefName` as `{base}` for the rest of the workflow.
 
 ### Step 2: Resolve Merge Method
 
@@ -30,8 +28,7 @@ Use `baseRefName` from the response (or from the injected list) as `{base}` for 
 git config --get git-helpers.merge-method
 ```
 
-If a value is returned (`squash`, `merge`, or `rebase`), use it directly —
-skip the rest of this step.
+If a value is returned (`squash`, `merge`, or `rebase`), use it directly — skip the rest of this step.
 
 If no value is set, infer from recent merges on base:
 
@@ -107,36 +104,13 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 
 ### Step 4: Merge
 
-Write the merge commit from the PR title and branch context, never from the
-conversation. Sources:
-
-1. PR title and number from Step 1
-2. Branch diff and commit log from Step 3
-
-Shape the merge commit as:
-
-```json
-{
-  "subject": "string ({pr-title} (#{pr-number}) if conventional, generated otherwise)",
-  "body": ["contextual bullet describing motivation or impact"]
-}
-```
-
-The subject uses the PR title directly when it follows `type: description`
-convention; generate a conforming subject only when it does not. Use `null` for
-`body` when the subject is self-sufficient; when a body is warranted, its bullet
-traces to the branch diff, never to session narrative.
+Write the merge commit from the PR title and branch context, never the conversation. The subject uses the PR title when it follows `type: description`; generate a conforming one only when it does not. Add a body bullet only when the subject is not self-sufficient — and trace it to the branch diff.
 
 ```bash
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
 ```
 
-Omit `--body` when `body` is null.
-
-For `--rebase`, subject and body are not used (the original commits are replayed
-onto base).
-
-If `gh pr merge` exits non-zero: stop and surface the error.
+Omit `--body` when there is none. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error.
 
 ### Step 5: Confirm Merge Landed
 
@@ -170,21 +144,11 @@ Confirm: "PR #{pr-number} merged into `{base}` and branch deleted."
 
 ## Guidelines
 
-**DO:**
-- Resolve the PR number from the current branch; ask only when no open PR exists for it
-- Read merge method from `git config --get git-helpers.merge-method`; infer and persist on first run
-- Always ask the update method when the branch is behind
-- Pass a custom subject citing the PR ID on merge commits
-- Use `--force-with-lease` (not `--force`) when force pushing
-- Confirm `MERGED` state before pulling in Step 5 — `gh pr merge` exits before propagation
-- Delete both local and remote branch after the cleanup pull succeeds
-
-**DON'T:**
-- Pull immediately after `gh pr merge` without confirming `MERGED` state
-- Use the default `Merge pull request #N from {branch}` message
-- Force push without `--force-with-lease`
-- Persist the branch-update method
-- Skip cleanup — stale branches accumulate
+- Resolve the PR from the current branch; ask only when none is open for it
+- Read merge method from `git config --get git-helpers.merge-method`; infer and persist on first run, but never persist the branch-update method
+- Confirm `MERGED` before pulling — `gh pr merge` exits before propagation
+- Force push only with `--force-with-lease`; delete with `-D` (squash/rebase leave commits that are not ancestors of base)
+- Use a custom merge subject citing the PR ID, never the default GitHub message
 
 ## Error Handling
 
