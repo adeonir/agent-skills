@@ -30,7 +30,6 @@ Each step is independent. Use any workflow in isolation or chain them together.
 ## Guidelines
 
 - Base branch: the repo's default (user can override)
-- Analyze the actual diff and staged files, not conversation context
 - Prefer single-line commit messages — add a body only when the change has several meaningful parts or a *why* the diff doesn't show
 
 ## Anti-Pattern: Conversation-Driven Messages

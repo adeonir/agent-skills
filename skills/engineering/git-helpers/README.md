@@ -4,7 +4,7 @@ Git workflow skill for conventional commits, pull request creation, and branch l
 
 ## What It Does
 
-Streamlines the git workflow from local changes to merged PR:
+Runs the git workflow from local changes to merged PR:
 
 ```mermaid
 flowchart LR
