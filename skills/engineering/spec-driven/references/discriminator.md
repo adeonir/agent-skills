@@ -10,7 +10,7 @@ At the self-check step of specify, design, and tasks, to confirm the artifact ca
 
 | Phase | Answers | Enters | Stays out |
 |-------|---------|--------|-----------|
-| **Spec** | WHAT + WHY | observable behavior, ACs, goals, edge cases, assumptions, intent-why | tech, file path, component, algorithm, architecture, implementation order |
+| **Spec** | WHAT + WHY | observable behavior, ACs, goals, edge cases, open questions, intent-why | tech, file path, component, algorithm, architecture, implementation order |
 | **Design** | HOW | architecture, components, files, interface contracts (signatures), data model, non-obvious technical decisions, error strategy, risks | function bodies, tests, step sequences, commit order |
 | **Tasks** | WHEN / ORDER | atomic steps, dependencies, per-task tests, gates, commit boundary | new architecture (already in design), behavior (already in spec) |
 
