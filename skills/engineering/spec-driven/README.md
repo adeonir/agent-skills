@@ -28,7 +28,7 @@ flowchart TD
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Audit** | `validation.md` — Goals, ACs, discrimination sensor |
 | **Validate / UAT** | `## Visual Evidence` appended to `validation.md` (user-facing) |
-| **Archive** | spec moved to `.artifacts/archive/{date}-{slug}/` (optional, manual, done specs only) |
+| **Archive** | spec moved to `.artifacts/archive/{created}-{slug}/` (optional, manual, done specs only) |
 
 ### Auto-Sizing
 
@@ -58,7 +58,7 @@ audit feature
 run UAT                 # user-facing only
 
 # Lessons layer
-python3 scripts/lessons.py list --status confirmed
+python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
 ```
 
 ## Output
@@ -75,11 +75,12 @@ python3 scripts/lessons.py list --status confirmed
 │       ├── discuss.md             # gray-area decisions (Complex)
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
-│       └── validation.md          # audit report + visual evidence
+│       ├── validation.md          # audit report + visual evidence
+│       └── evidences/             # UAT screenshots (user-facing only)
 ├── research/
 │   └── {topic}.md                 # research cache (reusable)
 └── archive/
-    └── {date}-{slug}/             # closed features; date from `created:`, added at archive; never read during discovery
+    └── {created}-{slug}/          # closed features; date from `created:`, added at archive; never read during discovery
 ```
 
 ## Requirements
@@ -87,6 +88,7 @@ python3 scripts/lessons.py list --status confirmed
 - An existing project directory.
 - `python3` (standard library only) for `scripts/lessons.py`.
 - Optional: a browser-automation MCP (e.g. Playwright) for Validate/UAT screenshots — falls back to user-guided capture when absent.
+- Optional: a docs MCP (e.g. Context7) for design research — the knowledge chain falls through to web search when absent.
 
 ## FAQ
 
@@ -108,4 +110,4 @@ A: After an audit FAIL worth recording, `scripts/lessons.py add` stores a candid
 
 **Q: What happens to a feature after it is done?**
 
-A: Reaching `status: done` (audit PASS, or UAT approval for user-facing features) clears the `STATE.md` progress — the feature is no longer active. Pull request and merge happen outside this skill. The optional archive command — manual, never suggested, housekeeping for done specs — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{date}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.
+A: Reaching `status: done` (audit PASS, or UAT approval for user-facing features) clears the `STATE.md` progress — the feature is no longer active. Pull request and merge happen outside this skill. The optional archive command — manual, never suggested, housekeeping for done specs — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.

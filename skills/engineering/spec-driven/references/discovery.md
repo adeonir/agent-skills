@@ -24,7 +24,7 @@ Discuss engages the user when the gray area is **load-bearing** — it changes G
 
 Scope-tiered output:
 
-- **Medium** — fold the resolution back into the spec (update ACs, add `(because …)`); a resolved question leaves Open Questions — the resolution is spec content, not a logged pendency.
+- **Medium / Large** — fold the resolution back into the spec (update ACs, add `(because …)`); a resolved question leaves Open Questions — the resolution is spec content, not a logged pendency.
 - **Complex** — write `.artifacts/specs/{slug}/discuss.md` with the gray-area decisions.
 - **Project-level decision** → append to `CONTEXT.md`.
 

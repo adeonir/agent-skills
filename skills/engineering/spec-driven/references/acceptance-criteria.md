@@ -51,4 +51,4 @@ Any performance, latency, throughput, capacity, or availability claim carries a 
 
 ## Ambiguity closure
 
-An inline draft marker `[needs-clarification: question]` may appear while drafting; none may remain at the end. Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check, scope-tiered — Large/Complex resolve fully; Medium resolves the obvious and logs the rest; trivial skips.
+An inline draft marker `[needs-clarification: question]` may appear while drafting; none may remain at the end. Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check, scope-tiered — Large/Complex resolve fully; Medium resolves the obvious and logs the rest.

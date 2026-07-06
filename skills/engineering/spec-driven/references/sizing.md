@@ -19,7 +19,7 @@ One measurement, taken after discovery, plus a quick trivial triage at the start
 | **Large** | ≥1 load-bearing decision new to the codebase | full + fresh-eyes | full + research when needed | full + Parallelism | subagent | subagent |
 | **Complex** | Ambiguity in the problem itself | full + fresh-eyes + `discuss.md` | full + approaches + research | full + Parallelism | subagent | subagent |
 
-Small does not produce a spec and does not run the pipeline: one-liner → inline implement → inline verify. There is no separate quick-mode lane.
+Small does not produce a spec and does not run the pipeline: one-liner → inline implement → inline verify.
 
 ## Safety valve
 

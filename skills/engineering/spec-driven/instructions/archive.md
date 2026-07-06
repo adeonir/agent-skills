@@ -9,7 +9,7 @@ Only when the user explicitly asks to archive a feature, and only for a spec at 
 ## Workflow
 
 1. **Resolve feature** — the `.artifacts/specs/{slug}/` to archive; confirm `spec.md` is at `status: done` — anything earlier is still in flight and stays. Read `created:` from `spec.md` frontmatter; that date prefixes the archive name.
-2. **Move** `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/`. The date lands here, at archive time — the active folder never carried it, so same-day features never share a redundant prefix while in flight.
+2. **Move** `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/`.
 3. **Keep** `spec.md` at `status: done`.
 
 The agent never reads `.artifacts/archive/` when creating a new spec — archived features are cold storage, not discovery input.

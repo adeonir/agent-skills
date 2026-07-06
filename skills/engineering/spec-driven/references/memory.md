@@ -13,9 +13,11 @@ At the load-context step of every phase (read), and whenever a phase discovers a
 | `.artifacts/CONTEXT.md` | cross-feature, persistent, append-only | when design/implement/audit find a cross-feature lesson | every phase |
 | `.artifacts/STATE.md` | active feature | at each approval gate, after each task in implement; cleared at `status: done` | at each phase's load step, and before each task in implement |
 
-`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary — it holds only the feature's current progress — and is cleared when the spec reaches `status: done`: at audit PASS, or after UAT approval for user-facing features. Done is the last boundary this skill owns; pull request and merge happen outside it.
+`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary — it holds only the feature's current progress — and is cleared when the spec reaches `status: done`: at audit PASS, or after UAT approval for user-facing features. Clearing means emptying the whole file — before doing so, promote any still-durable `## Notes` item to `CONTEXT.md ## Gotchas`; the rest dies with the feature. Done is the last boundary this skill owns; pull request and merge happen outside it.
 
 ## `CONTEXT.md` format
+
+Here is a sensible default format, but use your best judgment:
 
 ```markdown
 ## Decisions
@@ -31,6 +33,8 @@ At the load-context step of every phase (read), and whenever a phase discovers a
 No mandatory date. No rigid routing rules. Routing by intent: a project-level decision a future feature must follow → `## Decisions`; a real trap found in the code → `## Gotchas`; a normative codebase pattern → `## Conventions`.
 
 ## `STATE.md` format
+
+ALWAYS use this exact template structure — other phases clear `## Progress` and write to `## Notes` by name:
 
 ```markdown
 ## Progress

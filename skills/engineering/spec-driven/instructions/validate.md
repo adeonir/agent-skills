@@ -10,9 +10,9 @@ Only when the feature is `user-facing: true` (spec frontmatter) and the audit ha
 
 1. **Confirm the gate** — `spec.md user-facing: true` and audit status PASS. Otherwise stop; there is nothing to validate.
 2. **Load references** — the `spec.md` visual references and user stories define the flows and states to exercise.
-3. **Exercise the flows** — walk each user-facing flow and capture evidence per screen and state. If a browser-automation MCP is available (e.g. `Playwright:browser_navigate`, `Playwright:browser_take_screenshot`), use it to navigate, screenshot, and check accessibility and responsiveness. If none is available, fall back to guiding the user through the flow and collecting their screenshots. Detect availability before calling; never assume the MCP is present.
+3. **Exercise the flows** — walk each user-facing flow and capture evidence per screen and state into `.artifacts/specs/{slug}/evidences/`. If a browser-automation MCP is available (e.g. `Playwright:browser_navigate`, `Playwright:browser_take_screenshot`), use it to navigate, screenshot, and check accessibility and responsiveness. If none is available, fall back to guiding the user through the flow and collecting their screenshots. Detect availability before calling; never assume the MCP is present.
 4. **Append `## Visual Evidence`** to `validation.md` using the table below.
-5. **Get explicit user approval** — UAT does not self-approve. Only after the user confirms does `spec.md` move to `status: done`; on that flip, clear `.artifacts/STATE.md ## Progress` — the feature is no longer active.
+5. **Get explicit user approval** — UAT does not self-approve. Only after the user confirms does `spec.md` move to `status: done`; on that flip, clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active.
 
 ## Template: `## Visual Evidence`
 

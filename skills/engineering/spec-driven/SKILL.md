@@ -21,8 +21,8 @@ Feature development in phases, sized to the change. Light by default; weight onl
 
 ## Triggers
 
-- **Specify** ("plan feature", "spec this", "from PRD", "modify feature") →
-  [specify.md](instructions/specify.md)
+- **Specify** ("plan feature", "spec this", "from PRD", "modify feature",
+  "discuss how to build") → [specify.md](instructions/specify.md)
 - **Design** ("design this feature", "technical design", "plan the build") →
   [design.md](instructions/design.md)
 - **Tasks** ("create tasks", "break into tasks", "task breakdown") →
@@ -46,7 +46,7 @@ specify → design → tasks → implement → audit → [validate] → done →
                                               one-liner → implement inline
 ```
 
-Depth follows scope, not phase-skipping above Small. Medium runs the full pipeline without fresh-eyes or heavy research; Large adds fresh-eyes and research; Complex adds `discuss.md` and approaches. Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is optional housekeeping for done specs — manual, never automatic, never suggested.
+Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is optional housekeeping for done specs — manual, never automatic, never suggested.
 
 ## References
 
@@ -59,13 +59,13 @@ Loaded on demand:
 - [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
-- `scripts/lessons.py` — run to add, list, promote, and render lessons
+- `scripts/lessons.py` — run to add, list, promote, normalize, and render lessons
 
 ## Artifacts
 
 Every artifact's structure is canonical in the instruction that produces it, inline and marked strict or flexible. Load the instruction before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{slug}/` while built and moves to `.artifacts/archive/{date}-{slug}/` only once at `status: done` — the date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/{slug}/` while built and moves to `.artifacts/archive/{created}-{slug}/` only once at `status: done` — the date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
 
 ## Status
 

@@ -13,7 +13,7 @@ When planning or specing a feature, turning a PRD, ticket, or story into a spec,
 3. **Discovery** — adaptive conversation on problem, scope, and priorities plus a completeness sweep; separate stated fact from assumption. See [discovery.md](../references/discovery.md).
 4. **Size** — set `scope` after discovery, default adversarial; infer `branch` from the content, never ask. See [sizing.md](../references/sizing.md).
 5. **Discuss** — when a gray area is load-bearing (changes Goals, ACs, or the approach); a safe default does not license skipping, and when in doubt whether a fork is load-bearing, ask. Batch the questions and resolve them before writing the spec body. `discuss.md` is written only at Complex; otherwise fold the resolution into the spec. See [discovery.md](../references/discovery.md).
-6. **Write `spec.md`** — fill the template below from resolved inputs only. Author acceptance criteria per [acceptance-criteria.md](../references/acceptance-criteria.md). Record each decision as a settled fact — an AC, a Goal, or an Assumption — never the clarification exchange that produced it ("we discussed", "you chose", "as decided above"): a reader sees the contract, not how it was reached.
+6. **Write `spec.md`** — fill the template below from resolved inputs only. Author acceptance criteria per [acceptance-criteria.md](../references/acceptance-criteria.md). Record each decision as a settled fact — an AC, a Goal, or a Non-Goal — never the clarification exchange that produced it ("we discussed", "you chose", "as decided above"): a reader sees the contract, not how it was reached. A default advanced without confirmation is not a decision — it stays an `[assumption]` line in Open Questions.
 7. **Self-check** — run the three discriminator questions ([discriminator.md](../references/discriminator.md)) and close ambiguity: no `[needs-clarification]` marker may remain; no `[blocking]` question may remain open; no unresolved open question's default may appear as fact in Overview or Goals; every `(verify @ design)` line carries its `verify:` check. Route by capability, not convenience: tag `@ design` only what requires design context (codebase exploration, a HOW choice, an environment check tied to the mechanism) — a question answerable during specify is resolved now, never deferred by tag. When the spec is PRD-seeded (Author mode from a doc with `FR/BR/EC/NFR` IDs), confirm every source requirement maps to ≥1 AC via `Satisfies` — an uncovered requirement becomes an AC or an explicit Non-Goal / `[deferrable]` open question with a reason, never a silent drop.
 8. **Fresh eyes** — Large/Complex only: one light completeness pass over the drafted spec. Found a hole → fix inline → re-check.
 9. **Approval gate** — present name and scope, 2-3 bullets of what changes, and the open questions that survive the spec (`@ design` and `[deferrable]` lines), then ask *"Move to design?"* Never hide the surviving pendencies; an open `[blocking]` question holds this gate.
@@ -22,6 +22,8 @@ When planning or specing a feature, turning a PRD, ticket, or story into a spec,
 On writing `spec.md`, set `status: draft`.
 
 ## Template: `spec.md`
+
+Location: `.artifacts/specs/{slug}/spec.md` — `{slug}` is the kebab-case feature name, no date prefix.
 
 ALWAYS use this exact template structure. Fixed sections always appear; conditional sections appear only when their trigger is met.
 
@@ -72,8 +74,8 @@ branch: {slug}                     # inferred from content, not asked
 ## Open Questions
 <!-- only unresolved items live here: a resolved question becomes spec content (AC, Goal, Non-Goal)
      and its line is removed. An [assumption] carries the default it advanced on (nothing defaulted
-     appears as fact elsewhere) and closes with the resolution clause naming who resolves it, how,
-     and by when. -->
+     appears as fact elsewhere) and closes with the resolution clause routing it to the phase that
+     lands it — (confirm @ design): the user answers there; (verify @ design): a check runs there. -->
 - [blocking]   {changes the spec/approach — user answers before the spec body is written}
 - [assumption] {decision — default: {x} — because {reason}} (confirm @ design)
 - [assumption] {fact — default: {x} — because {reason} — verify: {command or check}} (verify @ design)

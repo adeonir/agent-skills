@@ -46,7 +46,7 @@ design: .artifacts/specs/{slug}/design.md
 
 ### [ ] T-2: ...
 
-## Coverage Matrix       <!-- conditional: Medium/Large/Complex -->
+## Coverage Matrix
 | AC | Task | Test File | Notes |
 |----|------|-----------|-------|
 

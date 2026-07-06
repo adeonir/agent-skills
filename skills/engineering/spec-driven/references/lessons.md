@@ -32,9 +32,9 @@ During audit, when judging whether a FAIL is worth recording (write). During spe
       "text": "Card-validation ACs need a discrimination check that fails if the rule is removed",
       "origin": "validation.md: AC-2 survived mutation",
       "status": "confirmed",
-      "features": ["checkout-2026-07-01", "payment-2026-07-10"],
-      "created": "2026-07-01",
-      "confirmed_at": "2026-07-10"
+      "features": ["checkout", "payment"],
+      "created": "{YYYY-MM-DD}",
+      "confirmed_at": "{YYYY-MM-DD}"
     }
   ]
 }
