@@ -56,7 +56,7 @@ branch: {slug}                     # inferred from content, not asked
 | Term | Definition |
 
 ## User Stories
-### P1 {Title}
+### S-1: {Title} (P-1)
 **As a** {role}, **I want** {capability}, **so that** {benefit}.
 
 **Acceptance Criteria:**

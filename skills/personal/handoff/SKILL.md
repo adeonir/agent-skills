@@ -8,7 +8,7 @@ description: >-
   loading, or clearing a handoff, or starting a session that should continue
   prior work. Not for end-of-session persistence across memory systems or for
   repository-wide project context.
-argument-hint: "[next session focus]"
+argument-hint: "[focus]"
 ---
 
 # Handoff

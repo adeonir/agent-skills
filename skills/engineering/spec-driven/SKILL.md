@@ -11,7 +11,7 @@ description: >-
   boundary or before a PR, running UAT on a user-facing change, or discussing
   how to build a feature. Not for diagnosing unknown bugs, authoring standalone
   PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking.
-argument-hint: "[t-N | p-N | --all]"
+argument-hint: "[T-N] | [S-N] | --all"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
@@ -27,7 +27,7 @@ Feature development in phases, sized to the change. Light by default; weight onl
   [design.md](instructions/design.md)
 - **Tasks** ("create tasks", "break into tasks", "task breakdown") →
   [tasks.md](instructions/tasks.md)
-- **Implement** ("implement task T-1", "implement story P1", "execute tasks";
+- **Implement** ("implement task T-1", "implement story S-1", "execute tasks";
   `--all` runs every pending task) → [implement.md](instructions/implement.md)
 - **Audit** ("audit feature", "validate goals", "verify before PR") →
   [audit.md](instructions/audit.md)

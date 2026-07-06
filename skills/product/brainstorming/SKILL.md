@@ -11,7 +11,7 @@ description: >-
   asking for a second opinion, finding holes in a plan, or grilling
   assumptions before building. Not for documenting a finalized
   direction.
-argument-hint: "[deep]"
+argument-hint: "deep"
 ---
 
 # Brainstorming

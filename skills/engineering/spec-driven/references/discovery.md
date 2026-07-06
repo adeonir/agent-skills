@@ -11,7 +11,7 @@ During specify, before sizing (discovery) and after sizing (discuss, when trigge
 Discovery is a conversation, not a script, tiered to the emerging scope:
 
 - **Problem / why / who** — the intent behind the change and who it serves.
-- **Scope / success / priorities** — the boundary, the measurable outcome, and P1/P2/P3.
+- **Scope / success / priorities** — the boundary, the measurable outcome, and P-1/P-2/P-3.
 - **Completeness sweep** — while exploring, probe for failure/error paths, lifecycle symmetry (create ↔ delete), actors with no path, and implicit dimensions (idempotency, auth, concurrency, state transitions).
 - **Critical posture** — not a yes-man; separate what is *stated* from what is *assumed*, feeding the spec's Open Questions as `[assumption]` lines, each closed with its resolution clause.
 - **Plan-carrying input** — an input that already carries a plan (a proposal, a "do X following the existing pattern") is a set of claims, not a settled contract. Strip its HOW-framing so it never pre-decides design; log its load-bearing decisions as `[assumption]` open questions to resolve downstream, never as fact in Overview or Goals. The spec does not launder the plan into truth.

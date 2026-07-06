@@ -32,10 +32,10 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 
 Run whenever code has conditional behavior, calculations, or validations (config-only/pure-data may be skipped with a note):
 
-1. Pick mutation points from P1 ACs and critical code: conditions, returns, validations, calculations, side effects.
+1. Pick mutation points from P-1 ACs and critical code: conditions, returns, validations, calculations, side effects.
 2. Apply the mutation in **scratch state** — `git worktree` or stash + temp copy. Never mutate the real working tree.
 3. Run the relevant tests — they are expected to **FAIL**. A passing test means the mutant survived.
-4. Tier: 1-3 mutations per feature default; ≥5 for critical P1 logic (security, payments).
+4. Tier: 1-3 mutations per feature default; ≥5 for critical P-1 logic (security, payments).
 5. Report total / killed / survived, each with type, location, expected test, result. Survivors become fix tasks.
 
 ## Template: `validation.md`

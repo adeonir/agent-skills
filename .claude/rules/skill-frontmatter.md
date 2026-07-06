@@ -122,3 +122,21 @@ description: >-
   committing staged changes or opening a pull request. Not for code
   review, acceptance-criteria verification, or session wrap-up.
 ```
+
+## Argument-Hint Grammar
+
+**Impact: LOW**
+
+In `argument-hint`, wrap only placeholders the user replaces in square brackets (`[focus]`, `[T-N]`); write literal keywords and flags plain (`deep`, `--all`); separate alternatives with `|`. Never wrap the whole hint in one outer bracket — the hint is optional by nature, so brackets carry placeholder semantics only, and an outer bracket makes literals read as placeholders.
+
+**Incorrect:**
+
+```yaml
+argument-hint: "[t-N | p-N | --all]"
+```
+
+**Correct:**
+
+```yaml
+argument-hint: "[T-N] | [S-N] | --all"
+```

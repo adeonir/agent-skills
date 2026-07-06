@@ -39,11 +39,11 @@ The agent judges inline — no formal type detection:
 
 Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. Prompt and story seeds do not write it (a story inherits the link 1:1 via the `sources:` pointer). Keep the link on the `**Satisfies**` line, never in prose.
 
-## Case convention — two classes
+## Case convention — three classes
 
 - **EARS operators** (requirement prose) → the reserved words above, as written.
 - **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[blocking]`, `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
-- `AC-N` is an identifier — its own format, neither class.
+- **Identifiers** (owned, monotonic, never renumbered) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `AC-N` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
 
 ## Non-functional criteria
 

@@ -50,7 +50,7 @@ modify the existing auth flow to add 2FA
 # Move through the pipeline
 design this feature
 create tasks
-implement P1
+implement S-1
 implement --all
 
 # Close it out

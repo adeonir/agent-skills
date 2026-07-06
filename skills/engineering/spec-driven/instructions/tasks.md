@@ -36,7 +36,7 @@ design: .artifacts/specs/{slug}/design.md
 ## Task List
 
 ### [ ] T-1: {title}
-- **Story:** P1/P2/P3 — {title}
+- **Story:** S-N — {title}
 - **Description:** {what to do}
 - **Depends on:** T-N, T-M (none if first)
 - **Tests:** `{file}` — {short description}
@@ -58,4 +58,4 @@ design: .artifacts/specs/{slug}/design.md
 - T-7 → split into 2 commits for review: backend + frontend
 ```
 
-MUST NOT contain: new architecture (it belongs in design.md), observable behavior or acceptance criteria (they belong in spec.md), or component design. Tasks sequence and verify existing decisions; they never introduce them. The `Discrimination:` field applies to conditionals, validations, calculations, and P1 ACs — if the test would still pass with the logic removed, it is weak.
+MUST NOT contain: new architecture (it belongs in design.md), observable behavior or acceptance criteria (they belong in spec.md), or component design. Tasks sequence and verify existing decisions; they never introduce them. The `Discrimination:` field applies to conditionals, validations, calculations, and P-1 ACs — if the test would still pass with the logic removed, it is weak.
