@@ -33,6 +33,8 @@ Feature development in phases, sized to the change. Light by default; weight onl
   [audit.md](instructions/audit.md)
 - **Validate / UAT** ("run UAT", "manual testing", "validate flows") →
   [validate.md](instructions/validate.md)
+- **Archive** ("archive feature", "archive this spec") →
+  [archive.md](instructions/archive.md)
 
 ## Workflow
 
@@ -44,7 +46,7 @@ specify → design → tasks → implement → audit → [validate] → done →
                                               one-liner → implement inline
 ```
 
-Depth follows scope, not phase-skipping above Small. Medium runs the full pipeline without fresh-eyes or heavy research; Large adds fresh-eyes and research; Complex adds `discuss.md` and approaches. Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is an optional post-merge command, never automatic.
+Depth follows scope, not phase-skipping above Small. Medium runs the full pipeline without fresh-eyes or heavy research; Large adds fresh-eyes and research; Complex adds `discuss.md` and approaches. Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is an optional post-merge command — manual, never automatic, never suggested.
 
 ## References
 
@@ -63,7 +65,7 @@ Loaded on demand:
 
 Every artifact's structure is canonical in the instruction that produces it, inline and marked strict or flexible. Load the instruction before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{date}-{slug}/` while built and moves to `.artifacts/archive/{date}-{slug}/` only after merge. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/{slug}/` while built and moves to `.artifacts/archive/{date}-{slug}/` only after merge — the date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
 
 ## Status
 

@@ -25,7 +25,7 @@ Discuss engages the user when the gray area is **load-bearing** — it changes G
 Scope-tiered output:
 
 - **Medium** — fold the resolution back into the spec (update ACs, add `(because …)`, record the resolved input under Assumptions).
-- **Complex** — write `.artifacts/specs/{date}-{slug}/discuss.md` with the gray-area decisions.
+- **Complex** — write `.artifacts/specs/{slug}/discuss.md` with the gray-area decisions.
 - **Project-level decision** → append to `CONTEXT.md`.
 
 Design and tasks load `discuss.md` when it exists.

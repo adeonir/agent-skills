@@ -8,7 +8,7 @@ When designing a feature, planning the build, or producing the technical design 
 
 ## Workflow
 
-1. **Resolve feature** — find the active `spec.md` in `.artifacts/specs/{date}-{slug}/`.
+1. **Resolve feature** — find the active `spec.md` in `.artifacts/specs/{slug}/`.
 2. **Load context** — read `.artifacts/STATE.md` (if present), `spec.md`, `.artifacts/CONTEXT.md`, confirmed lessons, `discuss.md` (if present), and `AGENTS.md` / `CLAUDE.md`. The spec is the source of truth for WHAT + WHY; design never reopens its ambiguities. Design owns HOW and derives it from the codebase — any HOW an upstream input implied (a named pattern, an "obvious" placement) is a claim to verify here, never authority to inherit. See [memory.md](../references/memory.md).
 3. **Exploration** — dispatch a light subagent with only the relevant area as input; it returns a short structured summary of patterns, files to touch, and risks. Exploration challenges the plan; it does not confirm it — never stop at the first pattern that matches the input's own words. When a placement or trigger has ≥2 viable entry points, **enumerate them at the relevant layer** before choosing, and **trace runtime provenance, not just structure** — how does neighboring data of the same kind already arrive here on a real run? The main agent judges and fills the template. When a load-bearing HOW fork has ≥2 viable entry points and the codebase gives no forced answer (runtime provenance doesn't decide it), surface it as a question before writing — same discipline as discuss, scoped strictly to HOW; when in doubt whether a fork is load-bearing, ask. A fork the codebase does decide stays an agent call, recorded in Decisions with its `Rejected` cell. A fork that can only be settled by reopening the spec's WHAT is not decided here — surface it and route back to specify. `file:line` citations only on load-bearing claims (decisions, risks, reuse), and only when handy.
 4. **Research** — only when the knowledge chain (codebase → project docs → Context7 MCP → web) is exhausted without an answer. Inline by default; a subagent only for a large or independent topic. Cache to `.artifacts/research/{topic}.md`. Require a throwaway spike when integration involves runtime wiring new to the codebase.
@@ -27,12 +27,12 @@ ALWAYS use this exact template structure. Conditional sections appear only when 
 ```markdown
 ---
 name: {slug}
-spec: .artifacts/specs/{date}-{slug}/spec.md
+spec: .artifacts/specs/{slug}/spec.md
 ---
 
 # Design: {Feature}
 
-**Spec**: `.artifacts/specs/{date}-{slug}/spec.md`
+**Spec**: `.artifacts/specs/{slug}/spec.md`
 
 ## Scope
 {In-scope / out-of-scope — only what affects the design.}

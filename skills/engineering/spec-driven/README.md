@@ -28,7 +28,7 @@ flowchart TD
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Audit** | `validation.md` — Goals, ACs, discrimination sensor |
 | **Validate / UAT** | `## Visual Evidence` appended to `validation.md` (user-facing) |
-| **Archive** | specs moved to `.artifacts/archive/` (optional, post-merge) |
+| **Archive** | spec moved to `.artifacts/archive/{date}-{slug}/` (optional, manual, post-merge) |
 
 ### Auto-Sizing
 
@@ -70,7 +70,7 @@ python3 scripts/lessons.py list --status confirmed
 ├── lessons.json                   # canonical lessons state (machine-owned)
 ├── LESSONS.md                     # rendered lessons (never hand-edit)
 ├── specs/
-│   └── {date}-{slug}/
+│   └── {slug}/                    # active feature; slug only, no date prefix
 │       ├── spec.md                # WHAT + WHY
 │       ├── discuss.md             # gray-area decisions (Complex)
 │       ├── design.md              # HOW
@@ -79,7 +79,7 @@ python3 scripts/lessons.py list --status confirmed
 ├── research/
 │   └── {topic}.md                 # research cache (reusable)
 └── archive/
-    └── {date}-{slug}/             # closed features; never read during discovery
+    └── {date}-{slug}/             # closed features; date from `created:`, added at archive; never read during discovery
 ```
 
 ## Requirements
@@ -108,4 +108,4 @@ A: After an audit FAIL worth recording, `scripts/lessons.py add` stores a candid
 
 **Q: What happens to a feature after it is done?**
 
-A: Nothing automatic. Merge is external. The optional archive command (run after merge) moves the spec to `.artifacts/archive/` and clears the `STATE.md` progress. The agent never reads `archive/` when creating a new spec.
+A: Nothing automatic. Merge is external. The optional archive command — manual, never suggested, run after merge — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{date}-{slug}/` (the date comes from the spec's `created:`, added only at archive) and clears the `STATE.md` progress. The agent never reads `archive/` when creating a new spec.

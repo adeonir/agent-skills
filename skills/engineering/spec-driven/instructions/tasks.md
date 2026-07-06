@@ -24,8 +24,8 @@ ALWAYS use this exact template structure. Conditional sections appear only when 
 
 ```markdown
 ---
-spec: .artifacts/specs/{date}-{slug}/spec.md
-design: .artifacts/specs/{date}-{slug}/design.md
+spec: .artifacts/specs/{slug}/spec.md
+design: .artifacts/specs/{slug}/design.md
 ---
 
 # Tasks: {Feature}

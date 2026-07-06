@@ -8,7 +8,7 @@ When implementing a named task, range, or user story, or executing a whole featu
 
 ## Workflow
 
-1. **Resolve feature** — find the active `.artifacts/specs/{date}-{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read per task in the Before step.
+1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field: `git switch -c {branch} 2>/dev/null || git switch {branch}`. Skip if already on it or on `main`/`master`.
 3. **Update status** — if `status` is `draft`, set it to `in-progress` in `spec.md`.
 4. **Run each task sequentially** — Before / During / After below.
