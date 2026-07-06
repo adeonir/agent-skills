@@ -1,16 +1,15 @@
 # Archive
 
-Move a merged feature out of the active `specs/` tree into dated cold storage.
+Move a done feature out of the active `specs/` tree into dated cold storage — housekeeping only, no lifecycle effect.
 
 ## When to Use
 
-Only when the user explicitly asks to archive a feature, and only after its PR has merged. Optional and manual — the skill never observes the merge event, so it never runs this automatically and never suggests it. A done feature that no one archives simply stays in `.artifacts/specs/`.
+Only when the user explicitly asks to archive a feature, and only for a spec at `status: done`. Optional and manual — never automatic, never suggested. A done feature that no one archives simply stays in `.artifacts/specs/`; its state is already settled (`status: done` set and `STATE.md` cleared when it reached done), so archiving changes nothing but the folder.
 
 ## Workflow
 
-1. **Resolve feature** — the active `.artifacts/specs/{slug}/`. Read `created:` from `spec.md` frontmatter; that date prefixes the archive name.
+1. **Resolve feature** — the `.artifacts/specs/{slug}/` to archive; confirm `spec.md` is at `status: done` — anything earlier is still in flight and stays. Read `created:` from `spec.md` frontmatter; that date prefixes the archive name.
 2. **Move** `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/`. The date lands here, at archive time — the active folder never carried it, so same-day features never share a redundant prefix while in flight.
-3. **Clear** `.artifacts/STATE.md ## Progress` — the feature is no longer active.
-4. **Keep** `spec.md` at `status: done`.
+3. **Keep** `spec.md` at `status: done`.
 
 The agent never reads `.artifacts/archive/` when creating a new spec — archived features are cold storage, not discovery input.

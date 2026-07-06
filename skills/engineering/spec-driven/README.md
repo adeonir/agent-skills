@@ -17,7 +17,7 @@ flowchart TD
     AU -->|user-facing| V[Validate / UAT]
     AU -->|else| DN[Done]
     V --> DN
-    DN --> AR[Archive<br/>optional, post-merge]
+    DN --> AR[Archive<br/>optional housekeeping]
 ```
 
 | Phase | Output |
@@ -28,7 +28,7 @@ flowchart TD
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Audit** | `validation.md` — Goals, ACs, discrimination sensor |
 | **Validate / UAT** | `## Visual Evidence` appended to `validation.md` (user-facing) |
-| **Archive** | spec moved to `.artifacts/archive/{date}-{slug}/` (optional, manual, post-merge) |
+| **Archive** | spec moved to `.artifacts/archive/{date}-{slug}/` (optional, manual, done specs only) |
 
 ### Auto-Sizing
 
@@ -108,4 +108,4 @@ A: After an audit FAIL worth recording, `scripts/lessons.py add` stores a candid
 
 **Q: What happens to a feature after it is done?**
 
-A: Nothing automatic. Merge is external. The optional archive command — manual, never suggested, run after merge — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{date}-{slug}/` (the date comes from the spec's `created:`, added only at archive) and clears the `STATE.md` progress. The agent never reads `archive/` when creating a new spec.
+A: Reaching `status: done` (audit PASS, or UAT approval for user-facing features) clears the `STATE.md` progress — the feature is no longer active. Pull request and merge happen outside this skill. The optional archive command — manual, never suggested, housekeeping for done specs — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{date}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.

@@ -96,7 +96,7 @@ Gaps: {count}
 
 ## Outcome
 
-**PASS** — non-user-facing: set `spec.md status: done` automatically. User-facing: run [validate.md](validate.md); done only after UAT approval.
+**PASS** — non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md ## Progress` — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 
 **FAIL** — the auditor does not fix. The main agent turns ranked gaps into fix tasks in `tasks.md`, re-runs implement, and re-audits. Loop limited to 3 iterations, then escalate to the user.
 
