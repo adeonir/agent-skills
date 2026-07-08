@@ -271,6 +271,10 @@ without re-reading the design doc — extract it into an ADR.
 
 Process:
 
+First check the row's `Record` column — if it already reads `ADR-NNN`, the
+decision is recorded and linked, the row is frozen, and there is nothing to
+reconcile; stop. Otherwise:
+
 1. Create the ADR (see [adr.md](adr.md)). Number sequentially.
 2. Update the design doc row: set `Record` to `ADR-NNN`.
 3. The ADR's References section links back to the design doc's Alternatives
