@@ -29,9 +29,10 @@ The message summarizes the boundary just closed. The agent making the commit alr
 
 1. **Imperative mood** — "add", "fix", "implement" (not "added", "fixes").
 2. **Concise subject** — ~72 characters, a soft ceiling.
-3. **What and why, never where or how** — carry the user-observable effect and the why; keep file names, paths, mechanics, and specific values out (they live in the diff). One exception: when the file *is* the change (`docs: update README`), naming it is clearer than abstracting it.
-4. **Match project style** — follow the project log's scope usage (`type(scope):` vs `type:`); do not add or strip scope against the established style. A prompt directive overrides.
-5. **No attribution, no future references** — never add Co-Authored-By or mention upcoming work.
+3. **Human readable** — write the subject so a teammate understands it without opening the code. Tell the story of what moved and why it matters, not an abstract framing. `refactor: make db and auth per-request for d1 binding` reads like a story; `refactor: swap client and adapter for d1 pattern` reads like a release-note abstraction. See the AI-slop anti-pattern for the filler vocabulary to avoid.
+4. **What and why, never where or how** — carry the user-observable effect and the why; keep file names, paths, mechanics, and specific values out (they live in the diff). One exception: when the file *is* the change (`docs: update README`), naming it is clearer than abstracting it.
+5. **Match project style** — follow the project log's scope usage (`type(scope):` vs `type:`); do not add or strip scope against the established style. A prompt directive overrides.
+6. **No attribution, no future references** — never add Co-Authored-By or mention upcoming work.
 
 ## Template
 
@@ -54,6 +55,10 @@ The body makes the commit self-sufficient — a reader understands the change fr
 - Start each bullet with a lowercase imperative verb ("- add", "- remove").
 - Fold in the *why* where the changes alone don't carry it.
 
+A curated bullet can still smuggle literal instance data — an exact value in parentheses, a proper noun, a quoted copy string. Strip it when the bullet's structural description already carries the meaning; keep a literal only when it *is* the change (a config value whose number is the decision). It is the subject's fake-concreteness trap (Shape 2), applied to bullets.
+
+A change that spans files leaks the diff's redundancy when each bullet restates the shared substance once per file. State the substance once — in the subject or the primary bullet — and let each sibling bullet say what *its* file did, not re-list the shared decision.
+
 A trivial change needs no body.
 
 ## Anti-Pattern: AI-slop subject
@@ -62,7 +67,11 @@ AI-slop has two opposite shapes, and "just be concrete" pushes out of the first 
 
 **Shape 1 — empty abstraction.** The subject names a filler word instead of the thing that moved: filler verbs (*enhance, streamline, leverage, optimize* when nothing was measured), filler adjectives (*robust, comprehensive, seamless*), abstract nouns standing in for the real object (*logic, functionality, handling, behavior*).
 
-**Shape 2 — fake concreteness.** Over-correcting yields a subject that reads like a release note: specific values are *how* not *what* (`retry failed uploads three times` → `retry failed uploads`; the count stays in the code), and prose locators are *where* (`... in CI` → drop it; the `ci:` scope already carries it).
+**Shape 2 — fake concreteness.** Over-correcting yields a subject that reads like a release note:
+
+- Specific values are *how*, not *what* — `retry failed uploads three times` → `retry failed uploads`; the count stays in the code.
+- Prose locators are *where* — `... in CI` → drop it; the `ci:` scope already carries it.
+- Reference codes are *where* handles, not *what* — `ADR-002`, `AC-2`, `#42`. The identifier names an artifact, not the change; describe what the change does, not its ID. Keep the code only when the repo's log references artifacts by it.
 
 A human subject is terse and structural — it names what moved, in the developer's own shorthand, at topic altitude.
 
