@@ -48,9 +48,12 @@ Fill the template (below):
   flags, file paths, parentheses, brackets, or pipes — becomes branch
   name slug downstream. Declarative — names the deliverable
   (`Reset password flow`), never a narrative outcome (`User can reset
-  their password to regain access`). The title maps to the tracker's
-  summary field on push; outcome prose lives only in the body's
-  Summary section.
+  their password to regain access`). The name is translated from its
+  source, not copied: strip any borrowed token — reference or ticket
+  codes, section numbers, code identifiers, document or
+  sibling-artifact names — which travel in References or the body,
+  never the title. The title maps to the tracker's summary field on
+  push; outcome prose lives only in the body's Summary section.
 - **Epic**: parent epic name (must match an existing epic directory)
 - **Status**: always starts as `planned`
 - **Prose context**: what this story delivers, who benefits, what

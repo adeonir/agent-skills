@@ -61,9 +61,12 @@ Fill the template (below):
   flags, file paths, parentheses, brackets, or pipes — becomes branch
   name slug downstream. Declarative — names the work
   (`Upgrade CI runner image`), never a narrative outcome (`Builds run
-  faster on the new image`). The title maps to the tracker's summary
-  field on push; outcome prose lives only in the body's Summary
-  section.
+  faster on the new image`). The name is translated from its source,
+  not copied: strip any borrowed token — reference or ticket codes,
+  section numbers, code identifiers, document or sibling-artifact
+  names — which travel in References or the body, never the title. The
+  title maps to the tracker's summary field on push; outcome prose
+  lives only in the body's Summary section.
 - **Type**: always `task`
 - **Epic**: parent epic name, or omit for standalone tasks
 - **Status**: always starts as `planned`
@@ -86,6 +89,13 @@ tense: a resolved decision enters as fact (`CI runs on the Node 20
 image`), never as its history (`we discussed staying on Node 18 but
 decided to upgrade`). Strip conversation narrative — "as discussed",
 "the user confirmed", "we agreed" — and decision history.
+
+**Translate, don't replicate.** Sources (advisory, PR, design doc, ADR,
+epic) stay read-only. Extract only what maps to this task, then
+translate into its own language: strip reference and ticket codes,
+`§x.x` section numbers, code identifiers, document and sibling-artifact
+names. The task carries the facts, not the source's tokens — reference
+codes travel in References, source links in Signals.
 
 Apply the resumption gate before proceeding:
 
@@ -152,7 +162,7 @@ type: task
 
 {{What needs to be done and why. One clear outcome.}}
 
-MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed") or decision history.
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, `§x.x` section numbers, document or reference codes, sibling-artifact names, or code identifiers and mechanism walkthroughs (`store.publish()`, "the write-through compares..."). Reference codes (`ADR-NNN`, ticket ids) travel in References; source links and ids in Signals.
 
 ## Signals
 

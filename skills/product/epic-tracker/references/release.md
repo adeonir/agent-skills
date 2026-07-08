@@ -34,9 +34,12 @@ Fill the template (below):
   commands, flags, file paths, parentheses, brackets, or pipes —
   becomes branch name slug downstream. Declarative — names the release
   (`Billing v2 launch`), never a narrative outcome (`Customers get
-  consolidated invoices`). The title maps to the tracker's summary
-  field on push; outcome prose lives only in the body's Summary
-  section.
+  consolidated invoices`). The name is translated from its source, not
+  copied: strip any borrowed token — reference or ticket codes,
+  section numbers, code identifiers, document or sibling-artifact
+  names — which travel in References or the body, never the title. The
+  title maps to the tracker's summary field on push; outcome prose
+  lives only in the body's Summary section.
 - **Status**: always starts as `planned` (planned, in-progress,
   released)
 - **Prose context**: what this release delivers, why these stories
@@ -54,6 +57,14 @@ public beta`), never as its history (`we discussed shipping billing
 separately but the user preferred one release`). Strip conversation
 narrative — "as discussed", "the user confirmed", "we agreed" — and
 decision history.
+
+**Translate, don't replicate.** Member stories and any source docs stay
+read-only. Read story summaries to choose what ships, then state the
+release's own concern: strip reference and ticket codes, `§x.x` section
+numbers, code identifiers, document names, and story-internal detail
+(acceptance criteria, implementation). The release carries the grouping
+rationale, not the sources' tokens — reference codes travel in
+References.
 
 ### 3. Save or Push
 
@@ -112,7 +123,7 @@ sources: []
 
 {{What this release delivers, why these stories were grouped together, who benefits.}}
 
-MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed") or decision history.
+MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, `§x.x` section numbers, document or reference codes, sibling-artifact names, or implementation detail. Reference codes (`ADR-NNN`, ticket ids) travel in References.
 
 ## Stories
 

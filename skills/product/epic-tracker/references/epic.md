@@ -48,8 +48,12 @@ Fill the template (below) with discovered context:
   flags, file paths, parentheses, brackets, or pipes — becomes branch
   name slug downstream. Declarative — names the capability
   (`User authentication`), never a narrative outcome (`Users can sign
-  in securely`). The title maps to the tracker's summary field on
-  push; outcome prose lives only in the body's Summary section.
+  in securely`). The name is translated from its source, not copied:
+  strip any borrowed token — reference or ticket codes, section
+  numbers, code identifiers, document or sibling-artifact names —
+  which travel in References or the body, never the title. The title
+  maps to the tracker's summary field on push; outcome prose lives
+  only in the body's Summary section.
 - **Status**: always starts as `planned`
 - **Prose context**: what the epic is about, why it exists, what changes
   for the user -- two or three sentences; no scenario narrative, no

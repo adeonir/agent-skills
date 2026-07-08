@@ -71,8 +71,12 @@ Fill the template (below):
   pipes — becomes branch name slug downstream. Declarative — names the
   defect (`Login fails with expired token`), never a narrative of the
   fix or its outcome (`Users stay logged in after token refresh`). The
-  title maps to the tracker's summary field on push; outcome prose
-  lives only in the body's Summary section.
+  name is translated from its source, not copied: strip any borrowed
+  token — reference or ticket codes, section numbers, code
+  identifiers, document or sibling-artifact names — which travel in
+  References or the body, never the title. The title maps to the
+  tracker's summary field on push; outcome prose lives only in the
+  body's Summary section.
 - **Epic**: parent epic name, or omit for standalone bugs
 - **Type**: always `bug`
 - **Status**: always starts as `planned`
@@ -96,6 +100,13 @@ that login was failing`. Strip conversation narrative — "as discussed",
 "the user confirmed" — and decision history; facts extracted from the
 paste enter as standing statements, verbatim evidence belongs in
 Signals.
+
+**Translate, don't replicate.** Sources (logs, dashboards, PRs, design
+doc, ADR, epic) stay read-only. Extract only what maps to this defect,
+then translate into its own language: strip reference and ticket codes,
+`§x.x` section numbers, code identifiers, document and sibling-artifact
+names. The bug carries the facts, not the source's tokens — reference
+codes travel in References, verbatim evidence in Signals.
 
 Apply the resumption gate before proceeding:
 
@@ -162,7 +173,7 @@ severity: {{critical/high/medium/low}}
 
 {{Brief one-sentence description of the defect.}}
 
-MUST NOT contain: conversation narrative ("as discussed", "the user reported that") or decision history.
+MUST NOT contain: conversation narrative ("as discussed", "the user reported that"), decision history, `§x.x` section numbers, document or reference codes, sibling-artifact names, or code identifiers and fix mechanism. Reference codes (`ADR-NNN`, ticket ids) travel in References; verbatim errors and stack traces in Signals.
 
 ## Signals
 
