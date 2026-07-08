@@ -82,6 +82,7 @@ AI-slop has two opposite shapes, and "just be concrete" pushes you out of the fi
 
 - Specific values are *how*, not *what* — counts, thresholds, version numbers: `retry failed uploads three times`, `pin node to 20`. Strip them to the structural *what* (`retry failed uploads`, `pin node version`); the exact value lives in the code, never the message.
 - Prose locators are *where* — `... in CI` spells out a location the `ci:` scope already carries. Drop it.
+- Reference codes are *where* handles, not *what* — `ADR-002`, `JIRA-1234`, `#42`. The identifier names an artifact, not the change; describe what the change does, not its ID. Keep the code only when the repo's log references artifacts by it.
 
 A human subject is terse and structural: it names what moved in the code, in the developer's own shorthand, at topic altitude. The exact values and locations stay in the diff.
 
@@ -103,6 +104,8 @@ The body makes the commit self-sufficient: a reader should understand what chang
 - Mechanical (bad): one bullet per file or hunk — the *where* and *how* ("remove lint.yml, test.yml, build.yml"). That transcript is what the diff already is — collapse it into the *what* it adds up to.
 
 Curation is one axis; altitude is the other. A curated bullet can still smuggle literal instance data — an exact value in parentheses, a proper noun (a specific item or tool name), a quoted copy string. These read as helpful concreteness but only repeat what the diff already holds. Strip them when the bullet's structural description already carries the meaning; keep a literal only when it *is* the change (a config value whose number is the decision). It is the subject's fake-concreteness trap (Shape 2), applied to bullets.
+
+Redundancy is a third axis. A change that spans files leaks the diff's redundancy when each bullet restates the shared substance once per file. State the substance once — in the subject or the primary bullet — and let each sibling bullet say what *its* file did, not re-list the shared decision. Two bullets carrying the same facts is a transcript, not a changelog.
 
 A trivial commit still needs no body. When the subject already says everything (`fix: resolve token refresh race condition`), stop there. Reach for a body when the change has several meaningful parts worth listing, or a *why* the changes themselves don't reveal.
 
