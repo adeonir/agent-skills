@@ -72,7 +72,7 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 - PRODUCT is the product's strategic positioning — resolved by the product-doc flow per artifact state: drafted in discovery (shared with the PRD when both are new) if absent, reconciled if it already exists, including on its own when only positioning shifts.
 - PRD is the source of truth for product; Design Doc links to it, never copies prose.
 - Design Doc carries the design and its trade-offs; matured decisions extract into ADRs, tracked via the Alternatives `Record` column.
-- ADRs are immutable once accepted; supersede with a new ADR, never edit.
+- ADRs become immutable once accepted and committed; supersede with a new ADR, never edit committed history.
 
 When a section feels like it belongs in two docs, it usually belongs in one and gets a link from the other.
 
