@@ -106,16 +106,22 @@ Apply the resumption gate before proceeding:
 ### 4. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Ask the user (per session, cached) whether to push to the tracker
-- If yes: load [sync.md](sync.md) and dispatch using the draft content;
-  pass the parent epic's tracker id (from `epic.md` frontmatter
-  `tracker.id`) when applicable — no markdown file is created
-- If no: save to `.artifacts/epics/{epic-name}/{task-name}.md` or
+- Load [sync.md](sync.md) and dispatch using the draft content; pass the
+  parent epic's tracker id (from `epic.md` frontmatter `tracker.id`) when
+  applicable — no markdown file is created
+- User asked to keep it local: save to
+  `.artifacts/epics/{epic-name}/{task-name}.md` or
   `.artifacts/epics/standalone/{task-name}.md`
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to `.artifacts/epics/{epic-name}/{task-name}.md` or
   `.artifacts/epics/standalone/{task-name}.md`
+- User named a tracker: load [sync.md](sync.md) and dispatch to that
+  tracker's adapter
+
+An explicit destination in the user's request overrides the configured
+`kind` for this artifact only; it never rewrites the config. See
+[sync.md](sync.md) "Explicit Override".
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 

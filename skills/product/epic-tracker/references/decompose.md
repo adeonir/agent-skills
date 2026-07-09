@@ -49,8 +49,8 @@ ac-validation). Decompose never bypasses the create ref — no auto-generated,
 unvalidated artifacts.
 
 Sync is inherited, not added here: each create ref carries its own save-or-push,
-respecting the per-session push cache (see [sync.md](sync.md)). Decompose
-performs no sync of its own.
+governed by `epic-tracker.kind` (see [sync.md](sync.md)). Decompose performs no
+sync of its own.
 
 ## Guidelines
 

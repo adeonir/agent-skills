@@ -118,14 +118,19 @@ the user fixes the AC.
 ### 4. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Ask the user (per session, cached) whether to push to the tracker
-- If yes: load [sync.md](sync.md) and dispatch using the draft content;
-  pass the parent epic's tracker id (from `epic.md` frontmatter
-  `tracker.id`) so the story is linked — no markdown file is created
-- If no: save to markdown and proceed to step 5
+- Load [sync.md](sync.md) and dispatch using the draft content; pass the
+  parent epic's tracker id (from `epic.md` frontmatter `tracker.id`) so the
+  story is linked — no markdown file is created
+- User asked to keep it local: save to markdown and proceed to step 5
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to markdown and proceed to step 5
+- User named a tracker: load [sync.md](sync.md) and dispatch to that
+  tracker's adapter
+
+An explicit destination in the user's request overrides the configured
+`kind` for this artifact only; it never rewrites the config. See
+[sync.md](sync.md) "Explicit Override".
 
 **Saving to markdown:**
 1. Count existing numbered story files (`NNN-` prefixed) in

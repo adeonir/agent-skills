@@ -69,17 +69,28 @@ set in git config.
 Bootstrap runs at most once per project. Re-run on demand by triggering
 "configure tracker".
 
-## Per-Session Cache
+## Push Gate
 
-The push question ("push this to the tracker?") is asked once per session,
-not per artifact. Cache the user's answer in memory:
+`epic-tracker.kind` is the push decision. Bootstrap asks once, persists it to
+`git config --local`, and no later step re-asks:
 
-- **always push**: subsequent creates push without re-asking
-- **always ask**: re-ask on every create (default if user is unsure)
-- **never push for this session**: skip pushes until next session
+- `linear` or `github`: creates dispatch to the tracker
+- `none`: creates save to markdown
 
-Cache is in-memory only. Next session resets to "always ask" unless the
-user updates the cache mid-session.
+## Explicit Override
+
+A request that names the destination overrides the config for that artifact
+only:
+
+| Request | Config | Behavior |
+|---------|--------|----------|
+| "create issue on GitHub", "push to Linear" | `none` | dispatch to the named tracker |
+| "save this locally", "don't push yet" | `linear`, `github` | save to markdown |
+| "create issue on GitHub" | `linear` | dispatch to the named tracker |
+
+An override never rewrites `epic-tracker.kind`. When it names a tracker that
+differs from the configured one, load that tracker's adapter for the dispatch.
+The config changes only when the user triggers "configure tracker".
 
 ## Push Direction (draft or markdown → tracker)
 
@@ -225,14 +236,16 @@ adapter's responsibility; each tracker has its own status enum.
 
 **DO:**
 - Run bootstrap exactly once per project; re-run on demand via "configure tracker"
-- Cache the per-session push preference in memory after first ask
+- Treat `epic-tracker.kind` as the standing push decision
+- Honor an explicit destination in the user's request over the configured `kind`, for that artifact only
 - Treat the tracker as source of truth for status when `tracker.id` is set in frontmatter
 - Warn the user about every conflict before resolving; never resolve silently
 - Update `last_synced` timestamp on every successful sync
 - Try MCP first on every operation; fall back to CLI when MCP is missing or fails; fall back to markdown-only when both are unavailable, and warn the user
 
 **DON'T:**
-- Push without asking (contrasts: ask once per session, cache the choice)
+- Re-ask whether to push when `kind` is set (contrasts: bootstrap already answered; the config stands)
+- Rewrite `epic-tracker.kind` from an override (contrasts: overrides are per-artifact; only "configure tracker" changes the config)
 - Auto-resolve conflicts (contrasts: surface the conflict, let user decide)
 - Hardcode tracker primitives in this ref (contrasts: adapters own tracker-specific mapping)
 - Modify the tracker entity from this ref directly (contrasts: dispatch to the adapter)
@@ -241,7 +254,7 @@ adapter's responsibility; each tracker has its own status enum.
 ## Error Handling
 
 - `epic-tracker.kind` not set: route to bootstrap
-- `epic-tracker.kind` is `none`: skip silently; markdown is the source of truth
+- `epic-tracker.kind` is `none`: skip silently; markdown is the source of truth, unless the request names a tracker
 - MCP unavailable for the configured tracker: try the tracker's CLI (`gh`, `linear`); if both fail, warn user, fall back to markdown for this operation, suggest re-running bootstrap if MCP environment changed
 - Push fails (network, auth, tracker rejection): log error, leave markdown untouched, suggest retry
 - Pull fails: log error, keep current markdown state, suggest retry

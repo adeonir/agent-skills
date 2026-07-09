@@ -110,16 +110,20 @@ Apply the provenance gate as well:
 ### 3. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Ask the user (per session, cached) whether to push to the tracker
-- If yes: load [sync.md](sync.md) and dispatch using the draft content
-  directly — no markdown file is created; the tracker is the source of
-  truth
-- If no: save to `.artifacts/epics/{epic-name}/epic.md`; push later via
-  "sync to tracker"
+- Load [sync.md](sync.md) and dispatch using the draft content directly —
+  no markdown file is created; the tracker is the source of truth
+- User asked to keep it local: save to `.artifacts/epics/{epic-name}/epic.md`;
+  push later via "sync to tracker"
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
 - Save to `.artifacts/epics/{epic-name}/epic.md`; create the directory
   if it doesn't exist
+- User named a tracker: load [sync.md](sync.md) and dispatch to that
+  tracker's adapter
+
+An explicit destination in the user's request overrides the configured
+`kind` for this artifact only; it never rewrites the config. See
+[sync.md](sync.md) "Explicit Override".
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
