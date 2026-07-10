@@ -9,7 +9,7 @@ When breaking a change into tasks or user stories, or producing the task breakdo
 ## Workflow
 
 1. **Resolve feature** — find the active `spec.md` and `design.md`.
-2. **Load context** — read `.artifacts/STATE.md` (if present), the spec, the design, `.artifacts/CONTEXT.md`, `discuss.md` (if present), and `AGENTS.md` / `CLAUDE.md`.
+2. **Load context** — read `.artifacts/STATE.md` (if present), the spec, the design, `.artifacts/CONTEXT.md`, `discuss.md` (if present), and `AGENTS.md` / `CLAUDE.md`. These are context only: upstream prose never crosses into `tasks.md` (the template's MUST-NOT names it) — tasks reference `AC-N` by id in the Coverage Matrix, never restate its text.
 3. **Build the task list** — break into atomic tasks in execution order (top-to-bottom). A task is atomic when it has one clear objective, is verifiable by one gate, and needs at most ~1 new design decision. It may touch several files if the changes are mechanical and dependent.
 4. **Fill the Coverage Matrix** — map every AC to at least one task and test.
 5. **Self-check** — every AC in the matrix maps to a task/test; no task depends on a later task without a note; tests are co-located with the code they cover, never deferred. Watch for scope breaking the sizing — see the safety valve in [sizing.md](../references/sizing.md).
@@ -24,6 +24,7 @@ ALWAYS use this exact template structure. Conditional sections appear only when 
 
 ```markdown
 ---
+name: {slug}
 spec: .artifacts/specs/{slug}/spec.md
 design: .artifacts/specs/{slug}/design.md
 ---

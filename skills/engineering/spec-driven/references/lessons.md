@@ -24,6 +24,8 @@ During audit, when judging whether a FAIL is worth recording (write). During spe
 
 ## `lessons.json` format
 
+The store is machine-owned — never hand-write it; `scripts/lessons.py` owns every write. The format is documented for reading only:
+
 ```json
 {
   "lessons": [

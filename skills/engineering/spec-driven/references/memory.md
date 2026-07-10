@@ -32,6 +32,8 @@ Here is a sensible default format, but use your best judgment:
 
 No mandatory date. No rigid routing rules. Routing by intent: a project-level decision a future feature must follow → `## Decisions`; a real trap found in the code → `## Gotchas`; a normative codebase pattern → `## Conventions`.
 
+MUST NOT contain: feature-local state, progress, or notes — `CONTEXT.md` is knowledge shared across features; the active feature's status lives in `STATE.md`.
+
 ## `STATE.md` format
 
 ALWAYS use this exact template structure — other phases clear `## Progress` and write to `## Notes` by name:
@@ -50,6 +52,8 @@ ALWAYS use this exact template structure — other phases clear `## Progress` an
 ```
 
 Task-level done/remaining lives in the `tasks.md` heading checkboxes; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate and after each task; read before the next task to see what is done and what remains.
+
+MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is the current spec's status and is cleared after the audit passes, so nothing durable may live here.
 
 ## Conflicts with `CONTEXT.md`
 

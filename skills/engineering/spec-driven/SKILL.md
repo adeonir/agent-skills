@@ -63,7 +63,7 @@ Loaded on demand:
 
 ## Artifacts
 
-Every artifact's structure is canonical in the instruction that produces it, inline and marked strict or flexible. Load the instruction before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
+Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
 A feature lives in `.artifacts/specs/{slug}/` while built and moves to `.artifacts/archive/{created}-{slug}/` only once at `status: done` — the date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
 

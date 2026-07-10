@@ -48,11 +48,22 @@ def load_store(path):
     except (OSError, json.JSONDecodeError):
         # Corrupt or unreadable store: start clean rather than crash.
         sys.stderr.write("warning: could not read %s; starting empty\n" % path)
+        _backup_corrupt(path)
         return {"lessons": []}
     if not isinstance(data, dict) or not isinstance(data.get("lessons"), list):
         sys.stderr.write("warning: malformed store %s; starting empty\n" % path)
+        _backup_corrupt(path)
         return {"lessons": []}
     return data
+
+
+def _backup_corrupt(path):
+    """Preserve an unreadable store as .bak so a later save never destroys it."""
+    try:
+        os.replace(path, path + ".bak")
+        sys.stderr.write("warning: preserved unreadable store as %s.bak\n" % path)
+    except OSError:
+        pass  # backup is best-effort; never block the caller
 
 
 def save_store(path, data):
