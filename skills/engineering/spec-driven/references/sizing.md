@@ -25,7 +25,7 @@ Small does not produce a spec and does not run the pipeline: one-liner → inlin
 
 If, at any phase, the scope breaks — a new load-bearing decision appears, inline steps run past ~5, dependencies turn out more complex than planned, or the work needs approaches or heavy research — **stop and re-evaluate the sizing**. Raise one level; never push through in implement.
 
-- **Small → Medium** — the one-liner becomes a `spec.md`; the full pipeline applies. This step is owned by specify (Small lives in specify's triage).
+- **Small → Medium** — the one-liner becomes a `spec.md`; the full pipeline applies. Specify's triage catches it up front; a Small that breaks only once inline implement starts is caught there and routed back to specify.
 - **Medium → Large** — add fresh-eyes to the spec, more depth to the design.
 - **Large → Complex** — add `discuss.md` and design approaches.
 

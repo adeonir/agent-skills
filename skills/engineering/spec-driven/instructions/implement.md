@@ -24,7 +24,7 @@ No `spec.md` exists — work from the one-liner:
 2. **Change** — make the edit; run the nearest gate (test, lint, or a described check).
 3. **Commit** — per [commit-conventions.md](../references/commit-conventions.md).
 
-No approval gate, no audit — the inline verify is the check. If the change turns out to need formal visual validation, the safety valve raises it to Medium and the full pipeline applies.
+No approval gate, no audit — the inline verify is the check. Small is where a mis-sized scope surfaces: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those trips the safety valve ([sizing.md](../references/sizing.md)) — raise to Medium and apply the full pipeline; never push through inline.
 
 ### Per task — Before
 
