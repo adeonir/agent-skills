@@ -95,8 +95,9 @@ hard-strict.
 V9 (the calibration heuristic) is confirm-to-continue for the same
 reason: an AC may legitimately be stricter than its Summary, when the
 strictness is deliberate. What it catches is the AC that promises more
-than the story owes — a Then naming *when*, *how many*, or *by what
-mechanism* where the Summary names only the outcome. The extra strength
+than the story owes — a Then naming *when*, *how many*, *at what
+threshold*, or *by what mechanism* where the Summary names only the
+outcome. The extra strength
 forbids implementations the story would have accepted, and no other rule
 sees it: V2 checks the three fields are present, V6 checks the Then is
 observable, and an over-specified Then is both. The leak is in the
