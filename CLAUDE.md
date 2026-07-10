@@ -339,6 +339,16 @@ not the runtime — consumer Claude never sees CLAUDE.md. The rigid, verifiable
 ones are enforced by rules in `.claude/rules/`; what remains here is guidance
 that is not a discrete rule.
 
+### Audit on Merit, Not Authorship
+
+When auditing, reviewing, or fixing a skill, judge the current state on its
+merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real
+finding by pointing at who wrote it or when, instead of whether the text is wrong
+now. A finding stands or falls on the current state, never its provenance: fix a
+genuine defect regardless of which commit introduced it, and drop a non-finding
+regardless of how it got there. Scope may still defer a fix to its own change —
+but say so as scope, not as authorship.
+
 ### Token Budget Awareness
 
 Document what each reference loads and what should never load
