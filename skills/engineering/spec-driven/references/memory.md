@@ -42,9 +42,10 @@ ALWAYS use this exact template structure — other phases clear `## Progress` an
 ## Progress
 
 - **Feature:** {slug}
-- **Phase:** specify | design | tasks | implement
+- **Phase:** specify | design | tasks | implement | audit | validate
 - **Next:** {the next task or step, e.g. T-3, run audit}
 - **Blockers:** {none | ...}
+- **Audit iteration:** {0 | 1 | 2 | 3}
 
 ## Notes
 
@@ -56,6 +57,8 @@ Task-level done/remaining lives in the `tasks.md` heading checkboxes; `STATE.md`
 `Blockers` records why a run stopped, and nothing else writes that fact to disk. A task that halts writes the blocker and leaves `Next` on the halted task, so a resume sees both where the run stopped and why. `none` means no task halted — it does not mean the run finished.
 
 `Next` resting on a task whose checkbox is already flipped is the ordinary state at a selection boundary: a subagent stops there, and the main agent moves the pointer on before dispatching again. The pointer alone never separates a finished run from an abandoned one. Read `Blockers` for why a run stopped and the `tasks.md` checkboxes for how far it got.
+
+`Audit iteration` counts the fix loop, because a bounded loop the agent counts from memory is unbounded across a context boundary. It starts at `0`, rises on each audit FAIL, and the loop escalates to the user when it reaches its limit — the file decides that, never recall.
 
 MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is the current spec's status and is cleared after the audit passes, so nothing durable may live here.
 
