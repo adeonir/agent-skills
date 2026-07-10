@@ -44,7 +44,7 @@ Within brownfield, four implicit sub-modes — detect by user vocabulary, do not
 | rebrand | "rebrand", "new identity", "brand refresh", "change the vibe" | Replace identity, preserve product surfaces and structure |
 | evolve | "evolve", "does our design still fit", "align the design to the strategy", "rethink the direction against the PRD" | Extract the current identity, diff it against the stated intent (`PRODUCT.md` / PRD), propose a delta and recommended direction before authoring |
 
-When the ask does not name a sub-mode ("redesign this", "it feels dated", "overhaul"), diagnose rather than default. An identity whose DNA still serves the stated intent → `refresh` (preserve the palette and type DNA, evolve within it); an identity that no longer fits → `rebrand` (replace it, preserve the product surfaces). Bias toward evolution when the system is sound — defaulting to overhaul is where a brand's real palette gets replaced by a generic one (AI-slop color) for no reason.
+When the ask does not name a sub-mode ("redesign this", "it feels dated", "overhaul"), diagnose rather than default. An identity whose DNA still serves the stated intent → `refresh` (preserve the palette and type DNA, evolve within it); an identity that no longer fits → `rebrand` (replace it, preserve the product surfaces). Bias toward refresh when the system is sound — defaulting to overhaul is where a brand's real palette gets replaced by a generic one (AI-slop color) for no reason.
 
 Partial cases (codebase defines colors but no typography) stay brownfield; gaps are filled via images or description without flipping the field.
 
