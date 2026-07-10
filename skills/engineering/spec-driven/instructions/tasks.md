@@ -56,4 +56,4 @@ design: .artifacts/specs/{slug}/design.md
 - T-7 → split into 2 commits for review: backend + frontend
 ```
 
-MUST NOT contain: new architecture (it belongs in design.md), observable behavior or acceptance criteria (they belong in spec.md), or component design. Tasks sequence and verify existing decisions; they never introduce them. The `Discrimination:` field applies to conditionals, validations, calculations, and P-1 ACs — if the test would still pass with the logic removed, it is weak.
+MUST NOT contain: new architecture (it belongs in design.md), observable behavior or acceptance criteria (they belong in spec.md), or component design. Tasks sequence and verify existing decisions; they never introduce them. The `Discrimination:` field applies to conditionals, validations, calculations, and the ACs of a P-1 story — if the test would still pass with the logic removed, it is weak.
