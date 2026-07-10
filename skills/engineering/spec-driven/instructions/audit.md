@@ -22,6 +22,7 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 | Goals have concrete evidence | `spec.md ## Goals` |
 | Each AC maps to a passing test (`file:line` + assertion) | `spec.md` + `tasks.md ## Coverage Matrix` |
 | Asserted value matches the spec's outcome | `spec.md` |
+| Each AC stays within the Goal or benefit it serves | `spec.md ## Goals` + story `so that` clauses |
 | Design adherence | `design.md` |
 | Pattern adherence | `AGENTS.md`/`CLAUDE.md` + `CONTEXT.md ## Conventions` |
 | Tests kill injected mutants | discrimination sensor below |
@@ -75,9 +76,16 @@ Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact templat
 | # | Gap | Severity | Fix Task |
 |---|-----|----------|----------|
 | 1 | {description} | high/medium/low | T-N |
+
+## Spec Defects        <!-- conditional: only when an AC over-specifies its Goal or benefit -->
+| AC | Over-specifies | Recommendation |
+|----|----------------|----------------|
+| AC-N | {the Goal or benefit clause it exceeds} | loosen at specify, or confirm as a deliberate constraint |
 ```
 
-MUST NOT contain: fixes to the code (the auditor flags, never edits), new architecture, or new requirements. Evidence only.
+A `## Spec Defects` row never changes the verdict — the code satisfies the AC, so the feature still PASSes. It surfaces an AC stronger than the goal it serves, for the main agent to route back to specify or accept. It becomes no `T-N` and never enters the FAIL loop.
+
+MUST NOT contain: fixes to the code (the auditor flags, never edits), new architecture, or an authored requirement — the auditor may flag a shipped AC as over-specified against its Goal (a spec defect), but never writes a replacement AC. Evidence only.
 
 ### Compact verdict
 
@@ -87,17 +95,18 @@ Goals: X Met / Y Unmet / Z Unmeasurable
 ACs: A/B covered
 Sensor: N killed / M survived
 Gaps: {count}
+Spec-defects: {count}
 ```
 
 ## Outcome
 
-**PASS** — before flipping status, sweep `spec.md ## Open Questions`: present any surviving `[deferrable]` line to the user — each is resolved now or explicitly carried as a follow-up outside the feature, never a silent drop. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
+**PASS** — before flipping status, sweep `spec.md ## Open Questions`: present any surviving `[deferrable]` line to the user — each is resolved now or explicitly carried as a follow-up outside the feature, never a silent drop. Present each `## Spec Defects` row the same way — resolved now by routing back to specify to loosen the AC, or explicitly carried, never a silent flip to `done`. The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 
 **FAIL** — the auditor does not fix. The main agent turns ranked gaps into fix tasks in `tasks.md`, continuing the `T-N` sequence; increments `STATE.md ## Progress` `Audit iteration`; points `Next` at the first fix task; then re-runs implement and re-audits. The loop escalates to the user once the counter reaches 3 — read it from the file, never from recall, since a bound the agent remembers does not survive a context boundary. See [memory.md](../references/memory.md).
 
 ## Lessons
 
-After a FAIL, judge whether the failure is worth a lesson. If so, add it as a `candidate`; it becomes `confirmed` when the same lesson recurs across two features. Clean PASS writes nothing. Mechanics and the `add` command live in [lessons.md](../references/lessons.md) — load it before recording.
+After a FAIL, judge whether the failure is worth a lesson. If so, add it as a `candidate`; it becomes `confirmed` when the same lesson recurs across two features. A PASS carrying a `## Spec Defects` row is not a clean PASS — record the over-specification as a `candidate` too, so a recurring pattern of over-tight ACs confirms and loads into future specify and design. A clean PASS with no spec defect writes nothing. Mechanics and the `add` command live in [lessons.md](../references/lessons.md) — load it before recording.
 
 ## Archive
 
