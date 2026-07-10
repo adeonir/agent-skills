@@ -149,7 +149,7 @@ W". One decision per ADR. Be specific and unambiguous.}}
 
 ### Negative
 
-- {{Cost, limitation, or risk accepted by this decision}}
+- {{Cost, limitation, or risk the decision absorbs}}
 - {{Another trade-off being absorbed}}
 
 ### Neutral
