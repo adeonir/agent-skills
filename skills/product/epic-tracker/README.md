@@ -61,7 +61,7 @@ configure tracker          -- run bootstrap to set or change tracker config
 
 ## Story Acceptance Criteria
 
-Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on Story create and on edits that change AC text. Stories created before this convention are not retroactively validated.
+Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on Story create and on edits that change AC text. Validation also flags a Then that promises more than the story's Summary requires — a timing, count, threshold, or mechanism the outcome does not need — for a loosen-or-keep decision. Stories created before this convention are not retroactively validated.
 
 ## Requirement Traceability
 

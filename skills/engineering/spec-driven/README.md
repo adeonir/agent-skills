@@ -26,7 +26,7 @@ flowchart TD
 | **Design** | `design.md` — HOW: architecture, components, decisions |
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
-| **Audit** | `validation.md` — Goals, ACs, discrimination sensor |
+| **Audit** | `validation.md` — Goals, ACs, discrimination sensor, spec-defect findings |
 | **Validate / UAT** | `## Visual Evidence` appended to `validation.md` (user-facing) |
 | **Archive** | spec moved to `.artifacts/archive/{created}-{slug}/` (optional, manual, done specs only) |
 
@@ -103,7 +103,7 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between verify, audit, and validate?**
 
-A: Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
+A: Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
 
 **Q: How does the lessons layer work?**
 
