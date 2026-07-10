@@ -36,17 +36,25 @@ From the parent, propose the children:
 - From an epic — candidate stories (user-value slices) and tasks (enabling work)
   implied by its scope and its stories checklist.
 
+Each proposed child carries a one-line boundary: the capability it owns, and
+the adjacent capability it explicitly does not. Boundaries partition the
+parent's scope — where one child's slice ends, the neighbor's begins; work
+claimed by two children means the set is wrong, not the boundary.
+
 Idempotent: check which children already exist and propose only the missing
-ones; never recreate or overwrite. Present the proposed set; let the user add,
-drop, merge, split, or rename. Settle the set before creating.
+ones; never recreate or overwrite. Present the proposed set with its
+boundaries; let the user add, drop, merge, split, or rename. Settle the set
+and the boundaries before creating.
 
 ### 3. Create each child
 
 For each confirmed child, run its create ref — [epic.md](epic.md),
 [story.md](story.md), or [task.md](task.md). Each child is drafted to its own
 canonical template and validated by its own flow (a story's AC through
-ac-validation). Decompose never bypasses the create ref — no auto-generated,
-unvalidated artifacts.
+ac-validation). The settled boundary travels into the child: its "does not"
+half lands in the child's Out of Scope, stated in the child's own terms —
+never naming the sibling that owns the excluded work. Decompose never
+bypasses the create ref — no auto-generated, unvalidated artifacts.
 
 Sync is inherited, not added here: each create ref carries its own save-or-push,
 governed by `epic-tracker.kind` (see [sync.md](sync.md)). Decompose performs no
@@ -57,6 +65,8 @@ sync of its own.
 - Materialize one level per run — roadmap → epics, or epic → stories and tasks
 - Propose from the parent, confirm with the user, create via the child's create
   ref
+- Settle boundaries with the set — every child states what it owns and what it
+  does not before any child is created; the boundary becomes its Out of Scope
 - Idempotent: create only the missing children; never recreate or overwrite
 - Delegate every artifact to its create ref — canonical shape and validation are
   non-negotiable

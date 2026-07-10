@@ -61,12 +61,18 @@ Fill the template (below):
   Requirement IDs go on each AC's `Satisfies` line, not the prose; no
   section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not
-  cover. Remove the section if nothing is ambiguous.
+  cover, stated in terms of this story's own concern (never naming the
+  sibling that covers it). A story materialized via decompose always
+  carries its settled boundary here (see [decompose.md](decompose.md));
+  otherwise remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a
   single Given/When/Then plus a `**Satisfies**` line naming the parent
   epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for
-  an AC that maps to no requirement). Validated in Step 3 against rules
-  V1-V8. See [ac-validation.md](ac-validation.md).
+  an AC that maps to no requirement). Every AC demonstrates the outcome
+  this story owns — an AC whose Then is observed on a surface a sibling
+  story owns belongs to that sibling: relocate it, and being the first
+  story created does not make this story the owner. Validated in Step 3
+  against rules V1-V8. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
   advice or upstream design notes. A trap belongs to the story whose
@@ -204,9 +210,12 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 ## Out of Scope
 
-{Remove this section if nothing is ambiguous.}
+{Remove this section if nothing is ambiguous. A story materialized via
+decompose always keeps it, carrying the boundary settled there.}
 
 - {{What this story explicitly does not cover}}
+
+MUST NOT contain: sibling story names — state each boundary in terms of what this story does not cover, never where the excluded work lives.
 
 ## Acceptance Criteria
 
@@ -218,6 +227,8 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 **Satisfies** {{parent-epic requirement this AC operationalizes — e.g. FR-3; omit the line when the AC maps to no requirement}}
 
 {Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`).}
+
+MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), or a Then that restates a sibling's deliverable or anything listed in Out of Scope.
 
 ## Rabbit Holes
 
