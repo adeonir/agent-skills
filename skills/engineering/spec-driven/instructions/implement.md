@@ -13,8 +13,8 @@ Medium and up — Small has none of these artifacts; see [Small inline](#small-i
 1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field. Already on it → skip. On `main`/`master` → create: `git switch -c {branch} 2>/dev/null || git switch {branch}`. On an unrelated branch → stop and ask before branching, so the feature never carries foreign commits.
 3. **Update status** — if `status` is `draft`, set it to `in-progress` in `spec.md`.
-4. **Dispatch tasks** — hand the selection (a task, a range `[T-1..T-5]`, a story, or `--all`) to the isolated subagent per [Subagent dispatch](#subagent-dispatch); it runs each task through Before / During / After and returns the compact summary.
-5. **After the last task** — run the whole test suite plus the project quality gates (lint, typecheck), then present the approval gate: tasks done, commits, a coverage summary, then ask *"Move to audit?"* Audit runs automatically after approval; UAT runs if `user-facing: true`.
+4. **Dispatch tasks** — hand the selection (a task, a range `T-1..T-5`, a story, or the whole feature) to an isolated subagent per [Subagent dispatch](#subagent-dispatch); it runs each task through Before / During / After and returns the compact summary.
+5. **After the last selection returns** — the main agent runs the whole test suite plus the project quality gates (lint, typecheck), then presents the approval gate: tasks done, commits, a coverage summary, then asks *"Move to audit?"* No subagent runs the full suite or the gate. Audit runs automatically after approval; UAT runs if `user-facing: true`.
 
 ### Small inline
 
@@ -45,11 +45,19 @@ No approval gate, no audit — the inline verify is the check. If the change tur
 3. Run **verify** (mental — no artifact): design adherence, AC coverage against the Coverage Matrix, pattern adherence, and the discrimination check when the task carries a `Discrimination:` field. Any "no" → fix before marking done.
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
 5. **Commit** — 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
-6. Update `STATE.md ## Progress` — point `Next` at the following task, or at the audit after the last.
+6. Update `STATE.md ## Progress` — point `Next` at the following task **in this selection**. A subagent never points `Next` past its own selection: after its last task it reports and stops. The main agent owns the pointer across selections, moving it to the next story, or to the audit once the final one returns.
 
 ## Subagent dispatch
 
-Medium/Large/Complex run in a subagent handed a narrow selection (a task, a range `[T-1..T-5]`, a story, or `--all`) with no conversation history. It runs the tasks sequentially, one commit each, and returns a compact summary: tasks done, commits, gates, blockers. The main agent resumes for the approval gate.
+Medium/Large/Complex run in a subagent handed a narrow selection with no conversation history. It runs its tasks sequentially, one commit each, and returns a compact summary: tasks done, commits, gates, blockers. The main agent resumes for the approval gate.
+
+| Selection | Dispatch |
+|-----------|----------|
+| A task, or a range `T-1..T-5` (spoken "T-1 to T-5") | One subagent |
+| A story `S-N` | One subagent |
+| The whole feature | One subagent per story, in story order |
+
+The story is the dispatch boundary for a whole-feature run — one slice, one benefit, defined in [specify.md](specify.md) — so it bounds what a single worker holds without a task-count ceiling. `tasks.md` guarantees the ordering the boundary needs: each story's tasks are contiguous and none depends on a task in a later story, so a story is safe to run whole. Dispatch is sequential — story N+1 never starts until story N's summary returns with every task done. A blocker stops the run there; the main agent decides fix or escalate before dispatching the next story.
 
 ## Design-gap recovery
 

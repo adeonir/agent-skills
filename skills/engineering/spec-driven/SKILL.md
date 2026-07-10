@@ -11,7 +11,7 @@ description: >-
   boundary or before a PR, running UAT on a user-facing change, or discussing
   how to build a feature. Not for diagnosing unknown bugs, authoring standalone
   PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking.
-argument-hint: "[T-N] | [S-N] | --all"
+argument-hint: "[T-N] | [T-N..T-M] | [S-N]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
@@ -21,20 +21,13 @@ Feature development in phases, sized to the change. Light by default; weight onl
 
 ## Triggers
 
-- **Specify** ("plan feature", "spec this", "from PRD", "modify feature",
-  "discuss how to build") → [specify.md](instructions/specify.md)
-- **Design** ("design this feature", "technical design", "plan the build") →
-  [design.md](instructions/design.md)
-- **Tasks** ("create tasks", "break into tasks", "task breakdown") →
-  [tasks.md](instructions/tasks.md)
-- **Implement** ("implement task T-1", "implement story S-1", "execute tasks";
-  `--all` runs every pending task) → [implement.md](instructions/implement.md)
-- **Audit** ("audit feature", "validate goals", "verify before PR") →
-  [audit.md](instructions/audit.md)
-- **Validate / UAT** ("run UAT", "manual testing", "validate flows") →
-  [validate.md](instructions/validate.md)
-- **Archive** ("archive feature", "archive this spec") →
-  [archive.md](instructions/archive.md)
+- **Specify** ("plan feature", "spec this", "from PRD", "modify feature", "discuss how to build") → [specify.md](instructions/specify.md)
+- **Design** ("design this feature", "technical design", "plan the build") → [design.md](instructions/design.md)
+- **Tasks** ("create tasks", "break into tasks", "task breakdown") → [tasks.md](instructions/tasks.md)
+- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement story S-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
+- **Audit** ("audit feature", "validate goals", "verify before PR") → [audit.md](instructions/audit.md)
+- **Validate / UAT** ("run UAT", "manual testing", "validate flows") → [validate.md](instructions/validate.md)
+- **Archive** ("archive feature", "archive this spec") → [archive.md](instructions/archive.md)
 
 ## Workflow
 
@@ -79,8 +72,7 @@ Minimal machine, single source in `spec.md` frontmatter:
 
 - Separate by purpose: spec = WHAT + WHY, design = HOW, tasks = WHEN.
 - Size once, after discovery; default adversarial — when in doubt, size up.
-- On a broken scope (a new load-bearing decision, inline steps past ~5), stop
-  and raise a level; never push through in implement.
+- On a broken scope (a new load-bearing decision, inline steps past ~5), stop and raise a level; never push through in implement.
 - 1 task = 1 commit by default; fixes are new commits, never `--amend`.
 - Author ≠ auditor — the audit runs as an isolated subagent on the diff.
 - Advance by default; ask (discuss) only when the gray area is load-bearing — it changes Goals, ACs, or the approach.

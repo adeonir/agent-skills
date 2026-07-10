@@ -36,7 +36,7 @@ flowchart TD
 |-------|------------------|----------|
 | **Small** | Mechanical, zero decisions | one-liner → inline implement |
 | **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → Audit |
-| **Large** | ≥1 load-bearing decision new to the codebase | + fresh-eyes, research, parallelism |
+| **Large** | ≥1 load-bearing decision new to the codebase | + fresh-eyes, research |
 | **Complex** | Ambiguity in the problem itself | + discuss, approaches |
 
 ## Usage
@@ -50,8 +50,9 @@ modify the existing auth flow to add 2FA
 # Move through the pipeline
 design this feature
 create tasks
+implement T-1 to T-4
 implement S-1
-implement --all
+implement everything
 
 # Close it out
 audit feature
