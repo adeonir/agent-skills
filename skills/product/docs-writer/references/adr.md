@@ -282,6 +282,8 @@ only the second makes a cost unavoidable. A Negative bullet that traces
 back to no force in Context was never weighed — it is a cost written down,
 not a trade-off absorbed. State the force, or drop the bullet.
 
+## Anti-Pattern: Anticipating Future ADRs
+
 An ADR records a decision at a point in time and does not know the
 future — even when authored retroactively. It must not reference, link
 to, or promise an ADR or decision made after it: "will be handled in a
