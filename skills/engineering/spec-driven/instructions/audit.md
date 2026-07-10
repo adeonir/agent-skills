@@ -33,11 +33,13 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 
 Run whenever code has conditional behavior, calculations, or validations (config-only/pure-data may be skipped with a note):
 
-1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects.
+1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects, and a shared literal (key, id, path, header name, event name) changed in exactly one of the modules that use it.
 2. Apply the mutation in **scratch state** — `git worktree` or stash + temp copy. Never mutate the real working tree.
 3. Run the relevant tests — they are expected to **FAIL**. A passing test means the mutant survived.
 4. Tier: 1-3 mutations per feature default; ≥5 for critical P-1 logic (security, payments).
 5. Report total / killed / survived, each with type, location, expected test, result. Survivors become fix tasks.
+
+A surviving **referential** mutant means the literal is duplicated across a writer and a reader and the copies never compare — the suite is blind to it by construction, since each side is tested against doubles. Where a shared literal has no test to mutate, statically confirm it has a single definition across the changed files: two definitions of the same value is a finding regardless of test outcome, and the fix is one definition, not a new test.
 
 ## Template: `validation.md`
 
