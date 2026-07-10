@@ -55,9 +55,9 @@ Medium/Large/Complex run in a subagent handed a narrow selection with no convers
 |-----------|----------|
 | A task, or a range `T-1..T-5` (spoken "T-1 to T-5") | One subagent |
 | A story `S-N` | One subagent |
-| The whole feature | One subagent per story, in story order |
+| The whole feature | One subagent per story, in the order the stories appear in `tasks.md` |
 
-The story is the dispatch boundary for a whole-feature run — one slice, one benefit, defined in [specify.md](specify.md) — so it bounds what a single worker holds without a task-count ceiling. `tasks.md` guarantees the ordering the boundary needs: each story's tasks are contiguous and none depends on a task in a later story, so a story is safe to run whole. Dispatch is sequential — story N+1 never starts until story N's summary returns with every task done. A blocker stops the run there; the main agent decides fix or escalate before dispatching the next story.
+The story is the dispatch boundary for a whole-feature run — one slice, one benefit, defined in [specify.md](specify.md) — so it bounds what a single subagent holds without a task-count ceiling. The boundary only holds when `tasks.md` is ordered for it: each story's tasks contiguous, none depending on a task in a later story. Confirm that before splitting; a `tasks.md` that breaks it goes back to tasks rather than being dispatched story by story. Dispatch is sequential — story N+1 never starts until story N's summary returns with every task done. A blocker stops the run there; the main agent decides fix or escalate before dispatching the next story.
 
 ## Design-gap recovery
 
