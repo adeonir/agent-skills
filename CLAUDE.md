@@ -23,6 +23,7 @@ narrative guidance that is not a discrete rule.
 | `skill-references` | `skills/**` | one level deep, required header, no fan-forward |
 | `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
 | `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
+| `inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
 | `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
