@@ -26,6 +26,8 @@ No `spec.md` exists — work from the one-liner:
 
 No approval gate, no audit — the inline verify is the check. Small is where a mis-sized scope surfaces: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those trips the safety valve ([sizing.md](../references/sizing.md)) — raise to Medium and apply the full pipeline; never push through inline.
 
+Work already committed inline is kept, never reset or redone: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so the Coverage Matrix still maps its acceptance criteria. The audit reads the whole branch, so those commits are verified with the rest.
+
 ### Per task — Before
 
 1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
