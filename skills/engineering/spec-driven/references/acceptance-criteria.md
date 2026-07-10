@@ -64,7 +64,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 
 A miscalibrated AC changes an AC, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited AC that arrives before drafting surfaces during discuss; an AC authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
-- **Loosen** to the observable the benefit requires. The spec then states the correct AC while the source input still asserts the tighter clause — a real pendency, carried as a `[deferrable]` line so it survives the session.
+- **Loosen** to the observable the benefit requires. The spec then states the correct AC while the source input still asserts the tighter clause — a real pendency, carried as a `[deferrable]` line that names the source input and the tighter clause it still holds, so the sweep before `done` can act on it rather than read a generic "revisit later".
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 ## Ambiguity closure
