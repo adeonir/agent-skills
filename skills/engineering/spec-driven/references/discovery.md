@@ -22,6 +22,8 @@ Read `.artifacts/CONTEXT.md` first, as data, to know what the project already de
 
 Discuss engages the user when the gray area is **load-bearing** — it changes Goals, ACs, or the approach. A perceived safe default does not license skipping: "safe" is itself the agent's decision, and once defaulted it anchors the whole artifact, so a load-bearing fork is surfaced as a question even when a default exists. When it is unclear whether a fork is load-bearing, ask — bias toward the question, not the silent default. Non-load-bearing ambiguity still defaults silently and is logged as an `[assumption]` open question with its resolution clause — advance by default holds where the choice is cheap; the clause keeps the pendency owned until a later phase lands it. Batch the load-bearing questions and resolve them **before** the spec body is written, never interleaved with drafting.
 
+An answer resolves a question only when it carries a concrete choice or content. "Other" with no elaboration, a counter-question, or a partial answer keeps the question **open** — follow up until it lands; never substitute a default for an unresolved answer, and never start the artifact while any batched question remains open.
+
 Scope-tiered output:
 
 - **Medium / Large** — fold the resolution back into the spec (update ACs, add `(because …)`); a resolved question leaves Open Questions — the resolution is spec content, not a logged pendency.
