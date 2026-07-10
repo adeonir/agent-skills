@@ -114,11 +114,14 @@ AC-1 fails V8: Satisfies "FR-3, FR-4" names two ids. Name exactly one requiremen
 On V6 (warn-only):
 
 ```text
-AC-{id} warning V6: Then uses non-observable language: "{word}". Suggest rephrasing as a measurable outcome (e.g., "modal appears within 200ms", "redirect to /login"). Continue anyway? [y/N]
+AC-{id} warning V6: Then uses non-observable language: "{word}". Suggest rephrasing as an observable outcome (e.g., "modal appears", "redirect to /login"). Continue anyway? [y/N]
 ```
 
 Default Y. The user may keep the wording; the warning is informational
-and does not block.
+and does not block. The rewrite names the observable the vague adjective
+stands for — it never adds a bound the requirement did not state. A
+timing, a count, or a threshold enters an AC only when the requirement
+asks for one.
 
 On V4 (`and`-joined Then, confirm-to-continue):
 
