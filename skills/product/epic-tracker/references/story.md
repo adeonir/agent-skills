@@ -72,7 +72,7 @@ Fill the template (below):
   this story owns — an AC whose Then is observed on a surface a sibling
   story owns belongs to that sibling: relocate it, and being the first
   story created does not make this story the owner. Validated in Step 3
-  against rules V1-V8. See [ac-validation.md](ac-validation.md).
+  against rules V1-V9. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge
   cases, ordering constraints, integration quirks; not implementation
   advice or upstream design notes. A trap belongs to the story whose
@@ -114,8 +114,8 @@ Apply the resumption gate before proceeding:
 
 ### 3. Validate Acceptance Criteria
 
-Load [ac-validation.md](ac-validation.md) and run V1-V8 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is
-strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue.
+Load [ac-validation.md](ac-validation.md) and run V1-V9 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is
+strict on a duplicate Then with a confirm on `and`-joined Then; V6 and V9 surface a warning with confirm-to-continue.
 
 If any strict rule fails: surface the structured error (AC id, rule name,
 suggested fix), do not proceed to save or push. Loop back to Draft until
@@ -160,7 +160,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 1. Load the story (by name, id, or tracker URL) — pull via [sync.md](sync.md) when it carries a `tracker.id`, else read its markdown.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
-3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, load [ac-validation.md](ac-validation.md), run V1-V8 strict, and loop back on failure. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, load [ac-validation.md](ac-validation.md), run V1-V9, and loop back on strict failure. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
 4. Save or push as create does — dispatch through [sync.md](sync.md) when the story has a `tracker.id`, else write the markdown in place.
 
 ## Guidelines

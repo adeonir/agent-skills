@@ -3,7 +3,8 @@
 Enforce Given/When/Then 1:1 acceptance criteria on Story create and on
 edits that change AC text. Strict, atomic blocks keep each AC testable
 and let it reshape cleanly downstream; a compound or malformed AC is
-ambiguous to anything that consumes it.
+ambiguous to anything that consumes it, and an over-specified one
+silently narrows what the story would have accepted.
 
 ## When to Use
 
@@ -43,8 +44,9 @@ Rules:
 
 ### 1. Parse
 
-Extract the AC section from the Story body:
+Extract the AC section from the Story body, plus the Summary that V9 calibrates against:
 
+- Find the `## Summary` heading; read until the next `## ` heading. Keep its text — it states the outcome the story owes.
 - Find the `## Acceptance Criteria` heading.
 - Read until the next `## ` heading or end of document.
 - Inside that section, every `### AC-N` heading begins a new AC block.
@@ -57,11 +59,11 @@ reflows paragraphs; the parser must not break on these.
 
 Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies`
 null when the line is absent) plus any malformed blocks (those that
-didn't yield all three required fields).
+didn't yield all three required fields) and the Summary text.
 
 ### 2. Validate
 
-Run V1-V8 against the parsed tuples and the raw section text.
+Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
 
 | # | Rule | Strictness | Trigger |
 |---|------|------------|---------|
@@ -73,6 +75,7 @@ Run V1-V8 against the parsed tuples and the raw section text.
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
 | V7 | Unique AC ids | strict | two `### AC-N` blocks with the same id |
 | V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/BR/EC/NFR-<n>` id (empty, a list, or malformed) |
+| V9 | Then does not over-specify | warn-only with confirm | Then names a timing, a count, a threshold, or a mechanism that the Summary does not require |
 
 V6 red-word list:
 
@@ -88,6 +91,19 @@ Then into separate AC, or confirm a single assertion — so every AC that
 passes is atomic and reshapes 1:1 into the spec's EARS-lite form
 downstream. A duplicate `**Then**` line under one block is always
 hard-strict.
+
+V9 (the calibration heuristic) is confirm-to-continue for the same
+reason: an AC may legitimately be stricter than its Summary, when the
+strictness is deliberate. What it catches is the AC that promises more
+than the story owes — a Then naming *when*, *how many*, or *by what
+mechanism* where the Summary names only the outcome. The extra strength
+forbids implementations the story would have accepted, and no other rule
+sees it: V2 checks the three fields are present, V6 checks the Then is
+observable, and an over-specified Then is both. The leak is in the
+clause's strength, not its vocabulary.
+
+The anchor is the Summary, never the `Satisfies` requirement — this ref
+holds that requirement's id, not its text (see Satisfies linkage below).
 
 ### 3. Report
 
@@ -133,6 +149,16 @@ Default keep. A split routes back to add the second AC; keep records a
 single-assertion confirmation so the AC stays atomic for the downstream
 1:1 reshape.
 
+On V9 (over-specification, confirm-to-continue):
+
+```text
+AC-{id} V9 check: Then asserts "{clause}", which the Summary does not require. Loosen it to the outcome the story owes, or confirm the strictness as a deliberate constraint. [loosen/keep]
+```
+
+Default keep. A loosen routes back to redraft the Then; keep records the
+extra strictness as deliberate. V9 never blocks — a confirmed constraint
+is a decision, and an unexamined one is what this rule exists to prevent.
+
 If any strict rule fails: do not proceed to save or push. The caller
 (`story.md` Step 3 or its edit branch) loops back to
 review until the user fixes the AC.
@@ -155,6 +181,12 @@ has the parent epic in hand:
 backing requirement. What is enforced is shape (V8); the two relations
 above hold upstream.
 
+This is also why V9 calibrates against the Summary rather than the
+requirement: the requirement's text is not in scope here, only its id.
+The Summary is present on every story, and an AC with no `Satisfies` — the
+one most likely to over-specify, since nothing upstream constrained it —
+still has an outcome to be measured against.
+
 ## Read-path tolerance
 
 Read paths do not invoke this ref:
@@ -175,12 +207,13 @@ edit branch).
 - Surface every strict failure with AC id, rule name, and a concrete suggested fix
 - Keep V6 warn-only with a default-allow confirm to avoid blocking on heuristic false positives
 - Treat the V6 red-word list as small and stable; expand it only when a documented false negative recurs
+- Anchor V9 on the story's Summary — the requirement's text is not in scope here, only its id
 - Run validation locally before any tracker round-trip so failures cost no MCP latency
 
 **DON'T:**
 - Invent AC content for the user (contrasts: surface failures, let the user fix)
 - Validate on pull or read-only navigation (contrasts: validate only on create and AC-text-changing edits)
-- Block on V6 (contrasts: warn-only with confirm)
+- Block on V6 or V9 (contrasts: warn-only with confirm)
 - Embed validation logic in `story.md` (contrasts: this ref is the single home; story.md loads it on create and edit)
 
 ## Error Handling
@@ -190,6 +223,8 @@ edit branch).
 - User explicitly wants compound semantics: V3/V4 still reject; route them to split into multiple AC blocks.
 - Tracker body returns malformed markdown (Linear collapsed list items): widen the parser regex tolerance; if still unparseable, route to manual fix in the tracker UI.
 - V6 false positive (e.g., "the user feels confident" where intent is observable): user accepts the warning; nothing blocks.
+- V9 false positive (a bound the Summary implies without spelling out): user confirms the strictness as deliberate; nothing blocks.
+- Story has no `## Summary` section: V9 cannot run; skip it with a note rather than failing the story — V1-V8 still apply.
 
 ## Outcomes
 

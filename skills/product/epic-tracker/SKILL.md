@@ -82,7 +82,7 @@ Not a direct trigger.
 - Save or push immediately after the draft step — no separate preview gate
 - Route tracker operations through `sync.md` — core artifact refs stay
   tracker-agnostic
-- Validate Story AC against ac-validation rules V1-V8 on create and on
+- Validate Story AC against ac-validation rules V1-V9 on create and on
   edits that change AC text
 - Capture cross-artifact order with `blocked_by`; sync maps it to the
   tracker's native dependency relation
