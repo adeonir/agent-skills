@@ -57,7 +57,7 @@ Medium/Large/Complex run in a subagent handed a narrow selection with no convers
 | A story `S-N` | One subagent |
 | The whole feature | One subagent per story, in the order the stories appear in `tasks.md` |
 
-The story is the dispatch boundary for a whole-feature run — one slice, one benefit, defined in [specify.md](specify.md) — so it bounds what a single subagent holds without a task-count ceiling. The boundary only holds when `tasks.md` is ordered for it: each story's tasks contiguous, none depending on a task in a later story. Confirm that before splitting; a `tasks.md` that breaks it goes back to tasks rather than being dispatched story by story. Dispatch is sequential — story N+1 never starts until story N's summary returns with every task done. A blocker stops the run there; the main agent decides fix or escalate before dispatching the next story.
+The story is the dispatch boundary for a whole-feature run — one slice, one benefit, defined in [specify.md](specify.md) — so it bounds what a single subagent holds without a task-count ceiling. The boundary only holds when `tasks.md` is ordered for it: each story's tasks contiguous, none depending on a task in a later story. Confirm that before splitting; a `tasks.md` that breaks it goes back to tasks rather than being dispatched story by story. Dispatch is sequential — story N+1 never starts until story N's summary returns with every task done. A blocker stops the run there: the subagent records it in `STATE.md ## Progress` per [memory.md](../references/memory.md) — `Blockers` names it, `Next` stays on the halted task — and reports. The main agent decides fix or escalate before dispatching the next story.
 
 ## Design-gap recovery
 

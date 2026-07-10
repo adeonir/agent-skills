@@ -53,6 +53,8 @@ ALWAYS use this exact template structure — other phases clear `## Progress` an
 
 Task-level done/remaining lives in the `tasks.md` heading checkboxes; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate and after each task; read before the next task to see what is done and what remains.
 
+`Blockers` records why a run stopped, and nothing else writes that fact to disk. A task that halts writes the blocker and leaves `Next` on the halted task, so a resume sees both where the run stopped and why. `none` therefore asserts that the last write completed cleanly — a resuming agent that finds `Next` on a task whose checkbox is already flipped is reading a run that died mid-task, not a clean handoff.
+
 MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is the current spec's status and is cleared after the audit passes, so nothing durable may live here.
 
 ## Conflicts with `CONTEXT.md`
