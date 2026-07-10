@@ -96,7 +96,7 @@ Sorted by severity. Only findings with confidence >= 80.
   - Suggested fix (when non-obvious):
 
     ```{lang}
-    {corrected code}
+{corrected code}
     ```
 
 ## Guidelines Compliance

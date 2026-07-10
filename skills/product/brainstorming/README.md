@@ -4,8 +4,7 @@ Structured idea exploration from vague to direction, or pressure-test of an exis
 
 ## What It Does
 
-Explore ideas systematically before committing to a formal document or
-implementation, or stress-test an existing idea or plan before building:
+Explore ideas systematically before committing to a formal document or implementation, or stress-test an existing idea or plan before building:
 
 ```mermaid
 flowchart TD
@@ -53,27 +52,14 @@ grill me on this architecture before we build it
 docs/product/brainstorm.md
 ```
 
-Single project-level file. Relentless re-runs pivot the existing
-file (appending an entry to `## Revision History`) rather than
-creating new artifacts.
+Single project-level file. Relentless re-runs pivot the existing file (appending an entry to `## Revision History`) rather than creating new artifacts.
 
 ## FAQ
 
-**Q: When should I use brainstorming vs writing a doc directly?**
-A: Use brainstorming when ideas are vague and a direction has not been
-chosen. Use document writing when a direction is already chosen and needs
-to be formalized.
+**Q: When should I use brainstorming vs writing a doc directly?** A: Use brainstorming when ideas are vague and a direction has not been chosen. Use document writing when a direction is already chosen and needs to be formalized.
 
-**Q: How many alternatives does it generate?**
-A: At least 4, aiming for 6-8. The skill pushes past obvious options
-using structured techniques like inversion and constraint removal.
+**Q: How many alternatives does it generate?** A: At least 4, aiming for 6-8. The skill pushes past obvious options using structured techniques like inversion and constraint removal.
 
-**Q: Can I skip diverge if I already have a direction?**
-A: If you have a direction and want to formalize it, write the doc
-directly. If you want to stress-test it before committing, run
-brainstorming with the relentless path — it pressure-tests the plan,
-then explores alternatives in diverge.
+**Q: Can I skip diverge if I already have a direction?** A: If you have a direction and want to formalize it, write the doc directly. If you want to stress-test it before committing, run brainstorming with the relentless path — it pressure-tests the plan, then explores alternatives in diverge.
 
-**Q: What happens if no direction emerges?**
-A: The workflow loops back to discovery with refined understanding.
-Constraints may need revisiting, or the problem may need reframing.
+**Q: What happens if no direction emerges?** A: The workflow loops back to discovery with refined understanding. Constraints may need revisiting, or the problem may need reframing.

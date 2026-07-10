@@ -1,19 +1,14 @@
 # PRD — Product Requirements Document
 
-Capture product requirements: problem, users, scope, journeys, business
-rules, and success metrics.
+Capture product requirements: problem, users, scope, journeys, business rules, and success metrics.
 
 ## When to Use
 
-When creating a PRD, defining product requirements, or writing product
-specifications.
+When creating a PRD, defining product requirements, or writing product specifications.
 
 ## Scope
 
-Product requirements only. Never carries implementation content — no
-architecture, tech stack, UI components, API endpoints, or code-level
-decisions — nor strategic positioning (brand personality, anti-references).
-The former belongs to the Design Doc or ADR; positioning belongs to PRODUCT.
+Product requirements only. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). The former belongs to the Design Doc or ADR; positioning belongs to PRODUCT.
 
 ## Workflow
 
@@ -23,21 +18,13 @@ check disk
 └ PRD present → reconcile the delta (reconcile.md)
 ```
 
-Decide by whether the artifact exists on disk (see [discovery.md](discovery.md)
-`## Discovery or Reconcile by Artifact State`). When `docs/product/PRD.md` does not
-exist, run the four discovery phases below — Phase 1 first seeds from an upstream direction artifact when present. When it exists, reconcile instead — read
-it as input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT
-resolves by its own artifact state in parallel.
+Decide by whether the artifact exists on disk (see [discovery.md](discovery.md) `## Discovery or Reconcile by Artifact State`). When `docs/product/PRD.md` does not exist, run the four discovery phases below — Phase 1 first seeds from an upstream direction artifact when present. When it exists, reconcile instead — read it as input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT resolves by its own artifact state in parallel.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](discovery.md) for shared interview patterns and
-critical posture.
+Load [discovery.md](discovery.md) for shared interview patterns and critical posture.
 
-These four phases run when no PRD exists yet. Never assume
-context. Discovery is adaptive — deepen topics based on the quality of answers,
-not a fixed script. Each topic has opening questions, signals for when to probe
-further, and criteria for when to move on.
+These four phases run when no PRD exists yet. Never assume context. Discovery is adaptive — deepen topics based on the quality of answers, not a fixed script. Each topic has opening questions, signals for when to probe further, and criteria for when to move on.
 
 #### Seed from an upstream direction
 
@@ -172,8 +159,7 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 
 ### Phase 2: Validation
 
-Challenge what was learned. This phase exists to prevent building the
-wrong thing.
+Challenge what was learned. This phase exists to prevent building the wrong thing.
 
 1. **Challenge viability**: Point out risks and weak spots identified during discovery
 2. **Question scope**: Is the scope realistic for a first version? If not, push back
@@ -202,15 +188,7 @@ Synthesize everything from discovery and validation into a structured summary.
 
 ### Phase 4: Drafting
 
-Use the PRD template below. Resolve PRODUCT by its own artifact state using
-[product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in
-discovery seeded by this PRD; when it exists, reconcile it per
-[reconcile.md](reconcile.md) — never overwrite evidenced positioning. Run the
-gates in [quality.md](quality.md) before writing, then write the PRD to
-`docs/product/PRD.md` (and PRODUCT to `docs/product/PRODUCT.md` when drafted
-here) and report a brief prose summary in chat (up to 2-3 paragraphs) — the
-path(s), the scope (must/should/could), and the primary metric. Do not paste
-the full document.
+Use the PRD template below. Resolve PRODUCT by its own artifact state using [product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in discovery seeded by this PRD; when it exists, reconcile it per [reconcile.md](reconcile.md) — never overwrite evidenced positioning. Run the gates in [quality.md](quality.md) before writing, then write the PRD to `docs/product/PRD.md` (and PRODUCT to `docs/product/PRODUCT.md` when drafted here) and report a brief prose summary in chat (up to 2-3 paragraphs) — the path(s), the scope (must/should/could), and the primary metric. Do not paste the full document.
 
 **Drafting notes:**
 
@@ -360,10 +338,7 @@ sources: []
 - {{Link to designs, research, prior art, or related documents}}
 ````
 
-MUST NOT contain: architecture, tech stack, framework or deployment choices, API
-contracts, database schema, or UI components — those belong to the Design Doc or
-ADR; nor strategic positioning (brand personality, anti-references) — that lives
-in PRODUCT.
+MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT.
 
 ## PRD Schema
 

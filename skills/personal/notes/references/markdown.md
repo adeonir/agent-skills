@@ -1,8 +1,6 @@
 # Obsidian Flavored Markdown
 
-Obsidian extends CommonMark and GFM with wikilinks, embeds, callouts,
-properties, and other syntax. This reference covers only Obsidian-specific
-extensions -- standard Markdown is assumed knowledge.
+Obsidian extends CommonMark and GFM with wikilinks, embeds, callouts, properties, and other syntax. This reference covers only Obsidian-specific extensions -- standard Markdown is assumed knowledge.
 
 ## When to Use
 
@@ -20,8 +18,7 @@ extensions -- standard Markdown is assumed knowledge.
 [[#Heading in same note]]              Same-note heading link
 ```
 
-Use wikilinks for notes within the vault (Obsidian tracks renames automatically)
-and standard Markdown links `[text](url)` for external URLs only.
+Use wikilinks for notes within the vault (Obsidian tracks renames automatically) and standard Markdown links `[text](url)` for external URLs only.
 
 ## Block References
 
@@ -64,8 +61,7 @@ Prefix any wikilink with `!` to embed its content inline:
 > Foldable callout (- collapsed, + expanded).
 ```
 
-Common types: `note`, `tip`, `warning`, `info`, `example`, `quote`, `bug`,
-`danger`, `success`, `failure`, `question`, `abstract`, `todo`.
+Common types: `note`, `tip`, `warning`, `info`, `example`, `quote`, `bug`, `danger`, `success`, `failure`, `question`, `abstract`, `todo`.
 
 Callouts can be nested by adding deeper quote levels.
 
@@ -97,9 +93,7 @@ Default properties:
 #nested/tag             Nested tag with hierarchy
 ```
 
-Tags can contain letters, numbers (not as first character), underscores,
-hyphens, and forward slashes. Tags can also be defined in frontmatter
-under the `tags` property.
+Tags can contain letters, numbers (not as first character), underscores, hyphens, and forward slashes. Tags can also be defined in frontmatter under the `tags` property.
 
 ## Comments
 
@@ -132,8 +126,7 @@ $$
 
 ````markdown
 ```mermaid
-graph TD
-    A[Start] --> B{Decision}
+graph TD A[Start] --> B{Decision}
     B -->|Yes| C[Do this]
     B -->|No| D[Do that]
 ```

@@ -1,13 +1,10 @@
 # Design Aesthetics
 
-Self-contained design principles for visual direction and token authoring.
-Apply these when exploring a mood and when choosing token values for DESIGN.md.
+Self-contained design principles for visual direction and token authoring. Apply these when exploring a mood and when choosing token values for DESIGN.md.
 
 ## When to Use
 
-Auto-loaded by `direction.md` (mood vocabulary — Four Questions, Style Axes) and
-by `design.md` (token-authoring principles — Typography, Color, Spatial, Motion,
-Depth). Not a direct trigger.
+Auto-loaded by `direction.md` (mood vocabulary — Four Questions, Style Axes) and by `design.md` (token-authoring principles — Typography, Color, Spatial, Motion, Depth). Not a direct trigger.
 
 ## Design Thinking
 
@@ -22,10 +19,7 @@ Before any visual work, answer these to lock in a direction:
 
 ### Style Axes
 
-Visual direction is a composition of four orthogonal axes. Pick one pattern
-from each axis — or blend two within the same axis — to construct a unique
-direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone"
-produce more distinctive results than single-tone choices.
+Visual direction is a composition of four orthogonal axes. Pick one pattern from each axis — or blend two within the same axis — to construct a unique direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone" produce more distinctive results than single-tone choices.
 
 | Axis | Patterns |
 |------|----------|
@@ -36,8 +30,7 @@ produce more distinctive results than single-tone choices.
 
 ## Token Authoring Principles
 
-What makes a good choice for each token group. Compose these biased by the
-register ([brand.md](brand.md) / [product.md](product.md)).
+What makes a good choice for each token group. Compose these biased by the register ([brand.md](brand.md) / [product.md](product.md)).
 
 ### Typography
 

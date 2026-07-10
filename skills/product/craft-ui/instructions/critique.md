@@ -1,8 +1,6 @@
 # Critique
 
-Judge a chosen variant before implementation — a direction verdict, not a defect
-list. Critique is coupled to render: it evaluates one rendered variant and feeds
-refinements back into the render tune loop. Perceptual judgment; non-mutating.
+Judge a chosen variant before implementation — a direction verdict, not a defect list. Critique is coupled to render: it evaluates one rendered variant and feeds refinements back into the render tune loop. Perceptual judgment; non-mutating.
 
 ## When to Use
 
@@ -11,8 +9,7 @@ refinements back into the render tune loop. Perceptual judgment; non-mutating.
 - User wants heuristic scoring, cognitive-load, or persona red flags on a variant
 - Looping with render: critique → tune verb → re-render → critique again
 
-Reads the chosen variant HTML in `.artifacts/` (render's output) and judges it.
-It writes nothing — the verdict is the deliverable.
+Reads the chosen variant HTML in `.artifacts/` (render's output) and judges it. It writes nothing — the verdict is the deliverable.
 
 Composes:
 
@@ -36,90 +33,49 @@ Composes:
 
 ### Step 1: Fix the register
 
-Resolve the register and surface — register from `PRODUCT.md`'s default plus the
-surface convention (landing/marketing = brand, dashboard/app = product), asking
-only when neither is available — then read the matching [brand.md](../references/brand.md)
-or [product.md](../references/product.md).
-Brand judges for distinctiveness; product judges for earned familiarity. The
-register sets every bar below — do not score before it is fixed.
+Resolve the register and surface — register from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product), asking only when neither is available — then read the matching [brand.md](../references/brand.md) or [product.md](../references/product.md). Brand judges for distinctiveness; product judges for earned familiarity. The register sets every bar below — do not score before it is fixed.
 
-When `PRODUCT.md` is present, also read its declared anti-references and
-personality as context for the slop verdict below — read only; critique never
-edits `PRODUCT.md`.
+When `PRODUCT.md` is present, also read its declared anti-references and personality as context for the slop verdict below — read only; critique never edits `PRODUCT.md`.
 
 ### Step 2: Slop verdict (two altitudes)
 
 Start here, honestly. Two passes:
 
-1. **Category reflex** — could someone name the category and guess the whole
-   look (theme + palette + layout) from the category alone? That is the
-   first-order AI default.
-2. **Anti-reference reflex** — name the aesthetic lane the variant is actually
-   in. Could someone guess that lane from "category plus the anti-references"?
-   Judge against the anti-references declared in `PRODUCT.md` when present,
-   inferring the obvious ones only when it is absent. That is the trap one tier
-   deeper. (See the slop test in [design-thinking.md](../references/design-thinking.md).)
+1. **Category reflex** — could someone name the category and guess the whole look (theme + palette + layout) from the category alone? That is the first-order AI default.
+2. **Anti-reference reflex** — name the aesthetic lane the variant is actually in. Could someone guess that lane from "category plus the anti-references"? Judge against the anti-references declared in `PRODUCT.md` when present, inferring the obvious ones only when it is absent. That is the trap one tier deeper. (See the slop test in [design-thinking.md](../references/design-thinking.md).)
 
-A variant that fails either altitude has no point of view yet — say so plainly
-before any number softens it.
+A variant that fails either altitude has no point of view yet — say so plainly before any number softens it.
 
-Then run the craft checks from [design-thinking.md](../references/design-thinking.md) —
-swap, token, signature, and squint: would swapping the typeface and layout change
-anything, do the tokens belong to this product's world, where does the signature
-actually appear, and does the hierarchy survive a blur? A variant that survives
-the two reflexes but fails these is polished default.
+Then run the craft checks from [design-thinking.md](../references/design-thinking.md) — swap, token, signature, and squint: would swapping the typeface and layout change anything, do the tokens belong to this product's world, where does the signature actually appear, and does the hierarchy survive a blur? A variant that survives the two reflexes but fails these is polished default.
 
-Read the density and variance dials (design-thinking.md) against the brief —
-report the level the variant lands at versus the level intended ("reads density
-8, the brief wanted 4"). The dials sharpen the verdict; they do not enter the
-score.
+Read the density and variance dials (design-thinking.md) against the brief — report the level the variant lands at versus the level intended ("reads density 8, the brief wanted 4"). The dials sharpen the verdict; they do not enter the score.
 
 ### Step 3: Score the heuristics
 
-Score all 10 Nielsen heuristics 0–4 — definitions and the 0–4 criteria per
-heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in
-[scoring.md](../references/scoring.md). Present as a table with a per-row key issue
-and the total /40. Be honest — most real interfaces land 20–32.
+Score all 10 Nielsen heuristics 0–4 — definitions and the 0–4 criteria per heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in [scoring.md](../references/scoring.md). Present as a table with a per-row key issue and the total /40. Be honest — most real interfaces land 20–32.
 
 ### Step 4: Cognitive load
 
-Walk the 8-item checklist in [cognitive-load.md](../references/cognitive-load.md);
-count failures (0–1 low, 2–3 moderate, 4+ critical). Flag any decision point with
-more than 4 simultaneous options — working memory holds ≤4.
+Walk the 8-item checklist in [cognitive-load.md](../references/cognitive-load.md); count failures (0–1 low, 2–3 moderate, 4+ critical). Flag any decision point with more than 4 simultaneous options — working memory holds ≤4.
 
 ### Step 5: Persona red flags
 
-Select 2–3 personas by surface from [personas.md](../references/personas.md) and
-walk the primary action as each. Report the exact elements that fail them — not
-generic descriptions. personas.md carries the five archetypes, the
-selection-by-surface table, and a template for project-specific personas.
+Select 2–3 personas by surface from [personas.md](../references/personas.md) and walk the primary action as each. Report the exact elements that fail them — not generic descriptions. personas.md carries the five archetypes, the selection-by-surface table, and a template for project-specific personas.
 
-As you walk each path, trace the **emotional journey** — where it dips
-(confusion, friction, anxiety) and whether the high-stakes moments (payment,
-deletion, irreversible submits) offer reassurance. Peak-end weighs the worst
-moment and the last one most, so one unhandled valley colours the whole read.
+As you walk each path, trace the **emotional journey** — where it dips (confusion, friction, anxiety) and whether the high-stakes moments (payment, deletion, irreversible submits) offer reassurance. Peak-end weighs the worst moment and the last one most, so one unhandled valley colours the whole read.
 
 ### Step 6: Direction verdict and refinements
 
-Write the verdict using the template in [scoring.md](../references/scoring.md):
-slop verdict, the heuristic table and total, the priority issues (P0–P3), and
-2–3 strengths. Then map each priority issue to a render tune verb so the loop
-can continue — verb definitions live in [tune.md](../references/tune.md)
-(motion verbs in [motion.md](../references/motion.md) /
-[overdrive.md](../references/overdrive.md)); render invokes them:
+Write the verdict using the template in [scoring.md](../references/scoring.md): slop verdict, the heuristic table and total, the priority issues (P0–P3), and 2–3 strengths. Then map each priority issue to a render tune verb so the loop can continue — verb definitions live in [tune.md](../references/tune.md) (motion verbs in [motion.md](../references/motion.md) / [overdrive.md](../references/overdrive.md)); render invokes them:
 
 - reads safe / undifferentiated → `bolder` or a committed color strategy
 - noisy / over-decorated → `quieter` or `distill`
 - flat, no feedback → `animate` (state) or `delight` (earned moments)
 - thin on edge states → `harden` (preview empty / loading / error)
 
-Close with 2–3 questions that open the next iteration instead of only grading
-this one — "What would a more confident version of this look like?", "Does this
-need to feel this complex?", "What if the primary action were twice as prominent?"
-They aim render's next pass.
+Close with 2–3 questions that open the next iteration instead of only grading this one — "What would a more confident version of this look like?", "Does this need to feel this complex?", "What if the primary action were twice as prominent?" They aim render's next pass.
 
-Hand the refinements back to render; re-render and re-critique until the
-direction holds. Critique never edits the variant itself.
+Hand the refinements back to render; re-render and re-critique until the direction holds. Critique never edits the variant itself.
 
 ## Guidelines
 

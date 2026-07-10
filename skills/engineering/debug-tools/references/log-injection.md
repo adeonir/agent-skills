@@ -4,10 +4,7 @@ Add targeted debug logs at strategic points to capture runtime data.
 
 ## When to Use
 
-As a technique during investigation, when static analysis alone cannot confirm
-the root cause and runtime data is needed. Not every debugging session requires
-log injection -- use it when confidence is in the 50-69 range and runtime
-evidence would raise it above 70.
+As a technique during investigation, when static analysis alone cannot confirm the root cause and runtime data is needed. Not every debugging session requires log injection -- use it when confidence is in the 50-69 range and runtime evidence would raise it above 70.
 
 ## Log Format
 
@@ -127,8 +124,7 @@ Ask user to:
 
 ## Performance and Memory Leak Instrumentation
 
-For performance regressions, slowdowns, or leaks, plain console logs are not
-enough -- inject measurements that quantify what is happening over time.
+For performance regressions, slowdowns, or leaks, plain console logs are not enough -- inject measurements that quantify what is happening over time.
 
 | Symptom | Instrumentation | What to Log |
 |---------|----------------|-------------|
@@ -160,8 +156,7 @@ console.log("[DEBUG] [bus.ts:20] listeners after subscribe", {
 });
 ```
 
-Capture before/after pairs so the delta is obvious from the output. A single
-absolute number rarely answers "is this growing?".
+Capture before/after pairs so the delta is obvious from the output. A single absolute number rarely answers "is this growing?".
 
 ## Analyzing Console Output
 

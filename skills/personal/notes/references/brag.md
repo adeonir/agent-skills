@@ -10,8 +10,7 @@ Add achievements to a brag document for performance reviews and career growth.
 
 ## Vault Resolution
 
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier
-fallback (local symlink → global pointer → bootstrap).
+Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
 
 ## Workflow
 
@@ -38,13 +37,13 @@ fallback (local symlink → global pointer → bootstrap).
 
 5. **Write note**
 
-   New document:
+New document:
 
    ```
    write_note path="Brags/{{YYYY}}.md" content="..."
    ```
 
-   Append to existing:
+Append to existing:
 
    ```
    read_note path="Brags/{{YYYY}}.md"
@@ -124,7 +123,4 @@ Common categories for organizing brags:
 
 ## Anti-Pattern: Vague Impact Claims
 
-"Improved performance" is invisible at review time. "Reduced p99 latency
-from 800ms to 220ms" is concrete and defensible. Always quantify with a
-metric, a percentage, or a time saved. When data is unavailable, state
-the proxy ("estimated 30% fewer support tickets in the affected flow").
+"Improved performance" is invisible at review time. "Reduced p99 latency from 800ms to 220ms" is concrete and defensible. Always quantify with a metric, a percentage, or a time saved. When data is unavailable, state the proxy ("estimated 30% fewer support tickets in the affected flow").

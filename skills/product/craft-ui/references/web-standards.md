@@ -1,14 +1,10 @@
 # Web Standards
 
-Technical correctness rules for rendered UI — the implementation counterpart to
-the craft dimension references' visual recipes. They serve two jobs: rules
-that render applies to every variant it generates, **and** the rubric that audit
-checks a running UI against (accessibility, theming, forms).
+Technical correctness rules for rendered UI — the implementation counterpart to the craft dimension references' visual recipes. They serve two jobs: rules that render applies to every variant it generates, **and** the rubric that audit checks a running UI against (accessibility, theming, forms).
 
 ## When to Use
 
-Composed by render.md (as generation rules) and audit.md (as the technical audit
-rubric, mapped to its five dimensions). Not a direct trigger.
+Composed by render.md (as generation rules) and audit.md (as the technical audit rubric, mapped to its five dimensions). Not a direct trigger.
 
 ## Accessibility
 
@@ -83,8 +79,7 @@ Rules for text rendering — see typography.md for pairing and heuristics.md for
 
 ## Performance
 
-Loading, rendering, network, framework, and Core Web Vitals live in
-[performance.md](performance.md) — the audit's Performance dimension composes it.
+Loading, rendering, network, framework, and Core Web Vitals live in [performance.md](performance.md) — the audit's Performance dimension composes it.
 
 ## Navigation and State
 
@@ -134,10 +129,6 @@ Rules for implementation — see color.md for color direction.
 
 ## Content and copy
 
-Wording, voice, casing, and message content are a content concern — they ride in
-on `copy.yaml` (or placeholder), and a variant renders the copy it is given
-rather than authoring or editing it; audit judges the five dimensions, not the
-prose. The render-deterministic text rules — curly quotes, ellipsis, non-breaking
-spaces, tabular numerals — live in **Typography (Technical)** above.
+Wording, voice, casing, and message content are a content concern — they ride in on `copy.yaml` (or placeholder), and a variant renders the copy it is given rather than authoring or editing it; audit judges the five dimensions, not the prose. The render-deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).

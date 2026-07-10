@@ -19,23 +19,13 @@ End-of-session documentation to Obsidian.
 mapping → handoff:Load → obsidian-notes (enrich + compose) → handoff:Detect+Cleanup
 ```
 
-Resolve project from current working directory, load any session
-handoff (when present), then write Obsidian notes. `obsidian-notes`
-opens with an Enrich step that folds relevant current-session
-observations from claude-mem into working context (silent skip when
-MCP unavailable). No confirmation between note-writing steps. The
-closing step runs structural-delta detection — silent unless a delta
-fires — then clears the handoff file automatically (wrap-up has
-already persisted the snapshot to Obsidian, so the on-disk copy is
-redundant).
+Resolve project from current working directory, load any session handoff (when present), then write Obsidian notes. `obsidian-notes` opens with an Enrich step that folds relevant current-session observations from claude-mem into working context (silent skip when MCP unavailable). No confirmation between note-writing steps. The closing step runs structural-delta detection — silent unless a delta fires — then clears the handoff file automatically (wrap-up has already persisted the snapshot to Obsidian, so the on-disk copy is redundant).
 
 ## Triggers
 
-- **End-of-session command** ("wrap up", "wrap-up", "end session",
-  "finish up", "close session") → run all references in sequence
+- **End-of-session command** ("wrap up", "wrap-up", "end session", "finish up", "close session") → run all references in sequence
 
-The skill is single-trigger: every invocation runs the full workflow.
-Loading order:
+The skill is single-trigger: every invocation runs the full workflow. Loading order:
 
 1. [mapping.md](references/mapping.md) — resolve project paths and base tags
 2. [handoff.md](references/handoff.md) (Load phase) — fold all snapshots, grouped by date, when present
@@ -54,15 +44,8 @@ Loading order:
 
 ## Anti-Pattern: Confirmation Between Steps
 
-Pausing for user approval between mapping and obsidian-notes breaks
-the wrap-up promise: a single command persists everything. The user
-has already invoked the skill — that is the confirmation. Run all
-steps and report at the end.
+Pausing for user approval between mapping and obsidian-notes breaks the wrap-up promise: a single command persists everything. The user has already invoked the skill — that is the confirmation. Run all steps and report at the end.
 
 ## Anti-Pattern: Re-Reading the Session Handoff
 
-The session handoff is read once during the Load phase — the whole
-file, every snapshot — and shared via working context with downstream
-references. Re-reading the file in obsidian-notes wastes I/O and risks
-divergence if the file changes mid-flow. Load once, share, then clear
-at the end.
+The session handoff is read once during the Load phase — the whole file, every snapshot — and shared via working context with downstream references. Re-reading the file in obsidian-notes wastes I/O and risks divergence if the file changes mid-flow. Load once, share, then clear at the end.

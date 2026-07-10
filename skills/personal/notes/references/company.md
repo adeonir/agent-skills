@@ -1,18 +1,15 @@
 # Create Company Note
 
-Track companies and roles during job application processes — applications,
-interviews, offers, decisions.
+Track companies and roles during job application processes — applications, interviews, offers, decisions.
 
 ## When to Use
 
-- User says "company note", "track interview", "job application",
-  "track this role"
+- User says "company note", "track interview", "job application", "track this role"
 - User mentions an interview process or offer to remember
 
 ## Vault Resolution
 
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier
-fallback (local symlink → global pointer → bootstrap).
+Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
 
 ## Workflow
 
@@ -34,9 +31,7 @@ fallback (local symlink → global pointer → bootstrap).
    search_notes query="{{Role}} {{Company Name}}" path="Companies/"
    ```
 
-   If a note for the same role+company exists, ask whether to append a
-   new timeline entry or create a separate note (e.g., re-application
-   later).
+If a note for the same role+company exists, ask whether to append a new timeline entry or create a separate note (e.g., re-application later).
 
 4. **Compose content** using the template below.
 
@@ -98,8 +93,7 @@ just the outcome.}}
 
 ## Updating Existing Company Notes
 
-When the application progresses (interview scheduled, offer received,
-decision made):
+When the application progresses (interview scheduled, offer received, decision made):
 
 1. Read the note with `read_note`
 2. Use `patch_note` to append a row to the Timeline table
@@ -110,15 +104,10 @@ Do not overwrite — keep the historical timeline intact.
 
 ## Guidelines
 
-- Update the Timeline table as events happen (interviews, offers,
-  feedback) rather than reconstructing from memory later
-- Capture impressions of the team and process — useful for future
-  application decisions and referrals
-- Link related notes (challenge notes for technical interviews, brag
-  notes when applying impacted achievements)
+- Update the Timeline table as events happen (interviews, offers, feedback) rather than reconstructing from memory later
+- Capture impressions of the team and process — useful for future application decisions and referrals
+- Link related notes (challenge notes for technical interviews, brag notes when applying impacted achievements)
 
 ## Anti-Pattern: Status-Only Updates
 
-Updating only the frontmatter `status` field strips the narrative — why
-the status changed, what happened in the conversation, what shifted.
-Always pair a status change with a Timeline row and an observation.
+Updating only the frontmatter `status` field strips the narrative — why the status changed, what happened in the conversation, what shifted. Always pair a status change with a Timeline row and an observation.

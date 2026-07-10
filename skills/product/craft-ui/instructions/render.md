@@ -1,13 +1,8 @@
 # Render
 
-Render the real product in N visual directions for decision-making. Combine
-DESIGN.md tokens, WIREFRAME.md arrangement, and copy.yaml content into full-page HTML
-variants, serve them side by side, refine the visual direction, comment, and
-switch viewports. A decision aid — output is HTML in `.artifacts/`, never a
-source artifact.
+Render the real product in N visual directions for decision-making. Combine DESIGN.md tokens, WIREFRAME.md arrangement, and copy.yaml content into full-page HTML variants, serve them side by side, refine the visual direction, comment, and switch viewports. A decision aid — output is HTML in `.artifacts/`, never a source artifact.
 
-Variant generation deserves careful reasoning — visual choices compound across a
-full page.
+Variant generation deserves careful reasoning — visual choices compound across a full page.
 
 ## When to Use
 
@@ -18,22 +13,13 @@ full page.
 
 ## Inputs and Fallbacks
 
-Reads three upstream artifacts. Each is optional — a missing input falls back so
-a variant always renders:
+Reads three upstream artifacts. Each is optional — a missing input falls back so a variant always renders:
 
-- `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter).
-  **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
-- `docs/design/WIREFRAME.md` — layout plan (page composition or screen flow).
-  **Absent** → compose a conventional layout from [layout.md](../references/layout.md).
-- `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings
-  from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent
-  too.
+- `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter). **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
+- `docs/design/WIREFRAME.md` — layout plan (page composition or screen flow). **Absent** → compose a conventional layout from [layout.md](../references/layout.md).
+- `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent too.
 
-The fallback rule is uniform: **any missing input → compose a seed from
-[design-thinking.md](../references/design-thinking.md) + the craft dimensions,
-follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent
-page from whatever exists. This is the one skill that reads all three artifacts
-together — the integrator. It never writes them.
+The fallback rule is uniform: **any missing input → compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions, follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent page from whatever exists. This is the one skill that reads all three artifacts together — the integrator. It never writes them.
 
 > Before writing variants, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -53,21 +39,11 @@ Required references, auto-loaded:
 
 ## Direction
 
-Resolve the **register** (brand or product — [brand.md](../references/brand.md) /
-[product.md](../references/product.md)) and the **surface**; read which surfaces
-the project has from WIREFRAME.md, copy.yaml, or the user. Register comes from
-`PRODUCT.md`'s default plus the surface convention (landing/marketing = brand,
-dashboard/app = product); ask only when neither is available.
+Resolve the **register** (brand or product — [brand.md](../references/brand.md) / [product.md](../references/product.md)) and the **surface**; read which surfaces the project has from WIREFRAME.md, copy.yaml, or the user. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product); ask only when neither is available.
 
-Direction comes from [design-thinking.md](../references/design-thinking.md): when
-the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose
-from it; with no direction, compose one biased by the register (brand and product
-permit different things — see their files) and fitting the surface. Vary the
-direction per variant; never converge on a house style.
+Direction comes from [design-thinking.md](../references/design-thinking.md): when the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose from it; with no direction, compose one biased by the register (brand and product permit different things — see their files) and fitting the surface. Vary the direction per variant; never converge on a house style.
 
-Set the density and variance dials (design-thinking.md) to the level the brief
-implies — a scanning dashboard runs dense, a premium landing runs sparse — and
-build the variant to that level.
+Set the density and variance dials (design-thinking.md) to the level the brief implies — a scanning dashboard runs dense, a premium landing runs sparse — and build the variant to that level.
 
 ## Token Extraction
 
@@ -125,10 +101,7 @@ User asks for N variants (default 4). Generate one HTML per variant from the tok
 
 ## Variant-Tune
 
-Once a variant is chosen, tune its **visual direction** — not its tokens. Variant
-tune re-renders the variant along four direction axes; it never edits DESIGN.md
-and never commits. To make a tuned direction permanent, the user invokes the
-owning skill (layout → WIREFRAME.md, style → DESIGN.md authoring).
+Once a variant is chosen, tune its **visual direction** — not its tokens. Variant tune re-renders the variant along four direction axes; it never edits DESIGN.md and never commits. To make a tuned direction permanent, the user invokes the owning skill (layout → WIREFRAME.md, style → DESIGN.md authoring).
 
 Four axes:
 
@@ -141,19 +114,13 @@ The user names an axis change ("make it denser", "try a bento layout", "more edi
 
 ### Tune verbs
 
-Named shortcuts over the four axes — each names a move and re-renders the
-variant. All are non-mutating: they change the variant HTML for the session,
-never DESIGN.md. Critique drives these in its refinement loop.
+Named shortcuts over the four axes — each names a move and re-renders the variant. All are non-mutating: they change the variant HTML for the session, never DESIGN.md. Critique drives these in its refinement loop.
 
-- **bolder / quieter / distill / delight / harden** — the look-reshaping
-  directions, defined in [tune.md](../references/tune.md).
-- **animate** — the everyday motion direction (state, feedback, reveals), defined
-  in [motion.md](../references/motion.md).
-- **overdrive** — the ambitious-tier direction (view transitions, scroll-driven,
-  GPU), brand register only, defined in [overdrive.md](../references/overdrive.md).
+- **bolder / quieter / distill / delight / harden** — the look-reshaping directions, defined in [tune.md](../references/tune.md).
+- **animate** — the everyday motion direction (state, feedback, reveals), defined in [motion.md](../references/motion.md).
+- **overdrive** — the ambitious-tier direction (view transitions, scroll-driven, GPU), brand register only, defined in [overdrive.md](../references/overdrive.md).
 
-Each reads differently for brand vs product — read the register file first. Wording
-and labels stay out of scope — copy is a content concern, not a tune.
+Each reads differently for brand vs product — read the register file first. Wording and labels stay out of scope — copy is a content concern, not a tune.
 
 ## Comment
 

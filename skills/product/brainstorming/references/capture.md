@@ -1,13 +1,10 @@
 # Capture -- Save the Direction
 
-Persist the chosen direction as a structured artifact. Single
-project-level file. Pivot existing entries rather than spawning new
-files.
+Persist the chosen direction as a structured artifact. Single project-level file. Pivot existing entries rather than spawning new files.
 
 ## When to Use
 
-After the user approves a direction in converge. Loaded as the final
-phase.
+After the user approves a direction in converge. Loaded as the final phase.
 
 ## Workflow
 
@@ -22,28 +19,19 @@ Verify the artifact before saving:
 - [ ] Open questions are genuine unknowns, not laziness
 - [ ] No implementation detail or codebase symbols (file paths, function or class names) — the artifact stays at the problem-and-direction level
 
-If issues found: fix inline before saving. Don't deliver a flawed
-artifact.
+If issues found: fix inline before saving. Don't deliver a flawed artifact.
 
 ### Step 2: Detect Existing File
 
-Save the artifact to `docs/product/brainstorm.md` (single
-project-level file).
+Save the artifact to `docs/product/brainstorm.md` (single project-level file).
 
-If the file already exists, treat the current run as a pivot or
-revision instead of a fresh write:
+If the file already exists, treat the current run as a pivot or revision instead of a fresh write:
 
 - Ask the user: pivot the existing direction, or replace from scratch?
-- **Pivot** — keep Context/Constraints/Success Criteria as-is unless
-  discovery surfaced changes, update Alternatives Considered and
-  Decision, append an entry to Revision History with the date and what
-  changed.
-- **Replace** — confirm with the user that the prior direction is
-  being abandoned (not pivoted), then rewrite the file fresh,
-  resetting Revision History.
+- **Pivot** — keep Context/Constraints/Success Criteria as-is unless discovery surfaced changes, update Alternatives Considered and Decision, append an entry to Revision History with the date and what changed.
+- **Replace** — confirm with the user that the prior direction is being abandoned (not pivoted), then rewrite the file fresh, resetting Revision History.
 
-Always bump `updated:` to today's date and increment `revisions:` on
-any change.
+Always bump `updated:` to today's date and increment `revisions:` on any change.
 
 ## Template
 

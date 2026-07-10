@@ -1,30 +1,20 @@
 # Heuristics
 
-The usability heuristics and visual-design laws a rendered surface is judged
-against — *why* a decision works, and how to score each one 0–4.
+The usability heuristics and visual-design laws a rendered surface is judged against — *why* a decision works, and how to score each one 0–4.
 
 ## When to Use
 
-Composed by `critique.md` (scores the ten heuristics 0–4) and read by
-`render.md` to apply the laws while generating. The practical recipes that
-*implement* these laws live in the craft dimensions
-(color/typography/layout/motion/interaction/responsive). Aggregate bands,
-severity, and the report template live in [scoring.md](scoring.md). Not a direct
-trigger.
+Composed by `critique.md` (scores the ten heuristics 0–4) and read by `render.md` to apply the laws while generating. The practical recipes that *implement* these laws live in the craft dimensions (color/typography/layout/motion/interaction/responsive). Aggregate bands, severity, and the report template live in [scoring.md](scoring.md). Not a direct trigger.
 
 ## Scoring
 
-Score each heuristic 0–4 — be honest, a 4 is genuinely excellent (not "good
-enough"), and most real interfaces land 20–32 / 40. Each heuristic below carries
-what to **check for** and the 0–4 criteria.
+Score each heuristic 0–4 — be honest, a 4 is genuinely excellent (not "good enough"), and most real interfaces land 20–32 / 40. Each heuristic below carries what to **check for** and the 0–4 criteria.
 
 ## Nielsen's 10 heuristics
 
 ### 1. Visibility of system status
 
-Keep users informed through timely, appropriate feedback. **Check for:** loading
-indicators, action confirmation (save/submit/delete), progress for multi-step
-flows, current location (breadcrumbs/active states), inline validation.
+Keep users informed through timely, appropriate feedback. **Check for:** loading indicators, action confirmation (save/submit/delete), progress for multi-step flows, current location (breadcrumbs/active states), inline validation.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -32,9 +22,7 @@ flows, current location (breadcrumbs/active states), inline validation.
 
 ### 2. Match between system and the real world
 
-Speak the user's language, follow real-world conventions, natural order.
-**Check for:** familiar terms (no unexplained jargon), logical order,
-recognizable icons/metaphors, domain-appropriate language, natural reading flow.
+Speak the user's language, follow real-world conventions, natural order. **Check for:** familiar terms (no unexplained jargon), logical order, recognizable icons/metaphors, domain-appropriate language, natural reading flow.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -42,9 +30,7 @@ recognizable icons/metaphors, domain-appropriate language, natural reading flow.
 
 ### 3. User control and freedom
 
-A clear emergency exit from unwanted states. **Check for:** undo/redo, cancel on
-forms/modals, clear path back to safety, easy clear of filters/search, escape
-from multi-step flows.
+A clear emergency exit from unwanted states. **Check for:** undo/redo, cancel on forms/modals, clear path back to safety, easy clear of filters/search, escape from multi-step flows.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -52,9 +38,7 @@ from multi-step flows.
 
 ### 4. Consistency and standards
 
-Same words/actions mean the same thing. **Check for:** consistent terminology,
-same action → same result, platform conventions, visual consistency (color/type/
-spacing/components), consistent interaction patterns.
+Same words/actions mean the same thing. **Check for:** consistent terminology, same action → same result, platform conventions, visual consistency (color/type/ spacing/components), consistent interaction patterns.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -62,9 +46,7 @@ spacing/components), consistent interaction patterns.
 
 ### 5. Error prevention
 
-Prevent problems beats good error messages. **Check for:** confirmation before
-destructive actions, constraints preventing invalid input, smart defaults, clear
-labels, autosave/draft recovery.
+Prevent problems beats good error messages. **Check for:** confirmation before destructive actions, constraints preventing invalid input, smart defaults, clear labels, autosave/draft recovery.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -72,9 +54,7 @@ labels, autosave/draft recovery.
 
 ### 6. Recognition rather than recall
 
-Minimize memory load; make options visible or retrievable. **Check for:** visible
-options (not buried), contextual help, recent items/history, autocomplete,
-labels on icons (not icon-only nav).
+Minimize memory load; make options visible or retrievable. **Check for:** visible options (not buried), contextual help, recent items/history, autocomplete, labels on icons (not icon-only nav).
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -82,9 +62,7 @@ labels on icons (not icon-only nav).
 
 ### 7. Flexibility and efficiency of use
 
-Accelerators for experts, invisible to novices. **Check for:** keyboard
-shortcuts, customization, recents/favorites, bulk/batch actions, power features
-that don't complicate basics.
+Accelerators for experts, invisible to novices. **Check for:** keyboard shortcuts, customization, recents/favorites, bulk/batch actions, power features that don't complicate basics.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -92,8 +70,7 @@ that don't complicate basics.
 
 ### 8. Aesthetic and minimalist design
 
-Every element earns its place. **Check for:** only necessary info per step, clear
-hierarchy, purposeful color/emphasis, no decorative clutter, focused layouts.
+Every element earns its place. **Check for:** only necessary info per step, clear hierarchy, purposeful color/emphasis, no decorative clutter, focused layouts.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -101,9 +78,7 @@ hierarchy, purposeful color/emphasis, no decorative clutter, focused layouts.
 
 ### 9. Help users recognize, diagnose, recover from errors
 
-Plain language, precise problem, constructive fix. **Check for:** plain-language
-messages (no raw codes), specific problem ("Email is missing @"), actionable
-recovery, errors near the source, non-blocking (don't wipe the form).
+Plain language, precise problem, constructive fix. **Check for:** plain-language messages (no raw codes), specific problem ("Email is missing @"), actionable recovery, errors near the source, non-blocking (don't wipe the form).
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -111,9 +86,7 @@ recovery, errors near the source, non-blocking (don't wipe the form).
 
 ### 10. Help and documentation
 
-Easy to find, task-focused, concise. **Check for:** searchable help, contextual
-help (tooltips/hints/tours), task-focused organization, scannable content, access
-without leaving context.
+Easy to find, task-focused, concise. **Check for:** searchable help, contextual help (tooltips/hints/tours), task-focused organization, scannable content, access without leaving context.
 
 | 0 | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
@@ -121,14 +94,11 @@ without leaving context.
 
 ## Visual Design Laws
 
-Universal principles for how the eye reads a surface — *why* a decision works.
-The recipes that apply them live in the craft dimensions
-(color/typography/layout/motion/interaction/responsive).
+Universal principles for how the eye reads a surface — *why* a decision works. The recipes that apply them live in the craft dimensions (color/typography/layout/motion/interaction/responsive).
 
 ### Gestalt
 
-The mind groups visual elements by predictable rules — use them to compose
-hierarchy without explicit borders.
+The mind groups visual elements by predictable rules — use them to compose hierarchy without explicit borders.
 
 - **Proximity** — close elements read as a group; separate groups with larger gaps.
 - **Similarity** — shared color/shape/size reads as related; vary to signal difference.
@@ -160,5 +130,4 @@ Five signals, used in concert, not size alone.
 - **Gutenberg** — symmetric long-form: strong primary (top-left) and terminal (bottom-right) areas.
 - **Center-out** — heavily centered layouts draw outward; works for short hero pages, fails for scrollable long-form.
 
-Squint at the design — the elements that survive blur are what the eye locks
-onto first. Reorder weight until the survivors match the intended reading order.
+Squint at the design — the elements that survive blur are what the eye locks onto first. Reorder weight until the survivors match the intended reading order.

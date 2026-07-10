@@ -1,7 +1,6 @@
 # Diverge -- Generate Alternatives
 
-Explore the space broadly. Quantity over quality. Non-obvious options matter
-more than safe ones.
+Explore the space broadly. Quantity over quality. Non-obvious options matter more than safe ones.
 
 ## When to Use
 
@@ -9,64 +8,49 @@ After discovery quality gate passes. Loaded automatically as second phase.
 
 ## Workflow
 
-Before generating alternatives, surface open TBDs carried from discovery. List
-them with their topic weights and note which alternatives might resolve them.
-Flag constraint TBDs explicitly — they will block screening in converge if
-unresolved.
+Before generating alternatives, surface open TBDs carried from discovery. List them with their topic weights and note which alternatives might resolve them. Flag constraint TBDs explicitly — they will block screening in converge if unresolved.
 
-Breadth over depth. Generate at least 4 alternatives, aim for 6-8. Include at
-least one non-obvious or uncomfortable option. Separate generation from
-evaluation -- no judging during diverge.
+Breadth over depth. Generate at least 4 alternatives, aim for 6-8. Include at least one non-obvious or uncomfortable option. Separate generation from evaluation -- no judging during diverge.
 
 ### Techniques
 
-Select 3-4 techniques relevant to the problem. Not every technique applies to
-every brainstorm.
+Select 3-4 techniques relevant to the problem. Not every technique applies to every brainstorm.
 
 #### Constraint Removal
 
-Remove one constraint at a time and ask: "What would we do if X was not a
-limitation?"
+Remove one constraint at a time and ask: "What would we do if X was not a limitation?"
 
-Generates options that might be partially achievable even with the constraint
-back in place. Reveals where constraints are artificially narrowing the space.
+Generates options that might be partially achievable even with the constraint back in place. Reveals where constraints are artificially narrowing the space.
 
 #### Analogy Exploration
 
 Look at how other industries, domains, or products solve similar problems.
 
-Ask: "How does [industry Y] handle [problem X]?" Transfer patterns from one
-domain to another. Works best when the user is stuck in familiar territory.
+Ask: "How does [industry Y] handle [problem X]?" Transfer patterns from one domain to another. Works best when the user is stuck in familiar territory.
 
 #### Inversion
 
 Ask: "What is the opposite approach? What if we did the exact reverse?"
 
-Often reveals hidden assumptions about the "right" way. Generates alternatives
-that challenge the default direction.
+Often reveals hidden assumptions about the "right" way. Generates alternatives that challenge the default direction.
 
 #### Decomposition
 
 Break the problem into smaller sub-problems.
 
-Ask: "Can we solve a smaller version first? What is the minimum viable
-experiment?" Useful when the scope feels overwhelming or when no single
-approach covers everything.
+Ask: "Can we solve a smaller version first? What is the minimum viable experiment?" Useful when the scope feels overwhelming or when no single approach covers everything.
 
 #### Extreme Positions
 
-Push to extremes: "What if we went all-in on X? What if we completely
-ignored Y?"
+Push to extremes: "What if we went all-in on X? What if we completely ignored Y?"
 
-Reveals the spectrum and helps identify where the sweet spot might be.
-Works best for trade-off-heavy problems.
+Reveals the spectrum and helps identify where the sweet spot might be. Works best for trade-off-heavy problems.
 
 #### Status Quo Plus
 
 Ask: "What if we just improved what exists? What is the least disruptive change?"
 
-Important to include as a baseline alternative. Often underrated because it
-lacks novelty, but sometimes the right answer is incremental improvement.
+Important to include as a baseline alternative. Often underrated because it lacks novelty, but sometimes the right answer is incremental improvement.
 
 ### Alternative Capture Format
 
@@ -113,10 +97,6 @@ Reach the minimum bar before advancing to converge.
 
 ## Error Handling
 
-- User wants to skip to a specific solution: warn that brainstorming value
-  comes from exploring alternatives; suggest formalizing as a document
-  if they already have a direction
-- Alternatives feel too similar: apply inversion or constraint removal to
-  generate genuinely different options
-- Problem is too narrow for 4 alternatives: check if the problem is too
-  specific -- consider broadening scope or decomposing differently
+- User wants to skip to a specific solution: warn that brainstorming value comes from exploring alternatives; suggest formalizing as a document if they already have a direction
+- Alternatives feel too similar: apply inversion or constraint removal to generate genuinely different options
+- Problem is too narrow for 4 alternatives: check if the problem is too specific -- consider broadening scope or decomposing differently

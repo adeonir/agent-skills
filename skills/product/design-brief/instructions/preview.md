@@ -1,12 +1,8 @@
 # Preview
 
-Render the `DESIGN.md` tokens as a visual styleguide, serve it with
-live-reload, and refine the tokens — by conversation for most groups, or through
-an optional color tuner. This previews the **design system**, not a product page
-— swatches, type ramp, component samples, all from `DESIGN.md` alone.
+Render the `DESIGN.md` tokens as a visual styleguide, serve it with live-reload, and refine the tokens — by conversation for most groups, or through an optional color tuner. This previews the **design system**, not a product page — swatches, type ramp, component samples, all from `DESIGN.md` alone.
 
-Visual choices compound and a commit mutates the source of truth, so tuning is
-live-and-throwaway while the patch back goes through confirm-before-write.
+Visual choices compound and a commit mutates the source of truth, so tuning is live-and-throwaway while the patch back goes through confirm-before-write.
 
 ## When to Use
 
@@ -14,8 +10,7 @@ live-and-throwaway while the patch back goes through confirm-before-write.
 - User wants to refine design tokens visually — "preview the tokens", "show the styleguide", "tune the design", "spacing feels tight", "primary is too saturated", "make the radius softer"
 - User wants to compare token tweaks side by side, live
 
-This is an optional phase that runs after `design`. It needs a populated
-`DESIGN.md`; it never authors one.
+This is an optional phase that runs after `design`. It needs a populated `DESIGN.md`; it never authors one.
 
 ## Prerequisites
 
@@ -26,9 +21,7 @@ This is an optional phase that runs after `design`. It needs a populated
 
 ## Token Extraction
 
-The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens.
-At generation time, parse the frontmatter, resolve every `{path.to.token}`
-reference, and embed CSS custom properties directly in the generated HTML:
+The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens. At generation time, parse the frontmatter, resolve every `{path.to.token}` reference, and embed CSS custom properties directly in the generated HTML:
 
 - **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind v4's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment. Flat tokens emit into the root theme block; a skin override group (`colors.<skin>.*`) emits a scoped block — `[data-skin="<name>"] { --color-background: ...; }` — redefining only the variables it overrides, so everything else inherits from the root through the cascade, mirroring the frontmatter's inheritance.
 - **Typography** — from `typography.*`. Each role becomes related properties (`--font-display-family`, `--font-display-size`, `--font-display-weight`, ...). Role keys map 1:1 to kebab-case prefixes.
@@ -40,19 +33,13 @@ reference, and embed CSS custom properties directly in the generated HTML:
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
 - **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain. A color reference with a `/NN` opacity modifier (`{colors.primary}/90`) emits `color-mix(in oklab, var(--color-primary) NN%, transparent)`.
 
-No external parser, no token endpoint. Read the YAML, resolve references, map
-everything to CSS variables in the HTML output, ship the file.
+No external parser, no token endpoint. Read the YAML, resolve references, map everything to CSS variables in the HTML output, ship the file.
 
-**Render through variables, never literals.** Define each token once in the theme
-block, then render every specimen through `var(--token)` — never a literal hex or
-value in markup or an inline `style`. A token's literal value appears only as
-displayed label text.
+**Render through variables, never literals.** Define each token once in the theme block, then render every specimen through `var(--token)` — never a literal hex or value in markup or an inline `style`. A token's literal value appears only as displayed label text.
 
 ## Generated HTML Stack
 
-Dependencies load via CDN — no build step. Resolve the canonical CDN entry from
-each library's official documentation at generation time; do not hardcode version
-pins inside this skill.
+Dependencies load via CDN — no build step. Resolve the canonical CDN entry from each library's official documentation at generation time; do not hardcode version pins inside this skill.
 
 - **Tailwind CSS** — include the official browser-build script in `<head>` so utility classes resolve client-side.
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. A single include covers every set (`lucide`, `tabler`, `simple-icons`, ...). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing control.
@@ -61,8 +48,7 @@ pins inside this skill.
 
 ## Tailwind Token Conventions
 
-Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary values
-bypass the theme and erode design-system consistency.
+Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary values bypass the theme and erode design-system consistency.
 
 - Map frontmatter tokens into the theme via `<style type="text/tailwindcss">@theme { --color-primary: ...; --radius-md: ...; }</style>` so `bg-primary`, `rounded-md`, `text-lg` resolve to project values.
 - Use the nearest standard token when an exact value lacks a named key (`p-4` vs `p-[15px]`, `rounded-lg` vs `rounded-[10px]`).
@@ -77,9 +63,7 @@ bypass the theme and erode design-system consistency.
 
 ## Styleguide
 
-One self-contained `styleguide.html` that renders all ten token groups as a
-design-system reference. It is the visual proof of `DESIGN.md` — the kind of page
-a real design system ships as its styleguide.
+One self-contained `styleguide.html` that renders all ten token groups as a design-system reference. It is the visual proof of `DESIGN.md` — the kind of page a real design system ships as its styleguide.
 
 ### Neutral Scaffolding
 
@@ -110,8 +94,7 @@ This sheet is looked at, so it must read well — internal, but good:
 - **`components`** — each entry rendered live, resolved through `{path.to.token}`: `button-primary` with its hover/active/disabled variants side by side, `card`, `input`, plus any badge / nav / distinctive entries the frontmatter defines.
 - **`breakpoints`** — a labeled scale marking each breakpoint width.
 
-If a group is empty in the frontmatter, render a quiet placeholder for it rather
-than omitting the section silently.
+If a group is empty in the frontmatter, render a quiet placeholder for it rather than omitting the section silently.
 
 ## Generating the Styleguide
 
@@ -131,56 +114,30 @@ than omitting the section silently.
 
 ## Tune
 
-Two paths refine the tokens. Both keep `DESIGN.md` the source of truth — the
-patch back always goes through [reconcile.md](reconcile.md).
+Two paths refine the tokens. Both keep `DESIGN.md` the source of truth — the patch back always goes through [reconcile.md](reconcile.md).
 
-**Conversational (default).** No UI. The user views the served sheet and
-describes the change ("primary too saturated", "spacing feels tight", "softer
-radius"). Hand it to reconcile; the server live-reloads the regenerated sheet.
-Spacing, typography, radius, and shadow follow the Tailwind scale — discrete
-steps, nothing continuous to drag — so they are tuned by description, not sliders.
+**Conversational (default).** No UI. The user views the served sheet and describes the change ("primary too saturated", "spacing feels tight", "softer radius"). Hand it to reconcile; the server live-reloads the regenerated sheet. Spacing, typography, radius, and shadow follow the Tailwind scale — discrete steps, nothing continuous to drag — so they are tuned by description, not sliders.
 
-**Color tuner (optional).** Color is the one continuous axis the eye can't judge
-— WCAG contrast — so it gets an interactive tuner when the user asks ("tune the
-colors", "let me adjust the palette"). The tuner is an **overlay the preview
-server injects over the committed styleguide** — no separate file. A **Tune
-colors** toggle (server-injected) opens a panel built from the styleguide's
-`data-tune-swatch` color swatches. Tuning swaps the token's `var(--color-<key>)`
-live, so the whole styleguide is the preview — every specimen that references the
-token shifts at once.
+**Color tuner (optional).** Color is the one continuous axis the eye can't judge — WCAG contrast — so it gets an interactive tuner when the user asks ("tune the colors", "let me adjust the palette"). The tuner is an **overlay the preview server injects over the committed styleguide** — no separate file. A **Tune colors** toggle (server-injected) opens a panel built from the styleguide's `data-tune-swatch` color swatches. Tuning swaps the token's `var(--color-<key>)` live, so the whole styleguide is the preview — every specimen that references the token shifts at once.
 
 ### Color tuner overlay
 
-The engine (OKLCH ↔ sRGB, gamut clamp, WCAG contrast) lives in
-`scripts/preview-server.ts` and is injected at serve-time. The agent generates
-**only the clean styleguide** with swatch metadata; it never authors tuner HTML or
-JS. The server reads each `data-tune-swatch` swatch (`data-token`, `data-var`,
-`data-pair`, `data-original`) and builds one row per color:
+The engine (OKLCH ↔ sRGB, gamut clamp, WCAG contrast) lives in `scripts/preview-server.ts` and is injected at serve-time. The agent generates **only the clean styleguide** with swatch metadata; it never authors tuner HTML or JS. The server reads each `data-tune-swatch` swatch (`data-token`, `data-var`, `data-pair`, `data-original`) and builds one row per color:
 
 - **Current / New** — the original color (frozen) beside the live `var(--color-<key>)`, each with its WCAG ratio and AA / AAA / fail badge.
 - **Pairing sample** — an `Aa` specimen rendered in the actual pairing (a fill shows its text on the color; a text color shows the color on its surface), so the contrast target is visible, not just named.
 - **OKLCH sliders** — `L`, `C`, `H`, each with a reset to its original.
 - **Hex input** — optional, to set or paste an exact hex.
 
-Editing a control swaps `--color-<key>` on the document (cascading through every
-specimen), recomputes the paired contrast live, and records a `tune` event keyed
-by the token path. A skinned swatch (`data-token` with a skin segment) swaps the
-variable inside that skin's scoped block, leaving the root values untouched, and
-its `tune` event keys by the full skinned path. A **Commit** button in the panel
-records a `commit` event. All contrast is engine-computed — never hand-entered.
+Editing a control swaps `--color-<key>` on the document (cascading through every specimen), recomputes the paired contrast live, and records a `tune` event keyed by the token path. A skinned swatch (`data-token` with a skin segment) swaps the variable inside that skin's scoped block, leaving the root values untouched, and its `tune` event keys by the full skinned path. A **Commit** button in the panel records a `commit` event. All contrast is engine-computed — never hand-entered.
 
 ## Comment
 
-User alt+clicks any swatch or specimen in the served sheet. An overlay opens with
-a text input; on submit the client posts a `comment` event with the element's CSS
-`selector` and the `text`. Read `comment` events on the next turn, address each,
-and re-show the sheet.
+User alt+clicks any swatch or specimen in the served sheet. An overlay opens with a text input; on submit the client posts a `comment` event with the element's CSS `selector` and the `text`. Read `comment` events on the next turn, address each, and re-show the sheet.
 
 ## Commit Back to `DESIGN.md`
 
-Tuning is live-and-throwaway until the user commits. Commit-back does **not** write
-`DESIGN.md` here — it builds the patch list and hands it to
-[reconcile.md](reconcile.md), the single patcher of `DESIGN.md`.
+Tuning is live-and-throwaway until the user commits. Commit-back does **not** write `DESIGN.md` here — it builds the patch list and hands it to [reconcile.md](reconcile.md), the single patcher of `DESIGN.md`.
 
 ### Workflow
 
@@ -212,10 +169,7 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 
 ## Anti-Pattern: Writing `DESIGN.md` from Preview
 
-preview is a visual aid plus a diff producer. Patching `DESIGN.md` here would give
-the file a second writer and duplicate the surgical-patch discipline that
-`reconcile.md` already owns. The tuned deltas are reconcile's Mode B input — build
-the patch list, hand it over, let reconcile confirm, patch, and validate.
+preview is a visual aid plus a diff producer. Patching `DESIGN.md` here would give the file a second writer and duplicate the surgical-patch discipline that `reconcile.md` already owns. The tuned deltas are reconcile's Mode B input — build the patch list, hand it over, let reconcile confirm, patch, and validate.
 
 ## Error Handling
 

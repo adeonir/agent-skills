@@ -1,30 +1,20 @@
 # Design Doc
 
-A Google-style design doc: the technical design and the trade-offs behind it —
-lean and focused.
+A Google-style design doc: the technical design and the trade-offs behind it — lean and focused.
 
 ## When to Use
 
-When authoring or reconciling the technical design doc for a software project — the
-source of truth for technical strategy: how the system is built, why those
-choices were made, and which decisions have been formalized as ADRs. Write one
-when there are real technical decisions to weigh; keep it as short as the design
-allows.
+When authoring or reconciling the technical design doc for a software project — the source of truth for technical strategy: how the system is built, why those choices were made, and which decisions have been formalized as ADRs. Write one when there are real technical decisions to weigh; keep it as short as the design allows.
 
-**Boundary with PRD:** the design doc never reframes the product. Context recaps
-the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical
-(latency, throughput, isolation), not product (DAU, conversion, NPS).
+**Boundary with PRD:** the design doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS).
 
-**Boundary with ADR:** the design doc carries the design and the trade-offs
-behind it. ADRs carry the immutable record of individual accepted decisions. Both
-coexist and reference each other.
+**Boundary with ADR:** the design doc carries the design and the trade-offs behind it. ADRs carry the immutable record of individual accepted decisions. Both coexist and reference each other.
 
 ## When NOT to Write a Design Doc
 
 - The work is a trivial bug fix or single-line change
 - No meaningful technical decisions exist (no trade-offs, no architecture choices)
-- The project is too early to commit to any technical direction — capture as PRD
-  discovery, return when there is a technical stance to record
+- The project is too early to commit to any technical direction — capture as PRD discovery, return when there is a technical stance to record
 
 ## Workflow
 
@@ -33,24 +23,15 @@ artifact absent  → discovery → analysis → drafting
 artifact present → reconcile the delta (reconcile.md)
 ```
 
-Decide by whether `docs/tech/design-doc.md` exists. Absent → run the three
-discovery-through-drafting phases below. Present → reconcile: read it as input and
-work only the delta, per [reconcile.md](reconcile.md). Discovery covers four lean
-topics — context, the design, the trade-offs, and cross-cutting concerns. Analysis
-synthesizes findings and prepares the Record column for ADR linkage. Drafting runs
-the quality gates before writing.
+Decide by whether `docs/tech/design-doc.md` exists. Absent → run the three discovery-through-drafting phases below. Present → reconcile: read it as input and work only the delta, per [reconcile.md](reconcile.md). Discovery covers four lean topics — context, the design, the trade-offs, and cross-cutting concerns. Analysis synthesizes findings and prepares the Record column for ADR linkage. Drafting runs the quality gates before writing.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](discovery.md) for shared interview patterns and critical
-posture.
+Load [discovery.md](discovery.md) for shared interview patterns and critical posture.
 
 **Check Existing Context:**
 
-Look for an existing PRD at `docs/product/PRD.md` and ADRs at `docs/adr/`. Read
-them for context only — their tokens never cross verbatim into the design doc.
-Context recaps and links to the PRD; existing ADRs seed the Alternatives
-Considered Record column.
+Look for an existing PRD at `docs/product/PRD.md` and ADRs at `docs/adr/`. Read them for context only — their tokens never cross verbatim into the design doc. Context recaps and links to the PRD; existing ADRs seed the Alternatives Considered Record column.
 
 | PRD Section | Feeds Design Doc |
 |-------------|------------------|
@@ -75,15 +56,13 @@ If no PRD: open discovery with nothing to seed it.
 - No constraints → "What limits the design — stack, team, regulation?"
 - Goals product-shaped → "What's the technical target behind that KPI?"
 
-**Sufficient when:** clear technical framing with measurable goals and explicit
-non-goals.
+**Sufficient when:** clear technical framing with measurable goals and explicit non-goals.
 
 #### Topic 2: The Design
 
 **Opening questions:**
 
-- What is the high-level shape — components, boundaries, and how they fit the
-  surrounding system?
+- What is the high-level shape — components, boundaries, and how they fit the surrounding system?
 - What are the key pieces the design hinges on (data, interfaces, flows)?
 
 **Deepen when:**
@@ -91,8 +70,7 @@ non-goals.
 - Components ungrouped → "What does this own?"
 - The design is a list of tech with no shape → "How do the pieces relate?"
 
-**Sufficient when:** the design can be drawn (a component / system-context
-sketch) and its key pieces are named to the depth the decisions require — no more.
+**Sufficient when:** the design can be drawn (a component / system-context sketch) and its key pieces are named to the depth the decisions require — no more.
 
 #### Topic 3: Alternatives & Trade-offs
 
@@ -106,23 +84,20 @@ sketch) and its key pieces are named to the depth the decisions require — no m
 - A choice has no alternative → "Was anything else considered, or is this forced?"
 - Reasoning thin → "What's the trade-off you're accepting?"
 
-**Sufficient when:** each significant decision has its chosen / rejected /
-reasoning captured.
+**Sufficient when:** each significant decision has its chosen / rejected / reasoning captured.
 
 #### Topic 4: Cross-cutting Concerns
 
 **Opening questions:**
 
-- Which cross-cutting concerns actually shape this design — security/privacy,
-  observability, operations, testing?
+- Which cross-cutting concerns actually shape this design — security/privacy, observability, operations, testing?
 
 **Deepen when:**
 
 - A concern is named but has no design impact → drop it
 - A concern clearly matters but is hand-waved → "How does it change the design?"
 
-**Sufficient when:** the concerns that affect the design are addressed; the rest
-are left out (not marked N/A).
+**Sufficient when:** the concerns that affect the design are addressed; the rest are left out (not marked N/A).
 
 ### Phase 2: Analysis
 
@@ -133,27 +108,18 @@ Synthesize discovery into the design:
 3. For each alternative, set the `Record` column to `—` or `ADR-NNN`
 4. Present analysis to the user before drafting
 
-For key decisions, weigh axes like complexity vs. maintainability, performance
-vs. development speed, flexibility vs. simplicity, build vs. buy, lock-in vs.
-managed services.
+For key decisions, weigh axes like complexity vs. maintainability, performance vs. development speed, flexibility vs. simplicity, build vs. buy, lock-in vs. managed services.
 
 ### Phase 3: Drafting
 
-Use the template below. Run the gates in [quality.md](quality.md) before
-writing, then write the Design Doc to its path and report a brief prose summary
-in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do
-not paste the full document.
+Use the template below. Run the gates in [quality.md](quality.md) before writing, then write the Design Doc to its path and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
 
 **Drafting notes:**
 
-- Context is 1-2 paragraphs plus the PRD link — never recap Problem Statement,
-  Personas, or Journeys.
-- Goals are technical; translate product KPIs into technical targets ("support
-  10k concurrent users", not "grow DAU 30%").
-- The design describes itself to the depth the decisions need — no exhaustive
-  coverage checklist.
-- Alternatives Considered is the heart; the Record column defaults to `—` until
-  an ADR is created.
+- Context is 1-2 paragraphs plus the PRD link — never recap Problem Statement, Personas, or Journeys.
+- Goals are technical; translate product KPIs into technical targets ("support 10k concurrent users", not "grow DAU 30%").
+- The design describes itself to the depth the decisions need — no exhaustive coverage checklist.
+- Alternatives Considered is the heart; the Record column defaults to `—` until an ADR is created.
 - Mark unknowns as Open Questions rather than inventing technical answers.
 
 ## Design Doc Template
@@ -228,8 +194,7 @@ the rest out.}}
 - {{External documentation, RFCs, prior art}}
 ````
 
-MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs,
-or restated PRD prose — recap in 1-2 lines and link the PRD instead.
+MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs, or restated PRD prose — recap in 1-2 lines and link the PRD instead.
 
 ## Design Doc Schema
 
@@ -245,10 +210,7 @@ or restated PRD prose — recap in 1-2 lines and link the PRD instead.
 
 ## Sizing
 
-No tier-based sizing — Google's informal guidance: as long as the design needs,
-as short as it allows. A few decisions on a small service is a one-pager; a
-multi-service system with many trade-offs runs longer. The doc grows with the
-decisions, never with a section checklist.
+No tier-based sizing — Google's informal guidance: as long as the design needs, as short as it allows. A few decisions on a small service is a one-pager; a multi-service system with many trade-offs runs longer. The doc grows with the decisions, never with a section checklist.
 
 ## Guidelines
 
@@ -260,71 +222,42 @@ decisions, never with a section checklist.
 - Track ADR linkage via the Record column
 - Reconcile the doc when implementation reveals new structure or new decisions
 
-**On diagrams:** Mermaid throughout; a system-context diagram is highly
-recommended; ER or sequence diagrams when relationships or flows are non-trivial.
+**On diagrams:** Mermaid throughout; a system-context diagram is highly recommended; ER or sequence diagrams when relationships or flows are non-trivial.
 
 ## ADR Linkage
 
-When a decision in the Alternatives Considered table matures — the team commits
-to it, it has stakeholders beyond the authors, or future engineers will need it
-without re-reading the design doc — extract it into an ADR.
+When a decision in the Alternatives Considered table matures — the team commits to it, it has stakeholders beyond the authors, or future engineers will need it without re-reading the design doc — extract it into an ADR.
 
 Process:
 
-First check the row's `Record` column — if it already reads `ADR-NNN`, the
-decision is recorded and linked, the row is frozen, and there is nothing to
-reconcile; stop. Otherwise:
+First check the row's `Record` column — if it already reads `ADR-NNN`, the decision is recorded and linked, the row is frozen, and there is nothing to reconcile; stop. Otherwise:
 
 1. Create the ADR (see [adr.md](adr.md)). Number sequentially.
 2. Update the design doc row: set `Record` to `ADR-NNN`.
-3. The ADR's References section links back to the design doc's Alternatives
-   Considered section.
-4. The row is now frozen. Reversals create a superseding ADR and a new row,
-   never an edit to the original.
+3. The ADR's References section links back to the design doc's Alternatives Considered section.
+4. The row is now frozen. Reversals create a superseding ADR and a new row, never an edit to the original.
 
-Rows with `Record = —` remain editable — design-doc-only records of trade-offs
-explored along the way.
+Rows with `Record = —` remain editable — design-doc-only records of trade-offs explored along the way.
 
 ## Reconciling an Existing Design Doc
 
-Once `docs/tech/design-doc.md` exists, a re-run reconciles rather than regenerates:
-read it as input and scope the change to what actually moved — a new decision, a new
-component, a resolved open question, or structure that drifted from the
-implementation. Work that delta and leave the settled prose alone; a reconcile is not
-a rewrite, and it never pads the doc. Follow the procedure in
-[reconcile.md](reconcile.md); the design-doc specifics are below.
+Once `docs/tech/design-doc.md` exists, a re-run reconciles rather than regenerates: read it as input and scope the change to what actually moved — a new decision, a new component, a resolved open question, or structure that drifted from the implementation. Work that delta and leave the settled prose alone; a reconcile is not a rewrite, and it never pads the doc. Follow the procedure in [reconcile.md](reconcile.md); the design-doc specifics are below.
 
-Respect what is frozen. Alternatives Considered rows recorded as an ADR (`Record =
-ADR-NNN`) are immutable — reverse them with a superseding ADR and a new row, never
-an in-place edit (see the `## ADR Linkage` section above). The editable surface is
-the design prose, rows with `Record = —`, and Open Questions.
+Respect what is frozen. Alternatives Considered rows recorded as an ADR (`Record = ADR-NNN`) are immutable — reverse them with a superseding ADR and a new row, never an in-place edit (see the `## ADR Linkage` section above). The editable surface is the design prose, rows with `Record = —`, and Open Questions.
 
-Bump `updated` in the frontmatter, preserving `created`. The thing to catch is a
-change that contradicts a frozen decision or an untouched section.
+Bump `updated` in the frontmatter, preserving `created`. The thing to catch is a change that contradicts a frozen decision or an untouched section.
 
 ## Anti-Pattern: Implementation Manual Without Trade-offs
 
-A design doc that says "this is how we implement it" without alternatives,
-trade-offs, or rationale is not a design doc — it is a task list. The value is
-the reasoning behind each choice. If a decision has no meaningful trade-off,
-leave it out of Alternatives Considered; if no decision in the project has
-trade-offs, the project does not need a design doc.
+A design doc that says "this is how we implement it" without alternatives, trade-offs, or rationale is not a design doc — it is a task list. The value is the reasoning behind each choice. If a decision has no meaningful trade-off, leave it out of Alternatives Considered; if no decision in the project has trade-offs, the project does not need a design doc.
 
 ## Anti-Pattern: Product Prose in Technical Sections
 
-Context recaps the project in 1-2 paragraphs and links to the PRD — it does not
-restate the Problem Statement, list Personas, or walk through Journeys. Goals
-translate product NFRs into technical targets; they do not echo product KPIs. If
-a reviewer cannot tell whether they are reading the PRD or the design doc, cut
-and link.
+Context recaps the project in 1-2 paragraphs and links to the PRD — it does not restate the Problem Statement, list Personas, or walk through Journeys. Goals translate product NFRs into technical targets; they do not echo product KPIs. If a reviewer cannot tell whether they are reading the PRD or the design doc, cut and link.
 
 ## Anti-Pattern: Exhaustive Coverage
 
-A design doc is not a technical spec that fills every axis — testing strategy,
-deployment pipeline, observability dashboards, backup posture — whether or not
-the design hinges on them. Cover a concern only where it shapes the design or
-carries a real trade-off. Padding the doc with sections that have no decision
-behind them makes it the exhaustive spec a design doc is not.
+A design doc is not a technical spec that fills every axis — testing strategy, deployment pipeline, observability dashboards, backup posture — whether or not the design hinges on them. Cover a concern only where it shapes the design or carries a real trade-off. Padding the doc with sections that have no decision behind them makes it the exhaustive spec a design doc is not.
 
 ## Output
 

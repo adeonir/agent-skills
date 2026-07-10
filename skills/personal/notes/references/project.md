@@ -6,8 +6,7 @@ Create structured documentation for a project in the Obsidian vault.
 
 - User says "create project", "new project note", "document project"
 - User wants to track project scope or learnings
-- Depends on mapping output (`{VaultFolder}` resolution); load
-  [mapping.md](mapping.md) first
+- Depends on mapping output (`{VaultFolder}` resolution); load [mapping.md](mapping.md) first
 
 ## Workflow
 
@@ -18,8 +17,7 @@ Create structured documentation for a project in the Obsidian vault.
 
 2. **Generate folder and filename**
    - Folder: `{VaultFolder}/{Project Name}/` in Title Case
-   - Main file: `{Project Name} Overview.md` (filenames must be unique
-     across the vault for Obsidian wikilinks to work)
+   - Main file: `{Project Name} Overview.md` (filenames must be unique across the vault for Obsidian wikilinks to work)
 
 3. **Check if exists**
 
@@ -27,7 +25,7 @@ Create structured documentation for a project in the Obsidian vault.
    search_notes query="Checkout Refactor Overview" path="{VaultFolder}/"
    ```
 
-   If exists, ask to append, choose new name, or cancel.
+If exists, ask to append, choose new name, or cancel.
 
 4. **Compose content** using the template below.
 
@@ -83,9 +81,7 @@ without needing to ask.}}
 - [[{{Related Note}}]]
 ````
 
-Context prose between H1 and Goals is required. Goals is required. All
-other sections are optional — include only when the user mentions
-relevant content. Omit empty sections.
+Context prose between H1 and Goals is required. Goals is required. All other sections are optional — include only when the user mentions relevant content. Omit empty sections.
 
 ## Output Path
 

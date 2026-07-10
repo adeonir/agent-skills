@@ -4,8 +4,7 @@ Structured note creation for Obsidian using MCPVault MCP.
 
 ## What It Does
 
-Creates and manages documentation in the Obsidian vault with consistent
-structure across five note types:
+Creates and manages documentation in the Obsidian vault with consistent structure across five note types:
 
 - **Projects** — Full project documentation (overview, goals, architecture)
 - **Challenges** — Technical interview challenges (take-homes, system design)
@@ -73,18 +72,10 @@ Vault/
 
 **Q: How do filenames handle special characters?**
 A: Invalid characters (`/ \ : * ? " < > |`) are removed; accented
-characters are replaced with ASCII equivalents. All filenames are Title
-Case.
+characters are replaced with ASCII equivalents. All filenames are Title Case.
 
-**Q: What if a note with the same name exists?**
-A: The skill detects duplicates via `search_notes` and asks whether to
-append, choose a new name, or cancel.
+**Q: What if a note with the same name exists?** A: The skill detects duplicates via `search_notes` and asks whether to append, choose a new name, or cancel.
 
-**Q: Can the skill update existing notes?**
-A: Yes. `read_note` + `patch_note` updates existing notes in place.
-Templates apply only to new note creation.
+**Q: Can the skill update existing notes?** A: Yes. `read_note` + `patch_note` updates existing notes in place. Templates apply only to new note creation.
 
-**Q: How are wikilinks validated?**
-A: Before adding a wikilink, the skill verifies the target file exists.
-Orphan wikilinks (pointing to missing files) create empty files at the
-vault root and are avoided.
+**Q: How are wikilinks validated?** A: Before adding a wikilink, the skill verifies the target file exists. Orphan wikilinks (pointing to missing files) create empty files at the vault root and are avoided.

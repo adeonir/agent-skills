@@ -96,20 +96,14 @@ The roadmap lives in the committed doc `docs/ROADMAP.md`, separate from `.artifa
 
 ## FAQ
 
-**Q: Do I have to use a tracker?**
-A: No. Without a tracker configured (`epic-tracker.kind: none` or unset), markdown in `.artifacts/epics/` is the source of truth. All workflows work without an external system.
+**Q: Do I have to use a tracker?** A: No. Without a tracker configured (`epic-tracker.kind: none` or unset), markdown in `.artifacts/epics/` is the source of truth. All workflows work without an external system.
 
-**Q: Am I asked before every push?**
-A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" pushes even when the config says `none`, and "save this locally" skips the push even when a tracker is configured. Neither rewrites the config; only `configure tracker` does.
+**Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" pushes even when the config says `none`, and "save this locally" skips the push even when a tracker is configured. Neither rewrites the config; only `configure tracker` does.
 
-**Q: How do I switch trackers?**
-A: Run `configure tracker`. Bootstrap re-detects available MCPs/CLIs and updates git config. Existing artifacts keep their `tracker.id` from the previous tracker; you can manually attach to the new tracker by editing the frontmatter or by re-creating the artifact.
+**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects available MCPs/CLIs and updates git config. Existing artifacts keep their `tracker.id` from the previous tracker; you can manually attach to the new tracker by editing the frontmatter or by re-creating the artifact.
 
-**Q: What happens when I push and the tracker is unavailable?**
-A: The push fails, your markdown stays untouched, and the skill suggests retry. No partial state is left in the tracker.
+**Q: What happens when I push and the tracker is unavailable?** A: The push fails, your markdown stays untouched, and the skill suggests retry. No partial state is left in the tracker.
 
-**Q: Why are stories numbered (`001-story-name.md`)?**
-A: The numeric prefix gives a stable order within an epic folder. The prefix is filename-only — the artifact's `name` field stays clean (`story-name`).
+**Q: Why are stories numbered (`001-story-name.md`)?** A: The numeric prefix gives a stable order within an epic folder. The prefix is filename-only — the artifact's `name` field stays clean (`story-name`).
 
-**Q: Can a bug or task exist outside an epic?**
-A: Yes. Standalone bugs and tasks live in `.artifacts/epics/standalone/`. When the work later grows into a thematic epic, you can move and re-link.
+**Q: Can a bug or task exist outside an epic?** A: Yes. Standalone bugs and tasks live in `.artifacts/epics/standalone/`. When the work later grows into a thematic epic, you can move and re-link.

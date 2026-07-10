@@ -1,10 +1,6 @@
 # AC Validation
 
-Enforce Given/When/Then 1:1 acceptance criteria on Story create and on
-edits that change AC text. Strict, atomic blocks keep each AC testable
-and let it reshape cleanly downstream; a compound or malformed AC is
-ambiguous to anything that consumes it, and an over-specified one
-silently narrows what the story would have accepted.
+Enforce Given/When/Then 1:1 acceptance criteria on Story create and on edits that change AC text. Strict, atomic blocks keep each AC testable and let it reshape cleanly downstream; a compound or malformed AC is ambiguous to anything that consumes it, and an over-specified one silently narrows what the story would have accepted.
 
 ## When to Use
 
@@ -12,15 +8,11 @@ silently narrows what the story would have accepted.
 - Auto-loaded by `story.md`'s edit branch when an edit changes AC text
 - Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
 
-This ref is the single home for the AC contract. Do not duplicate the
-rules in `story.md` -- its create and edit paths load this ref at the
-validation step.
+This ref is the single home for the AC contract. Do not duplicate the rules in `story.md` -- its create and edit paths load this ref at the validation step.
 
 ## AC Schema
 
-Each AC is a `### AC-N` markdown heading followed by three bold-labeled
-list items, one per line, plus an optional `**Satisfies**` line. No
-compound clauses.
+Each AC is a `### AC-N` markdown heading followed by three bold-labeled list items, one per line, plus an optional `**Satisfies**` line. No compound clauses.
 
 ```markdown
 ### AC-1
@@ -37,8 +29,7 @@ Rules:
 - Each AC has a stable id (`AC-1`, `AC-2`, ...; dash-separated, no zero-padding).
 - IDs unique within the Story.
 - Strings non-empty for all three required fields.
-- `**Satisfies**` is optional; when present it names exactly one
-  requirement id matching `FR/BR/EC/NFR-<n>` — a single id, never a list.
+- `**Satisfies**` is optional; when present it names exactly one requirement id matching `FR/BR/EC/NFR-<n>` — a single id, never a list.
 
 ## Workflow
 
@@ -53,13 +44,9 @@ Extract the AC section from the Story body, plus the Summary that V9 calibrates 
 - For each block, read until the next `### ` or the end of the section.
 - Within a block, find lines matching `**Given** {value}`, `**When** {value}`, `**Then** {value}`, and an optional `**Satisfies** {value}` (case-insensitive bold label, whitespace-tolerant).
 
-Tolerate tracker normalization: trailing whitespace, blank lines between
-blocks, single vs double newlines around headings. Linear occasionally
-reflows paragraphs; the parser must not break on these.
+Tolerate tracker normalization: trailing whitespace, blank lines between blocks, single vs double newlines around headings. Linear occasionally reflows paragraphs; the parser must not break on these.
 
-Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies`
-null when the line is absent) plus any malformed blocks (those that
-didn't yield all three required fields) and the Summary text.
+Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies` null when the line is absent) plus any malformed blocks (those that didn't yield all three required fields) and the Summary text.
 
 ### 2. Validate
 
@@ -79,32 +66,13 @@ Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
 
 V6 red-word list:
 
-`feel`, `feels`, `intuitive`, `clean`, `nice`, `elegant`, `seamless`,
-`smooth`, `natural`, `obvious`, `simple` (when used as a quality
-adjective, not a count).
+`feel`, `feels`, `intuitive`, `clean`, `nice`, `elegant`, `seamless`, `smooth`, `natural`, `obvious`, `simple` (when used as a quality adjective, not a count).
 
-V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not
-hard-reject, because single-sentence assertions can legitimately use
-`and` (e.g., "modal appears and account is not deleted until confirmed").
-The confirm forces the atomicity decision — split a genuine two-assertion
-Then into separate AC, or confirm a single assertion — so every AC that
-passes is atomic and reshapes 1:1 into the spec's EARS-lite form
-downstream. A duplicate `**Then**` line under one block is always
-hard-strict.
+V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject, because single-sentence assertions can legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
 
-V9 (the calibration heuristic) is confirm-to-continue for the same
-reason: an AC may legitimately be stricter than its Summary, when the
-strictness is deliberate. What it catches is the AC that promises more
-than the story owes — a Then naming *when*, *how many*, *at what
-threshold*, or *by what mechanism* where the Summary names only the
-outcome. The extra strength
-forbids implementations the story would have accepted, and no other rule
-sees it: V2 checks the three fields are present, V6 checks the Then is
-observable, and an over-specified Then is both. The leak is in the
-clause's strength, not its vocabulary.
+V9 (the calibration heuristic) is confirm-to-continue for the same reason: an AC may legitimately be stricter than its Summary, when the strictness is deliberate. What it catches is the AC that promises more than the story owes — a Then naming *when*, *how many*, *at what threshold*, or *by what mechanism* where the Summary names only the outcome. The extra strength forbids implementations the story would have accepted, and no other rule sees it: V2 checks the three fields are present, V6 checks the Then is observable, and an over-specified Then is both. The leak is in the clause's strength, not its vocabulary.
 
-The anchor is the Summary, never the `Satisfies` requirement — this ref
-holds that requirement's id, not its text (see Satisfies linkage below).
+The anchor is the Summary, never the `Satisfies` requirement — this ref holds that requirement's id, not its text (see Satisfies linkage below).
 
 ### 3. Report
 
@@ -134,11 +102,7 @@ On V6 (warn-only):
 AC-{id} warning V6: Then uses non-observable language: "{word}". Suggest rephrasing as an observable outcome (e.g., "modal appears", "redirect to /login"). Continue anyway? [y/N]
 ```
 
-Default Y. The user may keep the wording; the warning is informational
-and does not block. The rewrite names the observable the vague adjective
-stands for — it never adds a bound the requirement did not state. A
-timing, a count, or a threshold enters an AC only when the requirement
-asks for one.
+Default Y. The user may keep the wording; the warning is informational and does not block. The rewrite names the observable the vague adjective stands for — it never adds a bound the requirement did not state. A timing, a count, or a threshold enters an AC only when the requirement asks for one.
 
 On V4 (`and`-joined Then, confirm-to-continue):
 
@@ -146,9 +110,7 @@ On V4 (`and`-joined Then, confirm-to-continue):
 AC-{id} V4 check: Then joins two assertions with "and": "{then}". Two outcomes -> split into AC-{id} and a new AC. Single assertion -> keep. [split/keep]
 ```
 
-Default keep. A split routes back to add the second AC; keep records a
-single-assertion confirmation so the AC stays atomic for the downstream
-1:1 reshape.
+Default keep. A split routes back to add the second AC; keep records a single-assertion confirmation so the AC stays atomic for the downstream 1:1 reshape.
 
 On V9 (over-specification, confirm-to-continue):
 
@@ -156,50 +118,30 @@ On V9 (over-specification, confirm-to-continue):
 AC-{id} V9 check: Then asserts "{clause}", which the Summary does not require. Loosen it to the outcome the story owes, or confirm the strictness as a deliberate constraint. [loosen/keep]
 ```
 
-Default keep. A loosen routes back to redraft the Then; keep records the
-extra strictness as deliberate. V9 never blocks — a confirmed constraint
-is a decision, and an unexamined one is what this rule exists to prevent.
+Default keep. A loosen routes back to redraft the Then; keep records the extra strictness as deliberate. V9 never blocks — a confirmed constraint is a decision, and an unexamined one is what this rule exists to prevent.
 
-If any strict rule fails: do not proceed to save or push. The caller
-(`story.md` Step 3 or its edit branch) loops back to
-review until the user fixes the AC.
+If any strict rule fails: do not proceed to save or push. The caller (`story.md` Step 3 or its edit branch) loops back to review until the user fixes the AC.
 
 ## Satisfies linkage
 
-V8 checks the shape of a `**Satisfies**` value. Two further relations hold
-across the epic↔story boundary — neither parsed here (this ref reads the
-story's AC section in isolation), both owned by the create/edit flow that
-has the parent epic in hand:
+V8 checks the shape of a `**Satisfies**` value. Two further relations hold across the epic↔story boundary — neither parsed here (this ref reads the story's AC section in isolation), both owned by the create/edit flow that has the parent epic in hand:
 
-- **Link validity** — a present `Satisfies` references a requirement the
-  parent epic declares in its `## Requirements`. `story.md` checks this
-  when the parent epic is loaded; a dangling id routes back to fix.
-- **Requirement coverage** — every requirement the epic declares is
-  operationalized by ≥1 AC `Satisfies` across its child stories. This is
-  an epic-level relationship, documented not gated.
+- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. `story.md` checks this when the parent epic is loaded; a dangling id routes back to fix.
+- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. This is an epic-level relationship, documented not gated.
 
-`Satisfies` stays optional per AC: an AC may be implied quality with no
-backing requirement. What is enforced is shape (V8); the two relations
-above hold upstream.
+`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What is enforced is shape (V8); the two relations above hold upstream.
 
-This is also why V9 calibrates against the Summary rather than the
-requirement: the requirement's text is not in scope here, only its id.
-The Summary is present on every story, and an AC with no `Satisfies` — the
-one most likely to over-specify, since nothing upstream constrained it —
-still has an outcome to be measured against.
+This is also why V9 calibrates against the Summary rather than the requirement: the requirement's text is not in scope here, only its id. The Summary is present on every story, and an AC with no `Satisfies` — the one most likely to over-specify, since nothing upstream constrained it — still has an outcome to be measured against.
 
 ## Read-path tolerance
 
 Read paths do not invoke this ref:
 
-- Pull from tracker (`sync.md` Pull Direction) -- legacy bodies may carry
-  pre-Gherkin AC; the implementation consumer decides how to handle them.
+- Pull from tracker (`sync.md` Pull Direction) -- legacy bodies may carry pre-Gherkin AC; the implementation consumer decides how to handle them.
 - Read-only navigation from epic checklist -- no validation runs.
 - Status and overview reads -- no body inspection.
 
-Stories created before this ref existed are not retroactively validated.
-Edits that do not change AC text also skip validation (see `story.md`'s
-edit branch).
+Stories created before this ref existed are not retroactively validated. Edits that do not change AC text also skip validation (see `story.md`'s edit branch).
 
 ## Guidelines
 

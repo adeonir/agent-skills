@@ -1,7 +1,6 @@
 # Report Bug
 
-Document a defect with structured reproduction steps, severity, and
-environment context.
+Document a defect with structured reproduction steps, severity, and environment context.
 
 ## When to Use
 
@@ -20,23 +19,17 @@ environment context.
 
 ### 1. Parse Pasted Context
 
-If the user pasted context (logs, error reports, dashboard
-screenshots, runbook output, monitoring data, conversation excerpts):
+If the user pasted context (logs, error reports, dashboard screenshots, runbook output, monitoring data, conversation excerpts):
 
 1. **Extract signals** — pull out and structure:
-   - Links: deployment URLs, error tracker issue URLs,
-     observability/dashboard URLs, repo URLs
-   - Identifiers: request id, trace id, deployment id, commit hash,
-     user id
+   - Links: deployment URLs, error tracker issue URLs, observability/dashboard URLs, repo URLs
+   - Identifiers: request id, trace id, deployment id, commit hash, user id
    - Timestamps: when the error occurred, when first observed
    - Environment: production/staging/local, runtime, version
-   - Stack trace and error message verbatim (keep in Signals, not
-     Summary)
+   - Stack trace and error message verbatim (keep in Signals, not Summary)
 2. **Populate frontmatter `sources`** with every URL or id detected
-3. **Infer what you can** for severity (impact described?), repro
-   (steps mentioned?), workaround (mitigation mentioned?)
-4. **Ask only for gaps** — do not re-ask for fields already in the
-   paste
+3. **Infer what you can** for severity (impact described?), repro (steps mentioned?), workaround (mitigation mentioned?)
+4. **Ask only for gaps** — do not re-ask for fields already in the paste
 
 If no context was pasted, proceed to step 2 and ask for all fields.
 
@@ -44,13 +37,10 @@ If no context was pasted, proceed to step 2 and ask for all fields.
 
 Ask the user for (skip what's already provided or inferred):
 
-1. **What happened vs what should happen** -- expected and actual
-   behavior
+1. **What happened vs what should happen** -- expected and actual behavior
 2. **Steps to reproduce** -- ordered steps to trigger the bug
-3. **Severity** -- critical (system down), high (major feature broken),
-   medium (workaround exists), low (cosmetic/minor)
-4. **Environment** -- browser, OS, device, app version, environment
-   (optional, ask only if relevant)
+3. **Severity** -- critical (system down), high (major feature broken), medium (workaround exists), low (cosmetic/minor)
+4. **Environment** -- browser, OS, device, app version, environment (optional, ask only if relevant)
 5. **Workaround** -- any known mitigation
 6. **Related epic** -- which epic this bug belongs to, if any
 
@@ -64,49 +54,23 @@ Ask the user for (skip what's already provided or inferred):
 
 Fill the template (below):
 
-- **Name**: kebab-case, descriptive (`broken-pix-redirect`,
-  `login-timeout-error`)
-- **Title**: short human-readable phrase describing the defect,
-  slug-safe. No commands, flags, file paths, parentheses, brackets, or
-  pipes — becomes branch name slug downstream. Declarative — names the
-  defect (`Login fails with expired token`), never a narrative of the
-  fix or its outcome (`Users stay logged in after token refresh`). The
-  name is translated from its source, not copied: strip any borrowed
-  token — reference or ticket codes, section numbers, code
-  identifiers, document or sibling-artifact names — which travel in
-  References or the body, never the title. The title maps to the
-  tracker's summary field on push; outcome prose lives only in the
-  body's Summary section.
+- **Name**: kebab-case, descriptive (`broken-pix-redirect`, `login-timeout-error`)
+- **Title**: short human-readable phrase describing the defect, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the defect (`Login fails with expired token`), never a narrative of the fix or its outcome (`Users stay logged in after token refresh`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field on push; outcome prose lives only in the body's Summary section.
 - **Epic**: parent epic name, or omit for standalone bugs
 - **Type**: always `bug`
 - **Status**: always starts as `planned`
 - **Severity**: critical, high, medium, or low
 - **Description**: expected vs actual behavior, impact statement
-- **Signals**: forensic data from logs/dashboards — links, ids,
-  timestamps, error excerpts; populate from pasted context, omit if
-  empty
+- **Signals**: forensic data from logs/dashboards — links, ids, timestamps, error excerpts; populate from pasted context, omit if empty
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
-- **Blocked by**: work that must finish before this bug can be fixed,
-  listed in frontmatter `blocked_by` by path; leave empty when nothing
-  blocks it.
+- **Blocked by**: work that must finish before this bug can be fixed, listed in frontmatter `blocked_by` by path; leave empty when nothing blocks it.
 - **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
-**Declare, don't narrate.** The collected answers and pasted context
-are input, never content. The body states standing facts in present
-tense: `Login fails with an expired token`, never `the user reported
-that login was failing`. Strip conversation narrative — "as discussed",
-"the user confirmed" — and decision history; facts extracted from the
-paste enter as standing statements, verbatim evidence belongs in
-Signals.
+**Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: `Login fails with an expired token`, never `the user reported that login was failing`. Strip conversation narrative — "as discussed", "the user confirmed" — and decision history; facts extracted from the paste enter as standing statements, verbatim evidence belongs in Signals.
 
-**Translate, don't replicate.** Sources (logs, dashboards, PRs, design
-doc, ADR, epic) stay read-only. Extract only what maps to this defect,
-then translate into its own language: strip reference and ticket codes,
-`§x.x` section numbers, code identifiers, document and sibling-artifact
-names. The bug carries the facts, not the source's tokens — reference
-codes travel in References, verbatim evidence in Signals.
+**Translate, don't replicate.** Sources (logs, dashboards, PRs, design doc, ADR, epic) stay read-only. Extract only what maps to this defect, then translate into its own language: strip reference and ticket codes, `§x.x` section numbers, code identifiers, document and sibling-artifact names. The bug carries the facts, not the source's tokens — reference codes travel in References, verbatim evidence in Signals.
 
 Apply the resumption gate before proceeding:
 
@@ -117,21 +81,14 @@ Apply the resumption gate before proceeding:
 ### 5. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Load [sync.md](sync.md) and dispatch using the draft content; the adapter
-  adds `bug` label and severity labels — no markdown file is created
-- User asked to keep it local: save to
-  `.artifacts/epics/{epic-name}/{bug-name}.md` or
-  `.artifacts/epics/standalone/{bug-name}.md`
+- Load [sync.md](sync.md) and dispatch using the draft content; the adapter adds `bug` label and severity labels — no markdown file is created
+- User asked to keep it local: save to `.artifacts/epics/{epic-name}/{bug-name}.md` or `.artifacts/epics/standalone/{bug-name}.md`
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
-- Save to `.artifacts/epics/{epic-name}/{bug-name}.md` or
-  `.artifacts/epics/standalone/{bug-name}.md`
-- User named a tracker: load [sync.md](sync.md) and dispatch to that
-  tracker's adapter
+- Save to `.artifacts/epics/{epic-name}/{bug-name}.md` or `.artifacts/epics/standalone/{bug-name}.md`
+- User named a tracker: load [sync.md](sync.md) and dispatch to that tracker's adapter
 
-An explicit destination in the user's request overrides the configured
-`kind` for this artifact only; it never rewrites the config. See
-[sync.md](sync.md) "Explicit Override".
+An explicit destination in the user's request overrides the configured `kind` for this artifact only; it never rewrites the config. See [sync.md](sync.md) "Explicit Override".
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
@@ -190,7 +147,7 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 - **Error excerpt:**
 
   ```
-  {{stack trace or error message verbatim}}
+{{stack trace or error message verbatim}}
   ```
 
 ## Expected
@@ -238,8 +195,6 @@ mirrors these links for sync (markdown only, absent in tracker mode).
 
 ## Error Handling
 
-- User can't provide reproduction steps: document what's known, mark
-  as "intermittent" in the description
+- User can't provide reproduction steps: document what's known, mark as "intermittent" in the description
 - Severity unclear: default to medium, flag for user review
-- Duplicate bug suspected: show existing bugs in the same epic, ask
-  if this is a duplicate
+- Duplicate bug suspected: show existing bugs in the same epic, ask if this is a duplicate

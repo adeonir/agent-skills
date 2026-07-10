@@ -1,7 +1,6 @@
 # Quality Standards
 
-Quality gates for requirements and document integrity before writing
-any document to disk.
+Quality gates for requirements and document integrity before writing any document to disk.
 
 ## When to Use
 
@@ -27,10 +26,7 @@ Before writing any document to disk, verify:
 - [ ] Cross-references to other docs are valid
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
-**If any gate fails — here or in the type-specific gates below — fix it inline,
-re-verify that gate, and only then write.** This applies whether the document was
-discovered fresh or reconciled; a reconcile that touched only part of a doc still
-re-verifies the gate set against the result.
+**If any gate fails — here or in the type-specific gates below — fix it inline, re-verify that gate, and only then write.** This applies whether the document was discovered fresh or reconciled; a reconcile that touched only part of a doc still re-verifies the gate set against the result.
 
 ## ADR-Specific Gates
 
@@ -42,54 +38,33 @@ When the document is an ADR, additionally verify:
 - [ ] Consequences include both positive AND negative outcomes
 - [ ] At least one alternative is recorded with a rejection reason
 - [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
-- [ ] When superseding, frontmatter `supersedes` and prior ADR's
-      `superseded-by` are both populated
+- [ ] When superseding, frontmatter `supersedes` and prior ADR's `superseded-by` are both populated
 
 ## Document Boundaries
 
-Applies to PRD and Design Doc. Each document stays in its lane;
-cross-doc content links rather than duplicates.
+Applies to PRD and Design Doc. Each document stays in its lane; cross-doc content links rather than duplicates.
 
 **When the document is a PRD, verify:**
 
-- [ ] No architecture, tech stack, framework choices, or deployment
-      topology — those belong to the Design Doc
-- [ ] No API contracts, endpoint paths, request/response shapes, or
-      database schema details
-- [ ] No UI component names, library references, or styling
-      directives — those belong to the design artifact
-- [ ] Journeys describe actor goals and product behavior, not
-      implementation steps ("user submits the form" not "POST
-      /orders with payload X")
-- [ ] NFRs state measurable targets without prescribing the
-      mechanism ("p95 latency under 200ms" not "use Redis caching")
-- [ ] Executive Summary is a requirements digest (problem, scope,
-      metric) — no positioning (What/Why/Who, personality,
-      anti-references), which lives in PRODUCT
+- [ ] No architecture, tech stack, framework choices, or deployment topology — those belong to the Design Doc
+- [ ] No API contracts, endpoint paths, request/response shapes, or database schema details
+- [ ] No UI component names, library references, or styling directives — those belong to the design artifact
+- [ ] Journeys describe actor goals and product behavior, not implementation steps ("user submits the form" not "POST /orders with payload X")
+- [ ] NFRs state measurable targets without prescribing the mechanism ("p95 latency under 200ms" not "use Redis caching")
+- [ ] Executive Summary is a requirements digest (problem, scope, metric) — no positioning (What/Why/Who, personality, anti-references), which lives in PRODUCT
 
 **When the document is a Design Doc, verify:**
 
-- [ ] Sections 1-2 carry no copy-paste from PRD — Context recaps in
-      1-2 paragraphs and links to PRD; does not duplicate Problem
-      Statement, Personas, or Journeys
-- [ ] Section 2 Goals are technical (p99 latency, throughput, SLAs,
-      zero-downtime, isolation guarantees) — not product (DAU,
-      conversion, NPS, retention)
+- [ ] Sections 1-2 carry no copy-paste from PRD — Context recaps in 1-2 paragraphs and links to PRD; does not duplicate Problem Statement, Personas, or Journeys
+- [ ] Section 2 Goals are technical (p99 latency, throughput, SLAs, zero-downtime, isolation guarantees) — not product (DAU, conversion, NPS, retention)
 - [ ] Business rules referenced from PRD via link, not restated
-- [ ] No product framing prose ("users will love...", "this drives
-      engagement...") in any section
+- [ ] No product framing prose ("users will love...", "this drives engagement...") in any section
 
 ## Design Doc-Specific Gates
 
 When the document is a Design Doc, additionally verify:
 
-- [ ] Every significant decision in Alternatives Considered carries its
-      chosen / rejected / reasoning — the doc reasons, it does not just
-      prescribe
-- [ ] Alternatives Considered Record column populated where an ADR exists;
-      rows with `ADR-NNN` are frozen (reversals require a superseding ADR,
-      not a row edit)
-- [ ] Context recaps in 1-2 paragraphs and links the PRD — no restated
-      Problem Statement, Personas, or Journeys
-- [ ] Cross-cutting concerns appear only where they shape the design — no
-      exhaustive coverage of axes with no decision behind them
+- [ ] Every significant decision in Alternatives Considered carries its chosen / rejected / reasoning — the doc reasons, it does not just prescribe
+- [ ] Alternatives Considered Record column populated where an ADR exists; rows with `ADR-NNN` are frozen (reversals require a superseding ADR, not a row edit)
+- [ ] Context recaps in 1-2 paragraphs and links the PRD — no restated Problem Statement, Personas, or Journeys
+- [ ] Cross-cutting concerns appear only where they shape the design — no exhaustive coverage of axes with no decision behind them

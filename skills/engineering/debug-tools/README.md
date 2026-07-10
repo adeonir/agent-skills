@@ -52,24 +52,12 @@ cleanup debug statements
 
 ## FAQ
 
-**Q: When should I use debug-tools vs static code review?**
-A: Use debug-tools for runtime issues and unexpected behavior. Use code
-review for static analysis of code changes.
+**Q: When should I use debug-tools vs static code review?** A: Use debug-tools for runtime issues and unexpected behavior. Use code review for static analysis of code changes.
 
-**Q: What if the first fix doesn't work?**
-A: The workflow loops back to investigation with new evidence. After 3
-failed attempts, it escalates to architectural review instead of retrying
-the same approach.
+**Q: What if the first fix doesn't work?** A: The workflow loops back to investigation with new evidence. After 3 failed attempts, it escalates to architectural review instead of retrying the same approach.
 
-**Q: Are debug logs left in my code?**
-A: No. Cleanup is automatic after fix verification. You can also request
-cleanup anytime.
+**Q: Are debug logs left in my code?** A: No. Cleanup is automatic after fix verification. You can also request cleanup anytime.
 
-**Q: Do I need specific tools for this to work?**
-A: No. The skill adapts to whatever tools are available. Runtime
-inspection and browser debugging tools enhance the experience but are
-not required.
+**Q: Do I need specific tools for this to work?** A: No. The skill adapts to whatever tools are available. Runtime inspection and browser debugging tools enhance the experience but are not required.
 
-**Q: What confidence score is considered "good enough" to propose a fix?**
-A: ≥70 with clear evidence. Lower scores suggest adding logs to gather
-more data.
+**Q: What confidence score is considered "good enough" to propose a fix?** A: ≥70 with clear evidence. Lower scores suggest adding logs to gather more data.

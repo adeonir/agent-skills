@@ -1,38 +1,23 @@
 # Write Obsidian Notes
 
-Create session notes in the project folder and update the daily note
-using MCPVault MCP tools directly.
+Create session notes in the project folder and update the daily note using MCPVault MCP tools directly.
 
 ## When to Use
 
 - Obsidian session note: when `obsidian.path` is not `--`
 - Daily note: always (even when session note is skipped)
 - Runs after the handoff Load phase
-- Depends on mapping output (Obsidian path, base tags) and on the
-  handoff Load phase (all snapshots folded, grouped by date — Findings
-  → Findings, Decisions → Decisions, Next step + Open threads → Next)
+- Depends on mapping output (Obsidian path, base tags) and on the handoff Load phase (all snapshots folded, grouped by date — Findings → Findings, Decisions → Decisions, Next step + Open threads → Next)
 
 ## Obsidian Syntax Rules
 
-Obsidian notes render for humans (Graph view, daily review, Dataview).
-Keep notes brief and scannable — prose narrative up front, structured
-sections below, typed relations for graph edges.
+Obsidian notes render for humans (Graph view, daily review, Dataview). Keep notes brief and scannable — prose narrative up front, structured sections below, typed relations for graph edges.
 
 - **Frontmatter**: YAML with `title`, `type`, `tags`
-- **Observations**: daily notes only. Bullets under `## Observations`
-  formatted as `- #category content`. Category is free-form (examples:
-  `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood` — day-level
-  cross-cutting facts). Use `#hashtags`, not `[brackets]`.
-  Session notes do not have an Observations section.
-- **Relations**: typed verb + wikilink under `## Relations`:
-  `- follows [[Target]]`. Common types: `follows`, `part_of`, `expands`,
-  `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`,
-  `extends`, `depends_on`. Inline `[[wikilinks]]` in prose cover ordinary
-  mentions; the Relations section holds typed edges that add graph value.
-- **Wikilinks**: only to existing notes or entity files. Orphan links
-  create empty files at the vault root — verify before linking.
-- **H1 heading**: all notes omit the body `# H1` — the frontmatter
-  `title` is the canonical heading. Top-level body sections start at `##`.
+- **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood` — day-level cross-cutting facts). Use `#hashtags`, not `[brackets]`. Session notes do not have an Observations section.
+- **Relations**: typed verb + wikilink under `## Relations`: `- follows [[Target]]`. Common types: `follows`, `part_of`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Inline `[[wikilinks]]` in prose cover ordinary mentions; the Relations section holds typed edges that add graph value.
+- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify before linking.
+- **H1 heading**: all notes omit the body `# H1` — the frontmatter `title` is the canonical heading. Top-level body sections start at `##`.
 
 ## Audience and Reference Discipline
 
@@ -42,9 +27,7 @@ Session and daily notes target different audiences. The split is rigid.
 
 - Reader: stakeholder or future-you scanning what moved
 - Refer to projects and features by human-readable name only
-- Forbidden in body: PR numbers, issue numbers, local spec/story/task
-  IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands,
-  branch names, commit hashes
+- Forbidden in body: PR numbers, issue numbers, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch names, commit hashes
 - Outcomes in prose; do not restate session technical detail
 
 **Session — technical, durable detail:**
@@ -52,12 +35,9 @@ Session and daily notes target different audiences. The split is rigid.
 - Reader: future-you continuing the work
 - Durable refs allowed: PR `#N`, Issue `#N`
 - Technical detail allowed: file paths, commands, `file:line`
-- Local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) forbidden
-  everywhere — spec artifacts are ephemeral; the spec folder may be
-  deleted, leaving the ID as dead reference
+- Local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) forbidden everywhere — spec artifacts are ephemeral; the spec folder may be deleted, leaving the ID as dead reference
 
-When no durable ref exists, use the feature or project name in prose
-(`Branding copy skill`, not `F-022`).
+When no durable ref exists, use the feature or project name in prose (`Branding copy skill`, not `F-022`).
 
 ## Filename Sanitization
 
@@ -85,32 +65,20 @@ Always search before creating to avoid duplicates.
 
 ### 0. Enrich working context
 
-Run before composing notes. When the claude-mem MCP is available
-(`mcp__plugin_claude-mem_mcp-search__*`), query for **current-session**
-observations relevant to the resolved project. Fold matches into
-working context so mid-session detail that scrolled out is recovered
-before composition.
+Run before composing notes. When the claude-mem MCP is available (`mcp__plugin_claude-mem_mcp-search__*`), query for **current-session** observations relevant to the resolved project. Fold matches into working context so mid-session detail that scrolled out is recovered before composition.
 
 **Scoping rules (mandatory — do not pollute working context):**
 
 - **Time**: current session window only — exclude prior sessions
-- **Topic**: filter by project name and the threads already active in
-  the wrap-up; skip parallel unrelated topics from the same session
+- **Topic**: filter by project name and the threads already active in the wrap-up; skip parallel unrelated topics from the same session
 - **Budget**: top 5-10 most relevant observations, no broad sweeps
 - **Fallback**: silent skip when MCP unavailable or returns nothing
 
-The goal is recovering lost session detail before composing executive
-narrative — not importing history or adjacent threads. Notes stay
-human-readable: observation IDs do not enter note bodies, consistent
-with the no-commit-hashes rule.
+The goal is recovering lost session detail before composing executive narrative — not importing history or adjacent threads. Notes stay human-readable: observation IDs do not enter note bodies, consistent with the no-commit-hashes rule.
 
 ### Per-date handling
 
-The handoff Load phase groups loaded snapshots by date. When the
-snapshots span multiple dates, run steps 1-2 once **per date group**:
-each date gets its own session note(s) and its own daily note, folding
-only that date's blocks. A single date is the common case — treat
-multi-date as the exception, not the default.
+The handoff Load phase groups loaded snapshots by date. When the snapshots span multiple dates, run steps 1-2 once **per date group**: each date gets its own session note(s) and its own daily note, folding only that date's blocks. A single date is the common case — treat multi-date as the exception, not the default.
 
 ### 1. Create session note
 
@@ -126,9 +94,7 @@ multi-date as the exception, not the default.
 search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
 ```
 
-If a match exists for the same date and topic, read it with `read_note`
-and append a new section with `patch_note` (horizontal rule `---` plus
-date header as separator). Otherwise create a new note.
+If a match exists for the same date and topic, read it with `read_note` and append a new section with `patch_note` (horizontal rule `---` plus date header as separator). Otherwise create a new note.
 
 #### Session template
 
@@ -177,25 +143,13 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for typed edges that add graph value
 
-When the handoff Load phase surfaced grouped snapshots, fold this
-date's bullets in before composing the note — the deduplicated union
-across that day's blocks, not just the latest. Re-apply the Audience
-and Reference Discipline as you fold — the handoff's scope is not the
-note's scope: strip local spec/story/task IDs (`S-022`, `task-3.2`)
-and translate them to feature or project names, and keep daily-note
-bodies free of the paths and IDs a handoff may carry. Implementation
-detail stays out of the executive note — it lives in claude-mem; the
-note carries the summary.
+When the handoff Load phase surfaced grouped snapshots, fold this date's bullets in before composing the note — the deduplicated union across that day's blocks, not just the latest. Re-apply the Audience and Reference Discipline as you fold — the handoff's scope is not the note's scope: strip local spec/story/task IDs (`S-022`, `task-3.2`) and translate them to feature or project names, and keep daily-note bodies free of the paths and IDs a handoff may carry. Implementation detail stays out of the executive note — it lives in claude-mem; the note carries the summary.
 
 - `**Findings:**` → brief bullets in `## Findings`
-- `**Decisions:**` → `## Decisions` bullets with rationale (name
-  rejected alternatives when applicable)
-- `**Next step:**` and `**Open threads:**` → `## Next` bullets,
-  preserving the concrete entry point
-- `**Blockers:**` → `## Problems` bullets when applicable, or
-  `## Next` flagged as blocking
-- `**Focus:**` and `**References:**` → contribute to the
-  `## Summary` narrative; not a dedicated section
+- `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
+- `**Next step:**` and `**Open threads:**` → `## Next` bullets, preserving the concrete entry point
+- `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
+- `**Focus:**` and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
 
 #### Write
 
@@ -227,9 +181,7 @@ Always `Daily/YYYY-MM-DD.md`.
 
 #### Daily template
 
-Activities per project (bullet list), Open Items for pending work,
-Observations for day-level facts that cut across projects, Relations
-for typed edges to today's session notes.
+Activities per project (bullet list), Open Items for pending work, Observations for day-level facts that cut across projects, Relations for typed edges to today's session notes.
 
 ```markdown
 ---
@@ -270,19 +222,13 @@ tags:
 
 Section presence:
 - `## Activities` always present with at least one project subsection
-- `## Open Items` only when commitments have an owner, a deadline, or
-  an active blocker — mental follow-ups ("install X locally", "remember
-  to test Y") belong in the handoff or session `## Next`, not here
-- `## Observations` for cross-cutting day-level facts — do not restate
-  per-project observations that belong in the session note; common
-  categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
-- `## Relations` typed edges to today's session notes (`contains`) or
-  other day-level references; omit if no sessions or references
+- `## Open Items` only when commitments have an owner, a deadline, or an active blocker — mental follow-ups ("install X locally", "remember to test Y") belong in the handoff or session `## Next`, not here
+- `## Observations` for cross-cutting day-level facts — do not restate per-project observations that belong in the session note; common categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
+- `## Relations` typed edges to today's session notes (`contains`) or other day-level references; omit if no sessions or references
 
 #### If note does not exist
 
-Compose content following the template above. Only `## Activities` is
-required; omit empty sections.
+Compose content following the template above. Only `## Activities` is required; omit empty sections.
 
 ```
 write_note(
@@ -295,30 +241,20 @@ write_note(
 #### If note already exists
 
 Read first with `read_note`, then use `patch_note`:
-- If the project already has a subsection in Activities, merge the
-  existing bullets with new bullets — deduplicate, keep distinct items
-- If the project is new, add a `### Project Name` subsection at the end
-  of Activities (before the next `##` section)
-- Add items to Open Items if relevant (create the section if it does
-  not exist)
-- Consolidate `## Observations` and `## Relations` the same way — merge
-  existing with new, deduplicate, keep only distinct items
+- If the project already has a subsection in Activities, merge the existing bullets with new bullets — deduplicate, keep distinct items
+- If the project is new, add a `### Project Name` subsection at the end of Activities (before the next `##` section)
+- Add items to Open Items if relevant (create the section if it does not exist)
+- Consolidate `## Observations` and `## Relations` the same way — merge existing with new, deduplicate, keep only distinct items
 
 Rules:
 - Activities split by project with `### Project Name` headers
-- Bullets are executive outcomes — what moved at product or project
-  level, readable by a stakeholder with no repo context
+- Bullets are executive outcomes — what moved at product or project level, readable by a stakeholder with no repo context
 - Refer to projects and features by human-readable name only
-- Forbidden in body: PR/Issue numbers, local spec/story/task IDs
-  (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch
-  names, commit hashes — those belong in the session note
-- Observations are day-level and cross-cutting — project-specific facts
-  stay in the session note
-- Relations use typed verbs (`contains`, `relates_to`); `contains`
-  points to today's session notes
+- Forbidden in body: PR/Issue numbers, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch names, commit hashes — those belong in the session note
+- Observations are day-level and cross-cutting — project-specific facts stay in the session note
+- Relations use typed verbs (`contains`, `relates_to`); `contains` points to today's session notes
 - Past tense, natural language
-- Do not duplicate detail from the session note — daily stays
-  summary-level
+- Do not duplicate detail from the session note — daily stays summary-level
 - Omit empty sections entirely
 
 ## Guidelines
@@ -329,12 +265,8 @@ Rules:
 - Search before creating with `search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
 - Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
-- Use `## Relations` for typed edges (`- follows [[X]]`) that add graph
-  value; inline `[[wikilinks]]` in Summary cover ordinary mentions
-- Tag every note as `[note-type, ...base_tags, ...context_tags]` —
-  `note-type` is one of `session`, `daily`; `base_tags` come from
-  mapping output; `context_tags` are derived from the session content
-  (work type, topics)
+- Use `## Relations` for typed edges (`- follows [[X]]`) that add graph value; inline `[[wikilinks]]` in Summary cover ordinary mentions
+- Tag every note as `[note-type, ...base_tags, ...context_tags]` — `note-type` is one of `session`, `daily`; `base_tags` come from mapping output; `context_tags` are derived from the session content (work type, topics)
 - Use Title Case for folders and filenames
 - Omit empty sections — no placeholder headers
 - Keep daily note as outcomes and tasks in bullets, not a detailed log

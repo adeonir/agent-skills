@@ -56,11 +56,8 @@ finish branch
 
 ## FAQ
 
-**Q: Do I need to stage files before committing?**
-A: No. By default, the skill stages modified and untracked files by name. If you already staged something before asking, the skill gives a heads-up so nothing lands silently. Use "commit only staged files" if you prefer to stage manually and skip the auto-stage step.
+**Q: Do I need to stage files before committing?** A: No. By default, the skill stages modified and untracked files by name. If you already staged something before asking, the skill gives a heads-up so nothing lands silently. Use "commit only staged files" if you prefer to stage manually and skip the auto-stage step.
 
-**Q: What base branch is used for pull requests?**
-A: The repo's default branch, detected via `gh` (with `main` as fallback). Override by specifying explicitly: "create PR against develop".
+**Q: What base branch is used for pull requests?** A: The repo's default branch, detected via `gh` (with `main` as fallback). Override by specifying explicitly: "create PR against develop".
 
-**Q: Can I use this without `gh` CLI?**
-A: Yes, for the commit workflow. PR creation and merge operations require `gh` CLI.
+**Q: Can I use this without `gh` CLI?** A: Yes, for the commit workflow. PR creation and merge operations require `gh` CLI.

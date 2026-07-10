@@ -43,19 +43,10 @@ close session
 
 ## FAQ
 
-**Q: What happens if Obsidian MCP is unavailable?**
-A: The session step is skipped with a warning. The daily note still
-attempts to write. The skill is best-effort.
+**Q: What happens if Obsidian MCP is unavailable?** A: The session step is skipped with a warning. The daily note still attempts to write. The skill is best-effort.
 
-**Q: Does it ask before clearing the session handoff?**
-A: No. Wrap-up has already persisted every snapshot to Obsidian, so the
-on-disk handoff is redundant by the end — Cleanup auto-clears it
-(writes empty content) without asking.
+**Q: Does it ask before clearing the session handoff?** A: No. Wrap-up has already persisted every snapshot to Obsidian, so the on-disk handoff is redundant by the end — Cleanup auto-clears it (writes empty content) without asking.
 
-**Q: Can I run wrap-up multiple times in a day?**
-A: Yes. Existing notes are detected and appended to rather than
-overwritten. The daily note merges activities from each invocation.
+**Q: Can I run wrap-up multiple times in a day?** A: Yes. Existing notes are detected and appended to rather than overwritten. The daily note merges activities from each invocation.
 
-**Q: What if the project is not in the registry yet?**
-A: A bootstrap prompt asks for project name, Obsidian path, and base
-tags. The new entry is appended to `wrap-up.yml`.
+**Q: What if the project is not in the registry yet?** A: A bootstrap prompt asks for project name, Obsidian path, and base tags. The new entry is appended to `wrap-up.yml`.

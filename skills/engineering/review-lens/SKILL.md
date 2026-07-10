@@ -15,48 +15,28 @@ description: >-
 
 # Review Lens
 
-Code review with anti-hallucination diff annotation and confidence-scored
-findings, in two modes — a fast walkthrough-plus-findings pass by default,
-or a multi-material fan-out on demand. Runs before a pull request: the
-report goes to the chat, with optional fix application and a saved report.
+Code review with anti-hallucination diff annotation and confidence-scored findings, in two modes — a fast walkthrough-plus-findings pass by default, or a multi-material fan-out on demand. Runs before a pull request: the report goes to the chat, with optional fix application and a saved report.
 
 ## Triggers
 
-- **Quick review** (default — "review", "review my changes", "check my
-  diff", "review against main") →
-  [quick-review.md](references/quick-review.md)
-- **Deep review** ("deep review", "full review", "thorough review") →
-  [deep-review.md](references/deep-review.md)
-- **Re-review** ("re-review", "check fixes", "are the issues resolved")
-  → the Re-Review section of the mode that ran (default quick)
+- **Quick review** (default — "review", "review my changes", "check my diff", "review against main") → [quick-review.md](references/quick-review.md)
+- **Deep review** ("deep review", "full review", "thorough review") → [deep-review.md](references/deep-review.md)
+- **Re-review** ("re-review", "check fixes", "are the issues resolved") → the Re-Review section of the mode that ran (default quick)
 
-Shared rules live in [common.md](references/common.md); guideline
-discovery lives in [guidelines-audit.md](references/guidelines-audit.md).
-Neither is a direct trigger.
+Shared rules live in [common.md](references/common.md); guideline discovery lives in [guidelines-audit.md](references/guidelines-audit.md). Neither is a direct trigger.
 
 ## Modes
 
-Both modes share the same `[L<n>]` diff annotation, the confidence ≥ 80
-bar, the what-not-to-report rules, and the output template (all in
-`common.md`). They differ in depth and cost:
+Both modes share the same `[L<n>]` diff annotation, the confidence ≥ 80 bar, the what-not-to-report rules, and the output template (all in `common.md`). They differ in depth and cost:
 
-- **Quick (default)** — two agents run in parallel by role: a Haiku
-  walkthrough describes the change, a Sonnet findings pass catches issues
-  across every scope. Fast, with reasoning where it counts.
-- **Deep** — fans out by **material** (diff, guideline files, git history,
-  prior PRs) with an independent confidence judge. Thorough, for risky or
-  wide-reaching changes.
+- **Quick (default)** — two agents run in parallel by role: a Haiku walkthrough describes the change, a Sonnet findings pass catches issues across every scope. Fast, with reasoning where it counts.
+- **Deep** — fans out by **material** (diff, guideline files, git history, prior PRs) with an independent confidence judge. Thorough, for risky or wide-reaching changes.
 
-Default to quick. Reach for deep only when the user asks for depth or the
-change is risky.
+Default to quick. Reach for deep only when the user asks for depth or the change is risky.
 
 ## Deep Mode: Material Fan-Out
 
-The fan-out divides by **source of material**, not by concern — each agent
-reads something the others don't, so each adds new signal. The concerns
-(security, bugs, data-loss, performance) are a checklist inside one
-bug-scan, not separate agents. Sonnet is used only for the two reasoning
-passes; everything else is Haiku.
+The fan-out divides by **source of material**, not by concern — each agent reads something the others don't, so each adds new signal. The concerns (security, bugs, data-loss, performance) are a checklist inside one bug-scan, not separate agents. Sonnet is used only for the two reasoning passes; everything else is Haiku.
 
 | Agent | Model | Reads |
 |-------|-------|-------|
@@ -69,20 +49,13 @@ passes; everything else is Haiku.
 
 ## Guidelines
 
-- Annotate the diff with `[L<n>]` markers before reviewing — the line
-  allowlist is the anti-hallucination guard in both modes
+- Annotate the diff with `[L<n>]` markers before reviewing — the line allowlist is the anti-hallucination guard in both modes
 - Only report findings with confidence ≥ 80
 - Default to quick; reserve the deep fan-out for risky or wide diffs
-- Guideline discovery reads the project's files — including
-  `.claude/rules/*.md` — never `~/.claude` (personal global settings)
-- Suggest fixes freely (they are text); apply to the working tree only with
-  explicit confirmation
-- The review runs pre-PR — output goes to the chat (and optional
-  `CODE_REVIEW.md`), never posted to a pull request
+- Guideline discovery reads the project's files — including `.claude/rules/*.md` — never `~/.claude` (personal global settings)
+- Suggest fixes freely (they are text); apply to the working tree only with explicit confirmation
+- The review runs pre-PR — output goes to the chat (and optional `CODE_REVIEW.md`), never posted to a pull request
 
 ## Anti-Pattern: Confidence Inflation
 
-Reporting findings below 80 confidence buries real issues under noise. The
-rubric is calibrated: <80 means speculation or style preference, not a real
-bug. When unsure, drop down — gather more context, re-read the diff —
-instead of pushing a low-confidence finding through.
+Reporting findings below 80 confidence buries real issues under noise. The rubric is calibrated: <80 means speculation or style preference, not a real bug. When unsure, drop down — gather more context, re-read the diff — instead of pushing a low-confidence finding through.

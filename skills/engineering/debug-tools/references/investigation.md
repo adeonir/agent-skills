@@ -8,8 +8,7 @@ When debugging unexpected behavior, silent errors, or intermittent failures.
 
 ## Workflow
 
-Execute the appropriate step based on current state: Understand + Analyze,
-Propose Fix, or Verify.
+Execute the appropriate step based on current state: Understand + Analyze, Propose Fix, or Verify.
 
 ### Step 1: Understand the Bug
 
@@ -21,13 +20,11 @@ Based on user's description, identify:
 - Frequency: deterministic, intermittent, or load-dependent
 - Recent changes that might have introduced it
 
-If the user did not state expected vs actual or reproduction steps, ask before
-analyzing. Diagnosis built on assumed behavior wastes attempts.
+If the user did not state expected vs actual or reproduction steps, ask before analyzing. Diagnosis built on assumed behavior wastes attempts.
 
 ### Step 2: Analyze Code
 
-Use available runtime inspection, browser debugging, semantic analysis, and documentation tools
-to investigate the issue. The agent discovers and uses whatever tools are available in the environment.
+Use available runtime inspection, browser debugging, semantic analysis, and documentation tools to investigate the issue. The agent discovers and uses whatever tools are available in the environment.
 
 #### Focus Areas
 
@@ -53,9 +50,7 @@ See [debugging-patterns.md](debugging-patterns.md) for common patterns and compa
 
 ### Step 3: Enumerate Hypotheses
 
-Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up
-front prevent premature commitment to the first plausible explanation. Score
-each one 0-100:
+Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up front prevent premature commitment to the first plausible explanation. Score each one 0-100:
 
 | Score | Meaning | Action |
 |-------|---------|--------|
@@ -63,15 +58,11 @@ each one 0-100:
 | 50-69 | Medium (50-69) | Suggest logs to confirm |
 | < 50 | Low (< 50) | Keep as alternative, do not report |
 
-If only one hypothesis is plausible, that is fine -- do not invent weak
-alternatives to fill the slate. The goal is honest enumeration, not three
-items.
+If only one hypothesis is plausible, that is fine -- do not invent weak alternatives to fill the slate. The goal is honest enumeration, not three items.
 
 ### Step 4: Report Findings
 
-Rank hypotheses by score, highest first. The top candidate drives the next
-action; lower-scored ones stay as fallbacks if the leading theory is
-disproven.
+Rank hypotheses by score, highest first. The top candidate drives the next action; lower-scored ones stay as fallbacks if the leading theory is disproven.
 
 **Probable cause (>= 70):**
 
@@ -101,14 +92,11 @@ disproven.
 3. **[40] Network flakiness** -- low, kept as fallback
 ```
 
-If no hypothesis reaches >= 70 confidence, load [log-injection.md](log-injection.md)
-to gather runtime evidence and re-rank.
+If no hypothesis reaches >= 70 confidence, load [log-injection.md](log-injection.md) to gather runtime evidence and re-rank.
 
 ### Step 5: Propose Fix
 
-**Gate:** Root cause must be confirmed at ≥70 confidence before any fix is proposed.
-Below that threshold, gather more evidence first — load [log-injection.md](log-injection.md).
-Never propose a fix as exploration.
+**Gate:** Root cause must be confirmed at ≥70 confidence before any fix is proposed. Below that threshold, gather more evidence first — load [log-injection.md](log-injection.md). Never propose a fix as exploration.
 
 When root cause is confirmed, present:
 
@@ -120,8 +108,7 @@ When root cause is confirmed, present:
 Root cause: {one sentence explanation}
 
 ```diff
-// {file}:{line}
-{diff showing the fix}
+// {file}:{line} {diff showing the fix}
 ```
 ````
 
@@ -138,8 +125,7 @@ After user applies fix:
 
 1. Provide explicit reproduction steps for the user to run
 2. Ask user to reproduce the original bug
-3. For race conditions or intermittent bugs, ask user to reproduce 3-5 times --
-   a single pass can hide timing-dependent failures
+3. For race conditions or intermittent bugs, ask user to reproduce 3-5 times -- a single pass can hide timing-dependent failures
 4. Confirm the fix worked
 5. If not fixed, return to Step 1 (investigate again with new evidence)
 6. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
@@ -155,8 +141,7 @@ Track each fix attempt. After 3 failed fixes, escalate:
 | 3 | Last attempt with deeper analysis |
 | 4+ | Escalate to architectural review |
 
-Escalation means: stop fixing symptoms and re-examine the broader design.
-Present the user with an architectural assessment:
+Escalation means: stop fixing symptoms and re-examine the broader design. Present the user with an architectural assessment:
 
 - What was tried and why it failed
 - Whether the issue is systemic (wrong abstraction, missing layer, flawed assumption)
@@ -172,8 +157,7 @@ Signals that the debugging process has gone off-track:
 - Changes grow larger with each attempt
 - Confidence score drops between attempts
 
-When red flags appear, stop and reassess. The issue may be architectural, not a
-localized bug.
+When red flags appear, stop and reassess. The issue may be architectural, not a localized bug.
 
 ## Guidelines
 

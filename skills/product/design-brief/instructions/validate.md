@@ -153,17 +153,13 @@ DESIGN.md must render any copy and stay tool-agnostic. Flag prose that bakes pro
 
 ### Step 10: Anti-Pattern Audit
 
-Load [anti-patterns.md](../references/anti-patterns.md). For each rule
-whose `Category` is `Drift`, apply the `Check` against the parsed
-DESIGN.md model (frontmatter tokens + body prose). Emit a finding per
-match using the rule's `id` and `severity`.
+Load [anti-patterns.md](../references/anti-patterns.md). For each rule whose `Category` is `Drift`, apply the `Check` against the parsed DESIGN.md model (frontmatter tokens + body prose). Emit a finding per match using the rule's `id` and `severity`.
 
 | Check | Severity |
 |-------|----------|
 | Drift rule matches (e.g., `font-family-not-in-tokens`, `copy-string-in-design-md`, `arbitrary-tailwind-value-repeated` traces in DESIGN.md prose) | per rule severity |
 
-The Color and Theme rule targets rendered output (preview judges the
-styleguide with it), not the DESIGN.md model, so it is not applied here.
+The Color and Theme rule targets rendered output (preview judges the styleguide with it), not the DESIGN.md model, so it is not applied here.
 
 ### Step 11: Token Summary — `token-summary`
 

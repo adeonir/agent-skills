@@ -22,29 +22,20 @@ investigate → fix → verify → done
   ^_______________________|  (max 3 attempts, then escalate)
 ```
 
-Core loop: investigate, fix, verify. Techniques (log injection, pattern
-comparison, focus area analysis) are tools within investigation, not
-mandatory phases. Log cleanup happens automatically after verification
-succeeds.
+Core loop: investigate, fix, verify. Techniques (log injection, pattern comparison, focus area analysis) are tools within investigation, not mandatory phases. Log cleanup happens automatically after verification succeeds.
 
 ## Triggers
 
-- **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug",
-  "why is X broken") → [investigation.md](references/investigation.md)
-- **Add debug logs** ("add debug logs", "inject logs", "trace with logs")
-  → [log-injection.md](references/log-injection.md)
-- **Cleanup logs** ("remove debug logs", "cleanup logs") →
-  [log-cleanup.md](references/log-cleanup.md)
-- **Pattern lookup** ("debug patterns", "common bugs", "log format") →
-  [debugging-patterns.md](references/debugging-patterns.md)
+- **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → [investigation.md](references/investigation.md)
+- **Add debug logs** ("add debug logs", "inject logs", "trace with logs") → [log-injection.md](references/log-injection.md)
+- **Cleanup logs** ("remove debug logs", "cleanup logs") → [log-cleanup.md](references/log-cleanup.md)
+- **Pattern lookup** ("debug patterns", "common bugs", "log format") → [debugging-patterns.md](references/debugging-patterns.md)
 
-Multiple references may load during one debugging session — investigation
-often leads to log injection, then back to investigation.
+Multiple references may load during one debugging session — investigation often leads to log injection, then back to investigation.
 
 ## Guidelines
 
-- Use confidence scoring honestly: ≥70 reports as probable cause, 50-69
-  suggests logs, <50 stays internal
+- Use confidence scoring honestly: ≥70 reports as probable cause, 50-69 suggests logs, <50 stays internal
 - Compare broken code against working examples when root cause is unclear
 - Always use `[DEBUG]` prefix for injected logs (enables grep + cleanup)
 - Apply minimal fix: smallest change that resolves the issue
@@ -53,22 +44,12 @@ often leads to log injection, then back to investigation.
 
 ## Anti-Pattern: Confidence Inflation
 
-Reporting a "fix" with confidence below 70 wastes attempts. Inflated
-scores hide the real picture: a fix offered at 60 confidence is a guess.
-When evidence is missing, drop down — load logs, gather runtime data,
-re-rank — instead of pushing a low-confidence fix through.
+Reporting a "fix" with confidence below 70 wastes attempts. Inflated scores hide the real picture: a fix offered at 60 confidence is a guess. When evidence is missing, drop down — load logs, gather runtime data, re-rank — instead of pushing a low-confidence fix through.
 
 ## Anti-Pattern: Symptom Whack-a-Mole
 
-Fixing the same symptom in multiple places signals an architectural
-issue, not a localized bug. When fix N introduces bug N+1, stop. The
-4th attempt must escalate to architectural review: re-examine the
-abstraction, the missing layer, or the flawed assumption — not retry a
-deeper version of the same approach.
+Fixing the same symptom in multiple places signals an architectural issue, not a localized bug. When fix N introduces bug N+1, stop. The 4th attempt must escalate to architectural review: re-examine the abstraction, the missing layer, or the flawed assumption — not retry a deeper version of the same approach.
 
 ## Anti-Pattern: Production Log Residue
 
-Debug logs left after verification become noise in production output and
-risk leaking sensitive context. Cleanup is part of the verify phase, not
-a polish step. Run `grep '\[DEBUG\]'` after every fix; remaining matches
-are bugs in the workflow.
+Debug logs left after verification become noise in production output and risk leaking sensitive context. Cleanup is part of the verify phase, not a polish step. Run `grep '\[DEBUG\]'` after every fix; remaining matches are bugs in the workflow.

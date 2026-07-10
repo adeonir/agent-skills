@@ -39,8 +39,7 @@ reset handoff
 
 `.artifacts/HANDOFF.md` — newest snapshot at the top.
 
-Two sections are always present (`Focus`, `Next step`); five are
-optional and omitted when empty:
+Two sections are always present (`Focus`, `Next step`); five are optional and omitted when empty:
 
 ```markdown
 # Handoff
@@ -71,8 +70,7 @@ optional and omitted when empty:
 
 **Q: Does save overwrite the previous snapshot?**
 
-A: No. Each save prepends a new dated block at the top. Older
-snapshots are preserved.
+A: No. Each save prepends a new dated block at the top. Older snapshots are preserved.
 
 **Q: Does load auto-clear?**
 
@@ -84,15 +82,8 @@ A: Load and clear no-op silently. Save creates the file.
 
 **Q: How does this differ from end-of-session note persistence?**
 
-A: End-of-session flows write a narrative of what happened into memory
-systems (auto-memory, Basic Memory, Obsidian). The handoff skill is an
-ephemeral conversation handoff for resuming across sessions — it
-carries focus and next step rather than a session narrative. End-of-session flows may read the latest handoff snapshot
-to compose their notes; whether they clear it afterwards is up to that
-flow.
+A: End-of-session flows write a narrative of what happened into memory systems (auto-memory, Basic Memory, Obsidian). The handoff skill is an ephemeral conversation handoff for resuming across sessions — it carries focus and next step rather than a session narrative. End-of-session flows may read the latest handoff snapshot to compose their notes; whether they clear it afterwards is up to that flow.
 
 **Q: Can I describe what the next session should focus on?**
 
-A: Yes. Pass the focus as an argument: `/handoff continue auth race
-fix`. Save tailors `Focus` and `Next step` to that focus. Without an
-argument, save captures generic state.
+A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus` and `Next step` to that focus. Without an argument, save captures generic state.

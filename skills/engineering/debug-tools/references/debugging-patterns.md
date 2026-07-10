@@ -6,8 +6,7 @@ For framework-specific log examples, see [log-injection.md](log-injection.md).
 
 ## When to Use
 
-When looking up common bug patterns, pattern comparison techniques, or confidence
-scoring guidelines. Also loaded during investigation when pattern comparison is needed.
+When looking up common bug patterns, pattern comparison techniques, or confidence scoring guidelines. Also loaded during investigation when pattern comparison is needed.
 
 ## Common Bug Patterns
 
@@ -25,18 +24,13 @@ scoring guidelines. Also loaded during investigation when pattern comparison is 
 
 ## Pattern Comparison
 
-When investigation stalls, compare broken code against working examples to spot
-the difference. This technique is effective for bugs introduced by recent changes
-or when similar code elsewhere works correctly.
+When investigation stalls, compare broken code against working examples to spot the difference. This technique is effective for bugs introduced by recent changes or when similar code elsewhere works correctly.
 
 ### How to Compare
 
-1. **Find working examples** - search the codebase for similar functionality that
-   works correctly (same API calls, same component patterns, same data flow)
-2. **Diff structurally** - compare the working and broken code side by side,
-   focusing on structure rather than variable names
-3. **Check for divergence** - identify where the broken code deviates from the
-   working pattern
+1. **Find working examples** - search the codebase for similar functionality that works correctly (same API calls, same component patterns, same data flow)
+2. **Diff structurally** - compare the working and broken code side by side, focusing on structure rather than variable names
+3. **Check for divergence** - identify where the broken code deviates from the working pattern
 
 ### What to Look For
 
@@ -58,22 +52,15 @@ or when similar code elsewhere works correctly.
 
 ## Regression Tracing
 
-When the user reports "this used to work", treat the change history as primary
-evidence. The bug is somewhere in the diff between the last known good state
-and now.
+When the user reports "this used to work", treat the change history as primary evidence. The bug is somewhere in the diff between the last known good state and now.
 
 ### Checklist
 
-1. **Confirm the last working state** -- ask the user when it last worked
-   (commit, release, date)
-2. **Inspect git log on the suspect area** -- list commits touching the
-   relevant files since that point
-3. **Diff against the last working commit** -- focus on logic changes, not
-   formatting
-4. **Check dependency changes** -- review `package.json`, `lockfile`, or
-   equivalents for upgrades in the same window
-5. **Bisect when the suspect range is wide** -- `git bisect` narrows it to
-   a single commit when manual diffing is too noisy
+1. **Confirm the last working state** -- ask the user when it last worked (commit, release, date)
+2. **Inspect git log on the suspect area** -- list commits touching the relevant files since that point
+3. **Diff against the last working commit** -- focus on logic changes, not formatting
+4. **Check dependency changes** -- review `package.json`, `lockfile`, or equivalents for upgrades in the same window
+5. **Bisect when the suspect range is wide** -- `git bisect` narrows it to a single commit when manual diffing is too noisy
 
 ### What to Compare
 
@@ -84,9 +71,7 @@ and now.
 | Config diff | Env vars, build flags, feature flags toggled |
 | Test diff | Tests removed or weakened around the affected area |
 
-The output of regression tracing feeds back into the hypothesis ranking in
-investigation.md -- a recent commit that touches the failing path is strong
-evidence and should score above generic theories.
+The output of regression tracing feeds back into the hypothesis ranking in investigation.md -- a recent commit that touches the failing path is strong evidence and should score above generic theories.
 
 ## Confidence Scoring Reference
 
@@ -94,9 +79,7 @@ See [investigation.md](investigation.md) for the full confidence scoring table.
 
 ## Tool Integration
 
-Use available debugging tools (runtime inspection, browser devtools, semantic analysis,
-documentation lookup) to enhance the debugging process. The agent discovers and adapts
-to whatever tools are available in the environment.
+Use available debugging tools (runtime inspection, browser devtools, semantic analysis, documentation lookup) to enhance the debugging process. The agent discovers and adapts to whatever tools are available in the environment.
 
 ## When to Debug vs When NOT to
 

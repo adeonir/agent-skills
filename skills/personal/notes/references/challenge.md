@@ -4,15 +4,13 @@ Document technical challenges from interview processes.
 
 ## When to Use
 
-- User says "technical challenge", "take-home", "coding interview",
-  "system design"
+- User says "technical challenge", "take-home", "coding interview", "system design"
 - User mentions interview problems or assignments
 - User wants to record solutions to technical problems
 
 ## Vault Resolution
 
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier
-fallback (local symlink → global pointer → bootstrap).
+Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
 
 ## Workflow
 
@@ -108,7 +106,4 @@ challenge text verbatim.}}
 
 ## Anti-Pattern: Skipping Failed Attempts
 
-Failed challenges contain the most useful learnings — they reveal which
-assumptions broke and what would be tried differently. Documenting only
-successes turns the brag/challenge log into a vanity record. Capture
-both.
+Failed challenges contain the most useful learnings — they reveal which assumptions broke and what would be tried differently. Documenting only successes turns the brag/challenge log into a vanity record. Capture both.

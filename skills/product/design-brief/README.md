@@ -25,18 +25,12 @@ flowchart TD
 
 ## What It Designs
 
-design-brief adapts to any digital product — it does not force the project into a
-fixed type. It reads the surfaces a project actually has, each under a
-**register** (brand — the design is the product; or product — the design serves a
-task). A project may combine several:
+design-brief adapts to any digital product — it does not force the project into a fixed type. It reads the surfaces a project actually has, each under a **register** (brand — the design is the product; or product — the design serves a task). A project may combine several:
 
-- **Brand surfaces** — landing pages, brand sites, campaigns, portfolios,
-  long-form, about, the marketing shell of a storefront
-- **Product surfaces** — app screens, dashboards, settings, forms, data tables,
-  onboarding, the checkout / account flow of a storefront
+- **Brand surfaces** — landing pages, brand sites, campaigns, portfolios, long-form, about, the marketing shell of a storefront
+- **Product surfaces** — app screens, dashboards, settings, forms, data tables, onboarding, the checkout / account flow of a storefront
 
-Name surfaces by context; storefronts straddle the two registers. The register
-sets the posture; the questions follow the surfaces present.
+Name surfaces by context; storefronts straddle the two registers. The register sets the posture; the questions follow the surfaces present.
 
 ## Usage
 

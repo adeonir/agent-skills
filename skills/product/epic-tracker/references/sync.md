@@ -1,11 +1,8 @@
 # Sync
 
-Orchestrate push and pull between markdown artifacts and an external
-tracker. Detect the configured tracker, dispatch to the matching adapter,
-surface conflicts, update frontmatter on success.
+Orchestrate push and pull between markdown artifacts and an external tracker. Detect the configured tracker, dispatch to the matching adapter, surface conflicts, update frontmatter on success.
 
-Conflict resolution and adapter dispatch deserve careful reasoning — a
-wrong push can clobber tracker state that other people rely on.
+Conflict resolution and adapter dispatch deserve careful reasoning — a wrong push can clobber tracker state that other people rely on.
 
 ## When to Use
 
@@ -25,12 +22,9 @@ wrong push can clobber tracker state that other people rely on.
 | Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 | Release  | Cycle | Release tag |
 
-GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an
-orthogonal opt-in layer (custom fields/views) — it does not encode
-Epic→Story. See [adapter-github.md](adapter-github.md) for details.
+GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story. See [adapter-github.md](adapter-github.md) for details.
 
-Release uses the closest native primitive each tracker offers — no forced
-single concept across trackers.
+Release uses the closest native primitive each tracker offers — no forced single concept across trackers.
 
 ## Config
 
@@ -42,20 +36,17 @@ Read and written via `git config --local`. Keys:
 | `epic-tracker.workspace` | Linear | team workspace slug |
 | `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
 
-When `epic-tracker.kind` is `none` or unset, the skill skips all tracker
-operations; markdown is the sole source of truth.
+When `epic-tracker.kind` is `none` or unset, the skill skips all tracker operations; markdown is the sole source of truth.
 
 ## Bootstrap (first-time setup)
 
-Runs when an operation requires a tracker but `epic-tracker.kind` is not
-set in git config.
+Runs when an operation requires a tracker but `epic-tracker.kind` is not set in git config.
 
 1. Check `git config --get epic-tracker.kind`. If set and not `none`, skip bootstrap.
 2. Detect available integration methods for each tracker:
    - MCP: check if the tracker's MCP server is active in the session
    - CLI: check if the tracker's CLI is installed (`gh`, `linear`)
-   - MCP is always preferred; CLI is the fallback when MCP is missing
-     or fails at runtime
+   - MCP is always preferred; CLI is the fallback when MCP is missing or fails at runtime
 3. Present detected options plus "none (markdown only)" to the user.
 4. Ask the user to pick one.
 5. Collect tracker-specific fields one question at a time:
@@ -66,21 +57,18 @@ set in git config.
    - Linear: `git config --local epic-tracker.workspace {workspace}`
    - GitHub: `git config --local epic-tracker.project-number {n}` (when provided)
 
-Bootstrap runs at most once per project. Re-run on demand by triggering
-"configure tracker".
+Bootstrap runs at most once per project. Re-run on demand by triggering "configure tracker".
 
 ## Push Gate
 
-`epic-tracker.kind` is the push decision. Bootstrap asks once, persists it to
-`git config --local`, and no later step re-asks:
+`epic-tracker.kind` is the push decision. Bootstrap asks once, persists it to `git config --local`, and no later step re-asks:
 
 - `linear` or `github`: creates dispatch to the tracker
 - `none`: creates save to markdown
 
 ## Explicit Override
 
-A request that names the destination overrides the config for that artifact
-only:
+A request that names the destination overrides the config for that artifact only:
 
 | Request | Config | Behavior |
 |---------|--------|----------|
@@ -88,30 +76,18 @@ only:
 | "save this locally", "don't push yet" | `linear`, `github` | save to markdown |
 | "create issue on GitHub" | `linear` | dispatch to the named tracker |
 
-An override never rewrites `epic-tracker.kind`. When it names a tracker that
-differs from the configured one, load that tracker's adapter for the dispatch.
-The config changes only when the user triggers "configure tracker".
+An override never rewrites `epic-tracker.kind`. When it names a tracker that differs from the configured one, load that tracker's adapter for the dispatch. The config changes only when the user triggers "configure tracker".
 
 ## Push Direction (draft or markdown → tracker)
 
-The artifact body — including `## References` and `## Signals` — travels
-into the tracker description, so durable pointers survive the push.
-Frontmatter `sources:` is a markdown-only index mirroring those links; it
-is not pushed separately. Body is the source of truth, frontmatter mirrors.
+The artifact body — including `## References` and `## Signals` — travels into the tracker description, so durable pointers survive the push. Frontmatter `sources:` is a markdown-only index mirroring those links; it is not pushed separately. Body is the source of truth, frontmatter mirrors.
 
-1. Read artifact content: use the draft data directly when invoked
-   immediately after create (no markdown file exists); read from the saved
-   markdown file when invoked standalone (e.g., "sync to tracker").
-2. Read `git config --get epic-tracker.kind`; if not set or `none`, fall
-   back to markdown-only and inform the user.
+1. Read artifact content: use the draft data directly when invoked immediately after create (no markdown file exists); read from the saved markdown file when invoked standalone (e.g., "sync to tracker").
+2. Read `git config --get epic-tracker.kind`; if not set or `none`, fall back to markdown-only and inform the user.
 3. Load the adapter matching `epic-tracker.kind`:
    - `linear` → [adapter-linear.md](adapter-linear.md)
    - `github` → [adapter-github.md](adapter-github.md)
-4. Adapter creates or updates the entity. Always attempt MCP first; if
-   MCP is unavailable or fails (auth, server down, tool missing), fall
-   back to the tracker's CLI (`gh`, `linear`). Runtime probing
-   always wins — MCP is preferred regardless of how the tracker was
-   configured.
+4. Adapter creates or updates the entity. Always attempt MCP first; if MCP is unavailable or fails (auth, server down, tool missing), fall back to the tracker's CLI (`gh`, `linear`). Runtime probing always wins — MCP is preferred regardless of how the tracker was configured.
 5. On success:
    - If a markdown file exists: patch its frontmatter with tracker info:
      ```yaml
@@ -120,13 +96,9 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
        url: https://linear.app/.../PROJ-123
        last_synced: 2026-04-29T10:30:00Z
      ```
-   - If no markdown file (tracker-native workflow): surface the tracker URL
-     to the user; nothing is stored locally.
-   - If the artifact declares `blocked_by`, resolve the paths to tracker
-     ids and call `set_dependencies` (see Dependencies). Missing blockers
-     are skipped with a warning, never failing the push.
-6. On failure, surface the error and leave any existing markdown untouched.
-   Suggest re-running sync once the issue is resolved.
+   - If no markdown file (tracker-native workflow): surface the tracker URL to the user; nothing is stored locally.
+   - If the artifact declares `blocked_by`, resolve the paths to tracker ids and call `set_dependencies` (see Dependencies). Missing blockers are skipped with a warning, never failing the push.
+6. On failure, surface the error and leave any existing markdown untouched. Suggest re-running sync once the issue is resolved.
 
 ## Pull Direction (tracker → markdown)
 
@@ -135,29 +107,17 @@ is not pushed separately. Body is the source of truth, frontmatter mirrors.
 3. Adapter fetches the entity from the tracker via MCP.
 4. Compare tracker state with local frontmatter and body.
 5. Detect conflicts (see below).
-6. Update markdown content + frontmatter `tracker.last_synced`, and refresh
-   `blocked_by` from the entity's native dependency relations (see
-   Dependencies).
+6. Update markdown content + frontmatter `tracker.last_synced`, and refresh `blocked_by` from the entity's native dependency relations (see Dependencies).
 
-AC validation does not run on pull. Pulled bodies may contain legacy AC
-format from before the Given/When/Then enforcement; the implementation
-consumer decides how to handle them. See [ac-validation.md](ac-validation.md)
-"Read-path tolerance" for rationale.
+AC validation does not run on pull. Pulled bodies may contain legacy AC format from before the Given/When/Then enforcement; the implementation consumer decides how to handle them. See [ac-validation.md](ac-validation.md) "Read-path tolerance" for rationale.
 
-If `tracker.id` is missing, route the user to push first or to manually
-attach an existing tracker entity.
+If `tracker.id` is missing, route the user to push first or to manually attach an existing tracker entity.
 
 ## Dependencies
 
-An artifact declares `blocked_by` in frontmatter — the artifacts that must
-finish before it proceeds, each referenced by path (`epic-name`,
-`epic-name/story-name`, or `standalone/bug-name`). Only this direction is
-stored; the inverse (`blocking`) is derivable and each tracker maintains
-both sides natively.
+An artifact declares `blocked_by` in frontmatter — the artifacts that must finish before it proceeds, each referenced by path (`epic-name`, `epic-name/story-name`, or `standalone/bug-name`). Only this direction is stored; the inverse (`blocking`) is derivable and each tracker maintains both sides natively.
 
-Dependencies are structured metadata, not body prose. They never travel in
-the description; each adapter maps them to the tracker's native dependency
-relation:
+Dependencies are structured metadata, not body prose. They never travel in the description; each adapter maps them to the tracker's native dependency relation:
 
 | Tracker | Native relation |
 |---------|-----------------|
@@ -166,27 +126,14 @@ relation:
 
 `blocked_by` holds local paths; the native relation needs tracker ids:
 
-- **Push:** after the artifact itself is created, resolve each `blocked_by`
-  path to the referenced artifact's frontmatter `tracker.id` and pass the
-  ids to the adapter's `set_dependencies`. When a referenced artifact has
-  no `tracker.id` yet (not pushed), skip that one link, warn which
-  dependency could not be formed, and suggest pushing the referenced
-  artifact first then re-syncing. The artifact's own push still succeeds —
-  a missing blocker never blocks it.
-- **Pull:** the adapter returns native blocked-by relations as tracker ids.
-  Resolve each id back to a local path when an artifact carries that
-  `tracker.id`; otherwise keep the tracker id so the link is not lost.
-  Write the result to `blocked_by`.
+- **Push:** after the artifact itself is created, resolve each `blocked_by` path to the referenced artifact's frontmatter `tracker.id` and pass the ids to the adapter's `set_dependencies`. When a referenced artifact has no `tracker.id` yet (not pushed), skip that one link, warn which dependency could not be formed, and suggest pushing the referenced artifact first then re-syncing. The artifact's own push still succeeds — a missing blocker never blocks it.
+- **Pull:** the adapter returns native blocked-by relations as tracker ids. Resolve each id back to a local path when an artifact carries that `tracker.id`; otherwise keep the tracker id so the link is not lost. Write the result to `blocked_by`.
 
-`set_dependencies` is idempotent: it adds links present in `blocked_by` and
-removes tracker links no longer listed, so re-running sync after editing the
-field reconciles both sides. In markdown-only mode no resolution runs — the
-field is the source of truth, read directly.
+`set_dependencies` is idempotent: it adds links present in `blocked_by` and removes tracker links no longer listed, so re-running sync after editing the field reconciles both sides. In markdown-only mode no resolution runs — the field is the source of truth, read directly.
 
 ## Conflict Detection and Resolution
 
-When pull state differs from local state, surface the conflict before
-applying changes:
+When pull state differs from local state, surface the conflict before applying changes:
 
 | Field | What to compare | Default resolution |
 |-------|-----------------|--------------------|
@@ -205,17 +152,13 @@ Conflict on {artifact-name}:
 Defaulting to tracker. Override? [y/N]
 ```
 
-User can override per-field or choose "keep local" to push back instead.
-On override, switch to push direction and treat local as authoritative.
+User can override per-field or choose "keep local" to push back instead. On override, switch to push direction and treat local as authoritative.
 
-For push, the default is the inverse: markdown wins, tracker is updated
-with local content. Conflict warning still fires when pushing over
-tracker state that diverged from `last_synced`.
+For push, the default is the inverse: markdown wins, tracker is updated with local content. Conflict warning still fires when pushing over tracker state that diverged from `last_synced`.
 
 ## Operations Summary
 
-The adapter exposes a generic interface. Each tracker adapter implements
-these operations using its own MCP calls:
+The adapter exposes a generic interface. Each tracker adapter implements these operations using its own MCP calls:
 
 | Operation | Inputs | Output |
 |-----------|--------|--------|
@@ -229,8 +172,7 @@ these operations using its own MCP calls:
 | `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by) |
 | `list_artifacts` | filter (epic, status, etc.) | list of summaries |
 
-Status mapping (planned -> in-progress -> done -> blocked) is the
-adapter's responsibility; each tracker has its own status enum.
+Status mapping (planned -> in-progress -> done -> blocked) is the adapter's responsibility; each tracker has its own status enum.
 
 ## Guidelines
 

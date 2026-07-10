@@ -14,77 +14,39 @@ Group stories from one or more epics into a cross-cutting delivery slice.
 
 ### 1. Discover
 
-1. If tracker is configured, fetch story summaries via the sync.md
-   `list_artifacts` operation; otherwise scan `.artifacts/epics/`
+1. If tracker is configured, fetch story summaries via the sync.md `list_artifacts` operation; otherwise scan `.artifacts/epics/`
 2. List stories by status to help the user choose what to include
 3. If no stories exist, suggest creating epics and stories first
 
-A release references its member stories by path, not their contents. Read
-story summaries to choose what ships; do not copy story-internal detail
-(acceptance criteria, implementation) into the release — link by
-`epic-name/story-name` and let each story stay the source of truth.
+A release references its member stories by path, not their contents. Read story summaries to choose what ships; do not copy story-internal detail (acceptance criteria, implementation) into the release — link by `epic-name/story-name` and let each story stay the source of truth.
 
 ### 2. Draft
 
 Fill the template (below):
 
-- **Name**: kebab-case, descriptive (`mvp-launch`, `billing-v2`,
-  `q2-release`)
-- **Title**: short human-readable release phrase, slug-safe. No
-  commands, flags, file paths, parentheses, brackets, or pipes —
-  becomes branch name slug downstream. Declarative — names the release
-  (`Billing v2 launch`), never a narrative outcome (`Customers get
-  consolidated invoices`). The name is translated from its source, not
-  copied: strip any borrowed token — reference or ticket codes,
-  section numbers, code identifiers, document or sibling-artifact
-  names — which travel in References or the body, never the title. The
-  title maps to the tracker's summary field on push; outcome prose
-  lives only in the body's Summary section.
-- **Status**: always starts as `planned` (planned, in-progress,
-  released)
-- **Prose context**: what this release delivers, why these stories
-  were grouped, who benefits
-- **Stories**: checklist with `epic-name/story-name` prefix for each
-  included story. Can also include entire epics.
-- **Release Criteria**: conditions that must be met before shipping
-  (not acceptance criteria -- those live on stories)
+- **Name**: kebab-case, descriptive (`mvp-launch`, `billing-v2`, `q2-release`)
+- **Title**: short human-readable release phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the release (`Billing v2 launch`), never a narrative outcome (`Customers get consolidated invoices`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field on push; outcome prose lives only in the body's Summary section.
+- **Status**: always starts as `planned` (planned, in-progress, released)
+- **Prose context**: what this release delivers, why these stories were grouped, who benefits
+- **Stories**: checklist with `epic-name/story-name` prefix for each included story. Can also include entire epics.
+- **Release Criteria**: conditions that must be met before shipping (not acceptance criteria -- those live on stories)
 - **References**: changelog links
 
-**Declare, don't narrate.** The discovery conversation is input, never
-content. The body states standing facts in present tense: the grouping
-rationale enters as fact (`Groups the checkout stories that unblock the
-public beta`), never as its history (`we discussed shipping billing
-separately but the user preferred one release`). Strip conversation
-narrative — "as discussed", "the user confirmed", "we agreed" — and
-decision history.
+**Declare, don't narrate.** The discovery conversation is input, never content. The body states standing facts in present tense: the grouping rationale enters as fact (`Groups the checkout stories that unblock the public beta`), never as its history (`we discussed shipping billing separately but the user preferred one release`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history.
 
-**Translate, don't replicate.** Member stories and any source docs stay
-read-only. Read story summaries to choose what ships, then state the
-release's own concern: strip reference and ticket codes, `§x.x` section
-numbers, code identifiers, document names, and story-internal detail
-(acceptance criteria, implementation). The release carries the grouping
-rationale, not the sources' tokens — reference codes travel in
-References.
+**Translate, don't replicate.** Member stories and any source docs stay read-only. Read story summaries to choose what ships, then state the release's own concern: strip reference and ticket codes, `§x.x` section numbers, code identifiers, document names, and story-internal detail (acceptance criteria, implementation). The release carries the grouping rationale, not the sources' tokens — reference codes travel in References.
 
 ### 3. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Load [sync.md](sync.md) and dispatch using the draft content; the adapter
-  maps Release to the closest native primitive (Linear: Cycle, GitHub:
-  Release tag) and links included stories/tasks/bugs to the release — no
-  markdown file is created
-- User asked to keep it local: save to
-  `.artifacts/epics/releases/{release-name}.md`
+- Load [sync.md](sync.md) and dispatch using the draft content; the adapter maps Release to the closest native primitive (Linear: Cycle, GitHub: Release tag) and links included stories/tasks/bugs to the release — no markdown file is created
+- User asked to keep it local: save to `.artifacts/epics/releases/{release-name}.md`
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
-- Save to `.artifacts/epics/releases/{release-name}.md`; create the
-  directory if it doesn't exist
-- User named a tracker: load [sync.md](sync.md) and dispatch to that
-  tracker's adapter
+- Save to `.artifacts/epics/releases/{release-name}.md`; create the directory if it doesn't exist
+- User named a tracker: load [sync.md](sync.md) and dispatch to that tracker's adapter
 
-An explicit destination in the user's request overrides the configured
-`kind` for this artifact only; it never rewrites the config. See
-[sync.md](sync.md) "Explicit Override".
+An explicit destination in the user's request overrides the configured `kind` for this artifact only; it never rewrites the config. See [sync.md](sync.md) "Explicit Override".
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
@@ -98,10 +60,8 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 **DON'T:**
 - Include stories that aren't tracked as artifacts yet
-- Duplicate acceptance criteria from stories -- release criteria are
-  about the release as a whole
-- Create a release for a single story in a single epic (just track
-  the epic)
+- Duplicate acceptance criteria from stories -- release criteria are about the release as a whole
+- Create a release for a single story in a single epic (just track the epic)
 - Mark a release as "released" if any included story is not "done"
 
 ## Template
@@ -151,6 +111,5 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 ## Error Handling
 
 - No stories exist: suggest creating epics and stories first
-- Some stories are blocked: flag them, ask if the release should
-  proceed without them
+- Some stories are blocked: flag them, ask if the release should proceed without them
 - Release name conflicts: suggest alternative or confirm overwrite

@@ -61,8 +61,7 @@ Confirm the commit landed — if `git status` still lists the files as pending, 
 2. **Be concise**: Keep the first line short — ~72 characters is a soft ceiling, not a hard limit
 3. **Human readable**: Write the subject so a teammate understands it without opening the diff. Prefer descriptions that tell the story of the change — what actually moved and why it matters — over abstract framing. The first reads like a story; the second like a release-note abstraction:
    - `refactor: make db and auth per-request for d1 binding`
-   - `refactor: swap client and adapter for d1 pattern`
-   See the AI-slop anti-pattern for the filler vocabulary to avoid.
+   - `refactor: swap client and adapter for d1 pattern` See the AI-slop anti-pattern for the filler vocabulary to avoid.
 4. **What and why, never where or how**: Carry *what* changed (the user-observable effect) and *why*. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. One exception for *where*: when the file *is* the change (`docs: update README`, `chore: add .gitignore`), naming it is clearer than abstracting it.
 5. **Follow project conventions**: Match what Step 1 surfaced — documented rules in AGENTS.md/CLAUDE.md win; otherwise follow the log, distinguishing regular commits from PR/merge commits (they may differ). Match the project's scope usage (`type(scope):` vs `type:`) — do not add or strip scope against established style. User can override (e.g. "add scope `auth`", "drop the scope").
 6. **No attribution**: Never add Co-Authored-By or similar lines

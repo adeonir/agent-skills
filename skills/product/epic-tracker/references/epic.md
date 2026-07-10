@@ -16,83 +16,35 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 Check for existing context before asking questions:
 
-1. Look for `docs/product/PRD.md` -- extract relevant functional
-   requirements and scope, and note the requirement IDs
-   (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below)
-2. Look for `docs/product/PRODUCT.md` -- extract positioning (value
-   proposition, audience posture)
+1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below)
+2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture)
 3. If found, summarize what was extracted and confirm with user
 4. If not found, ask the user:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
 
-**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay
-read-only and scoped to this epic. Extract only what maps to it, then
-**translate into epic language**: strip `§3.7` section numbers, internal
-reference codes, sibling artifact names, roadmap/sequencing framing,
-and domain jargon that doesn't stand alone. The
-epic carries the facts, not the source document's framing. The one exception is
-backward provenance: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`) are
-recorded in `## Requirements`, never in prose. `ADR-NNN` is a decision
-dependency, not an owned requirement — it stays out of `## Requirements` and
-travels with the Design Doc in References when the epic depends on one.
+**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay read-only and scoped to this epic. Extract only what maps to it, then **translate into epic language**: strip `§3.7` section numbers, internal reference codes, sibling artifact names, roadmap/sequencing framing, and domain jargon that doesn't stand alone. The epic carries the facts, not the source document's framing. The one exception is backward provenance: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`) are recorded in `## Requirements`, never in prose. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels with the Design Doc in References when the epic depends on one.
 
 ### 2. Draft
 
 Fill the template (below) with discovered context:
 
-- **Name**: kebab-case, descriptive (`user-authentication`,
-  `payment-processing`)
-- **Title**: short human-readable phrase, slug-safe. No commands,
-  flags, file paths, parentheses, brackets, or pipes — becomes branch
-  name slug downstream. Declarative — names the capability
-  (`User authentication`), never a narrative outcome (`Users can sign
-  in securely`). The name is translated from its source, not copied:
-  strip any borrowed token — reference or ticket codes, section
-  numbers, code identifiers, document or sibling-artifact names —
-  which travel in References or the body, never the title. The title
-  maps to the tracker's summary field on push; outcome prose lives
-  only in the body's Summary section.
+- **Name**: kebab-case, descriptive (`user-authentication`, `payment-processing`)
+- **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the capability (`User authentication`), never a narrative outcome (`Users can sign in securely`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field on push; outcome prose lives only in the body's Summary section.
 - **Status**: always starts as `planned`
-- **Prose context**: what the epic is about, why it exists, what changes
-  for the user -- two or three sentences; no scenario narrative, no
-  upstream IDs or section references
-- **Stories**: checklist of stories with brief descriptions. Each story
-  becomes its own artifact later. **Local-only** — when a tracker is
-  configured, adapters strip this section from the body on push so the
-  tracker's native child panel (Sub-issues, child issues, etc.) stays
-  the single source of truth.
-- **Scope**: explicit in/out boundaries. Describe capabilities, not
-  technologies (e.g., "secure password storage" not "bcrypt hashing")
-- **Requirements**: the PRD requirement IDs this epic owns
-  (`FR/BR/EC/NFR`), as a flat list — backward provenance the child
-  stories operationalize, each AC linking back via `Satisfies`. Omit the
-  section when the epic derives from no PRD. `ADR-NNN` is excluded — a
-  decision dependency, not an owned requirement
-- **Rabbit Holes**: execution traps specific to this epic — integration
-  quirks, ordering constraints, or scope edge cases that will catch
-  stories by surprise. Not implementation advice or upstream design notes
-- **Open Questions**: strategic unknowns to resolve before or during
-  story breakdown; omit the section when nothing is undecided
-- **Blocked by**: other epics or stories that must finish before this one
-  can start, listed in frontmatter `blocked_by` by path. Lets the tracker
-  enforce delivery order; leave empty when nothing blocks it.
-- **References**: durable pointers the next session follows (PRD, design
-  doc, UI design). Canonical in the body; frontmatter `sources:` mirrors
-  the links for sync
+- **Prose context**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
+- **Stories**: checklist of stories with brief descriptions. Each story becomes its own artifact later. **Local-only** — when a tracker is configured, adapters strip this section from the body on push so the tracker's native child panel (Sub-issues, child issues, etc.) stays the single source of truth.
+- **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
+- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — backward provenance the child stories operationalize, each AC linking back via `Satisfies`. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement
+- **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes
+- **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
+- **Blocked by**: other epics or stories that must finish before this one can start, listed in frontmatter `blocked_by` by path. Lets the tracker enforce delivery order; leave empty when nothing blocks it.
+- **References**: durable pointers the next session follows (PRD, design doc, UI design). Canonical in the body; frontmatter `sources:` mirrors the links for sync
 
-**Declare, don't narrate.** The discovery conversation is input, never
-content. The body states standing facts in present tense: a resolved
-decision enters as fact (`Auth uses magic links`), never as its history
-(`we discussed OAuth but the user preferred magic links`). Strip
-conversation narrative — "as discussed", "the user confirmed", "we
-agreed" — and decision history; an unresolved decision goes to Open
-Questions, not the prose.
+**Declare, don't narrate.** The discovery conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Auth uses magic links`), never as its history (`we discussed OAuth but the user preferred magic links`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
 
-Record every durable reference surfaced during Discover (PRD, brief,
-design doc, UI design) in frontmatter `sources:` -- one entry per source.
-These are the pointers the resumption gate relies on.
+Record every durable reference surfaced during Discover (PRD, brief, design doc, UI design) in frontmatter `sources:` -- one entry per source. These are the pointers the resumption gate relies on.
 
 Apply the resumption gate before proceeding:
 
@@ -110,20 +62,14 @@ Apply the provenance gate as well:
 ### 3. Save or Push
 
 **If tracker configured** (`git config --get epic-tracker.kind` returns a value and is not `none`):
-- Load [sync.md](sync.md) and dispatch using the draft content directly —
-  no markdown file is created; the tracker is the source of truth
-- User asked to keep it local: save to `.artifacts/epics/{epic-name}/epic.md`;
-  push later via "sync to tracker"
+- Load [sync.md](sync.md) and dispatch using the draft content directly — no markdown file is created; the tracker is the source of truth
+- User asked to keep it local: save to `.artifacts/epics/{epic-name}/epic.md`; push later via "sync to tracker"
 
 **If no tracker configured** (`epic-tracker.kind` not set or `none`):
-- Save to `.artifacts/epics/{epic-name}/epic.md`; create the directory
-  if it doesn't exist
-- User named a tracker: load [sync.md](sync.md) and dispatch to that
-  tracker's adapter
+- Save to `.artifacts/epics/{epic-name}/epic.md`; create the directory if it doesn't exist
+- User named a tracker: load [sync.md](sync.md) and dispatch to that tracker's adapter
 
-An explicit destination in the user's request overrides the configured
-`kind` for this artifact only; it never rewrites the config. See
-[sync.md](sync.md) "Explicit Override".
+An explicit destination in the user's request overrides the configured `kind` for this artifact only; it never rewrites the config. See [sync.md](sync.md) "Explicit Override".
 
 If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
@@ -230,5 +176,4 @@ mirrors these links for sync (markdown only, absent in tracker mode).}
 ## Error Handling
 
 - User provides vague context: ask clarifying questions, don't assume
-- Epic name conflicts with existing: suggest alternative or confirm
-  overwrite
+- Epic name conflicts with existing: suggest alternative or confirm overwrite

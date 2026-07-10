@@ -29,10 +29,7 @@ flowchart TD
 | **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
 | **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
 
-Every mode here works on rendered design, never source. render is the **integrator**
-— the one mode that reads DESIGN.md, WIREFRAME.md, and copy.yaml together — and it
-writes only variant HTML. critique and audit produce only a judgment. Nothing
-here mutates a source artifact or production code.
+Every mode here works on rendered design, never source. render is the **integrator** — the one mode that reads DESIGN.md, WIREFRAME.md, and copy.yaml together — and it writes only variant HTML. critique and audit produce only a judgment. Nothing here mutates a source artifact or production code.
 
 ## Usage
 
@@ -55,9 +52,7 @@ is this production-ready?
 run an accessibility and performance pass
 ```
 
-To make a tuned direction permanent, invoke the owning skill — layout, visual
-identity, or copy. An audit defect is fixed in implementation. Every mode here explores or
-judges — none edits.
+To make a tuned direction permanent, invoke the owning skill — layout, visual identity, or copy. An audit defect is fixed in implementation. Every mode here explores or judges — none edits.
 
 ## Output
 
@@ -66,9 +61,7 @@ judges — none edits.
 └── variants/            # render: variant HTML + .events session log + final.html
 ```
 
-critique and audit write nothing — the verdict and the report are delivered in
-chat. Variant HTML is a decision aid, not a handoff; the handoff to
-implementation is the source set (`DESIGN.md`, `WIREFRAME.md`, `copy.yaml`).
+critique and audit write nothing — the verdict and the report are delivered in chat. Variant HTML is a decision aid, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `WIREFRAME.md`, `copy.yaml`).
 
 ## References
 
