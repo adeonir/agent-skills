@@ -46,7 +46,7 @@ Depth follows scope, not phase-skipping above Small — per-scope depth is owned
 Loaded on demand:
 
 - [sizing.md](references/sizing.md) — the four scopes, scope table, safety valve
-- [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, case convention
+- [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, case convention, calibration against the goal
 - [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
 - [memory.md](references/memory.md) — `CONTEXT.md` and `STATE.md` formats, routing, conflicts
 - [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed)
