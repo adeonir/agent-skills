@@ -27,6 +27,8 @@ The agent judges inline — no formal type detection:
 - **Reshape** — the input already has ACs or a DoD. Convert 1:1 to EARS, changing only the notation, never the substance (Given + When → trigger; Then → "the system shall…").
 - **Author** — a prompt or PRD with no ACs. Write ACs from the intent.
 
+An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry an AC unexamined — a criterion that fails Calibration below surfaces as a discuss question and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
+
 ## `AC-N` identity and tombstones
 
 `AC-N` is a monotonic identifier per feature — never renumbered, never reused. Removing an AC leaves a tombstone instead of renumbering, so existing task and test references stay stable:
@@ -48,6 +50,22 @@ Only when the Author starts from a structured document with its own IDs (a PRD's
 ## Non-functional criteria
 
 Any performance, latency, throughput, capacity, or availability claim carries a number and the condition it holds under (`p95 ≤ 200ms under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question. Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as ACs.
+
+## Calibration
+
+An AC may assert less than its story needs — that gap is a coverage hole, and every gate looks for it. It may also assert *more*, and nothing looks for that. Ask of each AC: **is there an implementation the story's `so that {benefit}` would accept and this AC forbids?** Where an AC serves a top-level Goal directly, the Goal is the anchor.
+
+The failure shape: an AC naming a **timing**, a **count**, a **threshold**, or a **mechanism** where the benefit names only an **outcome**. "On the next read", "in a single query", "without a cache" — each forbids an implementation the benefit permits. The usual leak detector misses it because no forbidden noun appears: the leak is in the clause's **strength**, not its vocabulary.
+
+Two clauses are exempt, or the rule flags its own grammar:
+
+- **The EARS trigger.** `When {trigger}` states the precondition, not the promise. Over-specification lives in the outcome after `shall`.
+- **A non-functional AC.** The number is required (see above) — provided it came from the goal, not from the author.
+
+A miscalibrated AC changes an AC, so it is load-bearing: it joins the batched discuss questions and is resolved before the spec body is written, never rewritten unilaterally. The resolution is one of two:
+
+- **Loosen** to the observable the benefit requires. The spec then states the correct AC while the source input still asserts the tighter clause — a real pendency, carried as a `[deferrable]` line so it survives the session.
+- **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 ## Ambiguity closure
 
