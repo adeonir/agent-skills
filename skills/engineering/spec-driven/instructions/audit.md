@@ -39,7 +39,7 @@ Run whenever code has conditional behavior, calculations, or validations (config
 4. Tier: 1-3 mutations per feature default; ≥5 for critical P-1 logic (security, payments).
 5. Report total / killed / survived, each with type, location, expected test, result. Survivors become fix tasks.
 
-A surviving **referential** mutant means the literal is duplicated across a writer and a reader and the copies never compare — the suite is blind to it by construction, since each side is tested against doubles. Where a shared literal has no test to mutate, statically confirm it has a single definition across the changed files: two definitions of the same value is a finding regardless of test outcome, and the fix is one definition, not a new test.
+A surviving **referential** mutant means the literal is duplicated across a writer and a reader and the copies never compare — the suite is blind to it by construction, since each side is tested against doubles. Where a shared literal has no test to mutate, statically confirm it has a single definition: follow the literal the diff touched to the modules that use it — including an unchanged reader on the other side of the boundary, since a change usually edits only one side — and two definitions of the same value is a finding regardless of test outcome, and the fix is one definition, not a new test.
 
 ## Template: `validation.md`
 

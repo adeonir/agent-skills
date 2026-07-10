@@ -62,7 +62,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 - **The EARS trigger.** `When {trigger}` states the precondition, not the promise. Over-specification lives in the outcome after `shall`.
 - **A non-functional AC.** The number is required (see above) — provided it came from the goal, not from the author.
 
-A miscalibrated AC changes an AC, so it is load-bearing: it joins the batched discuss questions and is resolved before the spec body is written, never rewritten unilaterally. The resolution is one of two:
+A miscalibrated AC changes an AC, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited AC that arrives before drafting surfaces during discuss; an AC authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
 - **Loosen** to the observable the benefit requires. The spec then states the correct AC while the source input still asserts the tighter clause — a real pendency, carried as a `[deferrable]` line so it survives the session.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
