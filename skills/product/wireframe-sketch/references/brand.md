@@ -18,6 +18,7 @@ Read by `create.md` and `validate.md` when the surface is brand — to bias its 
 ## Arranging a brand surface
 
 - **Lead with a hero** that states the one idea; let the fold do work.
+- **Cap the hero at four text blocks** — an eyebrow (or none), a headline, a subheadline, and a CTA; a fifth competing block dilutes the one idea. This bounds the slot count, not the copy — the words that fill each block are content, out of scope here.
 - **Sequence sections as an argument** — problem, value, proof, objection, close — not an undifferentiated stack.
 - **Vary block shapes to the content** — a comparison wants columns (`split`), a story wants full-width. Defaulting every section to a grid is structural slop.
 - **End on conversion** — a final CTA block that recaps and asks.
