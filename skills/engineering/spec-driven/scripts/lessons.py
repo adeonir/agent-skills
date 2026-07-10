@@ -104,6 +104,16 @@ def find_by_text(lessons, text):
     return None
 
 
+def _id_sort_key(lesson):
+    """Sort on the numeric part of L-NNN, so L-1000 follows L-999 rather than L-100."""
+    raw = str(lesson.get("id", "")).replace("L-", "")
+    try:
+        return (0, int(raw))
+    except ValueError:
+        # Non-numeric ids sort last; they never collide with the generated ones.
+        return (1, 0)
+
+
 def _confirm_if_recurring(lesson):
     """Promote a lesson to confirmed once it spans the feature threshold."""
     features = lesson.get("features", [])
@@ -137,9 +147,9 @@ def cmd_add(args):
         lessons.append(target)
     if not save_store(args.store, store):
         return 4
-    render_store(store, args.render)
+    rendered = render_store(store, args.render)
     print("%s %s: %s" % (target["id"], target["status"], target["text"]))
-    return 0
+    return 0 if rendered else 4
 
 
 def cmd_list(args):
@@ -175,9 +185,9 @@ def cmd_promote(args):
     target.setdefault("confirmed_at", _today())
     if not save_store(args.store, store):
         return 4
-    render_store(store, args.render)
+    rendered = render_store(store, args.render)
     print("%s confirmed" % target["id"])
-    return 0
+    return 0 if rendered else 4
 
 
 def cmd_normalize(args):
@@ -190,9 +200,23 @@ def cmd_normalize(args):
         if not key:
             continue
         if key in merged:
-            # Merge duplicate texts: union features, keep earliest created.
+            # Merge duplicate texts: union features, keep the earliest created date,
+            # and carry a confirmed status forward. `promote` can confirm on a single
+            # feature, which the recurrence rule alone would silently demote back.
             base = merged[key]
+            # Identifiers are never renumbered, so a merge keeps the lower id
+            # rather than whichever duplicate happened to come first in the store.
+            if lesson.get("id") and _id_sort_key(lesson) < _id_sort_key(base):
+                base["id"] = lesson["id"]
             base["features"] = sorted(set(base.get("features", []) + lesson.get("features", [])))
+            dates = [d for d in (base.get("created"), lesson.get("created")) if d]
+            base["created"] = min(dates) if dates else _today()
+            if not base.get("origin"):
+                base["origin"] = lesson.get("origin", "")
+            if lesson.get("status") == "confirmed":
+                base["status"] = "confirmed"
+                stamps = [s for s in (base.get("confirmed_at"), lesson.get("confirmed_at")) if s]
+                base["confirmed_at"] = min(stamps) if stamps else _today()
             _confirm_if_recurring(base)
         else:
             lesson["features"] = sorted(set(lesson.get("features", [])))
@@ -208,13 +232,13 @@ def cmd_normalize(args):
     for lesson in normalized:
         if not lesson.get("id"):
             lesson["id"] = next_id(normalized)
-    normalized.sort(key=lambda l: l.get("id", ""))
+    normalized.sort(key=_id_sort_key)
     store["lessons"] = normalized
     if not save_store(args.store, store):
         return 4
-    render_store(store, args.render)
+    rendered = render_store(store, args.render)
     print("normalized %d lessons" % len(normalized))
-    return 0
+    return 0 if rendered else 4
 
 
 def cmd_render(args):
@@ -261,30 +285,37 @@ def render_store(store, path):
 
 
 def build_parser():
+    # Path flags live on both the top parser and every subcommand, so they work on
+    # either side of the subcommand. SUPPRESS on the child keeps an absent flag from
+    # clobbering a value the top parser already resolved.
+    paths = argparse.ArgumentParser(add_help=False)
+    paths.add_argument("--store", default=argparse.SUPPRESS, help="path to lessons.json")
+    paths.add_argument("--render", default=argparse.SUPPRESS, help="path to LESSONS.md")
+
     parser = argparse.ArgumentParser(description="Manage the spec-driven lessons layer.")
     parser.add_argument("--store", default=DEFAULT_STORE, help="path to lessons.json")
     parser.add_argument("--render", default=DEFAULT_RENDER, help="path to LESSONS.md")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    add = sub.add_parser("add", help="add a candidate lesson")
+    add = sub.add_parser("add", parents=[paths], help="add a candidate lesson")
     add.add_argument("--text", required=True)
     add.add_argument("--origin", default="")
     add.add_argument("--feature", default="")
     add.set_defaults(func=cmd_add)
 
-    listing = sub.add_parser("list", help="list lessons")
+    listing = sub.add_parser("list", parents=[paths], help="list lessons")
     listing.add_argument("--status", choices=["candidate", "confirmed"], default="")
     listing.set_defaults(func=cmd_list)
 
-    promote = sub.add_parser("promote", help="force a lesson to confirmed")
+    promote = sub.add_parser("promote", parents=[paths], help="force a lesson to confirmed")
     promote.add_argument("--id", required=True)
     promote.add_argument("--feature", default="")
     promote.set_defaults(func=cmd_promote)
 
-    normalize = sub.add_parser("normalize", help="dedupe, sort, backfill, re-render")
+    normalize = sub.add_parser("normalize", parents=[paths], help="dedupe, sort, backfill, re-render")
     normalize.set_defaults(func=cmd_normalize)
 
-    render = sub.add_parser("render", help="render LESSONS.md from lessons.json")
+    render = sub.add_parser("render", parents=[paths], help="render LESSONS.md from lessons.json")
     render.set_defaults(func=cmd_render)
     return parser
 

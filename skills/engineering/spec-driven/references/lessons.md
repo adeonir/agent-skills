@@ -44,7 +44,7 @@ The store is machine-owned — never hand-write it; `scripts/lessons.py` owns ev
 
 ## Commands
 
-Run the bundled script; it owns `lessons.json` and re-renders `LESSONS.md`. Paths default to `.artifacts/` and are overridable with `--store` / `--render`.
+Run the bundled script; it owns `lessons.json` and re-renders `LESSONS.md`. Paths default to `.artifacts/` and are overridable with `--store` / `--render`, on either side of the subcommand. A write that lands in the store but fails to render exits non-zero — the store is still correct, `LESSONS.md` is stale, and `render` re-runs cleanly.
 
 ```bash
 # add a candidate lesson from an audit failure
@@ -64,4 +64,4 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py normalize
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py render
 ```
 
-`add` auto-promotes to `confirmed` when the text already exists on a different feature, so recording the same lesson on a second feature confirms it in one step. `promote` forces the transition explicitly.
+`add` auto-promotes to `confirmed` when the text already exists on a different feature, so recording the same lesson on a second feature confirms it in one step. `promote` forces the transition explicitly, on a single feature if need be — and `normalize` preserves that forced status when it merges duplicate texts, keeping the lower id and the earliest `created`.
