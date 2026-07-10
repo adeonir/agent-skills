@@ -73,8 +73,8 @@ and ask whether this ADR supersedes any.
   Should we split into multiple ADRs?"
 - No alternatives mentioned → "What other options were on the table?
   If none, is this really an architecture decision?"
-- Consequences are all positive → "What cost or limitation are we
-  accepting? Every decision has trade-offs."
+- Consequences are all positive → "What cost or limitation does the
+  decision absorb? Every decision has trade-offs."
 - Decision is vague → "Stated as a positive imperative, what will we
   do? 'We will X' or 'We will not X'."
 
