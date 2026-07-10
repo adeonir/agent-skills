@@ -42,7 +42,7 @@ Only when the Author starts from a structured document with its own IDs (a PRD's
 ## Case convention — three classes
 
 - **EARS operators** (requirement prose) → the reserved words above, as written.
-- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[blocking]`, `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
+- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
 - **Identifiers** (owned, monotonic, never renumbered) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `AC-N` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
 
 ## Non-functional criteria
