@@ -71,4 +71,6 @@ spec: .artifacts/specs/{slug}/spec.md
 
 A placement or trigger with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the ruled-out alternative in its `Rejected` cell, even when one looks obvious. A `Rejected` cell is empty only when the decision genuinely had one viable home.
 
+A `Mitigation` that accepts a cost names the constraint that forces it — an API exposing no hook, a platform limit, a contract that cannot change. An `AC-N` is not a constraint: it states what must be true, not what cannot be otherwise, so it never explains why a cost is unavoidable. Cite the mechanism, or the cost was never actually weighed.
+
 MUST NOT contain: acceptance criteria restated (traceability references `AC-N`, never copies it), observable-behavior clauses (`When Y, then Z` — that is spec), function bodies, tests, step sequences, or commit order (those are tasks). Say *where* and *what responsibility*, never *how the function is written internally*. Subsystem presence is a declared assumption (`assumes X via file:line`), not a proof of wiring.

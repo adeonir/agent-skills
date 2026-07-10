@@ -269,7 +269,18 @@ Negative section is empty, the decision either has no trade-offs (rare
 — reconsider whether this needs an ADR) or the trade-offs are being
 ignored (more likely — push back).
 
-## Anti-Pattern: Anticipating Future ADRs
+## Anti-Pattern: Unforced Consequence
+
+`Consequences Without Trade-offs` makes a Negative consequence *exist*;
+this makes it *forced*. A cost the decision absorbs holds because the
+Decision itself makes it unavoidable, and the force is one of the
+value-neutral constraints already named in Context — a platform limit, an
+API that exposes no hook, a contract that cannot change. It fails when the
+cost is justified by a requirement that merely sits nearby: a requirement
+says what must be true, a constraint says what cannot be otherwise, and
+only the second makes a cost unavoidable. A Negative bullet that traces
+back to no force in Context was never weighed — it is a cost written down,
+not a trade-off absorbed. State the force, or drop the bullet.
 
 An ADR records a decision at a point in time and does not know the
 future — even when authored retroactively. It must not reference, link
