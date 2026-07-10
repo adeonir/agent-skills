@@ -67,6 +67,7 @@ A flat list of features is not persuasion — vary the parts so the copy argues.
 
 ## Part Writing Tips
 
+- **Hero** — keep the subheadline to ~20 words. If the value proposition does not fit in 20 words, the value prop is unclear, not the limit too tight — tighten the idea, not the word budget.
 - **Problem** — open with recognition ("If you're like most {role}…"), then the specific frustration and its cost.
 - **Benefits** — headline = the outcome; body = how, in 1-2 sentences; proof if there is one.
 - **How-it-works** — numbered, simple verb, outcome per step ("Connect your tools (2 minutes)").
