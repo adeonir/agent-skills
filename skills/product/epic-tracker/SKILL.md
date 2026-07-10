@@ -17,17 +17,6 @@ Manages the delivery lifecycle with tracker-first integration and
 markdown fallback. Plan epics, track stories, report bugs, file tasks,
 group releases, and push to a tracker (via MCP or CLI) when configured.
 
-## Workflow
-
-```text
-discover → create → sync*
-                    ^__|  (sync is optional, gated by config)
-```
-
-Tracker-first when configured — artifacts go directly to the tracker.
-Falls back to markdown when not. Status and overview happen directly — on
-the tracker when configured, else the markdown files; no dedicated ref.
-
 ## Triggers
 
 - **Epic** ("create epic", "new epic") → [epic.md](references/epic.md)
@@ -74,6 +63,17 @@ that change AC text. Not a direct trigger.
 `discriminator.md` owns the Bug/Story/Task type rule — loaded when a trigger
 does not name the type, and referenced by the create refs on type disputes.
 Not a direct trigger.
+
+## Workflow
+
+```text
+discover → create → sync*
+                    ^__|  (sync is optional, gated by config)
+```
+
+Tracker-first when configured — artifacts go directly to the tracker.
+Falls back to markdown when not. Status and overview happen directly — on
+the tracker when configured, else the markdown files; no dedicated ref.
 
 ## Guidelines
 
