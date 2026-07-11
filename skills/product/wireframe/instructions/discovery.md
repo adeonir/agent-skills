@@ -4,7 +4,7 @@ Establishes planning context and routes to the right mode.
 
 ## When to Use
 
-Load at the start of every wireframe-sketch operation — before any mode runs, never invoked directly.
+Load at the start of every wireframe operation — before any mode runs, never invoked directly.
 
 ## Workflow
 

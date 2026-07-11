@@ -1,4 +1,4 @@
-# Wireframe Sketch
+# Wireframe
 
 Plans `WIREFRAME.md` — the structural layout a design consumes — and draws it as a low-fi wireframe.
 

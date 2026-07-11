@@ -1,5 +1,5 @@
 ---
-name: wireframe-sketch
+name: wireframe
 allowed-tools: Read Write Edit WebFetch
 description: >-
   Plans the layout structure a design consumes — a region tree plus
@@ -14,7 +14,7 @@ description: >-
   for visual identity or design tokens, copy or content.
 ---
 
-# Wireframe Sketch
+# Wireframe
 
 Owns `WIREFRAME.md` — the structural layout plan a design consumes: a YAML frontmatter holds the region tree, and a markdown body narrates it with a screen map and per-surface rationale. From that plan the skill draws a **low-fi wireframe** — greyscale, content-blind, the kind you sketch before visual design. Arrangement is orthogonal to visual identity: the same plan holds under any design, so this skill plans structure only — information architecture, region layout, and screen flow — never colors, fonts, or tokens.
 

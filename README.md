@@ -40,7 +40,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[design-brief](skills/product/design-brief)**     | Product     | Greenfield visual identity — explore a direction and author `DESIGN.md`       |
 | **[docs-writer](skills/product/docs-writer)**       | Product     | Structured docs: PRD, Brief, Design Doc, ADR                                  |
 | **[epic-tracker](skills/product/epic-tracker)**     | Product     | Epics, stories, bugs, and releases — tracker-first or markdown                |
-| **[wireframe-sketch](skills/product/wireframe-sketch)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow  |
+| **[wireframe](skills/product/wireframe)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow  |
 
 ## How They Connect
 
@@ -52,7 +52,7 @@ flowchart TD
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
-    DW_PRD -->|requirements| WF[wireframe-sketch]
+    DW_PRD -->|requirements| WF[wireframe]
     DW_PRD -->|requirements| CW[copywriting]
     WF -->|layout| CU[craft-ui]
     CW -->|content| CU
@@ -79,7 +79,7 @@ business logic:
 1.  brainstorming    --> direction and constraints
 2.  docs-writer      --> requirements (what to build, for whom, why)
 3.  docs-writer      --> technical decisions and trade-offs
-4.  wireframe-sketch --> layout and screen flow
+4.  wireframe --> layout and screen flow
 5.  design-brief     --> visual identity and design tokens
 6.  copywriting      --> content and copy
 7.  craft-ui         --> build and pressure-test the interface
@@ -108,7 +108,7 @@ docs/
 ├── product/        # brainstorming: brainstorm · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: visual identity · wireframe-sketch: layout · copywriting: content
+└── design/         # design-brief: visual identity · wireframe: layout · copywriting: content
 
 .artifacts/
 ├── specs/          # spec-driven: per-feature spec, design, tasks, validation

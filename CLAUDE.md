@@ -422,7 +422,7 @@ docs/
 ├── product/   # brainstorming, docs-writer
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # design-brief, wireframe-sketch, copywriting
+└── design/    # design-brief, wireframe, copywriting
 
 .artifacts/
 ├── specs/, archive/, CONTEXT.md, STATE.md, lessons.json, LESSONS.md, research/   # spec-driven
@@ -442,7 +442,7 @@ docs-writer skill no longer ships a "Technical Design Document" artifact
 type — that role is now covered by the project-wide Design Doc.
 
 `register` / `surface` are shared design vocabulary across `craft-ui`,
-`design-brief`, `copywriting`, and `wireframe-sketch`: **register** = posture (`brand`
+`design-brief`, `copywriting`, and `wireframe`: **register** = posture (`brand`
 vs `product`, two values), **surface** = granular type named by context. Each
 skill carries its own `brand.md` + `product.md`; the terms must not diverge.
 `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the
