@@ -25,4 +25,5 @@ Most specific first — the Jira Story/Task/Bug split:
 ## Notes
 
 - **Story vs Task is form, not audience.** A Story is a demonstrable user-value slice with acceptance criteria; everything else actionable is a Task, even when user-adjacent. A horizontal building block with no demonstrable user outcome is a Task, not a Story.
+- **Example — password reset.** "Set a new password from a reset link" is a Story: demonstrable on its own, carries acceptance criteria. "Add the password_resets table" or "stand up the mail queue" is a Task: a horizontal building block the story needs but that shows the user nothing on its own.
 - **Bug vs Task.** A Bug fixes broken existing behavior; a Task builds or changes something that is not a defect.
