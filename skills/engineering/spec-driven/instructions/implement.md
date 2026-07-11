@@ -33,6 +33,7 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
 2. Load the relevant slices of `spec.md` and `design.md`.
 3. State the files to touch, the AC / `Done when` this task satisfies, and the main risks.
+4. If the task **modifies** existing code (not a pure add): before changing it, understand what it currently does — its responsibility, its callers, the edge cases it handles — and read `git blame` on the lines you will change for the original intent. Preserve behavior the spec does not mean to alter; a line whose purpose you cannot explain is a fence not to remove blindly. A task that only adds new code skips this.
 
 ### Per task — During
 
