@@ -4,7 +4,7 @@ Record a single architecture decision with its context, consequences, and reject
 
 ## When to Use
 
-When a meaningful architecture decision has been made (or is about to be made) that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, migration strategy. One ADR per decision. ADRs are short (1-2 pages); once accepted and committed they become immutable — superseded by new ADRs, never edited in place.
+When a meaningful architecture decision has been made (or is about to be made) that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, migration strategy. One ADR per decision. ADRs are short (1-2 pages); once accepted and committed they become immutable — superseded by new ADRs, not edited in place except on an explicit, justified reopen to `proposed`.
 
 **Key principle:** ADRs capture *the* decision and *why*, not the exploration that led to it. If multiple decisions are still in play or trade-offs are being weighed, write a Design Doc first and record the outcomes as ADRs.
 
@@ -157,7 +157,7 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 - State the decision as a positive imperative ("We will...")
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
 - Always record both positive and negative consequences — every decision has trade-offs
-- ADRs become immutable once accepted and committed — supersede with a new ADR, never edit committed history; an uncommitted draft is still editable in place
+- ADRs become immutable once accepted and committed — supersede with a new ADR, never edit committed history; an uncommitted draft is still editable in place, and a committed ADR reopens to `proposed` only on an explicit user request with a stated justification
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
 - When extracted from a Design Doc Alternatives row, the ADR's References section links back to the design doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
 - Alternatives Considered Record column defaults to `—`; populate with `ADR-NNN` only when the alternative itself has been recorded as a separate ADR
@@ -170,15 +170,18 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 
 ```text
 proposed → accepted → deprecated
-                      → superseded (by ADR-NNN)
+    ↑                → superseded (by ADR-NNN)
+    └──── reopen ──── (accepted → proposed: explicit user request + justification)
 ```
 
 - **proposed**: Drafted, awaiting review. Editable in place. The status advances only when the user explicitly ratifies the decision — the skill never auto-promotes.
-- **accepted**: Approved and in effect. Immutable once committed; an accepted ADR not yet committed has no recorded history to preserve and stays editable in place.
+- **accepted**: Approved and in effect. Immutable once committed; an accepted ADR not yet committed has no recorded history to preserve and stays editable in place. A committed accepted ADR reopens to `proposed` only on an explicit user request with a justification (see Reopening below).
 - **deprecated**: No longer recommended but not replaced. Immutable.
 - **superseded**: Replaced by a newer ADR. Frontmatter `superseded-by` links to the replacement. Immutable.
 
 Immutability protects committed decision history: once an ADR is part of the log, supersede it with a new ADR rather than editing it. When superseding, the new ADR's frontmatter `supersedes` lists the prior ADR ID, and the prior ADR's status moves to `superseded` with `superseded-by` populated.
+
+**Reopening a committed ADR.** By default a committed decision is superseded, not edited. The one exception is an explicit user request to reopen: the user moves the ADR back to `proposed` with a stated justification — never the skill on its own, and never silently. The justification rides in the reopen commit, so committed history still records why the decision was taken back into motion. Implementation status does not grant this — an unimplemented decision reopens the same way as any other, only on an explicit, justified request. Absent that request, supersede instead.
 
 ## Anti-Pattern: Bundled Decisions
 
