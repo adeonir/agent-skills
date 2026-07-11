@@ -66,6 +66,7 @@ Confirm the commit landed — if `git status` still lists the files as pending, 
 5. **Follow project conventions**: Match what Step 1 surfaced — documented rules in AGENTS.md/CLAUDE.md win; otherwise follow the log, distinguishing regular commits from PR/merge commits (they may differ). Match the project's scope usage (`type(scope):` vs `type:`) — do not add or strip scope against established style. User can override (e.g. "add scope `auth`", "drop the scope").
 6. **No attribution**: Never add Co-Authored-By or similar lines
 7. **No future references**: Don't mention upcoming work or architectural reasoning
+8. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
 
 ## Anti-Pattern: AI-slop subject
 
