@@ -17,19 +17,24 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 
 ### What the auditor checks
 
-Each check that requires judgment — Goals evidence, asserted value matches the spec's outcome, AC within its Goal, design adherence — is run disprove-first: actively seek the counterexample that would make it fail against its source of truth, and pass it only when that search comes up empty. Binary checks (an AC maps to a test at `file:line`, the suite re-runs green) are facts, not judgments — no disproof needed. A finding is always a contract violation, never a matter of taste or a design choice already settled. The discrimination sensor below is this same stance applied to the test suite.
+Each check that requires judgment — Goals evidence, asserted value matches the spec's outcome, AC within its Goal, design adherence, changed-test authorization — is run disprove-first: actively seek the counterexample that would make it fail against its source of truth, and pass it only when that search comes up empty. Binary checks (an AC maps to a test at `file:line`, the suite re-runs green) are facts, not judgments — no disproof needed. A finding is always a contract violation, never a matter of taste or a design choice already settled. The discrimination sensor below is this same stance applied to the test suite.
 
 | Check | Source of truth |
 |-------|-----------------|
 | Goals have concrete evidence | `spec.md ## Goals` |
 | Each AC maps to a passing test (`file:line` + assertion) | `spec.md` + `tasks.md ## Coverage Matrix` |
 | Asserted value matches the spec's outcome | `spec.md` |
+| Each altered pre-existing test's assertion is authorized by an AC | feature diff + `spec.md` ACs |
 | Each AC stays within the Goal or benefit it serves | `spec.md ## Goals` + story `so that` clauses |
 | Design adherence | `design.md` |
 | Pattern adherence | `AGENTS.md`/`CLAUDE.md` + `CONTEXT.md ## Conventions` |
 | Tests kill injected mutants | discrimination sensor below |
 | Suite re-runs green independently | project test command |
 | Layout matches prototype (if any) | `spec.md` visual references |
+
+### Changed-test authorization
+
+The reverse of "asserted value matches the spec's outcome": a test writes down expected behavior, so editing one to pass is a behavior change in disguise. Read each pre-existing test's before→after from the diff. An altered assertion authorized by an AC — the feature owns that behavior change — is fine. An altered, weakened, or deleted assertion that no AC authorizes is a masked regression (behavior that should have been preserved was not) or an unspecified behavior change; either way a gap → restore the behavior, or route back to specify to add the AC. Default FAIL: a behavior change outside the contract is a contract violation until it is specified. A mechanical edit that leaves the assertion intact — a rename, an import, a moved file — is not a delta and not a finding.
 
 ### Discrimination sensor
 
