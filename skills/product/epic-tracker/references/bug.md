@@ -42,7 +42,7 @@ Ask the user for (skip what's already provided or inferred):
 3. **Severity** -- critical (system down), high (major feature broken), medium (workaround exists), low (cosmetic/minor)
 4. **Environment** -- browser, OS, device, app version, environment (optional, ask only if relevant)
 5. **Workaround** -- any known mitigation
-6. **Related epic** -- which epic this bug belongs to, if any
+6. **Related epic** -- which epic this bug belongs to, if any. A bug inside an epic is a sibling of the epic's stories and tasks; standalone bugs live in `standalone/`
 
 ### 3. Determine Location
 
@@ -99,12 +99,15 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - Set severity based on user impact, not technical complexity
 - Include the workaround if one exists
 - Link to the parent epic when applicable
+- Use typed labels in frontmatter `sources:` (Epic, Design Doc, UI Design)
+- Treat a bug inside an epic as a sibling of the epic's stories and tasks
 
 **DON'T:**
 - Guess the severity -- ask the user if unclear
 - Include fix suggestions — implementation is a downstream concern
 - Skip the environment section for UI bugs
 - Create a bug when the user actually wants a story (ask if ambiguous)
+- Add a bug to the epic's story checklist — bugs are tracked separately
 
 ## Template
 
@@ -116,8 +119,11 @@ name: {{bug-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
-sources: []
-blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
+sources:
+  - Epic: {{link to parent epic or "None"}}
+  - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
+  - UI Design: {{link to UI design or "None"}}
+blocked_by: []  # paths of artifacts that must finish first (epic-name/bug-name, epic-name/story-name, epic-name/task-name, or standalone/bug-name); omit when nothing blocks this
 epic: {{epic-name or omit for standalone}}
 type: bug
 severity: {{critical/high/medium/low}}
@@ -182,6 +188,13 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 
 {{Known mitigation, or "None known"}}
 
+## Regression
+
+{Remove this section if the bug is not known to be a regression.}
+
+- **Introduced in:** {{release, commit, or deployment where the bug first appeared}}
+- **Last known good:** {{release, commit, or deployment where it worked}}
+
 ## References
 
 {Durable pointers the next session follows to recover context. Canonical
@@ -191,6 +204,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).
 
 - **Epic:** {{link to parent epic, or "None"}}
 - **Related stories:** {{links or "None"}}
+- **Related tasks:** {{links or "None"}}
 ````
 
 ## Error Handling
