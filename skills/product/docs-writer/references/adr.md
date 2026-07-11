@@ -181,7 +181,7 @@ proposed → accepted → deprecated
 
 Immutability protects committed decision history: once an ADR is part of the log, supersede it with a new ADR rather than editing it. When superseding, the new ADR's frontmatter `supersedes` lists the prior ADR ID, and the prior ADR's status moves to `superseded` with `superseded-by` populated.
 
-**Reopening a committed ADR.** By default a committed decision is superseded, not edited. The one exception is an explicit user request to reopen: the user moves the ADR back to `proposed` with a stated justification — never the skill on its own, and never silently. The justification rides in the reopen commit, so committed history still records why the decision was taken back into motion. Implementation status does not grant this — an unimplemented decision reopens the same way as any other, only on an explicit, justified request. Absent that request, supersede instead.
+**Reopening a committed ADR.** By default a committed decision is superseded, not edited. The one exception is an explicit user request to reopen: the user moves the ADR back to `proposed` with a stated justification — never the skill on its own, and never silently. The justification rides in the reopen commit, so committed history still records why the decision was taken back into motion. Implementation status does not grant this — an unimplemented decision reopens the same way as any other, only on an explicit, justified request. Absent that request, supersede instead. On reopen, flip frontmatter `status` to `proposed` and bump `updated`, preserving `created` and `sources`.
 
 ## Anti-Pattern: Bundled Decisions
 
