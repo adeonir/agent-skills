@@ -16,6 +16,8 @@ Write the body from the branch diff and commit log against the base — the *wha
 
 Sections are earned, not mandatory. Always write the Summary. Add **Changes** only when the PR has several distinct changes worth listing. Add **Test Plan** only when there is reviewer-runnable behavior. A trivial PR (a typo, a one-line fix) is often just a Summary and `Closes #N`.
 
+Here is a sensible default format, but use your best judgment:
+
 ````markdown
 ## Summary
 
