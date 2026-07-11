@@ -1,14 +1,14 @@
 # Sync
 
-Orchestrate push and pull between markdown artifacts and an external tracker. Detect the configured tracker, dispatch to the matching adapter, surface conflicts, update frontmatter on success.
+Orchestrate push and pull between local artifacts and an external tracker. In tracker-first mode, sync runs automatically after an artifact is created or edited; the tracker is the source of truth. Markdown only exists when the user asks to keep an artifact local or when no tracker is configured.
 
 Conflict resolution and adapter dispatch deserve careful reasoning — a wrong push can clobber tracker state that other people rely on.
 
 ## When to Use
 
 - Direct trigger: "sync to tracker", "push to {linear,github}", "pull from tracker", "configure tracker"
-- Auto-loaded by core refs (epic, story, task, bug) after the artifact is saved when `epic-tracker.kind` is set and not `none`
-- Invoked directly to read overview/list state from the tracker (`list_artifacts`) when reporting status
+- Auto-loaded by core refs (epic, story, task, bug) after the artifact is created or edited when `epic-tracker.kind` is set and not `none`
+- Invoked directly to recover state from the tracker (`pull`) or to re-sync after an external change
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
@@ -41,9 +41,10 @@ Runs when an operation requires a tracker but `epic-tracker.kind` is not set in 
 
 1. Check `git config --get epic-tracker.kind`. If set and not `none`, skip bootstrap.
 2. Detect available integration methods for each tracker:
-   - MCP: check if the tracker's MCP server is active in the session
-   - CLI: check if the tracker's CLI is installed (`gh`, `linear`)
-   - MCP is always preferred; CLI is the fallback when MCP is missing or fails at runtime
+   - **MCP:** probe with a lightweight read-only call (e.g., `viewer` for Linear, `repos/get` for GitHub). If the call succeeds, MCP is available.
+   - **CLI:** check if the tracker's CLI is installed (`gh`, `linear`).
+   - MCP is always preferred; CLI is the fallback when MCP is missing or fails at runtime.
+   - Markdown-only is **not** a fallback when a tracker is configured — it is only chosen when the user picks "none" in bootstrap or has no tracker configured.
 3. Present detected options plus "none (markdown only)" to the user.
 4. Ask the user to pick one.
 5. Collect tracker-specific fields one question at a time:
@@ -95,20 +96,26 @@ The artifact body — including `## References` and `## Signals` — travels int
      ```
    - If no markdown file (tracker-native workflow): surface the tracker URL to the user; nothing is stored locally.
    - If the artifact declares `blocked_by`, resolve the paths to tracker ids and call `set_dependencies` (see Dependencies). Missing blockers are skipped with a warning, never failing the push.
-6. On failure, surface the error and leave any existing markdown untouched. Suggest re-running sync once the issue is resolved.
+6. On failure, surface the error and leave any existing local artifact untouched. Suggest re-running sync once the issue is resolved.
 
-## Pull Direction (tracker → markdown)
+### Edit → re-sync cycle
 
-1. Read artifact markdown frontmatter; require `tracker.id` to be present.
+Artifacts are not immutable. When a story is edited after spec discovery reveals an inconsistency, or when any artifact's body or status changes, re-run sync to push the update. The core ref validates the edit first (for stories, `ac-validation.md` runs when AC text changes); only validated edits are pushed. This keeps the tracker as the live source of truth without manual re-invocation of sync.
+
+## Pull Direction (tracker → local)
+
+Use pull to recover an artifact's current state from the tracker — for example, after a teammate edited it in the tracker, or to reattach a local file to tracker state. Pull is a recovery operation, not part of the normal tracker-first workflow.
+
+1. Read artifact frontmatter; require `tracker.id` to be present.
 2. Load the matching adapter.
 3. Adapter fetches the entity from the tracker via MCP.
 4. Compare tracker state with local frontmatter and body.
 5. Detect conflicts (see below).
-6. Update markdown content + frontmatter `tracker.last_synced`, and refresh `blocked_by` from the entity's native dependency relations (see Dependencies).
+6. Update local content + frontmatter `tracker.last_synced`, and refresh `blocked_by` from the entity's native dependency relations (see Dependencies).
 
 AC validation does not run on pull. Pulled bodies may contain legacy AC format from before the Given/When/Then enforcement; the implementation consumer decides how to handle them. See [ac-validation.md](ac-validation.md) "Read-path tolerance" for rationale.
 
-If `tracker.id` is missing, route the user to push first or to manually attach an existing tracker entity.
+If the tracker entity no longer exists (deleted or archived), surface the orphan state: the local artifact keeps its `tracker.id` but the link is dead. Ask whether to detach the tracker reference, recreate the entity, or leave it as-is.
 
 ## Dependencies
 
