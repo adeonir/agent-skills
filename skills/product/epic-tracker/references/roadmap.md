@@ -67,6 +67,14 @@ Write the ordered flow to `docs/ROADMAP.md` (committed). Update it in place on r
 Here is a sensible default format, but use your best judgment — phase headings when the flow has stages, a single ordered list when it does not:
 
 ````markdown
+---
+updated: {{YYYY-MM-DD}}
+status: {{draft | stable | provisional}}
+sources:
+  - PRD: {{link to docs/product/PRD.md or "None"}}
+  - PRODUCT: {{link to docs/product/PRODUCT.md or "None"}}
+---
+
 # Roadmap: {{Project Name}}
 
 {{One line on what this roadmap sequences and why.}}
@@ -74,11 +82,11 @@ Here is a sensible default format, but use your best judgment — phase headings
 
 ## {{Phase name, or omit the heading for a flat flow}}
 
-1. **{{epic-name}}** — {{one-line capability the epic delivers}} — _Driven by: {{journey, rule, or goal that motivates this epic}}_
+1. **{{epic-name}}** — {{one-line capability the epic delivers}} — _Driven by: {{journey, rule, or goal that motivates this epic}}_ — {{optional tag: foundation | validation | high-risk | external-dependency}}
 2. **{{epic-name}}** — {{one-line capability}} — _Driven by: {{journey, rule, or goal}}_
 ````
 
-MUST NOT contain: deadlines or dates, per-story detail, PRD IDs (FR-N, BR-N, EC-N, NFR-N, DEP-N), section numbers, or implementation specifics.
+MUST NOT contain: deadlines or dates, per-story detail, PRD IDs (FR-N, BR-N, EC-N, NFR-N, DEP-N), section numbers, or implementation specifics. Tags are short signals only; they never replace the capability description or introduce scheduling.
 
 ## Guidelines
 
@@ -90,3 +98,5 @@ MUST NOT contain: deadlines or dates, per-story detail, PRD IDs (FR-N, BR-N, EC-
 - The roadmap references its epics; epics never point back at it — they stay self-contained
 - Organizing is not creating — materialize epics via [decompose.md](decompose.md)
 - Mark the roadmap provisional when the PRD is missing or known to be unstable
+- Populate frontmatter `updated`, `status`, and `sources` on every write
+- Use tags sparingly: `foundation`, `validation`, `high-risk`, `external-dependency` — never as a substitute for the capability description
