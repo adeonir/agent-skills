@@ -30,6 +30,8 @@ Read and written via `git config --local`. Keys:
 | Key | Trackers | Description |
 | --- | -------- | ----------- |
 | `epic-tracker.kind` | all | `linear`, `github`, or `none` |
+| `epic-tracker.method` | all | `mcp` or `cli` — primary integration method |
+| `epic-tracker.fallback` | all | `mcp`, `cli`, or `none` — secondary method when primary fails |
 | `epic-tracker.workspace` | Linear | team workspace slug |
 | `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
 
@@ -43,15 +45,15 @@ Runs when an operation requires a tracker but `epic-tracker.kind` is not set in 
 2. Detect available integration methods for each tracker:
    - **MCP:** probe with a lightweight read-only call (e.g., `viewer` for Linear, `repos/get` for GitHub). If the call succeeds, MCP is available.
    - **CLI:** check if the tracker's CLI is installed (`gh`, `linear`).
-   - MCP is always preferred; CLI is the fallback when MCP is missing or fails at runtime.
-   - Markdown-only is **not** a fallback when a tracker is configured — it is only chosen when the user picks "none" in bootstrap or has no tracker configured.
-3. Present detected options plus "none (markdown only)" to the user.
-4. Ask the user to pick one.
-5. Collect tracker-specific fields one question at a time:
+3. Present detected tracker options plus "none (markdown only)" to the user. Ask the user to pick a tracker.
+4. For the chosen tracker, present the available integration methods and ask which one is primary. The secondary method becomes the fallback. If only one method is available, use it as primary with no fallback.
+5. Markdown-only is **not** a fallback when a tracker is configured — it is only chosen when the user picks "none" in bootstrap or has no tracker configured.
+6. Collect tracker-specific fields one question at a time:
    - Linear: workspace.
    - GitHub: optional `project-number` (Projects v2).
-6. Persist config with `git config --local`:
+7. Persist config with `git config --local`:
    - All trackers: `git config --local epic-tracker.kind {kind}`
+   - Primary/fallback method: `git config --local epic-tracker.method {mcp|cli}` and `git config --local epic-tracker.fallback {mcp|cli|none}`
    - Linear: `git config --local epic-tracker.workspace {workspace}`
    - GitHub: `git config --local epic-tracker.project-number {n}` (when provided)
 
@@ -85,7 +87,7 @@ The artifact body — including `## References` and `## Signals` — travels int
 3. Load the adapter matching `epic-tracker.kind`:
    - `linear` → [adapter-linear.md](adapter-linear.md)
    - `github` → [adapter-github.md](adapter-github.md)
-4. Adapter creates or updates the entity. Always attempt MCP first; if MCP is unavailable or fails (auth, server down, tool missing), fall back to the tracker's CLI (`gh`, `linear`). Runtime probing always wins — MCP is preferred regardless of how the tracker was configured.
+4. Adapter creates or updates the entity using the configured primary method (`epic-tracker.method`). If the primary method fails (auth, server down, tool missing), try the configured fallback (`epic-tracker.fallback`) when set. Runtime probing applies: if the primary method is unavailable at runtime, use the fallback immediately. If both fail, surface the error and leave any existing local artifact untouched.
 5. On success:
    - If a markdown file exists: patch its frontmatter with tracker info:
      ```yaml
@@ -186,7 +188,7 @@ Status mapping (planned -> in-progress -> done -> blocked) is the adapter's resp
 - Treat the tracker as source of truth for status when `tracker.id` is set in frontmatter
 - Warn the user about every conflict before resolving; never resolve silently
 - Update `last_synced` timestamp on every successful sync
-- Try MCP first on every operation; fall back to CLI when MCP is missing or fails; fall back to markdown-only when both are unavailable, and warn the user
+- Try the configured primary method first on every operation; fall back to the configured fallback when it fails; fall back to markdown-only when both are unavailable, and warn the user
 
 **DON'T:**
 - Re-ask whether to push when `kind` is set (contrasts: bootstrap already answered; the config stands)
@@ -200,7 +202,7 @@ Status mapping (planned -> in-progress -> done -> blocked) is the adapter's resp
 
 - `epic-tracker.kind` not set: route to bootstrap
 - `epic-tracker.kind` is `none`: skip silently; markdown is the source of truth, unless the request names a tracker
-- MCP unavailable for the configured tracker: try the tracker's CLI (`gh`, `linear`); if both fail, warn user, fall back to markdown for this operation, suggest re-running bootstrap if MCP environment changed
+- MCP or CLI unavailable for the configured tracker: try the configured fallback method; if both fail, warn user, fall back to markdown for this operation, suggest re-running bootstrap if the integration environment changed
 - Push fails (network, auth, tracker rejection): log error, leave markdown untouched, suggest retry
 - Pull fails: log error, keep current markdown state, suggest retry
 - `tracker.id` missing on pull: route to push first or ask user to manually attach an existing tracker entity
