@@ -15,25 +15,22 @@ flowchart TD
 
 When a tracker is configured (via MCP or CLI), artifacts go directly to the tracker — no local files created. When no tracker is configured, markdown in `.artifacts/epics/` is the source of truth.
 
-| Phase    | What Happens                                                    | Output                              |
-| -------- | --------------------------------------------------------------- | ----------------------------------- |
-| Discover | Check for existing PRD, brief, or context                       | Context for artifact creation       |
-| Create   | Generate epic, story, bug, task, or release                     | Tracker entity or markdown artifact |
-| Track    | Update status in tracker when configured, in markdown otherwise | Updated state                       |
+| Phase | What Happens | Output |
+| ----- | ------------ | ------ |
+| Discover | Check for existing PRD, brief, or context | Context for artifact creation |
+| Create | Generate epic, story, bug, or task | Tracker entity or markdown artifact |
+| Track | Update status in tracker when configured, in markdown otherwise | Updated state |
 
 ## Tracker Integration
 
-| Artifact | Linear               | GitHub                                        |
-| -------- | -------------------- | --------------------------------------------- |
-| Epic     | Project              | Issue (parent)                                |
-| Story    | Issue                | Issue (sub-issue of Epic)                     |
-| Bug      | Issue + label `bug`  | Issue (sub-issue of Epic/Story or standalone) |
-| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone)       |
-| Release  | Cycle                | Release tag                                   |
+| Artifact | Linear | GitHub |
+| -------- | ------ | ------ |
+| Epic | Project | Issue (parent) |
+| Story | Issue | Issue (sub-issue of Epic) |
+| Bug | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
+| Task | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 
 GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story.
-
-Release uses each tracker's closest native primitive instead of forcing one concept.
 
 Configure via `configure tracker` (runs bootstrap once). Bootstrap detects available MCPs and CLIs; both are supported. Config is stored in `git config --local`. When no integration is detected, the skill stays in markdown-only mode.
 
@@ -51,7 +48,6 @@ create story               -- add a story (a demonstrable slice of user value) t
 edit story                 -- update an existing Story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
 create task                -- file a general work item (infra, refactor, tooling, research, ...)
-create release             -- group stories across epics for delivery
 list epics                 -- show the delivery overview
 mark done                  -- update artifact status
 sync to tracker            -- push current artifact to configured tracker
@@ -82,11 +78,9 @@ The roadmap lives in the committed doc `docs/ROADMAP.md`, separate from `.artifa
 │   ├── 001-story-name.md
 │   ├── bug-name.md
 │   └── task-name.md
-├── standalone/
-│   ├── bug-name.md
-│   └── task-name.md
-└── releases/
-    └── release-name.md
+└── standalone/
+    ├── bug-name.md
+    └── task-name.md
 ```
 
 ## Requirements

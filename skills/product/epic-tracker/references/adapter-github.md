@@ -8,15 +8,14 @@ Loaded by `sync.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
 
 ## Model
 
-Every artifact except Release is an Issue. Artifact type is carried by org-level Issue Types when available, or by a label fallback. Hierarchy is always expressed via Issue sub-issue parent links — never Projects.
+Every artifact is an Issue. Artifact type is carried by org-level Issue Types when available, or by a label fallback. Hierarchy is always expressed via Issue sub-issue parent links — never Projects.
 
 | Artifact | Issue type / label | Sub-issue role |
-|----------|---------------------|----------------|
-| Epic     | `Epic`              | always parent |
-| Story    | `Story`             | always child of an Epic |
-| Bug      | `Bug`               | optional child of Epic or Story; may be standalone |
-| Task     | `Task` (or org default) | optional child of Epic; may be standalone |
-| Release  | GitHub Release tag (separate primitive, not an Issue) | n/a |
+| -------- | ------------------ | -------------- |
+| Epic | `Epic` | always parent |
+| Story | `Story` | always child of an Epic |
+| Bug | `Bug` | optional child of Epic or Story; may be standalone |
+| Task | `Task` (or org default) | optional child of Epic; may be standalone |
 
 Bug and Task are distinct artifacts with different purpose/body (severity + repro steps vs. plain description); both have optional parent linkage.
 
@@ -27,7 +26,7 @@ Sub-issues are a native Issues feature (GraphQL `addSubIssue`) — independent o
 Two opt-in layers wrap the same Issue substrate. Both are independent of hierarchy and of each other.
 
 | Layer | What it adds | Activation |
-|-------|--------------|------------|
+| ----- | ------------ | ---------- |
 | **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
 
 Neither layer changes how Issues are created or how parent/child links are formed. Issue creation flow is identical with or without them.
@@ -70,7 +69,7 @@ Concepts that use labels:
 GitHub Issues have an `open` / `closed` state plus optional state reason (`completed`, `not_planned`). Map generic status:
 
 | Generic | GitHub state |
-|---------|--------------|
+| ------- | ------------ |
 | planned | open (no reason) |
 | in-progress | open + label `in-progress` (or Project Status field "In Progress" when `epic-tracker.project-number` is set) |
 | done | closed + reason `completed` |
@@ -131,13 +130,6 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 4. If `epic-tracker.project-number` is set: add to the Project.
 5. Return Issue number and url.
 
-### create_release
-
-1. Create a Release in the repo (inferred from `git remote get-url origin`) against the target commit (default: current HEAD or `main`).
-2. Inputs: `name` -> tag name (e.g., `v1.2.0`), `title` -> release title, `body` -> release notes (auto-generate from linked Issues when possible), `target_date` -> draft/scheduled release.
-3. Link Issues to the Release via release notes.
-4. Return Release id and url.
-
 ### update_status
 
 1. Map generic status to GitHub state via the Status Mapping table.
@@ -147,18 +139,18 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 
 ### set_dependencies
 
-GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically. Every artifact except Release is an Issue, so any of them can block any other.
+GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically. Every artifact is an Issue, so any of them can block any other.
 
 1. Inputs: the Issue number and a list of blocker Issue numbers (resolved from paths by sync.md).
 2. For each blocker, add a `blocked by` link via MCP, or `gh issue edit {n} --add-blocked-by {blocker}` when MCP is unavailable. Setting one side is enough; GitHub records `blocking` on the other.
 3. Remove links no longer listed: `gh issue edit {n} --remove-blocked-by {blocker}`.
 4. Return success.
 
-Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not assumed. Releases are tags, not Issues, so they carry no dependencies.
+Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not assumed.
 
 ### fetch_artifact
 
-1. Fetch the Issue or Release by id/number via MCP.
+1. Fetch the Issue by id/number via MCP.
 2. Return: state (mapped from open/closed + labels or Project fields), title, body, labels, sub-issue parent (when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy`), url.
 
 ### list_artifacts
@@ -183,5 +175,4 @@ There is no legacy "classic Projects" fallback. When sub-issues are disabled, St
 - `epic-tracker.project-number` set but Project not found: ask user to verify or offer to create.
 - Issue type not found in org (type was deleted or renamed since last detection): warn user, suggest re-running "configure tracker" to re-detect; fall back to label matching for this operation.
 - Severity or status label not found in repo: surface available labels to user, ask which to use or confirm to skip; never create labels automatically.
-- Release tag already exists: ask user whether to overwrite, append, or change the tag name.
 - API rate limit: surface the error, suggest waiting before retry.

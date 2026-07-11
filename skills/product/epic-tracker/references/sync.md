@@ -7,7 +7,7 @@ Conflict resolution and adapter dispatch deserve careful reasoning — a wrong p
 ## When to Use
 
 - Direct trigger: "sync to tracker", "push to {linear,github}", "pull from tracker", "configure tracker"
-- Auto-loaded by core refs (epic, story, task, bug, release) after the artifact is saved when `epic-tracker.kind` is set and not `none`
+- Auto-loaded by core refs (epic, story, task, bug) after the artifact is saved when `epic-tracker.kind` is set and not `none`
 - Invoked directly to read overview/list state from the tracker (`list_artifacts`) when reporting status
 
 > Before writing artifacts, ensure `.artifacts` is excluded locally: `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -15,23 +15,20 @@ Conflict resolution and adapter dispatch deserve careful reasoning — a wrong p
 ## Primitive Mapping
 
 | Artifact | Linear | GitHub |
-|----------|--------|--------|
-| Epic     | Project | Issue (parent) |
-| Story    | Issue | Issue (sub-issue of Epic) |
-| Bug      | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Task     | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
-| Release  | Cycle | Release tag |
+| -------- | ------ | ------ |
+| Epic | Project | Issue (parent) |
+| Story | Issue | Issue (sub-issue of Epic) |
+| Bug | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
+| Task | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
 
 GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story. See [adapter-github.md](adapter-github.md) for details.
-
-Release uses the closest native primitive each tracker offers — no forced single concept across trackers.
 
 ## Config
 
 Read and written via `git config --local`. Keys:
 
 | Key | Trackers | Description |
-|-----|----------|-------------|
+| --- | -------- | ----------- |
 | `epic-tracker.kind` | all | `linear`, `github`, or `none` |
 | `epic-tracker.workspace` | Linear | team workspace slug |
 | `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
@@ -71,7 +68,7 @@ Bootstrap runs at most once per project. Re-run on demand by triggering "configu
 A request that names the destination overrides the config for that artifact only:
 
 | Request | Config | Behavior |
-|---------|--------|----------|
+| ------- | ------ | -------- |
 | "create issue on GitHub", "push to Linear" | `none` | dispatch to the named tracker |
 | "save this locally", "don't push yet" | `linear`, `github` | save to markdown |
 | "create issue on GitHub" | `linear` | dispatch to the named tracker |
@@ -120,9 +117,9 @@ An artifact declares `blocked_by` in frontmatter — the artifacts that must fin
 Dependencies are structured metadata, not body prose. They never travel in the description; each adapter maps them to the tracker's native dependency relation:
 
 | Tracker | Native relation |
-|---------|-----------------|
-| GitHub  | Issue dependencies (`blocked by` / `blocking`) |
-| Linear  | Issue relations (`blocked by`) |
+| ------- | --------------- |
+| GitHub | Issue dependencies (`blocked by` / `blocking`) |
+| Linear | Issue relations (`blocked by`) |
 
 `blocked_by` holds local paths; the native relation needs tracker ids:
 
@@ -136,7 +133,7 @@ Dependencies are structured metadata, not body prose. They never travel in the d
 When pull state differs from local state, surface the conflict before applying changes:
 
 | Field | What to compare | Default resolution |
-|-------|-----------------|--------------------|
+| ----- | --------------- | ------------------ |
 | `status` | frontmatter `status` vs tracker status | tracker wins on pull |
 | `title` | frontmatter `title` vs tracker title | tracker wins on pull |
 | `body` | markdown body vs tracker description | tracker wins on pull |
@@ -161,12 +158,11 @@ For push, the default is the inverse: markdown wins, tracker is updated with loc
 The adapter exposes a generic interface. Each tracker adapter implements these operations using its own MCP calls:
 
 | Operation | Inputs | Output |
-|-----------|--------|--------|
+| --------- | ------ | ------ |
 | `create_epic` | name, title, body, labels | tracker id + url |
 | `create_story` | epic_id (optional), name, title, body, acceptance criteria, labels | tracker id + url |
 | `create_bug` | epic_id (optional), name, title, severity, body, repro steps | tracker id + url |
 | `create_task` | epic_id (optional), name, title, body, labels | tracker id + url |
-| `create_release` | name, title, story_ids, target_date | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
 | `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by) |
