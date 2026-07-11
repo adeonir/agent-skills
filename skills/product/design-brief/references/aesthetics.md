@@ -45,6 +45,7 @@ What makes a good choice for each token group. Compose these biased by the regis
 - **Token-first**: define each color once as a named role and reference it by role everywhere, never as a loose literal.
 - **60-30-10**: 60% dominant surface, 30% secondary, 10% accent. Sharp accents on a committed base outperform timid evenly-distributed palettes.
 - **Dominant + accent**: pick one hero color and one contrast accent. Two accents maximum.
+- **Accent holds across the surface**: commit to one accent and keep it everywhere; a different hue surfacing in a later section for variety's sake (a stray blue, a shifted teal) reads as drift, not richness.
 - **Theme commitment**: go fully dark or fully light per surface. Half-measures read as unfinished.
 - **Tinted neutrals**: pure gray is dead — give each neutral a trace of chroma (~0.005–0.015 in OKLCH) hued toward the brand. Don't reflexively reach for warm-orange or cool-blue neutrals; the tint is a deliberate choice.
 - **Alpha is a smell**: heavy `rgba`/`hsla` overlays signal an incomplete palette — author explicit overlay and surface tokens instead of leaning on opacity.

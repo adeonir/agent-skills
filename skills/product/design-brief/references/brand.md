@@ -38,6 +38,7 @@ What brand can author that product can't:
 - Reflex-default fonts picked for safety, not voice.
 - Defaulting to editorial-magazine aesthetics on briefs that aren't magazine-shaped.
 - Monospace as lazy shorthand for "technical" when the brand isn't.
+- Serif reached for as a sophistication signal — the "creative", "premium", or "editorial" reflex — when the brand's voice doesn't call for it.
 
 ## Register is not surface
 
