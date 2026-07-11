@@ -23,6 +23,17 @@ Each AC is a `### AC-N` markdown heading followed by three bold-labeled list ite
 **Satisfies** {one parent-epic requirement id — optional}
 ```
 
+Example of a valid AC:
+
+```markdown
+### AC-1
+
+**Given** the user is on the sign-in page and has a registered account
+**When** they submit a valid email and password
+**Then** they are authenticated and redirected to the dashboard
+**Satisfies** FR-1
+```
+
 Rules:
 
 - 1 AC = 1 Given + 1 When + 1 Then.
@@ -30,6 +41,7 @@ Rules:
 - IDs unique within the Story.
 - Strings non-empty for all three required fields.
 - `**Satisfies**` is optional; when present it names exactly one requirement id matching `FR/BR/EC/NFR-<n>` — a single id, never a list.
+- Keep this shape stable; downstream consumers (implementation specs, test generators) parse these blocks and rely on the format.
 
 ## Workflow
 
@@ -56,7 +68,7 @@ Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
 |---|------|------------|---------|
 | V1 | Story has at least one AC | strict | parse yields zero `### AC-N` blocks |
 | V2 | Each AC has Given + When + Then | strict | tuple missing any of the three fields, or any field empty |
-| V3 | No compound Given | strict | two `**Given**` lines under one `### AC-N`, OR Given line contains case-insensitive substring `and given` |
+| V3 | No compound Given | strict | two `**Given**` lines under one `### AC-N`, OR Given line joins two preconditions with case-insensitive ` and ` (e.g., "Given X and Y") |
 | V4 | No compound Then | strict + confirm | two `**Then**` lines under one `### AC-N` is strict; a single Then line that ` and `-joins two assertions is confirm-to-continue (split or confirm — see sub-rule below) |
 | V5 | No duplicate AC | strict | two AC tuples with identical normalized {given, when, then} |
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
@@ -67,6 +79,8 @@ Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
 V6 red-word list:
 
 `feel`, `feels`, `intuitive`, `clean`, `nice`, `elegant`, `seamless`, `smooth`, `natural`, `obvious`, `simple` (when used as a quality adjective, not a count).
+
+`simple` is the most context-dependent word on the list — it often appears in legitimate technical contexts ("a simple redirect"). Flag it only when it is clearly used as a subjective quality judgment ("the UI feels simple"), not as a structural descriptor.
 
 V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject, because single-sentence assertions can legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
 
@@ -87,7 +101,7 @@ Examples:
 ```text
 AC-1 fails V2: missing Given clause. Add a line "**Given** {precondition}" before the When line.
 
-AC-1 fails V3: compound Given. Split into AC-1 and AC-2, or rephrase as a single precondition. The phrase "and given" is reserved.
+AC-1 fails V3: compound Given. Split into AC-1 and AC-2, or rephrase as a single precondition. The phrase " and " joins two preconditions.
 
 AC-2 fails V5: duplicate of AC-1 (same Given/When/Then). Remove or differentiate one of them.
 
@@ -127,9 +141,9 @@ If any strict rule fails: do not proceed to save or push. The caller (`story.md`
 V8 checks the shape of a `**Satisfies**` value. Two further relations hold across the epic↔story boundary — neither parsed here (this ref reads the story's AC section in isolation), both owned by the create/edit flow that has the parent epic in hand:
 
 - **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. `story.md` checks this when the parent epic is loaded; a dangling id routes back to fix.
-- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. This is an epic-level relationship, documented not gated.
+- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. This is an epic-level relationship, checked during decomposition (`decompose.md`) and confirmed in `story.md`; it is not gated by this validator.
 
-`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What is enforced is shape (V8); the two relations above hold upstream.
+`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the two relations above hold upstream.
 
 This is also why V9 calibrates against the Summary rather than the requirement: the requirement's text is not in scope here, only its id. The Summary is present on every story, and an AC with no `Satisfies` — the one most likely to over-specify, since nothing upstream constrained it — still has an outcome to be measured against.
 
