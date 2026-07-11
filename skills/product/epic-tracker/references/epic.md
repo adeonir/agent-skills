@@ -16,10 +16,12 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 Check for existing context before asking questions:
 
-1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below)
-2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture)
-3. If found, summarize what was extracted and confirm with user
-4. If not found, ask the user:
+1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below). Also note the PRD's **Definition of Done** and **External Dependencies** when they shape this epic's scope or risks.
+2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture).
+3. Look for `docs/ROADMAP.md` -- read only for sequencing context that may inform `blocked_by` suggestions. Do not record the roadmap as a source; epics never reference the roadmap.
+4. Look for `docs/tech/design-doc.md` if it exists -- read only for constraints that may affect scope or rabbit holes. Record it in `## References` if relevant.
+5. If found, summarize what was extracted and confirm with user
+6. If not found, ask the user:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
@@ -36,7 +38,7 @@ Fill the template (below) with discovered context:
 - **Prose context**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
 - **Stories**: checklist of stories with brief descriptions. Each story becomes its own artifact later. **Local-only** — when a tracker is configured, adapters strip this section from the body on push so the tracker's native child panel (Sub-issues, child issues, etc.) stays the single source of truth.
 - **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
-- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — backward provenance the child stories operationalize, each AC linking back via `Satisfies`. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement
+- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — a contract the child stories operationalize, each AC linking back via `Satisfies`. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every ID here must be satisfiable by stories within this epic's scope.
 - **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
 - **Blocked by**: other epics or stories that must finish before this one can start, listed in frontmatter `blocked_by` by path. Lets the tracker enforce delivery order; leave empty when nothing blocks it.
@@ -44,7 +46,7 @@ Fill the template (below) with discovered context:
 
 **Declare, don't narrate.** The discovery conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Auth uses magic links`), never as its history (`we discussed OAuth but the user preferred magic links`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
 
-Record every durable reference surfaced during Discover (PRD, brief, design doc, UI design) in frontmatter `sources:` -- one entry per source. These are the pointers the resumption gate relies on.
+Record every durable reference surfaced during Discover (PRD, PRODUCT, brief, design doc, UI design) in frontmatter `sources:` — one entry per source, using typed labels. These are the pointers the resumption gate relies on.
 
 Apply the resumption gate before proceeding:
 
@@ -77,12 +79,15 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 
 **DO:**
 - Extract context from existing docs before asking questions
+- Consider the PRD's Definition of Done and External Dependencies when shaping scope, rabbit holes, and open questions
+- Use the roadmap only for `blocked_by` suggestions; never record it as a source
 - Include scope boundaries -- what's explicitly out helps as much as what's in
-- List stories in the epic checklist; create them as separate artifacts later
+- List stories in the epic checklist as placeholders; create them as separate artifacts later
 - Run discover first, even when the user provides context directly
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
-- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements`; omit when the epic derives from no PRD
+- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as a contract for child stories; omit when the epic derives from no PRD
 - Hand sizing off to the implementation phase
+- Use typed labels in frontmatter `sources:` (PRD, PRODUCT, Design Doc, UI Design)
 
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
@@ -90,6 +95,7 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - Create story artifacts during epic creation (list stories in checklist, create on demand later)
 - Skip discover (run discover first regardless of provided context)
 - Add size estimates (sizing is an implementation concern)
+- Reference the roadmap in the epic body or sources
 
 ## Template
 
@@ -101,7 +107,11 @@ name: {{epic-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
-sources: []
+sources:
+  - PRD: {{link to docs/product/PRD.md or "None"}}
+  - PRODUCT: {{link to docs/product/PRODUCT.md or "None"}}
+  - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
+  - UI Design: {{link to UI design or "None"}}
 blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
@@ -123,7 +133,9 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 <!-- Local-only: stripped by adapters on push to a tracker. Tracker's
 native child panel (GitHub Sub-issues, Linear sub-issues) is the source
-of truth for hierarchy once a tracker is wired. -->
+of truth for hierarchy once a tracker is wired. Names here are
+placeholders; they are refined when each story is materialized via
+story.md. -->
 
 - [ ] {{story-name}} — {{brief description of what this story delivers}}
 - [ ] {{story-name}} — {{brief description}}
@@ -138,19 +150,19 @@ of truth for hierarchy once a tracker is wired. -->
 
 **Out:**
 
-- {{What's explicitly excluded}}
+- {{What's explicitly excluded — stated in this epic's own terms, never naming the sibling that owns it. Example: "Multi-factor authentication" not "MFA epic"}}
 
 ## Requirements
 
 {Remove this section when the epic derives from no PRD.}
 
-- {{PRD requirement IDs this epic owns — e.g. FR-3, FR-4, BR-2. Flat list; the child stories operationalize these, each AC linking back via `Satisfies`.}}
+- {{PRD requirement IDs this epic owns — e.g. FR-3, FR-4, BR-2. Flat list; the child stories operationalize these, each AC linking back via `Satisfies`. Every ID here must be coverable by stories inside this epic.}}
 
 MUST NOT contain: `§x.x` section numbers, sibling names, roadmap refs, or `ADR-NNN` (a decision dependency → References).
 
 ## Rabbit Holes
 
-- {{Execution trap specific to this epic — integration quirk, ordering constraint, or scope edge case}}
+- {{Execution trap specific to this epic — integration quirk, ordering constraint, or scope edge case. Example: "Third-party identity provider rate limits may block bulk imports" not "use a queue"}}
 
 MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
 
