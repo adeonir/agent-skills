@@ -33,6 +33,7 @@ The message summarizes the boundary just closed. The agent making the commit alr
 4. **What and why, never where or how** — carry the user-observable effect and the why; keep file names, paths, mechanics, and specific values out (they live in the diff). One exception: when the file *is* the change (`docs: update README`), naming it is clearer than abstracting it.
 5. **Match project style** — follow the project log's scope usage (`type(scope):` vs `type:`); do not add or strip scope against the established style. A prompt directive overrides.
 6. **No attribution, no future references** — never add Co-Authored-By or mention upcoming work.
+7. **Breaking changes** — mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when it alters observable behavior for a consumer, however small the diff. A one-line fix that changes what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
 
 ## Template
 
