@@ -34,10 +34,10 @@ If no context was pasted, proceed to step 2.
 ### 2. Identify Epic (optional)
 
 1. Ask the user whether this task belongs to an epic or is standalone
-2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for context
+2. If epic specified, load `.artifacts/epics/{epic-name}/epic.md` for context — the task must fit the epic's scope and carries no requirement IDs
 3. If standalone (no epic): place in `standalone/`
 
-A task carries no requirement IDs and no acceptance criteria — it is AC-less work measured by its `## Definition of Done`. Work that delivers a PRD requirement and needs verifiable acceptance criteria is a story, not a task. When the type is unclear, see [discriminator.md](discriminator.md).
+A task carries no requirement IDs and no acceptance criteria — it is AC-less work measured by its `## Definition of Done`. Work that delivers a PRD requirement and needs verifiable acceptance criteria is a story, not a task. When a task lives inside an epic, it is a sibling of the epic's stories — both are children of the epic, but a story demonstrates user-visible value while a task enables delivery. When the type is unclear, see [discriminator.md](discriminator.md).
 
 ### 3. Draft
 
@@ -86,12 +86,15 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 - Keep the description focused on one outcome per task
 - Write a Definition of Done — the verifiable conditions that mark the task complete
 - Link to the parent epic when the task advances an epic's delivery
+- Use typed labels in frontmatter `sources:` (Epic, Design Doc, UI Design)
+- Treat a task inside an epic as a sibling of the epic's stories — both are children of the epic, but only stories carry acceptance criteria and `Satisfies` lines
 
 **DON'T:**
 - Use for work that delivers a PRD requirement with acceptance criteria (contrasts: that's a story)
 - Use for defects (contrasts: use bug for defects with repro steps)
 - Add acceptance criteria — a task is AC-less (contrasts: description + Definition of Done is enough; AC belongs to a story)
 - Create a task when a story or bug is the right type (ask if ambiguous)
+- Confuse the task's local Definition of Done with the product-level Definition of Done in the PRD
 
 ## Template
 
@@ -103,8 +106,11 @@ name: {{task-name}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: planned
-sources: []
-blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name or standalone/name); omit when nothing blocks this
+sources:
+  - Epic: {{link to parent epic or "None"}}
+  - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
+  - UI Design: {{link to UI design or "None"}}
+blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name, epic-name/task-name, or standalone/task-name); omit when nothing blocks this
 epic: {{epic-name or omit for standalone}}
 type: task
 # tracker block populated by sync.md after first push (omit until then):
@@ -132,6 +138,8 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 ## Definition of Done
 
+{This is the task's local done-contract — verifiable conditions that mark this task complete. It is independent of the product-level Definition of Done in the PRD.}
+
 - [ ] {{condition that marks this task complete — verifiable, not sub-step narration}}
 
 ## Rabbit Holes
@@ -151,7 +159,7 @@ mirrors these links for sync (markdown only, absent in tracker mode).
 
 - **Epic:** {{link to parent epic or "None"}}
 - **Decisions:** {{ADR-NNN this task depends on, or "None"}}
-- {{link or "None"}}
+- **Related Stories:** {{links to stories this task supports, or "None"}}
 ````
 
 ## Error Handling
