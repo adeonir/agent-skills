@@ -33,7 +33,7 @@ Each check that requires judgment — Goals evidence, asserted value matches the
 
 ### Discrimination sensor
 
-Run whenever code has conditional behavior, calculations, or validations (config-only/pure-data may be skipped with a note):
+Run whenever code has conditional behavior, calculations, or validations. It may be skipped only when the change is genuinely config-only or pure-data, and the skip note must name why no disproof was possible — an unjustified skip on code that has judgment-laden behavior is theater, not a clean pass:
 
 1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects, and a shared literal (key, id, path, header name, event name) changed in exactly one of the modules that use it.
 2. Apply the mutation in **scratch state** — `git worktree` or stash + temp copy. Never mutate the real working tree.
@@ -56,6 +56,7 @@ Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact templat
 - **Commit range:** {hash1}..{hash2}
 - **Auditor:** independent subagent
 - **Date:** {YYYY-MM-DD}
+- **Disproof:** {sensor: N killed / M survived; judgment checks disprove-first: sought / skipped — reason}
 
 ## Goals
 | Goal | Status | Evidence |
@@ -104,7 +105,7 @@ Spec-defects: {count}
 
 ## Outcome
 
-**PASS** — before flipping status, sweep `spec.md ## Open Questions`: present any surviving `[deferrable]` line to the user — each is resolved now or explicitly carried as a follow-up outside the feature, never a silent drop. Present each `## Spec Defects` row the same way — resolved now by routing back to specify to loosen the AC, or explicitly carried, never a silent flip to `done`. Present each `UNVERIFIED` marker in `design.md` the same way — resolved now or explicitly carried, never a silent flip to `done`. The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
+**PASS** — before flipping status, sweep `spec.md ## Open Questions`: present any surviving `[deferrable]` line to the user — each is resolved now or explicitly carried as a follow-up outside the feature, never a silent drop. Present each `## Spec Defects` row the same way — resolved now by routing back to specify to loosen the AC, or explicitly carried, never a silent flip to `done`. Present each `UNVERIFIED` marker in `design.md` the same way — resolved now or explicitly carried, never a silent flip to `done`. A PASS whose `Disproof` line records no attempt of any kind — an empty sensor and no counterexample sought — on code that has conditional or judgment-laden behavior is surfaced to the user as low-confidence the same way: re-audited now with real disproof, or explicitly accepted, never a silent flip to `done`. The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 
 **FAIL** — the auditor does not fix. The main agent turns ranked gaps into fix tasks in `tasks.md`, continuing the `T-N` sequence; increments `STATE.md ## Progress` `Audit iteration`; points `Next` at the first fix task; then re-runs implement and re-audits. The loop escalates to the user once the counter reaches 3 — read it from the file, never from recall, since a bound the agent remembers does not survive a context boundary. See [memory.md](../references/memory.md).
 
