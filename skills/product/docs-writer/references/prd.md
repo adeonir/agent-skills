@@ -198,6 +198,10 @@ Use the PRD template below. Resolve PRODUCT by its own artifact state using [pro
 - Business rules use IDs (BR-1) for traceability
 - Edge cases use IDs (EC-1) for traceability
 - Non-Goals are outcome-level exclusions; features cut from the release go to Scope → Won't Have
+- Won't Have must record the reason for exclusion so future revisits have context
+- Definition of Done states product-level readiness criteria, independent of any launch date
+- External Dependencies capture out-of-team blockers with owner and status; technical dependencies belong in the Design Doc
+- NFRs state measurable targets without prescribing the mechanism ("p95 latency under 200ms", not "use Redis caching")
 
 ## PRD Template
 
@@ -288,18 +292,28 @@ sources: []
 
 ### Won't Have
 
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-N | {{feature considered and cut from this release}} | {{reason for exclusion}} |
+| ID | Requirement | Reason for exclusion |
+|----|------------|----------------------|
+| FR-N | {{feature considered and cut from this release}} | {{why it is out of scope now — informs future revisit}} |
 
-## 7. Business Rules
+## 7. Definition of Done
+
+{{Product-level criteria that tell us this is ready to ship. Independent of any calendar; applies whenever launch happens.}}
+
+| Criterion | How verified |
+|-----------|--------------|
+| {{e.g., all Must Have requirements implemented and validated}} | {{test/validation method}} |
+| {{e.g., primary success metric meeting target for 7 days}} | {{measurement source}} |
+| {{e.g., no critical or blocker defects open}} | {{issue tracker state}} |
+
+## 8. Business Rules
 
 | ID | Rule | Scope |
 |----|------|-------|
 | BR-1 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
 | BR-2 | {{another business rule}} | {{scope}} |
 
-## 8. Edge Cases (optional)
+## 9. Edge Cases (optional)
 
 {{Include only when exception scenarios are material to the product.}}
 
@@ -308,14 +322,28 @@ sources: []
 | EC-1 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
 | EC-2 | {{another exception scenario}} | {{expected behavior}} |
 
-## 9. Non-Functional Requirements
+## 10. Non-Functional Requirements
+
+Non-functional requirements state measurable targets without prescribing the mechanism.
 
 | ID | Requirement | Target |
 |----|------------|--------|
 | NFR-1 | Performance | {{e.g., page load < 2s}} |
 | NFR-2 | Accessibility | {{e.g., WCAG 2.1 AA}} |
 
-## 10. Risks (optional)
+Examples:
+- "Use Redis caching" (prescribes mechanism)
+- "Search returns results within 200ms" (states measurable target)
+
+## 11. External Dependencies
+
+{{Dependencies outside the product team that can block or shape delivery.}}
+
+| ID | Dependency | Impact if blocked | Owner / Status |
+|----|-----------|-------------------|----------------|
+| DEP-1 | {{e.g., legal approval on terms of use}} | {{blocks launch}} | {{Owner — pending}} |
+
+## 12. Risks (optional)
 
 {{Include only when there are material risks worth tracking.}}
 
@@ -323,7 +351,7 @@ sources: []
 |------|--------|------------|------------|
 | {{what could go wrong}} | High | Medium | {{how to address}} |
 
-## 11. Open Questions & Assumptions
+## 13. Open Questions & Assumptions
 
 ### Assumptions
 
@@ -333,16 +361,22 @@ sources: []
 
 - [ ] {{Hypothesis to validate with data or user research, or unknown to resolve before implementation (mark TBD)}}
 
-## 12. References
+## 14. References
 
-- {{Link to designs, research, prior art, or related documents}}
+Durable pointers to related documents. Use typed labels so a fresh session knows where to recover context.
+
+- **PRODUCT:** {{link to docs/product/PRODUCT.md or "None"}}
+- **PRD:** {{link to this PRD or upstream PRD}}
+- **Design Doc:** {{link to docs/tech/design-doc.md or "None"}}
+- **Research:** {{link to research, interviews, data — or "None"}}
+- **ADRs:** {{link to relevant ADRs or "None"}}
 ````
 
 MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT.
 
 ## PRD Schema
 
-12 numbered sections matching the template, with Edge Cases and Risks optional:
+14 numbered sections matching the template, with Edge Cases and Risks optional:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
@@ -352,12 +386,14 @@ MUST NOT contain: architecture, tech stack, framework or deployment choices, API
 | 4. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
 | 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
 | 6. Scope | Must/Should/Could/Won't have (FR-1...) | Topic 4: Value & Scope |
-| 7. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
-| 8. Edge Cases (optional) | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
-| 9. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
-| 10. Risks (optional) | What could go wrong and how to address it | Validation phase |
-| 11. Open Questions & Assumptions | Assumptions underpinning the plan plus hypotheses to validate and unknowns to resolve | Validation phase |
-| 12. References | Links to designs, research, related documents | All phases |
+| 7. Definition of Done | Product-level readiness criteria, independent of calendar | Validation phase, Topic 4 |
+| 8. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
+| 9. Edge Cases (optional) | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
+| 10. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
+| 11. External Dependencies | Dependencies outside the team that can block or shape delivery | Validation phase |
+| 12. Risks (optional) | What could go wrong and how to address it | Validation phase |
+| 13. Open Questions & Assumptions | Assumptions underpinning the plan plus hypotheses to validate and unknowns to resolve | Validation phase |
+| 14. References | Typed links to PRODUCT, Design Doc, research, ADRs | All phases |
 
 Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 
@@ -372,6 +408,10 @@ Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
 - Keep journeys at product level — describe what happens, not how it's built
 - Assign IDs to business rules and edge cases for traceability
 - Edge Cases and Risks are optional — include only when relevant
+- Record a reason for exclusion on every Won't Have item
+- Keep Definition of Done independent of calendar dates — state readiness criteria, not deadlines
+- Track External Dependencies with owner and status; keep technical dependencies in the Design Doc
+- Use typed labels in References so downstream sessions know which document to read
 
 ## Output
 
