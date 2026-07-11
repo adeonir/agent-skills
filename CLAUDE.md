@@ -293,7 +293,7 @@ label them — apply the right pattern silently.
 
 - **Type A — Product discovery.** Understand the problem, user, and
   direction before any execution. Iterative, question-driven, no disk state.
-  Lives in `references/discovery.md` of skills like brainstorming,
+  Lives in `references/discovery.md` of skills like brainstorm,
   docs-writer, spec-driven.
 
 - **Type B — Context discovery.** Determine execution state — which
@@ -419,7 +419,7 @@ outputs in its README.
 
 ```
 docs/
-├── product/   # brainstorming, docs-writer
+├── product/   # brainstorm, docs-writer
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
 └── design/    # design-brief, wireframe, copywriting
@@ -471,7 +471,7 @@ above is the one audit item that lives outside the rules.
 
 ## Reference Exemplars
 
-When in doubt about a pattern, study `brainstorming` (simple — inline templates,
+When in doubt about a pattern, study `brainstorm` (simple — inline templates,
 prose Anti-Patterns), `spec-driven` (complex — many templates, sub-agent fan-out,
 the refactor at scale), or `review-lens` (two peer modes sharing one rubric, model
 tiering).

@@ -24,29 +24,29 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 ## Skills
 
-| Skill                                               | Category    | Description                                                                   |
-| --------------------------------------------------- | ----------- | ----------------------------------------------------------------------------- |
-| **[debug-tools](skills/engineering/debug-tools)**   | Engineering | Iterative investigate–fix–verify debugging with confidence scoring            |
-| **[git-helpers](skills/engineering/git-helpers)**   | Engineering | Conventional commits, pull requests, and branch lifecycle                     |
-| **[review-lens](skills/engineering/review-lens)**   | Engineering | Confidence-scored pre-PR code review in quick and deep modes                  |
-| **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/`                       |
-| **[spec-driven](skills/engineering/spec-driven)**   | Engineering | Spec-driven feature development with auto-sizing and full traceability        |
-| **[notes](skills/personal/notes)**                  | Personal    | Obsidian notes for projects, meetings, challenges, and brag docs              |
-| **[handoff](skills/personal/handoff)**              | Personal    | Save and resume conversation state across sessions                            |
-| **[wrap-up](skills/personal/wrap-up)**              | Personal    | End-of-session context persistence to Obsidian                                |
-| **[brainstorming](skills/product/brainstorming)**   | Product     | Structured idea exploration and plan stress-testing, diverge to converge      |
-| **[copywriting](skills/product/copywriting)**       | Product     | Authors `copy.yaml` — write, extract, refresh, plus critique and audit        |
-| **[craft-ui](skills/product/craft-ui)**             | Product     | Render design variants, critique a variant, audit a running UI — non-mutating |
-| **[design-brief](skills/product/design-brief)**     | Product     | Greenfield visual identity — explore a direction and author `DESIGN.md`       |
-| **[docs-writer](skills/product/docs-writer)**       | Product     | Structured docs: PRD, Brief, Design Doc, ADR                                  |
-| **[epic-tracker](skills/product/epic-tracker)**     | Product     | Epics, stories, bugs, and releases — tracker-first or markdown                |
-| **[wireframe](skills/product/wireframe)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow  |
+| Skill | Category | Description |
+| ----- | -------- | ----------- |
+| **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative investigate–fix–verify debugging with confidence scoring |
+| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull requests, and branch lifecycle |
+| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored pre-PR code review in quick and deep modes |
+| **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` |
+| **[spec-driven](skills/engineering/spec-driven)** | Engineering | Spec-driven feature development with auto-sizing and full traceability |
+| **[notes](skills/personal/notes)** | Personal | Obsidian notes for projects, meetings, challenges, and brag docs |
+| **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions |
+| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian |
+| **[brainstorm](skills/product/brainstorm)** | Product | Structured idea exploration and plan stress-testing, diverge to converge |
+| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
+| **[craft-ui](skills/product/craft-ui)** | Product | Render design variants, critique a variant, audit a running UI — non-mutating |
+| **[design-brief](skills/product/design-brief)** | Product | Greenfield visual identity — explore a direction and author `DESIGN.md` |
+| **[docs-writer](skills/product/docs-writer)** | Product | Structured docs: PRD, Brief, Design Doc, ADR |
+| **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and releases — tracker-first or markdown |
+| **[wireframe](skills/product/wireframe)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow |
 
 ## How They Connect
 
 ```mermaid
 flowchart TD
-    BR[brainstorming] -->|direction| DW_PRD[docs-writer · product]
+    BR[brainstorm] -->|direction| DW_PRD[docs-writer · product]
     BR -->|direction| DB[design-brief]
     BR -.->|direction| SD[spec-driven]
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
@@ -76,7 +76,7 @@ The full flow when building a new product or feature with non-trivial
 business logic:
 
 ```
-1.  brainstorming    --> direction and constraints
+1.  brainstorm       --> direction and constraints
 2.  docs-writer      --> requirements (what to build, for whom, why)
 3.  docs-writer      --> technical decisions and trade-offs
 4.  wireframe --> layout and screen flow
@@ -105,7 +105,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ```
 docs/
-├── product/        # brainstorming: brainstorm · docs-writer: PRD, brief
+├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: visual identity · wireframe: layout · copywriting: content

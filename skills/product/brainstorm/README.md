@@ -1,4 +1,4 @@
-# Brainstorming
+# Brainstorm
 
 Structured idea exploration from vague to direction, or pressure-test of an existing idea or plan.
 
@@ -43,7 +43,7 @@ find holes in this auth plan
 what am I missing in this proposal
 stress-test my plan for the new API design
 grill me on this architecture before we build it
-/brainstorming deep
+/brainstorm deep
 ```
 
 ## Output

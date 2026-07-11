@@ -1,5 +1,5 @@
 ---
-name: brainstorming
+name: brainstorm
 description: >-
   Structured idea exploration from vague to direction, or pressure-test
   of an existing idea or plan. Two paths: greenfield maps a problem
@@ -14,7 +14,7 @@ description: >-
 argument-hint: "deep"
 ---
 
-# Brainstorming
+# Brainstorm
 
 Structured idea exploration from vague to direction, in two paths — **greenfield** from a blank problem space, **relentless** against existing thinking. Both run breadth-first: surface the non-obvious option before committing, then converge honestly, naming what each direction gives up. Problem before solution — a description of what to build is a hypothesis, not a direction.
 

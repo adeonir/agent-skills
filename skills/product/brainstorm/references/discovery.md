@@ -12,7 +12,7 @@ Classify entry state from the user's input.
 
 **Greenfield** — no concrete idea or plan yet. Exploratory framing, open questions, requests to map a space from scratch.
 
-**Relentless** — an idea or plan already exists at any maturity. Requests to challenge, validate, refine, pivot, or audit committed thinking. The `/brainstorming deep` argument forces this path.
+**Relentless** — an idea or plan already exists at any maturity. Requests to challenge, validate, refine, pivot, or audit committed thinking. The `/brainstorm deep` argument forces this path.
 
 Do not announce the path as a label or headline. Lead directly with a proposed interpretation that reflects the detected path. User can redirect at any point.
 
