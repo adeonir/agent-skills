@@ -10,7 +10,7 @@ When authoring user stories in specify, and when validating story grouping in ta
 
 A story is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.
 
-Slice vertically. A vertical slice can be shown to the user and tested on its own; a horizontal slice can only be shown once its siblings exist, so it carries no benefit of its own and its acceptance criteria have nothing observable to assert.
+Slice vertically: a horizontal slice carries no benefit of its own, so its acceptance criteria have nothing observable to assert.
 
 A story carrying two distinct benefits is two stories — split it. A "story" that is one layer of many is not a story — reslice the feature vertically.
 
