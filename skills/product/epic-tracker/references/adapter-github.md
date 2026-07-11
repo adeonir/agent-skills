@@ -1,6 +1,6 @@
 # GitHub Adapter
 
-Translate generic epic-tracker operations into GitHub primitives via the GitHub MCP (or `gh` CLI when MCP is unavailable). Loaded by [sync.md](sync.md) when `epic-tracker.kind: github`.
+Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: github`. The sync ref decides whether to use MCP or CLI for each call (`epic-tracker.method` and `epic-tracker.fallback`); this adapter implements each operation through both channels.
 
 ## When to Use
 
@@ -30,6 +30,10 @@ Two opt-in layers wrap the same Issue substrate. Both are independent of hierarc
 | **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
 
 Neither layer changes how Issues are created or how parent/child links are formed. Issue creation flow is identical with or without them.
+
+## Integration Channel
+
+Each operation below is implemented for both MCP and CLI. The caller (`sync.md`) selects the channel based on `epic-tracker.method` and `epic-tracker.fallback`. When an operation specifies an MCP call, the CLI equivalent is used when the CLI channel is active. If a capability is unavailable in one channel, surface it and let the caller decide whether to try the other channel.
 
 ## Issue Types vs Labels
 
@@ -84,10 +88,10 @@ When `epic-tracker.project-number` is set and the Project has a Status field, pr
 Detected once per session and cached in memory. Run before the first operation that assigns an artifact type.
 
 1. Infer repo from `git remote get-url origin` (extract `owner/name`).
-2. Determine repo owner kind via MCP or `gh api repos/{owner}/{repo}`:
+2. Determine repo owner kind via the active channel (`gh api repos/{owner}/{repo}` when CLI is active, or equivalent MCP call):
    - `owner.type == "User"`: personal/user-owned repo — Issue Types unavailable. Cache `issue_types: {}` and fall back to Label Matching.
    - `owner.type == "Organization"`: continue to step 3.
-3. Query the org's issue types via MCP or `gh api orgs/{org}/issue-types`.
+3. Query the org's issue types via the active channel (`gh api orgs/{org}/issue-types` when CLI is active, or equivalent MCP call).
 4. If types are found, cache detected names in memory (keys: `epic`, `story`, `bug`, `task` → org-configured names; may differ from defaults, e.g., "Chore" instead of "Task").
 5. If no types found or query fails: cache `issue_types: {}` and fall back to Label Matching.
 
@@ -142,16 +146,16 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically. Every artifact is an Issue, so any of them can block any other.
 
 1. Inputs: the Issue number and a list of blocker Issue numbers (resolved from paths by sync.md).
-2. For each blocker, add a `blocked by` link via MCP, or `gh issue edit {n} --add-blocked-by {blocker}` when MCP is unavailable. Setting one side is enough; GitHub records `blocking` on the other.
-3. Remove links no longer listed: `gh issue edit {n} --remove-blocked-by {blocker}`.
+2. For each blocker, add a `blocked by` link via the active channel. When CLI is active: `gh issue edit {n} --add-blocked-by {blocker}`. Setting one side is enough; GitHub records `blocking` on the other.
+3. Remove links no longer listed via the active channel. When CLI is active: `gh issue edit {n} --remove-blocked-by {blocker}`.
 4. Return success.
 
 Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not assumed.
 
 ### fetch_artifact
 
-1. Fetch the Issue by id/number via MCP.
-2. Return: state (mapped from open/closed + labels or Project fields), title, body, labels, sub-issue parent (when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy`), url.
+1. Fetch the Issue by id/number via the active channel.
+2. Return: state (mapped from open/closed + labels or Project fields), title, body, labels, sub-issue parent (when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), url.
 
 ### list_artifacts
 
@@ -170,7 +174,7 @@ There is no legacy "classic Projects" fallback. When sub-issues are disabled, St
 
 ## Error Handling
 
-- Repo not accessible: route to GitHub MCP auth setup.
+- Repo not accessible: route to GitHub auth setup.
 - Sub-issues feature disabled: warn user; offer to proceed without hierarchy or to abort.
 - `epic-tracker.project-number` set but Project not found: ask user to verify or offer to create.
 - Issue type not found in org (type was deleted or renamed since last detection): warn user, suggest re-running "configure tracker" to re-detect; fall back to label matching for this operation.

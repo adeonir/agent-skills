@@ -1,6 +1,6 @@
 # Linear Adapter
 
-Translate generic epic-tracker operations into Linear primitives via the Linear MCP (or `linear` CLI when MCP is unavailable). Loaded by [sync.md](sync.md) when `epic-tracker.kind: linear`.
+Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: linear`. The sync ref decides whether to use MCP or CLI for each call (`epic-tracker.method` and `epic-tracker.fallback`); this adapter implements each operation through both channels.
 
 ## When to Use
 
@@ -26,7 +26,11 @@ Linear's workflow states vary per workspace. Use the team's default state group 
 | done | Done |
 | blocked | Cancelled (with comment marking as blocked) or custom "Blocked" state if the workspace has one |
 
-Detect available states from the workspace via MCP before pushing. If "Blocked" doesn't exist as a state, fall back to a comment plus a label `blocked`.
+Detect available states from the workspace via the active channel before pushing. If "Blocked" doesn't exist as a state, fall back to a comment plus a label `blocked`.
+
+## Integration Channel
+
+Each operation below is implemented for both MCP and CLI. The caller (`sync.md`) selects the channel based on `epic-tracker.method` and `epic-tracker.fallback`. When an operation specifies an MCP call, the CLI equivalent is used when the CLI channel is active. If a capability is unavailable in one channel, surface it and let the caller decide whether to try the other channel.
 
 ## Operations
 
@@ -48,19 +52,19 @@ Detect available states from the workspace via MCP before pushing. If "Blocked" 
 ### update_status
 
 1. Map generic status to Linear state via the table above.
-2. Update the Issue's `state` field via MCP.
+2. Update the Issue's `state` field via the active channel.
 
 ### set_dependencies
 
 1. Inputs: the entity id and a list of blocker ids (resolved from paths by sync.md).
-2. Issue-level blockers (Story, Bug, Issue → Linear Issues): create a native issue relation of type `blocked by` via MCP for each blocker. Linear maintains both directions.
-3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects. A dependency mixing a Project and an Issue has no native Linear form — keep it in markdown `blocked_by` and warn the user it is not mirrored in the tracker.
+2. Issue-level blockers (Story, Bug, Issue → Linear Issues): create a native issue relation of type `blocked by` via the active channel for each blocker. Linear maintains both directions.
+3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects. A dependency mixing a Project and an Issue has no native Linear form — keep it in local `blocked_by` and warn the user it is not mirrored in the tracker.
 4. Remove relations no longer listed.
 5. Return success.
 
 ### fetch_artifact
 
-1. Fetch the Project or Issue by id via MCP.
+1. Fetch the Project or Issue by id via the active channel.
 2. Return: status (mapped from Linear state), title, description, labels, blocked-by relations (issue relations, or project relations for Epics), url.
 
 ### list_artifacts
@@ -78,4 +82,4 @@ Linear supports sub-issues. Use them when a Story needs explicit breakdown that 
 - Project not found by id: ask user whether to create a new Project or attach to an existing one
 - State name not found in workspace: fall back to closest standard name with a warning
 - API rate limit: surface the error, suggest waiting a minute before retry
-- Auth error: route user to Linear MCP setup
+- Auth error: route user to Linear auth setup
