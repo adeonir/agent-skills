@@ -49,6 +49,7 @@ Loaded on demand:
 - [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, case convention, calibration against the goal
 - [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
 - [slicing.md](references/slicing.md) — vertical slice vs horizontal, the two-benefit split
+- [simplicity.md](references/simplicity.md) — the architecture ladder, verifying a simplification is real before it becomes a decision
 - [memory.md](references/memory.md) — `CONTEXT.md` and `STATE.md` formats, routing, conflicts
 - [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
