@@ -61,7 +61,7 @@ branch: {slug}                     # inferred from content, not asked
 
 **Acceptance Criteria:**
 - AC-1: {EARS-lite clause} (because {intent})   <!-- rationale inline OPTIONAL, non-obvious AC only -->
-  **Satisfies:** {FR/BR/EC/NFR-ID}              <!-- conditional: PRD-seed only; the requirement this AC operationalizes -->
+  **Satisfies** {FR/BR/EC/NFR-ID}               <!-- conditional: PRD-seed only; the requirement this AC operationalizes -->
 - AC-2: {...}
 
 **Independent Test:** {how to demonstrate this story alone}
