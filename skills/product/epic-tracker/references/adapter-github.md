@@ -23,13 +23,13 @@ Sub-issues are a native Issues feature (GraphQL `addSubIssue`) — independent o
 
 ## Orthogonal Layers
 
-Two opt-in layers wrap the same Issue substrate. Both are independent of hierarchy and of each other.
+One opt-in layer wraps the same Issue substrate, independent of hierarchy.
 
 | Layer | What it adds | Activation |
 | ----- | ------------ | ---------- |
 | **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
 
-Neither layer changes how Issues are created or how parent/child links are formed. Issue creation flow is identical with or without them.
+This layer does not change how Issues are created or how parent/child links are formed. Issue creation flow is identical with or without it.
 
 ## Integration Channel
 

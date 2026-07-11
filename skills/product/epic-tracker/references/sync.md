@@ -110,7 +110,7 @@ Use pull to recover an artifact's current state from the tracker — for example
 
 1. Read artifact frontmatter; require `tracker.id` to be present.
 2. Load the matching adapter.
-3. Adapter fetches the entity from the tracker via MCP.
+3. Adapter fetches the entity from the tracker via the active channel.
 4. Compare tracker state with local frontmatter and body.
 5. Detect conflicts (see below).
 6. Update local content + frontmatter `tracker.last_synced`, and refresh `blocked_by` from the entity's native dependency relations (see Dependencies).
@@ -164,7 +164,7 @@ For push, the default is the inverse: markdown wins, tracker is updated with loc
 
 ## Operations Summary
 
-The adapter exposes a generic interface. Each tracker adapter implements these operations using its own MCP calls:
+The adapter exposes a generic interface. Each tracker adapter implements these operations using its own MCP or CLI calls:
 
 | Operation | Inputs | Output |
 | --------- | ------ | ------ |
