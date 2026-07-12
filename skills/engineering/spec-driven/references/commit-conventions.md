@@ -30,8 +30,8 @@ The message summarizes the boundary just closed. The agent making the commit alr
 1. **Imperative mood** — "add", "fix", "implement" (not "added", "fixes").
 2. **Concise subject** — ~72 characters, a soft ceiling.
 3. **Human readable** — write the subject so a teammate understands it without opening the code. Tell the story of what moved and why it matters, not an abstract framing. `refactor: make db and auth per-request for d1 binding` reads like a story; `refactor: swap client and adapter for d1 pattern` reads like a release-note abstraction. See the AI-slop anti-pattern for the filler vocabulary to avoid.
-4. **What and why, never where or how** — carry the user-observable effect and the why; keep file names, paths, mechanics, and specific values out (they live in the diff). One exception: when the file *is* the change (`docs: update README`), naming it is clearer than abstracting it.
-5. **Match project style** — follow the project log's scope usage (`type(scope):` vs `type:`); do not add or strip scope against the established style. A prompt directive overrides.
+4. **The subject carries the whole *what*** — it names the user-observable effect, and it is the only place the *what* lives. Keep file names, paths, mechanics, and specific values out (they live in the diff). One exception: when the file *is* the change (`docs: update README`), naming it is clearer than abstracting it.
+5. **Match project style** — documented project rules win over everything here. Otherwise read the project log for one thing only: its scope usage (`type(scope):` vs `type:`). Do not add or strip scope against the established style. The log does not set the shape of the message; this reference does. A prompt directive overrides.
 6. **No attribution, no future references** — never add Co-Authored-By or mention upcoming work.
 7. **Breaking changes** — mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when it alters observable behavior for a consumer, however small the diff. A one-line fix that changes what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
 
@@ -42,25 +42,23 @@ ALWAYS use this exact template structure:
 ```text
 type(scope): subject
 
-- body bullet 1
-- body bullet 2
+Prose body, when there is one.
 ```
 
-Omit the blank line and body when the subject already says everything. Omit `(scope)` when the project style is scopeless. The subject states what was done, without AC references; the body may cite the ACs covered when useful.
+Omit the blank line and body when the subject already says everything — the common case. Omit `(scope)` when the project style is scopeless. Neither subject nor body carries an AC reference: the identifier names an artifact, not the change.
 
 ## Body guidelines
 
-The body makes the commit self-sufficient — a reader understands the change from the message alone. Write it as a **curated mini-changelog**, not a hunk-by-hunk transcript:
+**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work.
 
-- 1 to 5 bullets — the *meaningful* changes, grouped; drop incidental edits.
-- Start each bullet with a lowercase imperative verb ("- add", "- remove").
-- Fold in the *why* where the changes alone don't carry it.
+**Most task commits have no body at all.** A body exists in exactly two cases:
 
-A curated bullet can still smuggle literal instance data — an exact value in parentheses, a proper noun, a quoted copy string. Strip it when the bullet's structural description already carries the meaning; keep a literal only when it *is* the change (a config value whose number is the decision). It is the subject's fake-concreteness trap (Shape 2), applied to bullets.
+- **The previous behavior was a problem** the change does not show on its face. *A problem, not merely a difference.* A rename, a doc edit, a new file that simply did not exist before — nothing was broken, so there is nothing to explain and the subject is the whole commit.
+- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff the task forced. A reader who does not know it reverts the change or reapplies it badly.
 
-A change that spans files leaks the diff's redundancy when each bullet restates the shared substance once per file. State the substance once — in the subject or the primary bullet — and let each sibling bullet say what *its* file did, not re-list the shared decision.
+Neither case is about *listing* the work. A boundary that closes so many separable things that you want to enumerate them is a boundary that should have been split — say so instead of padding the body with bullets.
 
-A trivial change needs no body.
+Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the files touched, mechanics, values, counts, AC or task IDs. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the implementation session instead of arming the reader.
 
 ## Anti-Pattern: AI-slop subject
 
@@ -84,11 +82,10 @@ A human subject is terse and structural — it names what moved, in the develope
 
 ## Examples
 
+Most task commits are subject-only:
+
 ```text
 feat(checkout): reject expired credit cards
-
-- reject cards past their expiry at payment time
-- covers AC-2
 ```
 
 ```text
@@ -97,6 +94,42 @@ fix: resolve token refresh race condition
 
 ```text
 refactor: extract validation logic into shared utilities
+```
+
+A body when the previous behavior was a problem — the problem, then why this solution:
+
+```text
+fix(checkout): read the config once at startup
+
+Every request re-parsed the config from disk, so a deploy that rewrote the
+file mid-flight served two different configs within the same second. Reading
+at startup makes the process's view of the config immutable for its lifetime.
+```
+
+A body when a constraint binds the solution:
+
+```text
+refactor(parser): pin the tokenizer to the sync API
+
+The async path drops surrogate pairs on flush, so the sync call stays until
+that lands upstream — do not "modernize" this back.
+```
+
+**Bad — a body that inventories the work**, which is what the task list and the diff already are:
+
+```text
+feat(checkout): reject expired credit cards
+
+- add an expiry check to the payment validator
+- surface the rejection on the card field
+- cover the branch in the payment tests
+- covers AC-2
+```
+
+Nothing was broken and nothing binds the solution — the feature simply did not exist. No body:
+
+```text
+feat(checkout): reject expired credit cards
 ```
 
 ## Scope
