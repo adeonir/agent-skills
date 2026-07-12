@@ -104,7 +104,7 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 
 ### Step 4: Merge
 
-Write the merge commit from the PR title and branch context, never the conversation. The subject uses the PR title when it follows `type: description`; generate a conforming one only when it does not. Add a body bullet only when the subject is not self-sufficient — and trace it to the branch diff.
+Write the merge commit from the PR title and branch context, never the conversation. The subject uses the PR title when it follows `type: description`; generate a conforming one only when it does not. Add a body only when the subject is not self-sufficient — prose stating what the branch solves, never a list of its commits, and traced to the branch diff.
 
 ```bash
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
