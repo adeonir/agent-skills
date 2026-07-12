@@ -296,24 +296,14 @@ sources: []
 |----|------------|----------------------|
 | FR-N | {{feature considered and cut from this release}} | {{why it is out of scope now — informs future revisit}} |
 
-## 7. Definition of Done
-
-{{Product-level criteria that tell us this is ready to ship. Independent of any calendar; applies whenever launch happens.}}
-
-| Criterion | How verified |
-|-----------|--------------|
-| {{e.g., all Must Have requirements implemented and validated}} | {{test/validation method}} |
-| {{e.g., primary success metric meeting target for 7 days}} | {{measurement source}} |
-| {{e.g., no critical or blocker defects open}} | {{issue tracker state}} |
-
-## 8. Business Rules
+## 7. Business Rules
 
 | ID | Rule | Scope |
 |----|------|-------|
 | BR-1 | {{functional constraint that applies across features}} | {{which features/journeys it affects}} |
 | BR-2 | {{another business rule}} | {{scope}} |
 
-## 9. Edge Cases (optional)
+## 8. Edge Cases (optional)
 
 {{Include only when exception scenarios are material to the product.}}
 
@@ -322,7 +312,7 @@ sources: []
 | EC-1 | {{what goes wrong or what unusual situation occurs}} | {{how the product should respond}} |
 | EC-2 | {{another exception scenario}} | {{expected behavior}} |
 
-## 10. Non-Functional Requirements
+## 9. Non-Functional Requirements
 
 Non-functional requirements state measurable targets without prescribing the mechanism.
 
@@ -334,6 +324,16 @@ Non-functional requirements state measurable targets without prescribing the mec
 Examples:
 - "Use Redis caching" (prescribes mechanism)
 - "Search returns results within 200ms" (states measurable target)
+
+## 10. Definition of Done
+
+{{Product-level criteria that tell us this is ready to ship. Independent of any calendar; applies whenever launch happens.}}
+
+| Criterion | How verified |
+|-----------|--------------|
+| {{e.g., all Must Have requirements implemented and validated}} | {{test/validation method}} |
+| {{e.g., primary success metric meeting target for 7 days}} | {{measurement source}} |
+| {{e.g., no critical or blocker defects open}} | {{issue tracker state}} |
 
 ## 11. External Dependencies
 
@@ -386,10 +386,10 @@ MUST NOT contain: architecture, tech stack, framework or deployment choices, API
 | 4. User Personas | Who uses this, role, pain point, goal | Topic 2: Users |
 | 5. User Journeys | End-to-end flows per persona with pre/post-conditions | Topic 5: Journeys & Constraints |
 | 6. Scope | Must/Should/Could/Won't have (FR-1...) | Topic 4: Value & Scope |
-| 7. Definition of Done | Product-level readiness criteria, independent of calendar | Validation phase, Topic 4 |
-| 8. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
-| 9. Edge Cases (optional) | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
-| 10. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
+| 7. Business Rules | Functional constraints across features (BR-1...) | Topic 5: Journeys & Constraints |
+| 8. Edge Cases (optional) | Exception scenarios and expected behavior (EC-1...) | Topic 5: Journeys & Constraints |
+| 9. Non-Functional Requirements | Performance, accessibility, security targets | Topic 4: Value & Scope |
+| 10. Definition of Done | Product-level readiness criteria, independent of calendar | Validation phase, Topic 4 |
 | 11. External Dependencies | Dependencies outside the team that can block or shape delivery | Validation phase |
 | 12. Risks (optional) | What could go wrong and how to address it | Validation phase |
 | 13. Open Questions & Assumptions | Assumptions underpinning the plan plus hypotheses to validate and unknowns to resolve | Validation phase |
