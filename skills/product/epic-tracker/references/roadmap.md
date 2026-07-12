@@ -26,7 +26,9 @@ Look for `docs/product/PRD.md`. If it exists, read:
 
 If absent, derive the epics from the user directly — the roadmap never depends on the PRD existing. When the PRD is missing, mark the roadmap as provisional in its intro line: this plan assumes a PRD will confirm scope and priorities.
 
-**Translate, don't replicate.** The PRD stays the source of requirements; its tokens never cross verbatim into the roadmap. Strip PRD IDs (FR-N, BR-N, EC-N, NFR-N, DEP-N) and section numbers — the roadmap names epics and their flow in plain language.
+**Translate, don't replicate.** The PRD stays the source of requirements; its tokens never cross verbatim into the roadmap. Strip section numbers and PRD framing — the roadmap names epics and their flow in plain language. The one exception is backward provenance: each entry records the requirement IDs (`FR/BR/EC/NFR`) that epic will own, in its `Requirements` field, never in prose. `DEP-N` is an external dependency, not an owned requirement — it informs sequencing and may surface as an `external-dependency` tag, never as a requirement ID.
+
+Read the PRD as a claim, not authority. Where its scope leaves a requirement no epic can plausibly own, or two requirements contradict each other, surface the disagreement instead of forcing a partition around it.
 
 ### 2. Organize the epic flow
 
@@ -47,7 +49,21 @@ Group into phases only when the flow has natural stages; a flat ordered list is 
 
 Present the proposed flow; let the user reorder, add, drop, merge, or split. Settle the flow before writing.
 
-### 3. Reconcile on re-run
+### 3. Partition the requirements
+
+Assign every PRD requirement ID in scope (`FR/BR/EC/NFR`) to exactly one epic. This is the partition the epics inherit — it is decided once here, with the whole PRD in view, rather than re-derived epic by epic.
+
+Check the partition before writing:
+
+- **No orphans.** Every requirement in Must and Should scope belongs to some epic. Flag any that does not and ask the user to place it, add an epic, or confirm the omission.
+- **No duplicates.** A requirement claimed by two epics means the epic boundaries are wrong, not that the requirement is shared. Resolve the boundary.
+- **Could scope is optional.** Assign `Could` requirements only when an epic genuinely carries them; leave the rest unassigned.
+
+An epic with no requirements is legitimate — enabling or validation work often derives from no PRD line. Leave its `Requirements` field off rather than inventing a mapping.
+
+When no PRD exists, skip this step; the roadmap carries no requirement IDs.
+
+### 4. Reconcile on re-run
 
 When `docs/ROADMAP.md` already exists, read it as input. Compare it against the current PRD and any new context, then propose only the delta:
 
@@ -55,10 +71,13 @@ When `docs/ROADMAP.md` already exists, read it as input. Compare it against the 
 - Epics dropped because scope was cut or moved to Won't Have
 - Reordering because dependencies, risks, or external blockers changed
 - Phase renaming or merging as the flow evolves
+- Requirement IDs added, moved between epics, or dropped as PRD scope shifted
+
+Re-run the partition check from step 3 against the current PRD: a requirement added upstream since the last write is an orphan until it is placed, and a requirement the PRD dropped still sits on an epic until it is removed.
 
 Preserve the existing structure for untouched parts. Update in place — never duplicate.
 
-### 4. Write docs/ROADMAP.md
+### 5. Write docs/ROADMAP.md
 
 Write the ordered flow to `docs/ROADMAP.md` (committed). Update it in place on re-run — the roadmap is a living plan; never duplicate it. The roadmap lists its epics; it does not create them (that is [decompose.md](decompose.md)).
 
@@ -82,16 +101,18 @@ sources:
 
 ## {{Phase name, or omit the heading for a flat flow}}
 
-1. **{{epic-name}}** — {{one-line capability the epic delivers}} — _Driven by: {{journey, rule, or goal that motivates this epic}}_ — {{optional tag: foundation | validation | high-risk | external-dependency}}
-2. **{{epic-name}}** — {{one-line capability}} — _Driven by: {{journey, rule, or goal}}_
+1. **{{epic-name}}** — {{one-line capability the epic delivers}} — _Driven by: {{journey, rule, or goal that motivates this epic}}_ — _Requirements: {{FR/BR/EC/NFR IDs this epic owns — omit the field when the epic derives from no PRD}}_ — {{optional tag: foundation | validation | high-risk | external-dependency}}
+2. **{{epic-name}}** — {{one-line capability}} — _Driven by: {{journey, rule, or goal}}_ — _Requirements: {{IDs}}_
 ````
 
-MUST NOT contain: deadlines or dates, per-story detail, PRD IDs (FR-N, BR-N, EC-N, NFR-N, DEP-N), section numbers, or implementation specifics. Tags are short signals only; they never replace the capability description or introduce scheduling.
+MUST NOT contain: deadlines or dates, per-story detail, section numbers, `DEP-N`, `ADR-NNN`, or implementation specifics. Requirement IDs (`FR/BR/EC/NFR`) appear only in the `Requirements` field, never in the capability line or any prose. Tags are short signals only; they never replace the capability description or introduce scheduling.
 
 ## Guidelines
 
 - Read the PRD for context; author the flow in plain language, independent of PRD framing
 - Consider the full PRD when ordering: scope, journeys, personas, business rules, NFRs, Definition of Done, external dependencies, risks, and open questions
+- Partition the PRD requirements across the epics once, with the whole PRD in view — every Must and Should requirement lands on exactly one epic, or its omission is confirmed
+- Keep requirement IDs in the `Requirements` field; the capability line stays plain language
 - Name epics as capabilities, never UI or technology
 - Sequence by flow, not deadline — a roadmap orders work, it does not schedule it
 - Keep it one living doc; update in place, never duplicate

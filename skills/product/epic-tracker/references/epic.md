@@ -18,7 +18,7 @@ Check for existing context before asking questions:
 
 1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below). Also note the PRD's **Definition of Done** and **External Dependencies** when they shape this epic's scope or risks.
 2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture).
-3. Look for `docs/ROADMAP.md` -- read only for sequencing context that may inform `blocked_by` suggestions. Do not record the roadmap as a source; epics never reference the roadmap.
+3. Look for `docs/ROADMAP.md` -- read for sequencing context that may inform `blocked_by` suggestions, and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. It enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. Do not record the roadmap as a source; epics never reference the roadmap.
 4. Look for `docs/tech/design-doc.md` if it exists -- read only for constraints that may affect scope or rabbit holes. Record it in `## References` if relevant.
 5. If found, summarize what was extracted and confirm with user
 6. If not found, ask the user:
@@ -38,7 +38,7 @@ Fill the template (below) with discovered context:
 - **Prose context**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
 - **Stories**: checklist of stories with brief descriptions. Each story becomes its own artifact later. **Local-only** — when a tracker is configured, adapters strip this section from the body on push so the tracker's native child panel (Sub-issues, child issues, etc.) stays the single source of truth.
 - **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
-- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — a contract the child stories operationalize, each AC linking back via `Satisfies`. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every ID here must be satisfiable by stories within this epic's scope.
+- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — a contract the child stories operationalize, each AC linking back via `Satisfies`. Inherited from the roadmap entry's `Requirements` field when one exists; derived from the PRD only when the epic is created without a roadmap. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every ID here must be satisfiable by stories within this epic's scope.
 - **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
 - **Blocked by**: other epics or stories that must finish before this one can start, listed in frontmatter `blocked_by` by path. Lets the tracker enforce delivery order; leave empty when nothing blocks it.
@@ -80,12 +80,12 @@ If `epic-tracker.kind` is not set, run [sync.md](sync.md) bootstrap first.
 **DO:**
 - Extract context from existing docs before asking questions
 - Consider the PRD's Definition of Done and External Dependencies when shaping scope, rabbit holes, and open questions
-- Use the roadmap only for `blocked_by` suggestions; never record it as a source
+- Use the roadmap for `blocked_by` suggestions and for the requirement set assigned to this epic; never record it as a source or name it in the body
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - List stories in the epic checklist as placeholders; create them as separate artifacts later
 - Run discover first, even when the user provides context directly
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
-- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as a contract for child stories; omit when the epic derives from no PRD
+- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as a contract for child stories; inherit them from the roadmap entry when one exists; omit when the epic derives from no PRD
 - Hand sizing off to the implementation phase
 - Use typed labels in frontmatter `sources:` (PRD, PRODUCT, Design Doc, UI Design)
 

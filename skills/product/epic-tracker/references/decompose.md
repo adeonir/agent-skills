@@ -25,8 +25,10 @@ Epics do not reference the roadmap. The roadmap references epics; the epics carr
 
 From the parent, propose the children:
 
-- **From the roadmap** — the epics it lists, in the order they appear. Respect phase grouping and use roadmap tags (`foundation`, `validation`, `high-risk`, `external-dependency`) as signals only — they inform priority or caution, but never alter the epic template.
+- **From the roadmap** — the epics it lists, in the order they appear. Respect phase grouping and use roadmap tags (`foundation`, `validation`, `high-risk`, `external-dependency`) as signals only — they inform priority or caution, but never alter the epic template. Carry each entry's `Requirements` field forward as the requirement set that epic owns: the partition was settled across the whole PRD when the roadmap was written, so a child epic inherits its IDs rather than re-deriving them from the PRD alone. An entry with no `Requirements` field yields an epic with no `## Requirements` section.
 - **From an epic** — candidate stories (user-value slices) and tasks (enabling work) implied by its scope and its stories checklist.
+
+The inherited set enters as a claim, not authority. When an epic's settled boundary no longer matches the IDs the roadmap assigned it — a requirement that belongs to a neighbor, or one the boundary cannot cover — surface the mismatch and fix the roadmap's partition before creating the epic. Silently reshuffling IDs at create time restores the drift the partition exists to prevent.
 
 Each proposed child carries a one-line boundary: the capability it owns, and the adjacent capability it explicitly does not. Boundaries partition the parent's scope — where one child's slice ends, the neighbor's begins; work claimed by two children means the set is wrong, not the boundary.
 
@@ -47,6 +49,8 @@ When decomposing an epic into stories:
 Blockers are suggestions; the user confirms or adjusts them before creation.
 
 ### 4. Coverage check
+
+When decomposing the roadmap into epics, check the requirement partition it carries: every ID assigned to an epic lands in that epic's `## Requirements`, and no ID is claimed by two epics. A requirement the PRD lists in Must or Should scope but the roadmap assigns to nobody is an orphan — flag it and ask the user to place it or confirm the omission, then fix the roadmap rather than parking the ID on whichever epic is closest.
 
 When decomposing an epic into stories, read the epic's `## Requirements` (the PRD requirement IDs it owns: `FR/BR/EC/NFR`).
 
@@ -91,6 +95,7 @@ When decomposing a parent that was already decomposed before, identify existing 
 - Route cross-cutting concerns by domain, not by order — a foundational decision spanning stories, and a domain-specific trap, each belong to the artifact that owns them, never parked on whichever story is created first
 - Offer to go deeper (a created epic → its stories) but never auto-create the next level
 - Respect roadmap order and tags when creating epics; suggest `blocked_by` for dependencies
+- Inherit each epic's requirement IDs from the roadmap's partition instead of re-deriving them from the PRD; surface a mismatch rather than reshuffling silently
 - Ensure every PRD requirement ID in the epic is covered by a story's `Satisfies` line, or explicitly confirm the omission
 - Split oversized stories before creating, or record the user's decision to keep them whole
 - Surface orphaned children on re-run rather than deleting them
@@ -100,4 +105,5 @@ When decomposing a parent that was already decomposed before, identify existing 
 - Roadmap absent when decomposing the roadmap: route to [roadmap.md](roadmap.md) to organize the flow first, or create epics directly via [epic.md](epic.md)
 - Epic has no scope or stories checklist to imply children: ask the user to outline the stories, or derive candidates from the epic's scope and confirm before creating
 - A child name conflicts with an existing artifact: defer to the create ref's conflict handling (suggest an alternative or confirm overwrite)
+- Roadmap carries no requirement partition while a PRD exists: route to [roadmap.md](roadmap.md) to settle the partition, or confirm with the user that the epics derive from no PRD
 - Requirement coverage gap: flag the uncovered PRD requirement IDs and ask the user to add a story or confirm the omission
