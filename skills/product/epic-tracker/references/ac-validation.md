@@ -4,7 +4,7 @@ Enforce Given/When/Then 1:1 acceptance criteria on Story create and on edits tha
 
 ## When to Use
 
-- Auto-loaded by `story.md` (Step 3 Validate, before save or push)
+- Auto-loaded by `story.md` (Step 3 Validate, before the story is dispatched)
 - Auto-loaded by `story.md`'s edit branch when an edit changes AC text
 - Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
 
@@ -134,7 +134,7 @@ AC-{id} V9 check: Then asserts "{clause}", which the Summary does not require. L
 
 Default keep. A loosen routes back to redraft the Then; keep records the extra strictness as deliberate. V9 never blocks — a confirmed constraint is a decision, and an unexamined one is what this rule exists to prevent.
 
-If any strict rule fails: do not proceed to save or push. The caller (`story.md` Step 3 or its edit branch) loops back to review until the user fixes the AC.
+If any strict rule fails: do not dispatch. The caller (`story.md` Step 3 or its edit branch) loops back to Draft until the user fixes the AC.
 
 ## Satisfies linkage
 
@@ -151,11 +151,10 @@ This is also why V9 calibrates against the Summary rather than the requirement: 
 
 Read paths do not invoke this ref:
 
-- Pull from tracker (`sync.md` Pull Direction) -- legacy bodies may carry pre-Gherkin AC; the implementation consumer decides how to handle them.
-- Read-only navigation from epic checklist -- no validation runs.
+- `fetch_artifact` from the tracker -- a story fetched to be read, or fetched as the first step of an edit, is not validated on arrival. Legacy bodies may carry pre-Gherkin AC, and a body edited by hand in the tracker UI may carry anything; the implementation consumer decides how to handle them.
 - Status and overview reads -- no body inspection.
 
-Stories created before this ref existed are not retroactively validated. Edits that do not change AC text also skip validation (see `story.md`'s edit branch).
+Stories created before this ref existed are not retroactively validated. Edits that do not change AC text also skip validation (see `story.md`'s edit branch) — validation fires on the write path, when AC text changed, never on the read that precedes it.
 
 ## Guidelines
 
@@ -165,11 +164,11 @@ Stories created before this ref existed are not retroactively validated. Edits t
 - Keep V6 warn-only with a default-allow confirm to avoid blocking on heuristic false positives
 - Treat the V6 red-word list as small and stable; expand it only when a documented false negative recurs
 - Anchor V9 on the story's Summary — the requirement's text is not in scope here, only its id
-- Run validation locally before any tracker round-trip so failures cost no MCP latency
+- Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
 **DON'T:**
 - Invent AC content for the user (contrasts: surface failures, let the user fix)
-- Validate on pull or read-only navigation (contrasts: validate only on create and AC-text-changing edits)
+- Validate on a `fetch_artifact` read (contrasts: validate only on create and AC-text-changing edits)
 - Block on V6 or V9 (contrasts: warn-only with confirm)
 - Embed validation logic in `story.md` (contrasts: this ref is the single home; story.md loads it on create and edit)
 
@@ -185,6 +184,6 @@ Stories created before this ref existed are not retroactively validated. Edits t
 
 ## Outcomes
 
-- On pass: caller proceeds (Save/Push in create flow, or persist edit in edit flow).
+- On pass: caller proceeds to dispatch — the create flow pushes the new story, the edit flow writes the update.
 - On strict fail: caller loops back to review with the structured error visible to the user.
 - Block shape is a stable contract: each `### AC-N` is `id` + Given/When/Then plus an optional `**Satisfies**` line. Keep the shape stable so any downstream consumer that parses these blocks does not break.

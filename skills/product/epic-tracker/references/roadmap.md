@@ -79,7 +79,7 @@ Preserve the existing structure for untouched parts. Update in place — never d
 
 ### 5. Write docs/ROADMAP.md
 
-Write the ordered flow to `docs/ROADMAP.md` (committed). Update it in place on re-run — the roadmap is a living plan; never duplicate it. The roadmap lists its epics; it does not create them (that is [decompose.md](decompose.md)).
+Write the ordered flow to `docs/ROADMAP.md`. Update it in place on re-run — the roadmap is a living plan; never duplicate it. Whether to commit it is the user's call. The roadmap lists its epics; it does not create them (that is [decompose.md](decompose.md)).
 
 ## Template
 

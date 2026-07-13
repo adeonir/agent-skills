@@ -426,9 +426,10 @@ docs/
 
 .artifacts/
 ├── specs/, archive/, CONTEXT.md, STATE.md, LESSONS.json, research/   # spec-driven
-├── epics/     # epic-tracker
 └── design/    # design-brief; design/variants/ # craft-ui
 ```
+
+`epic-tracker` writes no artifacts — its output lives in the tracker.
 
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write —
 it stays out of `git status` without touching `.gitignore`. Commit specific

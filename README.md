@@ -39,7 +39,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[craft-ui](skills/product/craft-ui)** | Product | Render design variants, critique a variant, audit a running UI — non-mutating |
 | **[design-brief](skills/product/design-brief)** | Product | Greenfield visual identity — explore a direction and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured docs: PRD, Brief, Design Doc, ADR |
-| **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and releases — tracker-first or markdown |
+| **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[wireframe](skills/product/wireframe)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow |
 
 ## How They Connect
@@ -118,9 +118,11 @@ docs/
 ├── LESSONS.json    # spec-driven: canonical lessons (machine-owned)
 ├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
-├── design/         # design-brief: tune session events · craft-ui: variant HTML
-└── epics/          # epic-tracker: epics, stories, bugs, issues, releases
+└── design/         # design-brief: tune session events · craft-ui: variant HTML
 ```
+
+`epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
+live in the tracker (Linear or GitHub).
 
 Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace).
 

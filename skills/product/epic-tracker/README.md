@@ -1,25 +1,23 @@
 # Epic Tracker
 
-Manages the delivery lifecycle from epic planning through story tracking.
+Manages the delivery lifecycle from epic planning through story tracking, in an external tracker.
 
 ## What It Does
 
 ```mermaid
-flowchart TD
-    D[Discover] -->|check existing context| C[Create]
-    C -->|tracker configured| TR[Push to tracker]
-    C -->|no tracker| MD[Save markdown]
-    TR --> T[Track]
-    MD --> T
+flowchart LR
+    D[Discover] -->|check existing context| DR[Draft]
+    DR -->|validate AC, stories only| S[Sync]
+    S --> TR[Tracker]
 ```
 
-When a tracker is configured (via MCP or CLI), artifacts go directly to the tracker — no local files created. When no tracker is configured, markdown in `.artifacts/epics/` is the source of truth.
+Every artifact lives in the tracker — Linear or GitHub, via MCP or CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes.
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
-| Discover | Check for existing PRD, brief, or context | Context for artifact creation |
-| Create | Generate epic, story, bug, or task | Tracker entity or markdown artifact |
-| Track | Update status in tracker when configured, in markdown otherwise | Updated state |
+| Discover | Check for existing PRD, roadmap, or context | Context for the draft |
+| Draft | Compose epic, story, bug, or task to its canonical template | Body + dispatch inputs |
+| Sync | Dispatch to the tracker via its adapter | Tracker entity + URL |
 
 ## Tracker Integration
 
@@ -32,32 +30,30 @@ When a tracker is configured (via MCP or CLI), artifacts go directly to the trac
 
 GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story.
 
-Configure via `configure tracker` (runs bootstrap once). Bootstrap detects available MCPs and CLIs; both are supported. Config is stored in `git config --local`. When no integration is detected, the skill stays in markdown-only mode.
+Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects the available MCPs and CLIs; both channels are supported, and one falls back to the other. Config is stored in `git config --local`, so it stays with the project.
 
 ## Dependencies
 
-Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, referenced as tracker ids/URLs when a tracker is configured or as local paths otherwise. When a tracker is configured, this maps to its native dependency relation (GitHub issue dependencies, Linear issue relations); in markdown-only mode the frontmatter field is the source of truth and surfaces in the overview. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
+Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations). Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
 
 ## Usage
 
 ```text
 create roadmap             -- organize epics into an ordered flow in docs/ROADMAP.md
-create epic                -- plan a new epic with stories and scope
+create epic                -- plan a new epic with scope and requirements
 decompose                  -- materialize a roadmap into epics, or an epic into stories/tasks
 create story               -- add a story (a demonstrable slice of user value) to an existing epic
-edit story                 -- update an existing Story; AC changes re-validate
+edit story                 -- update an existing story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
 create task                -- file a general work item (infra, refactor, tooling, research, ...)
-list epics                 -- show the delivery overview
-mark done                  -- update artifact status
-sync to tracker            -- push current artifact to configured tracker
-pull from tracker          -- refresh markdown with latest tracker state
+list epics                 -- show the delivery overview from the tracker
+mark done                  -- update artifact status in the tracker
 configure tracker          -- run bootstrap to set or change tracker config
 ```
 
 ## Story Acceptance Criteria
 
-Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on Story create and on edits that change AC text. Validation also flags a Then that promises more than the story's Summary requires — a timing, count, threshold, or mechanism the outcome does not need — for a loosen-or-keep decision. Stories created before this convention are not retroactively validated.
+Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Validation also flags a Then that promises more than the story's Summary requires — a timing, count, threshold, or mechanism the outcome does not need — for a loosen-or-keep decision. Artifacts already in the tracker are not retroactively validated when read.
 
 ## Requirement Traceability
 
@@ -65,39 +61,26 @@ The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## 
 
 ## Roadmap
 
-The roadmap organizes the project's epics into an ordered flow, derived from the PRD, in the committed doc `docs/ROADMAP.md`. `create roadmap` writes and updates this living plan in place; `decompose` materializes it into epics (and an epic into stories and tasks). The roadmap is local — there is no tracker mirror. Epics stay self-contained: they never reference the roadmap.
+The roadmap organizes the project's epics into an ordered flow, derived from the PRD, in `docs/ROADMAP.md`. `create roadmap` writes and updates this living plan in place; `decompose` materializes it into epics (and an epic into stories and tasks). It is optional — a local planning aid, never mirrored to the tracker, and committing it is the user's call. Epics stay self-contained: they never reference the roadmap.
 
 ## Output
 
-The roadmap lives in the committed doc `docs/ROADMAP.md`, separate from `.artifacts/epics/`. The rest are markdown files created only when no tracker is configured, or when a request asks to keep an artifact local.
-
-```text
-.artifacts/epics/
-├── epic-name/
-│   ├── epic.md
-│   ├── 001-story-name.md
-│   ├── bug-name.md
-│   └── task-name.md
-└── standalone/
-    ├── bug-name.md
-    └── task-name.md
-```
+Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/ROADMAP.md`, a local planning document.
 
 ## Requirements
 
-- Optional: tracker MCP or CLI for push/pull operations (Linear, GitHub)
-- Falls back to markdown-only when no integration is available
+- **Required:** a tracker — Linear or GitHub — reachable through an MCP server or its CLI (`gh`, `linear`). Without one, no artifact can be created.
 
 ## FAQ
 
-**Q: Do I have to use a tracker?** A: No. Without a tracker configured (`epic-tracker.kind: none` or unset), markdown in `.artifacts/epics/` is the source of truth. All workflows work without an external system.
+**Q: Do I have to use a tracker?** A: Yes. The tracker is the single source of truth; the skill keeps no local copy of an epic, story, bug, or task. When no MCP or CLI is detected, bootstrap stops and tells you what to set up.
 
-**Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" pushes even when the config says `none`, and "save this locally" skips the push even when a tracker is configured. Neither rewrites the config; only `configure tracker` does.
+**Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" when the config says Linear. The override never rewrites the config; only `configure tracker` does. It does not apply to a story, whose parent epic lives in the configured tracker.
 
-**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects available MCPs/CLIs and updates git config. Existing artifacts keep their `tracker.id` from the previous tracker; you can manually attach to the new tracker by editing the frontmatter or by re-creating the artifact.
+**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects the available MCPs and CLIs and updates the git config. Artifacts already created stay in the old tracker — the switch applies to what you create next.
 
-**Q: What happens when I push and the tracker is unavailable?** A: The push fails, your markdown stays untouched, and the skill suggests retry. No partial state is left in the tracker.
+**Q: What happens when I push and the tracker is unavailable?** A: The skill tries the fallback channel (CLI when MCP fails, or the reverse). When both are down, it holds the draft in the session, surfaces the error, and offers to retry — the drafted content is never discarded. No partial state is left in the tracker.
 
-**Q: Why are stories numbered (`001-story-name.md`)?** A: The numeric prefix gives a stable order within an epic folder. The prefix is filename-only — the artifact's `name` field stays clean (`story-name`).
+**Q: What if someone edits the issue while I'm editing it here?** A: Every write to an existing artifact refetches immediately before it lands. When the tracker moved underneath, the skill surfaces the divergence and asks before overwriting — a teammate's edit is never silently destroyed.
 
-**Q: Can a bug or task exist outside an epic?** A: Yes. Standalone bugs and tasks live in `.artifacts/epics/standalone/`. When the work later grows into a thematic epic, you can move and re-link.
+**Q: Can a bug or task exist outside an epic?** A: Yes. Standalone means no parent epic — the artifact is created without an `epic_id`. Stories always have a parent epic.

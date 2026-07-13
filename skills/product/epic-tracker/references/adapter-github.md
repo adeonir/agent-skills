@@ -14,8 +14,8 @@ Every artifact is an Issue. Artifact type is carried by org-level Issue Types wh
 | -------- | ------------------ | -------------- |
 | Epic | `Epic` | always parent |
 | Story | `Story` | always child of an Epic |
-| Bug | `Bug` | optional child of Epic or Story; may be standalone |
-| Task | `Task` (or org default) | optional child of Epic; may be standalone |
+| Bug | `Bug` | optional child of an Epic; may be standalone |
+| Task | `Task` (or org default) | optional child of an Epic; may be standalone |
 
 Bug and Task are distinct artifacts with different purpose/body (severity + repro steps vs. plain description); both have optional parent linkage.
 
@@ -99,13 +99,12 @@ Re-detect on demand via "configure tracker".
 
 ### create_epic
 
-1. Strip the `## Stories` section from the body before push. The section is local-only — GitHub's native Sub-issues panel is the source of truth for child hierarchy. Drop the heading and all bullets up to (but not including) the next `##` heading.
-2. Create an Issue in the repo (inferred from `git remote get-url origin`) with the stripped body.
-3. Apply artifact type:
+1. Create an Issue in the repo (inferred from `git remote get-url origin`) with the body. The Sub-issues panel is the source of truth for child hierarchy; the body carries no child list.
+2. Apply artifact type:
    - session cache has `epic` issue type: assign it.
    - otherwise: match repo labels semantically for `epic` and assign; surface available labels and ask if no match.
-4. If `epic-tracker.project-number` is set: add the Issue to the Project.
-5. Return Issue number and url.
+3. If `epic-tracker.project-number` is set: add the Issue to the Project.
+4. Return Issue number and url.
 
 ### create_story
 
@@ -119,7 +118,7 @@ Re-detect on demand via "configure tracker".
 ### create_bug
 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, repro steps, severity, and any other Bug-specific fields.
-2. If `parent_id` is provided: attach as sub-issue under that parent (Epic or Story). Otherwise create as standalone.
+2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `bug` issue type, or `bug` label).
 4. If severity is provided: fetch repo labels, match semantically; assign if found, surface labels and ask otherwise.
 5. If `epic-tracker.project-number` is set: add to the Project.
@@ -130,10 +129,18 @@ Re-detect on demand via "configure tracker".
 Generic task/chore artifact — distinct from Bug (no severity, no repro steps, plain description body).
 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title and body.
-2. If `parent_id` is provided: attach as sub-issue under the parent (Epic). Otherwise create as standalone.
+2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
 4. If `epic-tracker.project-number` is set: add to the Project.
 5. Return Issue number and url.
+
+### update_artifact
+
+Rewrites an existing Issue's body and status. `sync.md` refetches immediately before calling this and confirms with the user when the Issue changed underneath — this adapter performs the write it is given.
+
+1. Update the Issue's title and body via the active channel.
+2. When a status is supplied, apply it via `update_status` below.
+3. Return success.
 
 ### update_status
 
@@ -146,7 +153,7 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 
 GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically. Every artifact is an Issue, so any of them can block any other.
 
-1. Inputs: the Issue number and a list of blocker Issue numbers (sync.md supplies them — passed through directly or resolved from local paths, per its Dependencies section).
+1. Inputs: the Issue number and a list of blocker Issue numbers (sync.md supplies them directly — they are already tracker ids).
 2. For each blocker, add a `blocked by` link via the active channel. When CLI is active: `gh issue edit {n} --add-blocked-by {blocker}`. Setting one side is enough; GitHub records `blocking` on the other.
 3. Remove links no longer listed via the active channel. When CLI is active: `gh issue edit {n} --remove-blocked-by {blocker}`.
 4. Return success.
@@ -161,7 +168,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 ### list_artifacts
 
 1. Query GitHub for items matching the filter (parent issue, state, label, project).
-2. Return summaries with id, title, state, url.
+2. Return summaries with id, title, state, and url — the url is what a child artifact records in its `## References`.
 
 ## Error Handling
 

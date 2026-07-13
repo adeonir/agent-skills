@@ -11,9 +11,11 @@ Loaded by `sync.md` when `epic-tracker.kind` is `linear`. Not a direct trigger.
 | Artifact | Linear primitive | Notes |
 | -------- | ---------------- | ----- |
 | Epic | Project | Linear's Project is a thematic container for related issues |
-| Story | Issue | Standard work unit |
-| Bug | Issue + label `bug` | Same primitive as Story; `bug` label distinguishes type |
-| Task | Issue + label `task` | Same primitive as Story; `task` label distinguishes non-story work |
+| Story | Issue | Standard work unit; always inside its Epic's Project |
+| Bug | Issue + label `bug` | Same primitive as Story; `bug` label distinguishes type. Inside an Epic's Project, or standalone in the backlog |
+| Task | Issue + label `task` | Same primitive as Story; `task` label distinguishes non-story work. Inside an Epic's Project, or standalone in the backlog |
+
+An Epic is a Project and everything else is an Issue. A dependency between the two levels therefore has no native form — see `set_dependencies` below.
 
 ## Status Mapping
 
@@ -36,10 +38,9 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 
 ### create_epic
 
-1. Strip the `## Stories` section from the body before push. The section is local-only — Linear's native sub-issue panel under the Project is the source of truth for child hierarchy. Drop the heading and all bullets up to (but not including) the next `##` heading.
-2. Create a Linear Project in the workspace (from `epic-tracker.workspace`) with the stripped body.
-3. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
-4. Return Project id and url.
+1. Create a Linear Project in the workspace (from `epic-tracker.workspace`). The native sub-issue panel under the Project is the source of truth for child hierarchy; the body carries no child list.
+2. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
+3. Return Project id and url.
 
 ### create_story / create_bug / create_task
 
@@ -49,6 +50,14 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 4. For `create_task`: add label `task`.
 5. Return Issue id and url.
 
+### update_artifact
+
+Rewrites an existing Project or Issue's body and status. `sync.md` refetches immediately before calling this and confirms with the user when the entity changed underneath — this adapter performs the write it is given.
+
+1. Update the entity's title and description via the active channel (Project description for an Epic, Issue description otherwise).
+2. When a status is supplied, apply it via `update_status` below.
+3. Return success.
+
 ### update_status
 
 1. Map generic status to Linear state via the table above.
@@ -56,11 +65,12 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 
 ### set_dependencies
 
-1. Inputs: the entity id and a list of blocker ids (sync.md supplies them — passed through directly or resolved from local paths, per its Dependencies section).
-2. Issue-level blockers (Story, Bug, Issue → Linear Issues): create a native issue relation of type `blocked by` via the active channel for each blocker. Linear maintains both directions.
-3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects. A dependency mixing a Project and an Issue has no native Linear form — keep it in local `blocked_by` and warn the user it is not mirrored in the tracker.
-4. Remove relations no longer listed.
-5. Return success.
+1. Inputs: the entity id and a list of blocker ids (sync.md supplies them directly — they are already tracker ids).
+2. Issue-level blockers (Story, Bug, Task → Linear Issues): create a native issue relation of type `blocked by` via the active channel for each blocker. Linear maintains both directions.
+3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects.
+4. A dependency mixing a Project and an Issue has no native Linear form and cannot be recorded — surface it to the user, naming both endpoints, and skip that one link. The rest of the dispatch still succeeds. Suggest expressing the order between two Projects, or between two Issues, instead.
+5. Remove relations no longer listed.
+6. Return success.
 
 ### fetch_artifact
 
@@ -70,7 +80,7 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 ### list_artifacts
 
 1. Query Linear for items matching the filter (project, state, label).
-2. Return summaries with id, title, status, url.
+2. Return summaries with id, title, status, and url — the url is what a child artifact records in its `## References`.
 
 ## Sub-issues
 
