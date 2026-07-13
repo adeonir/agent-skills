@@ -19,7 +19,7 @@ Every artifact is an Issue. Artifact type is carried by org-level Issue Types wh
 
 Bug and Task are distinct artifacts with different purpose/body (severity + repro steps vs. plain description); both have optional parent linkage.
 
-Sub-issues are a native Issues feature (GraphQL `addSubIssue`) — independent of Projects v2. The Issues source repository must have sub-issues enabled.
+Sub-issues are a native Issues feature (GraphQL `addSubIssue`) — independent of Projects v2, available to anyone with triage permission on the repository.
 
 ## Orthogonal Layers
 
@@ -162,20 +162,10 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 1. Query GitHub for items matching the filter (parent issue, state, label, project).
 2. Return summaries with id, title, state, url.
 
-## Sub-Issues Detection
-
-Hierarchy requires the sub-issues feature on the source repository. Detected at runtime before the first `create_story` call and cached in memory for the session.
-
-1. Infer repo from `git remote get-url origin`.
-2. Probe via GraphQL whether `addSubIssue` is available on the repo.
-3. If unavailable: warn the user and ask whether to proceed without hierarchy (every artifact is standalone — Stories cannot be linked to Epics). Cache the choice in memory.
-
-There is no legacy "classic Projects" fallback. When sub-issues are disabled, Stories are simply created without a parent — the model flattens, but artifact creation continues.
-
 ## Error Handling
 
 - Repo not accessible: route to GitHub auth setup.
-- Sub-issues feature disabled: warn user; offer to proceed without hierarchy or to abort.
+- Sub-issue attach fails (permissions, cross-repo restriction): surface the error together with the already-created Issue's number and url, so the user can attach it in the tracker or discard it — the Issue exists even though the attach did not.
 - `epic-tracker.project-number` set but Project not found: ask user to verify or offer to create.
 - Issue type not found in org (type was deleted or renamed since last detection): warn user, suggest re-running "configure tracker" to re-detect; fall back to label matching for this operation.
 - Severity or status label not found in repo: surface available labels to user, ask which to use or confirm to skip; never create labels automatically.
