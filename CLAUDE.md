@@ -339,6 +339,34 @@ not the runtime — consumer Claude never sees CLAUDE.md. The rigid, verifiable
 ones are enforced by rules in `.claude/rules/`; what remains here is guidance
 that is not a discrete rule.
 
+### Read the Whole File Before Authoring It
+
+Before editing any skill file, read it end to end — and read every reference it
+names. Not a window, not a grep, not a subagent's summary of it. Authoring from
+an excerpt produces a patch that fits the excerpt and contradicts the rest: a
+mechanism reinvented three sections below where one already exists, a rule that
+fires on a case the file explicitly exempts, a term that already means something
+else. Each is invisible from inside the window, and each survives review, because
+the patch reads correct on its own.
+
+The cost is asymmetric. Reading a 90-line reference is cheap; discovering, after
+it ships, that the test you wrote duplicates the one the file already owns means
+unwinding every file that consumed the wrong shape.
+
+### Instruct, Don't Teach
+
+Write the least that does the job, and stop there. A skill file directs the agent —
+it does not explain the domain, justify the design, or narrate how the mechanism
+was arrived at. Prose that would help a human understand *why* is weight the agent
+pays for on every load and does not act on.
+
+The trap is building a detector for an event that announces itself. Before adding
+a test, a comparison, or a state to track, ask what the agent already knows at that
+moment: an artifact it just wrote, a phase it just re-entered, an input the user
+just handed it. A mechanism that infers what is already given is scaffolding, and
+scaffolding attracts more scaffolding — each round of review finds real defects in
+it, and fixing them makes it larger, never smaller.
+
 ### Audit on Merit, Not Authorship
 
 When auditing, reviewing, or fixing a skill, judge the current state on its
