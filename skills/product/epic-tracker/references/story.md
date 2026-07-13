@@ -62,7 +62,9 @@ Apply the resumption gate before proceeding:
 
 Load [ac-validation.md](ac-validation.md) and run V1-V9 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 and V9 surface a warning with confirm-to-continue.
 
-If any strict rule fails: surface the structured error (AC id, rule name, suggested fix), do not proceed to push. Loop back to Draft until the user fixes the AC.
+Then check each `Satisfies` line against the epic's `## Requirements`, fetched in Step 1. V8 checks that the id is well-formed; only this step can check that it *exists*, because only this step holds the epic. An id the epic does not declare is a dangling link: surface it and loop back to fix. A story whose ids all resolve is the only one that reaches the tracker.
+
+If any strict rule fails, or any `Satisfies` dangles: surface the structured error (AC id, rule name or dangling id, suggested fix), do not proceed to push. Loop back to Draft until the user fixes the AC.
 
 Validation runs locally, before any tracker round-trip — a failure costs no dispatch latency.
 
@@ -80,7 +82,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
-3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, load [ac-validation.md](ac-validation.md), run V1-V9, and loop back on strict failure. Re-validating a `Satisfies` line needs the parent epic's `## Requirements`: fetch the epic as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V9, then each `Satisfies` against the epic's `## Requirements`. That check needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
 4. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
 
 ## Guidelines
@@ -177,6 +179,6 @@ into the tracker description, so the tracker alone is enough to resume.}
 
 - No parent epic resolved: route to Step 1; a story cannot be created unlinked
 - Epic's `## Requirements` fails to parse from the tracker description: surface it as a parse failure, never as an epic with no requirements
-- A `Satisfies` line names an id the parent epic does not declare: surface the dangling id and route back to fix
+- A `Satisfies` line names an id the parent epic does not declare: Step 3 catches it. Offer the epic's declared ids to pick from, or drop the line when the AC maps to no requirement — never invent the id into the epic
 - A story with the same title already exists in the epic: surface it and ask whether to edit that one or create a distinct story
 - Story drafted without AC: ac-validation V1 fires; ask user to add at least one `### AC-N` block

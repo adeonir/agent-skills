@@ -140,7 +140,7 @@ If any strict rule fails: do not dispatch. The caller (`story.md` Step 3 or its 
 
 V8 checks the shape of a `**Satisfies**` value. Two further relations hold across the epic↔story boundary — neither parsed here (this ref reads the story's AC section in isolation), both owned by the create/edit flow that has the parent epic in hand:
 
-- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. `story.md` checks this when the parent epic is loaded; a dangling id routes back to fix.
+- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V9, with the epic it fetched in Step 1; a dangling id routes back to fix.
 - **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. This is an epic-level relationship, checked during decomposition (`decompose.md`) and confirmed in `story.md`; it is not gated by this validator.
 
 `Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the two relations above hold upstream.
