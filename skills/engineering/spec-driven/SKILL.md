@@ -46,7 +46,7 @@ Depth follows scope, not phase-skipping above Small — per-scope depth is owned
 Loaded on demand:
 
 - [sizing.md](references/sizing.md) — the four scopes, scope table, safety valve
-- [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, case convention, calibration against the goal
+- [acceptance-criteria.md](references/acceptance-criteria.md) — EARS-lite shapes, `AC-N` tombstones, reshape vs author, `Satisfies`, `[seed-gap]`, case convention, calibration against the goal
 - [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
 - [slicing.md](references/slicing.md) — vertical slice vs horizontal, the two-benefit split
 - [simplicity.md](references/simplicity.md) — the architecture ladder, chained necessity as the signal of a wrong root, verifying a simplification is real before it becomes a decision

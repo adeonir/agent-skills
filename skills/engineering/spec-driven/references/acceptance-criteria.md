@@ -37,6 +37,8 @@ An input carrying acceptance criteria is a set of claims, not a settled contract
 - AC-3 removed: folded into AC-1
 ```
 
+The tombstone is an internal record; it tells the user nothing. When the removal happens after `design.md` or `tasks.md` exists, the seed still owes the obligation this feature just dropped — that also leaves a `[seed-gap]` line (see `specify.md` step 7).
+
 ## Backward provenance — `Satisfies`
 
 Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. Prompt and story seeds do not write it (a story inherits the link 1:1 via the `sources:` pointer). Keep the link on the `**Satisfies**` line, never in prose.
@@ -44,7 +46,7 @@ Only when the Author starts from a structured document with its own IDs (a PRD's
 ## Case convention — three classes
 
 - **EARS operators** (requirement prose) → the reserved words above, as written.
-- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
+- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `[seed-gap]`, `(confirm @ design)`, `(verify @ design)`, `(reconcile seed)`.
 - **Identifiers** (owned, monotonic, never renumbered) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `AC-N` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
 
 ## Non-functional criteria
@@ -64,7 +66,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 
 A miscalibrated AC changes an AC, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited AC that arrives before drafting surfaces during discuss; an AC authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
-- **Loosen** to the observable the benefit requires. The spec then states the correct AC while the source input still asserts the tighter clause — a real pendency, carried as a `[deferrable]` line that names the source input and the tighter clause it still holds, so the sweep before `done` has the specifics to act on.
+- **Loosen** to the observable the benefit requires. The spec then states the correct AC while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. Which line records it depends on where the spec is: while it is still being drafted for the first time, a `[deferrable]` naming the seed and the clause it holds. Once `design.md` or `tasks.md` exists, the pipeline has moved past specify and the seed is now behind the code — a `[seed-gap]`, closing with `(reconcile seed)`. Either way the sweep before `done` has the specifics to act on.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 ## Ambiguity closure

@@ -110,7 +110,19 @@ Spec-defects: {count}
 
 ## Outcome
 
-**PASS** — before flipping status, sweep `spec.md ## Open Questions`: present any surviving `[deferrable]` line to the user — each is resolved now or explicitly carried as a follow-up outside the feature, never a silent drop. Present each `## Spec Defects` row the same way — resolved now by routing back to specify to loosen the AC, or explicitly carried, never a silent flip to `done`. Present each `UNVERIFIED` marker in `design.md` the same way — resolved now or explicitly carried, never a silent flip to `done`. A PASS whose `Disproof` line records no attempt of any kind — an empty sensor and no counterexample sought — on code that has conditional or judgment-laden behavior is surfaced to the user as low-confidence the same way: re-audited now with real disproof, or explicitly accepted, never a silent flip to `done`. The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
+**PASS** — before flipping status, present every surviving pendency to the user. Each is resolved now or explicitly carried; none is ever dropped in silence:
+
+| Pendency | Where | Resolve now by |
+| --- | --- | --- |
+| `[deferrable]` line | `spec.md ## Open Questions` | answering it, or carrying it as a follow-up outside the feature |
+| `[seed-gap]` line | `spec.md ## Open Questions` | carrying it back to the seed — see below |
+| `## Spec Defects` row | `validation.md` | routing back to specify to loosen the AC |
+| `UNVERIFIED` marker | `design.md` | verifying the claim |
+| Empty `Disproof` on judgment-laden code | `validation.md` | re-auditing with real disproof, or accepting it as low-confidence |
+
+A `[seed-gap]` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared an AC this feature built, still asserts a clause this feature loosened, or still owes one this feature dropped. Reconciling it is neither the auditor's nor the spec's, and nothing downstream will catch it.
+
+The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 
 **FAIL** — the auditor does not fix. The main agent turns ranked gaps into fix tasks in `tasks.md`, continuing the `T-N` sequence; increments `STATE.md ## Progress` `Audit iteration`; points `Next` at the first fix task; then re-runs implement and re-audits. The loop escalates to the user once the counter reaches 3 — read it from the file, never from recall, since a bound the agent remembers does not survive a context boundary. Three unresolved re-audits is information about the artifact, not a reason to grind a fourth: the escalation asks the user to reconsider or decompose the feature — the tasks are usually too big to converge — never to raise the bound. See [memory.md](../references/memory.md).
 
