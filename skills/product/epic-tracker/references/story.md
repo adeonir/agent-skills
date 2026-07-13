@@ -36,7 +36,7 @@ Fill the template (below):
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. Validated in Step 3 against rules V1-V9. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge cases, ordering constraints, integration quirks; not implementation advice or upstream design notes. A trap belongs to the story whose domain owns it, not the story you were authoring when it surfaced — being the first story of an initiative does not make it the owner. If it affects other stories, relocate it to the sibling that owns the domain: the trap moves, it is not cross-referenced
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
-- **Blocked by**: other stories, bugs, or epics that must finish before this story can start, listed in frontmatter `blocked_by` by path. Lets the tracker enforce order; leave empty when nothing blocks it.
+- **Blocked by**: other stories, bugs, or epics that must finish before this story can start, listed in `blocked_by` — tracker ids/URLs when a tracker is configured, local paths otherwise. Lets the tracker enforce order; leave empty when nothing blocks it.
 - **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. Canonical in the body; frontmatter `sources:` mirrors the links for sync
 
 **Declare, don't narrate.** The drafting conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
@@ -122,7 +122,7 @@ sources:
   - PRD: {{link to docs/product/PRD.md or "None"}}
   - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
   - UI Design: {{link to UI design or "None"}}
-blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
+blocked_by: []  # artifacts that must finish first — tracker ids/URLs when a tracker is configured, local paths (epic-name, epic-name/story-name, epic-name/bug-name, or standalone/bug-name) otherwise; omit when nothing blocks this
 epic: {{epic-name}}
 type: story
 # tracker block populated by sync.md after first push (omit until then):

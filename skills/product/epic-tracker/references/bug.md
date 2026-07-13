@@ -65,7 +65,7 @@ Fill the template (below):
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
-- **Blocked by**: work that must finish before this bug can be fixed, listed in frontmatter `blocked_by` by path; leave empty when nothing blocks it.
+- **Blocked by**: work that must finish before this bug can be fixed, listed in `blocked_by` — tracker ids/URLs when a tracker is configured, local paths otherwise; leave empty when nothing blocks it.
 - **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
 **Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: `Login fails with an expired token`, never `the user reported that login was failing`. Strip conversation narrative — "as discussed", "the user confirmed" — and decision history; facts extracted from the paste enter as standing statements, verbatim evidence belongs in Signals.
@@ -123,7 +123,7 @@ sources:
   - Epic: {{link to parent epic or "None"}}
   - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
   - UI Design: {{link to UI design or "None"}}
-blocked_by: []  # paths of artifacts that must finish first (epic-name/bug-name, epic-name/story-name, epic-name/task-name, or standalone/bug-name); omit when nothing blocks this
+blocked_by: []  # artifacts that must finish first — tracker ids/URLs when a tracker is configured, local paths (epic-name/bug-name, epic-name/story-name, epic-name/task-name, or standalone/bug-name) otherwise; omit when nothing blocks this
 epic: {{epic-name or omit for standalone}}
 type: bug
 severity: {{critical/high/medium/low}}

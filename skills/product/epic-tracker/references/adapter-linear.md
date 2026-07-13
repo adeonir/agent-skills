@@ -56,7 +56,7 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 
 ### set_dependencies
 
-1. Inputs: the entity id and a list of blocker ids (resolved from paths by sync.md).
+1. Inputs: the entity id and a list of blocker ids (sync.md supplies them — passed through directly or resolved from local paths, per its Dependencies section).
 2. Issue-level blockers (Story, Bug, Issue → Linear Issues): create a native issue relation of type `blocked by` via the active channel for each blocker. Linear maintains both directions.
 3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects. A dependency mixing a Project and an Issue has no native Linear form — keep it in local `blocked_by` and warn the user it is not mirrored in the tracker.
 4. Remove relations no longer listed.

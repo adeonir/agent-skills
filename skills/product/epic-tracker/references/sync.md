@@ -97,7 +97,7 @@ The artifact body — including `## References` and `## Signals` — travels int
        last_synced: 2026-04-29T10:30:00Z
      ```
    - If no markdown file (tracker-native workflow): surface the tracker URL to the user; nothing is stored locally.
-   - If the artifact declares `blocked_by`, resolve the paths to tracker ids and call `set_dependencies` (see Dependencies). Missing blockers are skipped with a warning, never failing the push.
+   - If the artifact declares `blocked_by`, pass tracker-id entries directly and resolve path entries to tracker ids, then call `set_dependencies` (see Dependencies). Missing blockers are skipped with a warning, never failing the push.
 6. On failure, surface the error and leave any existing local artifact untouched. Suggest re-running sync once the issue is resolved.
 
 ### Edit → re-sync cycle
@@ -121,7 +121,7 @@ If the tracker entity no longer exists (deleted or archived), surface the orphan
 
 ## Dependencies
 
-An artifact declares `blocked_by` in frontmatter — the artifacts that must finish before it proceeds, each referenced by path (`epic-name`, `epic-name/story-name`, or `standalone/bug-name`). Only this direction is stored; the inverse (`blocking`) is derivable and each tracker maintains both sides natively.
+An artifact declares `blocked_by` — the artifacts that must finish before it proceeds, each referenced as the artifact is addressed: a tracker id or URL when a tracker is configured, a local path (`epic-name`, `epic-name/story-name`, or `standalone/bug-name`) in markdown-only mode. Only this direction is stored; the inverse (`blocking`) is derivable and each tracker maintains both sides natively.
 
 Dependencies are structured metadata, not body prose. They never travel in the description; each adapter maps them to the tracker's native dependency relation:
 
@@ -130,10 +130,11 @@ Dependencies are structured metadata, not body prose. They never travel in the d
 | GitHub | Issue dependencies (`blocked by` / `blocking`) |
 | Linear | Issue relations (`blocked by`) |
 
-`blocked_by` holds local paths; the native relation needs tracker ids:
+`blocked_by` entries take the form the artifact is addressed by, like every other reference: tracker ids or URLs when a tracker is configured, local paths in markdown-only mode. The native relation needs tracker ids:
 
-- **Push:** after the artifact itself is created, resolve each `blocked_by` path to the referenced artifact's frontmatter `tracker.id` and pass the ids to the adapter's `set_dependencies`. When a referenced artifact has no `tracker.id` yet (not pushed), skip that one link, warn which dependency could not be formed, and suggest pushing the referenced artifact first then re-syncing. The artifact's own push still succeeds — a missing blocker never blocks it.
-- **Pull:** the adapter returns native blocked-by relations as tracker ids. Resolve each id back to a local path when an artifact carries that `tracker.id`; otherwise keep the tracker id so the link is not lost. Write the result to `blocked_by`.
+- **Push, tracker-id entries:** pass the ids to the adapter's `set_dependencies` directly — extracted from the URL when the entry is one, never resolved through local files.
+- **Push, path entries:** resolve each path to the referenced artifact's frontmatter `tracker.id` and pass the ids to `set_dependencies`. When a referenced artifact has no `tracker.id` yet (not pushed), skip that one link, warn which dependency could not be formed, and suggest pushing the referenced artifact first then re-syncing. The artifact's own push still succeeds — a missing blocker never blocks it.
+- **Pull:** the adapter returns native blocked-by relations as tracker ids. Write them to `blocked_by` as ids; when the file's existing entries use local paths, resolve each id back to the path of the artifact carrying that `tracker.id`, keeping the id when none does — the link is never lost.
 
 `set_dependencies` is idempotent: it adds links present in `blocked_by` and removes tracker links no longer listed, so re-running sync after editing the field reconciles both sides. In markdown-only mode no resolution runs — the field is the source of truth, read directly.
 

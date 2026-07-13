@@ -41,7 +41,7 @@ Fill the template (below) with discovered context:
 - **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — a contract the child stories operationalize, each AC linking back via `Satisfies`. Inherited from the roadmap entry's `Requirements` field when one exists; derived from the PRD only when the epic is created without a roadmap. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every ID here must be satisfiable by stories within this epic's scope.
 - **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
-- **Blocked by**: other epics or stories that must finish before this one can start, listed in frontmatter `blocked_by` by path. Lets the tracker enforce delivery order; leave empty when nothing blocks it.
+- **Blocked by**: other epics or stories that must finish before this one can start, listed in `blocked_by` — tracker ids/URLs when a tracker is configured, local paths otherwise. Lets the tracker enforce delivery order; leave empty when nothing blocks it.
 - **References**: durable pointers the next session follows (PRD, design doc, UI design). Canonical in the body; frontmatter `sources:` mirrors the links for sync
 
 **Declare, don't narrate.** The discovery conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Auth uses magic links`), never as its history (`we discussed OAuth but the user preferred magic links`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
@@ -112,7 +112,7 @@ sources:
   - PRODUCT: {{link to docs/product/PRODUCT.md or "None"}}
   - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
   - UI Design: {{link to UI design or "None"}}
-blocked_by: []  # paths of artifacts that must finish first (epic-name or epic-name/story-name); omit when nothing blocks this
+blocked_by: []  # artifacts that must finish first — tracker ids/URLs when a tracker is configured, local paths (epic-name or epic-name/story-name) otherwise; omit when nothing blocks this
 # tracker block populated by sync.md after first push (omit until then):
 # tracker:
 #   kind: linear | github

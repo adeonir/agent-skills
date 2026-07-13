@@ -145,7 +145,7 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 
 GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically. Every artifact is an Issue, so any of them can block any other.
 
-1. Inputs: the Issue number and a list of blocker Issue numbers (resolved from paths by sync.md).
+1. Inputs: the Issue number and a list of blocker Issue numbers (sync.md supplies them — passed through directly or resolved from local paths, per its Dependencies section).
 2. For each blocker, add a `blocked by` link via the active channel. When CLI is active: `gh issue edit {n} --add-blocked-by {blocker}`. Setting one side is enough; GitHub records `blocking` on the other.
 3. Remove links no longer listed via the active channel. When CLI is active: `gh issue edit {n} --remove-blocked-by {blocker}`.
 4. Return success.

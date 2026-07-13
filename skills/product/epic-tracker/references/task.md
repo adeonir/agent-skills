@@ -52,7 +52,7 @@ Fill the template (below):
 - **Signals**: links and ids from pasted context — PRs, advisories, configs, dashboards; omit if empty
 - **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit for trivial chores
-- **Blocked by**: work that must finish before this task can start, listed in frontmatter `blocked_by` by path; leave empty when nothing blocks it.
+- **Blocked by**: work that must finish before this task can start, listed in `blocked_by` — tracker ids/URLs when a tracker is configured, local paths otherwise; leave empty when nothing blocks it.
 - **References**: link to parent epic, related stories, external docs, and any `ADR-NNN` the task depends on
 
 **Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`CI runs on the Node 20 image`), never as its history (`we discussed staying on Node 18 but decided to upgrade`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history.
@@ -110,7 +110,7 @@ sources:
   - Epic: {{link to parent epic or "None"}}
   - Design Doc: {{link to docs/tech/design-doc.md or "None"}}
   - UI Design: {{link to UI design or "None"}}
-blocked_by: []  # paths of artifacts that must finish first (epic-name/story-name, epic-name/task-name, or standalone/task-name); omit when nothing blocks this
+blocked_by: []  # artifacts that must finish first — tracker ids/URLs when a tracker is configured, local paths (epic-name/story-name, epic-name/task-name, or standalone/task-name) otherwise; omit when nothing blocks this
 epic: {{epic-name or omit for standalone}}
 type: task
 # tracker block populated by sync.md after first push (omit until then):

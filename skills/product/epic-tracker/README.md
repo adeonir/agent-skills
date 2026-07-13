@@ -36,7 +36,7 @@ Configure via `configure tracker` (runs bootstrap once). Bootstrap detects avail
 
 ## Dependencies
 
-Any epic, story, bug, or task can declare `blocked_by` in frontmatter — the artifacts that must finish first, referenced by path. When a tracker is configured, this maps to its native dependency relation (GitHub issue dependencies, Linear issue relations); in markdown-only mode the field is the source of truth and surfaces in the overview. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
+Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, referenced as tracker ids/URLs when a tracker is configured or as local paths otherwise. When a tracker is configured, this maps to its native dependency relation (GitHub issue dependencies, Linear issue relations); in markdown-only mode the frontmatter field is the source of truth and surfaces in the overview. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
 
 ## Usage
 
