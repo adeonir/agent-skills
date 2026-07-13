@@ -82,8 +82,9 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
-3. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V9, then each `Satisfies` against the epic's `## Requirements`. That check needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
-4. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
+3. **When the AC block changed, bring the Summary with it** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together in Step 2 and describe the same thing, one in prose and one in verifiable criteria. An edit that moves the AC and leaves the Summary behind ships a story whose two halves disagree. Reconcile the Summary to the outcome the story now owes, before validating.
+4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V9, then each `Satisfies` against the epic's `## Requirements`. That check needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+5. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
 
 ## Guidelines
 
