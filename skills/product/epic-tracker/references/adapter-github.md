@@ -109,11 +109,12 @@ Re-detect on demand via "configure tracker".
 
 ### create_story
 
-1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, body, and AC. The body must include the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
-2. Attach the Issue as a sub-issue under the parent Epic (`epic_id` required). Stories are always children of an Epic.
-3. Apply artifact type (session cache `story` issue type, or `story` label).
-4. If `epic-tracker.project-number` is set: add to the Project.
-5. Return Issue number and url.
+1. Require `epic_id` before creating anything — Stories are always children of an Epic. A dispatch without it is an error to surface; creating the Issue first would strand an unlinked Story in the tracker.
+2. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, body, and AC. The body must include the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
+3. Attach the Issue as a sub-issue under the parent Epic named by `epic_id`.
+4. Apply artifact type (session cache `story` issue type, or `story` label).
+5. If `epic-tracker.project-number` is set: add to the Project.
+6. Return Issue number and url.
 
 ### create_bug
 

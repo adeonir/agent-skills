@@ -170,13 +170,15 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 | Operation | Inputs | Output |
 | --------- | ------ | ------ |
 | `create_epic` | name, title, body, labels | tracker id + url |
-| `create_story` | epic_id (optional), name, title, body, acceptance criteria, labels | tracker id + url |
+| `create_story` | epic_id (required), name, title, body, acceptance criteria, labels | tracker id + url |
 | `create_bug` | epic_id (optional), name, title, severity, body, repro steps | tracker id + url |
 | `create_task` | epic_id (optional), name, title, body, labels | tracker id + url |
 | `update_status` | tracker_id, new_status | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
 | `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by) |
 | `list_artifacts` | filter (epic, status, etc.) | list of summaries |
+
+`epic_id` is required on `create_story` and optional on `create_bug` / `create_task`: a story is always a child of an epic, while a bug or task may be standalone. A `create_story` dispatch without an `epic_id` is an error to surface, never a story to create unlinked — when the parent epic has no tracker id yet (kept local, not pushed), suggest pushing the epic first, then re-dispatching the story.
 
 Status mapping (planned -> in-progress -> done -> blocked) is the adapter's responsibility; each tracker has its own status enum.
 

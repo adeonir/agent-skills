@@ -43,7 +43,7 @@ Each operation below is implemented for both MCP and CLI. The caller (`sync.md`)
 
 ### create_story / create_bug / create_task
 
-1. Create a Linear Issue in the project (when `epic_id` provided) or in the team backlog (when not).
+1. Create a Linear Issue. For `create_story`, `epic_id` is required — a story is always a child of an epic — and the Issue is created in the project it names; a dispatch without it is an error to surface, never an Issue to create in the backlog. For `create_bug` / `create_task`, `epic_id` is optional: with one, the Issue is created in that project; without one, it lands in the team backlog.
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. For `create_bug`: add label `bug`. Add `severity:{level}` label when severity is provided.
 4. For `create_task`: add label `task`.
