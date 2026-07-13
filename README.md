@@ -115,7 +115,7 @@ docs/
 ├── archive/        # spec-driven: features archived after merge
 ├── CONTEXT.md      # spec-driven: cross-feature decisions, gotchas, conventions
 ├── STATE.md        # spec-driven: active-feature handoff
-├── lessons.json    # spec-driven: canonical lessons (LESSONS.md rendered alongside)
+├── LESSONS.json    # spec-driven: canonical lessons (machine-owned)
 ├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
 ├── design/         # design-brief: tune session events · craft-ui: variant HTML

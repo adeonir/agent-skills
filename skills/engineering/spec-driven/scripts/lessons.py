@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Manage the spec-driven lessons layer.
 
-Owns .artifacts/lessons.json (canonical, machine-owned) and renders
-.artifacts/LESSONS.md for humans. A lesson starts as a `candidate` and
-becomes `confirmed` once it recurs across two distinct features.
+Owns .artifacts/LESSONS.json, the canonical machine-owned store. A lesson
+enters as a `candidate` grounded in a validation.md signal, becomes
+`confirmed` once it recurs across two distinct features, and is
+`quarantined` once it was loaded as guidance and the same failure recurred
+anyway. Only `confirmed` lessons load into specify and design.
 
-Subcommands: add, list, promote, normalize, render.
+Subcommands: add, list, promote, penalize, normalize.
 
 Exit codes:
   0  success
@@ -22,11 +24,17 @@ import sys
 
 # A lesson is confirmed once it is seen on this many distinct features.
 CONFIRM_FEATURE_THRESHOLD = 2
+# A confirmed lesson is quarantined once it fails this many times as guidance.
+QUARANTINE_PENALTY_THRESHOLD = 2
 # Zero-pad width for the L-NNN identifier (L-001..L-999 before it widens).
 ID_PAD_WIDTH = 3
 
-DEFAULT_STORE = os.path.join(".artifacts", "lessons.json")
-DEFAULT_RENDER = os.path.join(".artifacts", "LESSONS.md")
+# The validation.md sections that ground a lesson. A lesson with no signal is
+# an opinion, so `add` refuses one outside this set.
+SIGNALS = ["goal_unmet", "ac_fail", "surviving_mutant", "spec_defect", "suite_red"]
+STATUSES = ["candidate", "confirmed", "quarantined"]
+
+DEFAULT_STORE = os.path.join(".artifacts", "LESSONS.json")
 
 
 def _today():
@@ -104,6 +112,14 @@ def find_by_text(lessons, text):
     return None
 
 
+def find_by_id(lessons, lesson_id):
+    """Return the lesson with this id, or None."""
+    for lesson in lessons:
+        if lesson.get("id") == lesson_id:
+            return lesson
+    return None
+
+
 def _id_sort_key(lesson):
     """Sort on the numeric part of L-NNN, so L-1000 follows L-999 rather than L-100."""
     raw = str(lesson.get("id", "")).replace("L-", "")
@@ -115,21 +131,33 @@ def _id_sort_key(lesson):
 
 
 def _confirm_if_recurring(lesson):
-    """Promote a lesson to confirmed once it spans the feature threshold."""
+    """Promote a lesson to confirmed once it spans the feature threshold.
+
+    A quarantined lesson already failed as guidance, so recurrence never
+    revives it — that would reinstate the exact lesson the penalty retired.
+    """
+    if lesson.get("status") in ("confirmed", "quarantined"):
+        return
     features = lesson.get("features", [])
-    if len(set(features)) >= CONFIRM_FEATURE_THRESHOLD and lesson.get("status") != "confirmed":
+    if len(set(features)) >= CONFIRM_FEATURE_THRESHOLD:
         lesson["status"] = "confirmed"
         lesson.setdefault("confirmed_at", _today())
 
 
 def cmd_add(args):
     """Add a candidate lesson; auto-confirm if it recurs on a new feature."""
+    # `required=True` accepts an empty string, which would slip an ungrounded
+    # lesson past the gate; reject it here so the gate actually holds.
+    for flag in ("text", "origin", "feature"):
+        if not getattr(args, flag).strip():
+            sys.stderr.write("error: --%s must not be empty\n" % flag)
+            return 2
     store = load_store(args.store)
     lessons = store["lessons"]
     existing = find_by_text(lessons, args.text)
     if existing is not None:
         # Same lesson seen again: attach the feature and re-evaluate status.
-        if args.feature and args.feature not in existing.get("features", []):
+        if args.feature not in existing.get("features", []):
             existing.setdefault("features", []).append(args.feature)
         _confirm_if_recurring(existing)
         target = existing
@@ -137,9 +165,11 @@ def cmd_add(args):
         target = {
             "id": next_id(lessons),
             "text": args.text.strip(),
-            "origin": args.origin or "",
+            "signal": args.signal,
+            "origin": args.origin.strip(),
             "status": "candidate",
-            "features": [args.feature] if args.feature else [],
+            "features": [args.feature],
+            "penalties": 0,
             "created": _today(),
             "confirmed_at": None,
         }
@@ -147,9 +177,8 @@ def cmd_add(args):
         lessons.append(target)
     if not save_store(args.store, store):
         return 4
-    rendered = render_store(store, args.render)
     print("%s %s: %s" % (target["id"], target["status"], target["text"]))
-    return 0 if rendered else 4
+    return 0
 
 
 def cmd_list(args):
@@ -161,21 +190,16 @@ def cmd_list(args):
         return 0
     for lesson in rows:
         features = ", ".join(lesson.get("features", [])) or "-"
-        print("%s [%s] %s (features: %s)" % (
+        print("%s [%s] %s (signal: %s; features: %s)" % (
             lesson.get("id", "?"), lesson.get("status", "?"),
-            lesson.get("text", ""), features))
+            lesson.get("text", ""), lesson.get("signal", "-"), features))
     return 0
 
 
 def cmd_promote(args):
     """Force a lesson to confirmed, optionally attaching a feature."""
     store = load_store(args.store)
-    lessons = store["lessons"]
-    target = None
-    for lesson in lessons:
-        if lesson.get("id") == args.id:
-            target = lesson
-            break
+    target = find_by_id(store["lessons"], args.id)
     if target is None:
         sys.stderr.write("error: no lesson with id %s\n" % args.id)
         return 3
@@ -185,13 +209,28 @@ def cmd_promote(args):
     target.setdefault("confirmed_at", _today())
     if not save_store(args.store, store):
         return 4
-    rendered = render_store(store, args.render)
     print("%s confirmed" % target["id"])
-    return 0 if rendered else 4
+    return 0
+
+
+def cmd_penalize(args):
+    """Record that a lesson failed as guidance; quarantine it at the threshold."""
+    store = load_store(args.store)
+    target = find_by_id(store["lessons"], args.id)
+    if target is None:
+        sys.stderr.write("error: no lesson with id %s\n" % args.id)
+        return 3
+    target["penalties"] = int(target.get("penalties", 0)) + 1
+    if target["penalties"] >= QUARANTINE_PENALTY_THRESHOLD:
+        target["status"] = "quarantined"
+    if not save_store(args.store, store):
+        return 4
+    print("%s %s (penalties: %d)" % (target["id"], target["status"], target["penalties"]))
+    return 0
 
 
 def cmd_normalize(args):
-    """Dedupe by text, sort by id, backfill ids/fields, then re-render."""
+    """Dedupe by text, sort by id, backfill ids and fields."""
     store = load_store(args.store)
     merged = {}
     order = []
@@ -201,29 +240,39 @@ def cmd_normalize(args):
             continue
         if key in merged:
             # Merge duplicate texts: union features, keep the earliest created date,
-            # and carry a confirmed status forward. `promote` can confirm on a single
-            # feature, which the recurrence rule alone would silently demote back.
+            # and carry the strongest status forward. `promote` can confirm on a single
+            # feature, which the recurrence rule alone would silently demote back;
+            # a quarantine outranks both, since reviving it undoes the penalty.
             base = merged[key]
             # Identifiers are never renumbered, so a merge keeps the lower id
             # rather than whichever duplicate happened to come first in the store.
             if lesson.get("id") and _id_sort_key(lesson) < _id_sort_key(base):
                 base["id"] = lesson["id"]
             base["features"] = sorted(set(base.get("features", []) + lesson.get("features", [])))
+            base["penalties"] = max(int(base.get("penalties", 0)), int(lesson.get("penalties", 0)))
             dates = [d for d in (base.get("created"), lesson.get("created")) if d]
             base["created"] = min(dates) if dates else _today()
             if not base.get("origin"):
                 base["origin"] = lesson.get("origin", "")
+            if not base.get("signal"):
+                base["signal"] = lesson.get("signal", "")
             if lesson.get("status") == "confirmed":
                 base["status"] = "confirmed"
                 stamps = [s for s in (base.get("confirmed_at"), lesson.get("confirmed_at")) if s]
                 base["confirmed_at"] = min(stamps) if stamps else _today()
+            if "quarantined" in (base.get("status"), lesson.get("status")):
+                base["status"] = "quarantined"
             _confirm_if_recurring(base)
         else:
             lesson["features"] = sorted(set(lesson.get("features", [])))
             lesson.setdefault("status", "candidate")
+            lesson.setdefault("signal", "")
             lesson.setdefault("origin", "")
+            lesson.setdefault("penalties", 0)
             lesson.setdefault("created", _today())
             lesson.setdefault("confirmed_at", None)
+            if lesson["penalties"] >= QUARANTINE_PENALTY_THRESHOLD:
+                lesson["status"] = "quarantined"
             _confirm_if_recurring(lesson)
             merged[key] = lesson
             order.append(key)
@@ -236,75 +285,33 @@ def cmd_normalize(args):
     store["lessons"] = normalized
     if not save_store(args.store, store):
         return 4
-    rendered = render_store(store, args.render)
     print("normalized %d lessons" % len(normalized))
-    return 0 if rendered else 4
-
-
-def cmd_render(args):
-    """Render lessons.json to LESSONS.md."""
-    store = load_store(args.store)
-    if render_store(store, args.render):
-        print("rendered %s" % args.render)
-        return 0
-    return 4
-
-
-def render_store(store, path):
-    """Write LESSONS.md grouped by status. Returns True/False."""
-    confirmed = [l for l in store["lessons"] if l.get("status") == "confirmed"]
-    candidates = [l for l in store["lessons"] if l.get("status") != "confirmed"]
-    lines = ["# Lessons", "",
-             "Rendered from `lessons.json` — do not hand-edit.", ""]
-
-    def section(title, rows):
-        lines.append("## %s" % title)
-        lines.append("")
-        if not rows:
-            lines.append("(none)")
-            lines.append("")
-            return
-        for lesson in rows:
-            features = ", ".join(lesson.get("features", [])) or "-"
-            lines.append("- **%s** — %s" % (lesson.get("id", "?"), lesson.get("text", "")))
-            lines.append("  - origin: %s" % (lesson.get("origin") or "-"))
-            lines.append("  - features: %s" % features)
-        lines.append("")
-
-    section("Confirmed", confirmed)
-    section("Candidates", candidates)
-    directory = os.path.dirname(path) or "."
-    try:
-        os.makedirs(directory, exist_ok=True)
-        with open(path, "w", encoding="utf-8") as handle:
-            handle.write("\n".join(lines))
-    except OSError as error:
-        sys.stderr.write("error: could not render %s: %s\n" % (path, error))
-        return False
-    return True
+    return 0
 
 
 def build_parser():
-    # Path flags live on both the top parser and every subcommand, so they work on
+    # The store flag lives on both the top parser and every subcommand, so it works on
     # either side of the subcommand. SUPPRESS on the child keeps an absent flag from
     # clobbering a value the top parser already resolved.
     paths = argparse.ArgumentParser(add_help=False)
-    paths.add_argument("--store", default=argparse.SUPPRESS, help="path to lessons.json")
-    paths.add_argument("--render", default=argparse.SUPPRESS, help="path to LESSONS.md")
+    paths.add_argument("--store", default=argparse.SUPPRESS, help="path to LESSONS.json")
 
     parser = argparse.ArgumentParser(description="Manage the spec-driven lessons layer.")
-    parser.add_argument("--store", default=DEFAULT_STORE, help="path to lessons.json")
-    parser.add_argument("--render", default=DEFAULT_RENDER, help="path to LESSONS.md")
+    parser.add_argument("--store", default=DEFAULT_STORE, help="path to LESSONS.json")
     sub = parser.add_subparsers(dest="command", required=True)
 
     add = sub.add_parser("add", parents=[paths], help="add a candidate lesson")
     add.add_argument("--text", required=True)
-    add.add_argument("--origin", default="")
-    add.add_argument("--feature", default="")
+    # signal, origin and feature are all required: the first two ground the lesson in a
+    # validation.md row, and without the third recurrence cannot be counted, so the
+    # lesson would sit as a candidate forever and never load.
+    add.add_argument("--signal", required=True, choices=SIGNALS)
+    add.add_argument("--origin", required=True)
+    add.add_argument("--feature", required=True)
     add.set_defaults(func=cmd_add)
 
     listing = sub.add_parser("list", parents=[paths], help="list lessons")
-    listing.add_argument("--status", choices=["candidate", "confirmed"], default="")
+    listing.add_argument("--status", choices=STATUSES, default="")
     listing.set_defaults(func=cmd_list)
 
     promote = sub.add_parser("promote", parents=[paths], help="force a lesson to confirmed")
@@ -312,11 +319,12 @@ def build_parser():
     promote.add_argument("--feature", default="")
     promote.set_defaults(func=cmd_promote)
 
-    normalize = sub.add_parser("normalize", parents=[paths], help="dedupe, sort, backfill, re-render")
-    normalize.set_defaults(func=cmd_normalize)
+    penalize = sub.add_parser("penalize", parents=[paths], help="record that a lesson failed as guidance")
+    penalize.add_argument("--id", required=True)
+    penalize.set_defaults(func=cmd_penalize)
 
-    render = sub.add_parser("render", parents=[paths], help="render LESSONS.md from lessons.json")
-    render.set_defaults(func=cmd_render)
+    normalize = sub.add_parser("normalize", parents=[paths], help="dedupe, sort, backfill")
+    normalize.set_defaults(func=cmd_normalize)
     return parser
 
 

@@ -9,7 +9,7 @@ When planning or specing a feature, turning a PRD, ticket, or story into a spec,
 ## Workflow
 
 1. **Triage** — is this Small (mechanical, zero load-bearing decisions)? If so, state the one-liner, confirm, and route to inline implement — no `spec.md`. Otherwise continue.
-2. **Load knowledge** — read `.artifacts/STATE.md` (if present, for resume), `.artifacts/CONTEXT.md`, confirmed lessons (`.artifacts/lessons.json`), and `AGENTS.md` / `CLAUDE.md`. See [memory.md](../references/memory.md) and [lessons.md](../references/lessons.md).
+2. **Load knowledge** — read `.artifacts/STATE.md` (if present, for resume), `.artifacts/CONTEXT.md`, confirmed lessons (`lessons.py list --status confirmed` — never the store file, which also holds untrusted candidates), and `AGENTS.md` / `CLAUDE.md`. See [memory.md](../references/memory.md) and [lessons.md](../references/lessons.md).
 3. **Discovery** — adaptive conversation on problem, scope, and priorities plus a completeness sweep; separate stated fact from assumption. See [discovery.md](../references/discovery.md).
 4. **Size** — set `scope` after discovery, default adversarial; infer `branch` from the content, never ask. See [sizing.md](../references/sizing.md).
 5. **Discuss** — engage the user on load-bearing gray areas and resolve them before writing the spec body. The trigger, the batching rule, and what counts as a resolved answer are owned by [discovery.md](../references/discovery.md) — load it before asking. `discuss.md` is written only at Complex; otherwise fold the resolution into the spec.

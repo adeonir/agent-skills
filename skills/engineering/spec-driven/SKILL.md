@@ -52,10 +52,10 @@ Loaded on demand:
 - [simplicity.md](references/simplicity.md) — the architecture ladder, verifying a simplification is real before it becomes a decision
 - [research-cache.md](references/research-cache.md) — the cached-finding template, the basis that makes an entry falsifiable, the rule that voids a stale one
 - [memory.md](references/memory.md) — `CONTEXT.md` and `STATE.md` formats, routing, conflicts
-- [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed)
+- [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed → quarantined)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
-- `scripts/lessons.py` — run to add, list, promote, normalize, and render lessons
+- `scripts/lessons.py` — run to add, list, promote, penalize, and normalize lessons
 
 ## Artifacts
 

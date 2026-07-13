@@ -68,8 +68,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
 .artifacts/
 ├── CONTEXT.md                     # cross-feature decisions, gotchas, conventions
 ├── STATE.md                       # active-feature progress pointer
-├── lessons.json                   # canonical lessons state (machine-owned)
-├── LESSONS.md                     # rendered lessons (never hand-edit)
+├── LESSONS.json                   # canonical lessons state (machine-owned)
 ├── specs/
 │   └── {slug}/                    # active feature; slug only, no date prefix
 │       ├── spec.md                # WHAT + WHY
@@ -95,7 +94,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
 
 **Q: What does spec-driven persist across features?**
 
-A: `.artifacts/CONTEXT.md` accumulates cross-feature decisions, gotchas, and conventions; the lessons layer (`lessons.json` / `LESSONS.md`) records audit failures that recur into confirmed lessons. Both are read at the start of new features; `archive/` is never foraged.
+A: `.artifacts/CONTEXT.md` accumulates cross-feature decisions, gotchas, and conventions; the lessons layer (`LESSONS.json`) records audit failures that recur into confirmed lessons. The two are not interchangeable: `CONTEXT.md` is what the agent asserts, a lesson is what an independent audit caught it doing wrong. Both are read at the start of new features; `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 
@@ -107,7 +106,7 @@ A: Verify is mental and internal to implement — it runs after each task and ne
 
 **Q: How does the lessons layer work?**
 
-A: After an audit FAIL worth recording, `scripts/lessons.py add` stores a candidate. When the same lesson recurs on a second feature it becomes confirmed, and confirmed lessons load into future specify and design. The skill never changes — the project's lesson set does.
+A: Each lesson is grounded in a row of `validation.md` — an unmet goal, a failed AC, a surviving mutant, a spec defect, a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
 
 **Q: What happens to a feature after it is done?**
 

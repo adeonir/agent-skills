@@ -116,7 +116,11 @@ Spec-defects: {count}
 
 ## Lessons
 
-After a FAIL, judge whether the failure is worth a lesson. If so, add it as a `candidate`; it becomes `confirmed` when the same lesson recurs across two features. A PASS carrying a `## Spec Defects` row is not a clean PASS — record the over-specification as a `candidate` too, so a recurring pattern of over-tight ACs confirms and loads into future specify and design. A clean PASS with no spec defect writes nothing. Mechanics and the `add` command live in [lessons.md](../references/lessons.md) — load it before recording.
+Each lesson is grounded in a row of the `validation.md` just written — an unmet goal, a failed AC, a surviving mutant, a spec defect, a red suite — and cites it. A failure the report does not show is an opinion, and the script refuses it. A PASS carrying a `## Spec Defects` row is not a clean PASS: record the over-specification too, so a recurring pattern of over-tight ACs confirms and loads into future specify and design. A clean PASS with no spec defect writes nothing.
+
+The same pass closes the loop in the other direction. A `confirmed` lesson was loaded into this feature's specify and design, so a failure it warned about that happened anyway is evidence the lesson does not work — penalize it. Two penalties quarantine it and it stops loading. Without this, the layer only ever grows and never learns that one of its own lessons is useless.
+
+Signals, phrasing rules, and the commands live in [lessons.md](../references/lessons.md) — load it before recording.
 
 ## Boundary
 

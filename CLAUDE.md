@@ -425,7 +425,7 @@ docs/
 └── design/    # design-brief, wireframe, copywriting
 
 .artifacts/
-├── specs/, archive/, CONTEXT.md, STATE.md, lessons.json, LESSONS.md, research/   # spec-driven
+├── specs/, archive/, CONTEXT.md, STATE.md, LESSONS.json, research/   # spec-driven
 ├── epics/     # epic-tracker
 └── design/    # design-brief; design/variants/ # craft-ui
 ```
