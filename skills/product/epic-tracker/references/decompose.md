@@ -50,7 +50,7 @@ Blockers are suggestions; the user confirms or adjusts them before creation.
 
 When decomposing the roadmap into epics, check the requirement partition it carries: every ID assigned to an epic lands in that epic's `## Requirements`, and no ID is claimed by two epics. A requirement the PRD lists in Must or Should scope but the roadmap assigns to nobody is an orphan — flag it and ask the user to place it or confirm the omission, then fix the roadmap rather than parking the ID on whichever epic is closest.
 
-When decomposing an epic into stories, read the epic's `## Requirements` (the PRD requirement IDs it owns: `FR/BR/EC/NFR`) from the tracker description. Parse it with whitespace tolerance — tracker descriptions are reflowed, and a list that fails to parse is a parse failure to surface, never an epic with no requirements.
+When decomposing an epic into stories, read the epic's `## Requirements` (the PRD requirements it owns, one per line as `ID — statement`) from the tracker description. Parse it with whitespace tolerance — tracker descriptions are reflowed, and a list that fails to parse is a parse failure to surface, never an epic with no requirements.
 
 For each requirement ID, ensure at least one proposed story has an acceptance criterion that links back to it via a `**Satisfies**` line. If a requirement ID is not covered, flag it and ask the user to add a story or confirm the omission. `ADR-NNN` is a decision dependency, not a requirement — it belongs in `## References`, not in coverage.
 

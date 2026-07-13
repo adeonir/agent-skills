@@ -14,9 +14,9 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 Check for existing context before asking questions:
 
-1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below). Also note the PRD's **Definition of Done** and **External Dependencies** when they shape this epic's scope or risks.
+1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below). Resolve each ID against the PRD and carry its **statement** with it: the epic declares what each requirement demands, not just which ones it owns, so the tracker alone tells a reader what `FR-3` asks for. Also note the PRD's **Definition of Done** and **External Dependencies** when they shape this epic's scope or risks.
 2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture).
-3. Look for `docs/ROADMAP.md` -- read for sequencing context that may inform `blocked_by` suggestions, and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. It enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. Do not record the roadmap as a source; epics never reference the roadmap.
+3. Look for `docs/ROADMAP.md` -- read for sequencing context that may inform `blocked_by` suggestions, and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. The roadmap carries the set of IDs; the PRD carries each one's statement — resolve them there (step 1). It enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. Do not record the roadmap as a source; epics never reference the roadmap.
 4. Look for `docs/tech/design-doc.md` if it exists -- read only for constraints that may affect scope or rabbit holes. Record it in `## References` if relevant.
 5. If found, summarize what was extracted and confirm with user
 6. If not found, ask the user:
@@ -24,7 +24,9 @@ Check for existing context before asking questions:
    - Who benefits?
    - What changes for the user when this is done?
 
-**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay read-only and scoped to this epic. Extract only what maps to it, then **translate into epic language**: strip `§3.7` section numbers, internal reference codes, sibling artifact names, roadmap/sequencing framing, and domain jargon that doesn't stand alone. The epic carries the facts, not the source document's framing. The one exception is backward provenance: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`) are recorded in `## Requirements`, never in prose. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels with the Design Doc in References when the epic depends on one.
+**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay read-only and scoped to this epic. Extract only what maps to it, then **translate into epic language**: strip `§3.7` section numbers, internal reference codes, sibling artifact names, roadmap/sequencing framing, and domain jargon that doesn't stand alone. The epic carries the facts, not the source document's framing. The one exception is backward provenance: the PRD requirements this epic owns are recorded in `## Requirements` as `ID — statement` (`FR/BR/EC/NFR`), never in prose. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels with the Design Doc in References when the epic depends on one.
+
+**Translate the form, never the norm.** A requirement statement is the thing that has to hold, so translating it is rewriting a rule. Strip only the framing — section numbers, doc-internal codes, PRD voice. Keep the modal (`must`, `should`), the actor, the object, and every bound the PRD states (a timing, a count, a threshold) exactly as strong as they are there. A statement that lands looser or stricter than the PRD's is a mistranslation, not a rewording: restate it. When the requirement cannot be phrased in the epic's language without changing what it demands, keep the PRD's wording verbatim.
 
 ### 2. Draft
 
@@ -41,7 +43,7 @@ Fill the template (below) with discovered context.
 
 - **Prose context**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
 - **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
-- **Requirements**: the PRD requirement IDs this epic owns (`FR/BR/EC/NFR`), as a flat list — a contract the child stories operationalize, each AC linking back via `Satisfies`. Inherited from the roadmap entry's `Requirements` field when one exists; derived from the PRD only when the epic is created without a roadmap. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every ID here must be satisfiable by stories within this epic's scope.
+- **Requirements**: the PRD requirements this epic owns (`FR/BR/EC/NFR`), one per line as `ID — statement` — a contract the child stories operationalize, each AC linking back via `Satisfies`. The set of IDs is inherited from the roadmap entry's `Requirements` field when one exists, and derived from the PRD only when the epic is created without a roadmap; each statement is resolved from the PRD either way, translated in form but never in norm. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every requirement here must be satisfiable by stories within this epic's scope.
 - **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
 - **References**: durable pointers the next session follows (PRD, design doc, UI design). They travel into the tracker description, so a fresh session recovers context from the tracker alone.
@@ -89,12 +91,13 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - Run discover first, even when the user provides context directly
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
-- Record the PRD requirement IDs the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as a contract for child stories; inherit them from the roadmap entry when one exists; omit when the epic derives from no PRD
+- Record the PRD requirements the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as `ID — statement`, a contract for child stories; inherit the ID set from the roadmap entry when one exists; omit the section when the epic derives from no PRD
+- Translate each statement in form, never in norm — the modal, the actor, the object, and every bound survive the trip from the PRD unchanged
 - Hand sizing off to the implementation phase
 
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
-- Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirement IDs are the exception: they go in `## Requirements`)
+- Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirements are the exception: `ID — statement` goes in `## Requirements`)
 - List child stories in the body (contrasts: the tracker's child panel owns hierarchy; materialize stories via decompose)
 - Skip discover (run discover first regardless of provided context)
 - Add size estimates (sizing is an implementation concern)
@@ -127,9 +130,16 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 {Remove this section when the epic derives from no PRD.}
 
-- {{PRD requirement IDs this epic owns — e.g. FR-3, FR-4, BR-2. Flat list; the child stories operationalize these, each AC linking back via `Satisfies`. Every ID here must be coverable by stories inside this epic.}}
+- {{ID — statement. One PRD requirement this epic owns, as `FR-3 — <what it demands>`. The child stories operationalize these, each AC linking back via `Satisfies`. Every requirement here must be coverable by stories inside this epic.}}
 
-MUST NOT contain: `§x.x` section numbers, sibling names, roadmap refs, or `ADR-NNN` (a decision dependency → References).
+Example:
+
+```markdown
+- FR-3 — A signed-in user must be able to reset their password without contacting support.
+- BR-2 — A reset link expires 15 minutes after it is issued.
+```
+
+MUST NOT contain: a statement that reads looser or stricter than the PRD's — the modal, the actor, the object, and every bound (timing, count, threshold) carry over unchanged. No `§x.x` section numbers, sibling names, roadmap refs, or `ADR-NNN` (a decision dependency → References).
 
 ## Rabbit Holes
 
