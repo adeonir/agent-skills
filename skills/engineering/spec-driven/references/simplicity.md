@@ -4,7 +4,7 @@ The simplest architecture that satisfies the ACs — a ladder for choosing HOW, 
 
 ## When to Use
 
-During design, at Exploration, when choosing among viable entry points, components, or dependencies — and at the self-check before writing. Read it whenever a design adds a layer, an abstraction, or a dependency: climb the ladder first.
+During design, at the Ladder step, when choosing among viable entry points, components, or dependencies — at the self-check before writing, and before verifying a mechanism, to check the premise it serves. Read it whenever a design adds a layer, an abstraction, or a dependency: climb the ladder first.
 
 ## The ladder
 
@@ -22,6 +22,12 @@ Two rungs both hold → take the higher one. The ladder runs after Exploration h
 ## Each simplification is a claim
 
 "Reuse this helper", "stdlib covers it", "the platform already does this" — each rests on a surface: a type, a signature, an installed dependency's schema, a lifetime guarantee. Verify that surface with the cheapest check that produces the observation — static evidence first, then an existing test, then a one-liner — before recording it as a Decision. A simplification asserted without checking its surface is a hypothesis, not a decision; carry it as a Risk to verify, never as a settled `reuse`.
+
+## Chained necessity
+
+Each piece a design adds can be locally correct and the design still be wrong. When a new component exists only because of the one before it — this contract forces that factory, that factory forces this stub, that path forces a resolver — the chain is the signal: the root decision is wrong, not the last link. Trying to fix the tail (this path or that one, factory or not) only produces the next link.
+
+Stop and return to rung 1 for the decision the chain hangs from, and check it against rung 2 before verifying any mechanism it needs. A check answers *does this work?*, never *should this exist?* — verified on a wrong premise, it reads as rigor and makes the premise harder to challenge, not easier. The signal is the chaining, not the amount of code.
 
 ## When NOT to simplify
 
