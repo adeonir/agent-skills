@@ -20,6 +20,10 @@ At the load-context step of every phase (read), and whenever a phase discovers a
 Here is a sensible default format, but use your best judgment:
 
 ```markdown
+## Stakes
+- {what the product is}
+- {surface} — {what a silent failure here costs}
+
 ## Decisions
 - {decision} — {rationale}; source: {file:line/doc}; scope: {context}
 
@@ -31,6 +35,8 @@ Here is a sensible default format, but use your best judgment:
 ```
 
 No mandatory date. No rigid routing rules. Routing by intent: a project-level decision a future feature must follow → `## Decisions`; a real trap found in the code → `## Gotchas`; a normative codebase pattern → `## Conventions`.
+
+`## Stakes` records the product and what a silent failure costs per surface: money, auth, user data, or persisted state on one side; a content or presentation surface — where a silent failure costs a wrong pixel or an inert link — on the other. It is what tells the audit's discrimination sensor whether a surviving mutant's failure is worth acting on. Unlike the append-only sections, it holds one current picture: specify writes it when absent and rewrites it — never appends — when a later feature's surface contradicts what it says.
 
 MUST NOT contain: feature-local state, progress, or notes — `CONTEXT.md` is knowledge shared across features; the active feature's status lives in `STATE.md`.
 

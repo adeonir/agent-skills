@@ -102,11 +102,11 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between verify, audit, and validate?**
 
-A: Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
+A: Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
 
 **Q: How does the lessons layer work?**
 
-A: Each lesson is grounded in a row of `validation.md` — an unmet goal, a failed AC, a surviving mutant, a spec defect, a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
+A: Each lesson is grounded in a row of `validation.md` — an unmet goal, a failed AC, a surviving mutant the main agent promoted to a gap, a spec defect, a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
 
 **Q: What happens to a feature after it is done?**
 

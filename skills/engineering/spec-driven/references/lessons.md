@@ -35,13 +35,13 @@ Only a row in `validation.md` grounds a lesson. No signal, no lesson — one wit
 |------------|-------------------------|
 | `goal_unmet` | `## Goals` — a goal at Unmet or Unmeasurable |
 | `ac_fail` | `## Acceptance Criteria` — an AC at FAIL |
-| `surviving_mutant` | `## Discrimination Sensor` — a mutant that survived |
+| `surviving_mutant` | `## Discrimination Sensor` — a mutant that survived and the main agent promoted to a gap |
 | `spec_defect` | `## Spec Defects` — an AC over-specifying its goal |
 | `suite_red` | `## Re-run` — the suite exits non-zero |
 
 `## Gaps → Fix Tasks` is not a signal: every gap is derived from one of the rows above, and recording both counts the same failure twice.
 
-A clean PASS — no unmet goal, no failed AC, no surviving mutant, no spec defect — records nothing. That is the layer working, not a miss.
+A clean PASS — no unmet goal, no failed AC, no promoted survivor, no spec defect — records nothing. A survivor the judge declined is not a grounding row; it left no gap. That is the layer working, not a miss.
 
 ## Phrasing
 
