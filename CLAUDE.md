@@ -25,7 +25,7 @@ narrative guidance that is not a discrete rule.
 | `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
 | `inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
-| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
+| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology, no authoring-chat rationale |
 | `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 
 ## Commands
@@ -358,12 +358,22 @@ unwinding every file that consumed the wrong shape.
 Write the least that does the job, and stop there. A skill file directs the agent —
 it does not explain the domain, justify the design, or narrate how the mechanism
 was arrived at. Prose that would help a human understand *why* is weight the agent
-pays for on every load and does not act on.
+pays for on every load and does not act on. State the constraint and move on:
+"MCP is the only channel" carries everything the agent needs; the sentence
+explaining that there is no CLI to fall back to carries nothing it can act on.
 
-The trap is building a detector for an event that announces itself. Before adding
-a test, a comparison, or a state to track, ask what the agent already knows at that
-moment: an artifact it just wrote, a phase it just re-entered, an input the user
-just handed it. A mechanism that infers what is already given is scaffolding, and
+The line is what the agent *does* with the sentence. A rationale that changes its
+behavior is a constraint and stays — the read step that says an upstream artifact
+enters as a claim to check, not authority to inherit, tells it to rebut. A
+rationale that only makes a human nod is narrative and goes. Where prose earns its
+place, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the
+trap that needs explaining.
+
+The same discipline applies to mechanism. The trap is building a detector for an
+event that announces itself. Before adding a test, a comparison, or a state to
+track, ask what the agent already knows at that moment: an artifact it just wrote,
+a phase it just re-entered, an input the user just handed it. A mechanism that
+infers what is already given is scaffolding, and
 scaffolding attracts more scaffolding — each round of review finds real defects in
 it, and fixing them makes it larger, never smaller.
 
