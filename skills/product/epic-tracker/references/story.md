@@ -35,7 +35,6 @@ Fill the template (below).
 
 **Dispatch inputs** — structured fields that travel to the tracker as metadata, never as body prose:
 
-- **Name**: kebab-case, descriptive (`add-pix-payment`, `reset-password-flow`)
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the deliverable (`Reset password flow`), never a narrative outcome (`User can reset their password to regain access`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
 - **Epic id**: the parent epic's tracker id, resolved in Step 1. Required — a dispatch without it is an error.
 - **Status**: always starts as `planned`
@@ -115,7 +114,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (name, title, epic id, status, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, status, `blocked_by`) travel as metadata alongside it.
 
 ````markdown
 # {{Story Title}}

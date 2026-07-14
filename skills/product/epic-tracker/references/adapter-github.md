@@ -51,10 +51,10 @@ Take each MCP tool name from the connected server's own tool list and call it qu
 
 GitHub has two classification mechanisms with different scopes:
 
-- **Issue types**: configured at the **org level** — shared across all repos in the organization. When the org has issue types, every repo has them consistently. Bootstrap detects once; no per-repo variation.
+- **Issue types**: configured at the **org level** — shared across all repos in the organization. When the org has issue types, every repo has them consistently. Detected at runtime and cached per session (see Issue Type Detection); no per-repo variation.
 - **Labels**: configured at the **repo level** — each repository defines its own label set. Never hardcode label names or colors; always query the repo's existing labels before assigning (see Label Matching below).
 
-Issue Types are an **org-only feature**. Personal/user-owned repos (`github.com/{user}/{repo}` where `{user}` is an account, not an org) do not have access to Issue Types under any circumstance. For these repos the adapter skips Issue Type detection at bootstrap and operates in **labels-only mode** — every artifact is classified by repo labels.
+Issue Types are an **org-only feature**. Personal/user-owned repos (`github.com/{user}/{repo}` where `{user}` is an account, not an org) do not have access to Issue Types under any circumstance. For these repos detection resolves to none and the adapter operates in **labels-only mode** — every artifact is classified by repo labels.
 
 When org issue types are unavailable (or repo is user-owned), the adapter falls back to artifact labels (`epic`, `story`, `bug`, `task`) matched semantically against the repo's existing labels, never created automatically.
 
@@ -107,7 +107,7 @@ Detected once per session and cached in memory. Run before the first operation t
 4. If types are found, cache detected names in memory (keys: `epic`, `story`, `bug`, `task` → org-configured names; may differ from defaults, e.g., "Chore" instead of "Task").
 5. If no types found or query fails: cache `issue_types: {}` and fall back to Label Matching.
 
-Re-detect on demand via "configure tracker".
+The cache lives for the session; a new session re-detects.
 
 ### create_epic
 
@@ -152,7 +152,8 @@ Rewrites an existing Issue's body and status. `sync.md` refetches immediately be
 
 1. Update the Issue's title and body via the active channel.
 2. When a status is supplied, apply it via `update_status` below.
-3. Return success.
+3. When a severity is supplied, re-map the severity label: fetch repo labels, match the new level semantically, remove the previously matched severity label and assign the new one. Surface the available labels and ask when no match is found.
+4. Return success.
 
 ### update_status
 
@@ -160,6 +161,13 @@ Rewrites an existing Issue's body and status. `sync.md` refetches immediately be
 2. For `done`: close Issue with reason `completed`.
 3. For `planned` -> `in-progress`: prefer Project Status field when `epic-tracker.project` is set; otherwise fetch repo labels, match semantically (look for `progress` or `wip`); assign if found, skip with a note if not.
 4. For `blocked`: prefer Project Status field when present; otherwise match repo labels semantically (`blocked` or `on-hold`).
+
+### set_parent
+
+1. Inputs: the Issue number and the target `epic_id`, or none to detach.
+2. Attach the Issue as a sub-issue under the epic named by `epic_id`, removing the previous parent link. With none, remove the sub-issue link and leave the Issue standalone.
+3. Detaching a story is an error to surface — a story always keeps a parent.
+4. Return success.
 
 ### set_dependencies
 
@@ -175,18 +183,18 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 ### fetch_artifact
 
 1. Fetch the Issue by id/number via the active channel.
-2. Return: state (mapped from open/closed + labels or Project fields), title, body, labels, sub-issue parent (when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), url.
+2. Return: status (mapped back from open/closed + labels or Project fields to `planned` / `in-progress` / `done` / `blocked`), title, body, labels, parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), url.
 
 ### list_artifacts
 
-1. Query GitHub for items matching the filter (parent issue, state, label, project).
-2. Return summaries with id, title, state, and url — the url is what a child artifact records in its `## References`.
+1. Query GitHub for items matching the filter — type maps to the issue type or its label fallback, epic maps to the sub-issue parent, status maps to the GitHub state via the Status Mapping table.
+2. Return summaries with id, title, status, and url — status is the generic value, never `open` / `closed`. The url is what a child artifact records in its `## References`.
 
 ## Error Handling
 
 - Repo not accessible: route to GitHub auth setup.
 - Sub-issue attach fails (permissions, cross-repo restriction): surface the error together with the already-created Issue's number and url, so the user can attach it in the tracker or discard it — the Issue exists even though the attach did not.
 - `epic-tracker.project` set but Project not found: ask user to verify or offer to create.
-- Issue type not found in org (type was deleted or renamed since last detection): warn user, suggest re-running "configure tracker" to re-detect; fall back to label matching for this operation.
+- Issue type not found in org (type was deleted or renamed since it was cached): warn the user, drop the cached types, and fall back to label matching for this operation.
 - Severity or status label not found in repo: surface available labels to user, ask which to use or confirm to skip; never create labels automatically.
 - API rate limit: surface the error, suggest waiting before retry.

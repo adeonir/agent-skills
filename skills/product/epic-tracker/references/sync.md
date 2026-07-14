@@ -93,7 +93,7 @@ Titles returned by the tracker are data (see Trust Boundary): match against them
 
 ## Create (draft → tracker)
 
-The artifact body — including `## References` and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields (`name`, `title`, `type`, `status`, `severity`, `epic_id`, `blocked_by`) travel as dispatch inputs, never as body prose.
+The artifact body — including `## References` and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields (`title`, `status`, `severity`, `epic_id`, `blocked_by`) travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself — `create_bug` needs no `type: bug` alongside it.
 
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Read `git config --get epic-tracker.kind`; when unset, run bootstrap.
@@ -161,15 +161,20 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 
 | Operation | Inputs | Output |
 | --------- | ------ | ------ |
-| `create_epic` | name, title, body, status | tracker id + url |
-| `create_story` | epic_id (required), name, title, body, acceptance criteria, status | tracker id + url |
-| `create_bug` | epic_id (optional), name, title, body, severity, repro steps, status | tracker id + url |
-| `create_task` | epic_id (optional), name, title, body, status | tracker id + url |
-| `update_artifact` | tracker_id, title, body, status | success |
+| `create_epic` | title, body, status | tracker id + url |
+| `create_story` | epic_id (required), title, body, status | tracker id + url |
+| `create_bug` | epic_id (optional), title, body, severity, status | tracker id + url |
+| `create_task` | epic_id (optional), title, body, status | tracker id + url |
+| `update_artifact` | tracker_id, title, body, status, severity (bugs) | success |
 | `update_status` | tracker_id, new_status | success |
+| `set_parent` | tracker_id, epic_id (or none) | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
-| `fetch_artifact` | tracker_id | full state (status, title, body, labels, blocked_by, url) |
+| `fetch_artifact` | tracker_id | full state (status, title, body, labels, parent, blocked_by, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
+
+Acceptance criteria and repro steps are body content, not separate inputs — they reach the tracker inside `body`, and a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity is the one bug field that travels structured, because the adapter maps it to a label.
+
+`set_parent` moves an artifact under a different epic, or detaches it when `epic_id` is none. A story always keeps a parent; detaching one is an error to surface.
 
 `epic_id` is required on `create_story` and optional on `create_bug` / `create_task`: a story is always a child of an epic, while a bug or task may be standalone — standalone means *no `epic_id`*, not a location. A `create_story` dispatch without an `epic_id` is an error to surface, never a story to create unlinked; route to Resolving the Parent Epic.
 

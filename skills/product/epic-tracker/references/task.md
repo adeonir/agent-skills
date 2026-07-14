@@ -42,9 +42,7 @@ Fill the template (below).
 
 **Dispatch inputs** — structured fields that travel to the tracker as metadata, never as body prose:
 
-- **Name**: kebab-case, descriptive (`upgrade-node-20-actions`, `refactor-auth-middleware`, `setup-sentry`)
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the work (`Upgrade CI runner image`), never a narrative outcome (`Builds run faster on the new image`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
-- **Type**: always `task`
 - **Epic id**: the parent epic's tracker id, or none for a standalone task
 - **Status**: always starts as `planned`
 - **Blocked by**: work that must finish before this task can start, listed in `blocked_by` — tracker ids or URLs; leave empty when nothing blocks it.
@@ -104,7 +102,7 @@ Adding acceptance criteria to a task means it was a story all along — see [dis
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (name, title, type, epic id, status, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, status, `blocked_by`) travel as metadata alongside it.
 
 ````markdown
 # {{Task Title}}

@@ -34,7 +34,6 @@ Fill the template (below) with discovered context.
 
 **Dispatch inputs** — structured fields that travel to the tracker as metadata, never as body prose:
 
-- **Name**: kebab-case, descriptive (`user-authentication`, `payment-processing`)
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the capability (`User authentication`), never a narrative outcome (`Users can sign in securely`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
 - **Status**: always starts as `planned`
 - **Blocked by**: the artifacts that must finish before this one can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce delivery order; leave empty when nothing blocks it. A blocker at any level is expressible, including a story blocking an epic. See [sync.md](sync.md) "Dependencies".
@@ -105,7 +104,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (name, title, status, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, status, `blocked_by`) travel as metadata alongside it.
 
 ````markdown
 # {{Epic Title}}

@@ -30,7 +30,7 @@ The inherited set enters as a claim, not authority. When an epic's settled bound
 
 Each proposed child carries a one-line boundary: the capability it owns, and the adjacent capability it explicitly does not. Boundaries partition the parent's scope — where one child's slice ends, the neighbor's begins; work claimed by two children means the set is wrong, not the boundary.
 
-Idempotent: load [sync.md](sync.md) and run `list_artifacts` filtered to the parent epic's children to see which already exist, then propose only the missing ones; never recreate or overwrite. Present the proposed set with its boundaries; let the user add, drop, merge, split, or rename. Settle the set and the boundaries before creating.
+Idempotent: load [sync.md](sync.md) and run `list_artifacts` to see which children already exist, then propose only the missing ones; never recreate or overwrite. From the roadmap, filter to epics — the roadmap is not a tracker entity, so there is no parent to filter by. From an epic, filter to that epic's children. Present the proposed set with its boundaries; let the user add, drop, merge, split, or rename. Settle the set and the boundaries before creating.
 
 ### 3. Propose ordering and blockers
 
@@ -81,7 +81,7 @@ Dispatch is inherited, not added here: each create ref pushes its own artifact t
 
 ### 8. Re-run / orphan check
 
-When decomposing a parent that was already decomposed before, load [sync.md](sync.md) and run `list_artifacts` for its children in the tracker, then identify the ones that no longer fit the parent's current scope or sequence. Do not delete or close automatically. Surface them as orphans and ask whether to close, reparent, or keep them.
+When decomposing a parent that was already decomposed before, load [sync.md](sync.md) and run `list_artifacts` for its children in the tracker, then identify the ones that no longer fit the parent's current scope or sequence. Do not delete or close automatically. Surface them as orphans and ask whether to close, reparent, or keep them: closing dispatches `update_status` with `done`, reparenting dispatches `set_parent` with the epic the user names, and keeping them writes nothing.
 
 ## Guidelines
 

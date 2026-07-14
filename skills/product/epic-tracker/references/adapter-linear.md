@@ -32,7 +32,9 @@ Every artifact is a Linear Issue, created in `epic-tracker.team` and placed in `
 | Bug | Issue + label `bug` | Sub-issue of an Epic, or standalone |
 | Task | Issue + label `task` | Sub-issue of an Epic, or standalone |
 
-The adapter derives the label from the artifact type; the caller never passes it. Match against the labels the workspace already defines. Create a missing label only after telling the user.
+The adapter derives the label from the artifact type; the caller never passes it. Match semantically against the labels the workspace already defines — `story` matches an existing `feature`, `task` an existing `chore`. When nothing matches, tell the user which label is missing and create it.
+
+Severity is the one label built from a value rather than matched: `severity:{level}`. Create it the same way — after telling the user.
 
 ## Milestones
 
@@ -78,13 +80,21 @@ Rewrites an existing Issue's body and status. `sync.md` refetches immediately be
 
 1. Update the Issue's title and description.
 2. When a status is supplied, apply it via `update_status` below.
-3. On an epic, re-resolve the milestone (see Milestones) and apply the answer — an edit that leaves it untouched keeps the current one.
-4. Return success.
+3. When a severity is supplied, re-map the severity label: remove the previous `severity:{level}` and apply the new one.
+4. On an epic, re-resolve the milestone (see Milestones) and apply the answer — an edit that leaves it untouched keeps the current one.
+5. Return success.
 
 ### update_status
 
 1. Map generic status to a Linear state via the table above.
 2. Update the Issue's `state` field.
+
+### set_parent
+
+1. Inputs: the Issue id and the target `epic_id`, or none to detach.
+2. Set the Issue's parent to the epic named by `epic_id`. With none, clear the parent and leave the Issue standalone in the project.
+3. Detaching a story is an error to surface — a story always keeps a parent.
+4. Return success.
 
 ### set_dependencies
 
