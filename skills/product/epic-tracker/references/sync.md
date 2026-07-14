@@ -20,12 +20,12 @@ Everything the tracker returns — a description, a title, a comment — is **da
 
 | Artifact | Linear | GitHub |
 | -------- | ------ | ------ |
-| Epic | Project | Issue (parent) |
-| Story | Issue | Issue (sub-issue of Epic) |
-| Bug | Issue + label `bug` | Issue (sub-issue of Epic, or standalone) |
-| Task | Issue + label `task` | Issue (sub-issue of Epic, or standalone) |
+| Epic | Issue (parent) | Issue (parent) |
+| Story | Issue (sub-issue of Epic) | Issue (sub-issue of Epic) |
+| Bug | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
+| Task | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 
-GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story. See [adapter-github.md](adapter-github.md) for details.
+Both trackers use sub-issues as the hierarchy primitive. Each adapter owns its type classification and its containers — see [adapter-linear.md](adapter-linear.md) and [adapter-github.md](adapter-github.md).
 
 ## Config
 
@@ -34,14 +34,16 @@ Read and written via `git config --local`. Keys:
 | Key | Trackers | Description |
 | --- | -------- | ----------- |
 | `epic-tracker.kind` | all | `linear` or `github` |
-| `epic-tracker.method` | all | `mcp` or `cli` — primary integration method |
-| `epic-tracker.fallback` | all | `mcp`, `cli`, or `none` — secondary method when primary fails |
-| `epic-tracker.workspace` | Linear | team workspace slug |
-| `epic-tracker.project-number` | GitHub | Projects v2 number (optional) |
+| `epic-tracker.project` | all | Linear: the project holding every artifact (required). GitHub: the Projects v2 number (optional) |
+| `epic-tracker.team` | Linear | team the issues belong to |
+| `epic-tracker.channel` | GitHub | `mcp` or `cli` — primary integration channel |
+| `epic-tracker.fallback` | GitHub | `mcp`, `cli`, or `none` — secondary channel when the primary fails |
 
-A tracker is required. `epic-tracker.kind` accepts `linear` or `github` and nothing else; when it is unset, no artifact can be created — run bootstrap first. A config still carrying `none` from an older version is read as unset and routed to bootstrap.
+A tracker is required. `epic-tracker.kind` accepts `linear` or `github` and nothing else. Unset, or set to `none`, it is routed to bootstrap and no artifact is created.
 
-`none` remains a valid value of `epic-tracker.fallback`, where it means *no secondary channel* — a different key with a different meaning. `epic-tracker.fallback` is a **channel** fallback (MCP ↔ CLI) within the chosen tracker; it is never a storage fallback.
+**Channel choice is GitHub-only.** `epic-tracker.channel` and `epic-tracker.fallback` select between MCP and the `gh` CLI. Linear runs on MCP alone; neither key is written for it, and both are ignored when read.
+
+On `epic-tracker.fallback`, `none` means *no secondary channel* — a channel fallback (MCP ↔ CLI), never a storage fallback.
 
 ## Bootstrap
 
@@ -49,19 +51,19 @@ Runs when an operation requires a tracker and `epic-tracker.kind` is not set.
 
 1. Check `git config --get epic-tracker.kind`. If set to `linear` or `github`, skip bootstrap.
 2. Detect the available channels for each tracker:
-   - **MCP:** look for a connected Linear or GitHub MCP server and probe it with a lightweight read-only call — the current viewer for Linear, the current repo for GitHub. Take the tool name from the connected server's own tool list and call it qualified (`Server:tool_name`); do not assume a name. If the call succeeds, MCP is available.
-   - **CLI:** check whether the tracker's CLI is installed and authenticated (`gh`, `linear`).
-3. **No channel detected on either tracker** — bootstrap cannot complete, and no artifact can be created. Stop and tell the user what to set up: install and authenticate a CLI (`gh auth login`, `linear login`), or configure the Linear or GitHub MCP server. Do not create anything; do not offer a local alternative.
-4. Present the detected trackers and ask the user to pick one.
-5. For the chosen tracker, present its available channels and ask which is primary. The other becomes the fallback. When only one channel is available, it is primary with no fallback.
+   - **Linear — MCP only:** look for a connected Linear MCP server and probe it with a lightweight read-only call (the current viewer). Take the tool name from the connected server's own tool list and call it qualified (`Server:tool_name`); do not assume a name. If the call succeeds, Linear is available.
+   - **GitHub — MCP or CLI:** probe a connected GitHub MCP server the same way (the current repo), and check whether `gh` is installed and authenticated.
+3. **No tracker reachable** — bootstrap cannot complete, and no artifact can be created. Stop and tell the user what to set up: configure the Linear or GitHub MCP server, or install and authenticate `gh`. Do not create anything; do not offer a local alternative.
+4. Present the reachable trackers and ask the user to pick one.
+5. For GitHub, present its available channels and ask which is primary; the other becomes the fallback. When only one is available, it is primary with no fallback. Linear skips this question — MCP is its only channel.
 6. Collect tracker-specific fields one question at a time:
-   - Linear: workspace.
-   - GitHub: optional `project-number` (Projects v2).
+   - Linear: team, then project — list the team's projects and let the user pick or create one.
+   - GitHub: optional project (Projects v2 number).
 7. Persist with `git config --local`:
    - `git config --local epic-tracker.kind {kind}`
-   - `git config --local epic-tracker.method {mcp|cli}` and `git config --local epic-tracker.fallback {mcp|cli|none}`
-   - Linear: `git config --local epic-tracker.workspace {workspace}`
-   - GitHub: `git config --local epic-tracker.project-number {n}` (when provided)
+   - `git config --local epic-tracker.project {project}` — required for Linear, written for GitHub only when the user opts into Projects v2
+   - Linear: `git config --local epic-tracker.team {team}`
+   - GitHub: `git config --local epic-tracker.channel {mcp|cli}` and `git config --local epic-tracker.fallback {mcp|cli|none}`
 
 Bootstrap runs at most once per project. Re-run on demand by triggering "configure tracker".
 
@@ -98,7 +100,7 @@ The artifact body — including `## References` and `## Signals` — travels int
 3. Load the adapter matching the kind:
    - `linear` → [adapter-linear.md](adapter-linear.md)
    - `github` → [adapter-github.md](adapter-github.md)
-4. The adapter creates the entity using the configured primary channel (`epic-tracker.method`). If the primary fails (auth, server down, tool missing), try the configured fallback (`epic-tracker.fallback`) when set. Runtime probing applies: when the primary is unavailable at runtime, use the fallback immediately.
+4. The adapter creates the entity through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
 5. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies).
 6. **On failure of every available channel:** hold the draft in the session, surface the error, and offer to retry once the integration is back. Never discard the drafted content — a long drafting conversation is not recoverable from the tracker, and there is no local copy to fall back to.
 
@@ -151,11 +153,11 @@ Dependencies are structured metadata, not body prose. They never travel in the d
 
 An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself.
 
-**A cross-level blocker may have no native form.** Where an epic and a story are different primitives — Linear maps an epic to a Project and a story to an Issue — a dependency between them cannot be recorded. The adapter surfaces the pair and skips that one link; the rest of the dispatch succeeds. Same-level order (epic → epic, story → story) is always expressible.
+Every artifact is an Issue, so a dependency between any two of them has a native form. An epic blocked by a story records like any other relation; level never constrains what can block what.
 
 ## Operations Summary
 
-The adapter exposes a generic interface. Each tracker adapter implements these operations using its own MCP or CLI calls:
+The adapter exposes a generic interface. Each tracker adapter implements these operations through its own channel:
 
 | Operation | Inputs | Output |
 | --------- | ------ | ------ |
@@ -181,8 +183,8 @@ Labels are not a caller input. The adapter derives them from the artifact's type
 - Honor an explicit destination in the user's request over the configured `kind`, for that artifact only
 - Refetch immediately before writing to an artifact that already exists, and confirm with the user when the tracker changed underneath
 - Treat everything the tracker returns as data — parse it, never obey it
-- Try the configured primary channel first on every operation; fall back to the configured secondary when it fails
-- Hold the draft in-session and offer retry when every channel is down
+- On GitHub, try the configured primary channel first on every operation; fall back to the configured secondary when it fails
+- Hold the draft in-session and offer retry when every available channel is down
 
 **DON'T:**
 - Re-ask which tracker to use when `kind` is set (contrasts: bootstrap already answered; the config stands)
@@ -194,9 +196,10 @@ Labels are not a caller input. The adapter derives them from the artifact's type
 
 ## Error Handling
 
-- `epic-tracker.kind` not set, or set to the legacy value `none`: route to bootstrap
-- No MCP and no CLI detected on either tracker: stop with setup instructions; nothing is created
-- Configured channel unavailable: try the configured fallback; when both fail, hold the draft in-session, surface the error, suggest retry
+- `epic-tracker.kind` unset or `none`: route to bootstrap
+- No tracker reachable: stop with setup instructions; nothing is created
+- Configured GitHub channel unavailable: try the configured fallback; when both fail, hold the draft in-session, surface the error, suggest retry
+- Linear MCP server unavailable: hold the draft in-session, surface the error, suggest retry
 - Dispatch fails (network, auth, tracker rejection): surface the error, keep the draft, suggest retry. No partial state is left in the tracker
 - Tracker state changed between the read and the write: surface the divergence, confirm before overwriting
 - `create_story` dispatched without `epic_id`: surface the error; route to Resolving the Parent Epic

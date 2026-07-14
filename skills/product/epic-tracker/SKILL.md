@@ -13,7 +13,7 @@ description: >-
 
 # Epic Tracker
 
-Manages the delivery lifecycle in an external tracker. Plan epics, track stories, report bugs, and file tasks — every artifact lives in Linear or GitHub (via MCP or CLI), which is the single source of truth.
+Manages the delivery lifecycle in an external tracker. Plan epics, track stories, report bugs, and file tasks — every artifact lives in Linear (via MCP) or GitHub (via MCP or the `gh` CLI), which is the single source of truth.
 
 ## Triggers
 

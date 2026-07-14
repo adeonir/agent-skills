@@ -1,10 +1,20 @@
 # GitHub Adapter
 
-Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: github`. The sync ref decides whether to use MCP or CLI for each call (`epic-tracker.method` and `epic-tracker.fallback`); this adapter implements each operation through both channels.
+Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: github`.
 
 ## When to Use
 
 Loaded by `sync.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
+
+## Config
+
+| Key | Description |
+| --- | ----------- |
+| `epic-tracker.channel` | `mcp` or `cli` — primary integration channel |
+| `epic-tracker.fallback` | `mcp`, `cli`, or `none` — secondary channel when the primary fails |
+| `epic-tracker.project` | Projects v2 number (optional) |
+
+The repo is inferred from `git remote get-url origin`, never configured. `epic-tracker.project` activates the Projects v2 layer; when it is unset, the adapter operates on Issues alone.
 
 ## Model
 
@@ -17,9 +27,9 @@ Every artifact is an Issue. Artifact type is carried by org-level Issue Types wh
 | Bug | `Bug` | optional child of an Epic; may be standalone |
 | Task | `Task` (or org default) | optional child of an Epic; may be standalone |
 
-Bug and Task are distinct artifacts with different purpose/body (severity + repro steps vs. plain description); both have optional parent linkage.
+Bug and Task are distinct artifacts: a Bug carries severity and repro steps, a Task a plain description.
 
-Sub-issues are a native Issues feature (GraphQL `addSubIssue`) — independent of Projects v2, available to anyone with triage permission on the repository.
+Sub-issues are a native Issues feature (GraphQL `addSubIssue`), available to anyone with triage permission on the repository.
 
 ## Orthogonal Layers
 
@@ -27,13 +37,15 @@ One opt-in layer wraps the same Issue substrate, independent of hierarchy.
 
 | Layer | What it adds | Activation |
 | ----- | ------------ | ---------- |
-| **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project-number <n>` |
+| **Projects v2** | Board/roadmap views and custom fields (status, priority, sprint). Issues are added as Project items. Does not encode Epic→Story. | `git config epic-tracker.project {n}` — the Projects v2 number |
 
-This layer does not change how Issues are created or how parent/child links are formed. Issue creation flow is identical with or without it.
+Issue creation and parent/child linking are identical with or without this layer.
 
 ## Integration Channel
 
-Each operation below is implemented for both MCP and CLI. The caller (`sync.md`) selects the channel based on `epic-tracker.method` and `epic-tracker.fallback`. When an operation specifies an MCP call, the CLI equivalent is used when the CLI channel is active. If a capability is unavailable in one channel, surface it and let the caller decide whether to try the other channel.
+MCP and the `gh` CLI are both channels. The caller (`sync.md`) selects the active one from `epic-tracker.channel` and `epic-tracker.fallback`; every operation below runs through whichever is active. When a capability is missing from the active channel, surface it and let the caller decide whether to try the other.
+
+Take each MCP tool name from the connected server's own tool list and call it qualified (`GitHub:tool_name`).
 
 ## Issue Types vs Labels
 
@@ -75,11 +87,11 @@ GitHub Issues have an `open` / `closed` state plus optional state reason (`compl
 | Generic | GitHub state |
 | ------- | ------------ |
 | planned | open (no reason) |
-| in-progress | open + label `in-progress` (or Project Status field "In Progress" when `epic-tracker.project-number` is set) |
+| in-progress | open + label `in-progress` (or Project Status field "In Progress" when `epic-tracker.project` is set) |
 | done | closed + reason `completed` |
 | blocked | open + label `blocked` |
 
-When `epic-tracker.project-number` is set and the Project has a Status field, prefer the Project field over labels.
+When `epic-tracker.project` is set and the Project has a Status field, prefer the Project field over labels.
 
 ## Operations
 
@@ -103,16 +115,16 @@ Re-detect on demand via "configure tracker".
 2. Apply artifact type:
    - session cache has `epic` issue type: assign it.
    - otherwise: match repo labels semantically for `epic` and assign; surface available labels and ask if no match.
-3. If `epic-tracker.project-number` is set: add the Issue to the Project.
+3. If `epic-tracker.project` is set: add the Issue to the Project.
 4. Return Issue number and url.
 
 ### create_story
 
-1. Require `epic_id` before creating anything — Stories are always children of an Epic. A dispatch without it is an error to surface; creating the Issue first would strand an unlinked Story in the tracker.
+1. Require `epic_id` before creating anything — a story is always a child of an epic, and a dispatch without it is an error to surface, never an Issue to create unlinked.
 2. Create an Issue in the repo (inferred from `git remote get-url origin`) with title, body, and AC. The body must include the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Attach the Issue as a sub-issue under the parent Epic named by `epic_id`.
 4. Apply artifact type (session cache `story` issue type, or `story` label).
-5. If `epic-tracker.project-number` is set: add to the Project.
+5. If `epic-tracker.project` is set: add to the Project.
 6. Return Issue number and url.
 
 ### create_bug
@@ -121,7 +133,7 @@ Re-detect on demand via "configure tracker".
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `bug` issue type, or `bug` label).
 4. If severity is provided: fetch repo labels, match semantically; assign if found, surface labels and ask otherwise.
-5. If `epic-tracker.project-number` is set: add to the Project.
+5. If `epic-tracker.project` is set: add to the Project.
 6. Return Issue number and url.
 
 ### create_task
@@ -131,7 +143,7 @@ Generic task/chore artifact — distinct from Bug (no severity, no repro steps, 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`) with title and body.
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
-4. If `epic-tracker.project-number` is set: add to the Project.
+4. If `epic-tracker.project` is set: add to the Project.
 5. Return Issue number and url.
 
 ### update_artifact
@@ -146,7 +158,7 @@ Rewrites an existing Issue's body and status. `sync.md` refetches immediately be
 
 1. Map generic status to GitHub state via the Status Mapping table.
 2. For `done`: close Issue with reason `completed`.
-3. For `planned` -> `in-progress`: prefer Project Status field when `epic-tracker.project-number` is set; otherwise fetch repo labels, match semantically (look for `progress` or `wip`); assign if found, skip with a note if not.
+3. For `planned` -> `in-progress`: prefer Project Status field when `epic-tracker.project` is set; otherwise fetch repo labels, match semantically (look for `progress` or `wip`); assign if found, skip with a note if not.
 4. For `blocked`: prefer Project Status field when present; otherwise match repo labels semantically (`blocked` or `on-hold`).
 
 ### set_dependencies
@@ -174,7 +186,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 
 - Repo not accessible: route to GitHub auth setup.
 - Sub-issue attach fails (permissions, cross-repo restriction): surface the error together with the already-created Issue's number and url, so the user can attach it in the tracker or discard it — the Issue exists even though the attach did not.
-- `epic-tracker.project-number` set but Project not found: ask user to verify or offer to create.
+- `epic-tracker.project` set but Project not found: ask user to verify or offer to create.
 - Issue type not found in org (type was deleted or renamed since last detection): warn user, suggest re-running "configure tracker" to re-detect; fall back to label matching for this operation.
 - Severity or status label not found in repo: surface available labels to user, ask which to use or confirm to skip; never create labels automatically.
 - API rate limit: surface the error, suggest waiting before retry.

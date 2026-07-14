@@ -39,7 +39,7 @@ Fill the template (below).
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the deliverable (`Reset password flow`), never a narrative outcome (`User can reset their password to regain access`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
 - **Epic id**: the parent epic's tracker id, resolved in Step 1. Required — a dispatch without it is an error.
 - **Status**: always starts as `planned`
-- **Blocked by**: other stories, bugs, or tasks that must finish before this story can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce order; leave empty when nothing blocks it. A blocker at the epic level may have no native form in the tracker (an epic and a story are different primitives) — it is surfaced and skipped, so prefer same-level order. See [sync.md](sync.md) "Dependencies".
+- **Blocked by**: the artifacts that must finish before this story can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce order; leave empty when nothing blocks it. A blocker at any level is expressible, including an epic blocking a story. See [sync.md](sync.md) "Dependencies".
 
 **Body** — the content that becomes the tracker description:
 

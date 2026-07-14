@@ -1,95 +1,114 @@
 # Linear Adapter
 
-Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: linear`. The sync ref decides whether to use MCP or CLI for each call (`epic-tracker.method` and `epic-tracker.fallback`); this adapter implements each operation through both channels.
+Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: linear`.
 
 ## When to Use
 
 Loaded by `sync.md` when `epic-tracker.kind` is `linear`. Not a direct trigger.
 
+## Integration Channel
+
+MCP is the only channel. Every operation below runs through the Linear MCP server. When the server is unavailable, surface the failure to the caller.
+
+Take each tool name from the connected server's own tool list and call it qualified (`Linear:tool_name`).
+
+## Config
+
+| Key | Description |
+| --- | ----------- |
+| `epic-tracker.team` | Linear team the issues belong to |
+| `epic-tracker.project` | Linear project that holds every artifact |
+
+Both are required. Every Issue is created in `epic-tracker.team` and placed in `epic-tracker.project`. When either is unset, ask the user to name an existing one or create it, then persist with `git config --local`.
+
 ## Primitive Mapping
+
+Every artifact is a Linear Issue, created in `epic-tracker.team` and placed in `epic-tracker.project`. The label carries the type; the parent issue carries the hierarchy.
 
 | Artifact | Linear primitive | Notes |
 | -------- | ---------------- | ----- |
-| Epic | Project | Linear's Project is a thematic container for related issues |
-| Story | Issue | Standard work unit; always inside its Epic's Project |
-| Bug | Issue + label `bug` | Same primitive as Story; `bug` label distinguishes type. Inside an Epic's Project, or standalone in the backlog |
-| Task | Issue + label `task` | Same primitive as Story; `task` label distinguishes non-story work. Inside an Epic's Project, or standalone in the backlog |
+| Epic | Issue + label `epic` | No parent issue. Optionally assigned to a milestone |
+| Story | Issue + label `story` | Sub-issue of its Epic |
+| Bug | Issue + label `bug` | Sub-issue of an Epic, or standalone |
+| Task | Issue + label `task` | Sub-issue of an Epic, or standalone |
 
-An Epic is a Project and everything else is an Issue. A dependency between the two levels therefore has no native form — see `set_dependencies` below.
+The adapter derives the label from the artifact type; the caller never passes it. Match against the labels the workspace already defines. Create a missing label only after telling the user.
+
+## Milestones
+
+Project milestones group epics. They carry no target date — grouping and order only.
+
+Every epic dispatch resolves a milestone. When `epic-tracker.project` defines any, list them alongside "none" and let the user pick; when the user names one in the request, take it and skip the question. Create a milestone only when the user asks for one. A project with no milestones skips the question entirely, and an epic assigned to none stays unassigned.
+
+A story, bug, or task is never assigned to a milestone.
 
 ## Status Mapping
 
-Linear's workflow states vary per workspace. Use the team's default state group when present; otherwise map to standard names:
+Linear's workflow states are defined per team. Use `epic-tracker.team`'s default state group when present; otherwise map to standard names:
 
 | Generic | Linear default state |
 | ------- | -------------------- |
 | planned | Backlog |
 | in-progress | In Progress |
 | done | Done |
-| blocked | Cancelled (with comment marking as blocked) or custom "Blocked" state if the workspace has one |
+| blocked | Custom "Blocked" state when the team defines one; otherwise keep the current state and add the label `blocked` plus a comment naming the blocker |
 
-Detect available states from the workspace via the active channel before pushing. If "Blocked" doesn't exist as a state, fall back to a comment plus a label `blocked`.
-
-## Integration Channel
-
-Each operation below is implemented for both MCP and CLI. The caller (`sync.md`) selects the channel based on `epic-tracker.method` and `epic-tracker.fallback`. When an operation specifies an MCP call, the CLI equivalent is used when the CLI channel is active. If a capability is unavailable in one channel, surface it and let the caller decide whether to try the other channel.
+Detect the team's available states before pushing.
 
 ## Operations
 
 ### create_epic
 
-1. Create a Linear Project in the workspace (from `epic-tracker.workspace`). The native sub-issue panel under the Project is the source of truth for child hierarchy; the body carries no child list.
-2. Inputs: `name` -> Project slug, `title` -> Project name, `body` -> Project description.
-3. Return Project id and url.
+1. Resolve the milestone (see Milestones) before creating anything — the answer travels with the create, not as a follow-up edit.
+2. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`, with label `epic`, no parent issue, and the resolved milestone when there is one.
+3. Inputs: `title` -> Issue title, `body` -> Issue description.
+4. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
+5. Return Issue id and url.
 
 ### create_story / create_bug / create_task
 
-1. Create a Linear Issue. For `create_story`, `epic_id` is required — a story is always a child of an epic — and the Issue is created in the project it names; a dispatch without it is an error to surface, never an Issue to create in the backlog. For `create_bug` / `create_task`, `epic_id` is optional: with one, the Issue is created in that project; without one, it lands in the team backlog.
+1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`. `create_story` requires `epic_id`: the Issue is a sub-issue of the epic it names, and a dispatch without it is an error to surface, never a top-level Issue to create. On `create_bug` / `create_task`, `epic_id` is optional: with one, the Issue is a sub-issue of that epic; without one, it is a standalone Issue in the project.
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
-3. For `create_bug`: add label `bug`. Add `severity:{level}` label when severity is provided.
-4. For `create_task`: add label `task`.
-5. Return Issue id and url.
+3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
+4. Return Issue id and url.
 
 ### update_artifact
 
-Rewrites an existing Project or Issue's body and status. `sync.md` refetches immediately before calling this and confirms with the user when the entity changed underneath — this adapter performs the write it is given.
+Rewrites an existing Issue's body and status. `sync.md` refetches immediately before calling this and confirms with the user when the entity changed underneath — this adapter performs the write it is given.
 
-1. Update the entity's title and description via the active channel (Project description for an Epic, Issue description otherwise).
+1. Update the Issue's title and description.
 2. When a status is supplied, apply it via `update_status` below.
-3. Return success.
+3. On an epic, re-resolve the milestone (see Milestones) and apply the answer — an edit that leaves it untouched keeps the current one.
+4. Return success.
 
 ### update_status
 
-1. Map generic status to Linear state via the table above.
-2. Update the Issue's `state` field via the active channel.
+1. Map generic status to a Linear state via the table above.
+2. Update the Issue's `state` field.
 
 ### set_dependencies
 
 1. Inputs: the entity id and a list of blocker ids (sync.md supplies them directly — they are already tracker ids).
-2. Issue-level blockers (Story, Bug, Task → Linear Issues): create a native issue relation of type `blocked by` via the active channel for each blocker. Linear maintains both directions.
-3. Epic-level blockers (Epic → Linear Project): use a Project relation when both endpoints are Projects.
-4. A dependency mixing a Project and an Issue has no native Linear form and cannot be recorded — surface it to the user, naming both endpoints, and skip that one link. The rest of the dispatch still succeeds. Suggest expressing the order between two Projects, or between two Issues, instead.
-5. Remove relations no longer listed.
-6. Return success.
+2. Create a native issue relation of type `blocked by` for each blocker. Linear maintains both directions. Any pair is expressible, including Epic and Story.
+3. Remove relations no longer listed.
+4. Return success.
 
 ### fetch_artifact
 
-1. Fetch the Project or Issue by id via the active channel.
-2. Return: status (mapped from Linear state), title, description, labels, blocked-by relations (issue relations, or project relations for Epics), url.
+1. Fetch the Issue by id.
+2. Return: status (mapped from the Linear state), title, description, labels, parent issue, milestone, blocked-by relations, url.
 
 ### list_artifacts
 
-1. Query Linear for items matching the filter (project, state, label).
+1. Query the project's issues matching the filter — type maps to the label (`epic`, `story`, `bug`, `task`), epic maps to the parent issue, status maps to the Linear state.
 2. Return summaries with id, title, status, and url — the url is what a child artifact records in its `## References`.
-
-## Sub-issues
-
-Linear supports sub-issues. Use them when a Story needs explicit breakdown that does not justify a full implementation spec (rare). Implementation specs own the task-level breakdown; Linear sub-issues here are for tracker-level grouping only.
 
 ## Error Handling
 
-- Workspace not found: ask user to verify `epic-tracker.workspace`; offer to re-run bootstrap
-- Project not found by id: ask user whether to create a new Project or attach to an existing one
-- State name not found in workspace: fall back to closest standard name with a warning
+- Linear MCP server unavailable: surface the error; the caller holds the draft
+- `epic-tracker.project` unset or project not found: ask the user to name an existing project or create one, then persist the key
+- Parent epic id not found: ask whether to create the epic first or attach to a different one
+- Label missing in the workspace: tell the user, then create it
+- State name not found in the team: fall back to the closest standard name with a warning
 - API rate limit: surface the error, suggest waiting a minute before retry
-- Auth error: route user to Linear auth setup
+- Auth error: route the user to Linear MCP auth setup

@@ -11,7 +11,7 @@ flowchart LR
     S --> TR[Tracker]
 ```
 
-Every artifact lives in the tracker — Linear or GitHub, via MCP or CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes.
+Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes.
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
@@ -23,14 +23,14 @@ Every artifact lives in the tracker — Linear or GitHub, via MCP or CLI. Nothin
 
 | Artifact | Linear | GitHub |
 | -------- | ------ | ------ |
-| Epic | Project | Issue (parent) |
-| Story | Issue | Issue (sub-issue of Epic) |
-| Bug | Issue + label `bug` | Issue (sub-issue of Epic/Story or standalone) |
-| Task | Issue + label `task` | Issue (sub-issue of Epic or standalone) |
+| Epic | Issue (parent) | Issue (parent) |
+| Story | Issue (sub-issue of Epic) | Issue (sub-issue of Epic) |
+| Bug | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
+| Task | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 
-GitHub uses sub-issues as the hierarchy primitive. Projects v2 is an orthogonal opt-in layer (custom fields/views) — it does not encode Epic→Story.
+Every artifact is an Issue, and sub-issues carry the hierarchy in both trackers. Each one classifies the artifact type its own way (a Linear label, a GitHub issue type or label). Linear holds every artifact in one project, where milestones — dateless — group the epics. On GitHub, Projects v2 is an orthogonal opt-in layer (custom fields/views) that does not encode Epic→Story.
 
-Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects the available MCPs and CLIs; both channels are supported, and one falls back to the other. Config is stored in `git config --local`, so it stays with the project.
+Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects what is reachable: GitHub through MCP or the `gh` CLI, with one falling back to the other; Linear through MCP alone. Config is stored in `git config --local`, so it stays with the project.
 
 ## Dependencies
 
@@ -69,7 +69,7 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 
 ## Requirements
 
-- **Required:** a tracker — Linear or GitHub — reachable through an MCP server or its CLI (`gh`, `linear`). Without one, no artifact can be created.
+- **Required:** a tracker — Linear through an MCP server, or GitHub through an MCP server or the `gh` CLI. Without one, no artifact can be created.
 
 ## FAQ
 
@@ -77,9 +77,9 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 
 **Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" when the config says Linear. The override never rewrites the config; only `configure tracker` does. It does not apply to a story, whose parent epic lives in the configured tracker.
 
-**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects the available MCPs and CLIs and updates the git config. Artifacts already created stay in the old tracker — the switch applies to what you create next.
+**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects what is reachable and updates the git config. Artifacts already created stay in the old tracker — the switch applies to what you create next.
 
-**Q: What happens when I push and the tracker is unavailable?** A: The skill tries the fallback channel (CLI when MCP fails, or the reverse). When both are down, it holds the draft in the session, surfaces the error, and offers to retry — the drafted content is never discarded. No partial state is left in the tracker.
+**Q: What happens when I push and the tracker is unavailable?** A: On GitHub, the skill tries the other channel (MCP when `gh` fails, or the reverse). On Linear, which runs on MCP alone, there is no second channel. When no channel is left, it holds the draft in the session, surfaces the error, and offers to retry — the drafted content is never discarded. No partial state is left in the tracker.
 
 **Q: What if someone edits the issue while I'm editing it here?** A: Every write to an existing artifact refetches immediately before it lands. When the tracker moved underneath, the skill surfaces the divergence and asks before overwriting — a teammate's edit is never silently destroyed.
 
