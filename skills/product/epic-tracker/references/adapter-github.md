@@ -47,7 +47,7 @@ Take each MCP tool name from the connected server's own tool list and call it qu
 
 Issue types are org-level; a user-owned repo has none. Labels are repo-level. Never hardcode a label name or color — query the repo's labels before assigning (see Label Matching).
 
-When the session cache holds no issue type, classify by artifact label (`epic`, `story`, `bug`, `task`) matched semantically against the repo's labels, never created automatically.
+When the session cache holds no issue type, classify by artifact label (`epic`, `story`, `bug`, `task`) matched semantically against the repo's labels.
 
 ## Label Matching
 
@@ -57,7 +57,7 @@ Labels are repo-specific. Before assigning any label, always fetch the repo's la
 GET /repos/{owner}/{repo}/labels
 ```
 
-Match semantically against the needed concept (artifact type, severity, status). If no match is found, surface the available labels to the user and ask which to use (or skip). Never create labels automatically.
+Match semantically against the needed concept (artifact type, severity, status). When nothing matches, tell the user which label is missing and create it, then assign it.
 
 Concepts that use labels:
 
@@ -104,7 +104,7 @@ The cache lives for the session; a new session re-detects.
 1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The Sub-issues panel is the source of truth for child hierarchy; the body carries no child list.
 2. Apply artifact type:
    - session cache has `epic` issue type: assign it.
-   - otherwise: match repo labels semantically for `epic` and assign; surface available labels and ask if no match.
+   - otherwise: match repo labels semantically for `epic` and assign; when nothing matches, tell the user and create the label.
 3. If `epic-tracker.project` is set: add the Issue to the Project.
 4. Return Issue number and url.
 
@@ -122,7 +122,7 @@ The cache lives for the session; a new session re-detects.
 1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the repro steps, signals, and workaround the draft holds.
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `bug` issue type, or `bug` label).
-4. If severity is provided: fetch repo labels, match semantically; assign if found, surface labels and ask otherwise.
+4. If severity is provided: fetch repo labels, match semantically; assign the match, or tell the user and create the label when nothing matches.
 5. If `epic-tracker.project` is set: add to the Project.
 6. Return Issue number and url.
 
@@ -139,7 +139,7 @@ The cache lives for the session; a new session re-detects.
 Rewrites an existing Issue's body. `sync.md` refetches immediately before calling this and confirms with the user when the Issue changed underneath — this adapter performs the write it is given.
 
 1. Update the Issue's title and body via the active channel.
-2. When a severity is supplied, re-map the severity label: fetch repo labels, match the new level semantically, remove the previously matched severity label and assign the new one. Surface the available labels and ask when no match is found.
+2. When a severity is supplied, re-map the severity label: fetch repo labels, match the new level semantically, remove the previously matched severity label and assign the new one. When nothing matches, tell the user and create the label.
 3. Return success.
 
 ### update_status
@@ -147,7 +147,7 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 1. Map generic status to GitHub state via the Status Mapping table.
 2. For `done`: close the Issue with reason `completed`.
 3. For `cancelled`: close the Issue with reason `not_planned`.
-4. For `in-progress`: reopen the Issue when closed. Prefer the Project Status field when `epic-tracker.project` is set; otherwise fetch repo labels, match semantically (look for `progress` or `wip`); assign if found, skip with a note if not.
+4. For `in-progress`: reopen the Issue when closed. Prefer the Project Status field when `epic-tracker.project` is set; otherwise fetch repo labels, match semantically (look for `progress` or `wip`); assign the match, or tell the user and create the label when nothing matches.
 5. For `planned`: reopen the Issue when closed, and remove the `in-progress` label (or clear the Project Status field).
 
 ### set_parent
@@ -183,5 +183,5 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 - Sub-issue attach fails (permissions, cross-repo restriction): surface the error together with the already-created Issue's number and url, so the user can attach it in the tracker or discard it — the Issue exists even though the attach did not.
 - `epic-tracker.project` set but Project not found: ask user to verify or offer to create.
 - Issue type not found in org (type was deleted or renamed since it was cached): warn the user, drop the cached types, and fall back to label matching for this operation.
-- Severity or status label not found in repo: surface available labels to user, ask which to use or confirm to skip; never create labels automatically.
+- Label missing in the repo: tell the user, then create it.
 - API rate limit: surface the error, suggest waiting before retry.

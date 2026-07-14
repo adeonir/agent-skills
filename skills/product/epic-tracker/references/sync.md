@@ -178,7 +178,7 @@ A created artifact lands in `planned`.
 
 `epic_id` is required on `create_story` and optional on `create_bug` / `create_task`: a story is always a child of an epic, while a bug or task may be standalone — standalone means *no `epic_id`*, not a location. A `create_story` dispatch without an `epic_id` is an error to surface, never a story to create unlinked; route to Resolving the Parent Epic.
 
-Labels are not a caller input. The adapter derives them from the artifact's type and severity, matching them against what the tracker already defines — see each adapter for the matching strategy. Artifact type reaches the tracker through its primitive mapping, not as a body field.
+Labels are not a caller input. The adapter derives them from the artifact's type and severity, matching them semantically against what the tracker already defines; when nothing matches, it tells the user which label is missing and creates it — see each adapter for the matching strategy. Artifact type reaches the tracker through its primitive mapping, not as a body field.
 
 Status is `planned`, `in-progress`, `done`, or `cancelled`; each adapter maps it to the tracker's own enum, in both directions. Dropped work is `cancelled`, never `done`.
 
