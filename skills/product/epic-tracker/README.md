@@ -5,13 +5,23 @@ Manages the delivery lifecycle from epic planning through story tracking, in an 
 ## What It Does
 
 ```mermaid
-flowchart LR
-    D[Discover] -->|check existing context| DR[Draft]
-    DR -->|validate AC, stories only| S[Sync]
-    S --> TR[Tracker]
+flowchart TD
+    PRD[PRD] -.-> RM[Roadmap]
+    PRD -.-> EP
+    RM -->|decompose| EP[Epic]
+    EP -->|decompose| ST[Story]
+    EP -->|decompose| TK[Task]
+    BG[Bug] --> SY
+    EP --> SY
+    ST -->|AC validated| SY[Sync]
+    TK --> SY
+    SY --> LN[(Linear)]
+    SY --> GH[(GitHub)]
 ```
 
-Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes.
+An epic groups the stories and tasks that deliver it; a bug hangs under an epic or stands alone. `decompose` materializes one level at a time — a roadmap into its epics, an epic into its stories and tasks — and each child is drafted to its own template. A story's acceptance criteria are validated before anything reaches the tracker.
+
+Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/ROADMAP.md` is the one local file, and it is optional.
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
