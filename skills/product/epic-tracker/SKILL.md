@@ -53,7 +53,7 @@ A tracker is required: without one configured, `sync.md` bootstrap runs first, a
 - Use kebab-case for artifact names
 - Push immediately after the draft step — no separate preview gate, no local copy
 - Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
-- Validate Story AC against ac-validation rules V1-V9 on create and on edits that change AC text
+- Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
 - Decompose the roadmap into its epics (or an epic into its stories and tasks) with `decompose.md`
 - Delegate sizing to the implementation phase

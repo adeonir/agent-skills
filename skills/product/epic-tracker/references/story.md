@@ -45,7 +45,7 @@ Fill the template (below).
 
 - **Prose context**: what this story delivers, who benefits, what changes for the user. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). A story materialized via decompose always carries its settled boundary here (see [decompose.md](decompose.md)); otherwise remove the section if nothing is ambiguous.
-- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. Validated in Step 3 against rules V1-V9. See [ac-validation.md](ac-validation.md).
+- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V8, then against the epic's requirements. See [ac-validation.md](ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge cases, ordering constraints, integration quirks; not implementation advice or upstream design notes. A trap belongs to the story whose domain owns it, not the story you were authoring when it surfaced — being the first story of an initiative does not make it the owner. If it affects other stories, relocate it to the sibling that owns the domain: the trap moves, it is not cross-referenced
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
 - **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. They travel into the tracker description, so a fresh session recovers context from the tracker alone.
@@ -60,9 +60,20 @@ Apply the resumption gate before proceeding:
 
 ### 3. Validate Acceptance Criteria
 
-Load [ac-validation.md](ac-validation.md) and run V1-V9 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 and V9 surface a warning with confirm-to-continue.
+Load [ac-validation.md](ac-validation.md) and run V1-V8 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue.
 
-Then check each `Satisfies` line against the epic's `## Requirements`, fetched in Step 1. V8 checks that the id is well-formed; only this step can check that it *exists*, because only this step holds the epic. An id the epic does not declare is a dangling link: surface it and loop back to fix. A story whose ids all resolve is the only one that reaches the tracker.
+Then resolve each `Satisfies` line against the epic's `## Requirements`, fetched in Step 1. Only this step can do it, because only this step holds the epic. The resolution answers two questions at once:
+
+- **The link resolves.** V8 checks that the id is well-formed; here it must *exist*. An id the epic does not declare is a dangling link: surface it and loop back to fix.
+- **Every bound in the Then has a source.** Resolving the id yields the requirement's statement. A Then that names a timing, a count, a threshold, or a mechanism the statement does not ask for is promising something nobody requested — the story now owes more than the requirement demands, and the extra strength forbids implementations the requirement would have accepted. An AC with no `Satisfies` has no statement at all, so any bound in its Then is unsourced by construction.
+
+A bound with no source is a confirm, not a hard failure — the story may be tightening the requirement on purpose:
+
+```text
+AC-{id}: Then asserts "{bound}", which FR-3 does not ask for. Drop the bound, re-point Satisfies at the requirement that asks for it, or confirm the story owes it. [drop/repoint/keep]
+```
+
+Default keep. A `keep` records the extra scope as deliberate; a bound nobody can source, and nobody examined, is what this check exists to prevent.
 
 If any strict rule fails, or any `Satisfies` dangles: surface the structured error (AC id, rule name or dangling id, suggested fix), do not proceed to push. Loop back to Draft until the user fixes the AC.
 
@@ -83,7 +94,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
 3. **When the AC block changed, bring the Summary with it** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together in Step 2 and describe the same thing, one in prose and one in verifiable criteria. An edit that moves the AC and leaves the Summary behind ships a story whose two halves disagree. Reconcile the Summary to the outcome the story now owes, before validating.
-4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V9, then each `Satisfies` against the epic's `## Requirements`. That check needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V8, then resolve each `Satisfies` against the epic's `## Requirements`. That resolution needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
 5. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
 
 ## Guidelines

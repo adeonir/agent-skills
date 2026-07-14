@@ -1,6 +1,6 @@
 # AC Validation
 
-Enforce Given/When/Then 1:1 acceptance criteria on Story create and on edits that change AC text. Strict, atomic blocks keep each AC testable and let it reshape cleanly downstream; a compound or malformed AC is ambiguous to anything that consumes it, and an over-specified one silently narrows what the story would have accepted.
+Enforce Given/When/Then 1:1 acceptance criteria on Story create and on edits that change AC text. Strict, atomic blocks keep each AC testable and let it reshape cleanly downstream; a compound or malformed AC is ambiguous to anything that consumes it. Shape is what this ref judges — what an AC promises is measured against the requirement it satisfies, upstream, where the epic is in hand.
 
 ## When to Use
 
@@ -47,9 +47,8 @@ Rules:
 
 ### 1. Parse
 
-Extract the AC section from the Story body, plus the Summary that V9 calibrates against:
+Extract the AC section from the Story body:
 
-- Find the `## Summary` heading; read until the next `## ` heading. Keep its text — it states the outcome the story owes.
 - Find the `## Acceptance Criteria` heading.
 - Read until the next `## ` heading or end of document.
 - Inside that section, every `### AC-N` heading begins a new AC block.
@@ -58,11 +57,11 @@ Extract the AC section from the Story body, plus the Summary that V9 calibrates 
 
 Tolerate tracker normalization: trailing whitespace, blank lines between blocks, single vs double newlines around headings. Linear occasionally reflows paragraphs; the parser must not break on these.
 
-Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies` null when the line is absent) plus any malformed blocks (those that didn't yield all three required fields) and the Summary text.
+Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies` null when the line is absent) plus any malformed blocks (those that didn't yield all three required fields).
 
 ### 2. Validate
 
-Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
+Run V1-V8 against the parsed tuples and the raw section text.
 
 | # | Rule | Strictness | Trigger |
 |---|------|------------|---------|
@@ -74,7 +73,8 @@ Run V1-V9 against the parsed tuples, the raw section text, and the Summary.
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
 | V7 | Unique AC ids | strict | two `### AC-N` blocks with the same id |
 | V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/BR/EC/NFR-<n>` id (empty, a list, or malformed) |
-| V9 | Then does not over-specify | warn-only with confirm | Then names a timing, a count, a threshold, or a mechanism that the Summary does not require |
+
+A bound in a Then — a timing, a count, a threshold, or a mechanism — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
 
 V6 red-word list:
 
@@ -83,10 +83,6 @@ V6 red-word list:
 `simple` is the most context-dependent word on the list — it often appears in legitimate technical contexts ("a simple redirect"). Flag it only when it is clearly used as a subjective quality judgment ("the UI feels simple"), not as a structural descriptor.
 
 V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject, because single-sentence assertions can legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
-
-V9 (the calibration heuristic) is confirm-to-continue for the same reason: an AC may legitimately be stricter than its Summary, when the strictness is deliberate. What it catches is the AC that promises more than the story owes — a Then naming *when*, *how many*, *at what threshold*, or *by what mechanism* where the Summary names only the outcome. The extra strength forbids implementations the story would have accepted, and no other rule sees it: V2 checks the three fields are present, V6 checks the Then is observable, and an over-specified Then is both. The leak is in the clause's strength, not its vocabulary.
-
-The anchor is the Summary, never the `Satisfies` requirement — this ref holds that requirement's id, not its text (see Satisfies linkage below).
 
 ### 3. Report
 
@@ -126,26 +122,17 @@ AC-{id} V4 check: Then joins two assertions with "and": "{then}". Two outcomes -
 
 Default keep. A split routes back to add the second AC; keep records a single-assertion confirmation so the AC stays atomic for the downstream 1:1 reshape.
 
-On V9 (over-specification, confirm-to-continue):
-
-```text
-AC-{id} V9 check: Then asserts "{clause}", which the Summary does not require. Loosen it to the outcome the story owes, or confirm the strictness as a deliberate constraint. [loosen/keep]
-```
-
-Default keep. A loosen routes back to redraft the Then; keep records the extra strictness as deliberate. V9 never blocks — a confirmed constraint is a decision, and an unexamined one is what this rule exists to prevent.
-
 If any strict rule fails: do not dispatch. The caller (`story.md` Step 3 or its edit branch) loops back to Draft until the user fixes the AC.
 
 ## Satisfies linkage
 
-V8 checks the shape of a `**Satisfies**` value. Two further relations hold across the epic↔story boundary — neither parsed here (this ref reads the story's AC section in isolation), both owned by the create/edit flow that has the parent epic in hand:
+V8 checks the shape of a `**Satisfies**` value. Three further relations hold across the epic↔story boundary — none parsed here (this ref reads the story's AC section in isolation), all owned by the create/edit flow that has the parent epic in hand:
 
-- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V9, with the epic it fetched in Step 1; a dangling id routes back to fix.
+- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V8, with the epic it fetched in Step 1; a dangling id routes back to fix.
+- **Bound provenance** — a bound in a Then traces to the statement of the requirement the AC satisfies. Resolving the id yields the statement, so `story.md` Step 3 runs this on the same resolution as link validity.
 - **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. This is an epic-level relationship, checked during decomposition (`decompose.md`) and confirmed in `story.md`; it is not gated by this validator.
 
-`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the two relations above hold upstream.
-
-This is also why V9 calibrates against the Summary rather than the requirement: the requirement's text is not in scope here, only its id. The Summary is present on every story, and an AC with no `Satisfies` — the one most likely to over-specify, since nothing upstream constrained it — still has an outcome to be measured against.
+`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the three relations above hold upstream.
 
 ## Read-path tolerance
 
@@ -163,13 +150,13 @@ Stories created before this ref existed are not retroactively validated. Edits t
 - Surface every strict failure with AC id, rule name, and a concrete suggested fix
 - Keep V6 warn-only with a default-allow confirm to avoid blocking on heuristic false positives
 - Treat the V6 red-word list as small and stable; expand it only when a documented false negative recurs
-- Anchor V9 on the story's Summary — the requirement's text is not in scope here, only its id
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
 **DON'T:**
 - Invent AC content for the user (contrasts: surface failures, let the user fix)
 - Validate on a `fetch_artifact` read (contrasts: validate only on create and AC-text-changing edits)
-- Block on V6 or V9 (contrasts: warn-only with confirm)
+- Block on V6 (contrasts: warn-only with confirm)
+- Judge a bound in a Then here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
 - Embed validation logic in `story.md` (contrasts: this ref is the single home; story.md loads it on create and edit)
 
 ## Error Handling
@@ -179,8 +166,6 @@ Stories created before this ref existed are not retroactively validated. Edits t
 - User explicitly wants compound semantics: V3/V4 still reject; route them to split into multiple AC blocks.
 - Tracker body returns malformed markdown (Linear collapsed list items): widen the parser regex tolerance; if still unparseable, route to manual fix in the tracker UI.
 - V6 false positive (e.g., "the user feels confident" where intent is observable): user accepts the warning; nothing blocks.
-- V9 false positive (a bound the Summary implies without spelling out): user confirms the strictness as deliberate; nothing blocks.
-- Story has no `## Summary` section: V9 cannot run; skip it with a note rather than failing the story — V1-V8 still apply.
 
 ## Outcomes
 
