@@ -32,9 +32,19 @@ Every artifact is an Issue, and sub-issues carry the hierarchy in both trackers.
 
 Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects what is reachable: GitHub through MCP or the `gh` CLI, with one falling back to the other; Linear through MCP alone. Config is stored in `git config --local`, so it stays with the project.
 
+## Status
+
+An artifact is `planned`, `in-progress`, `done`, or `cancelled`. It holds exactly one at a time, and each adapter maps it to the tracker's own vocabulary in both directions — Linear by workflow-state type, GitHub by open/closed plus its state reason.
+
+`done` and `cancelled` both close the artifact and say different things: `done` is delivered, `cancelled` is dropped. Work abandoned rather than finished is `cancelled`, so the tracker never reports it as shipped.
+
+Blocked is not a status. Work can be started and waiting on another artifact at the same time, so waiting is carried by `blocked_by` — see below.
+
 ## Dependencies
 
-Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations). Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
+Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations), which both trackers surface in their own UI. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
+
+Dependencies are editable for the life of the artifact, not just at creation: "block this on ENG-42", "unblock this".
 
 ## Usage
 
