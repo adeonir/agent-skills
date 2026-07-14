@@ -133,10 +133,9 @@ Reading delivery state is a tracker query, not a stored report:
 
 - **List** ("list epics", "what's in progress", "show the stories in this epic") → `list_artifacts` with the matching filter. Present the results; write nothing.
 - **Status change** ("mark done", "cancel this", "won't fix") → the Status change flow above.
-- **Blocked read** ("what's blocked?") → `list_artifacts` for the scope, then read each entry's `blocked_by`. An artifact is blocked when at least one of its blockers is neither `done` nor `cancelled`; resolve the blockers' status with `fetch_artifact` on the ids the listing returns. Present the results; write nothing.
 - **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, under the same refetch guard as any other write (see Dependencies).
 
-Both need an adapter, so this ref is loaded for them even though no artifact is being drafted.
+Each needs an adapter, so this ref is loaded for them even though no artifact is being drafted.
 
 ## Dependencies
 
@@ -149,7 +148,7 @@ Dependencies are structured metadata, not body prose. They never travel in the d
 | GitHub | Issue dependencies (`blocked by` / `blocking`) |
 | Linear | Issue relations (`blocked by`) |
 
-- **On create or update:** pass the ids to the adapter's `set_dependencies` directly — extracted from the URL when an entry is one. No resolution step runs; the entries are already tracker ids.
+- **On create or update:** extract the id from any entry given as a URL, then pass the ids to the adapter's `set_dependencies`. The adapter receives tracker ids only; it never resolves a URL.
 - **`set_dependencies` is idempotent:** it adds links present in `blocked_by` and removes tracker links no longer listed, so re-running it after an edit reconciles both sides.
 
 An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself.
@@ -169,7 +168,7 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 | `set_parent` | tracker_id, epic_id | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
 | `fetch_artifact` | tracker_id | full state (status, title, body, severity, parent, blocked_by, url) |
-| `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, blocked_by, url}` |
+| `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
 Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input, and the adapter maps it to a label.
 

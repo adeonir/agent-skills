@@ -23,7 +23,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 - **Story** ("create story", "new story", "add story", "edit story", "update story", "change story") → [story.md](references/story.md)
 - **Bug** ("create bug", "report bug", "bug report") → [bug.md](references/bug.md)
 - **Task / Chore** ("create task", "new task", "add task", "create chore") → [task.md](references/task.md)
-- **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "what's blocked", "update status") → [sync.md](references/sync.md)
+- **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "update status") → [sync.md](references/sync.md)
 - **Dependencies** ("block this on X", "unblock this", "this depends on X") → [sync.md](references/sync.md)
 - **Configure tracker** ("configure tracker") → [sync.md](references/sync.md)
 - **Linear adapter** (auto-loaded by sync) → [adapter-linear.md](references/adapter-linear.md)

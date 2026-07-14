@@ -50,7 +50,6 @@ list epics                 -- show the delivery overview from the tracker
 mark done                  -- update artifact status in the tracker
 cancel this                -- drop an artifact that will not be delivered
 block this on X            -- record a dependency on an existing artifact
-what's blocked             -- list artifacts waiting on an unfinished blocker
 configure tracker          -- run bootstrap to set or change tracker config
 ```
 

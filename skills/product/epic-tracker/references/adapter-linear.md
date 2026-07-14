@@ -49,7 +49,7 @@ Linear's workflow states are defined per team. Match on the state's `type`, neve
 
 A create sets no state; the team's default applies.
 
-Detect the team's available states before pushing.
+Detect the team's available states before pushing. When the team defines no state of the type a write needs, surface it and ask which state to use.
 
 ## Operations
 
@@ -101,8 +101,7 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 ### list_artifacts
 
 1. Query the project's issues matching the filter — type maps to the label (`epic`, `story`, `bug`, `task`), epic maps to the parent issue, status maps to the state types the Status Mapping table reads it back from.
-2. Return summaries with id, title, status, blocked-by relation ids, and url — the url is what a child artifact records in its `## References`.
-
+2. Return summaries with id, title, status, and url — the url is what a child artifact records in its `## References`.
 
 ## Error Handling
 
