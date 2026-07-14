@@ -51,6 +51,10 @@ A create sets no state; the team's default applies.
 
 Detect the team's available states before pushing. When the team defines no state of the type a write needs, surface it and ask which state to use.
 
+## Body Normalization
+
+Linear renders the Issue title above the description; a leading H1 that repeats the title would render twice. On every write (`create_epic`, `create_story` / `create_bug` / `create_task`, `update_artifact`), strip a leading H1 matching the Issue title before sending the body as the description. Leave any other heading intact.
+
 ## Operations
 
 ### create_epic
