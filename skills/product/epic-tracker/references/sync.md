@@ -5,7 +5,7 @@ Dispatch artifacts to an external tracker. The tracker is the sole source of tru
 ## When to Use
 
 - Direct trigger: "configure tracker" (runs bootstrap)
-- Direct trigger: a status change or an overview read — "mark done", "cancel this", "won't fix", "list epics", "what's in progress" (see Status and Overview)
+- Direct trigger: a status change, a reparent, or an overview read — "mark done", "cancel this", "won't fix", "move this to epic X", "list epics", "what's in progress" (see Status and Overview)
 - Auto-loaded by core refs (epic, story, task, bug) after the artifact is drafted, to create it
 - Auto-loaded by a create ref's edit branch, to update an artifact that already exists
 - Auto-loaded whenever a ref needs `fetch_artifact` or `list_artifacts` — the adapter is the only thing that can reach the tracker
@@ -133,6 +133,7 @@ Reading delivery state is a tracker query, not a stored report:
 
 - **List** ("list epics", "what's in progress", "show the stories in this epic") → `list_artifacts` with the matching filter. Present the results; write nothing.
 - **Status change** ("mark done", "cancel this", "won't fix") → the Status change flow above.
+- **Reparent** ("move this to epic X", "reparent this story") → `set_parent` with the target `epic_id`, resolved through Resolving the Parent Epic when the request names an epic by title or names none.
 - **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, under the same refetch guard as any other write (see Dependencies).
 
 Each needs an adapter, so this ref is loaded for them even though no artifact is being drafted.

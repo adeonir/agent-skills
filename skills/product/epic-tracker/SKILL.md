@@ -5,7 +5,8 @@ description: >-
   tracking, across 4 artifact types (Epic, Story, Bug, Task) plus a
   roadmap. Use when creating or editing an epic, story, task, bug,
   or roadmap; decomposing a
-  roadmap into epics or an epic into stories; updating or listing delivery status; or
+  roadmap into epics or an epic into stories; updating or listing delivery status;
+  moving an artifact to another epic; or
   pushing artifacts to Linear or GitHub. Not for implementing a named
   story with an existing spec, project-wide overview, feature status within a
   spec, or quick fixes.
@@ -24,6 +25,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 - **Bug** ("create bug", "report bug", "bug report") → [bug.md](references/bug.md)
 - **Task / Chore** ("create task", "new task", "add task", "create chore") → [task.md](references/task.md)
 - **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "update status") → [sync.md](references/sync.md)
+- **Reparent** ("move this to epic X", "reparent this story", "change the parent epic") → [sync.md](references/sync.md)
 - **Dependencies** ("block this on X", "unblock this", "this depends on X") → [sync.md](references/sync.md)
 - **Configure tracker** ("configure tracker") → [sync.md](references/sync.md)
 - **Linear adapter** (auto-loaded by sync) → [adapter-linear.md](references/adapter-linear.md)

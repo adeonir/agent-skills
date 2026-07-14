@@ -69,6 +69,7 @@ create task                -- file a general work item (infra, refactor, tooling
 list epics                 -- show the delivery overview from the tracker
 mark done                  -- update artifact status in the tracker
 cancel this                -- drop an artifact that will not be delivered
+move this to epic X        -- reparent a story, bug, or task under another epic
 block this on X            -- record a dependency on an existing artifact
 configure tracker          -- run bootstrap to set or change tracker config
 ```
