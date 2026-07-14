@@ -23,7 +23,8 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 - **Story** ("create story", "new story", "add story", "edit story", "update story", "change story") → [story.md](references/story.md)
 - **Bug** ("create bug", "report bug", "bug report") → [bug.md](references/bug.md)
 - **Task / Chore** ("create task", "new task", "add task", "create chore") → [task.md](references/task.md)
-- **Status / overview** ("mark done", "list epics", "what's in progress", "update status") → [sync.md](references/sync.md)
+- **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "what's blocked", "update status") → [sync.md](references/sync.md)
+- **Dependencies** ("block this on X", "unblock this", "this depends on X") → [sync.md](references/sync.md)
 - **Configure tracker** ("configure tracker") → [sync.md](references/sync.md)
 - **Linear adapter** (auto-loaded by sync) → [adapter-linear.md](references/adapter-linear.md)
 - **GitHub adapter** (auto-loaded by sync) → [adapter-github.md](references/adapter-github.md)
@@ -46,18 +47,17 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 discover → draft → sync → tracker
 ```
 
-A tracker is required: without one configured, `sync.md` bootstrap runs first, and nothing is created until it completes. Artifacts are never written locally — the tracker is the single source of truth, and status and overview read from it directly, with no dedicated ref.
+A tracker is required: without one configured, `sync.md` bootstrap runs first, and nothing is created until it completes. Artifacts are never written locally — the tracker is the single source of truth, and status and overview read from it directly.
 
 ## Guidelines
 
-- Use kebab-case for artifact names
 - Push immediately after the draft step — no separate preview gate, no local copy
 - Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
 - Decompose the roadmap into its epics (or an epic into its stories and tasks) with `decompose.md`
 - Delegate sizing to the implementation phase
-- Status values: `planned`, `in-progress`, `done`, `blocked`
+- Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write
 
 ## Anti-Pattern: Tracker Operations in Core Refs
@@ -66,11 +66,11 @@ Embedding `gh issue create` or Linear MCP calls inside `epic.md`, `story.md`, et
 
 ## Anti-Pattern: AC Validation on Reads
 
-Validating Acceptance Criteria when an artifact is fetched from the tracker breaks legacy artifacts that predate the Given/When/Then enforcement, and artifacts edited by hand in the tracker UI. Validate on **write paths only** — story create and edit-when-AC-text-changes — and let read paths tolerate whatever the tracker returns. The implementation consumer decides how to handle non-conforming AC.
+Validating Acceptance Criteria when an artifact is fetched from the tracker breaks artifacts whose AC do not conform to the Given/When/Then contract, and artifacts edited by hand in the tracker UI. Validate on **write paths only** — story create and edit-when-AC-text-changes — and let read paths tolerate whatever the tracker returns. The implementation consumer decides how to handle non-conforming AC.
 
 ## Anti-Pattern: Mixed Artifacts
 
-A single tracker entity holding both a story and the bugs it spawned, or an epic mixed with its implementation plan, makes status ambiguous — the entity is done when *what* is done? One entity = one artifact type. A bug is its own entity, child of the epic or standalone; so is a task. Hierarchy lives in the tracker's native child panel, never in a list inside a body.
+A single tracker artifact holding both a story and the bugs it spawned, or an epic mixed with its implementation plan, makes status ambiguous — it is done when *what* is done? One tracker artifact = one artifact type. A bug is its own artifact, child of the epic or standalone; so is a task. Hierarchy lives in the tracker's native child panel, never in a list inside a body.
 
 ## Anti-Pattern: Blind Writes
 

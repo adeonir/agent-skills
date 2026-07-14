@@ -37,8 +37,7 @@ Fill the template (below).
 
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the deliverable (`Reset password flow`), never a narrative outcome (`User can reset their password to regain access`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
 - **Epic id**: the parent epic's tracker id, resolved in Step 1. Required — a dispatch without it is an error.
-- **Status**: always starts as `planned`
-- **Blocked by**: the artifacts that must finish before this story can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce order; leave empty when nothing blocks it. A blocker at any level is expressible, including an epic blocking a story. See [sync.md](sync.md) "Dependencies".
+- **Blocked by**: the artifacts that must finish before this story can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce order; leave empty when nothing blocks it. See [sync.md](sync.md) "Dependencies".
 
 **Body** — the content that becomes the tracker description:
 
@@ -88,12 +87,12 @@ When `epic-tracker.kind` is not set, [sync.md](sync.md) bootstrap runs first —
 
 ## Editing an Existing Story
 
-Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — and may change status. Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
+Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — and may change `blocked_by`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
 3. **Reconcile the Summary and the AC in whichever direction the edit moved** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together in Step 2 and describe the same thing, one in prose and one in verifiable criteria. An edit that moves one half and leaves the other behind ships a story whose two halves disagree. When the AC block changed, bring the Summary to the outcome the story now owes. When the Summary changed, check that the AC still demonstrate the outcome it now states — an outcome no AC demonstrates is a coverage hole to settle with the user, not prose to leave standing. Reconcile before validating.
-4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V8, then resolve each `Satisfies` against the epic's `## Requirements`. That resolution needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation: legacy informal AC is preserved, never retro-rewritten without an explicit edit.
+4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V8, then resolve each `Satisfies` against the epic's `## Requirements`. That resolution needs the epic, so fetch it as in Step 1. An edit that leaves the AC block untouched skips validation; the existing AC is preserved as written.
 5. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
 
 ## Guidelines
@@ -114,7 +113,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, status, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, `blocked_by`) travel as metadata alongside it.
 
 ````markdown
 # {{Story Title}}
@@ -143,18 +142,7 @@ MUST NOT contain: sibling story or task names — state each boundary in terms o
 **Then** {{expected outcome}}
 **Satisfies** {{parent-epic requirement this AC operationalizes — e.g. FR-3; omit the line when the AC maps to no requirement}}
 
-{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`).}
-
-Example:
-
-```markdown
-### AC-1
-
-**Given** the user is on the sign-in page and has a registered account
-**When** they submit a valid email and password
-**Then** they are authenticated and redirected to the dashboard
-**Satisfies** FR-1
-```
+{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`). See [ac-validation.md](ac-validation.md) for the contract and a worked example.}
 
 MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), or a Then that restates a sibling's deliverable or anything listed in Out of Scope.
 

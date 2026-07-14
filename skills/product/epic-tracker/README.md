@@ -17,7 +17,7 @@ Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `g
 | ----- | ------------ | ------ |
 | Discover | Check for existing PRD, roadmap, or context | Context for the draft |
 | Draft | Compose epic, story, bug, or task to its canonical template | Body + dispatch inputs |
-| Sync | Dispatch to the tracker via its adapter | Tracker entity + URL |
+| Sync | Dispatch to the tracker via its adapter | Tracker artifact + URL |
 
 ## Tracker Integration
 
@@ -28,7 +28,7 @@ Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `g
 | Bug | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 | Task | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 
-Every artifact is an Issue, and sub-issues carry the hierarchy in both trackers. Each one classifies the artifact type its own way (a Linear label, a GitHub issue type or label). Linear holds every artifact in one project, where milestones — dateless — group the epics. On GitHub, Projects v2 is an orthogonal opt-in layer (custom fields/views) that does not encode Epic→Story.
+Every artifact is an Issue, and sub-issues carry the hierarchy in both trackers. Each one classifies the artifact type its own way (a Linear label, a GitHub issue type or label). On GitHub, Projects v2 is an orthogonal opt-in layer for board views and custom fields.
 
 Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects what is reachable: GitHub through MCP or the `gh` CLI, with one falling back to the other; Linear through MCP alone. Config is stored in `git config --local`, so it stays with the project.
 
@@ -48,12 +48,15 @@ report bug                 -- document a defect with reproduction steps and seve
 create task                -- file a general work item (infra, refactor, tooling, research, ...)
 list epics                 -- show the delivery overview from the tracker
 mark done                  -- update artifact status in the tracker
+cancel this                -- drop an artifact that will not be delivered
+block this on X            -- record a dependency on an existing artifact
+what's blocked             -- list artifacts waiting on an unfinished blocker
 configure tracker          -- run bootstrap to set or change tracker config
 ```
 
 ## Story Acceptance Criteria
 
-Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Resolving each `Satisfies` against the parent epic also flags a Then that promises what the requirement never asked for — a timing, count, threshold, or mechanism with no source — so the story does not quietly owe more than the requirement demands. Artifacts already in the tracker are not retroactively validated when read.
+Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Resolving each `Satisfies` against the parent epic also flags a Then that promises what the requirement never asked for — a timing, count, threshold, or mechanism with no source — so the story does not quietly owe more than the requirement demands. Artifacts read from the tracker are not validated.
 
 ## Requirement Traceability
 

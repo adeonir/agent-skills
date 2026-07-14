@@ -6,7 +6,7 @@ Enforce Given/When/Then 1:1 acceptance criteria on Story create and on edits tha
 
 - Auto-loaded by `story.md` (Step 3 Validate, before the story is dispatched)
 - Auto-loaded by `story.md`'s edit branch when an edit changes AC text
-- Direct trigger: "validate AC", "AC validation rules", "story acceptance criteria format"
+- Not a direct trigger
 
 This ref is the single home for the AC contract. Do not duplicate the rules in `story.md` -- its create and edit paths load this ref at the validation step.
 
@@ -138,10 +138,10 @@ V8 checks the shape of a `**Satisfies**` value. Three further relations hold acr
 
 Read paths do not invoke this ref:
 
-- `fetch_artifact` from the tracker -- a story fetched to be read, or fetched as the first step of an edit, is not validated on arrival. Legacy bodies may carry pre-Gherkin AC, and a body edited by hand in the tracker UI may carry anything; the implementation consumer decides how to handle them.
+- `fetch_artifact` from the tracker -- a story fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry AC in any shape; the implementation consumer decides how to handle it.
 - Status and overview reads -- no body inspection.
 
-Stories created before this ref existed are not retroactively validated. Edits that do not change AC text also skip validation (see `story.md`'s edit branch) — validation fires on the write path, when AC text changed, never on the read that precedes it.
+Edits that do not change AC text skip validation (see `story.md`'s edit branch) — validation fires on the write path, when AC text changed, never on the read that precedes it.
 
 ## Guidelines
 
