@@ -77,11 +77,15 @@ When any of these are true, propose splitting the story. Respect the user's deci
 
 For each confirmed child, run its create ref — [epic.md](epic.md), [story.md](story.md), or [task.md](task.md). Each child is drafted to its own canonical template and validated by its own flow (a story's AC through ac-validation). The settled boundary travels into the child: its "does not" half lands in the child's Out of Scope, stated in the child's own terms — never naming the sibling that owns the excluded work. Decompose never bypasses the create ref — no auto-generated, unvalidated artifacts.
 
+When decomposing a roadmap that groups its epics into phases, the phase an epic sits in travels as the `milestone` dispatch input to its create — the phase name is the milestone name. A flat roadmap passes none. This is the only place a milestone is assigned: it rides on the epic alone, never on a story, bug, or task, and never as body prose (the epic still never names the roadmap). The adapter reuses a milestone of that name or creates it dateless (see each adapter's Milestone).
+
 Dispatch is inherited, not added here: each create ref pushes its own artifact through [sync.md](sync.md). Decompose dispatches nothing of its own.
 
 ### 8. Re-run / orphan check
 
 When decomposing a parent that was already decomposed before, load [sync.md](sync.md) and run `list_artifacts` for its children in the tracker, then identify the ones that no longer fit the parent's current scope or sequence. Do not delete or close automatically. Surface them as orphans and ask whether to cancel, reparent, or keep them: cancelling dispatches `update_status` with `cancelled`, reparenting dispatches `set_parent` with the epic the user names, and keeping them writes nothing.
+
+When re-decomposing a phased roadmap, reconcile each existing epic's milestone with its current phase: `fetch_artifact` reads the milestone it carries now, and when that differs from the phase the roadmap now assigns it, surface the divergence and confirm before writing, then dispatch `set_milestone`. This reconciliation is roadmap-scoped — it touches only epics the roadmap drives. An epic created in the tracker UI outside the roadmap is an orphan handled above; its milestone is left untouched, and a manual milestone that disagrees with an adopted epic's phase is a divergence to confirm, never a silent overwrite.
 
 ## Guidelines
 
@@ -93,6 +97,7 @@ When decomposing a parent that was already decomposed before, load [sync.md](syn
 - Route cross-cutting concerns by domain, not by order — a foundational decision spanning stories, and a domain-specific trap, each belong to the artifact that owns them, never parked on whichever story is created first
 - Offer to go deeper (a created epic → its stories) but never auto-create the next level
 - Respect roadmap order and tags when creating epics; suggest `blocked_by` for dependencies
+- Carry each epic's phase as its `milestone` when the roadmap is phased; reconcile it on re-run and never overwrite a manual milestone without confirming
 - Inherit each epic's requirement IDs from the roadmap's partition instead of re-deriving them from the PRD; surface a mismatch rather than reshuffling silently
 - Ensure every PRD requirement ID in the epic is covered by a story's `Satisfies` line, or explicitly confirm the omission
 - Split oversized stories before creating, or record the user's decision to keep them whole

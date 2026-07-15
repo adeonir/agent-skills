@@ -55,14 +55,23 @@ Detect the team's available states before pushing. When the team defines no stat
 
 Linear renders the Issue title above the description; a leading H1 that repeats the title would render twice. On every write (`create_epic`, `create_story` / `create_bug` / `create_task`, `update_artifact`), strip a leading H1 matching the Issue title before sending the body as the description. Leave any other heading intact.
 
+## Milestone
+
+Milestone is a Linear Project Milestone, scoped to `epic-tracker.project` — the same project every artifact lives in. It carries only a name here; never set a target date, so the materialized milestone stays dateless (a user may add a date in the UI; leave it untouched).
+
+Resolve a milestone name by reading before writing: list the project's milestones and reuse the one with that exact name, including one a user created in the UI. Match on the name itself, not semantically — the milestone name is the phase name. When none has that name, create it in the project with no target date. Then associate the Issue with it.
+
+Only an epic carries a milestone; the caller supplies it on `create_epic` or `set_milestone` and never on a story, bug, or task.
+
 ## Operations
 
 ### create_epic
 
 1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`, with label `epic` and no parent issue.
 2. Inputs: `title` -> Issue title, `body` -> Issue description.
-3. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
-4. Return Issue id and url.
+3. When `milestone` is supplied, resolve it per Milestone below and associate the Issue with it.
+4. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
+5. Return Issue id and url.
 
 ### create_story / create_bug / create_task
 
@@ -97,10 +106,16 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 3. Remove relations no longer listed.
 4. Return success.
 
+### set_milestone
+
+1. Inputs: `tracker_id` and `milestone` (a name).
+2. Resolve it per Milestone below and associate the Issue with the resolved milestone, replacing any previous one.
+3. Return success.
+
 ### fetch_artifact
 
 1. Fetch the Issue by id.
-2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), parent, blocked-by relations, url.
+2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), parent, blocked-by relations, milestone (the associated project milestone's name, when present), url.
 
 ### list_artifacts
 

@@ -86,6 +86,12 @@ The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## 
 
 The roadmap organizes the project's epics into an ordered flow, derived from the PRD, in `docs/ROADMAP.md`. `create roadmap` writes and updates this living plan in place; `decompose` materializes it into epics (and an epic into stories and tasks). It is optional — a local planning aid, never mirrored to the tracker, and committing it is the user's call. Epics stay self-contained: they never reference the roadmap.
 
+## Milestones
+
+A milestone is the tracker's grouping primitive — a Linear project milestone or a GitHub repo milestone. The skill treats it as the materialization of a roadmap phase: when `decompose` runs on a roadmap grouped into phases, each epic's phase name becomes its milestone, reusing one already in the tracker (including one created by hand in the UI) or creating it with no date. A flat roadmap assigns none.
+
+A milestone rides on the epic alone; its stories and tasks are grouped by the epic, not by a milestone of their own. The skill only ever assigns a milestone by deriving it from a phase — never from free text — and on a re-run it reconciles an epic's milestone to its current phase, confirming before it overwrites a milestone changed by hand. Scheduling and progress on the milestone stay in the tracker UI.
+
 ## Output
 
 Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/ROADMAP.md`, a local planning document.

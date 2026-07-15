@@ -36,6 +36,7 @@ Fill the template (below) with discovered context.
 
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the capability (`User authentication`), never a narrative outcome (`Users can sign in securely`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
 - **Blocked by**: the artifacts that must finish before this one can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce delivery order; leave empty when nothing blocks it. See [sync.md](sync.md) "Dependencies".
+- **Milestone**: optional, and only [decompose.md](decompose.md) supplies it — the name of the roadmap phase this epic materializes from. Never hand-typed, and empty when the epic is created directly here. It travels as tracker metadata, not body prose, so the epic body still never names the roadmap. See [sync.md](sync.md) Operations Summary.
 
 **Body** — the content that becomes the tracker description:
 

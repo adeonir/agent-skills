@@ -160,7 +160,7 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 
 | Operation | Inputs | Output |
 | --------- | ------ | ------ |
-| `create_epic` | title, body | tracker id + url |
+| `create_epic` | title, body, milestone (optional) | tracker id + url |
 | `create_story` | epic_id (required), title, body | tracker id + url |
 | `create_bug` | epic_id (optional), title, body, severity | tracker id + url |
 | `create_task` | epic_id (optional), title, body | tracker id + url |
@@ -168,7 +168,8 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 | `update_status` | tracker_id, new_status | success |
 | `set_parent` | tracker_id, epic_id | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
-| `fetch_artifact` | tracker_id | full state (status, title, body, severity, parent, blocked_by, url) |
+| `set_milestone` | tracker_id, milestone | success |
+| `fetch_artifact` | tracker_id | full state (status, title, body, severity, parent, blocked_by, milestone, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
 Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input, and the adapter maps it to a label.
@@ -180,6 +181,8 @@ A created artifact lands in `planned`.
 `epic_id` is required on `create_story` and optional on `create_bug` / `create_task`: a story is always a child of an epic, while a bug or task may be standalone — standalone means *no `epic_id`*, not a location. A `create_story` dispatch without an `epic_id` is an error to surface, never a story to create unlinked; route to Resolving the Parent Epic.
 
 Labels are not a caller input. The adapter derives them from the artifact's type and severity, matching them semantically against what the tracker already defines; when nothing matches, it tells the user which label is missing and creates it — see each adapter for the matching strategy. Artifact type reaches the tracker through its primitive mapping, not as a body field.
+
+`milestone` is an epic-only input, and only `decompose.md` supplies it — the name of the roadmap phase the epic materializes from. It is not hand-typed, and no other create carries it: a story, bug, or task is grouped by its parent epic, never by a milestone of its own. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; the adapter finds a milestone of that name or creates one (dateless), reusing one a user made in the tracker UI. `set_milestone` reconciles an existing epic's milestone to its current phase — used on a decompose re-run, under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the phase.
 
 Status is `planned`, `in-progress`, `done`, or `cancelled`; each adapter maps it to the tracker's own enum, in both directions. Dropped work is `cancelled`, never `done`.
 

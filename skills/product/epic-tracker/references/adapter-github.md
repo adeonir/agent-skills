@@ -83,6 +83,14 @@ GitHub Issues have an `open` / `closed` state plus optional state reason (`compl
 
 When `epic-tracker.project` is set and the Project has a Status field, prefer the Project field over labels.
 
+## Milestone
+
+Milestone is a native repo-level GitHub Milestone, independent of the Projects v2 layer. It carries only a title here; never set a due date, so the materialized milestone stays dateless (a user may add one in the UI; leave it untouched).
+
+Resolve a milestone name by reading before writing: fetch the repo's milestones and reuse the one whose title is exactly that name, including one a user created in the UI. Match on the name itself, not semantically — the milestone name is the phase name. When none has that title, create it in the repo with no due date. Then set it on the Issue.
+
+Only an epic carries a milestone; the caller supplies it on `create_epic` or `set_milestone` and never on a story, bug, or task.
+
 ## Operations
 
 ### Issue Type Detection (runtime)
@@ -105,8 +113,9 @@ The cache lives for the session; a new session re-detects.
 2. Apply artifact type:
    - session cache has `epic` issue type: assign it.
    - otherwise: match repo labels semantically for `epic` and assign; when nothing matches, tell the user and create the label.
-3. If `epic-tracker.project` is set: add the Issue to the Project.
-4. Return Issue number and url.
+3. When `milestone` is supplied, resolve it per Milestone below and set it on the Issue.
+4. If `epic-tracker.project` is set: add the Issue to the Project.
+5. Return Issue number and url.
 
 ### create_story
 
@@ -167,10 +176,16 @@ GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintai
 
 Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not assumed.
 
+### set_milestone
+
+1. Inputs: `tracker_id` and `milestone` (a name).
+2. Resolve it per Milestone below and set it on the Issue, replacing any previous one.
+3. Return success.
+
 ### fetch_artifact
 
 1. Fetch the Issue by id/number via the active channel.
-2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), url.
+2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), milestone (the Issue's milestone title, when present), url.
 
 ### list_artifacts
 
