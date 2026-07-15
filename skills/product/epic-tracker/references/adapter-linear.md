@@ -61,7 +61,7 @@ Milestone is a Linear Project Milestone, scoped to `epic-tracker.project` — th
 
 Resolve a milestone name by reading before writing: list the project's milestones and reuse the one with that exact name, including one a user created in the UI. Match on the name itself, not semantically — the milestone name is the phase name. When none has that name, create it in the project with no target date. Then associate the Issue with it.
 
-Only an epic carries a milestone; the caller supplies it on `create_epic` or `set_milestone` and never on a story, bug, or task.
+Any artifact can carry a milestone: the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `set_milestone`. The adapter associates whatever Issue it is given with the resolved milestone, regardless of type — `sync.md` decides which milestone a child carries (its parent epic's). When the caller supplies no milestone, leave the Issue's milestone unset; when `set_milestone` is given none, clear the association.
 
 ## Operations
 
@@ -69,7 +69,7 @@ Only an epic carries a milestone; the caller supplies it on `create_epic` or `se
 
 1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`, with label `epic` and no parent issue.
 2. Inputs: `title` -> Issue title, `body` -> Issue description.
-3. When `milestone` is supplied, resolve it per Milestone below and associate the Issue with it.
+3. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
 4. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
 5. Return Issue id and url.
 
@@ -78,7 +78,8 @@ Only an epic carries a milestone; the caller supplies it on `create_epic` or `se
 1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`. `create_story` requires `epic_id`: the Issue is a sub-issue of the epic it names, and a dispatch without it is an error to surface, never a top-level Issue to create. On `create_bug` / `create_task`, `epic_id` is optional: with one, the Issue is a sub-issue of that epic; without one, it is a standalone Issue in the project.
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
-4. Return Issue id and url.
+4. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
+5. Return Issue id and url.
 
 ### update_artifact
 
@@ -108,8 +109,8 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 
 ### set_milestone
 
-1. Inputs: `tracker_id` and `milestone` (a name).
-2. Resolve it per Milestone below and associate the Issue with the resolved milestone, replacing any previous one.
+1. Inputs: `tracker_id` and `milestone` (a name, or none to clear).
+2. When a name is given, resolve it per Milestone above and associate the Issue with it, replacing any previous one. When none is given, remove any existing milestone association.
 3. Return success.
 
 ### fetch_artifact

@@ -90,7 +90,7 @@ The roadmap organizes the project's epics into an ordered flow, derived from the
 
 A milestone is the tracker's grouping primitive — a Linear project milestone or a GitHub repo milestone. The skill treats it as the materialization of a roadmap phase: when `decompose` runs on a roadmap grouped into phases, each epic's phase name becomes its milestone, reusing one already in the tracker (including one created by hand in the UI) or creating it with no date. A flat roadmap assigns none.
 
-A milestone rides on the epic alone; its stories and tasks are grouped by the epic, not by a milestone of their own. The skill only ever assigns a milestone by deriving it from a phase — never from free text — and on a re-run it reconciles an epic's milestone to its current phase, confirming before it overwrites a milestone changed by hand. Scheduling and progress on the milestone stay in the tracker UI.
+A milestone is a property of the whole epic subtree: the epic takes its phase name, and every story, bug, and task under it mirrors the epic's milestone, so the tracker groups the epic and its children together. A standalone bug or task carries none. The skill only ever assigns a milestone by deriving it from a phase — never from free text — and on a re-run it reconciles the subtree to the epic's current phase, confirming before it overwrites a milestone changed by hand. Scheduling and progress on the milestone stay in the tracker UI.
 
 ## Output
 

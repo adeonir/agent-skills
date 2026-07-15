@@ -33,7 +33,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 
 `epic.md` opens with context discovery — reads `docs/product/PRD.md`, `docs/ROADMAP.md`, and `docs/product/PRODUCT.md` before prompting; falls back to direct questions when none exist.
 
-`roadmap.md` organizes the project's epics into an ordered flow derived from the PRD and writes the living plan to `docs/ROADMAP.md` (local, never mirrored to the tracker; committing it is the user's call); it does not create epics. `decompose.md` materializes a level: point it at the roadmap to create its epics, or at an epic to create its stories and tasks — composing `epic.md`, `story.md`, and `task.md` and staying idempotent. When the roadmap groups epics into phases, it assigns each epic a tracker milestone named for its phase, and reconciles it on a re-run.
+`roadmap.md` organizes the project's epics into an ordered flow derived from the PRD and writes the living plan to `docs/ROADMAP.md` (local, never mirrored to the tracker; committing it is the user's call); it does not create epics. `decompose.md` materializes a level: point it at the roadmap to create its epics, or at an epic to create its stories and tasks — composing `epic.md`, `story.md`, and `task.md` and staying idempotent. When the roadmap groups epics into phases, it assigns each epic a tracker milestone named for its phase — its stories and tasks mirror it — and reconciles the subtree on a re-run.
 
 `sync.md` is auto-loaded by core refs (epic, story, task, bug) to dispatch the drafted artifact, by their edit branches to write an update, and whenever a ref needs to read from the tracker — only its adapters can reach it. It is triggered directly for a status change, an overview read, or "configure tracker".
 

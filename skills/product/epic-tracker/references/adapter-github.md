@@ -89,7 +89,7 @@ Milestone is a native repo-level GitHub Milestone, independent of the Projects v
 
 Resolve a milestone name by reading before writing: fetch the repo's milestones and reuse the one whose title is exactly that name, including one a user created in the UI. Match on the name itself, not semantically — the milestone name is the phase name. When none has that title, create it in the repo with no due date. Then set it on the Issue.
 
-Only an epic carries a milestone; the caller supplies it on `create_epic` or `set_milestone` and never on a story, bug, or task.
+Any artifact can carry a milestone: the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `set_milestone`. The adapter sets whatever Issue it is given to the resolved milestone, regardless of type — `sync.md` decides which milestone a child carries (its parent epic's). When the caller supplies no milestone, leave the Issue's milestone unset; when `set_milestone` is given none, clear it.
 
 ## Operations
 
@@ -113,7 +113,7 @@ The cache lives for the session; a new session re-detects.
 2. Apply artifact type:
    - session cache has `epic` issue type: assign it.
    - otherwise: match repo labels semantically for `epic` and assign; when nothing matches, tell the user and create the label.
-3. When `milestone` is supplied, resolve it per Milestone below and set it on the Issue.
+3. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 4. If `epic-tracker.project` is set: add the Issue to the Project.
 5. Return Issue number and url.
 
@@ -123,8 +123,9 @@ The cache lives for the session; a new session re-detects.
 2. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Attach the Issue as a sub-issue under the parent Epic named by `epic_id`.
 4. Apply artifact type (session cache `story` issue type, or `story` label).
-5. If `epic-tracker.project` is set: add to the Project.
-6. Return Issue number and url.
+5. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
+6. If `epic-tracker.project` is set: add to the Project.
+7. Return Issue number and url.
 
 ### create_bug
 
@@ -132,16 +133,18 @@ The cache lives for the session; a new session re-detects.
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `bug` issue type, or `bug` label).
 4. If severity is provided: fetch repo labels, match semantically; assign the match, or tell the user and create the label when nothing matches.
-5. If `epic-tracker.project` is set: add to the Project.
-6. Return Issue number and url.
+5. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
+6. If `epic-tracker.project` is set: add to the Project.
+7. Return Issue number and url.
 
 ### create_task
 
 1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body.
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
-4. If `epic-tracker.project` is set: add to the Project.
-5. Return Issue number and url.
+4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
+5. If `epic-tracker.project` is set: add to the Project.
+6. Return Issue number and url.
 
 ### update_artifact
 
@@ -178,8 +181,8 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 
 ### set_milestone
 
-1. Inputs: `tracker_id` and `milestone` (a name).
-2. Resolve it per Milestone below and set it on the Issue, replacing any previous one.
+1. Inputs: `tracker_id` and `milestone` (a name, or none to clear).
+2. When a name is given, resolve it per Milestone above and set it on the Issue, replacing any previous one. When none is given, remove the Issue's milestone.
 3. Return success.
 
 ### fetch_artifact
