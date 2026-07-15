@@ -98,6 +98,8 @@ Adding acceptance criteria to a task means it was a story all along — see [dis
 - Add acceptance criteria — a task is AC-less (contrasts: description + Definition of Done is enough; AC belongs to a story)
 - Create a task when a story or bug is the right type (ask if ambiguous)
 - Confuse the task's own Definition of Done with the product-level Definition of Done in the PRD
+- Pin the solution the implementer chooses — target version, image tag, library (contrasts: the task states the outcome; selecting what satisfies it is execution work)
+- Populate Signals from a command the agent ran, like `bun outdated` or `npm outdated` (contrasts: Signals is paste-derived forensic evidence, not execution-time discovery)
 
 ## Template
 
