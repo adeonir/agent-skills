@@ -137,11 +137,19 @@ MUST NOT contain: implementation advice, upstream design notes, or cross-referen
 
 {Durable pointers the next session follows to recover context. They travel
 into the tracker description, so the tracker alone is enough to resume.
-`## Signals` above holds forensic links, not context pointers.}
+`## Signals` above holds forensic links, not context pointers.
+
+A doc link (a file in a repo, like a Design Doc) is an absolute URL, a
+repo-relative path, or "None". A relative path resolves only when the tracker
+and the file share a host — a GitHub tracker linking a file in the same GitHub
+repo; across hosts (a Linear tracker pointing at a GitHub repo), use an
+absolute URL.}
 
 - **Epic:** {{tracker URL of the parent epic, or "None"}}
+- **Design Doc:** {{link or "None"}}
 - **Decisions:** {{ADR-NNN this task depends on, or "None"}}
-- **Related Stories:** {{tracker URLs of stories this task supports, or "None"}}
+- **Related stories:** {{tracker URLs or "None"}}
+- **Related tasks:** {{tracker URLs or "None"}}
 ````
 
 ## Error Handling

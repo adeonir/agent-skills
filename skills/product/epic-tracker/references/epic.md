@@ -155,7 +155,13 @@ resolve before or during story breakdown.}
 ## References
 
 {Durable pointers the next session follows to recover context. They travel
-into the tracker description, so the tracker alone is enough to resume.}
+into the tracker description, so the tracker alone is enough to resume.
+
+A doc link (a file in a repo, like a Design Doc) is an absolute URL, a
+repo-relative path, or "None". A relative path resolves only when the tracker
+and the file share a host — a GitHub tracker linking a file in the same GitHub
+repo; across hosts (a Linear tracker pointing at a GitHub repo), use an
+absolute URL.}
 
 - **PRODUCT:** {{link or "None"}}
 - **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
