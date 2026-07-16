@@ -36,10 +36,10 @@ specify → design → tasks → implement → audit → [validate] → done →
    │        │        │          │          │         │
    │        │        │          │          │         └ only user-facing
    └────────┴────────┴──────────┴──────────┴ Small skips all of this:
-                                              one-liner → implement inline
+                                              one-liner → branch → implement inline
 ```
 
-Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is optional housekeeping for done specs — manual, never automatic, never suggested.
+Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is optional housekeeping for done specs — manual, never automatic, never suggested.
 
 ## References
 

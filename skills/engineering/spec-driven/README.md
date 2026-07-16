@@ -9,7 +9,7 @@ Builds features in phases sized to the change. A mechanical fix is a one-liner; 
 ```mermaid
 flowchart TD
     A[Specify] --> B{Scope?}
-    B -->|Small| S[Inline implement<br/>one-liner, no spec]
+    B -->|Small| S[Inline implement<br/>own branch, no spec]
     B -->|Medium / Large / Complex| D[Design]
     D --> T[Tasks]
     T --> I[Implement<br/>verify per task]
@@ -34,7 +34,7 @@ flowchart TD
 
 | Scope | Nature of change | Pipeline |
 |-------|------------------|----------|
-| **Small** | Mechanical, zero decisions | one-liner → inline implement |
+| **Small** | Mechanical, zero decisions | one-liner → branch → inline implement |
 | **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → Audit |
 | **Large** | ≥1 load-bearing decision new to the codebase | + fresh-eyes, research |
 | **Complex** | Ambiguity in the problem itself | + discuss, approaches |
@@ -98,7 +98,7 @@ A: `.artifacts/CONTEXT.md` accumulates cross-feature decisions, gotchas, and con
 
 **Q: When does a change skip the pipeline?**
 
-A: When it is Small — mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement, with no `spec.md` and no audit. If it turns out to carry a real decision, the safety valve raises it to Medium and the full pipeline applies.
+A: When it is Small — mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md` and no audit. If it turns out to carry a real decision, the safety valve raises it to Medium and the full pipeline applies.
 
 **Q: What is the difference between verify, audit, and validate?**
 
