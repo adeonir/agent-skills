@@ -32,16 +32,16 @@ Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallbac
 
 3. **Check if exists**
 
-   ```
-   search_notes query="System Design URL Shortener" path="Challenges/"
+   ```text
+   Obsidian:search_notes query="System Design URL Shortener" path="Challenges/"
    ```
 
 4. **Compose content** using the template below.
 
 5. **Write note**
 
-   ```
-   write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
+   ```text
+   Obsidian:write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
    ```
 
 ## Template

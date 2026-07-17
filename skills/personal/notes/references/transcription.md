@@ -26,16 +26,16 @@ Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallbac
 
 6. **Check if exists**
 
-   ```
-   search_notes query="Description" path="{destination}/"
+   ```text
+   Obsidian:search_notes query="Description" path="{destination}/"
    ```
 
 If a note with the same topic exists, ask to append or create new.
 
 7. **Write note**
 
-   ```
-   write_note path="{destination}/Description.md" content="..." frontmatter={...}
+   ```text
+   Obsidian:write_note path="{destination}/Description.md" content="..." frontmatter={...}
    ```
 
 ## Template

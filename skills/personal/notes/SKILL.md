@@ -11,7 +11,7 @@ description: >-
 
 # Notes
 
-Creates and manages Obsidian notes using MCPVault MCP for structured documentation.
+Creates and manages Obsidian notes using the Obsidian MCP for structured documentation.
 
 ## Triggers
 
@@ -52,16 +52,14 @@ When generating filenames from user input:
 ## Guidelines
 
 - Ask one question at a time when gathering context from the user
-- Use `write_note` for new notes, `read_note` + `patch_note` for updates
-- Use `search_notes` to check if a note exists before creating
+- Use `Obsidian:write_note` for new notes, `Obsidian:read_note` + `Obsidian:patch_note` for updates
+- Use `Obsidian:search_notes` to check if a note exists before creating
 - Link related notes using `[[Note Name]]` wikilinks (verify target exists)
-- Use Title Case for filenames
-- Sanitize filenames from user input
 
 ## Anti-Pattern: Orphan Wikilinks
 
-Creating `[[Some Note]]` to a file that does not exist makes Obsidian generate an empty file at the vault root. Always run `search_notes` before linking to verify the target exists. If the target is missing, either create it first or omit the link.
+Creating `[[Some Note]]` to a file that does not exist makes Obsidian generate an empty file at the vault root. Always run `Obsidian:search_notes` before linking to verify the target exists. If the target is missing, either create it first or omit the link.
 
 ## Anti-Pattern: Template-Driven Updates
 
-Templates apply to new notes only. When updating an existing note, read it first with `read_note`, then patch with `patch_note`. Re-applying a template overwrites prior content and loses history.
+Templates apply to new notes only. When updating an existing note, read it first with `Obsidian:read_note`, then patch with `Obsidian:patch_note`. Re-applying a template overwrites prior content and loses history.

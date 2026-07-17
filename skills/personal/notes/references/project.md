@@ -21,8 +21,8 @@ Create structured documentation for a project in the Obsidian vault.
 
 3. **Check if exists**
 
-   ```
-   search_notes query="Checkout Refactor Overview" path="{VaultFolder}/"
+   ```text
+   Obsidian:search_notes query="Checkout Refactor Overview" path="{VaultFolder}/"
    ```
 
 If exists, ask to append, choose new name, or cancel.
@@ -31,8 +31,8 @@ If exists, ask to append, choose new name, or cancel.
 
 5. **Write note**
 
-   ```
-   write_note path="{VaultFolder}/Checkout Refactor/Checkout Refactor Overview.md" content="..."
+   ```text
+   Obsidian:write_note path="{VaultFolder}/Checkout Refactor/Checkout Refactor Overview.md" content="..."
    ```
 
 ## Template
@@ -85,13 +85,13 @@ Context prose between H1 and Goals is required. Goals is required. All other sec
 
 ## Output Path
 
-```
+```text
 {VaultFolder}/{Project Name}/{Project Name} Overview.md
 ```
 
 ## Guidelines
 
-- Use `search_notes` to check for existing project notes before creating
+- Use `Obsidian:search_notes` to check for existing project notes before creating
 - Populate Relations only with verified existing notes
 
 ## Error Handling

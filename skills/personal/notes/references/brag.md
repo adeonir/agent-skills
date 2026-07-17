@@ -21,8 +21,8 @@ Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallbac
 
 2. **Check if brag doc exists**
 
-   ```
-   search_notes query="{{YYYY}}" path="Brags/"
+   ```text
+   Obsidian:search_notes query="{{YYYY}}" path="Brags/"
    ```
 
 3. **Create or append**
@@ -39,15 +39,15 @@ Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallbac
 
 New document:
 
-   ```
-   write_note path="Brags/{{YYYY}}.md" content="..."
+   ```text
+   Obsidian:write_note path="Brags/{{YYYY}}.md" content="..."
    ```
 
 Append to existing:
 
-   ```
-   read_note path="Brags/{{YYYY}}.md"
-   patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
+   ```text
+   Obsidian:read_note path="Brags/{{YYYY}}.md"
+   Obsidian:patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
    ```
 
 ## Template

@@ -1,6 +1,6 @@
 # Notes
 
-Structured note creation for Obsidian using MCPVault MCP.
+Structured note creation for Obsidian using the Obsidian MCP.
 
 ## What It Does
 
@@ -20,7 +20,7 @@ flowchart TD
     D -->|Brag| B[Update Brag Document]
     D -->|Transcription| TR[Save Transcription]
     D -->|Company| CO[Track Company]
-    P --> M[MCPVault MCP]
+    P --> M[Obsidian MCP]
     H --> M
     B --> M
     TR --> M
@@ -38,7 +38,7 @@ flowchart TD
 
 ## Usage
 
-```
+```text
 create project note for checkout-refactor
 record technical challenge from Stripe interview
 add brag: reduced latency by 40%
@@ -50,7 +50,7 @@ track company application — Stripe Senior Frontend
 
 Notes are created in the Obsidian vault following this structure:
 
-```
+```text
 Vault/
 ├── {VaultFolder}/
 │   └── {Project}/
@@ -64,7 +64,7 @@ Vault/
 
 ## Requirements
 
-- MCPVault MCP server configured and connected
+- Obsidian MCP server configured and connected
 - At least one Obsidian vault configured
 - `.notes/wrap-up.yml` registry configured (for project path resolution)
 
@@ -74,8 +74,8 @@ Vault/
 A: Invalid characters (`/ \ : * ? " < > |`) are removed; accented
 characters are replaced with ASCII equivalents. All filenames are Title Case.
 
-**Q: What if a note with the same name exists?** A: The skill detects duplicates via `search_notes` and asks whether to append, choose a new name, or cancel.
+**Q: What if a note with the same name exists?** A: The skill detects duplicates via `Obsidian:search_notes` and asks whether to append, choose a new name, or cancel.
 
-**Q: Can the skill update existing notes?** A: Yes. `read_note` + `patch_note` updates existing notes in place. Templates apply only to new note creation.
+**Q: Can the skill update existing notes?** A: Yes. `Obsidian:read_note` + `Obsidian:patch_note` updates existing notes in place. Templates apply only to new note creation.
 
 **Q: How are wikilinks validated?** A: Before adding a wikilink, the skill verifies the target file exists. Orphan wikilinks (pointing to missing files) create empty files at the vault root and are avoided.

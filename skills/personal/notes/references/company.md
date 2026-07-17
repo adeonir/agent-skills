@@ -27,8 +27,8 @@ Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallbac
 
 3. **Check if exists**
 
-   ```
-   search_notes query="{{Role}} {{Company Name}}" path="Companies/"
+   ```text
+   Obsidian:search_notes query="{{Role}} {{Company Name}}" path="Companies/"
    ```
 
 If a note for the same role+company exists, ask whether to append a new timeline entry or create a separate note (e.g., re-application later).
@@ -37,8 +37,8 @@ If a note for the same role+company exists, ask whether to append a new timeline
 
 5. **Write note**
 
-   ```
-   write_note path="Companies/{{Company Name}}/{{Role}} — {{Company Name}}.md" content="..."
+   ```text
+   Obsidian:write_note path="Companies/{{Company Name}}/{{Role}} — {{Company Name}}.md" content="..."
    ```
 
 ## Template
@@ -95,9 +95,9 @@ just the outcome.}}
 
 When the application progresses (interview scheduled, offer received, decision made):
 
-1. Read the note with `read_note`
-2. Use `patch_note` to append a row to the Timeline table
-3. Update the frontmatter `status` field via `find_replace`
+1. Read the note with `Obsidian:read_note`
+2. Use `Obsidian:patch_note` to append a row to the Timeline table
+3. Update the frontmatter `status` field via `Obsidian:update_frontmatter`
 4. Add new observations as the process unfolds
 
 Do not overwrite — keep the historical timeline intact.
