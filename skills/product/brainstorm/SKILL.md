@@ -18,14 +18,16 @@ argument-hint: "deep"
 
 Structured idea exploration from vague to direction, in two paths — **greenfield** from a blank problem space, **relentless** against existing thinking. Both run breadth-first: surface the non-obvious option before committing, then converge honestly, naming what each direction gives up. Problem before solution — a description of what to build is a hypothesis, not a direction.
 
-## Quick start
+## Triggers
 
-- Discovery (any entry) → [discovery.md](references/discovery.md)
-- Diverge (after discovery gate) → [diverge.md](references/diverge.md)
-- Converge (after 4+ alternatives) → [converge.md](references/converge.md)
-- Capture (after user approves direction) → [capture.md](references/capture.md)
+- **Greenfield** ("brainstorm this", "explore options", "compare approaches", "help me think through X") → [discovery.md](references/discovery.md)
+- **Relentless** ("pressure-test this plan", "find holes in this", "second opinion", "grill my assumptions", "considering a pivot") → [discovery.md](references/discovery.md)
 
-Workflow always starts with discovery. Load each reference when its phase begins.
+Every entry starts at discovery. The remaining references load as their phase begins:
+
+- [diverge.md](references/diverge.md) — after the discovery gate
+- [converge.md](references/converge.md) — after 4+ alternatives
+- [capture.md](references/capture.md) — after the user approves a direction
 
 ## Workflow
 
