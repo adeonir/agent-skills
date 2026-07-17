@@ -1,15 +1,14 @@
 ---
 name: epic-tracker
 description: >-
-  Manages the delivery lifecycle from roadmap and epic planning through story
-  tracking, across 4 artifact types (Epic, Story, Bug, Task) plus a
-  roadmap. Use when creating or editing an epic, story, task, bug,
-  or roadmap; decomposing a
-  roadmap into epics or an epic into stories; updating or listing delivery status;
-  moving an artifact to another epic; or
-  pushing artifacts to Linear or GitHub. Not for implementing a named
-  story with an existing spec, project-wide overview, feature status within a
-  spec, or quick fixes.
+  Manages the delivery lifecycle from roadmap and epic planning through
+  story tracking, across 4 artifact types (Epic, Story, Bug, Task) plus a
+  roadmap. Use when creating or editing an epic, story, task, bug, or
+  roadmap; decomposing a roadmap into epics or an epic into stories;
+  updating or listing delivery status; moving an artifact to another
+  epic; or pushing artifacts to Linear or GitHub. Not for implementing a
+  named story with an existing spec, project-wide overview, feature
+  status within a spec, or quick fixes.
 ---
 
 # Epic Tracker
