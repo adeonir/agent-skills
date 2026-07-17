@@ -22,6 +22,16 @@ description: >-
 
 Greenfield design pipeline for any digital product: discover, author `DESIGN.md` with a YAML frontmatter holding the authoritative design tokens plus prose sections that narrate them, and refine that identity. DESIGN.md is the primary artifact this skill authors and owns; `docs/design/styleguide.html` is its rendered styleguide.
 
+## Quick start
+
+| Operation | File |
+| --------- | ---- |
+| Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
+| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
+| Preview DESIGN.md tokens as a styleguide and tune them live | [preview.md](instructions/preview.md) |
+| Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
+| Patch DESIGN.md from drifted implementation or tuned deltas | [reconcile.md](instructions/reconcile.md) |
+
 ## Workflow
 
 ```text
@@ -50,15 +60,7 @@ Discovery classifies every engagement by field, then routes:
 
 `reconcile` is the drift operation, not a field — patch `DESIGN.md` from a drifted implementation or apply tuned deltas from `preview`. Lives in [reconcile.md](instructions/reconcile.md).
 
-## Operations
-
-| Operation | File |
-| --------- | ---- |
-| Explore and lock a visual direction when no reference exists | [direction.md](instructions/direction.md) |
-| Author or refresh DESIGN.md from images, codebase, URL, brand, design-tool file | [design.md](instructions/design.md) |
-| Preview DESIGN.md tokens as a styleguide and tune them live | [preview.md](instructions/preview.md) |
-| Audit DESIGN.md tokens, contrast, references, hierarchy | [validate.md](instructions/validate.md) |
-| Patch DESIGN.md from drifted implementation or tuned deltas | [reconcile.md](instructions/reconcile.md) |
+## Loading
 
 `discovery.md` auto-loads before every operation — never skipped, never invoked directly. `aesthetics.md` and the register files (`brand.md` / `product.md`) auto-load inside `direction.md`; `aesthetics.md` and the matching register file also auto-load inside `design.md` for token-authoring principles; `anti-patterns.md` auto-loads inside `preview.md`, which serves the styleguide through `scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG contrast through `scripts/check-contrast.py` — ratios are computed, never estimated. `validate.md` is both directly callable and auto-loaded as a gate by `design.md` and `reconcile.md`, so DESIGN.md never lands invalid.
 

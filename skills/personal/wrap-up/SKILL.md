@@ -13,14 +13,6 @@ description: >-
 
 End-of-session documentation to Obsidian.
 
-## Workflow
-
-```
-mapping → handoff:Load → obsidian-notes (enrich + compose) → handoff:Detect+Cleanup
-```
-
-Resolve project from current working directory, load any session handoff (when present), then write Obsidian notes. `obsidian-notes` opens with an Enrich step that folds relevant current-session observations from claude-mem into working context (silent skip when MCP unavailable). No confirmation between note-writing steps. The closing step runs structural-delta detection — silent unless a delta fires — then clears the handoff file automatically (wrap-up has already persisted the snapshot to Obsidian, so the on-disk copy is redundant).
-
 ## Triggers
 
 - **End-of-session command** ("wrap up", "wrap-up", "end session", "finish up", "close session") → run all references in sequence
@@ -31,6 +23,14 @@ The skill is single-trigger: every invocation runs the full workflow. Loading or
 2. [handoff.md](references/handoff.md) (Load phase) — fold all snapshots, grouped by date, when present
 3. [obsidian-notes.md](references/obsidian-notes.md) — write Obsidian session + daily notes
 4. [handoff.md](references/handoff.md) (Detect + Cleanup phases) — architecture-refresh hint + auto-clear
+
+## Workflow
+
+```text
+mapping → handoff:Load → obsidian-notes (enrich + compose) → handoff:Detect+Cleanup
+```
+
+Resolve project from current working directory, load any session handoff (when present), then write Obsidian notes. `obsidian-notes` opens with an Enrich step that folds relevant current-session observations from claude-mem into working context (silent skip when MCP unavailable). No confirmation between note-writing steps. The closing step runs structural-delta detection — silent unless a delta fires — then clears the handoff file automatically (wrap-up has already persisted the snapshot to Obsidian, so the on-disk copy is redundant).
 
 ## Guidelines
 

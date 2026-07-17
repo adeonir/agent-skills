@@ -18,18 +18,6 @@ description: >-
 
 Creates well-scoped rules in `.claude/rules/` and manages the rule set.
 
-## Workflow
-
-```
-trigger → dispatch → classify → context → render → write
-              |              |
-              v              v
-           list/edit     refuse (procedural / lifecycle / one-off)
-           extract/del
-```
-
-Dispatch picks the mode from verb signals. Create runs the classifier and project context check before rendering the template. Other modes skip classification.
-
 ## Triggers and dispatch
 
 | Signal in input | Mode | Load |
@@ -41,6 +29,18 @@ Dispatch picks the mode from verb signals. Create runs the classifier and projec
 | "delete / remove rule X" | delete | [modes.md](references/modes.md) |
 
 Scope is project only: rules land in `.claude/rules/`. User-level rules (`~/.claude/rules/`) are out of scope.
+
+## Workflow
+
+```text
+trigger → dispatch → classify → context → render → write
+              |              |
+              v              v
+           list/edit     refuse (procedural / lifecycle / one-off)
+           extract/del
+```
+
+Dispatch picks the mode from verb signals. Create runs the classifier and project context check before rendering the template. Other modes skip classification.
 
 ## Create gates (run in order)
 

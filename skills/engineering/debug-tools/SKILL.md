@@ -15,15 +15,6 @@ description: >-
 
 Iterative debugging workflow with flexible technique selection and escalation.
 
-## Workflow
-
-```
-investigate → fix → verify → done
-  ^_______________________|  (max 3 attempts, then escalate)
-```
-
-Core loop: investigate, fix, verify. Techniques (log injection, pattern comparison, focus area analysis) are tools within investigation, not mandatory phases. Log cleanup happens automatically after verification succeeds.
-
 ## Triggers
 
 - **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → [investigation.md](references/investigation.md)
@@ -32,6 +23,15 @@ Core loop: investigate, fix, verify. Techniques (log injection, pattern comparis
 - **Pattern lookup** ("debug patterns", "common bugs", "log format") → [debugging-patterns.md](references/debugging-patterns.md)
 
 Multiple references may load during one debugging session — investigation often leads to log injection, then back to investigation.
+
+## Workflow
+
+```text
+investigate → fix → verify → done
+  ^_______________________|  (max 3 attempts, then escalate)
+```
+
+Core loop: investigate, fix, verify. Techniques (log injection, pattern comparison, focus area analysis) are tools within investigation, not mandatory phases. Log cleanup happens automatically after verification succeeds.
 
 ## Guidelines
 

@@ -13,14 +13,6 @@ description: >-
 
 Creates and manages Obsidian notes using MCPVault MCP for structured documentation.
 
-## Workflow
-
-```
-resolve-vault → select-type → compose-note → write → link-related
-```
-
-Each note type has its own workflow. Use any type independently.
-
 ## Triggers
 
 - **Project note** ("create project", "new project note", "document project") → [project.md](references/project.md)
@@ -31,6 +23,14 @@ Each note type has its own workflow. Use any type independently.
 - **Markdown syntax help** ("wikilink", "callout", "embed", "Obsidian syntax") → [markdown.md](references/markdown.md)
 
 `mapping.md` is loaded by the note-creation refs to resolve vault paths; not a direct trigger. `markdown.md` is an informational reference with no write operations.
+
+## Workflow
+
+```text
+resolve-vault → select-type → compose-note → write → link-related
+```
+
+Each note type has its own workflow. Use any type independently.
 
 ## Filename Sanitization
 

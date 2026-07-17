@@ -18,16 +18,7 @@ argument-hint: "deep"
 
 Structured idea exploration from vague to direction, in two paths — **greenfield** from a blank problem space, **relentless** against existing thinking. Both run breadth-first: surface the non-obvious option before committing, then converge honestly, naming what each direction gives up. Problem before solution — a description of what to build is a hypothesis, not a direction.
 
-## Workflow
-
-```
-trigger → detect path → discover → diverge → converge → capture
-              ^________________________________|  (if no viable direction)
-```
-
-Detect path from entry state — greenfield when no concrete idea is present, relentless when an idea or plan exists regardless of maturity. Discover maps the problem space. Diverge generates alternatives. Converge evaluates trade-offs and picks a direction. Capture produces the artifact.
-
-## References
+## Quick start
 
 - Discovery (any entry) → [discovery.md](references/discovery.md)
 - Diverge (after discovery gate) → [diverge.md](references/diverge.md)
@@ -35,6 +26,15 @@ Detect path from entry state — greenfield when no concrete idea is present, re
 - Capture (after user approves direction) → [capture.md](references/capture.md)
 
 Workflow always starts with discovery. Load each reference when its phase begins.
+
+## Workflow
+
+```text
+trigger → detect path → discover → diverge → converge → capture
+              ^________________________________|  (if no viable direction)
+```
+
+Detect path from entry state — greenfield when no concrete idea is present, relentless when an idea or plan exists regardless of maturity. Discover maps the problem space. Diverge generates alternatives. Converge evaluates trade-offs and picks a direction. Capture produces the artifact.
 
 ## Guidelines
 

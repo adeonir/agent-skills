@@ -21,7 +21,7 @@ description: >-
 
 craft-ui builds the interface — composing DESIGN.md (identity), WIREFRAME.md (structure), and copy.yaml (content) into full-page HTML variants — and pressure-tests it, without touching production. Its core mode is **render**: construct the real UI in several visual directions to decide one. Two judging modes follow: **critique** (a chosen variant, pre-impl) and **audit** (a built UI, pre-release). The three share one rubric (register, design-thinking, heuristics, the craft dimensions, anti-patterns, web standards, scoring) and one invariant: **non-mutating end to end** — render writes only throwaway variant HTML to `.artifacts/`; critique and audit only report. It never edits tokens, layout, copy, or production code, and it builds variants to decide a direction, not production components.
 
-## Modes
+## Quick start
 
 | Mode | Verb | Target | Moment | Output |
 | ---- | ---- | ------ | ------ | ------ |

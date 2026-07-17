@@ -15,19 +15,19 @@ argument-hint: "[focus]"
 
 Capture conversation state to `.artifacts/HANDOFF.md` so a later session resumes with full context. Three ops: save, load, clear.
 
-## Workflow
-
-```
-save  → append snapshot at top of .artifacts/HANDOFF.md
-load  → Read .artifacts/HANDOFF.md; latest snapshot at top
-clear → overwrite .artifacts/HANDOFF.md with empty content
-```
-
 ## Triggers
 
 - **Save** ("save context", "dump conversation", "checkpoint this", "session handoff", "save handoff") → [save.md](references/save.md)
 - **Load** ("resume session", "load handoff", "continue from last") → [load.md](references/load.md)
 - **Clear** ("clear handoff", "reset handoff") → see Clear below
+
+## Workflow
+
+```text
+save  → append snapshot at top of .artifacts/HANDOFF.md
+load  → Read .artifacts/HANDOFF.md; latest snapshot at top
+clear → overwrite .artifacts/HANDOFF.md with empty content
+```
 
 ## Clear
 
