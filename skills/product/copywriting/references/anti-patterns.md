@@ -45,6 +45,8 @@ A rule's Check is one of two kinds, and critique and audit treat them differentl
 
 Copy tells skew perceptual. Even a rule that looks deterministic is really about a shape, not a string: the same hollow frame reappears reworded and in any language, so a literal-string blocklist catches the example and never the family. Learn the shape. write avoids both kinds while drafting; critique and audit report both.
 
+The deterministic kind is mirrored in the lists of `scripts/slop_scan.py` — a deterministic rule added or changed here lands in the script's lists in the same change, so the scan and this catalog never diverge.
+
 ## Dead Words
 
 ### dead-marketing-words

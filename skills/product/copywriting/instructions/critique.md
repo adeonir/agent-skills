@@ -54,7 +54,7 @@ Write the verdict using the template in [scoring.md](../references/scoring.md): 
 
 Close with 2–3 questions that open the next pass instead of only grading this one — "What would the most specific version of this headline say?", "Which claim here could a competitor not make?", "Does the CTA name the real outcome?". They aim refresh's next pass.
 
-Hand the refinements to refresh; re-edit and re-critique until the copy holds. Critique never edits the copy itself.
+Hand the refinements to refresh; re-edit and re-critique until the copy holds — the total reaches the Good band (see [scoring.md](../references/scoring.md)) with no P0 or P1 open, or the user accepts the current state. Critique never edits the copy itself.
 
 ### Step 6: Self-check
 

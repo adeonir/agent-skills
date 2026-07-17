@@ -21,8 +21,6 @@ Owns `copy.yaml` — the structured content payload a design consumes. Content i
 
 ## Quick start
 
-Produces and judges `copy.yaml`, the content payload a design consumes.
-
 **Author** — produce or change copy:
 
 - **write** — author fresh copy from intent (headlines, body, CTAs). → [write.md](instructions/write.md)
