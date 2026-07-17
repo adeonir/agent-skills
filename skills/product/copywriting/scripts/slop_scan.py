@@ -38,7 +38,9 @@ OPENERS = [
 ]
 
 EM_DASH = "—"          # U+2014 em-dash; the over-used machine pause
-EM_DASH_PER_LINE_MAX = 1    # em-dash-density rule: >1 in one unit is the tell
+# em-dash-density rule: >1 per unit is the tell. The rule's unit is a paragraph
+# in prose, a line/value in structured copy; this scan uses the line as its unit.
+EM_DASH_PER_LINE_MAX = 1
 
 
 def read_input(argv):

@@ -27,7 +27,9 @@ Extract strings from rendered routes or component files. Scope to the content pa
 
 ### Step 3: Diff
 
-List the content paths whose values diverged — changed, added, or missing in the implementation. Present one structured diff.
+List the content paths whose values diverged — changed or missing in the implementation. Present one structured diff.
+
+Strings present in the implementation but absent from `copy.yaml` are **additions** — report them in a separate section of the diff, never as patch rows. Reconcile syncs values on existing paths only; bringing an addition into the tree is a write (or extract) run the user chooses after seeing the report.
 
 ### Step 4: Confirm Before Write
 
@@ -62,4 +64,5 @@ Resolve any flags (advisory — judge false positives like a product named "Grid
 - `copy.yaml` missing: stop and route the user to extract or write content first
 - Implementation source unreadable (codebase path missing, URL unreachable): ask the user to re-supply or provide a live URL fallback
 - Diff is empty: report `no drift detected` and stop
+- Diff carries only additions: report them, route to write or extract, apply no patches
 - User rejects every patch row: leave the file untouched, report what was rejected so the user can revisit later

@@ -13,7 +13,7 @@ Author fresh copy from intent into `copy.yaml`. Greenfield: when there is no exi
 
 ### Step 1: Establish Intent
 
-From discovery, or ask one question at a time:
+From discovery, or fill what is missing. The core question — item 1 — gets its own turn; the rest are independent: batch them with a recommendation each, or declare confidently inferable answers as assumptions to correct:
 
 1. What is the core thing to communicate, and the one action the reader should take?
 2. Audience — who they are, the problem they have, the objections they raise.

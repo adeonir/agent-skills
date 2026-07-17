@@ -74,8 +74,6 @@ ALWAYS use this exact template structure:
 metadata:
   source: "{{URL, brief file, screenshot description, or 'none'}}"
   extraction_date: "{{YYYY-MM-DD}}"
-  version: "1.0.0"
-  status: "draft"
 
 project:
   name: "{{Project Name}}"

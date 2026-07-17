@@ -43,4 +43,4 @@ Disambiguation — "before handoff" matches two operations. A judge request with
 
 ### Step 4: Fill Gaps
 
-When context is missing, ask one question at a time: source, the surfaces the copy covers (landing, dashboard, form…) and their register (from `PRODUCT.md`'s default when present, else brand or product — usually inferable from the surface), and any constraints (word count, mandatory sections).
+When context is missing, match the ask to the gap. Declare confidently inferable values as assumptions ("Assuming product register for the dashboard — correct me if not") and continue. Batch independent low-stakes gaps — source, constraints (word count, mandatory sections) — in one turn, each with a recommendation. Keep dependent picks one at a time: a surface first (landing, dashboard, form…), then its register (from `PRODUCT.md`'s default when present, else brand or product — usually inferable from the surface).

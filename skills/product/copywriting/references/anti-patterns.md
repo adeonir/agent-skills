@@ -104,7 +104,7 @@ We rebuilt the matching engine; searches that took 8 seconds now take 200ms.
 ## Punctuation and Rhythm
 
 ### em-dash-density
-**Category:** Punctuation and Rhythm **Severity:** warning **Check:** More than one em-dash in a paragraph. The mark manufactures a dramatic pause the sentence did not earn; density is the giveaway, not the single mark. **Fix:** Default to a comma, period, or colon. Reach for an em-dash only for a genuine aside, and rarely — at most one per paragraph. **Example fail:**
+**Category:** Punctuation and Rhythm **Severity:** warning **Check:** More than one em-dash per unit — a paragraph in prose, a line or value in structured copy (the unit the deterministic scan counts). The mark manufactures a dramatic pause the sentence did not earn; density is the giveaway, not the single mark. **Fix:** Default to a comma, period, or colon. Reach for an em-dash only for a genuine aside, and rarely — at most one per paragraph. **Example fail:**
 ```text
 Our tool — built for teams — saves time — so you ship faster.
 ```
