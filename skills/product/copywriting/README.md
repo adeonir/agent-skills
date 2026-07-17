@@ -6,12 +6,13 @@ Authors and judges `copy.yaml` — the structured content payload a design consu
 
 ```mermaid
 flowchart TD
-    Intent[Brief / Requirements / Description] -->|write| B[copy.yaml]
-    A[URL / Brief / Codebase / Screenshot] -->|extract| B
-    Impl[Implementation] -->|reconcile| B
-    B -->|refresh| B
-    B -->|revoice| B
-    B -->|critique / audit| V[Verdict: score + P0-P3 findings]
+    R[Request] --> DSC{Discovery — classify and route}
+    DSC -->|write from intent| B[copy.yaml]
+    DSC -->|extract from URL / brief / codebase / screenshot| B
+    DSC -->|reconcile from implementation| B
+    DSC -->|refresh same voice| B
+    DSC -->|revoice new voice| B
+    DSC -->|critique / audit on copy.yaml, a draft, or a URL| V[Verdict: score + P0-P3 findings]
     V -.->|apply via refresh / revoice / write| B
     B --> D[Design work consumes copy.yaml]
 ```
