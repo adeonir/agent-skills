@@ -45,10 +45,6 @@ moodboard.md  DESIGN.md   styleguide.html (tune live)
 
 Arrows show the suggested greenfield order. `direction` auto-skips when a visual direction is already given (reference images, URL, codebase, text description); it runs only when the direction is absent, exploring a mood into `moodboard.md` that `design` then authors tokens from. `preview` is optional and runs after `design` — it renders the tokens as a specimen sheet and tunes them live; tuned deltas commit back through `reconcile.md`, the sole patcher. Each step is invokable standalone — call them in any order, skip any of them, or run only the one you need. Brownfield drift after handoff → `reconcile.md`.
 
-> **Auto-load:** `discovery.md` runs before every operation — never
-> skipped, never invoked directly. It reads the surfaces, source,
-> and entry mode so downstream phases route correctly.
-
 DESIGN.md holds the visual identity as a YAML frontmatter carrying the normative design tokens (`colors`, `typography`, `rounded`, `borderWidth`, `spacing`, `components`, `elevation`, `duration`, `easing`, `breakpoints`) plus prose sections that narrate them, following the `design.md` spec order (Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Motion & Interaction, Responsive Behavior, Do's and Don'ts, Agent Prompt Guide). Token references use `{path.to.token}` syntax. The frontmatter is the authoritative state; the prose narrates it. Layout and content are separate concerns, not part of DESIGN.md.
 
 ## Fields
@@ -62,7 +58,7 @@ Discovery classifies every engagement by field, then routes:
 
 ## Loading
 
-`discovery.md` auto-loads before every operation — never skipped, never invoked directly. `aesthetics.md` and the register files (`brand.md` / `product.md`) auto-load inside `direction.md`; `aesthetics.md` and the matching register file also auto-load inside `design.md` for token-authoring principles; `anti-patterns.md` auto-loads inside `preview.md`, which serves the styleguide through `scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG contrast through `scripts/check-contrast.py` — ratios are computed, never estimated. `validate.md` is both directly callable and auto-loaded as a gate by `design.md` and `reconcile.md`, so DESIGN.md never lands invalid.
+`discovery.md` auto-loads before every operation — never skipped, never invoked directly. It reads the surfaces, source, and entry mode so downstream phases route correctly. `aesthetics.md` and the register files (`brand.md` / `product.md`) auto-load inside `direction.md`; `aesthetics.md` and the matching register file also auto-load inside `design.md` for token-authoring principles; `anti-patterns.md` auto-loads inside `preview.md`, which serves the styleguide through `scripts/preview-server.ts`. `design.md` and `validate.md` compute WCAG contrast through `scripts/check-contrast.py` — ratios are computed, never estimated. `validate.md` is both directly callable and auto-loaded as a gate by `design.md` and `reconcile.md`, so DESIGN.md never lands invalid.
 
 ## Guidelines
 
