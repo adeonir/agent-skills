@@ -157,6 +157,9 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 
 ## Environment
 
+{Remove this section when the environment is not relevant to the defect —
+always keep it for UI bugs.}
+
 | Field | Value |
 |-------|-------|
 | Browser | {{e.g., Chrome 122}} |

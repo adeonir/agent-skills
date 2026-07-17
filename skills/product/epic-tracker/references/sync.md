@@ -98,10 +98,11 @@ The artifact body — including `## References` and `## Signals` — travels int
 3. Load the adapter matching the kind:
    - `linear` → [adapter-linear.md](adapter-linear.md)
    - `github` → [adapter-github.md](adapter-github.md)
-4. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone bug or task (no `epic_id`) passes none.
-5. The adapter creates the artifact through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
-6. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies).
-7. **On failure of every available channel:** hold the draft in the session, surface the error, and offer to retry once the integration is back. Never discard the drafted content.
+4. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
+5. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone bug or task (no `epic_id`) passes none.
+6. The adapter creates the artifact through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
+7. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies).
+8. **On failure of every available channel:** hold the draft in the session, surface the error, and offer to retry once the integration is back. Never discard the drafted content.
 
 ## Update (edit → tracker)
 

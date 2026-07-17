@@ -83,6 +83,10 @@ GitHub Issues have an `open` / `closed` state plus optional state reason (`compl
 
 When `epic-tracker.project` is set and the Project has a Status field, prefer the Project field over labels.
 
+## Body Normalization
+
+GitHub renders the Issue title above the body; a leading H1 that repeats the title would render twice. On every write (`create_epic`, `create_story` / `create_bug` / `create_task`, `update_artifact`), strip a leading H1 matching the Issue title before sending the body. Leave any other heading intact.
+
 ## Milestone
 
 Milestone is a native repo-level GitHub Milestone, independent of the Projects v2 layer. It carries only a title here; never set a due date, so the materialized milestone stays dateless (a user may add one in the UI; leave it untouched).

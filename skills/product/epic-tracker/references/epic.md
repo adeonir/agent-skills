@@ -19,7 +19,7 @@ Check for existing context before asking questions:
 3. Look for `docs/ROADMAP.md` -- read for sequencing context that may inform `blocked_by` suggestions, and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. The roadmap carries the set of IDs; the PRD carries each one's statement — resolve them there (step 1). It enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. Do not record the roadmap as a source; epics never reference the roadmap.
 4. Look for `docs/tech/design-doc.md` if it exists -- read only for constraints that may affect scope or rabbit holes. Record it in `## References` if relevant.
 5. If found, summarize what was extracted and confirm with user
-6. If not found, ask the user:
+6. If not found, ask the user — the three questions are independent, so batch them in one turn, each carrying your read when the context suggests one:
    - What problem does this epic solve?
    - Who benefits?
    - What changes for the user when this is done?
