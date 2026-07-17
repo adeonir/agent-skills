@@ -88,7 +88,6 @@ Here is a sensible default format, but use your best judgment — phase headings
 ````markdown
 ---
 updated: {{YYYY-MM-DD}}
-status: {{draft | stable | provisional}}
 sources:
   - PRD: {{link to docs/product/PRD.md or "None"}}
   - PRODUCT: {{link to docs/product/PRODUCT.md or "None"}}
@@ -119,5 +118,5 @@ MUST NOT contain, in any entry: deadlines or dates, per-story detail, section nu
 - The roadmap references its epics; epics never point back at it — they stay self-contained
 - Organizing is not creating — materialize epics via [decompose.md](decompose.md)
 - Mark the roadmap provisional when the PRD is missing or known to be unstable
-- Populate frontmatter `updated`, `status`, and `sources` on every write
+- Populate frontmatter `updated` and `sources` on every write
 - Use tags sparingly: `foundation`, `validation`, `high-risk`, `external-dependency` — never as a substitute for the capability description
