@@ -24,7 +24,7 @@ The proposed interpretation with its redirect invite is the complete first turn.
 
 ## Workflow
 
-Never assume context. Always interview before generating alternatives. Brainstorming discovery maps the space of possibilities before any direction exists — different from skills that refine an already-chosen idea.
+Never assume context silently. Always interview before generating alternatives. Brainstorming discovery maps the space of possibilities before any direction exists — different from skills that refine an already-chosen idea.
 
 Interview is adaptive, not scripted. Walk the decision tree: each answer reveals which branch to explore next. Resolve dependencies between decisions before advancing — don't ask B until A is settled if B depends on A.
 
@@ -42,7 +42,16 @@ Extract the current-state answer, not the code: file paths, symbols, and impleme
 
 **Always carry a recommendation:** Never ask a cold, open-ended question. Every turn states your read — either an interpretation with its redirect invite ("It sounds like X — is that right?") or a question paired with your recommended answer ("Gate on role or on plan? I'd gate on role, because the plan can change mid-session — agree?"). A question without a POV pushes the work the interview exists to do back onto the user.
 
-**One question at a time:** Never batch questions. One interpretation, or one question-with-recommendation — not both. The turn ends on its invite ("is that right?" / "agree?"). Do not add a second question after it.
+**Question cadence:** Match the form of the turn to dependency and stakes — a gradient, not a fixed rule:
+
+| Situation | Form |
+|-----------|------|
+| Dependent branch, or high TBD weight (Topics 1-2) | One question per turn, with recommendation; the turn ends on its invite |
+| High confidence in the read | Declared assumption, not a question — "Assuming X and Y — correct anything wrong" — and continue |
+| Independent questions, low TBD weight | Batch of 2-3, each carrying its own recommendation |
+| End of topic | Summary-confirm (below) |
+
+A rubber-stamp streak — the user answering only "yes, agreed" turn after turn — is the signal to shift down: convert the next confirmations into declared assumptions and spend questions only where the answer could change the branch. Never batch dependent questions — an answer that decides the next branch always gets its own turn. Declared assumptions are interview, not silence: every assumption is stated for correction and lands in the quality-gate summary.
 
 **Summarize before advancing:** Before moving to the next topic, summarize what was learned and confirm with the user.
 
@@ -149,6 +158,7 @@ Before advancing to diverge, confirm:
 - [ ] Hard constraints are identified
 - [ ] Success criteria defined or explicitly TBD (carried forward to converge)
 - [ ] Open TBDs logged with topic and weight
+- [ ] Declared assumptions surfaced in the summary for correction
 - [ ] User has confirmed the summary
 
 Present a summary and confirm before advancing to diverge. Only proceed after confirmation.
@@ -160,6 +170,7 @@ Present a summary and confirm before advancing to diverge. Only proceed after co
 - Propose your interpretation, let the user confirm or redirect
 - Explore the codebase when current-state questions can be answered that way
 - Walk the decision tree within each topic — let answers drive the next branch
+- Shift to declared assumptions on a rubber-stamp streak — spend questions where the answer could change the branch
 - Push once more on Topics 1 and 2 TBDs before accepting on grill entry
 - Log open TBDs with their topic weight before advancing
 
@@ -169,5 +180,6 @@ Present a summary and confirm before advancing to diverge. Only proceed after co
 - Ask about current state when the codebase can answer it
 - Accept motivation or constraint TBDs without a second push on grill entry
 - Move past the quality gate without user confirmation
-- Add a second question after the interpretation invite
+- Batch dependent questions, or batch anything on Topics 1 and 2
+- Add a second question after the opening interpretation invite
 - Repeat "stress-test" or "pressure-test" as labels throughout the response
