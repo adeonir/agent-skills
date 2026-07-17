@@ -6,7 +6,7 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 - User wants to plan a new feature area or initiative
 - User says "create epic", "new epic"
-- A PRD or brief exists and needs to be broken into deliverable epics
+- Not for deriving a set of epics from the PRD — that is the `decompose` ceremony
 
 ## Workflow
 
@@ -16,7 +16,7 @@ Check for existing context before asking questions:
 
 1. Look for `docs/product/PRD.md` -- extract relevant functional requirements and scope, and note the requirement IDs (`FR/BR/EC/NFR`) this epic owns for `## Requirements` (Draft, below). Resolve each ID against the PRD and carry its **statement** with it: the epic declares what each requirement demands, not just which ones it owns, so the tracker alone tells a reader what `FR-3` asks for. Also note the PRD's **Definition of Done** and **External Dependencies** when they shape this epic's scope or risks.
 2. Look for `docs/product/PRODUCT.md` -- extract positioning (value proposition, audience posture).
-3. Look for `docs/ROADMAP.md` -- read for sequencing context that may inform `blocked_by` suggestions, and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. The roadmap carries the set of IDs; the PRD carries each one's statement — resolve them there (step 1). It enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. Do not record the roadmap as a source; epics never reference the roadmap.
+3. Look for `docs/product/ROADMAP.md` -- read for sequencing context and for this epic's entry. When the entry carries a `Requirements` field, that set is the epic's `## Requirements` — the partition was settled across the whole PRD, so inherit it rather than re-deriving the IDs from the PRD alone. The roadmap carries the set of IDs; the PRD carries each ID's statement — resolve them there (step 1). Dependencies do not come from here: they travel as the resolved `blocked_by` dispatch input `decompose` supplies (it resolves the entry's `Blocked by` titles to tracker ids during materialization). The entry enters as a claim, not authority: when the set contradicts the epic's scope — an ID the scope cannot cover, or one that plainly belongs to a neighbor — surface the mismatch and settle it against the roadmap before drafting, rather than silently adding or dropping IDs here. No entry (a one-off epic with none in the roadmap) falls through to the direct questions below. Do not record the roadmap as a source; epics never reference the roadmap.
 4. Look for `docs/tech/design-doc.md` if it exists -- read only for constraints that may affect scope or rabbit holes. Record it in `## References` if relevant.
 5. If found, summarize what was extracted and confirm with user
 6. If not found, ask the user — the three questions are independent, so batch them in one turn, each carrying your read when the context suggests one:
@@ -35,7 +35,7 @@ Fill the template (below) with discovered context.
 **Dispatch inputs** — structured fields that travel to the tracker as metadata, never as body prose:
 
 - **Title**: short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — becomes branch name slug downstream. Declarative — names the capability (`User authentication`), never a narrative outcome (`Users can sign in securely`). The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in References or the body, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body's Summary section.
-- **Blocked by**: the artifacts that must finish before this one can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce delivery order; leave empty when nothing blocks it. See [sync.md](sync.md) "Dependencies".
+- **Blocked by**: the artifacts that must finish before this one can start, listed in `blocked_by` — tracker ids or URLs. When `decompose` fed this epic, it resolves the roadmap entry's `Blocked by` titles to tracker ids and passes them; on a direct create, the user supplies them. Lets the tracker enforce delivery order; leave empty when nothing blocks it. See [sync.md](sync.md) "Dependencies".
 - **Milestone**: optional, and only [decompose.md](decompose.md) supplies it — the name of the roadmap phase this epic materializes from. Never hand-typed, and empty when the epic is created directly here. It travels as tracker metadata, not body prose, so the epic body still never names the roadmap. See [sync.md](sync.md) Operations Summary.
 
 **Body** — the content that becomes the tracker description:
@@ -86,7 +86,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 **DO:**
 - Extract context from existing docs before asking questions
 - Consider the PRD's Definition of Done and External Dependencies when shaping scope, rabbit holes, and open questions
-- Use the roadmap for `blocked_by` suggestions and for the requirement set assigned to this epic; never record it as a source or name it in the body
+- Read the roadmap entry for the requirement set assigned to this epic (dependencies arrive resolved from `decompose`, not read here); never record it as a source or name it in the body
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - Run discover first, even when the user provides context directly
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD

@@ -1,13 +1,12 @@
 # Create Story
 
-Define a story: a demonstrable slice of user-visible value within an epic, with acceptance criteria that are verified independently and satisfy a parent-epic requirement. Enabling work with no demonstrable user outcome is a Task, not a Story — see [discriminator.md](discriminator.md).
+Define a story: a demonstrable slice of user-visible value within an epic, with acceptance criteria that are verified independently and satisfy a parent-epic requirement. Enabling work with no demonstrable user outcome is a Task, not a Story — see [discriminator.md](../references/discriminator.md).
 
 ## When to Use
 
 - User wants to detail a story within an epic
 - User says "create story", "new story", "add story"
 - User says "edit story", "update story", "change story" — run the edit branch below
-- Breaking down an epic into actionable work items
 
 ## Workflow
 
@@ -27,7 +26,7 @@ The epic enters as a claim, not authority. Read it for scope and naming context 
 
 The epic declares the PRD requirements it owns in its `## Requirements`, one per line as `ID — statement`. That set is the menu this story's acceptance criteria may operationalize. Each `### AC-N` links the requirement it satisfies on a `**Satisfies**` line: backward provenance the spec inherits 1:1, the one upstream reference that crosses, and never in prose. When the story depends on an architectural decision, record `ADR-NNN` in `## References`, not as a requirement.
 
-Tracker descriptions are reflowed markdown — Linear in particular collapses list items and rewraps paragraphs. Parse `## Requirements` with the same whitespace tolerance the AC parser uses (see [ac-validation.md](ac-validation.md)); a requirements list that fails to parse is a parse failure to surface, never an epic with no requirements.
+Tracker descriptions are reflowed markdown — Linear in particular collapses list items and rewraps paragraphs. Parse `## Requirements` with the same whitespace tolerance the AC parser uses (see [ac-validation.md](../references/ac-validation.md)); a requirements list that fails to parse is a parse failure to surface, never an epic with no requirements.
 
 ### 2. Draft
 
@@ -43,7 +42,7 @@ Fill the template (below).
 
 - **Prose context**: what this story delivers, who benefits, what changes for the user. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). A story materialized via decompose always carries its settled boundary here (see [decompose.md](decompose.md)); otherwise remove the section if nothing is ambiguous.
-- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V8, then against the epic's requirements. See [ac-validation.md](ac-validation.md).
+- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V8, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
 - **Rabbit Holes**: execution traps specific to this story — edge cases, ordering constraints, integration quirks; not implementation advice or upstream design notes. A trap belongs to the story whose domain owns it, not the story you were authoring when it surfaced — being the first story of an initiative does not make it the owner. If it affects other stories, relocate it to the sibling that owns the domain: the trap moves, it is not cross-referenced
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
 - **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. They travel into the tracker description, so a fresh session recovers context from the tracker alone.
@@ -58,7 +57,7 @@ Apply the resumption gate before proceeding:
 
 ### 3. Validate Acceptance Criteria
 
-Load [ac-validation.md](ac-validation.md) and run V1-V8 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue.
+Load [ac-validation.md](../references/ac-validation.md) and run V1-V8 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue.
 
 Then resolve each `Satisfies` line against the epic's `## Requirements`, fetched in Step 1. Only this step can do it, because only this step holds the epic. The resolution answers two questions at once:
 
@@ -142,7 +141,7 @@ MUST NOT contain: sibling story or task names — state each boundary in terms o
 **Then** {{expected outcome}}
 **Satisfies** {{parent-epic requirement this AC operationalizes — e.g. FR-3; omit the line when the AC maps to no requirement}}
 
-{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`). See [ac-validation.md](ac-validation.md) for the contract and a worked example.}
+{Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`). See [ac-validation.md](../references/ac-validation.md) for the contract and a worked example.}
 
 MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), or a Then that restates a sibling's deliverable or anything listed in Out of Scope.
 

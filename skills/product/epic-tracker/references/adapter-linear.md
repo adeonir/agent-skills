@@ -1,6 +1,6 @@
 # Linear Adapter
 
-Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: linear`.
+Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](../instructions/sync.md) when `epic-tracker.kind: linear`.
 
 ## When to Use
 

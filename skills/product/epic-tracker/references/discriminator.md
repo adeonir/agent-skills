@@ -4,7 +4,7 @@ Choose the artifact type for a unit of work — Bug, Story, or Task — from one
 
 ## When to Use
 
-Before creating an artifact when the trigger does not already name the type, or when a create flow suspects the work belongs to a different type. The create refs ([story.md](story.md), [task.md](task.md), [bug.md](bug.md)) point here on their type-redirect paths.
+Before creating an artifact when the trigger does not already name the type, or when a create flow suspects the work belongs to a different type. The create refs ([story.md](../instructions/story.md), [task.md](../instructions/task.md), [bug.md](../instructions/bug.md)) point here on their type-redirect paths.
 
 ## Decision
 

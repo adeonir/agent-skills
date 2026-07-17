@@ -1,6 +1,6 @@
 # GitHub Adapter
 
-Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](sync.md) when `epic-tracker.kind: github`.
+Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](../instructions/sync.md) when `epic-tracker.kind: github`.
 
 ## When to Use
 

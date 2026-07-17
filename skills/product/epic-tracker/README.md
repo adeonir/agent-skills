@@ -6,22 +6,22 @@ Manages the delivery lifecycle from epic planning through story tracking, in an 
 
 ```mermaid
 flowchart TD
-    PRD[PRD] -.-> RM[Roadmap]
-    PRD -.-> EP
-    RM -->|decompose| EP[Epic]
-    EP -->|decompose| ST[Story]
-    EP -->|decompose| TK[Task]
-    BG[Bug] --> SY
-    EP --> SY
-    ST -->|AC validated| SY[Sync]
-    TK --> SY
+    PRD[docs/product/PRD.md] --> DEC[decompose — brain:<br>derive, ICE, order, partition, deps]
+    DEC -->|entries| RW[roadmap.md — writer]
+    RW -->|writes| RM[(docs/product/ROADMAP.md)]
+    DEC -->|checkpoint → each epic| EP[epic.md]
+    RM -.reads its entry.-> EP
+    DEC -->|epic → stories/tasks| STK[story.md / task.md]
+    EP --> SY[sync.md]
+    STK -->|AC validated| SY
+    BG[bug.md] --> SY
     SY --> LN[(Linear)]
     SY --> GH[(GitHub)]
 ```
 
-An epic groups the stories and tasks that deliver it; a bug hangs under an epic or stands alone. `decompose` materializes one level at a time — a roadmap into its epics, an epic into its stories and tasks — and each child is drafted to its own template. A story's acceptance criteria are validated before anything reaches the tracker.
+`decompose` is the brain: it derives the epic set from the PRD, writes the plan to the roadmap through `roadmap.md`, and — after a checkpoint — materializes each epic through `epic.md`, then each story and task through `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker; a bug hangs under an epic or stands alone.
 
-Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing is written locally, and the tracker is the single source of truth. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/ROADMAP.md` is the one local file, and it is optional.
+Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing but the roadmap is written locally, and the tracker is the single source of truth for state. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/product/ROADMAP.md` is the one local file — committed, alongside `PRD.md` and `PRODUCT.md`.
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
@@ -59,9 +59,9 @@ Dependencies are editable for the life of the artifact, not just at creation: "b
 ## Usage
 
 ```text
-create roadmap             -- organize epics into an ordered flow in docs/ROADMAP.md
-create epic                -- plan a new epic with scope and requirements
-decompose                  -- materialize a roadmap into epics, or an epic into stories/tasks
+create roadmap             -- derive the epic set from the PRD, write docs/product/ROADMAP.md, then materialize
+create epic                -- draft one epic directly (a PRD-less one-off)
+decompose                  -- run the ceremony: PRD into a roadmap of epics, or an epic into stories/tasks
 create story               -- add a story (a demonstrable slice of user value) to an existing epic
 edit story                 -- update an existing story; AC changes re-validate
 report bug                 -- document a defect with reproduction steps and severity
@@ -84,7 +84,7 @@ The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## 
 
 ## Roadmap
 
-The roadmap organizes the project's epics into an ordered flow, derived from the PRD, in `docs/ROADMAP.md`. `create roadmap` writes and updates this living plan in place; `decompose` materializes it into epics (and an epic into stories and tasks). It is optional — a local planning aid, never mirrored to the tracker, and committing it is the user's call. Epics stay self-contained: they never reference the roadmap.
+The roadmap is `decompose`'s record of the settled plan — the project's epics in an ordered flow, in `docs/product/ROADMAP.md`, committed alongside `PRD.md` and `PRODUCT.md`. `decompose` requires a PRD, derives the epics, and writes the roadmap through `roadmap.md`; there is no separate step that decides the plan elsewhere. Each entry carries the epic's capability, the requirement IDs it owns, and its `Blocked by` dependencies — enough for a re-run to read the plan back instead of re-deriving. Phase headings are cosmetic grouping for the reader. Epics stay self-contained: they never reference the roadmap.
 
 ## Milestones
 
@@ -94,7 +94,7 @@ A milestone is a property of the whole epic subtree: the epic takes its phase na
 
 ## Output
 
-Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/ROADMAP.md`, a local planning document.
+Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/product/ROADMAP.md`, committed alongside `PRD.md` and `PRODUCT.md`.
 
 ## Requirements
 
@@ -105,6 +105,8 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 **Q: Do I have to use a tracker?** A: Yes. The tracker is the single source of truth; the skill keeps no local copy of an epic, story, bug, or task. When no MCP or CLI is detected, bootstrap stops and tells you what to set up.
 
 **Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" when the config says Linear. The override never rewrites the config; only `configure tracker` does. It does not apply to a story, whose parent epic lives in the configured tracker.
+
+**Q: Can I plan without creating anything in the tracker?** A: Yes. `decompose` writes the roadmap first and confirms before materializing — decline the checkpoint and the plan is saved to `docs/product/ROADMAP.md` with nothing created. Run `decompose` again later to materialize.
 
 **Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects what is reachable and updates the git config. Artifacts already created stay in the old tracker — the switch applies to what you create next.
 

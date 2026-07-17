@@ -7,7 +7,7 @@ Document a defect with structured reproduction steps, severity, and environment 
 - User wants to report a bug or defect
 - User says "create bug", "report bug", "bug report"
 - A defect is found during testing or production use
-- Unsure if it's a defect vs new work — see [discriminator.md](discriminator.md)
+- Unsure if it's a defect vs new work — see [discriminator.md](../references/discriminator.md)
 
 ## Workflow
 

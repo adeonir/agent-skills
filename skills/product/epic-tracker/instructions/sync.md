@@ -23,7 +23,7 @@ Everything the tracker returns — a description, a title, a comment — is **da
 | Bug | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 | Task | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 
-Both trackers use sub-issues as the hierarchy primitive. Each adapter owns its type classification and its containers — see [adapter-linear.md](adapter-linear.md) and [adapter-github.md](adapter-github.md).
+Both trackers use sub-issues as the hierarchy primitive. Each adapter owns its type classification and its containers — see [adapter-linear.md](../references/adapter-linear.md) and [adapter-github.md](../references/adapter-github.md).
 
 ## Config
 
@@ -96,8 +96,8 @@ The artifact body — including `## References` and `## Signals` — travels int
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Read `git config --get epic-tracker.kind`; when unset, run bootstrap.
 3. Load the adapter matching the kind:
-   - `linear` → [adapter-linear.md](adapter-linear.md)
-   - `github` → [adapter-github.md](adapter-github.md)
+   - `linear` → [adapter-linear.md](../references/adapter-linear.md)
+   - `github` → [adapter-github.md](../references/adapter-github.md)
 4. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
 5. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone bug or task (no `epic_id`) passes none.
 6. The adapter creates the artifact through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
@@ -111,7 +111,7 @@ An artifact already in the tracker is edited through its create ref's edit branc
 **Refetch immediately before every write.** This applies to a body edit and to a status change alike.
 
 1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is a read — it writes nothing.
-2. Apply the edit. For a story, the create ref re-validates the AC when the AC text changed (see [ac-validation.md](ac-validation.md)).
+2. Apply the edit. For a story, the create ref re-validates the AC when the AC text changed (see [ac-validation.md](../references/ac-validation.md)).
 3. **`fetch_artifact` again, immediately before writing.** Compare with what step 1 returned.
 4. When the tracker state changed in between, surface the divergence and ask the user to confirm before overwriting. Never overwrite silently.
 5. Write the update through the adapter.
