@@ -1,10 +1,10 @@
 # Capture -- Save the Direction
 
-Persist the chosen direction as a structured artifact. Single project-level file. Pivot existing entries rather than spawning new files.
+Persist the chosen direction as a structured artifact. Single project-level file. Pivot or validate existing entries rather than spawning new files.
 
 ## When to Use
 
-After the user approves a direction in converge. Loaded as the final phase.
+After the user approves a direction and it survives the grill in converge. Loaded as the final phase.
 
 ## Workflow
 
@@ -25,11 +25,12 @@ If issues found: fix inline before saving. Don't deliver a flawed artifact.
 
 Save the artifact to `docs/product/brainstorm.md` (single project-level file).
 
-If the file already exists, treat the current run as a pivot or revision instead of a fresh write:
+If the file already exists, compare the chosen direction against the existing `## Decision`:
 
-- Ask the user: pivot the existing direction, or replace from scratch?
-- **Pivot** — keep Context/Constraints/Success Criteria as-is unless discovery surfaced changes, update Alternatives Considered and Decision, append an entry to Revision History with the date and what changed.
-- **Replace** — confirm with the user that the prior direction is being abandoned (not pivoted), then rewrite the file fresh, resetting Revision History.
+- **Validated** — the chosen direction matches the existing Decision. Do not ask pivot-or-replace. Refresh Alternatives Considered with any new challengers, then append a `— Validated` entry to Revision History recording what the grill attacked and why the direction survived.
+- **Direction changed** — ask the user: pivot the existing direction, or replace from scratch?
+  - **Pivot** — keep Context/Constraints/Success Criteria as-is unless discovery surfaced changes, update Alternatives Considered and Decision, append a `— Pivot` entry to Revision History.
+  - **Replace** — confirm with the user that the prior direction is being abandoned (not pivoted), then rewrite the file fresh; Revision History resets to a single `— Replaced` entry recording the abandoned direction and the reason, so the abandonment leaves a trace.
 
 Always bump `updated:` to today's date and increment `revisions:` on any change.
 
@@ -44,7 +45,6 @@ created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
 revisions: 0
-sources: []
 ---
 
 # Brainstorm: {{Project or Direction Title}}
@@ -96,8 +96,9 @@ naming the deciding factor against the strongest rejected option}}
 
 ## Revision History
 
-{Append a dated entry on every pivot. Omit this section on the
-initial capture.}
+{Append a dated entry on every pivot, validation, or replace, using
+the matching format below. Omit this section on the initial capture.
+On replace, the `— Replaced` entry is the one entry the reset keeps.}
 
 ### {{YYYY-MM-DD}} — Pivot
 
@@ -107,4 +108,17 @@ initial capture.}
 request, etc.}}
 **Trade-offs reassessed:** {{short note on what shifted in the
 trade-off picture}}
+
+### {{YYYY-MM-DD}} — Validated
+
+**Direction:** {{unchanged chosen direction}}
+**Grilled against:** {{what the grill attacked — the key assumption,
+or every assumption on deep}}
+**Survived because:** {{why the direction held; name the strongest
+challenger and why it lost}}
+
+### {{YYYY-MM-DD}} — Replaced
+
+**Abandoned:** {{prior chosen direction}}
+**Reason:** {{why the direction was dropped rather than pivoted}}
 ````

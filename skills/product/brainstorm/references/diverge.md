@@ -12,6 +12,18 @@ Before generating alternatives, surface open TBDs carried from discovery. List t
 
 Breadth over depth. Generate at least 4 alternatives, aim for 6-8. Include at least one non-obvious or uncomfortable option. Separate generation from evaluation -- no judging during diverge.
 
+### Grill Entry: Plan as Baseline
+
+On grill entry, the existing idea or plan enters the pool as a named baseline alternative before any technique runs:
+
+```markdown
+**{Plan name}** -- {one-sentence description of the existing plan}
+Technique: baseline (existing plan)
+Key assumption: {what must hold for the plan to work}
+```
+
+The baseline counts toward the minimum bar and satisfies the status-quo requirement. Techniques then attack its assumptions: run inversion and constraint removal against the baseline first -- alternatives that survive contact with the plan's weak points are the ones worth carrying to converge.
+
 ### Techniques
 
 Select 3-4 techniques relevant to the problem. Not every technique applies to every brainstorm.
@@ -75,7 +87,7 @@ Before advancing to converge:
 | At least 1 uncomfortable option | Challenges assumptions about what is acceptable |
 | Status quo or incremental option | Provides a baseline for comparison |
 
-If fewer than 4 alternatives: apply unused techniques before advancing.
+On grill entry, the existing plan is the baseline row. If fewer than 4 alternatives: apply unused techniques before advancing.
 
 Reach the minimum bar before advancing to converge.
 

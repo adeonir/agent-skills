@@ -6,17 +6,19 @@ Map the territory before exploring it. Understand what exists, what is missing, 
 
 First phase of every brainstorming session. Auto-loaded when brainstorming triggers.
 
-## Path Detection
+## Entry Detection
 
 Classify entry state from the user's input.
 
-**Greenfield** — no concrete idea or plan yet. Exploratory framing, open questions, requests to map a space from scratch.
+**Greenfield entry** — no concrete idea or plan yet. Exploratory framing, open questions, requests to map a space from scratch.
 
-**Relentless** — an idea or plan already exists at any maturity. Requests to challenge, validate, refine, pivot, or audit committed thinking. The `/brainstorm deep` argument forces this path.
+**Grill entry** — an idea or plan already exists at any maturity. Requests to challenge, validate, refine, pivot, or audit committed thinking.
 
-Do not announce the path as a label or headline. Lead directly with a proposed interpretation that reflects the detected path. User can redirect at any point.
+The `deep` argument does not select the entry — it widens the grill phase; see [converge.md](converge.md).
 
-Greenfield: open with your read of the situation, invite correction. Relentless: open by acknowledging the committed direction, then probe the core assumption behind it. Do not repeat "stress-test" or "pressure-test" as labels throughout the response — acknowledge the mode once if at all, then focus on the substance.
+Do not announce the entry as a label or headline. Lead directly with a proposed interpretation that reflects the detected entry. User can redirect at any point.
+
+Greenfield entry: open with your read of the situation, invite correction. Grill entry: open by acknowledging the committed direction, then probe the core assumption behind it. Do not repeat "stress-test" or "pressure-test" as labels throughout the response — acknowledge the mode once if at all, then focus on the substance.
 
 The proposed interpretation with its redirect invite is the complete first turn. Do not add a second question after the interpretation. End on the invite ("Is that right?" / "Is that a fair read?") and wait for the response.
 
@@ -56,11 +58,11 @@ Probe further when answers are:
 | Solution-first | Redirect: "Before the solution — what problem or opportunity do you see?" |
 | Overly broad | Narrow: "Who specifically? Which case matters most?" |
 
-### Path Differences
+### Entry Differences
 
-**Greenfield path:** Adaptive deepening applies. When the user genuinely doesn't know, mark as TBD and move on. Not all unknowns block advancement.
+**Greenfield entry:** Adaptive deepening applies. When the user genuinely doesn't know, mark as TBD and move on. Not all unknowns block advancement.
 
-**Relentless path:** Push once more before accepting any TBD on Topics 1 and 2. "You said you're not sure — what's your best guess, even if uncertain?" Only mark TBD after a genuine second attempt. Topic 3 (success criteria) follows greenfield rules — genuine uncertainty there is acceptable.
+**Grill entry:** Push once more before accepting any TBD on Topics 1 and 2. "You said you're not sure — what's your best guess, even if uncertain?" Only mark TBD after a genuine second attempt. This second push is guaranteed on grill entry regardless of the `deep` argument. Topic 3 (success criteria) follows greenfield rules — genuine uncertainty there is acceptable.
 
 ### Topics
 
@@ -88,7 +90,7 @@ Depending on the answer, explore dependent branches:
 - Current state understood (what exists, what does not)
 - Timing rationale clear or explicitly unknown
 
-**TBD weight:** High. A TBD on motivation means diverge has no anchor. Relentless path: push once more before accepting. Greenfield path: flag the gap explicitly before advancing.
+**TBD weight:** High. A TBD on motivation means diverge has no anchor. Grill entry: push once more before accepting. Greenfield entry: flag the gap explicitly before advancing.
 
 #### Topic 2: Constraints and Boundaries
 
@@ -112,7 +114,7 @@ Depending on the answer, explore dependent branches:
 - Soft constraints identified (preferences that can flex)
 - Key stakeholders named or explicitly noted as absent
 
-**TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives. Relentless path: push once more before accepting. Greenfield path: flag explicitly — note which alternatives may be affected.
+**TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives. Grill entry: push once more before accepting. Greenfield entry: flag explicitly — note which alternatives may be affected.
 
 #### Topic 3: Success Criteria
 
@@ -158,14 +160,14 @@ Present a summary and confirm before advancing to diverge. Only proceed after co
 - Propose your interpretation, let the user confirm or redirect
 - Explore the codebase when current-state questions can be answered that way
 - Walk the decision tree within each topic — let answers drive the next branch
-- Push once more on Topics 1 and 2 TBDs before accepting on relentless path
+- Push once more on Topics 1 and 2 TBDs before accepting on grill entry
 - Log open TBDs with their topic weight before advancing
 
 **DON'T:**
 - Follow scripted question lists regardless of answers
 - Ask any question without attaching your recommended answer — every turn carries a POV, whether an interpretation or a question-with-recommendation
 - Ask about current state when the codebase can answer it
-- Accept motivation or constraint TBDs without a second push on relentless path
+- Accept motivation or constraint TBDs without a second push on grill entry
 - Move past the quality gate without user confirmation
 - Add a second question after the interpretation invite
 - Repeat "stress-test" or "pressure-test" as labels throughout the response
