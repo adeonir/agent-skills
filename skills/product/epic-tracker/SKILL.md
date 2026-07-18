@@ -29,11 +29,13 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 - **Linear adapter** (auto-loaded by sync) → [adapter-linear.md](references/adapter-linear.md)
 - **GitHub adapter** (auto-loaded by sync) → [adapter-github.md](references/adapter-github.md)
 
+The create refs — `epic.md`, `story.md`, `task.md`, `bug.md` — each draft one artifact from the plan they are given and dispatch it through `sync.md`; usually the user brings that plan directly. `decompose.md` sits in front as an optional planning ceremony: given a PRD it derives the division — the epic set, or an epic's stories and tasks — and feeds the same create refs, so a derived plan and a hand-brought one converge on one path. `bug.md` is only ever a direct create; a defect is never derived from the PRD.
+
 `decompose.md` is the ceremony's brain. It requires `docs/product/PRD.md`, derives the epic set (composing `references/derivation.md` for the clustering and `references/ice-scoring.md` for the evaluation), partitions the requirements, and decides the dependencies. It dispatches the settled entries to `roadmap.md`, then confirms before materializing — dispatching each epic to `epic.md`, and at the epic level each story and task to `story.md`/`task.md`, staying idempotent. On a current roadmap it reads the plan back and skips re-deriving. When the roadmap groups epics into phases, each epic's phase becomes its milestone — its stories and tasks mirror it — reconciled on a re-run.
 
 `roadmap.md` writes `docs/product/ROADMAP.md` from the entries `decompose` hands it, committed alongside `PRD.md` and `PRODUCT.md`. It decides nothing and has no direct trigger; adjusting the roadmap means running `decompose`.
 
-`epic.md` drafts one epic — invoked by `decompose` during materialization (reading the epic's settled entry in `docs/product/ROADMAP.md` plus the PRD for the requirement statements) or directly for a one-off, when it falls back to direct questions. `story.md`, `task.md`, and `bug.md` draft their one artifact the same way.
+`epic.md` drafts one epic through either entry: `decompose` feeds it the settled roadmap entry during materialization (plus the PRD for the requirement statements), or the user creates it directly, bringing the plan while the interview drives the draft. `story.md` and `task.md` draft their one artifact the same way — fed by `decompose`, or created directly. `bug.md` takes only the direct entry.
 
 `sync.md` is auto-loaded by core refs (epic, story, task, bug) to dispatch the drafted artifact, by their edit branches to write an update, and whenever a ref needs to read from the tracker — only its adapters can reach it. It is triggered directly for a status change, an overview read, or "configure tracker".
 
@@ -48,11 +50,13 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 ## Workflow
 
 ```text
-decompose → derive + write roadmap → checkpoint → materialize
-                                                     each artifact: draft → sync → tracker
+create ref → sync → tracker      every artifact takes this path
+    ↑
+    ├ user brings the plan        the usual input
+    └ decompose (optional): derives the plan from a PRD, feeds the ref
 ```
 
-`decompose` is the brain — it derives the plan, records it in `docs/product/ROADMAP.md` through `roadmap.md`, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. Each artifact is then drafted by its create ref and dispatched. A tracker is required: without one configured, `sync.md` bootstrap runs first, and nothing is created until it completes. Artifacts are never written locally — the tracker is the single source of truth, and status and overview read from it directly.
+Every artifact takes the same path: a create ref drafts it and dispatches through `sync.md` to the tracker. The plan usually comes from the user directly. `decompose` is the optional ceremony in front — it derives the plan from a PRD, records it in `docs/product/ROADMAP.md` through `roadmap.md`, and confirms before materializing (a declined checkpoint leaves the roadmap written and nothing created), then feeds each artifact to its create ref. A tracker is required: without one configured, `sync.md` bootstrap runs first, and nothing is created until it completes. Artifacts are never written locally — the tracker is the single source of truth, and status and overview read from it directly.
 
 ## Guidelines
 
@@ -60,7 +64,7 @@ decompose → derive + write roadmap → checkpoint → materialize
 - Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
-- `decompose` owns every planning decision — derive, score, order, partition, dependencies — and writes the roadmap through `roadmap.md`, which decides nothing; materialization is a confirmed second step after the plan is written
+- The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
 - Delegate sizing to the implementation phase
 - Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write

@@ -11,7 +11,7 @@ Orchestrate the delivery plan: derive the epic set from the PRD, settle it, writ
 
 ## Precondition
 
-Level 1 requires `docs/product/PRD.md`. When it is absent, **error and stop**: "requires `docs/product/PRD.md`; create it first." Never route to PRD creation — that names another skill's artifact. (A one-off, PRD-less epic is a direct `create epic`, a separate entry point, not this ceremony.)
+Level 1 requires `docs/product/PRD.md`. When it is absent, **error and stop**: "requires `docs/product/PRD.md`; create it first." Never route to PRD creation — that names another skill's artifact. (A single epic is a direct `create epic` — with or without a PRD — a separate entry point, not this ceremony.)
 
 ## Roadmap as memory — heavy work is conditional
 

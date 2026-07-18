@@ -6,20 +6,23 @@ Manages the delivery lifecycle from epic planning through story tracking, in an 
 
 ```mermaid
 flowchart TD
-    PRD[docs/product/PRD.md] --> DEC[decompose — brain:<br>derive, ICE, order, partition, deps]
+    USER[User brings the plan] --> EP[epic.md]
+    USER --> STK[story.md / task.md]
+    USER --> BG[bug.md]
+    PRD[docs/product/PRD.md] -->|optional| DEC[decompose — derive plan:<br>ICE, order, partition, deps]
     DEC -->|entries| RW[roadmap.md — writer]
     RW -->|writes| RM[(docs/product/ROADMAP.md)]
-    DEC -->|checkpoint → each epic| EP[epic.md]
+    DEC -->|checkpoint → each epic| EP
     RM -.reads its entry.-> EP
-    DEC -->|epic → stories/tasks| STK[story.md / task.md]
+    DEC -->|epic → stories/tasks| STK
     EP --> SY[sync.md]
     STK -->|AC validated| SY
-    BG[bug.md] --> SY
+    BG --> SY
     SY --> LN[(Linear)]
     SY --> GH[(GitHub)]
 ```
 
-`decompose` is the brain: it derives the epic set from the PRD, writes the plan to the roadmap through `roadmap.md`, and — after a checkpoint — materializes each epic through `epic.md`, then each story and task through `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker; a bug hangs under an epic or stands alone.
+Every artifact is drafted by its create ref — `epic.md`, `story.md`, `task.md`, `bug.md` — and dispatched through `sync.md` to the tracker; the plan usually comes from the user directly. `decompose` is the optional planning ceremony in front: given a PRD it derives the epic set, writes it to the roadmap through `roadmap.md`, and — after a checkpoint — feeds each epic to `epic.md`, then each story and task to `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker whatever the plan's source; a bug hangs under an epic or stands alone, always created directly.
 
 Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing but the roadmap is written locally, and the tracker is the single source of truth for state. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/product/ROADMAP.md` is the one local file — committed, alongside `PRD.md` and `PRODUCT.md`.
 
@@ -60,7 +63,7 @@ Dependencies are editable for the life of the artifact, not just at creation: "b
 
 ```text
 create roadmap             -- derive the epic set from the PRD, write docs/product/ROADMAP.md, then materialize
-create epic                -- draft one epic directly (a PRD-less one-off)
+create epic                -- draft one epic directly — you bring the plan, PRD optional
 decompose                  -- run the ceremony: PRD into a roadmap of epics, or an epic into stories/tasks
 create story               -- add a story (a demonstrable slice of user value) to an existing epic
 edit story                 -- update an existing story; AC changes re-validate
@@ -105,6 +108,8 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 **Q: Do I have to use a tracker?** A: Yes. The tracker is the single source of truth; the skill keeps no local copy of an epic, story, bug, or task. When no MCP or CLI is detected, bootstrap stops and tells you what to set up.
 
 **Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" when the config says Linear. The override never rewrites the config; only `configure tracker` does. It does not apply to a story, whose parent epic lives in the configured tracker.
+
+**Q: Can I create an epic, story, or task without running decompose?** A: Yes — that is the default. You bring the plan; the create ref drafts it to the canonical template and pushes to the tracker. It runs no derivation, partition, coverage, or ICE — those belong to `decompose`, the optional ceremony that derives the plan from a PRD. Creating directly works whether or not a PRD exists.
 
 **Q: Can I plan without creating anything in the tracker?** A: Yes. `decompose` writes the roadmap first and confirms before materializing — decline the checkpoint and the plan is saved to `docs/product/ROADMAP.md` with nothing created. Run `decompose` again later to materialize.
 
