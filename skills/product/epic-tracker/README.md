@@ -9,8 +9,8 @@ flowchart TD
     USER[User brings the plan] --> EP[epic.md]
     USER --> STK[story.md / task.md]
     USER --> BG[bug.md]
-    PRD[docs/product/PRD.md] -->|optional| DEC[decompose — derive plan:<br>ICE, order, partition, deps]
-    DEC -->|entries| RW[roadmap.md — writer]
+    PRD[docs/product/PRD.md] -->|optional| DEC[decompose:<br>ICE framework, order, partition, deps]
+    DEC -->|entries| RW[roadmap.md]
     RW -->|writes| RM[(docs/product/ROADMAP.md)]
     DEC -->|checkpoint → each epic| EP
     RM -.reads its entry.-> EP
