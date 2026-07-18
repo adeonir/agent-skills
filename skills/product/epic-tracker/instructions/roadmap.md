@@ -42,9 +42,9 @@ sources:
 
 1. **{{Epic Title}}** — {{one-line capability the epic delivers}} — _Driven by: {{journey, rule, or goal that motivates this epic}}_ — _Requirements: {{FR/BR/EC/NFR IDs this epic owns — omit the field when the epic owns none}}_ — _Blocked by: {{epic titles this one depends on — omit the field when nothing blocks it}}_ — {{optional tag: foundation | validation | high-risk | external-dependency}}
 2. **{{Epic Title}}** — {{one-line capability}} — _Driven by: {{journey, rule, or goal}}_ — _Requirements: {{IDs}}_
-````
 
 MUST NOT contain, in any entry: deadlines or dates, per-story detail, section numbers, `DEP-N`, `ADR-NNN`, or implementation specifics. The frontmatter's `updated` is the only permitted date. Requirement IDs (`FR/BR/EC/NFR`) appear only in the `Requirements` field, dependencies only in the `Blocked by` field — never in the capability line or any prose. Tags are short signals only; they never replace the capability description or introduce scheduling.
+````
 
 ## Guidelines
 

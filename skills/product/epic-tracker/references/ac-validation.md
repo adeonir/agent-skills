@@ -82,7 +82,7 @@ V6 red-word list:
 
 `simple` is the most context-dependent word on the list — it often appears in legitimate technical contexts ("a simple redirect"). Flag it only when it is clearly used as a subjective quality judgment ("the UI feels simple"), not as a structural descriptor.
 
-V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject, because single-sentence assertions can legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
+V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject: a single-sentence assertion may legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
 
 ### 3. Report
 

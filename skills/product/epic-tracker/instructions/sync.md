@@ -6,7 +6,7 @@ Dispatch artifacts to an external tracker. The tracker is the sole source of tru
 
 - Direct trigger: "configure tracker" (runs bootstrap)
 - Direct trigger: a status change, a reparent, or an overview read — "mark done", "cancel this", "won't fix", "move this to epic X", "list epics", "what's in progress" (see Status and Overview)
-- Auto-loaded by core refs (epic, story, task, bug) after the artifact is drafted, to create it
+- Auto-loaded by the create refs (epic, story, task, bug) after the artifact is drafted, to create it
 - Auto-loaded by a create ref's edit branch, to update an artifact that already exists
 - Auto-loaded whenever a ref needs `fetch_artifact` or `list_artifacts` — the adapter is the only thing that can reach the tracker
 

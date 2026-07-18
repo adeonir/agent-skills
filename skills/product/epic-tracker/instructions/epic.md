@@ -37,7 +37,7 @@ Fill the template (below) with discovered context.
 
 **Body** — the content that becomes the tracker description:
 
-- **Prose context**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
+- **Summary**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
 - **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
 - **Requirements**: the PRD requirements this epic owns (`FR/BR/EC/NFR`), one per line as `ID — statement` — a contract the child stories operationalize, each AC linking back via `Satisfies`. The set of IDs is inherited from the roadmap entry's `Requirements` field when one exists, and derived from the PRD only when the epic is created without a roadmap; each statement is resolved from the PRD either way, translated in form but never in norm. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every requirement here must be satisfiable by stories within this epic's scope.
 - **Rabbit Holes**: execution traps specific to this epic — integration quirks, ordering constraints, or scope edge cases that will catch stories by surprise. Not implementation advice or upstream design notes

@@ -48,7 +48,7 @@ Fill the template (below).
 
 **Body** — the content that becomes the tracker description:
 
-- **Description**: what needs to be done and why — one clear outcome
+- **Summary**: what needs to be done and why — one clear outcome
 - **Signals**: links and ids from pasted context — PRs, advisories, configs, dashboards; omit if empty
 - **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration
 - **Rabbit Holes**: optional; known complexities or hidden risks; omit for trivial chores

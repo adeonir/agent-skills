@@ -61,11 +61,15 @@ Fill the template (below).
 
 **Body** — the content that becomes the tracker description:
 
-- **Description**: expected vs actual behavior, impact statement
+- **Summary**: one-sentence description of the defect
 - **Signals**: forensic data from logs/dashboards — links, ids, timestamps, error excerpts; populate from pasted context, omit if empty
+- **Expected**: what should happen
+- **Actual**: what actually happens
+- **Impact**: who is affected and how severely
 - **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
+- **Regression**: when the defect first appeared and the last known good — only when it is a regression
 - **References**: durable context pointers — parent epic, related stories; forensic data (logs, error excerpts, trace ids) belongs in Signals, not here
 
 **Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: `Login fails with an expired token`, never `the user reported that login was failing`. Strip conversation narrative — "as discussed", "the user confirmed" — and decision history; facts extracted from the paste enter as standing statements, verbatim evidence belongs in Signals.

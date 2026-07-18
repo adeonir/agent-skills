@@ -37,7 +37,7 @@ The create refs — `epic.md`, `story.md`, `task.md`, `bug.md` — each draft on
 
 `epic.md` drafts one epic through either entry: `decompose` feeds it the settled roadmap entry during materialization (plus the PRD for the requirement statements), or the user creates it directly, bringing the plan while the interview drives the draft. `story.md` and `task.md` draft their one artifact the same way — fed by `decompose`, or created directly. `bug.md` takes only the direct entry.
 
-`sync.md` is auto-loaded by core refs (epic, story, task, bug) to dispatch the drafted artifact, by their edit branches to write an update, and whenever a ref needs to read from the tracker — only its adapters can reach it. It is triggered directly for a status change, an overview read, or "configure tracker".
+`sync.md` is auto-loaded by the create refs (epic, story, task, bug) to dispatch the drafted artifact, by their edit branches to write an update, and whenever a ref needs to read from the tracker — only its adapters can reach it. It is triggered directly for a status change, an overview read, or "configure tracker".
 
 `adapter-{linear,github}.md` are loaded by `sync.md` based on `epic-tracker.kind`. Not direct triggers.
 
@@ -61,7 +61,7 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 ## Guidelines
 
 - Push immediately after the draft step — no separate preview gate, no local copy
-- Route tracker operations through `sync.md` — core artifact refs stay tracker-agnostic
+- Route tracker operations through `sync.md` — the create refs stay tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
 - The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
@@ -69,9 +69,9 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 - Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write
 
-## Anti-Pattern: Tracker Operations in Core Refs
+## Anti-Pattern: Tracker Operations in Create Refs
 
-Embedding `gh issue create` or Linear MCP calls inside `epic.md`, `story.md`, etc. couples each ref to a specific tracker. Route tracker operations through `sync.md` instead — core refs build the artifact, sync dispatches to the right adapter. Adding a new tracker becomes a new adapter, not a rewrite of every artifact ref.
+Embedding `gh issue create` or Linear MCP calls inside `epic.md`, `story.md`, etc. couples each ref to a specific tracker. Route tracker operations through `sync.md` instead — the create refs build the artifact, sync dispatches to the right adapter. Adding a new tracker becomes a new adapter, not a rewrite of every artifact ref.
 
 ## Anti-Pattern: AC Validation on Reads
 

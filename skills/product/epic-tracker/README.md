@@ -16,7 +16,7 @@ flowchart TD
     RM -.reads its entry.-> EP
     DEC -->|epic → stories/tasks| STK
     EP --> SY[sync.md]
-    STK -->|AC validated| SY
+    STK --> SY
     BG --> SY
     SY --> LN[(Linear)]
     SY --> GH[(GitHub)]
