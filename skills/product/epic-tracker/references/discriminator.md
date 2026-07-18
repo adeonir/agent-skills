@@ -8,7 +8,7 @@ Before creating an artifact when the trigger does not already name the type, or 
 
 ## Decision
 
-Most specific first — the Jira Story/Task/Bug split:
+Most specific first — the Story/Task/Bug split:
 
 1. **Defect** — does it fix behavior that already exists and is broken? → **Bug**
 2. **User-value slice** — does it deliver a demonstrable slice of user value, with acceptance criteria that satisfy a requirement? → **Story**

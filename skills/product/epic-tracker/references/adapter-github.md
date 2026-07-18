@@ -174,11 +174,11 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 
 ### set_dependencies
 
-GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically.
+GitHub has native, typed Issue dependencies (`blocked by` / `blocking`), maintained on both sides automatically, but only the `gh` CLI writes them. When the active channel cannot set a dependency, Integration Channel applies — route to the CLI; when no CLI channel is configured, skip the links with a warning rather than failing the dispatch (`blocked_by` never blocks a create; see [sync.md](../instructions/sync.md) "Dependencies").
 
 1. Inputs: `tracker_id` and a list of blocker ids (sync.md supplies them directly — they are already tracker ids).
-2. For each blocker, add a `blocked by` link via the active channel. When CLI is active: `gh issue edit {n} --add-blocked-by {blocker}`. Setting one side is enough; GitHub records `blocking` on the other.
-3. Remove links no longer listed via the active channel. When CLI is active: `gh issue edit {n} --remove-blocked-by {blocker}`.
+2. For each blocker, add a `blocked by` link via the CLI: `gh issue edit {n} --add-blocked-by {blocker}`. Setting one side is enough; GitHub records `blocking` on the other.
+3. Remove links no longer listed via the CLI: `gh issue edit {n} --remove-blocked-by {blocker}`.
 4. Return success.
 
 Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not assumed.
