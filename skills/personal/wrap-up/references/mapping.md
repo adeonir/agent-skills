@@ -101,7 +101,7 @@ Given this entry:
 ```
 
 - **Obsidian session**: `Work/Acme/Sessions/YYYY-MM-DD — Description.md`
-- **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)
+- **Obsidian daily**: `Daily/YYYY-MM/YYYY-MM-DD.md` (always the same)
 
 ## Rules
 

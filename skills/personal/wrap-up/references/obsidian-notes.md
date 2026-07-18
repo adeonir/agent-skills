@@ -177,7 +177,7 @@ Rules:
 
 #### Path
 
-Always `Daily/YYYY-MM-DD.md`.
+Always `Daily/YYYY-MM/YYYY-MM-DD.md` — dailies live inside a monthly folder.
 
 #### Daily template
 
@@ -232,7 +232,7 @@ Compose content following the template above. Only `## Activities` is required; 
 
 ```
 write_note(
-  path="Daily/YYYY-MM-DD.md",
+  path="Daily/YYYY-MM/YYYY-MM-DD.md",
   content="## Activities\n...\n\n## Relations\n- contains [[...]]",
   frontmatter={title: "...", type: "daily", tags: [...]}
 )
