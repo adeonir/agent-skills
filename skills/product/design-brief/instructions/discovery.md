@@ -4,7 +4,7 @@ Establishes project context and routes to the correct operation reference.
 
 ## When to Use
 
-Load at the start of every operation — before any trigger reference is loaded.
+Load at the start of every operation — before any trigger reference is loaded. Step 1's artifact scan runs always; Steps 2–4 classify and route, and matter only when the route depends on classification (`direction`, `design`). `validate` and `preview` route from the trigger alone — for them, discovery is the Step 1 scan, and their own prerequisite checks already cover the DESIGN.md lookup.
 
 ## Workflow
 
@@ -35,7 +35,7 @@ Infer field from source and intent — no explicit question to the user:
 - **Greenfield** — no existing visual identity to preserve. Source is inspiration, not constraint. Typical sources: reference images, brand URL used as reference, text description. No legacy tokens; `DESIGN.md` starts from scratch. Greenfield splits on whether a direction is **given** or **absent**: a reference (images, URL, text description) or a locked `moodboard.md` is a given direction — route straight to token authoring, which extracts it. When only audience, PRD, or a vague feeling exists with no reference, the direction is absent — route to `direction.md` first to explore and lock a mood.
 - **Brownfield** — existing visual identity must be honored, refactored, or replaced. Typical sources: codebase, vanilla HTML/CSS export, external design-tool file. Legacy tokens exist; `DESIGN.md` may already exist.
 
-Within brownfield, four implicit sub-modes — detect by user vocabulary, do not ask:
+Within brownfield, five implicit sub-modes — detect by user vocabulary, do not ask:
 
 | Sub-mode | Trigger phrases | Skill behavior |
 |----------|-----------------|----------------|
@@ -43,6 +43,7 @@ Within brownfield, four implicit sub-modes — detect by user vocabulary, do not
 | refresh | "modernize", "polish", "tighten", "tune" | Keep DNA, tighten scale, refresh prose |
 | rebrand | "rebrand", "new identity", "brand refresh", "change the vibe" | Replace identity, preserve product surfaces and structure |
 | evolve | "evolve", "does our design still fit", "align the design to the strategy", "rethink the direction against the PRD" | Extract the current identity, diff it against the stated intent (`PRODUCT.md` / PRD), propose a delta and recommended direction before authoring |
+| sync | "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase" | Implementation is the source of truth for drifted values; diff against `DESIGN.md` and patch the drifted groups, narrative sections untouched. Requires an existing `DESIGN.md` — without one, the ask is inherit |
 
 When the ask does not name a sub-mode ("redesign this", "it feels dated", "overhaul"), diagnose rather than default. An identity whose DNA still serves the stated intent → `refresh` (preserve the palette and type DNA, evolve within it); an identity that no longer fits → `rebrand` (replace it, preserve the product surfaces). Bias toward refresh when the system is sound — defaulting to overhaul is where a brand's real palette gets replaced by a generic one (AI-slop color) for no reason.
 
@@ -50,21 +51,8 @@ Partial cases (codebase defines colors but no typography) stay brownfield; gaps 
 
 ### Step 4: Route to Trigger
 
-Load only the reference matching the activated trigger:
-
-| Trigger intent | Reference | Auto-loads |
-|----------------|-----------|------------|
-| Mood exploration (direction absent, no reference) | `direction.md` | `aesthetics.md`, `brand.md` / `product.md` |
-| Visual identity / DESIGN.md | `design.md` | `aesthetics.md`, `brand.md` / `product.md`, `validate.md` |
-| Evolve identity against stated intent (brownfield) | `design.md` | `aesthetics.md`, `brand.md` / `product.md`, `validate.md` |
-| Token preview / tune (DESIGN.md exists) | `preview.md` | `anti-patterns.md` |
-| Validation only | `validate.md` | — |
-| Reconcile / drift sync | `reconcile.md` | `validate.md` |
+Route to the operation the trigger names — the trigger table lives in SKILL.md's Quick start. What discovery hands downstream is the classification: field, sub-mode, surfaces, register. `design.md` picks its flow from that hand-off — greenfield author, or the brownfield sub-mode detected above.
 
 Never load multiple operation references simultaneously.
 
-The surfaces present in the source route behavior in subsequent steps, each under a register (brand or product). A project may carry several — route by every surface it has, named by context, not a single declared type:
-
-- **brand surfaces** (landing, campaign, portfolio, about): section-oriented, conversion-facing questions
-- **product surfaces** (dashboard, settings, forms, data tables): screen-flow, navigation, and state questions
-- **storefronts straddle**: the marketing / catalog shell is brand, the checkout / account flow is product (see [../references/brand.md](../references/brand.md) / [../references/product.md](../references/product.md))
+Register loading follows the surfaces: a project under one register reads only its register file downstream; a project whose surfaces span both registers reads both — [../references/brand.md](../references/brand.md) and [../references/product.md](../references/product.md) define the surface lists and the straddle cases.

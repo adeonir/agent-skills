@@ -4,7 +4,7 @@ When design IS the product: brand sites, landing and campaign pages, marketing s
 
 ## When to Use
 
-Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
+Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read the matching file: brand here, or [product.md](product.md) when design serves a task — or both, when the project's surfaces span the two registers (a storefront's marketing shell is brand, its checkout product). Not a direct trigger.
 
 The register spans every genre — a tech brand, a luxury brand, a consumer product, a studio portfolio. They share the stance — *communicate, not transact* — and diverge wildly in aesthetic. Don't collapse them into one look.
 

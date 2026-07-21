@@ -9,19 +9,18 @@ flowchart TD
     Brief[Audience / PRD / feeling — no reference] -->|direction| MB[moodboard.md]
     MB -->|design| B2[DESIGN.md]
     A[URL / Images / Brief / Codebase / Design-tool file] -->|design| B2
-    B2 -->|render — design / reconcile / preview| SG[styleguide.html]
-    SG -->|tune → reconcile| B2
+    B2 -->|render — design / preview| SG[styleguide.html]
+    SG -->|tune → write back| B2
     B2 -->|validate| V[Findings]
-    Impl[Implementation] -->|reconcile| B2
+    Impl[Implementation] -->|design — sync| B2
 ```
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
 | **Direction** | No reference on hand — explore visual mood from audience/PRD, diverge across aesthetic directions, converge on one | `docs/design/moodboard.md` (locked direction: Mood, Style Axes, Signature, Touchstones) |
-| **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author or refresh `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + prose sections narrating them) + `docs/design/styleguide.html` |
-| **Preview** | `DESIGN.md` exists — render its tokens as a styleguide, tune by conversation or the optional color tuner, hand tuned deltas to reconcile | `docs/design/styleguide.html` (rendered styleguide; color tuner is a server-injected overlay) |
+| **Design** | Extract design from a locked moodboard, images, codebase, brand URL, text description, or design-tool file; author, refresh, or drift-sync `DESIGN.md` | `docs/design/DESIGN.md` (YAML frontmatter with normative tokens + prose sections narrating them) + `docs/design/styleguide.html` |
+| **Preview** | `DESIGN.md` exists — render its tokens as a styleguide, tune by conversation or the optional color tuner, commit tuned values back | `docs/design/styleguide.html` (rendered styleguide; color tuner is a server-injected overlay) + patched `docs/design/DESIGN.md` |
 | **Validate** | Audit `DESIGN.md` semantics — contrast, hex validity, hierarchy, cross-section consistency | Findings report (read-only; no file writes) |
-| **Reconcile** | Sync DESIGN.md from drifted implementation, or apply tuned deltas from preview | Patched `docs/design/DESIGN.md` (confirm-before-write) + `docs/design/styleguide.html` |
 
 ## What It Designs
 
@@ -46,7 +45,8 @@ extract from this codebase
 extract from https://brand.example.com
 refresh DESIGN.md from this design-tool file
 
-# Validate DESIGN.md (callable anytime, also runs as gate inside design and reconcile)
+# Validate DESIGN.md (callable anytime, also runs as gate inside design and at
+# the close of a preview tuning session)
 validate DESIGN.md
 check this DESIGN.md
 audit the design system
@@ -61,7 +61,7 @@ does our design still fit the strategy?
 align the design to the PRD
 rethink the direction against PRODUCT.md
 
-# Reconcile (brownfield drift sync: implementation back to DESIGN.md)
+# Sync from a drifted implementation (brownfield — design's sync sub-mode)
 sync DESIGN.md from this codebase
 update DESIGN.md from code
 reconcile drift between implementation and design
@@ -76,7 +76,7 @@ docs/design/
 └── styleguide.html       # Styleguide rendered from DESIGN.md
 ```
 
-`docs/design/styleguide.html` is a styleguide rendered from the tokens — color swatches, type ramp, component samples. preview serves it with live-reload via `scripts/preview-server.ts`. The optional color tuner is an overlay the server injects over the styleguide (built from the color swatches); tuned values land in `DESIGN.md` via reconcile.
+`docs/design/styleguide.html` is a styleguide rendered from the tokens — color swatches, type ramp, component samples. preview serves it with live-reload via `scripts/preview-server.ts`. The optional color tuner is an overlay the server injects over the styleguide (built from the color swatches); tuned values are written back to `DESIGN.md` by preview.
 
 External design-tool files (when used as input source) live at the user's path and are user-owned. Skill never creates them.
 
@@ -97,7 +97,7 @@ Bundled lookups auto-loaded by the relevant instruction phase:
 
 **Q: Greenfield or brownfield?**
 
-A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start, for restyling an existing identity from a new reference, and for evolving it against the product's stated intent (`PRODUCT.md` / PRD), plus `reconcile.md` for syncing back after drift.
+A: Greenfield-first. The primary use case is starting from zero with no existing codebase. A brownfield path exists in `design.md` ("extract from codebase") for inheriting tokens at the start, for restyling an existing identity from a new reference, for evolving it against the product's stated intent (`PRODUCT.md` / PRD), and for syncing `DESIGN.md` back after implementation drift (the `sync` sub-mode).
 
 **Q: What if I have no reference or moodboard to start from?**
 
@@ -117,8 +117,8 @@ A: The YAML frontmatter gives machine-readable tokens with `{path.to.token}` ref
 
 **Q: Can I see and tune the tokens visually?**
 
-A: Yes — run `preview.md` once `DESIGN.md` exists. It renders the tokens as a styleguide (color swatches, type ramp, component samples — the design system, not a product page) served by a local preview server with live-reload. Most tuning is conversational — say "primary too saturated" or "tighter spacing" and it patches `DESIGN.md` via `reconcile.md` (confirm-before-write), then live-reloads. Colors also get an optional interactive tuner overlay: OKLCH sliders and an optional hex input with real-time WCAG contrast. Rendering the tokens into actual product pages is a separate concern, not part of this skill.
+A: Yes — run `preview.md` once `DESIGN.md` exists. It renders the tokens as a styleguide (color swatches, type ramp, component samples — the design system, not a product page) served by a local preview server with live-reload. Most tuning is conversational — say "primary too saturated" or "tighter spacing" and it patches `DESIGN.md` surgically, then live-reloads; the full validate gate runs when the tuning session closes. Colors also get an optional interactive tuner overlay: OKLCH sliders and an optional hex input with real-time WCAG contrast, written back on Commit. Rendering the tokens into actual product pages is a separate concern, not part of this skill.
 
 **Q: How do I update DESIGN.md after the implementation drifted?**
 
-A: Run `reconcile.md` — ask to sync design from implementation, update DESIGN.md from code, reconcile drift, or refresh tokens from the codebase. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, and patches it surgically (confirm-before-write). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched; the Breakpoints bullets in Responsive Behavior sync with their tokens, its narrative subsections do not. Invoke design again if narrative needs refresh.
+A: Ask to sync design from implementation, update DESIGN.md from code, or reconcile drift — `design.md`'s `sync` sub-mode. The skill reads current values from the implementation, diffs against the YAML frontmatter of DESIGN.md, patches the drifted groups, and reports the applied diff (revert anything via git). Prose bullets that cite patched tokens are updated to match. Narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched; the Breakpoints bullets in Responsive Behavior sync with their tokens, its narrative subsections do not. Invoke design again if narrative needs refresh.

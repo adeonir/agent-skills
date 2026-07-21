@@ -4,7 +4,7 @@ When design SERVES the product: app UIs, admin dashboards, settings panels, data
 
 ## When to Use
 
-Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
+Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read the matching file: product here, or [brand.md](brand.md) when design is the deliverable — or both, when the project's surfaces span the two registers (a storefront's checkout is product, its marketing shell brand). Not a direct trigger.
 
 ## Posture
 

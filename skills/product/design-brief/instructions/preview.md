@@ -2,7 +2,7 @@
 
 Render the `DESIGN.md` tokens as a visual styleguide, serve it with live-reload, and refine the tokens — by conversation for most groups, or through an optional color tuner. This previews the **design system**, not a product page — swatches, type ramp, component samples, all from `DESIGN.md` alone.
 
-Visual choices compound and a commit mutates the source of truth, so tuning is live-and-throwaway while the patch back goes through confirm-before-write.
+Visual choices compound, so tuner edits stay live-and-throwaway until the user commits; conversational tweaks patch `DESIGN.md` directly and the sheet live-reloads on every write.
 
 ## When to Use
 
@@ -114,9 +114,9 @@ If a group is empty in the frontmatter, render a quiet placeholder for it rather
 
 ## Tune
 
-Two paths refine the tokens. Both keep `DESIGN.md` the source of truth — the patch back always goes through [reconcile.md](reconcile.md).
+Two paths refine the tokens. Both write back to `DESIGN.md` here — frontmatter first, citing prose second — and the sheet live-reloads on every write.
 
-**Conversational (default).** No UI. The user views the served sheet and describes the change ("primary too saturated", "spacing feels tight", "softer radius"). Hand it to reconcile; the server live-reloads the regenerated sheet. Spacing, typography, radius, and shadow follow the Tailwind scale — discrete steps, nothing continuous to drag — so they are tuned by description, not sliders.
+**Conversational (default).** No UI. The user views the served sheet and describes the change ("primary too saturated", "spacing feels tight", "softer radius"). Patch `DESIGN.md` surgically — the frontmatter group first, then only the prose bullets that cite the patched tokens; narrative sections (Overview, Do's and Don'ts, Agent Prompt Guide) stay untouched — and regenerate the sheet. A color change passes the contrast script against its pairing before writing. Spacing, typography, radius, and shadow follow the Tailwind scale — discrete steps, nothing continuous to drag — so they are tuned by description, not sliders.
 
 **Color tuner (optional).** Color is the one continuous axis the eye can't judge — WCAG contrast — so it gets an interactive tuner when the user asks ("tune the colors", "let me adjust the palette"). The tuner is an **overlay the preview server injects over the committed styleguide** — no separate file. A **Tune colors** toggle (server-injected) opens a panel built from the styleguide's `data-tune-swatch` color swatches. Tuning swaps the token's `var(--color-<key>)` live, so the whole styleguide is the preview — every specimen that references the token shifts at once.
 
@@ -137,7 +137,7 @@ User alt+clicks any swatch or specimen in the served sheet. An overlay opens wit
 
 ## Commit Back to `DESIGN.md`
 
-Tuning is live-and-throwaway until the user commits. Commit-back does **not** write `DESIGN.md` here — it builds the patch list and hands it to [reconcile.md](reconcile.md), the single patcher of `DESIGN.md`.
+Tuner edits are live-and-throwaway until the user commits. The commit writes `DESIGN.md` here — preview is one of its two writers (the other is [design.md](design.md)), under the same surgical rules.
 
 ### Workflow
 
@@ -150,7 +150,13 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
    - **Skinned token** — the path keeps its skin segment (`colors.<skin>.<token>`) so the patch lands inside that override group, never on the flat token.
    - **Stale evocative name** — a large hue shift (e.g. an "Indigo" token tuned toward red) makes the prose name stale. Note a suggested rename alongside the hex change.
 
-4. **Hand the patch list to [reconcile.md](reconcile.md)** as its Mode B input. reconcile presents the diff (confirm-before-write), patches the YAML frontmatter first and the citing prose bullets second, and runs validate as the gate. preview produces the diff; reconcile applies it.
+4. **Patch `DESIGN.md` surgically.** Frontmatter first (authoritative), then the prose bullets that cite the patched tokens. Narrative sections stay untouched — flag them as potentially stale. Verify each patched color against its pairing with the contrast script before writing. Report the applied patch list so the user can revert anything via git.
+
+5. **Regenerate the sheet** — the server live-reloads.
+
+## Validate at Session Close
+
+Per tweak, the contrast script is the only guard. When the user closes the tuning session, run [validate.md](validate.md) against the patched `DESIGN.md` as the gate. Do not declare the session done with `errors > 0` — surface the findings and let the user fix or accept trade-offs.
 
 ## Guidelines
 
@@ -165,11 +171,11 @@ Tuning is live-and-throwaway until the user commits. Commit-back does **not** wr
 - Render all ten groups; show a quiet placeholder for an empty group rather than dropping it
 - Serve the sheet through the preview server so the browser live-reloads on change
 - Tune most groups by conversation; reach for the color tuner only for palette and contrast work
-- Hand tuned deltas to `reconcile.md`; never write `DESIGN.md` from here
+- Patch `DESIGN.md` surgically on every write — frontmatter group first, then only the prose bullets that cite the patched tokens; narrative sections untouched
 
-## Anti-Pattern: Writing `DESIGN.md` from Preview
+## Anti-Pattern: Regenerating `DESIGN.md` on Tune
 
-preview is a visual aid plus a diff producer. Patching `DESIGN.md` here would give the file a second writer and duplicate the surgical-patch discipline that `reconcile.md` already owns. The tuned deltas are reconcile's Mode B input — build the patch list, hand it over, let reconcile confirm, patch, and validate.
+Tuning produces deltas, not a new identity. Rewriting the whole file from the tuned values clobbers sections the tune never touched — patch the frontmatter group first, then only the prose bullets that cite the patched tokens. The full validate gate runs at session close; per tweak, only the contrast script guards color changes.
 
 ## Error Handling
 
@@ -179,3 +185,4 @@ preview is a visual aid plus a diff producer. Patching `DESIGN.md` here would gi
 - Comment event has no selector: ask the user to re-click the target element
 - Tune event targets a color not in the frontmatter: ask whether to add the token or remap to an existing one
 - `.events` empty at commit-back: nothing to commit; report and stop
+- Validation gate fails at session close: surface findings; the user fixes or accepts trade-offs

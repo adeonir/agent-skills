@@ -211,7 +211,7 @@ When this ref is auto-loaded by `design.md` as the Step 5 gate, the caller must:
 - Resolve every `{path.to.token}` reference and report unresolved ones as errors
 - Group findings by severity; lead with errors
 - Reference the exact YAML path or section + sub-heading in findings (e.g., `colors.primary`, `## Components > Buttons`)
-- Use the same checks whether called directly or as a gate by design.md or reconcile.md
+- Use the same checks whether called directly, as a gate by design.md, or at the close of a preview tuning session
 
 **DON'T:**
 
