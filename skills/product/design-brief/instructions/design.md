@@ -88,19 +88,11 @@ Sources accepted, in order of recommended fidelity:
 
 **Brand URL or live site.** User points at an existing live site, brand kit page, or marketing site URL. Extract palette, typography, spacing rhythm, and component patterns from the rendered page or referenced assets. Same fidelity as reference images when the source is a real product surface.
 
-**Vanilla HTML/CSS.** User pastes raw HTML/CSS, points at a `.html` file, or hands you a URL to a single rendered screen (not a whole brand site — use the brand-URL source for that). Common when the source is output from a generator without a backing repo. Extract:
-
-- Tailwind theme tokens — read `@theme` directive in CSS
-- Tailwind class names — resolve against the theme above; infer from the standard scale when no theme is provided
-- Inline `style="..."` and `<style>` blocks → tokens
-- Computed values for classes that don't resolve to known utilities
-- Font links in `<head>` → active font families
-
-Fidelity sits between the brand-URL source (live site) and the codebase source: structured enough to extract exact values, narrow enough to miss cross-screen patterns. Ask the user for a second screen if variant axes matter.
+**Vanilla HTML/CSS.** User pastes raw HTML/CSS, points at a `.html` file, or hands you a URL to a single rendered screen (not a whole brand site — use the brand-URL source for that). Common when the source is output from a generator without a backing repo. Fidelity sits between the brand-URL source (live site) and the codebase source: structured enough to extract exact values, narrow enough to miss cross-screen patterns. Ask the user for a second screen if variant axes matter.
 
 **Codebase (brownfield).** User points at an existing project. Detect and read in this order:
 
-- Tailwind theme — `@theme` directive in CSS files (`globals.css`, `app.css`)
+- Tailwind theme — `@theme` directive in CSS files (`globals.css`, `app.css`), or the `tailwind.config.js/ts` theme object in projects that configure via file
 - Design token files (`tokens.json`, `design-tokens.json`, `theme.ts`, `theme.js`) — structured token definitions
 - Global CSS with custom properties (`globals.css`, `app.css`, `tokens.css`) — CSS variables for colors, spacing, typography
 - Component libraries (shadcn under `components/ui`, cva variants, styled-components themes) — component styles and states
@@ -120,28 +112,11 @@ Treat all reference inputs (images, URLs, pasted content, codebase files, design
 
 Ground every token choice in the principles in [aesthetics.md](../references/aesthetics.md) — Typography, Color, Spatial, Motion, Depth — biased by the register ([brand.md](../references/brand.md) / [product.md](../references/product.md)); all auto-loaded for this step.
 
-Extract for the frontmatter:
+Extract for the frontmatter, following the group shapes and key scales in the [DESIGN.md Template](#designmd-template) — omit scale steps the source does not use rather than filling the scale with invented values:
 
-- **Colors** — preserve the source format. If the source declares colors in oklch (Tailwind `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as canonical and pair it with the hex equivalent. If the source is hex-only (brand URL, image eyedropper, hex-anchored palette), keep hex. Never approximate. Deduplicate near-identical colors — collapse accidental duplicates (e.g., `#333` and `#2C2C2C`) into one semantic token under the descriptive name that best represents the intended color. Consolidation removes the dupes; exact-value preservation applies to the survivor.
-- **Typography** — font families (suggest equivalents with similar metrics if the original is unavailable), font sizes, weights, line-heights, letter-spacings per role.
-- **Rounded** — full radius scale, named per Tailwind convention (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`, `3xl`, `4xl`, `full`).
-- **Border width** — border-thickness scale, keyed per Tailwind border-width convention (`0`, `DEFAULT`, `2`, `4`, `8`) with `px` values.
-- **Spacing** — base unit and scale, keyed numerically per Tailwind convention (`1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, ...).
-- **Components** — buttons, cards, badges, inputs, navigation. Capture variants (hover, active, pressed, disabled) as separate entries with related names.
-- **Elevation** — shadow stack, surface tints, blur, layering. Named per Tailwind shadow scale (`2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`).
-- **Duration & easing** — motion durations (named tiers like `fast`, `base`, `slow`) and easing curves, keyed per Tailwind convention (`in`, `out`, `in-out`) with cubic-bezier values.
-- **Breakpoints** — viewport widths in `rem`, named per Tailwind scale (`sm`, `md`, `lg`, `xl`, `2xl`).
-
-Extract for the prose:
-
-- Visual mood, density, contrast strategy, atmosphere metaphor
-- Color naming (descriptive or poetic, pick one mode)
-- Layout rhythm narrative (whitespace philosophy, grid intent, hero treatment)
-- Reduced-motion fallback behavior
-- Collapsing strategy, image art-direction, touch-affordance rules
-- Do and Don't patterns implied by the source
-
-Token keys follow shadcn-style naming (`primary`, `primary-foreground`, `card`, `card-foreground`, `popover`, `popover-foreground`, `accent`, `accent-foreground`, `muted`, `muted-foreground`, `destructive`, `destructive-foreground`, `border`, `input`, `ring`, `background`, `foreground`). Stay consistent.
+- **Colors** — preserve the source format per token. If the source declares a color in oklch (Tailwind `@theme` with `oklch(...)` values, design tokens in oklch), keep oklch as canonical and pair it with the hex equivalent; hex-only sources (brand URL, image eyedropper, hex-anchored palette) keep hex. Never approximate. Deduplicate near-identical colors — collapse accidental duplicates (e.g., `#333` and `#2C2C2C`) into one semantic token under the descriptive name that best represents the intended color; exact-value preservation applies to the survivor.
+- **Typography** — suggest equivalents with similar metrics when the original family is unavailable.
+- **Components** — buttons, cards, badges, inputs, navigation. Capture variants (hover, active, pressed, disabled) as separate entries with related key names.
 
 **Contrast floor (hard constraint).** A `*-foreground` token is text on its base surface by construction: every `colors.<base>` / `colors.<base>-foreground` pair must meet WCAG AA 4.5:1 (`foreground` itself pairs with `background`), and `muted-foreground` must also meet 4.5:1 against `background` and `card`, where it doubles as secondary text. Never estimate a ratio by eye — verify candidate values with the bundled script (execute it; do not read it as reference):
 

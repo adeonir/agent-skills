@@ -23,12 +23,12 @@ This is an optional phase that runs after `design`. It needs a populated `DESIGN
 
 The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens. At generation time, parse the frontmatter, resolve every `{path.to.token}` reference, and embed CSS custom properties directly in the generated HTML:
 
-- **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind v4's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment. Flat tokens emit into the root theme block; a skin override group (`colors.<skin>.*`) emits a scoped block — `[data-skin="<name>"] { --color-background: ...; }` — redefining only the variables it overrides, so everything else inherits from the root through the cascade, mirroring the frontmatter's inheritance.
+- **Colors** — from `colors.*`. Each token becomes a CSS custom property in Tailwind's `--color-*` namespace (`--color-primary`, `--color-background`, `--color-accent-foreground`). String hex emits directly; an object `{ hex, oklch }` emits the oklch value (Tailwind-native) with hex as a fallback comment. Flat tokens emit into the root theme block; a skin override group (`colors.<skin>.*`) emits a scoped block — `[data-skin="<name>"] { --color-background: ...; }` — redefining only the variables it overrides, so everything else inherits from the root through the cascade, mirroring the frontmatter's inheritance.
 - **Typography** — from `typography.*`. Each role becomes related properties (`--font-display-family`, `--font-display-size`, `--font-display-weight`, ...). Role keys map 1:1 to kebab-case prefixes.
 - **Spacing** — from `spacing.*`. Numeric Tailwind scale keys become `--spacing-1`, `--spacing-2`, ...
-- **Radius** — from `rounded.*`. Scale keys become Tailwind v4's `--radius-*` (`--radius-xs`, `--radius-sm`, ...).
+- **Radius** — from `rounded.*`. Scale keys become Tailwind's `--radius-*` (`--radius-xs`, `--radius-sm`, ...).
 - **Border width** — from `borderWidth.*`. Scale keys become `--border-width-default`, `--border-width-2`, ... carrying `px` values. No Tailwind `@theme` namespace exists for border width, so specimens read these custom properties directly rather than mapping to a theme key.
-- **Elevation** — from `elevation.*`. Scale keys become Tailwind v4's `--shadow-*` (`--shadow-sm`, ...) carrying CSS shadow strings.
+- **Elevation** — from `elevation.*`. Scale keys become Tailwind's `--shadow-*` (`--shadow-sm`, ...) carrying CSS shadow strings.
 - **Motion** — from `duration.*` and `easing.*`. Keys become `--duration-fast`, `--ease-in`, ... — easing maps to Tailwind's `--ease-*` namespace.
 - **Breakpoints** — from `breakpoints.*`. Keys become `--breakpoint-sm`, ...
 - **Components** — from `components.*`. Each entry becomes a class (`.button-primary`, `.card`, `.input`) with properties resolved through the reference chain. A color reference with a `/NN` opacity modifier (`{colors.primary}/90`) emits `color-mix(in oklab, var(--color-primary) NN%, transparent)`.
@@ -41,7 +41,7 @@ No external parser, no token endpoint. Read the YAML, resolve references, map ev
 
 Dependencies load via CDN — no build step. Resolve the canonical CDN entry from each library's official documentation at generation time; do not hardcode version pins inside this skill.
 
-- **Tailwind CSS** — include the official browser-build script in `<head>` so utility classes resolve client-side.
+- **Tailwind CSS** — include the official browser build via CDN in `<head>` so utility classes resolve client-side. Theme mechanism and syntax follow the current major release — resolve both from the official Tailwind documentation at generation time; training-data syntax lags the current release, so never emit theme configuration from memory.
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. A single include covers every set (`lucide`, `tabler`, `simple-icons`, ...). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing control.
 - **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping the tokens read from the frontmatter (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys.
 - The sheet must work offline-of-build: opening `styleguide.html` directly in a browser renders correctly without a bundler.
