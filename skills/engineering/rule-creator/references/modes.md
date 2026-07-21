@@ -62,13 +62,13 @@ Tell the user the rule is missing and offer to create it. Do not silently fall t
 
 ## Extract
 
-Move declarative blocks out of an oversized `CLAUDE.md` into rule files. Triggered when the user says CLAUDE.md is too big or asks to split it.
+Move declarative blocks out of an oversized `AGENTS.md / CLAUDE.md` into rule files. Triggered when the user says AGENTS.md / CLAUDE.md is too big or asks to split it.
 
 ### Steps
 
-1. Read the target CLAUDE.md (project root, `.claude/CLAUDE.md`, or nested — confirm which with the user when multiple exist).
+1. Read the target AGENTS.md / CLAUDE.md (project root, `.claude/CLAUDE.md`, or nested — confirm which with the user when multiple exist).
 2. Walk the headings. For each H2/H3 section, decide a verdict:
-   - **Keep in CLAUDE.md** — short, cross-cutting, no clear topic
+   - **Keep in AGENTS.md / CLAUDE.md** — short, cross-cutting, no clear topic
    - **Extract as rule** — declarative, self-contained, has a verifiable instruction
    - **Reject** — procedural (belongs in a skill) or lifecycle (belongs in a hook)
 3. Output the verdict list:
@@ -83,14 +83,14 @@ Move declarative blocks out of an oversized `CLAUDE.md` into rule files. Trigger
 4. Ask the user to confirm or amend the verdicts. Never extract without explicit approval per item.
 5. For each approved extraction:
    - Run the same gates as create: classify, context, scope, render, verifiability. The classifier protects against extracting something that was procedural after all.
-   - Scope each rule to its own topic — drop cross-references to other CLAUDE.md sections or sibling rule files; carry only the section's own instruction so the rule stands alone.
+   - Scope each rule to its own topic — drop cross-references to other AGENTS.md / CLAUDE.md sections or sibling rule files; carry only the section's own instruction so the rule stands alone.
    - Write the new rule file.
-   - Remove the corresponding section from CLAUDE.md.
+   - Remove the corresponding section from AGENTS.md / CLAUDE.md.
 6. After all extractions, output a summary listing files created and sections removed.
 
 ### Notes
 
-- The Claude Code docs treat 200 lines as the size at which CLAUDE.md starts losing adherence. Use that as the trigger to suggest extract, not as a hard rule.
+- The Claude Code docs treat 200 lines as the size at which AGENTS.md / CLAUDE.md starts losing adherence. Use that as the trigger to suggest extract, not as a hard rule.
 - Path-scoped rules are the primary win — they remove instructions from every-session context until Claude touches matching files.
 
 ## Delete
