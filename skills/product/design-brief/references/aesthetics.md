@@ -32,6 +32,8 @@ Visual direction is a composition of four orthogonal axes. Pick one pattern from
 
 What makes a good choice for each token group. Compose these biased by the register ([brand.md](brand.md) / [product.md](product.md)).
 
+**Scale convention.** The flat token groups — `spacing`, `rounded`, `borderWidth`, `elevation`, `breakpoints` — name their keys on Tailwind's scale: numeric steps (`1`, `2`, `4`, ...) for `spacing`, t-shirt sizes (`xs`, `sm`, `md`, `lg`, `xl`, ...) for the rest. The naming is a shared vocabulary for the keys, not a toolkit dependency: values stay expressed in their own terms, and any system consumes the tokens. Tailwind supplies the key names; it is never a required target.
+
 ### Typography
 
 - **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for a marketing or editorial identity. Pair a characterful display font with a refined body font. System stacks are acceptable for app and dashboard surfaces where performance and native feel matter.
