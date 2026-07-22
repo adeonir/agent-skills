@@ -6,16 +6,6 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 
 `DESIGN.md` is a **living document**, not a one-shot export — patched section by section, reconciled against implementation drift, and refreshed as the identity evolves, never regenerated wholesale. The section structure stays stable so every section is a durable slot a later pass can patch into.
 
-## Contents
-
-- [When to Use](#when-to-use) — triggers and source shapes this reference handles
-- [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
-- [Output](#output) — DESIGN.md structure (YAML frontmatter + prose sections)
-- [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, regenerate styleguide and present
-- [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
-- [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
-- [DESIGN.md Template](#designmd-template) — full YAML + 11-section prose template with placeholders and inline guidance
-
 ## When to Use
 
 - User provides reference images (pasted, file path, or URL)
@@ -25,6 +15,16 @@ The YAML frontmatter is authoritative — tokens carry the values. Prose cites t
 - User wants to refresh `DESIGN.md` after editing a design-tool file
 - User brings a new reference (image, URL, prompt, another codebase) to restyle or rebrand an existing `DESIGN.md`
 - User wants to sync an existing `DESIGN.md` from a drifted implementation — "sync design from implementation", "update DESIGN.md from code", "reconcile drift"
+
+## Contents
+
+- [When to Use](#when-to-use) — triggers and source shapes this reference handles
+- [Prerequisites](#prerequisites) — soft and hard dependencies (none hard)
+- [Output](#output) — DESIGN.md structure (YAML frontmatter + prose sections)
+- [Workflow](#workflow) — six-step flow: establish context, source, deep analysis, patch DESIGN.md, validate, regenerate styleguide and present
+- [Guidelines](#guidelines) — DO / DON'T list for token extraction and prose authoring
+- [Error Handling](#error-handling) — fallbacks when sources, MCPs, or tokens are missing or malformed
+- [DESIGN.md Template](#designmd-template) — full YAML + 11-section prose template with placeholders and inline guidance
 
 ## Prerequisites
 
@@ -192,7 +192,7 @@ Role keys are kebab-case, drawn from the active register's vocabulary — the re
 
 **Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`, `opacity`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases. For a translucent color, append the opacity modifier to the reference — `{colors.primary}/90` — never an inlined `rgb(...)`/`rgba(...)` of a palette color.
 
-Variants are separate entries with a related key name. State variants (hover, active, pressed, disabled) and size variants (`-sm`, `-lg`) are both separate entries. A size variant references a size-specific typography role — `button-primary-sm` points at `{typography.button-sm}`, which carries the smaller `fontSize` — rather than overriding size on the component:
+Variants are separate entries with a related key name; a variant inherits every prop from its base entry and declares only what changes. State variants (hover, active, pressed, disabled) and size variants (`-sm`, `-lg`) are both separate entries. A size variant references a size-specific typography role — `button-primary-sm` points at `{typography.button-sm}`, which carries the smaller `fontSize` — rather than setting `fontSize` on the component entry:
 
 ```yaml
 components:
@@ -204,6 +204,7 @@ components:
     typography: "{typography.button}"
   button-primary-hover:
     backgroundColor: "{colors.primary-foreground}"
+    textColor: "{colors.primary}"
   button-primary-disabled:
     backgroundColor: "{colors.muted}"
     textColor: "{colors.muted-foreground}"
@@ -376,6 +377,8 @@ Then show the user:
 
 ALWAYS use this exact template structure:
 
+MUST NOT contain: real headlines, CTAs, or feature names; product-domain token keys (`payment`, `checkout-heading`); page arrangement or screen flow; UI-library or design-system names; upstream PRD/PRODUCT requirement IDs or roadmap language.
+
 ````markdown
 ---
 name: {{Project Name}}
@@ -444,6 +447,12 @@ typography:
     fontWeight: {{N}}
     lineHeight: {{N}}
   button:
+    fontFamily: "{{Font}}"
+    fontSize: {{size}}
+    fontWeight: {{N}}
+    lineHeight: {{N}}
+  # optional size variant — add only when a surface needs a smaller/larger button
+  button-sm:
     fontFamily: "{{Font}}"
     fontSize: {{size}}
     fontWeight: {{N}}

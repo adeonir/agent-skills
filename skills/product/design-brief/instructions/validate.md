@@ -50,7 +50,7 @@ Validate the YAML against the expected shape.
 | Every dimension uses a valid unit (`px`, `em`, `rem`) or unitless number where allowed (`lineHeight`) | error |
 | `lineHeight` values are either a Dimension or a unitless number (recommended) | info |
 | Token keys are unique within their group | error |
-| Variant entries follow `<component>-<modifier>` naming — a state (`button-primary-hover`) or a size (`button-sm`, `button-lg`) | warning |
+| Variant entries follow `<component>-<modifier>` naming — a state (`button-primary-hover`) or a size (`button-primary-sm`, `button-primary-lg`) | warning |
 
 ### Step 3: Reference Resolution — `broken-ref`
 
@@ -122,7 +122,7 @@ Canonical section order in the markdown body — the eight named sections follow
 | Check | Severity |
 |-------|----------|
 | Sections present appear in canonical order | warning |
-| Optional sections (`Elevation & Depth`, `Shapes`, `Motion & Interaction`, `Responsive Behavior`) absent when their matching YAML group is populated | info |
+| Group-backed sections (`Elevation & Depth`, `Shapes`, `Motion & Interaction`, `Responsive Behavior`) absent when their matching YAML group is populated | info |
 | Section headings match the canonical names listed above | warning |
 | Duplicate section heading | error |
 
@@ -175,7 +175,7 @@ Tokens: N colors, N typography, N rounded, N borderWidth, N spacing, N component
 
 ### Step 12: Report Findings
 
-Group findings by severity. Format:
+Group findings by severity. Here is a sensible default format, but use your best judgment:
 
 ```text
 DESIGN.md validation -- <path>
