@@ -11,7 +11,7 @@ During design, at the Ladder step, when choosing among viable entry points, comp
 Every component the design introduces stops at the first rung that satisfies the ACs:
 
 1. **Does it need to exist?** A layer, interface, or config the ACs do not require is speculative — leave it out. An interface with one implementation, a factory for one product, a wrapper that only delegates: not yet.
-2. **Does the codebase already have it?** A helper, pattern, or type already here → reuse it, record it as a `reuse` component. The most common over-build is re-implementing what lives a few files over.
+2. **Does the codebase already have it?** A helper, pattern, or type already here → reuse it, record it as a `reuse` component. The most common over-build is re-implementing what lives a few files over. The same principle holds below component grain: a derivation the code already computes near where new logic lands is reused by naming it in the `Reuses` cell, never recomputed.
 3. **Stdlib or language built-in?** Use it before hand-rolling.
 4. **Native platform or framework feature?** A framework capability or platform primitive before custom code.
 5. **An already-installed dependency?** Use it before adding a new one for what a few lines cover.

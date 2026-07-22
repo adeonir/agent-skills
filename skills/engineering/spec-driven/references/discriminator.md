@@ -14,6 +14,8 @@ At the self-check step of specify, design, and tasks, to confirm the artifact ca
 | **Design** | HOW | architecture, components, files, interface contracts (signatures), data model, non-obvious technical decisions, error strategy, risks | function bodies, tests, step sequences, commit order |
 | **Tasks** | WHEN / ORDER | atomic steps, dependencies, per-task tests, gates, commit boundary | new architecture (already in design), behavior (already in spec) |
 
+Design *staying out of* function bodies means it never authors one — not that it ignores existing bodies. Exploration reads them, and design may point at a derivation an existing body already computes to record reuse; that pointer is not a body.
+
 ## The observability test
 
 If the user or caller observes it → WHAT (enters the spec). If it is an internal choice → HOW (stays out, goes to design). Precise observable results — status, error semantics, a field present in the response, a state transition, limits, priorities — are WHAT. Tech, library, file path, component/function/class name, internal data structure, algorithm, and design-mechanism rationale are HOW.
