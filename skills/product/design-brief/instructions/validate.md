@@ -46,11 +46,11 @@ Validate the YAML against the expected shape.
 | `name` is a non-empty string | error |
 | `description` is a non-empty string when present | warning |
 | Every color value is either a hex string (`#RRGGBB` or `#RGB`) or an object with `hex` (required) and `oklch` (required) keys | error |
-| Every typography entry has `fontFamily` and `fontSize`; optional `fontWeight`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation` typed correctly | error |
+| Every typography entry has `fontFamily` and `fontSize`; optional `fontWeight`, `fontStyle`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation` typed correctly | error |
 | Every dimension uses a valid unit (`px`, `em`, `rem`) or unitless number where allowed (`lineHeight`) | error |
 | `lineHeight` values are either a Dimension or a unitless number (recommended) | info |
 | Token keys are unique within their group | error |
-| Variant entries follow `<component>-<state>` naming (e.g., `button-primary-hover`) | warning |
+| Variant entries follow `<component>-<modifier>` naming — a state (`button-primary-hover`) or a size (`button-sm`, `button-lg`) | warning |
 
 ### Step 3: Reference Resolution — `broken-ref`
 
@@ -90,8 +90,8 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 |-------|----------|
 | `typography` is present when `colors` is present | warning |
 | Body role line-height ≥ 1.4 (readability floor) | warning |
-| A `label` or `caption` role — or any role the Typography prose describes as uppercase / ALL-CAPS — carries `letterSpacing` ≥ 0.06em (uppercase text reads cramped without positive tracking) | warning |
-| A `display` or `heading-*` role carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
+| A `label`, `caption`, or `eyebrow` role — or any role the Typography prose describes as uppercase / ALL-CAPS — carries `letterSpacing` ≥ 0.06em (uppercase text reads cramped without positive tracking) | warning |
+| A large-display role (`display`, `title`, `heading`, `subheading`) carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
 
 ### Step 6: Token Groups Shape — `token-groups-shape`
 

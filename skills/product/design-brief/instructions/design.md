@@ -170,7 +170,7 @@ After assembling the group, run the contrast script against the file — the Ste
 python3 ${CLAUDE_SKILL_DIR}/scripts/check-contrast.py docs/design/DESIGN.md
 ```
 
-**Frontmatter — typography.** One entry per role. Required: `fontFamily`, `fontSize`. Optional: `fontWeight`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation`. Dimensions in `px`, `em`, or `rem`. `lineHeight` accepts unitless numbers (recommended).
+**Frontmatter — typography.** One entry per role. Required: `fontFamily`, `fontSize`. Optional: `fontWeight`, `fontStyle`, `lineHeight`, `letterSpacing`, `fontFeature`, `fontVariation`. Dimensions in `px`, `em`, or `rem`. `lineHeight` accepts unitless numbers (recommended).
 
 ```yaml
 typography:
@@ -182,7 +182,7 @@ typography:
     letterSpacing: -0.02em
 ```
 
-Role keys are kebab-case (`display`, `heading-lg`, `heading-md`, `body-standard`, `body-sm`, `caption`, `label`, `code`).
+Role keys are kebab-case, drawn from the active register's vocabulary — the register biases which roles are typical, never restricts them ([brand.md](../references/brand.md) / [product.md](../references/product.md)); the pool is open. Name each role by purpose — the purpose vocabulary is the backbone. A functional variant is a separate entry with a closed suffix, `-emphasis` (more prominent) or `-muted` (less prominent) — realized by weight, `fontStyle`, or both, never named after its realization. A role that renders at more than one size may carry the size in its key (`heading-sm`, `button-sm`) — additive to the purpose vocabulary, never a replacement for it: keep distinct purposes as distinct roles, never substituting a size ramp (`body-sm`/`body-md`/`body-lg`) for `caption`, `label`, and `eyebrow`.
 
 **Frontmatter — rounded.** Tailwind scale names mapped to dimensions.
 
@@ -192,7 +192,7 @@ Role keys are kebab-case (`display`, `heading-lg`, `heading-md`, `body-standard`
 
 **Frontmatter — components.** One entry per component (and per variant). Props accepted: `backgroundColor`, `textColor`, `typography`, `rounded`, `padding`, `size`, `height`, `width`, `borderColor`, `borderWidth`, `shadow`, `gap`, `opacity`. Use `{path.to.token}` references where possible; fall back to literal values for one-off cases. For a translucent color, append the opacity modifier to the reference — `{colors.primary}/90` — never an inlined `rgb(...)`/`rgba(...)` of a palette color.
 
-Variants are separate entries with a related key name:
+Variants are separate entries with a related key name. State variants (hover, active, pressed, disabled) and size variants (`-sm`, `-lg`) are both separate entries. A size variant references a size-specific typography role — `button-primary-sm` points at `{typography.button-sm}`, which carries the smaller `fontSize` — rather than overriding size on the component:
 
 ```yaml
 components:
@@ -201,12 +201,15 @@ components:
     textColor: "{colors.primary-foreground}"
     rounded: "{rounded.md}"
     padding: "{spacing.3}"
-    typography: "{typography.label}"
+    typography: "{typography.button}"
   button-primary-hover:
     backgroundColor: "{colors.primary-foreground}"
   button-primary-disabled:
     backgroundColor: "{colors.muted}"
     textColor: "{colors.muted-foreground}"
+  button-primary-sm:
+    typography: "{typography.button-sm}"
+    padding: "{spacing.2}"
 ```
 
 **Frontmatter — elevation.** Tailwind shadow scale with full CSS shadow strings.
@@ -242,7 +245,7 @@ Bullets mirror the frontmatter shape of their token — hex-only when the YAML c
 `## Typography` — three recommended H3:
 
 - `### Font Family` — list each family with role and substitute fallback if applicable.
-- `### Hierarchy` — bullet list, one bullet per role. Format: `- **<Role Name>** (`` `<token-key>` ``): <Font> <size> weight <N>, line-height <N>, letter-spacing <Npx>`. Role names are human (`Display / Hero`, `Section Heading`, `Body Standard`, `Caption`, `Label`, `Code`). Quantity is free. Never use a table.
+- `### Hierarchy` — bullet list, one bullet per role. Format: `- **<Role Name>** (`` `<token-key>` ``): <Font> <size> weight <N>, line-height <N>, letter-spacing <Npx>`. Role names are human (`Display / Hero`, `Section Heading`, `Body`, `Eyebrow`, `Caption`, `Label`, `Button`, `Code`). Quantity is free. Never use a table.
 - `### Principles` — 3–6 named bullets explaining why the type system reads the way it does. Format: `- **<Named principle>**: <why-explanation prose>`.
 
 `## Layout` — three recommended H3 (radius lives in the Shapes section):
@@ -334,7 +337,7 @@ Then show the user:
 - Use `{path.to.token}` references inside `components`, `rounded`, and `spacing` to keep the YAML coherent; add the `/NN` opacity modifier for a translucent color (`{colors.primary}/90`)
 - Verify every `*-foreground`/base pair with the bundled contrast script before writing the colors group; fix failures by shifting lightness, not hue
 - Ask the user when two sources conflict on the same token
-- Express variants (hover, active, pressed, disabled) as separate component entries with related key names
+- Express variants — states (hover, active, pressed, disabled) and sizes (`-sm`, `-lg`) — as separate component entries with related key names; a size variant references a size-specific typography role (`{typography.button-sm}`) rather than overriding size on the component
 - Keep DESIGN.md content-agnostic — tokens, brand DNA, and rationale only; any specific copy is out of scope
 - Use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`) in the Agent Prompt Guide example prompts so DESIGN.md renders any product copy
 - Reference `{components.X}` in the Agent Prompt Guide example prompts for any component defined in the frontmatter; re-spell properties only for what no component token covers
@@ -398,23 +401,37 @@ colors:
   input: "{{#HEX}}"
   ring: "{{#HEX}}"
 typography:
+  # role keys come from the active register's vocabulary (brand.md / product.md);
+  # the pool is open — a representative set is shown. Name roles by purpose; a role
+  # with multiple sizes may carry the size in its key (button-sm), never collapsing
+  # distinct purposes into a size ramp. Functional variants use -emphasis / -muted.
   display:
     fontFamily: "{{Font}}"
     fontSize: {{size}}
     fontWeight: {{N}}
     lineHeight: {{N}}
     letterSpacing: {{Nem}}
-  heading-lg:
+  heading:
     fontFamily: "{{Font}}"
     fontSize: {{size}}
     fontWeight: {{N}}
     lineHeight: {{N}}
     letterSpacing: {{Nem}}
-  body-standard:
+  body:
     fontFamily: "{{Font}}"
     fontSize: {{size}}
     fontWeight: {{N}}
     lineHeight: {{N}}
+  body-emphasis:
+    fontFamily: "{{Font}}"
+    fontSize: {{size}}
+    fontWeight: {{N}}
+    fontStyle: italic
+    lineHeight: {{N}}
+  eyebrow:
+    fontFamily: "{{Font}}"
+    fontSize: {{size}}
+    fontWeight: {{N}}
     letterSpacing: {{Nem}}
   caption:
     fontFamily: "{{Font}}"
@@ -422,6 +439,11 @@ typography:
     fontWeight: {{N}}
     lineHeight: {{N}}
   label:
+    fontFamily: "{{Font}}"
+    fontSize: {{size}}
+    fontWeight: {{N}}
+    lineHeight: {{N}}
+  button:
     fontFamily: "{{Font}}"
     fontSize: {{size}}
     fontWeight: {{N}}
@@ -462,7 +484,7 @@ components:
     textColor: "{colors.primary-foreground}"
     rounded: "{rounded.md}"
     padding: "{spacing.3}"
-    typography: "{typography.label}"
+    typography: "{typography.button}"
   button-primary-hover:
     backgroundColor: "{colors.primary-foreground}"
     textColor: "{colors.primary}"
@@ -549,10 +571,13 @@ breakpoints:
 ### Hierarchy
 
 - **Display / Hero** (`display`): {{Font}} {{size}} weight {{N}}, line-height {{N}}, letter-spacing {{Nem}}
-- **Section Heading** (`heading-lg`): {{Font}} {{size}} weight {{N}}, line-height {{N}}, letter-spacing {{Nem}}
-- **Body Standard** (`body-standard`): {{Font}} {{size}} weight {{N}}, line-height {{N}}
+- **Section Heading** (`heading`): {{Font}} {{size}} weight {{N}}, line-height {{N}}, letter-spacing {{Nem}}
+- **Body** (`body`): {{Font}} {{size}} weight {{N}}, line-height {{N}}
+- **Body Emphasis** (`body-emphasis`): {{Font}} {{size}} weight {{N}}, italic, line-height {{N}}
+- **Eyebrow** (`eyebrow`): {{Font}} {{size}} weight {{N}}, letter-spacing {{Nem}}
 - **Caption** (`caption`): {{Font}} {{size}} weight {{N}}, line-height {{N}}
 - **Label** (`label`): {{Font}} {{size}} weight {{N}}, line-height {{N}}
+- **Button** (`button`): {{Font}} {{size}} weight {{N}}, line-height {{N}}
 - **Code** (`code`): {{Mono Font}} {{size}} weight {{N}}, line-height {{N}}
 
 ### Principles
@@ -706,7 +731,7 @@ breakpoints:
 
 Prompts use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Badge Text]`, `[Nav Label]`) so the design system renders any product copy. Never embed real product strings here.
 
-- "Hero section with `[Headline]` in `{{display token}}`, body `[Body Lorem]` in `{{body-standard token}}`, primary CTA `[CTA Label]` styled as `{{button-primary}}` over `{{colors.background}}`."
+- "Hero section with `[Headline]` in `{{display token}}`, body `[Body Lorem]` in `{{body token}}`, primary CTA `[CTA Label]` styled as `{{button-primary}}` over `{{colors.background}}`."
 - "Card containing `[Card Title]`, `[Card Description]`, image at `{{rounded.lg}}`, padding `{{spacing.6}}`, shadow `{{elevation.sm}}`."
 - "Pill badge displaying `[Badge Text]` in `{{label token}}`, background `{{colors.accent}}`, text `{{colors.accent-foreground}}`, radius `{{rounded.full}}`."
 - "Navigation bar with `[Logo]`, links `[Nav Label A]`, `[Nav Label B]`, `[Nav Label C]`, CTA `[CTA Label]` as `{{button-primary}}`."
