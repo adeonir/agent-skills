@@ -76,7 +76,7 @@ External design-tool files are user-owned. The skill never creates them — it p
 
 ## Anti-Pattern: Copy Leakage into DESIGN.md
 
-DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when the Overview section reads like a product pitch, when the Components section names components by product-specific labels, or when the Agent Prompt Guide section bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside the Agent Prompt Guide prompts. Treat content and design as orthogonal — one DESIGN.md must survive any content swap.
+DESIGN.md is content-agnostic by design. The same tokens and brand prose must render *any* copy — placeholder, marketing, editorial, or per-locale — without rewrites. Leaks happen when the Overview section reads like a product pitch, when the Components section names components by product-specific labels, when a token key is named after a feature, screen, or entity (`payment`, `checkout-heading`), or when the Agent Prompt Guide section bakes real headlines, CTAs, or feature names into example prompts. The fix: keep brand voice in DESIGN.md, keep every product string out of it, and use placeholders (`[Headline]`, `[Body Lorem]`, `[CTA Label]`, `[Nav Label]`) inside the Agent Prompt Guide prompts. Treat content and design as orthogonal — one DESIGN.md must survive any content swap.
 
 ## Anti-Pattern: Skipping Discovery
 
