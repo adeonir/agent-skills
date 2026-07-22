@@ -141,15 +141,19 @@ Canonical section order in the markdown body — the eight named sections follow
 
 ### Step 9: Content & Tooling-Agnostic Check — `content-leakage` + `library-name-leakage`
 
-DESIGN.md must render any copy and stay tool-agnostic. Flag prose that bakes product-specific content into the brand identity, or that names the UI library or design system used only as reference.
+DESIGN.md must render any copy and stay tool-agnostic — in prose and in the token namespace. Flag prose that bakes product-specific content into the brand identity, token keys that encode a product-domain concept, or names of the UI library or design system used only as reference.
 
 | Check | Severity |
 |-------|----------|
 | The Overview section contains feature lists, audience descriptions ("users who", "teams that"), product-pitch phrasing, or marketing claims rather than brand-voice and atmosphere | warning |
 | The Components section narrates a component by a product-specific label (e.g., "the Refund Center card") instead of by structural role ("transactional summary card") | warning |
+| A `colors` token key names a product-domain concept (`payment`, `checkout`) rather than a design role, semantic status, or hue — a base and its `-foreground` count as one finding | warning |
+| A `typography` or `components` token key names a product-domain concept (`checkout-heading`, `refund-center-card`) rather than a structural role | warning |
 | The Agent Prompt Guide Example Component Prompts embed concrete strings that look like real copy (headlines, CTAs, feature names, taglines) instead of placeholders (`[Headline]`, `[CTA Label]`, `[Body Lorem]`, `[Badge Text]`, `[Nav Label]`) | warning |
 | Frontmatter `description` reads like a product tagline rather than a brand-voice summary | info |
 | Prose or `description` names a specific UI library or design system (`shadcn`, `Tailwind`, `Material UI`, `Bootstrap`, `Chakra`, `Radix`, ...) — reference/inspiration only, never part of the brand identity; name the value, not the tool | warning |
+
+**Token-key vocabulary.** A token key names a design role, a semantic status, or a hue — never a product-domain concept. Accepted without flag: the semantic color roles (`primary`, `secondary`, `accent`, `muted`, `destructive`, `background`, `foreground`, `card`, `popover`, `border`, `input`, `ring`), semantic status roles (`success`, `warning`, `info`, and `error` / `danger` — distinct from `destructive`, the destructive-action role), data-series roles (`chart-1`…), `sidebar-*`, any `<base>-foreground`, and raw/brand hue names (`ink`, `teal`, `blue-500`). Flag a key that reads as a feature, screen, or entity (`payment`, `checkout`, `refund-card`, `checkout-heading`).
 
 ### Step 10: Anti-Pattern Audit
 

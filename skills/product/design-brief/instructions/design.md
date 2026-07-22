@@ -134,6 +134,8 @@ The notes below cover per-group nuances. Colors, typography, and components show
 
 **Frontmatter — colors.**
 
+Key names are semantic — a color token names a design role, a semantic status (`success`, `warning`, `info`, `error` / `danger`), or a hue, never a product-domain concept (`payment`, `checkout`). `destructive` is the destructive-action role, distinct from an `error` / `danger` status.
+
 Per-token shape picks itself from the source value of that specific token:
 
 - Hex-only when the source value is hex:
@@ -326,6 +328,7 @@ Then show the user:
 - Pull exact values from the source (color values, font name, px) rather than rounding
 - Reference token keys in backticks alongside evocative names in prose
 - Pick one color naming mode (descriptive or poetic) and stay consistent
+- Name every token key by design role, semantic status, or hue — never a product-domain concept (`payment`, `checkout`, `refund-card`)
 - Match each color token's frontmatter shape to its source value — hex string when the source value is hex, object `{ hex, oklch }` when the source value is oklch (per-token, not file-wide)
 - Encode a second skin as a named override group inside `colors` that redefines only what changes — the source's default skin stays flat, and either skin may be the default
 - Use `{path.to.token}` references inside `components`, `rounded`, and `spacing` to keep the YAML coherent; add the `/NN` opacity modifier for a translucent color (`{colors.primary}/90`)
@@ -344,6 +347,7 @@ Then show the user:
 - Approximate colors or font sizes when the source has exact values (contrasts: pull exact values)
 - Author product-specific arrangement in DESIGN.md (contrasts: product-specific arrangement is out of scope for DESIGN.md)
 - Embed actual product copy in DESIGN.md — no real headlines, body text, button labels, marketing claims, or section taglines (contrasts: DESIGN.md is content-agnostic; product copy stays out)
+- Key a token after a feature, screen, or entity — `payment`, `refund-card`, `checkout-heading` leak product domain into the token namespace (contrasts: keys name a design role, semantic status, or hue)
 - Name the toolkit in DESIGN.md — no UI library or design-system names in prose or `description` (shadcn, Tailwind, Material UI, Bootstrap, ...); they inspire the tokens but are not the brand (contrasts: describe the identity in its own terms — token keys may follow a library's scale, but the prose names the value, not the tool)
 - Write the Overview section as a product pitch (contrasts: the Overview section is brand voice and atmosphere, not what the product does or for whom)
 - Bake real copy strings into the Agent Prompt Guide example prompts (contrasts: use placeholders so any copy renders correctly on this design system)
