@@ -37,7 +37,7 @@ What makes a good choice for each token group. Compose these biased by the regis
 - **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for a marketing or editorial identity. Pair a characterful display font with a refined body font. System stacks are acceptable for app and dashboard surfaces where performance and native feel matter.
 - **Weight extremes**: use 100-200 for subtlety and 800-900 for impact within the same scale.
 - **Size jumps**: display should be at least 3x body size. Timid 1.5x ratios flatten hierarchy.
-- **Letter-spacing is the tell**: tune tracking per role, never leave it default-zero everywhere. Tighten display and large headings with negative tracking as size grows (roughly `-0.01em` to `-0.03em`); keep body near `0`; give ALL-CAPS labels and eyebrows positive tracking of at least `0.06em` or they read cramped. Flat, untuned letter-spacing is the highest-signal sign of careless type.
+- **Letter-spacing is the tell**: tune tracking per role, never leave it default-zero everywhere. Tighten display and large headings with negative tracking as size grows (roughly `-0.01em` to `-0.03em`); keep body near `0`; give ALL-CAPS labels and eyebrows positive tracking of at least `0.05em` or they read cramped. Flat, untuned letter-spacing is the highest-signal sign of careless type.
 - **Loading strategy**: author `font-display: swap` (or `optional` for zero layout shift) with a metric-matched fallback (`size-adjust`) to tame it; preload only the critical above-the-fold weight, and reach for a variable font once a family needs 3+ weights.
 
 ### Color and Theme

@@ -90,7 +90,7 @@ It parses the frontmatter, checks every `*-foreground`/base token pair and every
 |-------|----------|
 | `typography` is present when `colors` is present | warning |
 | Body role line-height ≥ 1.4 (readability floor) | warning |
-| A `label`, `caption`, or `eyebrow` role — or any role the Typography prose describes as uppercase / ALL-CAPS — carries `letterSpacing` ≥ 0.06em (uppercase text reads cramped without positive tracking) | warning |
+| A `label`, `caption`, or `eyebrow` role — or any role the Typography prose describes as uppercase / ALL-CAPS — carries `letterSpacing` ≥ 0.05em (uppercase text reads cramped without positive tracking) | warning |
 | A large-display role (`display`, `title`, `heading`, `subheading`) carries non-positive `letterSpacing` (large type wants negative or zero tracking, never loose) | info |
 
 ### Step 6: Token Groups Shape — `token-groups-shape`
