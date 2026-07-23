@@ -2,6 +2,10 @@
 
 Append a new snapshot block at the top of `.artifacts/HANDOFF.md`.
 
+## Current time
+
+!`date '+%Y-%m-%d %H:%M'`
+
 ## When to Use
 
 - User invokes a save trigger ("save context", "dump conversation", "checkpoint this", "session handoff", "save handoff")
@@ -73,7 +77,7 @@ The goal is recovering lost session detail, not importing history or adjacent th
 
 ## Workflow
 
-1. Resolve current date and time as `YYYY-MM-DD HH:MM` (local time acceptable; pick one convention and keep it).
+1. Read the timestamp from **Current time** above as the snapshot header. If the section is empty (injection disabled via `disableSkillShellExecution`), fall back to `YYYY-MM-DD` only.
 2. Run the Enrich Phase to fold relevant current-session observations into working context. Skip silently when claude-mem MCP is absent.
 3. Compose the snapshot from working context. Apply the anti-duplication rule — reference artifacts by path, do not replay them. Redact secrets: replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}` before writing.
 4. If an argument was passed, treat it as the focus of the next session and tailor `Focus` and `Next step` accordingly.
@@ -97,6 +101,5 @@ The goal is recovering lost session detail, not importing history or adjacent th
 
 - Bash/Write fails to create file: report the error and stop; do not retry silently
 - File exists but has no `# Handoff` H1: insert the H1 before prepending the new block
-- Date/time resolution fails: fall back to `YYYY-MM-DD` only (no time component) rather than blocking the save
 - Argument is present but unintelligible: treat as no argument and fall back to generic capture
 - claude-mem MCP unavailable, returns nothing, or query times out: skip Enrich Phase silently and compose from working context only
