@@ -462,7 +462,7 @@ docs/
 ├── product/   # brainstorm, docs-writer
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # design-brief, wireframe, copywriting
+└── design/    # design-brief, copywriting
 
 .artifacts/
 ├── specs/, archive/, CONTEXT.md, STATE.md, LESSONS.json, research/   # spec-driven
@@ -475,7 +475,8 @@ docs/
 `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it
 writes to Obsidian, then clears it — only after persisting, and within the
 empty-file-equals-cleared contract `handoff` defines. Reading a sibling's
-artifact is ordinary composition (`craft-ui` render integrates three); a
+artifact is ordinary composition (`craft-ui` render integrates structure,
+tokens, and content); a
 mutating integrator is the exception, and `wrap-up` is its single instance —
 no other skill may write to or clear a sibling's artifact.
 
@@ -491,7 +492,7 @@ docs-writer skill no longer ships a "Technical Design Document" artifact
 type — that role is now covered by the project-wide Design Doc.
 
 `register` / `surface` are shared design vocabulary across `craft-ui`,
-`design-brief`, `copywriting`, and `wireframe`: **register** = posture (`brand`
+`design-brief`, and `copywriting`: **register** = posture (`brand`
 vs `product`, two values), **surface** = granular type named by context. Each
 skill carries its own `brand.md` + `product.md`; the terms must not diverge.
 `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the

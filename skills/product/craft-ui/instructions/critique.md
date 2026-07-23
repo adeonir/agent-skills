@@ -1,11 +1,12 @@
 # Critique
 
-Judge a chosen variant before implementation — a direction verdict, not a defect list. Critique is coupled to render: it evaluates one rendered variant and feeds refinements back into the render tune loop. Perceptual judgment; non-mutating.
+Judge a chosen variant before implementation — a direction verdict, not a defect list. Critique is coupled to render: it evaluates one rendered variant and feeds refinements back into the render tune loop. Perceptual and structural judgment; non-mutating.
 
 ## When to Use
 
 - A variant has been picked in render and needs a direction verdict before build
 - User asks whether a design reads as distinctive / trustworthy or as AI slop
+- User asks whether the arrangement or flow behind a chosen variant holds up
 - User wants heuristic scoring, cognitive-load, or persona red flags on a variant
 - Looping with render: critique → tune verb → re-render → critique again
 
@@ -14,6 +15,7 @@ Reads the chosen variant HTML in `.artifacts/` (render's output) and judges it. 
 Composes:
 
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
+- [structure.md](../references/structure.md) — region tree, flow, and the structural self-check
 - [design-thinking.md](../references/design-thinking.md) — visual direction, color strategy, slop test
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
 - [typography.md](../references/typography.md) — scale, pairing, hierarchy, readability
@@ -50,21 +52,25 @@ Then run the craft checks from [design-thinking.md](../references/design-thinkin
 
 Read the density and variance dials (design-thinking.md) against the brief — report the level the variant lands at versus the level intended ("reads density 8, the brief wanted 4"). The dials sharpen the verdict; they do not enter the score.
 
-### Step 3: Score the heuristics
+### Step 3: Read the structure
 
-Score all 10 Nielsen heuristics 0–4 — definitions and the 0–4 criteria per heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in [scoring.md](../references/scoring.md). Present as a table with a per-row key issue and the total /40. Be honest — most real interfaces land 20–32.
+Before scoring the rendered surface, question the arrangement behind it — the region tree and flow the variant draws ([structure.md](../references/structure.md)). When the session's `.artifacts/design/variants/structure.yaml` exists, read it as the canonical plan and check the variant against it in both directions — a block the plan names that the variant dropped, and a region the variant invented that the plan does not carry; otherwise infer the arrangement from the rendered page. Walk the structural self-check as a read of the built page: does each surface's arrangement match its register (a brand surface building toward a conversion, a product surface following the task with familiar navigation), is the primary action obvious, does navigation reach every surface with the `flow:` connected and no dangling step, is content grouped by hierarchy, are the empty / loading / error states and the reflow planned where they matter. Flag each structural gap; these are affordance-presence findings, not a score, and they feed the P0–P3 list in Step 7.
 
-### Step 4: Cognitive load
+### Step 4: Score the heuristics
+
+Where Step 3 read whether the structure makes *room* for an affordance, this step scores how well the rendered UI *executes* it — the two altitudes, not the same check twice. Score all 10 Nielsen heuristics 0–4 — definitions and the 0–4 criteria per heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in [scoring.md](../references/scoring.md). Present as a table with a per-row key issue and the total /40. Be honest — most real interfaces land 20–32.
+
+### Step 5: Cognitive load
 
 Walk the 8-item checklist in [cognitive-load.md](../references/cognitive-load.md); count failures (0–1 low, 2–3 moderate, 4+ critical). Flag any decision point with more than 4 simultaneous options — working memory holds ≤4.
 
-### Step 5: Persona red flags
+### Step 6: Persona red flags
 
 Select 2–3 personas by surface from [personas.md](../references/personas.md) and walk the primary action as each. Report the exact elements that fail them — not generic descriptions. personas.md carries the five archetypes, the selection-by-surface table, and a template for project-specific personas.
 
 As you walk each path, trace the **emotional journey** — where it dips (confusion, friction, anxiety) and whether the high-stakes moments (payment, deletion, irreversible submits) offer reassurance. Peak-end weighs the worst moment and the last one most, so one unhandled valley colours the whole read.
 
-### Step 6: Direction verdict and refinements
+### Step 7: Direction verdict and refinements
 
 Write the verdict using the template in [scoring.md](../references/scoring.md): slop verdict, the heuristic table and total, the priority issues (P0–P3), and 2–3 strengths. Then map each priority issue to a render tune verb so the loop can continue — verb definitions live in [tune.md](../references/tune.md) (motion verbs in [motion.md](../references/motion.md) / [overdrive.md](../references/overdrive.md)); render invokes them:
 
@@ -72,6 +78,7 @@ Write the verdict using the template in [scoring.md](../references/scoring.md): 
 - noisy / over-decorated → `quieter` or `distill`
 - flat, no feedback → `animate` (state) or `delight` (earned moments)
 - thin on edge states → `harden` (preview empty / loading / error)
+- structural gap (dangling flow, buried primary action, arrangement wrong for the register) → re-plan the structure phase and re-render ([structure.md](../references/structure.md))
 
 Close with 2–3 questions that open the next iteration instead of only grading this one — "What would a more confident version of this look like?", "Does this need to feel this complex?", "What if the primary action were twice as prominent?" They aim render's next pass.
 

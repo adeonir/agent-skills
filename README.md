@@ -36,11 +36,10 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian |
 | **[brainstorm](skills/product/brainstorm)** | Product | Structured idea exploration and plan stress-testing, diverge to converge |
 | **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
-| **[craft-ui](skills/product/craft-ui)** | Product | Render design variants, critique a variant, audit a running UI — non-mutating |
+| **[craft-ui](skills/product/craft-ui)** | Product | Plan layout structure, render design variants, critique a variant, audit a running UI — non-mutating |
 | **[design-brief](skills/product/design-brief)** | Product | Greenfield visual identity — explore a direction and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Product | Structured docs: PRD, Brief, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
-| **[wireframe](skills/product/wireframe)** | Product | Plans `WIREFRAME.md` and renders a low-fi wireframe — IA, layout, screen flow |
 
 ## How They Connect
 
@@ -52,9 +51,8 @@ flowchart TD
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
     DW_PRD -->|requirements| DB
-    DW_PRD -->|requirements| WF[wireframe]
+    DW_PRD -->|requirements| CU[craft-ui]
     DW_PRD -->|requirements| CW[copywriting]
-    WF -->|layout| CU[craft-ui]
     CW -->|content| CU
     DB -->|tokens| CU
     CU -->|interface| SD
@@ -79,14 +77,13 @@ business logic:
 1.  brainstorm       --> direction and constraints
 2.  docs-writer      --> requirements (what to build, for whom, why)
 3.  docs-writer      --> technical decisions and trade-offs
-4.  wireframe --> layout and screen flow
-5.  design-brief     --> visual identity and design tokens
-6.  copywriting      --> content and copy
-7.  craft-ui         --> build and pressure-test the interface
-8.  epic-tracker     --> epics, stories, acceptance criteria
-9.  spec-driven      --> per-story spec, design, tasks, implementation
-10. review-lens      --> review changes before commit
-11. git-helpers      --> commit, pull request, finish branch
+4.  design-brief     --> visual identity and design tokens
+5.  copywriting      --> content and copy
+6.  craft-ui         --> plan layout structure, build and pressure-test the interface
+7.  epic-tracker     --> epics, stories, acceptance criteria
+8.  spec-driven      --> per-story spec, design, tasks, implementation
+9.  review-lens      --> review changes before commit
+10. git-helpers      --> commit, pull request, finish branch
 ```
 
 ### Feedback loop
@@ -108,7 +105,7 @@ docs/
 ├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: visual identity · wireframe: layout · copywriting: content
+└── design/         # design-brief: visual identity · copywriting: content
 
 .artifacts/
 ├── specs/          # spec-driven: per-feature spec, design, tasks, validation
@@ -118,7 +115,7 @@ docs/
 ├── LESSONS.json    # spec-driven: canonical lessons (machine-owned)
 ├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
-└── design/         # design-brief: tune session events · craft-ui: variant HTML
+└── design/         # design-brief: tune session events · craft-ui: structure.yaml + variant HTML
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks

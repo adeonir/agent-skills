@@ -1,31 +1,33 @@
 # Render
 
-Render the real product in N visual directions for decision-making. Combine DESIGN.md tokens, WIREFRAME.md arrangement, and copy.yaml content into full-page HTML variants, serve them side by side, refine the visual direction, comment, and switch viewports. A decision aid — output is HTML in `.artifacts/`, never a source artifact.
+Render the real product in N visual directions for decision-making. Resolve the layout structure first — a region tree plus screen flow ([structure.md](../references/structure.md)) — then combine it with DESIGN.md tokens and copy.yaml content into full-page HTML variants, serve them side by side, refine the visual direction, comment, and switch viewports. A decision aid — output is HTML in `.artifacts/`, never a source artifact.
 
-Variant generation deserves careful reasoning — visual choices compound across a full page.
+One structure feeds every variant: the arrangement stays constant while the look varies, so the variants compare treatments of the same page rather than different pages. Variant generation deserves careful reasoning — structural and visual choices compound across a full page.
 
 ## When to Use
 
 - A visual direction needs to be seen on the real product before committing
 - User wants to compare visual directions side by side
 - User wants to explore a layout or style direction on a rendered page
-- After or alongside DESIGN.md, WIREFRAME.md, and copy.yaml — each optional, see Inputs
+- User wants only the layout structure — a region tree, screen inventory, or screen flow — before any visual direction; the structure phase resolves and stops
+- After or alongside DESIGN.md and copy.yaml — each optional, see Inputs; the structure phase resolves the layout itself
 
 ## Inputs and Fallbacks
 
-Reads three upstream artifacts. Each is optional — a missing input falls back so a variant always renders:
+Reads two upstream artifacts and resolves the layout structure itself. Each input is optional — a missing one falls back so a variant always renders:
 
 - `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter). **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
-- `docs/design/WIREFRAME.md` — layout plan (page composition or screen flow). **Absent** → compose a conventional layout from [layout.md](../references/layout.md).
+- **Layout structure** — the region tree plus flow the structure phase resolves ([structure.md](../references/structure.md)), cached at `.artifacts/design/variants/structure.yaml`. **Absent** → the structure phase composes it from the conversation, a brief, or a conventional layout ([layout.md](../references/layout.md)); an existing `structure.yaml` is read, not re-planned.
 - `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent too.
 
-The fallback rule is uniform: **any missing input → compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions, follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent page from whatever exists. This is the one skill that reads all three artifacts together — the integrator. It never writes them.
+The fallback rule is uniform: **any missing input → compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions, follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent page from whatever exists. render is the integrator — the one place that resolves structure, tokens, and content together. It writes only the session artifacts (`structure.yaml` and variant HTML) under `.artifacts/`, never a `docs/` source.
 
 > Before writing variants, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
 Required references, auto-loaded:
 
+- [structure.md](../references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
 - [design-thinking.md](../references/design-thinking.md) — choose a visual direction, slop test
 - [heuristics.md](../references/heuristics.md) — heuristics + visual laws
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
@@ -37,11 +39,17 @@ Required references, auto-loaded:
 - [web-standards.md](../references/web-standards.md) — implementation rules
 - [anti-patterns.md](../references/anti-patterns.md) — failure modes + fallback discipline
 
+## Structure
+
+First fix the **register** and **surface**, since both the arrangement and the look read from them. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product — [brand.md](../references/brand.md) / [product.md](../references/product.md)); read which surfaces the project has from an existing `structure.yaml`, `copy.yaml`, or the user, and ask only when neither register nor surface is available.
+
+Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise compose the arrangement from the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time and biasing each surface by its register. Run the structural self-check, then cache the plan to `structure.yaml`.
+
+When the request is only for structure — "map the screen flow", "arrange the screens", "plan the layout" — resolve the tree, draw the mermaid screen-flow from `flow:`, and stop before generating variants. Otherwise carry the resolved structure into generation.
+
 ## Direction
 
-Resolve the **register** (brand or product — [brand.md](../references/brand.md) / [product.md](../references/product.md)) and the **surface**; read which surfaces the project has from WIREFRAME.md, copy.yaml, or the user. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product); ask only when neither is available.
-
-Direction comes from [design-thinking.md](../references/design-thinking.md): when the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose from it; with no direction, compose one biased by the register (brand and product permit different things — see their files) and fitting the surface. Vary the direction per variant; never converge on a house style.
+With the register and surface fixed, compose the **visual direction** from [design-thinking.md](../references/design-thinking.md): when the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose from it; with no direction, compose one biased by the register (brand and product permit different things — see their files) and fitting the surface. Vary the direction per variant; never converge on a house style.
 
 Set the density and variance dials (design-thinking.md) to the level the brief implies — a scanning dashboard runs dense, a premium landing runs sparse — and build the variant to that level.
 
@@ -83,29 +91,31 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 
 ## Workflow
 
-User asks for N variants (default 4). Generate one HTML per variant from the tokens (DESIGN.md or a composed seed), the arrangement (WIREFRAME.md or fallback layout), and the content (copy.yaml or placeholders).
+Generate one HTML per variant from the resolved structure (`structure.yaml`), the tokens (DESIGN.md or a composed seed), and the content (copy.yaml or placeholders). Every variant draws the same structure in a different look.
 
-1. **Confirm count and direction.** Default N to 4. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register and fitting the surface.
+1. **Resolve the structure.** Fix the register and surface, then resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
 
-2. **Start the render server** (if not running):
+2. **Confirm count and direction.** Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register and fitting the surface.
+
+3. **Start the render server** (if not running):
 
    ```bash
    bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants
    ```
 
-3. **Generate one HTML per variant.** Resolve tokens, arrangement, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`.
+4. **Generate one HTML per variant.** Resolve structure, tokens, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`.
 
-4. **Serve** all variants side by side via the server. User picks one.
+5. **Serve** all variants side by side via the server. User picks one.
 
-5. **Mark** the chosen variant as `final.html` in the variants directory.
+6. **Mark** the chosen variant as `final.html` in the variants directory.
 
 ## Variant-Tune
 
-Once a variant is chosen, tune its **visual direction** — not its tokens. Variant tune re-renders the variant along four direction axes; it never edits DESIGN.md and never commits. To make a tuned direction permanent, the user invokes the owning skill (layout → WIREFRAME.md, style → DESIGN.md authoring).
+Once a variant is chosen, tune its **visual direction** — not its tokens. Variant tune re-renders the variant along four direction axes; it never edits DESIGN.md and never commits. To make a tuned direction permanent, the change happens in the owning place — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring (design-brief).
 
 Four axes:
 
-- **Layout pattern** — full-width / split / grid-N / stack / sidebar arrangement of the page
+- **Layout pattern** — a page arrangement from the fixed shape vocabulary in [structure.md](../references/structure.md) (`full-width | split | grid-N | stack | sidebar | modal | overlay`)
 - **Style direction** — a composition from [design-thinking.md](../references/design-thinking.md) (Editorial, Brutalist, Cyberpunk, ...)
 - **Density** — airy ↔ dense spacing and component padding
 - **Decoration** — austere ↔ playful elevation, radius, accent emphasis
@@ -140,18 +150,19 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 
 ## Guidelines
 
-- Resolve tokens, arrangement, and content via the fallback rule — render the best coherent page from whatever exists
+- Resolve structure, tokens, and content via the fallback rule — render the best coherent page from whatever exists
+- Resolve the layout structure first ([structure.md](../references/structure.md)); one region tree feeds every variant
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Compose the direction from [design-thinking.md](../references/design-thinking.md) biased by register + surface when the user gives none; use the user's direction when given
-- Default variant count to 4; honor any N the user names
+- Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names
 - Apply [design-thinking.md](../references/design-thinking.md), the craft dimensions (color/typography/layout/motion/interaction/responsive), and [web-standards.md](../references/web-standards.md) to every output
 - Serve every generated variant through the render server
 - Tune the visual direction by re-rendering — never edit tokens or write a source artifact
 
 ## Error Handling
 
-- All three inputs absent: compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions with placeholder content; flag that the page is illustrative until real inputs exist
+- All inputs absent: the structure phase composes a conventional layout and render seeds tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions with placeholder content; flag that the page is illustrative until real inputs exist
 - DESIGN.md frontmatter unparseable: compose a seed for this render and suggest the user audit DESIGN.md
 - Server port in use: try an alternative port
 - Comment event has no selector: ask the user to re-click the target element
-- User asks to commit a tuned direction: redirect — layout changes go to WIREFRAME.md, style changes to DESIGN.md authoring; render never writes them
+- User asks to commit a tuned direction: redirect — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring; render writes no `docs/` source

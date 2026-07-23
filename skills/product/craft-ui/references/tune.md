@@ -1,10 +1,10 @@
 # Tune
 
-The named directions render re-renders a chosen variant along — bolder, quieter, distill, delight, harden. Each is a *direction*, not an edit: the move lives only in the re-rendered variant HTML for the session. None touches DESIGN.md, WIREFRAME.md, copy.yaml, or production code.
+The named directions render re-renders a chosen variant along — bolder, quieter, distill, delight, harden. Each is a *direction*, not an edit: the move lives only in the re-rendered variant HTML for the session. None touches DESIGN.md, `structure.yaml`, copy.yaml, or production code.
 
 ## When to Use
 
-Composed by `render.md` when the user names a tune on the chosen variant, and by `critique.md` (Step 6) when a priority issue maps to a tune. Not a direct trigger. The motion tunes live elsewhere — `animate` in [motion.md](motion.md), `overdrive` in [overdrive.md](overdrive.md); this file owns the five that reshape the look itself.
+Composed by `render.md` when the user names a tune on the chosen variant, and by `critique.md` (Step 7) when a priority issue maps to a tune. Not a direct trigger. The motion tunes live elsewhere — `animate` in [motion.md](motion.md), `overdrive` in [overdrive.md](overdrive.md); this file owns the five that reshape the look itself.
 
 Each verb reads differently for brand vs product — name the register first ([brand.md](brand.md) / [product.md](product.md)). The moves below are variant-level re-renders, never source mutations.
 

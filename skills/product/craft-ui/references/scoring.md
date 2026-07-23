@@ -83,6 +83,7 @@ distinctive / trustworthy, or AI-generated? One honest paragraph.}
 Map each finding to a concrete next step, in priority order (P0 first):
 
 - A variant that reads too safe or too noisy → re-render it with a tune verb (`bolder` / `quieter` / `distill` / `animate` / `delight` / `harden`).
+- A structural gap (dangling flow, buried primary action, arrangement wrong for the register) → re-plan the structure phase and re-render ([structure.md](structure.md)).
 - A technical or accessibility defect on a shipped UI → a source fix in implementation. craft-ui reports it; it does not apply it (non-mutating).
 
 Never prescribe a fix craft-ui would have to mutate source to make — the report names the defect and its impact; the change happens in implementation.

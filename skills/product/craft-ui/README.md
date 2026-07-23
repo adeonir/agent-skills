@@ -8,13 +8,12 @@ craft-ui — build the interface from the upstream design artifacts and pressure
 flowchart TD
     subgraph inputs[Inputs]
       D[DESIGN.md — tokens]
-      B[WIREFRAME.md — layout]
       C[copy.yaml — content]
     end
-    D --> R[render]
-    B --> R
-    C --> R
-    R --> V[Variant HTML in .artifacts/]
+    R[render] --> ST[structure phase — region tree + flow]
+    C --> ST
+    ST --> V[Variant HTML in .artifacts/]
+    D --> V
     V --> Pick[User picks one]
     Pick --> Cr[critique]
     Cr -->|tune verb| R
@@ -25,11 +24,11 @@ flowchart TD
 
 | Mode | Target | Output |
 | ---- | ------ | ------ |
-| **render** | DESIGN.md + WIREFRAME.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
+| **render** | structure (region tree + flow) + DESIGN.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
 | **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
 | **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
 
-Every mode here works on rendered design, never source. render is the **integrator** — the one mode that reads DESIGN.md, WIREFRAME.md, and copy.yaml together — and it writes only variant HTML. critique and audit produce only a judgment. Nothing here mutates a source artifact or production code.
+Every mode here works on rendered design, never source. render is the **integrator** — the one mode that resolves the layout structure and reads DESIGN.md and copy.yaml together — and it writes only session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`. critique and audit produce only a judgment. Nothing here mutates a `docs/` source or production code.
 
 ## Usage
 
@@ -58,16 +57,17 @@ To make a tuned direction permanent, invoke the owning skill — layout, visual 
 
 ```text
 .artifacts/design/
-└── variants/            # render: variant HTML + .events session log + final.html
+└── variants/            # render: structure.yaml + variant HTML + .events session log + final.html
 ```
 
-critique and audit write nothing — the verdict and the report are delivered in chat. Variant HTML is a decision aid, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `WIREFRAME.md`, `copy.yaml`).
+critique and audit write nothing — the verdict and the report are delivered in chat. `structure.yaml` and the variant HTML are session artifacts and decision aids, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `copy.yaml`) plus the chosen variant.
 
 ## References
 
 Each mode composes the references its job needs from this shared set:
 
-- `references/brand.md` / `references/product.md` — brand vs product posture (set first)
+- `references/brand.md` / `references/product.md` — brand vs product posture and structural arrangement (set first)
+- `references/structure.md` — region tree, shape vocabulary, reflow, structural self-check
 - `references/design-thinking.md` — Four Questions, color strategy, slop test, density/variance dials
 - `references/heuristics.md` — Nielsen heuristics + 0–4 scoring + visual laws
 - `references/cognitive-load.md` — load checklist + working-memory rule
@@ -91,9 +91,9 @@ Each mode composes the references its job needs from this shared set:
 
 ## FAQ
 
-**Q: Does it edit DESIGN.md, WIREFRAME.md, copy.yaml, or production code?**
+**Q: Does it edit DESIGN.md, copy.yaml, or production code?**
 
-A: No — non-mutating end to end. render reads the three inputs and writes only variant HTML to `.artifacts/`; critique and audit produce only a judgment. To make a direction permanent or fix a defect, the change happens in the owning skill or in implementation.
+A: No — non-mutating end to end. render resolves the structure and reads the inputs, writing only session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`; critique and audit produce only a judgment. To make a style permanent or fix a defect, the change happens in the owning skill or in implementation.
 
 **Q: When do I use critique vs audit?**
 
@@ -101,7 +101,7 @@ A: critique judges a **variant** before you build it — a direction verdict tha
 
 **Q: What if I don't have a DESIGN.md or copy.yaml yet?**
 
-A: render still works. Any missing input falls back — compose a seed direction, fill content with placeholders — so you can preview the product at any stage. Missing inputs are flagged as illustrative.
+A: render still works. The structure phase composes a layout when none is planned, and any missing input falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative.
 
 **Q: Does audit check whether the build matches the design system?**
 

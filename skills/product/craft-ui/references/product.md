@@ -4,7 +4,7 @@ When design SERVES the product: app UIs, admin dashboards, settings panels, data
 
 ## When to Use
 
-Read by `critique.md` and `audit.md` when the surface is product — to set the judging posture — and by `render.md` to lean a variant toward this register. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
+Read by `critique.md` and `audit.md` when the surface is product — to set the judging posture — and by `render.md` to lean a variant toward this register, both when planning its structure and when generating its look. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
 
 ## Posture of judgment
 
@@ -16,6 +16,16 @@ Read by `critique.md` and `audit.md` when the surface is product — to set the 
 | Permission | Density, standard patterns, restraint; delight saved for moments |
 
 Familiarity is a feature here. The consistency that reads as timid on brand is a virtue in product. A move that is voice on a brand surface is noise on this one.
+
+## Structural arrangement
+
+Before the look, the structure phase arranges the surface ([structure.md](structure.md)). Product biases the arrangement toward a familiar, navigable structure the user trusts — the failure is invented navigation, a buried primary action, or no state plan.
+
+- **Persistent navigation** — a nav or sidebar the user orients by; don't reinvent it.
+- **Primary action reachable** — the main task is obvious, not buried.
+- **Standard patterns** — list / detail, table plus toolbar, form plus summary; users expect them, and familiarity is a feature.
+- **Plan the states** — empty, loading, error per data region; a box can't show these, so carry them in `note`.
+- Flow is multi-surface (a nav graph): screen → screen, with entry and exit.
 
 ## The product slop test
 
