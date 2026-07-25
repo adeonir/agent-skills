@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-EARS-lite acceptance criteria: the five clause shapes, the two authoring modes, `AC-N` identity and tombstones, backward provenance, the case convention, non-functional criteria, calibration against the goal, and ambiguity closure.
+EARS-lite acceptance criteria: the five clause shapes, the two authoring modes, `AC-N` identity and tombstones, backward provenance, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
 
 ## When to Use
 
@@ -18,13 +18,13 @@ Optional:    Where {feature/condition}, the system shall {action}.
 Unwanted:    If {unwanted condition}, then the system shall {mitigation}.
 ```
 
-EARS operators (`shall`, `when`, `while`, `where`, `if…then`) are the requirement prose. Happy paths go in ACs; boundary conditions go in Edge Cases.
+EARS operators (`shall`, `when`, `while`, `where`, `if…then`) are the requirement prose. A boundary condition is an AC when this system owes the behavior, and an Edge Case when the spec records it without owing it — an AC is enforced by a task, a test, and the audit; an Edge Case is not.
 
 ## Two modes
 
 The agent judges inline — no formal type detection:
 
-- **Reshape** — the input already has ACs or a DoD. Convert 1:1 to EARS, changing only the notation, never the substance (Given + When → trigger; Then → "the system shall…").
+- **Reshape** — the input already has ACs or a DoD. Convert 1:1 to EARS, changing only the notation, never the substance (Given + When → trigger; Then → "the system shall…"). A reason the input states alongside an item crosses with it, as that AC's inline `(because …)`.
 - **Author** — a prompt or PRD with no ACs. Write ACs from the intent.
 
 An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry an AC unexamined — a criterion that fails Calibration below surfaces as a discuss question and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
@@ -41,7 +41,7 @@ The tombstone is an internal record; it tells the user nothing. When the removal
 
 ## Backward provenance — `Satisfies`
 
-Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. Prompt and story seeds do not write it (a story inherits the link 1:1 via the `sources:` pointer). Keep the link on the `**Satisfies**` line, never in prose.
+Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
 
 ## Case convention — three classes
 
@@ -52,6 +52,12 @@ Only when the Author starts from a structured document with its own IDs (a PRD's
 ## Non-functional criteria
 
 Any performance, latency, throughput, capacity, or availability claim carries a number and the condition it holds under (`p95 ≤ 200ms under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question. Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as ACs.
+
+## Ownership
+
+The subject of every `shall` is the system under specification. A clause whose obligation something else satisfies — a platform, a runtime, a service, or a library behaving as documented — is not a criterion this feature can meet or fail: no code here implements it, and no test here discriminates it. Drop it, or replace it with the observable this system owns that rests on it.
+
+An inherited clause that fails this surfaces as a discuss question, the same route a miscalibrated one takes; an authored one is caught at the self-check over the drafted spec. Neither is rewritten unilaterally, and the pendency it leaves on the seed is recorded exactly as Calibration's **Loosen** records one.
 
 ## Calibration
 
