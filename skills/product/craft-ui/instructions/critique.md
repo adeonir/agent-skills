@@ -39,7 +39,7 @@ Composes:
 
 Resolve the register and surface — register from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product), asking only when neither is available — then read the matching [brand.md](../references/brand.md) or [product.md](../references/product.md). Brand judges for distinctiveness; product judges for earned familiarity. The register sets every bar below — do not score before it is fixed.
 
-When `PRODUCT.md` is present, also read its declared anti-references and personality as context for the slop verdict below — read only; critique never edits `PRODUCT.md`.
+When `PRODUCT.md` is present, also read its declared anti-references and personality as context for the slop verdict below — read only; critique never edits `PRODUCT.md`. They enter as a claim to check, not the bar to inherit: where an anti-reference is stale, or names something the surface has good reason to resemble, say so in the verdict rather than scoring against it silently.
 
 ### Step 2: Slop verdict (two altitudes)
 
