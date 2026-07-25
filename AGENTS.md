@@ -359,17 +359,18 @@ unwinding every file that consumed the wrong shape.
 
 Write the least that does the job, and stop there. A skill file directs the agent —
 it does not explain the domain, justify the design, or narrate how the mechanism
-was arrived at. Prose that would help a human understand *why* is weight the agent
-pays for on every load and does not act on. State the constraint and move on:
-"MCP is the only channel" carries everything the agent needs; the sentence
-explaining that there is no CLI to fall back to carries nothing it can act on.
+was arrived at. The test is what the agent *does* with the sentence: a rationale
+that changes its behavior is a constraint and stays; one that only makes a human
+nod is weight paid on every load. State the constraint and move on: "MCP is the
+only channel" carries everything the agent needs; the sentence explaining that
+there is no CLI to fall back to carries nothing it can act on.
 
-The line is what the agent *does* with the sentence. A rationale that changes its
-behavior is a constraint and stays — the read step that says an upstream artifact
-enters as a claim to check, not authority to inherit, tells it to rebut. A
-rationale that only makes a human nod is narrative and goes. Where prose earns its
-place, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the
-trap that needs explaining.
+The test cuts both ways, so a why is not stripped on sight. A constraint often
+wears one, and there it is load-bearing: the read step saying an upstream artifact
+enters as a claim to check, not authority to inherit, is what tells the agent to
+rebut — cut it and the step reads as "go read the file". Where prose earns more
+room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern`
+exist for the trap that needs explaining.
 
 The same discipline applies to mechanism. The trap is building a detector for an
 event that announces itself. Before adding a test, a comparison, or a state to
