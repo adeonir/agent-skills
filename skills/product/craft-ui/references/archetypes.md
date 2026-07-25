@@ -35,8 +35,6 @@ Which chrome regions the surface carries. The preset seeds the common answer; th
 
 A product surface takes a `footer` only where it genuinely closes — an account or settings surface signing off with version, status, and support. A tool the user works inside all day does not end, so it carries none.
 
-Rail knob, both registers: density — icon-only · labelled · collapsible.
-
 ## Header
 
 ### Minimal bar — **reflex**
@@ -91,6 +89,48 @@ Product mark, the current workspace or record, then search and account. Orientat
 - **Register** — product
 - **Knob** — context element: breadcrumb · switcher · both
 - **Not for** — a single-workspace tool with nothing to switch between.
+
+## Rail
+
+Shared knob, every entry: collapse — fixed · collapsible.
+
+### Destination list — **reflex**
+
+Destinations in one flat level, no grouping.
+
+- **Register** — product
+- **Knob** — density: icon-only · labelled
+- **Not for** — more than about seven destinations, where a flat list becomes a scroll with no landmarks in it.
+
+### Grouped sections
+
+Destinations under labelled groups, separated by rules.
+
+- **Register** — product
+- **Knob** — group marker: label · rule only
+- **Not for** — a handful of destinations, where each group ends up labelling one item.
+
+### Switcher-topped
+
+A workspace or project switcher pinned at the top, destinations beneath it, account pinned at the bottom.
+
+- **Register** — product
+- **Not for** — a single-workspace tool with nothing to switch between.
+
+### Flyout
+
+A narrow icon column; selecting one opens a panel beside it holding that section's contents.
+
+- **Register** — product
+- **Knob** — opening: hover · click-pinned
+- **Not for** — destinations whose icons do not tell each other apart without labels.
+
+### Index rail
+
+The surface's own contents — chapters, works, entries — down the side, tracking position while the content column scrolls.
+
+- **Register** — brand
+- **Not for** — a surface that reads as one continuous argument, with no entries to index.
 
 ## Footer
 
