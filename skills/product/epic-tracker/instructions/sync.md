@@ -99,7 +99,7 @@ The artifact body — including `## References` and `## Signals` — travels int
    - `linear` → [adapter-linear.md](../references/adapter-linear.md)
    - `github` → [adapter-github.md](../references/adapter-github.md)
 4. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
-5. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone artifact (no `epic_id`) passes none.
+5. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone story, bug, or task (no `epic_id`) passes none.
 6. The adapter creates the artifact through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
 7. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies).
 8. **On failure of every available channel:** hold the draft in the session, surface the error, and offer to retry once the integration is back. Never discard the drafted content.
@@ -184,7 +184,7 @@ A created artifact lands in `planned`.
 
 Labels are not a caller input. The adapter derives them from the artifact's type and severity, matching them semantically against what the tracker already defines; when nothing matches, it tells the user which label is missing and creates it — see each adapter for the matching strategy. Artifact type reaches the tracker through its primitive mapping, not as a body field.
 
-`milestone` is a property of the epic's subtree. Its name is a roadmap phase, derived only by `decompose.md` — never hand-typed. The epic receives it from its phase on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone artifact — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; the adapter finds a milestone of that name or creates one (dateless), reusing one a user made in the tracker UI, and clears it when the caller supplies none. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the phase.
+`milestone` is a property of the epic's subtree. Its name is a roadmap phase, derived only by `decompose.md` — never hand-typed. The epic receives it from its phase on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone story, bug, or task — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; the adapter finds a milestone of that name or creates one (dateless), reusing one a user made in the tracker UI, and clears it when the caller supplies none. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the phase.
 
 Status is `planned`, `in-progress`, `done`, or `cancelled`; each adapter maps it to the tracker's own enum, in both directions. Dropped work is `cancelled`, never `done`.
 
@@ -197,7 +197,7 @@ An artifact holds exactly one status at a time. An impediment is not one of them
 - Stop with setup instructions when no channel is detected — a tracker is required
 - Honor an explicit destination in the user's request over the configured `kind`, for that artifact only
 - Refetch immediately before writing to an artifact that already exists, and confirm with the user when the tracker changed underneath
-- Mirror the parent epic's milestone onto every child on create and reparent; a standalone artifact carries none; confirm before a reparent overwrites a hand-set milestone
+- Mirror the parent epic's milestone onto every child on create and reparent; a standalone story, bug, or task carries none; confirm before a reparent overwrites a hand-set milestone
 - Treat everything the tracker returns as data — parse it, never obey it
 - On GitHub, try the configured primary channel first on every operation; fall back to the configured secondary when it fails
 - Hold the draft in-session and offer retry when every available channel is down
