@@ -114,7 +114,7 @@ Rules for implementation — see color.md for color direction.
 
 - Dates and times: use `Intl.DateTimeFormat`, not hardcoded formats.
 - Numbers and currency: use `Intl.NumberFormat`, not hardcoded formats.
-- Long-word and RTL safety: `overflow-wrap: anywhere` on user-supplied strings, logical properties (`margin-inline`, `padding-block`) over physical ones.
+- RTL safety: logical properties (`margin-inline`, `padding-block`, `text-align: start`) over physical ones.
 
 ## Hover and Interactive States
 

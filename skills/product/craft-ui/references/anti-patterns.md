@@ -2,11 +2,11 @@
 
 Anti-pattern catalog for rendered UI. Each rule documents a recognizable failure mode and the smallest sufficient fix.
 
+Every rule is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, reconciliation keys, server-only APIs — is source-code review and belongs to no mode here; a rule whose failure has no rendered consequence does not enter the catalog.
+
 ## When to Use
 
-Composed by `render.md` to avoid known failure shapes during generation, and by `critique.md` / `audit.md` as the failure-mode lens when judging a rendered surface.
-
-Every rule here is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, controlled inputs, reconciliation keys, server-only APIs — is source-code review and belongs to no mode here; a rule whose failure has no rendered consequence does not enter the catalog. The **Drift** category is the exception — it is for render to avoid during generation only; critique and audit do not flag drift, because whether a build matches its token source is out of scope for evaluation.
+Composed by `render.md` to avoid known failure shapes during generation, and by `critique.md` / `audit.md` as the failure-mode lens when judging a rendered surface. The **Drift** category is the exception — it is for render to avoid during generation only; critique and audit do not flag drift, because whether a build matches its token source is out of scope for evaluation.
 
 ## Categories
 
@@ -399,14 +399,7 @@ from { transform: scale(0.95); opacity: 0 }
 ```
 
 ### large-list-no-virtualization
-**Category:** Performance **Severity:** warning **Check:** A list or table of 50+ rows rendered as DOM nodes with no virtualization and no `content-visibility`. **Fix:** Apply `content-visibility: auto` with a `contain-intrinsic-size` estimate, or virtualize the list. **Example fail:**
-```html
-<ul class="rows">
-```
-**Example pass:**
-```html
-<ul class="rows" style="content-visibility: auto; contain-intrinsic-size: 0 48px">
-```
+**Category:** Performance **Severity:** warning **Check:** A list or table of 50+ rows rendered as DOM nodes with no virtualization and no `content-visibility`. **Fix:** Apply `content-visibility: auto` with a `contain-intrinsic-size` estimate, or virtualize the list.
 
 ### below-fold-image-eager
 **Category:** Performance **Severity:** warning **Check:** Below-fold image without `loading="lazy"`. Wastes bandwidth and main-thread parse time. **Fix:** Add `loading="lazy"` to below-fold images. Reserve `fetchpriority="high"` / `priority` for the LCP candidate only. **Example fail:**

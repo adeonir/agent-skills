@@ -92,14 +92,12 @@ Product mark, the current workspace or record, then search and account. Orientat
 
 ## Rail
 
-Shared knob, every entry: collapse — fixed · collapsible.
-
 ### Destination list — **reflex**
 
 Destinations in one flat level, no grouping.
 
 - **Register** — product
-- **Knob** — density: icon-only · labelled
+- **Knob** — density: icon-only · labelled · collapsible
 - **Not for** — more than about seven destinations, where a flat list becomes a scroll with no landmarks in it.
 
 ### Grouped sections
