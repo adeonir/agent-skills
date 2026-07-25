@@ -19,6 +19,7 @@ Reads two upstream artifacts and resolves the layout structure itself. Each inpu
 - `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter). **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
 - **Layout structure** — the macrostructure, region tree, and flow the structure phase resolves ([macrostructures.md](../references/macrostructures.md), [structure.md](../references/structure.md)), cached at `.artifacts/design/variants/structure.yaml`. **Absent** → the structure phase picks a preset per surface and composes the tree from the conversation, a brief, or a conventional layout ([layout.md](../references/layout.md)); an existing `structure.yaml` is read, not re-planned.
 - `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent too.
+- `.artifacts/design/VARIANTS.md` — what this project already tried, per surface (see Variant memory). **Absent** → first render for the project; nothing to avoid, nothing to follow.
 
 The fallback rule is uniform: **any missing input → compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions, follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent page from whatever exists.
 
@@ -68,6 +69,28 @@ The YAML frontmatter at the top of DESIGN.md is the source of truth for tokens. 
 
 When DESIGN.md is absent, compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions in place of the frontmatter. No external parser, no token endpoint — read the YAML (or compose the seed), resolve references, map to CSS variables, ship the file.
 
+## Variant memory
+
+What this project has already tried lives in `.artifacts/design/VARIANTS.md` — append-only, one line per variant generated, grouped by surface. It sits beside the `variants/` directory rather than inside it: that directory is regenerable, this file is the record, and it is the only render artifact that outlives a session.
+
+ALWAYS use this exact template structure:
+
+```markdown
+## {{surface}} · {{brand | product}}
+
+- {{macrostructure}} ({{knob}}) · {{header archetype}} · {{footer archetype}} · {{close archetype}} · {{direction}} — **chosen**
+- {{macrostructure}} ({{knob}}) · {{header archetype}} · {{footer archetype}} · {{close archetype}} · {{direction}}
+```
+
+The fields are consumed in opposite directions, so read them separately:
+
+- **Direction** — what to avoid. A direction already listed under this surface does not come back. One marked **chosen** may return when the surface is being extended rather than re-explored.
+- **Macrostructure and chrome** — what to follow, taken from the surface's most recent line. A surface keeps its arrangement and its chrome across sessions; rotating them breaks the product rather than varying it.
+
+A surface with no section yet has no history — nothing to avoid, nothing to follow.
+
+MUST NOT contain: token values, copy strings, or any judgment of how the variant turned out. The file records what was picked.
+
 ## Generated HTML Stack
 
 Dependencies load via CDN — no build step. Resolve the canonical CDN entry from each library's official docs at generation time; do not hardcode version pins.
@@ -99,7 +122,7 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 1. **Resolve the structure.** Fix the register and surface, then pick the macrostructure per surface and resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
 
-2. **Confirm count and direction.** Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register and fitting the surface.
+2. **Confirm count and direction.** Read the surface's section in `VARIANTS.md` first — the directions listed there are spent, and the most recent line carries the macrostructure and chrome to keep. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
 
 3. **Start the render server** (if not running):
 
@@ -107,11 +130,11 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
    bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants
    ```
 
-4. **Generate one HTML per variant.** Resolve structure, tokens, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`.
+4. **Generate one HTML per variant.** Resolve structure, tokens, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`, and append its line to the surface's section in `VARIANTS.md`.
 
 5. **Serve** all variants side by side via the server. User picks one.
 
-6. **Mark** the chosen variant as `final.html` in the variants directory.
+6. **Mark** the chosen variant as `final.html` in the variants directory, and flag its line **chosen** in `VARIANTS.md`.
 
 ## Variant-Tune
 
@@ -161,6 +184,7 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Compose the direction from [design-thinking.md](../references/design-thinking.md) biased by register + surface when the user gives none; use the user's direction when given
 - Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names
+- Read `VARIANTS.md` before composing a direction and append to it after generating — spent directions do not return, the surface's arrangement and chrome do
 - Apply [design-thinking.md](../references/design-thinking.md), the craft dimensions (color/typography/layout/motion/interaction/responsive), and [web-standards.md](../references/web-standards.md) to every output
 - Serve every generated variant through the render server
 - Tune the visual direction by re-rendering — never edit tokens or write a source artifact

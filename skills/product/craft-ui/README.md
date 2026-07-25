@@ -59,8 +59,11 @@ To make a tuned direction permanent, invoke the owning skill — layout, visual 
 
 ```text
 .artifacts/design/
+├── VARIANTS.md          # render: append-only log of what each surface already tried
 └── variants/            # render: structure.yaml + variant HTML + .events session log + final.html
 ```
+
+`VARIANTS.md` is the one render artifact that outlives a session — the `variants/` directory is regenerable, this file is the record a later render reads so it neither repeats a spent direction nor re-rolls a surface's arrangement.
 
 critique and audit write nothing — the verdict and the report are delivered in chat. `structure.yaml` and the variant HTML are session artifacts and decision aids, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `copy.yaml`) plus the chosen variant.
 

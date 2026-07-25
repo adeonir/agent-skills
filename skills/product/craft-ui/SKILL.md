@@ -62,7 +62,7 @@ Each mode composes the references its job needs from this shared set, so judgmen
 
 ## Inputs
 
-- **render** resolves the layout structure itself and reads two upstream artifacts, each optional — `DESIGN.md` (tokens) and `copy.yaml` (content). Any missing input falls back to a composed seed so a variant always renders. This is the **integrator**: the one place that resolves structure, tokens, and content together. It caches `structure.yaml` and variant HTML to `.artifacts/`, and writes no `docs/` source.
+- **render** resolves the layout structure itself and reads two upstream artifacts, each optional — `DESIGN.md` (tokens) and `copy.yaml` (content). Any missing input falls back to a composed seed so a variant always renders. This is the **integrator**: the one place that resolves structure, tokens, and content together. It caches `structure.yaml` and variant HTML to `.artifacts/`, appends each variant to `VARIANTS.md` so a later session neither repeats a spent direction nor re-rolls a surface's arrangement, and writes no `docs/` source.
 - **critique** reads the chosen variant HTML in `.artifacts/` (render's output).
 - **audit** reads a running UI (required) plus optional source; inputs degrade gracefully.
 
