@@ -68,6 +68,10 @@ spec: .artifacts/specs/{slug}/spec.md
 
 ## Visual Design Considerations  <!-- conditional: only if visual references exist -->
 {Notes on images/prototypes.}
+
+## Design Gaps Discovered During Implementation  <!-- conditional: written by implement, not by design -->
+| Gap | Correction |
+|-----|------------|
 ```
 
 A placement or trigger with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the ruled-out alternative in its `Rejected` cell, even when one looks obvious. A `Rejected` cell is empty only when the decision genuinely had one viable home.
