@@ -69,7 +69,7 @@ spec: .artifacts/specs/{slug}/spec.md
 ## Visual Design Considerations  <!-- conditional: only if visual references exist -->
 {Notes on images/prototypes.}
 
-## Design Gaps Discovered During Implementation  <!-- conditional: written by implement, not by design -->
+## Design Gaps Discovered During Implementation  <!-- conditional: only when implement records a design gap; written there, not here -->
 | Gap | Correction |
 |-----|------------|
 ```
