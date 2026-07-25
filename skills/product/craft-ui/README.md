@@ -108,7 +108,7 @@ A: critique judges a **variant** before you build it — a direction verdict tha
 
 **Q: What if I don't have a DESIGN.md or copy.yaml yet?**
 
-A: render still works. The structure phase composes a layout when none is planned, and any missing input falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative.
+A: render still works. The structure phase composes a layout when none is planned, and any missing input falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative. On a project that already carries a font stack and a palette in code, render reads them and offers what the product wears today as one of the variants, so extending it and redesigning it are the same comparison.
 
 **Q: Does audit check whether the build matches the design system?**
 
