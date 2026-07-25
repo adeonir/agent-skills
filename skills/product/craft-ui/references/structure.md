@@ -32,8 +32,9 @@ tokens or copy strings — following the fallback rule in [render.md](../instruc
 - **macrostructure** — the named page shape the surface takes, with its knob value
   where the preset has one (see below).
 - **Block** — an ordered region inside a surface, labelled by content (`hero`,
-  `feature-grid`, `nav`, `footer`, `list`, `detail`, `form`). Free label; the
-  shape comes from the fixed set below.
+  `feature-grid`, `header`, `rail`, `footer`, `list`, `detail`, `form`). Free
+  label; the shape comes from the fixed set below. Chrome is a region — `header`,
+  `rail`, `footer` — and navigation is content inside it, never a block of its own.
 - **children** — nest a block only where a region genuinely contains sub-regions;
   render fills the finer detail at generation time.
 - **note** — intent a box cannot show (state variants, reflow, volume).
@@ -96,7 +97,7 @@ surfaces:
     macrostructure: "{{preset name from macrostructures.md}}"
     knob: "{{preset knob value — omit when the preset carries none}}"
     blocks:
-      - block: "{{free label — hero, feature-grid, nav, footer, list, form}}"
+      - block: "{{free label — hero, feature-grid, header, rail, footer, list, form}}"
         shape: "{{full-width | split | grid-N | stack | sidebar | modal | overlay}}"
         note: "{{intent a box cannot draw — optional}}"
         children:
