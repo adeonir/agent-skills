@@ -10,7 +10,7 @@ flowchart TD
       D[DESIGN.md — tokens]
       C[copy.yaml — content]
     end
-    R[render] --> ST[structure phase — region tree + flow]
+    R[render] --> ST[structure phase — page shape + region tree + flow]
     C --> ST
     ST --> V[Variant HTML in .artifacts/]
     D --> V
@@ -24,7 +24,7 @@ flowchart TD
 
 | Mode | Target | Output |
 | ---- | ------ | ------ |
-| **render** | structure (region tree + flow) + DESIGN.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
+| **render** | structure (page shape + region tree + flow) + DESIGN.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
 | **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
 | **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
 
@@ -34,11 +34,13 @@ Every mode here works on rendered design, never source. render is the **integrat
 
 ```text
 # render — generate, compare, tune (writes only .artifacts/)
+plan the layout for these screens        # structure phase only — page shape + region tree + flow
 generate 4 variants
 generate variants in an editorial direction
 render this page                         # no DESIGN.md yet → compose a seed direction
-make it denser / try a bento layout      # tune the chosen variant
+make it denser / split that section      # tune the chosen variant
 make it bolder / quieter / harden        # tune verbs
+try a bento grid instead                 # a different page shape — re-plans the structure
 
 # critique — judge a chosen variant before building
 critique this variant
@@ -67,6 +69,7 @@ critique and audit write nothing — the verdict and the report are delivered in
 Each mode composes the references its job needs from this shared set:
 
 - `references/brand.md` / `references/product.md` — brand vs product posture and structural arrangement (set first)
+- `references/macrostructures.md` — named page-shape presets per register, with knobs and exclusions
 - `references/structure.md` — region tree, shape vocabulary, reflow, structural self-check
 - `references/design-thinking.md` — Four Questions, color strategy, slop test, density/variance dials
 - `references/heuristics.md` — Nielsen heuristics + 0–4 scoring + visual laws

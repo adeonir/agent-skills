@@ -17,11 +17,13 @@ Before any visual work, answer these to lock in a direction:
 
 ## Style Axes
 
-Visual direction is a composition of four orthogonal axes. Pick one pattern from each axis — or blend two within the same axis — to construct a unique direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone" produce more distinctive results than single-tone choices.
+Visual direction is a composition of four orthogonal axes. Pick one pattern from each axis — or blend two within the same axis — to construct a unique direction. Compositions like "Specimen + Grainy + Cyberpunk + Duotone" produce more distinctive results than single-tone choices.
+
+These axes carry the *look*. The page arrangement is not one of them — it is resolved in the structure layer as a macrostructure, constant while the look varies ([structure.md](structure.md)).
 
 | Axis | Patterns |
 |------|----------|
-| **Layout & Structure** | Bento Grid (modular boxy cards), Editorial (magazine feel, large serifs, asymmetric placement, generous whitespace), Swiss Style (strict grids, sans-serif, flush-left, objective clarity), Split-Screen (vertical division, color block paired with full-bleed imagery), Asymmetric Modular (intentional off-grid composition with rhythm) |
+| **Composition** | Editorial (magazine feel, large display serifs, generous whitespace), Swiss (sans-serif flush-left, strict alignment, objective clarity), Specimen (numbered margin labels, huge display serif, hairline rules, typographic CTA), Poster (extreme scale contrast, tight crop, one statement carrying the surface) |
 | **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials — leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |

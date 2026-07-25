@@ -19,7 +19,7 @@ description: >-
 
 # Craft UI
 
-craft-ui builds the interface — resolving the layout structure (a region tree plus screen flow), then composing it with DESIGN.md (identity) and copy.yaml (content) into full-page HTML variants — and pressure-tests it, without touching production. Its core mode is **render**: plan the structure, then construct the real UI in several visual directions to decide one. Two judging modes follow: **critique** (a chosen variant, pre-impl) and **audit** (a built UI, pre-release). The three share one rubric (register, structure, design-thinking, heuristics, the craft dimensions, anti-patterns, web standards, scoring) and one invariant: **non-mutating end to end** — render writes only throwaway session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`; critique and audit only report. It never edits tokens, copy, or production code, and it builds variants to decide a direction, not production components.
+craft-ui builds the interface — resolving the layout structure (a named page shape per surface, seeding a region tree plus screen flow), then composing it with DESIGN.md (identity) and copy.yaml (content) into full-page HTML variants — and pressure-tests it, without touching production. Its core mode is **render**: plan the structure, then construct the real UI in several visual directions to decide one. Two judging modes follow: **critique** (a chosen variant, pre-impl) and **audit** (a built UI, pre-release). The three share one rubric (register, structure, design-thinking, heuristics, the craft dimensions, anti-patterns, web standards, scoring) and one invariant: **non-mutating end to end** — render writes only throwaway session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`; critique and audit only report. It never edits tokens, copy, or production code, and it builds variants to decide a direction, not production components.
 
 ## Quick start
 
@@ -40,6 +40,7 @@ Pick the mode from the request — no need to ask. "Plan the layout / map the sc
 Each mode composes the references its job needs from this shared set, so judgment and generation stay aligned:
 
 - [brand.md](references/brand.md) / [product.md](references/product.md) — brand vs product posture and structural arrangement (read the matching one, first)
+- [macrostructures.md](references/macrostructures.md) — named page-shape presets per register, with knobs and exclusions
 - [structure.md](references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
 - [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test, density/variance dials
 - [heuristics.md](references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws

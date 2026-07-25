@@ -1,6 +1,6 @@
 # Render
 
-Render the real product in N visual directions for decision-making. Resolve the layout structure first — a region tree plus screen flow ([structure.md](../references/structure.md)) — then combine it with DESIGN.md tokens and copy.yaml content into full-page HTML variants, serve them side by side, refine the visual direction, comment, and switch viewports. A decision aid — output is HTML in `.artifacts/`, never a source artifact.
+Render the real product in N visual directions for decision-making. Resolve the layout structure first — a macrostructure per surface ([macrostructures.md](../references/macrostructures.md)) seeding a region tree plus screen flow ([structure.md](../references/structure.md)) — then combine it with DESIGN.md tokens and copy.yaml content into full-page HTML variants, serve them side by side, refine the visual direction, comment, and switch viewports. A decision aid — output is HTML in `.artifacts/`, never a source artifact.
 
 One structure feeds every variant: the arrangement stays constant while the look varies, so the variants compare treatments of the same page rather than different pages. Variant generation deserves careful reasoning — structural and visual choices compound across a full page.
 
@@ -17,7 +17,7 @@ One structure feeds every variant: the arrangement stays constant while the look
 Reads two upstream artifacts and resolves the layout structure itself. Each input is optional — a missing one falls back so a variant always renders:
 
 - `docs/design/DESIGN.md` — visual identity (tokens in YAML frontmatter). **Absent** → compose seed tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions.
-- **Layout structure** — the region tree plus flow the structure phase resolves ([structure.md](../references/structure.md)), cached at `.artifacts/design/variants/structure.yaml`. **Absent** → the structure phase composes it from the conversation, a brief, or a conventional layout ([layout.md](../references/layout.md)); an existing `structure.yaml` is read, not re-planned.
+- **Layout structure** — the macrostructure, region tree, and flow the structure phase resolves ([macrostructures.md](../references/macrostructures.md), [structure.md](../references/structure.md)), cached at `.artifacts/design/variants/structure.yaml`. **Absent** → the structure phase picks a preset per surface and composes the tree from the conversation, a brief, or a conventional layout ([layout.md](../references/layout.md)); an existing `structure.yaml` is read, not re-planned.
 - `docs/design/copy.yaml` — structured content. **Absent** → placeholder strings from DESIGN.md H1 and `description`, or generic lorem when DESIGN.md is absent too.
 
 The fallback rule is uniform: **any missing input → compose a seed from [design-thinking.md](../references/design-thinking.md) + the craft dimensions, follow [anti-patterns.md](../references/anti-patterns.md)**. Render the best coherent page from whatever exists. render is the integrator — the one place that resolves structure, tokens, and content together. It writes only the session artifacts (`structure.yaml` and variant HTML) under `.artifacts/`, never a `docs/` source.
@@ -27,6 +27,7 @@ The fallback rule is uniform: **any missing input → compose a seed from [desig
 
 Required references, auto-loaded:
 
+- [macrostructures.md](../references/macrostructures.md) — the named page-shape presets per register
 - [structure.md](../references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
 - [design-thinking.md](../references/design-thinking.md) — choose a visual direction, slop test
 - [heuristics.md](../references/heuristics.md) — heuristics + visual laws
@@ -43,7 +44,7 @@ Required references, auto-loaded:
 
 First fix the **register** and **surface**, since both the arrangement and the look read from them. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product — [brand.md](../references/brand.md) / [product.md](../references/product.md)); read which surfaces the project has from an existing `structure.yaml`, `copy.yaml`, or the user, and ask only when neither register nor surface is available.
 
-Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise compose the arrangement from the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time and biasing each surface by its register. Run the structural self-check, then cache the plan to `structure.yaml`.
+Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise pick a macrostructure per surface from the register's half of [macrostructures.md](../references/macrostructures.md), clearing it against that preset's "not for" and naming the two passed over, then compose the tree from the preset plus the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time. Run the structural self-check, then cache the plan to `structure.yaml`.
 
 When the request is only for structure — "map the screen flow", "arrange the screens", "plan the layout" — resolve the tree, draw the mermaid screen-flow from `flow:`, and stop before generating variants. Otherwise carry the resolved structure into generation.
 
@@ -93,7 +94,7 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 
 Generate one HTML per variant from the resolved structure (`structure.yaml`), the tokens (DESIGN.md or a composed seed), and the content (copy.yaml or placeholders). Every variant draws the same structure in a different look.
 
-1. **Resolve the structure.** Fix the register and surface, then resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
+1. **Resolve the structure.** Fix the register and surface, then pick the macrostructure per surface and resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
 
 2. **Confirm count and direction.** Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register and fitting the surface.
 
@@ -115,7 +116,7 @@ Once a variant is chosen, tune its **visual direction** — not its tokens. Vari
 
 Four axes:
 
-- **Layout pattern** — a page arrangement from the fixed shape vocabulary in [structure.md](../references/structure.md) (`full-width | split | grid-N | stack | sidebar | modal | overlay`)
+- **Layout pattern** — the shape of a block, from the fixed vocabulary in [structure.md](../references/structure.md) (`full-width | split | grid-N | stack | sidebar | modal | overlay`). A different page shape is a different macrostructure, which re-plans the structure rather than tuning the variant.
 - **Style direction** — a composition from [design-thinking.md](../references/design-thinking.md) (Editorial, Brutalist, Cyberpunk, ...)
 - **Density** — airy ↔ dense spacing and component padding
 - **Decoration** — austere ↔ playful elevation, radius, accent emphasis
@@ -152,6 +153,7 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 
 - Resolve structure, tokens, and content via the fallback rule — render the best coherent page from whatever exists
 - Resolve the layout structure first ([structure.md](../references/structure.md)); one region tree feeds every variant
+- Pick each surface's macrostructure by clearing its "not for", never off the category label
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Compose the direction from [design-thinking.md](../references/design-thinking.md) biased by register + surface when the user gives none; use the user's direction when given
 - Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names
