@@ -99,7 +99,7 @@ Loading, rendering, network, framework, and Core Web Vitals live in [performance
 ## Safe Areas
 
 - Full-bleed layouts need `env(safe-area-inset-*)` padding for notch devices.
-- Avoid unwanted scrollbars: `overflow-x-hidden` on root, fix content overflow at source.
+- Avoid unwanted scrollbars: `overflow-x: clip` on the root, never `hidden` — `hidden` turns the root into a scroll container and `position: sticky` inside it stops working. Fix content overflow at source either way.
 - Prefer flex/grid over JS measurement for layout.
 
 ## Dark Mode (Technical)
