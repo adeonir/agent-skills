@@ -379,6 +379,26 @@ infers what is already given is scaffolding, and
 scaffolding attracts more scaffolding — each round of review finds real defects in
 it, and fixing them makes it larger, never smaller.
 
+Competence the model already has is not the skill's to supply. A skill carries
+preference and constraint — how this project wants a thing done, and what it must
+not be — never the craft underneath it. A component entry needs its intent, its
+knob, and what it is wrong for; the DOM sketch and the CSS block are the model's
+job and cost a load every time they ship.
+
+### Walk the Consumption Path
+
+Creation, refactor, and port are judged by the consuming agent's path through the
+result, not by how tidy the model looks on the page. A layering that reads clean
+top-down still breaks the moment an agent walks it — a level nothing routes to, a
+lookup that can only be done by exclusion, a step that depends on the agent
+remembering what no file supplies.
+
+Before shipping a structure, trace one real request through it end to end as the
+agent would: what it reads, in what order, what it writes, and where it would fall
+back on habit because nothing told it otherwise. The stumble is the finding. The
+same walk decides whether a level earns its place at all — a catalog pays for its
+load only where the agent has a reflex to correct.
+
 ### Audit on Merit, Not Authorship
 
 When auditing, reviewing, or fixing a skill, judge the current state on its
