@@ -151,7 +151,7 @@ MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns
 
 - {{Execution trap specific to this story — edge case, ordering constraint, or integration quirk}}
 
-MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, a trap that belongs to a sibling story's domain (relocate it there), an obligation (a condition that must hold belongs in `## Acceptance Criteria`), or the reason an obligation exists.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, a trap that belongs to a sibling story's domain (relocate it there), an obligation (a condition that must hold belongs in `## Acceptance Criteria`), the reason an obligation exists, or a risk with no source in the repository, a linked doc, or what the user stated.
 
 ## Open Questions
 

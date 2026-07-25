@@ -141,7 +141,7 @@ MUST NOT contain: a statement that reads looser or stricter than the PRD's — t
 
 - {{Execution trap specific to this epic — integration quirk, ordering constraint, or scope edge case. Example: "Third-party identity provider rate limits may block bulk imports" not "use a queue"}}
 
-MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Requirements`), or the reason an obligation exists.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Requirements`), the reason an obligation exists, or a risk with no source in the repository, a linked doc, or what the user stated.
 
 ## Open Questions
 
