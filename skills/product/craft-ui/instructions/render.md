@@ -111,8 +111,8 @@ Dependencies load via CDN — no build step. Resolve the canonical CDN entry fro
 - **Tailwind CSS** — include the official browser-build script in `<head>` so utility classes resolve client-side.
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. One include covers every icon set (`lucide`, `tabler`, `simple-icons` for brand/social marks, etc.). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
 - **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping tokens (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys. The frontmatter parser lives in `scripts/render-server.ts`.
-- Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler.
-- React/JSX variants follow the same CDN pattern; production builds replace CDN with bundled imports.
+- Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler. A variant is opened as a file, never served or hydrated, so nothing here plans for a build.
+- React/JSX variants follow the same CDN pattern.
 
 ## Tailwind Token Conventions
 

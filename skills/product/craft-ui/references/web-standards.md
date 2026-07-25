@@ -114,13 +114,7 @@ Rules for implementation — see color.md for color direction.
 
 - Dates and times: use `Intl.DateTimeFormat`, not hardcoded formats.
 - Numbers and currency: use `Intl.NumberFormat`, not hardcoded formats.
-- Language detection via `Accept-Language` / `navigator.languages`, not IP geolocation.
-
-## Hydration Safety (React/Next.js)
-
-- Inputs with `value` need `onChange` handler (or use `defaultValue` for uncontrolled).
-- Date/time rendering: guard against server/client mismatch with `useEffect` or `suppressHydrationWarning`.
-- `suppressHydrationWarning` only where genuinely needed — never as a blanket fix.
+- Long-word and RTL safety: `overflow-wrap: anywhere` on user-supplied strings, logical properties (`margin-inline`, `padding-block`) over physical ones.
 
 ## Hover and Interactive States
 

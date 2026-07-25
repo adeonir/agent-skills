@@ -4,7 +4,9 @@ Anti-pattern catalog for rendered UI. Each rule documents a recognizable failure
 
 ## When to Use
 
-Composed by `render.md` to avoid known failure shapes during generation, and by `critique.md` / `audit.md` as the failure-mode lens when judging a rendered surface. The **Drift** category is the exception — it is for render to avoid during generation only; critique and audit do not flag drift, because whether a build matches its token source is out of scope for evaluation.
+Composed by `render.md` to avoid known failure shapes during generation, and by `critique.md` / `audit.md` as the failure-mode lens when judging a rendered surface.
+
+Every rule here is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, controlled inputs, reconciliation keys, server-only APIs — is source-code review and belongs to no mode here; a rule whose failure has no rendered consequence does not enter the catalog. The **Drift** category is the exception — it is for render to avoid during generation only; critique and audit do not flag drift, because whether a build matches its token source is out of scope for evaluation.
 
 ## Categories
 
@@ -18,7 +20,6 @@ Jump-table — each category links to its rule section below.
 - [Motion and Interaction](#motion-and-interaction) — easing, transitions, hover feedback
 - [Accessibility](#accessibility) — keyboard nav, semantic HTML, ARIA, contrast ratios
 - [Performance](#performance) — CDN abuse, layout shift, blocking renders
-- [Hydration and SSR](#hydration-and-ssr) — React/Next.js client/server divergence
 - [AI Scaffolding Tells](#ai-scaffolding-tells) — reflex section-grammar and template clichés
 - [Fabricated Content](#fabricated-content) — invented proof and asserted evidence no input supplied
 - [Drift](#drift) — render-only: HTML not aligned with DESIGN.md tokens (not flagged by critique/audit)
@@ -29,10 +30,7 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ### {rule-id-kebab-case}
-**Category:** {category name from above}
-**Severity:** {error | warning}
-**Check:** {prose description of what to detect — one or two sentences}
-**Fix:** {what to do instead}
+**Category:** {category name from above} **Severity:** {error | warning} **Check:** {what to detect — one or two sentences} **Fix:** {what to do instead}
 ````
 
 A **deterministic** rule adds a pair, and only a deterministic rule does. The pair carries the token the Check names and nothing else — no surrounding element, no filler content, no second utility along for the ride:
@@ -401,13 +399,13 @@ from { transform: scale(0.95); opacity: 0 }
 ```
 
 ### large-list-no-virtualization
-**Category:** Performance **Severity:** warning **Check:** `.map()` over array of 50+ items rendered as DOM nodes without virtualization or `content-visibility: auto`. **Fix:** Virtualize with `virtua`, `react-window`, `@tanstack/react-virtual`, or apply `content-visibility: auto`. **Example fail:**
+**Category:** Performance **Severity:** warning **Check:** A list or table of 50+ rows rendered as DOM nodes with no virtualization and no `content-visibility`. **Fix:** Apply `content-visibility: auto` with a `contain-intrinsic-size` estimate, or virtualize the list. **Example fail:**
 ```html
-<ul>{thousands.map(item => <li>{item}</li>)}</ul>
+<ul class="rows">
 ```
 **Example pass:**
 ```html
-<Virtualizer items={thousands} renderItem={item => <li>{item}</li>} />
+<ul class="rows" style="content-visibility: auto; contain-intrinsic-size: 0 48px">
 ```
 
 ### below-fold-image-eager
@@ -420,97 +418,15 @@ from { transform: scale(0.95); opacity: 0 }
 <img src="footer.jpg" alt="" width="800" height="400" loading="lazy">
 ```
 
-### hardcoded-date-format
-**Category:** Performance **Severity:** warning **Check:** Date or number rendered with hardcoded string format instead of `Intl.DateTimeFormat` / `Intl.NumberFormat`. **Fix:** Use `Intl.*` formatters so locale, calendar, and number conventions follow the user's environment. **Example fail:**
-```html
-<time>{`${month}/${day}/${year}`}</time>
-```
-**Example pass:**
-```html
-<time>{new Intl.DateTimeFormat(locale).format(date)}</time>
-```
-
 ### critical-font-no-preload
 **Category:** Performance **Severity:** warning **Check:** Critical above-fold font loaded via CSS `@font-face` only, without `<link rel="preload" as="font" crossorigin>` and `font-display: swap`. **Fix:** Preload the critical font in `<head>` and use `font-display: swap`. **Example fail:**
 ```html
-<style>@font-face { font-family: Display; src: url(/fonts/display.woff2) }</style>
+@font-face { src: url(/fonts/display.woff2) }
 ```
 **Example pass:**
 ```html
-<link rel="preload" href="/fonts/display.woff2" as="font" type="font/woff2" crossorigin>
-<style>@font-face { font-family: Display; src: url(/fonts/display.woff2); font-display: swap }</style>
-```
-
-## Hydration and SSR
-
-### controlled-input-no-onchange
-**Category:** Hydration and SSR **Severity:** error **Check:** React `<input>` with `value` prop but no `onChange` handler. React warns and the input becomes read-only. **Fix:** Either add `onChange` (controlled) or use `defaultValue` (uncontrolled). **Example fail:**
-```html
-<input value={text}>
-```
-**Example pass:**
-```html
-<input value={text} onChange={e => setText(e.target.value)}>
-```
-
-### date-render-ssr-mismatch
-**Category:** Hydration and SSR **Severity:** error **Check:** Date/time rendered inline during SSR (`new Date().toLocaleString()`) without guard. Causes hydration mismatch. **Fix:** Defer to `useEffect` for client-only rendering, or pass server timestamp as prop and format on client mount. **Example fail:**
-```html
-<span>{new Date().toLocaleString()}</span>
-```
-**Example pass:**
-```html
-const [now, setNow] = useState(null)
-useEffect(() => setNow(new Date().toLocaleString()), [])
-<span>{now}</span>
-```
-
-### suppress-hydration-blanket
-**Category:** Hydration and SSR **Severity:** warning **Check:** `suppressHydrationWarning` applied to a root or wide-scope element as a blanket fix instead of the smallest scope that mismatches. **Fix:** Scope `suppressHydrationWarning` to the exact node that legitimately differs (e.g., a timestamp span). Never on `<body>` or layout wrappers. **Example fail:**
-```html
-<html suppressHydrationWarning>...</html>
-```
-**Example pass:**
-```html
-<time suppressHydrationWarning>{formattedDate}</time>
-```
-
-### random-value-in-render
-**Category:** Hydration and SSR **Severity:** error **Check:** `Math.random()`, `Date.now()`, `crypto.randomUUID()` called inline during render. Server and client compute different values, causing hydration mismatch. **Fix:** Compute the value in `useEffect` after mount and store in state, or pass a stable value as a prop from the server. **Example fail:**
-```html
-<div id={`item-${Math.random()}`}>Card</div>
-```
-**Example pass:**
-```html
-const [id] = useState(() => crypto.randomUUID())
-<div id={`item-${id}`}>Card</div>
-```
-
-### window-access-during-render
-**Category:** Hydration and SSR **Severity:** error **Check:** `window`, `document`, `localStorage`, `navigator`, or `matchMedia` accessed at the top level of a component body or during initial render. Server has no `window`, so server-render crashes or returns the wrong markup. **Fix:** Guard with `typeof window !== "undefined"` only when you need to skip on server; for state derived from the browser, set inside `useEffect` and start with a safe default. **Example fail:**
-```html
-function Theme() {
-  const dark = localStorage.getItem("theme") === "dark"
-  return <div className={dark ? "dark" : "light"}>...</div>
-}
-```
-**Example pass:**
-```html
-function Theme() {
-  const [dark, setDark] = useState(false)
-  useEffect(() => { setDark(localStorage.getItem("theme") === "dark") }, [])
-  return <div className={dark ? "dark" : "light"}>...</div>
-}
-```
-
-### list-key-index-or-missing
-**Category:** Hydration and SSR **Severity:** warning **Check:** `.map()` over a list renders elements without a stable `key` prop, or uses array index as key on a reorderable list. React reconciliation breaks, causing state and DOM mismatches when the list mutates. **Fix:** Use a stable identifier from the data (id, slug, uuid) as the `key`. Index keys are acceptable only for static lists that never reorder, insert, or delete. **Example fail:**
-```html
-{items.map((item, i) => <li key={i}>{item.label}</li>)}
-```
-**Example pass:**
-```html
-{items.map(item => <li key={item.id}>{item.label}</li>)}
+<link rel="preload" href="/fonts/display.woff2" as="font" crossorigin>
+@font-face { src: url(/fonts/display.woff2); font-display: swap }
 ```
 
 ## AI Scaffolding Tells
