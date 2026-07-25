@@ -137,6 +137,8 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 2. **Confirm count and direction.** Read the surface's section in `VARIANTS.md` first — the directions listed there are spent, and the most recent line carries the macrostructure and chrome to keep. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
 
+   Then state the plan before generating anything, as the lines it will append to `VARIANTS.md` — one per variant, carrying the macrostructure and knob, the chrome archetypes, and the direction. Close with one sentence naming what was inferred rather than given: audience, use, and tone. A wrong pick or a wrong inference is corrected here, not after N pages exist.
+
 3. **Start the render server** (if not running):
 
    ```bash
@@ -199,6 +201,7 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 - Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names
 - Read `VARIANTS.md` before composing a direction and append to it after generating — spent directions do not return, the surface's arrangement and chrome do
 - With no `DESIGN.md`, scan the project and carry what it wears as the incumbent direction, never as a constraint on the others
+- State the planned lines and the inferences before generating — the redirect is cheap there and expensive once N pages exist
 - Apply [design-thinking.md](../references/design-thinking.md), the craft dimensions (color/typography/layout/motion/interaction/responsive), and [web-standards.md](../references/web-standards.md) to every output
 - Serve every generated variant through the render server
 - Tune the visual direction by re-rendering — never edit tokens or write a source artifact
