@@ -91,9 +91,11 @@ ALWAYS use this exact template structure:
 ```markdown
 ## {{surface}} · {{brand | product}}
 
-- {{macrostructure}} ({{knob}}) · {{header archetype}} · {{footer archetype}} · {{close archetype}} · {{direction}} — **chosen**
-- {{macrostructure}} ({{knob}}) · {{header archetype}} · {{footer archetype}} · {{close archetype}} · {{direction}}
+- {{macrostructure}} ({{knob}}) · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}} — **chosen**
+- {{macrostructure}} ({{knob}}) · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}}
 ```
+
+The archetype run is as long as the surface's region set — a brand landing lists header, footer, and close; a product screen under rail-only navigation lists one.
 
 The fields are consumed in opposite directions, so read them separately:
 
@@ -153,7 +155,7 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 ## Variant-Tune
 
-Once a variant is chosen, tune its **visual direction** — not its tokens. Variant tune re-renders the variant along four direction axes; it never edits DESIGN.md and never commits. To make a tuned direction permanent, the change happens in the owning place — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring (design-brief).
+Once a variant is chosen, tune its **visual direction** — not its tokens. Variant tune re-renders the variant along four direction axes; it never edits DESIGN.md and never commits. To make a tuned direction permanent, the change happens in the owning place — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring.
 
 Four axes:
 

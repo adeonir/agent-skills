@@ -3,7 +3,7 @@ name: craft-ui
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
 description: >-
   Explores and judges the visual direction of a UI. Use when exploring,
-  comparing, or deciding a visual direction for a UI — planning the layout
+  comparing, or deciding that direction — planning the layout
   structure as a region tree and screen flow, generating design variants,
   previewing a page or screen, tuning a look, exploring a redesign of a
   page that already exists, or working from a reference page or

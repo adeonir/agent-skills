@@ -106,7 +106,7 @@ The conventional marketing sequence. It is in the catalog so it can be named and
 
 ## Product presets
 
-These describe the work surface. The persistent chrome around it — a `header`, a `rail`, or neither — is planned as its own blocks in the tree per [product.md](product.md), not implied by the preset: the same work surface runs under any of them. A navigation `rail` and a content region that happens to sit down the same side are two regions, not one.
+These describe the work surface. The persistent chrome around it — a `header`, a `rail`, or neither — is its own block in the tree, settled in [archetypes.md](archetypes.md) and never implied by the preset: the same work surface runs under any of them. A navigation `rail` and a content region that happens to sit down the same side are two regions, not one.
 
 ### Master-detail
 
