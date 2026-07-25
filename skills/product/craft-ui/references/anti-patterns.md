@@ -527,6 +527,9 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 <div class="bg-accent-subtle">
 ```
 
+### redrawn-ui-chrome
+**Category:** AI Scaffolding Tells **Severity:** warning **Check:** Browser, device, or editor furniture hand-built around content — a URL pill and traffic-light dots above a screenshot, a drawn phone bezel, a title bar wrapping a code block. The viewer is already looking through real chrome; a drawn copy of it is decoration standing in for context. Distinct from `fabricated-product-evidence`, which is about the content inside the frame rather than the frame. **Fix:** Put the capture in a plain `<figure>` with at most a hairline edge, or drop the frame and let the content carry itself.
+
 ### gradient-clip-text
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** `background-clip: text` (or `-webkit-background-clip: text`) over a gradient, turning text into a gradient fill. Decorative, never meaningful. **Fix:** Use a single solid color. Carry emphasis with weight or size, not a gradient wash. **Example fail:**
 ```html
