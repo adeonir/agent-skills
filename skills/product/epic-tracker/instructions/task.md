@@ -127,7 +127,7 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 - [ ] {{condition that marks this task complete — verifiable, not sub-step narration}} (because {{why it is owed — omit the clause when obvious}})
 
-MUST NOT contain: a condition satisfied by something this task does not build — platform, runtime, service, or library behavior it neither implements nor can fail — or a done-condition with no source in the repository, a linked doc, or what the user stated.
+MUST NOT contain: a condition satisfied by something this task does not build — platform, runtime, service, or library behavior it neither implements nor can fail — or a done-condition with no source in the repository, a linked doc, the parent epic, pasted context, or what the user stated.
 
 ## Rabbit Holes
 
@@ -135,7 +135,7 @@ MUST NOT contain: a condition satisfied by something this task does not build �
 
 - {{Execution trap specific to this task — unknown that expands the work, ordering constraint, or integration quirk}}
 
-MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Definition of Done`), the reason an obligation exists, or a risk with no source in the repository, a linked doc, or what the user stated.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Definition of Done`), the reason an obligation exists, or a risk with no source — the repository, a linked doc, the parent epic, pasted context, or what the user stated.
 
 ## References
 
