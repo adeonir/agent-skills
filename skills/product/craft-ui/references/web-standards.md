@@ -37,7 +37,7 @@ Composed by render.md (as generation rules) and audit.md (as the technical audit
 - Checkbox/radio: label + control share a single hit target with no dead zones.
 - Submit button stays enabled until request starts; show spinner during request.
 - Errors inline next to fields; focus first error on submit.
-- Placeholders end with `...` and show an example pattern when useful.
+- Placeholders end with the ellipsis character and show an example pattern when useful.
 - `autocomplete="off"` on non-auth fields to avoid password manager triggers.
 - Warn before navigation with unsaved changes (`beforeunload` or router guard).
 
@@ -56,10 +56,10 @@ Rules for implementation — see motion.md for creative direction.
 
 Rules for text rendering — see typography.md for pairing and heuristics.md for hierarchy.
 
-- Ellipsis character: `...` not `...` in static text (use CSS `text-overflow: ellipsis` for truncation).
-- Curly quotes `\u201c` `\u201d` in copy, not straight `"`.
-- Non-breaking spaces: `10&nbsp;MB`, `\u2318&nbsp;K`, multi-word brand names.
-- Loading states end with `...`: `"Loading..."`, `"Saving..."`.
+- Ellipsis character: `…` not three periods in static text (use CSS `text-overflow: ellipsis` for truncation).
+- Curly quotes `“` `”` in copy, not straight `"`.
+- Non-breaking spaces: `10&nbsp;MB`, `⌘&nbsp;K`, multi-word brand names.
+- Loading states end with the ellipsis character: `Loading…`, `Saving…`.
 - `font-variant-numeric: tabular-nums` on number columns, prices, and comparisons.
 - `text-wrap: balance` or `text-wrap: pretty` on headings to prevent widows.
 

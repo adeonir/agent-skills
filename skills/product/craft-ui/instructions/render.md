@@ -96,7 +96,7 @@ ALWAYS use this exact template structure:
 - {{macrostructure}} ({{knob}}) · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}}
 ```
 
-The archetype run is as long as the surface's region set — a brand landing lists header, footer, and close; a product screen under rail-only navigation lists one.
+The archetype run is as long as the surface's region set and follows tree order — a brand landing lists header, close, then footer; a product screen under rail-only navigation lists one.
 
 The fields are consumed in opposite directions, so read them separately:
 
@@ -196,17 +196,10 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 ## Guidelines
 
 - Resolve structure, tokens, and content via the fallback rule — render the best coherent page from whatever exists
-- Resolve the layout structure first ([structure.md](../references/structure.md)); one region tree feeds every variant
 - Pick each surface's macrostructure by clearing its "not for", never off the category label
 - Compose every chrome region and `close` block from a named archetype; a reflex entry is recorded as chosen, not fallen into
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
-- Compose the direction from [design-thinking.md](../references/design-thinking.md) biased by register + surface when the user gives none; use the user's direction when given
-- Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names
-- Read `VARIANTS.md` before composing a direction and append to it after generating — spent directions do not return, the surface's arrangement and chrome do
-- With no `DESIGN.md`, scan the project and carry what it wears as the incumbent direction, never as a constraint on the others
-- State the planned lines and the inferences before generating — the redirect is cheap there and expensive once N pages exist
-- Apply [design-thinking.md](../references/design-thinking.md), the craft dimensions (color/typography/layout/motion/interaction/responsive), and [web-standards.md](../references/web-standards.md) to every output
-- Serve every generated variant through the render server
+- Carry what the project already wears as the incumbent direction, never as a constraint on the others
 - Tune the visual direction by re-rendering — never edit tokens or write a source artifact
 
 ## Error Handling

@@ -69,7 +69,7 @@ Composed by `critique.md` (the persona red-flag step). Select 2–3 personas mos
 
 ## Project-specific personas
 
-When the project carries audience/brand context (a PRD, brief, or product doc), derive 1–2 personas the five predefined ones don't cover:
+When the project carries audience/brand context (a PRD, brief, or product doc), derive 1–2 personas the five predefined ones don't cover. Here is a sensible default format, but use your best judgment:
 
 ```text
 ##### [Role] — "[Name]"
