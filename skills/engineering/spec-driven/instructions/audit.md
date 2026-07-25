@@ -42,7 +42,7 @@ A divergence the implementation recorded as a design gap is authorized — the d
 
 ### Discrimination sensor
 
-Run whenever code has conditional behavior, calculations, or validations. It may be skipped only when the change is genuinely config-only or pure-data, and the skip note must name why no disproof was possible — an unjustified skip on code that has judgment-laden behavior is theater, not a clean pass:
+Run whenever code has conditional behavior, calculations, or validations. It may be skipped only when nothing observes the change — pure data, or a value whose only consumer is prose; build scripts, gate definitions, deploy chains, and runtime flags are not exempt, since each has a consumer. The skip note must name why no disproof was possible — an unjustified skip on code that has judgment-laden behavior is theater, not a clean pass:
 
 1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects, and a shared literal (key, id, path, header name, event name) changed in exactly one of the modules that use it.
 2. Apply the mutation in **scratch state** — `git worktree` or stash + temp copy. Never mutate the real working tree.
