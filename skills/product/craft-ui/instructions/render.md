@@ -92,11 +92,11 @@ ALWAYS use this exact template structure:
 ```markdown
 ## {{surface}} · {{brand | product}}
 
-- {{macrostructure}} ({{knob}}) · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}} — **chosen**
-- {{macrostructure}} ({{knob}}) · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}}
+- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}} — **chosen**
+- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}}
 ```
 
-The archetype run is as long as the surface's region set and follows tree order — a brand landing lists header, close, then footer; a product screen under rail-only navigation lists one.
+The archetype run is as long as the surface's region set and follows tree order — a brand landing lists header, close, then footer; a product screen under rail-only navigation lists one. A preset with no knob writes the macrostructure name alone, with no empty parentheses after it.
 
 The fields are consumed in opposite directions, so read them separately:
 
@@ -113,7 +113,7 @@ Dependencies load via CDN — no build step. Resolve the canonical CDN entry fro
 
 - **Tailwind CSS** — include the official browser-build script in `<head>` so utility classes resolve client-side.
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. One include covers every icon set (`lucide`, `tabler`, `simple-icons` for brand/social marks, etc.). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
-- **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping tokens (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys. The frontmatter parser lives in `scripts/render-server.ts`.
+- **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping tokens (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys.
 - Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler, and the render server serves that same file unchanged. Nothing is compiled, server-rendered, or hydrated.
 - Markup is HTML, styling is CSS, behaviour is the platform's own event attributes. A variant carries no component framework — a body that renders only after a runtime transpile gives critique and audit nothing to read and breaks the comment selector.
 
@@ -145,14 +145,16 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 3. **Start the render server** (if not running):
 
    ```bash
-   bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants
+   bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants --viewport desktop
    ```
+
+   Pass the surface's default viewport (see Viewport Switching); omitting the flag opens at desktop.
 
 4. **Generate one HTML per variant.** Resolve structure, tokens, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`, and append its line to the surface's section in `VARIANTS.md`.
 
 5. **Serve** all variants side by side via the server. User picks one.
 
-6. **Mark** the chosen variant as `final.html` in the variants directory, and flag its line **chosen** in `VARIANTS.md`.
+6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final.html` — beside `VARIANTS.md`, outside the served directory.
 
 ## Variant-Tune
 
@@ -177,21 +179,25 @@ Named shortcuts over the four axes — each names a move and re-renders the vari
 
 Each reads differently for brand vs product — read the register file first. Wording and labels stay out of scope — copy is a content concern, not a tune.
 
-## Comment
+## Events
 
-User alt+clicks any element in the served preview. An overlay appears with a text input. On submit, the client posts a `comment` event with:
+The served page records two event types to `.events` in the session directory, one JSON per line. Agent reads them on the next turn.
+
+**choice** — user clicks a variant's Choose button in the gallery. Carries `choice` (the variant's filename) and `timestamp`. This is the pick step 6 acts on.
+
+**comment** — user alt+clicks any element in the served preview. An overlay appears with a text input. On submit, the client posts a `comment` event with:
 
 - `selector` — CSS path to the clicked element
 - `text` — the user's comment
 - `timestamp` — ISO string
 
-Agent reads `comment` events on the next turn, addresses each, and shows the updated variant.
+Agent addresses each comment and shows the updated variant.
 
 ## Viewport Switching
 
 Variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
 
-Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile) for mobile app screens; 1440 for product / dashboard screens.
+Default viewport, passed as `--viewport` when starting the server: `desktop` for brand surfaces and storefronts; `mobile` for mobile app screens; `desktop` for product / dashboard screens.
 
 ## Guidelines
 

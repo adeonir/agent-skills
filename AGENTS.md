@@ -487,7 +487,7 @@ docs/
 
 .artifacts/
 ├── specs/, archive/, CONTEXT.md, STATE.md, LESSONS.json, research/   # spec-driven
-└── design/    # design-brief; design/VARIANTS.md + design/variants/ # craft-ui
+└── design/    # design-brief; design/VARIANTS.md + design/final.html + design/variants/ # craft-ui
 ```
 
 `epic-tracker` writes no artifacts — its output lives in the tracker.

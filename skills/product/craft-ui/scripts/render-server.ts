@@ -9,11 +9,13 @@
  * Usage:
  *   bun run scripts/render-server.ts --session <path>
  *   bun run scripts/render-server.ts --session <path> --port 8080
+ *   bun run scripts/render-server.ts --session <path> --viewport mobile
  *
  * The server:
  * - Serves HTML files from the session directory only
  * - Serves a gallery at "/" holding every variant in an iframe, side by side,
  *   with viewport controls (375 / 768 / 1440) and a Choose button per variant
+ * - Opens the gallery at --viewport: mobile | tablet | desktop (default desktop)
  * - Records user events to .events file (JSON lines, append-only)
  * - Injects the interaction client into every served variant, whether the file
  *   is a full document or a fragment
@@ -38,6 +40,7 @@ import { existsSync, watch } from "node:fs";
 const args: string[] = process.argv.slice(2);
 const sessionIdx: number = args.indexOf("--session");
 const portIdx: number = args.indexOf("--port");
+const viewportIdx: number = args.indexOf("--viewport");
 const sessionDir: string =
   sessionIdx !== -1
     ? resolve(args[sessionIdx + 1])
@@ -50,6 +53,18 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   console.error(`Invalid --port value: must be an integer between 1024 and 65535 (got: ${args[portIdx + 1]})`);
   process.exit(1);
 }
+
+// 375 / 768 / 1440: the widths the gallery switches between, named by the device
+// class each one stands for; --viewport takes the name, and desktop is the default
+const VIEWPORTS: Record<string, number> = { mobile: 375, tablet: 768, desktop: 1440 };
+const viewportName: string = viewportIdx !== -1 ? args[viewportIdx + 1] : "desktop";
+
+if (!(viewportName in VIEWPORTS)) {
+  console.error(`Invalid --viewport value: must be one of ${Object.keys(VIEWPORTS).join(", ")} (got: ${args[viewportIdx + 1]})`);
+  process.exit(1);
+}
+
+const viewport: number = VIEWPORTS[viewportName];
 
 if (!existsSync(sessionDir)) {
   await mkdir(sessionDir, { recursive: true });
@@ -196,7 +211,7 @@ const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
     .variant figcaption span { font-weight: 600; margin-right: auto; }
     .variant a, .variant button { font: inherit; font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid #d4d4d8; background: #fff; color: inherit; text-decoration: none; cursor: pointer; }
     .variant button.chosen { background: #18181b; color: #fff; border-color: #18181b; }
-    .variant iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 80vh; width: 1440px; }
+    .variant iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 80vh; width: ${viewport}px; }
     .empty { padding: 3rem 1.25rem; color: #71717a; font-size: 0.9rem; }
   </style>
 </head>
@@ -204,9 +219,7 @@ const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
   <header>
     <h1>Variants</h1>
     <div class="viewports" role="group" aria-label="Viewport width">
-      <button data-width="375" aria-pressed="false">375</button>
-      <button data-width="768" aria-pressed="false">768</button>
-      <button data-width="1440" aria-pressed="true">1440</button>
+      ${Object.values(VIEWPORTS).map((w) => `<button data-width="${w}" aria-pressed="${w === viewport}">${w}</button>`).join("\n      ")}
     </div>
     <span class="hint">Alt+click inside a variant to comment</span>
   </header>
@@ -262,8 +275,7 @@ const contentTypes: Record<string, string> = {
   svg: "image/svg+xml",
 };
 
-const server: Server = serve({
-  port,
+const serverOptions = {
   hostname: "127.0.0.1",
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
@@ -350,7 +362,30 @@ const server: Server = serve({
 
     return new Response("Not found", { status: 404 });
   },
-});
+};
+
+// 10: consecutive ports to walk when the requested one is taken — enough to
+// clear a busy range without stalling on a host where nothing is free
+const PORT_RETRIES = 10;
+
+let server: Server | null = null;
+
+for (let candidate = port; candidate < port + PORT_RETRIES && candidate <= 65535; candidate++) {
+  try {
+    server = serve({ ...serverOptions, port: candidate });
+    break;
+  } catch (err) {
+    if ((err as { code?: string }).code !== "EADDRINUSE") {
+      console.error(`Could not start the server on port ${candidate}:`, err);
+      process.exit(1);
+    }
+  }
+}
+
+if (!server) {
+  console.error(`No free port between ${port} and ${port + PORT_RETRIES - 1}. Pass --port with an open one.`);
+  process.exit(1);
+}
 
 console.log(`Preview server running at http://localhost:${server.port}`);
 console.log(`Session directory: ${sessionDir}`);
