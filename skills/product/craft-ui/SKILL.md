@@ -5,7 +5,9 @@ description: >-
   Explores and judges the visual direction of a UI. Use when exploring,
   comparing, or deciding a visual direction for a UI — planning the layout
   structure as a region tree and screen flow, generating design variants,
-  previewing a page or screen, tuning a look — or when judging design
+  previewing a page or screen, tuning a look, exploring a redesign of a
+  page that already exists, or working from a reference page or
+  screenshot — or when judging design
   quality: critiquing a design, checking whether it reads as AI slop,
   scoring usability, or auditing a built UI for accessibility, performance,
   responsiveness, and theming before release. Covers landing pages,
