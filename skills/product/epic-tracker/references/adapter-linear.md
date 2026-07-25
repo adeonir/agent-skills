@@ -28,7 +28,7 @@ Every artifact is a Linear Issue, created in `epic-tracker.team` and placed in `
 | Artifact | Linear primitive | Notes |
 | -------- | ---------------- | ----- |
 | Epic | Issue + label `epic` | No parent issue |
-| Story | Issue + label `story` | Sub-issue of its Epic |
+| Story | Issue + label `story` | Sub-issue of an Epic, or standalone |
 | Bug | Issue + label `bug` | Sub-issue of an Epic, or standalone |
 | Task | Issue + label `task` | Sub-issue of an Epic, or standalone |
 
@@ -75,7 +75,7 @@ Any artifact can carry a milestone: the caller supplies it on `create_epic`, on 
 
 ### create_story / create_bug / create_task
 
-1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`. `create_story` requires `epic_id`: the Issue is a sub-issue of the epic it names, and a dispatch without it is an error to surface, never a top-level Issue to create. On `create_bug` / `create_task`, `epic_id` is optional: with one, the Issue is a sub-issue of that epic; without one, it is a standalone Issue in the project.
+1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`. `epic_id` is optional on all three: with one, the Issue is a sub-issue of that epic; without one, it is a standalone Issue in the project.
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
 4. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.

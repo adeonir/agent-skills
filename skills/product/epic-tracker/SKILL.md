@@ -62,7 +62,7 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 
 - Push immediately after the draft step — no separate preview gate, no local copy
 - Route tracker operations through `sync.md` — the create refs stay tracker-agnostic
-- Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements
+- Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements — a standalone story writes none, so V1-V8 are its whole validation
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
 - The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
 - Delegate sizing to the implementation phase

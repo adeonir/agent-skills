@@ -37,7 +37,7 @@ Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `g
 | Artifact | Linear | GitHub |
 | -------- | ------ | ------ |
 | Epic | Issue (parent) | Issue (parent) |
-| Story | Issue (sub-issue of Epic) | Issue (sub-issue of Epic) |
+| Story | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 | Bug | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 | Task | Issue (sub-issue of Epic, or standalone) | Issue (sub-issue of Epic, or standalone) |
 
@@ -83,7 +83,7 @@ Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N`
 
 ## Requirement Traceability
 
-The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** carries no requirement IDs — it is AC-less work measured by its `## Definition of Done`. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage is an epic↔story relationship: every requirement the epic declares is operationalized by ≥1 story AC.
+The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** carries no requirement IDs — it is AC-less work measured by its `## Definition of Done`. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage is an epic↔story relationship: every requirement the epic declares is operationalized by ≥1 story AC. A standalone story sits under no epic, so it carries no `Satisfies` line and enters no coverage set.
 
 ## Roadmap
 
@@ -93,7 +93,7 @@ The roadmap is `decompose`'s record of the settled plan — the project's epics 
 
 A milestone is the tracker's grouping primitive — a Linear project milestone or a GitHub repo milestone. The skill treats it as the materialization of a roadmap phase: when `decompose` runs on a roadmap grouped into phases, each epic's phase name becomes its milestone, reusing one already in the tracker (including one created by hand in the UI) or creating it with no date. A flat roadmap assigns none.
 
-A milestone is a property of the whole epic subtree: the epic takes its phase name, and every story, bug, and task under it mirrors the epic's milestone, so the tracker groups the epic and its children together. A standalone bug or task carries none. The skill only ever assigns a milestone by deriving it from a phase — never from free text — and on a re-run it reconciles the subtree to the epic's current phase, confirming before it overwrites a milestone changed by hand. A reparent mirrors the new epic's milestone under the same guard: a hand-set milestone is confirmed before it is replaced. Scheduling and progress on the milestone stay in the tracker UI.
+A milestone is a property of the whole epic subtree: the epic takes its phase name, and every story, bug, and task under it mirrors the epic's milestone, so the tracker groups the epic and its children together. A standalone artifact carries none. The skill only ever assigns a milestone by deriving it from a phase — never from free text — and on a re-run it reconciles the subtree to the epic's current phase, confirming before it overwrites a milestone changed by hand. A reparent mirrors the new epic's milestone under the same guard: a hand-set milestone is confirmed before it is replaced. Scheduling and progress on the milestone stay in the tracker UI.
 
 ## Output
 

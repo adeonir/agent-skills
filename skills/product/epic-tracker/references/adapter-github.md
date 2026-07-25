@@ -23,7 +23,7 @@ Every artifact is an Issue. Artifact type is carried by org-level Issue Types wh
 | Artifact | Issue type / label | Sub-issue role |
 | -------- | ------------------ | -------------- |
 | Epic | `Epic` | always parent |
-| Story | `Story` | always child of an Epic |
+| Story | `Story` | optional child of an Epic; may be standalone |
 | Bug | `Bug` | optional child of an Epic; may be standalone |
 | Task | `Task` (or org default) | optional child of an Epic; may be standalone |
 
@@ -123,13 +123,12 @@ The cache lives for the session; a new session re-detects.
 
 ### create_story
 
-1. Require `epic_id` before creating anything — a story is always a child of an epic, and a dispatch without it is an error to surface, never an Issue to create unlinked.
-2. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
-3. Attach the Issue as a sub-issue under the parent Epic named by `epic_id`.
-4. Apply artifact type (session cache `story` issue type, or `story` label).
-5. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
-6. If `epic-tracker.project` is set: add to the Project.
-7. Return Issue number and url.
+1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
+2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
+3. Apply artifact type (session cache `story` issue type, or `story` label).
+4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
+5. If `epic-tracker.project` is set: add to the Project.
+6. Return Issue number and url.
 
 ### create_bug
 
