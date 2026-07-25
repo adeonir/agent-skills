@@ -28,7 +28,7 @@ flowchart TD
 | **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
 | **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
 
-Every mode here works on rendered design, never source. render is the **integrator** — the one mode that resolves the layout structure and reads DESIGN.md and copy.yaml together — and it writes only session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`. critique and audit produce only a judgment. Nothing here mutates a `docs/` source or production code.
+Every mode here works on rendered design, never source. render is the **integrator** — the one mode that resolves the layout structure and reads DESIGN.md and copy.yaml together — and it writes only to `.artifacts/` (`structure.yaml`, variant HTML, and the `VARIANTS.md` log). critique and audit produce only a judgment. Nothing here mutates a `docs/` source or production code.
 
 ## Usage
 
@@ -100,7 +100,7 @@ Each mode composes the references its job needs from this shared set:
 
 **Q: Does it edit DESIGN.md, copy.yaml, or production code?**
 
-A: No — non-mutating end to end. render resolves the structure and reads the inputs, writing only session artifacts (`structure.yaml` and variant HTML) to `.artifacts/`; critique and audit produce only a judgment. To make a style permanent or fix a defect, the change happens in the owning skill or in implementation.
+A: No — non-mutating end to end. render resolves the structure and reads the inputs, writing only to `.artifacts/` (`structure.yaml`, variant HTML, and the `VARIANTS.md` log); critique and audit produce only a judgment. To make a style permanent or fix a defect, the change happens in the owning skill or in implementation.
 
 **Q: When do I use critique vs audit?**
 
