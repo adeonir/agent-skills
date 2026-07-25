@@ -113,7 +113,7 @@ Dependencies load via CDN — no build step. Resolve the canonical CDN entry fro
 - **Tailwind CSS** — include the official browser-build script in `<head>` so utility classes resolve client-side.
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. One include covers every icon set (`lucide`, `tabler`, `simple-icons` for brand/social marks, etc.). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
 - **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping tokens (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys. The frontmatter parser lives in `scripts/render-server.ts`.
-- Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler. A variant is opened as a file, never served or hydrated, so nothing here plans for a build.
+- Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler, and the render server serves that same file unchanged. Nothing is compiled, server-rendered, or hydrated.
 - Markup is HTML, styling is CSS, behaviour is the platform's own event attributes. A variant carries no component framework — a body that renders only after a runtime transpile gives critique and audit nothing to read and breaks the comment selector.
 
 ## Tailwind Token Conventions
@@ -182,7 +182,7 @@ User alt+clicks any element in the served preview. An overlay appears with a tex
 
 - `selector` — CSS path to the clicked element
 - `text` — the user's comment
-- `screenshot` — optional, inline via canvas (skip if heavy)
+- `timestamp` — ISO string
 
 Agent reads `comment` events on the next turn, addresses each, and shows the updated variant.
 

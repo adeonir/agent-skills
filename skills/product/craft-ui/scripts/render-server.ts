@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * Render server for the craft-ui skill (render mode).
- * Serves HTML fragments and records user interactions.
+ * Serves generated variants side by side and records user interactions.
  *
  * Security: local-only server (127.0.0.1), read-only filesystem access
  * scoped to session directory, append-only event recording.
@@ -12,27 +12,22 @@
  *
  * The server:
  * - Serves HTML files from the session directory only
+ * - Serves a gallery at "/" holding every variant in an iframe, side by side,
+ *   with viewport controls (375 / 768 / 1440) and a Choose button per variant
  * - Records user events to .events file (JSON lines, append-only)
- * - Wraps HTML fragments in a minimal frame template with interaction scripts
+ * - Injects the interaction client into every served variant, whether the file
+ *   is a full document or a fragment
  * - Live-reloads connected browsers on session-directory changes via SSE
  *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
  *
  * Event types (one JSON per line in .events):
- *   choice:      { type: "choice",      choice: "a", text: "Option Label", timestamp }
- *   tune:        { type: "tune",        token: "--color-primary", value: "#3b82f6", timestamp }
- *   tune-preset: { type: "tune-preset", preset: "density", value: 0.7, timestamp }
- *   comment:     { type: "comment",     selector: ".card.primary", text: "too tight", timestamp }
+ *   choice:  { type: "choice",  choice: "editorial.html", timestamp }
+ *   comment: { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
  *
  * Client interactions:
- *   - Click elements with `data-choice` to record a choice
- *   - Move/input controls with `data-tune="<token>"` to update a CSS custom
- *     property live on the document and record a tune event
- *   - Move/input controls with `data-tune-preset="<preset-name>"` to record
- *     a tune-preset event. Live preview for preset sliders is agent-driven —
- *     the agent reads the event and regenerates affected CSS properties via
- *     the tune-preset registry defined by the consuming tune workflow.
- *   - Alt+click any element to open a comment overlay; submit to record a
- *     comment event with the element's CSS selector
+ *   - Click a variant's Choose button in the gallery to record the pick
+ *   - Alt+click any element inside a variant to open a comment overlay; submit
+ *     to record a comment event with the element's CSS selector
  */
 
 import { serve, type Server } from "bun";
@@ -47,6 +42,8 @@ const sessionDir: string =
   sessionIdx !== -1
     ? resolve(args[sessionIdx + 1])
     : resolve(".artifacts/design/variants");
+// 3456: arbitrary high port outside the common dev range (3000/5173/8080) to
+// avoid colliding with the project's own dev server; override with --port
 const port: number = parseInt(portIdx !== -1 ? args[portIdx + 1] : "3456", 10);
 
 if (!Number.isInteger(port) || port < 1024 || port > 65535) {
@@ -96,61 +93,15 @@ try {
 } catch {}
 `;
 
-function injectReloadScript(html: string): string {
-  const tag = `<script>${reloadScript}</script>`;
-  if (html.includes("</body>")) return html.replace("</body>", `${tag}</body>`);
-  return html + tag;
-}
-
 const clientScript = `
-document.addEventListener("click", async (e) => {
-  const option = e.target.closest("[data-choice]");
-  if (!option || e.altKey) return;
-  const choice = option.dataset.choice;
-  const text = option.querySelector("h3")?.textContent || "";
-  document.querySelectorAll("[data-choice]").forEach((el) => el.classList.remove("selected"));
-  option.classList.add("selected");
-  await fetch("/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "choice", choice, text, timestamp: new Date().toISOString() }),
-  });
-});
-
-document.addEventListener("input", async (e) => {
-  const presetControl = e.target.closest("[data-tune-preset]");
-  if (presetControl) {
-    const preset = presetControl.dataset.tunePreset;
-    const value = parseFloat(presetControl.value);
-    const label = presetControl.parentElement?.querySelector("[data-tune-value]");
-    if (label) label.textContent = String(value);
-    await fetch("/event", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "tune-preset", preset, value, timestamp: new Date().toISOString() }),
-    });
-    return;
-  }
-  const control = e.target.closest("[data-tune]");
-  if (!control) return;
-  const token = control.dataset.tune;
-  const value = control.value;
-  document.documentElement.style.setProperty(token, value);
-  const label = control.parentElement?.querySelector("[data-tune-value]");
-  if (label) label.textContent = value;
-  await fetch("/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ type: "tune", token, value, timestamp: new Date().toISOString() }),
-  });
-});
-
 function cssPath(el) {
   if (!(el instanceof Element)) return "";
   const parts = [];
   while (el && el.nodeType === 1 && el !== document.body) {
     let part = el.nodeName.toLowerCase();
     if (el.id) { part += "#" + el.id; parts.unshift(part); break; }
+    // 2: enough class tokens to disambiguate siblings without pinning the
+    // selector to a long utility-class string that any restyle would break
     const classes = Array.from(el.classList).slice(0, 2).join(".");
     if (classes) part += "." + classes;
     const parent = el.parentElement;
@@ -178,11 +129,13 @@ function openCommentOverlay(target) {
   overlay.querySelector("[data-submit]").addEventListener("click", async () => {
     const text = ta.value.trim();
     if (!text) return;
-    await fetch("/event", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "comment", selector, text, timestamp: new Date().toISOString() }),
-    });
+    try {
+      await fetch("/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "comment", selector, text, timestamp: new Date().toISOString() }),
+      });
+    } catch {}
     overlay.remove();
     overlay = null;
   });
@@ -190,12 +143,17 @@ function openCommentOverlay(target) {
 
 document.addEventListener("click", (e) => {
   if (!e.altKey) return;
-  if (e.target.closest("[data-choice], [data-tune]")) return;
   e.preventDefault();
   e.stopPropagation();
   openCommentOverlay(e.target);
 }, true);
 `;
+
+function injectClientScripts(html: string): string {
+  const tag = `<script>${clientScript}</script><script>${reloadScript}</script>`;
+  if (html.includes("</body>")) return html.replace("</body>", `${tag}</body>`);
+  return html + tag;
+}
 
 const frameTemplate = (
   content: string,
@@ -209,23 +167,89 @@ const frameTemplate = (
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: #fafafa; padding: 2rem; }
-    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .option {
-      border: 2px solid #e5e5e5; border-radius: 12px; padding: 1.5rem;
-      cursor: pointer; transition: border-color 0.2s, transform 0.2s;
-    }
-    .option:hover { border-color: #3b82f6; transform: translateY(-2px); }
-    .option h3 { margin-bottom: 0.75rem; font-size: 1.1rem; }
-    .option.selected { border-color: #3b82f6; background: #eff6ff; }
-    .tune-panel { display: grid; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; margin-bottom: 1.5rem; }
-    .tune-panel label { display: grid; gap: 0.25rem; font-size: 0.875rem; }
-    .tune-panel input[type="range"] { width: 100%; }
     .hint { position: fixed; bottom: 1rem; left: 1rem; background: #111; color: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; font: 12px system-ui; opacity: 0.6; pointer-events: none; }
   </style>
   <script>${clientScript}</script>
   <script>${reloadScript}</script>
 </head>
 <body>${content}<div class="hint">Alt+click to comment</div></body>
+</html>`;
+
+const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variants</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f4f4f5; color: #18181b; }
+    header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.25rem; background: #fff; border-bottom: 1px solid #e4e4e7; }
+    header h1 { font-size: 0.95rem; font-weight: 600; margin-right: auto; }
+    .viewports { display: flex; gap: 0.25rem; }
+    .viewports button { font: inherit; font-size: 0.8rem; padding: 0.3rem 0.7rem; border: 1px solid #d4d4d8; background: #fff; border-radius: 6px; cursor: pointer; }
+    .viewports button[aria-pressed="true"] { background: #18181b; color: #fff; border-color: #18181b; }
+    .hint { font-size: 0.75rem; color: #71717a; }
+    .rail { display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem; overflow-x: auto; }
+    .variant { flex: 0 0 auto; display: flex; flex-direction: column; gap: 0.5rem; }
+    .variant figcaption { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; }
+    .variant figcaption span { font-weight: 600; margin-right: auto; }
+    .variant a, .variant button { font: inherit; font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid #d4d4d8; background: #fff; color: inherit; text-decoration: none; cursor: pointer; }
+    .variant button.chosen { background: #18181b; color: #fff; border-color: #18181b; }
+    .variant iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 80vh; width: 1440px; }
+    .empty { padding: 3rem 1.25rem; color: #71717a; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Variants</h1>
+    <div class="viewports" role="group" aria-label="Viewport width">
+      <button data-width="375" aria-pressed="false">375</button>
+      <button data-width="768" aria-pressed="false">768</button>
+      <button data-width="1440" aria-pressed="true">1440</button>
+    </div>
+    <span class="hint">Alt+click inside a variant to comment</span>
+  </header>
+  ${
+    files.length === 0
+      ? `<p class="empty">No variants in this session yet.</p>`
+      : `<div class="rail">${files
+          .map(
+            (f) => `<figure class="variant">
+      <figcaption>
+        <span>${f}</span>
+        <a href="/${f}" target="_blank" rel="noopener">Open</a>
+        <button data-choice="${f}">Choose</button>
+      </figcaption>
+      <iframe src="/${f}" title="${f}" loading="lazy"></iframe>
+    </figure>`,
+          )
+          .join("\n")}</div>`
+  }
+  <script>
+    const frames = document.querySelectorAll(".variant iframe");
+    document.querySelectorAll(".viewports button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".viewports button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+        frames.forEach((f) => { f.style.width = btn.dataset.width + "px"; });
+      });
+    });
+    document.querySelectorAll("[data-choice]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        document.querySelectorAll("[data-choice]").forEach((b) => b.classList.remove("chosen"));
+        btn.classList.add("chosen");
+        try {
+          await fetch("/event", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type: "choice", choice: btn.dataset.choice, timestamp: new Date().toISOString() }),
+          });
+        } catch {}
+      });
+    });
+  </script>
+  <script>${reloadScript}</script>
+</body>
 </html>`;
 
 const contentTypes: Record<string, string> = {
@@ -245,8 +269,18 @@ const server: Server = serve({
     const url = new URL(req.url);
 
     if (url.pathname === "/event" && req.method === "POST") {
-      const event = await req.json();
-      await appendFile(eventsFile, JSON.stringify(event) + "\n");
+      let event: unknown;
+      try {
+        event = await req.json();
+      } catch {
+        return new Response("Malformed event body", { status: 400 });
+      }
+      try {
+        await appendFile(eventsFile, JSON.stringify(event) + "\n");
+      } catch (err) {
+        console.error(`Could not append to ${eventsFile}:`, err);
+        return new Response("Event not recorded", { status: 500 });
+      }
       return new Response("ok");
     }
 
@@ -270,53 +304,48 @@ const server: Server = serve({
       });
     }
 
-    const filePath: string = join(
-      sessionDir,
-      url.pathname === "/" ? "index.html" : url.pathname,
-    );
+    if (url.pathname === "/") {
+      let htmlFiles: string[] = [];
+      try {
+        const files = await readdir(sessionDir);
+        htmlFiles = files.filter((f: string) => f.endsWith(".html")).sort();
+      } catch (err) {
+        console.error(`Could not read ${sessionDir}:`, err);
+      }
+      return new Response(galleryTemplate(htmlFiles), {
+        headers: { "Content-Type": "text/html" },
+      });
+    }
+
+    const filePath: string = join(sessionDir, url.pathname);
 
     if (!isInsideSessionDir(filePath)) {
       return new Response("Forbidden", { status: 403 });
     }
 
     if (existsSync(filePath)) {
-      const content: string = await readFile(filePath, "utf-8");
-
-      if (
-        filePath.endsWith(".html") &&
-        !content.trimStart().startsWith("<!DOCTYPE")
-      ) {
-        const title: string =
-          filePath.split("/").pop()?.replace(".html", "") || "Preview";
-        return new Response(frameTemplate(content, title), {
-          headers: { "Content-Type": "text/html" },
-        });
+      let content: string;
+      try {
+        content = await readFile(filePath, "utf-8");
+      } catch (err) {
+        console.error(`Could not read ${filePath}:`, err);
+        return new Response("Unreadable file", { status: 500 });
       }
 
       if (filePath.endsWith(".html")) {
-        return new Response(injectReloadScript(content), {
-          headers: { "Content-Type": "text/html" },
-        });
+        const isFullDocument = content.trimStart().toUpperCase().startsWith("<!DOCTYPE");
+        const title: string =
+          filePath.split("/").pop()?.replace(".html", "") || "Preview";
+        return new Response(
+          isFullDocument ? injectClientScripts(content) : frameTemplate(content, title),
+          { headers: { "Content-Type": "text/html" } },
+        );
       }
 
       const ext: string = filePath.split(".").pop() || "";
       return new Response(content, {
         headers: { "Content-Type": contentTypes[ext] || "text/plain" },
       });
-    }
-
-    if (url.pathname === "/") {
-      const files: string[] = await readdir(sessionDir);
-      const htmlFiles: string[] = files.filter((f: string) =>
-        f.endsWith(".html"),
-      );
-      const list: string = htmlFiles
-        .map((f: string) => `<li><a href="/${f}">${f}</a></li>`)
-        .join("\n");
-      return new Response(
-        frameTemplate(`<h1>Preview Session</h1><ul>${list}</ul>`, "Preview"),
-        { headers: { "Content-Type": "text/html" } },
-      );
     }
 
     return new Response("Not found", { status: 404 });
