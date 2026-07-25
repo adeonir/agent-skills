@@ -62,7 +62,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ## Typography
 
 ### inter-as-primary-font
-**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`. **Fix:** Pick a distinctive display font (Fraunces, Spectral, Crimson, Inter Tight, IBM Plex, JetBrains Mono, etc.) and declare it in DESIGN.md. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`. **Fix:** Carry a distinctive display font (Fraunces, Spectral, Crimson, Inter Tight, IBM Plex, JetBrains Mono, etc.) in the display role. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
 ```html
 font-family: Inter, system-ui, sans-serif
 ```
@@ -120,7 +120,7 @@ background: var(--primary); color: var(--primary-foreground)
 ```
 
 ### pure-saturated-accent
-**Category:** Color and Theme **Severity:** warning **Check:** Accent color is pure saturated hex (`#ff0000`, `#00ff00`, `#0000ff`) without muted variant or oklch refinement. **Fix:** Use oklch object form `{ hex, oklch }` in DESIGN.md and emit oklch values. Soften with reduced chroma or shift toward a brand-specific hue. **Example fail:**
+**Category:** Color and Theme **Severity:** warning **Check:** Accent color is pure saturated hex (`#ff0000`, `#00ff00`, `#0000ff`) without muted variant or oklch refinement. **Fix:** Emit the accent as an oklch value rather than raw hex. Soften with reduced chroma or shift toward a brand-specific hue. **Example fail:**
 ```html
 color: #ff0000
 ```
@@ -491,7 +491,7 @@ Claims the surface makes that no input supports. A variant is a decision aid and
 Render-only: this category is for render to avoid during generation. critique and audit do not flag drift — whether a build matches its token source is out of scope for evaluation.
 
 ### inline-hex-not-in-tokens
-**Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Either add the color to DESIGN.md as a token and reference it via `bg-{name}` / `var(--{name})`, or replace with the nearest existing token. **Example fail:**
+**Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `bg-{name}` / `var(--{name})`. **Example fail:**
 ```html
 <div style="background: #7d3aed">Hero</div>
 ```
@@ -511,7 +511,7 @@ Render-only: this category is for render to avoid during generation. critique an
 ```
 
 ### font-family-not-in-tokens
-**Category:** Drift **Severity:** error **Check:** Rendered HTML uses a font-family not declared in DESIGN.md `typography.*.fontFamily`. **Fix:** Either declare the font in DESIGN.md as a token role and reference it, or swap to an existing token role. **Example fail:**
+**Category:** Drift **Severity:** error **Check:** Rendered HTML uses a font-family not declared in DESIGN.md `typography.*.fontFamily`. **Fix:** Swap to an existing token role and reference it via `var(--font-{role})`. **Example fail:**
 ```html
 <h1 style="font-family: Playfair Display">Title</h1>
 ```
@@ -531,16 +531,4 @@ Render-only: this category is for render to avoid during generation. critique an
 <style type="text/tailwindcss">@theme { --color-brand: #abc123; }</style>
 <div class="bg-brand">A</div>
 <div class="bg-brand">B</div>
-```
-
-### copy-string-in-design-md
-**Category:** Drift **Severity:** warning **Check:** DESIGN.md prose (Section 1 Visual Theme & Atmosphere, Section 4 Component Stylings, Section 11 Agent Prompt Guide) contains literal product copy — real headlines, CTAs, feature names, or product pitches. **Fix:** Move every product string to `copy.yaml`. Keep DESIGN.md content-agnostic; use placeholders like `[Headline]`, `[CTA Label]` in Section 11 prompts. **Example fail:**
-```markdown
-## 11. Agent Prompt Guide
-- Use the hero pattern: "Ship Faster With Acme — Start Free Today"
-```
-**Example pass:**
-```markdown
-## 11. Agent Prompt Guide
-- Use the hero pattern: "[Eyebrow] — [Headline] — [CTA Label]"
 ```
