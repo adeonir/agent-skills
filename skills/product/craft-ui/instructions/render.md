@@ -28,6 +28,7 @@ The fallback rule is uniform: **any missing input → compose a seed from [desig
 Required references, auto-loaded:
 
 - [macrostructures.md](../references/macrostructures.md) — the named page-shape presets per register
+- [archetypes.md](../references/archetypes.md) — the region set and the named compositions for chrome and the close
 - [structure.md](../references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
 - [design-thinking.md](../references/design-thinking.md) — choose a visual direction, slop test
 - [heuristics.md](../references/heuristics.md) — heuristics + visual laws
@@ -44,7 +45,7 @@ Required references, auto-loaded:
 
 First fix the **register** and **surface**, since both the arrangement and the look read from them. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product — [brand.md](../references/brand.md) / [product.md](../references/product.md)); read which surfaces the project has from an existing `structure.yaml`, `copy.yaml`, or the user, and ask only when neither register nor surface is available.
 
-Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise pick a macrostructure per surface from the register's half of [macrostructures.md](../references/macrostructures.md), clearing it against that preset's "not for" and naming the two passed over, then compose the tree from the preset plus the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time. Run the structural self-check, then cache the plan to `structure.yaml`.
+Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise pick a macrostructure per surface from the register's half of [macrostructures.md](../references/macrostructures.md), clearing it against that preset's "not for" and naming the two passed over, then compose the tree from the preset plus the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time. Settle the region set and the archetype for each chrome and `close` block from [archetypes.md](../references/archetypes.md), clearing each against its own "not for". Run the structural self-check, then cache the plan to `structure.yaml`.
 
 When the request is only for structure — "map the screen flow", "arrange the screens", "plan the layout" — resolve the tree, draw the mermaid screen-flow from `flow:`, and stop before generating variants. Otherwise carry the resolved structure into generation.
 
@@ -154,6 +155,7 @@ Default viewport: 1440 (desktop) for brand surfaces and storefronts; 375 (mobile
 - Resolve structure, tokens, and content via the fallback rule — render the best coherent page from whatever exists
 - Resolve the layout structure first ([structure.md](../references/structure.md)); one region tree feeds every variant
 - Pick each surface's macrostructure by clearing its "not for", never off the category label
+- Compose every chrome region and `close` block from a named archetype; a reflex entry is recorded as chosen, not fallen into
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
 - Compose the direction from [design-thinking.md](../references/design-thinking.md) biased by register + surface when the user gives none; use the user's direction when given
 - Scale variant count to the stage of the inputs (1–2 when DESIGN.md is fixed, 4–5 greenfield); honor any N the user names

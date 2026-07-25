@@ -41,6 +41,7 @@ Each mode composes the references its job needs from this shared set, so judgmen
 
 - [brand.md](references/brand.md) / [product.md](references/product.md) — brand vs product posture and structural arrangement (read the matching one, first)
 - [macrostructures.md](references/macrostructures.md) — named page-shape presets per register, with knobs and exclusions
+- [archetypes.md](references/archetypes.md) — region set plus chrome and close compositions, reflex entries marked
 - [structure.md](references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
 - [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test, density/variance dials
 - [heuristics.md](references/heuristics.md) — Nielsen heuristics + 0–4 scoring + visual laws

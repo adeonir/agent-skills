@@ -70,6 +70,7 @@ Each mode composes the references its job needs from this shared set:
 
 - `references/brand.md` / `references/product.md` — brand vs product posture and structural arrangement (set first)
 - `references/macrostructures.md` — named page-shape presets per register, with knobs and exclusions
+- `references/archetypes.md` — region set plus chrome and close compositions, reflex entries marked
 - `references/structure.md` — region tree, shape vocabulary, reflow, structural self-check
 - `references/design-thinking.md` — Four Questions, color strategy, slop test, density/variance dials
 - `references/heuristics.md` — Nielsen heuristics + 0–4 scoring + visual laws

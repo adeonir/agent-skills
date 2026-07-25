@@ -35,6 +35,9 @@ tokens or copy strings — following the fallback rule in [render.md](../instruc
   `feature-grid`, `header`, `rail`, `footer`, `list`, `detail`, `form`). Free
   label; the shape comes from the fixed set below. Chrome is a region — `header`,
   `rail`, `footer` — and navigation is content inside it, never a block of its own.
+- **archetype** — the named composition a `header`, `rail`, `footer`, or `close`
+  block takes, with its knob value ([archetypes.md](archetypes.md)). Every other
+  block carries its intent in `note` instead.
 - **children** — nest a block only where a region genuinely contains sub-regions;
   render fills the finer detail at generation time.
 - **note** — intent a box cannot show (state variants, reflow, volume).
@@ -99,6 +102,7 @@ surfaces:
     blocks:
       - block: "{{free label — hero, feature-grid, header, rail, footer, list, form}}"
         shape: "{{full-width | split | grid-N | stack | sidebar | modal | overlay}}"
+        archetype: "{{named composition plus knob — header, rail, footer, close only}}"
         note: "{{intent a box cannot draw — optional}}"
         children:
           - block: "{{nested region — optional, when a region has sub-regions}}"
@@ -113,9 +117,11 @@ flow:
 
 Resolve the arrangement one decision at a time, skipping anything the
 conversation or the provided content already settled. Per surface: the
-macrostructure and its knob first, then the block order, the shape of each block,
-and the flow links out of it. The preset answers the first two for most blocks —
-what remains is where the surface departs from it and why.
+macrostructure and its knob first, then the region set and the block order, the
+shape of each block, the archetype for each chrome and `close` block
+([archetypes.md](archetypes.md)), and the flow links out of it. The preset answers
+the block order and most shapes — what remains is where the surface departs from
+it and why.
 
 Match the cadence to how settled the decision is. When the arrangement is clear
 from context, assert it and ask for confirmation — "this reads as a sidebar
@@ -167,6 +173,8 @@ presence in the tree, never a score:
   toward a conversion, a product surface following the task with familiar nav.
 - Every surface names a macrostructure, cleared against that preset's "not for"
   rather than picked off the category label.
+- Every chrome region and every `close` block names an archetype, each cleared the
+  same way — a reflex entry taken is recorded as chosen, not fallen into.
 - The primary action is obvious on every surface.
 - Navigation reaches every surface, and `flow:` connects — no dangling or
   unreachable surface.

@@ -16,6 +16,7 @@ Composes:
 
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
 - [macrostructures.md](../references/macrostructures.md) — the page-shape presets, their knobs and exclusions
+- [archetypes.md](../references/archetypes.md) — the region set and the chrome / close compositions, with the reflex entries marked
 - [structure.md](../references/structure.md) — region tree, flow, and the structural self-check
 - [design-thinking.md](../references/design-thinking.md) — visual direction, color strategy, slop test
 - [color.md](../references/color.md) — palette coherence, harmony, orphan accents
@@ -58,6 +59,8 @@ Read the density and variance dials (design-thinking.md) against the brief — r
 Before scoring the rendered surface, question the arrangement behind it — the macrostructure, region tree, and flow the variant draws ([macrostructures.md](../references/macrostructures.md), [structure.md](../references/structure.md)). When the session's `.artifacts/design/variants/structure.yaml` exists, read it as a claim about the arrangement rather than as authority over it, and check the variant against it in both directions — a block the plan names that the variant dropped, and a region the variant invented that the plan does not carry; otherwise infer the arrangement from the rendered page.
 
 Question the preset itself before the tree under it: does the surface's macrostructure clear its own "not for", or was it picked off the category label? A plan can be executed faithfully and still be the wrong page shape, and a variant that reads generic often fails here rather than in the look. Where the preset carries a knob, read the value it landed on — a preset at its most obvious knob value is the shape drawn twice.
+
+Then read the chrome and the close the same way ([archetypes.md](../references/archetypes.md)): does the surface carry the region set its job needs, and does each region and the `close` clear its archetype's "not for"? A variant that lands on the reflex entry at every one of them — the minimal or three-section header, the index-columns footer, the restated pitch and button — is generated chrome, whatever the page between them does.
 
 Then walk the structural self-check as a read of the built page: does each surface's arrangement match its register (a brand surface building toward a conversion, a product surface following the task with familiar navigation), is the primary action obvious, does navigation reach every surface with the `flow:` connected and no dangling step, is content grouped by hierarchy, are the empty / loading / error states and the reflow planned where they matter. Flag each structural gap; these are affordance-presence findings, not a score, and they feed the P0–P3 list in Step 7.
 
