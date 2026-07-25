@@ -20,6 +20,7 @@ Jump-table — each category links to its rule section below.
 - [Performance](#performance) — CDN abuse, layout shift, blocking renders
 - [Hydration and SSR](#hydration-and-ssr) — React/Next.js client/server divergence
 - [AI Scaffolding Tells](#ai-scaffolding-tells) — reflex section-grammar and template clichés
+- [Fabricated Content](#fabricated-content) — invented proof and asserted evidence no input supplied
 - [Drift](#drift) — render-only: HTML not aligned with DESIGN.md tokens (not flagged by critique/audit)
 
 ## Rule Template
@@ -806,6 +807,30 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 **Example pass:**
 ```html
 <p><strong>2.4×</strong> faster builds</p>
+```
+
+## Fabricated Content
+
+Claims the surface makes that no input supports. A variant is a decision aid and a shipped UI is a promise; either one carrying invented proof wins trust it did not earn. Representative imagery standing in for an asset that does not exist yet is not this family — the line is asserting a fact, not filling a picture.
+
+### invented-proof
+**Category:** Fabricated Content **Severity:** error **Check:** A metric, testimonial, customer logo, rating, or case count presented as real when no input supplied it. The tells are round marketing figures (`10,000+ teams`, `47% faster`), a testimonial under a generic name and title, and a wall of well-known logos unrelated to the product. **Fix:** Use the supplied figure; or hold the slot with a visibly unresolved placeholder and a label saying so; or take an arrangement that does not ask for proof. **Example fail:**
+```html
+<p class="text-6xl">10,000+</p><p>teams shipping faster</p>
+```
+**Example pass:**
+```html
+<p class="text-6xl text-neutral-400">—</p><p>teams shipping faster <span class="text-sm">(figure to confirm)</span></p>
+```
+
+### fabricated-product-evidence
+**Category:** Fabricated Content **Severity:** error **Check:** A product screenshot, dashboard, chart, or data visualization depicting an interface or dataset that does not exist, rendered as the real thing. Photography standing in for a shoot is not this rule; the failure is asserting evidence. **Fix:** Show the real capture; or render the visual with data that reads as sample and label it; or take an arrangement that does not lead on product evidence. **Example fail:**
+```html
+<figure><img src="dashboard.png" alt="Revenue up 34% this quarter"></figure>
+```
+**Example pass:**
+```html
+<figure><img src="dashboard.png" alt="Sample dashboard with placeholder data"><figcaption>Sample data</figcaption></figure>
 ```
 
 ## Drift

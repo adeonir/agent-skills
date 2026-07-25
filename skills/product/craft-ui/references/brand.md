@@ -90,6 +90,8 @@ Brand surfaces lean on imagery. A restaurant, hotel, or product page without ima
 
 "Imagery" is broader than stock photos: product screenshots, data viz, generated SVG, and canvas/WebGL scenes count. Text-only pages where type carries the entire visual weight are the failure mode.
 
+That breadth is not licence to assert. A photograph stands in for a shoot that has not happened; a product capture or a chart states a fact about something that exists. Render the second kind from something real, or render it as visibly sampled — see `fabricated-product-evidence` in [anti-patterns.md](anti-patterns.md).
+
 ## Motion
 
 One well-orchestrated page-load beats scattered micro-interactions, when the brand invites it. Some brands skip entrance motion entirely; the restraint is the voice.
