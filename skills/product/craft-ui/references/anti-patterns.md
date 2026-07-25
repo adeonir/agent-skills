@@ -86,7 +86,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ```
 
 ### heading-body-ratio-shy
-**Category:** Typography **Severity:** warning **Check:** Largest heading is less than `2.5x` the body font-size, flattening hierarchy. **Fix:** Target at least `3x` on desktop hero; ramp down gracefully on mobile, but never collapse below `2x`. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Largest heading is less than `2.5x` the body font-size on a surface led by a display hero, flattening hierarchy. A surface built on inline heads inside running prose, on dense index rows, or on a product screen runs flatter by design. **Fix:** Target at least `3x` on desktop hero; ramp down gracefully on mobile, but never collapse below `2x`. **Example fail:**
 ```html
 <h1 style="font-size: 24px">Headline</h1>
 <p style="font-size: 16px">Body</p>
@@ -192,7 +192,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ## Layout and Spacing
 
 ### all-sections-centered
-**Category:** Layout and Spacing **Severity:** warning **Check:** Every top-level `<section>` uses `text-align: center` or centered flex/grid, producing monotonous rhythm. **Fix:** Break symmetry at least once per page. Asymmetric hero, left-aligned editorial section, right-aligned testimonial, etc. **Example fail:**
+**Category:** Layout and Spacing **Severity:** warning **Check:** Every top-level `<section>` uses `text-align: center` or centered flex/grid, producing monotonous rhythm. Does not fire where a centered sequence is the arrangement itself — a surface of successive declarations, each holding the axis on purpose. **Fix:** Break symmetry at least once per page. Asymmetric hero, left-aligned editorial section, right-aligned testimonial, etc. **Example fail:**
 ```html
 <section style="text-align: center">...</section>
 <section style="text-align: center">...</section>
@@ -274,7 +274,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ```
 
 ### section-rhythm-flat
-**Category:** Layout and Spacing **Severity:** warning **Check:** Consecutive sections use same background color, same spacing, same layout direction — no alternation. **Fix:** Vary backgrounds (light/dark/accent), spacing density, or layout direction between sections to create rhythm. **Example fail:**
+**Category:** Layout and Spacing **Severity:** warning **Check:** Consecutive sections use same background color, same spacing, same layout direction — no alternation. Does not fire where uniformity is the arrangement's premise: a continuous document, a repeated declaration, or a grid or list of same-kind entries. **Fix:** Vary backgrounds (light/dark/accent), spacing density, or layout direction between sections to create rhythm. **Example fail:**
 ```html
 <section class="bg-white py-12">...</section>
 <section class="bg-white py-12">...</section>
@@ -747,7 +747,7 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 ```
 
 ### identical-card-grid
-**Category:** AI Scaffolding Tells **Severity:** warning **Check:** Same-sized cards, each icon + heading + paragraph, repeated across the page as the default way to present any group of items. **Fix:** Vary the layout to the content — one item can lead and others support; some want prose, a list, or an asymmetric composition rather than another equal card. **Example fail:**
+**Category:** AI Scaffolding Tells **Severity:** warning **Check:** Same-sized cards, each icon + heading + paragraph, repeated across the page as the default way to present any group of items. A grid of genuinely same-kind entries — products, works, index rows — is not this tell; the rule fires on varied content forced into equal cards. **Fix:** Vary the layout to the content — one item can lead and others support; some want prose, a list, or an asymmetric composition rather than another equal card. **Example fail:**
 ```html
 <div class="grid grid-cols-3"><div class="card">…</div><div class="card">…</div><div class="card">…</div></div>
 ```
