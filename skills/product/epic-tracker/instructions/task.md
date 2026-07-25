@@ -50,8 +50,8 @@ Fill the template (below).
 
 - **Summary**: what needs to be done and why — one clear outcome
 - **Signals**: links and ids from pasted context — PRs, advisories, configs, dashboards; omit if empty
-- **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration
-- **Rabbit Holes**: optional; known complexities or hidden risks; omit for trivial chores
+- **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration. Every condition is observed on something this task builds. A condition satisfied by something it does not build — a platform, a runtime, a service, or a library behaving as documented — is not a done-condition here: the task neither implements it nor can fail it. Drop it, or replace it with the observable this task owns that rests on it. An item whose reason is not obvious carries it inline as `(because {reason})` — the trap it heads off, the guarantee it holds up — so a reader of the task alone can tell an owed condition from an invented one
+- **Rabbit Holes**: optional; where execution sinks time — an unknown that expands the work, an ordering constraint that bites when missed, an integration quirk of something external, an edge case the naive approach gets wrong. At this grain, the traps in doing this work. A trap costs time; an obligation costs correctness: a condition that must hold for the task to be done is a `## Definition of Done` item, and the reason a done-condition exists is neither. Omit for trivial chores
 - **References**: the parent epic, related stories, external docs, and any `ADR-NNN` the task depends on
 
 **Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`CI runs on the Node 20 image`), never as its history (`we discussed staying on Node 18 but decided to upgrade`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history.
@@ -125,15 +125,17 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 
 {This is the task's own done-contract — verifiable conditions that mark this task complete. It is independent of the product-level Definition of Done in the PRD.}
 
-- [ ] {{condition that marks this task complete — verifiable, not sub-step narration}}
+- [ ] {{condition that marks this task complete — verifiable, not sub-step narration}} (because {{why it is owed — omit the clause when obvious}})
+
+MUST NOT contain: a condition satisfied by something this task does not build — platform, runtime, service, or library behavior it neither implements nor can fail.
 
 ## Rabbit Holes
 
 {Remove this section if not needed.}
 
-- {{Known complexity or hidden risk}}
+- {{Execution trap specific to this task — unknown that expands the work, ordering constraint, or integration quirk}}
 
-MUST NOT contain: implementation advice, upstream design notes, or cross-references to other documents.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Definition of Done`), or the reason an obligation exists.
 
 ## References
 
