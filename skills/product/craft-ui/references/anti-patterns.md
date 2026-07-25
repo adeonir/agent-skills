@@ -74,7 +74,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ```
 
 ### weight-range-flat
-**Category:** Typography **Severity:** warning **Check:** All text in the page uses weights between `400` and `700` only — no `100-200` for subtlety, no `800-900` for impact. **Fix:** Push at least one role into the 100-200 or 800-900 range to create typographic drama. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** All text on a brand surface uses weights between `400` and `700` only — no `100-200` for subtlety, no `800-900` for impact. A product surface holds the middle band on purpose, where exaggerated contrast reads as noise across many type elements. **Fix:** Push at least one role into the 100-200 or 800-900 range to create typographic drama. **Example fail:**
 ```html
 <h1 style="font-weight: 600">Strong but timid</h1>
 <p style="font-weight: 400">Body copy</p>
@@ -98,15 +98,15 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ```
 
 ### single-font-family-hierarchy
-**Category:** Typography **Severity:** warning **Check:** Display, heading, and body all use the same font-family, eroding hierarchy. **Fix:** Pair a display/serif/character font with a refined body sans (or inverse). Two families minimum on marketing surfaces. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Display, heading, and body share one font-family with nothing compensating for it — same weight band, shallow size ramp — so hierarchy rests on nothing. One well-chosen family is a legitimate choice; the failure is the flat execution of it, not the count. **Fix:** Either pair a display face with a refined body face, or commit to the single family with real weight and size contrast. **Example fail:**
 ```html
-<h1 style="font-family: Inter">Title</h1>
-<p style="font-family: Inter">Body</p>
+<h1 style="font-family: Inter; font-size: 20px; font-weight: 600">Title</h1>
+<p style="font-family: Inter; font-size: 16px; font-weight: 400">Body</p>
 ```
 **Example pass:**
 ```html
-<h1 style="font-family: 'Fraunces', serif">Title</h1>
-<p style="font-family: 'Inter', sans-serif">Body</p>
+<h1 style="font-family: Inter; font-size: 64px; font-weight: 800">Title</h1>
+<p style="font-family: Inter; font-size: 16px; font-weight: 300">Body</p>
 ```
 
 ## Color and Theme
