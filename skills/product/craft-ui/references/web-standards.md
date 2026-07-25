@@ -9,9 +9,9 @@ Composed by render.md (as generation rules) and audit.md (as the technical audit
 ## Accessibility
 
 - Icon-only buttons need `aria-label`.
-- Form controls need `<label>` (with `htmlFor`) or `aria-label`.
-- Interactive elements need keyboard handlers (`onKeyDown`/`onKeyUp`) when not using native elements.
-- `<button>` for actions, `<a>`/`<Link>` for navigation — never `<div onClick>` or `<span onClick>`.
+- Form controls need `<label>` (with `for`) or `aria-label`.
+- Interactive elements need keyboard handlers (`keydown`/`keyup`) when not using native elements.
+- `<button>` for actions, `<a>` for navigation — never `<div onclick>` or `<span onclick>`.
 - Images need `alt` (or `alt=""` if decorative).
 - Decorative icons need `aria-hidden="true"`.
 - Async updates (toasts, validation messages) need `aria-live="polite"`.
@@ -31,9 +31,9 @@ Composed by render.md (as generation rules) and audit.md (as the technical audit
 
 - Inputs need `autocomplete` and meaningful `name` attributes.
 - Use correct `type` (`email`, `tel`, `url`, `number`) and `inputmode` for mobile keyboards.
-- Never block paste (`onPaste` + `preventDefault`).
-- Labels must be clickable — `htmlFor` or wrapping the control.
-- `spellCheck={false}` on emails, codes, usernames.
+- Never block paste (`onpaste` + `preventDefault`).
+- Labels must be clickable — `for` or wrapping the control.
+- `spellcheck="false"` on emails, codes, usernames.
 - Checkbox/radio: label + control share a single hit target with no dead zones.
 - Submit button stays enabled until request starts; show spinner during request.
 - Errors inline next to fields; focus first error on submit.
@@ -74,18 +74,18 @@ Rules for text rendering — see typography.md for pairing and heuristics.md for
 
 - `<img>` needs explicit `width` and `height` attributes to prevent CLS.
 - Below-fold images: `loading="lazy"`.
-- Above-fold critical images: `priority` (Next.js) or `fetchpriority="high"`.
+- Above-fold critical images: `fetchpriority="high"` on the LCP candidate only.
 - Aspect ratio containers (`aspect-video`, `aspect-square`) for placeholder slots.
 
 ## Performance
 
-Loading, rendering, network, framework, and Core Web Vitals live in [performance.md](performance.md) — the audit's Performance dimension composes it.
+Loading, rendering, network, and Core Web Vitals live in [performance.md](performance.md) — the audit's Performance dimension composes it.
 
 ## Navigation and State
 
 - URL reflects meaningful state — filters, tabs, pagination, expanded panels in query params.
-- Links use `<a>` / `<Link>` for proper Cmd/Ctrl+click and middle-click support.
-- Deep-link all stateful UI: if it uses `useState`, consider URL sync (nuqs, searchParams).
+- Links use `<a>` for proper Cmd/Ctrl+click and middle-click support.
+- Deep-link stateful UI: an open tab, applied filter, or dialog the user would share or reload into belongs in the URL.
 - Destructive actions need confirmation modal or undo window — never immediate delete.
 
 ## Touch and Interaction
@@ -94,7 +94,7 @@ Loading, rendering, network, framework, and Core Web Vitals live in [performance
 - `-webkit-tap-highlight-color` set intentionally (transparent or themed).
 - `overscroll-behavior: contain` in modals, drawers, and sheets.
 - During drag operations: disable text selection, `inert` on dragged element.
-- `autoFocus` sparingly — desktop only, single primary input. Avoid on mobile.
+- `autofocus` sparingly — desktop only, single primary input. Avoid on mobile.
 
 ## Safe Areas
 

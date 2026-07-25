@@ -16,21 +16,17 @@ Composed by `audit.md` (the Performance dimension — static checks, plus runtim
 
 ## Rendering
 
-- Virtualize long lists (50+ items: `virtua`, `react-window`) or `content-visibility: auto`.
+- Virtualize long lists (50+ items), or `content-visibility: auto` with a `contain-intrinsic-size` estimate.
 - `contain` for independent regions; minimize DOM depth and node count (flatter, fewer = faster).
 - **No layout reads in the render path** (`getBoundingClientRect`, `offsetHeight`, `scrollTop`); batch DOM reads then writes, never interleave (interleaving forces reflow).
 - **GPU-friendly movement** — animate `transform`/`opacity`, not layout-driving properties (`left`, `width`, `top`, margins).
+- Minimize re-renders, debounce expensive operations, memoize computed values, lazy-load routes and heavy regions.
 
 ## Network
 
 - Reduce requests: combine small files, SVG sprites for icons, inline small critical assets, drop unused third-party scripts.
 - Pagination over loading everything; response compression (gzip/brotli); HTTP cache headers; CDN for static assets.
 - Slow connections: adaptive loading (`navigator.connection`), request prioritization, progressive enhancement.
-
-## Framework
-
-- **React** — `memo()` for expensive components, `useMemo`/`useCallback` for expensive computations, virtualize lists, code-split routes, avoid creating inline functions in render.
-- **Agnostic** — minimize re-renders, debounce expensive operations, memoize computed values, lazy-load routes and components.
 
 ## Core Web Vitals
 

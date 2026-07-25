@@ -219,7 +219,7 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 ## Component States
 
 ### missing-hover-states
-**Category:** Component States **Severity:** error **Check:** Interactive element (`<a>`, `<button>`, `[role="button"]`, `[onClick]`) has no `:hover` styling — no color change, no transform, no shadow shift. **Fix:** Combine color change with `transform` (slight scale or translate) and `box-shadow` shift for tactile feedback. Missing hover signals broken interactivity. **Example fail:**
+**Category:** Component States **Severity:** error **Check:** Interactive element (`<a>`, `<button>`, `[role="button"]`, `[onclick]`) has no `:hover` styling — no color change, no transform, no shadow shift. **Fix:** Combine color change with `transform` (slight scale or translate) and `box-shadow` shift for tactile feedback. Missing hover signals broken interactivity. **Example fail:**
 ```html
 <button class="bg-primary">
 ```
@@ -303,13 +303,13 @@ from { transform: scale(0.95); opacity: 0 }
 ## Accessibility
 
 ### div-onclick-for-action
-**Category:** Accessibility **Severity:** error **Check:** `<div onClick>` or `<span onClick>` used for an actionable element instead of `<button>` or `<a>`. **Fix:** Use `<button>` for actions, `<a>`/`<Link>` for navigation. Native elements come with keyboard, focus, and ARIA semantics for free. **Example fail:**
+**Category:** Accessibility **Severity:** error **Check:** `<div onclick>` or `<span onclick>` used for an actionable element instead of `<button>` or `<a>`. **Fix:** Use `<button>` for actions, `<a>` for navigation. Native elements come with keyboard, focus, and ARIA semantics for free. **Example fail:**
 ```html
-<div onClick={handleClick}>Submit</div>
+<div onclick="submit()">Submit</div>
 ```
 **Example pass:**
 ```html
-<button onClick={handleClick}>Submit</button>
+<button onclick="submit()">Submit</button>
 ```
 
 ### icon-button-no-aria-label
@@ -323,7 +323,7 @@ from { transform: scale(0.95); opacity: 0 }
 ```
 
 ### form-input-no-label
-**Category:** Accessibility **Severity:** error **Check:** `<input>`, `<select>`, or `<textarea>` without an associated `<label>` (via `htmlFor`/`for`) or `aria-label`. **Fix:** Wrap with `<label>` or add `htmlFor`/`for` pointing to the input id. Floating placeholders are not a substitute. **Example fail:**
+**Category:** Accessibility **Severity:** error **Check:** `<input>`, `<select>`, or `<textarea>` without an associated `<label>` (via `for`) or `aria-label`. **Fix:** Wrap with `<label>` or add `for` pointing to the input id. Floating placeholders are not a substitute. **Example fail:**
 ```html
 <input type="email" placeholder="Email">
 ```
@@ -367,9 +367,9 @@ from { transform: scale(0.95); opacity: 0 }
 ```
 
 ### autofocus-on-mobile
-**Category:** Accessibility **Severity:** warning **Check:** `autoFocus` applied to inputs on mobile app screens. Forces keyboard open immediately, jumps the viewport. **Fix:** Reserve `autoFocus` for desktop primary input only. Even on desktop, use sparingly. **Example fail:**
+**Category:** Accessibility **Severity:** warning **Check:** `autofocus` applied to inputs on mobile app screens. Forces keyboard open immediately, jumps the viewport. **Fix:** Reserve `autofocus` for desktop primary input only. Even on desktop, use sparingly. **Example fail:**
 ```html
-<input type="text" autoFocus>
+<input type="text" autofocus>
 ```
 **Example pass:**
 ```html
@@ -377,13 +377,13 @@ from { transform: scale(0.95); opacity: 0 }
 ```
 
 ### paste-blocked
-**Category:** Accessibility **Severity:** error **Check:** `onPaste` handler with `preventDefault()`. Breaks password managers, autofill, accessibility tools. **Fix:** Never block paste. Validate after paste if needed. **Example fail:**
+**Category:** Accessibility **Severity:** error **Check:** `onpaste` handler with `preventDefault()`. Breaks password managers, autofill, accessibility tools. **Fix:** Never block paste. Validate after paste if needed. **Example fail:**
 ```html
-<input onPaste={e => e.preventDefault()}>
+<input onpaste="event.preventDefault()">
 ```
 **Example pass:**
 ```html
-<input onPaste={e => validateAfterPaste(e.target.value)}>
+<input onpaste="validateAfterPaste(event)">
 ```
 
 ## Performance
