@@ -36,8 +36,8 @@ Both notes carry only references that outlive the work they describe. An identif
 
 When generating filenames from user input:
 
-- Remove invalid characters: `/ \ : * ? " < > |`
-- Preserve accented characters (valid in filenames)
+- Remove characters the OS rejects or Obsidian links break on: `/ \ : * ? " < > | # ^ [ ] %`
+- Preserve accented characters — Obsidian imposes no charset limit beyond the filesystem's
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
 
