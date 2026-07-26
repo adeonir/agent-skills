@@ -22,7 +22,7 @@ description: >-
 
 # Craft UI
 
-craft-ui builds the interface — resolving the layout structure (a named page shape per surface, seeding a region tree plus screen flow), then composing it with DESIGN.md (identity) and copy.yaml (content) into full-page HTML variants — and pressure-tests it, without touching production. Its core mode is **render**: plan the structure, then construct the real UI in several visual directions to decide one. Two judging modes follow: **critique** (a chosen variant, pre-impl) and **audit** (a built UI, pre-release). The three share one rubric (register, structure, design-thinking, heuristics, the craft dimensions, anti-patterns, web standards, scoring) and one invariant: **non-mutating end to end** — render writes only to `.artifacts/`, the throwaway session artifacts (`structure.yaml` and variant HTML) plus the `VARIANTS.md` log; critique and audit only report. It never edits tokens, copy, or production code, and it builds variants to decide a direction, not production components.
+craft-ui builds the interface — resolving the layout structure (a named page shape per surface, seeding a region tree plus screen flow), then composing it with DESIGN.md (identity) and copy.yaml (content) into full-page HTML variants — and pressure-tests it, without touching production. Its core mode is **render**: plan the structure, then construct the real UI in several visual directions to decide one. Two judging modes follow: **critique** (a chosen variant, pre-impl) and **audit** (a built UI, pre-release). The three share one rubric (register, structure, design-thinking, heuristics, the craft dimensions, anti-patterns, web standards, scoring) and one invariant: **non-mutating end to end** — render writes only to `.artifacts/`, the throwaway session artifacts (`structure.yaml` and variant HTML) plus the `VARIANTS.md` log and the chosen `final.html`; critique and audit only report. It never edits tokens, copy, or production code, and it builds variants to decide a direction, not production components.
 
 ## Quick start
 
@@ -71,7 +71,7 @@ Each mode composes the references its job needs from this shared set, so judgmen
 
 ## Non-mutating invariant
 
-Each mode reads, never writes a source artifact or production code. render emits `structure.yaml`, variant HTML, and the `VARIANTS.md` log to `.artifacts/` — never a `docs/` source; critique and audit emit a judgment. To make a direction permanent, the user invokes the owning skill (visual identity, copy). A reported audit defect is fixed in implementation, not here.
+Each mode reads, never writes a source artifact or production code. render emits `structure.yaml`, variant HTML, the `VARIANTS.md` log, and the chosen `final.html` to `.artifacts/` — never a `docs/` source; critique and audit emit a judgment. To make a direction permanent, the user invokes the owning skill (visual identity, copy). A reported audit defect is fixed in implementation, not here.
 
 ## Anti-Pattern: Writing a Source Artifact
 

@@ -92,9 +92,6 @@ non-mutating.
 ALWAYS use this exact template structure:
 
 ```yaml
-metadata:
-  source: "{{conversation, brief file, or 'none'}}"
-
 surfaces:
   "{{surface key — home, dashboard, checkout}}":
     macrostructure: "{{preset name from macrostructures.md}}"
