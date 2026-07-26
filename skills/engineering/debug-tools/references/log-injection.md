@@ -66,27 +66,7 @@ Based on investigation findings, determine:
 
 ### Step 2: Add Debug Logs
 
-Insert logs using the standard format:
-
-```javascript
-// Example: Function entry
-console.log("[DEBUG] [auth.ts:15] login called", { email, timestamp });
-
-// Example: Before async
-console.log("[DEBUG] [api.ts:42] fetching user", { userId });
-
-// Example: After async
-console.log("[DEBUG] [api.ts:45] user fetched", {
-  user: data.user,
-  status: response.status,
-});
-
-// Example: Error handling
-console.log("[DEBUG] [service.ts:30] caught error", {
-  name: err.name,
-  message: err.message,
-});
-```
+Insert each log in the project's language using the standard format, at the locations the Placement Guide names.
 
 ### Step 3: Report to User
 

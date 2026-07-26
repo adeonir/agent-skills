@@ -25,22 +25,6 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 
 Remove each debug log statement. Only lines carrying the `[DEBUG]` prefix are in scope — the project's own logging stays untouched, however stray it looks. A near-miss prefix (`[debug]`, `[DEBUG ]`) is reported and removed only on user confirmation. In generated or compiled output, rebuild instead of editing.
 
-```javascript
-// Before cleanup
-function calculateTotal(items) {
-  console.log("[DEBUG] [cart.ts:15] calculateTotal called", { items });
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-  console.log("[DEBUG] [cart.ts:17] calculated total", { total });
-  return total;
-}
-
-// After cleanup
-function calculateTotal(items) {
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-  return total;
-}
-```
-
 ### Step 3: Verify Removal
 
 Re-run the grep command from Step 1. Expected output: no matches.
