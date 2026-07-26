@@ -1,6 +1,6 @@
 # Write Obsidian Notes
 
-Create session notes in the project folder and update the daily note using MCPVault MCP tools directly.
+Create session notes in the project folder and update the daily note using Obsidian MCP tools directly.
 
 ## When to Use
 
@@ -48,16 +48,16 @@ When generating filenames from user input:
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
 
-## MCPVault Tools
+## Obsidian Tools
 
 Call these directly — do not invoke any skill.
 
 | Tool | Purpose |
 |------|---------|
-| `mcp__obsidian__write_note` | Create new note with content and frontmatter |
-| `mcp__obsidian__read_note` | Read existing note before patching |
-| `mcp__obsidian__patch_note` | In-place update (oldString → newString) |
-| `mcp__obsidian__search_notes` | Search-before-create, find existing notes |
+| `Obsidian:write_note` | Create new note with content and frontmatter |
+| `Obsidian:read_note` | Read existing note before patching |
+| `Obsidian:patch_note` | In-place update (oldString → newString) |
+| `Obsidian:search_notes` | Search-before-create, find existing notes |
 
 Always search before creating to avoid duplicates.
 
@@ -65,7 +65,7 @@ Always search before creating to avoid duplicates.
 
 ### 0. Enrich working context
 
-Run before composing notes. When the claude-mem MCP is available (`mcp__plugin_claude-mem_mcp-search__*`), query for **current-session** observations relevant to the resolved project. Fold matches into working context so mid-session detail that scrolled out is recovered before composition.
+The claude-mem MCP is an **optional** dependency: notes composed without it are complete, not degraded. When the MCP is present (`mcp__plugin_claude-mem_mcp-search__*`), query it for **current-session** observations relevant to the resolved project before composing notes, recovering mid-session detail that scrolled out of context.
 
 **Scoping rules (mandatory — do not pollute working context):**
 
@@ -91,10 +91,10 @@ The handoff Load phase groups loaded snapshots by date. When the snapshots span 
 #### Check for existing note
 
 ```
-search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
+Obsidian:search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
 ```
 
-If a match exists for the same date and topic, read it with `read_note` and append a new section with `patch_note` (horizontal rule `---` plus date header as separator). Otherwise create a new note.
+If a match exists for the same date and topic, read it with `Obsidian:read_note` and append a new section with `Obsidian:patch_note` (horizontal rule `---` plus date header as separator). Otherwise create a new note.
 
 #### Session template
 
@@ -154,7 +154,7 @@ When the handoff Load phase surfaced grouped snapshots, fold this date's bullets
 #### Write
 
 ```
-write_note(
+Obsidian:write_note(
   path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
   content="## Summary\n\n2-3 sentence narrative...\n\n## Decisions\n- ...\n\n## Findings\n- ...\n\n## Problems\n- ...\n\n## Next\n- ...\n\n## Relations\n- follows [[...]]",
   frontmatter={title: "...", type: "session", tags: ["session", ...base_tags, ...context_tags]}
@@ -166,7 +166,7 @@ Rules:
 - Decisions bullets distill with rationale — name rejected alternatives when a real option was considered
 - Findings and Problems: brief bullets only, no detailed narratives
 - Relations use typed verbs (`- follows [[X]]`) — fallback for graph edges only
-- Wikilinks only to existing notes/entities; verify with `search_notes` before linking
+- Wikilinks only to existing notes/entities; verify with `Obsidian:search_notes` before linking
 - Past tense, natural language
 - Durable refs allowed when they exist: PR `#N`, Issue `#N`. Technical detail allowed: file paths, commands, `file:line`
 - Forbidden: branch names, commit hashes, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`)
@@ -231,7 +231,7 @@ Section presence:
 Compose content following the template above. Only `## Activities` is required; omit empty sections.
 
 ```
-write_note(
+Obsidian:write_note(
   path="Daily/YYYY-MM/YYYY-MM-DD.md",
   content="## Activities\n...\n\n## Relations\n- contains [[...]]",
   frontmatter={title: "...", type: "daily", tags: [...]}
@@ -240,7 +240,7 @@ write_note(
 
 #### If note already exists
 
-Read first with `read_note`, then use `patch_note`:
+Read first with `Obsidian:read_note`, then use `Obsidian:patch_note`:
 - If the project already has a subsection in Activities, merge the existing bullets with new bullets — deduplicate, keep distinct items
 - If the project is new, add a `### Project Name` subsection at the end of Activities (before the next `##` section)
 - Add items to Open Items if relevant (create the section if it does not exist)
@@ -262,7 +262,7 @@ Rules:
 **DO:**
 - Write notes immediately — no preview message, no rendered-content dump, no "about to write..." narration. The user invoked wrap-up to persist, not to review drafts in chat.
 - Run Enrich step (0) when claude-mem MCP is available; scope strictly to current session + active project topics; skip silently otherwise
-- Search before creating with `search_notes` to avoid duplicates
+- Search before creating with `Obsidian:search_notes` to avoid duplicates
 - Read existing note before patching (daily, session updates)
 - Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
 - Use `## Relations` for typed edges (`- follows [[X]]`) that add graph value; inline `[[wikilinks]]` in Summary cover ordinary mentions
@@ -275,7 +275,7 @@ Rules:
 **DON'T:**
 - Preview note bodies in chat before writing (contrasts: write immediately, the user invoked wrap-up to persist)
 - Announce intent before each MCP write ("now writing the session note...") — execute and report results at the end (contrasts: write immediately)
-- Call any skill — use MCPVault MCP tools directly
+- Call any skill — use Obsidian MCP tools directly
 - Use `[brackets]` for observations — use `#hashtags` instead (contrasts: Obsidian Syntax Rules)
 - Add `# H1` to any note — frontmatter `title` is the canonical heading
 - Write changelog-style content or list steps taken
@@ -294,7 +294,7 @@ Rules:
 
 ## Error Handling
 
-- Obsidian/MCPVault unavailable: skip Obsidian step entirely, warn user
+- Obsidian MCP unavailable: skip Obsidian step entirely, warn user
 - claude-mem MCP unavailable, returns nothing, or query times out: skip Enrich step silently and compose from working context only
-- Daily note already exists: read with `read_note`, update with `patch_note`
+- Daily note already exists: read with `Obsidian:read_note`, update with `Obsidian:patch_note`
 - No meaningful session content: keep session brief, still update daily note

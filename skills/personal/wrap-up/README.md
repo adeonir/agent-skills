@@ -37,7 +37,11 @@ close session
 
 ## Requirements
 
-- MCPVault MCP server (for Obsidian notes)
+| Dependency | Status | Without it |
+|------------|--------|------------|
+| Obsidian MCP server | required | No note can be written; the skill has nothing to persist to |
+| claude-mem MCP | optional | The Enrich step is skipped silently; notes compose from working context alone |
+
 - `.notes/` symlink in the repo root pointing to the Obsidian vault
 - `wrap-up.yml` at the vault root with a `projects` registry
 
