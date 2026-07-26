@@ -1,12 +1,11 @@
 ---
 name: notes
 description: >-
-  Creates and manages Obsidian notes for projects, technical challenges, brag
-  documents, meeting transcriptions, and company tracking. Use when documenting
-  projects, recording technical challenges, maintaining a brag document of
-  achievements, preserving meeting, 1:1, standup, or course transcriptions, or
-  tracking a company or job application. Not for end-of-session persistence
-  across memory systems or for initializing repository-wide project context.
+  Writes and updates Obsidian notes in the vault. Use when documenting a
+  project, recording a technical challenge or take-home, adding to a brag
+  document, preserving a meeting, 1:1, standup, or lecture transcription
+  verbatim, or tracking a company and job application. Not for end-of-session
+  persistence or repository-wide project context.
 ---
 
 # Notes
