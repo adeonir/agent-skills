@@ -86,7 +86,7 @@ The handoff Load phase groups loaded snapshots by date. When the snapshots span 
 
 - Folder: `{obsidian.path}/Sessions/`
 - Filename: `YYYY-MM-DD — Description.md`
-- Example: `Work/Acme/Sessions/2026-03-22 — BM Reorganization.md`
+- Example: `Work/Acme/Sessions/YYYY-MM-DD — Checkout Refactor.md`
 
 #### Check for existing note
 
