@@ -24,7 +24,7 @@ If the user did not state expected vs actual or reproduction steps, ask before a
 
 ### Step 2: Analyze Code
 
-Use available runtime inspection, browser debugging, semantic analysis, and documentation tools to investigate the issue. The agent discovers and uses whatever tools are available in the environment.
+Start at the error and trace backwards from the symptom toward its origin. Use available runtime inspection, browser debugging, semantic analysis, and documentation tools to investigate the issue. The agent discovers and uses whatever tools are available in the environment.
 
 #### Focus Areas
 
@@ -158,24 +158,6 @@ Signals that the debugging process has gone off-track:
 - Confidence score drops between attempts
 
 When red flags appear, stop and reassess. The issue may be architectural, not a localized bug.
-
-## Guidelines
-
-**DO:**
-- Start from the error and trace backwards from symptoms
-- Enumerate 2-3 ranked hypotheses, then converge on the highest-scored one
-- Score honestly -- don't inflate confidence
-- Compare broken code against working examples when root cause is unclear
-- Request logs or clarification when stuck
-- Apply the smallest fix that resolves the issue
-- Track fix attempts and escalate after 3 failures
-
-**DON'T:**
-- Report findings with confidence below 50 (contrasts: honest scoring)
-- Commit to the first plausible cause without alternatives (contrasts: enumerate 2-3 ranked hypotheses)
-- Propose speculative fixes without evidence (contrasts: smallest fix once root cause confirmed)
-- Inflate confidence to skip log injection (contrasts: request logs when stuck)
-- Retry the same approach after it fails (contrasts: track attempts and escalate)
 
 ## Error Handling
 

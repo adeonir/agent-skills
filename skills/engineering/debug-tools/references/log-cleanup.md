@@ -23,7 +23,7 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 
 ### Step 2: Remove Logs
 
-Remove each debug log statement:
+Remove each debug log statement. Only lines carrying the `[DEBUG]` prefix are in scope — the project's own logging stays untouched, however stray it looks.
 
 ```javascript
 // Before cleanup
@@ -55,18 +55,6 @@ Removed {count} debug logs from:
 - {file}: {count} logs
 - {file}: {count} logs
 ```
-
-## Guidelines
-
-**DO:**
-- Remove all `[DEBUG]` logs -- don't leave any behind
-- Verify after cleanup by searching again for `[DEBUG]`
-- Run cleanup as part of normal debug workflow after fix is verified
-
-**DON'T:**
-- Remove logs that don't have the `[DEBUG]` prefix
-- Skip verification after cleanup
-- Leave debug logs in code that will be committed
 
 ## Error Handling
 

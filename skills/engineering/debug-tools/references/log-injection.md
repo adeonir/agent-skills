@@ -22,7 +22,7 @@ Components:
 
 - `[DEBUG]` - Prefix for grep and cleanup (required, all languages)
 - `[file:line]` - File path and line number for navigation (e.g., `[cache.js:12]`). Never use function names in place of line numbers
-- `description` - What this log checks
+- `description` - What this log checks, stated specifically: "login failed", not "error occurred"
 - `vars` - Relevant data (no sensitive info)
 
 ## Strategic Placement
@@ -170,22 +170,6 @@ When user shares console output, look for:
 | Error in log | Exception caught | Analyze error context |
 | Wrong order | Race condition | Check async timing |
 | Repeated logs | Infinite loop | Check dependencies |
-
-## Guidelines
-
-**DO:**
-- Only log what is needed to confirm or deny the hypothesis
-- Always use `[DEBUG]` prefix for grep and cleanup
-- Include `[file:line]` context for navigation
-- Keep to 3-5 strategic injection points
-- Clean up after debugging -- logs are temporary aids
-- Use specific descriptions: "login failed" not "error occurred"
-
-**DON'T:**
-- Add "just in case" logs
-- Log sensitive data (passwords, tokens, PII)
-- Flood the output with excessive log points
-- Leave debug logs in production code
 
 ## Error Handling
 
