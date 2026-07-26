@@ -23,7 +23,7 @@ grep -rn '\[DEBUG\]' . --include='*.ts' --include='*.tsx' --include='*.js' --inc
 
 ### Step 2: Remove Logs
 
-Remove each debug log statement. Only lines carrying the `[DEBUG]` prefix are in scope — the project's own logging stays untouched, however stray it looks.
+Remove each debug log statement. Only lines carrying the `[DEBUG]` prefix are in scope — the project's own logging stays untouched, however stray it looks. A near-miss prefix (`[debug]`, `[DEBUG ]`) is reported and removed only on user confirmation. In generated or compiled output, rebuild instead of editing.
 
 ```javascript
 // Before cleanup
@@ -55,9 +55,3 @@ Removed {count} debug logs from:
 - {file}: {count} logs
 - {file}: {count} logs
 ```
-
-## Error Handling
-
-- No [DEBUG] logs found: inform user cleanup is already done
-- Logs in generated or compiled files: suggest rebuilding instead of manual cleanup
-- Partial match (prefix variation): report and ask user to confirm removal

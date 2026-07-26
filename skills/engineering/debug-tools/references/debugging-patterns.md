@@ -95,9 +95,3 @@ Use available debugging tools (runtime inspection, browser devtools, semantic an
 - Syntax errors (linter resolves)
 - Type errors (TypeScript resolves)
 - Obvious bugs in diff (use code review)
-
-## Error Handling
-
-- Pattern doesn't match framework: adapt the pattern to the specific framework conventions
-- No matching pattern found for the symptom: fall back to general investigation with debug logs
-- Multiple patterns match the same symptom: use confidence scoring to prioritize the most likely cause

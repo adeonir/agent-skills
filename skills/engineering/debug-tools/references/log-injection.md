@@ -60,7 +60,7 @@ Is function called?
 
 Based on investigation findings, determine:
 
-- Which files need logs
+- Which files need logs — never a generated or read-only file, where the log is lost on the next build; log the source that produces it, or the nearest caller
 - What data to capture at each point
 - How many logs (3-5 strategic points, not flooding)
 
@@ -170,9 +170,3 @@ When user shares console output, look for:
 | Error in log | Exception caught | Analyze error context |
 | Wrong order | Race condition | Check async timing |
 | Repeated logs | Infinite loop | Check dependencies |
-
-## Error Handling
-
-- File is read-only or generated: inform user and suggest alternative location
-- Language not listed in log format table: adapt the [DEBUG] prefix pattern to the language's print/log function
-- Too many injection points needed: focus on the most critical 3-5

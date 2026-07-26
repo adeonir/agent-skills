@@ -158,10 +158,3 @@ Signals that the debugging process has gone off-track:
 - Confidence score drops between attempts
 
 When red flags appear, stop and reassess. The issue may be architectural, not a localized bug.
-
-## Error Handling
-
-- No stacktrace or error message: ask user for more details
-- Cannot access source code: inform user and suggest alternatives
-- Investigation inconclusive after analysis: suggest adding debug logs
-- Three failed fixes: escalate to architectural review
