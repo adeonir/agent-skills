@@ -9,13 +9,14 @@ Append a new snapshot block at the top of `.artifacts/HANDOFF.md`.
 
 ## Current state
 
-Timestamp: !`date '+%Y-%m-%d %H:%M'`
+Run these before composing; they answer the snapshot header and the `State` field:
 
-Branch: !`git branch --show-current 2>/dev/null`
-
-Last commit: !`git log -1 --oneline 2>/dev/null`
-
-Uncommitted: !`git status --short 2>/dev/null`
+```bash
+date '+%Y-%m-%d %H:%M'
+git branch --show-current 2>/dev/null
+git log -1 --oneline 2>/dev/null
+git status --short 2>/dev/null
+```
 
 ## Format
 
@@ -61,9 +62,9 @@ Observation IDs do not enter the snapshot body.
 
 ## Workflow
 
-1. Read the timestamp from **Current state** above as the snapshot header. When the section is empty (injection disabled via `disableSkillShellExecution`), use `YYYY-MM-DD` alone.
+1. Run the **Current state** commands. Use the timestamp as the snapshot header.
 2. Run the Enrich Phase.
-3. Compose `State` from the branch, uncommitted files, and last commit in **Current state**, plus anything this session applied that is not yet committed. Omit the field when **Current state** carries no git output.
+3. Compose `State` from the branch, uncommitted files, and last commit they returned, plus anything this session applied that is not yet committed. Omit the field outside a git repo, where the three git commands return nothing.
 4. Compose the remaining sections from working context. When an argument is present, treat it as the next session's focus and tailor `Focus` and `Next step` to it.
 5. Omit every optional section that would be empty — no label, no placeholder.
 6. Write `.artifacts/HANDOFF.md`:
