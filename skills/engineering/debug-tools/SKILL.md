@@ -1,14 +1,15 @@
 ---
 name: debug-tools
 description: >-
-  Iterative debugging workflow with confidence scoring, pattern comparison, and
-  strategic log injection. Investigate, fix, verify loop with auto-cleanup of
-  debug logs and escalation to architectural review after 3 failed attempts. Use
-  when diagnosing unexpected behavior, silent errors, or intermittent failures,
-  when tests pass but the app fails or it works in dev but not in prod, when
-  tracing an issue, or when adding or cleaning up debug logs. Not for known
-  one-line fixes where the user names file and line, runtime error review on
-  deployed services, or PM bug-report triage.
+  Iterative debugging workflow that gates a fix on evidence: rank candidate
+  causes, compare against working code, and inject targeted debug logs when
+  reading the code cannot show the mechanism, then fix, verify, and clean the
+  logs up. Escalates to architectural review when fixes keep failing. Use when
+  diagnosing unexpected behavior, silent errors, or intermittent failures, when
+  tests pass but the app fails or it works in dev but not in prod, when tracing
+  an issue, or when adding or cleaning up debug logs. Not for known one-line
+  fixes where the user names file and line, runtime error review on deployed
+  services, or PM bug-report triage.
 ---
 
 # Debug Tools

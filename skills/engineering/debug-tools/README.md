@@ -1,6 +1,6 @@
 # Debug Tools
 
-Iterative debugging workflow with confidence scoring, pattern comparison, and targeted log injection.
+Iterative debugging workflow that gates a fix on evidence, not on a hunch.
 
 ## What It Does
 
