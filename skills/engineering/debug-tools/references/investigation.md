@@ -8,7 +8,7 @@ When debugging unexpected behavior, silent errors, or intermittent failures.
 
 ## Workflow
 
-Execute the appropriate step based on current state: Understand + Analyze, Propose Fix, or Verify.
+Enter at the step the current state calls for; a session already carrying evidence does not restart at Step 1.
 
 ### Step 1: Understand the Bug
 
@@ -52,11 +52,11 @@ See [debugging-patterns.md](debugging-patterns.md) for common patterns and compa
 
 Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up front prevent premature commitment to the first plausible explanation. Score each one 0-100:
 
-| Score | Meaning | Action |
-|-------|---------|--------|
-| >= 70 | High (>= 70) | Report as probable cause |
-| 50-69 | Medium (50-69) | Suggest logs to confirm |
-| < 50 | Low (< 50) | Keep as alternative, do not report |
+| Score | Action |
+|-------|--------|
+| >= 70 | Report as probable cause |
+| 50-69 | Suggest logs to confirm |
+| < 50 | Keep as alternative, do not report |
 
 If only one hypothesis is plausible, that is fine -- do not invent weak alternatives to fill the slate. The goal is honest enumeration, not three items.
 

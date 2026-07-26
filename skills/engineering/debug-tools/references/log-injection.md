@@ -29,7 +29,7 @@ Components:
 
 ### Decision Tree
 
-```
+```text
 Is function called?
 ├── No → Log at call sites
 └── Yes → Log function entry
