@@ -90,7 +90,7 @@ The handoff Load phase groups loaded snapshots by date. When the snapshots span 
 
 #### Check for existing note
 
-```
+```text
 Obsidian:search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
 ```
 
@@ -153,7 +153,7 @@ When the handoff Load phase surfaced grouped snapshots, fold this date's bullets
 
 #### Write
 
-```
+```text
 Obsidian:write_note(
   path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
   content="## Summary\n\n2-3 sentence narrative...\n\n## Decisions\n- ...\n\n## Findings\n- ...\n\n## Problems\n- ...\n\n## Next\n- ...\n\n## Relations\n- follows [[...]]",
@@ -230,7 +230,7 @@ Section presence:
 
 Compose content following the template above. Only `## Activities` is required; omit empty sections.
 
-```
+```text
 Obsidian:write_note(
   path="Daily/YYYY-MM/YYYY-MM-DD.md",
   content="## Activities\n...\n\n## Relations\n- contains [[...]]",

@@ -23,7 +23,7 @@ flowchart TD
 
 ## Usage
 
-```
+```text
 wrap up
 end session
 finish up
