@@ -2,16 +2,11 @@
 
 Authoring conventions for skills in this repository.
 
-This file is **repo-level guidance for skill authors**. It is never installed
-alongside skills and never reaches the consumer. Each skill ships standalone
-via `skills.sh`.
+This file is **repo-level guidance for skill authors**. It is never installed alongside skills and never reaches the consumer. Each skill ships standalone via `skills.sh`.
 
 ## Rules
 
-Verifiable conventions live as path-scoped rules in `.claude/rules/`, loaded
-automatically when editing skill files. Each is an Incorrect/Correct rule
-managed with the rule-creator skill. This file keeps the structural and
-narrative guidance that is not a discrete rule.
+Verifiable conventions live as path-scoped rules in `.claude/rules/`, loaded automatically when editing skill files. Each is an Incorrect/Correct rule managed with the rule-creator skill. This file keeps the structural and narrative guidance that is not a discrete rule.
 
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
@@ -31,11 +26,9 @@ narrative guidance that is not a discrete rule.
 
 ## Commands
 
-No build, no tests, no linter. Validation is manual: read files, verify
-structure, check cross-references within a skill.
+No build, no tests, no linter. Validation is manual: read files, verify structure, check cross-references within a skill.
 
-After editing a skill, the self-checks worth running over its directory
-(`skills/<category>/<skill>/`):
+After editing a skill, the self-checks worth running over its directory (`skills/<category>/<skill>/`):
 
 ```bash
 grep -rn '^```$' .              # bare fences are closings; every opening must carry a language
@@ -53,7 +46,7 @@ Skills follow the [Agent Skills](https://agentskills.io) open standard.
 
 ## Repository Structure
 
-```
+```text
 agent-skills/
 ├── AGENTS.md                # this file
 ├── CLAUDE.md                # points to AGENTS.md
@@ -68,8 +61,7 @@ agent-skills/
         └── skill-name/
 ```
 
-Skills directories use flat lowercase kebab-case names. Skill folders also
-use kebab-case.
+Skills directories use flat lowercase kebab-case names. Skill folders also use kebab-case.
 
 | Directory | Usage |
 |-----------|-------|
@@ -79,15 +71,13 @@ use kebab-case.
 
 ## Canonical Workflow
 
-Skills compose via artifacts on disk (`.artifacts/`), not via cross-references
-inside skill files. The repo `README.md` owns the pipeline diagram and the skill
-index — this file does not duplicate them.
+Skills compose via artifacts on disk (`.artifacts/`), not via cross-references inside skill files. The repo `README.md` owns the pipeline diagram and the skill index — this file does not duplicate them.
 
 ## Skill File Layout
 
 Default — flat `references/` for the on-demand bundle:
 
-```
+```text
 skill-name/
 ├── SKILL.md           # entrypoint (required)
 ├── README.md          # user-facing doc (required)
@@ -97,11 +87,9 @@ skill-name/
 └── assets/            # static files for scripts or render output (optional)
 ```
 
-Split — `instructions/` + `references/` when files genuinely mix intent
-(≥2 procedural workflows AND ≥2 lookup-style references). The signal
-is intent mix, not file count.
+Split — `instructions/` + `references/` when files genuinely mix intent (≥2 procedural workflows AND ≥2 lookup-style references). The signal is intent mix, not file count.
 
-```
+```text
 skill-name/
 ├── SKILL.md           # entrypoint (required)
 ├── README.md          # user-facing doc (required)
@@ -115,16 +103,10 @@ skill-name/
 
 Classification rule:
 
-- **Instruction** — procedural workflow the user (or another instruction)
-  invokes to do a job. Has a `## Workflow` with numbered steps. The
-  agent acts on it.
-- **Reference** — lookup material the workflows compose (style axes,
-  validation rules, technical principles, naming taxonomies). The agent
-  reads it for context but does not "run" it.
+- **Instruction** — procedural workflow the user (or another instruction) invokes to do a job. Has a `## Workflow` with numbered steps. The agent acts on it.
+- **Reference** — lookup material the workflows compose (style axes, validation rules, technical principles, naming taxonomies). The agent reads it for context but does not "run" it.
 
-Stay flat when in doubt. Splitting too early adds path overhead without
-information gain. Split when the directory has both invokable files and
-files that exist purely to be composed by others.
+Stay flat when in doubt. Splitting too early adds path overhead without information gain. Split when the directory has both invokable files and files that exist purely to be composed by others.
 
 There is no `CHANGELOG.md` per skill. Git history is the source.
 
@@ -144,10 +126,7 @@ argument-hint: [optional-arg]    # only when skill accepts /skill <args>
 
 #### Extended Fields
 
-The Claude Code harness accepts additional frontmatter fields beyond
-`name` and `description`. Use them only when the skill needs the behavior
-— every extra field is a maintenance surface and a divergence from the
-open Agent Skills standard.
+The Claude Code harness accepts additional frontmatter fields beyond `name` and `description`. Use them only when the skill needs the behavior — every extra field is a maintenance surface and a divergence from the open Agent Skills standard.
 
 | Field | When to use |
 |-------|-------------|
@@ -178,11 +157,9 @@ Permitted sections:
 
 ### Workflow Notation
 
-Use `→` arrows. Box-drawing is welcome where it sharpens structure — branches
-and convergence read best with `├ └ ┐ ┴ ┼ ┘ │`. Keep simple flows linear and
-lines under 70 chars.
+Use `→` arrows. Box-drawing is welcome where it sharpens structure — branches and convergence read best with `├ └ ┐ ┴ ┼ ┘ │`. Keep simple flows linear and lines under 70 chars.
 
-```
+```text
 phase-1 → phase-2 → phase-3 → output
   ^_________________________|  (loop back)
 
@@ -193,19 +170,11 @@ a → b → c
 
 ### Voice / Tone
 
-Imperative neutral by default. Authorial opinionated voice (italics, bold for
-emphasis) is permitted in any section when it adds clarity. No table of
-contents — SKILL.md is short enough to dispense with it.
+Imperative neutral by default. Authorial opinionated voice (italics, bold for emphasis) is permitted in any section when it adds clarity. No table of contents — SKILL.md is short enough to dispense with it.
 
 ## References and Instructions
 
-Layout: `references/` subfolder for lookup material, optional
-`instructions/` subfolder for procedural workflows when the split
-criteria in [Skill File Layout](#skill-file-layout) apply. Same
-internal structure, same kebab-case filenames, same rules apply to both
-buckets — the only difference is intent (workflows act, references
-inform). The rest of this section uses "reference" to mean a file in
-either bucket.
+Layout: `references/` subfolder for lookup material, optional `instructions/` subfolder for procedural workflows when the split criteria in [Skill File Layout](#skill-file-layout) apply. Same internal structure, same kebab-case filenames, same rules apply to both buckets — the only difference is intent (workflows act, references inform). The rest of this section uses "reference" to mean a file in either bucket.
 
 Required internal structure:
 
@@ -221,35 +190,23 @@ One-line description.
 ## [free sections from here]
 ```
 
-After the required header, sections are free (`Workflow`, `Discovery`,
-`Phases`, `Guidelines`, `Error Handling` — all optional).
+After the required header, sections are free (`Workflow`, `Discovery`, `Phases`, `Guidelines`, `Error Handling` — all optional).
 
-Cross-links between sibling references **within the same skill** are
-permitted when they explain dependencies, hand-offs, or shared logic
-(e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md
-remains the primary routing hub — refs should not re-route operations
-SKILL.md already owns — but an inline sibling link inside prose is the
-natural way to surface a prereq or follow-up without duplicating
-content.
+Cross-links between sibling references **within the same skill** are permitted when they explain dependencies, hand-offs, or shared logic (e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md remains the primary routing hub — refs should not re-route operations SKILL.md already owns — but an inline sibling link inside prose is the natural way to surface a prereq or follow-up without duplicating content.
 
-XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in
-references when content is ingested as input by the model. Default to
-markdown; use tags only when structure justifies them.
+XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in references when content is ingested as input by the model. Default to markdown; use tags only when structure justifies them.
 
 ## Guidelines
 
 Short DO list (4-6 non-obvious items). Skip DOs that are common sense.
 
-When a real trap exists, document it as `## Anti-Pattern: <name>` with prose
-explaining the failure mode and the correct alternative. Do not pair every
-DON'T with a DO; if the proscription has no positive counterpart, the
-Anti-Pattern section carries it alone.
+When a real trap exists, document it as `## Anti-Pattern: <name>` with prose explaining the failure mode and the correct alternative. Do not pair every DON'T with a DO; if the proscription has no positive counterpart, the Anti-Pattern section carries it alone.
 
 ## README per Skill
 
 Required structure:
 
-```markdown
+````markdown
 # Skill Name
 
 One-line tagline.
@@ -278,155 +235,77 @@ Where artifacts land.
 External tools or MCPs.
 
 ## FAQ (if applicable)
-```
+````
 
 Mermaid direction:
 - `flowchart TD` for branching, loops, decision trees
 - `flowchart LR` for linear sequential pipelines
 
-There is no per-skill `Installation` or `Integration` section. Installation
-is handled by `skills.sh`. Skills are isolated and do not document
-integration with other skills.
+There is no per-skill `Installation` or `Integration` section. Installation is handled by `skills.sh`. Skills are isolated and do not document integration with other skills.
 
 ## Discovery
 
-Three discovery types are recognized at the authoring level. Skills do not
-label them — apply the right pattern silently.
+Three discovery types are recognized at the authoring level. Skills do not label them — apply the right pattern silently.
 
-- **Type A — Product discovery.** Understand the problem, user, and
-  direction before any execution. Iterative, question-driven, no disk state.
-  Lives in `references/discovery.md` of skills like brainstorm,
-  docs-writer, spec-driven.
+- **Type A — Product discovery.** Understand the problem, user, and direction before any execution. Iterative, question-driven, no disk state. Lives in `references/discovery.md` of skills like brainstorm, docs-writer, spec-driven.
 
-- **Type B — Context discovery.** Determine execution state — which
-  artifacts exist, which project is active, what the codebase looks like.
-  Deterministic, reads disk and context. Lives at the **start of the
-  reference that needs it**, never in SKILL.md.
+- **Type B — Context discovery.** Determine execution state — which artifacts exist, which project is active, what the codebase looks like. Deterministic, reads disk and context. Lives at the **start of the reference that needs it**, never in SKILL.md.
 
-- **Type C — Technical discovery.** Understand the solution space —
-  requirements, trade-offs, architecture. Structured by topics, adaptive
-  depth. Lives in `references/discovery.md` of design and engineering
-  skills. Same location as Type A, technical focus.
+- **Type C — Technical discovery.** Understand the solution space — requirements, trade-offs, architecture. Structured by topics, adaptive depth. Lives in `references/discovery.md` of design and engineering skills. Same location as Type A, technical focus.
 
 ## Skill Split Criteria
 
-Create a new skill when triggers describe a job disconnected from existing
-skills, or when the existing skill solves a different problem from the new
-one. Otherwise, add a reference to the existing skill.
+Create a new skill when triggers describe a job disconnected from existing skills, or when the existing skill solves a different problem from the new one. Otherwise, add a reference to the existing skill.
 
 ## Code and Scripts
 
-`scripts/` and `assets/` directories are optional. Use them only when the
-skill genuinely needs deterministic operations or static assets — data files
-for a script, or a file the render inlines into its output (e.g. a stylesheet).
+`scripts/` and `assets/` directories are optional. Use them only when the skill genuinely needs deterministic operations or static assets — data files for a script, or a file the render inlines into its output (e.g. a stylesheet).
 
-State whether Claude should run a script or read it: "Run `analyze.py` to
-extract fields" vs "See `analyze.py` for the extraction algorithm".
+State whether Claude should run a script or read it: "Run `analyze.py` to extract fields" vs "See `analyze.py` for the extraction algorithm".
 
-A script's language follows the job, not the skill: pure computation and text
-validators are Python stdlib (`slop_scan.py`, `validate_copy.py`,
-`check-contrast.py`); live web preview and render servers are bun/TS
-(`render-server.ts`, `preview-server.ts`). Match an existing sibling's
-conventions when adding one — a skill that ships both runtimes declares each in
-`allowed-tools` (`Bash(bun:*) Bash(python3:*)`).
+A script's language follows the job, not the skill: pure computation and text validators are Python stdlib (`slop_scan.py`, `validate_copy.py`, `check-contrast.py`); live web preview and render servers are bun/TS (`render-server.ts`, `preview-server.ts`). Match an existing sibling's conventions when adding one — a skill that ships both runtimes declares each in `allowed-tools` (`Bash(bun:*) Bash(python3:*)`).
 
-Skills using MCP must detect availability before invoking the tool, document a
-fallback when the MCP is unavailable, and mark each dependency hard-required or
-optional.
+Skills using MCP must detect availability before invoking the tool, document a fallback when the MCP is unavailable, and mark each dependency hard-required or optional.
 
 ## Authoring Discipline
 
-These conventions apply at the moment of writing skills; they affect the output,
-not the runtime — consumer Claude never sees AGENTS.md. The rigid, verifiable
-ones are enforced by rules in `.claude/rules/`; what remains here is guidance
-that is not a discrete rule.
+These conventions apply at the moment of writing skills; they affect the output, not the runtime — consumer Claude never sees AGENTS.md. The rigid, verifiable ones are enforced by rules in `.claude/rules/`; what remains here is guidance that is not a discrete rule.
 
 ### Read the Whole File Before Authoring It
 
-Before editing any skill file, read it end to end — and read every reference it
-names. Not a window, not a grep, not a subagent's summary of it. Authoring from
-an excerpt produces a patch that fits the excerpt and contradicts the rest: a
-mechanism reinvented three sections below where one already exists, a rule that
-fires on a case the file explicitly exempts, a term that already means something
-else. Each is invisible from inside the window, and each survives review, because
-the patch reads correct on its own.
+Before editing any skill file, read it end to end — and read every reference it names. Not a window, not a grep, not a subagent's summary of it. Authoring from an excerpt produces a patch that fits the excerpt and contradicts the rest: a mechanism reinvented three sections below where one already exists, a rule that fires on a case the file explicitly exempts, a term that already means something else. Each is invisible from inside the window, and each survives review, because the patch reads correct on its own.
 
-The cost is asymmetric. Reading a 90-line reference is cheap; discovering, after
-it ships, that the test you wrote duplicates the one the file already owns means
-unwinding every file that consumed the wrong shape.
+The cost is asymmetric. Reading a 90-line reference is cheap; discovering, after it ships, that the test you wrote duplicates the one the file already owns means unwinding every file that consumed the wrong shape.
 
 ### Instruct, Don't Teach
 
-Write the least that does the job, and stop there. A skill file directs the agent —
-it does not explain the domain, justify the design, or narrate how the mechanism
-was arrived at. The test is what the agent *does* with the sentence: a rationale
-that changes its behavior is a constraint and stays; one that only makes a human
-nod is weight paid on every load. State the constraint and move on: "MCP is the
-only channel" carries everything the agent needs; the sentence explaining that
-there is no CLI to fall back to carries nothing it can act on.
+Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain, justify the design, or narrate how the mechanism was arrived at. The test is what the agent *does* with the sentence: a rationale that changes its behavior is a constraint and stays; one that only makes a human nod is weight paid on every load. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
 
-The test cuts both ways, so a why is not stripped on sight. A constraint often
-wears one, and there it is load-bearing: the read step saying an upstream artifact
-enters as a claim to check, not authority to inherit, is what tells the agent to
-rebut — cut it and the step reads as "go read the file". Where prose earns more
-room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern`
-exist for the trap that needs explaining.
+The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing: the read step saying an upstream artifact enters as a claim to check, not authority to inherit, is what tells the agent to rebut — cut it and the step reads as "go read the file". Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining.
 
-The same discipline applies to mechanism. The trap is building a detector for an
-event that announces itself. Before adding a test, a comparison, or a state to
-track, ask what the agent already knows at that moment: an artifact it just wrote,
-a phase it just re-entered, an input the user just handed it. A mechanism that
-infers what is already given is scaffolding, and
-scaffolding attracts more scaffolding — each round of review finds real defects in
-it, and fixing them makes it larger, never smaller.
+The same discipline applies to mechanism. The trap is building a detector for an event that announces itself. Before adding a test, a comparison, or a state to track, ask what the agent already knows at that moment: an artifact it just wrote, a phase it just re-entered, an input the user just handed it. A mechanism that infers what is already given is scaffolding, and scaffolding attracts more scaffolding — each round of review finds real defects in it, and fixing them makes it larger, never smaller.
 
-Competence the model already has is not the skill's to supply. A skill carries
-preference and constraint — how this project wants a thing done, and what it must
-not be — never the craft underneath it. A component entry needs its intent, its
-knob, and what it is wrong for; the DOM sketch and the CSS block are the model's
-job and cost a load every time they ship.
+Competence the model already has is not the skill's to supply. A skill carries preference and constraint — how this project wants a thing done, and what it must not be — never the craft underneath it. A component entry needs its intent, its knob, and what it is wrong for; the DOM sketch and the CSS block are the model's job and cost a load every time they ship.
 
 ### Walk the Consumption Path
 
-Creation, refactor, and port are judged by the consuming agent's path through the
-result, not by how tidy the model looks on the page. A layering that reads clean
-top-down still breaks the moment an agent walks it — a level nothing routes to, a
-lookup that can only be done by exclusion, a step that depends on the agent
-remembering what no file supplies.
+Creation, refactor, and port are judged by the consuming agent's path through the result, not by how tidy the model looks on the page. A layering that reads clean top-down still breaks the moment an agent walks it — a level nothing routes to, a lookup that can only be done by exclusion, a step that depends on the agent remembering what no file supplies.
 
-Before shipping a structure, trace one real request through it end to end as the
-agent would: what it reads, in what order, what it writes, and where it would fall
-back on habit because nothing told it otherwise. The stumble is the finding. The
-same walk decides whether a level earns its place at all — a catalog pays for its
-load only where the agent has a reflex to correct.
+Before shipping a structure, trace one real request through it end to end as the agent would: what it reads, in what order, what it writes, and where it would fall back on habit because nothing told it otherwise. The stumble is the finding. The same walk decides whether a level earns its place at all — a catalog pays for its load only where the agent has a reflex to correct.
 
 ### Audit on Merit, Not Authorship
 
-When auditing, reviewing, or fixing a skill, judge the current state on its
-merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real
-finding by pointing at who wrote it or when, instead of whether the text is wrong
-now. A finding stands or falls on the current state, never its provenance: fix a
-genuine defect regardless of which commit introduced it, and drop a non-finding
-regardless of how it got there. Scope may still defer a fix to its own change —
-but say so as scope, not as authorship.
+When auditing, reviewing, or fixing a skill, judge the current state on its merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real finding by pointing at who wrote it or when, instead of whether the text is wrong now. A finding stands or falls on the current state, never its provenance: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may still defer a fix to its own change — but say so as scope, not as authorship.
 
 ### Token Budget Awareness
 
-Document what each reference loads and what should never load
-simultaneously. Orthogonal references (e.g., one per business domain) must
-be explicit about their scope so Claude reads only what's needed.
+Document what each reference loads and what should never load simultaneously. Orthogonal references (e.g., one per business domain) must be explicit about their scope so Claude reads only what's needed.
 
 ### Dynamic Context Injection
 
-`SKILL.md` may embed `` !`<command>` `` placeholders. The harness runs the
-command before the file reaches the model and substitutes the output inline,
-so Claude receives data rather than the command. Substitution runs once over
-the original file; injected output is not re-scanned for further
-placeholders.
+`SKILL.md` may embed `` !`<command>` `` placeholders. The harness runs the command before the file reaches the model and substitutes the output inline, so Claude receives data rather than the command. Substitution runs once over the original file; injected output is not re-scanned for further placeholders.
 
-Use this at the top of a `SKILL.md` whose first step is gathering state
-(git status, gh queries, file existence) to remove the "run command,
-then act on output" round-trip:
+Use this at the top of a `SKILL.md` whose first step is gathering state (git status, gh queries, file existence) to remove the "run command, then act on output" round-trip:
 
 ```markdown
 ## Current state
@@ -436,10 +315,7 @@ then act on output" round-trip:
 !`git log --oneline -10 --no-merges`
 ```
 
-**References and instructions are never substituted.** The harness loads
-`SKILL.md` itself; every other skill file reaches the model through a read,
-and the placeholder arrives literal. A reference that opens on state carries
-a plain command block instead:
+**References and instructions are never substituted.** The harness loads `SKILL.md` itself; every other skill file reaches the model through a read, and the placeholder arrives literal. A reference that opens on state carries a plain command block instead:
 
 ````markdown
 ## Current state
@@ -455,46 +331,27 @@ git log --oneline -10 --no-merges
 Rules:
 - `SKILL.md` only. A placeholder in a reference or instruction is dead text.
 - Inline form only. No nested or recursive substitution.
-- Commands must be safe and read-only (`git`, `gh`, `ls`, `cat`, `awk`
-  on local files). Never inject mutating commands (`rm`, `git push`,
-  `gh pr merge`).
-- Steps that consume the output reference the section by name ("the
-  staged diff above"), not re-run the command.
-- Substitutions available inside any skill file: `${CLAUDE_SKILL_DIR}`,
-  `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`, `${CLAUDE_EFFORT}`,
-  `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`.
-- The user can disable injection globally via the
-  `disableSkillShellExecution` setting. No workflow depends on it — treat
-  injection as a fast path, and give every step that needs state a command
-  it can run.
+- Commands must be safe and read-only (`git`, `gh`, `ls`, `cat`, `awk` on local files). Never inject mutating commands (`rm`, `git push`, `gh pr merge`).
+- Steps that consume the output reference the section by name ("the staged diff above"), not re-run the command.
+- Substitutions available inside any skill file: `${CLAUDE_SKILL_DIR}`, `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`, `${CLAUDE_EFFORT}`, `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`.
+- The user can disable injection globally via the `disableSkillShellExecution` setting. No workflow depends on it — treat injection as a fast path, and give every step that needs state a command it can run.
 
 ### Recommended Patterns
 
-- **Checklist copiável** — Multi-step workflows and decision points may
-  include `- [ ]` checklists Claude marks as it progresses. Useful, not
-  required.
-- **Validation loop** — When a skill produces verifiable output, document
-  a validator → fix → repeat loop (script or reference doc as validator).
-- **Conditional workflow** — When a skill has 2+ paths, branch explicitly:
-  "Creating? → workflow A. Editing? → workflow B."
-- **Examples pattern** — When output style matters (commits, PR copy, code
-  review notes), embed concrete I/O pairs in the reference. Pairs beat
-  abstract descriptions.
-- **Positive examples over proscriptions.** Show the desired form rather
-  than listing what to avoid.
-- **Tool-stack neutrality.** Describe behavior, not specific tools. When a
-  concrete library helps, mention it as an example, not a hard requirement.
+- **Checklist copiável** — Multi-step workflows and decision points may include `- [ ]` checklists Claude marks as it progresses. Useful, not required.
+- **Validation loop** — When a skill produces verifiable output, document a validator → fix → repeat loop (script or reference doc as validator).
+- **Conditional workflow** — When a skill has 2+ paths, branch explicitly: "Creating? → workflow A. Editing? → workflow B."
+- **Examples pattern** — When output style matters (commits, PR copy, code review notes), embed concrete I/O pairs in the reference. Pairs beat abstract descriptions.
+- **Positive examples over proscriptions.** Show the desired form rather than listing what to avoid.
+- **Tool-stack neutrality.** Describe behavior, not specific tools. When a concrete library helps, mention it as an example, not a hard requirement.
 
 ## Output Artifacts
 
-Skills split outputs between committed strategic docs (`docs/`) and a
-gitignored agent workspace (`.artifacts/`).
+Skills split outputs between committed strategic docs (`docs/`) and a gitignored agent workspace (`.artifacts/`).
 
-`docs/` — committed, human-readable, audience-first; `.artifacts/` — gitignored
-agent workspace. The owning skill is in the comment; each skill documents its own
-outputs in its README.
+`docs/` — committed, human-readable, audience-first; `.artifacts/` — gitignored agent workspace. The owning skill is in the comment; each skill documents its own outputs in its README.
 
-```
+```text
 docs/
 ├── product/   # brainstorm, docs-writer
 ├── tech/      # docs-writer
@@ -508,39 +365,19 @@ docs/
 
 `epic-tracker` writes no artifacts — its output lives in the tracker.
 
-`wrap-up` is the only skill that mutates another skill's artifact: it reads
-`.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it
-writes to Obsidian, then clears it — only after persisting, and within the
-empty-file-equals-cleared contract `handoff` defines. Reading a sibling's
-artifact is ordinary composition (`craft-ui` render integrates structure,
-tokens, and content); a
-mutating integrator is the exception, and `wrap-up` is its single instance —
-no other skill may write to or clear a sibling's artifact.
+`wrap-up` is the only skill that mutates another skill's artifact: it reads `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it writes to Obsidian, then clears it — only after persisting, and within the empty-file-equals-cleared contract `handoff` defines. Reading a sibling's artifact is ordinary composition (`craft-ui` render integrates structure, tokens, and content); a mutating integrator is the exception, and `wrap-up` is its single instance — no other skill may write to or clear a sibling's artifact.
 
-`.artifacts/` is excluded locally via `.git/info/exclude` on first write —
-it stays out of `git status` without touching `.gitignore`. Commit specific
-files only when explicitly requested.
+`.artifacts/` is excluded locally via `.git/info/exclude` on first write — it stays out of `git status` without touching `.gitignore`. Commit specific files only when explicitly requested.
 
 ## Terminology Disambiguation
 
-`TDD` in this repo always means Test-Driven Development (red-green-refactor
-discipline), referenced by `spec-driven` during implementation. The
-docs-writer skill no longer ships a "Technical Design Document" artifact
-type — that role is now covered by the project-wide Design Doc.
+`TDD` in this repo always means Test-Driven Development (red-green-refactor discipline), referenced by `spec-driven` during implementation. The docs-writer skill no longer ships a "Technical Design Document" artifact type — that role is now covered by the project-wide Design Doc.
 
-`register` / `surface` are shared design vocabulary across `craft-ui`,
-`design-brief`, and `copywriting`: **register** = posture (`brand`
-vs `product`, two values), **surface** = granular type named by context. Each
-skill carries its own `brand.md` + `product.md`; the terms must not diverge.
-`docs-writer` originates `register` upstream: its `PRODUCT.md` sets the
-product's posture (`brand` vs `product`), which the design skills read from
-that artifact — the definition must not diverge from theirs.
+`register` / `surface` are shared design vocabulary across `craft-ui`, `design-brief`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
 
 ## New Skill Checklist
 
-Before finalizing a new skill, verify the items the path-scoped rules in
-`.claude/rules/` do not enforce — the rules cover the rest automatically when
-you edit a skill file:
+Before finalizing a new skill, verify the items the path-scoped rules in `.claude/rules/` do not enforce — the rules cover the rest automatically when you edit a skill file:
 
 - [ ] Folder at `skills/<category>/skill-name/`
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
@@ -551,20 +388,12 @@ you edit a skill file:
 - [ ] Skill listed in repo `README.md` table
 - [ ] No links to untrusted or non-official domains
 
-`skills.sh` runs the published security audit (Gen Agent Trust Hub, Socket,
-Snyk) on every skill. The `skill-security` rule already covers secrets, piped
-download-execute, trust boundaries, and safe shell — the domain-trust check
-above is the one audit item that lives outside the rules.
+`skills.sh` runs the published security audit (Gen Agent Trust Hub, Socket, Snyk) on every skill. The `skill-security` rule already covers secrets, piped download-execute, trust boundaries, and safe shell — the domain-trust check above is the one audit item that lives outside the rules.
 
 ## Reference Exemplars
 
-When in doubt about a pattern, study `brainstorm` (simple — inline templates,
-prose Anti-Patterns), `spec-driven` (complex — many templates, sub-agent fan-out,
-the refactor at scale), or `review-lens` (two peer modes sharing one rubric, model
-tiering).
+When in doubt about a pattern, study `brainstorm` (simple — inline templates, prose Anti-Patterns), `spec-driven` (complex — many templates, sub-agent fan-out, the refactor at scale), or `review-lens` (two peer modes sharing one rubric, model tiering).
 
 ## Skill Installation
 
-Source of truth is `skills/`. Never edit `~/.agents/skills/` or
-`~/.claude/skills/` — those are install targets (symlinks). See repo
-`README.md` for `skills.sh` usage.
+Source of truth is `skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` — those are install targets (symlinks). See repo `README.md` for `skills.sh` usage.
