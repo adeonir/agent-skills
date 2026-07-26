@@ -14,11 +14,12 @@ Load any session handoff at `.artifacts/HANDOFF.md` for downstream notes, then c
 Runs after mapping, before obsidian-notes.
 
 1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
-2. Read the **whole file**. Collect **every** `## YYYY-MM-DD HH:MM — {title}` block — not just the topmost. A long session may append many snapshots across distinct threads and dates; each carries context worth persisting. A newer snapshot does not supersede an older one. Walking every block is specific to wrap-up, which persists the full session — a mid-session resume only needs the latest.
+2. Read the **whole file**. Collect **every** dated block — `## YYYY-MM-DD HH:MM — {title}`, or `## YYYY-MM-DD — {title}` when the save had no clock — not just the topmost. A long session may append many snapshots across distinct threads and dates; each carries context worth persisting. A newer snapshot does not supersede an older one. Walking every block is specific to wrap-up, which persists the full session — a mid-session resume only needs the latest.
 3. Group the collected blocks by date (the `YYYY-MM-DD` in each header). Deduplicate within and across blocks: a finding or decision repeated across checkpoints collapses to one item; genuinely distinct items are all kept. Read every block before deciding duplicates — never drop an older item just because a newer block exists.
 4. Surface the grouped, deduplicated contents to working context for the rest of wrap-up to consume, per section:
    - `**Focus:**` line (always present)
    - `**Next step:**` line (always present)
+   - `**State:**` line (always present; loaded for context, never carried into a note — branch names and commit hashes are forbidden in both notes)
    - `**Decisions:**` bullets (when present)
    - `**Findings:**` bullets (when present)
    - `**Open threads:**` bullets (when present)

@@ -150,6 +150,7 @@ When the handoff Load phase surfaced grouped snapshots, fold this date's bullets
 - `**Next step:**` and `**Open threads:**` → `## Next` bullets, preserving the concrete entry point
 - `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
 - `**Focus:**` and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
+- `**State:**` → nothing; it does not enter either note
 
 #### Write
 
