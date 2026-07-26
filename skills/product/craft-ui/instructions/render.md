@@ -155,7 +155,7 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 5. **Serve** all variants side by side via the server. User picks one.
 
-6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final-{surface}.html` — beside `VARIANTS.md`, outside the served directory. The pick is per surface; a session that rendered several closes each one this way.
+6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final.html` — beside `VARIANTS.md`, outside the served directory. One surface is decided per run, so `final.html` holds the current decision.
 
 ## Variant-Tune
 
@@ -199,6 +199,8 @@ Agent addresses each comment and shows the updated variant.
 Variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
 
 Default viewport, passed as `--viewport` when starting the server: `desktop` for brand surfaces and storefronts; `mobile` for mobile app screens; `desktop` for product / dashboard screens.
+
+The flag is server-wide and the controls resize every frame together, so it takes the default of the surface being decided. Surfaces whose defaults differ are decided in separate runs, each served at its own width.
 
 ## Guidelines
 
