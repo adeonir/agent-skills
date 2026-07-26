@@ -77,13 +77,15 @@ Two independent axes.
 
 **No signal → ask.** Never infer the level from the content of the rule; writing to `~/.claude/rules/` reaches every project on the machine.
 
-When the rule belongs to several projects but not all of them, neither level fits — symlink one file into each project instead:
+When the rule belongs to several projects but not all of them, neither level fits. Write the rule once into a shared directory the user names, then link it into this project's rules directory:
 
 ```bash
 ln -s ~/shared-claude-rules/security.md .claude/rules/security.md
 ```
 
-Symlinks in a rules directory are resolved and loaded normally, and a circular link is detected rather than followed.
+Never `ln -sf` — the link must fail on an existing path rather than replace what is there. Only the current project is reachable, so report the same command for the user to run in the others rather than linking outside the working directory.
+
+Symlinks in a rules directory are resolved and loaded normally, and a circular link is detected rather than followed. A linked rule has a blast radius wider than its directory: editing it writes through to every project linked to the same target.
 
 ### Scope
 

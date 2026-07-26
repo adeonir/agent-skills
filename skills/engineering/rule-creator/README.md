@@ -75,7 +75,9 @@ None. Works with any project that uses Claude Code.
 
 **Q: Can a user-level rule be path-scoped?** A: No. Path-scoped user rules are not documented as supported and are reported to be ignored, so a path signal resolves the level to project. User-level rules carry no `paths:` block.
 
-**Q: What if the rule belongs to several projects but not all of them?** A: Neither level fits, so the skill suggests a symlink instead — `ln -s ~/shared-claude-rules/security.md .claude/rules/security.md`. Rules directories resolve symlinks, and circular links are detected rather than followed.
+**Q: What if the rule belongs to several projects but not all of them?** A: Neither level fits, so the rule is written once into a shared directory you name and linked into the current project — `ln -s ~/shared-claude-rules/security.md .claude/rules/security.md`. Only the current project is reachable, so the skill reports the same command for you to run in the others. Rules directories resolve symlinks, and circular links are detected rather than followed.
+
+**Q: What happens when I edit or delete a linked rule?** A: Editing writes through to the shared target, so the skill names the target and the blast radius before applying. Deleting asks which act you mean: unlink here (the rule stops applying to this project only) or delete the shared target (the rule dies everywhere, leaving dangling links in the other projects). It defaults to unlinking.
 
 **Q: What if a rule already exists for the same topic?** A: The context check reads both levels and detects the duplicate. If the new rule is the same as the existing one, the skill exits. If complementary, it proposes appending an H2 section to the existing file. If contradictory, it asks the user which wins — and when the conflict crosses levels, it names the winner: project rules load after user rules and take priority.
 
