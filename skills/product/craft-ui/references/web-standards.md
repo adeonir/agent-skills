@@ -38,7 +38,7 @@ Composed by render.md (as generation rules) and audit.md (as the technical audit
 - Submit button stays enabled until request starts; show spinner during request.
 - Errors inline next to fields; focus first error on submit.
 - Placeholders end with the ellipsis character and show an example pattern when useful.
-- `autocomplete="off"` on non-auth fields to avoid password manager triggers.
+- `autocomplete="one-time-code"` on verification-code fields — never `autocomplete="off"` to dodge a password manager.
 - Warn before navigation with unsaved changes (`beforeunload` or router guard).
 
 ## Animation (Technical)
@@ -46,7 +46,7 @@ Composed by render.md (as generation rules) and audit.md (as the technical audit
 Rules for implementation — see motion.md for creative direction.
 
 - Honor `prefers-reduced-motion`: provide reduced variant or disable entirely.
-- Animate only `transform` and `opacity` (compositor-friendly, no layout thrashing).
+- Never animate layout-driving properties (`width`, `height`, `top`, `left`, margins) — they thrash layout. Transform and opacity are the safe defaults; the wider material palette is in [motion.md](motion.md).
 - Never `transition: all` — list properties explicitly.
 - Set correct `transform-origin` for scale and rotation.
 - SVG transforms go on `<g>` wrapper with `transform-box: fill-box; transform-origin: center`.

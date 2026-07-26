@@ -62,7 +62,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ## Typography
 
 ### inter-as-primary-font
-**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`. **Fix:** Carry a distinctive display font (Fraunces, Spectral, Crimson, Inter Tight, IBM Plex, JetBrains Mono, etc.) in the display role. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`. **Fix:** Run the font-selection procedure in [brand.md](brand.md) and carry its pick in the display role — its reflex-reject list names the families to look past, so a font drawn from memory here repeats the failure. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
 ```html
 font-family: Inter, system-ui, sans-serif
 ```
@@ -501,7 +501,7 @@ Render-only: this category is for render to avoid during generation. critique an
 ```
 
 ### inline-style-bypass-tokens
-**Category:** Drift **Severity:** warning **Check:** Inline `style="padding: 12px"`, `style="border-radius: 9px"`, or `class="p-[15px]"` used for properties that have token equivalents in DESIGN.md `spacing` / `rounded` / `elevation`. **Fix:** Replace inline literal with the nearest token (`p-4`, `rounded-md`, or `var(--spacing-4)`). **Example fail:**
+**Category:** Drift **Severity:** warning **Check:** Inline `style="padding: 12px"`, `style="border-radius: 9px"`, or `class="p-[15px]"` used for properties that have token equivalents in DESIGN.md `spacing` / `rounded` / `elevation`. **Fix:** Replace inline literal with the nearest token (`p-4`, `rounded-md`, or `var(--space-md)`). **Example fail:**
 ```html
 <div style="padding: 12px; border-radius: 9px">A</div>
 ```
