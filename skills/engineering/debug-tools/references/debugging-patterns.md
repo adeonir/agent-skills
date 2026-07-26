@@ -43,7 +43,7 @@ When investigation stalls, compare broken code against working examples to spot 
 
 ### When to Use Pattern Comparison
 
-- Root cause confidence is below 70 after initial analysis
+- Initial analysis did not surface the mechanism
 - The bug appeared after a change to working code
 - Similar code in the project works correctly
 - The error suggests a contract or interface mismatch

@@ -4,7 +4,7 @@ Add targeted debug logs at strategic points to capture runtime data.
 
 ## When to Use
 
-As a technique during investigation, when static analysis alone cannot confirm the root cause and runtime data is needed. Not every debugging session requires log injection -- use it when confidence is in the 50-69 range and runtime evidence would raise it above 70.
+As a technique during investigation, when static analysis alone cannot confirm the root cause and runtime data is needed. Not every debugging session requires log injection -- use it when reading the code cannot show the mechanism, and only observing the running system can.
 
 ## Log Format
 

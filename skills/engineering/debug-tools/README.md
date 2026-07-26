@@ -8,10 +8,10 @@ Flexible debugging workflow that helps find and fix bugs systematically:
 
 ```mermaid
 flowchart TD
-    A[Investigate] --> B{Root cause found?}
-    B -->|Yes >=70%| C[Propose Fix]
-    B -->|No 50-69%| D[Inject Logs]
-    B -->|No <50%| E[Pattern Comparison]
+    A[Investigate] --> B{Mechanism named?}
+    B -->|Yes| C[Propose Fix]
+    B -->|No, needs runtime data| D[Inject Logs]
+    B -->|No, still unclear| E[Pattern Comparison]
     D --> F[User reproduces bug]
     F --> G[Analyze output]
     G --> A
@@ -60,4 +60,4 @@ cleanup debug statements
 
 **Q: Do I need specific tools for this to work?** A: No. The skill adapts to whatever tools are available. Runtime inspection and browser debugging tools enhance the experience but are not required.
 
-**Q: What confidence score is considered "good enough" to propose a fix?** A: ≥70 with clear evidence. Lower scores suggest adding logs to gather more data.
+**Q: What does the confidence score decide?** A: Nothing on its own — it tells you how far the evidence reaches, so you can weigh a finding. A fix is proposed only when the evidence names the mechanism: the code that produces the symptom, and how. Short of that, the workflow gathers runtime data instead.

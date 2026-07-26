@@ -43,13 +43,9 @@ When the root cause is unclear, compare the broken code against working examples
 
 ### Step 3: Enumerate Hypotheses
 
-Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up front prevent premature commitment to the first plausible explanation. Score each one 0-100:
+Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up front prevent premature commitment to the first plausible explanation.
 
-| Score | Action |
-|-------|--------|
-| >= 70 | Report as probable cause |
-| 50-69 | Suggest logs to confirm |
-| < 50 | Keep as alternative, do not report |
+Score each one 0-100 and carry the number into the report. The score says how far the evidence reaches, so the user can weigh the finding; it decides nothing on its own — Step 5 does that, against evidence rather than against a number.
 
 If only one hypothesis is plausible, that is fine -- do not invent weak alternatives to fill the slate. The goal is honest enumeration, not three items.
 
@@ -57,7 +53,7 @@ If only one hypothesis is plausible, that is fine -- do not invent weak alternat
 
 Rank hypotheses by score, highest first. The top candidate drives the next action; lower-scored ones stay as fallbacks if the leading theory is disproven.
 
-**Probable cause (>= 70):**
+**Probable cause — the mechanism is named:**
 
 ```markdown
 **[85] Login fails silently on expired token**
@@ -67,7 +63,7 @@ Rank hypotheses by score, highest first. The top candidate drives the next actio
 - Fix: Add error state update in catch block to show login form
 ```
 
-**Need runtime data (50-69):**
+**Needs runtime data — the mechanism is a guess:**
 
 ```markdown
 **[60] Possible race condition in session refresh**
@@ -85,11 +81,11 @@ Rank hypotheses by score, highest first. The top candidate drives the next actio
 3. **[40] Network flakiness** -- low, kept as fallback
 ```
 
-If no hypothesis reaches >= 70 confidence, load [log-injection.md](log-injection.md) to gather runtime evidence and re-rank.
+If no hypothesis names a mechanism you can point at, load [log-injection.md](log-injection.md) to gather runtime evidence and re-rank.
 
 ### Step 5: Propose Fix
 
-**Gate:** Root cause must be confirmed at ≥70 confidence before any fix is proposed. Below that threshold, gather more evidence first — load [log-injection.md](log-injection.md). Never propose a fix as exploration.
+**Gate:** Propose a fix only when the evidence names the mechanism — you can point at the code that produces the symptom and say how it produces it, from a stack trace, a diff, or a runtime reading. A story that merely fits the symptom is not that. Without it, gather runtime data first — load [log-injection.md](log-injection.md). Never propose a fix as exploration.
 
 When root cause is confirmed, present:
 
