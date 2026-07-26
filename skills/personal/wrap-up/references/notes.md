@@ -262,42 +262,11 @@ Rules:
 
 ## Guidelines
 
-**DO:**
 - Write notes immediately — no preview message, no rendered-content dump, no "about to write..." narration. The user invoked wrap-up to persist, not to review drafts in chat.
-- Run Enrich step (0) when claude-mem MCP is available; scope strictly to current session + active project topics; skip silently otherwise
-- Search before creating with `Obsidian:search_notes` to avoid duplicates
-- Read existing note before patching (daily, session updates)
-- Keep session Summary brief — 2-3 sentences, human narrative, not an AI knowledge base
-- Use `## Relations` for typed edges (`- follows [[X]]`) that add graph value; inline `[[wikilinks]]` in Summary cover ordinary mentions
-- Tag every note as `[note-type, ...base_tags, ...context_tags]` — `note-type` is one of `session`, `daily`; `base_tags` come from mapping output; `context_tags` are derived from the session content (work type, topics)
-- Use Title Case for folders and filenames
-- Omit empty sections — no placeholder headers
-- Keep daily note as outcomes and tasks in bullets, not a detailed log
-- Map handoff Findings → Findings bullets, Decisions → Decisions, Next step + Open threads → Next, Blockers → Problems or Next
-
-**DON'T:**
-- Preview note bodies in chat before writing (contrasts: write immediately, the user invoked wrap-up to persist)
-- Announce intent before each MCP write ("now writing the session note...") — execute and report results at the end (contrasts: write immediately)
-- Call any skill — use Obsidian MCP tools directly
-- Use `[brackets]` for observations — use `#hashtags` instead (contrasts: Obsidian Syntax Rules)
-- Add `# H1` to any note — frontmatter `title` is the canonical heading
-- Write changelog-style content or list steps taken
-- Cite local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) in any note — spec artifacts are ephemeral and become dead references (contrasts: Audience and Reference Discipline)
-- Put PR/Issue numbers, file paths, shell commands, branch names, or commit hashes in the daily note — daily is executive prose, technical refs stay in session (contrasts: Audience and Reference Discipline)
-- File Open Items for mental follow-ups without owner, deadline, or active blocker — those belong in the handoff or session `## Next` (contrasts: Open Items section presence)
-- List branch names or commit hashes in any note — both rot fast and add no durable value
-- Blindly append bullets without reading existing content first
-- Write prose paragraphs in Activities — use bullets (contrasts: bullets per project)
-- Turn session notes into detailed logs — keep them brief and human-scannable (contrasts: keep session Summary brief)
-- Create empty sections or placeholder content
-- Create wikilinks to files that don't exist (orphan links)
-- Expand Findings or Problems into detailed narratives (contrasts: brief bullets only)
-- Cite claude-mem observation IDs in note bodies (contrasts: Obsidian stays narrative; mem-search drills down)
-- Import observations from prior sessions or parallel unrelated threads during Enrich (contrasts: current session + active topic only)
+- Tag every note `[note-type, ...base_tags, ...context_tags]` — `note-type` is `session` or `daily`, `base_tags` come from mapping output, `context_tags` are derived from the session content
+- Never write changelog-style content or a list of steps taken
 
 ## Error Handling
 
-- Obsidian MCP unavailable: skip Obsidian step entirely, warn user
-- claude-mem MCP unavailable, returns nothing, or query times out: skip Enrich step silently and compose from working context only
-- Daily note already exists: read with `Obsidian:read_note`, update with `Obsidian:patch_note`
-- No meaningful session content: keep session brief, still update daily note
+- Obsidian MCP unavailable: skip the Obsidian step entirely, warn the user
+- No meaningful session content: keep the session note brief, still update the daily note
