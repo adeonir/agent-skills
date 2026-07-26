@@ -32,7 +32,7 @@ close session
 ## Output
 
 - Obsidian session notes under `{obsidian.path}/Sessions/`
-- Obsidian daily note in `Daily/YYYY-MM/YYYY-MM-DD.md`
+- Obsidian daily note at `Daily/YYYY-MM-DD.md` (past months are archived into `Daily/YYYY-MM/` outside this skill)
 
 ## Requirements
 

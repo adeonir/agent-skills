@@ -177,7 +177,9 @@ Rules:
 
 #### Path
 
-Always `Daily/YYYY-MM/YYYY-MM-DD.md` — dailies live inside a monthly folder.
+`Daily/YYYY-MM-DD.md`, at the root of `Daily/` — that is where a daily note is created when none exists for the date.
+
+Past months are archived into `Daily/YYYY-MM/` folders. Search for the date before writing: when a note for that date already sits in a monthly folder, patch it there rather than creating a second one at the root. Never create the monthly folder — archiving is not this skill's operation.
 
 #### Daily template
 
@@ -232,7 +234,7 @@ Compose content following the template above. Only `## Activities` is required; 
 
 ```text
 Obsidian:write_note(
-  path="Daily/YYYY-MM/YYYY-MM-DD.md",
+  path="Daily/YYYY-MM-DD.md",
   content="## Activities\n...\n\n## Relations\n- contains [[...]]",
   frontmatter={title: "...", type: "daily", tags: [...]}
 )
