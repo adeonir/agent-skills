@@ -112,12 +112,7 @@ Root cause: {one sentence explanation}
 ```
 ````
 
-Fix guidelines:
-
-- Minimal change that resolves the issue
-- No speculative fixes
-- Include confidence score
-- Ask user to approve before applying
+Present the fix; never apply it without the user's approval.
 
 ### Step 6: Verify
 

@@ -4,12 +4,7 @@ Remove all debug logs after debugging is complete.
 
 ## When to Use
 
-Cleanup happens automatically after a fix is verified, or on explicit user request. Run cleanup before committing changes to version control.
-
-- Fix has been verified and bug is resolved
-- User explicitly requests cleanup
-- Before committing changes to version control
-- Debug session is complete
+Cleanup happens automatically after a fix is verified, or on explicit user request. Run it before changes go to version control.
 
 ## Workflow
 
