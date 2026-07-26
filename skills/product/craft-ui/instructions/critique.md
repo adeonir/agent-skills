@@ -66,7 +66,9 @@ Then walk the structural self-check as a read of the built page: does each surfa
 
 ### Step 4: Score the heuristics
 
-Where Step 3 read whether the structure makes *room* for an affordance, this step scores how well the rendered UI *executes* it — the two altitudes, not the same check twice. Score all 10 Nielsen heuristics 0–4 — definitions and the 0–4 criteria per heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in [scoring.md](../references/scoring.md). Present as a table with a per-row key issue and the total /40. Be honest — most real interfaces land 20–32.
+Where Step 3 read whether the structure makes *room* for an affordance, this step scores how well the rendered UI *executes* it — the two altitudes, not the same check twice. Score each Nielsen heuristic the surface actually exercises, 0–4 — definitions and the 0–4 criteria per heuristic are in [heuristics.md](../references/heuristics.md), aggregate bands in [scoring.md](../references/scoring.md).
+
+A heuristic the surface has no occasion to exercise is marked not applicable and left out of the total rather than scored low — undo where there is nothing to undo, error recovery where no path errors, help and documentation on a single-screen brand surface. A variant loses no points for the absence of a feature its surface should not carry. Present as a table with a per-row key issue, each not-applicable row marked, and the total over the applicable maximum (`4 × n`). Be honest — most real interfaces land 20–32 of a full 40.
 
 ### Step 5: Cognitive load
 

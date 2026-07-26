@@ -38,6 +38,8 @@ Each dimension scores **0–4**: 0 absent, 1 major gaps, 2 partial, 3 good with 
 
 Most real interfaces score 20–32. Treat anything claimed above 35 with suspicion unless every heuristic is genuinely clean.
 
+Where a heuristic does not apply to the surface, it leaves the total and the denominator drops to `4 × n`. Read the band at the same proportion of that smaller total — a 21/28 sits where 30/40 does, not where 21/40 does.
+
 **Audit — 5 technical dimensions, total /20:**
 
 | Band | Total | Reading |
