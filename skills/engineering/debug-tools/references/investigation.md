@@ -51,7 +51,7 @@ If only one hypothesis is plausible, that is fine -- do not invent weak alternat
 
 ### Step 4: Report Findings
 
-Rank hypotheses by score, highest first. The top candidate drives the next action; lower-scored ones stay as fallbacks if the leading theory is disproven.
+Rank hypotheses by score, highest first — that is reading order. Which one to pursue is the one closest to a mechanism you can show, and the rest stay as fallbacks if the leading theory is disproven.
 
 **Probable cause — the mechanism is named:**
 
@@ -78,7 +78,7 @@ Rank hypotheses by score, highest first. The top candidate drives the next actio
 ```markdown
 1. **[75] Stale closure in retry handler** -- file: retry.ts:22, evidence: deps array missing `attempt`
 2. **[55] Race between cache write and read** -- file: cache.ts:48, need: ordering of write/read calls
-3. **[40] Network flakiness** -- low, kept as fallback
+3. **[40] Network flakiness** -- no mechanism, kept as fallback
 ```
 
 If no hypothesis names a mechanism you can point at, load [log-injection.md](log-injection.md) to gather runtime evidence and re-rank.
@@ -105,9 +105,9 @@ Present the fix; never apply it without the user's approval.
 
 ### Step 6: Verify
 
-Once the fix is applied, run the reproduction yourself and read the result. Hand it to the user only when the repro is out of reach from here — it needs their credentials, their device, a manual interaction, or an environment this session cannot enter; then state the exact steps and what to look for.
+Once the fix is applied, run the reproduction and read the result. Hand it to the user only when the repro is out of reach from here — it needs their credentials, their device, a manual interaction, or an environment this session cannot enter; then state the exact steps and what to look for.
 
-1. Run the original reproduction and confirm the symptom is gone
+1. Confirm the original symptom is gone
 2. For race conditions or intermittent bugs, repeat it 3-5 times -- a single pass can hide timing-dependent failures
 3. If not fixed, return to Step 1 with what the run showed
 4. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
