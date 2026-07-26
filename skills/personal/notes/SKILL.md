@@ -20,9 +20,8 @@ Creates and manages Obsidian notes using the Obsidian MCP for structured documen
 - **Brag entry** ("brag document", "achievement", "accomplishment") → [brag.md](references/brag.md)
 - **Transcription** ("transcription", "meeting notes", "1:1 notes", "feedback notes", "standup notes", "lecture notes", "course notes") → [transcription.md](references/transcription.md)
 - **Company tracking** ("company note", "track interview", "job application") → [company.md](references/company.md)
-- **Markdown syntax help** ("wikilink", "callout", "embed", "Obsidian syntax") → [markdown.md](references/markdown.md)
 
-`mapping.md` is loaded by the note-creation refs to resolve vault paths; not a direct trigger. `markdown.md` is an informational reference with no write operations.
+`mapping.md` is loaded by the note-creation refs to resolve vault paths; not a direct trigger.
 
 ## Workflow
 
