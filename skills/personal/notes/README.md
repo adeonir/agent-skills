@@ -71,8 +71,7 @@ Vault/
 ## FAQ
 
 **Q: How do filenames handle special characters?**
-A: Invalid characters (`/ \ : * ? " < > |`) are removed; accented
-characters are replaced with ASCII equivalents. All filenames are Title Case.
+A: Characters the OS rejects or Obsidian links break on (`/ \ : * ? " < > | # ^ [ ] %`) are removed. Accented characters are kept. All filenames are Title Case.
 
 **Q: What if a note with the same name exists?** A: The skill detects duplicates via `Obsidian:search_notes` and asks whether to append, choose a new name, or cancel.
 

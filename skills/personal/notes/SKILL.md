@@ -36,8 +36,8 @@ Each note type has its own workflow. Use any type independently.
 
 When generating filenames from user input:
 
-- Remove invalid characters: `/ \ : * ? " < > |`
-- Replace accented characters with ASCII equivalents (e.g., `é` → `e`, `ã` → `a`)
+- Remove characters the OS rejects or Obsidian links break on: `/ \ : * ? " < > | # ^ [ ] %`
+- Preserve accented characters — Obsidian imposes no charset limit beyond the filesystem's
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
 
