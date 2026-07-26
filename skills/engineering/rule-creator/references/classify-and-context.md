@@ -33,7 +33,7 @@ When the classifier rejects, output the verdict plainly and stop:
 > constraints, not procedures. Recommend authoring a skill for this
 > instead. Continue there?"
 
-Do not write a partial rule file when refusing.
+Do not write a partial rule file when refusing, and do not invoke the recommended skill or hook workflow automatically — the user confirms and re-invokes.
 
 ## Project context check
 
@@ -82,15 +82,4 @@ Prefer brace expansion (`{ts,tsx}`) over multiple array entries when extensions 
 
 Always validate the glob: it must use forward slashes and standard glob syntax. Reject backslashes or shell-specific expansions.
 
-## When to ask vs infer
-
-| Situation | Action |
-|-----------|--------|
-| Input has clear path signal | Infer path-scoped, render frontmatter, no question |
-| Input has no path signal | Infer global, no question |
-| Input ambiguous between two globs | Ask once with two options |
-| Stack mismatch detected | Ask before proceeding |
-| Duplicate topic detected | Ask append vs new |
-| AGENTS.md / CLAUDE.md contradiction | Ask which wins |
-
-Never ask more than necessary. Each question is a cost.
+When the signal is ambiguous between two globs, ask once with both options. A clear signal — path or none — is inferred without a question. Each question is a cost.

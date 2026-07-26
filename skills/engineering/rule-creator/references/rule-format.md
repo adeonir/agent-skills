@@ -84,33 +84,10 @@ Impact is the author's judgment. When unsure, write MEDIUM. Do not omit the line
 
 ## Frontmatter
 
-Path-scoped rule frontmatter:
-
-```yaml
----
-paths:
-  - "src/**/*.ts"
-  - "src/**/*.tsx"
----
-```
-
-Or with brace expansion:
-
-```yaml
----
-paths:
-  - "src/**/*.{ts,tsx}"
----
-```
-
-Global rule: no frontmatter at all. Do not write an empty `---` block.
-
-Frontmatter rules:
-
 - `paths` is an array, even with a single entry
-- Globs use forward slashes
 - Quote every glob value
-- Multiple globs in the array when brace expansion does not fit (different parent directories)
+- Multiple entries in the array only when brace expansion does not fit (different parent directories)
+- Global rule: no frontmatter at all — do not write an empty `---` block
 
 ## Multi-rule files
 
@@ -150,40 +127,14 @@ Rules:
 Before writing, every rule must pass three checks:
 
 - [ ] Has an action verb in the explanation paragraph (use, prefer, validate, reject, never, always, etc.)
-- [ ] Cites a specific tool, file pattern, or syntax — not a vague "code quality" gesture
+- [ ] Cites a specific tool, file pattern, or syntax — not a vague "code quality" gesture ("format code properly", "write good tests" fail here)
 - [ ] A reviewer reading a diff could point at a line and say "this violates the rule"
 
 Fail any check → rewrite before saving.
 
-## Examples
+## Example
 
-### Global, MEDIUM, with reference
-
-````markdown
-## Type Aliases for Object Shapes
-
-**Impact: MEDIUM**
-
-Use `type` for object shapes; reserve `interface` for declaration
-merging. Mixing both for the same concept fragments the codebase and
-forces readers to learn two equivalent dialects.
-
-**Incorrect:**
-
-```typescript
-interface User { id: string name: string }
-```
-
-**Correct:**
-
-```typescript
-type User = { id: string name: string }
-```
-
-Reference: [TypeScript handbook — Type Aliases](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases)
-````
-
-### Path-scoped, HIGH, no reference
+Path-scoped, HIGH, with reference:
 
 ````markdown
 ---
@@ -195,19 +146,27 @@ paths:
 
 **Impact: HIGH**
 
-Every API handler validates its request body with Zod before
-touching the database. Skipping validation lets malformed input
-reach the schema layer and corrupts data.
+Every API handler validates its request body with Zod before touching the
+database. Skipping validation lets malformed input reach the schema layer
+and corrupts data.
 
 **Incorrect:**
 
 ```typescript
-export async function POST(req: Request) { const body = await req.json() return db.users.create({ data: body }) }
+export async function POST(req: Request) {
+  const body = await req.json()
+  return db.users.create({ data: body })
+}
 ```
 
 **Correct:**
 
 ```typescript
-export async function POST(req: Request) { const body = userCreateSchema.parse(await req.json()) return db.users.create({ data: body }) }
+export async function POST(req: Request) {
+  const body = userCreateSchema.parse(await req.json())
+  return db.users.create({ data: body })
+}
 ```
+
+Reference: [Zod — Basic usage](https://zod.dev/?id=basic-usage)
 ````

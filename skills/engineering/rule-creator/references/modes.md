@@ -1,10 +1,10 @@
 # Modes
 
-Detailed workflow for each mode dispatched by SKILL.md. Create lives across the SKILL.md gates and the rule-format reference; the other modes live here.
+Workflow for the list, edit, extract, and delete modes.
 
 ## When to Use
 
-Loaded when dispatch resolves to list, edit, extract, or delete. The create mode reads SKILL.md and rule-format directly and does not need this file.
+Loaded when dispatch resolves to list, edit, extract, or delete. Create lives across the SKILL.md gates and [rule-format.md](rule-format.md) and does not read this file.
 
 ## List
 
@@ -16,7 +16,7 @@ Read every `.md` file under `.claude/rules/` and produce a table.
 2. For each file, read the frontmatter and the H2 headings.
 3. Render the table:
 
-   ```
+   ```text
    FILE                  SCOPE                      RULES
    testing.md            global                     3 (1 HIGH, 2 MED)
    api-design.md         src/api/**/*.ts            2 (2 HIGH)
@@ -25,7 +25,7 @@ Read every `.md` file under `.claude/rules/` and produce a table.
 
 4. Below the table, list each file expanded:
 
-   ```
+   ```text
    testing.md (global)
      - Test File Placement (MEDIUM)
      - Test Naming (LOW)
@@ -62,7 +62,7 @@ Tell the user the rule is missing and offer to create it. Do not silently fall t
 
 ## Extract
 
-Move declarative blocks out of an oversized `AGENTS.md / CLAUDE.md` into rule files. Triggered when the user says AGENTS.md / CLAUDE.md is too big or asks to split it.
+Move declarative blocks out of an oversized `AGENTS.md / CLAUDE.md` into rule files.
 
 ### Steps
 
@@ -73,7 +73,7 @@ Move declarative blocks out of an oversized `AGENTS.md / CLAUDE.md` into rule fi
    - **Reject** — procedural (belongs in a skill) or lifecycle (belongs in a hook)
 3. Output the verdict list:
 
-   ```
+   ```text
    ## Testing conventions          → extract (testing.md, global)
    ## API validation               → extract (api-design.md, src/api/**/*.ts)
    ## Pre-commit checks            → reject (lifecycle, belongs in hook)
@@ -90,7 +90,6 @@ Move declarative blocks out of an oversized `AGENTS.md / CLAUDE.md` into rule fi
 
 ### Notes
 
-- The Claude Code docs treat 200 lines as the size at which AGENTS.md / CLAUDE.md starts losing adherence. Use that as the trigger to suggest extract, not as a hard rule.
 - Path-scoped rules are the primary win — they remove instructions from every-session context until Claude touches matching files.
 
 ## Delete
@@ -108,17 +107,3 @@ Remove a rule file.
 ### When a rule contains multiple H2 sections
 
 If the user wants to delete only one rule from a multi-rule file, route to edit mode instead. Delete operates at file granularity.
-
-## Refuse
-
-Triggered by the classifier in SKILL.md, not by user input directly.
-
-### Steps
-
-1. Output the verdict from the classifier (procedural / lifecycle / one-off).
-2. Recommend the correct destination:
-   - Procedural → author a skill instead
-   - Lifecycle → configure a Claude Code hook
-   - One-off → do the work directly in the current session
-3. Do not write any rule file.
-4. Do not invoke another skill automatically. The user confirms and re-invokes if needed.

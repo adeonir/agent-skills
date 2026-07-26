@@ -7,7 +7,7 @@ Create and manage Claude Code rules in `.claude/rules/` with classification, sco
 Rules in `.claude/rules/` auto-load into every session (global) or trigger when Claude reads matching files (path-scoped). This skill classifies the input, picks scope and topic, renders the template, and writes the file. It also manages existing rules: list, edit, extract from oversized AGENTS.md / CLAUDE.md, and delete.
 
 ```mermaid
-flowchart LR
+flowchart TD
     T[Trigger] --> D{Dispatch}
     D -->|create| C[Classify]
     C -->|declarative| X[Context check]
@@ -35,7 +35,7 @@ flowchart LR
 
 ## Usage
 
-```
+```text
 create a rule that always uses type instead of interface in TypeScript files
 add a rule for API handlers under src/api: validate body with Zod before db calls
 new rule: never commit secrets in plain text
@@ -47,7 +47,7 @@ delete rule typescript
 
 ## Output
 
-```
+```text
 .claude/rules/<topic>.md
 ```
 
