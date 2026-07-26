@@ -1,6 +1,6 @@
 # Project Resolution via .notes Registry Symlink
 
-Resolve the vault root, and for project notes the project folder and base tags, from the `wrap-up.yml` registry symlinked into `.notes/`.
+Resolve the vault root, and for project notes the project folder, from the `wrap-up.yml` registry symlinked into `.notes/`.
 
 ## When to Use
 
@@ -42,7 +42,7 @@ Fields:
 
 - `name`: Title Case project name, used in headers and wikilinks
 - `obsidian.path`: Obsidian folder (Title Case, mirrors filesystem). `--` to skip project-folder writes
-- `tags`: base tags applied to every note. Downstream refs append context tags per note.
+- `tags`: base tags recorded on the entry, written during bootstrap. Note tags in this skill are derived from the note's own content, not from here.
 
 ## Project Lookup
 
@@ -67,12 +67,10 @@ Given this entry:
 
 - **Vault folder for project notes**: `Work/Acme/`
 - **Project Overview**: `Work/Acme/Acme Overview.md`
-- **Sessions** (when used): `Work/Acme/Sessions/`
 
 ## Rules
 
 - `obsidian.path` is `--`: skip project-folder writes; fixed-folder writes still proceed
-- Base tags apply to every note — downstream refs append context tags
 - Vault structure mirrors filesystem conventions (`obsidian.path` Title Case)
 
 ## Error Handling

@@ -47,11 +47,9 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{challenge-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: {{pending / completed / submitted / feedback-received}}
-sources: []
 company: {{company}}
 stack:
   - {{technology}}

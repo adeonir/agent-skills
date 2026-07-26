@@ -53,11 +53,9 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{brag-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
 tags:
   - brag
   - career

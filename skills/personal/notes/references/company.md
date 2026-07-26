@@ -44,11 +44,9 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{company-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: {{applied / screening / interview / offer / rejected}}
-sources: []
 company: {{company-name}}
 role: {{role}}
 stack:

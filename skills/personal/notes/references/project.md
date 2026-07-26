@@ -41,11 +41,9 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{project-slug}}
 created: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
 status: active
-sources: []
 stack:
   - {{technology}}
 tags:
