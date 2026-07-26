@@ -39,14 +39,7 @@ Start at the error and trace backwards from the symptom toward its origin. Use a
 
 #### Pattern Comparison
 
-When the root cause is unclear, compare broken code against working examples:
-
-1. Find similar code in the project that works correctly
-2. Diff the working version against the broken one
-3. Focus on structural differences (argument order, missing steps, different patterns)
-4. Check if a recent change broke a previously working pattern
-
-See [debugging-patterns.md](debugging-patterns.md) for common patterns and comparison guidance.
+When the root cause is unclear, compare the broken code against working examples elsewhere in the project. See [debugging-patterns.md](debugging-patterns.md), which owns the technique, the divergences worth looking for, and the regression-tracing checklist for a bug that appeared after a change.
 
 ### Step 3: Enumerate Hypotheses
 
