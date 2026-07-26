@@ -33,23 +33,8 @@ investigate → fix → verify → done
 
 Core loop: investigate, fix, verify. Techniques (log injection, pattern comparison, focus area analysis) are tools within investigation, not mandatory phases. Log cleanup happens automatically after verification succeeds.
 
-## Guidelines
-
-- Use confidence scoring honestly: ≥70 reports as probable cause, 50-69 suggests logs, <50 stays internal
-- Compare broken code against working examples when root cause is unclear
-- Always use `[DEBUG]` prefix for injected logs (enables grep + cleanup)
-- Apply minimal fix: smallest change that resolves the issue
-- Redact sensitive values (passwords, tokens, PII) in injected logs
-- Track fix attempts: escalate to architectural review on the 4th
-
-## Anti-Pattern: Confidence Inflation
-
-Reporting a "fix" with confidence below 70 wastes attempts. Inflated scores hide the real picture: a fix offered at 60 confidence is a guess. When evidence is missing, drop down — load logs, gather runtime data, re-rank — instead of pushing a low-confidence fix through.
+A sensitive value never reaches an injected log — passwords, tokens, API keys, PII, session identifiers. This binds anywhere a log is added, including mid-investigation without the injection workflow loaded.
 
 ## Anti-Pattern: Symptom Whack-a-Mole
 
 Fixing the same symptom in multiple places signals an architectural issue, not a localized bug. When fix N introduces bug N+1, stop. The 4th attempt must escalate to architectural review: re-examine the abstraction, the missing layer, or the flawed assumption — not retry a deeper version of the same approach.
-
-## Anti-Pattern: Production Log Residue
-
-Debug logs left after verification become noise in production output and risk leaking sensitive context. Cleanup is part of the verify phase, not a polish step. Run `grep '\[DEBUG\]'` after every fix; remaining matches are bugs in the workflow.
