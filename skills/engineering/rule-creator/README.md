@@ -38,7 +38,8 @@ flowchart TD
 | edit | Resolve target by name across both levels, apply change, re-verify | Updated rule file |
 | extract | Walk an oversized AGENTS.md / CLAUDE.md, propose verdicts, extract approved | New rule files + trimmed source |
 | delete | Show full content, confirm with the level named, remove | Removed file |
-| refuse | Classifier rejected input, recommend a skill, hook, or direct action | No write |
+
+Refusal is not a mode. It is how create ends when the classifier rejects the input: the verdict is reported with the destination that fits it — a skill for procedural input, a hook for a lifecycle trigger, direct action for a one-off — and nothing is written.
 
 ## Usage
 
