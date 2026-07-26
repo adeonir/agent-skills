@@ -37,7 +37,7 @@ paths:
 Reference: [<label>](<url>)
 ````
 
-Omit the `paths:` frontmatter block entirely when the rule is global. Omit the `Reference:` line when no canonical source applies.
+Omit the `paths:` frontmatter block entirely when the rule is unconditional. Omit the `Reference:` line when no canonical source applies.
 
 ## Section rules
 
@@ -87,7 +87,8 @@ Impact is the author's judgment. When unsure, write MEDIUM. Do not omit the line
 - `paths` is an array, even with a single entry
 - Quote every glob value
 - Multiple entries in the array only when brace expansion does not fit (different parent directories)
-- Global rule: no frontmatter at all — do not write an empty `---` block
+- Unconditional rule: no frontmatter at all — do not write an empty `---` block
+- A user-level rule is always unconditional, so it never carries a `paths:` block
 
 ## Multi-rule files
 
