@@ -34,7 +34,7 @@ Audit is **quality-only**. It checks whether the UI is accessible, performant, r
 
 ### Step 1: Infer the surface and register
 
-A standalone audit has no layout or content plan to read the surface from. Infer it from the running UI (a dashboard, a checkout, a landing page), or ask the user. Set the register from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product), falling back to the running UI or the user; then read the matching [brand.md](../references/brand.md) or [product.md](../references/product.md) — the bar differs for brand vs product.
+A standalone audit has no layout or content plan to read the surface from. Infer it from the running UI (a dashboard, a checkout, a landing page), or ask the user. Set the register from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product), letting the audience the build actually serves settle it where the label and the job disagree — a landing for a dev tool or an infra product often reads product — and falling back to the running UI or the user; then read the matching [brand.md](../references/brand.md) or [product.md](../references/product.md) — the bar differs for brand vs product.
 
 When `PRODUCT.md` is present, also read its declared anti-references as context for the anti-pattern verdict below — read only; audit never edits `PRODUCT.md`. They enter as a claim to check, not the bar to inherit: where an anti-reference is stale, or names something the build has good reason to resemble, report the disagreement rather than raising a defect against it.
 
