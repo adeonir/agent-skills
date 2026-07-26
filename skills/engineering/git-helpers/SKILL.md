@@ -27,16 +27,6 @@ commit → create-pull-request → finish-branch
 
 Each step is independent. Use any workflow in isolation or chain them together.
 
-## Guidelines
-
-- Base branch: the repo's default (user can override)
-- Prefer single-line commit messages — the subject carries the *what*, and most commits need nothing more
-- A body is prose, never a list of the changes: it states the problem with the previous behavior and why this solution
-
 ## Anti-Pattern: Conversation-Driven Messages
 
 Writing a commit, PR, or merge message from chat context produces fabricated quotes, rejected approaches presented as fact, and restated diff content. The diff is the single source of *what* changed; the conversation supplies at most an explicit *why* the user stated. Before writing, trace every line back to a hunk in the diff — a line that names a change the diff does not show came from the conversation, so drop it.
-
-## Anti-Pattern: Default GitHub Merge Subject
-
-The default `Merge pull request #N from {branch}` message strips intent and conventional commit type. Always pass a custom subject: `{type}: {description} (#{pr-number})`.
