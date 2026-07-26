@@ -82,10 +82,4 @@ distinctive / trustworthy, or AI-generated? One honest paragraph.}
 
 ## Acting on findings
 
-Map each finding to a concrete next step, in priority order (P0 first):
-
-- A variant that reads too safe or too noisy → re-render it with a tune verb (`bolder` / `quieter` / `distill` / `animate` / `delight` / `harden`).
-- A structural gap (dangling flow, buried primary action, arrangement wrong for the register) → re-plan the structure phase and re-render ([structure.md](structure.md)).
-- A technical or accessibility defect on a shipped UI → a source fix in implementation. craft-ui reports it; it does not apply it (non-mutating).
-
-Never prescribe a fix craft-ui would have to mutate source to make — the report names the defect and its impact; the change happens in implementation.
+Every finding names a next step, in priority order (P0 first), and never one craft-ui would have to mutate source to take. The report names the defect and its impact; a technical or accessibility defect on a shipped UI is a source fix in implementation. Which move a finding on a variant maps to — the tune verbs, or a re-planned structure — is the critiquing mode's own call.

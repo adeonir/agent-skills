@@ -1,6 +1,6 @@
 # Tune
 
-The named directions render re-renders a chosen variant along — bolder, quieter, distill, delight, harden. Each is a *direction*, not an edit: the move lives only in the re-rendered variant HTML for the session. None touches DESIGN.md, `structure.yaml`, copy.yaml, or production code.
+The named directions render re-renders a chosen variant along — bolder, quieter, distill, delight, harden. Each is a *direction*, not an edit: the move lives only in the re-rendered variant HTML for the session, and none mutates a source artifact or production code.
 
 ## When to Use
 

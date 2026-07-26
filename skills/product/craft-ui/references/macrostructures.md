@@ -15,7 +15,8 @@ A macrostructure is a seed for the region tree, not a finished tree. It fixes wh
 - **Not for is the reject test.** Every entry carries what it is wrong for. Read it before committing; a preset chosen without clearing its own exclusion was not chosen.
 - **The knob varies within the preset.** Where an entry has one, it changes the preset's character without changing which preset it is. Two surfaces on the same preset with the same knob value are the same page twice.
 - **Naming the category is not picking.** "It is a SaaS landing, so Feature Stack" is the category reflex ([design-thinking.md](design-thinking.md)) wearing a preset name. Name the two presets rejected alongside the one taken.
-- **Chrome is a region, navigation is its content.** Brand presets carry `header` and `footer` around the sequence; a `rail` is a third chrome region where the surface wants persistent navigation down a side. Navigation lives inside those regions — it is never a block of its own. Which regions a surface ends up with, and how each is composed, is settled in [archetypes.md](archetypes.md).
+- **Chrome is a region, navigation is its content.** A `rail` is a third chrome region where the surface wants persistent navigation down a side. Navigation lives inside those regions — it is never a block of its own. Which regions a surface ends up with, and how each is composed, is settled in [archetypes.md](archetypes.md).
+- **Chrome is seeded on brand, settled on product.** Brand presets carry `header` and `footer` in their block list as the common answer, which the region-set decision then confirms or drops. Product presets carry none — the chrome around a work surface is never implied by the preset, since the same work surface runs under any of them.
 
 Presets carry no color, type, token, or copy — the arrangement is orthogonal to the look. Block notation below is `label:shape` from the fixed shape vocabulary in [structure.md](structure.md).
 

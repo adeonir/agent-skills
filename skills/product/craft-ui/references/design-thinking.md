@@ -65,7 +65,7 @@ The cheapest way to catch a generic result is to try to guess it from the outsid
 
 Then the inverse: describe in one sentence what you are about to build the way a competitor would describe theirs. If that sentence fits the modal page in the category, restart.
 
-Some categories carry a reflex palette the whole field defaults to — beige-and- cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer brands; dark-blue gradients for fintech. Reaching for the category's stock palette is the anti-reference reflex in color form: name the reflex palette for this category and treat it as a default to earn past, not the safe choice.
+Some categories carry a reflex palette the whole field defaults to — beige-and-cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer brands; dark-blue gradients for fintech. Reaching for the category's stock palette is the anti-reference reflex in color form: name the reflex palette for this category and treat it as a default to earn past, not the safe choice.
 
 ### The warm-neutral trap
 

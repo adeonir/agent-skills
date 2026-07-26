@@ -62,7 +62,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ## Typography
 
 ### inter-as-primary-font
-**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface without being a declared brand token in DESIGN.md `typography.*.fontFamily`. **Fix:** Run the font-selection procedure in [brand.md](brand.md) and carry its pick in the display role — its reflex-reject list names the families to look past, so a font drawn from memory here repeats the failure. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface. **Fix:** Run the font-selection procedure in [brand.md](brand.md) and carry its pick in the display role — its reflex-reject list names the families to look past, so a font drawn from memory here repeats the failure. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
 ```html
 font-family: Inter, system-ui, sans-serif
 ```
@@ -110,7 +110,7 @@ linear-gradient(135deg, var(--accent), var(--accent-shadow))
 ```
 
 ### gray-text-on-saturated-color
-**Category:** Color and Theme **Severity:** error **Check:** Gray text (`#6b7280`, `#9ca3af`, `slate-500`, etc.) placed on saturated colored background fails WCAG AA 4.5:1 contrast. **Fix:** Use the corresponding `*-foreground` token from DESIGN.md or recompute contrast: white/near-white on saturated backgrounds, dark gray only on neutral backgrounds. **Example fail:**
+**Category:** Color and Theme **Severity:** error **Check:** Gray text (`#6b7280`, `#9ca3af`, `slate-500`, etc.) placed on saturated colored background fails WCAG AA 4.5:1 contrast. **Fix:** Use the foreground color paired with that background, or recompute contrast: white/near-white on saturated backgrounds, dark gray only on neutral backgrounds. **Example fail:**
 ```html
 background: #3b82f6; color: #6b7280
 ```
@@ -245,7 +245,7 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 **Category:** Component States **Severity:** warning **Check:** Small monochrome icon (`<svg>`, `<iconify-icon>`) rendered without container, label, or border — visually disappears. **Fix:** Anchor every icon with a colored container, text label, or both.
 
 ### button-stock-blue
-**Category:** Component States **Severity:** warning **Check:** Primary button uses default framework blue (`#3b82f6`, `bg-blue-500`) without being mapped to a brand token. **Fix:** Map primary button to `bg-primary` resolved from DESIGN.md `colors.primary`. **Example fail:**
+**Category:** Component States **Severity:** warning **Check:** Primary button uses the framework default blue (`#3b82f6`, `bg-blue-500`) — a hue with no relation to the rest of the surface's palette. **Fix:** Draw the primary from the surface's own accent, referenced as a named utility rather than a raw value. **Example fail:**
 ```html
 <button class="bg-blue-500">
 ```
@@ -489,6 +489,8 @@ Claims the surface makes that no input supports. A variant is a decision aid and
 ## Drift
 
 Render-only: this category is for render to avoid during generation. critique and audit do not flag drift — whether a build matches its token source is out of scope for evaluation.
+
+Drift fires against the **resolved token set** — the DESIGN.md frontmatter where it exists, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield render as much as on one with an identity already authored.
 
 ### inline-hex-not-in-tokens
 **Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `bg-{name}` / `var(--{name})`. **Example fail:**

@@ -4,7 +4,7 @@ Technical correctness rules for rendered UI — the implementation counterpart t
 
 ## When to Use
 
-Composed by render.md (as generation rules) and audit.md (as the technical audit rubric, mapped to its five dimensions). Not a direct trigger.
+Composed by `render.md` (as generation rules) and `audit.md` (as the technical audit rubric, mapped to its five dimensions). Not a direct trigger.
 
 ## Accessibility
 
@@ -123,6 +123,6 @@ Rules for implementation — see color.md for color direction.
 
 ## Content and copy
 
-Wording, voice, casing, and message content are a content concern — they ride in on `copy.yaml` (or placeholder), and a variant renders the copy it is given rather than authoring or editing it; audit judges the five dimensions, not the prose. The render-deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
+Wording, voice, casing, and message content are a content concern — they arrive supplied, and a variant renders the copy it is given rather than authoring or editing it; audit judges the five dimensions, not the prose. The render-deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).

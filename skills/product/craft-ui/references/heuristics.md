@@ -4,7 +4,7 @@ The usability heuristics and visual-design laws a rendered surface is judged aga
 
 ## When to Use
 
-Composed by `critique.md` (scores the ten heuristics 0–4) and read by `render.md` to apply the laws while generating. The practical recipes that *implement* these laws live in the craft dimensions (color/typography/layout/motion/interaction/responsive). Aggregate bands, severity, and the report template live in [scoring.md](scoring.md). Not a direct trigger.
+Composed by `critique.md` (scores the ten heuristics 0–4) and by `render.md`, which composes the Visual Design Laws section alone to apply the laws while generating. The practical recipes that *implement* these laws live in the craft dimensions (color/typography/layout/motion/interaction/responsive). Aggregate bands, severity, and the report template live in [scoring.md](scoring.md). Not a direct trigger.
 
 ## Scoring
 

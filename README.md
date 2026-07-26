@@ -115,7 +115,7 @@ docs/
 ├── LESSONS.json    # spec-driven: canonical lessons (machine-owned)
 ├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
-└── design/         # design-brief: tune session events · craft-ui: VARIANTS.md + structure.yaml + variant HTML
+└── design/         # design-brief: tune session events · craft-ui: VARIANTS.md + final.html + structure.yaml + variant HTML
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks

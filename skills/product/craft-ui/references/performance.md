@@ -38,7 +38,9 @@ Composed by `audit.md` (the Performance dimension — static checks, plus runtim
 
 ## Measurement (for the audit)
 
-When a perf tool is available, measure — don't guess. Tools: Lighthouse, Chrome DevTools Performance panel, WebPageTest. Key metrics: LCP, INP, CLS (Core Web Vitals), plus FCP, TBT, bundle size, request count. Measure on real / throttled mid-range devices and slow connections — desktop Chrome on fast wifi isn't representative. When no tool is available, judge from the static checks above.
+Measure rather than guess, through the browser-automation MCP when it is available — `claude-in-chrome:read_network_requests` for the request waterfall, payload sizes, and count; `claude-in-chrome:javascript_tool` to read `PerformanceObserver` entries for LCP, INP, and CLS. It is an optional dependency: detect it before invoking it. Key metrics: LCP, INP, CLS (Core Web Vitals), plus FCP, TBT, bundle size, request count. Measured numbers come from the machine and network at hand — desktop Chrome on fast wifi is not representative, so report the conditions alongside the figures.
+
+**Absent that channel** → score the dimension from the static checks above and say in the report that it was scored without measurement, so the number is read as a static judgment rather than a run.
 
 ## Performance anti-defaults
 

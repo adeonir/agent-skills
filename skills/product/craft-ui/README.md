@@ -96,6 +96,7 @@ Each mode composes the references its job needs from this shared set:
 ## Requirements
 
 - Bun (for the render server)
+- A browser-automation MCP — optional, and only for audit. It is what turns a URL into a rendered screen and what measures Core Web Vitals. Without it, audit runs on a screenshot the user supplies and scores performance from static checks.
 
 ## FAQ
 

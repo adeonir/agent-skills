@@ -30,16 +30,23 @@ Composed content is never asserted content. Where a slot would carry proof the i
 > Before writing variants, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-Required references, auto-loaded:
+Required references, loaded by phase — a request that stops at the structure phase never loads the generation set:
 
+**Structure phase:**
+
+- [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture and structural arrangement (read the matching one, first)
 - [macrostructures.md](../references/macrostructures.md) — the named page-shape presets per register
 - [archetypes.md](../references/archetypes.md) — the region set and the named compositions for chrome and the close
 - [structure.md](../references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
-- [design-thinking.md](../references/design-thinking.md) — choose a visual direction, slop test
-- [heuristics.md](../references/heuristics.md) — heuristics + visual laws
+- [design-thinking.md](../references/design-thinking.md) — the audience test that settles the register
+- [layout.md](../references/layout.md) — the conventional layout a composed tree falls back on
+
+**Generation** — the structure set, plus:
+
+- [design-thinking.md](../references/design-thinking.md) — the rest of it: style axes, color strategy, the dials, the slop test
+- [heuristics.md](../references/heuristics.md) — the Visual Design Laws section; the 0–4 heuristic tables are critique's
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](../references/typography.md) — scale, pairing, loading
-- [layout.md](../references/layout.md) — spacing, grid, hierarchy, hero composition, depth
 - [motion.md](../references/motion.md) — the animate gate, timing, easing, materials
 - [interaction.md](../references/interaction.md) — states, focus, overlays
 - [responsive.md](../references/responsive.md) — breakpoints, input, safe areas
@@ -168,7 +175,7 @@ Four axes:
 - **Density** — airy ↔ dense spacing and component padding
 - **Decoration** — austere ↔ playful elevation, radius, accent emphasis
 
-The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session. When a tuned direction is the one kept, rewrite the surface's **chosen** line in `VARIANTS.md` to name it: the next session reads that line to know which direction is spent, and a stale one sends it back to a look already rejected.
+The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session. When a tuned direction is the one kept, rewrite the surface's **chosen** line in `VARIANTS.md` to name it and rewrite `final.html` from the tuned variant. The next session reads that line to know which direction is spent, and critique reads that file — a stale one sends either back to a look already replaced.
 
 ### Tune verbs
 
@@ -215,6 +222,5 @@ Every variant holds at all three widths — the controls are how that is checked
 
 - All inputs absent: the structure phase composes a conventional layout and render seeds tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions with placeholder content; flag that the page is illustrative until real inputs exist
 - DESIGN.md frontmatter unparseable: compose a seed for this render and suggest the user audit DESIGN.md
-- Server port in use: try an alternative port
 - Comment event has no selector: ask the user to re-click the target element
 - User asks to commit a tuned direction: redirect — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring; render writes no `docs/` source
