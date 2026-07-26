@@ -4,7 +4,7 @@ Spec-driven feature development. Light by default; weight only where the scope p
 
 ## What It Does
 
-Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline whose rigor concentrates in a final, independent audit rather than heavy intermediate gates.
+Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where every artifact is read by an agent that did not write it — each of `spec.md`, `design.md`, and `tasks.md` before its approval gate, and the diff by a final independent audit.
 
 ```mermaid
 flowchart TD
@@ -36,7 +36,7 @@ flowchart TD
 |-------|------------------|----------|
 | **Small** | Mechanical, zero decisions | one-liner → branch → inline implement |
 | **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → Audit |
-| **Large** | ≥1 load-bearing decision new to the codebase | + fresh-eyes, research |
+| **Large** | ≥1 load-bearing decision new to the codebase | + research |
 | **Complex** | Ambiguity in the problem itself | + discuss, approaches |
 
 ## Usage
@@ -100,9 +100,9 @@ A: `.artifacts/CONTEXT.md` accumulates cross-feature decisions, gotchas, and con
 
 A: When it is Small — mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md` and no audit. If it turns out to carry a real decision, the safety valve raises it to Medium and the full pipeline applies.
 
-**Q: What is the difference between verify, audit, and validate?**
+**Q: What is the difference between peer check, verify, audit, and validate?**
 
-A: Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
+A: Peer check runs once per planning phase, before its approval gate: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md`, `design.md`, or `tasks.md` against its own contract and reports findings without editing. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
 
 **Q: How does the lessons layer work?**
 
