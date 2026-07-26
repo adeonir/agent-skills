@@ -68,7 +68,7 @@ Based on investigation findings, determine:
 
 Insert each log in the project's language using the standard format, at the locations the Placement Guide names.
 
-### Step 3: Report to User
+### Step 3: Report What Was Added
 
 ```markdown
 ## Debug Logs Added ({count})
@@ -76,17 +76,11 @@ Insert each log in the project's language using the standard format, at the loca
 | Location | Purpose |
 |----------|---------|
 | {file}:{line} | {what it captures} |
-
-Reproduce the bug and share console output.
 ```
 
-### Step 4: Wait for User
+### Step 4: Collect the Output
 
-Ask user to:
-
-1. Reproduce the bug
-2. Share console output
-3. Describe what they observed
+Run the reproduction and read the output. Ask the user for it only when the repro is out of reach from here — it needs their credentials, their device, a manual interaction, or an environment this session cannot enter. Then name the steps to run and ask for the output plus what they observed.
 
 ## What to Capture
 
@@ -118,7 +112,7 @@ Capture before/after pairs so the delta is obvious from the output. A single abs
 
 ## Analyzing Console Output
 
-When user shares console output, look for:
+In the collected output, look for:
 
 | Pattern | Indicates | Next Step |
 |---------|-----------|-----------|

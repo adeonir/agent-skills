@@ -109,14 +109,12 @@ Present the fix; never apply it without the user's approval.
 
 ### Step 6: Verify
 
-After user applies fix:
+Once the fix is applied, run the reproduction yourself and read the result. Hand it to the user only when the repro is out of reach from here — it needs their credentials, their device, a manual interaction, or an environment this session cannot enter; then state the exact steps and what to look for.
 
-1. Provide explicit reproduction steps for the user to run
-2. Ask user to reproduce the original bug
-3. For race conditions or intermittent bugs, ask user to reproduce 3-5 times -- a single pass can hide timing-dependent failures
-4. Confirm the fix worked
-5. If not fixed, return to Step 1 (investigate again with new evidence)
-6. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
+1. Run the original reproduction and confirm the symptom is gone
+2. For race conditions or intermittent bugs, repeat it 3-5 times -- a single pass can hide timing-dependent failures
+3. If not fixed, return to Step 1 with what the run showed
+4. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
 
 ## Fix Attempt Tracking
 
