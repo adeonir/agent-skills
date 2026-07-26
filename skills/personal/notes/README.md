@@ -65,8 +65,7 @@ Vault/
 ## Requirements
 
 - Obsidian MCP server configured and connected
-- At least one Obsidian vault configured
-- `.notes/wrap-up.yml` registry configured (for project path resolution)
+- An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
 
 ## FAQ
 

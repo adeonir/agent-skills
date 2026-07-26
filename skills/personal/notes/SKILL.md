@@ -40,20 +40,11 @@ When generating filenames from user input:
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
 
-## Writing Style
-
-- Body: rich prose context after the heading, not just bullet points
-- Bullets: describe what happened and why, with enough context to understand weeks later
-- Observations: `#category content` syntax — Obsidian indexes tags natively
-- Relations: typed verbs + wikilinks (`- follows [[X]]`, `- part_of [[Project]]`, `- contains [[Session]]`); inline `[[wikilinks]]` cover ordinary mentions, the Relations section holds typed edges that add graph value; omit the section when no typed edges apply
-- Wikilinks must point to existing files. Verify before linking; orphan links create empty files at the vault root
-
 ## Guidelines
 
 - Ask one question at a time when gathering context from the user
-- Use `Obsidian:write_note` for new notes, `Obsidian:read_note` + `Obsidian:patch_note` for updates
-- Use `Obsidian:search_notes` to check if a note exists before creating
-- Link related notes using `[[Note Name]]` wikilinks (verify target exists)
+- Refresh `updated` in the frontmatter whenever an existing note is patched
+- Relations carry typed verbs (`- follows [[X]]`, `- part_of [[Project]]`); inline `[[wikilinks]]` cover ordinary mentions, and the section is omitted when no typed edge applies
 
 ## Anti-Pattern: Orphan Wikilinks
 
