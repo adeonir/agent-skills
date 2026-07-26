@@ -21,23 +21,16 @@ Obsidian notes render for humans (Graph view, daily review, Dataview). Keep note
 
 ## Audience and Reference Discipline
 
-Session and daily notes target different audiences. The split is rigid.
+Session and daily notes target different audiences. The split is rigid and governs everything that lands in a note, including material folded in from a handoff — the handoff's scope is not the note's scope.
 
-**Daily — executive, product/project outcomes:**
+| | Daily | Session |
+|---|---|---|
+| Reader | stakeholder or future-you scanning what moved | future-you continuing the work |
+| Carries | outcomes at product or project level, in prose; never restates the session's technical detail | the technical detail itself |
+| Refs allowed | project and feature names only | PR `#N`, Issue `#N`, file paths, commands, `file:line` |
+| Refs forbidden | PR/Issue numbers, file paths, shell commands, branch names, commit hashes | branch names, commit hashes |
 
-- Reader: stakeholder or future-you scanning what moved
-- Refer to projects and features by human-readable name only
-- Forbidden in body: PR numbers, issue numbers, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch names, commit hashes
-- Outcomes in prose; do not restate session technical detail
-
-**Session — technical, durable detail:**
-
-- Reader: future-you continuing the work
-- Durable refs allowed: PR `#N`, Issue `#N`
-- Technical detail allowed: file paths, commands, `file:line`
-- Local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`) forbidden everywhere — spec artifacts are ephemeral; the spec folder may be deleted, leaving the ID as dead reference
-
-When no durable ref exists, use the feature or project name in prose (`Branding copy skill`, not `F-022`).
+Both notes carry only references that outlive the work they describe. An identifier scoped to a workspace artifact is forbidden in either note — the artifact can be deleted, leaving the reference pointing at nothing. Name the work in prose instead (`Checkout Refactor`).
 
 ## Filename Sanitization
 
@@ -143,7 +136,7 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for typed edges that add graph value
 
-When the handoff Load phase surfaced grouped snapshots, fold this date's bullets in before composing the note — the deduplicated union across that day's blocks, not just the latest. Re-apply the Audience and Reference Discipline as you fold — the handoff's scope is not the note's scope: strip local spec/story/task IDs (`S-022`, `task-3.2`) and translate them to feature or project names, and keep daily-note bodies free of the paths and IDs a handoff may carry. Implementation detail stays out of the executive note — it lives in claude-mem; the note carries the summary.
+When the handoff Load phase surfaced grouped snapshots, fold this date's bullets in before composing the note — the deduplicated union across that day's blocks, not just the latest. Re-apply the Audience and Reference Discipline as you fold.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
@@ -169,8 +162,6 @@ Rules:
 - Relations use typed verbs (`- follows [[X]]`) — fallback for graph edges only
 - Wikilinks only to existing notes/entities; verify with `Obsidian:search_notes` before linking
 - Past tense, natural language
-- Durable refs allowed when they exist: PR `#N`, Issue `#N`. Technical detail allowed: file paths, commands, `file:line`
-- Forbidden: branch names, commit hashes, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`)
 - One project per session note
 - Omit empty sections
 
@@ -251,13 +242,9 @@ Read first with `Obsidian:read_note`, then use `Obsidian:patch_note`:
 
 Rules:
 - Activities split by project with `### Project Name` headers
-- Bullets are executive outcomes — what moved at product or project level, readable by a stakeholder with no repo context
-- Refer to projects and features by human-readable name only
-- Forbidden in body: PR/Issue numbers, local spec/story/task IDs (`S-022`, `F-022`, `task-3.2`), file paths, shell commands, branch names, commit hashes — those belong in the session note
 - Observations are day-level and cross-cutting — project-specific facts stay in the session note
 - Relations use typed verbs (`contains`, `relates_to`); `contains` points to today's session notes
 - Past tense, natural language
-- Do not duplicate detail from the session note — daily stays summary-level
 - Omit empty sections entirely
 
 ## Guidelines
