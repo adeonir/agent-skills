@@ -418,14 +418,13 @@ be explicit about their scope so Claude reads only what's needed.
 
 ### Dynamic Context Injection
 
-Workflow files (SKILL.md, instructions, references) may embed
-`` !`<command>` `` placeholders. The harness runs the command before
-the file is sent to the model and substitutes the output inline. Claude
-receives data, not the command. Substitution runs once over the
-original file; injected output is not re-scanned for further
+`SKILL.md` may embed `` !`<command>` `` placeholders. The harness runs the
+command before the file reaches the model and substitutes the output inline,
+so Claude receives data rather than the command. Substitution runs once over
+the original file; injected output is not re-scanned for further
 placeholders.
 
-Use this at the top of workflows whose first step is gathering state
+Use this at the top of a `SKILL.md` whose first step is gathering state
 (git status, gh queries, file existence) to remove the "run command,
 then act on output" round-trip:
 
@@ -437,7 +436,24 @@ then act on output" round-trip:
 !`git log --oneline -10 --no-merges`
 ```
 
+**References and instructions are never substituted.** The harness loads
+`SKILL.md` itself; every other skill file reaches the model through a read,
+and the placeholder arrives literal. A reference that opens on state carries
+a plain command block instead:
+
+````markdown
+## Current state
+
+Run these before composing:
+
+```bash
+git status --short
+git log --oneline -10 --no-merges
+```
+````
+
 Rules:
+- `SKILL.md` only. A placeholder in a reference or instruction is dead text.
 - Inline form only. No nested or recursive substitution.
 - Commands must be safe and read-only (`git`, `gh`, `ls`, `cat`, `awk`
   on local files). Never inject mutating commands (`rm`, `git push`,
@@ -448,9 +464,9 @@ Rules:
   `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`, `${CLAUDE_EFFORT}`,
   `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`.
 - The user can disable injection globally via the
-  `disableSkillShellExecution` setting. Skills must still be readable
-  and useful when that happens — treat injection as a fast path, not a
-  required dependency.
+  `disableSkillShellExecution` setting. No workflow depends on it — treat
+  injection as a fast path, and give every step that needs state a command
+  it can run.
 
 ### Recommended Patterns
 
@@ -530,7 +546,7 @@ you edit a skill file:
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
 - [ ] `description` ≤ 1,024 chars (skill listing cap)
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
-- [ ] Dynamic context injection (`` !`<cmd>` ``) limited to read-only commands
+- [ ] Dynamic context injection (`` !`<cmd>` ``) confined to `SKILL.md` and limited to read-only commands
 - [ ] `README.md` present with mermaid + Usage
 - [ ] Skill listed in repo `README.md` table
 - [ ] No links to untrusted or non-official domains
