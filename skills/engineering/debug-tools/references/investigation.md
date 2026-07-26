@@ -151,8 +151,6 @@ Escalation means: stop fixing symptoms and re-examine the broader design. Presen
 
 Signals that the debugging process has gone off-track:
 
-- Fixing the same symptom in multiple places
-- Each fix introduces a new bug
 - The "root cause" keeps changing
 - Changes grow larger with each attempt
 - Confidence score drops between attempts
