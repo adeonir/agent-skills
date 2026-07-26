@@ -41,8 +41,7 @@ close session
 | Obsidian MCP server | required | No note can be written; the skill has nothing to persist to |
 | claude-mem MCP | optional | The Enrich step is skipped silently; notes compose from working context alone |
 
-- `.notes/` symlink in the repo root pointing to the Obsidian vault
-- `wrap-up.yml` at the vault root with a `projects` registry
+- An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
 
 ## FAQ
 
