@@ -1,12 +1,10 @@
 # Debugging Patterns
 
-Quick-reference for common bug patterns, pattern comparison, and debugging decision-making.
-
-For framework-specific log examples, see [log-injection.md](log-injection.md).
+Quick-reference for common bug patterns, pattern comparison, and regression tracing.
 
 ## When to Use
 
-When looking up common bug patterns, pattern comparison techniques, or confidence scoring guidelines. Also loaded during investigation when pattern comparison is needed.
+When a symptom needs matching against a known bug shape, when investigation stalls and broken code has to be diffed against a working example, or when the user reports that something used to work.
 
 ## Common Bug Patterns
 
@@ -72,26 +70,3 @@ When the user reports "this used to work", treat the change history as primary e
 | Test diff | Tests removed or weakened around the affected area |
 
 The output of regression tracing feeds back into the hypothesis ranking in investigation.md -- a recent commit that touches the failing path is strong evidence and should score above generic theories.
-
-## Confidence Scoring Reference
-
-See [investigation.md](investigation.md) for the full confidence scoring table.
-
-## Tool Integration
-
-Use available debugging tools (runtime inspection, browser devtools, semantic analysis, documentation lookup) to enhance the debugging process. The agent discovers and adapts to whatever tools are available in the environment.
-
-## When to Debug vs When NOT to
-
-**Use debug-tools:**
-
-- Unexpected behavior
-- Silent errors
-- Intermittent failures
-- Issues requiring runtime data
-
-**Don't use debug-tools:**
-
-- Syntax errors (linter resolves)
-- Type errors (TypeScript resolves)
-- Obvious bugs in diff (use code review)

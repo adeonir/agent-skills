@@ -20,7 +20,7 @@ Iterative debugging workflow with flexible technique selection and escalation.
 - **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → [investigation.md](references/investigation.md)
 - **Add debug logs** ("add debug logs", "inject logs", "trace with logs") → [log-injection.md](references/log-injection.md)
 - **Cleanup logs** ("remove debug logs", "cleanup logs") → [log-cleanup.md](references/log-cleanup.md)
-- **Pattern lookup** ("debug patterns", "common bugs", "log format") → [debugging-patterns.md](references/debugging-patterns.md)
+- **Pattern lookup** ("debug patterns", "common bugs", "used to work") → [debugging-patterns.md](references/debugging-patterns.md)
 
 Multiple references may load during one debugging session — investigation often leads to log injection, then back to investigation.
 
