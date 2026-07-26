@@ -40,7 +40,7 @@ Fill the template (below) with discovered context.
 - **Summary**: what the epic is about, why it exists, what changes for the user -- two or three sentences; no scenario narrative, no upstream IDs or section references
 - **Scope**: explicit in/out boundaries. Describe capabilities, not technologies (e.g., "secure password storage" not "bcrypt hashing")
 - **Requirements**: the PRD requirements this epic owns (`FR/BR/EC/NFR`), one per line as `ID — statement` — a contract the child stories operationalize, each AC linking back via `Satisfies`. The set of IDs is inherited from the roadmap entry's `Requirements` field when one exists, and derived from the PRD only when the epic is created without a roadmap; each statement is resolved from the PRD either way, translated in form but never in norm. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every requirement here must be satisfiable by stories within this epic's scope.
-- **Rabbit Holes**: where execution sinks time — an unknown that expands the work, an ordering constraint that bites when missed, an integration quirk of something external, an edge case the naive approach gets wrong. At this grain, the traps that catch its stories by surprise. A trap costs time; an obligation costs correctness: a condition that must hold for the work to be done is a requirement, and the reason a requirement exists is neither. Not implementation advice or upstream design notes
+- **Rabbit Holes**: where execution sinks time — an unknown that expands the work, an ordering constraint that bites when missed, an integration quirk of something external, an edge case the naive approach gets wrong. At this grain, the traps that catch its stories by surprise. A trap costs time; an obligation costs correctness: a condition that must hold for the work to be done is a requirement, and the reason a requirement exists is neither. Not implementation advice or upstream design notes. A trap is one that surfaced while shaping this epic, never one derived from the domain because the section is there; omit the section when none surfaced — finding no trap is a result, not a gap to fill
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
 - **References**: durable pointers the next session follows (PRD, design doc, UI design). They travel into the tracker description, so a fresh session recovers context from the tracker alone.
 
@@ -139,9 +139,12 @@ MUST NOT contain: a statement that reads looser or stricter than the PRD's — t
 
 ## Rabbit Holes
 
+{Remove this section when no trap surfaced — an empty section is a result,
+not a gap to fill.}
+
 - {{Execution trap specific to this epic — integration quirk, ordering constraint, or scope edge case. Example: "Third-party identity provider rate limits may block bulk imports" not "use a queue"}}
 
-MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Requirements`), the reason an obligation exists, or a risk with no source in the repository, a linked doc, or what the user stated.
+MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, an obligation (a condition that must hold belongs in `## Requirements`), the reason an obligation exists, or a risk with no source in the repository, a linked doc, or what the user stated. A source that mentions the subject does not source the trap: what a source has to state is the risk itself.
 
 ## Open Questions
 
