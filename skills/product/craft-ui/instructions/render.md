@@ -50,7 +50,7 @@ Required references, auto-loaded:
 
 First fix the **register** and **surface**, since both the arrangement and the look read from them. Register comes from `PRODUCT.md`'s default plus the surface convention (landing/marketing = brand, dashboard/app = product — [brand.md](../references/brand.md) / [product.md](../references/product.md)), then clears the audience test in [design-thinking.md](../references/design-thinking.md): the register follows the surface's job, not its label, so a landing for a dev tool or an infra product often reads product. Read which surfaces the project has from an existing `structure.yaml`, `copy.yaml`, or the user, and ask only when neither register nor surface is available.
 
-Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise pick a macrostructure per surface from the register's half of [macrostructures.md](../references/macrostructures.md), clearing it against that preset's "not for" and naming the two passed over, then compose the tree from the preset plus the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time. Settle the region set and the archetype for each chrome and `close` block from [archetypes.md](../references/archetypes.md), clearing each against its own "not for". Run the structural self-check, then cache the plan to `structure.yaml`.
+Then resolve the layout structure ([structure.md](../references/structure.md)) — the region tree plus screen flow every variant shares. Read an existing `.artifacts/design/variants/structure.yaml` when present; otherwise read the surface's section in `VARIANTS.md` before picking anything, since its most recent line carries the macrostructure and chrome this surface keeps (see Variant memory), then pick a macrostructure per surface from the register's half of [macrostructures.md](../references/macrostructures.md), clearing it against that preset's "not for" and naming the two passed over, then compose the tree from the preset plus the conversation, a brief, `copy.yaml`, or a conventional layout, walking one decision at a time. Settle the region set and the archetype for each chrome and `close` block from [archetypes.md](../references/archetypes.md), clearing each against its own "not for". Run the structural self-check, then cache the plan to `structure.yaml`.
 
 When the request is only for structure — "map the screen flow", "arrange the screens", "plan the layout" — resolve the tree, draw the mermaid screen-flow from `flow:`, and stop before generating variants. Otherwise carry the resolved structure into generation.
 
@@ -93,11 +93,11 @@ ALWAYS use this exact template structure:
 ```markdown
 ## {{surface}} · {{brand | product}}
 
-- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}} — **chosen**
-- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order}} · {{direction}}
+- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order — `none` where it carries neither}} · {{direction}} — **chosen**
+- {{macrostructure}}{{ (knob) — only where the preset carries one}} · {{one archetype per chrome region the surface carries, plus `close` where it has one, in tree order — `none` where it carries neither}} · {{direction}}
 ```
 
-The archetype run is as long as the surface's region set and follows tree order — a brand landing lists header, close, then footer; a product screen under rail-only navigation lists one. A preset with no knob writes the macrostructure name alone, with no empty parentheses after it.
+The archetype run is as long as the surface's region set and follows tree order — a brand landing lists header, close, then footer; a product screen under rail-only navigation lists one; a task surface that owns the screen — a wizard, a full-screen editor — carries no chrome and no close, and writes `none`. A preset with no knob writes the macrostructure name alone, with no empty parentheses after it.
 
 The fields are consumed in opposite directions, so read them separately:
 
@@ -137,9 +137,9 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 
 Generate one HTML per variant from the resolved structure (`structure.yaml`), the tokens (DESIGN.md or a composed seed), and the content (copy.yaml or placeholders). Every variant draws the same structure in a different look.
 
-1. **Resolve the structure.** Fix the register and surface, then pick the macrostructure per surface and resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
+1. **Resolve the structure.** Fix the register and surface, read the surface's section in `VARIANTS.md`, then pick the macrostructure per surface and resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
 
-2. **Confirm count and direction.** Read the surface's section in `VARIANTS.md` first — the directions listed there are spent, and the most recent line carries the macrostructure and chrome to keep. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
+2. **Confirm count and direction.** The surface's section in `VARIANTS.md`, read in step 1, also carries the directions already spent — none of them comes back. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
 
    Then state the plan before generating anything, as the lines it will append to `VARIANTS.md` — one per variant, carrying the macrostructure and knob, the chrome archetypes, and the direction. Close with one sentence naming what was inferred rather than given: audience, use, and tone. A wrong pick or a wrong inference is corrected here, not after N pages exist.
 
@@ -155,7 +155,7 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 5. **Serve** all variants side by side via the server. User picks one.
 
-6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final.html` — beside `VARIANTS.md`, outside the served directory.
+6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final-{surface}.html` — beside `VARIANTS.md`, outside the served directory. The pick is per surface; a session that rendered several closes each one this way.
 
 ## Variant-Tune
 
@@ -168,7 +168,7 @@ Four axes:
 - **Density** — airy ↔ dense spacing and component padding
 - **Decoration** — austere ↔ playful elevation, radius, accent emphasis
 
-The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session.
+The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session. When a tuned direction is the one kept, rewrite the surface's **chosen** line in `VARIANTS.md` to name it: the next session reads that line to know which direction is spent, and a stale one sends it back to a look already rejected.
 
 ### Tune verbs
 
