@@ -56,7 +56,7 @@ When the request is only for structure — "map the screen flow", "arrange the s
 
 ## Direction
 
-With the register and surface fixed, compose the **visual direction** from [design-thinking.md](../references/design-thinking.md): when the user names one ("Cyberpunk", "Editorial dark mode", "Bento Grid"), compose from it; with no direction, compose one biased by the register (brand and product permit different things — see their files) and fitting the surface. Vary the direction per variant; never converge on a house style.
+With the register and surface fixed, compose the **visual direction** from [design-thinking.md](../references/design-thinking.md): when the user names one ("Cyberpunk", "Editorial dark mode", "Grainy Duotone"), compose from it — a name that turns out to be a page shape rather than a look ("Bento Grid", "Long Document") is a macrostructure, and it settles the structure instead ([macrostructures.md](../references/macrostructures.md)); with no direction, compose one biased by the register (brand and product permit different things — see their files) and fitting the surface. Vary the direction per variant; never converge on a house style.
 
 Set the density and variance dials (design-thinking.md) to the level the brief implies — a scanning dashboard runs dense, a premium landing runs sparse — and build the variant to that level.
 
@@ -139,23 +139,23 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 
 1. **Resolve the structure.** Fix the register and surface, read the surface's section in `VARIANTS.md`, then pick the macrostructure per surface and resolve the region tree and flow per the Structure section above, caching it to `structure.yaml`. Stop here when the request was only for structure.
 
-2. **Confirm count and direction.** The surface's section in `VARIANTS.md`, read in step 1, also carries the directions already spent — none of them comes back. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Bento Grid") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
+2. **Confirm count and direction.** The surface's section in `VARIANTS.md`, read in step 1, also carries the directions already spent — none of them comes back. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Scale N to the stage of the inputs — 1–2 when DESIGN.md already fixes the visual (a look to confirm), 4–5 greenfield where the space is open — and honor any N the user names. Compose the direction from [design-thinking.md](../references/design-thinking.md): the user's named direction ("Editorial", "Cyberpunk + Duotone") when given, otherwise one biased by the register, fitting the surface, and unspent for it.
 
    Then state the plan before generating anything, as the lines it will append to `VARIANTS.md` — one per variant, carrying the macrostructure and knob, the chrome archetypes, and the direction. Close with one sentence naming what was inferred rather than given: audience, use, and tone. A wrong pick or a wrong inference is corrected here, not after N pages exist.
 
 3. **Start the render server** (if not running):
 
    ```bash
-   bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants --viewport desktop
+   bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants
    ```
 
-   Pass the surface's default viewport (see Viewport Switching); omitting the flag opens at desktop.
+   Add `--viewport mobile | tablet | desktop` only when the run is scoped to a single surface decided at that width (see Viewport Switching); the gallery otherwise opens at desktop.
 
 4. **Generate one HTML per variant.** Resolve structure, tokens, and content per the fallback rule. Wire Tailwind + iconify-icon via CDN — see Generated HTML Stack and Tailwind Token Conventions. Write each variant to `.artifacts/design/variants/<slug>.html`, and append its line to the surface's section in `VARIANTS.md`.
 
 5. **Serve** all variants side by side via the server. User picks one.
 
-6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final.html` — beside `VARIANTS.md`, outside the served directory. One surface is decided per run, so `final.html` holds the current decision.
+6. **Mark** the chosen variant's line **chosen** in `VARIANTS.md`, then write that variant to `.artifacts/design/final.html` — beside `VARIANTS.md`, outside the served directory. A run scoped to a single surface names the file for it instead: `final-{surface}.html`.
 
 ## Variant-Tune
 
@@ -198,9 +198,9 @@ Agent addresses each comment and shows the updated variant.
 
 Variants page includes viewport controls that resize the iframe: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — to keep HTML vanilla and self-contained.
 
-Default viewport, passed as `--viewport` when starting the server: `desktop` for brand surfaces and storefronts; `mobile` for mobile app screens; `desktop` for product / dashboard screens.
+Every variant holds at all three widths — the controls are how that is checked, not three designs to pick between. The gallery opens at desktop.
 
-The flag is server-wide and the controls resize every frame together, so it takes the default of the surface being decided. Surfaces whose defaults differ are decided in separate runs, each served at its own width.
+`--viewport mobile | tablet | desktop` opens it at one width instead. It is for a run scoped to a single surface whose work happens at that width, such as a mobile app screen, and it is server-wide: it names the width the run decides at, never a per-variant setting.
 
 ## Guidelines
 

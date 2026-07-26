@@ -56,7 +56,7 @@ Re-render the chosen variant against:
 - **Density extremes** — a list at 1000+ rows and at zero; a table column with an outlier value.
 - **Internationalization shape** — a 30–40% longer translation and an RTL mirror, to expose fixed widths and directional assumptions ([responsive.md](responsive.md)).
 
-Moves: render these states as additional frames of the same variant so the critique sees them side by side with the happy path. The deliverable is a direction that survives reality, not a hardened codebase.
+Moves: render these states as additional sections inside the same variant file, so the critique sees them beside the happy path and the gallery gains no second variant to choose between. The deliverable is a direction that survives reality, not a hardened codebase.
 
 ## Motion tunes (cross-link)
 

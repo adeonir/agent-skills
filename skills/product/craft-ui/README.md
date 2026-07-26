@@ -60,7 +60,7 @@ To make a tuned direction permanent, invoke the owning skill — layout, visual 
 ```text
 .artifacts/design/
 ├── VARIANTS.md          # render: append-only log of what each surface already tried
-├── final.html           # render: the variant the user chose
+├── final.html           # render: the variant the user chose (final-{surface}.html when the run is scoped to one surface)
 └── variants/            # render: structure.yaml + variant HTML + .events session log
 ```
 
