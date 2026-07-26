@@ -27,7 +27,7 @@ flowchart TD
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Audit** | `validation.md` — Goals, ACs, discrimination sensor, spec-defect findings |
-| **Validate / UAT** | `## Visual Evidence` appended to `validation.md` (user-facing) |
+| **Validate / UAT** | `## Visual Evidence` and `## Accessibility` appended to `validation.md` (user-facing) |
 | **Archive** | spec moved to `.artifacts/archive/{created}-{slug}/` (optional, manual, done specs only) |
 
 ### Auto-Sizing

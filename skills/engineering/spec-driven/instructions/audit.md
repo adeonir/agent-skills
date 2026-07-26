@@ -54,7 +54,7 @@ A surviving **referential** mutant means the literal is duplicated across a writ
 
 ## Template: `validation.md`
 
-Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact template structure. For user-facing features, [validate.md](validate.md) later appends its `## Visual Evidence` section — `validation.md` is the single report for technical audit plus visual evidence; the auditor never writes that section.
+Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact template structure. For user-facing features, [validate.md](validate.md) later appends its `## Visual Evidence` and `## Accessibility` sections — `validation.md` is the single report for technical audit plus UAT evidence; the auditor never writes those sections.
 
 ```markdown
 # Validation: {Feature}
