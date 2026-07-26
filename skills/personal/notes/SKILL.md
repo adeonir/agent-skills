@@ -44,7 +44,6 @@ When generating filenames from user input:
 
 - Ask one question at a time when gathering context from the user
 - Refresh `updated` in the frontmatter whenever an existing note is patched
-- Relations carry typed verbs (`- follows [[X]]`, `- part_of [[Project]]`); inline `[[wikilinks]]` cover ordinary mentions, and the section is omitted when no typed edge applies
 
 ## Anti-Pattern: Orphan Wikilinks
 
