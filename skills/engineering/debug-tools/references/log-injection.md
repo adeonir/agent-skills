@@ -114,28 +114,6 @@ For performance regressions, slowdowns, or leaks, plain console logs are not eno
 | Resource bloat | Sample heap or process memory | Reading before/after and delta |
 | Loop suspicion | Iteration counter | Total iterations, time per iteration |
 
-Example -- timing wrapper:
-
-```javascript
-const t0 = performance.now();
-const result = await expensiveCall(args);
-console.log("[DEBUG] [api.ts:42] expensiveCall timing", {
-  ms: performance.now() - t0,
-});
-```
-
-Example -- listener count snapshot:
-
-```javascript
-console.log("[DEBUG] [bus.ts:18] listeners before subscribe", {
-  count: emitter.listenerCount("change"),
-});
-emitter.on("change", handler);
-console.log("[DEBUG] [bus.ts:20] listeners after subscribe", {
-  count: emitter.listenerCount("change"),
-});
-```
-
 Capture before/after pairs so the delta is obvious from the output. A single absolute number rarely answers "is this growing?".
 
 ## Analyzing Console Output
