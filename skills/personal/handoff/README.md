@@ -39,7 +39,7 @@ reset handoff
 
 `.artifacts/HANDOFF.md` — newest snapshot at the top.
 
-Three sections are always present (`Focus`, `Next step`, `State`); four are optional and omitted when empty:
+Three sections are always present (`Focus`, `Next step`, `State`); five are optional and omitted when empty:
 
 ```markdown
 # Handoff
