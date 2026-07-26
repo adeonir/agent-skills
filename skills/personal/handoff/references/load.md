@@ -5,37 +5,18 @@ Read `.artifacts/HANDOFF.md` so the current session resumes with prior context.
 ## When to Use
 
 - User invokes a load trigger ("resume session", "load handoff", "continue from last") at session start or mid-session
-- Wrap-up Load phase consumes the latest snapshot to compose notes
-- Silent no-op when the file is absent or empty
+- Another workflow needs the latest snapshot as input
 
 ## Workflow
 
-1. Check `.artifacts/HANDOFF.md`:
-   - **Absent**: silent no-op, return without output
-   - **Empty or has no `## YYYY-MM-DD HH:MM` blocks**: silent no-op
-2. Read the file.
-3. Locate the topmost `## YYYY-MM-DD HH:MM — {title}` block. This is the latest snapshot — saves prepend at the top.
-4. Surface the block's contents to working context for the rest of the session to consume:
-   - `**Focus:**` — always present
-   - `**Next step:**` — always present
-   - `**Decisions:**` — optional, surface when present
-   - `**Findings:**` — optional, surface when present
-   - `**Open threads:**` — optional, surface when present
-   - `**Blockers:**` — optional, surface when present
-   - `**References:**` — optional, surface when present
-5. Brief output to user: snapshot title + Next step (one line).
+1. Read `.artifacts/HANDOFF.md`. Silent no-op — no output at all — when the file is absent, empty, or carries no dated `## YYYY-MM-DD` block.
+2. Take the topmost dated block: `## YYYY-MM-DD HH:MM — {title}`, or `## YYYY-MM-DD — {title}` when the save had no clock. Saves prepend, so the topmost is the latest.
+3. Report the block's title and `Next step`, then a one-line index of the remaining block headers as `MM-DD — {title}` joined by ` | `. Omit the index line when the file holds a single block.
+4. Read an older block only when the user names one from the index.
 
 ## Guidelines
 
-- Read the file once; do not re-read for downstream consumers — share via working context
-- Do not print the full snapshot to chat unless the user asks; fold silently into context
-- Do not auto-clear after load — clear is a separate explicit op
-- Treat omitted optional sections as empty, not as malformed input
-
-## Error Handling
-
-- File missing: silent no-op
-- File empty or no `##` blocks: silent no-op
-- Topmost block missing a required section (`Focus`, `Next step`): surface what is present and flag the gap to the user before continuing
-- Optional section absent: skip silently — sections are omitted by design when empty
-- Read fails: report the error and stop; do not partial-load
+- Do not print the topmost block in full unless asked — reading it already puts it in context
+- Do not clear after load; clear is a separate explicit op
+- Flag the gap when the topmost block lacks `Focus` or `Next step`, then continue with what is present
+- Treat the index as an inventory, not a queue — older blocks stay unread until named

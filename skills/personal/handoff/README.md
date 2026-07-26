@@ -15,12 +15,12 @@ flowchart LR
 | Op | Output |
 |----|--------|
 | save | New snapshot prepended at the top of `.artifacts/HANDOFF.md` |
-| load | Latest snapshot folded into the current session's working context |
+| load | Topmost snapshot read into the current session, plus a one-line index of older ones |
 | clear | File overwritten with empty content (opt-in, separate op) |
 
 ## Usage
 
-```
+```text
 save context
 dump conversation
 checkpoint this
@@ -39,7 +39,7 @@ reset handoff
 
 `.artifacts/HANDOFF.md` — newest snapshot at the top.
 
-Two sections are always present (`Focus`, `Next step`); five are optional and omitted when empty:
+Three sections are always present (`Focus`, `Next step`, `State`); four are optional and omitted when empty:
 
 ```markdown
 # Handoff
@@ -49,6 +49,8 @@ Two sections are always present (`Focus`, `Next step`); five are optional and om
 **Focus:** {one line}
 
 **Next step:** {concrete entry point}
+
+**State:** {branch, uncommitted files, last commit}
 
 **Decisions:**
 - ...
@@ -66,6 +68,15 @@ Two sections are always present (`Focus`, `Next step`); five are optional and om
 - ...
 ```
 
+## Requirements
+
+Both are optional — save and load work with neither.
+
+| Dependency | Without it |
+|------------|------------|
+| claude-mem MCP | The Enrich phase is skipped silently; the snapshot composes from working context alone |
+| Shell injection (`disableSkillShellExecution` unset) | The header falls back to date-only and `State` is omitted |
+
 ## FAQ
 
 **Q: Does save overwrite the previous snapshot?**
@@ -75,6 +86,10 @@ A: No. Each save prepends a new dated block at the top. Older snapshots are pres
 **Q: Does load auto-clear?**
 
 A: No. Load reads, clear is a separate explicit op.
+
+**Q: Can I resume from an older snapshot?**
+
+A: Yes. Load reads the topmost one and prints a one-line index of the rest; name any entry from that index and load reads it.
 
 **Q: What if the file is absent?**
 

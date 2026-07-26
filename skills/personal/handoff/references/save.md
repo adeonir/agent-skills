@@ -2,35 +2,33 @@
 
 Append a new snapshot block at the top of `.artifacts/HANDOFF.md`.
 
-## Current time
-
-!`date '+%Y-%m-%d %H:%M'`
-
 ## When to Use
 
 - User invokes a save trigger ("save context", "dump conversation", "checkpoint this", "session handoff", "save handoff")
 - File is created if absent
 
-## Argument
+## Current state
 
-The skill accepts an optional argument describing what the next session will focus on:
+Timestamp: !`date '+%Y-%m-%d %H:%M'`
 
-```
-/handoff continue debugging the auth race condition
-```
+Branch: !`git branch --show-current 2>/dev/null`
 
-When an argument is present, tailor `Focus` and `Next step` to that focus. Without an argument, capture the current state generically.
+Last commit: !`git log -1 --oneline 2>/dev/null`
+
+Uncommitted: !`git status --short 2>/dev/null`
 
 ## Format
 
-ALWAYS use this exact template structure. Two sections are required every save; five are optional and must be omitted when empty (do not write "none").
+ALWAYS use this exact template structure. `Focus`, `Next step`, and `State` are required; the rest are omitted when empty — never write "none".
 
 ````markdown
 ## YYYY-MM-DD HH:MM — {one-line title}
 
 **Focus:** {what the next session should pick up; 1 line}
 
-**Next step:** {concrete entry point — file, function, or command}
+**Next step:** {concrete entry point — file, symbol, or command}
+
+**State:** {branch, uncommitted files, last commit; plus what this session applied but did not commit}
 
 **Decisions:**
 - {decision + rationale}
@@ -48,58 +46,32 @@ ALWAYS use this exact template structure. Two sections are required every save; 
 - {paths, artifact links, URLs}
 ````
 
-| Section | Required | Notes |
-|---------|----------|-------|
-| `Focus` | yes | One-line orientation for the next session |
-| `Next step` | yes | Concrete entry point — file, function, command |
-| `Decisions` | no | Omit when no decisions live outside artifacts |
-| `Findings` | no | Omit when nothing notable to carry |
-| `Open threads` | no | Omit when all threads closed |
-| `Blockers` | no | Omit when unblocked |
-| `References` | no | Omit when not applicable |
-
-## Anti-Duplication Rule
-
-Do not duplicate content already captured in artifacts on disk, commits, PRs, issues, documentation, or claude-mem observations. Reference them by path or URL instead. The handoff carries only context that lives in the conversation: unresolved threads, decisions made on the fly, where to pick up, which skill to invoke next.
+MUST NOT contain: content already carried by artifacts on disk, commits, PRs, issues, or documentation — reference those by path or URL instead; secrets of any kind — replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}`.
 
 ## Enrich Phase
 
-Run before composing the snapshot. When the claude-mem MCP is available (`mcp__plugin_claude-mem_mcp-search__*`), query for **current-session** observations relevant to `Focus`. Fold matches into working context so mid-session detail that scrolled out is recovered before the snapshot is written.
+The claude-mem MCP is an **optional** dependency: a snapshot composed without it is complete, not degraded. When the MCP is present (`mcp__plugin_claude-mem_mcp-search__*`), query it for observations relevant to `Focus` before composing the snapshot, recovering mid-session detail that scrolled out of context. Scope strictly:
 
-**Scoping rules (mandatory — do not pollute working context):**
+- **Time**: current session window only
+- **Topic**: `Focus` keywords only; skip parallel threads even when they belong to the same session
+- **Budget**: top 5-10 observations, no broad sweeps
+- **Fallback**: silent skip when the MCP is absent, returns nothing, or `Focus` is not yet clear
 
-- **Time**: current session window only — exclude prior sessions
-- **Topic**: filter by `Focus` keywords; skip parallel unrelated threads even when they belong to the same session
-- **Budget**: top 5-10 most relevant observations, no broad sweeps
-- **Fallback**: silent skip when MCP is unavailable, returns nothing, or the conversation has no clear Focus yet
-
-The goal is recovering lost session detail, not importing history or adjacent threads. Snapshot Findings/Decisions stay terse human prose — observation IDs do not enter the snapshot body.
+Observation IDs do not enter the snapshot body.
 
 ## Workflow
 
-1. Read the timestamp from **Current time** above as the snapshot header. If the section is empty (injection disabled via `disableSkillShellExecution`), fall back to `YYYY-MM-DD` only.
-2. Run the Enrich Phase to fold relevant current-session observations into working context. Skip silently when claude-mem MCP is absent.
-3. Compose the snapshot from working context. Apply the anti-duplication rule — reference artifacts by path, do not replay them. Redact secrets: replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}` before writing.
-4. If an argument was passed, treat it as the focus of the next session and tailor `Focus` and `Next step` accordingly.
-5. Decide which optional sections apply. Omit any that would be empty — do not include the label.
-6. Check `.artifacts/HANDOFF.md`:
-   - **Absent**: create it with `# Handoff` as the H1, then the snapshot block immediately after
-   - **Present**: prepend the new snapshot block above existing content (after the H1, before the previous topmost block)
-7. Confirm the file was written and report the snapshot title.
+1. Read the timestamp from **Current state** above as the snapshot header. When the section is empty (injection disabled via `disableSkillShellExecution`), use `YYYY-MM-DD` alone.
+2. Run the Enrich Phase.
+3. Compose `State` from the branch, uncommitted files, and last commit in **Current state**, plus anything this session applied that is not yet committed. Omit the field when **Current state** carries no git output.
+4. Compose the remaining sections from working context. When an argument is present, treat it as the next session's focus and tailor `Focus` and `Next step` to it.
+5. Omit every optional section that would be empty — no label, no placeholder.
+6. Write `.artifacts/HANDOFF.md`:
+   - **Absent**: create it with `# Handoff` as the H1, then the snapshot block
+   - **Present**: prepend the snapshot block after the H1, above the previous topmost block; insert the H1 first when the file lacks one
+7. Report the snapshot title.
 
 ## Guidelines
 
-- Two sections required (`Focus`, `Next step`); the rest are optional — omit when empty
 - Bullets, not paragraphs — keep each section terse
-- Append at the top so load consumers always read the latest first
-- Reference artifacts by path or URL; never replay their content
-- Redact secrets before writing — API keys, tokens, passwords, PII, and credentials in URLs become `{redacted}`; conversation context is not a safe place for secrets
-- Tailor to the argument when present; capture generic state when absent
-- Run Enrich Phase when claude-mem MCP is available; scope strictly to current session + Focus topic; skip silently otherwise
-
-## Error Handling
-
-- Bash/Write fails to create file: report the error and stop; do not retry silently
-- File exists but has no `# Handoff` H1: insert the H1 before prepending the new block
-- Argument is present but unintelligible: treat as no argument and fall back to generic capture
-- claude-mem MCP unavailable, returns nothing, or query times out: skip Enrich Phase silently and compose from working context only
+- Point `Next step` at a symbol, path, or command rather than a line number; line numbers drift between sessions
