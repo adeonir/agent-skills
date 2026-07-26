@@ -8,10 +8,10 @@ Builds features in phases sized to the change. A mechanical fix is a one-liner; 
 
 ```mermaid
 flowchart TD
-    A[Specify] --> B{Scope?}
+    A[Specify<br/>peer-checked] --> B{Scope?}
     B -->|Small| S[Inline implement<br/>own branch, no spec]
-    B -->|Medium / Large / Complex| D[Design]
-    D --> T[Tasks]
+    B -->|Medium / Large / Complex| D[Design<br/>peer-checked]
+    D --> T[Tasks<br/>peer-checked]
     T --> I[Implement<br/>verify per task]
     I --> AU[Audit<br/>independent subagent]
     AU -->|user-facing| V[Validate / UAT]
