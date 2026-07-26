@@ -6,10 +6,7 @@ Track companies and roles during job application processes — applications, int
 
 - User says "company note", "track interview", "job application", "track this role"
 - User mentions an interview process or offer to remember
-
-## Vault Resolution
-
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
+- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
 
 ## Workflow
 

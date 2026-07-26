@@ -7,10 +7,7 @@ Save meeting, 1:1, feedback, course, lecture, or standup transcription notes to 
 - User says "transcription", "meeting notes", "1:1 notes", "feedback notes", "standup notes", "lecture notes", "course notes"
 - User pastes or shares a transcription from Granola, Otter, or similar
 - User wants to save course module notes, workshop notes, or webinar notes
-
-## Vault Resolution
-
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
+- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
 
 ## Workflow
 

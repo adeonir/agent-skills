@@ -7,10 +7,7 @@ Add achievements to a brag document for performance reviews and career growth.
 - User says "brag document", "my achievements", "add accomplishment"
 - User mentions something they're proud of at work
 - User wants to track wins for performance review
-
-## Vault Resolution
-
-Load [mapping.md](mapping.md) first to resolve vault root via the 3-tier fallback (local symlink → global pointer → bootstrap).
+- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
 
 ## Workflow
 
