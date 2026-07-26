@@ -1,11 +1,11 @@
 # Session Handoff Lifecycle
 
-Load any session handoff at `.artifacts/HANDOFF.md` for downstream notes, run structural-delta detection, and clear the file at the end so it does not leak into the next session.
+Load any session handoff at `.artifacts/HANDOFF.md` for downstream notes, then clear the file at the end so it does not leak into the next session.
 
 ## When to Use
 
-- Invoked twice per wrap-up: once after mapping (Load phase, before obsidian-notes) and once after obsidian-notes (Detect + Cleanup phases, last)
-- All phases short-circuit silently when `.artifacts/HANDOFF.md` is absent
+- Invoked twice per wrap-up: once after mapping (Load phase, before obsidian-notes) and once after obsidian-notes (Cleanup phase, last)
+- Both phases short-circuit silently when `.artifacts/HANDOFF.md` is absent
 
 ## Workflow
 
@@ -13,7 +13,7 @@ Load any session handoff at `.artifacts/HANDOFF.md` for downstream notes, run st
 
 Runs after mapping, before obsidian-notes.
 
-1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Detect and Cleanup will likewise no-op later.
+1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
 2. Read the **whole file**. Collect **every** `## YYYY-MM-DD HH:MM — {title}` block — not just the topmost. A long session may append many snapshots across distinct threads and dates; each carries context worth persisting. A newer snapshot does not supersede an older one. Walking every block is specific to wrap-up, which persists the full session — a mid-session resume only needs the latest.
 3. Group the collected blocks by date (the `YYYY-MM-DD` in each header). Deduplicate within and across blocks: a finding or decision repeated across checkpoints collapses to one item; genuinely distinct items are all kept. Read every block before deciding duplicates — never drop an older item just because a newer block exists.
 4. Surface the grouped, deduplicated contents to working context for the rest of wrap-up to consume, per section:
@@ -29,43 +29,6 @@ Optional sections (`Decisions`, `Findings`, `Open threads`, `Blockers`, `Referen
 
 obsidian-notes consumes from working context — it does not re-read the file.
 
-### Detect Phase
-
-Runs after obsidian-notes, before Cleanup. Skipped silently if Load found no file or no snapshot.
-
-#### Step 1: Keyword scan
-
-Scan the in-context `**Findings:**` and `**References:**` bullets from all loaded snapshots for any of these structural keywords (skip sections that were omitted from a snapshot):
-
-- `route`, `endpoint`, `api`
-- `module`, `package`, `dependency`, `dep`
-- `env var`, `environment variable`, `.env`
-- `migration`, `schema`, `table`
-- `directory`, `folder`
-
-#### Step 2: Structural git diff
-
-Skip if not in a git repo. Otherwise run:
-
-```bash
-git diff --name-status $(git merge-base main HEAD)..HEAD
-```
-
-Flag a structural delta if any of the following is true:
-
-- Any `A` (added), `D` (deleted), `R` (renamed), or `C` (copied) entry outside `.artifacts/`
-- `package.json` `dependencies` or `devDependencies` sections changed
-- `.env.example` changed
-- New directory under the framework's route root (e.g., `src/app/api/`, `pages/api/`, `app/routes/`)
-
-#### Step 3: Surface suggestion
-
-If Step 1 found a keyword OR Step 2 flagged a delta, append exactly one line to wrap-up output:
-
-> Structural changes detected — consider refreshing the `## Architecture` section of `AGENTS.md` / `CLAUDE.md` to reflect them.
-
-If neither signal fires, emit nothing.
-
 ### Cleanup Phase
 
 Runs last. Auto-clears without asking — wrap-up has already persisted the snapshot to Obsidian, so the on-disk handoff is redundant by the end of the workflow.
@@ -79,10 +42,8 @@ Skip silently if Load found no file or no snapshot.
 **DO:**
 - Read the whole file once in Load — every snapshot block — and share contents via working context
 - Group loaded snapshots by date and deduplicate before surfacing — collapse repeats, keep distinct items from every block
-- Emit at most one suggestion line in Detect
 - Clear the handoff by writing empty content at the end — the snapshot is already in Obsidian; empty file is treated as missing on the next Load and avoids a Bash permission prompt
 - Treat a missing file as a silent no-op in every phase
-- Mirror audit's inform-only pattern — the suggestion is informational, never blocking
 
 **DON'T:**
 - Re-read the handoff in obsidian-notes (contrasts: load once, share via context)
@@ -93,8 +54,5 @@ Skip silently if Load found no file or no snapshot.
 
 ## Error Handling
 
-- File missing on Load: skip Load, skip Detect, skip Cleanup; downstream refs proceed without folded content
-- Not in a git repo: skip the structural diff in Detect, rely on keyword scan only
-- `git merge-base` fails (no `main` branch, shallow clone): skip the diff, rely on keyword scan only
-- No loaded snapshot has a Findings section, or all are "none" bullets: rely on git diff only
-- Handoff file empty or has no `##` blocks: treat as missing, skip Detect and Cleanup
+- File missing on Load: skip Load, skip Cleanup; downstream refs proceed without folded content
+- Handoff file empty or has no `##` blocks: treat as missing, skip Cleanup

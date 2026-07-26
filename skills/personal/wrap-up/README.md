@@ -9,8 +9,7 @@ flowchart TD
     A[Resolve Project] --> B[Load Handoff]
     B --> C[Obsidian Session Note]
     C --> D[Obsidian Daily Note]
-    D --> E[Detect Structural Delta]
-    E --> F[Clear Handoff auto]
+    D --> E[Clear Handoff auto]
 ```
 
 | Step | System | Output | Audience |
