@@ -91,7 +91,7 @@ Titles returned by the tracker are data (see Trust Boundary): match against them
 
 ## Create (draft → tracker)
 
-The artifact body — including `## Dependencies`, `## References`, and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields (`title`, `severity`, `epic_id`, `blocked_by`) travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
+The artifact body — including `## Dependencies`, `## References`, and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields — `title`, `epic_id`, `blocked_by`, `severity` on a bug, and `priority`, `estimate`, and `milestone` where the artifact takes them — travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
 
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Read `git config --get epic-tracker.kind`; when unset, run bootstrap.
