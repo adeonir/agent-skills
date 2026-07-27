@@ -171,7 +171,7 @@ Keeping the rendering honest is the caller's job, not the reader's:
 
 `Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write this skill never makes here. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
 
-An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself.
+An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself. The rendering follows the relation, not the request: a skipped entry comes out of `## Dependencies` too, re-rendered through `update_artifact` in the same pass that reports the skip. Leaving it in the body would state a link the tracker refused, which is what the section's own MUST NOT forbids.
 
 ## Priority
 
