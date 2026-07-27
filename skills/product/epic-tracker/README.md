@@ -1,6 +1,6 @@
 # Epic Tracker
 
-Manages the delivery lifecycle from epic planning through story tracking, in an external tracker.
+Manages the delivery lifecycle from roadmap and epic planning through story tracking, in an external tracker.
 
 ## What It Does
 
@@ -99,6 +99,25 @@ block this on X            -- record a dependency on an existing artifact
 configure tracker          -- run bootstrap to set or change tracker config
 ```
 
+## Artifact Bodies
+
+Each artifact is drafted to a fixed set of sections. A section marked optional is present when it has something to say and absent when it does not — an empty one is a result, never a placeholder to fill.
+
+| Artifact | Sections |
+| -------- | -------- |
+| Epic | Summary, Scope, Success Criteria*, Requirements*, Open Questions*, Dependencies*, References |
+| Story | Summary, Out of Scope*, Acceptance Criteria, Open Questions*, Dependencies*, References* |
+| Task | Summary, Definition of Done, Dependencies*, References* |
+| Bug | Summary, Signals*, Steps to Reproduce, Expected, Actual, Impact, Environment*, Workaround, Regression*, Dependencies* |
+
+What is worth knowing about the shapes:
+
+- **A story opens with its declaration** — `As a {role}, I want {capability}, so that {benefit}` — and the role is the same actor its acceptance criteria name in their Given. Prose after it carries only what the declaration does not.
+- **An epic states how it will be judged.** `Success Criteria` are observed after it ships and gate nothing; `Requirements` are what has to hold. An epic still closes on its children.
+- **A bug reads in the order it happened** — the steps first, then what should have happened and what did. The steps also say how reliably they fire: `always`, `intermittently`, or `once`.
+- **References hold only what the tracker cannot model** — design docs, UI links, decisions, and for a task the source it came from. The parent epic and every dependency are tracker relations, so they are never lines in the body; a field with nothing to point at is omitted rather than filled with "None".
+- **Hierarchy is never a list in a body.** Child artifacts live in the tracker's own sub-issue panel.
+
 ## Story Acceptance Criteria
 
 Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N` block with one Given, one When, one Then — no compound clauses — plus an optional `**Satisfies**` line linking the parent-epic requirement it operationalizes. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Resolving each `Satisfies` against the parent epic also flags a Then that promises what the requirement never asked for — a timing, count, threshold, or mechanism with no source — so the story does not quietly owe more than the requirement demands. Past five criteria the skill asks whether the story is really one outcome — a confirm, never a block, and the one size check every story gets whether it came from `decompose` or straight from you. Artifacts read from the tracker are not validated.
@@ -141,4 +160,4 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 
 **Q: What if someone edits the issue while I'm editing it here?** A: Every write to an existing artifact refetches immediately before it lands. When the tracker moved underneath, the skill surfaces the divergence and asks before overwriting — a teammate's edit is never silently destroyed.
 
-**Q: Can a story, bug, or task exist outside an epic?** A: Yes. Standalone means no parent epic — the artifact is created without an `epic_id`. A standalone story carries no `Satisfies` line, since no epic declares the requirements it would link to.
+**Q: Can a story, bug, or task exist outside an epic?** A: Yes. Standalone means no parent epic — the artifact is created without an `epic_id`. A standalone story or task carries no `Satisfies` line, since no epic declares the requirements it would link to.
