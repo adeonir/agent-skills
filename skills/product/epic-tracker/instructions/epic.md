@@ -97,7 +97,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
 - Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirements are the exception: `ID — statement` goes in `## Requirements`)
-- List child stories in the body (contrasts: the tracker's child panel owns hierarchy; materialize stories via decompose)
+- List the epic's children in the body — stories, tasks, or bugs alike (contrasts: the tracker's child panel owns hierarchy; materialize them via decompose)
 - Skip discover (run discover first regardless of provided context)
 - Give the epic an estimate — its size is the roll-up of its children, and a number here is a second answer reports add to that one (contrasts: a story, bug, or task carries its own)
 - Reference the roadmap in the epic body
