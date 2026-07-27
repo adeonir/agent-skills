@@ -17,9 +17,19 @@ Level 1 requires `docs/product/PRD.md`. When it is absent, **error and stop**: "
 
 `docs/product/ROADMAP.md` is this ref's persisted memory of the settled plan. Do the heavy derivation only when there is nothing to read back:
 
-- **No roadmap, or the PRD changed** → derive fresh (Level 1 below), write the roadmap, materialize.
-- **A current roadmap** → read it, skip the derivation, materialize from it.
-- **A change to a current roadmap** → read the roadmap plus the PRD, compute only the delta (epics added/dropped, reordered, requirements or dependencies moved), re-write, materialize.
+- **No roadmap** → derive fresh (Level 1 below), write the roadmap, materialize.
+- **A roadmap, and the request is to materialize** → read it, skip the derivation, materialize from it.
+- **A roadmap, and the request is to change the plan** — an epic added or dropped, a reorder, a PRD that moved → read the roadmap plus the PRD, compute only the delta (epics added/dropped, reordered, requirements or dependencies moved), re-write, materialize. A changed PRD earns the delta, never a fresh derivation: deriving again discards the set the user settled at the checkpoint.
+
+The request picks the branch. Which one applies is in what was asked, not in a state to be inferred — nothing on disk records the PRD the roadmap was derived from.
+
+Drift is surfaced, not detected. Before materializing from an existing roadmap, compare its frontmatter `updated` with the PRD's last commit:
+
+```bash
+git log -1 --format=%ad --date=short -- docs/product/PRD.md
+```
+
+When the PRD is the newer of the two, say so and ask whether to replan or materialize the roadmap as written. This is a nudge, not a gate — an uncommitted PRD edit does not show up here, and nothing blocks on it.
 
 This absorbs the reconcile-on-re-run: adjusting the roadmap means running `decompose` again, never editing `roadmap.md` directly.
 
@@ -99,7 +109,7 @@ Settle the set and each child's boundary with the user, then dispatch **structur
 
 - One brain: derivation, ICE, ordering, partition, and dependencies are decided here — `roadmap.md` and the create refs never re-decide them.
 - Materialize one level per run — roadmap → epics, or epic → stories and tasks.
-- Read the roadmap back on a re-run and compute the delta; derive fresh only when there is no roadmap or the PRD moved.
+- Read the roadmap back on a re-run and compute the delta; derive fresh only when there is no roadmap at all.
 - Checkpoint before the tracker: the roadmap is written first, materialization is a confirmed second step.
 - Delegate every artifact to its create ref — canonical shape and validation are non-negotiable; `decompose` drafts no prose.
 - Settle boundaries with the set — every child states what it owns and what it does not before any child is created.
