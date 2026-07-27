@@ -120,7 +120,7 @@ Creating a bug runs the flow above; editing one runs this branch. It changes the
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, severity, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, severity, `blocked_by`, `priority`, `estimate`) travel as metadata alongside it.
 
 ````markdown
 # {{Bug Title}}

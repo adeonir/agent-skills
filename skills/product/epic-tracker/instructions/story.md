@@ -119,7 +119,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, `blocked_by`, `priority`, `estimate`) travel as metadata alongside it.
 
 ````markdown
 # {{Story Title}}

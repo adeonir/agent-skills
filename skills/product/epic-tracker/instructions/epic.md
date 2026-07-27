@@ -104,7 +104,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, `blocked_by`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, `blocked_by`, `priority`, `milestone`) travel as metadata alongside it.
 
 ````markdown
 # {{Epic Title}}
