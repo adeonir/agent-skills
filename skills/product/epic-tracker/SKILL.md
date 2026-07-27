@@ -67,6 +67,7 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 - The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
 - Delegate sizing to the implementation phase
 - Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
+- Priority (`urgent`, `high`, `medium`, `low`) is optional on all four types and only ever stated by the user — never derived from severity, dependencies, ICE, or a parent epic
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write
 
 ## Anti-Pattern: Tracker Operations in Create Refs

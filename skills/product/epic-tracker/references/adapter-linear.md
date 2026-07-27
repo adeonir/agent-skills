@@ -63,6 +63,20 @@ Resolve a milestone name by reading before writing: list the project's milestone
 
 Any artifact can carry a milestone: the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `set_milestone`. The adapter associates whatever Issue it is given with the resolved milestone, regardless of type — `sync.md` decides which milestone a child carries (its parent epic's). When the caller supplies no milestone, leave the Issue's milestone unset; when `set_milestone` is given none, clear the association.
 
+## Priority Mapping
+
+Priority is a native Issue field in Linear, not a label. Map the generic value to it:
+
+| Generic | Linear priority |
+| ------- | --------------- |
+| urgent | Urgent |
+| high | High |
+| medium | Medium |
+| low | Low |
+| none supplied | No priority |
+
+Any artifact can carry a priority — the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `update_artifact`. When the caller supplies none, leave the field at No priority; the adapter never derives one.
+
 ## Operations
 
 ### create_epic
@@ -70,8 +84,9 @@ Any artifact can carry a milestone: the caller supplies it on `create_epic`, on 
 1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`, with label `epic` and no parent issue.
 2. Inputs: `title` -> Issue title, `body` -> Issue description.
 3. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
-4. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
-5. Return Issue id and url.
+4. When `priority` is supplied, set the native priority field per Priority Mapping above.
+5. The native sub-issue panel is the source of truth for child hierarchy; the body carries no child list.
+6. Return Issue id and url.
 
 ### create_story / create_bug / create_task
 
@@ -79,7 +94,8 @@ Any artifact can carry a milestone: the caller supplies it on `create_epic`, on 
 2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
 4. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
-5. Return Issue id and url.
+5. When `priority` is supplied, set the native priority field per Priority Mapping above.
+6. Return Issue id and url.
 
 ### update_artifact
 
@@ -87,7 +103,8 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 
 1. Update the Issue's title and description.
 2. When a severity is supplied, re-map the severity label: remove the previous `severity:{level}` and apply the new one.
-3. Return success.
+3. When a priority is supplied, set the native priority field per Priority Mapping above, replacing the previous value.
+4. Return success.
 
 ### update_status
 
@@ -116,7 +133,7 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 ### fetch_artifact
 
 1. Fetch the Issue by id.
-2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), parent, blocked-by relations, milestone (the associated project milestone's name, when present), url.
+2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), priority (read back from the native field per the Priority Mapping table; none when the field is No priority), parent, blocked-by relations, milestone (the associated project milestone's name, when present), url.
 
 ### list_artifacts
 

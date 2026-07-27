@@ -53,6 +53,14 @@ An artifact is `planned`, `in-progress`, `done`, or `cancelled`. It holds exactl
 
 Blocked is not a status. Work can be started and waiting on another artifact at the same time, so waiting is carried by `blocked_by` — see below.
 
+## Priority
+
+Any epic, story, bug, or task can carry a priority — `urgent`, `high`, `medium`, or `low` — mapped to the tracker's own surface: Linear's native priority field, GitHub's Projects v2 Priority field or a priority label.
+
+It is stated, never derived. Give one and it travels; say nothing and the artifact carries none, which every tracker shows as unprioritized. Priority does not cascade from an epic to its children, and nothing infers it from severity, from dependencies, or from an epic's place in the roadmap.
+
+Severity and priority are separate on a bug: severity is how badly the defect breaks the product, priority is when the team picks it up.
+
 ## Dependencies
 
 Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations), which both trackers surface in their own UI. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.

@@ -68,7 +68,10 @@ Concepts that use labels:
 | Artifact type: Bug | Labels containing `bug`, `defect`, `fix` |
 | Artifact type: Task | Labels containing `task`, `chore`, `enhancement`, `work`, `maintenance` |
 | Severity | Labels containing the severity word (e.g., `high`, `critical`, `severity-high`) |
+| Priority | Labels naming the concept alongside the level (e.g., `priority:high`, `P1`) |
 | Status (in-progress) | Labels containing `progress` or `wip` |
+
+Severity and priority share their level words, so a bare `high` matches severity alone. A priority label must name the concept too; when none does, create it as `priority:{level}`.
 
 ## Status Mapping
 
@@ -95,6 +98,15 @@ Resolve a milestone name by reading before writing: fetch the repo's milestones 
 
 Any artifact can carry a milestone: the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `set_milestone`. The adapter sets whatever Issue it is given to the resolved milestone, regardless of type — `sync.md` decides which milestone a child carries (its parent epic's). When the caller supplies no milestone, leave the Issue's milestone unset; when `set_milestone` is given none, clear it.
 
+## Priority Mapping
+
+GitHub Issues carry no native priority. Two surfaces hold it, in this order:
+
+1. **Projects v2 Priority field** — when `epic-tracker.project` is set and the Project defines a single-select field for priority, match the generic value against its options semantically (`urgent` matches `P0` or `Urgent`, `high` matches `P1` or `High`, and so on) and set the field on the Issue's Project item. When no option matches, tell the user which one is missing; never create a Project field option silently.
+2. **Label fallback** — otherwise resolve a priority label per Label Matching above and assign it, removing any priority label previously matched.
+
+Any artifact can carry a priority — the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `update_artifact`. When the caller supplies none, leave the Issue with no priority field and no priority label; the adapter never derives one.
+
 ## Operations
 
 ### Issue Type Detection (runtime)
@@ -119,7 +131,8 @@ The cache lives for the session; a new session re-detects.
    - otherwise: match repo labels semantically for `epic` and assign; when nothing matches, tell the user and create the label.
 3. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 4. If `epic-tracker.project` is set: add the Issue to the Project.
-5. Return Issue number and url.
+5. When `priority` is supplied, apply it per Priority Mapping above — after the Project add, since the Project field lands on the Issue's Project item.
+6. Return Issue number and url.
 
 ### create_story
 
@@ -128,7 +141,8 @@ The cache lives for the session; a new session re-detects.
 3. Apply artifact type (session cache `story` issue type, or `story` label).
 4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 5. If `epic-tracker.project` is set: add to the Project.
-6. Return Issue number and url.
+6. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
+7. Return Issue number and url.
 
 ### create_bug
 
@@ -138,7 +152,8 @@ The cache lives for the session; a new session re-detects.
 4. If severity is provided: fetch repo labels, match semantically; assign the match, or tell the user and create the label when nothing matches.
 5. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 6. If `epic-tracker.project` is set: add to the Project.
-7. Return Issue number and url.
+7. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
+8. Return Issue number and url.
 
 ### create_task
 
@@ -147,7 +162,8 @@ The cache lives for the session; a new session re-detects.
 3. Apply artifact type (session cache `task` issue type, or `task` label).
 4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 5. If `epic-tracker.project` is set: add to the Project.
-6. Return Issue number and url.
+6. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
+7. Return Issue number and url.
 
 ### update_artifact
 
@@ -155,7 +171,8 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 
 1. Update the Issue's title and body via the active channel.
 2. When a severity is supplied, re-map the severity label: fetch repo labels, match the new level semantically, remove the previously matched severity label and assign the new one. When nothing matches, tell the user and create the label.
-3. Return success.
+3. When a priority is supplied, apply it per Priority Mapping above, replacing the previous value.
+4. Return success.
 
 ### update_status
 
@@ -191,7 +208,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 ### fetch_artifact
 
 1. Fetch the Issue by id/number via the active channel.
-2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), milestone (the Issue's milestone title, when present), url.
+2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), priority (read back from the Project Priority field when `epic-tracker.project` is set, otherwise from the matched priority label; none when neither carries one), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), milestone (the Issue's milestone title, when present), url.
 
 ### list_artifacts
 
