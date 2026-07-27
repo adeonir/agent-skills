@@ -11,17 +11,17 @@ Before creating an artifact when the trigger does not already name the type, or 
 Most specific first — the Story/Task/Bug split:
 
 1. **Defect** — does it fix behavior that already exists and is broken? → **Bug**
-2. **User-value slice** — does it deliver a demonstrable slice of user value, with acceptance criteria of its own? → **Story**
-3. **Anything else actionable** — enabling, technical, research, tooling, or docs, measured by a Definition of Done with no acceptance criteria → **Task**
+2. **User-value slice** — does it deliver a demonstrable slice of user value, an outcome the user observes on its own? → **Story**
+3. **Anything else actionable** — enabling, technical, research, tooling, or docs, where no user observes an outcome of its own → **Task**
 
 ## Decision Tree
 
 ```text
 Does the behavior already exist and is broken?
 ├ yes → Bug
-└ no  → Does it deliver demonstrable user value with acceptance criteria?
+└ no  → Does the user observe an outcome of its own?
         ├ yes → Story
-        └ no  → Is it actionable work measured by a Definition of Done?
+        └ no  → Is it actionable work with a statable done-condition?
                 ├ yes → Task
                 └ no  → Ask the user
 ```
@@ -36,7 +36,8 @@ Does the behavior already exist and is broken?
 
 ## Notes
 
-- **Story vs Task is form, not audience.** A Story is a demonstrable user-value slice with acceptance criteria; everything else actionable is a Task, even when user-adjacent. A horizontal building block with no demonstrable user outcome is a Task, not a Story.
+- **Story vs Task is the observable outcome, not the audience.** A Story delivers something a user sees happen; everything else actionable is a Task, even when user-adjacent. Work being *about* users does not make it a Story — a horizontal building block with no outcome of its own is a Task however close to the user it sits.
+- **The shape follows the type; it never picks it.** A Story states its outcome as Given/When/Then acceptance criteria, a Task states its as a Definition of Done — consequences of the choice above, not tests for it. Writing no acceptance criteria does not turn a user-observable slice into a Task, and adding them does not turn enabling work into a Story.
 - **Example — password reset.** "Set a new password from a reset link" is a Story: demonstrable on its own, carries acceptance criteria. "Add the password_resets table" or "stand up the mail queue" is a Task: a horizontal building block the story needs but that shows the user nothing on its own.
 - **Anti-pattern — task dressed as story.** "Send a welcome email" is a Task if the user outcome is not observable on its own. "Complete onboarding and receive a welcome email" is a Story because the user sees the result.
 - **No epic to sit under is not a type signal.** A demonstrable user-value slice with no theme to group it is a standalone Story, not a Task — an Epic groups Stories, it never qualifies them. Downgrading the slice to a Task to give it a parent is the inverse of the anti-pattern above.

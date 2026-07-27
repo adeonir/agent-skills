@@ -1,13 +1,13 @@
 # Create Task
 
-Document a general unit of actionable work — anything that is not a user story with acceptance criteria and not a defect. Commonly infrastructure, refactoring, tooling, research, CI/CD, or documentation. A task is defined by form, not audience: no user-story frame, no acceptance criteria, measured by a Definition of Done.
+Document a general unit of actionable work — anything that is not a user story with acceptance criteria and not a defect. Commonly infrastructure, refactoring, tooling, research, CI/CD, or documentation. A task is work no user observes an outcome from, whatever its audience — and its done-state is stated as a Definition of Done rather than acceptance criteria, a consequence of that, never the test for it.
 
 ## When to Use
 
 - User wants to file a task, chore, or general work item
 - User says "create task", "new task", "add task", "chore"
 - User says "edit task", "update task", "change task" — run the edit branch below
-- Work is not framed as a user story with acceptance criteria and is not a defect — measured by a Definition of Done, whatever its audience
+- No user observes an outcome of the work on its own, and it is not a defect — whatever its audience
 
 ## Workflow
 
