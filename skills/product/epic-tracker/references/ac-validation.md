@@ -155,6 +155,8 @@ V8 checks the shape of a `**Satisfies**` value. Three further relations hold acr
 
 `Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the three relations above hold upstream.
 
+This section is the single home for what the `Satisfies` link means and who settles it. A ref that writes one states its own half — a story's AC, a task's done-condition — and never restates the relation.
+
 ## Read-path tolerance
 
 Read paths do not invoke this ref:

@@ -175,7 +175,7 @@ An entry naming an artifact that does not exist in the tracker is skipped with a
 
 ## Priority
 
-Any epic, story, bug, or task can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug.
+Any epic, story, bug, or task can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug. This section is the single home for that split; `bug.md` owns how a severity is chosen, and states nothing else about the difference.
 
 Priority travels as a dispatch input on create and on `update_artifact`, never as body prose. Each adapter maps it to the tracker's own surface — Linear's native priority field, GitHub's Projects v2 Priority field or a priority label.
 
