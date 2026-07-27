@@ -44,7 +44,7 @@ Fill the template (below).
 
 **Body** — the content that becomes the tracker description:
 
-- **Summary**: what this story delivers, who benefits, what changes for the user. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
+- **Summary**: opens with the story declaration — `**As a** {role}, **I want** {capability}, **so that** {benefit}.` — one sentence carrying who the story is for, what they get, and why it is worth doing. The role is the same actor the acceptance criteria name in their Given; a role invented to fill the slot, or a `so that` that restates the capability (`so that I can reset my password`), says nothing. Prose after it carries only what the declaration does not, and is dropped when the declaration carries everything. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). A story materialized via decompose always carries its settled boundary here (see [decompose.md](decompose.md)); otherwise remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V9, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
@@ -95,13 +95,14 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
-3. **Reconcile the Summary and the AC in whichever direction the edit moved** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together in Step 2 and describe the same thing, one in prose and one in verifiable criteria. An edit that moves one half and leaves the other behind ships a story whose two halves disagree. When the AC block changed, bring the Summary to the outcome the story now owes. When the Summary changed, check that the AC still demonstrate the outcome it now states — an outcome no AC demonstrates is a coverage hole to settle with the user, not prose to leave standing. Reconcile before validating.
+3. **Reconcile the Summary and the AC in whichever direction the edit moved** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together in Step 2 and describe the same thing, one in prose and one in verifiable criteria. An edit that moves one half and leaves the other behind ships a story whose two halves disagree. When the AC block changed, bring the Summary to the outcome the story now owes. When the Summary changed, check that the AC still demonstrate the outcome it now states — an outcome no AC demonstrates is a coverage hole to settle with the user, not prose to leave standing. The declaration's role reconciles the same way: an edit that changes who the story is for, on either side, leaves the declaration and every Given naming the same actor. Reconcile before validating.
 4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V9, then resolve each `Satisfies` against the epic's `## Requirements`. That resolution needs the epic, so fetch it as in Step 1; a standalone story stops at V1-V9. An edit that leaves the AC block untouched skips validation; the existing AC is preserved as written.
 5. Dispatch the update through [sync.md](sync.md), which refetches immediately before writing and confirms with the user when the story changed in the tracker underneath.
 
 ## Guidelines
 
 **DO:**
+- Open the Summary with the declaration, and give it the same actor the acceptance criteria name in their Given
 - Write acceptance criteria that are testable without knowing implementation
 - Keep scope tight — one story delivers one demonstrable user outcome, not a horizontal building block
 - Read the parent epic for broader context, as a claim to check rather than authority to inherit
@@ -124,9 +125,12 @@ ALWAYS use this exact template structure. This is the tracker description; the d
 
 ## Summary
 
-{{What this story delivers, who benefits, what changes for the user. One story, one outcome.}}
+**As a** {{role}}, **I want** {{capability}}, **so that** {{benefit}}.
 
-MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong on each AC's `Satisfies` line, never the Summary; `ADR-NNN` belongs in References.
+{{Context the declaration does not carry. Remove this paragraph when it
+carries everything — one story, one outcome.}}
+
+MUST NOT contain: a role that names no actor the acceptance criteria use in their Given, a `so that` that restates the capability (`so that I can reset my password`), prose repeating what the declaration already said, conversation narrative ("as discussed", "we agreed", "the user confirmed"), decision history, `§x.x` section numbers, sibling story names, roadmap language, or implementation details. Requirement IDs (`FR/BR/EC/NFR`) belong on each AC's `Satisfies` line, never the Summary; `ADR-NNN` belongs in References.
 
 ## Out of Scope
 
