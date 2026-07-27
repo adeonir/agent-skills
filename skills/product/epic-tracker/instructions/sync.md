@@ -101,7 +101,7 @@ The artifact body — including `## Dependencies`, `## References`, and `## Sign
 4. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
 5. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone story, bug, or task (no `epic_id`) passes none.
 6. The adapter creates the artifact through its channel. GitHub uses the configured primary (`epic-tracker.channel`) and falls back to `epic-tracker.fallback` when the primary fails (auth, server down, tool missing) — runtime probing applies, so an unavailable primary routes to the fallback immediately. Linear runs on MCP with no fallback.
-7. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies).
+7. On success: surface the tracker URL to the user. When the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies). When the create carves this artifact out of one that already exists, that artifact's dependency on the new one is written onto it, not here (see Dependencies).
 8. **On failure of every available channel:** hold the draft in the session, surface the error, and offer to retry once the integration is back. Never discard the drafted content.
 
 ## Update (edit → tracker)
@@ -177,11 +177,11 @@ A write that adds the first dependency to an artifact that had none writes the s
 
 Keeping the rendering honest is the caller's job, not the reader's:
 
-- **On create,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty — nothing can depend on an artifact that does not exist yet.
+- **On create,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty unless the create carves work out of an artifact that already exists, which depends on the new one from the moment it lands. Only `blocked_by` is stored, so that relation belongs to the existing artifact: once the create returns an id, run the Dependency change flow on that artifact with its `blocked_by` plus the new id, then render `Blocks` here from the relation that write established.
 - **On any write to an existing artifact,** re-render both from the `fetch_artifact` that already precedes every write. The refetch is not an extra call; it is the one the Update flow owes anyway.
 - **On a bare dependency change,** the write is no longer `set_dependencies` alone: dispatch `update_artifact` with the re-rendered section in the same pass, or the description keeps stating a dependency the tracker dropped.
 
-`Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write this skill never makes here. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
+`Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write that lands on that artifact, never on this one. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
 
 An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself. The rendering follows the relation, not the request: a skipped entry comes out of `## Dependencies` too, re-rendered through `update_artifact` in the same pass that reports the skip. Leaving it in the body would state a link the tracker refused, which is what the section's own MUST NOT forbids.
 

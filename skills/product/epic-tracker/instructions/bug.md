@@ -75,7 +75,7 @@ Fill the template (below).
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
 - **Regression**: when the defect first appeared and the last known good — only when it is a regression
-- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
+- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [sync.md](sync.md) "Dependencies".
 
 **Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a bug, the tokens that survive translation are the source links and identifiers, which travel in `## Signals` together with the verbatim evidence — a fact extracted from a paste enters as a standing statement, never as the report of it. An `ADR-NNN` belongs to the fix, not to the defect, and enters the bug nowhere.
 
@@ -192,9 +192,8 @@ keeps the client rows.}
 ## Dependencies
 
 {Remove this section when the artifact neither blocks nor is blocked, and
-drop whichever line has nothing to list — a create carries no `Blocks`.
-A rendering of the tracker's own relations, rewritten on every write —
-the relations panel is what is live.}
+drop whichever line has nothing to list. A rendering of the tracker's own
+relations, rewritten on every write — the relations panel is what is live.}
 
 - **Blocked by:** {{tracker ids or URLs that must finish before this one starts}}
 - **Blocks:** {{tracker ids or URLs waiting on this one — derived, so it is current as of the last write to this artifact}}

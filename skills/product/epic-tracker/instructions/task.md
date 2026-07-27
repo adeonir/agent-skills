@@ -58,7 +58,7 @@ Fill the template (below).
 
 - **Summary**: what needs to be done and why — one clear outcome
 - **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration. Every condition is observed on something this task builds. A condition satisfied by something it does not build — a platform, a runtime, a service, or a library behaving as documented — is not a done-condition here: the task neither implements it nor can fail it. State configured outside the repository is the same case, reached differently: a branch-protection rule, a required status check, a dashboard toggle, an account-level policy — the task can neither change it nor verify it from what it ships. Drop either, or replace it with the observable this task owns that rests on it. One condition per observable: two items that pass together and fail together are one condition, the second stating the first's mechanism or a consequence that follows from it. Keep the one that names the observable and drop the rest. An item whose reason is not obvious carries it inline as `(because {reason})`, reporting the reason its source already states — the clause never supplies one. A condition that needs an invented reason to stand has no source and does not enter the task; the clause is written after the condition traces to a source, never as what admits it. An item that discharges a requirement the parent epic declares also carries a `**Satisfies**` line naming that one id; the id must be one the epic declares, and one that resolves nowhere is surfaced and settled before dispatch, never invented into the epic. When [decompose.md](decompose.md) assigned this task requirement ids, every assigned id reaches an item — one that reaches none is the task dropping work the epic's coverage counts on
-- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
+- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [sync.md](sync.md) "Dependencies".
 - **References**: the source this task came from — a PR, advisory, dashboard, or runbook — plus external docs and any `ADR-NNN` it depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
 **Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a task, the tokens that survive translation are the source link and any `ADR-NNN`, and both travel in `## References`.
@@ -133,9 +133,8 @@ MUST NOT contain: a condition satisfied by something this task does not build �
 ## Dependencies
 
 {Remove this section when the artifact neither blocks nor is blocked, and
-drop whichever line has nothing to list — a create carries no `Blocks`.
-A rendering of the tracker's own relations, rewritten on every write —
-the relations panel is what is live.}
+drop whichever line has nothing to list. A rendering of the tracker's own
+relations, rewritten on every write — the relations panel is what is live.}
 
 - **Blocked by:** {{tracker ids or URLs that must finish before this one starts}}
 - **Blocks:** {{tracker ids or URLs waiting on this one — derived, so it is current as of the last write to this artifact}}

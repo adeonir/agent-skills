@@ -44,7 +44,7 @@ Fill the template (below) with discovered context.
 - **Success Criteria**: the observable conditions that say the epic delivered, checked after it ships. They answer whether the outcome landed; `## Requirements` answers what had to hold. Each traces to a source — a PRD goal, PRODUCT's positioning, or what the user stated — and one that feels real with no source is asked about, never asserted. They gate nothing: an epic closes when its children close, so a criterion is an observation, never a done-condition waiting on an owner. Omit the section when nothing sources one.
 - **Requirements**: the PRD requirements this epic owns (`FR/BR/EC/NFR`), one per line as `ID — statement` — a contract the children operationalize, each story AC — or task done-condition, where no story can carry it — linking back via `Satisfies`. The set of IDs is inherited from the roadmap entry's `Requirements` field when one exists, and derived from the PRD only when the epic is created without a roadmap; each statement is resolved from the PRD either way, translated in form but never in norm. Omit the section when the epic derives from no PRD. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every requirement here must be satisfiable by a child within this epic's scope.
 - **Open Questions**: strategic unknowns to resolve before or during story breakdown; omit the section when nothing is undecided
-- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
+- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [sync.md](sync.md) "Dependencies".
 - **References**: durable pointers the next session follows (PRD, design doc, UI design). They travel into the tracker description, so a fresh session recovers context from the tracker alone.
 
 The epic carries no child list. The tracker's native child panel (GitHub Sub-issues, Linear sub-issues) is the source of truth for hierarchy; stories and tasks are materialized via [decompose.md](decompose.md) or a direct create, and linked there.
@@ -158,9 +158,8 @@ resolve before or during story breakdown.}
 ## Dependencies
 
 {Remove this section when the artifact neither blocks nor is blocked, and
-drop whichever line has nothing to list — a create carries no `Blocks`.
-A rendering of the tracker's own relations, rewritten on every write —
-the relations panel is what is live.}
+drop whichever line has nothing to list. A rendering of the tracker's own
+relations, rewritten on every write — the relations panel is what is live.}
 
 - **Blocked by:** {{tracker ids or URLs that must finish before this one starts}}
 - **Blocks:** {{tracker ids or URLs waiting on this one — derived, so it is current as of the last write to this artifact}}
