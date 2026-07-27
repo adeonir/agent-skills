@@ -75,7 +75,7 @@ Run V1-V9 against the parsed tuples and the raw section text.
 | V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/BR/EC/NFR-<n>` id (empty, a list, or malformed) |
 | V9 | Story stays inside one outcome | confirm | parse yields more than five `### AC-N` blocks |
 
-A bound in a Then — a timing, a count, a threshold, or a mechanism — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
+What a Then asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
 
 V6 red-word list:
 
