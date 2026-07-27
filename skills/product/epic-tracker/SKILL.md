@@ -31,7 +31,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 
 The create refs — `epic.md`, `story.md`, `task.md`, `bug.md` — each draft one artifact from the plan they are given and dispatch it through `sync.md`; usually the user brings that plan directly. `decompose.md` sits in front as an optional planning ceremony: given a PRD it derives the division — the epic set, or an epic's stories and tasks — and feeds the same create refs, so a derived plan and a hand-brought one converge on one path. `bug.md` is only ever a direct create; a defect is never derived from the PRD.
 
-`decompose.md` is the ceremony's brain. It requires `docs/product/PRD.md`, derives the epic set (composing `references/derivation.md` for the clustering and `references/ice-scoring.md` for the evaluation), partitions the requirements, and decides the dependencies. It dispatches the settled entries to `roadmap.md`, then confirms before materializing — dispatching each epic to `epic.md`, and at the epic level each story and task to `story.md`/`task.md`, staying idempotent. On a current roadmap it reads the plan back and skips re-deriving. When the roadmap groups epics into phases, each epic's phase becomes its milestone — its stories and tasks mirror it — reconciled on a re-run.
+`decompose.md` is the ceremony's brain. It requires `docs/product/PRD.md`, derives the epic set (composing `references/derivation.md` for the clustering and `references/ice-scoring.md` for the evaluation), partitions the requirements, and decides the dependencies. It dispatches the settled entries to `roadmap.md`, then confirms before materializing — dispatching each epic to `epic.md`, and at the epic level assigning the epic's requirements across its children before dispatching each story and task to `story.md`/`task.md`, staying idempotent. On a current roadmap it reads the plan back and skips re-deriving. When the roadmap groups epics into phases, each epic's phase becomes its milestone — its stories and tasks mirror it — reconciled on a re-run.
 
 `roadmap.md` writes `docs/product/ROADMAP.md` from the entries `decompose` hands it, committed alongside `PRD.md` and `PRODUCT.md`. It decides nothing and has no direct trigger; adjusting the roadmap means running `decompose`.
 
@@ -63,8 +63,9 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 - Push immediately after the draft step — no separate preview gate, no local copy
 - Route tracker operations through `sync.md` — the create refs stay tracker-agnostic
 - Validate Story AC against ac-validation rules V1-V9 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements — a standalone story writes none, so V1-V9 are its whole validation
-- Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
+- Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation and renders both directions in the body, rewritten on every write
 - The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
+- A requirement the epic declares is operationalized by a story AC, or by a task's done-condition where no story can carry it — an `NFR` delivered by work nobody observes never earns a ceremonial story
 - Estimate (a number in the team's scale) is optional on story, task, and bug, never on an epic, and only ever stated by the user — the skill carries a number, it never produces one
 - Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
 - Priority (`urgent`, `high`, `medium`, `low`) is optional on all four types and only ever stated by the user — never derived from severity, dependencies, ICE, or a parent epic
@@ -80,7 +81,9 @@ Validating Acceptance Criteria when an artifact is fetched from the tracker brea
 
 ## Anti-Pattern: Mixed Artifacts
 
-A single tracker artifact holding both a story and the bugs it spawned, or an epic mixed with its implementation plan, makes status ambiguous — it is done when *what* is done? One tracker artifact = one artifact type. A bug is its own artifact, child of the epic or standalone; so is a task. Hierarchy lives in the tracker's native child panel, never in a list inside a body.
+A single tracker artifact holding both a story and the bugs it spawned, or an epic mixed with its implementation plan, makes status ambiguous — it is done when *what* is done? One tracker artifact = one artifact type. A bug is its own artifact, child of the epic or standalone; so is a task.
+
+What the tracker models natively, the tracker records: hierarchy lives in its child panel and the parent link in its own field, never as a list or a line inside a body. `## Dependencies` is the one deliberate exception — a rendering for the person reading the description, which every write rewrites from the relation. An exception that is maintained; not a licence to restate the rest.
 
 ## Anti-Pattern: Invented Heuristics
 
