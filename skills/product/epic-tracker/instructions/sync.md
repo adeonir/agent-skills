@@ -163,6 +163,17 @@ Dependencies travel as structured metadata, and each adapter maps them to the tr
 
 The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
 
+The rendered form is two labelled lines, and the section is absent when both would be empty:
+
+```markdown
+## Dependencies
+
+- **Blocked by:** {tracker ids or URLs}
+- **Blocks:** {tracker ids or URLs}
+```
+
+A write that adds the first dependency to an artifact that had none writes the section too — it is not in the body to edit, and the create refs that show it in their templates are not loaded here.
+
 Keeping the rendering honest is the caller's job, not the reader's:
 
 - **On create,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty — nothing can depend on an artifact that does not exist yet.
