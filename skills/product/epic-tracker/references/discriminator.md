@@ -32,7 +32,7 @@ Does the behavior already exist and is broken?
 |------|----|---------|
 | Bug | a defect in existing behavior | repro steps, severity, environment |
 | Story | a demonstrable slice of user value | acceptance criteria (Given/When/Then), each carrying `Satisfies` when a parent epic declares the requirement |
-| Task | general actionable work | Definition of Done, no acceptance criteria |
+| Task | general actionable work | Definition of Done, no acceptance criteria; a done-condition carries `Satisfies` when it discharges a requirement no story can |
 
 ## Notes
 
