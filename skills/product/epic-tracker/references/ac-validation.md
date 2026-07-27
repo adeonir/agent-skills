@@ -67,7 +67,7 @@ Run V1-V9 against the parsed tuples and the raw section text.
 |---|------|------------|---------|
 | V1 | Story has at least one AC | strict | parse yields zero `### AC-N` blocks |
 | V2 | Each AC has Given + When + Then | strict | tuple missing any of the three fields, or any field empty |
-| V3 | No compound Given | strict | two `**Given**` lines under one `### AC-N`, OR Given line joins two preconditions with case-insensitive ` and ` (e.g., "Given X and Y") |
+| V3 | No compound Given | strict + confirm | two `**Given**` lines under one `### AC-N` is strict; a single Given line that ` and `-joins two preconditions is confirm-to-continue (see sub-rule below) |
 | V4 | No compound Then | strict + confirm | two `**Then**` lines under one `### AC-N` is strict; a single Then line that ` and `-joins two assertions is confirm-to-continue (split or confirm — see sub-rule below) |
 | V5 | No duplicate AC | strict | two AC tuples with identical normalized {given, when, then} |
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
@@ -82,6 +82,8 @@ V6 red-word list:
 `feel`, `feels`, `intuitive`, `clean`, `nice`, `elegant`, `seamless`, `smooth`, `natural`, `obvious`, `simple` (when used as a quality adjective, not a count).
 
 `simple` is the most context-dependent word on the list — it often appears in legitimate technical contexts ("a simple redirect"). Flag it only when it is clearly used as a subjective quality judgment ("the UI feels simple"), not as a structural descriptor.
+
+V3 sub-rule (the `and`-joined Given heuristic) is confirm-to-continue, and for a different reason than V4's. Two assertions in a Then are two outcomes, and splitting them yields two AC that each verify one. Two preconditions in a Given are one state that must hold whole — splitting yields two AC carrying half the setup each, which verifies neither. So the confirm asks whether the line states one state or two unrelated ones, and a legitimate conjunctive precondition ("the user is signed in and has three items in the cart") is kept. A duplicate `**Given**` line under one block is always hard-strict: one AC states one precondition state, in one line.
 
 V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject: a single-sentence assertion may legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
 
@@ -100,7 +102,7 @@ Examples:
 ```text
 AC-1 fails V2: missing Given clause. Add a line "**Given** {precondition}" before the When line.
 
-AC-1 fails V3: compound Given. Split into AC-1 and AC-2, or rephrase as a single precondition. The phrase " and " joins two preconditions.
+AC-1 fails V3: two Given lines. One AC states one precondition state — merge them into a single line, or split the AC.
 
 AC-2 fails V5: duplicate of AC-1 (same Given/When/Then). Remove or differentiate one of them.
 
@@ -116,6 +118,14 @@ AC-{id} warning V6: Then uses non-observable language: "{word}". Suggest rephras
 ```
 
 Default Y. The user may keep the wording; the warning is informational and does not block. The rewrite names the observable the vague adjective stands for — it never adds a bound the requirement did not state. A timing, a count, or a threshold enters an AC only when the requirement asks for one.
+
+On V3 (`and`-joined Given, confirm-to-continue):
+
+```text
+AC-{id} V3 check: Given joins two preconditions with "and": "{given}". One state the AC needs whole -> keep. Two unrelated setups -> split into separate AC. [keep/split]
+```
+
+Default keep. A conjunctive precondition is normal; the confirm exists for the line that smuggled a second scenario into the setup.
 
 On V4 (`and`-joined Then, confirm-to-continue):
 
@@ -159,7 +169,7 @@ Edits that do not change AC text skip validation (see `story.md`'s edit branch) 
 **DO:**
 - Parse the AC section with whitespace-tolerant matching so tracker normalization does not break the validator
 - Surface every strict failure with AC id, rule name, and a concrete suggested fix
-- Keep V6 warn-only and V9 confirm-to-continue with a default-allow answer, so a heuristic never blocks
+- Keep the heuristics non-blocking with a default-allow answer — V3's and V4's `and` join, V6's red words, V9's count; only a structural failure is strict
 - Run V9 on every story, however it was drafted — the create path has no other sizing signal
 - Treat the V6 red-word list as small and stable; expand it only when a documented false negative recurs
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
@@ -175,7 +185,7 @@ Edits that do not change AC text skip validation (see `story.md`'s edit branch) 
 
 - AC section missing entirely: V1 fires; ask the user to add at least one `### AC-N` block.
 - Block has heading but no Given/When/Then lines: V2 fires per missing field.
-- User explicitly wants compound semantics: V3/V4 still reject; route them to split into multiple AC blocks.
+- User explicitly wants compound semantics: a duplicate `**Given**` or `**Then**` line is still rejected — route them to merge or split. An `and`-joined line is theirs to keep at the V3 or V4 confirm.
 - Tracker body returns malformed markdown (Linear collapsed list items): widen the parser regex tolerance; if still unparseable, route to manual fix in the tracker UI.
 - V6 false positive (e.g., "the user feels confident" where intent is observable): user accepts the warning; nothing blocks.
 

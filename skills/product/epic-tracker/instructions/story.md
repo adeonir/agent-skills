@@ -61,7 +61,7 @@ Apply the resumption gate before proceeding:
 
 ### 3. Validate Acceptance Criteria
 
-Load [ac-validation.md](../references/ac-validation.md) and run V1-V9 on the drafted AC. Strict by default (V1-V3, V5, V7, V8); V4 is strict on a duplicate Then with a confirm on `and`-joined Then; V6 surfaces a warning with confirm-to-continue; V9 confirms the story's size past five criteria.
+Load [ac-validation.md](../references/ac-validation.md) and run V1-V9 on the drafted AC. Strict by default (V1, V2, V5, V7, V8); V3 and V4 are strict on a duplicate Given or Then line, with a confirm on an `and`-joined one; V6 surfaces a warning with confirm-to-continue; V9 confirms the story's size past five criteria.
 
 Then resolve each `Satisfies` line against the epic's `## Requirements`, fetched in Step 1. Only this step can do it, because only this step holds the epic. A standalone story has no epic and writes no `Satisfies`, so V1-V9 are the whole validation for it — a `Satisfies` line on one is a link to nowhere: drop it, or give the story the parent it names. The resolution answers two questions at once:
 
