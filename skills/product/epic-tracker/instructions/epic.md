@@ -61,7 +61,7 @@ Apply the provenance gate as well:
 > **Provenance gate** — If the project has a PRD (`docs/product/PRD.md`),
 > does this epic record which PRD it derives from? Add it if missing — or
 > confirm with the user that the epic is independent before leaving it
-> blank.
+> None.
 
 ### 3. Dispatch
 
@@ -88,7 +88,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 - Read the roadmap entry for the requirement set assigned to this epic (dependencies arrive resolved from `decompose`, not read here); never record it as a source or name it in the body
 - Include scope boundaries -- what's explicitly out helps as much as what's in
 - Run discover first, even when the user provides context directly
-- Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
+- Record PRD provenance when a PRD exists; record `None` only for epics independent of the PRD, and omit the line only when the project has no PRD
 - Record a success criterion only where a source states one — a PRD goal, PRODUCT, or the user; it observes whether the outcome landed and gates nothing
 - Record the PRD requirements the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as `ID — statement`, a contract for child stories; inherit the ID set from the roadmap entry when one exists; omit the section when the epic derives from no PRD
 - Translate each statement in form, never in norm — the modal, the actor, the object, and every bound survive the trip from the PRD unchanged
@@ -158,19 +158,22 @@ resolve before or during story breakdown.}
 
 ## References
 
-{Durable pointers the next session follows to recover context. They travel
-into the tracker description, so the tracker alone is enough to resume.
+{Durable pointers to what the tracker does not model — external documents.
+Omit a field with nothing to point at; a line saying "None" states nothing.
+`PRD` is the exception: on a project that has one, `None` is an assertion
+that this epic is independent of it, confirmed with the user at the
+provenance gate, and an omitted line would read as an oversight instead.
 
-A doc link (a file in a repo, like a Design Doc) is an absolute URL, a
-repo-relative path, or "None". A relative path resolves only when the tracker
-and the file share a host — a GitHub tracker linking a file in the same GitHub
-repo; across hosts (a Linear tracker pointing at a GitHub repo), use an
-absolute URL.}
+A doc link (a file in a repo, like a Design Doc) is an absolute URL or a
+repo-relative path. A relative path resolves only when the tracker and the
+file share a host — a GitHub tracker linking a file in the same GitHub repo;
+across hosts (a Linear tracker pointing at a GitHub repo), use an absolute
+URL.}
 
-- **PRODUCT:** {{link or "None"}}
-- **PRD:** {{link — "None" only when the project has no PRD or this epic is independent of it}}
-- **Design Doc:** {{link or "None"}}
-- **UI Design:** {{link or "None"}}
+- **PRODUCT:** {{link}}
+- **PRD:** {{link, or "None" when the project has one and this epic is independent of it — omit the line only when the project has no PRD}}
+- **Design Doc:** {{link}}
+- **UI Design:** {{link}}
 
 MUST NOT contain: a child story list, roadmap references, or sibling epic names.
 ````

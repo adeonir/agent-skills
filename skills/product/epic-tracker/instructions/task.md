@@ -56,7 +56,7 @@ Fill the template (below).
 - **Summary**: what needs to be done and why — one clear outcome
 - **Signals**: links and ids from pasted context — PRs, advisories, configs, dashboards; omit if empty
 - **Definition of Done**: the conditions that mark the task complete — its done-contract; verifiable items, not sub-step narration. Every condition is observed on something this task builds. A condition satisfied by something it does not build — a platform, a runtime, a service, or a library behaving as documented — is not a done-condition here: the task neither implements it nor can fail it. Drop it, or replace it with the observable this task owns that rests on it. An item whose reason is not obvious carries it inline as `(because {reason})` — the trap it heads off, the guarantee it holds up — so a reader of the task alone can tell an owed condition from an invented one
-- **References**: the parent epic, related stories, external docs, and any `ADR-NNN` the task depends on
+- **References**: external docs and any `ADR-NNN` the task depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
 **Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`CI runs on the Node 20 image`), never as its history (`we discussed staying on Node 18 but decided to upgrade`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history.
 
@@ -135,21 +135,20 @@ MUST NOT contain: a condition satisfied by something this task does not build �
 
 ## References
 
-{Durable pointers the next session follows to recover context. They travel
-into the tracker description, so the tracker alone is enough to resume.
-`## Signals` above holds forensic links, not context pointers.
+{Durable pointers to what the tracker does not model — external documents.
+The parent epic and every dependency are tracker relations, not lines here.
+`## Signals` above holds forensic links, not context pointers. Omit a field
+with nothing to point at, and remove the section when no field survives; a
+line saying "None" states nothing and rots the same as a stale link.
 
-A doc link (a file in a repo, like a Design Doc) is an absolute URL, a
-repo-relative path, or "None". A relative path resolves only when the tracker
-and the file share a host — a GitHub tracker linking a file in the same GitHub
-repo; across hosts (a Linear tracker pointing at a GitHub repo), use an
-absolute URL.}
+A doc link (a file in a repo, like a Design Doc) is an absolute URL or a
+repo-relative path. A relative path resolves only when the tracker and the
+file share a host — a GitHub tracker linking a file in the same GitHub repo;
+across hosts (a Linear tracker pointing at a GitHub repo), use an absolute
+URL.}
 
-- **Epic:** {{tracker URL of the parent epic, or "None"}}
-- **Design Doc:** {{link or "None"}}
-- **Decisions:** {{ADR-NNN this task depends on, or "None"}}
-- **Related stories:** {{tracker URLs or "None"}}
-- **Related tasks:** {{tracker URLs or "None"}}
+- **Design Doc:** {{link}}
+- **Decisions:** {{ADR-NNN this task depends on}}
 ````
 
 ## Error Handling

@@ -225,7 +225,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 ### list_artifacts
 
 1. Query GitHub for items matching the filter — type maps to the issue type or its label fallback, epic maps to the sub-issue parent, status maps to the GitHub state via the Status Mapping table. `done` has no direct predicate: GitHub search cannot express "closed with no reason", so filter it as `is:closed -reason:"not planned"`.
-2. Return summaries with id, title, status, and url — status is the generic value, never `open` / `closed`. The url is what a child artifact records in its `## References`.
+2. Return summaries with id, title, status, and url — status is the generic value, never `open` / `closed`.
 
 ## Error Handling
 

@@ -48,7 +48,7 @@ Fill the template (below).
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). The section is present when an exclusion was decided — work the user cut, a capability deferred, a boundary settled against a neighbour — and absent when none was. A story materialized via decompose always has one, since its boundary was settled with the set (see [decompose.md](decompose.md)).
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V9, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
-- **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. They travel into the tracker description, so a fresh session recovers context from the tracker alone.
+- **References**: durable pointers to what the tracker does not model — design doc, UI design, and any `ADR-NNN` the story depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
 **Declare, don't narrate.** The drafting conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
 
@@ -166,21 +166,21 @@ MUST NOT contain: an unknown that gates no AC in this story (move it to the stor
 
 ## References
 
-{Durable pointers the next session follows to recover context. They travel
-into the tracker description, so the tracker alone is enough to resume.
+{Durable pointers to what the tracker does not model — external documents.
+The parent epic and every dependency are tracker relations, not lines here.
+Omit a field with nothing to point at, and remove the section when no field
+survives; a line saying "None" states nothing and rots the same as a stale
+link.
 
-A doc link (a file in a repo, like a Design Doc) is an absolute URL, a
-repo-relative path, or "None". A relative path resolves only when the tracker
-and the file share a host — a GitHub tracker linking a file in the same GitHub
-repo; across hosts (a Linear tracker pointing at a GitHub repo), use an
-absolute URL.}
+A doc link (a file in a repo, like a Design Doc) is an absolute URL or a
+repo-relative path. A relative path resolves only when the tracker and the
+file share a host — a GitHub tracker linking a file in the same GitHub repo;
+across hosts (a Linear tracker pointing at a GitHub repo), use an absolute
+URL.}
 
-- **Epic:** {{tracker URL of the parent epic, or "None"}}
-- **Design Doc:** {{link or "None"}}
-- **UI Design:** {{link or "None"}}
-- **Decisions:** {{ADR-NNN this story depends on, or "None"}}
-- **Related stories:** {{tracker URLs or "None"}}
-- **Related tasks:** {{tracker URLs or "None"}}
+- **Design Doc:** {{link}}
+- **UI Design:** {{link}}
+- **Decisions:** {{ADR-NNN this story depends on}}
 ````
 
 ## Error Handling
