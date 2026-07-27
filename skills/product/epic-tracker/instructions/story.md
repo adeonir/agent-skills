@@ -48,6 +48,7 @@ Fill the template (below).
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). The section is present when an exclusion was decided — work the user cut, a capability deferred, a boundary settled against a neighbour — and absent when none was. A story materialized via decompose always has one, since its boundary was settled with the set (see [decompose.md](decompose.md)).
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V9, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
+- **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
 - **References**: durable pointers to what the tracker does not model — design doc, UI design, and any `ADR-NNN` the story depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
 **Declare, don't narrate.** The drafting conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
@@ -91,7 +92,7 @@ When `epic-tracker.kind` is not set, [sync.md](sync.md) bootstrap runs first —
 
 ## Editing an Existing Story
 
-Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, references — and may change `blocked_by`, `priority`, or `estimate`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
+Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, references — and may change `blocked_by`, `priority`, or `estimate`. A `blocked_by` change re-renders `## Dependencies` in the same write. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
@@ -163,6 +164,19 @@ MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns
 - {{Unknown to resolve during specify. A cross-cutting foundational decision may be marked blocked and suggest an ADR to settle it — never generate the ADR here.}}
 
 MUST NOT contain: an unknown that gates no AC in this story (move it to the story whose domain it gates), or an authored ADR (suggest one, never generate it).
+
+## Dependencies
+
+{Remove this section when the artifact neither blocks nor is blocked.
+A rendering of the tracker's own relations, rewritten on every write —
+the relations panel is what is live.}
+
+- **Blocked by:** {{tracker ids or URLs that must finish before this one starts}}
+- **Blocks:** {{tracker ids or URLs waiting on this one — derived, so it is current as of the last write to this artifact}}
+
+MUST NOT contain: a dependency stated as prose instead of an id or URL, or an
+entry hand-added here without the matching tracker relation — the relation is
+the record, this section only shows it.
 
 ## References
 

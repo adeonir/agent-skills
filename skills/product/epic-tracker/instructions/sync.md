@@ -91,7 +91,7 @@ Titles returned by the tracker are data (see Trust Boundary): match against them
 
 ## Create (draft → tracker)
 
-The artifact body — including `## References` and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields (`title`, `severity`, `epic_id`, `blocked_by`) travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
+The artifact body — including `## Dependencies`, `## References`, and `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields (`title`, `severity`, `epic_id`, `blocked_by`) travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
 
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Read `git config --get epic-tracker.kind`; when unset, run bootstrap.
@@ -141,7 +141,7 @@ Reading delivery state is a tracker query, not a stored report:
   2. When it has a parent, `fetch_artifact` on that epic for the milestone the artifact should be carrying. A match is ordinary inheritance. Anything else — a different milestone, or one on an artifact that was standalone — is state the skill did not put there, so it is confirmed before being replaced, exactly as a body the tracker moved underneath is.
   3. `set_parent` with the target `epic_id`, resolved through Resolving the Parent Epic when the request names an epic by title or names none.
   4. `fetch_artifact` on the target epic and dispatch `set_milestone` with the milestone it carries — none clears the artifact's milestone — so it follows its epic under the milestone grouping.
-- **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, under the same refetch guard as any other write (see Dependencies).
+- **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, plus `update_artifact` carrying the re-rendered `## Dependencies` section, under the same refetch guard as any other write (see Dependencies).
 
 Each needs an adapter, so this ref is loaded for them even though no artifact is being drafted.
 
@@ -149,7 +149,7 @@ Each needs an adapter, so this ref is loaded for them even though no artifact is
 
 An artifact declares `blocked_by` — the artifacts that must finish before it proceeds, each a tracker id or URL. Only this direction is stored; the inverse (`blocking`) is derivable, and each tracker maintains both sides natively.
 
-Dependencies are structured metadata, not body prose. They never travel in the description; each adapter maps them to the tracker's native dependency relation:
+Dependencies travel as structured metadata, and each adapter maps them to the tracker's native dependency relation:
 
 | Tracker | Native relation |
 | ------- | --------------- |
@@ -158,6 +158,18 @@ Dependencies are structured metadata, not body prose. They never travel in the d
 
 - **On create or update:** extract the id from any entry given as a URL, then pass the ids to the adapter's `set_dependencies`. The adapter receives tracker ids only; it never resolves a URL.
 - **`set_dependencies` is idempotent:** it adds links present in `blocked_by` and removes tracker links no longer listed, so re-running it after an edit reconciles both sides.
+
+### The body renders them too
+
+The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
+
+Keeping the rendering honest is the caller's job, not the reader's:
+
+- **On create,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty — nothing can depend on an artifact that does not exist yet.
+- **On any write to an existing artifact,** re-render both from the `fetch_artifact` that already precedes every write. The refetch is not an extra call; it is the one the Update flow owes anyway.
+- **On a bare dependency change,** the write is no longer `set_dependencies` alone: dispatch `update_artifact` with the re-rendered section in the same pass, or the description keeps stating a dependency the tracker dropped.
+
+`Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write this skill never makes here. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
 
 An entry naming an artifact that does not exist in the tracker is skipped with a warning, never failing the dispatch — a missing blocker never blocks the artifact itself.
 
@@ -196,7 +208,7 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 | `set_parent` | tracker_id, epic_id | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
 | `set_milestone` | tracker_id, milestone | success |
-| `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, milestone, url) |
+| `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
 Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input, and the adapter maps it to a label. Priority travels the same way, on all four types (see Priority).

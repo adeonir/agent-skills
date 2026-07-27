@@ -77,6 +77,8 @@ On GitHub the estimate needs `epic-tracker.project` and a number field on that P
 
 Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations), which both trackers surface in their own UI. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.
 
+The artifact body carries a `## Dependencies` section showing both directions, because whoever opens the issue reads the description, not the relations panel. It is a rendering, not the record: the skill rewrites it on every write to the artifact. `Blocks` moves when another artifact declares a dependency on this one, which is a write elsewhere — so it is current as of this artifact's last write, and the tracker's panel is what is live.
+
 Dependencies are editable for the life of the artifact, not just at creation: "block this on ENG-42", "unblock this".
 
 ## Usage
