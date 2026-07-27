@@ -293,9 +293,15 @@ Creation, refactor, and port are judged by the consuming agent's path through th
 
 Before shipping a structure, trace one real request through it end to end as the agent would: what it reads, in what order, what it writes, and where it would fall back on habit because nothing told it otherwise. The stumble is the finding. The same walk decides whether a level earns its place at all — a catalog pays for its load only where the agent has a reflex to correct.
 
+Trace the reads and you find the routing gaps; **write the output the request would produce** and you find the rest — a vocabulary with no value for the real case, a field shaped for a different kind of product, a step whose input arrives two steps late, a guard that detects and then offers nothing that helps. Those surface at the moment of composing a body, never from reading the files.
+
+Reading for contradictions and walking a request find disjoint defects, and the reading is the one that feels complete: every file can agree with every other while the instruction they agree on cannot be carried out. Run both, and when repeated passes of either start turning up what the previous pass introduced, the method is measuring its own repairs — switch, rather than sweep again.
+
 ### Audit on Merit, Not Authorship
 
 When auditing, reviewing, or fixing a skill, judge the current state on its merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real finding by pointing at who wrote it or when, instead of whether the text is wrong now. A finding stands or falls on the current state, never its provenance: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may still defer a fix to its own change — but say so as scope, not as authorship.
+
+An audit driven down a checklist grows the skill by construction: an item that passes changes nothing, an item that fails adds a section, and the sum of a comparison against any reference is only ever more. The restraint that judges a proposal has to judge the finding too, at the moment it is written down — is the content already required somewhere, is the cost paid on every load against a failure that is rare, does it contradict a register the skill already chose. A finding that cannot survive those questions was never a finding.
 
 ### Token Budget Awareness
 
