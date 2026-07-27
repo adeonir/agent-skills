@@ -24,7 +24,7 @@ EARS operators (`shall`, `when`, `while`, `where`, `if…then`) are the requirem
 
 The agent judges inline — no formal type detection:
 
-- **Reshape** — the input already has ACs or a DoD. Convert 1:1 to EARS, changing only the notation, never the substance (Given + When → trigger; Then → "the system shall…"). A reason the input states alongside an item crosses with it, as that AC's inline `(because …)`.
+- **Reshape** — the input already has ACs or a DoD. Convert 1:1 to EARS, changing only the notation, never the substance (Given + When → trigger; Then → "the system shall…"). A reason the input states alongside an item crosses with it, as that AC's inline `(because …)`, and a requirement ID it names crosses on the `**Satisfies**` sub-line.
 - **Author** — a prompt or PRD with no ACs. Write ACs from the intent.
 
 An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry an AC unexamined — a criterion that fails Calibration below surfaces as a discuss question and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
@@ -41,7 +41,7 @@ The tombstone is an internal record; it tells the user nothing. When the removal
 
 ## Backward provenance — `Satisfies`
 
-Only when the Author starts from a structured document with its own IDs (a PRD's `FR/BR/EC/NFR`), each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
+Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NFR`, or a ticket whose criteria or done-conditions already name them — each AC that operationalizes a requirement carries a `**Satisfies**` sub-line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached an AC. The audit stays AC-keyed; it never anchors on the requirement ID. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
 
 ## Case convention — three classes
 
