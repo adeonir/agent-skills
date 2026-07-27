@@ -110,12 +110,13 @@ An artifact already in the tracker is edited through its create ref's edit branc
 
 **Refetch immediately before every write.** This applies to a body edit and to a status change alike.
 
-1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is a read — it writes nothing.
+1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is the read the create ref's edit branch already ran to load the artifact — one read, not two. It writes nothing.
 2. Apply the edit. For a story, the create ref re-validates the AC when the AC text changed (see [ac-validation.md](../references/ac-validation.md)).
-3. **`fetch_artifact` again, immediately before writing.** Compare with what step 1 returned.
-4. When the tracker state changed in between, surface the divergence and ask the user to confirm before overwriting. Never overwrite silently.
-5. Write the update through the adapter.
-6. When `blocked_by` changed, call `set_dependencies` with the full list (see Dependencies).
+3. **`fetch_artifact` again, immediately before writing.** Compare `updated_at` with what step 1 returned — that marker, not the body. A tracker reflows what it stores, so a body that differs byte for byte says nothing about whether a person touched it, and comparing bodies would raise the guard on every write.
+4. When the marker moved, someone wrote in between. Read what they changed by diffing the two bodies field by field, and **re-apply this edit onto the body that came back**, not the one drafted against the stale read. A change that touches nothing this edit touches merges silently and is reported to the user; where both touched the same field, the user chooses which stands. Never write the drafted body over theirs.
+5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two acceptance criteria numbered the same is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a story, run the AC contract again over the merged result (see [ac-validation.md](../references/ac-validation.md)); a failure routes back to the user with both versions in hand.
+6. Write the update through the adapter.
+7. When `blocked_by` changed, call `set_dependencies` with the full list (see Dependencies).
 
 The anchor is the tracker's state at the moment of the write — never the session, never a stored timestamp. Anyone on the team can edit an issue while a drafting conversation is open, and a stale write destroys their work with no trace.
 
@@ -219,7 +220,7 @@ The adapter exposes a generic interface. Each tracker adapter implements these o
 | `set_parent` | tracker_id, epic_id | success |
 | `set_dependencies` | tracker_id, blocked_by_ids | success |
 | `set_milestone` | tracker_id, milestone | success |
-| `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, url) |
+| `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, updated_at, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
 Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input, and the adapter maps it to a label. Priority travels the same way, on all four types (see Priority).

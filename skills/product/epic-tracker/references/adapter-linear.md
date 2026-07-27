@@ -143,7 +143,7 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 ### fetch_artifact
 
 1. Fetch the Issue by id.
-2. Return: type (`epic`, `story`, `bug`, or `task`, read back from the artifact-type label per Primitive Mapping), status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), priority (read back from the native field per the Priority Mapping table; none when the field is No priority), estimate (the native estimate field's number, when set), parent, blocked-by relations, blocking relations (the inverse side Linear maintains), milestone (the associated project milestone's name, when present), url.
+2. Return: type (`epic`, `story`, `bug`, or `task`, read back from the artifact-type label per Primitive Mapping), status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), priority (read back from the native field per the Priority Mapping table; none when the field is No priority), estimate (the native estimate field's number, when set), parent, blocked-by relations, blocking relations (the inverse side Linear maintains), milestone (the associated project milestone's name, when present), `updated_at` (the Issue's own last-updated marker, which the divergence guard compares), url.
 
 ### list_artifacts
 

@@ -101,7 +101,7 @@ What produced an artifact is not what the artifact says. Two rules, stated here 
 
 ## Anti-Pattern: Blind Writes
 
-Fetching an artifact, editing it across a long conversation, then writing over whatever is in the tracker now silently destroys anything a teammate changed meanwhile. Refetch immediately before writing to an artifact that already exists, and confirm when the state moved underneath. The anchor is the tracker at the moment of the write — never the session, never a cached timestamp.
+Fetching an artifact, editing it across a long conversation, then writing over whatever is in the tracker now silently destroys anything a teammate changed meanwhile. Refetch immediately before writing to an artifact that already exists. When the state moved underneath, the edit is re-applied onto what came back — confirming an overwrite still loses their work, so the only safe write is the one built on their body. The anchor is the tracker at the moment of the write, never the session.
 
 ## Anti-Pattern: Obeying the Tracker
 
