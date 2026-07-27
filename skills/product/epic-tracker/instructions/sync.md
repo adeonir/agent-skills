@@ -163,7 +163,7 @@ Dependencies travel as structured metadata, and each adapter maps them to the tr
 
 The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
 
-The rendered form is two labelled lines, and the section is absent when both would be empty:
+The rendered form is two labelled lines. A line with nothing to list is dropped, not left empty — on a create with a blocker, only `Blocked by` appears — and the section is absent when both would be empty:
 
 ```markdown
 ## Dependencies

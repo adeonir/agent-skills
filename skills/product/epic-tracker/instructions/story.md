@@ -167,7 +167,8 @@ MUST NOT contain: an unknown that gates no AC in this story (move it to the stor
 
 ## Dependencies
 
-{Remove this section when the artifact neither blocks nor is blocked.
+{Remove this section when the artifact neither blocks nor is blocked, and
+drop whichever line has nothing to list — a create carries no `Blocks`.
 A rendering of the tracker's own relations, rewritten on every write —
 the relations panel is what is live.}
 
