@@ -45,7 +45,7 @@ Fill the template (below).
 **Body** — the content that becomes the tracker description:
 
 - **Summary**: opens with the story declaration — `**As a** {role}, **I want** {capability}, **so that** {benefit}.` — one sentence carrying who the story is for, what they get, and why it is worth doing. The role is the same actor the acceptance criteria name in their Given; a role invented to fill the slot, or a `so that` that restates the capability (`so that I can reset my password`), says nothing. Prose after it carries only what the declaration does not, and is dropped when the declaration carries everything. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
-- **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). A story materialized via decompose always carries its settled boundary here (see [decompose.md](decompose.md)); otherwise remove the section if nothing is ambiguous.
+- **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). The section is present when an exclusion was decided — work the user cut, a capability deferred, a boundary settled against a neighbour — and absent when none was. A story materialized via decompose always has one, since its boundary was settled with the set (see [decompose.md](decompose.md)).
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V9, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
 - **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. They travel into the tracker description, so a fresh session recovers context from the tracker alone.
@@ -134,8 +134,9 @@ MUST NOT contain: a role that names no actor the acceptance criteria use in thei
 
 ## Out of Scope
 
-{Remove this section if nothing is ambiguous. A story materialized via
-decompose always keeps it, carrying the boundary settled there.}
+{Keep this section when an exclusion was decided — work cut, a capability
+deferred, a boundary settled against a neighbour. Remove it when none was;
+a story nobody drew a line around has no boundary to state.}
 
 - {{What this story explicitly does not cover — stated in this story's own terms, never naming the sibling that covers it. Example: "Email-based password reset" not "the reset-via-SMS story"}}
 
