@@ -28,7 +28,7 @@ Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `g
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
-| Discover | Check for existing PRD, roadmap, or context | Context for the draft |
+| Discover | Epic only — read the PRD, PRODUCT, and this epic's roadmap entry | Context for the draft |
 | Draft | Compose epic, story, bug, or task to its canonical template | Body + dispatch inputs |
 | Sync | Dispatch to the tracker via its adapter | Tracker artifact + URL |
 
