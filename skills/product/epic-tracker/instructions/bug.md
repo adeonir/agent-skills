@@ -197,5 +197,5 @@ into the tracker description, so the tracker alone is enough to resume.
 ## Error Handling
 
 - User can't provide reproduction steps: document what's known, mark as "intermittent" in the description
-- Severity unclear: default to medium, flag for user review
+- Severity unclear: ask the user; severity travels as a dispatch input and the adapter maps it to a tracker label, so a guessed level misroutes triage under the reporter's name
 - Duplicate bug suspected: list the epic's bugs from the tracker and ask if this is a duplicate
