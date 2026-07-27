@@ -65,7 +65,7 @@ Every artifact takes the same path: a create ref drafts it and dispatches throug
 - Validate Story AC against ac-validation rules V1-V8 on create and on edits that change AC text, then resolve each `Satisfies` against the parent epic's requirements — a standalone story writes none, so V1-V8 are its whole validation
 - Capture cross-artifact order with `blocked_by` as tracker ids; sync maps it to the tracker's native dependency relation
 - The create refs draft from the plan they are given and never derive it — planning (derive, score, order, partition, dependencies) belongs to `decompose` when it runs, which writes the roadmap through `roadmap.md` and confirms before materializing; the canonical template and validation hold whatever the plan's source
-- Delegate sizing to the implementation phase
+- Estimate (a number in the team's scale) is optional on story, task, and bug, never on an epic, and only ever stated by the user — the skill carries a number, it never produces one
 - Status values: `planned`, `in-progress`, `done`, `cancelled` — dropped work is `cancelled`, never `done`
 - Priority (`urgent`, `high`, `medium`, `low`) is optional on all four types and only ever stated by the user — never derived from severity, dependencies, ICE, or a parent epic
 - Create and edit both conform the artifact to its canonical template — structure and MUST-NOT boundaries hold either way, never a free-form write

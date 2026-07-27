@@ -61,6 +61,16 @@ It is stated, never derived. Give one and it travels; say nothing and the artifa
 
 Severity and priority are separate on a bug: severity is how badly the defect breaks the product, priority is when the team picks it up.
 
+## Estimate
+
+A story, bug, or task can carry an estimate — a number in whatever scale the tracker is already set up for: Linear's native estimate field, a number field on a GitHub Project. An epic carries none; its size is the roll-up of its children, and a number on the epic too is a second answer reports add to that one.
+
+Estimation is opt-in and never prompted. Say a number and it travels; say nothing and the artifact carries none. The skill never estimates on your behalf — not from the count of acceptance criteria, not from scope, not from severity.
+
+The scale stays yours. A t-shirt size or a range is settled with you before the push, because only your team's scale says which number it is.
+
+On GitHub the estimate needs `epic-tracker.project` and a number field on that Project — without one there is nowhere to put it, so the skill says so and creates the artifact without it.
+
 ## Dependencies
 
 Any epic, story, bug, or task can declare `blocked_by` — the artifacts that must finish first, as tracker ids or URLs. It maps to the tracker's native dependency relation (GitHub issue dependencies, Linear issue relations), which both trackers surface in their own UI. Only `blocked_by` is stored — the inverse is derived, and the tracker keeps both sides in sync.

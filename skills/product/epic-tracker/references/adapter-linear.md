@@ -77,6 +77,14 @@ Priority is a native Issue field in Linear, not a label. Map the generic value t
 
 Any artifact can carry a priority — the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `update_artifact`. When the caller supplies none, leave the field at No priority; the adapter never derives one.
 
+## Estimate
+
+Estimate is the native `estimate` field on the Issue, a number. The team picks how that number renders — Fibonacci, exponential, linear, t-shirt — and the adapter writes the number it is given without touching the scale.
+
+A story, bug, or task carries one when the caller supplies it; an epic never does, so `create_epic` takes no estimate. When the caller supplies none, leave the field unset.
+
+Estimates are a per-team setting in Linear. When `epic-tracker.team` has them disabled, the field cannot be written: tell the user the team has estimates off, and create or update the Issue without it rather than failing the dispatch.
+
 ## Operations
 
 ### create_epic
@@ -95,7 +103,8 @@ Any artifact can carry a priority — the caller supplies it on `create_epic`, o
 3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
 4. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
 5. When `priority` is supplied, set the native priority field per Priority Mapping above.
-6. Return Issue id and url.
+6. When `estimate` is supplied, set the native estimate field per Estimate above.
+7. Return Issue id and url.
 
 ### update_artifact
 
@@ -104,7 +113,8 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 1. Update the Issue's title and description.
 2. When a severity is supplied, re-map the severity label: remove the previous `severity:{level}` and apply the new one.
 3. When a priority is supplied, set the native priority field per Priority Mapping above, replacing the previous value.
-4. Return success.
+4. When an estimate is supplied, set the native estimate field per Estimate above, replacing the previous value.
+5. Return success.
 
 ### update_status
 
@@ -133,7 +143,7 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 ### fetch_artifact
 
 1. Fetch the Issue by id.
-2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), priority (read back from the native field per the Priority Mapping table; none when the field is No priority), parent, blocked-by relations, milestone (the associated project milestone's name, when present), url.
+2. Return: status (read back from the state's `type` per the Status Mapping table), title, body (the Issue description), severity (from the `severity:{level}` label, when present), priority (read back from the native field per the Priority Mapping table; none when the field is No priority), estimate (the native estimate field's number, when set), parent, blocked-by relations, milestone (the associated project milestone's name, when present), url.
 
 ### list_artifacts
 
@@ -147,5 +157,6 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 - Parent epic id not found: ask whether to create the epic first or attach to a different one
 - Label missing in the team: tell the user, then create it
 - No state of the needed type in the team: surface it, and ask which state to use
+- Estimates disabled for the team: tell the user, then write the Issue without the estimate
 - API rate limit: surface the error, suggest waiting a minute before retry
 - Auth error: route the user to Linear MCP auth setup

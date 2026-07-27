@@ -91,14 +91,13 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 - Record PRD provenance when a PRD exists; leave it blank only for epics independent of the PRD
 - Record the PRD requirements the epic owns (`FR/BR/EC/NFR`) in `## Requirements` as `ID — statement`, a contract for child stories; inherit the ID set from the roadmap entry when one exists; omit the section when the epic derives from no PRD
 - Translate each statement in form, never in norm — the modal, the actor, the object, and every bound survive the trip from the PRD unchanged
-- Hand sizing off to the implementation phase
 
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
 - Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirements are the exception: `ID — statement` goes in `## Requirements`)
 - List child stories in the body (contrasts: the tracker's child panel owns hierarchy; materialize stories via decompose)
 - Skip discover (run discover first regardless of provided context)
-- Add size estimates (sizing is an implementation concern)
+- Give the epic an estimate — its size is the roll-up of its children, and a number here is a second answer reports add to that one (contrasts: a story, bug, or task carries its own)
 - Reference the roadmap in the epic body
 
 ## Template

@@ -40,6 +40,7 @@ Fill the template (below).
 - **Epic id**: the parent epic's tracker id, resolved in Step 1, or none for a standalone story
 - **Blocked by**: the artifacts that must finish before this story can start, listed in `blocked_by` — tracker ids or URLs. Lets the tracker enforce order; leave empty when nothing blocks it. See [sync.md](sync.md) "Dependencies".
 - **Priority**: optional — `urgent`, `high`, `medium`, or `low`, carried only when the user states one. A story does not inherit its epic's priority, and none is inferred from `blocked_by` or from an ICE score. See [sync.md](sync.md) "Priority".
+- **Estimate**: optional — a number in the team's own scale, carried only when the user states one. Never asked for on create, and never inferred from the AC count or the scope. See [sync.md](sync.md) "Estimate".
 
 **Body** — the content that becomes the tracker description:
 
@@ -89,7 +90,7 @@ When `epic-tracker.kind` is not set, [sync.md](sync.md) bootstrap runs first —
 
 ## Editing an Existing Story
 
-Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — and may change `blocked_by` or `priority`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
+Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — and may change `blocked_by`, `priority`, or `estimate`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
@@ -107,7 +108,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 - Parse the epic's `## Requirements` with whitespace tolerance — tracker descriptions are reflowed
 
 **DON'T:**
-- Add a size field — sizing happens at implementation time
+- Estimate the story yourself — the number travels only when the user states one
 - Include implementation details or technical design
 - Carry requirement IDs in prose — link them on each AC's `Satisfies` line; still strip `§x.x` section numbers, sibling names, and roadmap language
 - Invent a ceremonial epic just to give a story a parent (contrasts: a slice with no theme is a standalone story)

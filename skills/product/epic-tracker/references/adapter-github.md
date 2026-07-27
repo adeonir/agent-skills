@@ -107,6 +107,14 @@ GitHub Issues carry no native priority. Two surfaces hold it, in this order:
 
 Any artifact can carry a priority — the caller supplies it on `create_epic`, on `create_story` / `create_bug` / `create_task`, or on `update_artifact`. When the caller supplies none, leave the Issue with no priority field and no priority label; the adapter never derives one.
 
+## Estimate
+
+An estimate is a number, and GitHub has nowhere native to put one. The only surface is a Projects v2 number field, so an estimate lands **only when `epic-tracker.project` is set** and the Project defines such a field — match it semantically against the Project's number fields (`Estimate`, `Size`, `Points`).
+
+Without a Project, or with a Project that defines no number field, tell the user the estimate has nowhere to land and write the Issue without it. Never fail the dispatch over it, and never fall back to a label: an estimate encoded as a label is a number the tracker cannot sum, which is the only thing an estimate is for.
+
+A story, bug, or task carries one when the caller supplies it; an epic never does, so `create_epic` takes no estimate. Set it on the Issue's Project item after the Project add.
+
 ## Operations
 
 ### Issue Type Detection (runtime)
@@ -142,7 +150,8 @@ The cache lives for the session; a new session re-detects.
 4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 5. If `epic-tracker.project` is set: add to the Project.
 6. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
-7. Return Issue number and url.
+7. When `estimate` is supplied, set it per Estimate above.
+8. Return Issue number and url.
 
 ### create_bug
 
@@ -153,7 +162,8 @@ The cache lives for the session; a new session re-detects.
 5. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 6. If `epic-tracker.project` is set: add to the Project.
 7. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
-8. Return Issue number and url.
+8. When `estimate` is supplied, set it per Estimate above.
+9. Return Issue number and url.
 
 ### create_task
 
@@ -163,7 +173,8 @@ The cache lives for the session; a new session re-detects.
 4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.
 5. If `epic-tracker.project` is set: add to the Project.
 6. When `priority` is supplied, apply it per Priority Mapping above — after the Project add.
-7. Return Issue number and url.
+7. When `estimate` is supplied, set it per Estimate above.
+8. Return Issue number and url.
 
 ### update_artifact
 
@@ -172,7 +183,8 @@ Rewrites an existing Issue's body. `sync.md` refetches immediately before callin
 1. Update the Issue's title and body via the active channel.
 2. When a severity is supplied, re-map the severity label: fetch repo labels, match the new level semantically, remove the previously matched severity label and assign the new one. When nothing matches, tell the user and create the label.
 3. When a priority is supplied, apply it per Priority Mapping above, replacing the previous value.
-4. Return success.
+4. When an estimate is supplied, set it per Estimate above, replacing the previous value.
+5. Return success.
 
 ### update_status
 
@@ -208,7 +220,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 ### fetch_artifact
 
 1. Fetch the Issue by id/number via the active channel.
-2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), priority (read back from the Project Priority field when `epic-tracker.project` is set, otherwise from the matched priority label; none when neither carries one), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), milestone (the Issue's milestone title, when present), url.
+2. Return: status (read back per the Status Mapping table), title, body, severity (from the matched severity label, when present), priority (read back from the Project Priority field when `epic-tracker.project` is set, otherwise from the matched priority label; none when neither carries one), estimate (the Project number field's value, when a Project carries one), parent (the sub-issue parent, when present), blocked-by Issue numbers (via the dependencies endpoints, or `gh issue view --json blockedBy` when CLI is active), milestone (the Issue's milestone title, when present), url.
 
 ### list_artifacts
 
@@ -220,6 +232,7 @@ Dependencies are Issue-to-Issue within the same repo; cross-repo blocking is not
 - Repo not accessible: route to GitHub auth setup.
 - Sub-issue attach fails (permissions, cross-repo restriction): surface the error together with the already-created Issue's number and url, so the user can attach it in the tracker or discard it — the Issue exists even though the attach did not.
 - `epic-tracker.project` set but Project not found: ask user to verify or offer to create.
+- Estimate supplied with no Project, or a Project with no number field: tell the user, then write the Issue without it.
 - Issue type not found in org (type was deleted or renamed since it was cached): warn the user, drop the cached types, and fall back to label matching for this operation.
 - Label missing in the repo: tell the user, then create it.
 - API rate limit: surface the error, suggest waiting before retry.
