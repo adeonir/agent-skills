@@ -33,8 +33,8 @@ If no context was pasted, proceed to step 2 and ask for all fields.
 
 Ask the user for (skip what's already provided or inferred):
 
-1. **What happened vs what should happen** -- expected and actual behavior
-2. **Steps to reproduce** -- ordered steps to trigger the bug
+1. **Steps to reproduce** -- ordered steps to trigger the bug, and how reliably they do it: always, intermittently, or once
+2. **What happened vs what should happen** -- expected and actual behavior
 3. **Severity** -- critical (system down), high (major feature broken), medium (workaround exists), low (cosmetic/minor)
 4. **Environment** -- browser, OS, device, app version, environment (optional, ask only if relevant)
 5. **Workaround** -- any known mitigation
@@ -66,10 +66,10 @@ Fill the template (below).
 
 - **Summary**: one-sentence description of the defect
 - **Signals**: forensic data from logs/dashboards — links, ids, timestamps, error excerpts; populate from pasted context, omit if empty
+- **Steps to Reproduce**: numbered, specific steps, plus how reliably they trigger it — `always`, `intermittently`, or `once`. A defect that does not reproduce on demand is still a bug; what makes it hard to act on is not knowing that, so the line is written even when the answer is that nobody can say when it happens
 - **Expected**: what should happen
 - **Actual**: what actually happens
 - **Impact**: who is affected and how severely
-- **Steps to Reproduce**: numbered, specific steps
 - **Environment**: table of relevant environment details (optional)
 - **Workaround**: known mitigation or "None known"
 - **Regression**: when the defect first appeared and the last known good — only when it is a regression
@@ -144,6 +144,14 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
   {{stack trace or error message verbatim}}
   ```
 
+## Steps to Reproduce
+
+1. {{First action}}
+2. {{Next step}}
+3. {{Step where the bug manifests}}
+
+**Reproducible:** {{always | intermittently | once — and, when it is not always, what is known about when it happens}}
+
 ## Expected
 
 {{What should happen}}
@@ -155,12 +163,6 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 ## Impact
 
 {{Who is affected and how severely}}
-
-## Steps to Reproduce
-
-1. {{First action}}
-2. {{Next step}}
-3. {{Step where the bug manifests}}
 
 ## Environment
 
@@ -203,6 +205,6 @@ the record, this section only shows it.
 
 ## Error Handling
 
-- User can't provide reproduction steps: document what's known, mark as "intermittent" in the description
+- User can't provide reproduction steps: document what is known and record the reproducibility as `once`, or `intermittently` with whatever is known about when it happens — an unreproducible defect is still a bug
 - Severity unclear: ask the user; severity travels as a dispatch input and the adapter maps it to a tracker label, so a guessed level misroutes triage under the reporter's name
 - Duplicate bug suspected: list the epic's bugs from the tracker and ask if this is a duplicate
