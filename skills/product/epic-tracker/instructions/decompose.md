@@ -67,7 +67,9 @@ Present the written plan and **confirm before creating anything in the tracker**
 
 Materialize in **dependency order** — a blocker before its dependents. The roadmap records `Blocked by` as epic **titles** (the only stable reference at plan time, before any epic has a tracker id); creating in dependency order means each epic's blockers already exist when it is created, so their titles resolve to tracker ids from the epics created earlier this run (or found via `list_artifacts`). Pass those resolved ids as the epic's `blocked_by` dispatch input.
 
-Idempotent: load [sync.md](sync.md), run `list_artifacts` filtered to epics, and dispatch only the **missing** ones to [epic.md](epic.md), passing the resolved `blocked_by` ids and the epic's milestone. Each epic reads its own entry for the requirement IDs it owns, plus the PRD for their statements, and drafts its body — `decompose` never bypasses the create ref, and never drafts prose itself. Run the coverage check: every requirement ID in the roadmap lands in some epic's entry, none claimed twice; a Must/Should ID assigned to nobody is an orphan to place before materializing.
+Idempotent: load [sync.md](sync.md), run `list_artifacts` filtered to epics, and dispatch only the **missing** ones to [epic.md](epic.md), passing the resolved `blocked_by` ids and the epic's milestone. Each epic reads its own entry for the requirement IDs it owns, plus the PRD for their statements, and drafts its body — `decompose` never bypasses the create ref, and never drafts prose itself.
+
+The partition is not re-validated here. Step 3 settled it with the PRD in hand, which is the only place orphans are visible at all — the roadmap holds the IDs that landed, never the ones that did not. A roadmap read back from a previous run carries a partition already settled and confirmed at its checkpoint, and `epic.md` reads each entry as a claim, so an ID that contradicts an epic's scope surfaces there, per epic.
 
 On a re-run, `list_artifacts` also surfaces epics that no longer fit the current plan — offer to cancel (`update_status` `cancelled`), reparent (`set_parent`), or keep them; never auto-delete.
 
