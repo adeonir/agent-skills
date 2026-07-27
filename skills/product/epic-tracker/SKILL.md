@@ -84,9 +84,9 @@ A single tracker artifact holding both a story and the bugs it spawned, or an ep
 
 ## Anti-Pattern: Invented Heuristics
 
-Filling a Rabbit Hole or a Definition of Done item with generic best-practice lore — "a slow pre-commit hook trains the developer to skip it", "this will not scale", "cache invalidation gets tricky here" — states a risk the project never reported. It reads as a finding and behaves as scope: the invented risk pulls an implementation decision nobody asked for (narrow the hook to staged files, add a cache layer), and the reader cannot tell it apart from the constraints that came from the repository.
+Filling a Definition of Done item, a success criterion, or an open question with generic best-practice lore — "a slow pre-commit hook trains the developer to skip it", "this will not scale", "cache invalidation gets tricky here" — states a concern the project never reported. It reads as a finding and behaves as scope: the invented concern pulls an implementation decision nobody asked for (narrow the hook to staged files, add a cache layer), and the reader cannot tell it apart from the constraints that came from the repository.
 
-A risk, a constraint, or a done-condition is written only when it traces to a source — a file in the repository, a linked doc, the parent epic, pasted context, or what the user stated. When one feels real but has no source, ask instead of asserting; the answer either becomes a sourced line or does not enter the artifact.
+A constraint, a done-condition, or a criterion is written only when it traces to a source — a file in the repository, a linked doc, the parent epic, pasted context, or what the user stated. When one feels real but has no source, ask instead of asserting; the answer either becomes a sourced line or does not enter the artifact.
 
 ## Anti-Pattern: Blind Writes
 

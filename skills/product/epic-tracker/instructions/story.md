@@ -47,7 +47,6 @@ Fill the template (below).
 - **Summary**: what this story delivers, who benefits, what changes for the user. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). A story materialized via decompose always carries its settled boundary here (see [decompose.md](decompose.md)); otherwise remove the section if nothing is ambiguous.
 - **Acceptance Criteria**: one or more `### AC-N` blocks, each with a single Given/When/Then plus a `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/BR/EC/NFR`; omit the line for an AC that maps to no requirement). When the parent epic has `## Requirements`, every story should operationalize at least one of them — a story that maps to no requirement is likely a Task. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome, never a timing, count, threshold, or mechanism the requirement does not ask for. Validated in Step 3 against rules V1-V9, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
-- **Rabbit Holes**: where execution sinks time — an unknown that expands the work, an ordering constraint that bites when missed, an integration quirk of something external, an edge case the naive approach gets wrong. At this grain, the traps in delivering this story's outcome. A trap costs time; an obligation costs correctness: a condition that must hold for the story to be done is an AC, and the reason an AC exists is neither. Not implementation advice or upstream design notes. A trap belongs to the story whose domain owns it, not the story you were authoring when it surfaced — being the first story of an initiative does not make it the owner. If it affects other stories, relocate it to the sibling that owns the domain: the trap moves, it is not cross-referenced. A trap is one that surfaced while shaping this story, never one derived from the domain because the section is there; omit the section when none surfaced — finding no trap is a result, not a gap to fill
 - **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
 - **References**: durable pointers the next session follows (parent epic, design doc, UI design) plus any `ADR-NNN` the story depends on. They travel into the tracker description, so a fresh session recovers context from the tracker alone.
 
@@ -92,7 +91,7 @@ When `epic-tracker.kind` is not set, [sync.md](sync.md) bootstrap runs first —
 
 ## Editing an Existing Story
 
-Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, rabbit holes, references — and may change `blocked_by`, `priority`, or `estimate`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
+Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, references — and may change `blocked_by`, `priority`, or `estimate`. A status change runs the Status change flow in [sync.md](sync.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
 
 1. Load the story from the tracker (by id or URL) via [sync.md](sync.md) — `fetch_artifact` reads it into memory.
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
@@ -150,15 +149,6 @@ MUST NOT contain: sibling story or task names — state each boundary in terms o
 {Add additional `### AC-N` blocks as needed. Each AC has exactly one Given/When/Then; the `**Satisfies**` line is optional and names one parent-epic requirement (`FR/BR/EC/NFR`). See [ac-validation.md](../references/ac-validation.md) for the contract and a worked example.}
 
 MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), a Then satisfied by something no artifact here builds — platform, runtime, service, or library behavior nobody implements and nobody can fail — or a Then that restates a sibling's deliverable or anything listed in Out of Scope.
-
-## Rabbit Holes
-
-{Remove this section when no trap surfaced — an empty section is a result,
-not a gap to fill.}
-
-- {{Execution trap specific to this story — edge case, ordering constraint, or integration quirk}}
-
-MUST NOT contain: implementation advice, upstream design notes, cross-references to other documents, a trap that belongs to a sibling story's domain (relocate it there), an obligation (a condition that must hold belongs in `## Acceptance Criteria`), the reason an obligation exists, or a risk with no source — the repository, a linked doc, the parent epic, or what the user stated. A source that mentions the subject does not source the trap: what a source has to state is the risk itself.
 
 ## Open Questions
 
