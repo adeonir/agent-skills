@@ -51,6 +51,8 @@ An artifact is `planned`, `in-progress`, `done`, or `cancelled`. It holds exactl
 
 `done` and `cancelled` both close the artifact and say different things: `done` is delivered, `cancelled` is dropped. Work abandoned rather than finished is `cancelled`, so the tracker never reports it as shipped.
 
+Closing an epic speaks for everything under it. When a story, bug, or task beneath it is still open, the skill says how many and asks before closing — and never closes a child to make the epic's status true.
+
 Blocked is not a status. Work can be started and waiting on another artifact at the same time, so waiting is carried by `blocked_by` — see below.
 
 ## Priority
