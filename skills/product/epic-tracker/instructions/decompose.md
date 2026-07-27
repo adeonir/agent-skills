@@ -11,6 +11,8 @@ Orchestrate the delivery plan: derive the epic set from the PRD, settle it, writ
 
 ## Precondition
 
+This section and the one after it govern Level 1 only. A Level 2 run — an epic into stories and tasks — needs no PRD and no roadmap; it starts at Level 2 below.
+
 Level 1 requires `docs/product/PRD.md`. When it is absent, **error and stop**: "requires `docs/product/PRD.md`; create it first." Never route to PRD creation — that names another skill's artifact. (A single epic is a direct `create epic` — with or without a PRD — a separate entry point, not this ceremony.)
 
 ## Roadmap as memory — heavy work is conditional
@@ -81,7 +83,7 @@ Resolve the epic (by id, or by listing the epics — see [sync.md](sync.md) "Res
 
 ### 2. Derive the stories and tasks
 
-From the epic's Scope, derive candidate stories (demonstrable user-value slices) and tasks (enabling work). Discriminate with [../references/discriminator.md](../references/discriminator.md) when the type is unclear: a story carries acceptance criteria, a task a Definition of Done, and either may carry `Satisfies` on its items.
+From the epic's Scope **and its `## Requirements`**, derive candidate stories (demonstrable user-value slices) and tasks (enabling work). Both were read in Step 1, and deriving from Scope alone leaves a requirement nothing was shaped to carry — the gap then surfaces at Step 3, after the set is already drawn. Walk the requirements as the set takes form: one nobody observes the outcome of is a task waiting to be named. Discriminate with [../references/discriminator.md](../references/discriminator.md) when the type is unclear: a story carries acceptance criteria, a task a Definition of Done, and either may carry `Satisfies` on its items.
 
 ### 3. Assign the requirements
 
@@ -97,7 +99,7 @@ Criteria count is not judged here — the candidates have none yet. `ac-validati
 
 ### 5. Order (ICE optional)
 
-Order the children so foundational outcomes precede dependent ones; set `blocked_by` where one outcome is a precondition for another. ICE ([../references/ice-scoring.md](../references/ice-scoring.md)) is **optional** here — reach for it only when the stories spread in value enough to discriminate; otherwise dependency ordering is enough.
+Order the children so foundational outcomes precede dependent ones; set `blocked_by` where one outcome is a precondition for another. ICE ([../references/ice-scoring.md](../references/ice-scoring.md)) is **optional** here — reach for it only when the children spread in value enough to discriminate; otherwise dependency ordering is enough. A task orders like any other child — it takes `blocked_by`, and enabling work often precedes every story that rests on it.
 
 ### 6. Settle and materialize
 
