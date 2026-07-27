@@ -151,7 +151,7 @@ V8 checks the shape of a `**Satisfies**` value. Three further relations hold acr
 
 - **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V9, with the epic it fetched in Step 1; a dangling id routes back to fix.
 - **Bound provenance** — a bound in a Then traces to the statement of the requirement the AC satisfies. Resolving the id yields the statement, so `story.md` Step 3 runs this on the same resolution as link validity.
-- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. It is settled in two halves, neither here: `decompose.md` assigns each of the epic's requirement IDs to the story that will carry it, and `story.md` Step 3 confirms that story wrote a `Satisfies` line for every ID it was assigned. Coverage then holds by construction — no pass re-checks it across the children afterward.
+- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 `Satisfies` across its children: an AC on a story, or a done-condition on a task where no story can carry it. It is settled in two halves, neither here: `decompose.md` assigns each of the epic's requirement IDs to the child that will carry it, and the create ref confirms that child wrote a `Satisfies` line for every ID it was assigned. Coverage then holds by construction — no pass re-checks it across the children afterward.
 
 `Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V8); the three relations above hold upstream.
 

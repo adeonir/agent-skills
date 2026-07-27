@@ -81,13 +81,13 @@ Resolve the epic (by id, or by listing the epics — see [sync.md](sync.md) "Res
 
 ### 2. Derive the stories and tasks
 
-From the epic's Scope, derive candidate stories (demonstrable user-value slices) and tasks (enabling work). Discriminate with [../references/discriminator.md](../references/discriminator.md) when the type is unclear: a story carries acceptance criteria and may carry `Satisfies`; a task is measured by a Definition of Done and carries neither.
+From the epic's Scope, derive candidate stories (demonstrable user-value slices) and tasks (enabling work). Discriminate with [../references/discriminator.md](../references/discriminator.md) when the type is unclear: a story carries acceptance criteria, a task a Definition of Done, and either may carry `Satisfies` on its items.
 
 ### 3. Assign the requirements
 
-Assign every requirement ID the epic owns to at least one candidate story — the one that will operationalize it. Unlike the Level 1 partition, an ID may land on more than one: two stories can each operationalize part of the same requirement. An ID no candidate can carry is flagged here, and the user adds a story or confirms the omission. `ADR-NNN` is a decision dependency, not a requirement — it is not assigned.
+Assign every requirement ID the epic owns to at least one candidate — the story that will operationalize it, or the task that will discharge it where no story can. A requirement nobody observes the outcome of, typically an `NFR` or `BR`, lands on a task rather than forcing a ceremonial story into existence. Unlike the Level 1 partition, an ID may land on more than one: two stories can each operationalize part of the same requirement. An ID no candidate can carry is flagged here, and the user adds a story or confirms the omission. `ADR-NNN` is a decision dependency, not a requirement — it is not assigned.
 
-The candidates have no acceptance criteria yet; `story.md` writes them at Step 6. So this level assigns, and never inspects a `Satisfies` line. The assignment travels with each story's dispatch, and `story.md` confirms that story wrote the lines it was assigned — coverage then holds by construction, and is never re-checked once the children exist.
+The candidates have no acceptance criteria or done-conditions yet; `story.md` and `task.md` write them at Step 6. So this level assigns, and never inspects a `Satisfies` line. The assignment travels with each child's dispatch, and the create ref confirms that child wrote the lines it was assigned — coverage then holds by construction, and is never re-checked once the children exist.
 
 ### 4. Granularity gate
 
@@ -101,7 +101,7 @@ Order the children so foundational outcomes precede dependent ones; set `blocked
 
 ### 6. Settle and materialize
 
-Settle the set and each child's boundary with the user, then dispatch **structured decisions in-memory** to [story.md](story.md) / [task.md](task.md) — there is no roadmap at this level, so the tracker (the epic plus its sub-issues) is the memory. Each create ref writes the body prose, validates (a story's AC through [../references/ac-validation.md](../references/ac-validation.md)), and dispatches through [sync.md](sync.md). Idempotent via `list_artifacts`; surface orphans on re-run (cancel / reparent / keep), never auto-delete. The settled boundary travels into each child's Out of Scope, stated in the child's own terms — never naming the sibling that owns the excluded work. Each story also carries the requirement IDs Step 3 assigned it, as a dispatch input: that subset is the menu its acceptance criteria operationalize, and `story.md` validates that every assigned ID reaches a `Satisfies` line.
+Settle the set and each child's boundary with the user, then dispatch **structured decisions in-memory** to [story.md](story.md) / [task.md](task.md) — there is no roadmap at this level, so the tracker (the epic plus its sub-issues) is the memory. Each create ref writes the body prose, validates (a story's AC through [../references/ac-validation.md](../references/ac-validation.md)), and dispatches through [sync.md](sync.md). Idempotent via `list_artifacts`; surface orphans on re-run (cancel / reparent / keep), never auto-delete. The settled boundary travels into each child's Out of Scope, stated in the child's own terms — never naming the sibling that owns the excluded work. Each child also carries the requirement IDs Step 3 assigned it, as a dispatch input: that subset is the menu its acceptance criteria — or its done-conditions, for a task — operationalize, and the create ref validates that every assigned ID reaches a `Satisfies` line.
 
 ## Milestone
 
@@ -122,5 +122,5 @@ Settle the set and each child's boundary with the user, then dispatch **structur
 - PRD absent (level 1): error and stop; a roadmap ceremony requires `docs/product/PRD.md`.
 - Epic has no scope to imply children (level 2): ask the user to outline the stories, or settle the epic's scope first.
 - A child name conflicts with an existing artifact: defer to the create ref's conflict handling.
-- A requirement no candidate story can carry (level 2): flag the ID and ask the user to add a story or confirm the omission.
+- A requirement no candidate can carry (level 2): flag the ID and ask the user to add a story, place it on the task that discharges it, or confirm the omission.
 - Tracker state moved under a re-run: `sync.md` refetches before any write and confirms divergence before overwriting.

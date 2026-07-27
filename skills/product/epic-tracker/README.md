@@ -105,7 +105,7 @@ Stories enforce Given/When/Then 1:1 acceptance criteria. Each AC is a `### AC-N`
 
 ## Requirement Traceability
 
-The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** carries no requirement IDs — it is AC-less work measured by its `## Definition of Done`. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage is an epic↔story relationship: every requirement the epic declares is operationalized by ≥1 story AC. A standalone story sits under no epic, so it carries no `Satisfies` line and enters no coverage set.
+The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** is AC-less work measured by its `## Definition of Done`, and a done-condition carries the same link when it discharges a requirement no story can — typically an `NFR` or `BR` delivered by work nobody observes. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage runs from the epic to its children: every requirement it declares is operationalized by ≥1 `Satisfies`, on a story AC or a task done-condition. A standalone story or task sits under no epic, so it carries no `Satisfies` line and enters no coverage set.
 
 ## Roadmap
 
