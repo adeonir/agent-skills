@@ -22,7 +22,7 @@ Check for existing context before asking questions:
 5. If found, summarize what was extracted and confirm with user
 6. When the reads leave gaps, interview to close them — never a cold questionnaire. Lead with your read and let the user confirm or redirect; where the codebase or docs answer a question, state what you found rather than asking. Every turn carries a recommendation — an interpretation with its redirect invite when you have signal, or a question paired with your recommended answer when you do not. Three unknowns anchor the epic: the problem it solves, who benefits, and what changes for the user when it ships. Resolve them through the interview, not as a fixed list.
 
-**Translate, don't replicate.** Upstream docs (PRD, design doc, PRODUCT) stay read-only and scoped to this epic. Extract only what maps to it, then **translate into epic language**: strip `§3.7` section numbers, internal reference codes, sibling artifact names, roadmap/sequencing framing, and domain jargon that doesn't stand alone. The epic carries the facts, not the source document's framing. The one exception is backward provenance: the PRD requirements this epic owns are recorded in `## Requirements` as `ID — statement` (`FR/BR/EC/NFR`), never in prose. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels with the Design Doc in References when the epic depends on one.
+One upstream token crosses into the epic intact, as backward provenance: the PRD requirements this epic owns are recorded in `## Requirements` as `ID — statement` (`FR/BR/EC/NFR`), never in prose. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels with the Design Doc in References when the epic depends on one.
 
 **Translate the form, never the norm.** A requirement statement is the thing that has to hold, so translating it is rewriting a rule. Strip only the framing — section numbers, doc-internal codes, PRD voice. Keep the modal (`must`, `should`), the actor, the object, and every bound the PRD states (a timing, a count, a threshold) exactly as strong as they are there. A statement that lands looser or stricter than the PRD's is a mistranslation, not a rewording: restate it. When the requirement cannot be phrased in the epic's language without changing what it demands, keep the PRD's wording verbatim.
 
@@ -49,7 +49,7 @@ Fill the template (below) with discovered context.
 
 The epic carries no child list. The tracker's native child panel (GitHub Sub-issues, Linear sub-issues) is the source of truth for hierarchy; stories and tasks are materialized via [decompose.md](decompose.md) or a direct create, and linked there.
 
-**Declare, don't narrate.** The discovery conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Auth uses magic links`), never as its history (`we discussed OAuth but the user preferred magic links`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For an epic, the unresolved decision they exclude goes to `## Open Questions`.
 
 Apply the resumption gate before proceeding:
 

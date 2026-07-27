@@ -91,6 +91,14 @@ Filling a Definition of Done item, a success criterion, or an open question with
 
 A constraint, a done-condition, or a criterion is written only when it traces to a source — a file in the repository, a linked doc, the parent epic, pasted context, or what the user stated. When one feels real but has no source, ask instead of asserting; the answer either becomes a sourced line or does not enter the artifact.
 
+## Anti-Pattern: Input as Content
+
+What produced an artifact is not what the artifact says. Two rules, stated here once — every create ref applies them, none restates them.
+
+**Declare, don't narrate.** The conversation is input. The body states standing facts in present tense: a resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history. An unresolved decision goes to Open Questions, never into the prose as though it were settled.
+
+**Translate, don't replicate.** Upstream sources — a PRD, a design doc, an ADR, a parent epic, a pasted log or advisory — stay read-only. Extract only what maps to this artifact, then say it in the artifact's own language: strip section numbers, reference and ticket codes, code identifiers, and document or sibling-artifact names. The artifact carries the facts, not the source's tokens. Where a stripped token still has to survive, the create ref names the field that holds it.
+
 ## Anti-Pattern: Blind Writes
 
 Fetching an artifact, editing it across a long conversation, then writing over whatever is in the tracker now silently destroys anything a teammate changed meanwhile. Refetch immediately before writing to an artifact that already exists, and confirm when the state moved underneath. The anchor is the tracker at the moment of the write — never the session, never a cached timestamp.

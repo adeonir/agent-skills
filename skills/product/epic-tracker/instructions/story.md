@@ -51,7 +51,7 @@ Fill the template (below).
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
 - **References**: durable pointers to what the tracker does not model — design doc, UI design, and any `ADR-NNN` the story depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
-**Declare, don't narrate.** The drafting conversation is input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history; an unresolved decision goes to Open Questions, not the prose.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a story, the unresolved decision they exclude goes to `## Open Questions`, and the one token that survives translation is the requirement id on a `**Satisfies**` line.
 
 Apply the resumption gate before proceeding:
 

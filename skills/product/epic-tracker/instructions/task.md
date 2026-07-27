@@ -61,9 +61,7 @@ Fill the template (below).
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write, and `Blocks` is empty at create. See [sync.md](sync.md) "Dependencies".
 - **References**: the source this task came from — a PR, advisory, dashboard, or runbook — plus external docs and any `ADR-NNN` it depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
-**Declare, don't narrate.** The collected answers and pasted context are input, never content. The body states standing facts in present tense: a resolved decision enters as fact (`CI runs on the Node 20 image`), never as its history (`we discussed staying on Node 18 but decided to upgrade`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed" — and decision history.
-
-**Translate, don't replicate.** Sources (advisory, PR, design doc, ADR, epic) stay read-only. Extract only what maps to this task, then translate into its own language: strip reference and ticket codes, `§x.x` section numbers, code identifiers, document and sibling-artifact names. The task carries the facts, not the source's tokens — reference codes and source links alike travel in References.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a task, the tokens that survive translation are the source link and any `ADR-NNN`, and both travel in `## References`.
 
 Apply the resumption gate before proceeding:
 
