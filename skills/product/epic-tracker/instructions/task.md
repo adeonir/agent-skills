@@ -108,11 +108,9 @@ Acceptance criteria appearing on a task is a prompt to re-ask the type question,
 
 ## Template
 
-ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, `blocked_by`, `priority`, `estimate`) travel as metadata alongside it.
+ALWAYS use this exact template structure. This is the tracker description; the dispatch inputs (title, epic id, `blocked_by`, `priority`, `estimate`) travel as metadata alongside it. The body opens at `## Summary` — the tracker renders the title above the description, so no title heading belongs in the body.
 
 ````markdown
-# {{Task Title}}
-
 ## Summary
 
 {{What needs to be done and why. One clear outcome.}}
