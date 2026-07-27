@@ -79,7 +79,9 @@ The candidates have no acceptance criteria yet; `story.md` writes them at Step 6
 
 ### 4. Granularity gate
 
-Before creating, split any story that is too large — more than 3–5 acceptance criteria, spans multiple unrelated domains, or cannot state a single outcome. Respect the user's decision to keep one whole.
+Before creating, split any candidate that spans multiple unrelated domains or cannot state a single outcome. Both are judgeable on the candidate's own boundary line, which is all that exists at this point. Respect the user's decision to keep one whole.
+
+Criteria count is not judged here — the candidates have none yet. `ac-validation.md` V9 raises it at create, on the story the ref actually wrote, and covers a story brought straight to `story.md` as well.
 
 ### 5. Order (ICE optional)
 

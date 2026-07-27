@@ -61,7 +61,7 @@ Output a list of `{id, given, when, then, satisfies}` tuples (`satisfies` null w
 
 ### 2. Validate
 
-Run V1-V8 against the parsed tuples and the raw section text.
+Run V1-V9 against the parsed tuples and the raw section text.
 
 | # | Rule | Strictness | Trigger |
 |---|------|------------|---------|
@@ -73,6 +73,7 @@ Run V1-V8 against the parsed tuples and the raw section text.
 | V6 | Then is observable | warn-only with confirm | Then contains a red word from the list below (case-insensitive whole word) |
 | V7 | Unique AC ids | strict | two `### AC-N` blocks with the same id |
 | V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/BR/EC/NFR-<n>` id (empty, a list, or malformed) |
+| V9 | Story stays inside one outcome | confirm | parse yields more than five `### AC-N` blocks |
 
 A bound in a Then — a timing, a count, a threshold, or a mechanism — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
 
@@ -83,6 +84,8 @@ V6 red-word list:
 `simple` is the most context-dependent word on the list — it often appears in legitimate technical contexts ("a simple redirect"). Flag it only when it is clearly used as a subjective quality judgment ("the UI feels simple"), not as a structural descriptor.
 
 V4 sub-rule (the `and`-joined Then heuristic) is confirm-to-continue, not hard-reject: a single-sentence assertion may legitimately use `and` (e.g., "modal appears and account is not deleted until confirmed"). The confirm forces the atomicity decision — split a genuine two-assertion Then into separate AC, or confirm a single assertion — so every AC that passes is atomic and reshapes 1:1 into the spec's EARS-lite form downstream. A duplicate `**Then**` line under one block is always hard-strict.
+
+V9 is the only rule about the block as a set rather than any one AC — V1 is its floor, V9 its ceiling. Past five criteria a story has usually stopped being one outcome, and it is the create path's only sizing signal: a story brought straight to `story.md` never passes through decomposition, where the other granularity tests live. Confirm-to-continue, never strict — five is a heuristic, and a genuinely single outcome sometimes needs six criteria to demonstrate.
 
 ### 3. Report
 
@@ -122,13 +125,21 @@ AC-{id} V4 check: Then joins two assertions with "and": "{then}". Two outcomes -
 
 Default keep. A split routes back to add the second AC; keep records a single-assertion confirmation so the AC stays atomic for the downstream 1:1 reshape.
 
+On V9 (story size, confirm-to-continue):
+
+```text
+Story V9 check: {n} acceptance criteria. More than five usually means two stories -> split, or keep one whole. [split/keep]
+```
+
+Default keep. A split routes back to Draft to divide the story; keep records the size as deliberate and validation proceeds.
+
 If any strict rule fails: do not dispatch. The caller (`story.md` Step 3 or its edit branch) loops back to Draft until the user fixes the AC.
 
 ## Satisfies linkage
 
 V8 checks the shape of a `**Satisfies**` value. Three further relations hold across the epic↔story boundary — none parsed here (this ref reads the story's AC section in isolation), all owned by the create/edit flow that has the parent epic in hand:
 
-- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V8, with the epic it fetched in Step 1; a dangling id routes back to fix.
+- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V9, with the epic it fetched in Step 1; a dangling id routes back to fix.
 - **Bound provenance** — a bound in a Then traces to the statement of the requirement the AC satisfies. Resolving the id yields the statement, so `story.md` Step 3 runs this on the same resolution as link validity.
 - **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 AC `Satisfies` across its child stories. It is settled in two halves, neither here: `decompose.md` assigns each of the epic's requirement IDs to the story that will carry it, and `story.md` Step 3 confirms that story wrote a `Satisfies` line for every ID it was assigned. Coverage then holds by construction — no pass re-checks it across the children afterward.
 
@@ -148,7 +159,8 @@ Edits that do not change AC text skip validation (see `story.md`'s edit branch) 
 **DO:**
 - Parse the AC section with whitespace-tolerant matching so tracker normalization does not break the validator
 - Surface every strict failure with AC id, rule name, and a concrete suggested fix
-- Keep V6 warn-only with a default-allow confirm to avoid blocking on heuristic false positives
+- Keep V6 warn-only and V9 confirm-to-continue with a default-allow answer, so a heuristic never blocks
+- Run V9 on every story, however it was drafted — the create path has no other sizing signal
 - Treat the V6 red-word list as small and stable; expand it only when a documented false negative recurs
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
