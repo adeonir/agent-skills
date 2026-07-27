@@ -18,10 +18,10 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 ## Triggers
 
 - **Plan / decompose** ("create roadmap", "plan the roadmap", "organize epics", "roadmap the PRD", "decompose", "break down the roadmap", "break this epic into stories", "materialize the epics") → [decompose.md](instructions/decompose.md)
-- **Epic** ("create epic", "new epic") → [epic.md](instructions/epic.md)
+- **Epic** ("create epic", "new epic", "edit epic") → [epic.md](instructions/epic.md)
 - **Story** ("create story", "new story", "add story", "edit story", "update story", "change story") → [story.md](instructions/story.md)
-- **Bug** ("create bug", "report bug", "bug report") → [bug.md](instructions/bug.md)
-- **Task / Chore** ("create task", "new task", "add task", "create chore") → [task.md](instructions/task.md)
+- **Bug** ("create bug", "report bug", "bug report", "edit bug") → [bug.md](instructions/bug.md)
+- **Task / Chore** ("create task", "new task", "add task", "create chore", "edit task") → [task.md](instructions/task.md)
 - **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "update status") → [sync.md](instructions/sync.md)
 - **Reparent** ("move this to epic X", "reparent this story", "change the parent epic") → [sync.md](instructions/sync.md)
 - **Dependencies** ("block this on X", "unblock this", "this depends on X") → [sync.md](instructions/sync.md)

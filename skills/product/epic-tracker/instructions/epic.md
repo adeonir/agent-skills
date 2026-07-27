@@ -6,6 +6,7 @@ Plan a thematic container that groups related stories into a cohesive delivery u
 
 - User wants to plan a new feature area or initiative
 - User says "create epic", "new epic"
+- User says "edit epic", "update epic", "change epic" — run the edit branch below
 - Not for deriving a set of epics from the PRD — that is the `decompose` ceremony
 
 ## Workflow

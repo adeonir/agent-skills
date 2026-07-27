@@ -6,6 +6,7 @@ Document a general unit of actionable work — anything that is not a user story
 
 - User wants to file a task, chore, or general work item
 - User says "create task", "new task", "add task", "chore"
+- User says "edit task", "update task", "change task" — run the edit branch below
 - Work is not framed as a user story with acceptance criteria and is not a defect — measured by a Definition of Done, whatever its audience
 
 ## Workflow
