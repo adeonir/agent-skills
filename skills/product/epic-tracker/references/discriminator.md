@@ -11,7 +11,7 @@ Before creating an artifact when the trigger does not already name the type, or 
 Most specific first — the Story/Task/Bug split:
 
 1. **Defect** — does it fix behavior that already exists and is broken? → **Bug**
-2. **User-value slice** — does it deliver a demonstrable slice of user value, with acceptance criteria that satisfy a requirement? → **Story**
+2. **User-value slice** — does it deliver a demonstrable slice of user value, with acceptance criteria of its own? → **Story**
 3. **Anything else actionable** — enabling, technical, research, tooling, or docs, measured by a Definition of Done with no acceptance criteria → **Task**
 
 ## Decision Tree
@@ -31,7 +31,7 @@ Does the behavior already exist and is broken?
 | Type | Is | Carries |
 |------|----|---------|
 | Bug | a defect in existing behavior | repro steps, severity, environment |
-| Story | a demonstrable slice of user value | acceptance criteria (Given/When/Then) + Satisfies requirement |
+| Story | a demonstrable slice of user value | acceptance criteria (Given/When/Then), each carrying `Satisfies` when a parent epic declares the requirement |
 | Task | general actionable work | Definition of Done, no acceptance criteria |
 
 ## Notes
