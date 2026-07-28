@@ -23,6 +23,8 @@ Small does not produce a spec and does not run the pipeline: one-liner → branc
 
 Every scope that produces an artifact peer-checks it: `spec.md`, `design.md`, and `tasks.md` are each read by a subagent that did not write them before their approval gate. The check does not scale with scope — an artifact either survives a reader who did not author it or it does not.
 
+A peer reads no wider than the phase that wrote the artifact. Where the phase derives its work from artifacts alone, so does its peer, and a claim those artifacts cannot support is a finding rather than a prompt to go searching; where the phase's contract traces claims to the codebase, its peer reaches there too. The reach follows each phase's contract, never one uniform rule across the three.
+
 ## Safety valve
 
 If, at any phase, the scope breaks — a new load-bearing decision appears, inline steps run past ~5, dependencies turn out more complex than planned, or the work needs approaches or heavy research — **stop and re-evaluate the sizing**. Raise one level; never push through in implement.
