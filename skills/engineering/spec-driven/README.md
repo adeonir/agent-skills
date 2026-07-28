@@ -4,14 +4,14 @@ Spec-driven feature development. Light by default; weight only where the scope p
 
 ## What It Does
 
-Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where every artifact is read by an agent that did not write it — each of `spec.md`, `design.md`, and `tasks.md` before its approval gate, and the diff by a final independent audit.
+Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where the artifacts that settle decisions are read by an agent that did not write them — `spec.md` and `design.md` before their approval gates, and the diff by a final independent audit.
 
 ```mermaid
 flowchart TD
     A[Specify<br/>peer-checked] --> B{Scope?}
     B -->|Small| S[Inline implement<br/>own branch, no spec]
     B -->|Medium / Large / Complex| D[Design<br/>peer-checked]
-    D --> T[Tasks<br/>peer-checked]
+    D --> T[Tasks<br/>linted + self-checked]
     T --> I[Implement<br/>verify per task]
     I --> AU[Audit<br/>independent subagent]
     AU -->|user-facing| V[Validate / UAT]
@@ -61,7 +61,7 @@ run UAT                 # user-facing only
 # Lessons layer
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
 
-# Artifact linter — runs at each phase's self-check, before the peer check
+# Artifact linter — runs at each phase's self-check
 python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{slug}
 ```
 
@@ -105,7 +105,7 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between peer check, verify, audit, and validate?**
 
-A: Peer check runs once per planning phase, before its approval gate: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md`, `design.md`, or `tasks.md` against its own contract and reports findings without editing. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
+A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
 
 **Q: How does the lessons layer work?**
 

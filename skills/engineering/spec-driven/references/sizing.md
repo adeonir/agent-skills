@@ -21,9 +21,9 @@ One measurement, taken after discovery, plus a quick trivial triage at the start
 
 Small does not produce a spec and does not run the pipeline: one-liner → branch → inline implement → inline verify.
 
-Every scope that produces an artifact peer-checks it: `spec.md`, `design.md`, and `tasks.md` are each read by a subagent that did not write them before their approval gate. The check does not scale with scope — an artifact either survives a reader who did not author it or it does not.
+`spec.md` and `design.md` are each read by a subagent that did not write them before their approval gate. The check does not scale with scope — an artifact either survives a reader who did not author it or it does not. `tasks.md` is not peer-checked: it sequences decisions already settled upstream, and every claim it makes is re-read against running code — by the safety valve when a task turns out to carry a decision, and by the audit's discrimination sensor when a gate would pass with the logic removed.
 
-A peer reads no wider than the phase that wrote the artifact. Where the phase derives its work from artifacts alone, so does its peer, and a claim those artifacts cannot support is a finding rather than a prompt to go searching; where the phase's contract traces claims to the codebase, its peer reaches there too. The reach follows each phase's contract, never one uniform rule across the three.
+A peer reads no wider than the phase that wrote the artifact. Where the phase derives its work from artifacts alone, so does its peer, and a claim those artifacts cannot support is a finding rather than a prompt to go searching; where the phase's contract traces claims to the codebase, its peer reaches there too. The reach follows each phase's contract, never one uniform rule across the two.
 
 ## Safety valve
 
