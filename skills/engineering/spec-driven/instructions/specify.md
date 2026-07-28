@@ -51,7 +51,7 @@ branch: {slug}                     # inferred from content, not asked
 {2-3 sentences: problem + what changes + why (macro why).}
 
 ## Baseline            <!-- conditional: brownfield only, lean -->
-{Only the current behavior relevant to the delta. The agent reads code for the rest.}
+{Only the current behavior relevant to the delta, read from the code — never from conversation memory. The agent reads code for the rest.}
 
 ## Goals
 - [ ] {measurable observable result, e.g. "Checkout completes in < 3s (p95)"}
