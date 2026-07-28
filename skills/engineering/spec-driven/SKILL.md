@@ -56,6 +56,7 @@ Loaded on demand:
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
 - `scripts/lessons.py` — run to add, list, promote, penalize, and normalize lessons
+- `scripts/lint_artifact.py` — run at each phase's self-check to settle structure, presence, and cross-file references
 
 ## Artifacts
 

@@ -60,6 +60,9 @@ run UAT                 # user-facing only
 
 # Lessons layer
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
+
+# Artifact linter — runs at each phase's self-check, before the peer check
+python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{slug}
 ```
 
 ## Output
@@ -86,7 +89,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
 ## Requirements
 
 - An existing project directory.
-- `python3` (standard library only) for `scripts/lessons.py`.
+- `python3` (standard library only) for `scripts/lessons.py` and `scripts/lint_artifact.py`.
 - Optional: a browser-automation MCP (e.g. Playwright) for Validate/UAT screenshots — falls back to user-guided capture when absent.
 - Optional: a docs MCP (e.g. Context7) for design research — the knowledge chain falls through to web search when absent.
 
