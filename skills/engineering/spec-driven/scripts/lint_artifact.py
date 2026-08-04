@@ -291,6 +291,31 @@ def check_criteria(path, lines, findings):
                                 % (path, number, identifier, value))
 
 
+def check_downstream_ac_refs(base, live, findings):
+    """Report a downstream table row citing a criterion the spec no longer declares.
+
+    A specify re-entry may renumber while the spec is `draft`, and `design.md` and
+    `tasks.md` are read by their own phases only — without this, a row left behind
+    reaches no reader until the audit.
+    """
+    for name, section in (("design.md", "Requirements Traceability"),
+                          ("tasks.md", "Coverage Matrix")):
+        target = os.path.join(base, name)
+        if not os.path.isfile(target):
+            continue
+        lines = read_lines(target)
+        if lines is None:
+            continue
+        bounds = section_bounds(lines, section)
+        if bounds is None:
+            continue
+        for number, header, cells in table_rows(lines, *bounds):
+            for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
+                if match.group(0) not in live:
+                    findings.append("%s:%d: %s names %s, which the spec no longer declares"
+                                    % (target, number, section, match.group(0)))
+
+
 def check_divergences(path, lines, prompt_seeded, findings):
     """Check the `## Divergences` table: identity, status, direction, and the AC it names."""
     bounds = section_bounds(lines, "Divergences")
@@ -370,6 +395,7 @@ def lint_spec(path, lines, base, findings):
 
     prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
     check_divergences(path, lines, prompt_seeded, findings)
+    check_downstream_ac_refs(base, set(spec_ac_ids(lines)), findings)
 
     for index in range(body_start, len(lines)):
         line = lines[index]
