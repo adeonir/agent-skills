@@ -62,8 +62,8 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 ## Case convention — three classes
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
-- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `[seed-gap]`, `(confirm @ design)`, `(verify @ design)`, `(reconcile seed)`.
-- **Identifiers** (owned, never reused across a story) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
+- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
+- **Identifiers** (owned, never reused across a story) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
 
 ## Non-functional criteria
 
@@ -88,7 +88,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 
 A miscalibrated criterion changes a criterion, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited one that arrives before drafting surfaces during discuss; one authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
-- **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. Which line records it depends on where the spec is: while it is still being drafted for the first time, a `[deferrable]` naming the seed and the clause it holds. Once `design.md` or `tasks.md` exists, the pipeline has moved past specify and the seed is now behind the code — a `[seed-gap]`, closing with `(reconcile seed)`. Either way the sweep before `done` has the specifics to act on.
+- **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and it closes on the run that finds the seed corrected.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 ## Ambiguity closure

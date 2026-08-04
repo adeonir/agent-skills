@@ -121,13 +121,13 @@ Spec-defects: {count}
 | Pendency | Where | Resolve now by |
 | --- | --- | --- |
 | `[deferrable]` line | `spec.md ## Open Questions` | answering it, or carrying it as a follow-up outside the feature |
-| `[seed-gap]` line | `spec.md ## Open Questions` | carrying it back to the seed — see below |
+| Open `DV-N` row | `spec.md ## Divergences` | carrying the correction back to the seed — see below |
 | `## Spec Defects` row | `validation.md` | routing back to specify to loosen the AC |
 | Surviving mutant, not promoted | `validation.md` | accepting the cost, or promoting it to a fix task |
 | `UNVERIFIED` marker | `design.md` | verifying the claim |
 | Empty `Disproof` on judgment-laden code | `validation.md` | re-auditing with real disproof, or accepting it as low-confidence |
 
-A `[seed-gap]` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared an AC this feature built, still asserts a clause this feature loosened, or still owes one this feature dropped. Reconciling it is neither the auditor's nor the spec's, and nothing downstream will catch it.
+An open `DV-N` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared what the spec added, still asserts what the spec loosened, or still owes what no AC covers. The correction lands on the seed, not here, and the row turns `resolved` on the specify run that finds the seed corrected.
 
 The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 

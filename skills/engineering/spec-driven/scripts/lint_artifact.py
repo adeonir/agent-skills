@@ -23,7 +23,8 @@ import os
 import re
 import sys
 
-SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Open Questions"]
+SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Open Questions",
+                 "Divergences"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
                    "Error Handling", "Risks & Concerns", "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Task List", "Coverage Matrix"]
@@ -51,6 +52,9 @@ GOAL_DEFINITION = re.compile(r"^\s*-\s*(?:\[[ x]\]\s*)?\*\*(G-\d+)\*\*")
 SERVES = re.compile(r"^\*\*Serves\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES = re.compile(r"^\*\*Satisfies\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
+DIVERGENCE_ID = re.compile(r"^DV-\d+$")
+DIVERGENCE_STATUSES = ["open", "resolved", "accepted"]
+DIVERGENCE_DIRECTIONS = ["Added", "Dropped", "Loosened"]
 GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
@@ -287,6 +291,50 @@ def check_criteria(path, lines, findings):
                                 % (path, number, identifier, value))
 
 
+def check_divergences(path, lines, prompt_seeded, findings):
+    """Check the `## Divergences` table: identity, status, direction, and the AC it names."""
+    bounds = section_bounds(lines, "Divergences")
+    if bounds is None:
+        return  # check_sections already reports the missing section
+    live = set(spec_ac_ids(lines))
+    declared = set()
+    rows = 0
+    for number, header, cells in table_rows(lines, *bounds):
+        rows += 1
+        identifier = cell(header, cells, "ID")
+        if not DIVERGENCE_ID.match(identifier):
+            findings.append("%s:%d: `%s` is not a well-formed `DV-N` id" % (path, number, identifier))
+        elif identifier in declared:
+            findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
+        declared.add(identifier)
+
+        status = cell(header, cells, "Status")
+        if status not in DIVERGENCE_STATUSES:
+            findings.append("%s:%d: %s carries status `%s`, not one of %s"
+                            % (path, number, identifier, status, "/".join(DIVERGENCE_STATUSES)))
+
+        divergence = cell(header, cells, "Divergence")
+        direction = divergence.split(":", 1)[0].strip()
+        if direction not in DIVERGENCE_DIRECTIONS:
+            findings.append("%s:%d: %s opens with `%s`, not one of %s"
+                            % (path, number, identifier, direction, "/".join(DIVERGENCE_DIRECTIONS)))
+            continue
+
+        named = cell(header, cells, "AC").strip("— -")
+        if direction == "Dropped":
+            if named:
+                findings.append("%s:%d: %s is `Dropped` and names %s — no criterion carries a dropped obligation"
+                                % (path, number, identifier, named))
+        elif not named:
+            findings.append("%s:%d: %s is `%s` and names no criterion" % (path, number, identifier, direction))
+        elif named not in live:
+            findings.append("%s:%d: %s names %s, which the spec does not declare" % (path, number, identifier, named))
+
+    if prompt_seeded and rows:
+        findings.append("%s:1: Divergences carries %d row(s) on a prompt-seeded spec (`sources: []`)"
+                        % (path, rows))
+
+
 def check_sections(path, lines, titles, findings):
     for title in titles:
         if section_bounds(lines, title) is None:
@@ -321,7 +369,7 @@ def lint_spec(path, lines, base, findings):
     check_criteria(path, lines, findings)
 
     prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
-    downstream = any(os.path.isfile(os.path.join(base, name)) for name in ("design.md", "tasks.md"))
+    check_divergences(path, lines, prompt_seeded, findings)
 
     for index in range(body_start, len(lines)):
         line = lines[index]
@@ -333,13 +381,6 @@ def lint_spec(path, lines, base, findings):
                 findings.append("%s:%d: `[assumption]` carries no `(confirm @ design)` or `(verify @ design)`" % (path, number))
             elif "(verify @ design)" in line and "verify:" not in line:
                 findings.append("%s:%d: `(verify @ design)` carries no `verify:` check" % (path, number))
-        if "[seed-gap]" in line:
-            if "(reconcile seed)" not in line:
-                findings.append("%s:%d: `[seed-gap]` closes without `(reconcile seed)`" % (path, number))
-            if prompt_seeded:
-                findings.append("%s:%d: `[seed-gap]` on a prompt-seeded spec (`sources: []`)" % (path, number))
-            if not downstream:
-                findings.append("%s:%d: `[seed-gap]` without `design.md` or `tasks.md` — not a re-entry" % (path, number))
         for quoted in BACKTICKED.findall(line):
             if quoted.endswith(CODE_EXTENSIONS):
                 findings.append("%s:%d: `%s` names a source file — that is HOW" % (path, number, quoted))
