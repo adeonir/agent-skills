@@ -140,7 +140,7 @@ The cache lives for the session; a new session re-detects.
 
 ### create_story
 
-1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the validated `### AC-N` Given/When/Then blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
+1. Create an Issue in the repo (inferred from `git remote get-url origin`): `title` -> Issue title, `body` -> Issue body. The body carries the validated `### AC-N` Gherkin blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 2. If `epic_id` is provided: attach as sub-issue under that Epic. Otherwise create as standalone.
 3. Apply artifact type (session cache `story` issue type, or `story` label).
 4. When `milestone` is supplied, resolve it per Milestone above and set it on the Issue.

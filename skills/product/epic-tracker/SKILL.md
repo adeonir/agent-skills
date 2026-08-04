@@ -77,7 +77,7 @@ Embedding `gh issue create` or Linear MCP calls inside `epic.md`, `story.md`, et
 
 ## Anti-Pattern: AC Validation on Reads
 
-Validating Acceptance Criteria when an artifact is fetched from the tracker breaks artifacts whose AC do not conform to the Given/When/Then contract, and artifacts edited by hand in the tracker UI. Validate on **write paths only** — story create and edit-when-AC-text-changes — and let read paths tolerate whatever the tracker returns. The implementation consumer decides how to handle non-conforming AC.
+Validating Acceptance Criteria when an artifact is fetched from the tracker breaks artifacts whose AC do not conform to the Gherkin contract, and artifacts edited by hand in the tracker UI. Validate on **write paths only** — story create and edit-when-AC-text-changes — and let read paths tolerate whatever the tracker returns. The implementation consumer decides how to handle non-conforming AC.
 
 ## Anti-Pattern: Mixed Artifacts
 

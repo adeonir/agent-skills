@@ -95,7 +95,7 @@ Estimates are a per-team setting in Linear. When `epic-tracker.team` has them di
 ### create_story / create_bug / create_task
 
 1. Create an Issue in `epic-tracker.team`, placed in `epic-tracker.project`. `epic_id` is optional on all three: with one, the Issue is a sub-issue of that epic; without one, it is a standalone Issue in the project.
-2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Given/When/Then blocks verbatim -- adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
+2. Inputs: `title` -> Issue title, `body` -> Issue description (include acceptance criteria for stories, repro steps for bugs, plain description for tasks). For stories, the body must include the validated `### AC-N` Gherkin blocks verbatim — adapters do not transform AC structure, so a downstream consumer can parse these blocks back to structured AC. See [ac-validation.md](ac-validation.md) for the contract.
 3. Apply the type label: `story`, `bug`, or `task`. For `create_bug`, add `severity:{level}` when severity is provided.
 4. When `milestone` is supplied, resolve it per Milestone above and associate the Issue with it.
 5. When `priority` is supplied, set the native priority field per Priority Mapping above.
