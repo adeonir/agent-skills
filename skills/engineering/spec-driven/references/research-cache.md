@@ -58,7 +58,7 @@ updated: {YYYY-MM-DD}              # the observation's write; context, never gro
 {An observation that the mechanism needs environment or infra setup to exercise. The setup cost is the finding; the next design inherits it instead of paying to rediscover it.}
 ```
 
-MUST NOT contain: the spike's code, the deliberation that produced the finding, feature slugs, `AC-N` references, task IDs, or anything scoped to the design that happened to write it. The cache belongs to the project, not to a feature.
+MUST NOT contain: the spike's code, the deliberation that produced the finding, feature slugs, `AC-N.M` references, task IDs, or anything scoped to the design that happened to write it. The cache belongs to the project, not to a feature.
 
 ## Writing
 

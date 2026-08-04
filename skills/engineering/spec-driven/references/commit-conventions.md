@@ -70,7 +70,7 @@ AI-slop has two opposite shapes, and "just be concrete" pushes out of the first 
 
 - Specific values are *how*, not *what* — `retry failed uploads three times` → `retry failed uploads`; the count stays in the code.
 - Prose locators are *where* — `... in CI` → drop it; the `ci:` scope already carries it.
-- Reference codes are *where* handles, not *what* — `ADR-002`, `AC-2`, `#42`. The identifier names an artifact, not the change; describe what the change does, not its ID. Keep the code only when the repo's log references artifacts by it.
+- Reference codes are *where* handles, not *what* — `ADR-002`, `AC-2.1`, `#42`. The identifier names an artifact, not the change; describe what the change does, not its ID. Keep the code only when the repo's log references artifacts by it.
 
 A human subject is terse and structural — it names what moved, in the developer's own shorthand, at topic altitude.
 
@@ -123,7 +123,7 @@ feat(checkout): reject expired credit cards
 - add an expiry check to the payment validator
 - surface the rejection on the card field
 - cover the branch in the payment tests
-- covers AC-2
+- covers AC-2.1
 ```
 
 Nothing was broken and nothing binds the solution — the feature simply did not exist. No body:

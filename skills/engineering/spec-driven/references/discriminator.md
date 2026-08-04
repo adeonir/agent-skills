@@ -40,6 +40,6 @@ If the user or caller observes it → WHAT (enters the spec). If it is an intern
 - `When Y, then Z` in the design → leaked from spec (that is an AC).
 - `step 1: create X; step 2: create Y` in the design → leaked from tasks.
 - New architecture introduced in tasks → leaked from design.
-- An AC restated in the design → design references `AC-N` via traceability, never copies it.
+- An AC restated in the design → design references `AC-N.M` via traceability, never copies it.
 - An AC stronger than the benefit its story states → the leak is in the clause's strength, not its vocabulary, so no question above catches it; see [acceptance-criteria.md](acceptance-criteria.md).
 - An AC whose obligation something outside this system satisfies → observable and precise, so the questions above pass it; see [acceptance-criteria.md](acceptance-criteria.md).

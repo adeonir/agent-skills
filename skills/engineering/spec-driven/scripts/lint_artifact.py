@@ -30,7 +30,11 @@ TASKS_SECTIONS = ["Scope", "Task List", "Coverage Matrix"]
 
 SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
 SCOPES = ["medium", "large", "complex"]
-STATUSES = ["draft", "in-progress", "done"]
+STATUSES = ["draft", "ready", "in-progress", "done"]
+
+# Gherkin keywords that open a step group, and the ones that continue the open group.
+STEP_OPENERS = ("Given", "When", "Then")
+STEP_CONTINUATIONS = ("And", "But")
 
 TASK_FIELDS = ["Story", "Gate", "Done when"]
 
@@ -41,9 +45,14 @@ CODE_EXTENSIONS = (".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".rb", "
                    ".sql", ".sh", ".vue", ".svelte", ".scala", ".ex", ".exs")
 
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-AC_PATTERN = re.compile(r"\bAC-(\d+)\b")
-AC_DEFINITION = re.compile(r"^\s*-\s+AC-(\d+):")
-AC_TOMBSTONE = re.compile(r"\bAC-(\d+)\s+removed\b")
+AC_PATTERN = re.compile(r"\bAC-\d+\.\d+\b")
+AC_DEFINITION = re.compile(r"^####\s+(AC-\d+\.\d+)\b")
+GOAL_DEFINITION = re.compile(r"^\s*-\s*(?:\[[ x]\]\s*)?\*\*(G-\d+)\*\*")
+SERVES = re.compile(r"^\*\*Serves\*\*\s*(.*)$", re.IGNORECASE)
+SATISFIES = re.compile(r"^\*\*Satisfies\*\*\s*(.*)$", re.IGNORECASE)
+SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
+GOAL_ID = re.compile(r"^G-\d+$")
+STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
 TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
 STORY_REF = re.compile(r"\bS-\d+\b")
@@ -117,14 +126,165 @@ def cell(header, cells, name):
 
 
 def spec_ac_ids(spec_lines):
-    """Return (live ids, tombstoned ids) declared by the spec."""
-    live = []
-    for line in spec_lines:
-        match = AC_DEFINITION.match(line)
+    """Return the `AC-N.M` ids the spec declares, in document order."""
+    return [match.group(1) for line in spec_lines
+            for match in [AC_DEFINITION.match(line)] if match]
+
+
+def ac_sort_key(identifier):
+    """Order ids numerically, so AC-1.10 follows AC-1.2 instead of preceding it."""
+    story, position = identifier[len("AC-"):].split(".")
+    return int(story), int(position)
+
+
+def spec_goal_ids(spec_lines):
+    """Return the `G-N` ids declared under `## Goals`, in document order."""
+    bounds = section_bounds(spec_lines, "Goals")
+    if bounds is None:
+        return []
+    start, end = bounds
+    return [match.group(1) for index in range(start, end)
+            for match in [GOAL_DEFINITION.match(spec_lines[index])] if match]
+
+
+def spec_criteria(lines):
+    """Return one record per `#### AC-N.M` block.
+
+    Each is {id, line, story, block, serves, satisfies}: the enclosing story id,
+    the fenced gherkin block's step lines, and the two bold sub-lines it carries.
+    """
+    criteria = []
+    story = None
+    current = None
+    in_block = False
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if in_block:
+            if stripped.startswith("```"):
+                in_block = False
+            elif current is not None and stripped:
+                current["block"].append(stripped)
+            continue
+        heading = AC_DEFINITION.match(line)
+        if heading:
+            current = {"id": heading.group(1), "line": index + 1, "story": story,
+                       "block": [], "serves": [], "satisfies": [], "fenced": False}
+            criteria.append(current)
+            continue
+        match = STORY_HEADING.match(line)
         if match:
-            live.append(int(match.group(1)))
-    tombstoned = {int(m.group(1)) for line in spec_lines for m in [AC_TOMBSTONE.search(line)] if m}
-    return live, tombstoned
+            story = match.group(1)
+            current = None
+            continue
+        if line.startswith("## "):
+            story = None
+            current = None
+            continue
+        if current is None:
+            continue
+        if stripped.startswith("```gherkin"):
+            in_block = True
+            current["fenced"] = True
+            continue
+        found = SERVES.match(stripped)
+        if found:
+            current["serves"].append(found.group(1).strip())
+            continue
+        found = SATISFIES.match(stripped)
+        if found:
+            current["satisfies"].append(found.group(1).strip())
+    return criteria
+
+
+def validate_gherkin(path, criterion, findings):
+    """Check one criterion's fenced block against the Gherkin form."""
+    identifier, number, block = criterion["id"], criterion["line"], criterion["block"]
+    if not criterion["fenced"] or not block:
+        findings.append("%s:%d: %s carries no fenced ```gherkin block" % (path, number, identifier))
+        return
+
+    opening = block[0]
+    outline = opening.startswith("Scenario Outline:")
+    if not outline and not opening.startswith("Scenario:"):
+        findings.append("%s:%d: %s does not open with `Scenario:` or `Scenario Outline:`"
+                        % (path, number, identifier))
+        return
+
+    seen = {"Given": False, "When": False, "Then": False}
+    for step in block[1:]:
+        if step.startswith("Examples:") or step.startswith("|"):
+            continue  # the Examples table binds placeholders; it carries no step keyword
+        match = STEP_KEYWORD.match(step)
+        if not match:
+            findings.append("%s:%d: %s has a line that is not a Gherkin step: `%s`"
+                            % (path, number, identifier, step))
+            continue
+        keyword = match.group(1)
+        if keyword in STEP_CONTINUATIONS:
+            continue
+        if keyword == "When" and not seen["Given"]:
+            findings.append("%s:%d: %s puts `When` before any `Given`" % (path, number, identifier))
+        if keyword == "Then" and not seen["When"]:
+            findings.append("%s:%d: %s puts `Then` before any `When`" % (path, number, identifier))
+        seen[keyword] = True
+
+    for keyword in STEP_OPENERS:
+        if not seen[keyword]:
+            findings.append("%s:%d: %s has no `%s` step" % (path, number, identifier, keyword))
+
+    if outline and not any(step.startswith("Examples:") for step in block):
+        findings.append("%s:%d: %s is a `Scenario Outline` with no `Examples` table"
+                        % (path, number, identifier))
+
+
+def check_criteria(path, lines, findings):
+    """Check every criterion's form, identity, and upward links."""
+    goals = spec_goal_ids(lines)
+    seen_goals = set()
+    for identifier in goals:
+        if identifier in seen_goals:
+            findings.append("%s:1: %s is declared more than once in `## Goals`" % (path, identifier))
+        seen_goals.add(identifier)
+
+    declared = set()
+    highest = {}  # story id -> the highest M seen under it
+    for criterion in spec_criteria(lines):
+        identifier, number, story = criterion["id"], criterion["line"], criterion["story"]
+        if identifier in declared:
+            findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
+        declared.add(identifier)
+
+        story_number, position = identifier[len("AC-"):].split(".")
+        if story is None:
+            findings.append("%s:%d: %s sits under no story" % (path, number, identifier))
+        elif story != "S-%s" % story_number:
+            findings.append("%s:%d: %s sits under %s — the criterion number names story %s"
+                            % (path, number, identifier, story, story_number))
+        elif int(position) <= highest.get(story, 0):
+            findings.append("%s:%d: %s does not ascend within %s" % (path, number, identifier, story))
+        if story is not None:
+            highest[story] = max(highest.get(story, 0), int(position))
+
+        validate_gherkin(path, criterion, findings)
+
+        if len(criterion["serves"]) > 1:
+            findings.append("%s:%d: %s carries %d `Serves` lines, expected one"
+                            % (path, number, identifier, len(criterion["serves"])))
+        for value in criterion["serves"]:
+            if not GOAL_ID.match(value):
+                findings.append("%s:%d: %s `Serves %s` is not exactly one `G-N` id"
+                                % (path, number, identifier, value))
+            elif value not in seen_goals:
+                findings.append("%s:%d: %s serves %s, which `## Goals` does not declare"
+                                % (path, number, identifier, value))
+
+        if len(criterion["satisfies"]) > 1:
+            findings.append("%s:%d: %s carries %d `Satisfies` lines, expected one"
+                            % (path, number, identifier, len(criterion["satisfies"])))
+        for value in criterion["satisfies"]:
+            if not SATISFIES_ID.match(value):
+                findings.append("%s:%d: %s `Satisfies %s` is not exactly one `FR/BR/EC/NFR-N` id"
+                                % (path, number, identifier, value))
 
 
 def check_sections(path, lines, titles, findings):
@@ -158,16 +318,7 @@ def lint_spec(path, lines, base, findings):
 
     check_sections(path, lines, SPEC_SECTIONS, findings)
 
-    live, _ = spec_ac_ids(lines)
-    seen = set()
-    highest = 0
-    for number in live:
-        if number in seen:
-            findings.append("%s:1: AC-%d is declared more than once" % (path, number))
-        elif number < highest:
-            findings.append("%s:1: AC-%d breaks the monotonic sequence" % (path, number))
-        seen.add(number)
-        highest = max(highest, number)
+    check_criteria(path, lines, findings)
 
     prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
     downstream = any(os.path.isfile(os.path.join(base, name)) for name in ("design.md", "tasks.md"))
@@ -213,19 +364,19 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
 
     if spec_lines is None:
         return
-    live, tombstoned = spec_ac_ids(spec_lines)
+    live = spec_ac_ids(spec_lines)
     traced = set()
     bounds = section_bounds(lines, "Requirements Traceability")
     if bounds:
         for number, header, cells in table_rows(lines, *bounds):
             for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
-                identifier = int(match.group(1))
+                identifier = match.group(0)
                 traced.add(identifier)
                 if identifier not in live:
-                    findings.append("%s:%d: traceability names AC-%d, which the spec does not declare" % (path, number, identifier))
-    for identifier in sorted(set(live)):
-        if identifier not in traced and identifier not in tombstoned:
-            findings.append("%s:1: AC-%d reaches no row in Requirements Traceability" % (path, identifier))
+                    findings.append("%s:%d: traceability names %s, which the spec does not declare" % (path, number, identifier))
+    for identifier in sorted(set(live), key=ac_sort_key):
+        if identifier not in traced:
+            findings.append("%s:1: %s reaches no row in Requirements Traceability" % (path, identifier))
 
     for index, line in enumerate(spec_lines):
         if DESIGN_TAG.search(line):
@@ -295,19 +446,22 @@ def lint_tasks(path, lines, base, spec_lines, findings):
 
     if spec_lines is None:
         return
-    live, tombstoned = spec_ac_ids(spec_lines)
+    live = spec_ac_ids(spec_lines)
     covered = set()
     bounds = section_bounds(lines, "Coverage Matrix")
     if bounds:
         for number, header, cells in table_rows(lines, *bounds):
             for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
-                covered.add(int(match.group(1)))
+                identifier = match.group(0)
+                covered.add(identifier)
+                if identifier not in live:
+                    findings.append("%s:%d: Coverage Matrix names %s, which the spec does not declare" % (path, number, identifier))
             for reference in TASK_REF.findall(cell(header, cells, "Task")):
                 if reference not in declared:
                     findings.append("%s:%d: Coverage Matrix names %s, which the Task List does not declare" % (path, number, reference))
-    for identifier in sorted(set(live)):
-        if identifier not in covered and identifier not in tombstoned:
-            findings.append("%s:1: AC-%d reaches no row in the Coverage Matrix" % (path, identifier))
+    for identifier in sorted(set(live), key=ac_sort_key):
+        if identifier not in covered:
+            findings.append("%s:1: %s reaches no row in the Coverage Matrix" % (path, identifier))
 
 
 def main(argv=None):

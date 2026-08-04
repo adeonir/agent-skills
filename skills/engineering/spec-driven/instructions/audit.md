@@ -75,7 +75,7 @@ Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact templat
 ## Acceptance Criteria
 | AC | Status | Test File | Assertion | Outcome |
 |----|--------|-----------|-----------|---------|
-| AC-1 | PASS / FAIL | `file:line` | `expect(...)` | matches spec |
+| AC-1.1 | PASS / FAIL | `file:line` | `expect(...)` | matches spec |
 
 ## Discrimination Sensor
 | Type | Location | Expected Fail | Result | Consequence |
@@ -94,7 +94,7 @@ Location: `.artifacts/specs/{slug}/validation.md`. ALWAYS use this exact templat
 ## Spec Defects        <!-- conditional: only when an AC over-specifies its Goal or benefit -->
 | AC | Over-specifies | Recommendation |
 |----|----------------|----------------|
-| AC-N | {the Goal or benefit clause it exceeds} | loosen at specify, or confirm as a deliberate constraint |
+| AC-N.M | {the Goal or benefit clause it exceeds} | loosen at specify, or confirm as a deliberate constraint |
 ```
 
 A `## Spec Defects` row never changes the verdict — the code satisfies the AC, so the feature still PASSes. It surfaces an AC stronger than the goal it serves, for the main agent to route back to specify or accept. It becomes no `T-N` and never enters the FAIL loop. An AC whose extra strictness carries a `(because …)` rationale that justifies it is a deliberate constraint already settled at specify, not a spec defect — judge whether the rationale actually holds (one that does not is still a defect), and always surface an over-tight AC that carries no such rationale.
