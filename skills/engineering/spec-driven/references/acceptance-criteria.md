@@ -24,7 +24,7 @@ Scenario: User signs in with registered credentials
 ````
 
 - One criterion is one scenario. Two criteria never carry the same scenario.
-- `Scenario` states a single case; `Scenario Outline` + `Examples` states a parametrized one, and every placeholder its steps use is bound by a column.
+- `Scenario` states a single case and carries no `Examples`. `Scenario Outline` carries exactly one `Examples` table: one non-empty, unique-column header and at least one data row; every row matches the header width, every placeholder is a column, and every column binds a placeholder.
 - `Given`, `When` and `Then` each open a step group, and `And` or `But` continues the group open at that point.
 - A `Then` asserting two independent outcomes is two criteria — split it, however they were joined, in one step with `and` or across an `And` continuation. Two observables of one outcome stay one criterion. The audit maps each criterion to one discriminating test and draws its mutation points from them, so a criterion carrying three observables has no single assertion.
 - A conjunctive precondition that names one state the criterion needs whole stays one `Given` group: "the user is signed in and has three items in the cart".
