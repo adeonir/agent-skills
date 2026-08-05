@@ -8,7 +8,7 @@ When breaking a change into tasks or user stories, or producing the task breakdo
 
 ## Workflow
 
-1. **Resolve feature** — find the active `spec.md` and `design.md`.
+1. **Resolve feature** — find the active `spec.md` and read `.artifacts/STATE.md ## Progress` before loading `design.md`. If `Next` directs a design rerun, stop and run design; the existing design predates the current contract and cannot ground new tasks. Otherwise resolve `design.md` and continue.
 2. **Load context** — read `.artifacts/STATE.md` (if present), the spec, the design, `.artifacts/CONTEXT.md`, `discuss.md` (if present), and `AGENTS.md` / `CLAUDE.md`. These are context only: upstream prose never crosses into `tasks.md` (the template's MUST-NOT names it) — tasks reference `AC-N.M` by id in the Coverage Matrix, never restate its text.
 3. **Build the task list** — break into atomic tasks in execution order (top-to-bottom). A task is atomic when it has one clear objective, is verifiable by one gate, and needs at most ~1 new design decision. It may touch several files if the changes are mechanical and dependent. Tasks group under the story they serve, contiguously, and stories appear in dependency order — no task depends on a task in a later story. Implement dispatches whole stories in that order, so this ordering is what makes a story safe to hand to one subagent. When a story's tasks reveal it is not one vertical slice ([slicing.md](../references/slicing.md)), route it back to specify — never split its task list at an arbitrary index to compensate.
 4. **Fill the Coverage Matrix** — map every AC to at least one task and test.

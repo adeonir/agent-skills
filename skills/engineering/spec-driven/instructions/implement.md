@@ -10,7 +10,7 @@ When implementing a named task, range, or user story, or executing a whole featu
 
 Medium and up — Small has none of these artifacts; see [Small inline](#small-inline) below.
 
-1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `.artifacts/STATE.md ## Progress` is read per task in the Before step.
+1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and read `.artifacts/STATE.md ## Progress` before loading downstream artifacts. If `Next` directs a design or tasks rerun, stop and run that phase; its artifacts predate the current contract and are context, not executable authority. Otherwise load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), `.artifacts/CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read again per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field. Already on it → skip. On `main`/`master` → create: `git switch -c {branch} 2>/dev/null || git switch {branch}`. On an unrelated branch → stop and ask before branching, so the feature never carries foreign commits.
 3. **Update status** — if `status` is `ready`, set it to `in-progress` in `spec.md`.
 4. **Dispatch tasks** — hand the selection (a task, a range `T-1..T-5`, a story, or the whole feature) to an isolated subagent per [Subagent dispatch](#subagent-dispatch); it runs each task through Before / During / After and returns the compact summary.
