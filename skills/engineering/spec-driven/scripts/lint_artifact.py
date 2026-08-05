@@ -57,6 +57,7 @@ DIVERGENCE_STATUSES = ["open", "accepted"]
 DIVERGENCE_DIRECTIONS = ["Added", "Dropped", "Loosened"]
 GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
+GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
 TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
 STORY_REF = re.compile(r"\bS-\d+\b")
@@ -215,9 +216,10 @@ def validate_gherkin(path, criterion, findings):
         return
 
     seen = {"Given": False, "When": False, "Then": False}
-    for step in block[1:]:
-        if step.startswith("Examples:") or step.startswith("|"):
-            continue  # the Examples table binds placeholders; it carries no step keyword
+    current_group = None
+    examples_at = [index for index, line in enumerate(block) if line.startswith("Examples:")]
+    steps_end = examples_at[0] if examples_at else len(block)
+    for step in block[1:steps_end]:
         match = STEP_KEYWORD.match(step)
         if not match:
             findings.append("%s:%d: %s has a line that is not a Gherkin step: `%s`"
@@ -225,20 +227,54 @@ def validate_gherkin(path, criterion, findings):
             continue
         keyword = match.group(1)
         if keyword in STEP_CONTINUATIONS:
+            if current_group is None:
+                findings.append("%s:%d: %s puts `%s` before any step group"
+                                % (path, number, identifier, keyword))
             continue
         if keyword == "When" and not seen["Given"]:
             findings.append("%s:%d: %s puts `When` before any `Given`" % (path, number, identifier))
         if keyword == "Then" and not seen["When"]:
             findings.append("%s:%d: %s puts `Then` before any `When`" % (path, number, identifier))
+        current_group = keyword
         seen[keyword] = True
 
     for keyword in STEP_OPENERS:
         if not seen[keyword]:
             findings.append("%s:%d: %s has no `%s` step" % (path, number, identifier, keyword))
 
-    if outline and not any(step.startswith("Examples:") for step in block):
-        findings.append("%s:%d: %s is a `Scenario Outline` with no `Examples` table"
+    if not outline and examples_at:
+        findings.append("%s:%d: %s is a `Scenario` but carries an `Examples` table"
                         % (path, number, identifier))
+    if not outline:
+        return
+    if len(examples_at) != 1:
+        findings.append("%s:%d: %s is a `Scenario Outline` with %d `Examples` tables, expected one"
+                        % (path, number, identifier, len(examples_at)))
+        return
+
+    table = block[examples_at[0] + 1:]
+    if len(table) < 2 or any(not row.startswith("|") for row in table):
+        findings.append("%s:%d: %s `Examples` needs one header and at least one data row"
+                        % (path, number, identifier))
+        return
+    rows = [[value.strip() for value in row.strip("|").split("|")] for row in table]
+    header = rows[0]
+    if any(not value for value in header) or len(set(header)) != len(header):
+        findings.append("%s:%d: %s `Examples` header has an empty or duplicate column"
+                        % (path, number, identifier))
+    for row in rows[1:]:
+        if len(row) != len(header):
+            findings.append("%s:%d: %s `Examples` row has %d cells, expected %d"
+                            % (path, number, identifier, len(row), len(header)))
+
+    placeholders = set(GHERKIN_PLACEHOLDER.findall("\n".join(block[:steps_end])))
+    columns = set(header)
+    for missing in sorted(placeholders - columns):
+        findings.append("%s:%d: %s placeholder <%s> has no `Examples` column"
+                        % (path, number, identifier, missing))
+    for unused in sorted(columns - placeholders):
+        findings.append("%s:%d: %s `Examples` column `%s` binds no placeholder"
+                        % (path, number, identifier, unused))
 
 
 def check_criteria(path, lines, findings):
