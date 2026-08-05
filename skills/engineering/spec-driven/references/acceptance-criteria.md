@@ -88,7 +88,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 
 A miscalibrated criterion changes a criterion, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited one that arrives before drafting surfaces during discuss; one authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
-- **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and it closes on the run that finds the seed corrected.
+- **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and the next specify run removes it once the seed is corrected.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 ## Ambiguity closure

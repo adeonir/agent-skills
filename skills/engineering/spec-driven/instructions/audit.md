@@ -127,7 +127,7 @@ Spec-defects: {count}
 | `UNVERIFIED` marker | `design.md` | verifying the claim |
 | Empty `Disproof` on judgment-laden code | `validation.md` | re-auditing with real disproof, or accepting it as low-confidence |
 
-An open `DV-N` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared what the spec added, still asserts what the spec loosened, or still owes what no AC covers. The correction lands on the seed, not here, and the row turns `resolved` on the specify run that finds the seed corrected.
+An open `DV-N` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared what the spec added, still asserts what the spec loosened, or still owes what no AC covers. The correction lands on the seed, not here, and the next specify run removes the row once the two agree.
 
 The verdict stays PASS regardless; the gate is on the status flip, not the verdict. Non-user-facing: set `spec.md status: done` automatically and clear `.artifacts/STATE.md` per [memory.md](../references/memory.md) — the feature is no longer active. User-facing: run [validate.md](validate.md); done (and the same clear) only after UAT approval.
 
