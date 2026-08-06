@@ -32,6 +32,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored pre-PR code review in quick and deep modes |
 | **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` |
 | **[spec-driven](skills/engineering/spec-driven)** | Engineering | Spec-driven feature development with auto-sizing and full traceability |
+| **[anti-slop](skills/personal/anti-slop)** | Personal | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
 | **[notes](skills/personal/notes)** | Personal | Obsidian notes for projects, meetings, challenges, and brag docs |
 | **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions |
 | **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian |
