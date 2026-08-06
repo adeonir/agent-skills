@@ -24,24 +24,36 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 ## Skills
 
-| Skill | Category | Description |
-| ----- | -------- | ----------- |
-| **[debug-tools](skills/engineering/debug-tools)** | Engineering | Iterative investigate–fix–verify debugging with confidence scoring |
-| **[git-helpers](skills/engineering/git-helpers)** | Engineering | Conventional commits, pull requests, and branch lifecycle |
-| **[plain-spoken](skills/engineering/plain-spoken)** | Engineering | STE-inspired technical English with less jargon and preserved precision |
-| **[review-lens](skills/engineering/review-lens)** | Engineering | Confidence-scored pre-PR code review in quick and deep modes |
-| **[rule-creator](skills/engineering/rule-creator)** | Engineering | Create and manage Claude Code rules in `.claude/rules/` |
-| **[spec-driven](skills/engineering/spec-driven)** | Engineering | Spec-driven feature development with auto-sizing and full traceability |
-| **[anti-slop](skills/personal/anti-slop)** | Personal | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
-| **[notes](skills/personal/notes)** | Personal | Obsidian notes for projects, meetings, challenges, and brag docs |
-| **[handoff](skills/personal/handoff)** | Personal | Save and resume conversation state across sessions |
-| **[wrap-up](skills/personal/wrap-up)** | Personal | End-of-session context persistence to Obsidian |
-| **[brainstorm](skills/product/brainstorm)** | Product | Structured idea exploration and plan stress-testing, diverge to converge |
-| **[copywriting](skills/product/copywriting)** | Product | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
-| **[craft-ui](skills/product/craft-ui)** | Product | Plan layout structure, render design variants, critique a variant, audit a running UI — non-mutating |
-| **[design-brief](skills/product/design-brief)** | Product | Greenfield visual identity — explore a direction and author `DESIGN.md` |
-| **[docs-writer](skills/product/docs-writer)** | Product | Structured docs: PRD, Brief, Design Doc, ADR |
-| **[epic-tracker](skills/product/epic-tracker)** | Product | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
+### Engineering
+
+| Skill | Description |
+| ----- | ----------- |
+| **[debug-tools](skills/engineering/debug-tools)** | Iterative investigate–fix–verify debugging with confidence scoring |
+| **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
+| **[plain-spoken](skills/engineering/plain-spoken)** | STE-inspired technical English with less jargon and preserved precision |
+| **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
+| **[rule-creator](skills/engineering/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
+| **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development with auto-sizing and full traceability |
+
+### Product
+
+| Skill | Description |
+| ----- | ----------- |
+| **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
+| **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
+| **[craft-ui](skills/product/craft-ui)** | Plan layout structure, render design variants, critique a variant, audit a running UI — non-mutating |
+| **[design-brief](skills/product/design-brief)** | Greenfield visual identity — explore a direction and author `DESIGN.md` |
+| **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD, Brief, Design Doc, ADR |
+| **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
+
+### Personal
+
+| Skill | Description |
+| ----- | ----------- |
+| **[anti-slop](skills/personal/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
+| **[notes](skills/personal/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
+| **[handoff](skills/personal/handoff)** | Save and resume conversation state across sessions |
+| **[wrap-up](skills/personal/wrap-up)** | End-of-session context persistence to Obsidian |
 
 ## How They Connect
 
