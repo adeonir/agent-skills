@@ -42,12 +42,21 @@ Here is a sensible default format, but use your best judgment:
 Closes #{issue-number}
 ````
 
+**Summary — glanceable.** 1-3 short sentences at the plain-prose bar. Lead with what the branch does or fixes, then only the *why* the reviewer needs:
+
+| AI-slop Summary | Plain Summary |
+|-----------------|---------------|
+| This PR enhances the authentication flow to ensure robust token handling and streamline the user experience. | Refresh access tokens before they expire so a long-lived tab stops forcing a full sign-in. |
+| Implements comprehensive error handling functionality across the upload pipeline. | Retry failed uploads and surface a clear error when retries are exhausted. |
+
 **Test Plan — reviewer-facing, not machine gates.** The section most often filled with the wrong thing. List commands that exercise *this* PR's behavior, each paired with what the reviewer observes:
 
 - `curl localhost:3000/api/orders/42` — returns 404 with `{"error":"not found"}`
 - submit the login form with a blank password — inline "required" error appears
 
 Skip whole-project gates (`npm test`, `tsc`, `npm run build`): they pass regardless of the diff and CI already runs them. If the PR has no reviewer-runnable behavior (a pure internal refactor), say so in one line.
+
+**Title.** Same bar as a commit subject: conventional type, human-readable *what*, no *where*/*how* leakage. Prefer the primary commit's subject when the branch is one commit; otherwise write a fresh subject that covers the branch.
 
 Leave these out of the body — a reviewer reads it to understand the diff, so anything the diff does not show reads as noise or invention:
 

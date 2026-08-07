@@ -49,9 +49,10 @@ AI-slop has two opposite shapes, and "just be concrete" pushes you out of the fi
 
 **Shape 1 — empty abstraction.** The subject names a filler word instead of the thing that moved. The tells cluster in a small vocabulary:
 
-- Filler verbs: *enhance, streamline, leverage, utilize, facilitate, optimize* (when nothing was measured), *revamp* — and *improve, update, tweak, rework* unless paired with a concrete object
+- Filler verbs: *enhance, streamline, leverage, utilize, facilitate, revamp* — plus *optimize* when nothing was measured, *ensure, enable, provide, implement* when the diff just adds or changes code, *introduce, support* with no concrete object, and *improve, update, tweak, rework* unless paired with a concrete object
 - Filler adjectives: *robust, comprehensive, seamless, proper, modern*
-- Abstract nouns standing in for the real object: *logic, functionality, handling, behavior, mechanism, capability*
+- Abstract nouns standing in for the real object: *logic, functionality, handling, behavior, mechanism, capability, configuration, infrastructure*
+- Corporate phrasing that pretends to explain: *in order to, with the goal of, this allows users to, making it possible to*
 
 **Shape 2 — fake concreteness.** Over-correcting for Shape 1 yields a subject that *sounds* specific but reads like a spec or release note, not a developer's log:
 
@@ -66,10 +67,12 @@ A human subject is terse and structural: it names what moved in the code, in the
 | `feat: enhance error handling` | `feat: retry failed uploads` (the count stays in the code) |
 | `refactor: streamline auth logic` | `refactor: move token refresh into the request interceptor` |
 | `chore: pin node to 20 in CI` | `ci: pin node version` (the exact version stays in the config) |
+| `feat: implement user authentication functionality` | `feat: add password login` |
+| `fix: ensure proper token refresh behavior` | `fix: refresh tokens before they expire` |
 
 ## Body
 
-**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff.
+**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff.
 
 **Most commits have no body at all.** A body exists in exactly two cases:
 
