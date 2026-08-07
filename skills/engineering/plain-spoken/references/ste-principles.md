@@ -42,7 +42,7 @@ Before returning the text, check each item:
 - Each sentence has one main point or action.
 - The actor is explicit when the actor matters.
 - No simpler word would preserve the same technical meaning better.
-- Code, commands, paths, identifiers, values, and quoted interface text are unchanged unless the user asked to change them.
+- Code, commands, paths, identifiers, values, and quoted interface text are unchanged unless the user asked to change them; a credential value is the exception and is replaced with a placeholder.
 
 ## Audit format
 
