@@ -49,7 +49,7 @@ Omit the blank line and body when the subject already says everything — the co
 
 ## Body guidelines
 
-**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work.
+**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work.
 
 **Most task commits have no body at all.** A body exists in exactly two cases:
 
@@ -60,11 +60,18 @@ Neither case is about *listing* the work. A boundary that closes so many separab
 
 Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the files touched, mechanics, values, counts, AC or task IDs. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the implementation session instead of arming the reader.
 
+The test is one question, asked while writing: *without this line, does the reader get the change wrong?* If not, cut it.
+
 ## Anti-Pattern: AI-slop subject
 
 AI-slop has two opposite shapes, and "just be concrete" pushes out of the first and straight into the second. Watch for both.
 
-**Shape 1 — empty abstraction.** The subject names a filler word instead of the thing that moved: filler verbs (*enhance, streamline, leverage, optimize* when nothing was measured), filler adjectives (*robust, comprehensive, seamless*), abstract nouns standing in for the real object (*logic, functionality, handling, behavior*).
+**Shape 1 — empty abstraction.** The subject names a filler word instead of the thing that moved. The tells cluster in a small vocabulary:
+
+- Filler verbs: *enhance, streamline, leverage, utilize, facilitate, revamp* — plus *optimize* when nothing was measured, *ensure, enable, provide, implement* when the change just adds or modifies code, *introduce, support* with no concrete object, and *improve, update, tweak, rework* unless paired with a concrete object
+- Filler adjectives: *robust, comprehensive, seamless, proper, modern*
+- Abstract nouns standing in for the real object: *logic, functionality, handling, behavior, mechanism, capability, configuration, infrastructure*
+- Corporate phrasing that pretends to explain: *in order to, with the goal of, this allows users to, making it possible to*
 
 **Shape 2 — fake concreteness.** Over-correcting yields a subject that reads like a release note:
 
@@ -79,6 +86,8 @@ A human subject is terse and structural — it names what moved, in the develope
 | `feat: enhance error handling` | `feat: retry failed uploads` |
 | `refactor: streamline auth logic` | `refactor: move token refresh into the request interceptor` |
 | `chore: pin node to 20 in CI` | `ci: pin node version` |
+| `feat: implement user authentication functionality` | `feat: add password login` |
+| `fix: ensure proper token refresh behavior` | `fix: refresh tokens before they expire` |
 
 ## Examples
 
