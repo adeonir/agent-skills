@@ -10,7 +10,7 @@ When committing staged or unstaged changes.
 
 Read `git status --short` to plan staging. Once staging is complete, read `git diff --cached`. Never diff before staging is complete: unstaged changes pollute the message with content that will not land.
 
-Read `git log --oneline -10 --no-merges` for the project's scope convention only — whether it writes `type(scope):` or `type:`, and which scopes it uses. The log does not set the shape of the message; this reference does.
+Read `git log --oneline -10 --no-merges` for the project's message form: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Match what the log establishes — never add or strip a form element against it. The log sets form only. It never sets the bar for what the subject says; this reference does, however sloppy the log reads.
 
 ## Staging
 
@@ -38,7 +38,7 @@ The conversation supplies at most an explicit *why* the user stated.
 
    See the AI-slop anti-pattern below for the filler vocabulary to avoid.
 2. **The subject carries the whole *what***: it names the user-observable effect, and it is the only place the *what* lives. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
-3. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the scope usage the recent log establishes — do not add or strip scope against it. User can override (e.g. "add scope `auth`", "drop the scope").
+3. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the message form the recent log establishes. User can override (e.g. "add scope `auth`", "drop the scope").
 4. **No attribution**: Never add Co-Authored-By or similar lines
 5. **No future references**: Don't mention upcoming work or architectural reasoning
 6. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
