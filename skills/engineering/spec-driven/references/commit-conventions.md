@@ -10,21 +10,6 @@ When building the message for a task commit in [implement.md](../instructions/im
 
 The message summarizes the boundary just closed. The agent making the commit already implemented and verified the work, so it builds the message from the boundary's tasks (their `Done when` and intent) and the actual changes made. There is no separate diff-reading pass — reproduce facts from what was written, never invented.
 
-## Commit types
-
-| Type | Use when |
-|------|----------|
-| `feat` | Adding new functionality |
-| `fix` | Fixing a bug |
-| `refactor` | Restructuring code without changing behavior |
-| `test` | Adding or updating tests |
-| `docs` | Documentation changes |
-| `style` | Code style changes |
-| `perf` | Performance improvements |
-| `build` | Build system or external dependencies |
-| `ci` | CI/CD configuration changes |
-| `chore` | Maintenance tasks, dependencies, configs |
-
 ## Format rules
 
 1. **Imperative mood** — "add", "fix", "implement" (not "added", "fixes").
