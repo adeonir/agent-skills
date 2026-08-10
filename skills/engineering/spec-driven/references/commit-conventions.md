@@ -12,7 +12,7 @@ The message summarizes the boundary just closed. The agent making the commit alr
 
 ## Format rules
 
-1. **Imperative mood** — "add", "fix", "implement" (not "added", "fixes").
+1. **Imperative mood** — "add", "fix", "move" (not "added", "fixes").
 2. **Concise subject** — ~72 characters, a soft ceiling.
 3. **Human readable** — write the subject so a teammate understands it without opening the code. Tell the story of what moved and why it matters, not an abstract framing. `refactor: make db and auth per-request for d1 binding` reads like a story; `refactor: swap client and adapter for d1 pattern` reads like a release-note abstraction. See the AI-slop anti-pattern for the filler vocabulary to avoid.
 4. **The subject carries the whole *what*** — it names the user-observable effect, and it is the only place the *what* lives. Keep file names, paths, mechanics, and specific values out (they live in the diff). This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
