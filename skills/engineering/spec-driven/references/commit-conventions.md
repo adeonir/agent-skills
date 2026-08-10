@@ -68,7 +68,7 @@ AI-slop has two opposite shapes, and "just be concrete" pushes out of the first 
 
 **Shape 1 — empty abstraction.** The subject names a filler word instead of the thing that moved. The tells cluster in a small vocabulary:
 
-- Filler verbs: *enhance, streamline, leverage, utilize, facilitate, revamp* — plus *optimize* when nothing was measured, *ensure, enable, provide, implement* when the change just adds or modifies code, *introduce, support* with no concrete object, and *improve, update, tweak, rework* unless paired with a concrete object
+- Filler verbs: *enhance, streamline, leverage, utilize, facilitate, revamp* — plus *optimize* when nothing was measured, *ensure, enable, provide, implement* when the work just adds or changes code, *introduce, support* with no concrete object, and *improve, update, tweak, rework* unless paired with a concrete object
 - Filler adjectives: *robust, comprehensive, seamless, proper, modern*
 - Abstract nouns standing in for the real object: *logic, functionality, handling, behavior, mechanism, capability, configuration, infrastructure*
 - Corporate phrasing that pretends to explain: *in order to, with the goal of, this allows users to, making it possible to*

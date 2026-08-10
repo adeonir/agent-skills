@@ -32,16 +32,17 @@ The conversation supplies at most an explicit *why* the user stated.
 
 ## Format Rules
 
-1. **Human readable**: Write the subject so a teammate understands it without opening the diff. Prefer descriptions that tell the story of the change — what actually moved and why it matters — over abstract framing. The first reads like a story; the second like a release-note abstraction:
+1. **Imperative mood**: write the subject as a command — "add", "fix", "move", never "added" or "fixes".
+2. **Human readable**: Write the subject so a teammate understands it without opening the diff. Prefer descriptions that tell the story of the change — what actually moved and why it matters — over abstract framing. The first reads like a story; the second like a release-note abstraction:
    - `refactor: make db and auth per-request for d1 binding`
    - `refactor: swap client and adapter for d1 pattern`
 
    See the AI-slop anti-pattern below for the filler vocabulary to avoid.
-2. **The subject carries the whole *what***: it names the user-observable effect, and it is the only place the *what* lives. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
-3. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the message form the recent log establishes. User can override (e.g. "add scope `auth`", "drop the scope").
-4. **No attribution**: Never add Co-Authored-By or similar lines
-5. **No future references**: Don't mention upcoming work or architectural reasoning
-6. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
+3. **The subject carries the whole *what***: it names the user-observable effect, and it is the only place the *what* lives. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
+4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the message form the recent log establishes. User can override (e.g. "add scope `auth`", "drop the scope").
+5. **No attribution**: Never add Co-Authored-By or similar lines
+6. **No future references**: Don't mention upcoming work or architectural reasoning
+7. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
 
 ## Anti-Pattern: AI-slop subject
 
