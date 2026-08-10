@@ -1,23 +1,25 @@
 ---
 name: plain-spoken
 description: >-
-  Writes and rewrites technical English with an ASD-STE100-inspired method:
+  Writes and rewrites technical prose with an ASD-STE100-inspired method:
   reduce jargon, prefer familiar words, keep one meaning per term, simplify
-  sentence structure, and preserve technical accuracy. Use automatically for
-  substantial technical prose written for people, including explanations,
-  runbooks, specifications, incident reports, architecture notes, procedures,
-  and documentation, even when the user does not explicitly request simpler
-  language. Also use when the user asks for plain English, global readability,
-  less jargon, Simplified Technical English, or ASD-STE100 style. Not for brief
-  factual replies, code-only output, raw logs, formal ASD-STE100 compliance
-  certification, literary or marketing copy, or non-English translation.
+  sentence structure, and preserve technical accuracy. The method applies in
+  any language, with the ASD-STE100 controlled dictionary as its English
+  reference. Use automatically for substantial technical prose written for
+  people, including explanations, runbooks, specifications, incident reports,
+  architecture notes, procedures, and documentation, even when the user does
+  not explicitly request simpler language. Also use when the user asks for
+  plain English, plain language, global readability, less jargon, Simplified
+  Technical English, or ASD-STE100 style. Not for brief factual replies,
+  code-only output, raw logs, formal ASD-STE100 compliance certification, or
+  literary and marketing copy.
 ---
 
 # Plain Spoken
 
 ## Quick start
 
-- **Write** — compose a new technical answer in clear English.
+- **Write** — compose a new technical answer in clear language.
 - **Rewrite** — simplify supplied text without changing its technical meaning.
 - **Audit** — identify clarity defects only when the user asks for a report.
 
@@ -37,7 +39,7 @@ Default to **STE-inspired writing**, not formal ASD-STE100 conformance. The comp
 
 If the user requests certified or strict conformance, use the official standard and the applicable terminology source. If either source is unavailable, state that the result is a best-effort rewrite and do not certify it as compliant.
 
-For non-English output, apply the same clarity goals only when requested, but do not call the result Simplified Technical English.
+The method applies to every language. Write in the language of the source text or the request. The structural rules carry over unchanged. The controlled dictionary is defined in English; in another language, apply its principle with the equivalent word pair in that language. Formal conformance is defined for English only: a result in another language is STE-inspired and never certified.
 
 ## Guidelines
 

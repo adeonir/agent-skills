@@ -30,7 +30,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | ----- | ----------- |
 | **[debug-tools](skills/engineering/debug-tools)** | Iterative investigate–fix–verify debugging with confidence scoring |
 | **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
-| **[plain-spoken](skills/engineering/plain-spoken)** | STE-inspired technical English with less jargon and preserved precision |
+| **[plain-spoken](skills/engineering/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[rule-creator](skills/engineering/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development with auto-sizing and full traceability |

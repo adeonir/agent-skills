@@ -1,6 +1,6 @@
 # Plain Spoken
 
-Makes technical English easier to understand without removing necessary precision.
+Makes technical prose easier to understand without removing necessary precision.
 
 ## What It Does
 
@@ -9,7 +9,7 @@ flowchart LR
     R[Technical request or draft] --> C[Preserve facts and required terms]
     C --> S[Apply STE-inspired clarity rules]
     S --> P[Check precision]
-    P --> O[Clear technical English]
+    P --> O[Clear technical prose]
 ```
 
 | Phase | Output |
@@ -19,6 +19,8 @@ flowchart LR
 | Verify | A final check for ambiguity, lost meaning, and unclear references |
 
 The method adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to everyday agent responses. It does not reproduce the controlled dictionary and does not claim formal compliance.
+
+The principles apply in any language. The controlled dictionary is defined in English and stays the reference for word choice; in another language, the same test runs against the equivalent word pair.
 
 ## Usage
 
@@ -46,6 +48,6 @@ Formal ASD-STE100 conformance requires the official standard and the approved te
 
 **Does it remove every technical term?** No. It keeps terms that carry necessary meaning and defines unfamiliar terms when the reader needs the definition.
 
-**Does it work for Portuguese output?** The clarity principles can guide non-English writing, but only English text can be called Simplified Technical English.
+**Does it work for Portuguese output?** Yes. The structural rules and the word-choice test apply the same way; only English text can be called Simplified Technical English, because formal conformance is defined for English.
 
-**Does simple mean childish?** No. The target is direct, precise language for readers with different levels of English proficiency.
+**Does simple mean childish?** No. The target is direct, precise language for readers with different levels of proficiency in the language of the text.
