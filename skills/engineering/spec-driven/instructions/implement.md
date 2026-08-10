@@ -22,7 +22,7 @@ No `spec.md` exists — work from the one-liner:
 
 1. **Branch** — same rule as step 2, with a slug derived from the one-liner.
 2. **Change** — make the edit; run the nearest gate (test, lint, or a described check).
-3. **Commit** — per [commit-conventions.md](../references/commit-conventions.md).
+3. **Commit** — stage by name the files the edit touched, never `git add -A`; message per [commit-conventions.md](../references/commit-conventions.md).
 
 No approval gate, no audit — the inline verify is the check. Small is where a mis-sized scope surfaces: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those trips the safety valve ([sizing.md](../references/sizing.md)) — raise to Medium and apply the full pipeline; never push through inline.
 
@@ -47,7 +47,7 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 2. Run project quality gates (lint, typecheck) if fast.
 3. Run **verify** (mental — no artifact): design adherence, AC coverage against the Coverage Matrix, pattern adherence, and the discrimination check when the task carries a `Discrimination:` field. Any "no" → fix before marking done.
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
-5. **Commit** — 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
+5. **Commit** — stage by name the files this task touched, never `git add -A`: anything else dirty on the branch belongs to another commit. 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
 6. Update `STATE.md ## Progress` — point `Next` at the following task **in this selection**. A subagent never points `Next` past its own selection: after its last task it reports and stops. The main agent owns the pointer across selections, moving it to the next story, or to the audit once the final one returns.
 
 ## Subagent dispatch
