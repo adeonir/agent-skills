@@ -1,11 +1,6 @@
 ---
 name: notes
-description: >-
-  Writes and updates Obsidian notes in the vault. Use when documenting a
-  project, recording a technical challenge or take-home, adding to a brag
-  document, preserving a meeting, 1:1, standup, or lecture transcription
-  verbatim, or tracking a company and job application. Not for end-of-session
-  persistence or repository-wide project context.
+description: "Writes and updates Obsidian notes in the vault. Use when documenting a project, recording a technical challenge or take-home, adding to a brag document, preserving a meeting, 1:1, standup, or lecture transcription verbatim, or tracking a company and job application. Not for end-of-session persistence or repository-wide project context."
 ---
 
 # Notes

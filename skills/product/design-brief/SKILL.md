@@ -1,21 +1,7 @@
 ---
 name: design-brief
 allowed-tools: Bash(bun:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
-description: >-
-  Greenfield design pipeline for any digital product: explore a visual
-  direction when no reference exists, then author and refine the visual
-  identity in DESIGN.md. Use when designing a landing page, marketing
-  site, web or mobile app, dashboard, or e-commerce store; exploring or
-  deciding a mood or visual direction from scratch with no reference or
-  moodboard; authoring a design system, extracting design tokens,
-  building or refreshing DESIGN.md from references, images, briefs, or a
-  codebase; applying named tones to the identity; redesigning,
-  modernizing, or refreshing the brand identity; previewing and tuning
-  the design tokens as a visual styleguide then committing tuned
-  values back; syncing DESIGN.md from implementation drift; evolving
-  the identity against a product's stated intent from a PRD or
-  PRODUCT.md. Not for rendering page variants, feature implementation
-  spec, technical design docs, system architecture, or PR/code review.
+description: "Greenfield design pipeline for any digital product: explore a visual direction when no reference exists, then author and refine the visual identity in DESIGN.md. Use when designing a landing page, marketing site, web or mobile app, dashboard, or e-commerce store; exploring or deciding a mood or visual direction from scratch with no reference or moodboard; authoring a design system, extracting design tokens, building or refreshing DESIGN.md from references, images, briefs, or a codebase; applying named tones to the identity; redesigning, modernizing, or refreshing the brand identity; previewing and tuning the design tokens as a visual styleguide then committing tuned values back; syncing DESIGN.md from implementation drift; evolving the identity against a product's stated intent from a PRD or PRODUCT.md. Not for rendering page variants, feature implementation spec, technical design docs, system architecture, or PR/code review."
 ---
 
 # Design Brief

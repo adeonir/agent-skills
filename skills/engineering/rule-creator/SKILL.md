@@ -1,19 +1,6 @@
 ---
 name: rule-creator
-description: >-
-  Creates and manages Claude Code rules in project .claude/rules/ and
-  user-level rules with a flexible rule template, classifies the input
-  before writing, and decides level, scope, and frontmatter from signals in
-  the request. Supports create, list, edit, extract from oversized
-  AGENTS.md / CLAUDE.md, delete, and refusal with redirect when the input
-  belongs to a skill or hook.
-  Use this skill whenever the user defines a coding convention, team standard,
-  or constraint Claude should enforce — even when the user does not explicitly
-  say "rule". Also use for creating, listing, editing, or deleting a rule,
-  writing a rule for one project or for every project, scoping a rule to
-  specific paths, or splitting a growing AGENTS.md / CLAUDE.md
-  into rule files. Not for procedural workflows, lifecycle
-  hooks, or one-off task instructions.
+description: "Creates and manages Claude Code rules in project .claude/rules/ and user-level rules with a flexible rule template, classifies the input before writing, and decides level, scope, and frontmatter from signals in the request. Supports create, list, edit, extract from oversized AGENTS.md / CLAUDE.md, delete, and refusal with redirect when the input belongs to a skill or hook. Use this skill whenever the user defines a coding convention, team standard, or constraint Claude should enforce — even when the user does not explicitly say \"rule\". Also use for creating, listing, editing, or deleting a rule, writing a rule for one project or for every project, scoping a rule to specific paths, or splitting a growing AGENTS.md / CLAUDE.md into rule files. Not for procedural workflows, lifecycle hooks, or one-off task instructions."
 ---
 
 # Rule Creator

@@ -1,12 +1,7 @@
 ---
 name: git-helpers
 allowed-tools: Bash(git:*) Bash(gh:*) Read
-description: >-
-  Git workflow helper for conventional commits, pull request creation,
-  and branch lifecycle. Use when committing staged or unstaged changes,
-  opening or pushing pull requests, merging branches, or cleaning up
-  after a merge. Not for code review, acceptance-criteria verification,
-  visual design review, or session wrap-up.
+description: "Git workflow helper for conventional commits, pull request creation, and branch lifecycle. Use when committing staged or unstaged changes, opening or pushing pull requests, merging branches, or cleaning up after a merge. Not for code review, acceptance-criteria verification, visual design review, or session wrap-up."
 ---
 
 # Git Helpers

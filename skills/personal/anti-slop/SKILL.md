@@ -1,16 +1,6 @@
 ---
 name: anti-slop
-description: >-
-  Edits drafts into sharper, more human prose while preserving the writer's own
-  voice, or detects AI-slop patterns without rewriting. Use when a draft should
-  read clearer, more direct, more opinionated, or less AI-sounding; when cutting
-  filler words, binary contrasts, faux-insight setups, importance puffery,
-  weasel attribution, or summary-recap endings; when asked whether a piece reads
-  as AI, or to audit, scan, or flag a draft for machine tells. Works on any prose
-  — posts, essays, documentation, notes, messages — pasted in chat or read from a
-  file path. Not for product or marketing copy bound to a structured content
-  payload, jargon-reduction rewrites aimed at non-native readers, or translation.
-argument-hint: "[file-path] | detect"
+description: "Edits drafts into sharper, more human prose while preserving the writer's own voice, or detects AI-slop patterns without rewriting. Use when a draft should read clearer, more direct, more opinionated, or less AI-sounding; when cutting filler words, binary contrasts, faux-insight setups, importance puffery, weasel attribution, or summary-recap endings; when asked whether a piece reads as AI, or to audit, scan, or flag a draft for machine tells. Works on any prose — posts, essays, documentation, notes, messages — pasted in chat or read from a file path. Not for product or marketing copy bound to a structured content payload, jargon-reduction rewrites aimed at non-native readers, or translation. argument-hint: \"[file-path] | detect\""
 ---
 
 # Anti Slop

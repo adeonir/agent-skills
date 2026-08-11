@@ -1,18 +1,6 @@
 ---
 name: brainstorm
-description: >-
-  Structured idea exploration from vague to direction, with a grill
-  phase that stress-tests every chosen direction before capture. Two
-  entries: greenfield maps a problem space from scratch; grill entry
-  starts from an existing idea or plan to expose weakness, validate,
-  refine, or surface a pivot. Diverge generates alternatives, converge
-  evaluates trade-offs, capture produces the artifact; the deep
-  argument widens the grill to every assumption. Use when
-  brainstorming, exploring options, comparing approaches, rethinking a
-  direction, considering a pivot, asking for a second opinion, finding
-  holes in a plan, or grilling assumptions before building. Not for
-  documenting a finalized direction.
-argument-hint: "deep"
+description: "Structured idea exploration from vague to direction, with a grill phase that stress-tests every chosen direction before capture. Two entries: greenfield maps a problem space from scratch; grill entry starts from an existing idea or plan to expose weakness, validate, refine, or surface a pivot. Diverge generates alternatives, converge evaluates trade-offs, capture produces the artifact; the deep argument widens the grill to every assumption. Use when brainstorming, exploring options, comparing approaches, rethinking a direction, considering a pivot, asking for a second opinion, finding holes in a plan, or grilling assumptions before building. Not for documenting a finalized direction. argument-hint: \"deep\""
 ---
 
 # Brainstorm

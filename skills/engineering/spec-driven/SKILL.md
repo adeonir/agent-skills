@@ -1,18 +1,6 @@
 ---
 name: spec-driven
-description: >-
-  Spec-driven feature development with auto-sized depth. Produces
-  spec.md, design.md, tasks.md, and validation.md with requirements
-  traceability, and closes with an independent audit tied to Goals and
-  acceptance criteria. Depth scales to scope — Small runs inline, Medium and
-  up run the full pipeline. Use when planning or specing a feature, turning a
-  PRD into a spec, breaking a change into tasks or user stories, designing a
-  feature, implementing a named task or user story, auditing goals at a commit
-  boundary or before a PR, running UAT on a user-facing change, or discussing
-  how to build a feature. Not for diagnosing unknown bugs, authoring standalone
-  PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking.
-argument-hint: "[T-N] | [T-N..T-M] | [S-N]"
-allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
+description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, and validation.md with requirements traceability, and closes with an independent audit tied to Goals and acceptance criteria. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or user stories, designing a feature, implementing a named task or user story, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking. argument-hint: \"[T-N] | [T-N..T-M] | [S-N]\" allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task"
 ---
 
 # Spec-Driven Development

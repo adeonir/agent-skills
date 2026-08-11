@@ -1,14 +1,6 @@
 ---
 name: handoff
-description: >-
-  Save current conversation state to disk so a later session resumes with prior
-  context. Captures focus, next step, and working state, plus optional decisions,
-  findings, open threads, blockers, and references; appends snapshots
-  newest-at-top. Use when ending a session before context loss, checkpointing
-  mid-session, saving, loading, or clearing a handoff, or starting a session that
-  should continue prior work. Not for end-of-session persistence across memory
-  systems or for repository-wide project context.
-argument-hint: "[focus]"
+description: "Save current conversation state to disk so a later session resumes with prior context. Captures focus, next step, and working state, plus optional decisions, findings, open threads, blockers, and references; appends snapshots newest-at-top. Use when ending a session before context loss, checkpointing mid-session, saving, loading, or clearing a handoff, or starting a session that should continue prior work. Not for end-of-session persistence across memory systems or for repository-wide project context. argument-hint: \"[focus]\""
 ---
 
 # Handoff

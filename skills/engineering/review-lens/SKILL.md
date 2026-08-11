@@ -1,16 +1,7 @@
 ---
 name: review-lens
 allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Read Write Edit Task
-description: >-
-  Confidence-scored code review in two modes — quick (a fast pass pairing
-  a change walkthrough with inline findings, the default) and deep (a
-  multi-material fan-out across the diff, guideline files, git history,
-  and prior pull requests, with an independent confidence judge). Runs
-  locally before a pull request. Use when reviewing code changes,
-  checking a diff before commit or PR, running a deep or full review,
-  auditing guideline compliance, suggesting or applying fixes, or
-  re-reviewing fixes. Not for acceptance-criteria verification, visual
-  design review, or commit/PR/branch mechanics.
+description: "Confidence-scored code review in two modes — quick (a fast pass pairing a change walkthrough with inline findings, the default) and deep (a multi-material fan-out across the diff, guideline files, git history, and prior pull requests, with an independent confidence judge). Runs locally before a pull request. Use when reviewing code changes, checking a diff before commit or PR, running a deep or full review, auditing guideline compliance, suggesting or applying fixes, or re-reviewing fixes. Not for acceptance-criteria verification, visual design review, or commit/PR/branch mechanics."
 ---
 
 # Review Lens

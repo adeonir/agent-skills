@@ -1,23 +1,7 @@
 ---
 name: craft-ui
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
-description: >-
-  Explores and judges the visual direction of a UI. Use when exploring,
-  comparing, or deciding that direction — planning the layout
-  structure as a region tree and screen flow, generating design variants,
-  previewing a page or screen, tuning a look, exploring a redesign of a
-  page that already exists, or working from a reference page or
-  screenshot — or when judging design
-  quality: critiquing a design, checking whether it reads as AI slop,
-  scoring usability, or auditing a built UI for accessibility, performance,
-  responsiveness, and theming before release. Covers landing pages,
-  marketing sites, dashboards, product UI, and app screens, across
-  information architecture, color, typography, layout, motion,
-  interaction, responsive behavior, anti-patterns, and visual hierarchy.
-  Non-mutating — produces layout plans, design directions, and reviews,
-  never edits production code, tokens, or copy. Not for authoring the
-  visual identity, writing copy, single-component design, or
-  source-code / PR review.
+description: "Explores and judges the visual direction of a UI. Use when exploring, comparing, or deciding that direction — planning the layout structure as a region tree and screen flow, generating design variants, previewing a page or screen, tuning a look, exploring a redesign of a page that already exists, or working from a reference page or screenshot — or when judging design quality: critiquing a design, checking whether it reads as AI slop, scoring usability, or auditing a built UI for accessibility, performance, responsiveness, and theming before release. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, responsive behavior, anti-patterns, and visual hierarchy. Non-mutating — produces layout plans, design directions, and reviews, never edits production code, tokens, or copy. Not for authoring the visual identity, writing copy, single-component design, or source-code / PR review."
 ---
 
 # Craft UI

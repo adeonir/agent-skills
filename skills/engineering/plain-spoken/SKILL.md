@@ -1,18 +1,6 @@
 ---
 name: plain-spoken
-description: >-
-  Writes and rewrites technical prose with an ASD-STE100-inspired method:
-  reduce jargon, prefer familiar words, keep one meaning per term, simplify
-  sentence structure, and preserve technical accuracy. The method applies in
-  any language, with the ASD-STE100 controlled dictionary as its English
-  reference. Use automatically for technical prose written for people,
-  including brief factual answers that explain or qualify a fact, explanations,
-  runbooks, specifications, incident reports, architecture notes, procedures,
-  and documentation, even when the user does not explicitly request simpler
-  language. Also use when the user asks for plain English, plain language,
-  global readability, less jargon, Simplified Technical English, or ASD-STE100
-  style. Not for one-word confirmations, code-only output, raw logs, formal
-  ASD-STE100 compliance certification, or literary and marketing copy.
+description: "Writes and rewrites technical prose with an ASD-STE100-inspired method: reduce jargon, prefer familiar words, keep one meaning per term, simplify sentence structure, and preserve technical accuracy. The method applies in any language, with the ASD-STE100 controlled dictionary as its English reference. Use automatically for technical prose written for people, including brief factual answers that explain or qualify a fact, explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation, even when the user does not explicitly request simpler language. Also use when the user asks for plain English, plain language, global readability, less jargon, Simplified Technical English, or ASD-STE100 style. Not for one-word confirmations, code-only output, raw logs, formal ASD-STE100 compliance certification, or literary and marketing copy."
 ---
 
 # Plain Spoken
