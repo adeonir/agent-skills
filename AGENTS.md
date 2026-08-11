@@ -6,23 +6,24 @@ This file is **repo-level guidance for skill authors**. It is never installed al
 
 ## Rules
 
-Verifiable conventions live as path-scoped rules in `.claude/rules/`, loaded automatically when editing skill files. Each is an Incorrect/Correct rule managed with the rule-creator skill. This file keeps the structural and narrative guidance that is not a discrete rule.
+Verifiable conventions live as rules in `.claude/rules/`, loaded automatically when editing skill files. Each rule is managed with the rule-creator skill and uses examples only when they clarify the constraint. This file keeps the structural and narrative guidance that is not a discrete rule.
 
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
+| `content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
 | `markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
 | `naming-conventions` | global | file and directory casing, slash command equals name |
-| `skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
-| `skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 | `skill-md-structure` | `SKILL.md` | required top, forbidden sections, body length |
+| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
 | `skill-references` | `skills/**` | one level deep, required header, no fan-forward |
-| `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
+| `skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
+| `skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
+| `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
+| `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
-| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
-| `skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
-| `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
+| `skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 
 ## Commands
 
