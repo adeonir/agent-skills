@@ -24,7 +24,7 @@ The principles apply in any language. The controlled dictionary is defined in En
 
 ## Usage
 
-The agent can select this skill automatically for substantial technical prose written for people, such as explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. Brief factual replies, code-only output, and raw logs remain unchanged.
+The agent can select this skill automatically for technical prose written for people, including brief factual answers that explain or qualify a fact, as well as explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
 
 Explicit requests also activate it:
 

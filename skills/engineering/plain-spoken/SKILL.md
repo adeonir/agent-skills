@@ -5,14 +5,14 @@ description: >-
   reduce jargon, prefer familiar words, keep one meaning per term, simplify
   sentence structure, and preserve technical accuracy. The method applies in
   any language, with the ASD-STE100 controlled dictionary as its English
-  reference. Use automatically for substantial technical prose written for
-  people, including explanations, runbooks, specifications, incident reports,
-  architecture notes, procedures, and documentation, even when the user does
-  not explicitly request simpler language. Also use when the user asks for
-  plain English, plain language, global readability, less jargon, Simplified
-  Technical English, or ASD-STE100 style. Not for brief factual replies,
-  code-only output, raw logs, formal ASD-STE100 compliance certification, or
-  literary and marketing copy.
+  reference. Use automatically for technical prose written for people,
+  including brief factual answers that explain or qualify a fact, explanations,
+  runbooks, specifications, incident reports, architecture notes, procedures,
+  and documentation, even when the user does not explicitly request simpler
+  language. Also use when the user asks for plain English, plain language,
+  global readability, less jargon, Simplified Technical English, or ASD-STE100
+  style. Not for one-word confirmations, code-only output, raw logs, formal
+  ASD-STE100 compliance certification, or literary and marketing copy.
 ---
 
 # Plain Spoken
@@ -32,6 +32,10 @@ Read [ste-principles.md](references/ste-principles.md) before writing, rewriting
 3. Apply the practical rules in `references/ste-principles.md`. Prefer a familiar word, but keep a necessary technical term and define it at first use.
 4. Check that each edit preserves the original claim, degree of certainty, condition, and safety meaning.
 5. Return only the improved text unless the user asks for an audit, comparison, or explanation.
+
+## Brief answers
+
+Apply a lightweight clarity pass to brief factual answers. Use familiar words, name the subject when a pronoun could be unclear, and preserve every qualification. Do not add detail solely to make the answer longer.
 
 ## Conformance boundary
 
