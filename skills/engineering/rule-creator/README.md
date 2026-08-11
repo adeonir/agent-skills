@@ -1,6 +1,6 @@
 # Rule Creator
 
-Create and manage Claude Code rules at project and user level, with classification, destination decisions, and an Incorrect/Correct template.
+Create and manage Claude Code rules at project and user level, with classification, destination decisions, and a flexible rule template.
 
 ## What It Does
 

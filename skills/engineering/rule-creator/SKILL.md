@@ -2,7 +2,7 @@
 name: rule-creator
 description: >-
   Creates and manages Claude Code rules in project .claude/rules/ and
-  user-level rules with the Incorrect/Correct template, classifies the input
+  user-level rules with a flexible rule template, classifies the input
   before writing, and decides level, scope, and frontmatter from signals in
   the request. Supports create, list, edit, extract from oversized
   AGENTS.md / CLAUDE.md, delete, and refusal with redirect when the input
@@ -56,6 +56,6 @@ Create runs the classifier and context check before rendering the template. Othe
 1. **Classify input.** Procedural multi-step → refuse and recommend authoring a skill instead. Lifecycle event → refuse and recommend a hook. One-off task → refuse, suggest doing it directly. Declarative convention → proceed. See [classify-and-context.md](references/classify-and-context.md).
 2. **Context check.** Stack mismatch, duplicate topic across both levels, or contradiction with a memory file → flag and ask before writing. Same reference.
 3. **Destination decision.** Level from explicit signals; no signal → ask. Scope from path signals. Same reference.
-4. **Render.** Apply the Incorrect/Correct template strictly. See [rule-format.md](references/rule-format.md).
+4. **Render.** Use the flexible rule template in [rule-format.md](references/rule-format.md). Keep the explanation paragraph; add principles, an `Incorrect`/`Correct` pair, or a reference only when that section clarifies or verifies the constraint.
 5. **Verifiability checklist.** Run the three checks in [rule-format.md](references/rule-format.md). Fail any → rewrite before saving.
 6. **Write.** New topic → new file under the chosen level's rules directory, named for the topic: kebab-case descriptive noun, lowercase ASCII, hyphens only (`testing.md`, `api-design.md` — never `rules.md` or `misc.md`). Discovery is recursive, so a subdirectory (`frontend/testing.md`) is available when a level accumulates enough topics to group them. A shared destination writes the file to the named directory and links it into this project only. Existing topic without conflict → append H2. Existing topic with conflict → ask user.

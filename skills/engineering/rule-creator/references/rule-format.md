@@ -1,6 +1,6 @@
 # Rule Format
 
-Template and conventions for rule files. Every rule produced by the create or edit mode uses this format. The template is strict.
+Template and conventions for rule files. Every rule produced by the create or edit mode uses this format. Required and optional sections are marked.
 
 ## When to Use
 
@@ -8,33 +8,39 @@ Loaded by the create mode after classification and context checks pass, and by t
 
 ## Template
 
-ALWAYS use this exact template structure:
+Here is a sensible default format, but use your best judgment:
 
 ````markdown
 ---
 paths:
-  - "<glob>"
+  - "[glob]"
 ---
 
-## <Rule Title>
+## [Rule title]
 
 **Impact: HIGH|MEDIUM|LOW**
 
-<One paragraph: what the rule enforces and why it matters.>
+[One paragraph: what the rule enforces and why it matters.]
 
+<!-- Optional: include when the rule has independent principles to list. -->
+### Principles
+
+- [principle]
+
+<!-- Optional: include the pair when a concrete contrast helps verify the rule. -->
 **Incorrect:**
 
-```<lang>
-<bad example>
+```[language]
+[bad example]
 ```
 
 **Correct:**
 
-```<lang>
-<good example>
+```[language]
+[good example]
 ```
 
-Reference: [<label>](<url>)
+Reference: [label](url)
 ````
 
 Omit the `paths:` frontmatter block entirely when the rule is unconditional. Omit the `Reference:` line when no canonical source applies.
@@ -43,7 +49,7 @@ Omit the `paths:` frontmatter block entirely when the rule is unconditional. Omi
 
 ### Title
 
-- One H2 (`## <Title>`) per rule
+- One H2 (`## [Rule title]`) per rule
 - Title is a noun phrase describing the constraint, not a verb command
 - Examples: `Type Aliases for Object Shapes`, `No Implicit Any`, `Test File Placement`
 - Avoid: `Use type instead of interface` (verb-led), `Types` (too broad)
@@ -67,9 +73,15 @@ Impact is the author's judgment. When unsure, write MEDIUM. Do not omit the line
 - No preamble, no motivation history, no acknowledgments
 - No "this rule ensures..." filler; state the constraint directly
 
+### Principles
+
+- Optional. Add bullets when the rule has independent principles that are clearer as a list than in the paragraph.
+- Keep each bullet to one constraint or one type of information.
+
 ### Incorrect / Correct blocks
 
-- Both are required; never one without the other
+- Optional. Add the pair when a concrete contrast helps a reviewer verify the rule.
+- Include both blocks or neither
 - Use the same language tag in both blocks (`typescript`, `python`, `bash`, etc.) — every fenced block declares its language
 - Examples must be minimal: the smallest snippet that demonstrates the contrast
 - Avoid unrelated noise (imports, setup, comments) unless they are the point of the rule
@@ -101,7 +113,7 @@ Example structure (`testing.md`):
 
 **Impact: MEDIUM**
 
-<paragraph>
+[paragraph]
 
 **Incorrect:** ...
 **Correct:** ...
@@ -110,7 +122,7 @@ Example structure (`testing.md`):
 
 **Impact: LOW**
 
-<paragraph>
+[paragraph]
 
 **Incorrect:** ...
 **Correct:** ...
