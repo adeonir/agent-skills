@@ -6,24 +6,24 @@ This file is **repo-level guidance for skill authors**. It is never installed al
 
 ## Rules
 
-Verifiable conventions live as rules in `.claude/rules/`, loaded automatically when editing skill files. Each rule is managed with the rule-creator skill and uses examples only when they clarify the constraint. This file keeps the structural and narrative guidance that is not a discrete rule.
+Verifiable conventions live as rules in `.agents/rules/`, loaded automatically when editing skill files. Each rule is managed with the rule-creator skill and uses examples only when they clarify the constraint. This file keeps the structural and narrative guidance that is not a discrete rule.
 
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
-| `content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
-| `markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
-| `naming-conventions` | global | file and directory casing, slash command equals name |
-| `skill-md-structure` | `SKILL.md` | required top, forbidden sections, body length |
-| `skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
-| `skill-references` | `skills/**` | one level deep, required header, no fan-forward |
-| `skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
-| `scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
-| `skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
-| `skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
-| `skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
-| `inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
-| `skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
-| `skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
+| `.agents/rules/content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
+| `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
+| `.agents/rules/naming-conventions` | global | file and directory casing, slash command equals name |
+| `.agents/rules/skill-md-structure` | `SKILL.md` | required top, forbidden sections, body length |
+| `.agents/rules/skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
+| `.agents/rules/skill-references` | `skills/**` | one level deep, required header, no fan-forward |
+| `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
+| `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
+| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
+| `.agents/rules/skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
+| `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
+| `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
+| `.agents/rules/skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
+| `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 
 ## Commands
 
@@ -270,7 +270,7 @@ Skills using MCP must detect availability before invoking the tool, document a f
 
 ## Authoring Discipline
 
-These conventions apply at the moment of writing skills; they affect the output, not the runtime — consumer Claude never sees AGENTS.md. The rigid, verifiable ones are enforced by rules in `.claude/rules/`; what remains here is guidance that is not a discrete rule.
+These conventions apply at the moment of writing skills; they affect the output, not the runtime — consumer Claude never sees AGENTS.md. The rigid, verifiable ones are enforced by rules in `.agents/rules/`; what remains here is guidance that is not a discrete rule.
 
 ### Read the Whole File Before Authoring It
 
@@ -384,7 +384,7 @@ docs/
 
 ## New Skill Checklist
 
-Before finalizing a new skill, verify the items the path-scoped rules in `.claude/rules/` do not enforce — the rules cover the rest automatically when you edit a skill file:
+Before finalizing a new skill, verify the items the path-scoped rules in `.agents/rules/` do not enforce — the rules cover the rest automatically when you edit a skill file:
 
 - [ ] Folder at `skills/<category>/skill-name/`
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
