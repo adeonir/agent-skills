@@ -38,7 +38,7 @@ Scenario: User signs in with registered credentials
 
 `N` is the number of the story the criterion sits under, `M` its position within that story. An id is unique across the whole spec.
 
-While the spec is `draft`, renumber freely: a removed criterion leaves no marker and the ids close up behind it. Once the spec is `ready`, `design.md` and `tasks.md` reference these ids in their traceability and coverage tables — a renumbering after that is carried into both tables in the same pass, and the linter reports every row left pointing at an id the spec no longer declares.
+While the spec is `draft`, renumber freely: a removed criterion leaves no marker and the ids close up behind it. Once the spec is `ready`, `design.md` references these ids in `Requirements Traceability` and `tasks.md` references them in `Covers` — a renumbering after that is carried into both artifacts in the same pass, and the linter reports every reference left pointing at an id the spec no longer declares.
 
 ## Two modes
 

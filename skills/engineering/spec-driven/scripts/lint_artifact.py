@@ -28,7 +28,7 @@ SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases",
                  "Divergences"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
                    "Error Handling", "Risks & Concerns", "Requirements Traceability"]
-TASKS_SECTIONS = ["Scope", "Task List", "Coverage Matrix"]
+TASKS_SECTIONS = ["Scope", "Task List"]
 
 SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
 SCOPES = ["medium", "large", "complex"]
@@ -72,6 +72,8 @@ STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
 TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
 STORY_REF = re.compile(r"\bS-\d+\b")
 TASK_REF = re.compile(r"\bT-\d+\b")
+TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
+TASK_TEST = re.compile(r"^\s*-\s*\*\*Test:\*\*\s*(.*)$", re.IGNORECASE)
 BACKTICKED = re.compile(r"`([^`]+)`")
 
 
@@ -343,8 +345,7 @@ def check_downstream_ac_refs(base, live, findings):
     `tasks.md` are read by their own phases only — without this, a row left behind
     reaches no reader until the audit.
     """
-    for name, section in (("design.md", "Requirements Traceability"),
-                          ("tasks.md", "Coverage Matrix")):
+    for name, section in (("design.md", "Requirements Traceability"),):
         target = os.path.join(base, name)
         if not os.path.isfile(target):
             continue
@@ -359,6 +360,19 @@ def check_downstream_ac_refs(base, live, findings):
                 if match.group(0) not in live:
                     findings.append("%s:%d: %s names %s, which the spec no longer declares"
                                     % (target, number, section, match.group(0)))
+
+    target = os.path.join(base, "tasks.md")
+    if os.path.isfile(target):
+        lines = read_lines(target)
+        if lines is not None:
+            for number, line in enumerate(lines, 1):
+                match = TASK_COVERS.match(line)
+                if not match:
+                    continue
+                for identifier in AC_PATTERN.findall(match.group(1)):
+                    if identifier not in live:
+                        findings.append("%s:%d: task `Covers` names %s, which the spec no longer declares"
+                                        % (target, number, identifier))
 
 
 def check_pending_table(path, lines, title, identifier_pattern, statuses, expected_header, seen_ids, findings):
@@ -579,6 +593,8 @@ def lint_tasks(path, lines, base, spec_lines, findings):
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_frontmatter_path(path, base, fields, "design", findings)
     check_sections(path, lines, TASKS_SECTIONS, findings)
+    if section_bounds(lines, "Coverage Matrix"):
+        findings.append("%s:1: legacy `Coverage Matrix`; use one `Covers` field on each AC task" % path)
 
     tasks = []           # (id, line number, story, block lines)
     current = None
@@ -593,6 +609,7 @@ def lint_tasks(path, lines, base, spec_lines, findings):
             current[3].append(line)
 
     declared = set()
+    covered = {}
     highest = 0
     for identifier, number, _, block in tasks:
         value = int(identifier.split("-")[1])
@@ -606,6 +623,31 @@ def lint_tasks(path, lines, base, spec_lines, findings):
         for field in TASK_FIELDS:
             if "**%s:**" % field not in body:
                 findings.append("%s:%d: %s carries no `**%s:**`" % (path, number, identifier, field))
+        if "**Discrimination:**" in body:
+            findings.append("%s:%d: %s carries legacy `Discrimination`; discrimination belongs to audit"
+                            % (path, number, identifier))
+
+        covers_values = [match.group(1).strip() for line in block
+                         for match in [TASK_COVERS.match(line)] if match]
+        test_values = [match.group(1).strip() for line in block
+                       for match in [TASK_TEST.match(line)] if match]
+        covers = [reference for value in covers_values for reference in AC_PATTERN.findall(value)]
+        if covers_values and len(covers) != 1:
+            findings.append("%s:%d: %s `Covers` must name exactly one `AC-N.M`"
+                            % (path, number, identifier))
+        if covers:
+            criterion = covers[0]
+            if spec_lines is not None and criterion not in spec_ac_ids(spec_lines):
+                findings.append("%s:%d: %s `Covers` names %s, which the spec does not declare"
+                                % (path, number, identifier, criterion))
+            elif criterion in covered:
+                findings.append("%s:%d: %s and %s both cover %s; each AC needs exactly one task"
+                                % (path, number, covered[criterion], identifier, criterion))
+            else:
+                covered[criterion] = identifier
+            if len(test_values) != 1 or not test_values[0]:
+                findings.append("%s:%d: %s covers %s but carries no non-empty `Test`"
+                                % (path, number, identifier, criterion))
 
     stories = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
     order = []
@@ -638,21 +680,9 @@ def lint_tasks(path, lines, base, spec_lines, findings):
     if spec_lines is None:
         return
     live = spec_ac_ids(spec_lines)
-    covered = set()
-    bounds = section_bounds(lines, "Coverage Matrix")
-    if bounds:
-        for number, header, cells in table_rows(lines, *bounds):
-            for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
-                identifier = match.group(0)
-                covered.add(identifier)
-                if identifier not in live:
-                    findings.append("%s:%d: Coverage Matrix names %s, which the spec does not declare" % (path, number, identifier))
-            for reference in TASK_REF.findall(cell(header, cells, "Task")):
-                if reference not in declared:
-                    findings.append("%s:%d: Coverage Matrix names %s, which the Task List does not declare" % (path, number, reference))
     for identifier in sorted(set(live), key=ac_sort_key):
         if identifier not in covered:
-            findings.append("%s:1: %s reaches no row in the Coverage Matrix" % (path, identifier))
+            findings.append("%s:1: %s reaches no task `Covers` field" % (path, identifier))
 
 
 def main(argv=None):

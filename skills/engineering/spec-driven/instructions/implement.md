@@ -26,12 +26,12 @@ No `spec.md` exists — work from the one-liner:
 
 No approval gate, no audit — the inline verify is the check. Small is where a mis-sized scope surfaces: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those trips the safety valve ([sizing.md](../references/sizing.md)) — raise to Medium and apply the full pipeline; never push through inline.
 
-Work already committed inline is kept, never reset or redone: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so the Coverage Matrix still maps its acceptance criteria. An audit, when selected, reads the whole branch, so those commits are verified with the rest.
+Work already committed inline is kept, never reset or redone: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so its `Covers` field still maps the landed work to the contract. An audit, when selected, reads the whole branch, so those commits are verified with the rest.
 
 ### Per task — Before
 
 1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
-2. Load the relevant slices of `spec.md` and `design.md`.
+2. Load the relevant slices of `spec.md` and `design.md`. For a task with `Covers`, read the complete scenario of that AC and the task's named `Test` case; the scenario in `spec.md` is the contract the test must prove.
 3. State the files to touch, the AC / `Done when` this task satisfies, and the main risks.
 4. If the task **modifies** existing code (not a pure add): before changing it, understand what it currently does — its responsibility, its callers, the edge cases it handles — and read `git blame` on the lines you will change for the original intent. Preserve behavior the spec does not mean to alter; a line whose purpose you cannot explain is a fence not to remove blindly. A task that only adds new code skips this.
 
@@ -45,7 +45,7 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 
 1. Run the task's **Gate** (command or descriptive check).
 2. Run project quality gates (lint, typecheck) if fast.
-3. Run **verify** (mental — no artifact): design adherence, AC coverage against the Coverage Matrix, pattern adherence, and the discrimination check when the task carries a `Discrimination:` field. Any "no" → fix before marking done.
+3. Run **verify** (mental — no artifact): design adherence, the complete scenario for the task's `Covers` AC, and pattern adherence. Any "no" → fix before marking done.
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
 5. **Commit** — stage by name the files this task touched, never `git add -A`: anything else dirty on the branch belongs to another commit. 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
 6. Update the active feature's `STATE.md ## Progress` — point `Next` at the following task **in this selection**. A subagent never points `Next` past its own selection: after its last task it reports and stops. The main agent owns the pointer across selections, moving it to the next story, or to the selected optional phase once the final one returns.
