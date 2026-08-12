@@ -10,7 +10,7 @@ When implementing a named task, range, or user story, or executing a whole featu
 
 Medium and up — Small has none of these artifacts; see [Small inline](#small-inline) below.
 
-1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and read its `STATE.md ## Progress` before loading downstream artifacts. Require `spec.md` and `design.md` at `status: ready`, and `tasks.md` at `status: ready` or `status: in-progress`; if a prerequisite phase is not ready, stop and report that phase. Do not infer a rerun from a contract change or from `Next` alone. Otherwise load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), the root `CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read again per task in the Before step.
+1. **Resolve feature** — find the active `.artifacts/specs/{slug}/` and read its `STATE.md ## Progress` before loading downstream artifacts. If `Findings` is not `none`, stop and run `tasks` first. If `Phase` points to `specify`, `design`, or `tasks`, stop and report that phase. Require `spec.md` and `design.md` at `status: ready`, and `tasks.md` at `status: ready` or `status: in-progress`; if a prerequisite phase is not ready, stop and report that phase. Otherwise load `spec.md`, `design.md`, `tasks.md`, `discuss.md` (if present), the root `CONTEXT.md`, and `AGENTS.md` / `CLAUDE.md`. `STATE.md ## Progress` is read again per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field. Already on it → skip. On `main`/`master` → create: `git switch -c {branch} 2>/dev/null || git switch {branch}`. On an unrelated branch → stop and ask before branching, so the feature never carries foreign commits.
 3. **Update status** — set `tasks.md` from `ready` to `in-progress`. Never change `spec.md`; it remains `ready` throughout implementation and later checks.
 4. **Dispatch tasks** — hand the selection (a task, a range `T-1..T-5`, a story, or the whole feature) to an isolated subagent per [Subagent dispatch](#subagent-dispatch); it runs each task through Before / During / After and returns the compact summary.
@@ -73,7 +73,7 @@ When a task is correct per `design.md` but the design itself is wrong (contract,
 | Small (isolated, does not invalidate a prior commit) | Fix in place, new commit |
 | Large (invalidates a prior commit's premise) | Stop the run and return it as a blocker. The main agent proposes the recovery — `git reset --soft` to that commit, re-commit corrected — and executes only with explicit user confirmation, only on the feature branch, never after push |
 
-Record it: feature-local → a `## Design Gaps Discovered During Implementation` section in `design.md`; durable cross-feature fact → root `CONTEXT.md ## Gotchas`. If the gap breaks the scope, apply the safety valve ([sizing.md](../references/sizing.md)) — stop and raise the level, never push through.
+Record it: feature-local → a `## Design Gaps Discovered During Implementation` section in `design.md`; durable cross-feature fact → root `CONTEXT.md ## Gotchas`. Set `STATE.md` to `Phase: design` and `Next: design` before stopping for a design gap. If the gap breaks the scope, apply the safety valve ([sizing.md](../references/sizing.md)) — stop and raise the level, never push through.
 
 ## Signals
 

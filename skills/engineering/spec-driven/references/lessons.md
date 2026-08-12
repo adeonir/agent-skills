@@ -43,7 +43,7 @@ finding in a phase report
 
 `Reference` identifies the affected contract or artifact, such as `AC-N.M`, `G-N`, `T-N`, `OQ-N`, or `file:line`. `Report` points to the detailed row in `validate.md` or `audit.md`.
 
-The signal identity is `Code + Reference` while the signal is open. A rerun does not duplicate an open signal. A PASS resolves the corresponding signal; a later recurrence creates a new occurrence with the same code and reference.
+The signal identity is `Code + Reference` while the signal is open. A repeated run does not duplicate an open signal. A PASS resolves the corresponding signal; a later recurrence creates a new occurrence with the same code and reference.
 
 ### Codes
 
@@ -102,7 +102,7 @@ Every entry carries a permanent `L-NNN` id, one canonical rule sentence, its sig
 ### Promotion and retirement
 
 - `add` refuses a lesson unless `--source` points to the 1-based signal row in the named feature's `SIGNALS.md` (`.artifacts/specs/{slug}/SIGNALS.md#{row}`).
-- Recurrence counts distinct feature slugs, not reruns of one feature.
+- Recurrence counts distinct feature slugs, not repeated runs of one feature.
 - The agent supplies the judgment, the evidence, and the general rule sentence.
 - The script owns IDs, exact-after-normalization deduplication, recurrence, rendering, and status changes.
 - `penalize` records that a confirmed lesson failed when loaded; two penalties move it to `quarantined`.

@@ -64,6 +64,8 @@ Artifact states are stored in the owning artifact:
 
 `implement` uses the state in `tasks.md`; it never changes `spec.md`. The active feature's `STATE.md` stores phase progress, blockers, and the report routing that sends findings to task triage.
 
+`STATE.md` is the phase router. Read `Phase` and `Next` before loading downstream artifacts; when it points to an earlier phase, stop and report that phase. Do not infer a new run from artifact differences or an old status.
+
 ## Guidelines
 
 - Separate by purpose: spec = WHAT + WHY, design = HOW, tasks = WHEN.

@@ -76,10 +76,13 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 
 - Every phase reads the root `CONTEXT.md` and the active feature's `STATE.md` when the feature exists.
 - `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from the active feature directory.
+- `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
 - `validate` and `audit` write detailed findings to their own reports and add or resolve signal rows through `signals.py`.
 - `implement` records only verified upstream failures; a task failure that is corrected in the same run is not a signal.
-- `tasks` reads `STATE.md` first. When `Findings` names a report, it reads that report, verifies the findings, creates or adjusts correction tasks, and clears the consumed routing value.
+- `tasks` reads `STATE.md` first. When `Findings` names a report, it reads that report, verifies the findings, creates or adjusts correction tasks, and clears the consumed routing value. This report triage takes precedence over `Phase`.
 - `audit` reads signal history and runs the lesson promotion flow after writing its report.
+
+No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
 
 ## Conflicts with `CONTEXT.md`
 
