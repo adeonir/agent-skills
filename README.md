@@ -121,12 +121,11 @@ docs/
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: visual identity · copywriting: content
 
+CONTEXT.md          # spec-driven: committed project memory
 .artifacts/
-├── specs/          # spec-driven: per-feature spec, design, tasks, validation
+├── specs/          # spec-driven: per-feature artifacts, state, and signals
 ├── archive/        # spec-driven: features archived after merge
-├── CONTEXT.md      # spec-driven: cross-feature decisions, gotchas, conventions
-├── STATE.md        # spec-driven: active-feature handoff
-├── LESSONS.json    # spec-driven: canonical lessons (machine-owned)
+├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
 └── design/         # design-brief: tune session events · craft-ui: VARIANTS.md + final.html + structure.yaml + variant HTML

@@ -38,18 +38,19 @@ Loaded on demand:
 - [slicing.md](references/slicing.md) — vertical slice vs horizontal, the two-benefit split
 - [simplicity.md](references/simplicity.md) — the architecture ladder, chained necessity as the signal of a wrong root, verifying a simplification is real before it becomes a decision
 - [research-cache.md](references/research-cache.md) — the cached-finding template, the basis that makes an entry falsifiable, the rule that voids a stale one
-- [memory.md](references/memory.md) — `CONTEXT.md` and `STATE.md` formats, routing, conflicts
-- [lessons.md](references/lessons.md) — lessons layer mechanics (candidate → confirmed → quarantined)
+- [memory.md](references/memory.md) — root `CONTEXT.md`, per-feature `STATE.md`, and signal routing
+- [lessons.md](references/lessons.md) — signal and lesson contracts (candidate → confirmed → quarantined)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
-- `scripts/lessons.py` — run to add, list, promote, penalize, and normalize lessons
+- `scripts/signals.py` — run to add, resolve, list, and normalize feature signals
+- `scripts/lessons.py` — run to add, list, penalize, and normalize lessons
 - `scripts/lint_artifact.py` — run at each phase's self-check to settle structure, presence, and cross-file references
 
 ## Artifacts
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{slug}/` while active and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it. The date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/{slug}/` while active and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it. The date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
 
 ## Status
 
@@ -61,7 +62,7 @@ Artifact states are stored in the owning artifact:
 - `validate.md`: `PASS | FAIL | BLOCKED`.
 - `audit.md`: `PASS | FAIL | BLOCKED`.
 
-`implement` uses the state in `tasks.md`; it never changes `spec.md`. `STATE.md` stores phase progress, blockers, and the signal that reports need task triage.
+`implement` uses the state in `tasks.md`; it never changes `spec.md`. The active feature's `STATE.md` stores phase progress, blockers, and the report routing that sends findings to task triage.
 
 ## Guidelines
 

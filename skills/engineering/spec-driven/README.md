@@ -58,23 +58,19 @@ implement everything
 audit feature
 run UAT                 # user-facing only
 
-# Lessons layer
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
-
-# Artifact linter — runs at each phase's self-check
-python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{slug}
 ```
 
 ## Output
 
 ```text
+CONTEXT.md                           # committed project memory
 .artifacts/
-├── CONTEXT.md                     # cross-feature decisions, gotchas, conventions
-├── STATE.md                       # active-feature progress pointer
-├── LESSONS.json                   # canonical lessons state (machine-owned)
+├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
 │   └── {slug}/                    # active feature; slug only, no date prefix
 │       ├── spec.md                # WHAT + WHY
+│       ├── STATE.md                # feature state and report routing
+│       ├── SIGNALS.md              # feature-local verified signals
 │       ├── discuss.md             # gray-area decisions (Complex)
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
@@ -90,7 +86,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{sl
 ## Requirements
 
 - An existing project directory.
-- `python3` (standard library only) for `scripts/lessons.py` and `scripts/lint_artifact.py`.
+- `python3` (standard library only) for `scripts/signals.py`, `scripts/lessons.py`, and `scripts/lint_artifact.py`.
 - Optional: a browser-automation MCP (e.g. Playwright) for Validate/UAT screenshots — falls back to user-guided capture when absent.
 - Optional: a docs MCP (e.g. Context7) for design research — the knowledge chain falls through to web search when absent.
 
@@ -98,7 +94,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{sl
 
 **Q: What does spec-driven persist across features?**
 
-A: `.artifacts/CONTEXT.md` accumulates cross-feature decisions, gotchas, and conventions; the lessons layer (`LESSONS.json`) records audit failures that recur into confirmed lessons. The two are not interchangeable: `CONTEXT.md` is what the agent asserts, a lesson is what an independent audit caught it doing wrong. Both are read at the start of new features; `archive/` is never foraged.
+A: `CONTEXT.md` at the project root accumulates cross-feature decisions and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `CONTEXT.md` is shared project knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 
@@ -106,11 +102,11 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between peer check, verify, audit, and validate?**
 
-A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check that writes `validate.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `audit.md`. When both phases run, validate runs first. A failed report sets a `STATE.md` finding signal; `tasks` reads the report, creates or adjusts correction tasks, and `implement` executes them.
+A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check that writes `validate.md` and eligible rows to `SIGNALS.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field; `tasks` reads the report, creates or adjusts correction tasks, and `implement` executes them.
 
 **Q: How does the lessons layer work?**
 
-A: Each lesson is grounded in a row of `audit.md` — an unmet goal, a failed AC, a surviving mutant the main agent promoted to a gap, a spec defect, or a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
+A: Each lesson is grounded in a row of the active feature's `SIGNALS.md`, and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, becomes confirmed when the same lesson recurs on a second feature, and only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's local lessons set does.
 
 **Q: What happens after implementation and optional checks?**
 

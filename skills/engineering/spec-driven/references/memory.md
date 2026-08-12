@@ -1,23 +1,26 @@
 # Memory and Progress
 
-The two cross-cutting memory files: `CONTEXT.md` (persistent, cross-feature) and `STATE.md` (progress of the active feature). Their formats, when each is read and written, and how conflicts resolve.
+The project's shared memory, the active feature state, and the routing signal that sends reports to task triage.
 
 ## When to Use
 
-At the load-context step of every phase (read), and whenever a phase discovers a durable fact (`CONTEXT.md`) or reaches an approval gate or finishes a task (`STATE.md`).
+At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, finishes a task, or creates or resolves a report signal.
 
-## The two files
+## The three files
 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
-| `.artifacts/CONTEXT.md` | cross-feature, persistent, append-only | when design/implement/audit find a cross-feature lesson | every phase |
-| `.artifacts/STATE.md` | active feature | at each approval gate, after each task in implement, and when a report creates or clears a finding signal | at each phase's load step, before each task in implement, and before tasks loads finding reports |
+| `CONTEXT.md` | project-wide, committed memory | when specify records Stakes or a phase records durable Decisions or Gotchas | every phase |
+| `.artifacts/specs/{slug}/STATE.md` | active feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for the active feature |
+| `.artifacts/specs/{slug}/SIGNALS.md` | active feature's verified signal history | when implement, validate, or audit records or resolves a signal | audit and the lessons script |
 
-`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary and holds the feature's current progress. No phase clears it — no artifact carries a terminal state, so the file persists until the next feature's specify overwrites it. Archive is manual and leaves `STATE.md` unchanged.
+`CONTEXT.md` is shared project knowledge. `STATE.md` is the operational state of one feature. `SIGNALS.md` is the local history that grounds lessons. None of these files carries the detailed finding text owned by `validate.md` or `audit.md`.
 
-## `CONTEXT.md` format
+## `CONTEXT.md`
 
-Here is a sensible default format, but use your best judgment:
+Keep `CONTEXT.md` at the project root, beside `AGENTS.md`, and commit it. It is useful to every developer and agent working in the project.
+
+Use only these sections:
 
 ```markdown
 ## Stakes
@@ -29,48 +32,55 @@ Here is a sensible default format, but use your best judgment:
 
 ## Gotchas
 - {gotcha} — {context}
-
-## Conventions
-- {convention} — {where it applies / why}
 ```
 
-No mandatory date. No rigid routing rules. Routing by intent: a project-level decision a future feature must follow → `## Decisions`; a real trap found in the code → `## Gotchas`; a normative codebase pattern → `## Conventions`.
+Do not add `## Conventions`. Normative repository rules belong in `AGENTS.md` or `CLAUDE.md`. A project pattern discovered in code belongs in `Decisions` or `Gotchas` only when it is durable and useful beyond the active feature.
 
-`## Stakes` records the product and what a silent failure costs per surface: money, auth, user data, or persisted state on one side; a content or presentation surface — where a silent failure costs a wrong pixel or an inert link — on the other. It is what tells the audit's discrimination sensor whether a surviving mutant's failure is worth acting on. Unlike the append-only sections, it holds one current picture: specify writes it when absent and rewrites it — never appends — when a later feature's surface contradicts what it says.
+`Stakes` holds the current product surface and the cost of a silent failure. Specify writes it when absent and rewrites it when a later feature contradicts the current surface. `Decisions` is append-only unless a later decision explicitly supersedes an earlier one. `Gotchas` records durable traps found in the codebase.
 
-MUST NOT contain: feature-local state, progress, or notes — `CONTEXT.md` is knowledge shared across features; the active feature's status lives in `STATE.md`.
+MUST NOT contain feature-local state, phase progress, findings, signals, or task notes.
 
-## `STATE.md` format
+## `STATE.md`
 
-ALWAYS use this exact template structure — other phases clear `## Progress` and write to `## Notes` by name:
+Create it at `.artifacts/specs/{slug}/STATE.md` for the active feature. Do not create or read a global `.artifacts/STATE.md`.
+
+ALWAYS use this exact structure:
 
 ```markdown
 ## Progress
 
 - **Feature:** {slug}
-- **Phase:** specify | design | tasks | implement | audit | validate
+- **Phase:** specify | design | tasks | implement | validate | audit
 - **Next:** {the next task or step, e.g. T-3, run audit, or none}
 - **Blockers:** {none | ...}
 - **Findings:** {none | validate | audit | validate,audit}
-- **Audit iteration:** {0 | 1 | 2 | 3}
 
 ## Notes
 
-- {feature-local observations, e.g. a design gap found during implement}
+- {feature-local observations}
 ```
 
-Task-level done/remaining lives in the `tasks.md` heading checkboxes and its frontmatter status; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate, after each task, and when report findings need task triage; read before the next task to see what is done and what remains.
+`Findings` is a routing field. It names the report files that still need task triage; it never contains the finding text. The detailed findings remain in `validate.md` or `audit.md`. `tasks` clears each source after verifying the report and creating or adjusting correction tasks.
 
-`Blockers` records why a run stopped, and nothing else writes that fact to disk. A task that halts writes the blocker and leaves `Next` on the halted task, so a resume sees both where the run stopped and why. `none` means no task halted — it does not mean the run finished. `implement` has no `BLOCKED` artifact state; its open task remains open and `tasks.md` remains `in-progress`.
+Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` stores the coarse phase pointer, the next step, blockers, and report routing only. `implement` has no `BLOCKED` artifact state; an open task remains open and `tasks.md` remains `in-progress`.
 
-`Next` resting on a task whose checkbox is already flipped is the ordinary state at a selection boundary: a subagent stops there, and the main agent moves the pointer on before dispatching again. The pointer alone never separates a finished run from an abandoned one. Read `Blockers` for why a run stopped and the `tasks.md` checkboxes for how far it got.
+No audit retry counter belongs in `STATE.md`. The audit report owns the count of consecutive failed audit runs.
 
-`Findings` is a triage signal, not a historical report. `validate` or `audit` sets its source when that report ends in `FAIL`. `tasks` reads the named reports, creates or adjusts correction tasks, and clears the consumed source. A later failed rerun sets the source again. `BLOCKED` uses `Blockers`, not `Findings`.
+## `SIGNALS.md`
 
-`Audit iteration` counts the fix loop, because a bounded loop the agent counts from memory is unbounded across a context boundary. It starts at `0`, rises on each audit FAIL, and the loop escalates to the user when it reaches its limit — the file decides that, never recall.
+Create it at `.artifacts/specs/{slug}/SIGNALS.md`. It is local, machine-owned, and excluded from commits. It records verified signal rows, not detailed findings.
 
-MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is feature-local progress and routing only; reports own findings and artifact files own their states.
+The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only writer.
+
+## Read and write routing
+
+- Every phase reads the root `CONTEXT.md` and the active feature's `STATE.md` when the feature exists.
+- `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from the active feature directory.
+- `validate` and `audit` write detailed findings to their own reports and add or resolve signal rows through `signals.py`.
+- `implement` records only verified upstream failures; a task failure that is corrected in the same run is not a signal.
+- `tasks` reads `STATE.md` first. When `Findings` names a report, it reads that report, verifies the findings, creates or adjusts correction tasks, and clears the consumed routing value.
+- `audit` reads signal history and runs the lesson promotion flow after writing its report.
 
 ## Conflicts with `CONTEXT.md`
 
-Read `CONTEXT.md` before any design decision. A decision that conflicts with it is either **conformed** to or **explicitly superseded** (documenting why) — never silently ignored.
+Read `CONTEXT.md` before any design decision. A decision that conflicts with it is either conformed to or explicitly superseded with a reason; never ignore it silently.

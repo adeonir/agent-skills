@@ -365,8 +365,9 @@ docs/
 ├── adr/       # docs-writer
 └── design/    # design-brief, copywriting
 
+CONTEXT.md                 # spec-driven: committed project memory
 .artifacts/
-├── specs/, archive/, CONTEXT.md, STATE.md, LESSONS.json, research/   # spec-driven
+├── specs/, archive/, LESSONS.md, research/   # spec-driven
 └── design/    # design-brief; design/VARIANTS.md + design/final.html + design/variants/ # craft-ui
 ```
 

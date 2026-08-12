@@ -6,6 +6,7 @@ prose. Every violation it reports is resolvable without judgment, so the peer
 check that follows spends its reading on what needs a reader.
 
 Usage:
+  lint_artifact.py state  .artifacts/specs/{slug}
   lint_artifact.py spec   .artifacts/specs/{slug}
   lint_artifact.py design .artifacts/specs/{slug}
   lint_artifact.py tasks  .artifacts/specs/{slug}
@@ -34,6 +35,8 @@ SCOPES = ["medium", "large", "complex"]
 SPEC_STATUSES = ["draft", "ready"]
 DESIGN_STATUSES = ["draft", "ready"]
 TASK_STATUSES = ["draft", "ready", "in-progress", "done"]
+STATE_PHASES = ["specify", "design", "tasks", "implement", "validate", "audit"]
+STATE_FINDINGS = ["none", "validate", "audit", "validate,audit"]
 
 # Gherkin keywords that open a step group, and the ones that continue the open group.
 STEP_OPENERS = ("Given", "When", "Then")
@@ -425,6 +428,27 @@ def check_frontmatter_status(path, fields, allowed, findings):
                         % (path, status, "/".join(allowed)))
 
 
+def lint_state(path, lines, findings):
+    """Check the feature-local STATE.md contract."""
+    check_sections(path, lines, ["Progress", "Notes"], findings)
+    if any(line.strip().startswith("- **Audit iteration:**") for line in lines):
+        findings.append("%s: `STATE.md` must not contain `Audit iteration`" % path)
+
+    values = {}
+    for line in lines:
+        match = re.match(r"^- \*\*(Feature|Phase|Next|Blockers|Findings):\*\*\s*(.*)$", line)
+        if match:
+            values[match.group(1)] = match.group(2).strip()
+
+    for field in ("Feature", "Phase", "Next", "Blockers", "Findings"):
+        if field not in values:
+            findings.append("%s: missing `- **%s:**`" % (path, field))
+    if values.get("Phase") and values["Phase"] not in STATE_PHASES:
+        findings.append("%s: `Phase` is `%s`, not one of %s" % (path, values["Phase"], "/".join(STATE_PHASES)))
+    if values.get("Findings") and values["Findings"] not in STATE_FINDINGS:
+        findings.append("%s: `Findings` is `%s`, not one of %s" % (path, values["Findings"], "/".join(STATE_FINDINGS)))
+
+
 def lint_spec(path, lines, base, findings):
     fields, body_start = parse_frontmatter(lines)
     for key in SPEC_FRONTMATTER:
@@ -583,12 +607,13 @@ def lint_tasks(path, lines, base, spec_lines, findings):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Lint a spec-driven artifact against its template contract.")
-    parser.add_argument("phase", choices=["spec", "design", "tasks"])
+    parser.add_argument("phase", choices=["state", "spec", "design", "tasks"])
     parser.add_argument("feature_dir", help="the feature folder, e.g. .artifacts/specs/{slug}")
     args = parser.parse_args(argv)
 
     base = args.feature_dir
-    path = os.path.join(base, "%s.md" % args.phase)
+    filename = "STATE.md" if args.phase == "state" else "%s.md" % args.phase
+    path = os.path.join(base, filename)
     if not os.path.isfile(path):
         sys.stderr.write("error: no %s at %s\n" % (args.phase, path))
         return 3
@@ -598,7 +623,7 @@ def main(argv=None):
 
     spec_path = os.path.join(base, "spec.md")
     spec_lines = lines if args.phase == "spec" else None
-    if args.phase != "spec":
+    if args.phase not in ("spec", "state"):
         if os.path.isfile(spec_path):
             spec_lines = read_lines(spec_path)
         else:
@@ -606,7 +631,9 @@ def main(argv=None):
 
     findings = []
     try:
-        if args.phase == "spec":
+        if args.phase == "state":
+            lint_state(path, lines, findings)
+        elif args.phase == "spec":
             lint_spec(path, lines, base, findings)
         elif args.phase == "design":
             lint_design(path, lines, base, spec_path, spec_lines, findings)

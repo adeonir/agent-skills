@@ -1,341 +1,287 @@
 #!/usr/bin/env python3
-"""Manage the spec-driven lessons layer.
+"""Manage the machine-owned Markdown lessons layer.
 
-Owns .artifacts/LESSONS.json, the canonical machine-owned store. A lesson
-enters as a `candidate` grounded in an audit.md signal, becomes
-`confirmed` once it recurs across two distinct features, and is
-`quarantined` once it was loaded as guidance and the same failure recurred
-anyway. Only `confirmed` lessons load into specify and design.
-
-Subcommands: add, list, promote, penalize, normalize.
-
-Exit codes:
-  0  success
-  2  argument/usage error (argparse default)
-  3  target not found (e.g. promote --id on a missing lesson)
-  4  data/store error that could not be recovered
+Lessons live in .artifacts/LESSONS.md. A lesson enters as a candidate grounded
+in a real signal, becomes confirmed across two distinct features, and becomes
+quarantined after two penalties. Only confirmed lessons are guidance.
 """
 
 import argparse
 import datetime
-import json
 import os
+import re
 import sys
+import unicodedata
 
-# A lesson is confirmed once it is seen on this many distinct features.
-CONFIRM_FEATURE_THRESHOLD = 2
-# A confirmed lesson is quarantined once it fails this many times as guidance.
-QUARANTINE_PENALTY_THRESHOLD = 2
-# Zero-pad width for the L-NNN identifier (L-001..L-999 before it widens).
-ID_PAD_WIDTH = 3
 
-# The audit.md sections that ground a lesson. A lesson with no signal is
-# an opinion, so `add` refuses one outside this set.
-SIGNALS = ["goal_unmet", "ac_fail", "surviving_mutant", "spec_defect", "suite_red"]
+CODES = [
+    "agreed-behavior",
+    "test-case",
+    "test-suite",
+    "planned-task",
+    "source-code",
+    "spec-defect",
+    "open-question",
+]
 STATUSES = ["candidate", "confirmed", "quarantined"]
+CONFIRM_FEATURE_THRESHOLD = 2
+QUARANTINE_PENALTY_THRESHOLD = 2
+FIELD_SEPARATOR = " — "
+ENTRY_PATTERN = re.compile(r"^-\s+(.+?)\s+—\s+(.+?)\s+—\s+signal:\s+([^—]+?)\s+—\s+features:\s+([^—]+?)\s+—\s+sources:\s+(.+?)\s*(?:—\s+penalized on\s+(.+?))?$")
+SIGNAL_ROW_PATTERN = re.compile(r"^\|\s*([^|]+?)\s*\|\s*[^|]+\s*\|\s*[^|]+\s*\|\s*[^|]+\s*\|\s*(open|resolved)\s*\|$")
 
-DEFAULT_STORE = os.path.join(".artifacts", "LESSONS.json")
 
-
-def _today():
-    """Return today's date as YYYY-MM-DD (UTC-naive local date)."""
+def today():
     return datetime.date.today().isoformat()
 
 
-def load_store(path):
-    """Load the lesson store, returning a dict with a `lessons` list.
+def normalize(text):
+    text = unicodedata.normalize("NFD", text.casefold())
+    text = "".join(char for char in text if unicodedata.category(char) != "Mn")
+    text = "".join(char if char.isalnum() or char.isspace() else " " for char in text)
+    return re.sub(r"\s+", " ", text).strip()
 
-    Missing or corrupt files degrade to an empty store rather than raising,
-    so callers always receive a usable structure.
-    """
+
+def read_lessons(path):
     try:
         with open(path, "r", encoding="utf-8") as handle:
-            data = json.load(handle)
+            lines = handle.read().splitlines()
     except FileNotFoundError:
-        return {"lessons": []}
-    except (OSError, json.JSONDecodeError):
-        # Corrupt or unreadable store: start clean rather than crash.
-        sys.stderr.write("warning: could not read %s; starting empty\n" % path)
-        _backup_corrupt(path)
-        return {"lessons": []}
-    if not isinstance(data, dict) or not isinstance(data.get("lessons"), list):
-        sys.stderr.write("warning: malformed store %s; starting empty\n" % path)
-        _backup_corrupt(path)
-        return {"lessons": []}
-    return data
+        return []
+    except (OSError, UnicodeDecodeError) as error:
+        raise ValueError("could not read %s: %s" % (path, error)) from error
+
+    lessons = []
+    section = None
+    for line_number, line in enumerate(lines, 1):
+        heading = re.match(r"^##\s+(.+?)\s*$", line)
+        if heading:
+            section = heading.group(1).strip()
+            continue
+        if not line.startswith("- "):
+            continue
+        match = ENTRY_PATTERN.match(line)
+        if section not in ("Confirmed", "Candidates", "Quarantined") or not match:
+            raise ValueError("invalid lesson entry at line %d" % line_number)
+        identifier, text, signal, features, sources, penalties = match.groups()
+        if not re.fullmatch(r"L-\d+", identifier.strip()):
+            raise ValueError("invalid lesson id at line %d" % line_number)
+        status = {"Confirmed": "confirmed", "Candidates": "candidate", "Quarantined": "quarantined"}[section]
+        lessons.append({
+            "id": identifier.strip(),
+            "text": text.strip(),
+            "signal": signal.strip(),
+            "features": split_values(features),
+            "sources": split_values(sources),
+            "penalties": split_values(penalties or ""),
+            "status": status,
+        })
+    return lessons
 
 
-def _backup_corrupt(path):
-    """Preserve an unreadable store as .bak so a later save never destroys it."""
-    try:
-        os.replace(path, path + ".bak")
-        sys.stderr.write("warning: preserved unreadable store as %s.bak\n" % path)
-    except OSError:
-        pass  # backup is best-effort; never block the caller
+def split_values(value):
+    return [item.strip() for item in value.split(",") if item.strip() and item.strip() != "-"]
 
 
-def save_store(path, data):
-    """Write the store atomically-ish (temp then replace). Returns True/False."""
-    directory = os.path.dirname(path) or "."
-    try:
-        os.makedirs(directory, exist_ok=True)
-        tmp = path + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as handle:
-            json.dump(data, handle, indent=2, ensure_ascii=False)
-            handle.write("\n")
-        os.replace(tmp, path)
-        return True
-    except OSError as error:
-        sys.stderr.write("error: could not write %s: %s\n" % (path, error))
-        return False
+def id_key(lesson):
+    match = re.search(r"(\d+)$", lesson.get("id", ""))
+    return int(match.group(1)) if match else 0
 
 
 def next_id(lessons):
-    """Return the next monotonic L-NNN id, one past the current maximum."""
-    highest = 0
-    for lesson in lessons:
-        raw = str(lesson.get("id", "")).replace("L-", "")
-        try:
-            highest = max(highest, int(raw))
-        except ValueError:
-            # Non-numeric id: ignore for the purpose of computing the next one.
+    return "L-%03d" % (max((id_key(lesson) for lesson in lessons), default=0) + 1)
+
+
+def section_for(lesson):
+    if len(set(lesson["penalties"])) >= QUARANTINE_PENALTY_THRESHOLD:
+        return "quarantined"
+    if len(set(lesson["features"])) >= CONFIRM_FEATURE_THRESHOLD:
+        return "confirmed"
+    return "candidate"
+
+
+def render(lessons):
+    lines = [
+        "# LESSONS - machine-owned by scripts/lessons.py",
+        "",
+        "> Do not edit this file by hand. The script rewrites it on every change.",
+        "",
+    ]
+    for section in ("confirmed", "candidate", "quarantined"):
+        title = section.title() if section != "candidate" else "Candidates"
+        lines.extend(["## %s" % title, ""])
+        entries = sorted((lesson for lesson in lessons if lesson["status"] == section), key=id_key)
+        if not entries:
+            lines.extend(["_none_", ""])
             continue
-    return "L-%0*d" % (ID_PAD_WIDTH, highest + 1)
+        for lesson in entries:
+            line = (
+                "- %s — %s — signal: %s — features: %s — sources: %s"
+                % (
+                    lesson["id"],
+                    lesson["text"],
+                    lesson["signal"],
+                    ", ".join(sorted(set(lesson["features"]))) or "-",
+                    ", ".join(sorted(set(lesson["sources"]))) or "-",
+                )
+            )
+            if lesson["penalties"]:
+                line += " — penalized on " + ", ".join(sorted(set(lesson["penalties"])))
+            lines.extend([line, ""])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def write_lessons(path, lessons):
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    temporary_path = path + ".tmp"
+    with open(temporary_path, "w", encoding="utf-8") as handle:
+        handle.write(render(lessons))
+    os.replace(temporary_path, path)
+
+
+def signal_source_exists(source, feature, signal):
+    source_path, separator, anchor = source.partition("#")
+    if not separator or not anchor.isdigit() or int(anchor) < 1:
+        return False
+    if os.path.basename(source_path) != "SIGNALS.md":
+        return False
+    if os.path.basename(os.path.dirname(os.path.normpath(source_path))) != feature:
+        return False
+    try:
+        with open(source_path, "r", encoding="utf-8") as handle:
+            lines = handle.read().splitlines()
+    except (OSError, UnicodeDecodeError):
+        return False
+    signal_rows = [match.groups() for line in lines if (match := SIGNAL_ROW_PATTERN.match(line))]
+    row_index = int(anchor) - 1
+    return row_index < len(signal_rows) and signal_rows[row_index][0].strip() == signal
 
 
 def find_by_text(lessons, text):
-    """Return the first lesson whose text matches exactly, or None."""
-    normalized = text.strip()
-    for lesson in lessons:
-        if lesson.get("text", "").strip() == normalized:
-            return lesson
-    return None
-
-
-def find_by_id(lessons, lesson_id):
-    """Return the lesson with this id, or None."""
-    for lesson in lessons:
-        if lesson.get("id") == lesson_id:
-            return lesson
-    return None
-
-
-def _id_sort_key(lesson):
-    """Sort on the numeric part of L-NNN, so L-1000 follows L-999 rather than L-100."""
-    raw = str(lesson.get("id", "")).replace("L-", "")
-    try:
-        return (0, int(raw))
-    except ValueError:
-        # Non-numeric ids sort last; they never collide with the generated ones.
-        return (1, 0)
-
-
-def _confirm_if_recurring(lesson):
-    """Promote a lesson to confirmed once it spans the feature threshold.
-
-    A quarantined lesson already failed as guidance, so recurrence never
-    revives it — that would reinstate the exact lesson the penalty retired.
-    """
-    if lesson.get("status") in ("confirmed", "quarantined"):
-        return
-    features = lesson.get("features", [])
-    if len(set(features)) >= CONFIRM_FEATURE_THRESHOLD:
-        lesson["status"] = "confirmed"
-        lesson.setdefault("confirmed_at", _today())
+    key = normalize(text)
+    return next((lesson for lesson in lessons if normalize(lesson["text"]) == key), None)
 
 
 def cmd_add(args):
-    """Add a candidate lesson; auto-confirm if it recurs on a new feature."""
-    # `required=True` accepts an empty string, which would slip an ungrounded
-    # lesson past the gate; reject it here so the gate actually holds.
-    for flag in ("text", "origin", "feature"):
-        if not getattr(args, flag).strip():
-            sys.stderr.write("error: --%s must not be empty\n" % flag)
-            return 2
-    store = load_store(args.store)
-    lessons = store["lessons"]
+    if args.signal not in CODES:
+        raise ValueError("--signal must be one of %s" % ", ".join(CODES))
+    if not args.text.strip() or not args.feature.strip() or not args.source.strip():
+        raise ValueError("--text, --feature, and --source must not be empty")
+    feature = args.feature.strip()
+    source = args.source.strip()
+    if FIELD_SEPARATOR in args.text:
+        raise ValueError("--text must not contain the lesson field separator")
+    if not signal_source_exists(source, feature, args.signal):
+        raise ValueError("the source must identify the signal row in the named feature")
+
+    lessons = read_lessons(args.store)
     existing = find_by_text(lessons, args.text)
-    if existing is not None:
-        # Same lesson seen again: attach the feature and re-evaluate status.
-        if args.feature not in existing.get("features", []):
-            existing.setdefault("features", []).append(args.feature)
-        _confirm_if_recurring(existing)
+    if existing:
+        if existing["status"] == "quarantined":
+            raise ValueError("a quarantined lesson cannot be reactivated")
+        if feature in existing["features"]:
+            raise ValueError("the lesson already exists for this feature")
+        existing["features"].append(feature)
+        existing["sources"].append(source)
+        existing["status"] = section_for(existing)
         target = existing
     else:
         target = {
             "id": next_id(lessons),
             "text": args.text.strip(),
             "signal": args.signal,
-            "origin": args.origin.strip(),
+            "features": [feature],
+            "sources": [source],
+            "penalties": [],
             "status": "candidate",
-            "features": [args.feature],
-            "penalties": 0,
-            "created": _today(),
-            "confirmed_at": None,
+            "created": today(),
         }
-        _confirm_if_recurring(target)
         lessons.append(target)
-    if not save_store(args.store, store):
-        return 4
+    write_lessons(args.store, lessons)
     print("%s %s: %s" % (target["id"], target["status"], target["text"]))
     return 0
 
 
 def cmd_list(args):
-    """List lessons, optionally filtered by status."""
-    store = load_store(args.store)
-    rows = [l for l in store["lessons"] if not args.status or l.get("status") == args.status]
-    if not rows:
-        print("(no lessons)")
-        return 0
-    for lesson in rows:
-        features = ", ".join(lesson.get("features", [])) or "-"
-        print("%s [%s] %s (signal: %s; features: %s)" % (
-            lesson.get("id", "?"), lesson.get("status", "?"),
-            lesson.get("text", ""), lesson.get("signal", "-"), features))
-    return 0
-
-
-def cmd_promote(args):
-    """Force a lesson to confirmed, optionally attaching a feature."""
-    store = load_store(args.store)
-    target = find_by_id(store["lessons"], args.id)
-    if target is None:
-        sys.stderr.write("error: no lesson with id %s\n" % args.id)
-        return 3
-    if args.feature and args.feature not in target.get("features", []):
-        target.setdefault("features", []).append(args.feature)
-    target["status"] = "confirmed"
-    target.setdefault("confirmed_at", _today())
-    if not save_store(args.store, store):
-        return 4
-    print("%s confirmed" % target["id"])
+    lessons = read_lessons(args.store)
+    status = args.status or "confirmed"
+    for lesson in sorted((item for item in lessons if item["status"] == status), key=id_key):
+        print(
+            "%s [%s] %s (signal: %s; features: %s)"
+            % (lesson["id"], lesson["status"], lesson["text"], lesson["signal"], ", ".join(lesson["features"]))
+        )
     return 0
 
 
 def cmd_penalize(args):
-    """Record that a lesson failed as guidance; quarantine it at the threshold."""
-    store = load_store(args.store)
-    target = find_by_id(store["lessons"], args.id)
-    if target is None:
-        sys.stderr.write("error: no lesson with id %s\n" % args.id)
-        return 3
-    target["penalties"] = int(target.get("penalties", 0)) + 1
-    if target["penalties"] >= QUARANTINE_PENALTY_THRESHOLD:
-        target["status"] = "quarantined"
-    if not save_store(args.store, store):
-        return 4
-    print("%s %s (penalties: %d)" % (target["id"], target["status"], target["penalties"]))
+    lessons = read_lessons(args.store)
+    target = next((lesson for lesson in lessons if lesson["id"] == args.id), None)
+    if not target:
+        raise ValueError("no lesson with id %s" % args.id)
+    if target["status"] != "confirmed":
+        raise ValueError("only confirmed lessons can be penalized")
+    if args.feature in target["penalties"]:
+        raise ValueError("lesson already penalized for this feature")
+    target["penalties"].append(args.feature)
+    target["status"] = section_for(target)
+    write_lessons(args.store, lessons)
+    print("%s %s" % (target["id"], target["status"]))
     return 0
 
 
 def cmd_normalize(args):
-    """Dedupe by text, sort by id, backfill ids and fields."""
-    store = load_store(args.store)
+    lessons = read_lessons(args.store)
     merged = {}
-    order = []
-    for lesson in store["lessons"]:
-        key = lesson.get("text", "").strip()
-        if not key:
-            continue
-        if key in merged:
-            # Merge duplicate texts: union features, keep the earliest created date,
-            # and carry the strongest status forward. `promote` can confirm on a single
-            # feature, which the recurrence rule alone would silently demote back;
-            # a quarantine outranks both, since reviving it undoes the penalty.
-            base = merged[key]
-            # Identifiers are never renumbered, so a merge keeps the lower id
-            # rather than whichever duplicate happened to come first in the store.
-            if lesson.get("id") and _id_sort_key(lesson) < _id_sort_key(base):
-                base["id"] = lesson["id"]
-            base["features"] = sorted(set(base.get("features", []) + lesson.get("features", [])))
-            base["penalties"] = max(int(base.get("penalties", 0)), int(lesson.get("penalties", 0)))
-            dates = [d for d in (base.get("created"), lesson.get("created")) if d]
-            base["created"] = min(dates) if dates else _today()
-            if not base.get("origin"):
-                base["origin"] = lesson.get("origin", "")
-            if not base.get("signal"):
-                base["signal"] = lesson.get("signal", "")
-            if lesson.get("status") == "confirmed":
-                base["status"] = "confirmed"
-                stamps = [s for s in (base.get("confirmed_at"), lesson.get("confirmed_at")) if s]
-                base["confirmed_at"] = min(stamps) if stamps else _today()
-            if "quarantined" in (base.get("status"), lesson.get("status")):
-                base["status"] = "quarantined"
-            _confirm_if_recurring(base)
-        else:
-            lesson["features"] = sorted(set(lesson.get("features", [])))
-            lesson.setdefault("status", "candidate")
-            lesson.setdefault("signal", "")
-            lesson.setdefault("origin", "")
-            lesson.setdefault("penalties", 0)
-            lesson.setdefault("created", _today())
-            lesson.setdefault("confirmed_at", None)
-            if lesson["penalties"] >= QUARANTINE_PENALTY_THRESHOLD:
-                lesson["status"] = "quarantined"
-            _confirm_if_recurring(lesson)
+    for lesson in lessons:
+        key = normalize(lesson["text"])
+        if key not in merged:
             merged[key] = lesson
-            order.append(key)
-    normalized = [merged[key] for key in order]
-    # Backfill ids for any lesson missing one, keeping existing ids stable.
-    for lesson in normalized:
-        if not lesson.get("id"):
-            lesson["id"] = next_id(normalized)
-    normalized.sort(key=_id_sort_key)
-    store["lessons"] = normalized
-    if not save_store(args.store, store):
-        return 4
-    print("normalized %d lessons" % len(normalized))
+            continue
+        target = merged[key]
+        target["features"] = sorted(set(target["features"] + lesson["features"]))
+        target["sources"] = sorted(set(target["sources"] + lesson["sources"]))
+        target["penalties"] = sorted(set(target["penalties"] + lesson["penalties"]))
+        target["status"] = "quarantined" if "quarantined" in (target["status"], lesson["status"]) else section_for(target)
+        if id_key(lesson) < id_key(target):
+            target["id"] = lesson["id"]
+    write_lessons(args.store, list(merged.values()))
+    print("NORMALIZED %d lessons" % len(merged))
     return 0
 
 
 def build_parser():
-    # The store flag lives on both the top parser and every subcommand, so it works on
-    # either side of the subcommand. SUPPRESS on the child keeps an absent flag from
-    # clobbering a value the top parser already resolved.
-    paths = argparse.ArgumentParser(add_help=False)
-    paths.add_argument("--store", default=argparse.SUPPRESS, help="path to LESSONS.json")
+    parser = argparse.ArgumentParser(description="Manage the Markdown lessons layer.")
+    parser.add_argument("--store", default=os.path.join(".artifacts", "LESSONS.md"))
+    subcommands = parser.add_subparsers(dest="command", required=True)
 
-    parser = argparse.ArgumentParser(description="Manage the spec-driven lessons layer.")
-    parser.add_argument("--store", default=DEFAULT_STORE, help="path to LESSONS.json")
-    sub = parser.add_subparsers(dest="command", required=True)
-
-    add = sub.add_parser("add", parents=[paths], help="add a candidate lesson")
+    add = subcommands.add_parser("add")
     add.add_argument("--text", required=True)
-    # signal, origin and feature are all required: the first two ground the lesson in a
-    # audit.md row, and without the third recurrence cannot be counted, so the
-    # lesson would sit as a candidate forever and never load.
-    add.add_argument("--signal", required=True, choices=SIGNALS)
-    add.add_argument("--origin", required=True)
+    add.add_argument("--signal", required=True)
+    add.add_argument("--source", required=True)
     add.add_argument("--feature", required=True)
     add.set_defaults(func=cmd_add)
 
-    listing = sub.add_parser("list", parents=[paths], help="list lessons")
-    listing.add_argument("--status", choices=STATUSES, default="")
+    listing = subcommands.add_parser("list")
+    listing.add_argument("--status", choices=STATUSES, default="confirmed")
     listing.set_defaults(func=cmd_list)
 
-    promote = sub.add_parser("promote", parents=[paths], help="force a lesson to confirmed")
-    promote.add_argument("--id", required=True)
-    promote.add_argument("--feature", default="")
-    promote.set_defaults(func=cmd_promote)
-
-    penalize = sub.add_parser("penalize", parents=[paths], help="record that a lesson failed as guidance")
+    penalize = subcommands.add_parser("penalize")
     penalize.add_argument("--id", required=True)
+    penalize.add_argument("--feature", required=True)
     penalize.set_defaults(func=cmd_penalize)
 
-    normalize = sub.add_parser("normalize", parents=[paths], help="dedupe, sort, backfill")
-    normalize.set_defaults(func=cmd_normalize)
+    normalize_command = subcommands.add_parser("normalize")
+    normalize_command.set_defaults(func=cmd_normalize)
     return parser
 
 
 def main(argv=None):
-    parser = build_parser()
-    args = parser.parse_args(argv)
     try:
+        args = build_parser().parse_args(argv)
         return args.func(args)
-    except Exception as error:  # last-resort guard: never surface a raw traceback
+    except (OSError, ValueError) as error:
         sys.stderr.write("error: %s\n" % error)
-        return 4
+        return 2
 
 
 if __name__ == "__main__":
