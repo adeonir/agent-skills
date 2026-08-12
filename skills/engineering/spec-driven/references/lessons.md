@@ -4,7 +4,7 @@ A project-local learning loop: audit failures become candidate lessons, recurren
 
 ## When to Use
 
-During audit, when a `validation.md` signal grounds a lesson (write) or when a loaded lesson failed to prevent the failure it warned about (penalize). During specify and design, when loading confirmed lessons as context (read). The skill itself never changes — the project's lesson set improves, guiding the agent on future features.
+During audit, when an `audit.md` signal grounds a lesson (write) or when a loaded lesson failed to prevent the failure it warned about (penalize). During specify and design, when loading confirmed lessons as context (read). The skill itself never changes — the project's lesson set improves, guiding the agent on future features.
 
 ## The loop
 
@@ -29,7 +29,7 @@ A lesson is about **this codebase**: a rule a future feature in this project cou
 
 ## Grounding
 
-Only a row in `validation.md` grounds a lesson. No signal, no lesson — one without grounding is an opinion, and `add` refuses it (`--signal` and `--origin` are both required).
+Only a row in `audit.md` grounds a lesson. No signal, no lesson — one without grounding is an opinion, and `add` refuses it (`--signal` and `--origin` are both required).
 
 | `--signal` | The row that grounds it |
 |------------|-------------------------|
@@ -77,7 +77,7 @@ The store is machine-owned — never hand-write it. The format is documented for
       "id": "L-001",
       "text": "Assert the persisted status value, not the field's presence",
       "signal": "surviving_mutant",
-      "origin": "validation.md ## Discrimination Sensor: flip condition src/payment.ts:42 survived",
+      "origin": "audit.md ## Discrimination Sensor: flip condition src/payment.ts:42 survived",
       "status": "confirmed",
       "features": ["checkout", "billing"],
       "penalties": 0,
@@ -93,11 +93,11 @@ The store is machine-owned — never hand-write it. The format is documented for
 The store path defaults to `.artifacts/LESSONS.json` and is overridable with `--store`, on either side of the subcommand.
 
 ```bash
-# record a lesson from a validation.md row (candidate; confirms on a second feature)
+# record a lesson from an audit.md row (candidate; confirms on a second feature)
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py add \
   --text "..." \
   --signal surviving_mutant \
-  --origin "validation.md ## Discrimination Sensor: flip condition src/payment.ts:42 survived" \
+  --origin "audit.md ## Discrimination Sensor: flip condition src/payment.ts:42 survived" \
   --feature "{slug}"
 
 # load the guidance (this is the read surface for specify and design)

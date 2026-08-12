@@ -1,6 +1,8 @@
 ---
 name: spec-driven
-description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, and validation.md with requirements traceability, and closes with an independent audit tied to Goals and acceptance criteria. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or user stories, designing a feature, implementing a named task or user story, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking. argument-hint: \"[T-N] | [T-N..T-M] | [S-N]\" allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task"
+description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or user stories, designing a feature, implementing a named task or user story, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
+argument-hint: "[T-N] | [T-N..T-M] | [S-N]"
+allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
 # Spec-Driven Development
@@ -20,14 +22,11 @@ Feature development in phases, sized to the change. Light by default; weight onl
 ## Workflow
 
 ```text
-specify → design → tasks → implement → audit → [validate] → done → [archive]
-   │        │        │          │          │         │
-   │        │        │          │          │         └ only user-facing
-   └────────┴────────┴──────────┴──────────┴ Small skips all of this:
-                                              one-liner → branch → implement inline
+specify → design → tasks → implement → [validate] → [audit] → [archive]
+   └────────┴────────┴──────────┴──────────┴ Small skips all of this: one-liner → branch → implement inline
 ```
 
-Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Archive is optional housekeeping for done specs — manual, never automatic, never suggested.
+Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Validate and audit are optional. Archive is manual housekeeping for a feature in any state — never automatic or suggested.
 
 ## References
 
@@ -50,16 +49,19 @@ Loaded on demand:
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{slug}/` while built and moves to `.artifacts/archive/{created}-{slug}/` only once at `status: done` — the date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/{slug}/` while active and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it. The date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are `.artifacts/CONTEXT.md` and confirmed lessons.
 
 ## Status
 
-Minimal machine, single source in `spec.md` frontmatter:
+Artifact states are stored in the owning artifact:
 
-- `draft` — specify is drafting; acceptance criteria may still be renumbered.
-- `ready` — the spec passed its self-check and the linter; design and tasks run here.
-- `in-progress` — implement started.
-- `done` — audit passed (and UAT, if `user-facing`).
+- `spec.md`: `draft | ready`.
+- `design.md`: `draft | ready`.
+- `tasks.md`: `draft | ready | in-progress | done`.
+- `validate.md`: `PASS | FAIL | BLOCKED`.
+- `audit.md`: `PASS | FAIL | BLOCKED`.
+
+`implement` uses the state in `tasks.md`; it never changes `spec.md`. `STATE.md` stores phase progress, blockers, and the signal that reports need task triage.
 
 ## Guidelines
 

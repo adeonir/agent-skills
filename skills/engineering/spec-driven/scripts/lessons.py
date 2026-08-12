@@ -2,7 +2,7 @@
 """Manage the spec-driven lessons layer.
 
 Owns .artifacts/LESSONS.json, the canonical machine-owned store. A lesson
-enters as a `candidate` grounded in a validation.md signal, becomes
+enters as a `candidate` grounded in an audit.md signal, becomes
 `confirmed` once it recurs across two distinct features, and is
 `quarantined` once it was loaded as guidance and the same failure recurred
 anyway. Only `confirmed` lessons load into specify and design.
@@ -29,7 +29,7 @@ QUARANTINE_PENALTY_THRESHOLD = 2
 # Zero-pad width for the L-NNN identifier (L-001..L-999 before it widens).
 ID_PAD_WIDTH = 3
 
-# The validation.md sections that ground a lesson. A lesson with no signal is
+# The audit.md sections that ground a lesson. A lesson with no signal is
 # an opinion, so `add` refuses one outside this set.
 SIGNALS = ["goal_unmet", "ac_fail", "surviving_mutant", "spec_defect", "suite_red"]
 STATUSES = ["candidate", "confirmed", "quarantined"]
@@ -303,7 +303,7 @@ def build_parser():
     add = sub.add_parser("add", parents=[paths], help="add a candidate lesson")
     add.add_argument("--text", required=True)
     # signal, origin and feature are all required: the first two ground the lesson in a
-    # validation.md row, and without the third recurrence cannot be counted, so the
+    # audit.md row, and without the third recurrence cannot be counted, so the
     # lesson would sit as a candidate forever and never load.
     add.add_argument("--signal", required=True, choices=SIGNALS)
     add.add_argument("--origin", required=True)

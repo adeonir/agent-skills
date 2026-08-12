@@ -11,9 +11,9 @@ At the load-context step of every phase (read), and whenever a phase discovers a
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `.artifacts/CONTEXT.md` | cross-feature, persistent, append-only | when design/implement/audit find a cross-feature lesson | every phase |
-| `.artifacts/STATE.md` | active feature | at each approval gate, after each task in implement; cleared at `status: done` | at each phase's load step, and before each task in implement |
+| `.artifacts/STATE.md` | active feature | at each approval gate, after each task in implement, and when a report creates or clears a finding signal | at each phase's load step, before each task in implement, and before tasks loads finding reports |
 
-`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary — it holds only the feature's current progress — and is cleared when the spec reaches `status: done`: at audit PASS, or after UAT approval for user-facing features. Clearing means emptying the whole file — before doing so, promote any still-durable `## Notes` item to `CONTEXT.md ## Gotchas`; the rest dies with the feature. Done is the last boundary this skill owns; pull request and merge happen outside it.
+`CONTEXT.md` is append-only and cross-feature. `STATE.md` is overwritten at each boundary and holds the feature's current progress. No phase clears it — no artifact carries a terminal state, so the file persists until the next feature's specify overwrites it. Archive is manual and leaves `STATE.md` unchanged.
 
 ## `CONTEXT.md` format
 
@@ -49,8 +49,9 @@ ALWAYS use this exact template structure — other phases clear `## Progress` an
 
 - **Feature:** {slug}
 - **Phase:** specify | design | tasks | implement | audit | validate
-- **Next:** {the next task or step, e.g. T-3, run audit}
+- **Next:** {the next task or step, e.g. T-3, run audit, or none}
 - **Blockers:** {none | ...}
+- **Findings:** {none | validate | audit | validate,audit}
 - **Audit iteration:** {0 | 1 | 2 | 3}
 
 ## Notes
@@ -58,15 +59,17 @@ ALWAYS use this exact template structure — other phases clear `## Progress` an
 - {feature-local observations, e.g. a design gap found during implement}
 ```
 
-Task-level done/remaining lives in the `tasks.md` heading checkboxes; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate and after each task; read before the next task to see what is done and what remains.
+Task-level done/remaining lives in the `tasks.md` heading checkboxes and its frontmatter status; `STATE.md` is the coarse pointer to phase and next step. Written at each approval gate, after each task, and when report findings need task triage; read before the next task to see what is done and what remains.
 
-`Blockers` records why a run stopped, and nothing else writes that fact to disk. A task that halts writes the blocker and leaves `Next` on the halted task, so a resume sees both where the run stopped and why. `none` means no task halted — it does not mean the run finished.
+`Blockers` records why a run stopped, and nothing else writes that fact to disk. A task that halts writes the blocker and leaves `Next` on the halted task, so a resume sees both where the run stopped and why. `none` means no task halted — it does not mean the run finished. `implement` has no `BLOCKED` artifact state; its open task remains open and `tasks.md` remains `in-progress`.
 
 `Next` resting on a task whose checkbox is already flipped is the ordinary state at a selection boundary: a subagent stops there, and the main agent moves the pointer on before dispatching again. The pointer alone never separates a finished run from an abandoned one. Read `Blockers` for why a run stopped and the `tasks.md` checkboxes for how far it got.
 
+`Findings` is a triage signal, not a historical report. `validate` or `audit` sets its source when that report ends in `FAIL`. `tasks` reads the named reports, creates or adjusts correction tasks, and clears the consumed source. A later failed rerun sets the source again. `BLOCKED` uses `Blockers`, not `Findings`.
+
 `Audit iteration` counts the fix loop, because a bounded loop the agent counts from memory is unbounded across a context boundary. It starts at `0`, rises on each audit FAIL, and the loop escalates to the user when it reaches its limit — the file decides that, never recall.
 
-MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is the current spec's status and is cleared after the audit passes, so nothing durable may live here.
+MUST NOT contain: cross-feature knowledge (decisions, gotchas, conventions — `CONTEXT.md` owns them). `STATE.md` is feature-local progress and routing only; reports own findings and artifact files own their states.
 
 ## Conflicts with `CONTEXT.md`
 

@@ -12,12 +12,12 @@ One measurement, taken after discovery, plus a quick trivial triage at the start
 
 ## The four scopes
 
-| Scope | Nature of change | spec.md | design.md | tasks.md | implement | audit |
-|-------|------------------|---------|-----------|----------|-----------|-------|
-| **Small** | Mechanical, zero load-bearing decisions | one-liner (no `spec.md`) | skip | skip | inline | skip (inline verify) |
-| **Medium** | Canonical pattern reapplied | full; ambiguity logged where it cannot be closed | full, no approaches / heavy research | full | subagent | subagent |
-| **Large** | ≥1 load-bearing decision new to the codebase | full; ambiguity closed | full + research when needed | full | subagent | subagent |
-| **Complex** | Ambiguity in the problem itself | full + `discuss.md` | full + approaches + research | full | subagent | subagent |
+| Scope | Nature of change | spec.md | design.md | tasks.md | implement | validate | audit |
+|-------|------------------|---------|-----------|----------|-----------|----------|-------|
+| **Small** | Mechanical, zero load-bearing decisions | one-liner (no `spec.md`) | skip | skip | inline | skip | skip (inline verify) |
+| **Medium** | Canonical pattern reapplied | full; ambiguity logged where it cannot be closed | full, no approaches / heavy research | full | subagent | optional, `user-facing` only | optional subagent |
+| **Large** | ≥1 load-bearing decision new to the codebase | full; ambiguity closed | full + research when needed | full | subagent | optional, `user-facing` only | optional subagent |
+| **Complex** | Ambiguity in the problem itself | full + `discuss.md` | full + approaches + research | full | subagent | optional, `user-facing` only | optional subagent |
 
 Small does not produce a spec and does not run the pipeline: one-liner → branch → inline implement → inline verify.
 

@@ -31,7 +31,9 @@ TASKS_SECTIONS = ["Scope", "Task List", "Coverage Matrix"]
 
 SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
 SCOPES = ["medium", "large", "complex"]
-STATUSES = ["draft", "ready", "in-progress", "done"]
+SPEC_STATUSES = ["draft", "ready"]
+DESIGN_STATUSES = ["draft", "ready"]
+TASK_STATUSES = ["draft", "ready", "in-progress", "done"]
 
 # Gherkin keywords that open a step group, and the ones that continue the open group.
 STEP_OPENERS = ("Given", "When", "Then")
@@ -413,6 +415,16 @@ def check_frontmatter_path(path, base, fields, key, findings):
         findings.append("%s:1: frontmatter `%s:` points at a missing file (%s)" % (path, key, target))
 
 
+def check_frontmatter_status(path, fields, allowed, findings):
+    """Require an artifact status and validate it against its phase contract."""
+    status = fields.get("status", "")
+    if not status:
+        findings.append("%s:1: frontmatter `status:` is missing" % path)
+    elif status not in allowed:
+        findings.append("%s:1: `status` is `%s`, not one of %s"
+                        % (path, status, "/".join(allowed)))
+
+
 def lint_spec(path, lines, base, findings):
     fields, body_start = parse_frontmatter(lines)
     for key in SPEC_FRONTMATTER:
@@ -420,8 +432,8 @@ def lint_spec(path, lines, base, findings):
             findings.append("%s:1: frontmatter is missing `%s`" % (path, key))
     if fields.get("scope") and fields["scope"] not in SCOPES:
         findings.append("%s:1: `scope` is `%s`, not one of %s" % (path, fields["scope"], "/".join(SCOPES)))
-    if fields.get("status") and fields["status"] not in STATUSES:
-        findings.append("%s:1: `status` is `%s`, not one of %s" % (path, fields["status"], "/".join(STATUSES)))
+    if fields.get("status") and fields["status"] not in SPEC_STATUSES:
+        findings.append("%s:1: `status` is `%s`, not one of %s" % (path, fields["status"], "/".join(SPEC_STATUSES)))
     if fields.get("created") and not DATE_PATTERN.match(fields["created"]):
         findings.append("%s:1: `created` is not YYYY-MM-DD" % path)
 
@@ -450,6 +462,7 @@ def lint_spec(path, lines, base, findings):
 
 def lint_design(path, lines, base, spec_path, spec_lines, findings):
     fields, _ = parse_frontmatter(lines)
+    check_frontmatter_status(path, fields, DESIGN_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_sections(path, lines, DESIGN_SECTIONS, findings)
 
@@ -488,6 +501,7 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
 
 def lint_tasks(path, lines, base, spec_lines, findings):
     fields, _ = parse_frontmatter(lines)
+    check_frontmatter_status(path, fields, TASK_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_frontmatter_path(path, base, fields, "design", findings)
     check_sections(path, lines, TASKS_SECTIONS, findings)

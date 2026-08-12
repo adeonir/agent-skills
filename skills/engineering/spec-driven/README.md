@@ -13,11 +13,11 @@ flowchart TD
     B -->|Medium / Large / Complex| D[Design<br/>peer-checked]
     D --> T[Tasks<br/>linted + self-checked]
     T --> I[Implement<br/>verify per task]
-    I --> AU[Audit<br/>independent subagent]
-    AU -->|user-facing| V[Validate / UAT]
-    AU -->|else| DN[Done]
-    V --> DN
-    DN --> AR[Archive<br/>optional housekeeping]
+    I --> V{Validate?}
+    V -->|user-facing and selected| VA[Validate / UAT]
+    V -->|skip| A{Audit?}
+    VA --> A
+    A -->|selected| AU[Audit<br/>independent subagent]
 ```
 
 | Phase | Output |
@@ -26,16 +26,16 @@ flowchart TD
 | **Design** | `design.md` — HOW: architecture, components, decisions |
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
-| **Audit** | `validation.md` — Goals, ACs, discrimination sensor, spec-defect findings |
-| **Validate / UAT** | `## Visual Evidence` and `## Accessibility` appended to `validation.md` (user-facing) |
-| **Archive** | spec moved to `.artifacts/archive/{created}-{slug}/` (optional, manual, done specs only) |
+| **Validate / UAT** | `validate.md` — user-facing flow and accessibility results |
+| **Audit** | `audit.md` — Goals, ACs, discrimination sensor, spec-defect findings |
+| **Archive** | feature moved to `.artifacts/archive/{created}-{slug}/` (optional and manual, any state) |
 
 ### Auto-Sizing
 
 | Scope | Nature of change | Pipeline |
 |-------|------------------|----------|
 | **Small** | Mechanical, zero decisions | one-liner → branch → inline implement |
-| **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → Audit |
+| **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → [Validate] → [Audit] |
 | **Large** | ≥1 load-bearing decision new to the codebase | + research |
 | **Complex** | Ambiguity in the problem itself | + discuss, approaches |
 
@@ -78,7 +78,8 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{sl
 │       ├── discuss.md             # gray-area decisions (Complex)
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
-│       ├── validation.md          # audit report + visual evidence
+│       ├── audit.md                # independent audit report
+│       ├── validate.md             # optional user-facing validation report
 │       └── evidences/             # UAT screenshots (user-facing only)
 ├── research/
 │   └── {topic}.md                 # research cache (reusable)
@@ -105,12 +106,12 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between peer check, verify, audit, and validate?**
 
-A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Audit is the independent final check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `validation.md`. It can also flag an AC that over-specifies the goal it serves — a spec defect that surfaces for a loosen-or-keep decision without failing the correct code. A surviving mutant from its discrimination sensor is a proposal, not a verdict: the auditor reports the fact and the consequence it would carry, and the main agent — which knows the product's stakes from `CONTEXT.md ## Stakes` — decides whether it becomes a fix task. Validate is UAT — required before `done` only for user-facing features, appending visual evidence to the same `validation.md`.
+A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check that writes `validate.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests and writes `audit.md`. When both phases run, validate runs first. A failed report sets a `STATE.md` finding signal; `tasks` reads the report, creates or adjusts correction tasks, and `implement` executes them.
 
 **Q: How does the lessons layer work?**
 
-A: Each lesson is grounded in a row of `validation.md` — an unmet goal, a failed AC, a surviving mutant the main agent promoted to a gap, a spec defect, a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
+A: Each lesson is grounded in a row of `audit.md` — an unmet goal, a failed AC, a surviving mutant the main agent promoted to a gap, a spec defect, or a red suite — and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, and becomes confirmed when the same lesson recurs on a second feature; only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's lesson set does.
 
-**Q: What happens to a feature after it is done?**
+**Q: What happens after implementation and optional checks?**
 
-A: Reaching `status: done` (audit PASS, or UAT approval for user-facing features) clears the `STATE.md` progress — the feature is no longer active. Pull request and merge happen outside this skill. The optional archive command — manual, never suggested, housekeeping for done specs — moves the spec from `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.
+A: Pull request and merge happen outside this skill. The optional archive command is manual and accepts a feature in any state; it moves the feature from `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.
