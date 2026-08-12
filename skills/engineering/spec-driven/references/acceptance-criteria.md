@@ -62,12 +62,12 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 ## Case convention — three classes
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
-- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[deferrable]`, `[assumption]`, `[needs-clarification]`, `(confirm @ design)`, `(verify @ design)`.
+- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[needs-clarification]` only for discovery input; owned pendencies use `ASM-N` and `OQ-N` identifiers.
 - **Identifiers** (owned, never reused across a story) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
 
 ## Non-functional criteria
 
-Any performance, latency, throughput, capacity, or availability claim carries a number and the condition it holds under (`p95 ≤ 200ms under 50 RPS`), or it is not an acceptance criterion — demote it to an Open Question. Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as criteria.
+Any performance, latency, throughput, capacity, or availability claim carries a number and the condition it holds under (`p95 ≤ 200ms under 50 RPS`), or it is not an acceptance criterion — demote it to an `OQ-N`. Vague adjectives ("fast", "scalable", "responsive") are not testable and never ship as criteria.
 
 ## Ownership
 

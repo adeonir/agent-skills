@@ -24,7 +24,7 @@ import os
 import re
 import sys
 
-SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Open Questions",
+SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions",
                  "Divergences"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
                    "Error Handling", "Risks & Concerns", "Requirements Traceability"]
@@ -60,6 +60,11 @@ SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
 DIVERGENCE_ID = re.compile(r"^DV-\d+$")
 DIVERGENCE_STATUSES = ["open", "accepted"]
 DIVERGENCE_DIRECTIONS = ["Added", "Dropped", "Loosened"]
+ASSUMPTION_ID = re.compile(r"^ASM-[1-9]\d*$")
+ASSUMPTION_STATUSES = ["open", "confirmed", "invalidated"]
+OPEN_QUESTION_ID = re.compile(r"^OQ-[1-9]\d*$")
+OPEN_QUESTION_STATUSES = ["open", "answered"]
+LEGACY_PENDING_MARKERS = ("[assumption]", "[deferrable]", "(confirm @ design)", "(verify @ design)")
 GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
@@ -68,7 +73,6 @@ TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
 STORY_REF = re.compile(r"\bS-\d+\b")
 TASK_REF = re.compile(r"\bT-\d+\b")
 BACKTICKED = re.compile(r"`([^`]+)`")
-DESIGN_TAG = re.compile(r"\((?:verify|confirm) @ design\)")
 
 
 def read_lines(path):
@@ -357,22 +361,65 @@ def check_downstream_ac_refs(base, live, findings):
                                     % (target, number, section, match.group(0)))
 
 
-def check_divergences(path, lines, prompt_seeded, findings):
+def check_pending_table(path, lines, title, identifier_pattern, statuses, expected_header, seen_ids, findings):
+    """Check an ASM/OQ table and return the identifiers it declares."""
+    bounds = section_bounds(lines, title)
+    if bounds is None:
+        return set()
+    start, end = bounds
+    content = [line.strip().lower() for line in lines[start + 1:end] if line.strip()]
+    if content == ["none"]:
+        return set()
+
+    rows = list(table_rows(lines, start, end))
+    if not rows:
+        findings.append("%s:1: `## %s` carries no table or `none`" % (path, title))
+        return set()
+    header = rows[0][1]
+    if header != expected_header:
+        findings.append("%s:%d: `## %s` header is `%s`, expected `%s`"
+                        % (path, rows[0][0], title, " | ".join(header), " | ".join(expected_header)))
+        return set()
+
+    declared = set()
+    for number, _, cells in rows:
+        if len(cells) != len(expected_header):
+            findings.append("%s:%d: `## %s` row has %d cells, expected %d"
+                            % (path, number, title, len(cells), len(expected_header)))
+            continue
+        identifier = cells[0]
+        if not identifier_pattern.match(identifier):
+            findings.append("%s:%d: `%s` is not a well-formed identifier for `## %s`"
+                            % (path, number, identifier, title))
+        elif identifier in seen_ids:
+            findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
+        else:
+            seen_ids.add(identifier)
+            declared.add(identifier)
+
+        status = cells[expected_header.index("Status")].lower()
+        if status not in statuses:
+            findings.append("%s:%d: %s carries status `%s`, not one of %s"
+                            % (path, number, identifier, status, "/".join(statuses)))
+    return declared
+
+
+def check_divergences(path, lines, prompt_seeded, findings, seen_ids):
     """Check the `## Divergences` table: identity, status, direction, and the AC it names."""
     bounds = section_bounds(lines, "Divergences")
     if bounds is None:
         return  # check_sections already reports the missing section
     live = set(spec_ac_ids(lines))
-    declared = set()
     rows = 0
     for number, header, cells in table_rows(lines, *bounds):
         rows += 1
         identifier = cell(header, cells, "ID")
         if not DIVERGENCE_ID.match(identifier):
             findings.append("%s:%d: `%s` is not a well-formed `DV-N` id" % (path, number, identifier))
-        elif identifier in declared:
+        elif identifier in seen_ids:
             findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
-        declared.add(identifier)
+        else:
+            seen_ids.add(identifier)
 
         status = cell(header, cells, "Status")
         if status not in DIVERGENCE_STATUSES:
@@ -466,7 +513,14 @@ def lint_spec(path, lines, base, findings):
     check_criteria(path, lines, findings)
 
     prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
-    check_divergences(path, lines, prompt_seeded, findings)
+    seen_ids = set()
+    assumption_ids = check_pending_table(
+        path, lines, "Assumptions", ASSUMPTION_ID, ASSUMPTION_STATUSES,
+        ["ID", "Assumption", "Rationale", "Status"], seen_ids, findings)
+    check_pending_table(
+        path, lines, "Open Questions", OPEN_QUESTION_ID, OPEN_QUESTION_STATUSES,
+        ["ID", "Question", "Answer", "Status"], seen_ids, findings)
+    check_divergences(path, lines, prompt_seeded, findings, seen_ids)
     check_downstream_ac_refs(base, set(spec_ac_ids(lines)), findings)
 
     for index in range(body_start, len(lines)):
@@ -474,11 +528,12 @@ def lint_spec(path, lines, base, findings):
         number = index + 1
         if "[needs-clarification" in line:
             findings.append("%s:%d: `[needs-clarification]` survives in the saved spec" % (path, number))
-        if "[assumption]" in line:
-            if not DESIGN_TAG.search(line):
-                findings.append("%s:%d: `[assumption]` carries no `(confirm @ design)` or `(verify @ design)`" % (path, number))
-            elif "(verify @ design)" in line and "verify:" not in line:
-                findings.append("%s:%d: `(verify @ design)` carries no `verify:` check" % (path, number))
+        for marker in LEGACY_PENDING_MARKERS:
+            if marker in line:
+                findings.append("%s:%d: legacy pending marker `%s`; use an `ASM-N` or `OQ-N` table row" % (path, number, marker))
+        for reference in re.findall(r"\bASM-[1-9]\d*\b", line):
+            if reference not in assumption_ids:
+                findings.append("%s:%d: %s is referenced but not declared in `## Assumptions`" % (path, number, reference))
         for quoted in BACKTICKED.findall(line):
             if quoted.endswith(CODE_EXTENSIONS):
                 findings.append("%s:%d: `%s` names a source file — that is HOW" % (path, number, quoted))
@@ -517,11 +572,6 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
     for identifier in sorted(set(live), key=ac_sort_key):
         if identifier not in traced:
             findings.append("%s:1: %s reaches no row in Requirements Traceability" % (path, identifier))
-
-    for index, line in enumerate(spec_lines):
-        if DESIGN_TAG.search(line):
-            findings.append("%s:%d: `@ design` line survives in the spec while `design.md` exists" % (spec_path, index + 1))
-
 
 def lint_tasks(path, lines, base, spec_lines, findings):
     fields, _ = parse_frontmatter(lines)

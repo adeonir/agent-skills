@@ -121,7 +121,7 @@ Spec-defects: {count}
 
 | Pendency | Where | Resolve now by |
 | --- | --- | --- |
-| `[deferrable]` line | `spec.md ## Open Questions` | answering it, or carrying it as a follow-up outside the feature |
+| Open `ASM-N` or `OQ-N` row | `spec.md ## Assumptions` or `spec.md ## Open Questions` | confirming or invalidating the default, answering the question, or carrying the open item explicitly |
 | Open `DV-N` row | `spec.md ## Divergences` | carrying the correction back to the seed — see below |
 | `## Spec Defects` row | `audit.md` | routing back to specify to loosen the AC |
 | Surviving mutant, not promoted | `audit.md` | accepting the cost, or promoting it to a fix task |
