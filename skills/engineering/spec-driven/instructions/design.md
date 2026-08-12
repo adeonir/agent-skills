@@ -104,9 +104,6 @@ status: draft
 ## Visual Design Considerations  <!-- conditional: only if visual references exist -->
 {Notes on images/prototypes.}
 
-## Design Gaps Discovered During Implementation  <!-- conditional: only when implement records a design gap; written there, not here -->
-| Gap | Correction |
-|-----|------------|
 ```
 
 A placement, trigger, tool, or dependency with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the ruled-out alternative in its `Rejected` cell, even when one looks obvious. A `Rejected` cell is empty only when the decision genuinely had one viable home.

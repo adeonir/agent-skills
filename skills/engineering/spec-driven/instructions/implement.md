@@ -65,16 +65,15 @@ The subagent is handed the feature slug, the selected task entries, the complete
 
 The dispatch unit is the isolation boundary, not the task. Tasks inside one unit always run sequentially. In `sequential` mode, run units in graph order in the current worktree; a wave does not require a worktree. In `parallel` mode, create one worktree per concurrently running dispatch unit, never one automatically per task. Integrate completed unit commits in dependency order; stop on an integration conflict and report it. Do not close a wave or mark its tasks complete until every unit has integrated cleanly. If a selected task is blocked by an incomplete dependency outside the selection, leave it open and report the dependency; do not dispatch it. If a unit cannot proceed, keep `tasks.md` at `in-progress`, record the blocker in `STATE.md ## Progress`, leave `Next` on the halted unit, and report. Resume only after the user resolves the condition.
 
-## Design-gap recovery
+## Deviations
 
-When a task is correct per `design.md` but the design itself is wrong (contract, default, wiring, assumption):
+Classify a deviation by what happened, not by its apparent size.
 
-| Gap size | Action |
-|----------|--------|
-| Small (isolated, does not invalidate a prior commit) | Fix in place, new commit |
-| Large (invalidates a prior commit's premise) | Stop the run and return it as a blocker. The main agent proposes the recovery — `git reset --soft` to that commit, re-commit corrected — and executes only with explicit user confirmation, only on the feature branch, never after push |
+Four operational differences carry on and are recorded in `STATE.md ## Notes` so audit can find them: a different name for the same thing, a file one directory over when `design.md` left the placement open, a private helper the design did not foresee, or a test name forced by the runner.
 
-Record it: feature-local → a `## Design Gaps Discovered During Implementation` section in `design.md`; durable cross-feature fact → root `CONTEXT.md ## Gotchas`. Set `STATE.md` to `Phase: design` and `Next: design` before stopping for a design gap. If the gap breaks the scope, apply the safety valve ([sizing.md](../references/sizing.md)) — stop and raise the level, never push through.
+Stop before the commit when an interface named by the design cannot exist as written, a dependency the design counted on is absent, code contradicts a design decision, a covered acceptance scenario is impossible against the existing product, or the task waits on an open question in `spec.md`. Leave written changes on disk and name the changed files. Record the blocker in `STATE.md ## Blockers` and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction.
+
+Do not edit `spec.md` or `design.md` during implementation. Do not widen the task or use `git reset --soft` to recover a prior commit. The phase that owns the contradicted artifact resolves it; the user decides whether to keep or discard the uncommitted changes. If the gap breaks the scope, apply the safety valve ([sizing.md](../references/sizing.md)) — stop and raise the level, never push through.
 
 ## Signals
 

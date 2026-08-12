@@ -84,6 +84,12 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
 
+## Deviations during implementation
+
+Record only the four operational differences that may continue in `STATE.md ## Notes`: a different name for the same thing, a file one directory over when placement was open, an unforeseen private helper, or a test name forced by the runner.
+
+For an interface, dependency, design decision, acceptance scenario, or open-question contradiction, leave written changes on disk, name the changed files in `STATE.md ## Blockers`, and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction. Do not edit upstream artifacts, widen the task, or rewrite history. The user decides whether to keep or discard the changes.
+
 ## Conflicts with `CONTEXT.md`
 
 Read `CONTEXT.md` before any design decision. A decision that conflicts with it is either conformed to or explicitly superseded with a reason; never ignore it silently.
