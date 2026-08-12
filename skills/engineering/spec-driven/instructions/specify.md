@@ -67,6 +67,7 @@ branch: {slug}                     # inferred from content, not asked
 | Term | Definition |
 
 ## User Stories
+<!-- Each S-N is a product slice for this workflow, not a tracker story or task. -->
 ### S-1: {Title} (P-1)
 **As a** {role}, **I want** {capability}, **so that** {benefit}.
 

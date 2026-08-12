@@ -28,7 +28,7 @@ SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases",
                  "Divergences"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
                    "Error Handling", "Risks & Concerns", "Requirements Traceability"]
-TASKS_SECTIONS = ["Scope", "Task List"]
+TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
 
 SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
 SCOPES = ["medium", "large", "complex"]
@@ -42,7 +42,7 @@ STATE_FINDINGS = ["none", "validate", "audit", "validate,audit"]
 STEP_OPENERS = ("Given", "When", "Then")
 STEP_CONTINUATIONS = ("And", "But")
 
-TASK_FIELDS = ["Story", "Gate", "Done when"]
+TASK_FIELDS = ["Slice", "Depends on", "Gate", "Done when"]
 
 # Source-file extensions barred from spec.md prose: naming one is a HOW leak.
 # Backtick-quoted only, so a bare domain term with a dot never trips it.
@@ -70,10 +70,13 @@ STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
 TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
-STORY_REF = re.compile(r"\bS-\d+\b")
+SLICE_REF = re.compile(r"\bS-\d+\b")
 TASK_REF = re.compile(r"\bT-\d+\b")
 TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_TEST = re.compile(r"^\s*-\s*\*\*Test:\*\*\s*(.*)$", re.IGNORECASE)
+TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
+TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
+WAVE_ID = re.compile(r"^W-(\d+)$")
 BACKTICKED = re.compile(r"`([^`]+)`")
 
 
@@ -587,6 +590,93 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
         if identifier not in traced:
             findings.append("%s:1: %s reaches no row in Requirements Traceability" % (path, identifier))
 
+def derive_task_waves(tasks, path, findings):
+    """Return the graph level for each task, or an empty map on a cycle."""
+    by_id = {task["id"]: task for task in tasks}
+    waves = {}
+    visiting = set()
+    cycle_reported = set()
+
+    def visit(identifier, trail):
+        if identifier in waves:
+            return waves[identifier]
+        if identifier in visiting:
+            cycle = tuple(trail[trail.index(identifier):] + [identifier])
+            if cycle not in cycle_reported:
+                findings.append("%s:1: task dependency cycle: %s" % (path, " -> ".join(cycle)))
+                cycle_reported.add(cycle)
+            return None
+        task = by_id.get(identifier)
+        if task is None:
+            return None
+        visiting.add(identifier)
+        dependency_waves = []
+        for dependency in task["depends"]:
+            result = visit(dependency, trail + [identifier])
+            if result is not None:
+                dependency_waves.append(result)
+        visiting.remove(identifier)
+        if any(dependency in visiting for dependency in task["depends"]):
+            return None
+        if len(dependency_waves) != len(task["depends"]):
+            return None
+        waves[identifier] = max(dependency_waves, default=0) + 1
+        return waves[identifier]
+
+    for task in tasks:
+        visit(task["id"], [])
+    return waves
+
+
+def lint_sequence(path, lines, tasks, expected_waves, findings):
+    """Validate the Sequence table against the dependency-derived waves."""
+    bounds = section_bounds(lines, "Sequence")
+    if bounds is None:
+        return
+    rows = list(table_rows(lines, *bounds))
+    if not rows:
+        findings.append("%s:1: `Sequence` needs a `Wave` / `Tasks` table" % path)
+        return
+    _, header, _ = rows[0]
+    if "Wave" not in header or "Tasks" not in header:
+        findings.append("%s:%d: `Sequence` table must have `Wave` and `Tasks` columns" % (path, rows[0][0]))
+        return
+
+    known = {task["id"] for task in tasks}
+    listed = {}
+    wave_numbers = []
+    for number, row_header, cells in rows:
+        wave = cell(row_header, cells, "Wave")
+        match = WAVE_ID.match(wave)
+        if not match:
+            findings.append("%s:%d: Sequence row has invalid wave `%s`" % (path, number, wave))
+            continue
+        wave_number = int(match.group(1))
+        wave_numbers.append(wave_number)
+        task_refs = TASK_REF.findall(cell(row_header, cells, "Tasks"))
+        if not task_refs:
+            findings.append("%s:%d: %s lists no tasks" % (path, number, wave))
+        for identifier in task_refs:
+            if identifier not in known:
+                findings.append("%s:%d: %s names unknown task %s" % (path, number, wave, identifier))
+            elif identifier in listed:
+                findings.append("%s:%d: %s appears more than once in Sequence" % (path, number, identifier))
+            else:
+                listed[identifier] = wave_number
+
+    if wave_numbers and wave_numbers != list(range(1, max(wave_numbers) + 1)):
+        findings.append("%s:1: Sequence waves must start at W-1 and have no gaps" % path)
+    for task in tasks:
+        identifier = task["id"]
+        if identifier not in listed:
+            findings.append("%s:1: %s is missing from Sequence" % (path, identifier))
+    for identifier, expected in expected_waves.items():
+        actual = listed.get(identifier)
+        if actual is not None and actual != expected:
+            findings.append("%s:1: %s is in W-%d but the dependency graph derives W-%d" %
+                            (path, identifier, actual, expected))
+
+
 def lint_tasks(path, lines, base, spec_lines, findings):
     fields, _ = parse_frontmatter(lines)
     check_frontmatter_status(path, fields, TASK_STATUSES, findings)
@@ -596,22 +686,23 @@ def lint_tasks(path, lines, base, spec_lines, findings):
     if section_bounds(lines, "Coverage Matrix"):
         findings.append("%s:1: legacy `Coverage Matrix`; use one `Covers` field on each AC task" % path)
 
-    tasks = []           # (id, line number, story, block lines)
+    tasks = []
     current = None
     for index, line in enumerate(lines):
         match = TASK_HEADING.match(line)
         if match:
-            current = [match.group(1), index + 1, "", []]
+            current = {"id": match.group(1), "line": index + 1, "slice": "", "depends": [], "block": []}
             tasks.append(current)
         elif current is not None and line.startswith("### "):
             current = None
         elif current is not None:
-            current[3].append(line)
+            current["block"].append(line)
 
     declared = set()
     covered = {}
     highest = 0
-    for identifier, number, _, block in tasks:
+    for task in tasks:
+        identifier, number, block = task["id"], task["line"], task["block"]
         value = int(identifier.split("-")[1])
         if identifier in declared:
             findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
@@ -624,58 +715,91 @@ def lint_tasks(path, lines, base, spec_lines, findings):
             if "**%s:**" % field not in body:
                 findings.append("%s:%d: %s carries no `**%s:**`" % (path, number, identifier, field))
         if "**Discrimination:**" in body:
-            findings.append("%s:%d: %s carries legacy `Discrimination`; discrimination belongs to audit"
-                            % (path, number, identifier))
+            findings.append("%s:%d: %s carries legacy `Discrimination`; discrimination belongs to audit" %
+                            (path, number, identifier))
 
+        slice_values = [match.group(1).strip() for line in block
+                        for match in [TASK_SLICE.match(line)] if match]
+        if len(slice_values) != 1 or not slice_values[0]:
+            findings.append("%s:%d: %s must carry one non-empty `Slice` field" %
+                            (path, number, identifier))
+        else:
+            slice_refs = SLICE_REF.findall(slice_values[0])
+            if slice_values[0].lower() == "none":
+                task["slice"] = "none"
+            elif len(slice_refs) == 1:
+                task["slice"] = slice_refs[0]
+            else:
+                findings.append("%s:%d: %s `Slice` must name one `S-N` or `none`" %
+                                (path, number, identifier))
+
+        depends_values = [match.group(1).strip() for line in block
+                          for match in [TASK_DEPENDS.match(line)] if match]
+        if len(depends_values) != 1 or not depends_values[0]:
+            findings.append("%s:%d: %s must carry one non-empty `Depends on` field" %
+                            (path, number, identifier))
+        elif depends_values[0].lower() != "none":
+            task["depends"] = TASK_REF.findall(depends_values[0])
+            if "none" in depends_values[0].lower() or not task["depends"]:
+                findings.append("%s:%d: %s `Depends on` must name tasks or `none`" %
+                                (path, number, identifier))
         covers_values = [match.group(1).strip() for line in block
                          for match in [TASK_COVERS.match(line)] if match]
         test_values = [match.group(1).strip() for line in block
                        for match in [TASK_TEST.match(line)] if match]
         covers = [reference for value in covers_values for reference in AC_PATTERN.findall(value)]
         if covers_values and len(covers) != 1:
-            findings.append("%s:%d: %s `Covers` must name exactly one `AC-N.M`"
-                            % (path, number, identifier))
+            findings.append("%s:%d: %s `Covers` must name exactly one `AC-N.M`" %
+                            (path, number, identifier))
         if covers:
             criterion = covers[0]
             if spec_lines is not None and criterion not in spec_ac_ids(spec_lines):
-                findings.append("%s:%d: %s `Covers` names %s, which the spec does not declare"
-                                % (path, number, identifier, criterion))
+                findings.append("%s:%d: %s `Covers` names %s, which the spec does not declare" %
+                                (path, number, identifier, criterion))
             elif criterion in covered:
-                findings.append("%s:%d: %s and %s both cover %s; each AC needs exactly one task"
-                                % (path, number, covered[criterion], identifier, criterion))
+                findings.append("%s:%d: %s and %s both cover %s; each AC needs exactly one task" %
+                                (path, number, covered[criterion], identifier, criterion))
             else:
                 covered[criterion] = identifier
             if len(test_values) != 1 or not test_values[0]:
-                findings.append("%s:%d: %s covers %s but carries no non-empty `Test`"
-                                % (path, number, identifier, criterion))
+                findings.append("%s:%d: %s covers %s but carries no non-empty `Test`" %
+                                (path, number, identifier, criterion))
 
-    stories = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
-    order = []
-    for entry in tasks:
-        identifier, number, _, block = entry
-        for line in block:
-            if line.strip().startswith("- **Story:**"):
-                found = STORY_REF.search(line)
-                entry[2] = found.group(0) if found else ""
-                break
-        if entry[2]:
-            order.append(entry[2])
-            if spec_lines is not None and entry[2] not in stories:
-                findings.append("%s:%d: %s names %s, which the spec does not declare" % (path, number, identifier, entry[2]))
-        if entry[2] == "" and spec_lines is not None:
-            findings.append("%s:%d: %s names no story" % (path, number, identifier))
-        for line in block:
-            if line.strip().startswith("- **Depends on:**"):
-                for reference in TASK_REF.findall(line):
-                    if reference not in declared:
-                        findings.append("%s:%d: %s depends on %s, which is not declared above it" % (path, number, identifier, reference))
+    slices = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
+    slice_order = []
+    declared_before = set()
+    for task in tasks:
+        identifier, number = task["id"], task["line"]
+        if task["slice"] == "none":
+            pass
+        elif task["slice"]:
+            slice_order.append(task["slice"])
+            if spec_lines is not None and task["slice"] not in slices:
+                findings.append("%s:%d: %s names %s, which the spec does not declare" %
+                                (path, number, identifier, task["slice"]))
+        elif spec_lines is not None:
+            findings.append("%s:%d: %s names no slice" % (path, number, identifier))
+        for dependency in task["depends"]:
+            if dependency not in declared_before:
+                if dependency in declared:
+                    findings.append("%s:%d: %s depends on %s, which is declared later" %
+                                    (path, number, identifier, dependency))
+                else:
+                    findings.append("%s:%d: %s depends on %s, which is not declared" %
+                                    (path, number, identifier, dependency))
+            if dependency == identifier:
+                findings.append("%s:%d: %s cannot depend on itself" % (path, number, identifier))
+        declared_before.add(identifier)
 
-    seen_stories = []
-    for story in order:
-        if story in seen_stories and seen_stories[-1] != story:
-            findings.append("%s:1: %s's tasks are not contiguous" % (path, story))
-        if not seen_stories or seen_stories[-1] != story:
-            seen_stories.append(story)
+    seen_slices = []
+    for slice_id in slice_order:
+        if slice_id in seen_slices and seen_slices[-1] != slice_id:
+            findings.append("%s:1: %s's tasks are not contiguous" % (path, slice_id))
+        if not seen_slices or seen_slices[-1] != slice_id:
+            seen_slices.append(slice_id)
+
+    expected_waves = derive_task_waves(tasks, path, findings)
+    lint_sequence(path, lines, tasks, expected_waves, findings)
 
     if spec_lines is None:
         return

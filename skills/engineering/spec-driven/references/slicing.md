@@ -1,18 +1,18 @@
-# Story Slicing
+# Product Slicing
 
-What makes a story one vertical slice, and how to tell a vertical slice from a horizontal one.
+What makes a product slice one vertical slice, and how to tell a vertical slice from a horizontal one.
 
 ## When to Use
 
-When authoring user stories in specify, and when validating story grouping in tasks. Read it whenever a story feels too big, or a task list will not group cleanly under one story.
+When authoring user stories in specify, and when validating slice grouping in tasks. Read it whenever a slice feels too big, or a task list will not group cleanly under one slice.
 
 ## Vertical vs horizontal
 
-A story is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.
+A product slice (`S-N`) is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. It is not a tracker story or a task. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.
 
 Slice vertically: a horizontal slice carries no benefit of its own, so its acceptance criteria have nothing observable to assert.
 
-A story carrying two distinct benefits is two stories — split it. A "story" that is one layer of many is not a story — reslice the feature vertically.
+A product slice carrying two distinct benefits is two slices — split it. A tracker story that is one layer of many is not a product slice — reslice the feature vertically.
 
 ## Example
 

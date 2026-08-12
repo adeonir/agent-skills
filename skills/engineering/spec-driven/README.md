@@ -15,9 +15,9 @@ flowchart TD
     T --> I[Implement<br/>verify per task]
     I --> V{Validate?}
     V -->|user-facing and selected| VA[Validate / UAT]
-    V -->|skip| A{Audit?}
-    VA --> A
-    A -->|selected| AU[Audit<br/>independent subagent]
+    V -->|skip| AD{Audit?}
+    VA --> AD
+    AD -->|selected| AU[Audit<br/>independent subagent]
 ```
 
 | Phase | Output |
@@ -52,6 +52,8 @@ design this feature
 create tasks
 implement T-1 to T-4
 implement S-1
+implement W-1
+implement W-1..W-3 in parallel
 implement everything
 
 # Close it out
@@ -103,6 +105,10 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 **Q: What is the difference between peer check, verify, audit, and validate?**
 
 A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check that writes `validate.md` and eligible rows to `SIGNALS.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field; `tasks` reads the report, creates or adjusts correction tasks, and `implement` executes them.
+
+**Q: How are tasks ordered and dispatched?**
+
+A: `Depends on` is the only ordering source. `Sequence` derives graph waves and lists every task once. Implement accepts task, slice, and wave selectors; sequential mode is the default and uses the current worktree. Parallel mode is optional and creates one worktree per dispatch unit, not per task. A wave can always run sequentially without a worktree.
 
 **Q: How does the lessons layer work?**
 

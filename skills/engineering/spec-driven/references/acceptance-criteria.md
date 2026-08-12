@@ -4,7 +4,7 @@ Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identit
 
 ## When to Use
 
-During specify, when writing or reshaping the acceptance criteria under each user story, and when confirming every PRD requirement reached an AC. Also read during audit to confirm each AC maps to a discriminating test.
+During specify, when writing or reshaping the acceptance criteria under each product slice, and when confirming every PRD requirement reached an AC. Also read during audit to confirm each AC maps to a discriminating test.
 
 ## Form
 
@@ -32,11 +32,11 @@ Scenario: User signs in with registered credentials
 - Write the outcome as something observable: "the modal appears", never "the flow feels natural".
 - An invariant is written as the event that would violate it — `When a record is written / Then the audit log carries the actor` — since every scenario carries a trigger.
 - A non-obvious criterion carries its `(because …)` rationale on the heading, after the title.
-- A story past five criteria has usually stopped being one outcome: split it, or record the size as deliberate.
+- A slice past five criteria has usually stopped being one outcome: split it, or record the size as deliberate.
 
 ## `AC-N.M` identity
 
-`N` is the number of the story the criterion sits under, `M` its position within that story. An id is unique across the whole spec.
+`N` is the number of the product slice the criterion sits under, `M` its position within that slice. An id is unique across the whole spec.
 
 While the spec is `draft`, renumber freely: a removed criterion leaves no marker and the ids close up behind it. Once the spec is `ready`, `design.md` references these ids in `Requirements Traceability` and `tasks.md` references them in `Covers` — a renumbering after that is carried into both artifacts in the same pass, and the linter reports every reference left pointing at an id the spec no longer declares.
 
@@ -53,7 +53,7 @@ An input carrying acceptance criteria is a set of claims, not a settled contract
 
 Name the one `G-N` of `## Goals` the criterion serves. Carry exactly one id, never a list, and never put the link in prose.
 
-Write no line for a criterion that serves no declared goal and only demonstrates its story's benefit. Where a criterion serves two goals, one of the two is what its `Then` asserts and the other is a consequence: name the one asserted.
+Write no line for a criterion that serves no declared goal and only demonstrates its slice's benefit. Where a criterion serves two goals, one of the two is what its `Then` asserts and the other is a consequence: name the one asserted.
 
 ## Backward provenance — `Satisfies`
 
@@ -63,7 +63,7 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
 - **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[needs-clarification]` only for discovery input; owned pendencies use `ASM-N` and `OQ-N` identifiers.
-- **Identifiers** (owned, never reused across a story) → uppercase letter(s) + hyphen + number: `S-N` (story), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the story heading as an attribute.
+- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
 
 ## Non-functional criteria
 
@@ -77,7 +77,7 @@ An inherited clause that fails this surfaces as a discuss question, the same rou
 
 ## Calibration
 
-A criterion may assert less than its story needs — that gap is a coverage hole, and every gate looks for it. It may also assert *more*, and nothing looks for that. Ask of each one: **is there an implementation the story's `so that {benefit}` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
+A criterion may assert less than its slice needs — that gap is a coverage hole, and every gate looks for it. It may also assert *more*, and nothing looks for that. Ask of each one: **is there an implementation the slice's `so that {benefit}` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
 
 The failure shape: a `Then` naming a **timing**, a **count**, a **threshold**, or a **mechanism** where the benefit names only an **outcome**. "On the next read", "in a single query", "without a cache" — each forbids an implementation the benefit permits. The usual leak detector misses it because no forbidden noun appears: the leak is in the clause's **strength**, not its vocabulary.
 

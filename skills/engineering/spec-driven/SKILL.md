@@ -1,7 +1,7 @@
 ---
 name: spec-driven
-description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or user stories, designing a feature, implementing a named task or user story, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
-argument-hint: "[T-N] | [T-N..T-M] | [S-N]"
+description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or product slices, designing a feature, implementing a named task or product slice, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
+argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M] | [W-N] | [W-N..W-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
@@ -14,7 +14,7 @@ Feature development in phases, sized to the change. Light by default; weight onl
 - **Specify** ("plan feature", "spec this", "from PRD", "modify feature", "discuss how to build") → [specify.md](instructions/specify.md)
 - **Design** ("design this feature", "technical design", "plan the build") → [design.md](instructions/design.md)
 - **Tasks** ("create tasks", "break into tasks", "task breakdown") → [tasks.md](instructions/tasks.md)
-- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement story S-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
+- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement slice S-1", "implement wave W-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
 - **Audit** ("audit feature", "validate goals", "verify before PR") → [audit.md](instructions/audit.md)
 - **Validate / UAT** ("run UAT", "manual testing", "validate flows") → [validate.md](instructions/validate.md)
 - **Archive** ("archive feature", "archive this spec") → [archive.md](instructions/archive.md)
@@ -36,6 +36,7 @@ Loaded on demand:
 - [acceptance-criteria.md](references/acceptance-criteria.md) — the Gherkin form, `AC-N.M` identity, reshape vs author, `Serves` and `Satisfies`, case convention, calibration against the goal
 - [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
 - [slicing.md](references/slicing.md) — vertical slice vs horizontal, the two-benefit split
+- [ordering.md](references/ordering.md) — task dependency graph, derived waves, and dispatch units
 - [simplicity.md](references/simplicity.md) — the architecture ladder, chained necessity as the signal of a wrong root, verifying a simplification is real before it becomes a decision
 - [research-cache.md](references/research-cache.md) — the cached-finding template, the basis that makes an entry falsifiable, the rule that voids a stale one
 - [memory.md](references/memory.md) — root `CONTEXT.md`, per-feature `STATE.md`, and signal routing
@@ -44,6 +45,7 @@ Loaded on demand:
 - [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
 - `scripts/signals.py` — run to add, resolve, list, and normalize feature signals
 - `scripts/lessons.py` — run to add, list, penalize, and normalize lessons
+- `scripts/select_tasks.py` — run to select incomplete tasks by task, slice, or wave
 - `scripts/lint_artifact.py` — run at each phase's self-check to settle structure, presence, and cross-file references
 
 ## Artifacts
