@@ -42,7 +42,7 @@ STATE_FINDINGS = ["none", "validate", "audit", "validate,audit"]
 STEP_OPENERS = ("Given", "When", "Then")
 STEP_CONTINUATIONS = ("And", "But")
 
-TASK_FIELDS = ["Slice", "Depends on", "Gate", "Done when"]
+TASK_FIELDS = ["Slice", "Builds", "Depends on", "Gate", "Done when"]
 
 # Source-file extensions barred from spec.md prose: naming one is a HOW leak.
 # Backtick-quoted only, so a bare domain term with a dot never trips it.
@@ -75,6 +75,7 @@ TASK_REF = re.compile(r"\bT-\d+\b")
 TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_TEST = re.compile(r"^\s*-\s*\*\*Test:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
+TASK_BUILDS = re.compile(r"^\s*-\s*\*\*Builds:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
 WAVE_ID = re.compile(r"^W-(\d+)$")
 BACKTICKED = re.compile(r"`([^`]+)`")
@@ -492,6 +493,53 @@ def check_frontmatter_status(path, fields, allowed, findings):
                         % (path, status, "/".join(allowed)))
 
 
+def resolve_linked_file(base, target):
+    """Resolve a frontmatter path from the repository root or feature directory."""
+    if not target:
+        return None
+    candidates = [target, os.path.join(base, os.path.basename(target))]
+    return next((candidate for candidate in candidates if os.path.isfile(candidate)), None)
+
+
+def read_design_components(base, target, findings=None):
+    """Return component names from the linked design blocks, or None if unavailable."""
+    design_path = resolve_linked_file(base, target)
+    if design_path is None:
+        return None
+    lines = read_lines(design_path)
+    if lines is None:
+        return None
+    bounds = section_bounds(lines, "Components")
+    if bounds is None:
+        return None
+    components = []
+    first_lines = {}
+    for index, line in enumerate(lines[bounds[0] + 1:bounds[1]], start=bounds[0] + 2):
+        if line.startswith("### "):
+            name = line[4:].strip()
+            if name:
+                if findings is not None and "," in name:
+                    findings.append("%s:%d: component name `%s` cannot contain a comma" %
+                                    (design_path, index, name))
+                if findings is not None and name.lower() == "none":
+                    findings.append("%s:%d: component name `none` is reserved by the `Builds` field" %
+                                    (design_path, index))
+                if findings is not None and name in first_lines:
+                    findings.append("%s:%d: component `%s` duplicates the component at line %d" %
+                                    (design_path, index, name, first_lines[name]))
+                else:
+                    first_lines[name] = index
+                components.append(name)
+    return components
+
+
+def split_field_list(value):
+    """Split a comma-separated task field, treating `none` as an empty list."""
+    if value is None or not value.strip() or value.strip().lower() == "none":
+        return []
+    return [entry.strip() for entry in value.split(",") if entry.strip()]
+
+
 def lint_state(path, lines, findings):
     """Check the feature-local STATE.md contract."""
     check_sections(path, lines, ["Progress", "Notes"], findings)
@@ -561,6 +609,7 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
     check_frontmatter_status(path, fields, DESIGN_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_sections(path, lines, DESIGN_SECTIONS, findings)
+    read_design_components(base, path, findings)
 
     bounds = section_bounds(lines, "Decisions")
     if bounds:
@@ -682,6 +731,7 @@ def lint_tasks(path, lines, base, spec_lines, findings):
     check_frontmatter_status(path, fields, TASK_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_frontmatter_path(path, base, fields, "design", findings)
+    design_components = read_design_components(base, fields.get("design"), findings)
     check_sections(path, lines, TASKS_SECTIONS, findings)
     if section_bounds(lines, "Coverage Matrix"):
         findings.append("%s:1: legacy `Coverage Matrix`; use one `Covers` field on each AC task" % path)
@@ -718,6 +768,34 @@ def lint_tasks(path, lines, base, spec_lines, findings):
             findings.append("%s:%d: %s carries legacy `Discrimination`; discrimination belongs to audit" %
                             (path, number, identifier))
 
+        builds_values = [match.group(1).strip() for line in block
+                         for match in [TASK_BUILDS.match(line)] if match]
+        if len(builds_values) != 1 or not builds_values[0]:
+            findings.append("%s:%d: %s must carry one non-empty `Builds` field" %
+                            (path, number, identifier))
+        builds_value = builds_values[0] if builds_values else ""
+        task["builds"] = split_field_list(builds_value)
+        task["builds_none"] = builds_value.lower() == "none"
+        if not task["builds_none"]:
+            if any(not component.strip() for component in builds_value.split(",")):
+                findings.append("%s:%d: %s `Builds` contains an empty component name" %
+                                (path, number, identifier))
+            normalized_builds = [component.lower() for component in task["builds"]]
+            if "none" in normalized_builds:
+                findings.append("%s:%d: %s `Builds` cannot combine `none` with component names" %
+                                (path, number, identifier))
+            duplicate_components = sorted({component for component in task["builds"]
+                                           if task["builds"].count(component) > 1})
+            if duplicate_components:
+                findings.append("%s:%d: %s `Builds` repeats component(s): %s" %
+                                (path, number, identifier, ", ".join(duplicate_components)))
+        if design_components is not None and not task["builds_none"]:
+            unknown_components = [component for component in task["builds"]
+                                  if component not in design_components]
+            if unknown_components:
+                findings.append("%s:%d: %s `Builds` names unknown design component(s): %s" %
+                                (path, number, identifier, ", ".join(unknown_components)))
+
         slice_values = [match.group(1).strip() for line in block
                         for match in [TASK_SLICE.match(line)] if match]
         if len(slice_values) != 1 or not slice_values[0]:
@@ -732,7 +810,9 @@ def lint_tasks(path, lines, base, spec_lines, findings):
             else:
                 findings.append("%s:%d: %s `Slice` must name one `S-N` or `none`" %
                                 (path, number, identifier))
-
+        if task["builds_none"] and task["slice"] != "none":
+            findings.append("%s:%d: %s may use `Builds: none` only for groundwork (`Slice: none`)" %
+                            (path, number, identifier))
         depends_values = [match.group(1).strip() for line in block
                           for match in [TASK_DEPENDS.match(line)] if match]
         if len(depends_values) != 1 or not depends_values[0]:
@@ -800,6 +880,13 @@ def lint_tasks(path, lines, base, spec_lines, findings):
 
     expected_waves = derive_task_waves(tasks, path, findings)
     lint_sequence(path, lines, tasks, expected_waves, findings)
+
+    if design_components:
+        built_components = {component for task in tasks for component in task["builds"]}
+        for component in design_components:
+            if component not in built_components:
+                findings.append("%s:1: component `%s` from the design reaches no task `Builds` field" %
+                                (path, component))
 
     if spec_lines is None:
         return
