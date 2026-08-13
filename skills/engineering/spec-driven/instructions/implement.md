@@ -37,16 +37,15 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 
 ### Per task — During
 
-1. Write or update the task's tests, derived from the spec, not the code.
-2. Implement per `design.md` and `spec.md` — the minimum to satisfy `Done when`.
-3. Out-of-scope discovery — something outside this task you noticed but must not fix here: the fix is an unrequested diff, and expanding scope is the user's call, not the subagent's. Capture it — cross-feature → root `CONTEXT.md ## Gotchas`; feature-local → `STATE.md ## Notes` — and name it in the return summary as a candidate. Never fold it into this commit, never append it to `tasks.md`. See [memory.md](../references/memory.md).
+1. Write the code and the task's named `Test` case in whichever order fits the change, deriving the test from the spec and never from the code. Implement per `design.md` and `spec.md` — the minimum to satisfy `Done when`. The end state is fixed: the named case exists, proves the complete scenario of every AC the task covers, and passes.
+2. Out-of-scope discovery — something outside this task you noticed but must not fix here: the fix is an unrequested diff, and expanding scope is the user's call, not the subagent's. Capture it — cross-feature → root `CONTEXT.md ## Gotchas`; feature-local → `STATE.md ## Notes` — and name it in the return summary as a candidate. Never fold it into this commit, never append it to `tasks.md`. See [memory.md](../references/memory.md).
 
 ### Per task — After
 
-1. Run the task's **Gate** (command or descriptive check).
+1. Run the task's **Gate** (command or descriptive check). A gate that stays red after three attempts at the same task ends the loop: leave the code on disk, report the gate and what it reported, and stop.
 2. Run the project quality gates the repository carries — build, types, linter, and formatter. Never invent a command the repository does not carry, and never install a tool to create one.
 3. Run **verify** (mental — no artifact): design adherence, the complete scenario for the task's `Covers` AC, and pattern adherence. Any "no" → fix before marking done.
-4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`.
+4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`, and touch nothing else in the file — no field rewritten, no task renumbered, no task added. The one exception is a test case the runner forced to another name, renamed in the same commit.
 5. **Commit** — stage by name the files this task touched, never `git add -A`: anything else dirty on the branch belongs to another commit. 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
 6. Update the feature's `STATE.md ## Progress` — point `Next` at the following task **in this selection**. A subagent never points `Next` past its own selection: after its last task it reports and stops. The main agent owns the pointer across selections, moving it to the next slice, or to the selected optional phase once the final one returns.
 
