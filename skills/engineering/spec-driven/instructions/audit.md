@@ -4,7 +4,7 @@ Independent verification — author ≠ auditor. An isolated subagent checks Goa
 
 ## When to Use
 
-When auditing a feature, validating goals at a commit boundary, or verifying a change before a PR. Optional at Medium and up after implement; Small skips it (the inline verify is its check).
+When auditing a feature, validating goals at a commit boundary, or verifying a change before a PR. Optional after implement; a one-liner skips it, since the inline verify is its check.
 
 ## Workflow
 

@@ -1,13 +1,13 @@
 ---
 name: spec-driven
-description: "Spec-driven feature development with auto-sized depth. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. Depth scales to scope — Small runs inline, Medium and up run the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or product slices, designing a feature, implementing a named task or product slice, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
+description: "Spec-driven feature development. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. A mechanical change runs inline as a one-liner; everything else runs the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or product slices, designing a feature, implementing a named task or product slice, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
 argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M] | [W-N] | [W-N..W-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
 # Spec-Driven Development
 
-Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor comes from a reader with a different source of evidence — the audit reads the diff and the tests against the contract, which no pass over the artifact alone can do — never from adding one more gate over the same text.
+Feature development in phases. Light by default; weight only where the change pays for it. Rigor comes from a reader with a different source of evidence — the audit reads the diff and the tests against the contract, which no pass over the artifact alone can do — never from adding one more gate over the same text.
 
 ## Triggers
 
@@ -23,16 +23,15 @@ Feature development in phases, sized to the change. Light by default; weight onl
 
 ```text
 specify → design → tasks → implement → [validate] → [audit] → [archive]
-   └────────┴────────┴──────────┴──────────┴ Small skips all of this: one-liner → branch → implement inline
+   └────────┴────────┴──────────┴──────────┴ a mechanical change skips all of this: one-liner → branch → implement inline
 ```
 
-Depth follows scope, not phase-skipping above Small — per-scope depth is owned by [sizing.md](references/sizing.md). Small is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit. Verify is mental, per task, inside implement — never a user phase. Validate and audit are optional. Archive is manual housekeeping for a feature in any state — never automatic or suggested.
+Specify's triage is a binary door: a mechanical change with zero load-bearing decisions is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit — and everything else produces the artifacts and runs the phases. Depth inside a phase follows what the change needs, judged as the work runs and never recorded as a label. Verify is mental, per task, inside implement — never a user phase. Validate and audit are optional. Archive is manual housekeeping for a feature in any state — never automatic or suggested.
 
 ## References
 
 Loaded on demand:
 
-- [sizing.md](references/sizing.md) — the four scopes, scope table, safety valve
 - [acceptance-criteria.md](references/acceptance-criteria.md) — the Gherkin form, `AC-N.M` identity, reshape vs author, `Serves` and `Satisfies`, case convention, calibration against the goal
 - [discriminator.md](references/discriminator.md) — WHAT / HOW / WHEN boundaries and leak signals
 - [slicing.md](references/slicing.md) — vertical slice vs horizontal, the two-benefit split
@@ -71,15 +70,15 @@ Artifact states are stored in the owning artifact:
 ## Guidelines
 
 - Separate by purpose: spec = WHAT + WHY, design = HOW, tasks = WHEN.
-- Size once, after discovery; default adversarial — when in doubt, size up.
-- On a broken scope (a new load-bearing decision, inline steps past ~5), stop and raise a level; never push through in implement.
+- Triage once, before discovery; default adversarial — in doubt, write the spec.
+- When a one-liner turns out to carry a load-bearing decision, or its inline steps run past ~5, stop and route back to specify; never push through in implement.
 - 1 task = 1 commit by default; fixes are new commits, never `--amend`.
 - Author ≠ auditor — the audit runs as an isolated subagent on the diff; every artifact closes on its own self-check plus the linter.
 - Advance by default; ask only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
 
 ## Anti-Pattern: Forced Full Depth
 
-Running every scope at full depth is process tax. Auto-sizing scales depth, not phases: a mechanical fix is a one-liner, a canonical reapplication runs a light Medium, and only a novel or ambiguous change earns approaches and research. Forcing heavy grounding onto a routine change is the tax to avoid.
+Running every change at full depth is process tax. Depth scales inside the phases, never by skipping them: a mechanical fix is a one-liner, a canonical reapplication needs no research, and only a novel or ambiguous change earns heavy grounding. Forcing that grounding onto a routine change is the tax to avoid.
 
 ## Anti-Pattern: Deferred Verification
 

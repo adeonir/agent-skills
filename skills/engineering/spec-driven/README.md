@@ -1,16 +1,16 @@
 # Spec-Driven Development
 
-Spec-driven feature development. Light by default; weight only where the scope pays for it.
+Spec-driven feature development. Light by default; weight only where the change pays for it.
 
 ## What It Does
 
-Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where each artifact closes on its own self-check plus a linter, and the delivery answers to a final independent audit that reads the diff and the tests against the contract.
+Builds features in phases. A mechanical fix is a one-liner; anything larger runs a full pipeline where each artifact closes on its own self-check plus a linter, and the delivery answers to a final independent audit that reads the diff and the tests against the contract.
 
 ```mermaid
 flowchart TD
-    A[Specify<br/>self-check + linter] --> B{Scope?}
-    B -->|Small| S[Inline implement<br/>own branch, no spec]
-    B -->|Medium / Large / Complex| D[Design<br/>self-check + linter]
+    A[Specify<br/>triage, then self-check + linter] --> B{Load-bearing decision?}
+    B -->|none| S[Inline implement<br/>own branch, no spec]
+    B -->|one or more| D[Design<br/>self-check + linter]
     D --> T[Tasks<br/>linted + self-checked]
     T --> I[Implement<br/>verify per task]
     I --> V{Validate?}
@@ -22,7 +22,7 @@ flowchart TD
 
 | Phase | Output |
 |-------|--------|
-| **Specify** | `spec.md` — WHAT + WHY (Medium+) |
+| **Specify** | `spec.md` — WHAT + WHY |
 | **Design** | `design.md` — HOW: architecture, components, decisions |
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
@@ -30,14 +30,14 @@ flowchart TD
 | **Audit** | `audit.md` — Goals, ACs, discrimination sensor, spec-defect findings |
 | **Archive** | feature moved to `.artifacts/archive/{created}-{slug}/` (optional and manual, any state) |
 
-### Auto-Sizing
+### Triage
 
-| Scope | Nature of change | Pipeline |
-|-------|------------------|----------|
-| **Small** | Mechanical, zero decisions | one-liner → branch → inline implement |
-| **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → [Validate] → [Audit] |
-| **Large** | ≥1 load-bearing decision new to the codebase | + research |
-| **Complex** | Ambiguity in the problem itself | + approaches |
+| Change | Pipeline |
+|--------|----------|
+| Mechanical, zero load-bearing decisions | one-liner → branch → inline implement |
+| Everything else | Specify → Design → Tasks → Implement → [Validate] → [Audit] |
+
+Depth inside the phases follows what the change needs — how far discovery probes, whether design has to research — judged as the work runs, never fixed up front.
 
 ## Usage
 
@@ -99,7 +99,7 @@ A: `CONTEXT.md` at the project root accumulates cross-feature decisions and gotc
 
 **Q: When does a change skip the pipeline?**
 
-A: When it is Small — mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md` and no audit. If it turns out to carry a real decision, the safety valve raises it to Medium and the full pipeline applies.
+A: When it is mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md` and no audit. If it turns out to carry a real decision, it routes back to specify and the full pipeline applies.
 
 **Q: What is the difference between self-check, verify, audit, and validate?**
 

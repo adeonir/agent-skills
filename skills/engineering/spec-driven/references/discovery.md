@@ -1,10 +1,10 @@
 # Discovery
 
-Adaptive, scope-tiered discovery that precedes sizing: the floor the conversation has to cover, what it probes past that floor, and the questions it puts to the user whenever a gray area is load-bearing.
+Adaptive discovery: the floor the conversation has to cover, what it probes past that floor, and the questions it puts to the user whenever a gray area is load-bearing.
 
 ## When to Use
 
-During specify, before sizing. Discovery reads existing project memory as data; it never treats an assumption as fact.
+During specify, before the spec body is written. Discovery reads existing project memory as data; it never treats an assumption as fact.
 
 ## The floor
 
@@ -25,7 +25,7 @@ A seed carrying acceptance criteria in Gherkin settles the verifiable obligation
 
 ## An adaptive conversation
 
-Discovery is a conversation, not a script, tiered to the emerging scope. Probe past the floor wherever the seed is thin:
+Discovery is a conversation, not a script. Probe past the floor wherever the seed is thin:
 
 - **Completeness sweep** — while exploring, probe for failure/error paths, lifecycle symmetry (create ↔ delete), actors with no path, and implicit dimensions (idempotency, auth, concurrency, state transitions).
 - **External-consumer surfaces** — when the change touches something a consumer *outside the codebase* depends on (a route or URL, an event name, a form field name, a section anchor, a public response shape), no in-repo test and not the audit's referential sensor can catch a break, since nothing in the repo reads it. Capture each preservation guarantee as an AC stating the observable that must still hold — the audit then re-checks it. Brownfield: promote the at-risk `Baseline` behavior from prose into an AC rather than leaving it undefended.
@@ -43,7 +43,7 @@ Asking is part of this conversation, never a stage after it. Put a gray area to 
 
 An answer resolves a question only when it carries a concrete choice or content. "Other" with no elaboration, a counter-question, or a partial answer keeps the question **open** — follow up when the decision is required for the contract; otherwise carry the unresolved item into the spec as an `OQ-N`. Never substitute a default for an unresolved answer.
 
-Where a resolution lands, at every scope:
+Where a resolution lands:
 
 - **Into the spec** — update the ACs, add a `(because …)`, and mark the `OQ-N` `answered` or the `ASM-N` `confirmed` or `invalidated`. The spec carries the decision as a settled fact, never the exchange that produced it.
 - **Into `CONTEXT.md`** — a decision that outlives this feature.

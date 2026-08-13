@@ -93,4 +93,4 @@ A miscalibrated criterion changes a criterion, so it is load-bearing — resolve
 
 ## Ambiguity closure
 
-Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check, scope-tiered — Large/Complex resolve fully; Medium resolves the obvious and logs the rest.
+Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check: what specify can settle is settled there, and what it cannot stays an `OQ-N`.

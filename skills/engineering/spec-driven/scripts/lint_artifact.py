@@ -44,8 +44,7 @@ REPORT_STATUSES = ["PASS", "FAIL", "BLOCKED"]
 VALIDATE_VERDICTS = ["met", "unmet", "blocked"]
 AUDIT_AC_STATUSES = ["PASS", "FAIL", "UNSETTLED"]
 
-SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
-SCOPES = ["medium", "large", "complex"]
+SPEC_FRONTMATTER = ["name", "sources", "user-facing", "status", "created", "branch"]
 SPEC_STATUSES = ["draft", "ready"]
 DESIGN_STATUSES = ["draft", "ready"]
 TASK_STATUSES = ["draft", "ready", "in-progress", "done"]
@@ -589,8 +588,6 @@ def lint_spec(path, lines, base, findings, warnings):
     for key in SPEC_FRONTMATTER:
         if key not in fields:
             findings.append("%s:1: frontmatter is missing `%s`" % (path, key))
-    if fields.get("scope") and fields["scope"] not in SCOPES:
-        findings.append("%s:1: `scope` is `%s`, not one of %s" % (path, fields["scope"], "/".join(SCOPES)))
     if fields.get("status") and fields["status"] not in SPEC_STATUSES:
         findings.append("%s:1: `status` is `%s`, not one of %s" % (path, fields["status"], "/".join(SPEC_STATUSES)))
     if fields.get("created") and not DATE_PATTERN.match(fields["created"]):
