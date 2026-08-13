@@ -124,6 +124,7 @@ MUST NOT contain: fixes to the code (the auditor flags, never edits), new archit
 
 ```text
 Audit: {feature} — [PASS | FAIL | BLOCKED]
+Report: .artifacts/specs/{slug}/audit.md
 Goals: X Met / Y Unmet / Z Unmeasurable
 ACs: A/B covered, C unsettled
 Sensor: N killed / M survived
