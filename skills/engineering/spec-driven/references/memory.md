@@ -1,6 +1,6 @@
 # Memory and Progress
 
-The project's shared memory, the active feature state, and the routing signal that sends reports to task triage.
+The project's shared memory, the feature state, and the routing signal that sends reports to task triage.
 
 ## When to Use
 
@@ -11,8 +11,8 @@ At the load-context step of every phase, and whenever a phase discovers durable 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `CONTEXT.md` | project-wide, committed memory | when specify records Stakes or a phase records durable Decisions or Gotchas | every phase |
-| `.artifacts/specs/{slug}/STATE.md` | active feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for the active feature |
-| `.artifacts/specs/{slug}/SIGNALS.md` | active feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
+| `.artifacts/specs/{slug}/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for that feature |
+| `.artifacts/specs/{slug}/SIGNALS.md` | the feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
 
 `CONTEXT.md` is shared project knowledge. `STATE.md` is the operational state of one feature. `SIGNALS.md` is the local history that grounds lessons. None of these files carries the detailed finding text owned by `validate.md` or `audit.md`.
 
@@ -34,7 +34,7 @@ Use only these sections:
 - {gotcha} — {context}
 ```
 
-Do not add `## Conventions`. Normative repository rules belong in `AGENTS.md` or `CLAUDE.md`. A project pattern discovered in code belongs in `Decisions` or `Gotchas` only when it is durable and useful beyond the active feature.
+Do not add `## Conventions`. Normative repository rules belong in `AGENTS.md` or `CLAUDE.md`. A project pattern discovered in code belongs in `Decisions` or `Gotchas` only when it is durable and useful beyond this feature.
 
 `Stakes` holds the current product surface and the cost of a silent failure. Specify writes it when absent and rewrites it when a later feature contradicts the current surface. `Decisions` is append-only unless a later decision explicitly supersedes an earlier one. `Gotchas` records durable traps found in the codebase.
 
@@ -42,7 +42,7 @@ MUST NOT contain feature-local state, phase progress, findings, signals, or task
 
 ## `STATE.md`
 
-Create it at `.artifacts/specs/{slug}/STATE.md` for the active feature. Do not create or read a global `.artifacts/STATE.md`.
+Create it at `.artifacts/specs/{slug}/STATE.md`. Do not create or read a global `.artifacts/STATE.md`.
 
 ALWAYS use this exact structure:
 
@@ -74,8 +74,9 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 
 ## Read and write routing
 
-- Every phase reads the root `CONTEXT.md` and the active feature's `STATE.md` when the feature exists.
-- `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from the active feature directory.
+- The feature directory is the `.artifacts/specs/{slug}/` the user names when invoking the phase. With no name, take the only directory there; where more than one exists, ask the user which before reading anything.
+- Every phase reads the root `CONTEXT.md` and the feature's `STATE.md` when the feature exists.
+- `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from that directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
 - `validate` and `audit` write detailed findings to their own reports. `audit` also adds or resolves signal rows through `signals.py`; `validate` writes no signal.
 - `implement` records only verified upstream failures; a task failure that is corrected in the same run is not a signal.

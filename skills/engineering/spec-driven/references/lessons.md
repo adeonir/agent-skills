@@ -9,7 +9,7 @@ During implement and audit when a verified failure is found; during tasks when r
 ## The distinction
 
 - A **finding** is the detailed, actionable observation in `validate.md` or `audit.md`.
-- A **signal** is a structured, persistent record of an eligible finding in the active feature's `SIGNALS.md`.
+- A **signal** is a structured, persistent record of an eligible finding in the feature's `SIGNALS.md`.
 - A **lesson** is a short, general rule promoted from signals that recur across distinct features.
 - A task in `tasks.md` is the correction derived from a verified finding, not a copy of the finding.
 

@@ -69,7 +69,7 @@ CONTEXT.md                           # committed project memory
 .artifacts/
 ├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
-│   └── {slug}/                    # active feature; slug only, no date prefix
+│   └── {slug}/                    # one folder per feature
 │       ├── spec.md                # WHAT + WHY
 │       ├── STATE.md                # feature state and report routing
 │       ├── SIGNALS.md              # feature-local verified signals
@@ -103,7 +103,7 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between self-check, verify, audit, and validate?**
 
-A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
+A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
 
 **Q: How are tasks ordered and dispatched?**
 
@@ -111,7 +111,7 @@ A: `Depends on` is the only ordering source. `Sequence` derives graph waves and 
 
 **Q: How does the lessons layer work?**
 
-A: Each lesson is grounded in a row of the active feature's `SIGNALS.md`, and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, becomes confirmed when the same lesson recurs on a second feature, and only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's local lessons set does.
+A: Each lesson is grounded in a row of the feature's `SIGNALS.md`, and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, becomes confirmed when the same lesson recurs on a second feature, and only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's local lessons set does.
 
 **Q: What happens after implementation and optional checks?**
 

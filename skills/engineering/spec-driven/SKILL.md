@@ -52,7 +52,7 @@ Loaded on demand:
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{slug}/` while active and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it. The date, taken from the spec's `created:`, is added at archive time, so active folders stay slug-only. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/{slug}/` and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it, taking the date from the spec's `created:`. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
 
 ## Status
 
@@ -64,7 +64,7 @@ Artifact states are stored in the owning artifact:
 - `validate.md`: `PASS | FAIL | BLOCKED`.
 - `audit.md`: `PASS | FAIL | BLOCKED`.
 
-`implement` uses the state in `tasks.md`; it never changes `spec.md`. The active feature's `STATE.md` stores phase progress, blockers, and the report routing that sends findings to task triage.
+`implement` uses the state in `tasks.md`; it never changes `spec.md`. The feature's `STATE.md` stores phase progress, blockers, and the report routing that sends findings to task triage.
 
 `STATE.md` is the phase router. Read `Phase` and `Next` before loading downstream artifacts; when it points to an earlier phase, stop and report that phase. Do not infer a new run from artifact differences or an old status.
 
