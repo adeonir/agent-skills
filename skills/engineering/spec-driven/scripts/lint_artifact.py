@@ -2,8 +2,12 @@
 """Lint a spec-driven artifact against its template contract.
 
 Checks structure, presence, and cross-file references only — never style or
-prose. Every violation it reports is resolvable without judgment, so the peer
-check that follows spends its reading on what needs a reader.
+prose. Every violation it reports is resolvable without judgment, so the reading
+that precedes it spends itself on what needs a reader.
+
+Two severities. An error is a contract violation and blocks `ready`. A warning
+names what is usually wrong and can be deliberate; it never blocks, and the
+phase says at its gate whether it acted on the warning or kept what it names.
 
 Usage:
   lint_artifact.py state  .artifacts/specs/{slug}
@@ -12,8 +16,8 @@ Usage:
   lint_artifact.py tasks  .artifacts/specs/{slug}
 
 Exit codes:
-  0  clean
-  1  violations found (one line each on stdout)
+  0  no error (warnings may still be printed)
+  1  errors found (one line each on stdout)
   2  argument/usage error (argparse default)
   3  target artifact not found
   4  read error that could not be recovered
@@ -43,6 +47,10 @@ STEP_OPENERS = ("Given", "When", "Then")
 STEP_CONTINUATIONS = ("And", "But")
 
 TASK_FIELDS = ["Slice", "Builds", "Depends on", "Gate", "Done when"]
+
+# A slice past this many criteria has usually stopped being one outcome. A warning,
+# never an error: the size may be recorded as deliberate.
+SLICE_CRITERIA_CAP = 5
 
 # Source-file extensions barred from spec.md prose: naming one is a HOW leak.
 # Backtick-quoted only, so a bare domain term with a dot never trips it.
@@ -292,7 +300,7 @@ def validate_gherkin(path, criterion, findings):
                         % (path, number, identifier, unused))
 
 
-def check_criteria(path, lines, findings):
+def check_criteria(path, lines, findings, warnings):
     """Check every criterion's form, identity, and upward links."""
     goals = spec_goal_ids(lines)
     seen_goals = set()
@@ -303,6 +311,7 @@ def check_criteria(path, lines, findings):
 
     declared = set()
     highest = {}  # story id -> the highest M seen under it
+    per_story = {}  # story id -> (criteria counted, line of its first criterion)
     for criterion in spec_criteria(lines):
         identifier, number, story = criterion["id"], criterion["line"], criterion["story"]
         if identifier in declared:
@@ -319,6 +328,8 @@ def check_criteria(path, lines, findings):
             findings.append("%s:%d: %s does not ascend within %s" % (path, number, identifier, story))
         if story is not None:
             highest[story] = max(highest.get(story, 0), int(position))
+            counted, first_line = per_story.get(story, (0, number))
+            per_story[story] = (counted + 1, first_line)
 
         validate_gherkin(path, criterion, findings)
 
@@ -340,6 +351,11 @@ def check_criteria(path, lines, findings):
             if not SATISFIES_ID.match(value):
                 findings.append("%s:%d: %s `Satisfies %s` is not exactly one `FR/BR/EC/NFR-N` id"
                                 % (path, number, identifier, value))
+
+    for story, (counted, first_line) in sorted(per_story.items()):
+        if counted > SLICE_CRITERIA_CAP:
+            warnings.append("%s:%d: warning: %s carries %d criteria — split it, or record the size as deliberate"
+                            % (path, first_line, story, counted))
 
 
 def check_downstream_ac_refs(base, live, findings):
@@ -561,7 +577,7 @@ def lint_state(path, lines, findings):
         findings.append("%s: `Findings` is `%s`, not one of %s" % (path, values["Findings"], "/".join(STATE_FINDINGS)))
 
 
-def lint_spec(path, lines, base, findings):
+def lint_spec(path, lines, base, findings, warnings):
     fields, body_start = parse_frontmatter(lines)
     for key in SPEC_FRONTMATTER:
         if key not in fields:
@@ -575,7 +591,7 @@ def lint_spec(path, lines, base, findings):
 
     check_sections(path, lines, SPEC_SECTIONS, findings)
 
-    check_criteria(path, lines, findings)
+    check_criteria(path, lines, findings, warnings)
 
     prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
     seen_ids = set()
@@ -726,7 +742,7 @@ def lint_sequence(path, lines, tasks, expected_waves, findings):
                             (path, identifier, actual, expected))
 
 
-def lint_tasks(path, lines, base, spec_lines, findings):
+def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     fields, _ = parse_frontmatter(lines)
     check_frontmatter_status(path, fields, TASK_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
@@ -862,7 +878,7 @@ def lint_tasks(path, lines, base, spec_lines, findings):
         for dependency in task["depends"]:
             if dependency not in declared_before:
                 if dependency in declared:
-                    findings.append("%s:%d: %s depends on %s, which is declared later" %
+                    warnings.append("%s:%d: warning: %s depends on %s, which is declared later" %
                                     (path, number, identifier, dependency))
                 else:
                     findings.append("%s:%d: %s depends on %s, which is not declared" %
@@ -885,7 +901,7 @@ def lint_tasks(path, lines, base, spec_lines, findings):
         built_components = {component for task in tasks for component in task["builds"]}
         for component in design_components:
             if component not in built_components:
-                findings.append("%s:1: component `%s` from the design reaches no task `Builds` field" %
+                warnings.append("%s:1: warning: component `%s` from the design reaches no task `Builds` field" %
                                 (path, component))
 
     if spec_lines is None:
@@ -921,24 +937,28 @@ def main(argv=None):
             sys.stderr.write("warning: no spec.md at %s; skipping cross-file checks\n" % spec_path)
 
     findings = []
+    warnings = []
     try:
         if args.phase == "state":
             lint_state(path, lines, findings)
         elif args.phase == "spec":
-            lint_spec(path, lines, base, findings)
+            lint_spec(path, lines, base, findings, warnings)
         elif args.phase == "design":
             lint_design(path, lines, base, spec_path, spec_lines, findings)
         else:
-            lint_tasks(path, lines, base, spec_lines, findings)
+            lint_tasks(path, lines, base, spec_lines, findings, warnings)
     except Exception as error:  # last-resort guard: never surface a raw traceback
         sys.stderr.write("error: %s\n" % error)
         return 4
 
     for finding in findings:
         print(finding)
+    for warning in warnings:
+        print(warning)
     if findings:
         return 1
-    print("%s: clean" % path)
+    if not warnings:
+        print("%s: clean" % path)
     return 0
 
 
