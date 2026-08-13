@@ -55,11 +55,11 @@ Use only these codes:
 |------|---------|
 | `agreed-behavior` | The delivery contradicts an agreed observable behavior. |
 | `test-case` | A required test is missing, weak, or does not prove the behavior. |
-| `test-suite` | The declared suite or gate is red or absent where required. |
+| `test-suite` | The declared suite or check is red or absent where required. |
 | `planned-task` | A completed task has no corresponding implementation or proof. |
 | `source-code` | The delivery contradicts a design or repository rule. |
 | `spec-defect` | The spec asks for more than its goal or benefit supports. |
-| `open-question` | A required open question remains unresolved at the gate. |
+| `open-question` | A required open question remains unresolved when the audit runs. |
 
 ### Commands
 
