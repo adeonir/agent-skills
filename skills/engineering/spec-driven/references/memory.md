@@ -11,8 +11,8 @@ At the load-context step of every phase, and whenever a phase discovers durable 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `CONTEXT.md` | project-wide, committed memory | when specify records Stakes or a phase records durable Decisions or Gotchas | every phase |
-| `.artifacts/specs/{slug}/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for that feature |
-| `.artifacts/specs/{slug}/SIGNALS.md` | the feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
+| `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for that feature |
+| `.artifacts/specs/<slug>/SIGNALS.md` | the feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
 
 `CONTEXT.md` is shared project knowledge. `STATE.md` is the operational state of one feature. `SIGNALS.md` is the local history that grounds lessons. None of these files carries the detailed finding text owned by `validate.md` or `audit.md`.
 
@@ -24,14 +24,14 @@ Use only these sections:
 
 ```markdown
 ## Stakes
-- {what the product is}
-- {surface} — {what a silent failure here costs}
+- [what the product is]
+- [surface] — [what a silent failure here costs]
 
 ## Decisions
-- {decision} — {rationale}; source: {file:line/doc}; scope: {context}
+- [decision] — [rationale]; source: [file:line/doc]; scope: [context]
 
 ## Gotchas
-- {gotcha} — {context}
+- [gotcha] — [context]
 ```
 
 Do not add `## Conventions`. Normative repository rules belong in `AGENTS.md` or `CLAUDE.md`. A project pattern discovered in code belongs in `Decisions` or `Gotchas` only when it is durable and useful beyond this feature.
@@ -42,22 +42,22 @@ MUST NOT contain feature-local state, phase progress, findings, signals, or task
 
 ## `STATE.md`
 
-Create it at `.artifacts/specs/{slug}/STATE.md`. Do not create or read a global `.artifacts/STATE.md`.
+Create it at `.artifacts/specs/<slug>/STATE.md`. Do not create or read a global `.artifacts/STATE.md`.
 
 ALWAYS use this exact structure:
 
 ```markdown
 ## Progress
 
-- **Feature:** {slug}
+- **Feature:** <slug>
 - **Phase:** specify | design | tasks | implement | validate | audit
-- **Next:** {the next task or step, e.g. T-3, run audit, or none}
-- **Blockers:** {none | ...}
-- **Findings:** {none | validate | audit | validate,audit}
+- **Next:** [the next task or step, e.g. T-3, run audit, or none]
+- **Blockers:** [none | ...]
+- **Findings:** [none | validate | audit | validate,audit]
 
 ## Notes
 
-- {feature-local observations}
+- [feature-local observations]
 ```
 
 `Findings` is a routing field. It names the report files that still carry something for the phase `Phase` points to; it never contains the finding text. The detailed findings remain in `validate.md` or `audit.md`. The phase that consumes a report clears its source after acting on it.
@@ -68,13 +68,13 @@ No audit retry counter belongs in `STATE.md`. The audit report owns the count of
 
 ## `SIGNALS.md`
 
-Create it at `.artifacts/specs/{slug}/SIGNALS.md`. It is local, machine-owned, and excluded from commits. It records verified signal rows, not detailed findings.
+Create it at `.artifacts/specs/<slug>/SIGNALS.md`. It is local, machine-owned, and excluded from commits. It records verified signal rows, not detailed findings.
 
 The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only writer.
 
 ## Read and write routing
 
-- The feature directory is the `.artifacts/specs/{slug}/` the user names when invoking the phase. With no name, take the only directory there. If more than one directory exists, ask the user which one before reading anything.
+- The feature directory is the `.artifacts/specs/<slug>/` the user names when invoking the phase. With no name, take the only directory there. If more than one directory exists, ask the user which one before reading anything.
 - Every phase reads the root `CONTEXT.md` and the feature's `STATE.md` when the feature exists.
 - `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from that directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.

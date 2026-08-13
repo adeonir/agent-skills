@@ -52,7 +52,7 @@ Loaded on demand:
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/{slug}/` and moves to `.artifacts/archive/{created}-{slug}/` only when the user explicitly archives it, taking the date from the spec's `created:`. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
 
 ## Status
 

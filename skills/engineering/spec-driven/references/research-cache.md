@@ -1,6 +1,6 @@
 # Research Cache
 
-The shape of a `.artifacts/research/{topic}.md` entry: a finding that outlives the design that produced it.
+The shape of a `.artifacts/research/<topic>.md` entry: a finding that outlives the design that produced it.
 
 ## When to Use
 
@@ -39,23 +39,23 @@ ALWAYS use this exact template structure.
 
 ```markdown
 ---
-topic: {topic}
-verified-against: {dependency@version | config path | environment}
+topic: <topic>
+verified-against: [dependency@version | config path | environment]
 source: docs | observed | mixed
-created: {YYYY-MM-DD}              # the topic file's first write; never rewritten
-updated: {YYYY-MM-DD}              # the observation's write; context, never grounds for trust
+created: [YYYY-MM-DD]              # the topic file's first write; never rewritten
+updated: [YYYY-MM-DD]              # the observation's write; context, never grounds for trust
 ---
 
-# {Topic}
+# [Topic]
 
 ## Findings
 
 | Claim | Observation | Source |
 |-------|-------------|--------|
-| {the question the finding answers} | {what was found, stated so it can be contradicted} | {official doc deep-link, or the command that produced the observation} |
+| [the question the finding answers] | [what was found, stated so it can be contradicted] | [official doc deep-link, or the command that produced the observation] |
 
 ## Preconditions            <!-- conditional: only when a finding is a cost, not an answer -->
-{An observation that the mechanism needs environment or infra setup to exercise. The setup cost is the finding; the next design inherits it instead of paying to rediscover it.}
+[An observation that the mechanism needs environment or infra setup to exercise. The setup cost is the finding; the next design inherits it instead of paying to rediscover it.]
 ```
 
 MUST NOT contain: the deliberation that produced the finding, feature slugs, `AC-N.M` references, task IDs, or anything scoped to the design that happened to write it. The cache belongs to the project, not to a feature.

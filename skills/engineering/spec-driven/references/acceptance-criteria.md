@@ -77,7 +77,7 @@ An inherited clause that fails this surfaces as a question during discovery, the
 
 ## Calibration
 
-A criterion may assert less than its slice needs — that gap is a coverage hole, and every check looks for it. It may also assert *more*, and nothing looks for that. Ask of each one: **is there an implementation the slice's `so that {benefit}` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
+A criterion may assert less than its slice needs — that gap is a coverage hole, and every check looks for it. It may also assert *more*, and nothing looks for that. Ask of each one: **is there an implementation the slice's `so that [benefit]` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
 
 The failure shape: a `Then` naming a **timing**, a **count**, a **threshold**, or a **mechanism** where the benefit names only an **outcome**. "On the next read", "in a single query", "without a cache" — each forbids an implementation the benefit permits. The usual leak detector misses it because no forbidden noun appears: the leak is in the clause's **strength**, not its vocabulary.
 

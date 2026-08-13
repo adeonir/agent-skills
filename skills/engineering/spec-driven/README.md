@@ -28,7 +28,7 @@ flowchart TD
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Validate / UAT** | `validate.md` — per-criterion browser verdicts, accessibility, and responsiveness on a user-facing feature |
 | **Audit** | `audit.md` — Goals, ACs, discrimination sensor, spec-defect findings |
-| **Archive** | feature moved to `.artifacts/archive/{created}-{slug}/` (optional and manual, any state) |
+| **Archive** | feature moved to `.artifacts/archive/<created>-<slug>/` (optional and manual, any state) |
 
 ### Triage
 
@@ -69,7 +69,7 @@ CONTEXT.md                           # committed project memory
 .artifacts/
 ├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
-│   └── {slug}/                    # one folder per feature
+│   └── <slug>/                    # one folder per feature
 │       ├── spec.md                # WHAT + WHY
 │       ├── STATE.md                # feature state and report routing
 │       ├── SIGNALS.md              # feature-local verified signals
@@ -79,9 +79,9 @@ CONTEXT.md                           # committed project memory
 │       ├── validate.md             # optional user-facing validation report
 │       └── evidences/             # UAT screenshots (user-facing only)
 ├── research/
-│   └── {topic}.md                 # research cache (reusable)
+│   └── <topic>.md                 # research cache (reusable)
 └── archive/
-    └── {created}-{slug}/          # closed features; date from `created:`, added at archive; never read during discovery
+    └── <created>-<slug>/          # closed features; date from `created:`, added at archive; never read during discovery
 ```
 
 ## Requirements
@@ -115,4 +115,4 @@ A: Each lesson is grounded in a row of the feature's `SIGNALS.md`, and `scripts/
 
 **Q: What happens after implementation and optional checks?**
 
-A: Pull request and merge happen outside this skill. The optional archive command is manual and accepts a feature in any state; it moves the feature from `.artifacts/specs/{slug}/` to `.artifacts/archive/{created}-{slug}/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.
+A: Pull request and merge happen outside this skill. The optional archive command is manual and accepts a feature in any state; it moves the feature from `.artifacts/specs/<slug>/` to `.artifacts/archive/<created>-<slug>/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/` when creating a new spec.

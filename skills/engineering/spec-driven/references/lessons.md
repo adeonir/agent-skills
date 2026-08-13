@@ -17,7 +17,7 @@ The flow is:
 
 ```text
 finding in a phase report
-  → signal in .artifacts/specs/{slug}/SIGNALS.md
+  → signal in .artifacts/specs/<slug>/SIGNALS.md
   → recurrence across features
   → candidate lesson in .artifacts/LESSONS.md
   → confirmed lesson loaded by specify/design
@@ -36,7 +36,7 @@ finding in a phase report
 ### Format
 
 ```markdown
-# Signals: {slug}
+# Signals: <slug>
 
 | Code | Phase | Reference | Report | Status |
 |------|-------|-----------|--------|--------|
@@ -67,14 +67,14 @@ Use the script from the skill directory:
 
 ```bash
 python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py add \
-  --spec-dir .artifacts/specs/{slug} \
+  --spec-dir .artifacts/specs/<slug> \
   --code agreed-behavior \
   --phase audit \
   --reference AC-1.1 \
   --report audit.md#1
 
 python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py resolve \
-  --spec-dir .artifacts/specs/{slug} \
+  --spec-dir .artifacts/specs/<slug> \
   --code agreed-behavior \
   --reference AC-1.1
 ```
@@ -103,7 +103,7 @@ Every entry carries a permanent `L-NNN` id, one canonical rule sentence, its sig
 
 ### Promotion and retirement
 
-- `add` refuses a lesson unless `--source` points to the 1-based signal row in the named feature's `SIGNALS.md` (`.artifacts/specs/{slug}/SIGNALS.md#{row}`).
+- `add` refuses a lesson unless `--source` points to the 1-based signal row in the named feature's `SIGNALS.md` (`.artifacts/specs/<slug>/SIGNALS.md#[row]`).
 - Recurrence counts distinct feature slugs, not repeated runs of one feature.
 - The agent supplies the judgment, the evidence, and the general rule sentence.
 - The script owns IDs, exact-after-normalization deduplication, recurrence, rendering, and status changes.
@@ -116,13 +116,13 @@ Every entry carries a permanent `L-NNN` id, one canonical rule sentence, its sig
 
 ```bash
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py add \
-  --feature {slug} \
+  --feature <slug> \
   --signal agreed-behavior \
-  --source .artifacts/specs/{slug}/SIGNALS.md#1 \
+  --source .artifacts/specs/<slug>/SIGNALS.md#1 \
   --text "Assert the persisted status value, not the field's presence"
 
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py penalize --id L-001 --feature {slug}
+python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py penalize --id L-001 --feature <slug>
 python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py normalize
 ```
 
