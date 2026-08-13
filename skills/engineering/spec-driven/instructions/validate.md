@@ -40,7 +40,7 @@ Location: `.artifacts/specs/{slug}/validate.md`. ALWAYS use this exact template 
 | AC-1.1 | met | `evidences/AC-1.1.png` | — |
 | AC-1.2 | unmet | `evidences/AC-1.2-expired-token.png` | {what the scenario asked for and what the application showed} |
 
-## Accessibility
+## Accessibility   <!-- Result: PASS | FAIL | reported | not verified -->
 | Check | Screen | Result | Evidence |
 |-------|--------|--------|----------|
 | Accessible name | checkout | PASS | {the tree line that decides it} |
