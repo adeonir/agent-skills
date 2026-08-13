@@ -379,7 +379,7 @@ CONTEXT.md                 # spec-driven: committed project memory
 
 ## Terminology Disambiguation
 
-`TDD` in this repo always means Test-Driven Development (red-green-refactor discipline), referenced by `spec-driven` during implementation. The docs-writer skill no longer ships a "Technical Design Document" artifact type — that role is now covered by the project-wide Design Doc.
+The docs-writer skill no longer ships a "Technical Design Document" artifact type — that role is now covered by the project-wide Design Doc.
 
 `register` / `surface` are shared design vocabulary across `craft-ui`, `design-brief`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
 
