@@ -17,7 +17,7 @@ One measurement, taken after discovery, plus a quick trivial triage at the start
 | **Small** | Mechanical, zero load-bearing decisions | one-liner (no `spec.md`) | skip | skip | inline | skip | skip (inline verify) |
 | **Medium** | Canonical pattern reapplied | full; ambiguity logged where it cannot be closed | full, no approaches / heavy research | full | subagent | optional, `user-facing` only | optional subagent |
 | **Large** | ≥1 load-bearing decision new to the codebase | full; ambiguity closed | full + research when needed | full | subagent | optional, `user-facing` only | optional subagent |
-| **Complex** | Ambiguity in the problem itself | full + `discuss.md` | full + approaches + research | full | subagent | optional, `user-facing` only | optional subagent |
+| **Complex** | Ambiguity in the problem itself | full; ambiguity closed | full + approaches + research | full | subagent | optional, `user-facing` only | optional subagent |
 
 Small does not produce a spec and does not run the pipeline: one-liner → branch → inline implement → inline verify.
 
@@ -31,6 +31,6 @@ If, at any phase, the scope breaks — a new load-bearing decision appears, inli
 
 - **Small → Medium** — the one-liner becomes a `spec.md`; the full pipeline applies. Specify's triage catches it up front; a Small that breaks only once inline implement starts is caught there and routed back to specify.
 - **Medium → Large** — the spec closes its ambiguity instead of logging it; the design gains research where the knowledge chain runs out.
-- **Large → Complex** — add `discuss.md` and design approaches.
+- **Large → Complex** — the design gains approaches.
 
 The valve is the one guard against a scope quietly growing until it overruns an under-planned phase.

@@ -47,7 +47,7 @@ The agent judges inline — no formal type detection:
 - **Reshape** — the input already carries criteria or a definition of done. Convert one to one, changing the notation and never the substance. An input already in Gherkin keeps its scenarios as they stand; a definition of done or a bullet list becomes one scenario each, its condition entering as the `Given`/`When` and its obligation as the `Then`. Split an obligation joining two independent assertions into one criterion each, and carry its requirement id onto both. A reason stated beside an item crosses with it as that criterion's `(because …)`, and a requirement id it names crosses on the `Satisfies` line.
 - **Author** — a prompt or PRD with no criteria. Write them from the intent.
 
-An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry a criterion unexamined — one that fails Ownership or Calibration below surfaces as a discuss question and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
+An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry a criterion unexamined — one that fails Ownership or Calibration below surfaces as a question during discovery and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
 
 ## `Serves`
 
@@ -73,7 +73,7 @@ Any performance, latency, throughput, capacity, or availability claim carries a 
 
 The actor of every `Then` is the system under specification. A clause whose obligation something else satisfies — a platform, a runtime, a service, or a library behaving as documented — is not a criterion this feature can meet or fail: no code here implements it, and no test here discriminates it. Drop it, or replace it with the observable this system owns that rests on it.
 
-An inherited clause that fails this surfaces as a discuss question, the same route a miscalibrated one takes; an authored one is caught at the self-check over the drafted spec. Neither is rewritten unilaterally, and the pendency it leaves on the seed is recorded exactly as Calibration's **Loosen** records one.
+An inherited clause that fails this surfaces as a question during discovery, the same route a miscalibrated one takes; an authored one is caught at the self-check over the drafted spec. Neither is rewritten unilaterally, and the pendency it leaves on the seed is recorded exactly as Calibration's **Loosen** records one.
 
 ## Calibration
 
@@ -86,7 +86,7 @@ Two clauses are exempt, or the rule flags its own grammar:
 - **`Given` and `When`.** They state when the criterion applies, not what it promises. Over-specification lives in the `Then`.
 - **A non-functional criterion.** The number is required (see above) — provided it came from the goal, not from the author.
 
-A miscalibrated criterion changes a criterion, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited one that arrives before drafting surfaces during discuss; one authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
+A miscalibrated criterion changes a criterion, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited one that arrives before drafting surfaces during discovery; one authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
 - **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and the next specify run removes it once the seed is corrected.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.

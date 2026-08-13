@@ -42,7 +42,7 @@ Loaded on demand:
 - [memory.md](references/memory.md) — root `CONTEXT.md`, per-feature `STATE.md`, and signal routing
 - [lessons.md](references/lessons.md) — signal and lesson contracts (candidate → confirmed → quarantined)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
-- [discovery.md](references/discovery.md) — adaptive discovery, discuss trigger, `discuss.md` template
+- [discovery.md](references/discovery.md) — adaptive discovery, when a gray area goes to the user, where a resolution lands
 - `scripts/signals.py` — run to add, resolve, list, and normalize feature signals
 - `scripts/lessons.py` — run to add, list, penalize, and normalize lessons
 - `scripts/select_tasks.py` — run to select incomplete tasks by task, slice, or wave
@@ -75,7 +75,7 @@ Artifact states are stored in the owning artifact:
 - On a broken scope (a new load-bearing decision, inline steps past ~5), stop and raise a level; never push through in implement.
 - 1 task = 1 commit by default; fixes are new commits, never `--amend`.
 - Author ≠ auditor — `spec.md` and `design.md` are peer-checked by a subagent that did not write them, and the audit runs as an isolated subagent on the diff.
-- Advance by default; ask (discuss) only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
+- Advance by default; ask only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
 
 ## Anti-Pattern: Forced Full Depth
 

@@ -37,7 +37,7 @@ flowchart TD
 | **Small** | Mechanical, zero decisions | one-liner → branch → inline implement |
 | **Medium** | Canonical pattern reapplied | Specify → Design → Tasks → Implement → [Validate] → [Audit] |
 | **Large** | ≥1 load-bearing decision new to the codebase | + research |
-| **Complex** | Ambiguity in the problem itself | + discuss, approaches |
+| **Complex** | Ambiguity in the problem itself | + approaches |
 
 ## Usage
 
@@ -73,7 +73,6 @@ CONTEXT.md                           # committed project memory
 │       ├── spec.md                # WHAT + WHY
 │       ├── STATE.md                # feature state and report routing
 │       ├── SIGNALS.md              # feature-local verified signals
-│       ├── discuss.md             # gray-area decisions (Complex)
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
 │       ├── audit.md                # independent audit report
