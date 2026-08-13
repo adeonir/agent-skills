@@ -46,7 +46,7 @@ Loaded on demand:
 - `scripts/signals.py` — run to add, resolve, list, and normalize feature signals
 - `scripts/lessons.py` — run to add, list, penalize, and normalize lessons
 - `scripts/select_tasks.py` — run to select incomplete tasks by task, slice, or wave
-- `scripts/lint_artifact.py` — run last in each phase's self-check to settle structure, presence, and cross-file references; an error blocks `ready`, a warning never does
+- `scripts/lint_artifact.py` — run over each artifact and report before it closes, to settle structure, presence, and cross-file references; an error blocks, a warning never does
 
 ## Artifacts
 

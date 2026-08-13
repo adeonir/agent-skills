@@ -13,7 +13,7 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 3. **Run the checks** — the auditor subagent resolves each AC through its task's `Covers` and `Test` fields, confirms the named case against the complete scenario in `spec.md`, verifies that `Sequence` agrees with the `Depends on` graph, then runs the checks below and the discrimination sensor.
 4. **Write `audit.md`** — the auditor writes it, always, including on FAIL or BLOCKED.
 5. **Return a compact verdict** — the auditor returns the format below to the main agent.
-6. **Handle the outcome** — PASS, FAIL, or BLOCKED loop below.
+6. **Handle the outcome** — run `python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py audit .artifacts/specs/{slug}` over the report the auditor wrote and correct every structural error before acting on the verdict; `tasks`, `specify`, and the next audit all read this file by row. Then the PASS, FAIL, or BLOCKED loop below.
 
 ### What the auditor checks
 

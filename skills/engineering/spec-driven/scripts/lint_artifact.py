@@ -10,10 +10,12 @@ names what is usually wrong and can be deliberate; it never blocks, and the
 phase says at its gate whether it acted on the warning or kept what it names.
 
 Usage:
-  lint_artifact.py state  .artifacts/specs/{slug}
-  lint_artifact.py spec   .artifacts/specs/{slug}
-  lint_artifact.py design .artifacts/specs/{slug}
-  lint_artifact.py tasks  .artifacts/specs/{slug}
+  lint_artifact.py state    .artifacts/specs/{slug}
+  lint_artifact.py spec     .artifacts/specs/{slug}
+  lint_artifact.py design   .artifacts/specs/{slug}
+  lint_artifact.py tasks    .artifacts/specs/{slug}
+  lint_artifact.py validate .artifacts/specs/{slug}
+  lint_artifact.py audit    .artifacts/specs/{slug}
 
 Exit codes:
   0  no error (warnings may still be printed)
@@ -33,6 +35,14 @@ SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases",
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
                    "Error Handling", "Risks & Concerns", "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
+VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
+AUDIT_SECTIONS = ["Summary", "Goals", "Acceptance Criteria", "Discrimination Sensor", "Re-run", "Gaps"]
+
+VALIDATE_SUMMARY = ["Status", "Feature", "Date", "Application", "Criteria"]
+AUDIT_SUMMARY = ["Status", "Feature", "Commit range", "Failed audits in a row", "Auditor", "Date", "Disproof"]
+REPORT_STATUSES = ["PASS", "FAIL", "BLOCKED"]
+VALIDATE_VERDICTS = ["met", "unmet", "blocked"]
+AUDIT_AC_STATUSES = ["PASS", "FAIL", "UNSETTLED"]
 
 SPEC_FRONTMATTER = ["name", "scope", "sources", "user-facing", "status", "created", "branch"]
 SCOPES = ["medium", "large", "complex"]
@@ -912,9 +922,102 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
             findings.append("%s:1: %s reaches no task `Covers` field" % (path, identifier))
 
 
+def summary_fields(lines):
+    """Return the `- **Name:** value` pairs of a report's `## Summary` section."""
+    bounds = section_bounds(lines, "Summary")
+    if bounds is None:
+        return {}
+    values = {}
+    for index in range(*bounds):
+        match = re.match(r"^- \*\*([^:*]+):\*\*\s*(.*)$", lines[index])
+        if match:
+            values[match.group(1).strip()] = match.group(2).strip()
+    return values
+
+
+def check_report_summary(path, lines, expected, findings):
+    """Check a report's Summary block: every field present, `Status` in vocabulary."""
+    values = summary_fields(lines)
+    if not values:
+        findings.append("%s:1: `## Summary` carries no `- **Field:**` lines" % path)
+        return
+    for field in expected:
+        if field not in values:
+            findings.append("%s:1: `## Summary` is missing `- **%s:**`" % (path, field))
+    status = values.get("Status", "")
+    if status and status not in REPORT_STATUSES:
+        findings.append("%s:1: `Status` is `%s`, not one of %s"
+                        % (path, status, "/".join(REPORT_STATUSES)))
+
+
+def check_report_coverage(path, section_ids, spec_lines, findings, extra=None):
+    """Check a report's criteria against the spec: every AC once, and no unknown id."""
+    if spec_lines is None:
+        return
+    live = spec_ac_ids(spec_lines)
+    seen = {}
+    for identifier, number, origin in section_ids + (extra or []):
+        if identifier not in live:
+            findings.append("%s:%d: %s names %s, which the spec does not declare"
+                            % (path, number, origin, identifier))
+        elif identifier in seen:
+            findings.append("%s:%d: %s appears twice in the report, first at line %d"
+                            % (path, number, identifier, seen[identifier]))
+        else:
+            seen[identifier] = number
+    for identifier in sorted(set(live), key=ac_sort_key):
+        if identifier not in seen:
+            findings.append("%s:1: %s reaches no row of the report" % (path, identifier))
+
+
+def report_criteria_rows(lines, title, column):
+    """Yield (ac_id, line, title) for each row of a report table keyed by `AC`."""
+    bounds = section_bounds(lines, title)
+    if bounds is None:
+        return []
+    rows = []
+    for number, header, cells in table_rows(lines, *bounds):
+        for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
+            rows.append((match.group(0), number, title))
+            break
+    return rows
+
+
+def check_report_verdicts(path, lines, title, column, allowed, findings):
+    """Check the verdict column of a report's criteria table against its vocabulary."""
+    bounds = section_bounds(lines, title)
+    if bounds is None:
+        return
+    for number, header, cells in table_rows(lines, *bounds):
+        if column not in header:
+            findings.append("%s:%d: `## %s` table has no `%s` column" % (path, number, title, column))
+            return
+        value = cell(header, cells, column)
+        if value not in allowed:
+            findings.append("%s:%d: verdict `%s` is not one of %s"
+                            % (path, number, value, "/".join(allowed)))
+
+
+def lint_validate(path, lines, spec_lines, findings):
+    """Check the validate report: sections, summary, per-criterion verdicts, coverage."""
+    check_sections(path, lines, VALIDATE_SECTIONS, findings)
+    check_report_summary(path, lines, VALIDATE_SUMMARY, findings)
+    check_report_verdicts(path, lines, "Criteria", "Verdict", VALIDATE_VERDICTS, findings)
+    check_report_coverage(path, report_criteria_rows(lines, "Criteria", "AC"), spec_lines, findings,
+                          report_criteria_rows(lines, "Out of Scope", "AC"))
+
+
+def lint_audit(path, lines, spec_lines, findings):
+    """Check the audit report: sections, summary, per-criterion status, coverage."""
+    check_sections(path, lines, AUDIT_SECTIONS, findings)
+    check_report_summary(path, lines, AUDIT_SUMMARY, findings)
+    check_report_verdicts(path, lines, "Acceptance Criteria", "Status", AUDIT_AC_STATUSES, findings)
+    check_report_coverage(path, report_criteria_rows(lines, "Acceptance Criteria", "AC"), spec_lines, findings)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Lint a spec-driven artifact against its template contract.")
-    parser.add_argument("phase", choices=["state", "spec", "design", "tasks"])
+    parser.add_argument("phase", choices=["state", "spec", "design", "tasks", "validate", "audit"])
     parser.add_argument("feature_dir", help="the feature folder, e.g. .artifacts/specs/{slug}")
     args = parser.parse_args(argv)
 
@@ -945,6 +1048,10 @@ def main(argv=None):
             lint_spec(path, lines, base, findings, warnings)
         elif args.phase == "design":
             lint_design(path, lines, base, spec_path, spec_lines, findings)
+        elif args.phase == "validate":
+            lint_validate(path, lines, spec_lines, findings)
+        elif args.phase == "audit":
+            lint_audit(path, lines, spec_lines, findings)
         else:
             lint_tasks(path, lines, base, spec_lines, findings, warnings)
     except Exception as error:  # last-resort guard: never surface a raw traceback
