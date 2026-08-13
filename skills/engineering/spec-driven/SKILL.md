@@ -7,7 +7,7 @@ allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 
 # Spec-Driven Development
 
-Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor comes from independent reading — the artifacts that settle decisions are checked by an agent that did not write them, and the diff by a final audit — never from heavy gates the author runs over its own work.
+Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor comes from a reader with a different source of evidence — the audit reads the diff and the tests against the contract, which no pass over the artifact alone can do — never from stacking gates over the same text.
 
 ## Triggers
 
@@ -74,7 +74,7 @@ Artifact states are stored in the owning artifact:
 - Size once, after discovery; default adversarial — when in doubt, size up.
 - On a broken scope (a new load-bearing decision, inline steps past ~5), stop and raise a level; never push through in implement.
 - 1 task = 1 commit by default; fixes are new commits, never `--amend`.
-- Author ≠ auditor — `spec.md` and `design.md` are peer-checked by a subagent that did not write them, and the audit runs as an isolated subagent on the diff.
+- Author ≠ auditor — the audit runs as an isolated subagent on the diff; every artifact closes on its own self-check plus the linter.
 - Advance by default; ask only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
 
 ## Anti-Pattern: Forced Full Depth
@@ -87,4 +87,4 @@ Implementing every task first and checking at the end loses the tie between code
 
 ## Anti-Pattern: Author Auditing Itself
 
-The agent that wrote the code cannot be the one that clears it — it re-reads its own intent, not the behavior. The audit is a fresh subagent handed only the diff, the artifacts, and the tests; it flags gaps and never edits code. The same holds one phase at a time: `spec.md` and `design.md` are each peer-checked by a subagent handed the artifact and the inputs it was written from, never the author's reasoning about it. `tasks.md` earns no reader of its own — it settles nothing the code does not re-test.
+The agent that wrote the code cannot be the one that clears it — it re-reads its own intent, not the behavior. The audit is a fresh subagent handed only the diff, the artifacts, and the tests; it flags gaps and never edits code. What makes it independent is the evidence, not the freshness: it reads code and tests, which the authors of `spec.md` and `design.md` never did. A second subagent over the artifact alone reads the same text against the same rules, so it buys a second pass rather than a second view — no artifact earns a reader of its own, and each closes on its self-check plus the linter.

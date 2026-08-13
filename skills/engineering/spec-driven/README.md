@@ -4,13 +4,13 @@ Spec-driven feature development. Light by default; weight only where the scope p
 
 ## What It Does
 
-Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where the artifacts that settle decisions are read by an agent that did not write them — `spec.md` and `design.md` before their approval gates, and the diff by a final independent audit.
+Builds features in phases sized to the change. A mechanical fix is a one-liner; anything larger runs a full pipeline where each artifact closes on its own self-check plus a linter, and the delivery answers to a final independent audit that reads the diff and the tests against the contract.
 
 ```mermaid
 flowchart TD
-    A[Specify<br/>peer-checked] --> B{Scope?}
+    A[Specify<br/>self-check + linter] --> B{Scope?}
     B -->|Small| S[Inline implement<br/>own branch, no spec]
-    B -->|Medium / Large / Complex| D[Design<br/>peer-checked]
+    B -->|Medium / Large / Complex| D[Design<br/>self-check + linter]
     D --> T[Tasks<br/>linted + self-checked]
     T --> I[Implement<br/>verify per task]
     I --> V{Validate?}
@@ -101,9 +101,9 @@ A: `CONTEXT.md` at the project root accumulates cross-feature decisions and gotc
 
 A: When it is Small — mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md` and no audit. If it turns out to carry a real decision, the safety valve raises it to Medium and the full pipeline applies.
 
-**Q: What is the difference between peer check, verify, audit, and validate?**
+**Q: What is the difference between self-check, verify, audit, and validate?**
 
-A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
+A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
 
 **Q: How are tasks ordered and dispatched?**
 

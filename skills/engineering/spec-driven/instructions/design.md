@@ -31,10 +31,9 @@ When designing a feature, planning the build, or producing the technical design 
 
    Then run `python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{slug}` over the text the reading produced — it settles structure, presence, and cross-file references, and it reads last because the pass above edits the design. Fix every error and run it again, up to three passes; after the third, stop, record the standing error in `STATE.md ## Blockers`, and leave the design `draft`. A warning never blocks — act on it, or keep what it names as deliberate and say which at the approval gate.
 
-   Keep `status: draft` while editing and set `status: ready` after this self-check, a clean script, and the peer check pass.
-10. **Peer check** — Medium and up: the agent that wrote the design cannot clear it, so dispatch a Sonnet subagent with no conversation history, handed `design.md`, `spec.md`, the root `CONTEXT.md`, the convention sources, and the template's MUST-NOT list verbatim — never the deliberation that produced the design or a claim that it holds, since a delivered conclusion anchors the reader toward agreement. It reads the design against its own contract: the template's MUST-NOT, a component the ACs do not require, a chain of necessity, a `Rejected` or `Source` cell left empty on a fork with ≥2 entry points, and a mechanism no evidence in the payload supports. It never reads the codebase — a claim the payload cannot support is a finding, not a prompt to go looking for it. It returns one line per finding — where it is, the contract it breaks, what would satisfy it — and nothing else: no summary of the artifact, no verdict, no edit to the file. Fix each inline, then re-check what changed.
-11. **Approval gate** — present the architecture in 1-2 sentences, main components, non-obvious decisions, 1-2 risks with mitigation, then ask *"Move to tasks?"*
-12. **Update the active feature's `STATE.md ## Progress`** — phase and next step. See [memory.md](../references/memory.md).
+   Keep `status: draft` while editing and set `status: ready` once this self-check passes and the script reports no error.
+10. **Approval gate** — present the architecture in 1-2 sentences, main components, non-obvious decisions, 1-2 risks with mitigation, then ask *"Move to tasks?"*
+11. **Update the active feature's `STATE.md ## Progress`** — phase and next step. See [memory.md](../references/memory.md).
 
 A project-level decision (a convention future features must follow) is appended to `CONTEXT.md ## Decisions`; a local decision stays in `design.md`.
 
