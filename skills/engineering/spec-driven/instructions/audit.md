@@ -17,12 +17,12 @@ When auditing a feature, validating goals at a commit boundary, or verifying a c
 
 ### What the auditor checks
 
-Each check that requires judgment — Goals evidence, asserted value matches the spec's outcome, AC within its Goal, design adherence, changed-test authorization — is run disprove-first: actively seek the counterexample that would make it fail against its source of truth, and pass it only when that search comes up empty. Binary checks (an AC maps to a test at `file:line`, the suite re-runs green) are facts, not judgments — no disproof needed. A finding is always a contract violation, never a matter of taste or a design choice already settled. The discrimination sensor below is this same stance applied to the test suite.
+Each check that requires judgment — Goals evidence, asserted value matches the spec's outcome, AC within its Goal, design adherence, changed-test authorization — is run disprove-first: actively seek the counterexample that would make it fail against its source of truth, and pass it only when that search comes up empty. Binary checks (an AC maps to a test named by `file:symbol`, the suite re-runs green) are facts, not judgments — no disproof needed. The report cites code by file and symbol, never by a line number. A finding is always a contract violation, never a matter of taste or a design choice already settled. The discrimination sensor below is this same stance applied to the test suite.
 
 | Check | Source of truth |
 |-------|-----------------|
 | Goals have concrete evidence | `spec.md ## Goals` |
-| Each AC maps to a passing test (`file:line` + assertion) | `spec.md` + the task's `Covers` and `Test` fields |
+| Each AC maps to a passing test (`file:symbol` + assertion) | `spec.md` + the task's `Covers` and `Test` fields |
 | Every AC reaches a verdict | `spec.md` + `validate.md` where the criterion is out of reach of the tree |
 | Asserted value matches the spec's outcome | `spec.md` |
 | Each altered pre-existing test's assertion is authorized by an AC | feature diff + `spec.md` ACs |
@@ -90,13 +90,13 @@ Location: `.artifacts/specs/{slug}/audit.md`. ALWAYS use this exact template str
 ## Acceptance Criteria
 | AC | Status | Test File | Assertion | Outcome |
 |----|--------|-----------|-----------|---------|
-| AC-1.1 | PASS / FAIL | `file:line` | `expect(...)` | matches spec |
+| AC-1.1 | PASS / FAIL | `file:symbol` | `expect(...)` | matches spec |
 | AC-1.2 | PASS / FAIL / UNSETTLED | `validate.md#AC-1.2` | {the browser verdict} | out of reach of the tree |
 
 ## Discrimination Sensor
 | Type | Location | Expected Fail | Result | Consequence |
 |------|----------|---------------|--------|-------------|
-| flip condition | `src/payment.ts:42` | `payment.test.ts` | killed / survived | {for a survivor: what a silent failure costs, read against Stakes} |
+| flip condition | `src/payment.ts:processPayment` | `payment.test.ts` | killed / survived | {for a survivor: what a silent failure costs, read against Stakes} |
 
 ## Re-run
 - **Command:** `{test command}`
