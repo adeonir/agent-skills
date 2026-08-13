@@ -82,6 +82,8 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 - `Findings` names the report that still carries something and `Phase` names the phase that reads it. `Phase` decides: `tasks` reads a report only when `Phase` names `tasks`, and stops and reports the named phase otherwise, whatever `Findings` carries. `tasks` verifies the findings, creates or adjusts correction tasks, and clears the consumed source; `specify` reads the report before rewriting the contract and clears it the same way.
 - `audit` reads signal history and runs the lesson promotion flow after writing its report.
 
+- A phase that wrote anything outside the ignored folders names those files at its approval gate and suggests the commit, so the tree closes clean. It never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
+
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
 
 ## Deviations during implementation
