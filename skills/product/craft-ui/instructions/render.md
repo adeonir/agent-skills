@@ -153,7 +153,7 @@ Generate one HTML per variant from the resolved structure (`structure.yaml`), th
 3. **Start the render server** (if not running):
 
    ```bash
-   bun run ${CLAUDE_SKILL_DIR}/scripts/render-server.ts --session .artifacts/design/variants
+   bun run <this-skill>/scripts/render-server.ts --session .artifacts/design/variants
    ```
 
    Add `--viewport mobile | tablet | desktop` only when the run is scoped to a single surface decided at that width (see Viewport Switching); the gallery otherwise opens at desktop.

@@ -37,6 +37,8 @@ step natures, baselines, tiers, and the three reliability levers.
 
 ## Workflow
 
+The commands below write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from; `<skill-dir>` is the skill under analysis, resolved in Step 1.
+
 ### Step 1: Locate Skill
 
 If `$ARGUMENTS` is empty or the request is broad ("all skills", "which skill to
@@ -55,7 +57,7 @@ Build a complete picture of every workflow the skill defines.
 Run the deterministic linter first:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/trigger_lint.py <skill-dir>
+python3 <this-skill>/scripts/trigger_lint.py <skill-dir>
 ```
 
 Then follow [trigger-eval.md](references/trigger-eval.md): probe the
@@ -68,7 +70,7 @@ Produce a verdict (Clean / Leaky / Narrow) and any rewrite.
 Enumerate the workflows and their numbered steps deterministically:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/inventory.py <skill-dir>
+python3 <this-skill>/scripts/inventory.py <skill-dir>
 ```
 
 For each step assign Nature, Baseline, and Risk from

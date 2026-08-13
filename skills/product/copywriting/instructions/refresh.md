@@ -38,7 +38,7 @@ Apply approved edits in place. Preserve the content tree paths and the voice; ne
 Before done: well-formed content tree, no design leakage, core message and voice intact. Run the deterministic floor for the first two:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
 ```
 
 Resolve any flags (advisory — judge false positives like a product named "Grid").

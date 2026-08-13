@@ -22,6 +22,8 @@ craft-ui builds the interface — resolving the layout structure (a named page s
 
 Pick the mode from the request — no need to ask. "Plan the layout / map the screen flow / arrange the screens / generate / compare / preview / tune" → render (its structure phase can stop at the plan, before any variant). "Critique / is this slop / score this variant / does this arrangement hold" → critique. "Audit / is this production-ready / a11y or perf pass" → audit. critique is coupled to render (it judges a variant); audit stands alone (it judges a shipped UI).
 
+The instructions write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
+
 ## Shared rubric
 
 Each mode composes the references its job needs from this shared set, so judgment and generation stay aligned:

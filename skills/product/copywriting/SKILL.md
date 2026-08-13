@@ -52,6 +52,8 @@ Loaded on demand by the workflows:
 - `scripts/slop_scan.py` — run for the deterministic slop tally (dead words, em-dash density, openers) that critique and audit consume
 - `scripts/validate_copy.py` — run after any write/patch for the deterministic well-formedness and design-leakage scan the authoring self-checks rely on
 
+The workflows write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
+
 ## Non-mutating judgment
 
 critique and audit read and report — they never patch `copy.yaml`. To apply a verdict, run the matching authoring operation: a weak critique axis loops to `refresh`, an off-register voice to `revoice`, a missing part to `write` — each confirmed before write. The judging modes produce the verdict; the authoring modes own the change.

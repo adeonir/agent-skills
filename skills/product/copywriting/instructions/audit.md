@@ -50,7 +50,7 @@ Score each 0–4 (bands in [scoring.md](../references/scoring.md)); total /20.
 Start the report here, honestly: does the copy read as AI-generated? Run the deterministic floor first:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/slop_scan.py <copy file or paste>
+python3 <this-skill>/scripts/slop_scan.py <copy file or paste>
 ```
 
 It tallies the scannable tells (dead words, em-dash density, known openers) with line numbers — these feed dimension 5. Then add the perceptual tells (hollow structures, generic claims, robotic parallelism) by eye; cover both (see the two kinds of check in [anti-patterns.md](../references/anti-patterns.md)).

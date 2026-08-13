@@ -48,6 +48,8 @@ Loaded on demand:
 - `scripts/select_tasks.py` — run to select incomplete tasks by task, slice, or wave
 - `scripts/lint_artifact.py` — run over each artifact and report before it closes, to settle structure, presence, and cross-file references; an error blocks, a warning never does
 
+The instructions write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
+
 ## Artifacts
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.

@@ -56,7 +56,7 @@ Before saving:
 Save to `docs/design/copy.yaml` using the content-tree structure — see [extract.md](extract.md) for the exact template. Content-only: the payload is independent of visual styling. After saving, run the deterministic floor for the self-check above:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
 ```
 
 Resolve any structure or design-leakage flags before done (advisory — judge false positives like a product named "Grid").

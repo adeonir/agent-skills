@@ -22,7 +22,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
-| `.agents/rules/skill-scripts-mcp` | `skills/**` | `${CLAUDE_SKILL_DIR}`, qualified MCP names, no voodoo constants, scripts handle own errors |
+| `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 
 ## Commands
@@ -340,7 +340,7 @@ Rules:
 - Inline form only. No nested or recursive substitution.
 - Commands must be safe and read-only (`git`, `gh`, `ls`, `cat`, `awk` on local files). Never inject mutating commands (`rm`, `git push`, `gh pr merge`).
 - Steps that consume the output reference the section by name ("the staged diff above"), not re-run the command.
-- Substitutions available inside any skill file: `${CLAUDE_SKILL_DIR}`, `${CLAUDE_PROJECT_DIR}`, `${CLAUDE_SESSION_ID}`, `${CLAUDE_EFFORT}`, `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`.
+- Substitutions available inside any skill file: `$ARGUMENTS`, `$0`/`$1`/... or `$ARGUMENTS[N]`. Never write a `${CLAUDE_*}` variable in a skill file.
 - The user can disable injection globally via the `disableSkillShellExecution` setting. No workflow depends on it — treat injection as a fast path, and give every step that needs state a command it can run.
 
 ### Recommended Patterns

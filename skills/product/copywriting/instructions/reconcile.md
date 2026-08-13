@@ -40,7 +40,7 @@ Present the diff inline. User approves, rejects, or edits each patch row. No sil
 Apply approved string patches to `docs/design/copy.yaml`. Preserve the content tree paths; never rename or reorganize surface keys during reconciliation. After patching, run the deterministic floor to confirm the tree stayed well-formed and content-only:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
 ```
 
 Resolve any flags (advisory — judge false positives like a product named "Grid").

@@ -3,22 +3,22 @@ paths:
   - "skills/**/*.md"
 ---
 
-## Resolve Bundled Scripts With CLAUDE_SKILL_DIR
+## Resolve Bundled Scripts From the Skill Directory
 
 **Impact: MEDIUM**
 
-When a skill runs its own bundled script, reference it through `${CLAUDE_SKILL_DIR}` so it resolves regardless of the consumer's working directory. A bare relative path breaks when the skill runs from a project root that does not match the install layout.
+When a skill runs its own bundled script, write the path as `<this-skill>/scripts/<name>` and resolve `<this-skill>` to the directory the `SKILL.md` was read from before running the command. Never write `${CLAUDE_SKILL_DIR}` or a bare relative path. If the host does not expose the path the `SKILL.md` was read from, stop and report an environment problem.
 
 **Incorrect:**
 
 ```bash
-python scripts/extract.py "$@"
+python ${CLAUDE_SKILL_DIR}/scripts/extract.py "$@"
 ```
 
 **Correct:**
 
 ```bash
-python ${CLAUDE_SKILL_DIR}/scripts/extract.py "$@"
+python <this-skill>/scripts/extract.py "$@"
 ```
 
 ## Qualify MCP Tool Names

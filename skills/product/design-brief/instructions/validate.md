@@ -68,7 +68,7 @@ Walk every `{path.to.token}` in the YAML. Resolve against the parsed model.
 Contrast ratios are computed, never estimated by eye. Run the bundled script (execute it; do not read it as reference):
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/check-contrast.py docs/design/DESIGN.md
+python3 <this-skill>/scripts/check-contrast.py docs/design/DESIGN.md
 ```
 
 It parses the frontmatter, checks every `*-foreground`/base token pair and every component with both colors resolved, and prints one PASS/FAIL/SKIP line per pair. It accepts every token shape (hex string, inline flow `{ hex, oklch }`, block map with a `hex` member) and a `colors` block that is flat or carries skin groups — groups are detected structurally, never by name. Flat tokens form the default skin; each named group is an override skin inheriting every flat token it does not redefine (which skin is default is the author's call), and pairs an override touches re-check under that skin. A component fill of `transparent`/`none` resolves to the page (`colors.background`) so the text is checked where it actually sits; with no `colors.background` defined the page is unknown and the component SKIPs rather than assume white. Map its output onto the `contrast-ratio` checks below; a run where every pair skips exits 2 and counts as a failed gate, not a pass. If `python3` is unavailable, compute the WCAG ratio manually from the hex values (relative luminance plus the 0.05 flare term) and mark each contrast finding as estimated.

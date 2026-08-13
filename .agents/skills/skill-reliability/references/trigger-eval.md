@@ -13,7 +13,7 @@ stays quiet on the wrong ones.
 Run the linter first to catch the mechanical problems before any reasoning:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/trigger_lint.py <skill-dir>
+python3 <this-skill>/scripts/trigger_lint.py <skill-dir>
 ```
 
 It checks the frontmatter conventions: kebab-case `name`, a third-person

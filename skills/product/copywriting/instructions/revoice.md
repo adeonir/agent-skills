@@ -37,7 +37,7 @@ Apply approved rewrites in place. Preserve the content tree paths and every clai
 Before done: every claim from the original is still present (none added, none lost), no design leakage, well-formed content tree. Run the deterministic floor for the last two:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
 ```
 
 Resolve any flags (advisory — judge false positives like a product named "Grid").

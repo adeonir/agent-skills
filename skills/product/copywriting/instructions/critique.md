@@ -30,7 +30,7 @@ Name the register and surface, then read the matching [brand.md](../references/b
 Run the deterministic floor first:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/slop_scan.py <copy file or paste>
+python3 <this-skill>/scripts/slop_scan.py <copy file or paste>
 ```
 
 It tallies the scannable tells — listed dead words, em-dash density, known borrowed-frame openers — with line numbers. Take its hits as confirmed, then layer the two perceptual passes against [anti-patterns.md](../references/anti-patterns.md) on top:

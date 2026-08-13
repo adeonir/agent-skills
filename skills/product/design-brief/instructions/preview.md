@@ -105,7 +105,7 @@ If a group is empty in the frontmatter, render a quiet placeholder for it rather
 2. **Start the preview server** (if not running):
 
    ```bash
-   bun run ${CLAUDE_SKILL_DIR}/scripts/preview-server.ts --root docs/design
+   bun run <this-skill>/scripts/preview-server.ts --root docs/design
    ```
 
 3. **Generate `styleguide.html`.** Build the one sheet per [Styleguide](#styleguide) above — neutral chrome, token specimens, Tailwind + iconify wired per [Generated HTML Stack](#generated-html-stack). Write it to `docs/design/styleguide.html`.

@@ -66,14 +66,14 @@ Use only these codes:
 Use the script from the skill directory:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py add \
+python3 <this-skill>/scripts/signals.py add \
   --spec-dir .artifacts/specs/<slug> \
   --code agreed-behavior \
   --phase audit \
   --reference AC-1.1 \
   --report audit.md#1
 
-python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py resolve \
+python3 <this-skill>/scripts/signals.py resolve \
   --spec-dir .artifacts/specs/<slug> \
   --code agreed-behavior \
   --reference AC-1.1
@@ -115,15 +115,15 @@ Every entry carries a permanent `L-NNN` id, one canonical rule sentence, its sig
 ### Commands
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py add \
+python3 <this-skill>/scripts/lessons.py add \
   --feature <slug> \
   --signal agreed-behavior \
   --source .artifacts/specs/<slug>/SIGNALS.md#1 \
   --text "Assert the persisted status value, not the field's presence"
 
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py list --status confirmed
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py penalize --id L-001 --feature <slug>
-python3 ${CLAUDE_SKILL_DIR}/scripts/lessons.py normalize
+python3 <this-skill>/scripts/lessons.py list --status confirmed
+python3 <this-skill>/scripts/lessons.py penalize --id L-001 --feature <slug>
+python3 <this-skill>/scripts/lessons.py normalize
 ```
 
 Phrase one short, actionable rule per signal. Use the same canonical wording when the rule recurs; deduplication is exact after normalization, not semantic.
