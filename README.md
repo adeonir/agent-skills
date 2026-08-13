@@ -33,7 +33,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[plain-spoken](skills/engineering/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[rule-creator](skills/engineering/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
-| **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development with auto-sizing and full traceability |
+| **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to audited delivery, with requirements traceability |
 
 ### Product
 
@@ -124,9 +124,8 @@ docs/
 CONTEXT.md          # spec-driven: committed project memory
 .artifacts/
 ├── specs/          # spec-driven: per-feature artifacts, state, and signals
-├── archive/        # spec-driven: features archived after merge
+├── archive/        # spec-driven: features archived manually, in any state
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
-├── codebase/       # spec-driven: area exploration cache (regenerable)
 ├── research/       # spec-driven: research cache
 └── design/         # design-brief: tune session events · craft-ui: VARIANTS.md + final.html + structure.yaml + variant HTML
 ```
