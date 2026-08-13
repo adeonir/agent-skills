@@ -404,4 +404,4 @@ When in doubt about a pattern, study `brainstorm` (simple — inline templates, 
 
 ## Skill Installation
 
-Source of truth is `skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` — those are install targets (symlinks). See repo `README.md` for `skills.sh` usage.
+Source of truth is `skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` — those are install targets. See repo `README.md` for `skills.sh` usage.
