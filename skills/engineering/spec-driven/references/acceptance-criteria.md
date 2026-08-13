@@ -91,6 +91,8 @@ A miscalibrated criterion changes a criterion, so it is load-bearing — resolve
 - **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and the next specify run removes it once the seed is corrected.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
+Read the Goal the other way as well. Take each outcome clause it states and name the criterion that asserts that clause. A clause no criterion asserts is the opposite defect: every criterion passes and the outcome still falls short. Name the clause, since a finding without a clause to quote is an impression. This reading resolves like the other one — with the user, never rewritten alone.
+
 ## Ambiguity closure
 
 Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check: what specify can settle is settled there, and what it cannot stays an `OQ-N`.
