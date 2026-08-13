@@ -12,7 +12,7 @@ At the load-context step of every phase, and whenever a phase discovers durable 
 |------|-------|---------|------|
 | `CONTEXT.md` | project-wide, committed memory | when specify records Stakes or a phase records durable Decisions or Gotchas | every phase |
 | `.artifacts/specs/{slug}/STATE.md` | active feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for the active feature |
-| `.artifacts/specs/{slug}/SIGNALS.md` | active feature's verified signal history | when implement, validate, or audit records or resolves a signal | audit and the lessons script |
+| `.artifacts/specs/{slug}/SIGNALS.md` | active feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
 
 `CONTEXT.md` is shared project knowledge. `STATE.md` is the operational state of one feature. `SIGNALS.md` is the local history that grounds lessons. None of these files carries the detailed finding text owned by `validate.md` or `audit.md`.
 
@@ -77,7 +77,7 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 - Every phase reads the root `CONTEXT.md` and the active feature's `STATE.md` when the feature exists.
 - `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from the active feature directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
-- `validate` and `audit` write detailed findings to their own reports and add or resolve signal rows through `signals.py`.
+- `validate` and `audit` write detailed findings to their own reports. `audit` also adds or resolves signal rows through `signals.py`; `validate` writes no signal.
 - `implement` records only verified upstream failures; a task failure that is corrected in the same run is not a signal.
 - `Findings` names the report that still carries something and `Phase` names the phase that reads it. `Phase` decides: `tasks` reads a report only when `Phase` names `tasks`, and stops and reports the named phase otherwise, whatever `Findings` carries. `tasks` verifies the findings, creates or adjusts correction tasks, and clears the consumed source; `specify` reads the report before rewriting the contract and clears it the same way.
 - `audit` reads signal history and runs the lesson promotion flow after writing its report.

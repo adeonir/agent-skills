@@ -4,7 +4,7 @@ The local memory layer that records verified failures and promotes recurring pro
 
 ## When to Use
 
-During implement, validate, and audit when a verified failure is found; during tasks when report signals are triaged; during audit when signals are promoted; and during specify and design when confirmed lessons are loaded.
+During implement and audit when a verified failure is found; during tasks when report signals are triaged; during audit when signals are promoted; and during specify and design when confirmed lessons are loaded.
 
 ## The distinction
 
@@ -29,7 +29,9 @@ finding in a phase report
 
 ### Producers
 
-`implement`, `validate`, and `audit` may add signals. Add a row only when the phase verifies a failure of an upstream artifact, contract, test, task, or repository rule. Do not signal a temporary check failure that the same run corrects.
+`implement` and `audit` may add signals. Add a row only when the phase verifies a failure of an upstream artifact, contract, test, task, or repository rule. Do not signal a temporary check failure that the same run corrects.
+
+`validate` adds none. A lesson is a general rule about how the project builds, and stating one takes having seen the mechanism; validate never opens code, so it sees that an outcome diverged and never why. Its findings stay in `validate.md` and reach correction through `STATE.md`.
 
 ### Format
 
@@ -38,10 +40,10 @@ finding in a phase report
 
 | Code | Phase | Reference | Report | Status |
 |------|-------|-----------|--------|--------|
-| agreed-behavior | validate | AC-1.1 | validate.md#1 | open |
+| agreed-behavior | audit | AC-1.1 | audit.md#1 | open |
 ```
 
-`Reference` identifies the affected contract or artifact, such as `AC-N.M`, `G-N`, `T-N`, `OQ-N`, or `file:line`. `Report` points to the detailed row in `validate.md` or `audit.md`.
+`Reference` identifies the affected contract or artifact, such as `AC-N.M`, `G-N`, `T-N`, `OQ-N`, or `file:line`. `Report` points to the detailed row in `audit.md`.
 
 The signal identity is `Code + Reference` while the signal is open. A repeated run does not duplicate an open signal. A PASS resolves the corresponding signal; a later recurrence creates a new occurrence with the same code and reference.
 
@@ -67,9 +69,9 @@ Use the script from the skill directory:
 python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py add \
   --spec-dir .artifacts/specs/{slug} \
   --code agreed-behavior \
-  --phase validate \
+  --phase audit \
   --reference AC-1.1 \
-  --report validate.md#1
+  --report audit.md#1
 
 python3 ${CLAUDE_SKILL_DIR}/scripts/signals.py resolve \
   --spec-dir .artifacts/specs/{slug} \

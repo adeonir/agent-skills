@@ -26,7 +26,7 @@ flowchart TD
 | **Design** | `design.md` — HOW: architecture, components, decisions |
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
-| **Validate / UAT** | `validate.md` — user-facing flow and accessibility results |
+| **Validate / UAT** | `validate.md` — per-criterion browser verdicts, accessibility, and responsiveness on a user-facing feature |
 | **Audit** | `audit.md` — Goals, ACs, discrimination sensor, spec-defect findings |
 | **Archive** | feature moved to `.artifacts/archive/{created}-{slug}/` (optional and manual, any state) |
 
@@ -104,7 +104,7 @@ A: When it is Small — mechanical, with zero load-bearing decisions. It runs as
 
 **Q: What is the difference between peer check, verify, audit, and validate?**
 
-A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check that writes `validate.md` and eligible rows to `SIGNALS.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
+A: Peer check runs before the approval gate of the two phases that settle decisions: a subagent handed the finished artifact and the inputs it was written from — never the author's reasoning — reads `spec.md` or `design.md` against its own contract and reports findings without editing. `tasks.md` gets a linter and a self-check instead — it sequences decisions already settled, and the safety valve and the audit's discrimination sensor re-read its claims against running code. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. When both phases run, validate runs first. A failed report sets the active feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
 
 **Q: How are tasks ordered and dispatched?**
 
