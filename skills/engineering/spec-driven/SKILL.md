@@ -42,6 +42,7 @@ Loaded on demand:
 - [lessons.md](references/lessons.md) — signal and lesson contracts (candidate → confirmed → quarantined)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, when a gray area goes to the user, where a resolution lands
+- [untrusted-content.md](references/untrusted-content.md) — the trust boundary for any text a phase did not author
 - `scripts/signals.py` — run to add, resolve, list, and normalize feature signals
 - `scripts/lessons.py` — run to add, list, penalize, and normalize lessons
 - `scripts/select_tasks.py` — run to select incomplete tasks by task, slice, or wave
