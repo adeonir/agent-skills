@@ -52,6 +52,8 @@ The four operational differences allowed by `implement` are accepted only when r
 
 `PASS` takes all three: the code produces every outcome step, the named case asserts every one of them and fails with the criterion's logic removed, and the suite ran that case green. Anything short of it is `FAIL` — a case that passes with the logic removed, a case the suite skipped, a red case, no case at all, code that produces part of the scenario, and code that produces something else, whatever the suite says. Where the repository declares no test command, every criterion resting on a test is `FAIL` and the report names the absence. Never take `PASS` from an entry the report does not cite.
 
+Two shapes pass with the logic removed. A case asserting that the call returned, that a double was invoked, or that a value is defined asserts around the criterion. A case exercising an input far past a boundary the criterion names binds that something happens, never the boundary itself.
+
 ### Criteria out of reach of the tree
 
 Some criteria the contract checks cannot settle at all: a visual result, the behavior of an external service, a timing the suite does not exercise. The search decides which of two cases holds, never the auditor's preference. The tree reaches the criterion and carries nothing that produces it — the delivery did not do the work, and that is an ordinary gap. No reading of code or test reaches the outcome — that is this state, and the criterion's `Status` is `UNSETTLED` until something else settles it.
@@ -68,9 +70,9 @@ No signal is recorded for a criterion whose verdict came from `validate.md`, and
 
 Run whenever code has conditional behavior, calculations, or validations. It may be skipped only when nothing observes the change — pure data, or a value whose only consumer is prose; build scripts, gate definitions, deploy chains, and runtime flags are not exempt, since each has a consumer. The skip note must name why no disproof was possible — an unjustified skip on code that has judgment-laden behavior is theater, not a clean pass:
 
-1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects, and a shared literal (key, id, path, header name, event name) changed in exactly one of the modules that use it.
-2. Apply the mutation in **scratch state** — `git worktree` or stash + temp copy. Never mutate the real working tree.
-3. Run the relevant **project gates** — the test suite, and also typecheck, build, and schema validation where the project runs them. Any gate is expected to **FAIL**; a mutant a gate rejects is **killed**, not just one a test catches. The mutant survives only when every gate stays green.
+1. Pick mutation points from the ACs of P-1 stories and critical code: conditions, returns, validations, calculations, side effects, and a shared literal (key, id, path, header name, event name) changed in exactly one of the modules that use it. Leave out a criterion the reading already settled as asserting around itself — it is `FAIL`, and a mutant adds nothing to it.
+2. Create the **scratch state** once for the run — `git worktree` or stash + temp copy — and apply and revert each mutation inside it. Never mutate the real working tree.
+3. Run the tests that reach the mutated code first: red there is **killed**, since a gate rejected it. Take the remaining **project gates** — the whole suite, and also typecheck, build, and schema validation where the project runs them — only on a mutant that survived that run. A mutant any gate rejects is killed, not just one a test catches, and it survives only when every gate stays green.
 4. Tier: 1-3 mutations per feature default; ≥5 for critical P-1 logic (security, payments).
 5. Report total / killed / survived, each with type, location, the gate expected to reject it, and result. For each survivor, propose the **consequence** read against `## Stakes`: what a silent failure of this behavior costs whoever uses the system. Report the fact and the proposed consequence; promote nothing — the main agent judges which survivors become fix tasks (see Outcome).
 
