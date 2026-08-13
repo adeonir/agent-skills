@@ -74,7 +74,7 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 
 ## Read and write routing
 
-- The feature directory is the `.artifacts/specs/{slug}/` the user names when invoking the phase. With no name, take the only directory there; where more than one exists, ask the user which before reading anything.
+- The feature directory is the `.artifacts/specs/{slug}/` the user names when invoking the phase. With no name, take the only directory there. If more than one directory exists, ask the user which one before reading anything.
 - Every phase reads the root `CONTEXT.md` and the feature's `STATE.md` when the feature exists.
 - `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from that directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.

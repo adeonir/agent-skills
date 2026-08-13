@@ -24,7 +24,7 @@ No `spec.md` exists — work from the one-liner:
 2. **Change** — make the edit; run the nearest gate (test, lint, or a described check).
 3. **Commit** — stage by name the files the edit touched, never `git add -A`; message per [commit-conventions.md](../references/commit-conventions.md).
 
-No approval gate, no audit — the inline verify is the check. The inline path is where a wrong triage surfaces: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those routes back to [specify.md](specify.md) for a `spec.md` and the full pipeline; never push through inline.
+No approval gate, no audit — the inline verify is the check. A wrong triage becomes visible here: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those routes back to [specify.md](specify.md) for a `spec.md` and the full pipeline; never push through inline.
 
 Work already committed inline is kept, never reset or redone: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so its `Covers` field still maps the landed work to the contract. An audit, when selected, reads the whole branch, so those commits are verified with the rest.
 

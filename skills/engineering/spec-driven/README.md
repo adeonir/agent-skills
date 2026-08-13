@@ -37,7 +37,7 @@ flowchart TD
 | Mechanical, zero load-bearing decisions | one-liner → branch → inline implement |
 | Everything else | Specify → Design → Tasks → Implement → [Validate] → [Audit] |
 
-Depth inside the phases follows what the change needs — how far discovery probes, whether design has to research — judged as the work runs, never fixed up front.
+Depth inside the phases follows what the change needs — how far discovery probes, whether design has to research. The agent judges that depth as the work runs; nothing fixes it in advance.
 
 ## Usage
 
