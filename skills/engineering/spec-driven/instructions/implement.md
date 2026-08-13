@@ -20,7 +20,7 @@ For a feature with the artifacts — a one-liner has none of them; see [One-line
 
 No `spec.md` exists — work from the one-liner:
 
-1. **Branch** — same rule as step 2, with a slug derived from the one-liner.
+1. **Branch** — same rule as **Create branch**, with a slug derived from the one-liner.
 2. **Change** — make the edit; run the nearest gate (test, lint, or a described check).
 3. **Commit** — stage by name the files the edit touched, never `git add -A`; message per [commit-conventions.md](../references/commit-conventions.md).
 
