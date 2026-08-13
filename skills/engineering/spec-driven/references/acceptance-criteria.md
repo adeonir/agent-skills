@@ -62,7 +62,7 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 ## Case convention — three classes
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
-- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `[needs-clarification]` only for discovery input; owned pendencies use `ASM-N` and `OQ-N` identifiers.
+- **Tags / metadata / status / markers** (labels) → lowercase / kebab: `draft`, `ready`, `open`, `answered`, `confirmed`; owned pendencies use `ASM-N` and `OQ-N` identifiers.
 - **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
 
 ## Non-functional criteria
@@ -93,4 +93,4 @@ A miscalibrated criterion changes a criterion, so it is load-bearing — resolve
 
 ## Ambiguity closure
 
-An inline draft marker `[needs-clarification: question]` may appear while drafting; none may remain at the end. Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check, scope-tiered — Large/Complex resolve fully; Medium resolves the obvious and logs the rest.
+Anti-fabrication: an unresolved open question's default never appears as a statement of fact in Overview or Goals. Closure is a self-check, scope-tiered — Large/Complex resolve fully; Medium resolves the obvious and logs the rest.

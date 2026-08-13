@@ -82,7 +82,6 @@ ASSUMPTION_ID = re.compile(r"^ASM-[1-9]\d*$")
 ASSUMPTION_STATUSES = ["open", "confirmed", "invalidated"]
 OPEN_QUESTION_ID = re.compile(r"^OQ-[1-9]\d*$")
 OPEN_QUESTION_STATUSES = ["open", "answered"]
-LEGACY_PENDING_MARKERS = ("[assumption]", "[deferrable]", "(confirm @ design)", "(verify @ design)")
 GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
@@ -569,8 +568,6 @@ def split_field_list(value):
 def lint_state(path, lines, findings):
     """Check the feature-local STATE.md contract."""
     check_sections(path, lines, ["Progress", "Notes"], findings)
-    if any(line.strip().startswith("- **Audit iteration:**") for line in lines):
-        findings.append("%s: `STATE.md` must not contain `Audit iteration`" % path)
 
     values = {}
     for line in lines:
@@ -617,11 +614,6 @@ def lint_spec(path, lines, base, findings, warnings):
     for index in range(body_start, len(lines)):
         line = lines[index]
         number = index + 1
-        if "[needs-clarification" in line:
-            findings.append("%s:%d: `[needs-clarification]` survives in the saved spec" % (path, number))
-        for marker in LEGACY_PENDING_MARKERS:
-            if marker in line:
-                findings.append("%s:%d: legacy pending marker `%s`; use an `ASM-N` or `OQ-N` table row" % (path, number, marker))
         for reference in re.findall(r"\bASM-[1-9]\d*\b", line):
             if reference not in assumption_ids:
                 findings.append("%s:%d: %s is referenced but not declared in `## Assumptions`" % (path, number, reference))
@@ -759,9 +751,6 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     check_frontmatter_path(path, base, fields, "design", findings)
     design_components = read_design_components(base, fields.get("design"), findings)
     check_sections(path, lines, TASKS_SECTIONS, findings)
-    if section_bounds(lines, "Coverage Matrix"):
-        findings.append("%s:1: legacy `Coverage Matrix`; use one `Covers` field on each AC task" % path)
-
     tasks = []
     current = None
     for index, line in enumerate(lines):
@@ -790,10 +779,6 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         for field in TASK_FIELDS:
             if "**%s:**" % field not in body:
                 findings.append("%s:%d: %s carries no `**%s:**`" % (path, number, identifier, field))
-        if "**Discrimination:**" in body:
-            findings.append("%s:%d: %s carries legacy `Discrimination`; discrimination belongs to audit" %
-                            (path, number, identifier))
-
         builds_values = [match.group(1).strip() for line in block
                          for match in [TASK_BUILDS.match(line)] if match]
         if len(builds_values) != 1 or not builds_values[0]:

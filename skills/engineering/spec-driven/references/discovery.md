@@ -1,17 +1,32 @@
 # Discovery
 
-Adaptive, scope-tiered discovery that precedes sizing: the conversation that settles the problem and the boundary, and the questions it puts to the user whenever a gray area is load-bearing.
+Adaptive, scope-tiered discovery that precedes sizing: the floor the conversation has to cover, what it probes past that floor, and the questions it puts to the user whenever a gray area is load-bearing.
 
 ## When to Use
 
 During specify, before sizing. Discovery reads existing project memory as data; it never treats an assumption as fact.
 
+## The floor
+
+What has to be known before the spec body is written. Discovery closes when every item below is either answered or carried as an `ASM-N` or an `OQ-N`, never when the conversation feels finished.
+
+| Floor item | Fills |
+|------------|-------|
+| The problem, who it serves, and why it matters now | Overview |
+| The observable outcome at the level of the feature | Goals |
+| What stays out, and the reason for each | Non-Goals |
+| The actor, the capability, and the benefit of each slice | `S-N`, with P-1/P-2/P-3 |
+| The verifiable obligation of each slice | `AC-N.M` |
+| The known boundary conditions | Edge Cases |
+
+An item already settled by what is in the window when discovery opens — the seed, or the conversation that preceded it — is not asked again. Being there is not what credits it: it enters the correct-me pass below as an inference to contest, at the cost of one line rather than a round of questions.
+
+A seed carrying acceptance criteria in Gherkin settles the verifiable obligation and the cut of each slice. Discovery does not reopen them, and covers what they leave open — the problem, what stays out, and the observable at the level of the feature. Each inherited criterion still passes ownership and calibration, which surface a failing clause as a question here.
+
 ## An adaptive conversation
 
-Discovery is a conversation, not a script, tiered to the emerging scope:
+Discovery is a conversation, not a script, tiered to the emerging scope. Probe past the floor wherever the seed is thin:
 
-- **Problem / why / who** — the intent behind the change and who it serves.
-- **Scope / success / priorities** — the boundary, the measurable outcome, and P-1/P-2/P-3.
 - **Completeness sweep** — while exploring, probe for failure/error paths, lifecycle symmetry (create ↔ delete), actors with no path, and implicit dimensions (idempotency, auth, concurrency, state transitions).
 - **External-consumer surfaces** — when the change touches something a consumer *outside the codebase* depends on (a route or URL, an event name, a form field name, a section anchor, a public response shape), no in-repo test and not the audit's referential sensor can catch a break, since nothing in the repo reads it. Capture each preservation guarantee as an AC stating the observable that must still hold — the audit then re-checks it. Brownfield: promote the at-risk `Baseline` behavior from prose into an AC rather than leaving it undefended.
 - **Critical posture** — not a yes-man; separate what is *stated* from what is *assumed*, recording defaults as `ASM-N` rows with their rationale. Go past the ambiguities you would flag: enumerate the load-bearing points you are treating as *settled* — the inferences confident enough that you would never have raised them as a fork (stack, delivery model, auth shape, target surface) — and put them to the user before drafting as a correct-me pass ("assuming X, Y, Z — correct now or I proceed"). Confidence is not confirmation, and a confident wrong assumption is the most expensive kind; a contested one becomes content or a fork, an uncontested one stays as it was.
