@@ -34,6 +34,12 @@ Each check that requires judgment — Goals evidence, asserted value matches the
 | Suite re-runs green independently | project test command |
 | Layout matches prototype (if any) | `spec.md` visual references |
 
+### Evidence per criterion
+
+The auditor returns, per AC: the code that produces every outcome step, cited by file and symbol; the test case, its location, and how it ran in the suite; what that case would still pass with the criterion's logic removed; and where the search went on any absence. An outcome carrying a property — single use, idempotent, within a bound — is not satisfied by code that produces the thing without the property.
+
+Three things are not evidence: a ticked task, the name of a test case, and the suite's output on its own, which names no criterion.
+
 ### Changed-test authorization
 
 The reverse of "asserted value matches the spec's outcome": a test writes down expected behavior, so editing one to pass is a behavior change in disguise. Read each pre-existing test's before→after from the diff. An altered assertion authorized by an AC — the feature owns that behavior change — is fine. An altered, weakened, or deleted assertion that no AC authorizes is a masked regression (behavior that should have been preserved was not) or an unspecified behavior change; either way a gap → restore the behavior, or set `STATE.md` to `Phase: specify` and `Next: specify` to add the AC. Default FAIL: a behavior change outside the contract is a contract violation until it is specified. A mechanical edit that leaves the assertion intact — a rename, an import, a moved file — is not a delta and not a finding.
@@ -41,6 +47,10 @@ The reverse of "asserted value matches the spec's outcome": a test writes down e
 ### Deviation handling
 
 The four operational differences allowed by `implement` are accepted only when recorded in `STATE.md ## Notes`: a different name for the same thing, a file one directory over where placement was open, an unforeseen private helper, or a test name forced by the runner. A recorded interface, dependency, design-decision, acceptance-scenario, or open-question contradiction is not authorized; audit reports it as a gap and emits its signal. Any other unrecorded difference is also a finding.
+
+### The criterion's status
+
+`PASS` takes all three: the code produces every outcome step, the named case asserts every one of them and fails with the criterion's logic removed, and the suite ran that case green. Anything short of it is `FAIL` — a case that passes with the logic removed, a case the suite skipped, a red case, no case at all, code that produces part of the scenario, and code that produces something else, whatever the suite says. Where the repository declares no test command, every criterion resting on a test is `FAIL` and the report names the absence. Never take `PASS` from an entry the report does not cite.
 
 ### Criteria out of reach of the tree
 
