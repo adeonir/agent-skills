@@ -34,7 +34,7 @@ When designing a feature, planning the build, or producing the technical design 
 5. **Research** — only when the knowledge chain (cached findings in `.artifacts/research/` → codebase → project docs → a docs MCP when available, e.g. Context7 → web) is exhausted without an answer. Before consulting the docs MCP or web, pin the dependency's version from the manifest and fetch docs for that installed version, not the latest — the version decides which pattern is correct. Inline by default; a subagent only for a large or independent topic. Cache to `.artifacts/research/{topic}.md` — the same file serves a documentary finding and a spike's observation alike, since both answer the same shape of question and both are read from the same rung. [research-cache.md](../references/research-cache.md) carries the entry's template and the rule that voids a stale one. Knowing the syntax is not knowing the environment accepts it — the spike discipline in step 3 applies regardless of whether research ran. When the chain is exhausted and a volatile external fact still cannot be backed by an authoritative source, mark the decision or risk `UNVERIFIED` rather than presenting it as settled — the honest record that it rests on unconfirmed knowledge, carried to the audit gate.
 6. **Ladder** — load [simplicity.md](../references/simplicity.md) and run every component the design is about to introduce down its rungs, stopping each at the first rung that satisfies the ACs. This is a step, not a lens applied in passing: a component that never met the ladder was never chosen, only reached. Among viable entry points, take the simplest that satisfies the ACs; where the ladder and a fork from Exploration disagree, the ladder decides which entry point survives — never a fork step 4 routed to the user. The rungs rank by machinery added, not capability delivered, so on a tool or dependency fork the ladder supplies the lean the question carries, never the answer.
 7. **Approaches** — present 2-3 approaches with trade-offs, recommend one, confirm with the user before detailing.
-8. **Write `design.md`** — fill the template below from resolved inputs. Represent each frontend, backend, or integration component as an explicit compact block. Give every component a unique name and record the applicable fields: area or layer, responsibility, location or files, interfaces, relationships, `Depends on`, and `Reuses`. Keep design-wide relationships and data flow in `Architecture Overview`; the component blocks define what will be built. Keep an interface in its component block when it belongs clearly to that component. Put an interface that crosses components in a separate `Interfaces` section. Add `Endpoints` only when the feature exposes or changes an HTTP surface, and use one compact block per endpoint. Record decisions, traceability, and risks. Record each resolved decision in the Decisions table, never the deliberation that produced it.
+8. **Write `design.md`** — fill the template below from resolved inputs. Represent each frontend, backend, or integration component as an explicit compact block. Give every component a unique name and record the applicable fields: `Purpose`, location or files, interfaces, `Depends on`, and `Reuses`. Keep relationships and data flow in `Architecture Overview`; the component blocks define what will be built. Keep an interface in its component block when it belongs clearly to that component. Put an interface that crosses components in the separate `Interfaces` table, one row each. Add `Endpoints` only when the feature exposes or changes an HTTP surface, and use one row per endpoint. Record decisions, traceability, and risks. Record each resolved decision in the Decisions table, never the deliberation that produced it.
 9. **Self-check** — read for what no script can settle: boundaries hold (nothing from spec leaked in, nothing from tasks leaked in — see [discriminator.md](../references/discriminator.md)); any decision conflicting with `CONTEXT.md` is conformed or explicitly superseded, never ignored; no component the ACs do not require survives — an interface with one implementation, a factory for one product, a wrapper that only delegates, an unused layer: each is a cut, not a link to follow; no new component re-implements what the codebase already carries a few files over, and a derivation exploration surfaced as reusable is recorded in the `Reuses` field rather than left for the build to recompute; no chain of necessity survives — when each new piece is required only because of the piece before it, the root decision is wrong, not the last link; every `OQ-N` is either answered by evidence or linked to a risk, and no open question is silently treated as settled; every placement, trigger, tool, or dependency decision fills its `Rejected` cell — an empty cell on a ≥2-entry-point choice means the exploration is unfinished, not the design; every Decisions row's `Source` names what closed it — the evidence that forced it, or `user` when the question was asked; each interface names the operation, parameters, return type, and any error that is a feature decision; and each endpoint names the method, route, input, output, and responses or status codes that are feature decisions. A Decisions row with neither `Rejected` nor `Source` is a fork closed silently. A mechanism the design introduces that no evidence settled is marked `UNVERIFIED`, never asserted bare.
 
    Then run `python3 ${CLAUDE_SKILL_DIR}/scripts/lint_artifact.py design .artifacts/specs/{slug}` over the text the reading produced — it settles structure, presence, and cross-file references, and it reads last because the pass above edits the design. Fix every error and run it again, up to three passes; after the third, stop, record the standing error in `STATE.md ## Blockers`, and leave the design `draft`. A warning never blocks — act on it, or keep what it names as deliberate and say which at the approval gate.
@@ -67,31 +67,25 @@ status: draft
 ## Components
 
 ### [Component Name]
-- **Area:** [frontend, backend, or integration layer]
-- **Responsibility:** [what this component does]
+- **Purpose:** [what this component does, in one sentence]
 - **Location:** `[path or files for the component]`
-- **Relationships:** [how this component connects to adjacent components, or `none`]
 - **Interfaces:** <!-- conditional: only for interfaces that belong clearly to this component -->
   - `[name]([parameters]): [ReturnType]` — [error the caller must handle, when it is a feature decision.]
 - **Depends on:** [components or services this component needs, or `none`]
 - **Reuses:** [existing code this component builds upon, or `none`]
 
 ## Interfaces          <!-- conditional: only for interfaces that cross components -->
-
-### [Interface Name]
-- **Operation:** `[name]([parameters]): [ReturnType]`
-- **Errors:** [errors the caller must handle when they are feature decisions, or `none`]
-- **Between:** [components or services that share this contract]
+| Operation | Errors | Between |
+|-----------|--------|---------|
+| `[name]([parameters]): [ReturnType]` | [errors the caller must handle when they are feature decisions, or `none`] | [components or services that share this contract] |
 
 ## Data Model            <!-- conditional: only if the feature involves data -->
 {Entities and relations; no exhaustive member enumeration.}
 
 ## Endpoints           <!-- conditional: only when the feature exposes or changes an HTTP surface -->
-
-### [VERB] [route]
-- **Input:** [path, query, headers, or body relevant to the contract, or `none`]
-- **Output:** [response contract]
-- **Responses:** [status codes and errors that carry a feature decision]
+| Endpoint | Input | Output | Responses |
+|----------|-------|--------|-----------|
+| `[VERB] [route]` | [path, query, headers, or body relevant to the contract, or `none`] | [response contract] | [status codes and errors that carry a feature decision] |
 
 ## Decisions
 | Decision | Choice | Rejected | Source | Rationale |
@@ -119,12 +113,12 @@ status: draft
 
 A placement, trigger, tool, or dependency with ≥2 viable entry points is a Decisions row, not a silent mechanical pick: record the choice and name the ruled-out alternative in its `Rejected` cell, even when one looks obvious. A `Rejected` cell is empty only when the decision genuinely had one viable home.
 
-An interface is an internal contract between components or services. Keep it inside a component block when it belongs clearly to that component; put a cross-component contract in the separate `Interfaces` section. An endpoint is a public HTTP contract and stays in the separate `Endpoints` section. Do not add an endpoint-to-component link.
+An interface is an internal contract between components or services. Keep it inside a component block when it belongs clearly to that component; put a cross-component contract in the separate `Interfaces` table, where `Between` names the components that share it. An endpoint is a public HTTP contract and stays in the separate `Endpoints` table. Do not add an endpoint-to-component link.
 
 Component names are exact references for `Builds`. Keep each name unique, do not use a comma, and do not use the reserved name `none`.
 
-The `Reuses` field records reuse at any altitude the codebase already carries the value: an imported module or helper, and equally a derivation the code already computes near where the new logic lands, cited by file and symbol. A new local that recomputes such a derivation is not reuse — name the existing one in the field so the build reuses it rather than authoring a second copy.
+The `Reuses` field records reuse at any altitude the codebase already carries the value: an imported module or helper, and equally a derivation the code already computes near where the new logic lands. A new local that recomputes such a derivation is not reuse — name the existing one in the field so the build reuses it rather than authoring a second copy.
 
 A `Mitigation` that accepts a cost names the constraint that forces it — an API exposing no hook, a platform limit, a contract that cannot change. An `AC-N.M` is not a constraint: it states what must be true, not what cannot be otherwise, so it never explains why a cost is unavoidable. Cite the mechanism, or the cost was never actually weighed.
 
-MUST NOT contain: acceptance criteria restated (traceability references `AC-N.M`, never copies it), observable-behavior clauses (`When Y, then Z` — that is spec), function bodies, tests, step sequences, or commit order (those are tasks). Say *where* and *what responsibility*, never *how the function is written internally*. This bars authoring a body, not reading one: exploration reads existing code, and pointing the `Reuses` cell at a derivation that code already computes (by file and symbol) records reuse, not a body. Subsystem presence is a declared assumption that names the file and symbol, not a proof of wiring.
+MUST NOT contain: acceptance criteria restated (traceability references `AC-N.M`, never copies it), observable-behavior clauses (`When Y, then Z` — that is spec), function bodies, tests, step sequences, or commit order (those are tasks). Say *where* and *what purpose*, never *how the function is written internally*. This bars authoring a body, not reading one: exploration reads existing code, and pointing the `Reuses` cell at a derivation that code already computes records reuse, not a body. Subsystem presence is a declared assumption that names the file and symbol, not a proof of wiring.
