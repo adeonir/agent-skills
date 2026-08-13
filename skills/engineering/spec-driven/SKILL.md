@@ -7,7 +7,7 @@ allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 
 # Spec-Driven Development
 
-Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor comes from a reader with a different source of evidence — the audit reads the diff and the tests against the contract, which no pass over the artifact alone can do — never from stacking gates over the same text.
+Feature development in phases, sized to the change. Light by default; weight only where the scope pays for it. Rigor comes from a reader with a different source of evidence — the audit reads the diff and the tests against the contract, which no pass over the artifact alone can do — never from adding one more gate over the same text.
 
 ## Triggers
 
@@ -87,4 +87,4 @@ Implementing every task first and checking at the end loses the tie between code
 
 ## Anti-Pattern: Author Auditing Itself
 
-The agent that wrote the code cannot be the one that clears it — it re-reads its own intent, not the behavior. The audit is a fresh subagent handed only the diff, the artifacts, and the tests; it flags gaps and never edits code. What makes it independent is the evidence, not the freshness: it reads code and tests, which the authors of `spec.md` and `design.md` never did. A second subagent over the artifact alone reads the same text against the same rules, so it buys a second pass rather than a second view — no artifact earns a reader of its own, and each closes on its self-check plus the linter.
+The agent that wrote the code cannot be the one that clears it — it re-reads its own intent, not the behavior. The audit is a fresh subagent handed only the diff, the artifacts, and the tests; it flags gaps and never edits code. What makes it independent is the evidence, not the freshness: it reads code and tests, which the authors of `spec.md` and `design.md` never did. A second subagent over the artifact alone reads the same text against the same rules, so it repeats the self-check instead of adding a reader who can see something else — no artifact gets one, and each closes on its self-check plus the linter.
