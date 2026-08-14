@@ -6,7 +6,7 @@ Three levels describe an arrangement: the **macrostructure** names the page shap
 
 ## When to Use
 
-Composed by `render.md` in its structure phase (resolve or compose the macrostructure, region tree, and flow before generating variants) and by `critique.md` when it questions the arrangement behind a chosen variant. Not a direct trigger.
+Composed by `render.md` in its structure phase — resolve or compose the macrostructure, region tree, and flow before generating variants. Not a direct trigger.
 
 ## The region tree
 
@@ -113,4 +113,4 @@ Before generating variants, walk the arrangement once — a checklist of afforda
 - State variants (empty, loading, error) are planned where a surface acts on data.
 - Each data-heavy surface plans its reflow and its content volume.
 
-Flag each gap with its surface and resolve it in the plan before rendering. The deeper structural read of a rendered variant belongs to [critique.md](../instructions/critique.md).
+Flag each gap with its surface and resolve it in the plan before rendering.

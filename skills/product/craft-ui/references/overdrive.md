@@ -4,7 +4,7 @@ The ambitious-tier motion tune — push a chosen variant past conventional limit
 
 ## When to Use
 
-Composed by `render.md` when the user names `overdrive` on the chosen variant, and by `critique.md` when it maps a finding to the overdrive verb. **Brand register only** — product surfaces stay calm and in-task; an orchestrated WebGL hero that wows on a portfolio embarrasses a settings page. Name the register first ([brand.md](brand.md) / [product.md](product.md)); on a product surface reach for `animate` ([motion.md](motion.md)) instead.
+Composed by `render.md` when the user names `overdrive` on the chosen variant. **Brand register only** — product surfaces stay calm and in-task; an orchestrated WebGL hero that wows on a portfolio embarrasses a settings page. Name the register first ([brand.md](brand.md) / [product.md](product.md)); on a product surface reach for `animate` ([motion.md](motion.md)) instead.
 
 This is the highest-misfire tune. It previews what a surface *could* feel like at its most ambitious so the user can judge whether the ceiling is worth the cost — it does not ship a shader pipeline or a view-transition system. The variant demonstrates the direction; implementation builds the real thing.
 

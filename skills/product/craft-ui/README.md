@@ -1,6 +1,6 @@
 # Craft UI
 
-craft-ui — build the interface from the upstream design artifacts and pressure-test it, across three non-mutating modes.
+craft-ui — build the interface from the upstream design artifacts to decide its visual direction, without touching production.
 
 ## What It Does
 
@@ -15,25 +15,21 @@ flowchart TD
     ST --> V[Variant HTML in .artifacts/]
     D --> V
     V --> Pick[User picks one]
-    Pick --> Cr[critique]
-    Cr -->|tune verb| R
-    Cr --> DV[Direction verdict]
-    UI[Running production UI] --> Au[audit]
-    Au --> RP[P0–P3 quality report]
+    Pick --> F[final.html]
+    Pick -->|tune verb| R
 ```
 
-| Mode | Target | Output |
-| ---- | ------ | ------ |
-| **render** | structure (page shape + region tree + flow) + DESIGN.md + copy.yaml | N variants served side by side in `.artifacts/`; tune, comment, switch viewport |
-| **critique** | the chosen variant | direction verdict — slop test, Nielsen score /40, persona red flags, P0–P3 refinements that loop into render's tune verbs |
-| **audit** | a running production UI | quality report — 5 dimensions /20, anti-pattern verdict, defects by P0–P3 severity |
+| Phase | Output |
+|-------|--------|
+| **structure** | page shape per surface, region tree, screen flow — cached as `structure.yaml`; the run can stop here |
+| **generation** | N variants served side by side in `.artifacts/`, one line each in `VARIANTS.md` |
+| **tune** | the chosen variant re-rendered along a named direction; comment, switch viewport |
 
-Every mode here works on rendered design, never source. render is the **integrator** — the one mode that resolves the layout structure and reads DESIGN.md and copy.yaml together — and it writes only to `.artifacts/` (`structure.yaml`, variant HTML, `final.html`, and the `VARIANTS.md` log). critique and audit produce only a judgment. Nothing here mutates a `docs/` source or production code.
+render is the **integrator** — the one place that resolves the layout structure and reads DESIGN.md and copy.yaml together — and it writes only to `.artifacts/` (`structure.yaml`, variant HTML, `final.html`, and the `VARIANTS.md` log). Nothing here mutates a `docs/` source or production code.
 
 ## Usage
 
 ```text
-# render — generate, compare, tune (writes only .artifacts/)
 plan the layout for these screens        # structure phase only — page shape + region tree + flow
 generate 4 variants
 generate variants in an editorial direction
@@ -41,45 +37,33 @@ render this page                         # no DESIGN.md yet → compose a seed d
 make it denser / split that section      # tune the chosen variant
 make it bolder / quieter / harden        # tune verbs
 try a bento grid instead                 # a different page shape — re-plans the structure
-
-# critique — judge a chosen variant before building
-critique this variant
-does this read as AI slop?
-score the usability of the picked design
-
-# audit — judge a running UI before release
-audit this page                          # paste a URL or screenshot
-is this production-ready?
-run an accessibility and performance pass
 ```
 
-To make a tuned direction permanent, invoke the owning skill — layout, visual identity, or copy. An audit defect is fixed in implementation. Every mode here explores or judges — none edits.
+To make a tuned direction permanent, invoke the owning skill — layout, visual identity, or copy. craft-ui explores; it does not edit.
 
 ## Output
 
 ```text
 .artifacts/design/
-├── VARIANTS.md          # render: append-only log of what each surface already tried
-├── final.html           # render: the variant the user chose (final-{surface}.html when the run is scoped to one surface)
-└── variants/            # render: structure.yaml + variant HTML + .events session log
+├── VARIANTS.md          # append-only log of what each surface already tried
+├── final.html           # the variant the user chose (final-{surface}.html when the run is scoped to one surface)
+└── variants/            # structure.yaml + variant HTML + .events session log
 ```
 
-`VARIANTS.md` is the one render artifact that outlives a session — the `variants/` directory is regenerable, this file is the record a later render reads so it neither repeats a spent direction nor re-rolls a surface's arrangement.
+`VARIANTS.md` is the one artifact that outlives a session — the `variants/` directory is regenerable, this file is the record a later render reads so it neither repeats a spent direction nor re-rolls a surface's arrangement.
 
-critique and audit write nothing — the verdict and the report are delivered in chat. `structure.yaml` and the variant HTML are session artifacts and decision aids, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `copy.yaml`) plus the chosen variant.
+`structure.yaml` and the variant HTML are session artifacts and decision aids, not a handoff; the handoff to implementation is the source set (`DESIGN.md`, `copy.yaml`) plus the chosen variant. `final.html` is self-contained — it opens in a browser with no build step, so anything downstream can read it as it is.
 
 ## References
 
-Each mode composes the references its job needs from this shared set:
+render composes the references its job needs:
 
 - `references/brand.md` / `references/product.md` — brand vs product posture and structural arrangement (set first)
 - `references/macrostructures.md` — named page-shape presets per register, with knobs and exclusions
 - `references/archetypes.md` — region set plus chrome and close compositions, reflex entries marked
 - `references/structure.md` — region tree, shape vocabulary, reflow, structural self-check
 - `references/design-thinking.md` — Four Questions, color strategy, slop test, density/variance dials
-- `references/heuristics.md` — Nielsen heuristics + 0–4 scoring + visual laws
-- `references/cognitive-load.md` — load checklist + working-memory rule
-- `references/personas.md` — five archetypes to test through
+- `references/visual-laws.md` — Gestalt, hierarchy, balance, reading patterns
 - `references/color.md` — OKLCH, palette, contrast, dark mode
 - `references/typography.md` — scale, pairing, loading
 - `references/layout.md` — spacing, grid, hierarchy, hero composition, depth
@@ -87,31 +71,24 @@ Each mode composes the references its job needs from this shared set:
 - `references/overdrive.md` — the ambitious-tier motion tune (brand only)
 - `references/interaction.md` — states, focus, overlays, keyboard
 - `references/responsive.md` — breakpoints, input method, safe areas
-- `references/tune.md` — render/critique tune directions (bolder, quieter, distill, delight, harden)
+- `references/tune.md` — the tune directions (bolder, quieter, distill, delight, harden)
 - `references/anti-patterns.md` — failure modes with HTML fail/pass examples
-- `references/web-standards.md` — technical rules render applies and audit checks
-- `references/performance.md` — loading, rendering, network, Core Web Vitals
-- `references/scoring.md` — severity, score bands, report template
+- `references/web-standards.md` — technical rules applied to every variant
 
 ## Requirements
 
 - Bun (for the render server)
-- A browser-automation MCP — optional, and only for audit. It is what turns a URL into a rendered screen and what measures Core Web Vitals. Without it, audit runs on a screenshot the user supplies and scores performance from static checks.
 
 ## FAQ
 
 **Q: Does it edit DESIGN.md, copy.yaml, or production code?**
 
-A: No — non-mutating end to end. render resolves the structure and reads the inputs, writing only to `.artifacts/` (`structure.yaml`, variant HTML, `final.html`, and the `VARIANTS.md` log); critique and audit produce only a judgment. To make a style permanent or fix a defect, the change happens in the owning skill or in implementation.
-
-**Q: When do I use critique vs audit?**
-
-A: critique judges a **variant** before you build it — a direction verdict that loops back into render's tune verbs. audit judges a **running UI** after you build it — a P0–P3 quality report. critique is coupled to render; audit works on any build.
+A: No — non-mutating end to end. render resolves the structure and reads the inputs, writing only to `.artifacts/` (`structure.yaml`, variant HTML, `final.html`, and the `VARIANTS.md` log). To make a style permanent, the change happens in the owning skill.
 
 **Q: What if I don't have a DESIGN.md or copy.yaml yet?**
 
 A: render still works. The structure phase composes a layout when none is planned, and any missing input falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative. On a project that already carries a font stack and a palette in code, render reads them and offers what the product wears today as one of the variants, so extending it and redesigning it are the same comparison.
 
-**Q: Does audit check whether the build matches the design system?**
+**Q: Does it critique or audit the result?**
 
-A: No. audit is quality-only — accessibility, performance, responsive, theming consistency, and AI-slop tells. Whether a build matches its token source is a separate concern, out of scope for this skill.
+A: No. craft-ui explores a direction and stops. Judging a built page — usability scores, accessibility and performance passes, slop verdicts — is a separate job; point a review tool at `.artifacts/design/final.html`, which is self-contained and needs no build step to read.

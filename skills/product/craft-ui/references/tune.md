@@ -4,7 +4,7 @@ The named directions render re-renders a chosen variant along — bolder, quiete
 
 ## When to Use
 
-Composed by `render.md` when the user names a tune on the chosen variant, and by `critique.md` (Step 7) when a priority issue maps to a tune. Not a direct trigger. The motion tunes live elsewhere — `animate` in [motion.md](motion.md), `overdrive` in [overdrive.md](overdrive.md); this file owns the five that reshape the look itself.
+Composed by `render.md` when the user names a tune on the chosen variant. Not a direct trigger. The motion tunes live elsewhere — `animate` in [motion.md](motion.md), `overdrive` in [overdrive.md](overdrive.md); this file owns the five that reshape the look itself.
 
 Each verb reads differently for brand vs product — name the register first ([brand.md](brand.md) / [product.md](product.md)). The moves below are variant-level re-renders, never source mutations.
 
@@ -47,7 +47,7 @@ Moves (variant-level, earned and subtle): a satisfying press/hover on the primar
 
 ## harden
 
-Re-render the variant's edge states so the direction is judged on more than the happy path. A look that only holds with perfect data is not a real decision yet. This is a preview of resilience, not production validation — no error handling or i18n libraries get built here; the variant simply *shows* the hard cases.
+Re-render the variant's edge states so the direction is decided on more than the happy path. A look that only holds with perfect data is not a real decision yet. This is a preview of resilience, not production validation — no error handling or i18n libraries get built here; the variant simply *shows* the hard cases.
 
 Re-render the chosen variant against:
 
@@ -56,7 +56,7 @@ Re-render the chosen variant against:
 - **Density extremes** — a list at 1000+ rows and at zero; a table column with an outlier value.
 - **Internationalization shape** — a 30–40% longer translation and an RTL mirror, to expose fixed widths and directional assumptions ([responsive.md](responsive.md)).
 
-Moves: render these states as additional sections inside the same variant file, so the critique sees them beside the happy path and the gallery gains no second variant to choose between. The deliverable is a direction that survives reality, not a hardened codebase.
+Moves: render these states as additional sections inside the same variant file, so they sit beside the happy path and the gallery gains no second variant to choose between. The deliverable is a direction that survives reality, not a hardened codebase.
 
 ## Motion tunes (cross-link)
 

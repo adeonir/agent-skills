@@ -44,7 +44,7 @@ Required references, loaded by phase — a request that stops at the structure p
 **Generation** — the structure set, plus:
 
 - [design-thinking.md](../references/design-thinking.md) — the rest of it: style axes, color strategy, the dials, the slop test
-- [heuristics.md](../references/heuristics.md) — the Visual Design Laws section; the 0–4 heuristic tables are critique's
+- [visual-laws.md](../references/visual-laws.md) — Gestalt, hierarchy, balance, reading patterns
 - [color.md](../references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](../references/typography.md) — scale, pairing, loading
 - [motion.md](../references/motion.md) — the animate gate, timing, easing, materials
@@ -123,7 +123,7 @@ Dependencies load via CDN — no build step. Resolve the canonical CDN entry fro
 - **Icons (iconify-icon)** — include the official `iconify-icon` web-component script before `</body>`. One include covers every icon set (`lucide`, `tabler`, `simple-icons` for brand/social marks, etc.). Markup `<iconify-icon icon="<set>:<name>"></iconify-icon>`. Decorative icons add `aria-hidden="true"`; meaningful icons keep `aria-label` on the containing button.
 - **Tailwind theme customization** goes inline via `<style type="text/tailwindcss">@theme { ... }</style>` after the Tailwind script, mapping tokens (`colors`, `typography`, `rounded`, `spacing`, `elevation`, `duration`, `easing`, `breakpoints`) to Tailwind theme keys.
 - Every variant must work offline-of-build: opening the `.html` directly renders correctly without a bundler, and the render server serves that same file unchanged. Nothing is compiled, server-rendered, or hydrated.
-- Markup is HTML, styling is CSS, behaviour is the platform's own event attributes. A variant carries no component framework — a body that renders only after a runtime transpile gives critique and audit nothing to read and breaks the comment selector.
+- Markup is HTML, styling is CSS, behaviour is the platform's own event attributes. A variant carries no component framework — a body that renders only after a runtime transpile breaks the comment selector and leaves anything reading the file nothing to read.
 
 ## Tailwind Token Conventions
 
@@ -175,11 +175,11 @@ Four axes:
 - **Density** — airy ↔ dense spacing and component padding
 - **Decoration** — austere ↔ playful elevation, radius, accent emphasis
 
-The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session. When a tuned direction is the one kept, rewrite the surface's **chosen** line in `VARIANTS.md` to name it and rewrite `final.html` from the tuned variant. The next session reads that line to know which direction is spent, and critique reads that file — a stale one sends either back to a look already replaced.
+The user names an axis change ("make it denser", "try a bento layout", "more editorial"). Re-render the chosen variant with the adjusted direction and re-serve. Each tune is a local exploration of the rendered page — the result lives only in the variant HTML for the session. When a tuned direction is the one kept, rewrite the surface's **chosen** line in `VARIANTS.md` to name it and rewrite `final.html` from the tuned variant. The next session reads that line to know which direction is spent, and `final.html` is what anything downstream reads — a stale one sends either back to a look already replaced.
 
 ### Tune verbs
 
-Named shortcuts over the four axes — each names a move and re-renders the variant. All are non-mutating: they change the variant HTML for the session, never DESIGN.md. Critique drives these in its refinement loop.
+Named shortcuts over the four axes — each names a move and re-renders the variant. All are non-mutating: they change the variant HTML for the session, never DESIGN.md.
 
 - **bolder / quieter / distill / delight / harden** — the look-reshaping directions, defined in [tune.md](../references/tune.md).
 - **animate** — the everyday motion direction (state, feedback, reveals), defined in [motion.md](../references/motion.md).
@@ -221,6 +221,6 @@ Every variant holds at all three widths — the controls are how that is checked
 ## Error Handling
 
 - All inputs absent: the structure phase composes a conventional layout and render seeds tokens from [design-thinking.md](../references/design-thinking.md) + the craft dimensions with placeholder content; flag that the page is illustrative until real inputs exist
-- DESIGN.md frontmatter unparseable: compose a seed for this render and suggest the user audit DESIGN.md
+- DESIGN.md frontmatter unparseable: compose a seed for this render and suggest the user check DESIGN.md
 - Comment event has no selector: ask the user to re-click the target element
 - User asks to commit a tuned direction: redirect — a layout change re-plans `structure.yaml` through the structure phase, a style change goes to DESIGN.md authoring; render writes no `docs/` source

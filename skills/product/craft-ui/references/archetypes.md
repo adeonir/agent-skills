@@ -4,7 +4,7 @@ Named compositions for the blocks where the agent has a reflex to correct — th
 
 ## When to Use
 
-Composed by `render.md` in its structure phase, after the macrostructure seeds the tree, and by `critique.md` when it questions the chrome or the close behind a chosen variant. Not a direct trigger.
+Composed by `render.md` in its structure phase, after the macrostructure seeds the tree. Not a direct trigger.
 
 ## How an archetype is used
 

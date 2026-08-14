@@ -1,10 +1,10 @@
 # Interaction
 
-The design of interactive behavior — states, focus, forms, overlays, keyboard paths, and destructive actions. (The *technical-correctness* rules an audit checks — ARIA, semantic HTML — live in [web-standards.md](web-standards.md); this file is the interaction *design*.)
+The design of interactive behavior — states, focus, forms, overlays, keyboard paths, and destructive actions. (The *technical-correctness* rules — ARIA, semantic HTML — live in [web-standards.md](web-standards.md); this file is the interaction *design*.)
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` — apply while generating. Not a direct trigger.
 
 ## The eight interactive states
 

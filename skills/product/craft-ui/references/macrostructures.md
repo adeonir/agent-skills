@@ -4,7 +4,7 @@ Named presets for the region tree — the page-level shapes a surface can take, 
 
 ## When to Use
 
-Composed by `render.md` in its structure phase (pick a preset, then walk what it leaves open) and by `critique.md` when it questions the arrangement behind a chosen variant. Not a direct trigger.
+Composed by `render.md` in its structure phase — pick a preset, then walk what it leaves open. Not a direct trigger.
 
 ## How a preset is used
 

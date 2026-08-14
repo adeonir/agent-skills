@@ -4,7 +4,7 @@ Adapting a design across screen sizes, devices, and contexts. The trap is treati
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` / `audit.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` — apply while generating. Not a direct trigger.
 
 ## Register
 

@@ -4,7 +4,7 @@ How to decide a visual direction before any pixels — the questions, axes, and 
 
 ## When to Use
 
-Composed by `render.md` to choose a direction before generating, and by `critique.md` for the slop verdict (Step 2). Not a direct trigger.
+Composed by `render.md` to choose a direction before generating. Not a direct trigger.
 
 ## Four Questions
 
@@ -37,7 +37,7 @@ Two dials name what the Style Axes leave qualitative — read each 1–10 agains
 - **Visual density** (1 = art gallery, huge gaps and few elements → 10 = cockpit, tight rows, 1px separators, mono figures). A dashboard for scanning wants high density; a premium landing wants low.
 - **Design variance** (1 = symmetric, predictable grid → 10 = offset overlaps, fractional grids, large empty zones). Low reads calm and safe; high reads editorial and bold.
 
-`render` targets the level the brief implies; `critique` reports the level it measures against the level intended ("reads density 8, the brief wanted 4"). The dials are a read, not a score — they sharpen the verdict, they do not enter the `/40` or `/20`.
+`render` targets the level the brief implies, and reads the generated variant back against it ("reads density 8, the brief wanted 4"). The dials are a read, not a score — they name the level to build to.
 
 ## Scene Sentence
 
@@ -78,7 +78,7 @@ Four cheap reflexes catch a default before it ships. Run them on any variant:
 - **Swap test** — swap the typeface for the category's usual one and the layout for a standard template. If nothing would feel different, that is where you defaulted.
 - **Token test** — read the CSS variable names and values aloud. Do they belong to *this* product's world, or would they sit in any project? A `--paper` / `--gray-200` / `--space-4` that fits any file signals no system.
 - **Signature test** — point to specific elements where the Signature (Question 4) actually appears. "The overall feel" does not count; name the elements.
-- **Squint test** — blur your eyes; hierarchy still readable, nothing jumping out harshly. (Defined in [heuristics.md](heuristics.md) and [layout.md](layout.md).)
+- **Squint test** — blur your eyes; hierarchy still readable, nothing jumping out harshly. (Defined in [visual-laws.md](visual-laws.md) and [layout.md](layout.md).)
 
 Name the defaults before avoiding them: list the 3 obvious choices for this interface type — visual *and* structural — so the reflexes above have something concrete to reject. You cannot avoid a pattern you have not named.
 

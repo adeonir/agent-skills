@@ -4,9 +4,9 @@ When design SERVES the product: app UIs, admin dashboards, settings panels, data
 
 ## When to Use
 
-Read by `critique.md` and `audit.md` when the surface is product — to set the judging posture — and by `render.md` to lean a variant toward this register, both when planning its structure and when generating its look. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
+Read by `render.md` when the surface is product, to lean a variant toward this register — both when planning its structure and when generating its look. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
 
-## Posture of judgment
+## The bar
 
 | | Product |
 |---|---|

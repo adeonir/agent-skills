@@ -41,7 +41,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | ----- | ----------- |
 | **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
-| **[craft-ui](skills/product/craft-ui)** | Plan layout structure, render design variants, critique a variant, audit a running UI — non-mutating |
+| **[craft-ui](skills/product/craft-ui)** | Plan layout structure and render design variants to decide a visual direction — non-mutating |
 | **[design-brief](skills/product/design-brief)** | Greenfield visual identity — explore a direction and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD, Brief, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
@@ -93,7 +93,7 @@ business logic:
 3.  docs-writer      --> technical decisions and trade-offs
 4.  design-brief     --> visual identity and design tokens
 5.  copywriting      --> content and copy
-6.  craft-ui         --> plan layout structure, build and pressure-test the interface
+6.  craft-ui         --> plan layout structure, build the interface, decide a direction
 7.  epic-tracker     --> epics, stories, acceptance criteria
 8.  spec-driven      --> per-story spec, design, tasks, implementation
 9.  review-lens      --> review changes before commit

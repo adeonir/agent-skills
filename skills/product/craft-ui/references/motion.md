@@ -4,7 +4,7 @@ Motion that conveys state, gives feedback, and clarifies hierarchy — and the c
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` — apply while generating. Not a direct trigger.
 
 ## Register sets the budget
 

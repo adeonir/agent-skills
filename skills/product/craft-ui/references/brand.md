@@ -4,11 +4,11 @@ When design IS the product: brand sites, landing pages, marketing surfaces, camp
 
 ## When to Use
 
-Read by `critique.md` and `audit.md` when the surface is brand — to set the judging posture — and by `render.md` to lean a variant toward this register, both when planning its structure and when generating its look. Name the register first, then read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
+Read by `render.md` when the surface is brand, to lean a variant toward this register — both when planning its structure and when generating its look. Name the register first, then read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
 
 The register spans every genre. A tech brand (Stripe, Linear, Vercel). A luxury brand (a hotel, a fashion house). A consumer product (a restaurant, a travel site, a CPG page). A studio portfolio, a band's album page. They share the stance — *communicate, not transact* — and diverge wildly in aesthetic. Don't collapse them into a single look.
 
-## Posture of judgment
+## The bar
 
 | | Brand |
 |---|---|
@@ -17,7 +17,7 @@ The register spans every genre. A tech brand (Stripe, Linear, Vercel). A luxury 
 | Failure | Safe, average, undifferentiated |
 | Permission | Ambitious motion, committed color, art direction per section |
 
-Restraint without purpose reads as generic, not refined. A move that is voice on a brand surface (a drenched hero, an orchestrated page-load) would be noise on a product surface — judge it by this register, not the other.
+Restraint without purpose reads as generic, not refined. A move that is voice on a brand surface (a drenched hero, an orchestrated page-load) would be noise on a product surface — build to this register, not the other.
 
 ## Structural arrangement
 

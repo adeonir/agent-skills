@@ -4,7 +4,7 @@ Space is the most underused design tool. Recipes for spacing systems, rhythm, th
 
 ## When to Use
 
-Composed by `render.md` (apply while generating), and by `critique.md` (judge a rendered surface against it). Not a direct trigger.
+Composed by `render.md` — apply while generating. Not a direct trigger.
 
 ## Register sets the composition
 

@@ -2,11 +2,11 @@
 
 Anti-pattern catalog for rendered UI. Each rule documents a recognizable failure mode and the smallest sufficient fix.
 
-Every rule is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, reconciliation keys, server-only APIs — is source-code review and belongs to no mode here; a rule whose failure has no rendered consequence does not enter the catalog.
+Every rule is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, reconciliation keys, server-only APIs — is source-code review and belongs elsewhere; a rule whose failure has no rendered consequence does not enter the catalog.
 
 ## When to Use
 
-Composed by `render.md` to avoid known failure shapes during generation, and by `critique.md` / `audit.md` as the failure-mode lens when judging a rendered surface. The **Drift** category is the exception — it is for render to avoid during generation only; critique and audit do not flag drift, because whether a build matches its token source is out of scope for evaluation.
+Composed by `render.md` to avoid known failure shapes during generation. Not a direct trigger.
 
 ## Categories
 
@@ -22,7 +22,7 @@ Jump-table — each category links to its rule section below.
 - [Performance](#performance) — CDN abuse, layout shift, blocking renders
 - [AI Scaffolding Tells](#ai-scaffolding-tells) — reflex section-grammar and template clichés
 - [Fabricated Content](#fabricated-content) — invented proof and asserted evidence no input supplied
-- [Drift](#drift) — render-only: HTML not aligned with DESIGN.md tokens (not flagged by critique/audit)
+- [Drift](#drift) — HTML not aligned with DESIGN.md tokens
 
 ## Rule Template
 
@@ -52,12 +52,12 @@ Neither kind carries a fix recipe in the pass example — exact shadow layers, n
 
 ## Two Kinds of Check
 
-A rule's Check is one of two kinds, and critique and audit treat them differently:
+A rule's Check is one of two kinds:
 
 - **Deterministic** — the Check reduces to a selector or a value: a property, a missing attribute, a ratio (`gradient-clip-text`, `image-no-alt`, `focus-state-removed`). It has a definite answer — verify it against the markup; it either fires or it does not.
 - **Perceptual** — the Check needs a holistic read: sameness, reflex, "reads as a template" (`hero-metric-template`, `all-sections-centered`, the scaffolding tells). Weigh it by eye; reasonable reviewers can disagree at the margin.
 
-Tell them apart from the Check itself: one expressible as a query or a measurement is deterministic; one that needs a look is perceptual. render avoids both kinds during generation; critique and audit report both.
+Tell them apart from the Check itself: one expressible as a query or a measurement is deterministic; one that needs a look is perceptual. render avoids both kinds during generation.
 
 ## Typography
 
@@ -424,7 +424,7 @@ from { transform: scale(0.95); opacity: 0 }
 
 ## AI Scaffolding Tells
 
-Reflex section-grammar and template clichés — the moves an interface reaches for because "landing pages do this", not because the brief asked. Harvested as a family: render avoids them, critique and audit flag them.
+Reflex section-grammar and template clichés — the moves an interface reaches for because "landing pages do this", not because the brief asked. Harvested as a family for render to avoid.
 
 ### side-stripe-accent-border
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** A `border-left` or `border-right` wider than 1px used as a colored accent on cards, list items, callouts, or alerts. **Fix:** Use a full border, a background tint, a leading icon or number, or nothing. The single colored side-stripe is never an intentional system. **Example fail:**
@@ -487,8 +487,6 @@ Claims the surface makes that no input supports. A variant is a decision aid and
 **Category:** Fabricated Content **Severity:** error **Check:** A product screenshot, dashboard, chart, or data visualization depicting an interface or dataset that does not exist, rendered as the real thing. Photography standing in for a shoot is not this rule; the failure is asserting evidence. **Fix:** Show the real capture; or render the visual with data that reads as sample and label it; or take an arrangement that does not lead on product evidence.
 
 ## Drift
-
-Render-only: this category is for render to avoid during generation. critique and audit do not flag drift — whether a build matches its token source is out of scope for evaluation.
 
 Drift fires against the **resolved token set** — the DESIGN.md frontmatter where it exists, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield render as much as on one with an identity already authored.
 
