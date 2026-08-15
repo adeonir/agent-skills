@@ -59,11 +59,14 @@ Refusing to render until `PRODUCT.md`, `DESIGN.md`, and `copy.yaml` exist defeat
 
 Every mockup renders the same arrangement so the comparison is about the look alone. Moving a block, dropping a region, or changing a block's shape to make a direction work turns the round into a comparison of different pages, and the user picks a look while agreeing to a structure nobody decided. Change `structure.yaml` and re-render from it instead.
 
+Taking one direction's header and another's hero is not this trap — the arrangement is untouched and only the treatment of each region moves. That verdict is a composite, and it is the useful one to get.
+
 ## Guidelines
 
 - Settle the arrangement before any look exists — the wireframe carries no palette and no font pick
 - Resolve every other input via the fallback rule; never hard-gate on a missing one
 - Vary the direction per mockup; never converge on a house style
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties
-- Carry what the project already wears as the incumbent direction, never as a constraint on the others
+- Carry what the project already wears — fonts, palette, and the components it ships — as the incumbent direction, never as a constraint on the others
+- Take a verdict that spans directions and render it whole as a new one; never paste two directions into one page
 - Adjust a chosen mockup by re-rendering it, never by editing an artifact it read

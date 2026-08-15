@@ -32,6 +32,7 @@ generate 4 directions                    # mockups — reads structure.yaml
 generate mockups in an editorial direction
 render this page                         # no DESIGN.md yet → composes a seed direction
 make it denser / more editorial          # re-renders the chosen mockup
+the header from B with the hero from C   # composite → re-rendered whole as a new direction
 move the pricing above the features      # an arrangement change → structure.yaml, then re-render
 ```
 
@@ -48,7 +49,7 @@ docs/design/
 └── mockup.html          # the chosen mockup (mockup-{surface}.html with more than one surface)
 ```
 
-`structure.yaml` is the contract between the phases and the one place an arrangement changes. `VARIANTS.md` records which directions are spent, so a later round neither repeats one nor re-rolls a surface it already settled. The wireframes and mockups themselves are regenerable.
+`structure.yaml` is the contract between the phases and the one place an arrangement changes. `VARIANTS.md` records which directions are spent and what the winning choice turned on, so a later round neither repeats a spent direction nor reopens a settled one without knowing why it was settled. The wireframes and mockups themselves are regenerable.
 
 The delivered `docs/design/mockup.html` is self-contained — it opens in a browser with no build step, so anything downstream reads it as it is.
 
@@ -90,7 +91,7 @@ A: Only when `structure.yaml` already exists. Without it the run settles the arr
 
 **Q: What if I don't have a PRODUCT.md, DESIGN.md, or copy.yaml yet?**
 
-A: It still works. The wireframe interviews for what the artifacts do not answer, and any missing input in the mockup phase falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative. On a project that already carries a font stack and a palette in code, the mockup phase reads them and offers what the product wears today as one of the directions, so extending it and redesigning it are the same comparison.
+A: It still works. The wireframe interviews for what the artifacts do not answer, and any missing input in the mockup phase falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative. On a project that already carries a font stack, a palette, and components in code, the mockup phase reads them and offers what the product wears today as one of the directions — rendering the components it already ships rather than inventing new ones — so extending it and redesigning it are the same comparison.
 
 **Q: Does it critique or audit the result?**
 
