@@ -1,62 +1,69 @@
 ---
 name: craft-ui
 allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
-description: "Explores the visual direction of a UI by building it. Use when planning the layout structure as a region tree and screen flow, generating design variants, previewing a page or screen, tuning a look, exploring a redesign of a page that already exists, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Non-mutating — it writes throwaway HTML variants and never edits production code, tokens, or copy. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
+description: "Decides how a UI is arranged and how it looks, by building it in two phases. Use when planning a layout, arranging the regions of a page or screen, mapping a screen flow, comparing wireframes, generating design directions, previewing a page, exploring a redesign, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Writes lo-fi wireframes and full-page mockups to compare, and the chosen mockup to docs/design/. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
 ---
 
 # Craft UI
 
-craft-ui builds the interface to decide how it should look — resolving the layout structure (a named page shape per surface, seeding a region tree plus screen flow), then composing it with DESIGN.md (identity) and copy.yaml (content) into full-page HTML variants to compare side by side. One mode, **render**: plan the structure, then construct the real UI in several visual directions to decide one. One invariant: **non-mutating end to end** — it writes only to `.artifacts/`, the throwaway session artifacts (`structure.yaml` and variant HTML) plus the `VARIANTS.md` log and the chosen `final.html`. It never edits tokens, copy, or production code, and it builds variants to decide a direction, not production components.
+craft-ui builds the interface to decide it — first the **arrangement**, then the **look**. The wireframe phase interviews for what the artifacts leave open and draws lo-fi arrangements to compare; the mockup phase draws the settled arrangement in several visual directions to pick one. `structure.yaml` is the contract between them: the wireframe writes it, the mockup reads it and never re-plans it.
 
 ## Quick start
 
-- [render.md](instructions/render.md) — resolve the layout structure, generate N variants, serve, tune direction, comment, switch viewport.
+- [wireframes.md](instructions/wireframes.md) — interview, draw the arrangements lo-fi, settle `structure.yaml`.
+- [mockups.md](instructions/mockups.md) — draw that arrangement in N visual directions, pick one, deliver it.
 
-"Plan the layout / map the screen flow / arrange the screens / generate / compare / preview / tune" all enter here — no need to ask which. The structure phase can stop at the plan, before any variant exists.
+"Plan the layout / map the screen flow / arrange the screens" enter at wireframes. "Generate / compare / preview / try a direction" enter at mockups, which reads `.artifacts/design/structure.yaml`; when that file is absent the run starts at wireframes and returns.
 
-The instructions write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
+The instructions run a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
 
 ## References
 
-render composes the references its job needs:
+Each phase composes only the references its job needs.
 
-- [brand.md](references/brand.md) / [product.md](references/product.md) — brand vs product posture and structural arrangement (read the matching one, first)
-- [macrostructures.md](references/macrostructures.md) — named page-shape presets per register, with knobs and exclusions
-- [archetypes.md](references/archetypes.md) — region set plus chrome and close compositions, reflex entries marked
-- [structure.md](references/structure.md) — region tree, shape vocabulary, reflow, structural self-check
-- [design-thinking.md](references/design-thinking.md) — Four Questions, color strategy, slop test, density/variance dials
+Wireframe:
+
+- [structure.md](references/structure.md) — region tree, shape vocabulary, reflow, volume, structural self-check
+
+Mockup:
+
+- [brand.md](references/brand.md) / [product.md](references/product.md) — the register's permissions and bans (read the one the surface carries)
+- [design-thinking.md](references/design-thinking.md) — Four Questions, style axes, color strategy, slop test, density and variance dials
 - [visual-laws.md](references/visual-laws.md) — Gestalt, hierarchy, balance, reading patterns
 - [color.md](references/color.md) — OKLCH, palette, contrast, dark mode
 - [typography.md](references/typography.md) — scale, pairing, loading
 - [layout.md](references/layout.md) — spacing, grid, hierarchy, hero composition, depth
 - [motion.md](references/motion.md) — the animate gate, timing, easing, materials
-- [overdrive.md](references/overdrive.md) — the ambitious-tier motion tune (brand only)
 - [interaction.md](references/interaction.md) — states, focus, overlays
 - [responsive.md](references/responsive.md) — breakpoints, input, safe areas
-- [tune.md](references/tune.md) — the tune directions (bolder, quieter, distill, delight, harden)
 - [anti-patterns.md](references/anti-patterns.md) — failure modes with fail/pass examples
-- [web-standards.md](references/web-standards.md) — technical rules applied to every variant
+- [web-standards.md](references/web-standards.md) — technical rules applied to every mockup
 
 ## Inputs
 
-render resolves the layout structure itself and reads the product posture (`PRODUCT.md`), the tokens (`DESIGN.md`), the content (`copy.yaml`), and its own variant log — each optional, plus a reference page or screenshot when the user offers one. Any missing input falls back to a composed seed so a variant always renders. This is the **integrator**: the one place that resolves structure, tokens, and content together. It caches `structure.yaml` and variant HTML to `.artifacts/`, appends each variant to `VARIANTS.md` so a later session neither repeats a spent direction nor re-rolls a surface's arrangement, and writes no `docs/` source.
+The wireframe reads the product posture (`PRODUCT.md`) and the content (`copy.yaml`). The mockup reads `structure.yaml`, the tokens (`DESIGN.md`), the content, and its own log of spent directions. Each is optional except `structure.yaml`, and a reference page or screenshot enters either phase when the user offers one. The mockup phase is the **integrator**: the one place that draws an arrangement, tokens, and content together.
 
-## Non-mutating invariant
+## Boundary
 
-render reads, never writes a source artifact or production code. It emits `structure.yaml`, variant HTML, the `VARIANTS.md` log, and the chosen `final.html` to `.artifacts/` — never a `docs/` source. To make a direction permanent, the user invokes the owning skill (visual identity, copy).
+craft-ui writes its own artifacts and nothing else: the wireframes, the mockups, `structure.yaml`, and the log under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide a direction, not production components.
 
-## Anti-Pattern: Writing a Source Artifact
+## Anti-Pattern: Editing Someone Else's Source
 
-render resolves structure and reads DESIGN.md and copy.yaml together — precisely because it writes no `docs/` source. Its `structure.yaml` is a session cache in `.artifacts/`, not a committed layout artifact; treating it as a `docs/` source would break the integrator boundary. When a tuned style should become permanent, redirect to DESIGN.md authoring.
+A comment on a served page names something to change in the drawing, not in an artifact. Re-render the wireframe or the mockup with the change applied; a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here.
 
 ## Anti-Pattern: Hard-Gating on Missing Inputs
 
-Refusing to render until DESIGN.md and copy.yaml exist defeats the purpose — render shows the product at any stage, and the structure phase composes a layout when none is given. A missing input is a fallback, not a blocker: compose a seed, follow anti-patterns, render the best coherent page, and flag what is illustrative.
+Refusing to draw until `PRODUCT.md`, `DESIGN.md`, and `copy.yaml` exist defeats the purpose — craft-ui shows the product at any stage. A missing one of those is a fallback, not a blocker: interview for it, compose a seed, follow the anti-patterns, draw the best coherent page, and flag what is illustrative. The one thing a phase does wait on is `structure.yaml`, and that is a phase order, not an input: the run goes and settles the arrangement, then comes back.
+
+## Anti-Pattern: Redeciding the Arrangement in a Mockup
+
+Every mockup draws the same arrangement so the comparison is about the look alone. Moving a block, dropping a region, or changing a block's shape to make a direction work turns the round into a comparison of different pages, and the user picks a look while agreeing to a structure nobody decided. Change `structure.yaml` and re-draw from it instead.
 
 ## Guidelines
 
-- Name the register before building — the bar differs for brand vs product
-- Resolve inputs via the fallback rule — never hard-gate on a missing one
-- Vary the direction per variant; never converge on a house style
-- Tune the visual direction by re-rendering — never edit tokens or write a source artifact
-- Write only `.artifacts/`; the variants are a decision aid, not a handoff
+- Settle the arrangement before any look exists — the wireframe carries no palette and no font choice
+- Resolve every other input via the fallback rule; never hard-gate on a missing one
+- Vary the direction per mockup; never converge on a house style
+- Resolve every `{path.to.token}` reference when emitting CSS custom properties
+- Carry what the project already wears as the incumbent direction, never as a constraint on the others
+- Adjust a chosen mockup by re-rendering it, never by editing an artifact it read
