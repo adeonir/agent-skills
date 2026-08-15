@@ -4,7 +4,7 @@ When design IS the product: brand sites, landing pages, marketing surfaces, camp
 
 ## When to Use
 
-Read by `render.md` when the surface is brand, to lean a variant toward this register — both when planning its structure and when generating its look. Name the register first, then read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
+Read by `mockups.md` when the surface carries `register: brand`, to lean its look toward this register. Read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
 
 The register spans every genre. A tech brand (Stripe, Linear, Vercel). A luxury brand (a hotel, a fashion house). A consumer product (a restaurant, a travel site, a CPG page). A studio portfolio, a band's album page. They share the stance — *communicate, not transact* — and diverge wildly in aesthetic. Don't collapse them into a single look.
 
@@ -18,17 +18,6 @@ The register spans every genre. A tech brand (Stripe, Linear, Vercel). A luxury 
 | Permission | Ambitious motion, committed color, art direction per section |
 
 Restraint without purpose reads as generic, not refined. A move that is voice on a brand surface (a drenched hero, an orchestrated page-load) would be noise on a product surface — build to this register, not the other.
-
-## Structural arrangement
-
-Before the look, the structure phase arranges the surface ([structure.md](structure.md)). Brand biases the arrangement toward a narrative that earns attention and lands a conversion — the failure is a flat stack of generic sections with no build.
-
-- **Lead with a hero** that states the one idea; let the fold do work.
-- **Cap the hero at four text blocks** — an eyebrow (or none), a headline, a subheadline, and a CTA; a fifth competing block dilutes the one idea. This bounds the slot count, not the copy.
-- **Sequence sections as an argument** — problem, value, proof, objection, close — not an undifferentiated stack.
-- **Vary block shapes to the content** — a comparison wants `split`, a story wants `full-width`. One shape everywhere is structural slop.
-- **End on conversion** — a final CTA block that recaps and asks.
-- Flow is usually one long surface or a small set (home → pricing → signup).
 
 ## The brand slop test
 
@@ -78,7 +67,7 @@ Brand has permission for Committed, Full palette, and Drenched. Use it. A single
 ## Layout
 
 - Asymmetric compositions are one option; break the grid intentionally for emphasis. Fluid `clamp()` spacing that breathes on larger viewports.
-- For image-led briefs (hotels, restaurants, magazines), full-bleed hero imagery with overlaid menu and centered headline is canonical — let the photograph be the design.
+- On image-led briefs (hotels, restaurants, magazines), let the photograph carry the surface — imagery at full bleed with type over it, not imagery sized down to sit beside the type.
 
 ## Imagery
 
@@ -112,7 +101,7 @@ One well-orchestrated page-load beats scattered micro-interactions, when the bra
 Brand can afford things product can't. Take them.
 
 - Ambitious first-load motion — reveals and typographic choreography that earn their place; not fade-on-scroll for every section.
-- Single-purpose viewports — one dominant idea per fold, long scroll, deliberate pacing.
+- Single-purpose viewports — the dominant idea drawn at full scale instead of packed in beside its neighbours.
 - Unexpected color strategies — palette IS voice.
 - Art direction per section — different sections can have different visual worlds if the narrative demands it. Consistency of *voice* beats consistency of *treatment*.
 

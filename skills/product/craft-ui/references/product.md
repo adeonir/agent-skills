@@ -4,7 +4,7 @@ When design SERVES the product: app UIs, admin dashboards, settings panels, data
 
 ## When to Use
 
-Read by `render.md` when the surface is product, to lean a variant toward this register — both when planning its structure and when generating its look. Name the register first, then read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
+Read by `mockups.md` when the surface carries `register: product`, to lean its look toward this register. Read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
 
 ## The bar
 
@@ -16,16 +16,6 @@ Read by `render.md` when the surface is product, to lean a variant toward this r
 | Permission | Density, standard patterns, restraint; delight saved for moments |
 
 Familiarity is a feature here. The consistency that reads as timid on brand is a virtue in product. A move that is voice on a brand surface is noise on this one.
-
-## Structural arrangement
-
-Before the look, the structure phase arranges the surface ([structure.md](structure.md)). Product biases the arrangement toward a familiar, navigable structure the user trusts — the failure is invented navigation, a buried primary action, or no state plan.
-
-- **Persistent navigation** — a nav or sidebar the user orients by; don't reinvent it.
-- **Primary action reachable** — the main task is obvious, not buried.
-- **Standard patterns** — list / detail, table plus toolbar, form plus summary; users expect them, and familiarity is a feature.
-- **Plan the states** — empty, loading, error per data region; a box can't show these, so carry them in `note`.
-- Flow is multi-surface (a nav graph): screen → screen, with entry and exit.
 
 ## The product slop test
 
@@ -50,7 +40,7 @@ Product defaults to **Restrained**. A single surface can earn Committed (a dashb
 
 ## Layout
 
-Responsive behavior is structural (collapse sidebar, responsive table, breakpoint-driven columns), not fluid typography.
+Responsive behavior is carried structurally, not by fluid typography.
 
 ## Components
 
