@@ -78,6 +78,7 @@ Mockup:
 ## Requirements
 
 - Bun (for the render server)
+- Python 3 (for the structure linter; PyYAML is used when installed, and a bundled reader covers the template's own format when it is not)
 
 ## FAQ
 

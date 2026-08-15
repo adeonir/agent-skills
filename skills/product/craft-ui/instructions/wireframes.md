@@ -70,6 +70,14 @@ The user comments on the served arrangements and sends the round in one dispatch
 
 The chosen arrangement becomes `.artifacts/design/structure.yaml`, following the template in [structure.md](../references/structure.md). Run the structural self-check before writing it, and resolve every gap it flags.
 
+Then lint the written file:
+
+```bash
+python3 <this-skill>/scripts/lint_structure.py .artifacts/design/structure.yaml
+```
+
+The two gates split the work: the self-check reads what only a reading settles — whether the arrangement matches its register, whether the primary action is obvious, whether states and reflow are planned. The linter settles form — the shape vocabulary, the register value, the flow graph, and the requirement IDs the template forbids. Fix every error and run it again, up to three passes; after the third, stop and name the standing error to the user rather than writing a contract the mockup phase will reject. A warning never blocks — act on it, or say why the file keeps what it names.
+
 Once the file exists, it is the arrangement. A later change is made in `structure.yaml` first, and the wireframe is re-rendered from it.
 
 When the request was only for the plan — "map the screen flow", "arrange the screens" — write `structure.yaml`, render the mermaid screen-flow from its `flow:`, and stop.

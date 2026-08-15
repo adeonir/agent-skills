@@ -1,6 +1,6 @@
 ---
 name: craft-ui
-allowed-tools: Bash(bun:*) Read Write Edit Grep Glob WebFetch
+allowed-tools: Bash(bun:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
 description: "Decides how a UI is arranged and how it looks, by building it in two phases. Use when planning a layout, arranging the regions of a page or screen, mapping a screen flow, comparing wireframes, generating design directions, previewing a page, exploring a redesign, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Writes lo-fi wireframes and full-page mockups to compare, and the chosen mockup to docs/design/. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
 ---
 
@@ -15,7 +15,7 @@ craft-ui builds the interface to decide it — first the **arrangement**, then t
 
 "Plan the layout / map the screen flow / arrange the screens" enter at wireframes. "Generate / compare / preview / try a direction" enter at mockups, which reads `.artifacts/design/structure.yaml`; when that file is absent the run starts at wireframes and returns.
 
-The instructions run a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command.
+The instructions run two bundled scripts as `<this-skill>/scripts/<name>` — `render-server.ts` serves a session, `lint_structure.py` settles the form of `structure.yaml` on the way out of the wireframe phase and on the way into the mockup phase. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running either command.
 
 ## References
 

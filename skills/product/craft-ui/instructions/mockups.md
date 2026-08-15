@@ -13,6 +13,14 @@ Render the settled arrangement in N visual directions to decide one — full-pag
 
 `.artifacts/design/structure.yaml` is the contract this phase renders from. When it is absent, the run enters the wireframe phase first and returns here once an arrangement is settled. This phase reads the contract; it never composes an arrangement and never re-plans one.
 
+Lint the contract before rendering anything from it:
+
+```bash
+python3 <this-skill>/scripts/lint_structure.py .artifacts/design/structure.yaml
+```
+
+The contract is the one file the user edits by hand between sessions, so one that was clean when written can arrive broken. An error stops this phase: correct it in `structure.yaml`, never work around it in a mockup.
+
 One structure feeds every direction: the arrangement stays constant while the look varies, so the mockups compare treatments of the same page rather than different pages.
 
 ## Inputs and Fallbacks
