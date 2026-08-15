@@ -28,7 +28,7 @@ These axes carry the *look*. The page arrangement is not one of them — it is s
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
 
-Executing a named axis well is not wearing its costume. A cell names the lane; the craft is in *how* you build it. Brutalist done right, for instance, is engineered extreme type-scale contrast (a heavy grotesque display against small wide-tracked mono, or a deliberate raw-default-font take), a single utilitarian accent held under strict restraint, grid-anchored compartmentalization with 90° rigidity, and bimodal density (dense data against vast negative space). The costume version copies the hard corners and stops, with no structure beneath. Test any named style: do its elements reference a real function, or only cosplay one?
+Executing a named axis well is not wearing its costume. A cell names the lane; the craft is in *how* the lane is built. Brutalist done right, for instance, is engineered extreme type-scale contrast (a heavy grotesque display against small wide-tracked mono, or a deliberate raw-default-font take), a single utilitarian accent held under strict restraint, grid-anchored compartmentalization with 90° rigidity, and bimodal density (dense data against vast negative space). The costume version copies the hard corners and stops, with no structure beneath. Test any named style: does each element reference a real function, or only imitate the look of one?
 
 ## Density & Variance
 
@@ -61,7 +61,7 @@ The cheapest way to catch a generic result is to try to guess it from the outsid
 1. **Category reflex.** Could someone name the category and guess the whole look — theme, palette, layout — from the category alone? "Fintech, so a dark-blue gradient and a hero metric." If the category predicts the design, it is the first-order training-data default.
 2. **Anti-reference reflex.** Name the aesthetic lane the work is actually in (the reference). Could someone guess that lane from "category plus the anti-references"? Judge against the anti-references declared in `PRODUCT.md` when present, inferring the obvious ones only when it is absent. Reaching for editorial-magazine on a brief that is not editorial is the trap one tier deeper.
 
-Then the inverse: describe in one sentence what you are about to build the way a competitor would describe theirs. If that sentence fits the modal page in the category, restart.
+Then the inverse: describe the page about to be built in one sentence, phrased the way a competitor would describe their own page. If that sentence fits the modal page in the category, restart.
 
 Some categories carry a reflex palette the whole field defaults to — beige-and-cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer brands; dark-blue gradients for fintech. Reaching for the category's stock palette is the anti-reference reflex in color form: name the reflex palette for this category and treat it as a default to earn past, not the safe choice.
 
@@ -73,12 +73,12 @@ A near-white warm-tinted background — the cream / sand / beige / paper band �
 
 Four cheap reflexes catch a default before it ships. Run them on any mockup:
 
-- **Swap test** — swap the typeface for the category's usual one and the layout for a standard template. If nothing would feel different, that is where you defaulted.
+- **Swap test** — swap the typeface for the category's usual one and the layout for a standard template. If nothing would feel different, that swap marks where the design defaulted.
 - **Token test** — read the CSS variable names and values aloud. Do they belong to *this* product's world, or would they sit in any project? A `--paper` / `--gray-200` / `--space-4` that fits any file signals no system.
 - **Signature test** — point to specific elements where the Signature (Question 4) actually appears. "The overall feel" does not count; name the elements.
-- **Squint test** — blur your eyes; hierarchy still readable, nothing jumping out harshly. (Defined in [visual-laws.md](visual-laws.md) and [layout.md](layout.md).)
+- **Squint test** — blur the view; hierarchy still readable, nothing jumping out harshly. (Defined in [visual-laws.md](visual-laws.md) and [layout.md](layout.md).)
 
-Name the defaults before avoiding them: list the 3 obvious visual choices for this interface type, so the reflexes above have something concrete to reject. You cannot avoid a pattern you have not named.
+Name the defaults before avoiding them: list the 3 obvious visual choices for this interface type, so the reflexes above have something concrete to reject. A pattern that goes unnamed cannot be avoided.
 
 ## Complexity Calibration
 

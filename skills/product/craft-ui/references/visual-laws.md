@@ -24,7 +24,7 @@ Five signals, used in concert, not size alone.
 - **Size** — larger = more important; ratios beat absolutes (3x hero-vs-body).
 - **Weight** — bold beats light; pair extremes (100-200 vs 800-900).
 - **Color** — high-contrast dominates; muted recedes; accents capture disproportionate attention.
-- **Position** — top-left dominates LTR; center draws focus; bottom-right anchors CTAs.
+- **Position** — top-left dominates in left-to-right reading; center draws focus; bottom-right anchors CTAs.
 - **Spacing** — generous space isolates and elevates; cramped space groups and lowers.
 
 ## Balance, contrast, rhythm

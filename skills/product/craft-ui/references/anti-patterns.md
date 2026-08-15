@@ -6,7 +6,7 @@ Every rule is a failure a viewer can see or a user can hit on the rendered surfa
 
 ## When to Use
 
-Composed by `mockups.md` to avoid known failure shapes while generating. Not a direct trigger.
+Composed by `mockups.md` to avoid known failure modes while generating. Not a direct trigger.
 
 ## Categories
 
@@ -46,7 +46,7 @@ A **deterministic** rule adds a pair, and only a deterministic rule does. The pa
 ```
 ````
 
-A **perceptual** rule ships no pair. Its Check is a read of the whole surface, which three lines of markup cannot hold; a snippet there only gives the model a literal shape to hunt for instead of the page to look at.
+A **perceptual** rule ships no pair. Its Check is a read of the whole surface, and three lines of markup cannot hold that read. A snippet there gives the model a literal pattern to hunt for instead of the page to look at.
 
 Neither kind carries a fix recipe in the pass example — exact shadow layers, named easing curves, and property lists are the model's craft. State the move in **Fix** and stop.
 
@@ -130,7 +130,7 @@ color: oklch(0.65 0.22 25)
 ```
 
 ### evenly-distributed-palette
-**Category:** Color and Theme **Severity:** warning **Check:** Four or more brand colors used at roughly equal frequency across the page (25/25/25/25 distribution) — no hierarchy, no focal point. **Fix:** Apply 60-30-10 rule. 60% dominant surface, 30% secondary, 10% accent. Sharp accents on committed base outperform timid even distribution.
+**Category:** Color and Theme **Severity:** warning **Check:** Four or more brand colors used at roughly equal frequency across the page (25/25/25/25 distribution) — no hierarchy, no focal point. **Fix:** Apply 60-30-10 rule. 60% dominant background, 30% secondary, 10% accent. Sharp accents on committed base outperform timid even distribution.
 
 ### dark-pure-black-body
 **Category:** Color and Theme **Severity:** warning **Check:** Dark theme uses true `#000000` for entire body surface (not just OLED hero accents). Causes halation and harms long-form legibility. **Fix:** Use `#000000` only for OLED-punchy hero or accent surfaces. Soften body background to `#0a0a0a`/`#111111`/`oklch(0.15 0 0)`. **Example fail:**
@@ -180,7 +180,7 @@ padding: 5rem 0; max-width: 60ch; line-height: 1.6
 ```
 
 ### section-rhythm-flat
-**Category:** Layout and Spacing **Severity:** warning **Check:** Consecutive sections use same background color, same spacing, same layout direction — no alternation. Does not fire where uniformity is the arrangement's premise: a continuous document, a repeated declaration, or a grid or list of same-kind entries. **Fix:** Vary backgrounds (light/dark/accent), spacing density, or layout direction between sections to create rhythm.
+**Category:** Layout and Spacing **Severity:** warning **Check:** Consecutive sections use same background color, same spacing, same layout orientation — no alternation. Does not fire where uniformity is the arrangement's premise: a continuous document, a repeated declaration, or a grid or list of same-kind entries. **Fix:** Vary backgrounds (light/dark/accent), spacing density, or layout orientation between sections to create rhythm.
 
 ## Decoration and Depth
 
@@ -257,7 +257,7 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 ## Motion and Interaction
 
 ### ease-default-no-intention
-**Category:** Motion and Interaction **Severity:** warning **Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered. **Fix:** Pick a curve per tone — snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, decisive (`cubic-bezier(0.16, 1, 0.3, 1)`) for bold, never an overshoot/bounce curve — and interpolate every state change; an instant, un-interpolated jump reads cheaper than a considered 150ms. **Example fail:**
+**Category:** Motion and Interaction **Severity:** warning **Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered. **Fix:** Pick a curve per tone: snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, decisive (`cubic-bezier(0.16, 1, 0.3, 1)`) for bold. Never an overshoot or bounce curve. Then interpolate every state change — an instant, un-interpolated jump reads cheaper than a considered 150ms. **Example fail:**
 ```html
 transition: transform 200ms ease
 ```
@@ -402,7 +402,7 @@ from { transform: scale(0.95); opacity: 0 }
 **Category:** Performance **Severity:** warning **Check:** A list or table of 50+ rows rendered as DOM nodes with no virtualization and no `content-visibility`. **Fix:** Apply `content-visibility: auto` with a `contain-intrinsic-size` estimate, or virtualize the list.
 
 ### below-fold-image-eager
-**Category:** Performance **Severity:** warning **Check:** Below-fold image without `loading="lazy"`. Wastes bandwidth and main-thread parse time. **Fix:** Add `loading="lazy"` to below-fold images. Reserve `fetchpriority="high"` / `priority` for the LCP candidate only. **Example fail:**
+**Category:** Performance **Severity:** warning **Check:** Below-fold image without `loading="lazy"`. Wastes bandwidth and main-thread parse time. **Fix:** Add `loading="lazy"` to below-fold images. Reserve `fetchpriority="high"` / `priority` for the Largest Contentful Paint candidate only. **Example fail:**
 ```html
 <img src="footer.jpg" alt="" width="800" height="400">
 ```
@@ -474,7 +474,7 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** A small explainer paragraph floated into an otherwise empty corner of a section to fill space, unanchored to any element it describes. **Fix:** Anchor the text to what it explains, or cut it. Empty space is a composition choice, not a slot to backfill with prose.
 
 ### filled-progress-bar-marketing
-**Category:** AI Scaffolding Tells **Severity:** warning **Check:** A filled-track progress or score bar (`72%`, a partial meter) on a marketing page where nothing is actually in progress — telemetry cosplay. **Fix:** Use a bar only for real, live state (upload, completion, capacity). On a marketing surface, state the number plainly or drop the meter.
+**Category:** AI Scaffolding Tells **Severity:** warning **Check:** A filled-track progress or score bar (`72%`, a partial meter) on a marketing page where nothing is actually in progress — the look of telemetry with no telemetry behind it. **Fix:** Use a bar only for real, live state (upload, completion, capacity). On a marketing surface, state the number plainly or drop the meter.
 
 ## Fabricated Content
 

@@ -17,11 +17,11 @@ Base styles for mobile, layer complexity with `min-width` queries. Desktop-first
 
 ## Breakpoints: content-driven
 
-Let content tell you where to break — start narrow, stretch until the design breaks, add the breakpoint there. Three usually suffice (~640, 768, 1024px); use `clamp()` for fluid values without breakpoints.
+Let the content decide where to break — start narrow, stretch until the design breaks, add the breakpoint there. Three usually suffice (~640, 768, 1024px); use `clamp()` for fluid values without breakpoints.
 
 ## Detect input method, not just screen size
 
-Screen size doesn't tell you the input (a laptop with touchscreen, a tablet with keyboard). Use pointer/hover queries:
+Screen size does not name the input method (a laptop with touchscreen, a tablet with keyboard). Use pointer/hover queries:
 
 ```css
 @media (pointer: coarse) { .button { padding: 12px 20px; } }  /* touch */
@@ -39,7 +39,7 @@ Never rely on hover for functionality — touch users can't hover.
 - **Print** — page breaks at logical points; remove nav/interactive; expand shortened content; page numbers.
 - **Email** — ≤600px, single column, inline CSS, table layouts; large button CTAs, no hover; deep-link to the web app for complex interactions.
 
-Never hide core functionality on mobile, use a different IA per context, or forget landscape.
+Never hide core functionality on mobile, use a different information architecture per context, or forget landscape.
 
 ## Touch
 
@@ -55,7 +55,7 @@ Enable it: `<meta name="viewport" content="width=device-width, initial-scale=1, 
 
 ## Responsive images
 
-- **`srcset` + `sizes`** for resolution: list widths (`hero-800.jpg 800w`), tell the browser the displayed width (`sizes="(max-width: 768px) 100vw, 50vw"`); the browser picks by viewport × DPR.
+- **`srcset` + `sizes`** for resolution: list widths (`hero-800.jpg 800w`), tell the browser the displayed width (`sizes="(max-width: 768px) 100vw, 50vw"`); the browser picks by viewport width and device pixel ratio.
 - **`<picture>`** for art direction — different crops/compositions, not just resolutions.
 
 ## Layout adaptation patterns
@@ -66,7 +66,7 @@ Enable it: `<meta name="viewport" content="width=device-width, initial-scale=1, 
 
 ## Testing
 
-DevTools emulation catches layout but misses real touch, CPU/memory, latency, font rendering, and keyboard chrome. Test on at least one real iPhone, one real Android, a tablet if relevant — cheap Android phones reveal perf issues simulators hide.
+DevTools emulation catches layout but misses real touch, CPU/memory, latency, font rendering, and keyboard chrome. Test on at least one real iPhone, one real Android, a tablet if relevant — cheap Android phones reveal performance issues simulators hide.
 
 ## Responsive anti-defaults
 

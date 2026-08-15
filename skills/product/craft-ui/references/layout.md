@@ -13,7 +13,7 @@ Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## Spacing system
 
-- Values come from a defined scale, never arbitrary. Prefer a **4pt base** (4, 8, 12, 16, 24, 32, 48, 64, 96) over 8pt — 8pt is too coarse (you'll want 12 between 8 and 16).
+- Values come from a defined scale, never arbitrary. Prefer a **4pt base** (4, 8, 12, 16, 24, 32, 48, 64, 96) over 8pt — 8pt is too coarse, since it leaves no step between 8 and 16.
 - Semantic token names (`--space-xs`…`--space-xl`), not `--spacing-8`.
 - Use `gap` for sibling spacing, not margins (no margin-collapse hacks).
 - `clamp()` for fluid spacing that breathes on larger screens.
@@ -47,7 +47,7 @@ Let spacing do the work — don't manufacture hierarchy with a gradient, a card 
 | Position | top/left | bottom/right |
 | Space | surrounded by whitespace | crowded |
 
-Squint test: blur your eyes — can you still identify primary, secondary, and the groupings? Reorder weight until the survivors match the intended reading order.
+Squint test: blur the view — are primary, secondary, and the groupings still identifiable? Reorder weight until the survivors match the intended reading order.
 
 ## Hero composition
 
@@ -68,7 +68,7 @@ Squint test: blur your eyes — can you still identify primary, secondary, and t
 
 ## Optical adjustments
 
-- Geometrically centered glyphs often look off-center — play icons shift right, arrows shift toward their direction. Nudge only when you're sure it looks wrong, never speculatively.
+- Geometrically centered glyphs often look off-center — play icons shift right, arrows shift toward their direction. Nudge only where the glyph clearly looks wrong, never speculatively.
 - Text at `margin-left: 0` looks indented from letterform whitespace; `-0.05em` optically aligns it.
 - Touch targets 44×44px minimum even when the visual element is smaller — expand the hit area with padding or a pseudo-element (`inset: -10px`).
 

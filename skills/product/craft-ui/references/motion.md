@@ -18,7 +18,7 @@ Within the budget, match the motion's personality to the mood: a playful brand c
 Before timing or easing, decide whether it animates at all — most defaults over-animate.
 
 - **Frequency gates the budget.** The more often a user sees a motion, the shorter and subtler it must be. Never animate a keyboard-initiated action or an element seen dozens of times a day — the animation becomes friction. Occasional transitions earn standard motion; rare or first-run moments can afford delight.
-- **Name the purpose.** Motion earns its place when it does a job: spatial consistency (where did this come from), state (what changed), explanation (how these relate), feedback (the system heard you), or preventing a jarring cut. "Looks cool" on something seen often is not a purpose — cut it.
+- **Name the purpose.** Motion earns its place when it does a job: spatial consistency (where did this come from), state (what changed), explanation (how these relate), feedback (the system registered the input), or preventing a jarring cut. "Looks cool" on something seen often is not a purpose — cut it.
 - **Decoration animates, function does not.** Press feedback (a small `:active` scale, 0.95–0.98) and state transitions are fair game; a chart, a live number, or any data the user reads for meaning should not move on its own.
 
 ## Timing: the 100/300/500 rule

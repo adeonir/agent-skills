@@ -25,7 +25,7 @@ If someone could look at this and say "AI made that" without hesitation, it fail
 
 AI-generated landing pages have flooded the internet; average is no longer findable. Brand surfaces need a POV, a specific audience, a willingness to risk strangeness.
 
-**Second altitude: aesthetic lane.** Before committing, name the reference. A Klim-style specimen page is one lane; Stripe-minimal another; acid-maximalism another. Don't drift into editorial-magazine aesthetics on a brief that isn't editorial. Then the inverse test: describe what you're about to build the way a competitor would describe theirs. If that sentence fits the modal landing page in the category, restart.
+**Second altitude: aesthetic lane.** Before committing, name the reference. A Klim-style specimen page is one lane; Stripe-minimal another; acid-maximalism another. Don't drift into editorial-magazine aesthetics on a brief that isn't editorial. Then the inverse test: describe the page about to be built, phrased the way a competitor would describe their own page. If that sentence fits the modal landing page in the category, restart.
 
 ## Typography
 
@@ -34,7 +34,7 @@ AI-generated landing pages have flooded the internet; average is no longer finda
 Every project. Never skip.
 
 1. Read the brief. Write three concrete brand-voice words — physical-object words ("warm and mechanical and opinionated"), not "modern" or "elegant".
-2. List the three fonts you'd reach for by reflex. If any appear in the reflex-reject list, reject them — they are training-data defaults.
+2. List the three fonts reflex reaches for first. If any appear in the reflex-reject list, reject them — they are training-data defaults.
 3. Browse a real catalog (Google Fonts, Pangram Pangram, Future Fonts, Klim, Velvetyne) with the three words in mind. Find the font for the brand as a *physical object*. Reject the first thing that "looks designy."
 4. Cross-check. "Elegant" is not necessarily serif; "technical" not necessarily sans; "warm" is not Fraunces. If the pick lines up with the reflex, restart.
 
