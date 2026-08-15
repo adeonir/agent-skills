@@ -19,9 +19,9 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | **wireframes** | an interview, then N lo-fi arrangements per surface to compare; the chosen one becomes `structure.yaml` |
-| **mockups** | the settled arrangement drawn in N visual directions, one line each in `VARIANTS.md`; the chosen one lands in `docs/design/` |
+| **mockups** | the settled arrangement rendered in N visual directions, one line each in `VARIANTS.md`; the chosen one lands in `docs/design/` |
 
-The wireframe decides the arrangement with no look to judge it by — no palette, no font choice, no tokens. The mockup phase is the **integrator**: it draws `structure.yaml`, `DESIGN.md`, and `copy.yaml` together, and never re-plans the arrangement it was given.
+The wireframe decides the arrangement with no look to judge it by — no palette, no font pick, no tokens. The mockup phase is the **integrator**: it renders `structure.yaml`, `DESIGN.md`, and `copy.yaml` together, and never re-plans the arrangement it was given.
 
 ## Usage
 
@@ -32,14 +32,14 @@ generate 4 directions                    # mockups — reads structure.yaml
 generate mockups in an editorial direction
 render this page                         # no DESIGN.md yet → composes a seed direction
 make it denser / more editorial          # re-renders the chosen mockup
-move the pricing above the features      # an arrangement change → structure.yaml, then re-draw
+move the pricing above the features      # an arrangement change → structure.yaml, then re-render
 ```
 
 ## Output
 
 ```text
 .artifacts/design/
-├── structure.yaml       # the arrangement contract the mockups draw
+├── structure.yaml       # the arrangement contract the mockups render
 ├── wireframes/          # lo-fi arrangement HTML + .events session log
 ├── mockups/             # full-page HTML per direction + .events session log
 └── VARIANTS.md          # append-only log of the directions each surface already spent
@@ -86,7 +86,7 @@ A: Its own artifacts only — the wireframes, the mockups, `structure.yaml`, and
 
 **Q: Can I skip the wireframe and go straight to mockups?**
 
-A: Only when `structure.yaml` already exists. Without it the run settles the arrangement first — every mockup draws the same arrangement, so the comparison is about the look alone, and there has to be one to draw.
+A: Only when `structure.yaml` already exists. Without it the run settles the arrangement first — every mockup renders the same arrangement, so the comparison is about the look alone, and there has to be one to render.
 
 **Q: What if I don't have a PRODUCT.md, DESIGN.md, or copy.yaml yet?**
 

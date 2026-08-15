@@ -101,7 +101,7 @@ One well-orchestrated page-load beats scattered micro-interactions, when the bra
 Brand can afford things product can't. Take them.
 
 - Ambitious first-load motion — reveals and typographic choreography that earn their place; not fade-on-scroll for every section.
-- Single-purpose viewports — the dominant idea drawn at full scale instead of packed in beside its neighbours.
+- Single-purpose viewports — the dominant idea rendered at full scale instead of packed in beside its neighbours.
 - Unexpected color strategies — palette IS voice.
 - Art direction per section — different sections can have different visual worlds if the narrative demands it. Consistency of *voice* beats consistency of *treatment*.
 

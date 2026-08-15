@@ -1,6 +1,6 @@
 # Web Standards
 
-Technical correctness rules for rendered UI — the implementation counterpart to the craft dimension references' visual recipes. They hold for every mockup generated: accessibility, focus, forms, images, theming.
+Technical correctness rules for rendered UI. The craft dimension references carry the visual recipes; this file carries their implementation counterpart, and it holds for every mockup: accessibility, focus, forms, images, theming.
 
 ## When to Use
 
@@ -74,7 +74,7 @@ Rules for text rendering — see typography.md for pairing and visual-laws.md fo
 
 - `<img>` needs explicit `width` and `height` attributes to prevent CLS.
 - Below-fold images: `loading="lazy"`.
-- Above-fold critical images: `fetchpriority="high"` on the LCP candidate only.
+- Above-fold critical images: `fetchpriority="high"` on the Largest Contentful Paint candidate only.
 - Aspect ratio containers (`aspect-video`, `aspect-square`) for placeholder slots.
 
 ## Navigation and State
@@ -119,6 +119,6 @@ Rules for implementation — see color.md for color direction.
 
 ## Content and copy
 
-Wording, voice, casing, and message content are a content concern — they arrive supplied, and a mockup draws the copy it is given rather than authoring or editing it. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
+Wording, voice, casing, and message content are a content concern — they arrive supplied, and a mockup renders the copy it is given rather than authoring or editing it. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).

@@ -1,6 +1,6 @@
 # Wireframes
 
-Decide how a surface is arranged, before any look exists — interview for what the artifacts leave open, draw the arrangements lo-fi, and settle one into `structure.yaml`.
+Decide how a surface is arranged, before any look exists — interview for what the artifacts leave open, render the arrangements lo-fi, and settle one into `structure.yaml`.
 
 ## When to Use
 
@@ -39,13 +39,13 @@ Two questions are always asked:
 - **How many arrangements per surface.**
 - **What the page leads with.** The answer either fixes the lead across every arrangement, or makes it the variable the arrangements differ on. Ask which of the two it is.
 
-Every question is skippable, and the form as a whole is skippable. Where an answer does not come, decide it and state what was assumed — one line per assumption, before drawing anything.
+Every question is skippable, and the form as a whole is skippable. Where an answer does not come, decide it and state what was assumed — one line per assumption, before rendering anything.
 
 Where a surface stays ambiguous after the form, an anti-goal sharpens it: ask what arrangement would be wrong for this surface. A layout the user knows does not fit pins the structure faster than asking what does.
 
-## Drawing the arrangements
+## Rendering the arrangements
 
-Draw N arrangements per surface, each a hypothesis about what the surface leads with and what follows from it. Vary the order of the parts and the shape of each part ([structure.md](../references/structure.md)); two arrangements that differ only in spacing are one arrangement drawn twice.
+Render N arrangements per surface, each a hypothesis about what the surface leads with and what follows from it. Vary the order of the parts and the shape of each part ([structure.md](../references/structure.md)); two arrangements that differ only in spacing are one arrangement rendered twice.
 
 Lo-fi is the point — the arrangement is judged without a look to judge it by:
 
@@ -64,15 +64,15 @@ bun run <this-skill>/scripts/render-server.ts --session .artifacts/design/wirefr
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from.
 
-The user comments on the served arrangements and sends the round in one dispatch. Read the round from `.artifacts/design/wireframes/.events`, resolve each comment's element to the block it sits in, apply the adjustments, and re-serve. The dispatch marks the end of a round; a round with no comments means the arrangements stand as drawn.
+The user comments on the served arrangements and sends the round in one dispatch. Read the round from `.artifacts/design/wireframes/.events`, resolve each comment's element to the block it sits in, apply the adjustments, and re-serve. The dispatch marks the end of a round; a round with no comments means the arrangements stand as rendered.
 
 ## Settling the structure
 
 The chosen arrangement becomes `.artifacts/design/structure.yaml`, following the template in [structure.md](../references/structure.md). Run the structural self-check before writing it, and resolve every gap it flags.
 
-Once the file exists, it is the arrangement. A later change is made in `structure.yaml` first, and the wireframe is re-drawn from it.
+Once the file exists, it is the arrangement. A later change is made in `structure.yaml` first, and the wireframe is re-rendered from it.
 
-When the request was only for the plan — "map the screen flow", "arrange the screens" — write `structure.yaml`, draw the mermaid screen-flow from its `flow:`, and stop.
+When the request was only for the plan — "map the screen flow", "arrange the screens" — write `structure.yaml`, render the mermaid screen-flow from its `flow:`, and stop.
 
 ## Error Handling
 
