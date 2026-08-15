@@ -41,7 +41,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | ----- | ----------- |
 | **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
-| **[craft-ui](skills/product/craft-ui)** | Plan layout structure and render design variants to decide a visual direction — non-mutating |
+| **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[design-brief](skills/product/design-brief)** | Greenfield visual identity — explore a direction and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD, Brief, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
@@ -93,7 +93,7 @@ business logic:
 3.  docs-writer      --> technical decisions and trade-offs
 4.  design-brief     --> visual identity and design tokens
 5.  copywriting      --> content and copy
-6.  craft-ui         --> plan layout structure, build the interface, decide a direction
+6.  craft-ui         --> wireframe the arrangement, mockup the visual direction
 7.  epic-tracker     --> epics, stories, acceptance criteria
 8.  spec-driven      --> per-story spec, design, tasks, implementation
 9.  review-lens      --> review changes before commit
@@ -119,7 +119,7 @@ docs/
 ├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: visual identity · copywriting: content
+└── design/         # design-brief: visual identity · copywriting: content · craft-ui: chosen mockup
 
 CONTEXT.md          # spec-driven: committed project memory
 .artifacts/
@@ -127,7 +127,7 @@ CONTEXT.md          # spec-driven: committed project memory
 ├── archive/        # spec-driven: features archived manually, in any state
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── research/       # spec-driven: research cache
-└── design/         # design-brief: tune session events · craft-ui: VARIANTS.md + final.html + structure.yaml + variant HTML
+└── design/         # design-brief: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
