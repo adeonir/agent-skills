@@ -22,7 +22,9 @@ Required reference: [structure.md](../references/structure.md) — region tree, 
 > Before writing wireframes, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
 
-## Register
+## Surfaces and register
+
+Read which surfaces the request covers from `copy.yaml`, the conversation, or a brief; ask in the interview when none of them names one.
 
 Settle the register per surface here, and record it in `structure.yaml` — the mockup phase reads it from the contract rather than deriving it again.
 

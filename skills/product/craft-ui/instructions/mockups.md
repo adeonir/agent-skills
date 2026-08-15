@@ -27,6 +27,9 @@ The fallback rule is uniform: **any missing input → compose a seed from [desig
 
 Composed content is never asserted content. Where a slot would carry proof the inputs did not supply — a metric, a testimonial, a logo wall, a product capture — hold it with a visibly unresolved placeholder. A mockup exists to win a decision on its direction, not on evidence it invented.
 
+> Before writing mockups, ensure `.artifacts` is excluded locally:
+> `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
+
 Required references:
 
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — the register's permissions and bans (read the one the surface's `register:` names, first)
