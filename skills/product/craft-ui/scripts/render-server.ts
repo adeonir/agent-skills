@@ -1,7 +1,9 @@
 #!/usr/bin/env bun
 /**
- * Render server for the craft-ui skill (render mode).
- * Serves generated variants side by side and records user interactions.
+ * Render server for the craft-ui skill.
+ * Serves the generated pages of one session, one per tab, and records user
+ * interactions. The server does not know which phase it serves: --session
+ * points it at the wireframe directory or the mockup directory.
  *
  * Security: local-only server (127.0.0.1), read-only filesystem access
  * scoped to session directory, append-only event recording.
@@ -13,23 +15,25 @@
  *
  * The server:
  * - Serves HTML files from the session directory only
- * - Serves a gallery at "/" holding every variant in an iframe, side by side,
- *   with viewport controls (375 / 768 / 1440) and a Choose button per variant
+ * - Serves a gallery at "/" holding every file as a tab, one shown at a time,
+ *   with viewport controls (375 / 768 / 1440), a Choose button, and a comment
+ *   mode that queues comments across tabs and sends them in one dispatch
  * - Opens the gallery at --viewport: mobile | tablet | desktop (default desktop)
  * - Records user events to .events file (JSON lines, append-only)
- * - Injects the interaction client into every served variant, whether the file
+ * - Injects the interaction client into every served file, whether the file
  *   is a full document or a fragment
  * - Live-reloads connected browsers on session-directory changes via SSE
  *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
  *
  * Event types (one JSON per line in .events):
- *   choice:  { type: "choice",  choice: "editorial.html", timestamp }
- *   comment: { type: "comment", selector: ".card.primary", text: "too tight", timestamp }
+ *   choice:   { type: "choice", choice: "editorial.html", timestamp }
+ *   comments: { type: "comments", items: [{ file, selector, text }], timestamp }
  *
  * Client interactions:
- *   - Click a variant's Choose button in the gallery to record the pick
- *   - Alt+click any element inside a variant to open a comment overlay; submit
- *     to record a comment event with the element's CSS selector
+ *   - Click a tab to switch the shown file; click Choose to record the pick
+ *   - Turn Comment on, click any element in the shown file to queue a comment,
+ *     switch tabs and queue more, then click Send to dispatch the round
+ *   - With Comment off the served file behaves normally: no click is intercepted
  */
 
 import { serve, type Server } from "bun";
@@ -41,10 +45,13 @@ const args: string[] = process.argv.slice(2);
 const sessionIdx: number = args.indexOf("--session");
 const portIdx: number = args.indexOf("--port");
 const viewportIdx: number = args.indexOf("--viewport");
-const sessionDir: string =
-  sessionIdx !== -1
-    ? resolve(args[sessionIdx + 1])
-    : resolve(".artifacts/design/variants");
+
+if (sessionIdx === -1 || !args[sessionIdx + 1]) {
+  console.error("Missing --session: pass the directory holding the files to serve, e.g. --session .artifacts/design/mockups");
+  process.exit(1);
+}
+
+const sessionDir: string = resolve(args[sessionIdx + 1]);
 // 3456: arbitrary high port outside the common dev range (3000/5173/8080) to
 // avoid colliding with the project's own dev server; override with --port
 const port: number = parseInt(portIdx !== -1 ? args[portIdx + 1] : "3456", 10);
@@ -108,6 +115,8 @@ try {
 } catch {}
 `;
 
+// Runs inside every served file. It owns nothing: comment mode is switched on
+// from the gallery, and a click only reports the element back up to it.
 const clientScript = `
 function cssPath(el) {
   if (!(el instanceof Element)) return "";
@@ -130,38 +139,25 @@ function cssPath(el) {
   return parts.join(" > ");
 }
 
-let overlay = null;
-function openCommentOverlay(target) {
-  if (overlay) overlay.remove();
-  overlay = document.createElement("div");
-  overlay.style.cssText = "position:fixed;top:1rem;right:1rem;z-index:99999;background:#111;color:#fff;padding:1rem;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.4);width:320px;font-family:system-ui,sans-serif;font-size:14px;";
-  const selector = cssPath(target);
-  overlay.innerHTML = "<div style='margin-bottom:.5rem;opacity:.7;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;'>" + selector + "</div><textarea placeholder='Comment...' style='width:100%;min-height:80px;background:#222;color:#fff;border:1px solid #333;border-radius:4px;padding:.5rem;font:inherit;resize:vertical;'></textarea><div style='margin-top:.5rem;display:flex;gap:.5rem;justify-content:flex-end;'><button data-cancel style='background:transparent;color:#aaa;border:1px solid #333;padding:.25rem .75rem;border-radius:4px;cursor:pointer;'>Cancel</button><button data-submit style='background:#3b82f6;color:#fff;border:0;padding:.25rem .75rem;border-radius:4px;cursor:pointer;'>Submit</button></div>";
-  document.body.appendChild(overlay);
-  const ta = overlay.querySelector("textarea");
-  ta.focus();
-  overlay.querySelector("[data-cancel]").addEventListener("click", () => { overlay.remove(); overlay = null; });
-  overlay.querySelector("[data-submit]").addEventListener("click", async () => {
-    const text = ta.value.trim();
-    if (!text) return;
-    try {
-      await fetch("/event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "comment", selector, text, timestamp: new Date().toISOString() }),
-      });
-    } catch {}
-    overlay.remove();
-    overlay = null;
-  });
-}
+let commentMode = false;
+
+window.addEventListener("message", (e) => {
+  if (e.source !== window.parent || !e.data || e.data.craftui !== "mode") return;
+  commentMode = !!e.data.on;
+  document.documentElement.style.cursor = commentMode ? "crosshair" : "";
+});
 
 document.addEventListener("click", (e) => {
-  if (!e.altKey) return;
+  // Standalone (not framed): nothing to report to, so the page behaves normally
+  if (window.parent === window || !commentMode) return;
   e.preventDefault();
   e.stopPropagation();
-  openCommentOverlay(e.target);
+  window.parent.postMessage({ craftui: "target", selector: cssPath(e.target) }, location.origin);
 }, true);
+
+if (window.parent !== window) {
+  window.parent.postMessage({ craftui: "ready" }, location.origin);
+}
 `;
 
 function injectClientScripts(html: string): string {
@@ -182,12 +178,11 @@ const frameTemplate = (
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: #fafafa; padding: 2rem; }
-    .hint { position: fixed; bottom: 1rem; left: 1rem; background: #111; color: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; font: 12px system-ui; opacity: 0.6; pointer-events: none; }
   </style>
   <script>${clientScript}</script>
   <script>${reloadScript}</script>
 </head>
-<body>${content}<div class="hint">Alt+click to comment</div></body>
+<body>${content}</body>
 </html>`;
 
 const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
@@ -195,71 +190,204 @@ const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Variants</title>
+  <title>Preview</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: #f4f4f5; color: #18181b; }
-    header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.25rem; background: #fff; border-bottom: 1px solid #e4e4e7; }
-    header h1 { font-size: 0.95rem; font-weight: 600; margin-right: auto; }
-    .viewports { display: flex; gap: 0.25rem; }
-    .viewports button { font: inherit; font-size: 0.8rem; padding: 0.3rem 0.7rem; border: 1px solid #d4d4d8; background: #fff; border-radius: 6px; cursor: pointer; }
-    .viewports button[aria-pressed="true"] { background: #18181b; color: #fff; border-color: #18181b; }
-    .hint { font-size: 0.75rem; color: #71717a; }
-    .rail { display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem; overflow-x: auto; }
-    .variant { flex: 0 0 auto; display: flex; flex-direction: column; gap: 0.5rem; }
-    .variant figcaption { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; }
-    .variant figcaption span { font-weight: 600; margin-right: auto; }
-    .variant a, .variant button { font: inherit; font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid #d4d4d8; background: #fff; color: inherit; text-decoration: none; cursor: pointer; }
-    .variant button.chosen { background: #18181b; color: #fff; border-color: #18181b; }
-    .variant iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 80vh; width: ${viewport}px; }
+    header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 1rem; padding: 0.6rem 1.25rem; background: #fff; border-bottom: 1px solid #e4e4e7; flex-wrap: wrap; }
+    .tabs { display: flex; gap: 0.25rem; margin-right: auto; overflow-x: auto; }
+    .tabs button { font: inherit; font-size: 0.8rem; padding: 0.3rem 0.7rem; border: 1px solid #d4d4d8; background: #fff; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+    .tabs button[aria-selected="true"] { background: #18181b; color: #fff; border-color: #18181b; }
+    .controls { display: flex; align-items: center; gap: 0.25rem; }
+    .controls button, .controls a { font: inherit; font-size: 0.8rem; padding: 0.3rem 0.7rem; border: 1px solid #d4d4d8; background: #fff; color: inherit; text-decoration: none; border-radius: 6px; cursor: pointer; }
+    .controls button[aria-pressed="true"] { background: #18181b; color: #fff; border-color: #18181b; }
+    .controls button.chosen { background: #16a34a; color: #fff; border-color: #16a34a; }
+    .controls .sep { width: 1px; height: 1.4rem; background: #e4e4e7; margin: 0 0.4rem; }
+    .stage { display: flex; justify-content: center; padding: 1.25rem; }
+    iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 85vh; width: ${viewport}px; }
+    iframe[hidden] { display: none; }
     .empty { padding: 3rem 1.25rem; color: #71717a; font-size: 0.9rem; }
+    .queue { position: fixed; right: 1rem; bottom: 1rem; z-index: 50; width: 320px; background: #111; color: #fff; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); font-size: 13px; overflow: hidden; }
+    .queue[hidden] { display: none; }
+    .queue h2 { font-size: 12px; font-weight: 600; padding: 0.6rem 0.75rem; border-bottom: 1px solid #262626; }
+    .queue ol { list-style: none; max-height: 40vh; overflow-y: auto; }
+    .queue li { padding: 0.5rem 0.75rem; border-bottom: 1px solid #1f1f1f; }
+    .queue li small { display: block; opacity: 0.55; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .queue footer { display: flex; gap: 0.5rem; justify-content: flex-end; padding: 0.6rem 0.75rem; }
+    .queue button { font: inherit; font-size: 12px; padding: 0.3rem 0.75rem; border-radius: 5px; border: 1px solid #333; background: transparent; color: #aaa; cursor: pointer; }
+    .queue button[data-send] { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+    .composer { position: fixed; right: 1rem; top: 4rem; z-index: 60; width: 320px; background: #111; color: #fff; padding: 0.75rem; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); font-size: 13px; }
+    .composer[hidden] { display: none; }
+    .composer p { opacity: 0.55; font-size: 11px; margin-bottom: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .composer textarea { width: 100%; min-height: 80px; background: #222; color: #fff; border: 1px solid #333; border-radius: 4px; padding: 0.5rem; font: inherit; resize: vertical; }
+    .composer footer { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.5rem; }
+    .composer button { font: inherit; font-size: 12px; padding: 0.3rem 0.75rem; border-radius: 5px; border: 1px solid #333; background: transparent; color: #aaa; cursor: pointer; }
+    .composer button[data-add] { background: #3b82f6; border-color: #3b82f6; color: #fff; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Variants</h1>
-    <div class="viewports" role="group" aria-label="Viewport width">
+${
+  files.length === 0
+    ? `  <p class="empty">Nothing to serve in this session yet.</p>`
+    : `  <header>
+    <div class="tabs" role="tablist">
+      ${files.map((f, i) => `<button role="tab" data-file="${f}" aria-selected="${i === 0}">${f}</button>`).join("\n      ")}
+    </div>
+    <div class="controls" role="group" aria-label="Viewport width">
       ${Object.values(VIEWPORTS).map((w) => `<button data-width="${w}" aria-pressed="${w === viewport}">${w}</button>`).join("\n      ")}
     </div>
-    <span class="hint">Alt+click inside a variant to comment</span>
+    <div class="controls">
+      <span class="sep"></span>
+      <button data-comment aria-pressed="false">Comment</button>
+      <button data-choose>Choose</button>
+      <a data-open href="/${files[0]}" target="_blank" rel="noopener">Open</a>
+    </div>
   </header>
-  ${
-    files.length === 0
-      ? `<p class="empty">No variants in this session yet.</p>`
-      : `<div class="rail">${files
-          .map(
-            (f) => `<figure class="variant">
-      <figcaption>
-        <span>${f}</span>
-        <a href="/${f}" target="_blank" rel="noopener">Open</a>
-        <button data-choice="${f}">Choose</button>
-      </figcaption>
-      <iframe src="/${f}" title="${f}" loading="lazy"></iframe>
-    </figure>`,
-          )
-          .join("\n")}</div>`
-  }
+  <div class="stage">
+    ${files.map((f, i) => `<iframe data-file="${f}" src="/${f}" title="${f}"${i === 0 ? "" : " hidden"}></iframe>`).join("\n    ")}
+  </div>
+  <section class="composer" hidden aria-label="New comment">
+    <p data-selector></p>
+    <textarea placeholder="Comment..."></textarea>
+    <footer>
+      <button data-cancel>Cancel</button>
+      <button data-add>Add</button>
+    </footer>
+  </section>
+  <aside class="queue" hidden aria-label="Queued comments">
+    <h2>Queued <span data-count>0</span></h2>
+    <ol></ol>
+    <footer>
+      <button data-clear>Clear</button>
+      <button data-send>Send round</button>
+    </footer>
+  </aside>`
+}
   <script>
-    const frames = document.querySelectorAll(".variant iframe");
-    document.querySelectorAll(".viewports button").forEach((btn) => {
+    const tabs = Array.from(document.querySelectorAll(".tabs button"));
+    const frames = Array.from(document.querySelectorAll("iframe"));
+    const openLink = document.querySelector("[data-open]");
+    const commentBtn = document.querySelector("[data-comment]");
+    const chooseBtn = document.querySelector("[data-choose]");
+    const composer = document.querySelector(".composer");
+    const composerText = composer && composer.querySelector("textarea");
+    const composerSelector = composer && composer.querySelector("[data-selector]");
+    const queueBox = document.querySelector(".queue");
+    const queueList = queueBox && queueBox.querySelector("ol");
+    const queueCount = queueBox && queueBox.querySelector("[data-count]");
+
+    // The queue lives here rather than in the served file, so it survives a tab
+    // switch. Text still being typed does not: the composer resets on every open.
+    const queue = [];
+    let activeFile = tabs.length ? tabs[0].dataset.file : null;
+    let pendingSelector = null;
+    let commentMode = false;
+
+    function post(payload) {
+      return fetch("/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    }
+
+    function tellFrames() {
+      frames.forEach((frame) => {
+        try {
+          frame.contentWindow.postMessage({ craftui: "mode", on: commentMode }, location.origin);
+        } catch {}
+      });
+    }
+
+    function esc(value) {
+      return String(value).replace(/[<&]/g, (c) => (c === "<" ? "&lt;" : "&amp;"));
+    }
+
+    function renderQueue() {
+      if (!queueBox) return;
+      queueCount.textContent = String(queue.length);
+      queueList.innerHTML = queue
+        .map((item) => "<li>" + esc(item.text) + "<small>" + esc(item.file) + " · " + esc(item.selector) + "</small></li>")
+        .join("");
+      queueBox.hidden = queue.length === 0;
+    }
+
+    function closeComposer() {
+      if (!composer) return;
+      composer.hidden = true;
+      composerText.value = "";
+      pendingSelector = null;
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        activeFile = tab.dataset.file;
+        tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+        frames.forEach((f) => { f.hidden = f.dataset.file !== activeFile; });
+        if (openLink) openLink.href = "/" + activeFile;
+        if (chooseBtn) chooseBtn.classList.remove("chosen");
+        closeComposer();
+      });
+    });
+
+    document.querySelectorAll("[data-width]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".viewports button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+        document.querySelectorAll("[data-width]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
         frames.forEach((f) => { f.style.width = btn.dataset.width + "px"; });
       });
     });
-    document.querySelectorAll("[data-choice]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        document.querySelectorAll("[data-choice]").forEach((b) => b.classList.remove("chosen"));
-        btn.classList.add("chosen");
-        try {
-          await fetch("/event", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ type: "choice", choice: btn.dataset.choice, timestamp: new Date().toISOString() }),
-          });
-        } catch {}
+
+    if (commentBtn) {
+      commentBtn.addEventListener("click", () => {
+        commentMode = !commentMode;
+        commentBtn.setAttribute("aria-pressed", String(commentMode));
+        if (!commentMode) closeComposer();
+        tellFrames();
       });
+    }
+
+    if (chooseBtn) {
+      chooseBtn.addEventListener("click", () => {
+        chooseBtn.classList.add("chosen");
+        post({ type: "choice", choice: activeFile, timestamp: new Date().toISOString() });
+      });
+    }
+
+    window.addEventListener("message", (e) => {
+      if (!e.data || e.data.craftui !== "target" && e.data.craftui !== "ready") return;
+      if (e.data.craftui === "ready") { tellFrames(); return; }
+      if (!composer) return;
+      pendingSelector = e.data.selector;
+      composerSelector.textContent = activeFile + " · " + pendingSelector;
+      composer.hidden = false;
+      composerText.focus();
     });
+
+    if (composer) {
+      composer.querySelector("[data-cancel]").addEventListener("click", closeComposer);
+      composer.querySelector("[data-add]").addEventListener("click", () => {
+        const text = composerText.value.trim();
+        if (!text || !pendingSelector) return;
+        queue.push({ file: activeFile, selector: pendingSelector, text });
+        closeComposer();
+        renderQueue();
+      });
+    }
+
+    if (queueBox) {
+      queueBox.querySelector("[data-clear]").addEventListener("click", () => {
+        queue.length = 0;
+        renderQueue();
+      });
+      queueBox.querySelector("[data-send]").addEventListener("click", async () => {
+        if (queue.length === 0) return;
+        await post({ type: "comments", items: queue.slice(), timestamp: new Date().toISOString() });
+        queue.length = 0;
+        renderQueue();
+      });
+    }
+
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeComposer(); });
   </script>
   <script>${reloadScript}</script>
 </body>
