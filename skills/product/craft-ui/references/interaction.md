@@ -4,7 +4,7 @@ The design of interactive behavior — states, focus, forms, overlays, keyboard 
 
 ## When to Use
 
-Composed by `render.md` — apply while generating. Not a direct trigger.
+Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## The eight interactive states
 

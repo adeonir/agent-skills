@@ -4,7 +4,7 @@ How to decide a visual direction before any pixels — the questions, axes, and 
 
 ## When to Use
 
-Composed by `render.md` to choose a direction before generating. Not a direct trigger.
+Composed by `mockups.md` to choose a direction before generating. Not a direct trigger.
 
 ## Four Questions
 
@@ -19,7 +19,7 @@ Before any visual work, answer these to lock in a direction:
 
 Visual direction is a composition of four orthogonal axes. Pick one pattern from each axis — or blend two within the same axis — to construct a unique direction. Compositions like "Specimen + Grainy + Cyberpunk + Duotone" produce more distinctive results than single-tone choices.
 
-These axes carry the *look*. The page arrangement is not one of them — it is resolved in the structure layer as a macrostructure, constant while the look varies ([structure.md](structure.md)).
+These axes carry the *look*. The page arrangement is not one of them — it is settled before any of this, and stays constant while the look varies.
 
 | Axis | Patterns |
 |------|----------|
@@ -37,7 +37,7 @@ Two dials name what the Style Axes leave qualitative — read each 1–10 agains
 - **Visual density** (1 = art gallery, huge gaps and few elements → 10 = cockpit, tight rows, 1px separators, mono figures). A dashboard for scanning wants high density; a premium landing wants low.
 - **Design variance** (1 = symmetric, predictable grid → 10 = offset overlaps, fractional grids, large empty zones). Low reads calm and safe; high reads editorial and bold.
 
-`render` targets the level the brief implies, and reads the generated variant back against it ("reads density 8, the brief wanted 4"). The dials are a read, not a score — they name the level to build to.
+Target the level the brief implies, and read the generated mockup back against it ("reads density 8, the brief wanted 4"). The dials are a read, not a score — they name the level to build to.
 
 ## Scene Sentence
 
@@ -53,8 +53,6 @@ Color commitment is an axis, not a binary. Name the step before picking values:
 - **Drenched** — the surface *is* the color.
 
 Brand surfaces have permission for Committed, Full palette, and Drenched — unnamed ambition collapses into timid neutrals. Product surfaces default to Restrained, earning Committed only where one screen carries a category color. (The register sets which permissions apply — see [brand.md](brand.md) / [product.md](product.md).)
-
-Register follows the surface's job, not its name. The default is landing = brand, but a landing for a dev tool, CLI, or infra product often reads more premium in a compact *product* register — dense command fields, code cards, live micro-demos, spacing doing the work — than in a wide brand-marketing layout. Let the audience decide the register, not the surface label.
 
 ## The Slop Test
 
@@ -73,14 +71,14 @@ A near-white warm-tinted background — the cream / sand / beige / paper band �
 
 ### The craft checks
 
-Four cheap reflexes catch a default before it ships. Run them on any variant:
+Four cheap reflexes catch a default before it ships. Run them on any mockup:
 
 - **Swap test** — swap the typeface for the category's usual one and the layout for a standard template. If nothing would feel different, that is where you defaulted.
 - **Token test** — read the CSS variable names and values aloud. Do they belong to *this* product's world, or would they sit in any project? A `--paper` / `--gray-200` / `--space-4` that fits any file signals no system.
 - **Signature test** — point to specific elements where the Signature (Question 4) actually appears. "The overall feel" does not count; name the elements.
 - **Squint test** — blur your eyes; hierarchy still readable, nothing jumping out harshly. (Defined in [visual-laws.md](visual-laws.md) and [layout.md](layout.md).)
 
-Name the defaults before avoiding them: list the 3 obvious choices for this interface type — visual *and* structural — so the reflexes above have something concrete to reject. You cannot avoid a pattern you have not named.
+Name the defaults before avoiding them: list the 3 obvious visual choices for this interface type, so the reflexes above have something concrete to reject. You cannot avoid a pattern you have not named.
 
 ## Complexity Calibration
 
@@ -94,6 +92,6 @@ If the tone is bold, don't write timid code. If refined, don't overload with eff
 
 ## Creative Mandate
 
-Every generation must feel like a different designer made it. Vary fonts, color temperature, layout geometry, motion style, and density between builds. Never converge on a "house style" across variants or successive generations.
+Every generation must feel like a different designer made it. Vary fonts, color temperature, layout geometry, motion style, and density between builds. Never converge on a "house style" across directions or successive generations.
 
 Interpret creatively. Make unexpected choices that feel genuinely designed for the context. Commit fully to the chosen direction.

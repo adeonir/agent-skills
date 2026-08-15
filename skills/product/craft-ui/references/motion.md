@@ -1,10 +1,10 @@
 # Motion
 
-Motion that conveys state, gives feedback, and clarifies hierarchy — and the cut of motion that exists only for decoration. Animation fatigue is a real cost; spend the budget on the moments that need it. The ambitious tier (scroll-driven, view transitions, GPU rendering) is its own brand-only tune — see [overdrive.md](overdrive.md).
+Motion that conveys state, gives feedback, and clarifies hierarchy — and the cut of motion that exists only for decoration. Animation fatigue is a real cost; spend the budget on the moments that need it.
 
 ## When to Use
 
-Composed by `render.md` — apply while generating. Not a direct trigger.
+Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## Register sets the budget
 
@@ -82,12 +82,6 @@ Sibling stagger is legitimate for cards-in-a-grid or list items; whole-section f
 ```
 
 Reveal animations must enhance an already-visible default — never gate content visibility on a class-triggered transition (it pauses on hidden tabs and headless renderers, shipping the section blank).
-
-## animate (tune verb)
-
-The everyday motion tune render re-renders a variant along — motion that conveys state: feedback, reveals, transitions, loading. Like every tune it is a direction, not an edit; the motion lives only in the variant HTML for the session, never in a source artifact. Reach for it when a variant reads flat or gives no feedback, and apply the timing, easing, and materials above within the register's budget.
-
-The ambitious tier — view transitions, scroll-driven choreography, GPU effects — is a separate, brand-only tune: see [overdrive.md](overdrive.md).
 
 ## Motion anti-defaults
 

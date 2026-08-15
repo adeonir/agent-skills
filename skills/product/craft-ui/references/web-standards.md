@@ -1,10 +1,10 @@
 # Web Standards
 
-Technical correctness rules for rendered UI — the implementation counterpart to the craft dimension references' visual recipes. They are the rules render applies to every variant it generates: accessibility, focus, forms, images, theming.
+Technical correctness rules for rendered UI — the implementation counterpart to the craft dimension references' visual recipes. They hold for every mockup generated: accessibility, focus, forms, images, theming.
 
 ## When to Use
 
-Composed by `render.md` as generation rules. Not a direct trigger.
+Composed by `mockups.md` as generation rules. Not a direct trigger.
 
 ## Accessibility
 
@@ -119,6 +119,6 @@ Rules for implementation — see color.md for color direction.
 
 ## Content and copy
 
-Wording, voice, casing, and message content are a content concern — they arrive supplied, and a variant renders the copy it is given rather than authoring or editing it. The render-deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
+Wording, voice, casing, and message content are a content concern — they arrive supplied, and a mockup draws the copy it is given rather than authoring or editing it. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).

@@ -4,7 +4,7 @@ Type carries most of the information on a surface. Recipes for scale, pairing, l
 
 ## When to Use
 
-Composed by `render.md` — apply while generating. Not a direct trigger.
+Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## Register sets the scale
 

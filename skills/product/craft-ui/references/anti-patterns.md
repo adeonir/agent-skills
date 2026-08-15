@@ -6,7 +6,7 @@ Every rule is a failure a viewer can see or a user can hit on the rendered surfa
 
 ## When to Use
 
-Composed by `render.md` to avoid known failure shapes during generation. Not a direct trigger.
+Composed by `mockups.md` to avoid known failure shapes while generating. Not a direct trigger.
 
 ## Categories
 
@@ -57,7 +57,7 @@ A rule's Check is one of two kinds:
 - **Deterministic** — the Check reduces to a selector or a value: a property, a missing attribute, a ratio (`gradient-clip-text`, `image-no-alt`, `focus-state-removed`). It has a definite answer — verify it against the markup; it either fires or it does not.
 - **Perceptual** — the Check needs a holistic read: sameness, reflex, "reads as a template" (`hero-metric-template`, `all-sections-centered`, the scaffolding tells). Weigh it by eye; reasonable reviewers can disagree at the margin.
 
-Tell them apart from the Check itself: one expressible as a query or a measurement is deterministic; one that needs a look is perceptual. render avoids both kinds during generation.
+Tell them apart from the Check itself: one expressible as a query or a measurement is deterministic; one that needs a look is perceptual. Both kinds are avoided while generating.
 
 ## Typography
 
@@ -424,7 +424,7 @@ from { transform: scale(0.95); opacity: 0 }
 
 ## AI Scaffolding Tells
 
-Reflex section-grammar and template clichés — the moves an interface reaches for because "landing pages do this", not because the brief asked. Harvested as a family for render to avoid.
+Reflex section-grammar and template clichés — the moves an interface reaches for because "landing pages do this", not because the brief asked.
 
 ### side-stripe-accent-border
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** A `border-left` or `border-right` wider than 1px used as a colored accent on cards, list items, callouts, or alerts. **Fix:** Use a full border, a background tint, a leading icon or number, or nothing. The single colored side-stripe is never an intentional system. **Example fail:**
@@ -478,7 +478,7 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 
 ## Fabricated Content
 
-Claims the surface makes that no input supports. A variant is a decision aid and a shipped UI is a promise; either one carrying invented proof wins trust it did not earn. Representative imagery standing in for an asset that does not exist yet is not this family — the line is asserting a fact, not filling a picture.
+Claims the surface makes that no input supports. A mockup is a decision aid and a shipped UI is a promise; either one carrying invented proof wins trust it did not earn. Representative imagery standing in for an asset that does not exist yet is not this family — the line is asserting a fact, not filling a picture.
 
 ### invented-proof
 **Category:** Fabricated Content **Severity:** error **Check:** A metric, testimonial, customer logo, rating, or case count presented as real when no input supplied it. The tells are round marketing figures (`10,000+ teams`, `47% faster`), a testimonial under a generic name and title, and a wall of well-known logos unrelated to the product. **Fix:** Use the supplied figure; or hold the slot with a visibly unresolved placeholder and a label saying so; or take an arrangement that does not ask for proof.
@@ -488,7 +488,7 @@ Claims the surface makes that no input supports. A variant is a decision aid and
 
 ## Drift
 
-Drift fires against the **resolved token set** — the DESIGN.md frontmatter where it exists, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield render as much as on one with an identity already authored.
+Drift fires against the **resolved token set** — the DESIGN.md frontmatter where it exists, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield mockup as much as on one with an identity already authored.
 
 ### inline-hex-not-in-tokens
 **Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `bg-{name}` / `var(--{name})`. **Example fail:**
@@ -521,7 +521,7 @@ Drift fires against the **resolved token set** — the DESIGN.md frontmatter whe
 ```
 
 ### arbitrary-tailwind-value-repeated
-**Category:** Drift **Severity:** warning **Check:** Same arbitrary Tailwind value (`w-[317px]`, `bg-[#abc123]`, `mt-[7px]`) appears 2+ times in the same variant. **Fix:** Promote to `@theme` in the inline `<style type="text/tailwindcss">` block once, then reference everywhere as a named utility. **Example fail:**
+**Category:** Drift **Severity:** warning **Check:** Same arbitrary Tailwind value (`w-[317px]`, `bg-[#abc123]`, `mt-[7px]`) appears 2+ times in the same mockup. **Fix:** Promote to `@theme` in the inline `<style type="text/tailwindcss">` block once, then reference everywhere as a named utility. **Example fail:**
 ```html
 <div class="bg-[#abc123]">A</div>
 <div class="bg-[#abc123]">B</div>

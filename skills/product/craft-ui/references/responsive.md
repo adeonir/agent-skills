@@ -4,7 +4,7 @@ Adapting a design across screen sizes, devices, and contexts. The trap is treati
 
 ## When to Use
 
-Composed by `render.md` — apply while generating. Not a direct trigger.
+Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## Register
 

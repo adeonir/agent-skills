@@ -4,7 +4,7 @@ Universal principles for how the eye reads a surface — *why* a composition wor
 
 ## When to Use
 
-Composed by `render.md` — apply the laws while generating. Not a direct trigger.
+Composed by `mockups.md` — apply the laws while generating. Not a direct trigger.
 
 ## Gestalt
 

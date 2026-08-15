@@ -4,7 +4,7 @@ How to apply color with purpose — OKLCH, palette structure, contrast, dark mod
 
 ## When to Use
 
-Composed by `render.md` — apply while generating. Not a direct trigger.
+Composed by `mockups.md` — apply while generating. Not a direct trigger.
 
 ## Register sets the dose
 
