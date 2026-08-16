@@ -13,9 +13,9 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
 | `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
 | `.agents/rules/naming-conventions` | global | file and directory casing, slash command equals name |
-| `.agents/rules/skill-md-structure` | `SKILL.md` | required top, forbidden sections, body length |
+| `.agents/rules/skill-md-structure` | `SKILL.md` | required top, forbidden sections, routing over bulk reads, body length |
 | `.agents/rules/skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
-| `.agents/rules/skill-references` | `skills/**` | one level deep, required header, no fan-forward |
+| `.agents/rules/skill-references` | `skills/**` | one level deep, required header, no fan-forward, shared constraint in one file |
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
 | `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
@@ -193,7 +193,7 @@ One-line description.
 
 After the required header, sections are free (`Workflow`, `Discovery`, `Phases`, `Guidelines`, `Error Handling` — all optional).
 
-Cross-links between sibling references **within the same skill** are permitted when they explain dependencies, hand-offs, or shared logic (e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md remains the primary routing hub — refs should not re-route operations SKILL.md already owns — but an inline sibling link inside prose is the natural way to surface a prereq or follow-up without duplicating content.
+Cross-links between sibling references **within the same skill** are permitted when they explain dependencies, hand-offs, or shared logic (e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md remains the primary routing hub — refs should not re-route operations SKILL.md already owns — but an inline sibling link inside prose is the natural way to surface a prereq or follow-up.
 
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in references when content is ingested as input by the model. Default to markdown; use tags only when structure justifies them.
 
@@ -305,10 +305,6 @@ Reading for contradictions and walking a request find disjoint defects, and the 
 When auditing, reviewing, or fixing a skill, judge the current state on its merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real finding by pointing at who wrote it or when, instead of whether the text is wrong now. A finding stands or falls on the current state, never its provenance: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may still defer a fix to its own change — but say so as scope, not as authorship.
 
 An audit driven down a checklist grows the skill by construction: an item that passes changes nothing, an item that fails adds a section, and the sum of a comparison against any reference is only ever more. The restraint that judges a proposal has to judge the finding too, at the moment it is written down — is the content already required somewhere, is the cost paid on every load against a failure that is rare, does it contradict a register the skill already chose. A finding that cannot survive those questions was never a finding.
-
-### Token Budget Awareness
-
-Document what each reference loads and what should never load simultaneously. Orthogonal references (e.g., one per business domain) must be explicit about their scope so Claude reads only what's needed.
 
 ### Dynamic Context Injection
 

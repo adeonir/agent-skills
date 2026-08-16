@@ -51,6 +51,30 @@ SKILL.md never carries `## Cross-References` (skills are isolated), `## Compact 
 If a hook fails, fix the issue and create a new commit.
 ```
 
+## Routing Over Bulk Reads
+
+**Impact: MEDIUM**
+
+SKILL.md names the condition that selects each reference and never instructs the agent to read the whole bundle. A blanket read puts every reference in context for a request that needed one file, and turns each reference's `## When to Use` into dead text.
+
+**Incorrect:**
+
+```markdown
+## Triggers
+
+Read every file in `references/` before starting.
+```
+
+**Correct:**
+
+```markdown
+## Triggers
+
+- Commit changes ("commit this") → commit.md
+- Open a pull request ("open PR") → create-pull-request.md
+- Clean up after a merge ("delete the branch") → finish-branch.md
+```
+
 ## Body Under 150 Lines
 
 **Impact: LOW**

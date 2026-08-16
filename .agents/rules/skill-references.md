@@ -66,3 +66,26 @@ After generating the spec, run the design phase.
 ```markdown
 See [validate.md](validate.md) for the gate this output must pass.
 ```
+
+## Shared Constraint in One Reference
+
+**Impact: MEDIUM**
+
+A constraint two references need lives in one of them; the sibling links to it instead of restating it. A second copy costs the load of both files on every run, and one side drifts when the other is edited.
+
+**Incorrect:**
+
+```markdown
+<!-- brand.md -->
+Every claim carries a proof point.
+
+<!-- product.md -->
+Every claim carries a proof point.
+```
+
+**Correct:**
+
+```markdown
+<!-- product.md -->
+Every claim carries a proof point — see [brand.md](brand.md).
+```
