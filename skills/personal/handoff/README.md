@@ -70,12 +70,11 @@ Three sections are always present (`Focus`, `Next step`, `State`); five are opti
 
 ## Requirements
 
-Both are optional — save and load work with neither.
+Optional — save and load work without it.
 
 | Dependency | Without it |
 |------------|------------|
 | claude-mem MCP | The Enrich phase is skipped silently; the snapshot composes from working context alone |
-| Shell injection (`disableSkillShellExecution` unset) | The header falls back to date-only and `State` is omitted |
 
 ## FAQ
 

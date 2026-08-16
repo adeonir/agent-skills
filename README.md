@@ -42,7 +42,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
-| **[design-brief](skills/product/design-brief)** | Greenfield visual identity — explore a direction and author `DESIGN.md` |
+| **[design-brief](skills/product/design-brief)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD, Brief, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 
@@ -119,7 +119,7 @@ docs/
 ├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: visual identity · copywriting: content · craft-ui: chosen mockup
+└── design/         # design-brief: locked direction (moodboard.md) · copywriting: content · craft-ui: chosen mockup
 
 CONTEXT.md          # spec-driven: committed project memory
 .artifacts/

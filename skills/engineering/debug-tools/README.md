@@ -26,13 +26,15 @@ flowchart TD
 
 Core loop: investigate, fix, verify. Techniques are selected based on context:
 
-- **Investigate** — Analyze code to find root cause with confidence scoring
-- **Pattern Comparison** — Diff broken code against working examples
-- **Inject Logs** — Add targeted `[DEBUG]` logs to capture runtime data
-- **Propose Fix** — Suggest minimal fix based on evidence
-- **Verify** — Confirm the fix resolves the issue
-- **Cleanup** — Automatically remove all debug logs
-- **Escalate** — After 3 failed fixes, review architecture
+| Phase | Output |
+|---|---|
+| Investigate | Root cause with a confidence score |
+| Pattern Comparison | Diff of broken code against working examples |
+| Inject Logs | Targeted `[DEBUG]` logs that capture runtime data |
+| Propose Fix | Minimal fix based on evidence |
+| Verify | Confirmation the fix resolves the issue |
+| Cleanup | Debug logs removed automatically |
+| Escalate | Architecture review after 3 failed fixes |
 
 ## Usage
 

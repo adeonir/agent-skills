@@ -26,7 +26,7 @@ flowchart TD
 | Design | Root `DESIGN.md` using the official token groups and eleven prose sections |
 | Validate | `clean`, `passed with warnings`, `failed`, or `not audited` |
 | Preview | On-demand `/design` and `/styleguide` with comments and temporary tuning |
-| Export | Official Tailwind or DTCG output |
+| Export | Official Tailwind, DTCG, or CSS custom-property output |
 | Diff | Official token changes and validation regressions |
 
 ## Usage

@@ -5,7 +5,7 @@ End-of-session documentation to Obsidian.
 ## What It Does
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Resolve Project] --> B[Load Handoff]
     B --> C[Obsidian Session Note]
     C --> D[Obsidian Daily Note]
@@ -45,7 +45,7 @@ close session
 
 ## FAQ
 
-**Q: What happens if Obsidian MCP is unavailable?** A: The session step is skipped with a warning. The daily note still attempts to write. The skill is best-effort.
+**Q: What happens if Obsidian MCP is unavailable?** A: Neither note can be written. Both the session note and the daily note go through the Obsidian MCP server, so the skill has nothing to persist to.
 
 **Q: Does it ask before clearing the session handoff?** A: No. Wrap-up has already persisted every snapshot to Obsidian, so the on-disk handoff is redundant by the end — Cleanup auto-clears it (writes empty content) without asking.
 

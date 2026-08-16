@@ -87,7 +87,7 @@ CONTEXT.md                           # committed project memory
 ## Requirements
 
 - An existing project directory.
-- `python3` (standard library only) for `scripts/signals.py`, `scripts/lessons.py`, and `scripts/lint_artifact.py`.
+- `python3` (standard library only) for `scripts/signals.py`, `scripts/lessons.py`, `scripts/lint_artifact.py`, and `scripts/select_tasks.py`.
 - Optional: a browser-automation MCP (e.g. Playwright) for Validate/UAT screenshots — falls back to user-guided capture when absent.
 - Optional: a docs MCP (e.g. Context7) for design research — the knowledge chain falls through to web search when absent.
 
