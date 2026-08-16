@@ -48,6 +48,7 @@ Run discovery before the selected operation. Load one operation instruction at a
 - Load [anti-slop.md](references/anti-slop.md) during direction, token authoring, identity assessment, and visual review.
 - Load [color-craft.md](references/color-craft.md) only for palette work and [typography.md](references/typography.md) only for type work.
 - Load [anti-patterns.md](references/anti-patterns.md) by inspection surface: document rules in validate, rendered-output rules in preview.
+- Load [cli.md](references/cli.md) during validate, export, or diff.
 - Resolve bundled commands from the directory containing this `SKILL.md` as `<this-skill>/scripts/<name>`.
 
 ## Guidelines
