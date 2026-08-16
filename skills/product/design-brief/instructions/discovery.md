@@ -1,58 +1,49 @@
 # Discovery
 
-Establishes project context and routes to the correct operation reference.
+Establish the available context and route one design-brief operation.
 
 ## When to Use
 
-Load at the start of every operation — before any trigger reference is loaded. Step 1's artifact scan runs always; Steps 2–4 classify and route, and matter only when the route depends on classification (`direction`, `design`). `validate` and `preview` route from the trigger alone — for them, discovery is the Step 1 scan, and their own prerequisite checks already cover the DESIGN.md lookup.
+Load before every operation.
 
 ## Workflow
 
-### Step 1: Check Existing Context
+1. Scan the project root for `DESIGN.md`, then scan `docs/design/moodboard.md`, `docs/product/PRODUCT.md`, `docs/product/PRD.md`, and `docs/product/brainstorm.md`. Do not look for an older DESIGN.md path or schema.
+2. Read found artifacts as claims to check, not authority to inherit. Extract only the product context, stated register, visual intent, constraints, and current tokens that the selected operation needs. Strip upstream IDs, milestones, feature names, and roadmap language from every design output.
+3. Identify the source on hand: codebase, URL, HTML/CSS, images, design-tool file, or text description.
+4. Identify the requested operation from the user's vocabulary:
 
-Look for:
+| Vocabulary or state | Route |
+|---|---|
+| no visual reference, explore, find a look, not sure how it should feel | `direction` |
+| author, create, extract, codify, refresh, rebrand, evolve, sync | `design` |
+| assess, audit current identity, what is consistent or drifted | `identity-assessment` |
+| preview, tune, comment, inspect visually | `preview` |
+| validate, lint, check DESIGN.md | `validate` |
+| export tokens | `export` |
+| compare versions, token diff, regressions | `diff` |
 
-- `docs/design/DESIGN.md` — already-authored visual identity
-- `docs/design/moodboard.md` — locked visual direction (feeds token authoring)
-- `docs/product/PRD.md` — PRD
-- `docs/product/PRODUCT.md` — positioning (register, anti-references, principles, personality)
-- `docs/product/brainstorm.md` — strategic direction
+5. Classify the field internally:
+   - **Greenfield** — no identity must be preserved. A supplied visual reference gives the direction; route directly to design. Only product context or a vague feeling means direction is absent; route to direction first.
+   - **Brownfield** — an existing identity must be described, preserved, changed, or reconciled. Run identity assessment before any mutation.
+6. Classify the brownfield intent when the request names it:
 
-If found, read and extract purpose, audience, tone, key features, and any existing tokens. From `PRODUCT.md`, read the default register, anti-references, principles, and personality as context to translate into tokens — never copy its prose verbatim into `DESIGN.md`. Tokens in `DESIGN.md` live in the YAML frontmatter at the top of the file — parse that block as the authoritative state. A `moodboard.md` with `status: locked` is a settled visual direction: treat it as a given direction for token authoring. Skip to the relevant trigger operation.
+| Intent | Meaning |
+|---|---|
+| `inherit` | Codify the confirmed current identity. |
+| `refresh` | Preserve its DNA and make the smallest sufficient improvement. |
+| `rebrand` | Replace the identity while preserving product surfaces and structure. |
+| `evolve` | Compare the identity with stated product intent and recommend the required scale of change. |
+| `sync` | Accept implementation values as truth for drifted token groups without introducing a direction. |
 
-### Step 2: Lightweight Discovery
+7. When the request is ambiguous between refresh and rebrand, carry both into identity assessment. Recommend one after examining whether the existing DNA still serves the stated intent, then wait for confirmation.
+8. Determine surfaces by context and take the dominant register from `PRODUCT.md` when present. Ask only when neither the artifacts nor the request settle a load-bearing surface, register exception, source conflict, or intended operation.
+9. Hand the selected instruction: operation, field, explicit or pending intent, surfaces, register, source, and found artifacts. Never load two operation instructions together.
 
-Ask one question at a time:
+Preview, validate, export, and diff route directly after the scan. Brownfield design routes through identity assessment first.
 
-1. Project surfaces, named by context (landing, dashboard, form, checkout…). Register comes from `PRODUCT.md`'s default when present; ask it per surface only when no `PRODUCT.md` exists or a surface diverges from the default — brand (the design is the product) or product (the design serves a task)?
-2. Source on hand: URL, images, brief document, codebase, vanilla HTML/CSS, design-tool file, or text description?
-3. Visual references or constraints?
+## Error Handling
 
-### Step 3: Classify Field
-
-Infer field from source and intent — no explicit question to the user:
-
-- **Greenfield** — no existing visual identity to preserve. Source is inspiration, not constraint. Typical sources: reference images, brand URL used as reference, text description. No legacy tokens; `DESIGN.md` starts from scratch. Greenfield splits on whether a direction is **given** or **absent**: a reference (images, URL, text description) or a locked `moodboard.md` is a given direction — route straight to token authoring, which extracts it. When only audience, PRD, or a vague feeling exists with no reference, the direction is absent — route to `direction.md` first to explore and lock a mood.
-- **Brownfield** — existing visual identity must be honored, refactored, or replaced. Typical sources: codebase, vanilla HTML/CSS export, external design-tool file. Legacy tokens exist; `DESIGN.md` may already exist.
-
-Within brownfield, five implicit sub-modes — detect by user vocabulary, do not ask:
-
-| Sub-mode | Trigger phrases | Skill behavior |
-|----------|-----------------|----------------|
-| inherit | "extract tokens", "document our current system", "audit design" | Pull legacy as-is, preserve names and roles |
-| refresh | "modernize", "polish", "tighten", "tune" | Keep DNA, tighten scale, refresh prose |
-| rebrand | "rebrand", "new identity", "brand refresh", "change the vibe" | Replace identity, preserve product surfaces and structure |
-| evolve | "evolve", "does our design still fit", "align the design to the strategy", "rethink the direction against the PRD" | Extract the current identity, diff it against the stated intent (`PRODUCT.md` / PRD), propose a delta and recommended direction before authoring |
-| sync | "sync design from implementation", "update DESIGN.md from code", "reconcile drift", "refresh design tokens from this codebase" | Implementation is the source of truth for drifted values; diff against `DESIGN.md` and patch the drifted groups, narrative sections untouched. Requires an existing `DESIGN.md` — without one, the ask is inherit |
-
-When the ask does not name a sub-mode ("redesign this", "it feels dated", "overhaul"), diagnose rather than default. An identity whose DNA still serves the stated intent → `refresh` (preserve the palette and type DNA, evolve within it); an identity that no longer fits → `rebrand` (replace it, preserve the product surfaces). Bias toward refresh when the system is sound — defaulting to overhaul is where a brand's real palette gets replaced by a generic one (AI-slop color) for no reason.
-
-Partial cases (codebase defines colors but no typography) stay brownfield; gaps are filled via images or description without flipping the field.
-
-### Step 4: Route to Trigger
-
-Route to the operation the trigger names — the trigger table lives in SKILL.md's Quick start. What discovery hands downstream is the classification: field, sub-mode, surfaces, register. `design.md` picks its flow from that hand-off — greenfield author, or the brownfield sub-mode detected above.
-
-Never load multiple operation references simultaneously.
-
-Register loading follows the surfaces: a project under one register reads only its register file downstream; a project whose surfaces span both registers reads both — [../references/brand.md](../references/brand.md) and [../references/product.md](../references/product.md) define the surface lists and the straddle cases.
+- If the only found identity uses an older path, treat the root `DESIGN.md` as absent.
+- If two sources claim the same token value, ask which source is authoritative before assessment or authoring.
+- If a required source cannot be read, ask for another source and do not infer its contents.

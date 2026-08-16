@@ -1,111 +1,76 @@
 # Direction
 
-Explore visual mood from scratch when no reference exists — diverge across aesthetic directions, converge on one, capture it as a moodboard that downstream token authoring consumes.
+Explore and lock a named visual direction without authoring tokens.
 
 ## When to Use
 
-- Greenfield with **no visual reference** — audience, PRD, or a vague feeling on hand, but no images, brand URL, codebase, or design-tool file to extract a direction from.
-- User wants to *explore* or *decide* a look before committing to tokens — "not sure what it should feel like", "help me find a direction", "explore some moods", "I don't have a reference".
-- Skip when a direction is already given (images, brand URL, codebase, or a text description like "warm retro-futuristic neo-grotesque"). Token authoring extracts that directly — the mood is not absent, so this exploration is the wrong tool.
+Use for greenfield work with no visual reference, or when the user wants to compare, blend, or refine directions before token authoring.
+
+## Inputs
+
+Read product documents as claims to check, not authority. Use purpose, audience, usage conditions, stated register, taste, anti-references, and hard constraints. Strip document IDs, feature names, milestones, and roadmap language from the moodboard.
+
+Load [aesthetics.md](../references/aesthetics.md), the matching register file, [style-directions.md](../references/style-directions.md), and [anti-slop.md](../references/anti-slop.md). Keep the work text-only: no token maps, color values, or rendered HTML.
 
 ## Workflow
 
-Text-only throughout. No tokens, no color hexes, no rendered HTML — this is the early diverge, before any visual identity exists. The moment you reach for tokens you have crossed into token authoring; stop and hand off the moodboard.
-
-### Step 1: Frame
-
-Pull the brief from `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/product/brainstorm.md` when present. Otherwise ask one question at a time:
-
-1. What is the product, and who uses it?
-2. Any feeling or adjectives already in mind? (optional — absence is fine)
-3. Hard constraints — locked brand colors, accessibility target, platform?
-
-Lock **Purpose** and **Constraints** — Four Questions 1 and 3 in [aesthetics.md](../references/aesthetics.md). These anchor the converge.
-
-### Step 2: Diverge
-
-Generate **3 candidate moods** (honor any N the user names). Each candidate is composed, not rendered:
-
-- Name the **register** (brand or product — [brand.md](../references/brand.md) / [product.md](../references/product.md)) and the **surface(s)** the project has.
-- Compose across the **Style Axes** in [aesthetics.md](../references/aesthetics.md) — pick one pattern per axis (Layout & Structure, Texture & Depth, Atmosphere & Era, Color & Contrast), or blend two within an axis — biased by the register and fitting the surface.
-- Make the three genuinely distinct — different atmospheres, not three shades of one idea.
-
-Present each candidate as:
-
-- **Name** — short evocative label
-- **Statement** — one or two sentences, "feels like X × Y"
-- **Axes** — the chosen pattern per Style Axis
-- **Signature** — the single unforgettable detail (Four Questions 4)
-- **Touchstones** — 2-3 reference points (products, eras, materials)
-
-### Step 3: Converge
-
-The user reacts. Support:
-
-- **Pick** — choose one candidate as-is.
-- **Blend** — combine across candidates ("the warmth of A with the structure of B").
-- **Refine** — regenerate variations around the leaning candidate (new round, same loop).
-
-Pressure-test the leaning direction against the Four Questions — does it serve the Purpose, respect the Constraints, carry a real Signature? Reject mood that looks good but misses the audience; evocative is not the same as right. Loop until one direction is locked.
-
-### Step 4: Capture
-
-Write the locked direction to `docs/design/moodboard.md` — the only artifact this workflow produces. It is the highest-fidelity form of the "text description" that token authoring later consumes. The workflow ends here; do not author tokens.
-
-> Ensure the directory exists: `mkdir -p docs/design`
+1. Gather only missing inputs that change the choice: what the product is, who uses it under what conditions, the desired first-second feeling, light/dark needs, hard constraints, anti-references, and visual work the user already likes.
+2. Shortlist three named catalog directions unless the user requests another count. Choose directions that fit the product, surfaces, and register; never present a random sample.
+3. Present each direction with its lineage, visual rules, fit, failure condition, explicit trade-off, and one signature move. Explain its Style Axes mapping without reducing the direction to the axes.
+4. Support exactly three convergence operations:
+   - **pick** — lock one direction.
+   - **blend** — combine two directions while naming the dominant point of view and the trade-off that survives. Do not blend three directions.
+   - **refine** — produce another focused round around one direction without changing its thesis silently.
+5. Pressure-test the leaning direction against purpose, constraints, register, anti-references, and the anti-slop checklist. A legitimate exception records its reason.
+6. Continue until the user locks the direction.
+7. Write `docs/design/moodboard.md`. This record is additional context for design, not an intermediary gate. Direction ends without authoring tokens.
 
 ALWAYS use this exact template structure:
 
 ```markdown
 ---
-direction: <Name>
+direction: [locked name]
 status: locked
+operation: pick | blend | refine
+sources:
+  - [catalog direction]
 ---
 
-# Moodboard — <Name>
+# Moodboard — [locked name]
 
-## Mood
+## Point of View
 
-<One or two paragraphs of evocative prose: atmosphere, density, contrast
-strategy, what it feels like. "Feels like X × Y." Describe the visual feel,
-not what the product does or for whom — no product pitch.>
+[The visual thesis, dominant direction, and the sacrifice it accepts.]
 
-## Style Axes
+## Visual Rules
 
-- **Layout & Structure**: <pattern> — <one-line rationale>
-- **Texture & Depth**: <pattern> — <one-line rationale>
-- **Atmosphere & Era**: <pattern> — <one-line rationale>
-- **Color & Contrast**: <pattern> — <one-line rationale>
+- **Structure:** [rule]
+- **Texture and Depth:** [rule]
+- **Atmosphere:** [rule]
+- **Color and Contrast:** [rule]
+- **Typography:** [rule]
 
 ## Signature
 
-<The single unforgettable detail — a motion moment, a typographic trick, an
-unusual color move. Every direction needs one.>
+[One memorable identity move.]
+
+## Fit and Failure
+
+- **Fits because:** [reason tied to purpose, conditions, surface, or register]
+- **Fails if:** [condition that would invalidate the direction]
 
 ## Touchstones
 
-- <reference 1>
-- <reference 2>
-- <reference 3>
+- [real reference]
 
 ## Constraints
 
-<Hard requirements carried from framing: locked brand colors, accessibility
-target, platform. "None" if unconstrained.>
+- [hard constraint or None]
 ```
 
-While exploring, write `status: draft` and firm it up as the direction settles; set `status: locked` only once the user commits to a single direction.
-
-## Guidelines
-
-- Keep it text-only — hexes, tokens, or HTML mean you have crossed into token authoring; stop and hand off the moodboard
-- Make the three candidates genuinely distinct; near-duplicates waste the diverge
-- Anchor every candidate in the Style Axes vocabulary so the direction is reproducible, not a vibe with no handles
-- Give every direction a Signature — a mood with no unforgettable detail is generic
-- Pull the brief from existing product docs before asking the user to repeat themselves
+MUST NOT contain: tokens, color values, rendered HTML, product copy, feature names, requirement IDs, milestones, roadmap language, or page arrangement.
 
 ## Error Handling
 
-- No product docs and a user who cannot describe the audience: explore anyway with broad candidates, but flag that the direction is unanchored and may need a second pass once the audience is clear.
-- User already has a clear reference (images, URL, codebase): this is direction-given, not absent — token authoring should extract directly rather than explore mood here.
-- User picks no candidate after a refine round: widen the axes (a new Atmosphere or Color pattern) rather than producing finer variations of a rejected leaning.
+- If the user supplies a concrete visual reference, stop direction and route to design.
+- If no choice survives pressure-testing, widen the shortlist across a different catalog lineage instead of producing small variations.

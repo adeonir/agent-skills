@@ -1,71 +1,47 @@
 # Design Aesthetics
 
-Self-contained design principles for visual direction and token authoring. Apply these when exploring a mood and when choosing token values for DESIGN.md.
+Condensed principles for explaining and composing visual identity decisions.
 
 ## When to Use
 
-Auto-loaded by `direction.md` (mood vocabulary — Four Questions, Style Axes) and by `design.md` (token-authoring principles — Typography, Color, Spatial, Motion, Depth). Not a direct trigger.
+Load during direction, token authoring, identity assessment, and visual review. Load the detailed craft reference only for the dimension being changed.
 
-## Design Thinking
+## Four Questions
 
-### Four Questions
+1. **Purpose:** What job does the interface serve, for whom, and under what conditions?
+2. **Direction:** Which named visual thesis governs the work?
+3. **Constraints:** Which accessibility, platform, brand, performance, and source constraints are fixed?
+4. **Signature:** Which one move makes the identity recognizable?
 
-Before any visual work, answer these to lock in a direction:
+## Style Axes
 
-1. **Purpose**: What problem does this interface solve? Who uses it?
-2. **Tone**: Pick a clear aesthetic — compose across the Style Axes below, biased by the register ([brand.md](brand.md) / [product.md](product.md)).
-3. **Constraints**: Technical requirements (framework, performance, accessibility).
-4. **Signature**: What single detail will make this _unforgettable_? (A motion moment, a typographic trick, an unusual color move.) Every project needs one.
+Use the axes to compose, compare, and explain a direction. The named catalog remains authoritative for a catalog direction's thesis, lineage, visual rules, fit, failure conditions, and trade-off. Never regenerate a catalog direction from these axes.
 
-### Style Axes
+| Axis | Questions |
+|---|---|
+| Structure | strict or loose grid; symmetric or asymmetric; sparse or dense; reading or task posture |
+| Material | flat, ruled, tonal, tactile, translucent, hard-edged, or physically referential |
+| Atmosphere | institutional, editorial, technical, playful, luxurious, clinical, natural, or oppositional |
+| Contrast | quiet or forceful; light, dark, or both; monochrome, limited, or field-based color |
+| Typography | classification, contrast between roles, scale ratio, tracking, numeral behavior, and delivery |
+| Shape | corner hierarchy, border posture, surface separation, and depth language |
+| Motion | none, functional, physical, or expressive; duration, easing, and reduced-motion behavior |
 
-Visual direction is a composition of four orthogonal axes. Pick one pattern from each axis — or blend two within the same axis — to construct a unique direction. Compositions like "Bento Grid + Glassmorphism + Cyberpunk + Duotone" produce more distinctive results than single-tone choices.
+Map every shortlisted catalog direction across the axes to expose meaningful differences. A blend names which direction remains dominant on each disputed axis.
 
-| Axis | Patterns |
-|------|----------|
-| **Layout & Structure** | Bento Grid (modular boxy cards), Editorial (magazine feel, large serifs, asymmetric placement, generous whitespace), Swiss Style (strict grids, sans-serif, flush-left, objective clarity), Split-Screen (vertical division, color block paired with full-bleed imagery), Asymmetric Modular (intentional off-grid composition with rhythm) |
-| **Texture & Depth** | Glassmorphism (translucency, backdrop blur, frosted edges), Claymorphism (soft inflated 3D shapes, inner shadows, tactile), Skeuomorphic (realistic materials — leather, paper, metal), Grainy / Noise (film grain or noise overlay reduces digital shine), Flat (no texture, intentional restraint) |
-| **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
-| **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
+## Composition Principles
 
-## Token Authoring Principles
+- Make one point of view dominant. A system that accepts every posture has none.
+- Derive each value from a source or an argument.
+- Use register as a bias, not an aesthetic: brand rewards distinctiveness; product rewards earned familiarity.
+- Calibrate density to usage conditions.
+- Give each identity one signature and one explicit sacrifice.
+- Preserve legitimate exceptions when the direction itself makes the apparent tell intentional.
 
-What makes a good choice for each token group. Compose these biased by the register ([brand.md](brand.md) / [product.md](product.md)).
+## Token Principles
 
-**Scale convention.** The flat token groups — `spacing`, `rounded`, `borderWidth`, `elevation`, `breakpoints` — name their keys on Tailwind's scale: numeric steps (`1`, `2`, `4`, ...) for `spacing`, t-shirt sizes (`xs`, `sm`, `md`, `lg`, `xl`, ...) for the rest. The naming is a shared vocabulary for the keys, not a toolkit dependency: values stay expressed in their own terms, and any system consumes the tokens. Tailwind supplies the key names; it is never a required target.
-
-### Typography
-
-- **Pairings must be distinctive**: never default to Inter, Roboto, Arial, or system fonts as primary choice for a marketing or editorial identity. Pair a characterful display font with a refined body font. System stacks are acceptable for app and dashboard surfaces where performance and native feel matter.
-- **Weight extremes**: use 100-200 for subtlety and 800-900 for impact within the same scale.
-- **Size jumps**: display should be at least 3x body size. Timid 1.5x ratios flatten hierarchy.
-- **Letter-spacing is the tell**: tune tracking per role, never leave it default-zero everywhere. Tighten display and large headings with negative tracking as size grows (roughly `-0.01em` to `-0.03em`); keep body near `0`; give ALL-CAPS labels and eyebrows positive tracking of at least `0.05em` or they read cramped. Flat, untuned letter-spacing is the highest-signal sign of careless type.
-- **Loading strategy**: author `font-display: swap` (or `optional` for zero layout shift) with a metric-matched fallback (`size-adjust`) to tame it; preload only the critical above-the-fold weight, and reach for a variable font once a family needs 3+ weights.
-
-### Color and Theme
-
-- **Token-first**: define each color once as a named role and reference it by role everywhere, never as a loose literal.
-- **60-30-10**: 60% dominant surface, 30% secondary, 10% accent. Sharp accents on a committed base outperform timid evenly-distributed palettes.
-- **Dominant + accent**: pick one hero color and one contrast accent. Two accents maximum.
-- **Accent holds across the surface**: commit to one accent and keep it everywhere; a different hue surfacing in a later section for variety's sake (a stray blue, a shifted teal) reads as drift, not richness.
-- **Theme commitment**: go fully dark or fully light per surface. Half-measures read as unfinished.
-- **Tinted neutrals**: pure gray is dead — give each neutral a trace of chroma (~0.005–0.015 in OKLCH) hued toward the brand. Don't reflexively reach for warm-orange or cool-blue neutrals; the tint is a deliberate choice.
-- **Alpha is a smell**: heavy `rgba`/`hsla` overlays signal an incomplete palette — author explicit overlay and surface tokens instead of leaning on opacity.
-- **Dark mode is not inverted light**: build depth from a stepped surface-lightness scale, not borrowed shadows, and desaturate accents so they don't vibrate on dark.
-
-### Spatial Composition and Whitespace
-
-- **Generous whitespace or controlled density**: both work — the crime is the lukewarm middle. Pick a spacing scale that commits.
-- **Rhythm**: a consistent base unit (4px / 8px grid) with a deliberate scale reads as intentional; ad-hoc values read as noise.
-- **Measure & leading**: body copy at 60-75 characters per line — size the body token and container width to land there; loosen line-height as the measure widens, since long lines need more leading to track.
-
-### Motion and Interaction
-
-- **Easing per tone**: pick `cubic-bezier` curves that match the tone — snappy (`0.22, 1, 0.36, 1`) for tech, gentle (`0.25, 0.1, 0.25, 1`) for editorial, bouncy (`0.34, 1.56, 0.64, 1`) for playful. Never leave `ease` as default without intention.
-- **Duration tiers**: a fast tier for state feedback (hover/focus), a base tier for transitions, a slow tier for deliberate reveals. Anchor the base tier around 150–200ms and keep the spread perceptible; sub-100ms feels instant, over-500ms feels sluggish for interface feedback.
-- **Honor `prefers-reduced-motion`**: pair every non-essential transition or animation with a `prefers-reduced-motion: reduce` fallback that collapses motion to an instant state change or a minimal opacity fade. Motion that ignores the OS setting is an accessibility failure, not a flourish.
-
-### Depth and Elevation
-
-- **Shadow system, three levels**: subtle (cards at rest), medium (raised / hover), elevated (modals, dropdowns, popovers). Define the elevation scale once and apply by role.
-- **Match shadow to surface**: on dark backgrounds light shadows vanish — use denser, higher-opacity shadows so depth registers.
+- Use a real color referent, perceptual ramps, tapered chroma, bent hue, tinted neutrals, and brand-related semantic colors.
+- Pair typefaces by classification and job. Tune scale, tracking, line height, numerals, weights, fallbacks, and delivery.
+- Build spacing from one base and commit to either generous whitespace or controlled density.
+- Express depth through the direction's material logic: rules, tonal surfaces, shadows, or deliberate flatness.
+- Give motion a job and a reduced-motion alternative.

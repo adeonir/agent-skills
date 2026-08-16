@@ -32,7 +32,7 @@ What brand can author that product can't:
 - **Motion** — one well-orchestrated page-load or signature transition, when the brand invites it.
 - **Depth & shape** — expressive elevation and corner language as part of the voice.
 
-## Brand bans (on top of the shared [anti-patterns.md](anti-patterns.md))
+## Brand bans (on top of [anti-slop.md](anti-slop.md))
 
 - Timid palettes and average layouts — safe is invisible.
 - Reflex-default fonts picked for safety, not voice.

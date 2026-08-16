@@ -30,7 +30,7 @@ What product should author:
 - **Motion** — 150–250 ms; motion conveys state, not decoration. No orchestrated page-load — users load into a task.
 - **Components** — every interactive state defined (default / hover / focus / active / disabled / loading / error); consistent affordances across the surface.
 
-## Product bans (on top of the shared [anti-patterns.md](anti-patterns.md))
+## Product bans (on top of [anti-slop.md](anti-slop.md))
 
 - Display fonts in UI labels, buttons, or data.
 - Decorative motion that doesn't convey state.
