@@ -70,7 +70,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 - *Hue shift* — real pigments shift hue as they lighten or darken. A red that goes toward orange in the tints and toward maroon in the shades looks like a material. A red at a fixed hue angle across nine steps looks like a spreadsheet. Shift 5–20° across the ramp.
 - *Chroma taper* — chroma should peak in the mid-lightness range and fall off toward both ends, because the gamut narrows there. Flat chroma produces muddy darks and neon lights.
 
-**Tint every neutral.** Carry a small amount of the brand hue (or its complement, for a cooler feel) through the entire grey ramp — chroma around 0.005–0.02 in OKLCH. The effect is nearly invisible per-swatch and completely transformative in aggregate. Warm neutrals for paper/craft/editorial registers, cool for clinical/technical.
+**Tint every neutral.** Carry a small amount of the brand hue (or its complement, for a cooler feel) through the entire grey ramp — chroma around 0.005–0.02 in OKLCH. The effect is nearly invisible per-swatch and completely transformative in aggregate. Warm neutrals for paper/craft/editorial tones, cool for clinical/technical.
 
 **Move off the endpoints.** Instead of `#FFFFFF`, an off-white with a trace of warmth (`#FAF9F6`, `#F7F5F2`) or coolness (`#F8FAFC` is Tailwind's — build your own). Instead of `#000000`, a near-black carrying the brand hue (`#1A1C1E`, `#141210`).
 
@@ -102,7 +102,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 **Use two typefaces that differ by classification.** A grotesque + a serif, a serif + a mono, a humanist sans + a condensed display. Two grotesques together (Inter + Helvetica) is not a pairing, it's an accident. The classic split: one face carries the *voice* (display and headings), the other carries the *apparatus* (labels, metadata, numerics).
 
-**Pick faces with something specific about them.** A face with real optical sizes, a variable axis you actually use, unusual figures, distinctive italics, a genuine condensed cut. See `typography.md` for a library organized by register, with open-source options throughout — this does not require licensing budget.
+**Pick faces with something specific about them.** A face with real optical sizes, a variable axis you actually use, unusual figures, distinctive italics, a genuine condensed cut. See `typography.md` for a library organized by classification, with open-source options throughout — this does not require licensing budget.
 
 **Build the scale with a ratio, then break it.** Generate with a modular ratio (≈1.2 for dense UI, ≈1.25–1.333 for editorial, ≈1.5 for dramatic), then hand-tune. Pure geometric scales are always too timid at the display end and too crowded at the small end. The jump from body to display should feel like a jump.
 

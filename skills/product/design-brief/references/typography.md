@@ -22,7 +22,7 @@ Load only when authoring, assessing, refreshing, or reviewing typography. Preser
 
 ## The typeface library
 
-Organized by register. **(F)** = free/open-source, **(C)** = commercial license required. There are strong open options in every category, so a good typographic system never requires a licensing budget.
+Organized by classification. **(F)** = free/open-source, **(C)** = commercial license required. There are strong open options in every category, so a good typographic system never requires a licensing budget.
 
 ### Neo-grotesque sans — neutral, structural, Swiss
 
@@ -42,7 +42,7 @@ The workhorse category. Neutral but not characterless.
 
 - **Ideal Sans** (C) — H&Co; unusually warm, subtle irregularity.
 - **Freight Sans** (C) — large family, wide range.
-- **IBM Plex Sans** (F) — engineered warmth; superb mono and serif companions in the same family. Excellent for clinical/technical registers.
+- **IBM Plex Sans** (F) — engineered warmth; superb mono and serif companions in the same family. Excellent for clinical/technical contexts.
 - **Source Sans 3** (F) — Adobe; quiet, legible, dependable.
 - **Work Sans** (F) — optimized for screen at middle sizes.
 
@@ -63,7 +63,7 @@ For body copy, long-form, and anything wanting gravity.
 - **Source Serif 4** (F) — Adobe; variable, excellent on screen, genuinely good.
 - **Literata** (F) — Google Books; engineered for extended reading.
 - **Newsreader** (F) — variable with an optical size axis; editorial character.
-- **EB Garamond** (F) — a proper Garamond revival; classical register.
+- **EB Garamond** (F) — a proper Garamond revival; classical style.
 - **IBM Plex Serif** (F) — pairs natively with Plex Sans and Mono.
 
 ### Serif — display
@@ -100,7 +100,7 @@ For code, numerics, identifiers, timestamps, and anything tabular.
 
 - **Archivo Narrow** / **Archivo Condensed** (F) — the reliable condensed workhorse.
 - **Anton** (F) — heavy condensed display; strong poster presence.
-- **Roboto Condensed** (F) — neutral, map-and-label register.
+- **Roboto Condensed** (F) — neutral, map-and-label style.
 - Avoid **Oswald** and **Bebas Neue** as defaults — heavily overused.
 
 ---
@@ -111,7 +111,7 @@ For code, numerics, identifiers, timestamps, and anything tabular.
 
 Reliable pairing structures:
 
-| Structure | Example | Register |
+| Structure | Example | Style |
 |---|---|---|
 | Display serif + neutral sans | Fraunces + Archivo | Editorial, brand |
 | Neutral sans + mono | Public Sans + JetBrains Mono | Technical, product |

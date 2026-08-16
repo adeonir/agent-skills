@@ -161,7 +161,7 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 ## 7. Archival Institutional
 
-**Thesis.** The register of a museum wall label or a well-made library catalog. Restrained, permanent, and respectful of dense text.
+**Thesis.** The tone of a museum wall label or a well-made library catalog. Restrained, permanent, and respectful of dense text.
 
 **Lineage.** MoMA and Tate identity systems, GOV.UK, the *Unigrid* NPS brochures, university presses, Yale and Princeton press book design.
 
@@ -201,7 +201,7 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Good for.** Operations tooling, CRMs, analytics, admin, anything used professionally for hours.
 
-**Fails when.** Marketing surfaces need to breathe — pair it with a different register for the public-facing pages.
+**Fails when.** Marketing surfaces need to breathe — pair it with a different tone for the public-facing pages.
 
 **Gives up.** Elegance, whitespace, and first-impression appeal.
 
@@ -263,7 +263,7 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Color.** Cool, restrained, high legibility. Anchors: bg `#FBFCFC`, surface `#FFFFFF`, border `#D5DBDD`, text `#15201F`, primary a clinical teal-blue `#0F6B7A` or `#1B5E7E` (deliberately *not* Tailwind blue). Semantic colors unambiguous and tested for color-vision deficiency.
 
-**Type.** Maximum legibility, no personality games. IBM Plex Sans (designed for this register), Public Sans, Source Sans 3. Larger-than-usual body (16–17px), tabular figures, generous label sizing.
+**Type.** Maximum legibility, no personality games. IBM Plex Sans (designed for this tone), Public Sans, Source Sans 3. Larger-than-usual body (16–17px), tabular figures, generous label sizing.
 
 **Shape & depth.** Radius `2–4px`. Borders for structure. No decorative depth.
 
