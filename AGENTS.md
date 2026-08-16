@@ -152,7 +152,7 @@ After that, sections are free, named by domain. No canonical order.
 
 Permitted sections:
 - `## Philosophy` — when the skill has strong conceptual framing
-- `## Anti-Pattern: <name>` — trap + prose explanation
+- `## Anti-Pattern: <name>` — an observed trap + the correct alternative
 - `## Workflow` / `## Phases` / `## <domain>` — domain-specific
 - `## Guidelines` — short DO list (4-6 non-obvious items)
 
@@ -202,6 +202,8 @@ XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in references 
 Short DO list (4-6 non-obvious items). Skip DOs that are common sense.
 
 When a real trap exists, document it as `## Anti-Pattern: <name>` with prose explaining the failure mode and the correct alternative. Do not pair every DON'T with a DO; if the proscription has no positive counterpart, the Anti-Pattern section carries it alone.
+
+A trap is found, not derived. It names something an agent did — in a run, in a shipped artifact, in a failure the user hit — and it earns a section because the constraint alone did not stop it. A trap written to guard a rule the same edit introduced is that rule in costume: the constraint already states itself, the section only says it louder, and the prose reads as evidence the failure happens. Where nothing was observed, the constraint ships alone.
 
 ## README per Skill
 
@@ -282,7 +284,7 @@ The cost is asymmetric. Reading a 90-line reference is cheap; discovering, after
 
 Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain, justify the design, or narrate how the mechanism was arrived at. The test is what the agent *does* with the sentence: a rationale that changes its behavior is a constraint and stays; one that only makes a human nod is weight paid on every load. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
 
-The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing: the read step saying an upstream artifact enters as a claim to check, not authority to inherit, is what tells the agent to rebut — cut it and the step reads as "go read the file". Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining.
+The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing: the read step saying an upstream artifact enters as a claim to check, not authority to inherit, is what tells the agent to rebut — cut it and the step reads as "go read the file". Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining. Neither section suspends the test — a heading permits prose, it never justifies it.
 
 The same discipline applies to mechanism. The trap is building a detector for an event that announces itself. Before adding a test, a comparison, or a state to track, ask what the agent already knows at that moment: an artifact it just wrote, a phase it just re-entered, an input the user just handed it. A mechanism that infers what is already given is scaffolding, and scaffolding attracts more scaffolding — each round of review finds real defects in it, and fixing them makes it larger, never smaller.
 
