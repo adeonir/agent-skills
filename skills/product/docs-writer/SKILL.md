@@ -30,6 +30,8 @@ Auto-loaded (no direct triggers):
 - `reconcile.md` — by PRD, PRODUCT, or Design Doc when updating an existing document
 - `product.md` — by `prd.md` when handling PRODUCT; discover it if absent or update it if present
 
+Resolve copyable document templates from the directory containing this `SKILL.md` as `<this-skill>/assets/<document-type>.template.md`. Read only the template selected by the document type.
+
 ## Document Boundaries
 
 - **PRD** — product only: problem, users, scope, journeys, rules, metrics. No implementation, architecture, tech stack, UI, or API.

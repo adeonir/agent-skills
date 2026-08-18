@@ -17,7 +17,7 @@ read → scope → validate changes → state unchanged parts → confirm → wr
 3. **Validate the changes.** Apply [discovery.md](discovery.md) `## Critical Review` only to the planned changes. Ask what evidence supports the change. Report conflicts with unchanged sections, such as a metric that conflicts with a persona or a rule that breaks a journey.
 4. **State unchanged parts.** Before writing, name the sections that will change and those that will remain unchanged. Let the user correct this boundary.
 5. **Confirm the plan.** Get explicit agreement on the planned changes before editing.
-6. **Write.** Use the document's template: [prd.md](prd.md), [product.md](product.md), or [design.md](design.md). Preserve every section outside the confirmed scope. Write the document to its path, then briefly state what changed and where. Do not paste the full document.
+6. **Write.** Preserve every section outside the confirmed scope. Use the matching template only to check the existing structure; never copy a template over unchanged content. Write the document to its path, then briefly state what changed and where. Do not paste the full document.
 
 ## Reading the Sibling Artifact
 

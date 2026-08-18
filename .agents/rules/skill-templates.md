@@ -3,11 +3,11 @@ paths:
   - "skills/**/*.md"
 ---
 
-## Inline Templates, One Per Reference
+## Copyable Templates in Assets
 
 **Impact: MEDIUM**
 
-A template lives inline in the reference that uses it, one template per reference, with no reuse across references and no `templates/` directory. A shared template folder couples references and drifts from the prose that depends on it.
+A copyable output template lives at `assets/*`. Keep a short format example inline when the agent should read it as instruction rather than copy it as an output file. One reference or instruction owns each template and routes to it explicitly; never add a `templates/` directory or reuse one template across workflows.
 
 **Incorrect:**
 
@@ -18,7 +18,8 @@ skill-name/templates/spec.md
 **Correct:**
 
 ```text
-skill-name/references/specify.md   # the spec template lives inline here
+skill-name/assets/spec.md
+skill-name/references/specify.md   # routes to the copyable asset
 ```
 
 ## Mark Template Rigidity
