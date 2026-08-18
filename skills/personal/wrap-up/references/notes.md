@@ -7,7 +7,7 @@ Create session notes in the project folder and update the daily note using Obsid
 - Obsidian session note: when `obsidian.path` is not `--`
 - Daily note: always (even when session note is skipped)
 - Runs after the handoff Load phase
-- Depends on mapping output (Obsidian path, base tags) and on the handoff Load phase (all snapshots folded, grouped by date — Findings → Findings, Decisions → Decisions, Next step + Open threads → Next)
+- Depends on mapping output (Obsidian path, base tags) and on the handoff Load phase (Findings → Findings, Decisions → Decisions, Next step + Open threads → Next)
 
 ## Obsidian Syntax Rules
 
@@ -55,23 +55,6 @@ Call these directly — do not invoke any skill.
 Always search before creating to avoid duplicates.
 
 ## Workflow
-
-### 0. Enrich working context
-
-The claude-mem MCP is an **optional** dependency: notes composed without it are complete, not degraded. When the MCP is present (`mcp__plugin_claude-mem_mcp-search__*`), query it for **current-session** observations relevant to the resolved project before composing notes, recovering mid-session detail that scrolled out of context.
-
-**Scoping rules (mandatory — do not pollute working context):**
-
-- **Time**: current session window only — exclude prior sessions
-- **Topic**: filter by project name and the threads already active in the wrap-up; skip parallel unrelated topics from the same session
-- **Budget**: top 5-10 most relevant observations, no broad sweeps
-- **Fallback**: silent skip when MCP unavailable or returns nothing
-
-The goal is recovering lost session detail before composing executive narrative — not importing history or adjacent threads. Notes stay human-readable: observation IDs do not enter note bodies, consistent with the no-commit-hashes rule.
-
-### Per-date handling
-
-The handoff Load phase groups loaded snapshots by date. When the snapshots span multiple dates, run steps 1-2 once **per date group**: each date gets its own session note(s) and its own daily note, folding only that date's blocks. A single date is the common case — treat multi-date as the exception, not the default.
 
 ### 1. Create session note
 
@@ -136,14 +119,13 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for typed edges that add graph value
 
-When the handoff Load phase surfaced grouped snapshots, fold this date's bullets in before composing the note — the deduplicated union across that day's blocks, not just the latest. Re-apply the Audience and Reference Discipline as you fold.
+When the handoff Load phase surfaced content, fold it in before composing the note. Re-apply the Audience and Reference Discipline as you fold.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
 - `**Next step:**` and `**Open threads:**` → `## Next` bullets, preserving the concrete entry point
 - `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
-- `**Focus:**` and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
-- `**State:**` → nothing; it does not enter either note
+- `**Focus:**`, `**Context:**`, and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
 
 #### Write
 

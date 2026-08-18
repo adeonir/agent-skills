@@ -15,7 +15,7 @@ flowchart LR
 | Step | System | Output | Audience |
 |------|--------|--------|----------|
 | Resolve Project | -- | Obsidian path, base tags | Internal |
-| Load Handoff | filesystem | All snapshots folded, grouped by date | Internal |
+| Load Handoff | filesystem | Consolidated handoff context | Internal |
 | Obsidian Session | Obsidian | Session note (work details) | Humans |
 | Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
 | Cleanup | filesystem | Empty handoff file (auto) | Internal |
@@ -39,7 +39,6 @@ close session
 | Dependency | Status | Without it |
 |------------|--------|------------|
 | Obsidian MCP server | required | No note can be written; the skill has nothing to persist to |
-| claude-mem MCP | optional | The Enrich step is skipped silently; notes compose from working context alone |
 
 - An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
 
@@ -47,7 +46,7 @@ close session
 
 **Q: What happens if Obsidian MCP is unavailable?** A: Neither note can be written. Both the session note and the daily note go through the Obsidian MCP server, so the skill has nothing to persist to.
 
-**Q: Does it ask before clearing the session handoff?** A: No. Wrap-up has already persisted every snapshot to Obsidian, so the on-disk handoff is redundant by the end — Cleanup auto-clears it (writes empty content) without asking.
+**Q: Does it ask before clearing the session handoff?** A: No. Cleanup writes empty content after every configured note write succeeds. If persistence fails, the handoff remains available for retry.
 
 **Q: Can I run wrap-up multiple times in a day?** A: Yes. Existing notes are detected and appended to rather than overwritten. The daily note merges activities from each invocation.
 
