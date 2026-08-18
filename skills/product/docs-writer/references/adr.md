@@ -1,18 +1,18 @@
 # ADR — Architecture Decision Record
 
-Record a single architecture decision with its context, consequences, and rejected alternatives.
+Record one architecture decision with its status, context, decision, consequences, and references.
 
 ## When to Use
 
-When a meaningful architecture decision has been made (or is about to be made) that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, migration strategy. One ADR per decision. ADRs are short (1-2 pages); once accepted and committed they become immutable — superseded by new ADRs, not edited in place except on an explicit, justified reopen to `proposed`.
+When a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR.
 
-**Key principle:** ADRs capture *the* decision and *why*, not the exploration that led to it. If multiple decisions are still in play or trade-offs are being weighed, write a Design Doc first and record the outcomes as ADRs.
+**Key principle:** ADRs capture the decision and why it was made, not the full exploration that led to it. If multiple decisions are still in play, keep them in the Design Doc until each decision is clear enough to record.
 
 ## When NOT to Write an ADR
 
-- The decision is trivial or has no meaningful alternatives
+- The decision is trivial
 - Multiple decisions are bundled — split into separate ADRs or step back to a Design Doc
-- The decision is still being explored — use a Design Doc to discuss trade-offs first
+- The decision is still being explored
 - The decision is implementation detail, not architecture (variable naming, file layout, formatting)
 
 ## Workflow
@@ -27,7 +27,7 @@ Load [discovery.md](discovery.md) for shared interview patterns and critical pos
 
 **Check Existing Context:**
 
-Read existing ADRs at `docs/adr/` first. Use them to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
+Read existing ADRs at `docs/adr/` first. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
 
 Scan upstream artifacts for embedded decisions that should be lifted into their own ADR:
 
@@ -49,32 +49,31 @@ List the unrecorded candidate decisions and ask the user which one this ADR reco
 
 - What is the decision being recorded?
 - What forces (technical, business, regulatory, team) made this decision necessary now?
-- What alternatives were considered?
-- What positive and negative consequences are being accepted?
+- What alternatives or constraints explain why this response was chosen?
+- What becomes easier or more difficult because of this decision?
 
 **Deepen when:**
 
-- Multiple decisions surface → "These look like separate decisions. Should we split into multiple ADRs?"
-- No alternatives mentioned → "What other options were on the table? If none, is this really an architecture decision?"
-- Consequences are all positive → "What cost or limitation does the decision absorb? Every decision has trade-offs."
+- Multiple decisions surface → "These look like separate decisions. Should we split them?"
+- The reason is unclear → "Which force or constraint made this response appropriate?"
+- Consequences omit material costs → "What becomes harder or riskier because of this decision?"
 - Decision is vague → "Stated as a positive imperative, what will we do? 'We will X' or 'We will not X'."
 
 **Sufficient when:**
 
 - One decision is clearly named
 - Context forces are documented
-- At least one alternative is recorded with rejection reason
-- Positive AND negative consequences are both identified
+- Material consequences are identified
 
 ### Phase 2: Validation
 
-Before drafting, confirm the decision is ready to record: exactly one decision (not several bundled), at least one real alternative with an accurate rejection reason, and both positive and negative consequences named. If any is missing, resolve it in discovery rather than drafting around it — the full gate set runs once at drafting.
+Before drafting, confirm that the ADR records exactly one decision, Context explains the forces behind it, Decision states the response, and Consequences names the material outcomes. Resolve missing information in discovery rather than drafting around it.
 
 ### Phase 3: Drafting
 
-Use the template below. When the decision came from `CODEBASE.md`, add its path to frontmatter `sources` and `## References`. Run the gates in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CODEBASE.md`, add its path to both. Run the gates in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
-Write the ADR with `status: proposed`; it stays editable in place until the user explicitly ratifies it to `accepted`. The skill never auto-advances the status.
+For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and bump `updated`.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename and frontmatter `name` use bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
 
@@ -85,86 +84,62 @@ ALWAYS use this exact template structure:
 ````markdown
 ---
 name: {{NNN-slug}}
-created: {{YYYY-MM-DD}}
+date: {{YYYY-MM-DD}}
 updated: {{YYYY-MM-DD}}
-status: proposed
-supersedes: []
-superseded-by: []
 sources: []
 ---
 
 # ADR-{{NNN}}: {{Decision Title}}
 
+## Status
+
+{{Proposed | Accepted | Deprecated | Superseded by ADR-NNN}}
+
 ## Context
 
-{{Forces at play that make this decision necessary: technical
-constraints, business pressures, regulatory requirements, team
-realities, prior decisions. Value-neutral — describe the situation
-without advocating for an outcome. Reader should understand why a
-decision is being forced now.}}
+{{Describe the issue that motivates this decision and the forces that
+influence or constrain it. Include considered alternatives here when
+they help explain the response. Keep the language value-neutral.}}
 
 ## Decision
 
-{{The decision being made, stated as a positive imperative: "We will
-adopt X", "We will deprecate Y in favor of Z", "We will not introduce
-W". One decision per ADR. Be specific and unambiguous.}}
+{{State the change that is proposed or agreed. Use active voice and a
+positive imperative such as "We will adopt X".}}
 
 ## Consequences
 
-### Positive
-
-- {{Capability unlocked, problem resolved, or benefit gained}}
-- {{Another positive outcome}}
-
-### Negative
-
-- {{Cost, limitation, or risk the decision absorbs}}
-- {{Another trade-off being absorbed}}
-
-### Neutral
-
-- {{Downstream change that is neither good nor bad — migration work,
-  new dependency, vocabulary shift, knock-on decisions surfaced}}
-
-## Alternatives Considered
-
-| Option | Reason Rejected | Record |
-|--------|-----------------|--------|
-| {{Alternative A}} | {{Why this was not chosen}} | {{— or ADR-NNN}} |
-| {{Alternative B}} | {{Why this was not chosen}} | {{— or ADR-NNN}} |
+{{Describe what becomes easier or more difficult and the risks or
+constraints introduced by the decision. Include positive, negative,
+and neutral outcomes when they are material; do not force categories.}}
 
 ## References
 
-- {{Link to the Design Doc's Alternatives Considered section, e.g. `docs/tech/design-doc.md`}}
-- {{Link to PRD that contains broader context}}
-- {{External RFCs, vendor docs, prior art}}
+- {{Related project documents, ADRs, external documentation, or prior art}}
 ````
 
-MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, product scope, or references to a later ADR — those belong to separate ADRs, the Design Doc, the tracker, or the PRD.
+MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, or product scope.
 
 ## ADR Schema
 
-5 sections matching the template:
+5 body sections matching the template:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
-| Context | Forces making the decision necessary | Topic: opening + deepen |
-| Decision | The change, stated as positive imperative | Topic: deepen |
-| Consequences | Positive, negative, neutral outcomes | Topic: deepen |
-| Alternatives Considered | Rejected options with reasoning and Record column linking to other ADRs when relevant | Topic: deepen |
-| References | Anchor link back to Design Doc Alternatives row when extracted from one, plus PRD, prior ADRs, external links | All phases |
+| Status | Current state of the decision | Existing record or user confirmation |
+| Context | Issue and forces that motivate or constrain the decision | Topic: opening + deepen |
+| Decision | Proposed or agreed response | Topic: opening + deepen |
+| Consequences | Material outcomes, risks, and constraints | Topic: opening + deepen |
+| References | Related project documents, ADRs, and external sources | All phases |
 
 ## Guidelines
 
 - One decision per ADR — split or step back to a Design Doc if bundled
 - State the decision as a positive imperative ("We will...")
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
-- Always record both positive and negative consequences — every decision has trade-offs
-- ADRs become immutable once accepted and committed — supersede with a new ADR, never edit committed history; an uncommitted draft is still editable in place, and a committed ADR reopens to `proposed` only on an explicit user request with a stated justification
+- Record the material consequences without forcing positive, negative, and neutral subsections
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
+- Link `ADR-NNN` to the replacement ADR when Status marks a decision as superseded
 - When extracted from a Design Doc Alternatives row, the ADR's References section links back to the design doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
-- Alternatives Considered Record column defaults to `—`; populate with `ADR-NNN` only when the alternative itself has been recorded as a separate ADR
-- An ADR references only prior ADRs — a genuine backward dependency, never a thematic "see also"; it never anticipates or links a later one. Inter-ADR lifecycle links live in frontmatter (`supersedes`/`superseded-by`), not the body
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
 - External facts (vendor pricing, provider capabilities) are dated and kept verifiable — e.g. "rates valid as of {{Month YYYY}}"
@@ -172,19 +147,16 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 ## Status Lifecycle
 
 ```text
-proposed → accepted → deprecated
-    ↑                → superseded (by ADR-NNN)
-    └──── reopen ──── (accepted → proposed: explicit user request + justification)
+Proposed → Accepted
+Accepted → Deprecated | Superseded by ADR-NNN
 ```
 
-- **proposed**: Drafted, awaiting review. Editable in place. The status advances only when the user explicitly ratifies the decision — the skill never auto-promotes.
-- **accepted**: Approved and in effect. Immutable once committed; an accepted ADR not yet committed has no recorded history to preserve and stays editable in place. A committed accepted ADR reopens to `proposed` only on an explicit user request with a justification (see Reopening below).
-- **deprecated**: No longer recommended but not replaced. Immutable.
-- **superseded**: Replaced by a newer ADR. Frontmatter `superseded-by` links to the replacement. Immutable.
+- **Proposed**: Drafted and awaiting review.
+- **Accepted**: Approved and in effect.
+- **Deprecated**: No longer recommended but not replaced.
+- **Superseded by ADR-NNN**: Replaced by the linked ADR.
 
-Immutability protects committed decision history: once an ADR is part of the log, supersede it with a new ADR rather than editing it. When superseding, the new ADR's frontmatter `supersedes` lists the prior ADR ID, and the prior ADR's status moves to `superseded` with `superseded-by` populated.
-
-**Reopening a committed ADR.** By default a committed decision is superseded, not edited. The one exception is an explicit user request to reopen: the user moves the ADR back to `proposed` with a stated justification — never the skill on its own, and never silently. The justification rides in the reopen commit, so committed history still records why the decision was taken back into motion. Implementation status does not grant this — an unimplemented decision reopens the same way as any other, only on an explicit, justified request. Absent that request, supersede instead. On reopen, flip frontmatter `status` to `proposed` and bump `updated`, preserving `created` and `sources`.
+Update an ADR when its record needs correction or clarification, and bump `updated`. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
 
 ## Anti-Pattern: Bundled Decisions
 
@@ -192,36 +164,14 @@ An ADR titled "API and Database Decisions" or "Q2 Architecture Choices" bundles 
 
 ## Anti-Pattern: Advocacy or Narrative as Context
 
-Context states the forces that make the decision necessary — directly, in the first sentence, value-neutral. It fails two ways. It argues for the chosen outcome ("Postgres is the obvious choice because...") — a sales pitch, not context; the Decision states the choice and the Alternatives Considered table justifies rejecting the rest. Or it narrates: re-introducing the product ("Acme is a platform that...", "The product needs a..."), setting the scene conversationally, or smuggling the argument in as background (an inventory of everything two options share is an argument for merging them, not context). Re-establishing what the product is belongs in the PRD or design doc; the argument for the choice belongs in the Decision and Alternatives. State the force and stop.
-
-## Anti-Pattern: Consequences Without Trade-offs
-
-Listing only positive consequences hides the cost of the decision. Every architecture decision absorbs a trade-off — vendor lock-in, operational complexity, learning curve, deprecation debt. If the Negative section is empty, the decision either has no trade-offs (rare — reconsider whether this needs an ADR) or the trade-offs are being ignored (more likely — push back).
-
-## Anti-Pattern: Unforced Consequence
-
-`Consequences Without Trade-offs` makes a Negative consequence *exist*; this makes it *forced*. A cost the decision absorbs holds because the Decision itself makes it unavoidable, and the force is one of the value-neutral constraints already named in Context — a platform limit, an API that exposes no hook, a contract that cannot change. It fails when the cost is justified by a requirement that merely sits nearby: a requirement says what must be true, a constraint says what cannot be otherwise, and only the second makes a cost unavoidable. A Negative bullet that traces back to no force in Context was never weighed — it is a cost written down, not a trade-off absorbed. State the force, or drop the bullet.
-
-## Anti-Pattern: Anticipating Future ADRs
-
-An ADR records a decision at a point in time and does not know the future — even when authored retroactively. It must not reference, link to, or promise an ADR or decision made after it: "will be handled in a separate ADR", a "see ADR-012" pointing forward, or a scope note ("this decision does not prescribe X") that presupposes X is already a known future question. The author may know what came next; the ADR must not.
-
-Legitimate references point backward — to a prior ADR the decision genuinely depends on — or state conditional reversibility ("may be revisited if volume grows") without naming a future decision.
-
-## Anti-Pattern: Speculative Neutral
-
-The Neutral section records factual downstream consequences — migration work, a new dependency, a vocabulary shift, a knock-on decision surfaced. It is not a place to speculate about the future of the decision itself: "will be revisited if X", "metrics evaluated later", "validated live after launch". Those presume the ADR knows whether and when the decision will be revised, which it cannot. State the neutral fact and stop. If the Neutral section has nothing factual to say, omit it rather than fill it with speculation.
-
-## Anti-Pattern: Strawman Alternatives
-
-Rejecting a real alternative with a reason that does not hold makes the ADR dishonest and the decision unreviewable. The recurring example: dismissing a workspace monorepo because it "forces shared tooling/CI" — it does not; workspaces give per-package tooling. Every rejection reason must be accurate and must actually apply to that option. If the strongest alternative can only be rejected with a weak or false reason, the decision itself needs reexamining — not a tidier excuse.
+Context states the forces that make the decision necessary — directly, in the first sentence, value-neutral. It fails when it argues for the chosen outcome or re-introduces the product instead of naming the issue and constraints. State the forces and stop.
 
 ## Anti-Pattern: Planning or Scope in the Decision
 
-The Decision states the choice and the rationale behind it — nothing else. It does not carry implementation planning ("automated via CI, pipeline TBD") or product scope (feature lists, tier/plan allocation). Planning belongs in the tracker or design doc; product scope belongs in the PRD. If the Decision reads like a build plan or a requirements table, lift that content out and leave only the decision and why.
+The Decision states the choice — nothing else. It does not carry rationale, implementation planning ("automated via CI, pipeline TBD"), or product scope (feature lists, tier/plan allocation). Rationale belongs in Context, planning belongs in the tracker or design doc, and product scope belongs in the PRD. If the Decision reads like a build plan or a requirements table, lift that content out and leave only the decision.
 
 ## Output
 
 Save to: `docs/adr/{{NNN}}-{{slug}}.md`
 
-ADRs accumulate as an append-only log. Never overwrite a prior ADR; write a new one that supersedes it.
+Create a new numbered ADR for a new decision. Update an existing ADR when the user asks to correct or clarify its record.

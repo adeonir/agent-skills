@@ -24,7 +24,7 @@ flowchart TD
 | **PRD** | discovery (4 phases) if absent, reconcile if present | `PRD.md` |
 | **PRODUCT** | discovery if absent, reconcile if present (per artifact) | `PRODUCT.md` |
 | **Design Doc** | if absent: discovery (4 topics) → analysis → drafting; reconcile if present | `design-doc.md` |
-| **ADR** | context → validation → drafting (single decision, append-only) | `adr/NNN-slug.md` |
+| **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
 
 ## Usage
 
@@ -49,7 +49,7 @@ docs/tech/design-doc.md
 docs/adr/{NNN}-{slug}.md
 ```
 
-Committed by default. Product-side artifacts (PRD, PRODUCT) live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs accumulate in their own subdirectory as a numbered append-only log; design doc Alternatives rows link to ADRs via the `Record` column once formalized.
+Committed by default. Product-side artifacts (PRD, PRODUCT) live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs use numbered files in their own subdirectory; design doc Alternatives rows link to ADRs via the `Record` column once formalized.
 
 ## Document Boundaries
 
@@ -60,22 +60,22 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 | **PRODUCT** | PMs, designers, marketing | Strategic positioning: register, audience posture, brand personality, anti-references, design principles | Requirements, scope, metrics, journeys, technical content |
 | **PRD** | PMs, engineers, designers | Product spec: problem, personas, scope MoSCoW, journeys, business rules, NFRs (as targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
 | **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product KPIs, personas, journey walkthroughs, exhaustive spec coverage |
-| **ADR** | Engineers, future engineers | One accepted technical decision with context, consequences, alternatives | Multiple decisions in one file, open trade-offs, advocacy as context |
+| **ADR** | Engineers, future engineers | One technical decision with status, context, consequences, and references | Multiple decisions in one file, open trade-offs, advocacy as context |
 
 ### How they relate
 
 - PRODUCT is the product's strategic positioning — resolved by the product-doc flow per artifact state: drafted in discovery (shared with the PRD when both are new) if absent, reconciled if it already exists, including on its own when only positioning shifts.
 - PRD is the source of truth for product; Design Doc links to it, never copies prose.
 - Design Doc carries the design and its trade-offs; matured decisions extract into ADRs, tracked via the Alternatives `Record` column.
-- ADRs become immutable once accepted and committed; supersede with a new ADR, never edit committed history — a committed ADR reopens to `proposed` only on an explicit user request with justification.
+- ADRs can be updated as their record becomes clearer. When one decision replaces another, create a new ADR and mark the prior ADR as superseded.
 
 When a section feels like it belongs in two docs, it usually belongs in one and gets a link from the other.
 
 ## FAQ
 
-**Q: How are ADRs linked to the Design Doc?** A: The Design Doc's Alternatives Considered table includes a `Record` column. Each row starts with `—` (design-doc-only record). When a decision matures, extract it into an ADR; the row's `Record` is updated to `ADR-NNN`, and the ADR's References section links back to the design doc section anchor. ADR-linked rows are frozen; reversals create a superseding ADR and a new row, never an edit to the original row.
+**Q: How are ADRs linked to the Design Doc?** A: The Design Doc's Alternatives Considered table includes a `Record` column. Each row starts with `—` (design-doc-only record). When a decision matures, extract it into an ADR; the row's `Record` is updated to `ADR-NNN`, and the ADR's References section links back to the design doc section anchor.
 
-**Q: When should I use an ADR vs a Design Doc?** A: The Design Doc carries the design and the trade-offs behind it; the Alternatives Considered table is where decisions get explored and recorded. Each row starts with `Record = —`; when a decision matures, extract it into an ADR (immutable, numbered, one decision per file), update the row's `Record` to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section. ADRs are the formal receipt; the Design Doc keeps the surrounding context.
+**Q: When should I use an ADR vs a Design Doc?** A: The Design Doc carries the design and the trade-offs behind it; the Alternatives Considered table is where decisions get explored and recorded. Each row starts with `Record = —`; when a decision matures, extract it into a numbered ADR with one decision per file, update the row's `Record` to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section. ADRs are the formal receipt; the Design Doc keeps the surrounding context.
 
 **Q: I have decisions buried in project documents — how do I lift them into ADRs?** A: Trigger an ADR workflow. The Context phase scans `CODEBASE.md`, the PRD, and the Design Doc for decisions that meet the ADR criteria and are not already recorded. Each decision becomes its own ADR — one decision per file, never a single ADR summarizing many.
 

@@ -8,7 +8,7 @@ When authoring or reconciling the technical design doc for a software project �
 
 **Boundary with PRD:** the design doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS).
 
-**Boundary with ADR:** the design doc carries the design and the trade-offs behind it. ADRs carry the immutable record of individual accepted decisions. Both coexist and reference each other.
+**Boundary with ADR:** the design doc carries the design and the trade-offs behind it. ADRs record individual decisions. Both coexist and reference each other.
 
 ## When NOT to Write a Design Doc
 
@@ -174,8 +174,7 @@ Describe the design; do not pad with exhaustive coverage of every axis.}}
 | {{what was decided}} | {{what was chosen}} | {{what was rejected}} | {{trade-offs, why this choice}} | {{— or ADR-NNN}} |
 
 `—` = the design doc is the only record of this decision. `ADR-NNN` = the
-decision is formalized as an ADR; the row is then frozen (reversals create a
-superseding ADR and a new row, never an edit).
+decision is formalized as an ADR.
 
 ## 5. Cross-cutting Concerns
 
@@ -230,22 +229,19 @@ When a decision in the Alternatives Considered table matures — the team commit
 
 Process:
 
-First check the row's `Record` column — if it already reads `ADR-NNN`, the decision is recorded and linked, the row is frozen, and there is nothing to reconcile; stop. Otherwise:
+First check the row's `Record` column. If it already reads `ADR-NNN`, read that ADR before deciding whether the record needs an update. Otherwise:
 
 1. Create the ADR (see [adr.md](adr.md)). Number sequentially.
 2. Update the design doc row: set `Record` to `ADR-NNN`.
 3. The ADR's References section links back to the design doc's Alternatives Considered section.
-4. The row is now frozen. Reversals create a superseding ADR and a new row, never an edit to the original.
 
-Rows with `Record = —` remain editable — design-doc-only records of trade-offs explored along the way.
+Rows with `Record = —` are design-doc-only records of trade-offs explored along the way.
 
 ## Reconciling an Existing Design Doc
 
 Once `docs/tech/design-doc.md` exists, a re-run reconciles rather than regenerates: read it as input and scope the change to what actually moved — a new decision, a new component, a resolved open question, or structure that drifted from the implementation. Work that delta and leave the settled prose alone; a reconcile is not a rewrite, and it never pads the doc. Follow the procedure in [reconcile.md](reconcile.md); the design-doc specifics are below.
 
-Respect what is frozen. Alternatives Considered rows recorded as an ADR (`Record = ADR-NNN`) are immutable — reverse them with a superseding ADR and a new row, never an in-place edit (see the `## ADR Linkage` section above). The editable surface is the design prose, rows with `Record = —`, and Open Questions.
-
-Bump `updated` in the frontmatter, preserving `created`. The thing to catch is a change that contradicts a frozen decision or an untouched section.
+Bump `updated` in the frontmatter, preserving `created`. Surface a change that contradicts a linked ADR or an untouched section.
 
 ## Anti-Pattern: Implementation Manual Without Trade-offs
 

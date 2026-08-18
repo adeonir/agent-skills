@@ -35,10 +35,12 @@ When the document is an ADR, additionally verify:
 - [ ] Exactly one decision is recorded (not bundled with others)
 - [ ] Decision stated as a positive imperative ("We will...")
 - [ ] Context is value-neutral (states forces, does not advocate)
-- [ ] Consequences include both positive AND negative outcomes
-- [ ] At least one alternative is recorded with a rejection reason
+- [ ] Consequences capture the material outcomes of the decision
+- [ ] Status is present in the body
+- [ ] Frontmatter contains `name`, `date`, `updated`, and `sources`
+- [ ] References follow the document reference pattern
 - [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
-- [ ] When superseding, frontmatter `supersedes` and prior ADR's `superseded-by` are both populated
+- [ ] When superseding, the prior ADR's Status links to its replacement
 
 ## Document Boundaries
 
@@ -65,6 +67,6 @@ Applies to PRD and Design Doc. Each document stays in its lane; cross-doc conten
 When the document is a Design Doc, additionally verify:
 
 - [ ] Every significant decision in Alternatives Considered carries its chosen / rejected / reasoning — the doc reasons, it does not just prescribe
-- [ ] Alternatives Considered Record column populated where an ADR exists; rows with `ADR-NNN` are frozen (reversals require a superseding ADR, not a row edit)
+- [ ] Alternatives Considered Record column populated where an ADR exists
 - [ ] Context recaps in 1-2 paragraphs and links the PRD — no restated Problem Statement, Personas, or Journeys
 - [ ] Cross-cutting concerns appear only where they shape the design — no exhaustive coverage of axes with no decision behind them

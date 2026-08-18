@@ -13,7 +13,7 @@ Generates structured product and technical documents through guided discovery. 4
 trigger → detect type → load reference → check disk → drafting
   artifact exists → reconcile (light discovery on the delta)
   artifact absent → full discovery
-  ADR → append-only, always a new numbered record (never reconciled)
+  ADR → create a numbered record or update the requested record
 ```
 
 Detect document type from the trigger. If ambiguous, ask the user.
@@ -23,13 +23,13 @@ Detect document type from the trigger. If ambiguous, ask the user.
 | PRD — product requirements | [prd.md](references/prd.md) |
 | PRODUCT — strategic positioning and identity | [product.md](references/product.md) |
 | Design Doc — lean technical design and trade-offs | [design.md](references/design.md) |
-| ADR — single accepted decision record | [adr.md](references/adr.md) |
+| ADR — single architecture decision record | [adr.md](references/adr.md) |
 
 Auto-loaded (no direct triggers):
 
 - `discovery.md` — by the product-doc flow, Design Doc, ADR at start of discovery
 - `quality.md` — before writing any document
-- `reconcile.md` — by PRD, PRODUCT, or Design Doc when the artifact already exists on disk. ADR is append-only — a new numbered record each time, never reconciled
+- `reconcile.md` — by PRD, PRODUCT, or Design Doc when the artifact already exists on disk
 - `product.md` — by `prd.md` when resolving PRODUCT (reconcile if `PRODUCT.md` exists, discovery if absent; the PRODUCT row above is the same flow)
 
 ## Document Boundaries
@@ -37,7 +37,7 @@ Auto-loaded (no direct triggers):
 - **PRD** — product only: problem, users, scope, journeys, rules, metrics. No implementation, architecture, tech stack, UI, or API.
 - **PRODUCT** — strategic positioning and identity: register, audience posture, brand personality, anti-references, design principles. Prose, not requirements. Part of the product-doc pair; resolved by whether `PRODUCT.md` exists — discovery if absent, reconcile if present. The PRD owns what the product does; PRODUCT owns what it is. Keep three zones clean — audience as relationship (not the PRD's job to be done), refused aesthetics (not the PRD's out-of-scope features), and differentiation (not the PRD's problem statement).
 - **Design Doc** — lean technical design: the context, the design, and the trade-offs behind it (Google-style). Context recaps the project in 1-2 paragraphs and links to the PRD; never duplicates product prose. Not visual or UI design, and not an exhaustive technical spec.
-- **ADR** — single architecture decision (1-2 pages). Numbered, immutable once committed; superseded by new ADRs, not edited in place — reopened to `proposed` only on an explicit, justified user request. Use when lifting decisions from a PRD/Design Doc or recording retrospectively. When extracted from a Design Doc Alternatives row, the design doc row's `Record` column is updated to the ADR ID and the ADR's References link back to the design doc section anchor.
+- **ADR** — single architecture decision with its status, context, decision, consequences, and references. Use when lifting decisions from a PRD/Design Doc, recording retrospectively, or updating an existing record. When extracted from a Design Doc Alternatives row, the design doc row's `Record` column is updated to the ADR ID and the ADR's References link back to the design doc section anchor.
 
 ## Guidelines
 
@@ -54,7 +54,7 @@ Discovery is not a formality. When a problem statement is vague, evidence is thi
 
 ## Anti-Pattern: ADR as Design Doc
 
-ADR records *one* decision after it's been made — context, decision, consequences, alternatives. The design doc carries the design and the trade-offs behind it. Writing a long ADR that weighs several open options is a design doc in disguise; writing a design doc that captures a single accepted choice is an ADR padded with prose. If the decision is still in motion, leave it in the design doc's Alternatives Considered table with `Record = —`. Once recorded, extract it into an ADR, update the design doc row's `Record` column to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section.
+ADR records *one* decision — status, context, decision, consequences, and references. The design doc carries the design and the trade-offs behind it. Writing a long ADR that weighs several open options is a design doc in disguise; writing a design doc that captures a single decision is an ADR padded with prose. If the decision is still in motion, leave it in the design doc's Alternatives Considered table with `Record = —`. Once recorded, extract it into an ADR, update the design doc row's `Record` column to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section.
 
 ## Anti-Pattern: Vague Requirements
 

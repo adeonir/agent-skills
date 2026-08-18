@@ -19,8 +19,6 @@ triage → scope → validate delta → declare settled → confirm → draft
 5. **Confirm the scoped plan.** Get explicit agreement on the scoped change before editing. This replaces the greenfield synthesis gate — confirm the delta, not a full re-synthesis.
 6. **Draft.** Apply the change using the artifact's own template — [prd.md](prd.md) for the PRD, [product.md](product.md) for PRODUCT, [design.md](design.md) for the Design Doc — preserving every section the scope did not touch. Write the change to the artifact's path, then report a brief prose summary of the delta in chat — what changed and where. Do not paste the full document.
 
-Some artifacts mark regions immutable. A Design Doc's Alternatives Considered rows recorded as an ADR (`Record = ADR-NNN`) are frozen — reverse them with a superseding ADR and a new row, never an in-place edit (see [design.md](design.md) `## ADR Linkage`). Reconcile the editable surface around them.
-
 ## Reading the Sibling Artifact
 
 When one artifact is absent and seeded by the other (a PRD seeded by an existing PRODUCT, or a PRODUCT seeded by an existing PRD), read the sibling for coverage and context only. Its tokens never cross verbatim into the artifact being built, and the PRD/PRODUCT boundary holds: requirements stay in the PRD, positioning stays in PRODUCT, with audience-as-relationship, refused aesthetics, and differentiation on the PRODUCT side. The sibling fills discovery gaps; it is not copied. The Design Doc has no sibling to seed it, so this applies to the product-doc pair only.

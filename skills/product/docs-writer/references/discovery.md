@@ -27,7 +27,7 @@ The Design Doc resolves the same way against its own artifact (`docs/tech/design
 
 Discovery builds an artifact fresh — its depth is the full topic set minus whatever an existing sibling already supplies. Reconcile reads an existing artifact as input and works only the gap or the declared change. The reconcile procedure lives in [reconcile.md](reconcile.md). Discovery may also be seeded by an upstream direction artifact when the document type has one — the PRD reads `docs/product/brainstorm.md` when present (see [prd.md](prd.md)). That is the conceptual-upstream axis, distinct from reading the codebase for present-state facts.
 
-ADRs are the exception: append-only, superseded by a new record and never reconciled, so this check does not apply to them.
+For an ADR, create a new numbered record for a new decision. When the user identifies an existing ADR, read it and update only the requested parts, then bump `updated`.
 
 ## Interview Strategy
 
@@ -74,7 +74,7 @@ Move on when:
 | PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
 | PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (part of the product-doc pair; depth = full minus what an existing sibling already supplies) |
 | Design Doc | 4 topics | Context & goals, the design, alternatives & trade-offs, cross-cutting concerns |
-| ADR | 1 topic | The decision: context forces, alternatives, consequences (lightweight) |
+| ADR | 1 topic | The decision: context forces, response, consequences (lightweight) |
 
 Design Doc discovery stays lean and trade-off-focused. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes Alternatives rows into formal ADRs.
 
