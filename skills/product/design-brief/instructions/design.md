@@ -13,7 +13,7 @@ Use for greenfield authoring from a moodboard or supplied reference, or after id
 - Obtain explicit confirmation for the proposed brownfield delta.
 - Load [aesthetics.md](../references/aesthetics.md), [anti-slop.md](../references/anti-slop.md), and the matching register file.
 - Load [color-craft.md](../references/color-craft.md) only for palette work and [typography.md](../references/typography.md) only for type work.
-- Read `assets/template.md` from this skill before creating a new file. The asset is the single copyable template; remove its comments and replace every slot.
+- Read `assets/design.template.md` from this skill before creating a new file. The asset is the single copyable template; remove its comments and replace every slot.
 
 ## Artifact Contract
 
@@ -99,7 +99,7 @@ Treat implementation values as truth for drifted `colors`, `typography`, `rounde
 ## Workflow
 
 1. State the interpreted surfaces, register, source, direction, field, and confirmed intent. A locked moodboard already settles the direction.
-2. Read an existing root `DESIGN.md` before patching. For a new file, copy the structure from `assets/template.md` and remove all comments.
+2. Read an existing root `DESIGN.md` before patching. For a new file, copy the structure from `assets/design.template.md` and remove all comments.
 3. Build a patch list by frontmatter group and prose section. Show the list before any brownfield write; the prior confirmation must cover it.
 4. Patch the frontmatter first, then only the prose sections affected by the same delta. Preserve unknown prose sections without moving them, but report that they are outside the canonical contract.
 5. Run the supplemental semantic contrast checker:
