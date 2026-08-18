@@ -20,7 +20,7 @@ Three boundary zones to keep clean — the PRD owns the other side of each:
 
 ## Discovery
 
-PRODUCT is drawn from a single Positioning topic. When drafted alongside a new PRD, it shares that discovery — Users (Topic 2) and Market & Differentiation (Topic 3) feed positioning directly, so run this topic against what they surfaced rather than re-asking. When drafted alone (the PRD already exists), run it fresh, seeded by the PRD.
+Apply [discovery.md](discovery.md) `## Reading Project Files` before reading a PRD or upstream direction. PRODUCT is drawn from a single Positioning topic. When drafted alongside a new PRD, it shares that discovery — Users (Topic 2) and Market & Differentiation (Topic 3) feed positioning directly, so run this topic against what they surfaced rather than re-asking. When drafted alone (the PRD already exists), run it fresh, seeded by the PRD.
 
 Seed from an upstream direction when present: check `docs/product/brainstorm.md`. The PRODUCT never depends on it — absent, run discovery as above; present, read it as input and confirm rather than re-ask.
 
@@ -76,47 +76,38 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{document-name}}
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+name: [document-name]
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
 status: draft
 sources: []
 ---
 
-# Product: {{Product Name}}
+# Product: [Product Name]
 
 ## Register
 
-{{`brand` or `product` — the product's dominant posture. brand: the experience
-is the product (landing, campaign, marketing). product: the experience serves a
-task (app, dashboard, tool). State one value plus a line on why. Surfaces that
-diverge from this default are resolved downstream, not here.}}
+[`brand` or `product` — the product's dominant posture. brand: the experience is the product (landing, campaign, marketing). product: the experience serves a task (app, dashboard, tool). State one value plus a line on why. Surfaces that diverge from this default are resolved downstream, not here.]
 
 ## Users
 
-{{One paragraph: who the product is for and the relationship it wants with them —
-expert-to-expert, premium, approachable. Posture, not a backlog of jobs to be
-done (that is the PRD).}}
+[One paragraph: who the product is for and the relationship it wants with them — expert-to-expert, premium, approachable. Posture, not a backlog of jobs to be done (that is the PRD).]
 
 ## Product Purpose
 
-{{One paragraph: what the product is and what it stands for — its identity, not
-its measurable targets (those live in the PRD).}}
+[One paragraph: what the product is and what it stands for — its identity, not its measurable targets (those live in the PRD).]
 
 ## Brand Personality
 
-{{One paragraph: the product's character and voice. Three adjectives plus the
-tone they imply (e.g., direct, specific, no hedging).}}
+[One paragraph: the product's character and voice. Three adjectives plus the tone they imply (e.g., direct, specific, no hedging).]
 
 ## Anti-references
 
-{{What the product refuses to be — the aesthetics, clichés, and postures it
-rejects, as prose. The negative space of the identity.}}
+[What the product refuses to be — the aesthetics, clichés, and postures it rejects, as prose. The negative space of the identity.]
 
 ## Design Principles
 
-{{The handful of principles that drive design and copy decisions — what the
-product always does, stated as commitments.}}
+[The handful of principles that drive design and copy decisions — what the product always does, stated as commitments.]
 ````
 
 MUST NOT contain: requirements, scope or feature lists, success metrics, user journeys, business rules, or accessibility targets — those belong to the PRD.

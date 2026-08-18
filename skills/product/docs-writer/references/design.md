@@ -31,7 +31,7 @@ Load [discovery.md](discovery.md) for shared interview patterns and critical pos
 
 **Check Existing Context:**
 
-Look for an existing PRD at `docs/product/PRD.md` and ADRs at `docs/adr/`. Read them for context only — their tokens never cross verbatim into the design doc. Context recaps and links to the PRD; existing ADRs seed the Alternatives Considered Record column.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then look for an existing PRD at `docs/product/PRD.md` and ADRs at `docs/adr/`. Read them for context only — their tokens never cross verbatim into the design doc. Context recaps and links to the PRD; existing ADRs seed the Alternatives Considered Record column.
 
 | PRD Section | Feeds Design Doc |
 |-------------|------------------|
@@ -128,19 +128,17 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{document-name}}
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+name: [document-name]
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
 sources: []
 ---
 
-# Design Doc: {{Project Name}}
+# Design Doc: [Project Name]
 
 ## 1. Context & Scope
 
-{{One or two paragraphs: what is being built, why it matters, and the
-surrounding system landscape. Keep it succinct — the reader follows the PRD link
-for product depth.}}
+[One or two paragraphs: what is being built, why it matters, and the surrounding system landscape. Keep it succinct — the reader follows the PRD link for product depth.]
 
 > See PRD: `docs/product/PRD.md`
 
@@ -148,49 +146,41 @@ for product depth.}}
 
 ### Goals
 
-- **{{Goal name}}:** {{Measurable technical objective — latency, throughput,
-  isolation guarantee, zero-downtime target, etc.}}
+- **[Goal name]:** [Measurable technical objective — latency, throughput, isolation guarantee, zero-downtime target, etc.]
 
 ### Non-Goals
 
-- {{A choice deliberately excluded — e.g. "ACID compliance" considered and not
-  pursued. Not a negated goal like "shouldn't crash".}}
+- [A choice deliberately excluded — e.g. "ACID compliance" considered and not pursued. Not a negated goal like "shouldn't crash".]
 
 ## 3. Design
 
-{{The technical design: a high-level architecture and system-context (Mermaid
-diagrams as needed), the key components and their responsibilities, and the
-data/interfaces the design hinges on — to the depth the decisions require.
-Describe the design; do not pad with exhaustive coverage of every axis.}}
+[The technical design: a high-level architecture and system-context (Mermaid diagrams as needed), the key components and their responsibilities, and the data/interfaces the design hinges on — to the depth the decisions require. Describe the design; do not pad with exhaustive coverage of every axis.]
 
 ```mermaid
-{{System-context or component diagram}}
+[System-context or component diagram]
 ```
 
 ## 4. Alternatives Considered & Trade-offs
 
 | Decision | Chosen | Rejected | Reasoning | Record |
 |----------|--------|----------|-----------|--------|
-| {{what was decided}} | {{what was chosen}} | {{what was rejected}} | {{trade-offs, why this choice}} | {{— or ADR-NNN}} |
+| [what was decided] | [what was chosen] | [what was rejected] | [trade-offs, why this choice] | [— or ADR-NNN] |
 
-`—` = the design doc is the only record of this decision. `ADR-NNN` = the
-decision is formalized as an ADR.
+`—` = the design doc is the only record of this decision. `ADR-NNN` = the decision is formalized as an ADR.
 
 ## 5. Cross-cutting Concerns
 
-{{Brief prose on the concerns that shape this design — security/privacy,
-observability, operations, testing. Cover only what affects the design; leave
-the rest out.}}
+[Brief prose on the concerns that shape this design — security/privacy, observability, operations, testing. Cover only what affects the design; leave the rest out.]
 
 ## 6. Open Questions
 
-- [ ] {{Question or uncertainty to resolve before implementation can proceed}}
+- [ ] [Question or uncertainty to resolve before implementation can proceed]
 
 ## 7. References
 
-- {{Link to PRD}}
-- {{Links to ADRs that record extracted decisions}}
-- {{External documentation, RFCs, prior art}}
+- [Link to PRD]
+- [Links to ADRs that record extracted decisions]
+- [External documentation, RFCs, prior art]
 ````
 
 MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs, or restated PRD prose — recap in 1-2 lines and link the PRD instead.

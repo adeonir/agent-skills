@@ -46,7 +46,7 @@ Documents are saved by category under `docs/`:
 docs/product/PRD.md
 docs/product/PRODUCT.md
 docs/tech/design-doc.md
-docs/adr/{NNN}-{slug}.md
+docs/adr/<NNN>-<slug>.md
 ```
 
 Committed by default. Product-side artifacts (PRD, PRODUCT) live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs use numbered files in their own subdirectory; design doc Alternatives rows link to ADRs via the `Record` column once formalized.

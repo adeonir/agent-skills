@@ -12,7 +12,7 @@ When `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/tech/design-doc.
 triage → scope → validate delta → declare settled → confirm → draft
 ```
 
-1. **Triage.** Read the existing artifact(s) as input. Inventory what is already captured and evidenced. Nothing here is re-elicited just because the run restarted — settled content stays settled.
+1. **Triage.** Apply [discovery.md](discovery.md) `## Reading Project Files`, then read the existing artifact(s) as input. Inventory what is already captured and evidenced. Nothing here is re-elicited just because the run restarted — settled content stays settled.
 2. **Scope by intent.** Pin down what the user actually wants to change. The reconcile touches only that, plus whatever it provably affects. If the intent is vague, ask — a vague change is as unsafe as a vague greenfield brief.
 3. **Validate the delta.** Apply the critical posture to the change, not to the whole doc — see [discovery.md](discovery.md) `## Critical Posture`. The anti-yes-man scrutiny is scoped to the delta: "Why this change? What evidence?", "You asked to update X — this is now X + Y + Z, should we narrow?", "The doc records this with evidence — what changed to overturn it?". Then check the delta against the untouched sections: a changed metric that contradicts a persona, a new rule that breaks an existing journey, must surface here.
 4. **Declare what is settled.** Before drafting, state plainly what the reconcile took as settled and what it scrutinized — e.g. "reconciling the Goals table; Personas and Journeys taken as settled". This is the safeguard against silently rubber-stamping or silently rewriting; the user can see and correct the boundary.

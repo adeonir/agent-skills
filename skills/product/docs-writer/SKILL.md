@@ -5,8 +5,6 @@ description: "Generates structured product and technical documents through guide
 
 # Docs Writer
 
-Generates structured product and technical documents through guided discovery. 4 document types, each with its own workflow depth.
-
 ## Quick start
 
 ```text

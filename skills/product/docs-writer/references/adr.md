@@ -27,7 +27,7 @@ Load [discovery.md](discovery.md) for shared interview patterns and critical pos
 
 **Check Existing Context:**
 
-Read existing ADRs at `docs/adr/` first. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
 
 Scan upstream artifacts for embedded decisions that should be lifted into their own ADR:
 
@@ -83,38 +83,33 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-name: {{NNN-slug}}
-date: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+name: [NNN-slug]
+date: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
 sources: []
 ---
 
-# ADR-{{NNN}}: {{Decision Title}}
+# ADR-[NNN]: [Decision Title]
 
 ## Status
 
-{{Proposed | Accepted | Deprecated | Superseded by ADR-NNN}}
+[Proposed | Accepted | Deprecated | Superseded by ADR-NNN]
 
 ## Context
 
-{{Describe the issue that motivates this decision and the forces that
-influence or constrain it. Include considered alternatives here when
-they help explain the response. Keep the language value-neutral.}}
+[Describe the issue that motivates this decision and the forces that influence or constrain it. Include considered alternatives here when they help explain the response. Keep the language value-neutral.]
 
 ## Decision
 
-{{State the change that is proposed or agreed. Use active voice and a
-positive imperative such as "We will adopt X".}}
+[State the change that is proposed or agreed. Use active voice and a positive imperative such as "We will adopt X".]
 
 ## Consequences
 
-{{Describe what becomes easier or more difficult and the risks or
-constraints introduced by the decision. Include positive, negative,
-and neutral outcomes when they are material; do not force categories.}}
+[Describe what becomes easier or more difficult and the risks or constraints introduced by the decision. Include positive, negative, and neutral outcomes when they are material; do not force categories.]
 
 ## References
 
-- {{Related project documents, ADRs, external documentation, or prior art}}
+- [Related project documents, ADRs, external documentation, or prior art]
 ````
 
 MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, or product scope.
@@ -142,7 +137,7 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 - When extracted from a Design Doc Alternatives row, the ADR's References section links back to the design doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
-- External facts (vendor pricing, provider capabilities) are dated and kept verifiable — e.g. "rates valid as of {{Month YYYY}}"
+- External facts (vendor pricing, provider capabilities) are dated and kept verifiable — e.g. "rates valid as of [Month YYYY]"
 
 ## Status Lifecycle
 
@@ -172,6 +167,6 @@ The Decision states the choice — nothing else. It does not carry rationale, im
 
 ## Output
 
-Save to: `docs/adr/{{NNN}}-{{slug}}.md`
+Save to: `docs/adr/<NNN>-<slug>.md`
 
 Create a new numbered ADR for a new decision. Update an existing ADR when the user asks to correct or clarify its record.
