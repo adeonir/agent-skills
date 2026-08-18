@@ -38,7 +38,7 @@ Loaded on demand:
 - [ordering.md](references/ordering.md) — task dependency graph, derived waves, and dispatch units
 - [simplicity.md](references/simplicity.md) — the architecture ladder, chained necessity as the signal of a wrong root, verifying a simplification is real before it becomes a decision
 - [research-cache.md](references/research-cache.md) — the cached-finding template, the basis that makes an entry falsifiable, the rule that voids a stale one
-- [memory.md](references/memory.md) — root `CONTEXT.md`, per-feature `STATE.md`, and signal routing
+- [memory.md](references/memory.md) — root `CODEBASE.md`, per-feature `STATE.md`, and signal routing
 - [lessons.md](references/lessons.md) — signal and lesson contracts (candidate → confirmed → quarantined)
 - [commit-conventions.md](references/commit-conventions.md) — conventional commit message format
 - [discovery.md](references/discovery.md) — adaptive discovery, when a gray area goes to the user, where a resolution lands
@@ -54,7 +54,7 @@ The instructions write a bundled script as `<this-skill>/scripts/<name>`. Resolv
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — existing files are context, not structural reference. Templates win on divergence.
 
-A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
+A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`. Discovery never forages siblings or `archive/` for shape or decisions — the only cross-feature inputs a new feature reads are the root `CODEBASE.md` and confirmed lessons.
 
 ## Status
 
