@@ -1,6 +1,6 @@
 # Quality Standards
 
-Quality gates for requirements and document integrity before writing any document to disk.
+Quality checks for requirements and document integrity before writing any document to disk.
 
 ## When to Use
 
@@ -26,7 +26,7 @@ Before writing any document to disk, verify:
 - [ ] Cross-references to other docs are valid
 - [ ] Requirements are concrete and measurable (no vague adjectives)
 
-**If any gate fails — here or in the type-specific gates below — fix it inline, re-verify that gate, and only then write.** This applies whether the document was discovered fresh or reconciled; a reconcile that touched only part of a doc still re-verifies the gate set against the result.
+**If any check fails, fix the document, run that check again, and write only after it passes.** Apply all checks to both new and updated documents.
 
 ## ADR-Specific Gates
 
@@ -44,13 +44,13 @@ When the document is an ADR, additionally verify:
 
 ## Document Boundaries
 
-Applies to PRD and Design Doc. Each document stays in its lane; cross-doc content links rather than duplicates.
+Apply these boundaries to the PRD and Design Doc. Keep each subject in its owning document and link to it from related documents.
 
 **When the document is a PRD, verify:**
 
 - [ ] No architecture, tech stack, framework choices, or deployment topology — those belong to the Design Doc
 - [ ] No API contracts, endpoint paths, request/response shapes, or database schema details
-- [ ] No UI component names, library references, or styling directives — those belong to the design artifact
+- [ ] No UI component names, library references, or styling instructions
 - [ ] Journeys describe actor goals and product behavior, not implementation steps ("user submits the form" not "POST /orders with payload X")
 - [ ] NFRs state measurable targets without prescribing the mechanism ("p95 latency under 200ms" not "use Redis caching")
 - [ ] Executive Summary is a requirements digest (problem, scope, metric) — no positioning (What/Why/Who, personality, anti-references), which lives in PRODUCT

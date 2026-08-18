@@ -12,18 +12,18 @@ flowchart TD
     R -->|PRD or PRODUCT| PD[Product-doc flow]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
-    PD -->|discovery if absent, reconcile if present| P[PRD.md]
-    PD -->|discovery if absent, reconcile if present| PM[PRODUCT.md]
-    DD -->|discovery if absent, reconcile if present| D[design-doc.md]
+    PD -->|discover if absent, update if present| P[PRD.md]
+    PD -->|discover if absent, update if present| PM[PRODUCT.md]
+    DD -->|discover if absent, update if present| D[design-doc.md]
     ADR --> A[adr/NNN-slug.md]
     D -.->|extract decision| ADR
 ```
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery (4 phases) if absent, reconcile if present | `PRD.md` |
-| **PRODUCT** | discovery if absent, reconcile if present (per artifact) | `PRODUCT.md` |
-| **Design Doc** | if absent: discovery (4 topics) → analysis → drafting; reconcile if present | `design-doc.md` |
+| **PRD** | discovery (4 phases) if absent; update requested parts if present | `PRD.md` |
+| **PRODUCT** | discovery if absent; update requested parts if present | `PRODUCT.md` |
+| **Design Doc** | discovery (4 topics) → analysis → drafting if absent; update requested parts if present | `design-doc.md` |
 | **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
 
 ## Usage
@@ -49,11 +49,11 @@ docs/tech/design-doc.md
 docs/adr/<NNN>-<slug>.md
 ```
 
-Committed by default. Product-side artifacts (PRD, PRODUCT) live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs use numbered files in their own subdirectory; design doc Alternatives rows link to ADRs via the `Record` column once formalized.
+Commit documents by default. PRD and PRODUCT live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs use numbered files under `docs/adr/`. Design Doc Alternatives rows link to ADRs through the `Record` column.
 
 ## Document Boundaries
 
-Four document types, four distinct audiences and scopes. Mixing them is the most common source of bloated, hard-to-review docs.
+Each document type has a distinct audience and scope. Keep their content separate so each document stays short and easy to review.
 
 | Doc | Audience | Owns | Never carries |
 |-----|----------|------|---------------|
@@ -64,25 +64,25 @@ Four document types, four distinct audiences and scopes. Mixing them is the most
 
 ### How they relate
 
-- PRODUCT is the product's strategic positioning — resolved by the product-doc flow per artifact state: drafted in discovery (shared with the PRD when both are new) if absent, reconciled if it already exists, including on its own when only positioning shifts.
-- PRD is the source of truth for product; Design Doc links to it, never copies prose.
-- Design Doc carries the design and its trade-offs; matured decisions extract into ADRs, tracked via the Alternatives `Record` column.
+- If PRODUCT does not exist, write it during discovery. If it exists, update it only when the positioning changes.
+- The PRD is the main product record. The Design Doc links to the PRD instead of copying its prose.
+- The Design Doc records the design and its trade-offs. When a decision becomes final, create an ADR and add its ID to the Alternatives `Record` column.
 - ADRs can be updated as their record becomes clearer. When one decision replaces another, create a new ADR and mark the prior ADR as superseded.
 
-When a section feels like it belongs in two docs, it usually belongs in one and gets a link from the other.
+When content appears relevant to two documents, keep it in the document that owns the subject and link to it from the other document.
 
 ## FAQ
 
-**Q: How are ADRs linked to the Design Doc?** A: The Design Doc's Alternatives Considered table includes a `Record` column. Each row starts with `—` (design-doc-only record). When a decision matures, extract it into an ADR; the row's `Record` is updated to `ADR-NNN`, and the ADR's References section links back to the design doc section anchor.
+**Q: How are ADRs linked to the Design Doc?** A: The Design Doc's Alternatives Considered table includes a `Record` column. Each row starts with `—`. When a decision becomes final, create an ADR, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc section.
 
-**Q: When should I use an ADR vs a Design Doc?** A: The Design Doc carries the design and the trade-offs behind it; the Alternatives Considered table is where decisions get explored and recorded. Each row starts with `Record = —`; when a decision matures, extract it into a numbered ADR with one decision per file, update the row's `Record` to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section. ADRs are the formal receipt; the Design Doc keeps the surrounding context.
+**Q: When should I use an ADR vs a Design Doc?** A: Use the Design Doc to examine the design and its trade-offs. Each Alternatives Considered row starts with `Record = —`. When a decision becomes final, create a numbered ADR with one decision, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc.
 
-**Q: I have decisions buried in project documents — how do I lift them into ADRs?** A: Trigger an ADR workflow. The Context phase scans `CODEBASE.md`, the PRD, and the Design Doc for decisions that meet the ADR criteria and are not already recorded. Each decision becomes its own ADR — one decision per file, never a single ADR summarizing many.
+**Q: How do I record decisions found in project documents?** A: Start an ADR workflow. The Context phase scans `CODEBASE.md`, the PRD, and the Design Doc for qualifying decisions that have no ADR. Create one ADR for each decision.
 
-**Q: How does PRODUCT relate to the PRD?** A: PRODUCT captures the product's strategic positioning — what it is and stands for — which the same discovery surfaces while defining the PRD, so a new product drafts both together. After that, each is resolved by its own state: positioning changes with strategy, so a reconcile can touch PRODUCT alone, independent of any PRD revision.
+**Q: How does PRODUCT relate to the PRD?** A: PRODUCT records what the product is and stands for. The PRD records what the product does. Discovery can produce both documents for a new product. Later changes can update either document on its own.
 
-**Q: What happens when I re-run over an existing PRD, PRODUCT, or Design Doc?** A: Each artifact is resolved by whether it exists. A present one is reconciled — read as input, with only the gap or the change you ask for reworked, the delta scrutinized, and the sections taken as settled declared before drafting. An absent one is drafted in discovery (the PRD and PRODUCT seed each other; the Design Doc has no sibling). Existing work is never silently overwritten.
+**Q: What happens when I run the skill for an existing PRD, PRODUCT, or Design Doc?** A: The skill reads the existing document and reviews only the requested change. Before writing, it states which sections will change and which sections will remain unchanged. The skill never silently replaces existing work.
 
-**Q: How is the Design Doc sized?** A: No tier-based sizing — as long as the design needs, as short as it allows. A few decisions on a small service is a one-pager; a multi-service system with many trade-offs runs longer. The doc grows with the decisions, never with a section checklist.
+**Q: How is the Design Doc sized?** A: Keep the Design Doc as short as the design allows. A small service with a few decisions can use one page. A system with several services and trade-offs needs more detail. Add content only when a decision needs it.
 
-**Q: What if the user has no PRD when starting a Design Doc?** A: The Design Doc workflow can start in discovery with no PRD yet. When a PRD exists at `docs/product/PRD.md`, the discovery phase extracts product context as input and the Context section links to it. Without a PRD, the discovery phase widens the Context & Goals topic to capture product framing together with the technical surface.
+**Q: What if the user has no PRD when starting a Design Doc?** A: Start Design Doc discovery without a PRD. If `docs/product/PRD.md` exists, read it for product context and link to it from Context. If no PRD exists, gather the required product context during the Context & Goals topic.

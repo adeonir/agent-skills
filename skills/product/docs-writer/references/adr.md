@@ -23,13 +23,13 @@ context → validation → drafting
 
 ### Phase 1: Context
 
-Load [discovery.md](discovery.md) for shared interview patterns and critical posture.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 **Check Existing Context:**
 
 Apply [discovery.md](discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
 
-Scan upstream artifacts for embedded decisions that should be lifted into their own ADR:
+Scan project documents for decisions that might need their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
@@ -37,7 +37,7 @@ Scan upstream artifacts for embedded decisions that should be lifted into their 
 | `docs/tech/design-doc.md` | `## 4. Alternatives Considered & Trade-offs` rows (rows with `Record = —` are candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
-Read `CODEBASE.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as authority to promote it. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**; surface a contradicted entry instead of recording it.
+Read `CODEBASE.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as an approved ADR. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**. Report a contradiction instead of recording the entry.
 
 List the unrecorded candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source mean multiple ADRs — one per decision, not one ADR summarizing all of them.
 
@@ -52,14 +52,14 @@ List the unrecorded candidate decisions and ask the user which one this ADR reco
 - What alternatives or constraints explain why this response was chosen?
 - What becomes easier or more difficult because of this decision?
 
-**Deepen when:**
+**Ask follow-up when:**
 
-- Multiple decisions surface → "These look like separate decisions. Should we split them?"
+- Multiple decisions appear → "These look like separate decisions. Should we split them?"
 - The reason is unclear → "Which force or constraint made this response appropriate?"
 - Consequences omit material costs → "What becomes harder or riskier because of this decision?"
 - Decision is vague → "Stated as a positive imperative, what will we do? 'We will X' or 'We will not X'."
 
-**Sufficient when:**
+**Complete when:**
 
 - One decision is clearly named
 - Context forces are documented
@@ -71,7 +71,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CODEBASE.md`, add its path to both. Run the gates in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CODEBASE.md`, add its path to both. Run the checks in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
 For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and bump `updated`.
 
@@ -121,9 +121,9 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
 | Status | Current state of the decision | Existing record or user confirmation |
-| Context | Issue and forces that motivate or constrain the decision | Topic: opening + deepen |
-| Decision | Proposed or agreed response | Topic: opening + deepen |
-| Consequences | Material outcomes, risks, and constraints | Topic: opening + deepen |
+| Context | Issue and forces that motivate or constrain the decision | Opening and follow-up questions |
+| Decision | Proposed or agreed response | Opening and follow-up questions |
+| Consequences | Material outcomes, risks, and constraints | Opening and follow-up questions |
 | References | Related project documents, ADRs, and external sources | All phases |
 
 ## Guidelines
@@ -137,7 +137,7 @@ MUST NOT contain: more than one decision, still-open trade-offs, implementation 
 - When extracted from a Design Doc Alternatives row, the ADR's References section links back to the design doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
-- External facts (vendor pricing, provider capabilities) are dated and kept verifiable — e.g. "rates valid as of [Month YYYY]"
+- External facts (vendor pricing, provider capabilities) are dated and kept verifiable — for example "rates valid as of [Month YYYY]"
 
 ## Status Lifecycle
 

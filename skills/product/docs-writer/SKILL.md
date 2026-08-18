@@ -9,8 +9,8 @@ description: "Generates structured product and technical documents through guide
 
 ```text
 trigger → detect type → load reference → check disk → drafting
-  artifact exists → reconcile (light discovery on the delta)
-  artifact absent → full discovery
+  document exists → update the requested parts
+  document absent → full discovery
   ADR → create a numbered record or update the requested record
 ```
 
@@ -27,32 +27,32 @@ Auto-loaded (no direct triggers):
 
 - `discovery.md` — by the product-doc flow, Design Doc, ADR at start of discovery
 - `quality.md` — before writing any document
-- `reconcile.md` — by PRD, PRODUCT, or Design Doc when the artifact already exists on disk
-- `product.md` — by `prd.md` when resolving PRODUCT (reconcile if `PRODUCT.md` exists, discovery if absent; the PRODUCT row above is the same flow)
+- `reconcile.md` — by PRD, PRODUCT, or Design Doc when updating an existing document
+- `product.md` — by `prd.md` when handling PRODUCT; discover it if absent or update it if present
 
 ## Document Boundaries
 
 - **PRD** — product only: problem, users, scope, journeys, rules, metrics. No implementation, architecture, tech stack, UI, or API.
-- **PRODUCT** — strategic positioning and identity: register, audience posture, brand personality, anti-references, design principles. Prose, not requirements. Part of the product-doc pair; resolved by whether `PRODUCT.md` exists — discovery if absent, reconcile if present. The PRD owns what the product does; PRODUCT owns what it is. Keep three zones clean — audience as relationship (not the PRD's job to be done), refused aesthetics (not the PRD's out-of-scope features), and differentiation (not the PRD's problem statement).
+- **PRODUCT** — strategic positioning and identity: register, audience relationship, brand personality, anti-references, and design principles. Write prose, not requirements. If `PRODUCT.md` does not exist, discover its content. If it exists, update only the requested parts. The PRD records what the product does; PRODUCT records what it is. Keep three boundaries clear: audience relationship is not the user's job to be done, refused aesthetics are not excluded features, and differentiation is not the problem statement.
 - **Design Doc** — lean technical design: the context, the design, and the trade-offs behind it (Google-style). Context recaps the project in 1-2 paragraphs and links to the PRD; never duplicates product prose. Not visual or UI design, and not an exhaustive technical spec.
-- **ADR** — single architecture decision with its status, context, decision, consequences, and references. Use when lifting decisions from a PRD/Design Doc, recording retrospectively, or updating an existing record. When extracted from a Design Doc Alternatives row, the design doc row's `Record` column is updated to the ADR ID and the ADR's References link back to the design doc section anchor.
+- **ADR** — single architecture decision with its status, context, decision, consequences, and references. Use when turning a decision from a PRD or Design Doc into an ADR, recording an earlier decision, or updating an existing ADR. When an ADR records a Design Doc Alternatives row, set that row's `Record` to the ADR ID and link the ADR back to the Design Doc section.
 
 ## Guidelines
 
-- Complete discovery when the artifact is absent, or reconcile the delta when it exists — never draft blind
-- Run the quality gates before writing (load `quality.md`)
+- Complete discovery for a new document. For an existing document, update only the requested parts. Never write without reading the available context.
+- Run the quality checks before writing (load `quality.md`)
 - Write the document to its path directly, then report a brief prose summary in chat (up to 2-3 paragraphs) — the path, type, and what it contains; never paste the full document
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Keep each document within its domain (PRD / PRODUCT = product, Design Doc / ADR = technical)
 
-## Anti-Pattern: Yes-Man Discovery
+## Anti-Pattern: Uncritical Discovery
 
-Discovery is not a formality. When a problem statement is vague, evidence is thin, scope keeps expanding, or the user jumps to solution before naming the problem, push back. Ask for evidence, narrow scope, challenge weak ideas, and flag a fragile direction — reopened upstream for a product doc, weighed in place for a Design Doc, never rubber-stamped. Gate advancement on understanding, not on willingness to move on. The same posture governs reconcile: a change to an existing doc earns the same scrutiny as a fresh idea, scoped to the delta — question the rationale, resist silent scope creep, never overwrite an evidenced decision without cause.
+Challenge weak claims during discovery. Ask for evidence when the problem is vague or poorly supported. Narrow the work when the scope grows without agreement. If the proposed direction is fragile, ask the user to reconsider it before writing a product document or examine the trade-offs in the Design Doc. Apply the same review to changes in an existing document. Do not replace a supported decision without evidence that its basis has changed.
 
 ## Anti-Pattern: ADR as Design Doc
 
-ADR records *one* decision — status, context, decision, consequences, and references. The design doc carries the design and the trade-offs behind it. Writing a long ADR that weighs several open options is a design doc in disguise; writing a design doc that captures a single decision is an ADR padded with prose. If the decision is still in motion, leave it in the design doc's Alternatives Considered table with `Record = —`. Once recorded, extract it into an ADR, update the design doc row's `Record` column to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section.
+Record one decision in each ADR: status, context, decision, consequences, and references. Keep the full design and its trade-offs in the Design Doc. If several options remain open, keep the decision in the Design Doc with `Record = —`. When the decision is final, create an ADR, set the Design Doc's `Record` to `ADR-NNN`, and link the ADR back to that Design Doc section.
 
 ## Anti-Pattern: Vague Requirements
 

@@ -4,7 +4,7 @@ Author the product's strategic positioning in `PRODUCT.md`: what the product is 
 
 ## When to Use
 
-Loaded by the product-doc flow to author or reconcile `PRODUCT.md`. It resolves by whether the artifact exists on disk — see [discovery.md](discovery.md) `## Discovery or Reconcile by Artifact State`. When `docs/product/PRODUCT.md` is absent, draft it in discovery — possibly seeded by an existing PRD; when it exists, reconcile only the delta per [reconcile.md](reconcile.md). Positioning shifts independently of any PRD revision, so a reconcile may touch PRODUCT alone.
+Load this reference to write or update `PRODUCT.md`; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. If `docs/product/PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts when available. If it exists, update only the requested parts by following [reconcile.md](reconcile.md). A positioning change can update PRODUCT without changing the PRD.
 
 ## Scope
 
@@ -20,18 +20,18 @@ Three boundary zones to keep clean — the PRD owns the other side of each:
 
 ## Discovery
 
-Apply [discovery.md](discovery.md) `## Reading Project Files` before reading a PRD or upstream direction. PRODUCT is drawn from a single Positioning topic. When drafted alongside a new PRD, it shares that discovery — Users (Topic 2) and Market & Differentiation (Topic 3) feed positioning directly, so run this topic against what they surfaced rather than re-asking. When drafted alone (the PRD already exists), run it fresh, seeded by the PRD.
+Apply [discovery.md](discovery.md) `## Reading Project Files` before reading a PRD or upstream direction. PRODUCT uses one Positioning topic. When writing PRODUCT with a new PRD, use the Users and Market & Differentiation answers instead of asking the same questions again. When writing PRODUCT alone, use confirmed PRD facts as input.
 
-Seed from an upstream direction when present: check `docs/product/brainstorm.md`. The PRODUCT never depends on it — absent, run discovery as above; present, read it as input and confirm rather than re-ask.
+Check `docs/product/brainstorm.md` for an earlier direction. PRODUCT does not depend on this file. If it is absent, run discovery. If it exists, confirm its claims instead of repeating its questions.
 
-| Upstream section | Seeds | Behavior |
+| Earlier section | Supplies | Behavior |
 |---|---|---|
 | Context | Product Purpose — identity, not metrics | confirm |
-| Alternatives Considered + Decision | Anti-references — differentiation and negative space | confirm |
+| Alternatives Considered + Decision | Anti-references — differentiation and rejected styles | confirm |
 
-The rejected directions and the deciding factor against the strongest rejected option are what Anti-references captures. Run the rest of the Positioning topic fresh — register, brand personality, design principles, audience posture — which the artifact does not carry. Strip the exploration trail (rejected options as a list, Revision History) and translate to positioning prose, never requirements.
+Use the rejected directions and the reason for rejecting the strongest option to write Anti-references. Ask about register, brand personality, design principles, and audience relationship when the upstream document does not contain them. Do not copy the list of rejected options or Revision History. Write positioning prose, not requirements.
 
-Load [discovery.md](discovery.md) for the shared interview patterns and critical posture.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 ### Topic: Positioning
 
@@ -43,14 +43,14 @@ Load [discovery.md](discovery.md) for the shared interview patterns and critical
 - What does the product refuse to be — the aesthetics, clichés, or postures it rejects?
 - What handful of principles drive its design and copy decisions?
 
-**Deepen when:**
+**Ask follow-up when:**
 
-- Register is hedged ("a bit of both") → "Which dominates? Downstream resolves per-surface exceptions; name the default."
+- Register is unclear ("a bit of both") → "Which value is the default? Later design work can handle exceptions."
 - Personality is generic ("clean, modern, simple") → "Those fit most products. What is specific to this one?"
-- No anti-references → "Name a product in this space whose vibe is wrong for you. What exactly is off?"
+- No anti-references → "Name a product in this space whose style is wrong for you. What exactly is wrong?"
 - Principles restate features → "That is a requirement. What conviction sits behind it?"
 
-**Sufficient when:**
+**Complete when:**
 
 - Register is a single dominant value (`brand` or `product`) with a reason
 - The audience relationship is stated as posture, not a job to be done
@@ -59,7 +59,7 @@ Load [discovery.md](discovery.md) for the shared interview patterns and critical
 
 ## Content Source
 
-Positioning prose, drawn from discovery. Under reconcile, the existing `PRODUCT.md` is itself a source — read as input, with only the delta reworked. Each section maps to a discovery topic:
+Use discovery answers to write positioning prose. When updating `PRODUCT.md`, read it as a source and change only the requested parts. Each section maps to a discovery topic:
 
 | Section | Discovery Source |
 |---------|-----------------|
@@ -87,7 +87,7 @@ sources: []
 
 ## Register
 
-[`brand` or `product` — the product's dominant posture. brand: the experience is the product (landing, campaign, marketing). product: the experience serves a task (app, dashboard, tool). State one value plus a line on why. Surfaces that diverge from this default are resolved downstream, not here.]
+[`brand` or `product` — the product's dominant posture. brand: the experience is the product (landing, campaign, marketing). product: the experience serves a task (app, dashboard, tool). State one default value and explain why. Later design work handles exceptions.]
 
 ## Users
 
@@ -99,11 +99,11 @@ sources: []
 
 ## Brand Personality
 
-[One paragraph: the product's character and voice. Three adjectives plus the tone they imply (e.g., direct, specific, no hedging).]
+[One paragraph: the product's character and voice. Three adjectives plus the tone they imply (for example, direct, specific, no hedging).]
 
 ## Anti-references
 
-[What the product refuses to be — the aesthetics, clichés, and postures it rejects, as prose. The negative space of the identity.]
+[Describe the aesthetics, clichés, and postures that the product rejects.]
 
 ## Design Principles
 
@@ -114,8 +114,8 @@ MUST NOT contain: requirements, scope or feature lists, success metrics, user jo
 
 ## Guidelines
 
-- Write every section as prose, not symbol lists — downstream design skills translate this positioning into their own vocabularies.
-- State the register as a single dominant value; let downstream resolve per-surface exceptions.
+- Write every section as prose, not symbol lists. Later design work translates this positioning into its own terms.
+- State one default register. Let later design work handle exceptions for specific surfaces.
 - Keep identity here and requirements in the PRD — when a line could pass the distinction test either way, it is positioning.
 - Omit a section with no signal from discovery rather than writing TBD.
 

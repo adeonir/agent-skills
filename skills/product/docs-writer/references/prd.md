@@ -14,25 +14,25 @@ Product requirements only. Never carries implementation content — no architect
 
 ```text
 check disk
-├ PRD absent  → discovery → validation → synthesis → drafting
-└ PRD present → reconcile the delta (reconcile.md)
+├ PRD absent  → discovery → validation → summary → drafting
+└ PRD present → update requested parts (reconcile.md)
 ```
 
-Decide by whether the artifact exists on disk (see [discovery.md](discovery.md) `## Discovery or Reconcile by Artifact State`). When `docs/product/PRD.md` does not exist, run the four discovery phases below — Phase 1 first seeds from an upstream direction artifact when present. When it exists, reconcile instead — read it as input and work only the delta, per [reconcile.md](reconcile.md). PRODUCT resolves by its own artifact state in parallel.
+Check whether `docs/product/PRD.md` exists; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. If absent, run the four discovery phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](reconcile.md). Handle PRODUCT independently based on whether it exists.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](discovery.md) for shared interview patterns and critical posture.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
-These four phases run when no PRD exists yet. Never assume context. Discovery is adaptive — deepen topics based on the quality of answers, not a fixed script. Each topic has opening questions, signals for when to probe further, and criteria for when to move on.
+Run these four phases when no PRD exists. Never assume context. Use the answers to choose follow-up questions. Each topic defines opening questions, reasons to ask a follow-up, and completion criteria.
 
-#### Seed from an upstream direction
+#### Read an Earlier Direction
 
-Apply [discovery.md](discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. The PRD never depends on it: absent → full discovery below; present → read it as input and discover only the delta.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. If absent, run full discovery. If present, confirm its claims and ask only for missing PRD information.
 
-| Upstream section | Seeds | Behavior |
+| Upstream section | Supplies | Behavior |
 |---|---|---|
-| Context | Topic 1 — problem, motivation, current state | confirm; deepen only on evidence gaps |
+| Context | Topic 1 — problem, motivation, current state | confirm; ask follow-ups only for evidence gaps |
 | Constraints | Topic 5 constraints, Business Rule candidates | confirm |
 | Success Criteria | Goals & metrics | confirm |
 | Alternatives Considered + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
@@ -40,11 +40,11 @@ Apply [discovery.md](discovery.md) `## Reading Project Files`, then check `docs/
 | Key Assumption | Assumptions | carry |
 | Open Questions | Open Questions | carry |
 
-Present each seeded topic as one proposed interpretation to confirm or correct — never re-run its opening questions cold. Then run full discovery on what the artifact does not carry: Users (Topic 2), Journeys (Topic 5), scope tiers and FR IDs, Business Rules, Edge Cases, NFRs — the PRD's own structure.
+Present each supplied topic as an interpretation for the user to confirm or correct. Do not repeat its opening questions. Run full discovery for information the upstream document does not contain: Users, Journeys, scope levels and FR IDs, Business Rules, Edge Cases, and NFRs.
 
-Strip the exploration trail: rejected alternatives, Revision History, and the direction's name informed the decision but never cross into the PRD. Only the confirmed problem, constraints, and criteria carry, at PRD altitude.
+Do not copy rejected alternatives, Revision History, or the direction's name into the PRD. Carry only the confirmed problem, constraints, and criteria, expressed as product requirements.
 
-This is the conceptual-upstream axis (a decided direction), distinct from codebase exploration (present-state facts from code). Both are optional and independent.
+The earlier direction supplies product intent. Codebase inspection supplies facts about current behavior. Each source is optional and independent.
 
 #### Topic 1: Problem
 
@@ -54,14 +54,14 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 - How do you know this problem exists? (evidence, data, user feedback)
 - What is the cost of not solving it?
 
-**Deepen when:**
+**Ask follow-up when:**
 
 - User describes symptoms, not root cause → "Why does this happen? What causes it?"
 - No evidence → "What would convince you this is real? Have you talked to users?"
 - Multiple problems mixed → "These sound like separate problems. Which one is primary?"
 - User starts with solution → "What problem does this solution address? Let's start there."
 
-**Sufficient when:**
+**Complete when:**
 
 - Problem can be stated in one clear sentence
 - Evidence exists or is explicitly marked as hypothesis
@@ -75,14 +75,14 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 - What are they trying to accomplish? (job to be done)
 - Why would they use this over the status quo?
 
-**Deepen when:**
+**Ask follow-up when:**
 
 - "Everyone" or too broad → "Who is the *most* affected? Describe one specific person."
 - Multiple user types → "Which persona is primary? What happens when their needs conflict?"
 - Vague motivation → "Walk me through a concrete scenario. What does their day look like?"
 - Can't articulate why they'd switch → "What would they have to give up? What's the switching cost?"
 
-**Sufficient when:**
+**Complete when:**
 
 - At least one concrete persona with clear motivation
 - Job to be done is specific enough to derive features from
@@ -90,7 +90,7 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 
 #### Topic 3: Market & Differentiation
 
-**Feeds PRODUCT, not the PRD** — run this topic only when PRODUCT is being drafted this run (both artifacts absent). Skip it entirely for a PRD-only run: nothing in the PRD consumes it. When it runs, it also informs scope decisions and validation.
+**Used by PRODUCT, not the PRD** — run this topic only when writing PRODUCT in the same run. Skip it for a PRD-only run. Its answers can also help with scope and validation.
 
 **Opening questions:**
 
@@ -98,14 +98,14 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 - What makes your approach different or better?
 - Why hasn't this been solved yet? (timing, technology, market gap)
 
-**Deepen when:**
+**Ask follow-up when:**
 
 - "Nothing like this exists" → "How do people cope today? Even manual workarounds count."
 - Crowded market → "With X, Y, Z already out there, why would someone switch to this?"
 - Weak differentiator → "If a competitor copied this feature tomorrow, what would you still have?"
-- Unaware of alternatives → surface known alternatives and ask how this compares
+- Unaware of alternatives → name known alternatives and ask how the proposal compares
 
-**Sufficient when:**
+**Complete when:**
 
 - Clear picture of how the problem is currently solved
 - Differentiator is articulated beyond feature comparison
@@ -119,14 +119,14 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 - How does it generate value? (monetization, cost reduction, efficiency)
 - What must exist at launch vs. what can wait?
 
-**Deepen when:**
+**Ask follow-up when:**
 
 - Everything is "must have" → "If you could only ship 3 features, which 3?"
 - Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
 - Features without clear user connection → "Which persona needs this? What problem does it solve for them?"
 - No clear value model → "Who pays? How? What justifies the cost?"
 
-**Sufficient when:**
+**Complete when:**
 
 - Clear must/should/could prioritization
 - Each must-have connects to the primary problem and persona
@@ -143,18 +143,18 @@ This is the conceptual-upstream axis (a decided direction), distinct from codeba
 
 **Codebase trigger:** If the journey touches existing features, systems, or flows, explore the codebase to map the current flow before asking the user to describe it. Carry the flow's shape into the journey, not the code.
 
-**Deepen when:**
+**Ask follow-up when:**
 
 - Only happy path described → "What if the user makes a mistake? What if data is missing?"
 - No constraints mentioned → "Are there limits? Who can do what? Any conditions that must be met?"
 - Single journey for multiple personas → "Does the admin go through the same flow? What's different?"
 - Vague error handling → "When X fails, what should the user see? Can they retry?"
 
-**Sufficient when:**
+**Complete when:**
 
 - At least the primary journey is described end-to-end (pre-conditions → steps → post-conditions)
 - Key business rules are identified (even if details are TBD)
-- Critical edge cases are surfaced (at least "what if it fails?" for each major action)
+- Critical edge cases are identified (at least "what if it fails?" for each major action)
 - Alternative flows are acknowledged for the main journey
 
 ### Phase 2: Validation
@@ -170,11 +170,11 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 7. **Validate journeys**: Do the described flows cover all must-have features? Are there gaps?
 8. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
 
-Do not proceed to synthesis until the user confirms scope and priorities.
+Do not write the summary until the user confirms scope and priorities.
 
-### Phase 3: Synthesis
+### Phase 3: Summary
 
-Synthesize everything from discovery and validation into a structured summary.
+Summarize the confirmed discovery and validation results.
 
 1. Summarize what was learned across all discovery topics
 2. Present the agreed scope (must/should/could)
@@ -183,12 +183,12 @@ Synthesize everything from discovery and validation into a structured summary.
 5. List open questions and hypotheses identified during validation (risks too, when material)
 6. Identify gaps and mark as TBD
 7. Surface assumptions made (distinguish from validated facts)
-8. Present synthesis to user for confirmation
+8. Ask the user to confirm the summary
 9. Only proceed to drafting after user confirms
 
 ### Phase 4: Drafting
 
-Use the PRD template below. Resolve PRODUCT by its own artifact state using [product.md](product.md): when `docs/product/PRODUCT.md` is absent, draft it in discovery seeded by this PRD; when it exists, reconcile it per [reconcile.md](reconcile.md) — never overwrite evidenced positioning. Run the gates in [quality.md](quality.md) before writing, then write the PRD to `docs/product/PRD.md` (and PRODUCT to `docs/product/PRODUCT.md` when drafted here) and report a brief prose summary in chat (up to 2-3 paragraphs) — the path(s), the scope (must/should/could), and the primary metric. Do not paste the full document.
+Use the PRD template below. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it during discovery using confirmed PRD facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence. Run [quality.md](quality.md), write the documents to their paths, and report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
 
 **Drafting notes:**
 
@@ -318,7 +318,7 @@ Non-functional requirements state measurable targets without prescribing the mec
 
 | ID | Requirement | Target |
 |----|------------|--------|
-| NFR-1 | Performance | [e.g., page load < 2s] |
+| NFR-1 | Performance | [for example, page load < 2s] |
 | NFR-2 | Accessibility | [applicable WCAG conformance level] |
 
 Examples:
@@ -331,9 +331,9 @@ Examples:
 
 | Criterion | How verified |
 |-----------|--------------|
-| [e.g., all Must Have requirements implemented and validated] | [test/validation method] |
-| [e.g., primary success metric meeting target for 7 days] | [measurement source] |
-| [e.g., no critical or blocker defects open] | [issue tracker state] |
+| [for example, all Must Have requirements implemented and validated] | [test/validation method] |
+| [for example, primary success metric meeting target for 7 days] | [measurement source] |
+| [for example, no critical or blocker defects open] | [issue tracker state] |
 
 ## 11. External Dependencies
 
@@ -341,7 +341,7 @@ Examples:
 
 | ID | Dependency | Impact if blocked | Owner / Status |
 |----|-----------|-------------------|----------------|
-| DEP-1 | [e.g., legal approval on terms of use] | [blocks launch] | [Owner — pending] |
+| DEP-1 | [for example, legal approval on terms of use] | [blocks launch] | [Owner — pending] |
 
 ## 12. Risks (optional)
 
@@ -395,23 +395,23 @@ MUST NOT contain: architecture, tech stack, framework or deployment choices, API
 | 13. Open Questions & Assumptions | Assumptions underpinning the plan plus hypotheses to validate and unknowns to resolve | Validation phase |
 | 14. References | Typed links to PRODUCT, Design Doc, research, ADRs | All phases |
 
-Topic 3 (Market & Differentiation) feeds PRODUCT, not the PRD.
+Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
 ## Guidelines
 
-- Complete discovery before drafting when the PRD is absent, or reconcile the delta when it exists — never draft blind
-- Challenge ideas in discovery, validation, and reconcile — do not be a yes-man
+- Complete discovery before writing a new PRD. For an existing PRD, update only the requested parts.
+- Challenge weak claims during discovery, validation, and updates.
 - Write the PRD to its path directly, then report a brief prose summary in chat (path, scope, primary metric)
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
-- Resolve PRODUCT by its artifact state — discovery if absent, reconcile if present
+- Discover PRODUCT if absent. Update only the requested parts if present.
 - Keep journeys at product level — describe what happens, not how it's built
 - Assign IDs to business rules and edge cases for traceability
 - Edge Cases and Risks are optional — include only when relevant
 - Record a reason for exclusion on every Won't Have item
 - Keep Definition of Done independent of calendar dates — state readiness criteria, not deadlines
 - Track External Dependencies with owner and status; keep technical dependencies in the Design Doc
-- Use typed labels in References so downstream sessions know which document to read
+- Use typed labels in References so later sessions know which document to read
 
 ## Output
 

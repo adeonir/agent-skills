@@ -1,28 +1,28 @@
-# Reconcile an Existing Document
+# Update an Existing Document
 
-Update an existing PRD, PRODUCT, or Design Doc by reading it as input and scrutinizing only the delta, instead of re-running full discovery or overwriting it.
+Read an existing PRD, PRODUCT, or Design Doc and update only the requested parts.
 
 ## When to Use
 
-When `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/tech/design-doc.md` already exists on disk. A present artifact reconciles while any absent one runs discovery (see [discovery.md](discovery.md) `## Discovery or Reconcile by Artifact State`). Auto-loaded when the target artifact is present; not a direct trigger.
+When `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/tech/design-doc.md` already exists. Discover any absent document; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. Load this reference when the target document exists. Do not use it as a direct trigger.
 
 ## Procedure
 
 ```text
-triage → scope → validate delta → declare settled → confirm → draft
+read → scope → validate changes → state unchanged parts → confirm → write
 ```
 
-1. **Triage.** Apply [discovery.md](discovery.md) `## Reading Project Files`, then read the existing artifact(s) as input. Inventory what is already captured and evidenced. Nothing here is re-elicited just because the run restarted — settled content stays settled.
-2. **Scope by intent.** Pin down what the user actually wants to change. The reconcile touches only that, plus whatever it provably affects. If the intent is vague, ask — a vague change is as unsafe as a vague greenfield brief.
-3. **Validate the delta.** Apply the critical posture to the change, not to the whole doc — see [discovery.md](discovery.md) `## Critical Posture`. The anti-yes-man scrutiny is scoped to the delta: "Why this change? What evidence?", "You asked to update X — this is now X + Y + Z, should we narrow?", "The doc records this with evidence — what changed to overturn it?". Then check the delta against the untouched sections: a changed metric that contradicts a persona, a new rule that breaks an existing journey, must surface here.
-4. **Declare what is settled.** Before drafting, state plainly what the reconcile took as settled and what it scrutinized — e.g. "reconciling the Goals table; Personas and Journeys taken as settled". This is the safeguard against silently rubber-stamping or silently rewriting; the user can see and correct the boundary.
-5. **Confirm the scoped plan.** Get explicit agreement on the scoped change before editing. This replaces the greenfield synthesis gate — confirm the delta, not a full re-synthesis.
-6. **Draft.** Apply the change using the artifact's own template — [prd.md](prd.md) for the PRD, [product.md](product.md) for PRODUCT, [design.md](design.md) for the Design Doc — preserving every section the scope did not touch. Write the change to the artifact's path, then report a brief prose summary of the delta in chat — what changed and where. Do not paste the full document.
+1. **Read.** Apply [discovery.md](discovery.md) `## Reading Project Files`, then read the existing documents. Identify the supported content already present. Do not ask for this information again.
+2. **Set the scope.** Identify what the user wants to change and what the change directly affects. If the request is unclear, ask for the missing detail.
+3. **Validate the changes.** Apply [discovery.md](discovery.md) `## Critical Review` only to the planned changes. Ask what evidence supports the change. Report conflicts with unchanged sections, such as a metric that conflicts with a persona or a rule that breaks a journey.
+4. **State unchanged parts.** Before writing, name the sections that will change and those that will remain unchanged. Let the user correct this boundary.
+5. **Confirm the plan.** Get explicit agreement on the planned changes before editing.
+6. **Write.** Use the document's template: [prd.md](prd.md), [product.md](product.md), or [design.md](design.md). Preserve every section outside the confirmed scope. Write the document to its path, then briefly state what changed and where. Do not paste the full document.
 
 ## Reading the Sibling Artifact
 
-When one artifact is absent and seeded by the other (a PRD seeded by an existing PRODUCT, or a PRODUCT seeded by an existing PRD), read the sibling for coverage and context only. Its tokens never cross verbatim into the artifact being built, and the PRD/PRODUCT boundary holds: requirements stay in the PRD, positioning stays in PRODUCT, with audience-as-relationship, refused aesthetics, and differentiation on the PRODUCT side. The sibling fills discovery gaps; it is not copied. The Design Doc has no sibling to seed it, so this applies to the product-doc pair only.
+If either PRD or PRODUCT is absent, read the existing document for context only. Do not copy its prose. Keep requirements in the PRD. Keep audience relationship, refused aesthetics, and differentiation in PRODUCT. Use confirmed facts from the existing document to avoid repeated questions. This rule applies only to the PRD and PRODUCT pair.
 
 ## Frontmatter on Reconcile
 
-Preserve the existing `created` date and `sources`. Bump `updated` to the current date. Where the doc carries a `status` (PRD, PRODUCT), leave it as it stands — a reconcile does not reset an accepted doc to `draft` unless the user is deliberately reopening it. The Design Doc has no `status` field.
+Preserve `created` and `sources`. Set `updated` to the current date. Preserve the PRD or PRODUCT `status` unless the user explicitly changes it. The Design Doc has no `status` field.
