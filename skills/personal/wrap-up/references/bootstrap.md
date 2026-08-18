@@ -13,16 +13,16 @@ Both are first-run conditions. Once bootstrapped, mapping resolves without loadi
 
 Runs when `.notes/wrap-up.yml` is absent.
 
-### Global pointer present
+### Configured vault path present
 
-`~/.config/wrap-up/vault` holds a valid absolute path to a directory — the vault is already configured on this machine, typical for a second or later repo. No prompt.
+`~/.config/wrap-up/vault` holds a valid absolute path to a directory. The vault is already configured on this machine, which is typical for a second or later repo. Do not prompt the user.
 
 1. Read `{vault_root}` from `~/.config/wrap-up/vault`.
-2. Verify `{vault_root}` exists as a directory and contains `wrap-up.yml`. If either check fails, fall through to the next section.
+2. Verify `{vault_root}` exists as a directory and contains `wrap-up.yml`. If either check fails, continue to the next section.
 3. Create the local symlink: `mkdir -p .notes && ln -s {vault_root}/wrap-up.yml .notes/wrap-up.yml`
 4. If in a git repo: add `.notes` to `.git/info/exclude` (create the file if needed).
 
-### Global pointer missing or invalid
+### Configured vault path missing or invalid
 
 The first wrap-up on this machine, and the only path that asks the user for the vault. Ask for the absolute path to the Obsidian vault. After receiving:
 
@@ -56,5 +56,5 @@ A new project in an existing vault appends one entry — no restructuring.
 
 ## Error Handling
 
-- Global pointer points at a non-existent directory or a vault without `wrap-up.yml`: treat as missing, ask for the vault path
+- Configured vault path points at a non-existent directory or a vault without `wrap-up.yml`: treat it as missing and ask for the vault path
 - Invalid vault path: ask again until a valid directory is provided

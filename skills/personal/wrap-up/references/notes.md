@@ -15,7 +15,7 @@ Obsidian notes render for humans (Graph view, daily review, Dataview). Keep note
 
 - **Frontmatter**: YAML with `title`, `type`, `tags`
 - **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood` — day-level cross-cutting facts). Use `#hashtags`, not `[brackets]`. Session notes do not have an Observations section.
-- **Relations**: typed verb + wikilink under `## Relations`: `- follows [[Target]]`. Common types: `follows`, `part_of`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Inline `[[wikilinks]]` in prose cover ordinary mentions; the Relations section holds typed edges that add graph value.
+- **Relations**: each relation is a verb followed by a wikilink under `## Relations`: `- follows [[Target]]`. Common verbs: `follows`, `part_of`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Use inline `[[wikilinks]]` for ordinary mentions. Use the Relations section for explicit connections between notes.
 - **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify before linking.
 - **H1 heading**: all notes omit the body `# H1` — the frontmatter `title` is the canonical heading. Top-level body sections start at `##`.
 
@@ -30,7 +30,7 @@ Session and daily notes target different audiences. The split is rigid and gover
 | Refs allowed | project and feature names only | PR `#N`, Issue `#N`, file paths, commands, `file:line` |
 | Refs forbidden | PR/Issue numbers, file paths, shell commands, branch names, commit hashes | branch names, commit hashes |
 
-Both notes carry only references that outlive the work they describe. An identifier scoped to a workspace artifact is forbidden in either note — the artifact can be deleted, leaving the reference pointing at nothing. Name the work in prose instead (`Checkout Refactor`).
+Both notes carry only references that remain valid after the work ends. Do not include an identifier that belongs to a workspace artifact. The artifact can be deleted and leave the reference without a target. Name the work in prose instead (`Checkout Refactor`).
 
 ## Filename Sanitization
 
@@ -117,9 +117,9 @@ Section presence:
 - `## Findings` when there is a notable technical discovery
 - `## Problems` when a problem was encountered and resolved or noted
 - `## Next` when there is work to continue
-- `## Relations` for typed edges that add graph value
+- `## Relations` for explicit connections between notes
 
-When the handoff Load phase surfaced content, fold it in before composing the note. Re-apply the Audience and Reference Discipline as you fold.
+When the handoff Load phase provides content, include it before composing the note. Apply the Audience and Reference Discipline to that content.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
@@ -141,7 +141,7 @@ Rules:
 - Keep each section brief — this is a human note, not an AI knowledge base
 - Decisions bullets distill with rationale — name rejected alternatives when a real option was considered
 - Findings and Problems: brief bullets only, no detailed narratives
-- Relations use typed verbs (`- follows [[X]]`) — fallback for graph edges only
+- Write a relation as a verb followed by a wikilink (`- follows [[X]]`). Add a relation only when it records an explicit connection between notes.
 - Wikilinks only to existing notes/entities; verify with `Obsidian:search_notes` before linking
 - Past tense, natural language
 - One project per session note
@@ -157,7 +157,7 @@ Past months are archived into `Daily/YYYY-MM/` folders. Search for the date befo
 
 #### Daily template
 
-Activities per project (bullet list), Open Items for pending work, Observations for day-level facts that cut across projects, Relations for typed edges to today's session notes.
+Use Activities for project work, Open Items for pending work, Observations for day-level facts that apply across projects, and Relations for explicit connections to today's session notes.
 
 ```markdown
 ---
@@ -200,7 +200,7 @@ Section presence:
 - `## Activities` always present with at least one project subsection
 - `## Open Items` only when commitments have an owner, a deadline, or an active blocker — mental follow-ups ("install X locally", "remember to test Y") belong in the handoff or session `## Next`, not here
 - `## Observations` for cross-cutting day-level facts — do not restate per-project observations that belong in the session note; common categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
-- `## Relations` typed edges to today's session notes (`contains`) or other day-level references; omit if no sessions or references
+- `## Relations` for explicit connections to today's session notes (`contains`) or other day-level references; omit if no sessions or references
 
 #### If note does not exist
 

@@ -39,8 +39,8 @@ Fields:
 1. Resolve the repo root: `git rev-parse --show-toplevel` if available, otherwise use the current working directory
 2. Read `.notes/wrap-up.yml`
 3. Look up the repo root path as a key in `projects`
-4. Hit: use the entry's fields
-5. Miss: the repo has no entry yet — see [bootstrap.md](bootstrap.md), then continue here
+4. Entry found: use the entry's fields
+5. Entry not found: see [bootstrap.md](bootstrap.md), then continue here
 
 ## Resolved Paths
 

@@ -1,11 +1,11 @@
 # Session Handoff Lifecycle
 
-Load the session handoff at `.artifacts/HANDOFF.md` for downstream notes, then clear the file after successful persistence.
+Load the session handoff at `.artifacts/HANDOFF.md` for notes written later, then clear the file after successful persistence.
 
 ## When to Use
 
 - Invoked twice per wrap-up: once after mapping (Load phase, before notes) and once after notes (Cleanup phase, last)
-- Both phases short-circuit silently when `.artifacts/HANDOFF.md` is absent
+- Both phases skip silently when `.artifacts/HANDOFF.md` is absent
 
 ## Workflow
 
@@ -14,8 +14,8 @@ Load the session handoff at `.artifacts/HANDOFF.md` for downstream notes, then c
 Runs after mapping, before notes.
 
 1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
-2. Read the **whole file**. Treat it as a claim to check against the current conversation, not as authority; surface a disagreement instead of silently carrying a stale or unsupported assertion into a durable note.
-3. Surface its contents to working context for the rest of wrap-up to consume, per section:
+2. Read the **whole file**. Check its claims against the current conversation. If a claim is stale or unsupported, report the conflict instead of copying the claim into a durable note.
+3. Make these fields available to the rest of the workflow:
    - `**Focus:**` line (always present)
    - `**Context:**` bullets (always present)
    - `**Next step:**` line (always present)
@@ -31,9 +31,9 @@ The notes phase consumes from working context — it does not re-read the file.
 
 ### Cleanup Phase
 
-Runs last. Auto-clears without asking only after every configured note write succeeds. Preserve the handoff when any required write fails so the context remains available for retry.
+Run this phase last. If every configured note write succeeds, clear the handoff without asking. If any required write fails, preserve the handoff so the user can retry.
 
-Write empty content to `.artifacts/HANDOFF.md`. Do not delete the file — an empty file is treated as missing on the next Load, and writing avoids a Bash permission prompt.
+Write empty content to `.artifacts/HANDOFF.md`. Do not delete the file. An empty file is treated as missing on the next Load, and writing avoids a Bash permission prompt.
 
 Skip silently if Load found no usable handoff.
 

@@ -9,7 +9,7 @@ flowchart LR
     A[Resolve Project] --> B[Load Handoff]
     B --> C[Obsidian Session Note]
     C --> D[Obsidian Daily Note]
-    D --> E[Clear Handoff auto]
+    D --> E[Clear Handoff Automatically]
 ```
 
 | Step | System | Output | Audience |
@@ -38,16 +38,16 @@ close session
 
 | Dependency | Status | Without it |
 |------------|--------|------------|
-| Obsidian MCP server | required | No note can be written; the skill has nothing to persist to |
+| Obsidian MCP server | required | The workflow cannot write either note |
 
 - An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
 
 ## FAQ
 
-**Q: What happens if Obsidian MCP is unavailable?** A: Neither note can be written. Both the session note and the daily note go through the Obsidian MCP server, so the skill has nothing to persist to.
+**Q: What happens if Obsidian MCP is unavailable?** A: The workflow cannot write the session note or the daily note because both use the Obsidian MCP server.
 
 **Q: Does it ask before clearing the session handoff?** A: No. Cleanup writes empty content after every configured note write succeeds. If persistence fails, the handoff remains available for retry.
 
-**Q: Can I run wrap-up multiple times in a day?** A: Yes. Existing notes are detected and appended to rather than overwritten. The daily note merges activities from each invocation.
+**Q: Can I run wrap-up multiple times in a day?** A: Yes. The workflow finds existing notes and appends the new content instead of overwriting them. The daily note merges activities from each invocation.
 
 **Q: What if the project is not in the registry yet?** A: A bootstrap prompt asks for project name, Obsidian path, and base tags. The new entry is appended to `wrap-up.yml`.

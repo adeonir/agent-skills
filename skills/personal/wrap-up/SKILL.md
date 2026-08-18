@@ -7,7 +7,7 @@ description: "End-of-session command that persists context to Obsidian. Resolves
 
 ## Triggers
 
-- **End-of-session command** ("wrap up", "wrap-up", "end session", "finish up", "close session") → run all references in sequence
+- **End-of-session command** ("wrap up", "wrap-up", "end session", "finish up", "close session") → run the full workflow
 
 End-of-session documentation to Obsidian.
 
@@ -26,4 +26,4 @@ mapping → handoff:Load → notes (compose) → handoff:Cleanup
 
 ## Anti-Pattern: Confirmation Between Steps
 
-Pausing for user approval between mapping and notes breaks the wrap-up promise: a single command persists everything. The user has already invoked the skill — that is the confirmation. Run all steps and report at the end.
+Do not pause for confirmation between mapping and note creation. The initial invocation authorizes every step. Run the full workflow and report at the end.
