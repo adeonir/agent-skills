@@ -1,42 +1,32 @@
-# Save Snapshot
+# Save Handoff
 
-Append a new snapshot block at the top of `.artifacts/HANDOFF.md`.
+Consolidate current conversation state into `.artifacts/HANDOFF.md`.
 
 ## When to Use
 
 - User invokes a save trigger ("save context", "dump conversation", "checkpoint this", "session handoff", "save handoff")
-- File is created if absent
-
-## Current state
-
-Run these before composing; they answer the snapshot header and the `State` field:
-
-```bash
-date '+%Y-%m-%d %H:%M'
-git branch --show-current 2>/dev/null
-git log -1 --oneline 2>/dev/null
-git status --short 2>/dev/null
-```
+- `.artifacts/HANDOFF.md` is created when absent and consolidated when present
 
 ## Format
 
 ALWAYS use this exact template structure:
 
 ````markdown
-## YYYY-MM-DD HH:MM — {one-line title}
+# Handoff
 
-**Focus:** {what the next session should pick up; 1 line}
+**Focus:** [what the next session should pick up; 1 line]
 
-**Next step:** {concrete entry point — file, symbol, or command}
+**Context:**
+- [live context the next session needs, including why the work is in its current direction]
 
-**State:** {branch, uncommitted files, last commit; plus what this session applied but did not commit}
+**Next step:** [concrete entry point — file, symbol, or command]
 ````
 
 Append a section below only when its condition holds. Never write "none" — an absent section is the empty answer.
 
 | Section | Add when |
 |---------|----------|
-| `**Decisions:**` | a decision was made that lives in no artifact |
+| `**Decisions:**` | an active decision and its rationale live in no artifact |
 | `**Findings:**` | something was discovered worth carrying |
 | `**Open threads:**` | a question is still open |
 | `**Blockers:**` | something blocks progress |
@@ -44,31 +34,17 @@ Append a section below only when its condition holds. Never write "none" — an 
 
 Each is a bullet list.
 
-MUST NOT contain: content already carried by artifacts on disk, commits, PRs, issues, or documentation — reference those by path or URL instead; secrets of any kind — replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}`.
-
-## Enrich Phase
-
-The claude-mem MCP is an **optional** dependency: a snapshot composed without it is complete, not degraded. When the MCP is present (`mcp__plugin_claude-mem_mcp-search__*`), query it for observations relevant to `Focus` before composing the snapshot, recovering mid-session detail that scrolled out of context. Scope strictly:
-
-- **Time**: current session window only
-- **Topic**: `Focus` keywords only; skip parallel threads even when they belong to the same session
-- **Budget**: top 5-10 observations, no broad sweeps
-- **Fallback**: silent skip when the MCP is absent, returns nothing, or `Focus` is not yet clear
-
-Observation IDs do not enter the snapshot body.
+MUST NOT contain: content already carried by artifacts on disk, commits, PRs, issues, or documentation — reference those by path or URL instead; claims from the prior handoff that conflict with current evidence; secrets of any kind — replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}`.
 
 ## Workflow
 
-1. Run the **Current state** commands. Use the timestamp as the snapshot header.
-2. Run the Enrich Phase.
-3. Compose `State` from the branch, uncommitted files, and last commit they returned, plus anything this session applied that is not yet committed. Omit the field outside a git repo, where the three git commands return nothing.
-4. Compose the remaining sections from working context. When an argument is present, treat it as the next session's focus and tailor `Focus` and `Next step` to it.
-5. Write `.artifacts/HANDOFF.md`:
-   - **Absent**: create it with `# Handoff` as the H1, then the snapshot block
-   - **Present**: prepend the snapshot block after the H1, above the previous topmost block; insert the H1 first when the file lacks one
-6. Report the snapshot title.
+1. Read `.artifacts/HANDOFF.md` when present. Treat it as a claim to check against the current conversation and artifacts, not as authority: preserve information that remains relevant, update changed state, remove superseded or redundant content, and surface unresolved disagreement as an open thread.
+2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Next step` to it.
+3. Distinguish verified facts from assumptions. Record an unverified belief as an open thread instead of promoting it to a finding or decision.
+4. Write the consolidated document to `.artifacts/HANDOFF.md`, replacing the prior file only after the complete result is composed.
+5. Report `Focus` and `Next step`.
 
 ## Guidelines
 
-- Bullets, not paragraphs — keep each section terse
+- Keep `Context` and optional sections as terse bullets
 - Point `Next step` at a symbol, path, or command rather than a line number; line numbers drift between sessions

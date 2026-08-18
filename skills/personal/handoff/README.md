@@ -5,8 +5,9 @@ Capture conversation state so another session can resume.
 ## What It Does
 
 ```mermaid
-flowchart LR
-    A[save] --> B[.artifacts/HANDOFF.md]
+flowchart TD
+    A[save] --> B[Consolidated HANDOFF.md]
+    B --> A
     B --> C[load]
     C --> D[next session resumes]
     B -.-> E[clear]
@@ -14,8 +15,8 @@ flowchart LR
 
 | Op | Output |
 |----|--------|
-| save | New snapshot prepended at the top of `.artifacts/HANDOFF.md` |
-| load | Topmost snapshot read into the current session, plus a one-line index of older ones |
+| save | Existing handoff consolidated with current conversation state |
+| load | Complete handoff read into the current session |
 | clear | File overwritten with empty content (opt-in, separate op) |
 
 ## Usage
@@ -37,20 +38,19 @@ reset handoff
 
 ## Output
 
-`.artifacts/HANDOFF.md` — newest snapshot at the top.
+`.artifacts/HANDOFF.md` — one current, consolidated handoff.
 
-Three sections are always present (`Focus`, `Next step`, `State`); five are optional and omitted when empty:
+Three sections are always present (`Focus`, `Context`, `Next step`); five are optional and omitted when empty:
 
 ```markdown
 # Handoff
 
-## YYYY-MM-DD HH:MM — {title}
+**Focus:** [one line]
 
-**Focus:** {one line}
+**Context:**
+- ...
 
-**Next step:** {concrete entry point}
-
-**State:** {branch, uncommitted files, last commit}
+**Next step:** [concrete entry point]
 
 **Decisions:**
 - ...
@@ -68,27 +68,15 @@ Three sections are always present (`Focus`, `Next step`, `State`); five are opti
 - ...
 ```
 
-## Requirements
-
-Optional — save and load work without it.
-
-| Dependency | Without it |
-|------------|------------|
-| claude-mem MCP | The Enrich phase is skipped silently; the snapshot composes from working context alone |
-
 ## FAQ
 
-**Q: Does save overwrite the previous snapshot?**
+**Q: Does save discard the previous handoff?**
 
-A: No. Each save prepends a new dated block at the top. Older snapshots are preserved.
+A: No. Save reads the existing handoff and consolidates it with the current conversation. Relevant information remains; superseded and redundant content is removed.
 
 **Q: Does load auto-clear?**
 
 A: No. Load reads, clear is a separate explicit op.
-
-**Q: Can I resume from an older snapshot?**
-
-A: Yes. Load reads the topmost one and prints a one-line index of the rest; name any entry from that index and load reads it.
 
 **Q: What if the file is absent?**
 
@@ -96,7 +84,7 @@ A: Load and clear no-op silently. Save creates the file.
 
 **Q: How does this differ from end-of-session note persistence?**
 
-A: End-of-session flows write a narrative of what happened into memory systems (auto-memory, Basic Memory, Obsidian). The handoff skill is an ephemeral conversation handoff for resuming across sessions — it carries focus and next step rather than a session narrative. End-of-session flows may read the latest handoff snapshot to compose their notes; whether they clear it afterwards is up to that flow.
+A: End-of-session flows write a narrative of what happened into a durable memory system. The handoff skill carries live focus, context, and the next step for resuming work. An end-of-session flow may consume and clear the handoff after it persists the content.
 
 **Q: Can I describe what the next session should focus on?**
 
