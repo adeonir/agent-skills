@@ -77,7 +77,7 @@ When a section feels like it belongs in two docs, it usually belongs in one and 
 
 **Q: When should I use an ADR vs a Design Doc?** A: The Design Doc carries the design and the trade-offs behind it; the Alternatives Considered table is where decisions get explored and recorded. Each row starts with `Record = —`; when a decision matures, extract it into an ADR (immutable, numbered, one decision per file), update the row's `Record` to `ADR-NNN`, and link the ADR's References back to the design doc's Alternatives Considered section. ADRs are the formal receipt; the Design Doc keeps the surrounding context.
 
-**Q: I have decisions buried in a PRD or research — how do I lift them into ADRs?** A: Trigger an ADR workflow. The Context phase scans existing PRD and Design Doc artifacts for embedded decisions (constraints, NFR rationale, Alternatives Considered rows with `Record = —`) and lists candidates. Each decision becomes its own ADR — one decision per file, never a single ADR summarizing many.
+**Q: I have decisions buried in project documents — how do I lift them into ADRs?** A: Trigger an ADR workflow. The Context phase scans `CODEBASE.md`, the PRD, and the Design Doc for decisions that meet the ADR criteria and are not already recorded. Each decision becomes its own ADR — one decision per file, never a single ADR summarizing many.
 
 **Q: How does PRODUCT relate to the PRD?** A: PRODUCT captures the product's strategic positioning — what it is and stands for — which the same discovery surfaces while defining the PRD, so a new product drafts both together. After that, each is resolved by its own state: positioning changes with strategy, so a reconcile can touch PRODUCT alone, independent of any PRD revision.
 

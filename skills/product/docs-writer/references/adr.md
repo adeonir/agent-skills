@@ -27,16 +27,19 @@ Load [discovery.md](discovery.md) for shared interview patterns and critical pos
 
 **Check Existing Context:**
 
+Read existing ADRs at `docs/adr/` first. Use them to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
+
 Scan upstream artifacts for embedded decisions that should be lifted into their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
+| `CODEBASE.md` | `## Decisions` entries not yet recorded as ADRs |
 | `docs/tech/design-doc.md` | `## 4. Alternatives Considered & Trade-offs` rows (rows with `Record = —` are candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
-If found, list candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source means multiple ADRs — one per decision, not one ADR summarizing all of them.
+Read `CODEBASE.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as authority to promote it. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**; surface a contradicted entry instead of recording it.
 
-Look for existing ADRs at `docs/adr/`. If found, list them and ask whether this ADR supersedes any.
+List the unrecorded candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source mean multiple ADRs — one per decision, not one ADR summarizing all of them.
 
 **Discovery (1 topic):**
 
@@ -69,7 +72,7 @@ Before drafting, confirm the decision is ready to record: exactly one decision (
 
 ### Phase 3: Drafting
 
-Use the template below. Run the gates in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. When the decision came from `CODEBASE.md`, add its path to frontmatter `sources` and `## References`. Run the gates in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
 Write the ADR with `status: proposed`; it stays editable in place until the user explicitly ratifies it to `accepted`. The skill never auto-advances the status.
 
