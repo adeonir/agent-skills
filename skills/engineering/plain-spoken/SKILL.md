@@ -25,6 +25,20 @@ Read [ste-principles.md](references/ste-principles.md) before writing, rewriting
 
 Apply a lightweight clarity pass to brief factual answers. Use familiar words, name the subject when a pronoun could be unclear, and preserve every qualification. Do not add detail solely to make the answer longer.
 
+## Surface and meaning
+
+This skill governs word choice and meaning. It never governs the surface of the sentence: length, articles, register, or whether a fragment is allowed. An active output style owns the surface, and this skill does not override it.
+
+Under any surface, these hold:
+
+- One term per concept, unchanged across the response.
+- A familiar word over a formal one.
+- Every condition, limit, exception, and stated uncertainty survives.
+- Every pronoun has one clear referent. Name the subject when a fragment would leave it open.
+- Code, commands, identifiers, values, and quoted interface text stay verbatim.
+
+Social softening is not a qualification. `I think it might be worth considering` carries no fact and may go. `Only while the token is valid` carries a condition and stays.
+
 ## Conformance boundary
 
 Default to **STE-inspired writing**, not formal ASD-STE100 conformance. The complete standard includes writing rules and a controlled dictionary; correct conformance also depends on approved terminology for the subject field.
@@ -40,4 +54,4 @@ The method applies to every language. Write in the language of the source text o
 - Prefer active voice when the actor is known and accuracy does not change.
 - Keep lists parallel: one action or one type of information per item.
 - Remove jargon only when a plain alternative carries the same meaning.
-- Do not make the tone childish, abrupt, or less precise.
+- Do not lose precision. Tone and sentence length belong to the active output style.
