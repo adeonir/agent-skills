@@ -1,6 +1,6 @@
 ---
 name: docs-writer
-description: "Generates structured product and technical documents through guided discovery: PRDs, product positioning docs, Design Docs, and architecture decision records. Use when defining product requirements, capturing product strategy or positioning, weighing architecture and trade-offs, or recording an architecture decision. Not for visual or UI design, feature specs tied to implementation, or meeting and session notes."
+description: "Generates structured product and technical documents through guided discovery: product requirements documents (PRDs), product positioning docs, Design Docs, and architecture decision records (ADRs). Use when defining product requirements, capturing product strategy or positioning, weighing architecture and trade-offs, or recording an architecture decision. Not for visual or UI design, feature specs tied to implementation, or meeting and session notes."
 ---
 
 # Docs Writer
@@ -62,4 +62,4 @@ Record one decision in each ADR: status, context, decision, consequences, and re
 
 ## Anti-Pattern: Technical Detail in PRD
 
-A PRD describes the product: problem, users, scope, journeys, business rules, success metrics. It does not specify architecture, tech stack, APIs, UI components, or any "how it is built" detail. Discussions of microservices vs monolith, SQL vs NoSQL, REST vs GraphQL, framework choice, or deployment topology belong in the Design Doc. If a PRD section reads like it could be implemented in two ways and the reviewer is asked to choose, that section is a technical decision in disguise — extract it to the Design Doc or ADR and leave a link in its place.
+A PRD describes the product: problem, users, scope, journeys, business rules, success metrics. It does not specify architecture, tech stack, APIs, UI components, or any "how it is built" detail. Discussions of microservices vs monolith, SQL vs NoSQL, REST vs GraphQL, framework choice, or deployment topology belong in the Design Doc. A section is a technical decision in disguise if it presents two implementation options and asks the reviewer to choose. Move that decision to the Design Doc or ADR, then leave a link in the PRD.

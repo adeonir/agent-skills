@@ -1,14 +1,14 @@
 # Design Doc
 
-A Google-style design doc: the technical design and the trade-offs behind it — lean and focused.
+A Google-style Design Doc: the technical design and the trade-offs behind it — lean and focused.
 
 ## When to Use
 
 When writing or updating the technical Design Doc for a software project. The document records how the system is built, why the team chose that design, and which decisions have ADRs. Write one when the project has technical choices with real trade-offs. Keep it as short as the design allows.
 
-**Boundary with PRD:** the design doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS).
+**Boundary with PRD:** the Design Doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS).
 
-**Boundary with ADR:** the design doc carries the design and the trade-offs behind it. ADRs record individual decisions. Both coexist and reference each other.
+**Boundary with ADR:** the Design Doc carries the design and the trade-offs behind it. ADRs record individual decisions. Both coexist and reference each other.
 
 ## When NOT to Write a Design Doc
 
@@ -163,8 +163,8 @@ Process:
 First check the row's `Record` column. If it already reads `ADR-NNN`, read that ADR before deciding whether the record needs an update. Otherwise:
 
 1. Create the ADR (see [adr.md](adr.md)). Number sequentially.
-2. Update the design doc row: set `Record` to `ADR-NNN`.
-3. The ADR's References section links back to the design doc's Alternatives Considered section.
+2. Update the Design Doc row: set `Record` to `ADR-NNN`.
+3. The ADR's References section links back to the Design Doc's Alternatives Considered section.
 
 Rows with `Record = —` are design-doc-only records of trade-offs explored along the way.
 

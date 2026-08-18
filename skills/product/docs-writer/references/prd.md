@@ -8,7 +8,7 @@ When creating a PRD, defining product requirements, or writing product specifica
 
 ## Scope
 
-Product requirements only. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). The former belongs to the Design Doc or ADR; positioning belongs to PRODUCT.
+Product requirements only. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
 
 ## Workflow
 
@@ -188,7 +188,11 @@ Summarize the confirmed discovery and validation results.
 
 ### Phase 4: Drafting
 
-Use the PRD template below. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it during discovery using confirmed PRD facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence. Run [quality.md](quality.md), write the documents to their paths, and report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
+1. Use the PRD template below.
+2. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence.
+3. Run [quality.md](quality.md).
+4. Write each document to its path.
+5. Report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
 
 **Drafting notes:**
 

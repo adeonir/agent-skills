@@ -6,6 +6,8 @@ Generates structured product and technical documents through guided discovery.
 
 Routes document creation requests to type-specific workflows, each with appropriate discovery depth:
 
+The skill creates product requirements documents (PRDs), product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
+
 ```mermaid
 flowchart TD
     T[Trigger] --> R{Document type}
@@ -57,9 +59,9 @@ Each document type has a distinct audience and scope. Keep their content separat
 
 | Doc | Audience | Owns | Never carries |
 |-----|----------|------|---------------|
-| **PRODUCT** | PMs, designers, marketing | Strategic positioning: register, audience posture, brand personality, anti-references, design principles | Requirements, scope, metrics, journeys, technical content |
-| **PRD** | PMs, engineers, designers | Product spec: problem, personas, scope MoSCoW, journeys, business rules, NFRs (as targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
-| **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product KPIs, personas, journey walkthroughs, exhaustive spec coverage |
+| **PRODUCT** | Product managers, designers, marketing | Strategic positioning: register (`brand` or `product`), desired audience relationship, brand personality, rejected styles, design principles | Requirements, scope, metrics, journeys, technical content |
+| **PRD** | Product managers, engineers, designers | Product specification: problem, personas, must/should/could/won't priorities, journeys, business rules, non-functional requirements (targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
+| **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product key performance indicators, personas, journey walkthroughs, exhaustive specification coverage |
 | **ADR** | Engineers, future engineers | One technical decision with status, context, consequences, and references | Multiple decisions in one file, open trade-offs, advocacy as context |
 
 ### How they relate

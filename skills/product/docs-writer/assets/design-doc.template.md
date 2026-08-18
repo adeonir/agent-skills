@@ -42,7 +42,7 @@ sources: []
 |----------|--------|----------|-----------|--------|
 | [what was decided] | [what was chosen] | [what was rejected] | [trade-offs, why this choice] | [— or ADR-NNN] |
 
-`—` = the design doc is the only record of this decision. `ADR-NNN` = the decision is formalized as an ADR.
+`—` = the Design Doc is the only record of this decision. `ADR-NNN` = the decision is formalized as an ADR.
 
 ## 5. Cross-cutting Concerns
 

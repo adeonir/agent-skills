@@ -39,7 +39,7 @@ Load [discovery.md](discovery.md) for the shared interview method and critical r
 
 - Is the experience itself the product (a landing page, a campaign), or does it serve a task (an app, a dashboard, a tool)? — the register
 - Who is this for, and what relationship does it want with them — expert-to-expert, premium, approachable?
-- In three words, what is the product's character, and what tone do they imply?
+- In three words, what is the product's character, and what tone do those words imply?
 - What does the product refuse to be — the aesthetics, clichés, or postures it rejects?
 - What handful of principles drive its design and copy decisions?
 

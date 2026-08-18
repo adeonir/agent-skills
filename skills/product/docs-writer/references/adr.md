@@ -73,7 +73,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CODEBASE.md`, add its path to both. Run the checks in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
-For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and bump `updated`.
+For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename and frontmatter `name` use bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
 
@@ -101,7 +101,7 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 - Record the material consequences without forcing positive, negative, and neutral subsections
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
 - Link `ADR-NNN` to the replacement ADR when Status marks a decision as superseded
-- When extracted from a Design Doc Alternatives row, the ADR's References section links back to the design doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
+- When extracted from a Design Doc Alternatives row, the ADR's References section links back to the Design Doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
 - External facts (vendor pricing, provider capabilities) are dated and kept verifiable — for example "rates valid as of [Month YYYY]"
@@ -118,7 +118,7 @@ Accepted → Deprecated | Superseded by ADR-NNN
 - **Deprecated**: No longer recommended but not replaced.
 - **Superseded by ADR-NNN**: Replaced by the linked ADR.
 
-Update an ADR when its record needs correction or clarification, and bump `updated`. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
+Update an ADR when its record needs correction or clarification, and set `updated` to the current date. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
 
 ## Anti-Pattern: Bundled Decisions
 
@@ -130,7 +130,7 @@ Context states the forces that make the decision necessary — directly, in the 
 
 ## Anti-Pattern: Planning or Scope in the Decision
 
-The Decision states the choice — nothing else. It does not carry rationale, implementation planning ("automated via CI, pipeline TBD"), or product scope (feature lists, tier/plan allocation). Rationale belongs in Context, planning belongs in the tracker or design doc, and product scope belongs in the PRD. If the Decision reads like a build plan or a requirements table, lift that content out and leave only the decision.
+The Decision states the choice — nothing else. It does not carry rationale, implementation planning ("automated via CI, pipeline TBD"), or product scope (feature lists, tier/plan allocation). Rationale belongs in Context, planning belongs in the tracker or Design Doc, and product scope belongs in the PRD. If the Decision reads like a build plan or a requirements table, lift that content out and leave only the decision.
 
 ## Output
 
