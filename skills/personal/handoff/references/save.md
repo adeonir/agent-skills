@@ -34,14 +34,18 @@ Append a section below only when its condition holds. Never write "none" — an 
 
 Each is a bullet list.
 
-MUST NOT contain: content already carried by artifacts on disk, commits, PRs, issues, or documentation — reference those by path or URL instead; claims from the prior handoff that conflict with current evidence; secrets of any kind — replace API keys, tokens, passwords, PII, and credentials embedded in URLs with `{redacted}`.
+The handoff MUST NOT contain:
+
+- Content already carried by artifacts on disk, commits, pull requests, issues, or documentation. Reference that content by path or URL instead.
+- Claims from the prior handoff that conflict with current evidence.
+- Secrets of any kind. Replace API keys, tokens, passwords, personally identifiable information, and credentials embedded in URLs with `{redacted}`.
 
 ## Workflow
 
-1. Read `.artifacts/HANDOFF.md` when present. Treat it as a claim to check against the current conversation and artifacts, not as authority: preserve information that remains relevant, update changed state, remove superseded or redundant content, and surface unresolved disagreement as an open thread.
+1. Read `.artifacts/HANDOFF.md` when present. Check its claims against the current conversation and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
 2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Next step` to it.
 3. Distinguish verified facts from assumptions. Record an unverified belief as an open thread instead of promoting it to a finding or decision.
-4. Write the consolidated document to `.artifacts/HANDOFF.md`, replacing the prior file only after the complete result is composed.
+4. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
 5. Report `Focus` and `Next step`.
 
 ## Guidelines

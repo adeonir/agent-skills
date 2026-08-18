@@ -9,8 +9,8 @@ Read the consolidated `.artifacts/HANDOFF.md` so the current session resumes wit
 
 ## Workflow
 
-1. Read the whole `.artifacts/HANDOFF.md`. Silent no-op — no output at all — when the file is absent, empty, or contains neither `Focus` nor `Next step`.
-2. Bring the complete document into working context.
+1. If `.artifacts/HANDOFF.md` is absent, empty, or contains neither `Focus` nor `Next step`, return no output.
+2. Read the whole file into working context.
 3. Report `Focus` and `Next step`.
 
 ## Guidelines

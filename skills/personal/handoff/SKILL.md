@@ -12,7 +12,7 @@ argument-hint: "[focus]"
 - **Load** ("resume session", "load handoff", "continue from last") → [load.md](references/load.md)
 - **Clear** ("clear handoff", "reset handoff") → see Clear below
 
-Capture conversation state in one consolidated `.artifacts/HANDOFF.md` so a later session resumes with prior context. Three ops: save, load, clear.
+Capture conversation state in one consolidated `.artifacts/HANDOFF.md` so a later session resumes with prior context. Three operations: save, load, clear.
 
 ## Workflow
 
@@ -24,4 +24,4 @@ clear → overwrite .artifacts/HANDOFF.md with empty content
 
 ## Clear
 
-Write empty content to `.artifacts/HANDOFF.md`. Do not delete the file — an empty file is treated as missing on next load, and writing avoids a Bash permission prompt. Silent no-op when the file is already absent.
+If `.artifacts/HANDOFF.md` is absent, return no output. Otherwise, write empty content to the file. Do not delete the file. An empty file is treated as missing on the next load, and writing avoids a Bash permission prompt.

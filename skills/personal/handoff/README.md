@@ -13,11 +13,11 @@ flowchart TD
     B -.-> E[clear]
 ```
 
-| Op | Output |
-|----|--------|
-| save | Existing handoff consolidated with current conversation state |
-| load | Complete handoff read into the current session |
-| clear | File overwritten with empty content (opt-in, separate op) |
+| Operation | Output |
+|-----------|--------|
+| save | Consolidates the existing handoff with the current conversation state |
+| load | Reads the complete handoff into the current session |
+| clear | Writes empty content to the file (opt-in, separate operation) |
 
 ## Usage
 
@@ -88,4 +88,4 @@ A: End-of-session flows write a narrative of what happened into a durable memory
 
 **Q: Can I describe what the next session should focus on?**
 
-A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus` and `Next step` to that focus. Without an argument, save captures generic state.
+A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus` and `Next step` to that focus. Without an argument, save captures the current focus from the conversation.
