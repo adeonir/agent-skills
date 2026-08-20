@@ -2,11 +2,11 @@
 """
 Structure linter for the craft-ui skill.
 
-Checks `structure.yaml` — the arrangement contract the wireframe phase writes
-and the mockup phase reads — for the defects a reading pass cannot settle by
-eye: a shape outside the fixed vocabulary, a register outside its two values,
-a flow edge pointing at a surface that does not exist, a surface no flow path
-reaches, and a requirement ID the template forbids.
+Checks `structure.yaml` — the optional arrangement handoff the wireframe phase
+writes and the mockup phase reads — for the defects a reading pass cannot
+settle by eye: a shape outside the fixed vocabulary, a register outside its
+two values, a flow edge pointing at a surface that does not exist, a surface
+no flow path reaches, and a requirement ID the template forbids.
 
 Everything perceptual stays with the structural self-check: whether the
 arrangement matches its register, whether the primary action is obvious,

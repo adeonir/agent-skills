@@ -6,42 +6,43 @@ craft-ui — decide how the interface is arranged, then how it looks, by buildin
 
 ```mermaid
 flowchart TD
-    P[PRODUCT.md — posture] --> W[wireframes]
-    C[copy.yaml — content] --> W
-    W --> S[structure.yaml — the contract]
+    I[brief / inputs] --> W[wireframes — optional]
+    P[PRODUCT.md — posture] --> W
+    W --> S[structure.yaml — intermediate handoff]
     S --> M[mockups]
+    I --> M
     D[DESIGN.md — tokens] --> M
-    C --> M
     M --> Pick[User picks one]
     Pick --> F[docs/design/mockup.html]
+    Pick --> C[copy]
 ```
 
 | Phase | Output |
 |-------|--------|
-| **wireframes** | an interview, then N lo-fi arrangements per surface to compare; the chosen one becomes `structure.yaml` |
-| **mockups** | the settled arrangement rendered in N visual directions, one line each in `VARIANTS.md`; the chosen one lands in `docs/design/` |
+| **wireframes** | optional interview and N lo-fi arrangements per surface; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
+| **mockups** | N directions rendered from `structure.yaml` when present, or with an arrangement chosen per direction when absent; the chosen one lands in `docs/design/` |
 
-The wireframe decides the arrangement with no look to judge it by — no palette, no font pick, no tokens. The mockup phase is the **integrator**: it renders `structure.yaml`, `DESIGN.md`, and `copy.yaml` together, and never re-plans the arrangement it was given.
+When a wireframe exists, it decides the arrangement with no look to judge it by — no palette, no font pick, no tokens. When no wireframe exists, each mockup direction may decide its own arrangement. Final copy comes after the mockup; craft-ui uses brief inputs and neutral placeholders while deciding the design.
 
 ## Usage
 
 ```text
-plan the layout for these screens        # wireframes — interview, arrangements, structure.yaml
+plan the layout for these screens        # wireframes — optional arrangement handoff
 map the screen flow                      # wireframes — stops at the plan
-generate 4 directions                    # mockups — reads structure.yaml
+generate 4 directions                    # mockups — reads structure.yaml when present
 generate mockups in an editorial direction
 render this page                         # no DESIGN.md yet → composes a seed direction
 make it denser / more editorial          # re-renders the chosen mockup
 the header from B with the hero from C   # composite → re-rendered whole as a new direction
-move the pricing above the features      # an arrangement change → structure.yaml, then re-render
+move the pricing above the features      # changes the arrangement for the active direction
 ```
 
 ## Output
 
 ```text
 .artifacts/design/
-├── structure.yaml       # the arrangement contract the mockups render
-├── wireframes/          # lo-fi arrangement HTML + .events session log
+├── structure.yaml       # intermediate handoff when wireframes are used
+├── wireframes/          # optional lo-fi arrangement HTML + .events session log
 ├── mockups/             # full-page HTML per direction + .events session log
 └── VARIANTS.md          # append-only log of the directions each surface already spent
 
@@ -49,7 +50,7 @@ docs/design/
 └── mockup.html          # the chosen mockup (mockup-{surface}.html with more than one surface)
 ```
 
-`structure.yaml` is the contract between the phases and the one place an arrangement changes. `VARIANTS.md` records which directions are spent and what the winning choice turned on, so a later round neither repeats a spent direction nor reopens a settled one without knowing why it was settled. The wireframes and mockups themselves are regenerable.
+When present, `structure.yaml` is the intermediate handoff from wireframes to mockups. Without it, each mockup direction may choose its own arrangement. `VARIANTS.md` records which directions are spent and what the winning choice turned on, so a later round neither repeats a spent direction nor reopens a settled one without knowing why it was settled. The wireframes and mockups themselves are regenerable.
 
 The delivered `docs/design/mockup.html` is self-contained — it opens in a browser with no build step, so anything downstream reads it as it is.
 
@@ -84,15 +85,15 @@ Mockup:
 
 **Q: What does it write?**
 
-A: Its own artifacts only — the wireframes, the mockups, `structure.yaml`, and `VARIANTS.md` under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. To make a look permanent, the tokens are authored where tokens live; to change wording, the content is authored where content lives.
+A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, and `VARIANTS.md` under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
 
 **Q: Can I skip the wireframe and go straight to mockups?**
 
-A: Only when `structure.yaml` already exists. Without it the run settles the arrangement first — every mockup renders the same arrangement, so the comparison is about the look alone, and there has to be one to render.
+A: Yes. When `structure.yaml` exists, every direction renders its arrangement. When it does not, each direction may choose its own arrangement and look.
 
-**Q: What if I don't have a PRODUCT.md, DESIGN.md, or copy.yaml yet?**
+**Q: What if I don't have a brief, PRODUCT.md, or DESIGN.md yet?**
 
-A: It still works. The wireframe interviews for what the artifacts do not answer, and any missing input in the mockup phase falls back — seed direction, placeholder content — so you can preview the product at any stage. Missing inputs are flagged as illustrative. On a project that already carries a font stack, a palette, and components in code, the mockup phase reads them and offers what the product wears today as one of the directions — rendering the components it already ships rather than inventing new ones — so extending it and redesigning it are the same comparison.
+A: It still works. The wireframe interviews for what the inputs do not answer, and the mockup phase falls back to inferred direction and neutral placeholders. Missing inputs are flagged as illustrative. On a project that already carries a font stack, a palette, and components in code, the mockup phase reads them and offers what the product wears today as one of the directions — rendering the components it already ships rather than inventing new ones — so extending it and redesigning it are the same comparison.
 
 **Q: Does it critique or audit the result?**
 

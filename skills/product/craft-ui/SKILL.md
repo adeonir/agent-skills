@@ -1,21 +1,21 @@
 ---
 name: craft-ui
 allowed-tools: Bash(bun:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
-description: "Decides how a UI is arranged and how it looks, by building it in two phases. Use when planning a layout, arranging the regions of a page or screen, mapping a screen flow, comparing wireframes, generating design directions, previewing a page, exploring a redesign, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Writes lo-fi wireframes and full-page mockups to compare, and the chosen mockup to docs/design/. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
+description: "Decides how a UI is arranged and how it looks, using optional lo-fi wireframes and full-page mockups. Use when planning a layout, arranging the regions of a page or screen, mapping a screen flow, comparing wireframes, generating design directions, previewing a page, exploring a redesign, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Writes the chosen mockup to docs/design/. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
 ---
 
 # Craft UI
 
-craft-ui builds the interface to decide it — first the **arrangement**, then the **look**. The wireframe phase interviews for what the artifacts leave open and renders lo-fi arrangements to compare; the mockup phase renders the settled arrangement in several visual directions to pick one. `structure.yaml` is the contract between them: the wireframe writes it, the mockup reads it and never re-plans it.
+craft-ui starts from the brief and other supplied inputs. The wireframe phase is optional: when used, it renders lo-fi arrangements and passes the chosen arrangement to mockups through `structure.yaml`. Without a wireframe, each mockup direction may choose its own arrangement and look. Final copy comes after the mockup and is not an input to either phase.
 
 ## Quick start
 
-- [wireframes.md](instructions/wireframes.md) — interview, render the arrangements lo-fi, settle `structure.yaml`.
-- [mockups.md](instructions/mockups.md) — render that arrangement in N visual directions, pick one, deliver it.
+- [wireframes.md](instructions/wireframes.md) — optionally interview, render arrangements lo-fi, and create the intermediate `structure.yaml` handoff.
+- [mockups.md](instructions/mockups.md) — render visual directions, with or without the wireframe handoff, pick one, and deliver it.
 
-"Plan the layout / map the screen flow / arrange the screens" enter at wireframes. "Generate / compare / preview / try a direction" enter at mockups, which reads `.artifacts/design/structure.yaml`; when that file is absent the run starts at wireframes and returns.
+"Plan the layout / map the screen flow / arrange the screens" enters at wireframes. "Generate / compare / preview / try a direction" enters at mockups. When `.artifacts/design/structure.yaml` exists, mockups read it; when it does not, each direction may choose its own arrangement.
 
-The instructions run two bundled scripts as `<this-skill>/scripts/<name>` — `render-server.ts` serves a session, `lint_structure.py` settles the form of `structure.yaml` on the way out of the wireframe phase and on the way into the mockup phase. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running either command.
+The instructions run two bundled scripts as `<this-skill>/scripts/<name>` — `render-server.ts` serves a session, and `lint_structure.py` checks the optional `structure.yaml` handoff. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running either command.
 
 ## References
 
@@ -41,11 +41,11 @@ Mockup:
 
 ## Inputs
 
-The wireframe reads the product posture (`PRODUCT.md`) and the content (`copy.yaml`). The mockup reads `structure.yaml`, the tokens (`DESIGN.md`), the content, and its own log of spent directions. Each is optional except `structure.yaml`, and a reference page or screenshot enters either phase when the user offers one. The mockup phase is the **integrator**: the one place that renders an arrangement, tokens, and content together.
+The wireframe reads the brief, the product posture (`PRODUCT.md`), and any reference page or screenshot. The mockup reads the brief, any available tokens (`DESIGN.md`), its direction log, and `structure.yaml` when a wireframe created it. Each input is optional. The mockup phase renders a direction from the inputs it has and does not author final copy.
 
 ## Boundary
 
-craft-ui writes its own artifacts and nothing else: the wireframes, the mockups, `structure.yaml`, and the log under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide a direction, not production components.
+craft-ui writes its own artifacts and nothing else: optional wireframes, mockups, the optional intermediate `structure.yaml`, and the log under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide a direction, not production components.
 
 ## Anti-Pattern: Editing Someone Else's Source
 
@@ -53,17 +53,19 @@ A comment on a served page names something to change in the rendered page, not i
 
 ## Anti-Pattern: Hard-Gating on Missing Inputs
 
-Refusing to render until `PRODUCT.md`, `DESIGN.md`, and `copy.yaml` exist defeats the purpose — craft-ui shows the product at any stage. A missing one of those is a fallback, not a blocker: interview for it, compose a seed, follow the anti-patterns, render the best coherent page, and flag what is illustrative. The one thing a phase does wait on is `structure.yaml`, and that is a phase order, not an input: the run goes and settles the arrangement, then comes back.
+Refusing to render until `PRODUCT.md`, `DESIGN.md`, or final copy exists defeats the purpose — craft-ui shows the product at any stage. A missing input is a fallback, not a blocker: infer what the brief leaves open, compose a seed, use neutral placeholders, follow the anti-patterns, render the best coherent page, and flag what is illustrative. `structure.yaml` is optional; when it is absent, each mockup direction may choose its own arrangement.
 
-## Anti-Pattern: Redeciding the Arrangement in a Mockup
+## Anti-Pattern: Redeciding a Settled Arrangement in a Mockup
 
-Every mockup renders the same arrangement so the comparison is about the look alone. Moving a block, dropping a region, or changing a block's shape to make a direction work turns the round into a comparison of different pages, and the user picks a look while agreeing to a structure nobody decided. Change `structure.yaml` and re-render from it instead.
+When `structure.yaml` exists, every mockup renders the same arrangement so the comparison is about the look alone. Moving a block, dropping a region, or changing a block's shape to make a direction work turns the round into a comparison of different pages. Return to the wireframe path, update the arrangement, regenerate the handoff, and re-render. When `structure.yaml` is absent, each direction may choose its own arrangement.
 
-Taking one direction's header and another's hero is not this trap — the arrangement is untouched and only the treatment of each region moves. That verdict is a composite, and it is the useful one to get.
+When `structure.yaml` exists, taking one direction's header and another's hero is not this trap — the arrangement is untouched and only the treatment of each region moves. That verdict is a composite, and it is the useful one to get.
 
 ## Guidelines
 
-- Settle the arrangement before any look exists — the wireframe carries no palette and no font pick
+- Use only the brief and supplied inputs to shape the arrangement; final copy comes later
+- If a wireframe exists, pass its chosen arrangement through `structure.yaml`
+- If no wireframe exists, let each mockup direction choose its own arrangement
 - Resolve every other input via the fallback rule; never hard-gate on a missing one
 - Vary the direction per mockup; never converge on a house style
 - Resolve every `{path.to.token}` reference when emitting CSS custom properties

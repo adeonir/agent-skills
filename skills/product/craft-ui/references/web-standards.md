@@ -119,6 +119,6 @@ Rules for implementation — see color.md for color direction.
 
 ## Content and copy
 
-Wording, voice, casing, and message content are a content concern — they arrive supplied, and a mockup renders the copy it is given rather than authoring or editing it. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
+Wording, voice, casing, and message content are outside this phase. Mockups use neutral placeholders with realistic lengths and do not author or edit final copy. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
 For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).
