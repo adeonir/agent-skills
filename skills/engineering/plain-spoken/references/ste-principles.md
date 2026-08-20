@@ -1,12 +1,12 @@
 # STE-Inspired Principles
 
-Apply a practical subset of Simplified Technical English principles to agent output without claiming formal conformance.
+Apply selected Simplified Technical English principles to agent output. Do not claim formal conformance.
 
 ## When to Use
 
-Read before writing, rewriting, or auditing technical prose for clarity, in any language. Use the official ASD-STE100 standard instead when the user requires formal conformance.
+Read before writing, rewriting, or auditing technical prose. Use the official ASD-STE100 standard when the user requires formal conformance.
 
-The rules below hold in every language. Where a rule names an English word pair, the pair is an example of the test, not the test itself: apply the same test with the equivalent pair in the language of the text.
+These rules apply in every language. English word pairs are examples; use the equivalent pair in the language of the text.
 
 ## Word choice
 
@@ -48,7 +48,7 @@ Before returning the text, check each item:
 
 ## Audit format
 
-When the user asks for an audit, here is a sensible default format, but use your best judgment:
+For an audit, use this format:
 
 ```text
 Verdict: clear | needs revision

@@ -18,15 +18,15 @@ flowchart LR
 | Simplify | Familiar words, stable terminology, direct sentences, and clear conditions |
 | Verify | A final check for ambiguity, lost meaning, and unclear references |
 
-The method adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to everyday agent responses. It does not reproduce the controlled dictionary and does not claim formal compliance.
+The method adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to agent responses. It does not reproduce the controlled dictionary or claim formal compliance.
 
-The principles apply in any language. The controlled dictionary is defined in English and stays the reference for word choice; in another language, the same test runs against the equivalent word pair.
+The principles apply in any language. The controlled dictionary is English; in another language, apply the same test to the equivalent word pair.
 
 ## Usage
 
-The agent can select this skill automatically for technical prose written for people, including brief factual answers that explain or qualify a fact, as well as explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
+The agent can select this skill automatically for technical prose written for people. This includes brief factual answers, explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
 
-Explicit requests also activate it:
+Examples:
 
 ```text
 explain this architecture in plain technical English
