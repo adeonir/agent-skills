@@ -1,14 +1,14 @@
 # Slop Catalog
 
-What to inspect — the word and phrase cues and the pattern catalog that both modes use for supported findings.
+Word, phrase, and pattern cues for edit and detect modes.
 
 ## When to Use
 
-Read before editing a draft and before reporting a detect verdict. Edit mode applies the supported patterns this file names; detect mode quotes supported findings back with a fix.
+Read this file before editing or detecting. Edit mode applies supported patterns from this file. Detect mode reports supported findings with a fix.
 
 ## Word and Phrase Cues
 
-These are inspection cues, not bans. Cut a word or phrase only when it is empty, inflated, clustered with other patterns, or unsupported by context. Keep valid technical terms, factual qualifiers, quoted examples, proper names, and deliberate voice.
+These are cues, not bans. Cut a word or phrase only when it is empty, inflated, part of a pattern cluster, or unsupported by context. Keep valid technical terms, factual qualifiers, quoted examples, proper names, and deliberate voice.
 
 **High-risk words and phrases:** delve, foster, leverage, utilize, facilitate, empower, streamline, robust, cutting-edge, paradigm shift, game changer, this is huge, this changes everything, tapestry, realm, beacon, multifaceted, meticulous, intricate, paramount, transformative, elevate, embark, supercharge, harness, ever-evolving.
 
@@ -48,9 +48,9 @@ These are inspection cues, not bans. Cut a word or phrase only when it is empty,
 
 **Feeling instead of mechanism.** Phrases such as "creates a sense of," "offers a powerful way to," "helps unlock," and "feels like" name an impression instead of an action or result. Replace them with behavior, mechanism, number, or consequence when the source supports it. Keep a real subjective judgment in personal or editorial prose.
 
-**False agency.** An inanimate thing given a human verb, which hides the person who acted: "a complaint becomes a fix," "a bet lives or dies in days," "the decision emerges," "the culture shifts," "the conversation moves toward," "the data tells us," "the market rewards." Name the human instead. "The team fixed it that week" beats "the complaint becomes a fix." When no specific person fits, use "you" and put the reader in the seat.
+**False agency.** An inanimate thing receives a human verb, which hides the person who acted: "a complaint becomes a fix," "a bet lives or dies in days," "the decision emerges," "the culture shifts," "the conversation moves toward," "the data tells us," "the market rewards." Name the human instead. "The team fixed it that week" is clearer than "the complaint becomes a fix." When no specific person fits, use "you" and name the action directly.
 
-**Narrator-from-a-distance.** Prose that floats above the scene and reports on it: "Nobody designed this," "People tend to," "This happens because," "This is why." Put the reader in the room. "You don't sit down one day and decide to work this way" beats "Nobody designed this."
+**Narrator-from-a-distance.** Prose that reports on a scene without naming the actor or situation: "Nobody designed this," "People tend to," "This happens because," "This is why." Name the actor and situation. "You don't sit down one day and decide to work this way" is clearer than "Nobody designed this."
 
 **Synonym cycling.** If the clear word is right, repeat it. Do not rotate terms for style. "The agent reviews the draft. The assistant scores the piece. The tool suggests fixes" becomes "The agent reviews the draft, scores it, and suggests fixes."
 
@@ -80,9 +80,9 @@ These are inspection cues, not bans. Cut a word or phrase only when it is empty,
 
 **Fake-profound kickers.** Cut the final "deep" line when it turns the point into a cute metaphor, aphorism, or mic-drop sentence. Do not rewrite it into a better metaphor. Do not preserve the rhythm. Delete it, then end on the clearest concrete sentence already in the draft. If the ending needs more closure, add a plain takeaway or next action.
 
-**Summary-recap endings.** "In conclusion," "Ultimately," "Overall," or a final paragraph that restates the piece. The reader was just there. End on the last concrete point, takeaway, or next action instead.
+**Summary-recap endings.** "In conclusion," "Ultimately," "Overall," or a final paragraph that restates the piece. The preceding text already gave the summary. End on the last concrete point, takeaway, or next action instead.
 
-**Formatting slop.** Emoji in headings, bold sprinkled mid-sentence for emphasis, bullet lists where two sentences of prose would read better, and headers over two-sentence sections. Format follows the content; it does not decorate it.
+**Formatting slop.** Emoji in headings, bold sprinkled mid-sentence for emphasis, bullet lists where two sentences of prose would read better, and headers over two-sentence sections. Use formatting to clarify structure, not to decorate the text.
 
 **Em dashes.** Not a default rhythm crutch. Reduce decorative or clustered dashes, but preserve a deliberate dash, a meaningful interruption, or punctuation matched to a supplied writing sample.
 

@@ -1,6 +1,6 @@
-# Anti Slop
+# Anti-Slop
 
-Edits drafts into sharper, more human prose — or names AI-writing patterns without touching a word.
+Edits drafts into clear, natural prose, or names AI-writing patterns without changing the draft.
 
 ## What It Does
 
@@ -19,9 +19,9 @@ flowchart TD
 
 | Mode | Output |
 |------|--------|
-| edit | The full edited pasted draft plus What changed; file mode writes the file and reports the summary |
+| edit | The full edited pasted draft plus What changed; file mode writes the file and reports the changes |
 | detect | One line per pattern found: name, quoted line, fix — nothing rewritten |
-| embedded | Final edited text only, ready to drop into another workflow |
+| embedded | Final edited text only, ready for another workflow |
 
 ## Usage
 
@@ -37,13 +37,13 @@ Scan this for AI tells, do not rewrite it
 
 Pasted text comes back in the reply. A file path is edited in place, with What changed reported in the reply. Embedded text comes back without a preamble or change log.
 
-The draft's language sets the output language — the skill's word lists are English, and against a draft in another language it matches the shape and cuts the equivalent word. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
+Write in the draft's language. The word lists are English, but the skill matches the same patterns in other languages. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
 
 ## FAQ
 
-**Does detect tell me whether AI wrote the piece?** No. It names patterns and quotes the lines that carry them. Detectors guess; named patterns are evidence you can check yourself.
+**Does detect tell me whether AI wrote the piece?** No. It names patterns and quotes the lines that carry them. It does not identify the author.
 
-**Will it flatten my voice?** The edit keeps distinctive vocabulary, cadence, bluntness, humor, and digressions. Cutting is proportional to the actual slop, so a rough draft with a real voice still sounds like the same person.
+**Will it flatten my voice?** The edit keeps distinctive words, rhythm, bluntness, humor, and digressions. It cuts only what the draft needs, so the result still sounds like the same person.
 
 **Does it add opinions or personality?** Not by default. Technical, reference, legal, and factual prose stays neutral and precise. Personal and editorial prose can keep personality when the source supports it.
 

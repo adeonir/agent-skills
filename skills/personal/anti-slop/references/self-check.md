@@ -1,10 +1,10 @@
 # Self Check
 
-The pass/fail checklist an edited draft runs against before it is returned.
+Checks to run before returning an edit.
 
 ## When to Use
 
-After the rewrite, before returning anything. Answer each check with pass or fail. Any fail: fix the draft and run the checks again.
+Run these checks after the rewrite and before returning it. Mark each check pass or fail. Fix every fail and run the checks again.
 
 ## Editing Principles
 
@@ -24,7 +24,7 @@ After the rewrite, before returning anything. Answer each check with pass or fai
 14. Does the edit keep useful edge and preserve structure unless the structure was hurting the piece?
 15. Are genuinely tangled sentences fixed while clear spoken cadence, fragments, and changes in pace remain intact?
 
-## Words to Cut
+## Word and Phrase Checks
 
 1. Are word lists treated as cues rather than bans, with valid technical, factual, quoted, or deliberate uses preserved?
 2. Are filler phrases, often-empty adverbs, emphasis crutches, business jargon, and inflated claims removed only when they add nothing?
@@ -49,4 +49,4 @@ After the rewrite, before returning anything. Answer each check with pass or fai
 2. Does the draft avoid robotic symmetry, repeated sentence shapes, and stacked punchy fragments?
 3. Would the writer recognize the edited draft as their own voice?
 4. Would the edited draft sound natural if read to a sharp colleague?
-5. Does the final output match the selected mode: full draft plus **What changed** for pasted text, a summary for file mode, and final text only for embedded text?
+5. Does the final output match the selected mode: full draft plus **What changed** for pasted text, a change summary for file mode, and final text only for embedded text?
