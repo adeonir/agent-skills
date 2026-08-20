@@ -9,11 +9,11 @@ The user asks whether a piece reads as AI slop, or asks to audit, scan, or flag 
 ## Workflow
 
 1. Read the full draft.
-2. Scan it against [slop-catalog.md](../references/slop-catalog.md) — both the word lists and the pattern catalog.
-3. Report every pattern that appears, one entry per occurrence — a line carrying two patterns gets two entries — using the template below.
+2. Scan it against [slop-catalog.md](../references/slop-catalog.md). Treat word lists as inspection cues and look for supported patterns or clusters, not isolated tokens.
+3. Report one entry per supported finding, quoting the shortest useful excerpt and naming a concrete fix. Preserve deliberate wording that the surrounding context supports.
 4. Stop there and wait for the user to accept the offer the template ends on.
 
-Named patterns are evidence the user can check; a detector's guess is not. Report what the text does, never who wrote it.
+Named patterns are evidence the user can check; a detector's guess is not. Do not report an isolated formal word, dash, curly quote, repeated opening, disclaimer, limitation, real alternative, quotation, example, or structured heading as slop by itself. Report what the text does, never who wrote it.
 
 ## Output
 
@@ -29,4 +29,4 @@ ALWAYS use this exact template structure:
 
 The name comes from the catalog verbatim: a pattern heading for a pattern finding, a list label for a word finding. Everything the report itself says follows the draft's language.
 
-MUST NOT contain: an edited or rewritten draft, a score, a grade, a percentage, or a claim about whether AI wrote the piece.
+MUST NOT contain: an edited or rewritten draft, a score, a grade, a percentage, a claim about whether AI wrote the piece, or a catalog word or punctuation mark treated as proof by itself.

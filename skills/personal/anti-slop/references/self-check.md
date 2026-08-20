@@ -8,22 +8,27 @@ After the rewrite, before returning anything. Answer each check with pass or fai
 
 ## Editing Principles
 
-1. Does the edit preserve the user's point without adding claims, examples, stats, quotes, or opinions?
-2. Does it preserve the writer's distinctive vocabulary, cadence, bluntness, humor, uncertainty, digressions, and level of polish?
-3. Does it leave strong human sentences alone instead of rewriting them for consistency or making every paragraph equally tidy?
-4. Is the amount of cutting proportional to the actual slop, with no aggressive compression that strips out character?
-5. Does the draft lead with what the reader needs while keeping personal setup that adds context, tension, or character?
-6. Are points front-loaded where that improves clarity without forcing every unit into the same structure?
-7. Do sentences earn their place, with concrete facts, protected details, and direct verbs where the draft supports them?
-8. Does every generic sentence pass the portability test, or was it cut or made specific to this subject?
-9. Does the draft use active voice with human subjects where possible?
-10. Does the edit keep useful edge and preserve structure unless the structure was hurting the piece?
-11. Are genuinely tangled sentences fixed while clear spoken cadence, fragments, and changes in pace remain intact?
+1. Does the edit preserve the user's point and every supported claim, fact, qualification, source, and uncertainty?
+2. Did it add no fact, name, number, date, quote, citation, source, or opinion?
+3. Does it preserve the writer's distinctive vocabulary, cadence, bluntness, humor, uncertainty, digressions, and level of polish?
+4. Does a supplied writing sample still control vocabulary, cadence, punctuation, and deliberate quirks?
+5. Does the edit match the register: neutral and precise for technical, reference, legal, and factual prose; personality only where personal or editorial prose supports it?
+6. In file mode, are code, data, metadata, links, identifiers, and document structure unchanged unless explicitly requested?
+7. Does it leave strong human sentences alone instead of rewriting them for consistency or making every paragraph equally tidy?
+8. Is the amount of cutting proportional to the actual slop, with no aggressive compression that strips out character?
+9. Does the draft lead with what the reader needs while keeping personal setup that adds context, tension, or character?
+10. Are points front-loaded where that improves clarity without forcing every unit into the same structure?
+11. Do sentences earn their place, with concrete facts, protected details, and direct verbs where the draft supports them?
+12. Does every generic sentence pass the portability test, or was it cut or made specific to this subject?
+13. Does the draft use active voice with human subjects where possible?
+14. Does the edit keep useful edge and preserve structure unless the structure was hurting the piece?
+15. Are genuinely tangled sentences fixed while clear spoken cadence, fragments, and changes in pace remain intact?
 
 ## Words to Cut
 
-1. Are banned words, filler phrases, often-empty adverbs, emphasis crutches, business jargon, and inflated claims removed unless quoted as examples?
-2. Does every lazy extreme the draft cannot support name the specific case instead?
+1. Are word lists treated as cues rather than bans, with valid technical, factual, quoted, or deliberate uses preserved?
+2. Are filler phrases, often-empty adverbs, emphasis crutches, business jargon, and inflated claims removed only when they add nothing?
+3. Does every lazy extreme the draft cannot support name the specific case instead?
 
 ## Patterns to Cut
 
@@ -36,7 +41,7 @@ After the rewrite, before returning anything. Answer each check with pass or fai
 7. Are summary-recap endings cut so the piece ends on a concrete point, takeaway, or next action?
 8. Is formatting slop removed — emoji headings, decorative bold, bullets that should be prose, headers over tiny sections?
 9. Is text after a colon in sentence case unless grammar, a proper noun, a title, or code requires otherwise?
-10. Are em dashes used sparingly — usually none in short copy, and only 1-2 in longer drafts when they clearly help?
+10. Are decorative or clustered em dashes reduced while deliberate dashes and the sample's punctuation are preserved?
 
 ## Final Read
 
@@ -44,4 +49,4 @@ After the rewrite, before returning anything. Answer each check with pass or fai
 2. Does the draft avoid robotic symmetry, repeated sentence shapes, and stacked punchy fragments?
 3. Would the writer recognize the edited draft as their own voice?
 4. Would the edited draft sound natural if read to a sharp colleague?
-5. Does the final output include the full edited draft and a short **What changed** section?
+5. Does the final output match the selected mode: full draft plus **What changed** for pasted text, a summary for file mode, and final text only for embedded text?
