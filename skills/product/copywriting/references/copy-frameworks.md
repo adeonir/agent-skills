@@ -1,10 +1,14 @@
 # Copy Frameworks
 
-Headline formulas, content-part types, page shapes, and CTA patterns for writing fresh copy.
+Headline formulas, content-part types, page shapes, and CTA patterns for writing fresh copy across different surface functions.
 
 ## When to Use
 
-Loaded by the write workflow when drafting brand-register copy from intent — headlines, value props, landing and CTA patterns. Apply by the surfaces a project has; these are part patterns, not a project-type gate. Product-register surfaces (dashboards, forms, settings) carry microcopy instead — see [ux-writing.md](ux-writing.md).
+Loaded by the write workflow after the surface function is set. Apply only the patterns that fit the surface; these are part patterns, not a project-type gate. Product-register surfaces (dashboards, forms, settings) usually carry microcopy instead — see [ux-writing.md](ux-writing.md).
+
+## Select by Surface Function
+
+Read [surface-functions.md](surface-functions.md) first. Apply only the patterns that fit the selected function, and use different patterns for different parts of a mixed surface.
 
 ## Headline Formulas
 
@@ -44,9 +48,9 @@ Draft only the parts the surface actually has. Each maps to a `copy.yaml` part.
 - **objection / FAQ** — answer the 5-10 real hesitations.
 - **final-cta** — recap value, repeat the CTA, add risk reversal.
 
-## Page Shapes
+## Conversion Page Shapes
 
-Guidance, not a template to force. Use what the surface needs.
+Guidance for conversion surfaces, not a template to force. Use what the surface needs.
 
 - **Compact** — hero → social-proof → 3 benefits → testimonial → how-it-works → final-CTA. Good when brevity matters.
 - **Full** — hero → social-proof → problem → how-it-works → benefits → testimonial → use-cases → comparison → FAQ → final-CTA. Tells a story and handles objections.
@@ -59,13 +63,15 @@ A flat list of features is not persuasion — vary the parts so the copy argues.
 
 `[action verb] + [what they get] + [qualifier if needed]`
 
+Use this for a conversion or task CTA. Do not invent a CTA for a surface whose function is only to explain or express.
+
 | Weak | Strong |
 |---|---|
 | Submit, Sign Up, Learn More | Start my free trial |
 | Get Started | Get the complete checklist |
 | Click Here | See pricing for my team |
 
-## Part Writing Tips
+## Conversion Part Writing Tips
 
 - **Hero** — keep the subheadline to ~20 words, deliberately tighter than the general 1-2 sentence subheadline. If the value proposition does not fit, the value prop is unclear, not the limit too tight — tighten the idea, not the word budget.
 - **Problem** — open with recognition ("If you're like most {role}…"), then the specific frustration and its cost.

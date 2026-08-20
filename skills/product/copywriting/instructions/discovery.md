@@ -16,7 +16,7 @@ Look for:
 - Source on hand: URL, brief (PDF/DOCX), codebase, screenshot, or raw paste
 - `docs/product/PRD.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md` — intent, positioning, and requirements when writing fresh
 
-If found, read and extract purpose, audience, tone, register (brand or product), brand personality, copy anti-references, and surfaces — copy-relevant facts only; requirement IDs, milestones, sprint or release names, roadmap language, and sibling-artifact references stay out of `copy.yaml`. Skip to the relevant operation.
+If found, read and extract purpose, audience, tone, surface function, register (brand or product), brand personality, copy anti-references, and surfaces — copy-relevant facts only; requirement IDs, milestones, sprint or release names, roadmap language, and sibling-artifact references stay out of `copy.yaml`. Skip to the relevant operation.
 
 ### Step 2: Classify the Request
 
@@ -26,6 +26,8 @@ Infer from source and intent — do not ask explicitly. First fork on what the r
   - **greenfield** — no existing copy → write fresh from intent.
   - **brownfield** — existing copy or a source → extract to structure it, refresh to tighten it, revoice to change its voice, or reconcile to sync implementation drift.
 - **judge** — a non-mutating verdict on existing copy, no change applied → critique for a quality / slop verdict that loops to refresh, or audit for a ship-readiness defect report before handoff.
+
+For authoring and judging, identify the surface function before choosing the register. Read [surface-functions.md](../references/surface-functions.md) when the reader's job or the applicable pattern is unclear. Never infer conversion from a page name alone.
 
 ### Step 3: Route to Operation
 
@@ -43,4 +45,4 @@ Disambiguation — "before handoff" matches two operations. A judge request with
 
 ### Step 4: Fill Gaps
 
-When context is missing, match the ask to the gap. Declare confidently inferable values as assumptions ("Assuming product register for the dashboard — correct me if not") and continue. Batch independent low-stakes gaps — source, constraints (word count, mandatory sections) — in one turn, each with a recommendation. Keep dependent picks one at a time: a surface first (landing, dashboard, form…), then its register (from `PRODUCT.md`'s default when present, else brand or product — usually inferable from the surface).
+When context is missing, match the ask to the gap. Declare confidently inferable values as assumptions ("Assuming product register and product/UX function for the dashboard — correct me if not") and continue. Batch independent low-stakes gaps — source, constraints (word count, mandatory sections) — in one turn, each with a recommendation. Keep dependent picks one at a time: a surface first (landing, dashboard, form…), then its function, then its register (from `PRODUCT.md`'s default when present, else brand or product).

@@ -1,6 +1,6 @@
 # Copywriting
 
-Authors and judges `copy.yaml` — the structured content payload a design consumes.
+Authors and judges `copy.yaml` across conversion, brand, editorial, product, UX, and informational surfaces.
 
 ## What It Does
 
@@ -29,7 +29,7 @@ flowchart TD
 
 Content is orthogonal to design: the same `copy.yaml` works independent of visual styling, so this skill carries words only — never colors, fonts, or layout.
 
-Copy is set by **register** (brand — the words are the product; or product — the words serve the task) and organized by **surface** (the granular type, named by context). A surface sits under a register; storefronts straddle.
+Each surface has a **function** — conversion, brand/editorial, product/UX, or informational — that selects the applicable writing patterns. See `references/surface-functions.md` for the function-specific rules. Copy is also set by **register** (brand — the words are the product; or product — the words serve the task) and organized by **surface** (the granular type, named by context). Do not apply conversion patterns to a surface whose function is different.
 
 ## Usage
 
@@ -38,6 +38,8 @@ Copy is set by **register** (brand — the words are the product; or product —
 write landing page copy from this brief
 write the hero and CTA for this product
 draft homepage copy from these requirements
+write an empty state for a dashboard
+draft help content for this settings flow
 
 # Extract / structure existing content
 extract copy from https://example.com
@@ -69,7 +71,7 @@ is this copy ready to ship?
 
 ## References
 
-Loaded on demand: `references/brand.md` / `references/product.md` (register posture — read the matching one first), `references/copy-frameworks.md` (headline formulas, content-part types, page shapes, CTA), `references/voice.md` (register bias, voice axes, proof hierarchy), `references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), `references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method, clarity principles, microcopy, a11y/i18n/terminology), `references/anti-patterns.md` (copy slop catalog — dead words, dead structures, AI tells, proof failures), and `references/scoring.md` (severity, bands, and the report template critique and audit share).
+Loaded on demand: `references/brand.md` / `references/product.md` (register posture — read the matching one first), `references/surface-functions.md` (reader job and function-specific patterns), `references/copy-frameworks.md` (headline formulas, content-part types, page shapes, CTA), `references/voice.md` (register bias, voice axes, proof hierarchy), `references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), `references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method, clarity principles, microcopy, a11y/i18n/terminology), `references/anti-patterns.md` (copy slop catalog — dead words, dead structures, AI tells, proof failures), and `references/scoring.md` (severity, bands, and the report template critique and audit share).
 
 ## Output
 

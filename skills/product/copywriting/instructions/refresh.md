@@ -15,11 +15,11 @@ Not for: changing the voice (that is a different job — refresh keeps the voice
 
 ### Step 1: Read Current Copy
 
-Parse `docs/design/copy.yaml`. Note the established voice — refresh preserves it.
+Parse `docs/design/copy.yaml`. Note the established surface function and voice — refresh preserves both.
 
 ### Step 2: Run the Sweeps
 
-Apply [../references/editing-sweeps.md](../references/editing-sweeps.md) per content part: clarity → voice consistency → so what → prove it → specificity → heightened emotion → zero risk, then the quick-pass word/sentence/paragraph checks. Pull proof guidance from [../references/voice.md](../references/voice.md); the dead-word and dead-structure catalogue is in [../references/anti-patterns.md](../references/anti-patterns.md). The voice pass checks *consistency* only — never change the voice. For microcopy (labels, errors, states, navigation), also run the clarity method in [../references/ux-writing.md](../references/ux-writing.md).
+Apply [../references/editing-sweeps.md](../references/editing-sweeps.md) per content part: clarity → voice consistency → reader value → prove it → specificity → reader pull → reader confidence, then the quick-pass word/sentence/paragraph checks. Apply the function-specific meaning of each sweep. Pull proof guidance from [../references/voice.md](../references/voice.md); the dead-word and dead-structure catalogue is in [../references/anti-patterns.md](../references/anti-patterns.md). The voice pass checks *consistency* only — never change the voice. For microcopy (labels, errors, states, navigation), also run the clarity method in [../references/ux-writing.md](../references/ux-writing.md).
 
 ### Step 3: Propose Edits
 
@@ -47,7 +47,7 @@ Resolve any flags (advisory — judge false positives like a product named "Grid
 
 **DO:**
 
-- Enhance, do not rewrite — preserve the core message and the author's voice
+- Enhance, do not rewrite — preserve the surface function, core message, and author's voice
 - One focused dimension per pass; loop back after edits
 - Make every vague claim specific or cut it
 - Confirm each edit; the author owns the copy
@@ -55,6 +55,7 @@ Resolve any flags (advisory — judge false positives like a product named "Grid
 **DON'T:**
 
 - Change the voice (contrasts: refresh keeps it; changing voice is a separate job)
+- Change the surface function or add function-specific parts that were not requested
 - Restructure the content tree (contrasts: patch values, not shape)
 - Embed visual decisions in `copy.yaml` (contrasts: content-only)
 - Invent proof to satisfy a sweep (contrasts: soften the claim instead)

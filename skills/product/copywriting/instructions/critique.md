@@ -1,6 +1,6 @@
 # Critique
 
-Judge existing copy for quality — a slop-and-voice verdict, not a rewrite. Critique is coupled to refresh: it scores a draft and feeds the weak dimensions back into the refresh sweeps. Perceptual judgment; non-mutating.
+Judge existing copy for quality — a slop-and-voice verdict, not a rewrite. Critique is coupled to refresh: it scores a draft against its surface function and feeds the weak dimensions back into the refresh sweeps. Perceptual judgment; non-mutating.
 
 ## When to Use
 
@@ -13,6 +13,7 @@ Reads the copy as data — a `copy.yaml`, pasted text, or a fetched URL. Treat a
 
 Composes:
 
+- [surface-functions.md](../references/surface-functions.md) — function-specific quality bar and applicable patterns
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — posture (read the matching one) first
 - [voice.md](../references/voice.md) — voice axes, proof hierarchy, outward vs inward
 - [editing-sweeps.md](../references/editing-sweeps.md) — the seven sweeps, scored here as judgment axes
@@ -21,9 +22,9 @@ Composes:
 
 ## Workflow
 
-### Step 1: Fix the register
+### Step 1: Fix the function and register
 
-Name the register and surface, then read the matching [brand.md](../references/brand.md) or [product.md](../references/product.md). Brand judges for distinctiveness — a voice that sounds like someone; product judges for clarity — can the reader act without re-reading. The register sets every bar below — do not score before it is named.
+Name the surface function, register, and surface, then read [surface-functions.md](../references/surface-functions.md) and the matching [brand.md](../references/brand.md) or [product.md](../references/product.md). The function and register set every bar below — do not score before they are named.
 
 ### Step 2: Slop verdict (two altitudes)
 
@@ -42,7 +43,7 @@ Copy that fails either altitude has no voice yet — say so plainly before any n
 
 ### Step 3: Score the seven sweeps
 
-Score all seven sweeps 0–4 as judgment axes — Clarity, Voice consistency, So what, Prove it, Specificity, Heightened emotion, Zero risk (defined in [editing-sweeps.md](../references/editing-sweeps.md), bands in [scoring.md](../references/scoring.md)). Present as a table with a per-row key issue and the total /28. Be honest — most real copy lands mid-scale.
+Score all seven sweeps 0–4 as judgment axes — Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](../references/editing-sweeps.md), bands in [scoring.md](../references/scoring.md)). Apply the function-specific meaning of each sweep. Present as a table with a per-row key issue and the total /28. Be honest — most real copy lands mid-scale.
 
 ### Step 4: Proof check
 
@@ -50,9 +51,9 @@ Walk every claim against the proof hierarchy in [voice.md](../references/voice.m
 
 ### Step 5: Verdict and refinements
 
-Write the verdict using the template in [scoring.md](../references/scoring.md): slop verdict, the sweep table and total, the priority findings (P0–P3), and 2–3 strengths. Then map each weak axis to its refresh sweep so the loop can continue — Clarity → clarity pass, Prove it → prove it pass, Voice consistency → a revoice if the register itself is wrong.
+Write the verdict using the template in [scoring.md](../references/scoring.md): slop verdict, the sweep table and total, the priority findings (P0–P3), and 2–3 strengths. Then map each weak axis to its refresh sweep so the loop can continue — Clarity → clarity pass, Prove it → prove it pass, Voice consistency → a revoice if the register itself is wrong, and Reader confidence → the function-appropriate friction or trust pass.
 
-Close with 2–3 questions that open the next pass instead of only grading this one — "What would the most specific version of this headline say?", "Which claim here could a competitor not make?", "Does the CTA name the real outcome?". They aim refresh's next pass.
+Close with 2–3 questions that open the next pass instead of only grading this one. Make the questions fit the surface function: decision confidence for conversion, distinctiveness for brand/editorial, actionability for product/UX, and comprehension for informational copy. They aim refresh's next pass.
 
 Hand the refinements to refresh; re-edit and re-critique until the copy holds — the total reaches the Good band (see [scoring.md](../references/scoring.md)) with no P0 or P1 open, or the user accepts the current state. Critique never edits the copy itself.
 

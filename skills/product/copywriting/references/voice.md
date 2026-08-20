@@ -19,7 +19,7 @@ Pick a point on each axis and hold it across the copy.
 
 Register is the posture — **brand** (the words are the product) or **product** (the words serve the task). Set or confirm it, and read the matching file ([brand.md](brand.md) / [product.md](product.md)) when establishing or changing it; it calibrates the axes above:
 
-- **Brand** — distinctive and confident; bolder in headlines, scannable in body, action-oriented in CTAs. A personal site leans first person, present tense ("I build", not "Builds").
+- **Brand** — distinctive and confident; bolder in headlines, scannable in body, and action-oriented in CTAs when the surface has one. A personal site leans first person, present tense ("I build", not "Builds").
 - **Product** — concise, calm, instructional; verbs first, no hype.
 
 Read copy out loud. If it sounds like a brochure where it should instruct — or flat where it should sell — the register is wrong.

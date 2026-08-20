@@ -12,11 +12,11 @@ Run per `copy.yaml` part, one dimension at a time.
 
 1. **Clarity** — can the reader understand it at once? Kill confusing structures, unclear pronouns, jargon, sentences doing too much.
 2. **Voice consistency** — does it sound the same throughout? Smooth shifts between formal and casual; keep the established voice. *Refresh never changes the voice — that is a different job.*
-3. **So what** — does every claim answer "why should I care?" Bridge features to benefits ("…which means…").
+3. **Reader value** — does each part serve the reader's goal? For persuasive copy, bridge features to benefits ("…which means…"); for product/UX copy, make the next step clear; for informational copy, connect facts to the reader's question; for brand/editorial copy, make the point of view earn attention.
 4. **Prove it** — is every claim backed? Attach numbers, named proof, or soften the claim. See proof hierarchy in [voice.md](voice.md).
 5. **Specificity** — concrete over vague. "Save time" → "Save 4 hours a week"; "many customers" → "2,847 teams". Cut what cannot be made specific.
-6. **Heightened emotion** — does it make the reader feel the pain or the outcome? Add texture authentically; never manipulate.
-7. **Zero risk** — near a CTA, are objections answered and trust signals present (guarantee, free trial, clear next step)?
+6. **Reader pull** — does the copy create the right reason to continue? Use emotional texture for conversion or brand/editorial copy, relevance for informational copy, and reduced friction for product/UX copy. Never manipulate.
+7. **Reader confidence** — can the reader continue with the right level of trust? For conversion copy, check objections and risk signals near the decision; for product/UX copy, check the next step and recovery path; for informational copy, check context and caveats.
 
 After the final sweep, run back through all seven once more.
 
@@ -59,9 +59,9 @@ For dead marketing adjectives (passionate, world-class, synergy, …) see the de
 
 ## Common Problems
 
-- **Wall of features** → add "which means…" to bridge to benefits.
+- **Wall of features** → add "which means…" to bridge to benefits when the surface explains value; otherwise group the features by the reader's task or question.
 - **Corporate speak** → "How would a human say this?" and use those words.
 - **Weak opening** → lead with the reader's problem or outcome, not history.
-- **Buried CTA** → make the ask obvious and early.
+- **Buried next step** → make the next step obvious and early when the surface requires one.
 - **Generic claim** ("we help businesses grow") → specify who, how, how much.
 - **Hollow structure** ("it wasn't a detour, it was an evolution") → strip the false antithesis and say the real thing; thin out em-dashes used for drama. See dead structures in [anti-patterns.md](anti-patterns.md).

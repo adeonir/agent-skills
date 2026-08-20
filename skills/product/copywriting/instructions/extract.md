@@ -54,7 +54,7 @@ Analyze structure and extract:
 - Text content (headlines, body, CTAs) preserving original tone
 - Microcopy where the source has it — form labels, button text, error and empty / loading / success states, navigation labels — captured as content named by context, like any other part
 - Image descriptions per surface or part — capture URL and alt only when the source provides them (brownfield); greenfield typically has no images
-- Copywriting patterns (tone, power words, CTA style) — record under `notes`
+- Copywriting patterns (surface function, tone, power words, CTA style, task guidance, or informational structure) — record under `notes`
 
 ### Step 5: Generate copy.yaml
 

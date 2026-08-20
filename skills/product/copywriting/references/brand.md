@@ -1,6 +1,6 @@
 # Brand register
 
-When the words ARE the product: marketing sites, landing and campaign pages, launch announcements, portfolios, personal sites, about pages. The copy's job is to make an impression and move the reader to act — communicate and persuade, not merely inform.
+When the words ARE the product: marketing sites, landing and campaign pages, launch announcements, portfolios, personal sites, about pages, and editorial surfaces. The copy's job is to make an impression, express a point of view, and persuade when the surface has a decision to support — not merely inform.
 
 ## When to Use
 
@@ -15,7 +15,7 @@ The register spans every genre — a SaaS landing page, a luxury brand story, a 
 | Question | "Would a reader feel something, or skim past?" |
 | Bar | Distinctiveness — a clear point of view, a voice that sounds like someone |
 | Failure | Generic, on-brand-for-anyone, adjective soup |
-| Permission | Bold claims (when proven), personality, rhythm, a memorable line |
+| Permission | Bold claims (when proven), personality, rhythm, and a memorable line |
 
 ## The brand slop test
 
@@ -25,7 +25,7 @@ If the copy could sit on any competitor's page unchanged, it has no point of vie
 
 - Lead with the reader's outcome or problem, not company history.
 - Keep proof outward — a number, a named client, a concrete result beats an adjective (proof hierarchy in [voice.md](voice.md)).
-- Commit to a voice and hold it; one distinctive line beats five hedged ones.
+- Commit to a voice and hold it; one distinctive line beats five hedged ones. Use an action-oriented CTA when the surface has an action to support.
 - Personality is permission here — wit, rhythm, a strong opener — when the brand invites it.
 
 ## Brand bans (on top of the dead language in [anti-patterns.md](anti-patterns.md))

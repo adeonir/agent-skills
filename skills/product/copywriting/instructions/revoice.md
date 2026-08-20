@@ -14,11 +14,11 @@ Not for: tightening in the same voice (see [refresh.md](refresh.md)), writing ne
 
 ### Step 1: Read Current Copy
 
-Parse `docs/design/copy.yaml`. Note the current voice — you are replacing it.
+Parse `docs/design/copy.yaml`. Note the current surface function and voice — you are replacing the voice only.
 
 ### Step 2: Establish Target Voice
 
-Get the target from the user (stated — "more playful", "luxury", "drier" — or a sample to match). Hold the surface's **register** (brand or product — [../references/brand.md](../references/brand.md) / [../references/product.md](../references/product.md)); it bounds how far the voice can move — a product surface stays calm and instructional even when revoiced. Then set the axes from [../references/voice.md](../references/voice.md). Confirm it back in one line before recasting.
+Get the target from the user (stated — "more playful", "luxury", "drier" — or a sample to match). Hold the surface's **function** and **register** (brand or product — [../references/brand.md](../references/brand.md) / [../references/product.md](../references/product.md)); they bound how far the voice can move — a product/UX surface stays task-oriented and a conversion surface stays decision-oriented even when revoiced. Then set the axes from [../references/voice.md](../references/voice.md). Confirm it back in one line before recasting.
 
 ### Step 3: Recast Each Part
 
@@ -46,7 +46,7 @@ Resolve any flags (advisory — judge false positives like a product named "Grid
 
 **DO:**
 
-- Change the voice, keep the message — same claims, same structure
+- Change the voice, keep the message and surface function — same claims, same structure
 - Set and confirm the target voice before recasting
 - Hold the new voice consistently across every part
 - Confirm each rewrite; the author owns the copy
@@ -54,6 +54,7 @@ Resolve any flags (advisory — judge false positives like a product named "Grid
 **DON'T:**
 
 - Add or drop claims (contrasts: revoice changes tone, not substance)
+- Change the surface function or introduce conversion, marketing, or task elements that were not present
 - Restructure the content tree (contrasts: patch values, not shape)
 - Reintroduce dead adjectives or marketing clichés (contrasts: see anti-patterns.md)
 - Embed visual decisions in `copy.yaml` (contrasts: content-only)
