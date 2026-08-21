@@ -79,7 +79,7 @@ When content appears relevant to two documents, keep it in the document that own
 
 **Q: When should I use an ADR vs a Design Doc?** A: Use the Design Doc to examine the design and its trade-offs. Each Alternatives Considered row starts with `Record = —`. When a decision becomes final, create a numbered ADR with one decision, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc.
 
-**Q: How do I record decisions found in project documents?** A: Start an ADR workflow. The Context phase scans `CODEBASE.md`, the PRD, and the Design Doc for qualifying decisions that have no ADR. Create one ADR for each decision.
+**Q: How do I record decisions found in project documents?** A: Start an ADR workflow. The Context phase scans `CONTEXT.md`, the PRD, and the Design Doc for qualifying decisions that have no ADR. Create one ADR for each decision.
 
 **Q: How does PRODUCT relate to the PRD?** A: PRODUCT records what the product is and stands for. The PRD records what the product does. Discovery can produce both documents for a new product. Later changes can update either document on its own.
 
