@@ -33,7 +33,8 @@ import sys
 SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions",
                  "Divergences"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
-                   "Error Handling", "Risks & Concerns", "Requirements Traceability"]
+                   "Semantic Contract Inventory", "Error Handling", "Risks & Concerns",
+                   "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
 AUDIT_SECTIONS = ["Summary", "Goals", "Acceptance Criteria", "Discrimination Sensor", "Re-run", "Gaps"]
@@ -631,6 +632,29 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
         for number, header, cells in table_rows(lines, *bounds):
             if not cell(header, cells, "Rejected") and not cell(header, cells, "Source"):
                 findings.append("%s:%d: Decisions row has neither `Rejected` nor `Source` — a fork closed silently" % (path, number))
+
+    inventory_columns = ["Candidate", "Existing declarations/usages", "Established meaning",
+                         "Renderer/token mapping", "Conflict", "Source"]
+    bounds = section_bounds(lines, "Semantic Contract Inventory")
+    inventory_rows = list(table_rows(lines, *bounds)) if bounds else []
+    if bounds and not inventory_rows:
+        findings.append("%s:1: `Semantic Contract Inventory` needs a table with at least one row" % path)
+    elif inventory_rows:
+        _, header, _ = inventory_rows[0]
+        for column in inventory_columns:
+            if column not in header:
+                findings.append("%s:1: `Semantic Contract Inventory` is missing `%s`" % (path, column))
+        for number, row_header, cells in inventory_rows[1:]:
+            candidate = cell(row_header, cells, "Candidate").strip().strip("`").lower()
+            if not candidate:
+                findings.append("%s:%d: semantic inventory row has an empty `Candidate`" % (path, number))
+                continue
+            if candidate == "none":
+                continue
+            for column in inventory_columns[1:]:
+                if not cell(row_header, cells, column).strip():
+                    findings.append("%s:%d: semantic inventory row for `%s` has an empty `%s`" %
+                                    (path, number, cell(row_header, cells, "Candidate"), column))
 
     bounds = section_bounds(lines, "Risks & Concerns")
     if bounds:

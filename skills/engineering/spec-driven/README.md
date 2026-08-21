@@ -65,7 +65,7 @@ run UAT                 # user-facing only
 ## Output
 
 ```text
-CODEBASE.md                          # committed codebase knowledge
+CONTEXT.md                          # committed codebase knowledge
 .artifacts/
 ├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
@@ -95,7 +95,7 @@ CODEBASE.md                          # committed codebase knowledge
 
 **Q: What does spec-driven persist across features?**
 
-A: `CODEBASE.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `CODEBASE.md` is shared codebase knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
+A: `CONTEXT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `CONTEXT.md` is shared codebase knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 
