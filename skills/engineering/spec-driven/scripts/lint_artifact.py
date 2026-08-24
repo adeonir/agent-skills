@@ -91,6 +91,7 @@ SLICE_REF = re.compile(r"\bS-\d+\b")
 TASK_REF = re.compile(r"\bT-\d+\b")
 TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_TEST = re.compile(r"^\s*-\s*\*\*Test:\*\*\s*(.*)$", re.IGNORECASE)
+TASK_TEST_NONE = re.compile(r"^none\b\s*[—–:-]*\s*(.*)$", re.IGNORECASE)
 TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_BUILDS = re.compile(r"^\s*-\s*\*\*Builds:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
@@ -886,6 +887,11 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
             if len(test_values) != 1 or not test_values[0]:
                 findings.append("%s:%d: %s covers %s but carries no non-empty `Test`" %
                                 (path, number, identifier, criterion))
+            else:
+                marker = TASK_TEST_NONE.match(test_values[0])
+                if marker is not None and not marker.group(1).strip():
+                    findings.append("%s:%d: %s `Test: none` must name what no runner reaches" %
+                                    (path, number, identifier))
 
     slices = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
     slice_order = []
