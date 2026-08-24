@@ -6,7 +6,7 @@ description: "Git workflow helper for conventional commits, pull request creatio
 
 # Git Helpers
 
-Git workflow with conventional commits and automated PR management.
+Git workflow with conventional commits, pull requests, and branch cleanup.
 
 ## Triggers
 

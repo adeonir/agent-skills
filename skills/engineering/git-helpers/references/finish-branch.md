@@ -4,7 +4,7 @@ Merge a GitHub pull request and clean up the branch.
 
 ## When to Use
 
-When ready to merge a PR — approved, CI green, ready to ship. GitHub-based workflow only; requires `gh` CLI.
+When ready to merge a PR — approved and CI green. GitHub-based workflow only; requires `gh` CLI.
 
 ## PR state
 

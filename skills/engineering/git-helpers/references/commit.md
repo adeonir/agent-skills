@@ -55,7 +55,7 @@ AI-slop has two opposite shapes, and "just be concrete" pushes you out of the fi
 - Abstract nouns standing in for the real object: *logic, functionality, handling, behavior, mechanism, capability, configuration, infrastructure*
 - Corporate phrasing that pretends to explain: *in order to, with the goal of, this allows users to, making it possible to*
 
-**Shape 2 — fake concreteness.** Over-correcting for Shape 1 yields a subject that *sounds* specific but reads like a spec or release note, not a developer's log:
+**Shape 2 — fake concreteness.** Over-correcting for Shape 1 produces a subject that *sounds* specific but reads like a spec or release note, not a developer's log:
 
 - Specific values are *how*, not *what* — counts, thresholds, version numbers: `retry failed uploads three times`, `pin node to 20`. Strip them to the structural *what* (`retry failed uploads`, `pin node version`); the exact value lives in the code, never the message.
 - Prose locators are *where* — `... in CI` spells out a location the `ci:` scope already carries. Drop it.
