@@ -91,7 +91,10 @@ Scenario: [single case]
 ## Visual References   <!-- conditional: only if an image/prototype exists -->
 
 ## Edge Cases
-- [boundary condition → expected behavior]
+<!-- the boundaries this feature is known to sit at, on record so a later reader is not surprised
+     by one. A row states the boundary, never what to build for it: only an AC obligates, and a
+     boundary this feature must handle is written as an AC instead. -->
+- [boundary condition] — [the behavior that already holds there, or `not covered`]
 
 ## Assumptions
 | ID | Assumption | Rationale | Status |

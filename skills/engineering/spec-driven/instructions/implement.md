@@ -37,7 +37,7 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 
 ### Per task — During
 
-1. Write the code and the task's named `Test` case in whichever order fits the change, deriving the test from the spec and never from the code. Implement per `design.md` and `spec.md` — the minimum to satisfy `Done when`. The end state is fixed: the named case exists, proves the complete scenario of every AC the task covers, and passes.
+1. Write the code and the task's named `Test` case in whichever order fits the change, deriving the test from the spec and never from the code. Implement per `design.md` and the scenarios of this task's `Covers` — the minimum to satisfy `Done when`. The rest of `spec.md` is context, never an obligation: an `## Edge Cases` row, an `ASM-N`, or an `OQ-N` authorizes no code, and a task that cannot close without one stops per [Deviations](#deviations). The end state is fixed: the named case exists, proves the complete scenario of every AC the task covers, and passes.
 2. Out-of-scope discovery — something outside this task you noticed but must not fix here: the fix is an unrequested diff, and expanding scope is the user's call, not the subagent's. Capture it — cross-feature → root `CONTEXT.md ## Gotchas`; feature-local → `STATE.md ## Notes` — and name it in the return summary as a candidate. Never fold it into this commit, never append it to `tasks.md`. See [memory.md](../references/memory.md).
 
 ### Per task — After
