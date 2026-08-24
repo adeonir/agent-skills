@@ -73,20 +73,20 @@ A human subject is terse and structural: it names what moved in the code, in the
 
 ## Body
 
-**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff.
+**Default to no body.** The subject carries the *what*, and most commits stop there.
 
-**Most commits have no body at all.** A body exists in exactly two cases:
+A body is earned by one observation, made against the staged diff before any of it is written: read the changed lines and ask what a reader holding them still gets wrong. Point at the lines that would have to carry it and confirm they do not. Nothing found — no body. The observation is the gate, never a trim applied afterwards, because a body written first and justified second always finds its justification.
 
-- **The previous behavior was a problem** the diff does not show. *A problem, not merely a difference.* A rename, a doc edit, a preference applied, a change of taste — the old behavior was fine, so there is nothing to explain and the subject is the whole commit.
+The observation finds one of two things:
+
+- **The previous behavior was a problem the changed lines do not show.** *A problem, not merely a difference.* Nearly every change has a problem behind it, and the diff usually shows that problem plainly, so having one settles nothing on its own. Ask whether the changed lines already carry it.
 - **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you. A reader who does not know it reverts the change or reapplies it badly.
 
-Neither case is about *listing* the change. If the commit does so many separable things that you feel the urge to enumerate them, that is a signal to split the commit, not to add bullets.
+Write what the observation found: the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. The body is never an inventory of what changed. If the commit does so many separable things that you feel the urge to enumerate them, that is a signal to split the commit, not to add bullets.
 
-Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the files touched, mechanics, values, versions, counts. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the conversation instead of arming the reader.
+The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
 
-The test is one question, asked while writing: *without this line, does the reader get the change wrong?* If not, cut it.
-
-When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it down to the problem and the *why* first. Drop the body entirely only when neither case applies, and tell the user that is what you did and why.
+When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the observation supports first. Drop the body entirely when the observation finds nothing, and tell the user that is what you did and why.
 
 ## Examples
 
