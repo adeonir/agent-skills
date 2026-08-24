@@ -47,7 +47,7 @@ The reverse of "asserted value matches the spec's outcome": a test writes down e
 
 ### Non-AC row authorization
 
-Only an AC obligates: an `## Edge Cases` row, an `ASM-N`, and an `OQ-N` are on record, and none of them authorizes a component, a branch, or an error path. Walk the rows, never the code — the rows are finite, and sweeping the code for authorization flags every piece of groundwork. For each row, look for a component in `design.md` or a behavior in the diff built to answer it. Read the design against the spec here, not only the code against the design: a design that already answers such a row passes design adherence, since the implementation matched it. A row that was built to is a gap → remove the behavior, or set `STATE.md` to `Phase: specify` and `Next: specify` so an AC covers it.
+Only an AC obligates: an `## Edge Cases` row, an `ASM-N`, and an `OQ-N` are on record, and none of them authorizes a component, a branch, or an error path. Walk the rows, never the code — the rows are finite, and sweeping the code for authorization flags every piece of groundwork. For each row, look for a component in `design.md` or a behavior in the diff built to answer it. Read the design against the spec here, not only the code against the design: a design that already answers such a row passes design adherence, since the implementation matched it. A row that was built to is a gap → remove the behavior.
 
 ### Deviation handling
 
@@ -79,7 +79,7 @@ Run whenever code has conditional behavior, calculations, or validations. It may
 2. Create the **scratch state** once for the run — `git worktree` or stash + temp copy — and apply and revert each mutation inside it. Never mutate the real working tree.
 3. Run the tests that reach the mutated code first: red there is **killed**, since a check rejected it. Take the remaining **project quality checks** — the whole suite, and also typecheck, build, and schema validation where the project runs them — only on a mutant that survived that run. A mutant any check rejects is killed, not just one a test catches, and it survives only when every check stays green.
 4. Tier: 1-3 mutations per feature default; ≥5 for critical P-1 logic (security, payments).
-5. Report total / killed / survived, each with type, location, the check expected to reject it, and result. For each survivor, first ask whether an AC authorizes the behavior it mutated. Where none does, the survivor is not a test gap but behavior outside the contract, judged by the same rule as an unauthorized assertion change: remove it, or set `STATE.md` to `Phase: specify` and `Next: specify` to add the AC. Never close it with a test — a test ratifies the behavior into the contract. Otherwise propose the **consequence** read against `## Stakes`: what a silent failure of this behavior costs whoever uses the system. Report the fact and the proposed consequence; promote nothing — the main agent judges which survivors become fix tasks (see Outcome).
+5. Report total / killed / survived, each with type, location, the check expected to reject it, and result. For each survivor, propose the **consequence** read against `## Stakes`: what a silent failure of this behavior costs whoever uses the system. Report the fact and the proposed consequence; promote nothing — the main agent judges which survivors become fix tasks (see Outcome).
 
 A surviving **referential** mutant means the literal is duplicated across a writer and a reader and the copies never compare — the suite is blind to it by construction, since each side is tested against doubles. Before treating it as a finding, confirm no project check already binds the two sides: a shared literal a schema, a generated type, or a build step forces to match on both sides is killed by that check, not surviving — the fix already exists. Where no check and no test reaches the literal, statically confirm it has a single definition: follow the literal the diff touched to the modules that use it — including an unchanged reader on the other side of the boundary, since a change usually edits only one side — and two independent definitions of the value across that writer/reader boundary is a finding regardless of test outcome, and the fix is one definition, not a new test. Two constants that merely share a value with no data-flow coupling are not this defect.
 
@@ -113,7 +113,7 @@ Location: `.artifacts/specs/<slug>/audit.md`. ALWAYS use this exact template str
 ## Discrimination Sensor
 | Type | Location | Expected Fail | Result | Consequence |
 |------|----------|---------------|--------|-------------|
-| flip condition | `src/payment.ts:processPayment` | `payment.test.ts` | killed / survived | [for a survivor: what a silent failure costs, read against Stakes, or `unauthorized` where no AC covers the mutated behavior] |
+| flip condition | `src/payment.ts:processPayment` | `payment.test.ts` | killed / survived | [for a survivor: what a silent failure costs, read against Stakes] |
 
 ## Re-run
 - **Command:** `[test command]`
