@@ -96,6 +96,7 @@ TASK_BUILDS = re.compile(r"^\s*-\s*\*\*Builds:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
 WAVE_ID = re.compile(r"^W-(\d+)$")
 BACKTICKED = re.compile(r"`([^`]+)`")
+BLOCK_ITEM = re.compile(r"^\s*-\s+(.*)$")
 
 
 def read_lines(path):
@@ -109,17 +110,26 @@ def read_lines(path):
 
 
 def parse_frontmatter(lines):
-    """Return (fields, body_start). An absent fence yields ({}, 0)."""
+    """Return (fields, body_start). A block sequence joins into one comma-separated
+    value under its key. An absent fence yields ({}, 0)."""
     if not lines or lines[0].strip() != "---":
         return {}, 0
     fields = {}
+    key = None
     for index in range(1, len(lines)):
         if lines[index].strip() == "---":
             return fields, index + 1
         raw = lines[index].split("#", 1)[0]  # strip trailing YAML comment
+        item = BLOCK_ITEM.match(raw)
+        if item and key is not None:
+            value = item.group(1).strip()
+            if value:
+                fields[key] = ", ".join(part for part in (fields[key], value) if part)
+            continue
         if ":" in raw:
             key, value = raw.split(":", 1)
-            fields[key.strip()] = value.strip()
+            key = key.strip()
+            fields[key] = value.strip()
     return fields, 0  # unterminated fence: treat the whole file as body
 
 
@@ -487,7 +497,7 @@ def check_divergences(path, lines, prompt_seeded, findings, seen_ids):
             findings.append("%s:%d: %s names %s, which the spec does not declare" % (path, number, identifier, named))
 
     if prompt_seeded and rows:
-        findings.append("%s:1: Divergences carries %d row(s) on a prompt-seeded spec (`sources: []`)"
+        findings.append("%s:1: Divergences carries %d row(s) on a prompt-seeded spec (`sources` names no seed)"
                         % (path, rows))
 
 
@@ -598,7 +608,7 @@ def lint_spec(path, lines, base, findings, warnings):
 
     check_criteria(path, lines, findings, warnings)
 
-    prompt_seeded = fields.get("sources", "").strip() in ("[]", "")
+    prompt_seeded = fields.get("sources", "").strip() in ("", "none", "[]")
     seen_ids = set()
     assumption_ids = check_pending_table(
         path, lines, "Assumptions", ASSUMPTION_ID, ASSUMPTION_STATUSES,
