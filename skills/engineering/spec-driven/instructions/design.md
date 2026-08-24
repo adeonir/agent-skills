@@ -39,7 +39,7 @@ When designing a feature, planning the build, or producing the technical design 
    Then run `python3 <this-skill>/scripts/lint_artifact.py design .artifacts/specs/<slug>` over the text the reading produced — it settles structure, presence, and cross-file references, and it reads last because the pass above edits the design. Fix every error and run it again, up to three passes; after the third, stop, record the standing error in `STATE.md ## Blockers`, and leave the design `draft`. A warning never blocks — act on it, or keep what it names as deliberate and say which at the approval gate.
 
    Keep `status: draft` while editing and set `status: ready` once this self-check passes and the script reports no error.
-11. **Approval gate** — present the path of `design.md`, the architecture in one or two sentences, and what stayed open: an `OQ-N` no evidence settled, and every claim marked `UNVERIFIED`. Then ask *"Move to tasks?"* Name anything the run wrote outside the ignored folders and suggest the commit — see [memory.md](../references/memory.md).
+11. **Approval gate** — present the path of `design.md`, the architecture in one or two sentences, and what stayed open: an `OQ-N` no evidence settled, and every claim marked `UNVERIFIED`. Then ask *"Move to tasks?"* Name anything the run wrote that the project does not ignore and suggest the commit — see [memory.md](../references/memory.md).
 12. **Update the feature's `STATE.md ## Progress`** — phase and next step. See [memory.md](../references/memory.md).
 
 A project-level decision (a choice future features must respect) is appended to `CONTEXT.md ## Decisions`; a local decision stays in `design.md`.
