@@ -1,23 +1,23 @@
 ---
 name: git-helpers
 allowed-tools: Bash(git:*) Bash(gh:*) Read
-description: "Git workflow helper for conventional commits, pull request creation, and branch lifecycle. Use when committing staged or unstaged changes, opening or pushing pull requests, merging branches, or cleaning up after a merge. Not for code review, acceptance-criteria verification, visual design review, or session wrap-up."
+description: "Git workflow helper for conventional commits, pull request creation, and pull request merging. Use when committing staged or unstaged changes, opening or pushing pull requests, or merging a pull request. Not for code review, acceptance-criteria verification, visual design review, branch management, or session wrap-up."
 ---
 
 # Git Helpers
 
-Git workflow with conventional commits, pull requests, and branch cleanup.
+Git workflow with conventional commits, pull requests, and pull request merges.
 
 ## Triggers
 
 - **Commit changes** ("commit this", "create commit", "ready to commit", "all done") → [commit.md](references/commit.md)
 - **Push and open PR** ("push this", "create PR", "open pull request", "ready to push") → [create-pull-request.md](references/create-pull-request.md)
-- **Merge and clean up** ("finish branch", "merge branch", "merge PR", "cleanup branch") → [finish-branch.md](references/finish-branch.md)
+- **Merge pull request** ("merge PR", "merge pull request", "ready to merge") → [finish-branch.md](references/finish-branch.md)
 
 ## Workflow
 
 ```text
-commit → create-pull-request → finish-branch
+commit → create-pull-request → merge-pull-request
 ```
 
 Each step is independent. Use any workflow in isolation or chain them together.

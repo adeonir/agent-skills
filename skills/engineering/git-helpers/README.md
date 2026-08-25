@@ -1,6 +1,6 @@
 # Git Helpers
 
-Git workflow skill for conventional commits, pull request creation, and branch lifecycle.
+Git workflow skill for conventional commits, pull request creation, and pull request merging.
 
 ## What It Does
 
@@ -9,14 +9,14 @@ Runs the git workflow from local changes to merged PR:
 ```mermaid
 flowchart LR
     A[Commit] --> B[Create PR]
-    B --> C[Finish]
+    B --> C[Merge PR]
 ```
 
 | Phase | Output |
 |-------|--------|
 | Commit | Conventional commit message based on staged diff |
-| Create PR | Pushed branch + opened pull request via `gh` CLI |
-| Finish Branch | Branch updated, merged, deleted local + remote |
+| Create PR | Opened pull request via `gh` CLI |
+| Merge PR | Merged pull request via `gh` CLI; optional cleanup commands shown |
 
 ## Usage
 
@@ -29,9 +29,8 @@ commit only staged files
 push and create PR
 create pull request against main
 
-finish branch
-merge branch
 merge PR
+merge pull request
 ```
 
 ### Quick bug fix
@@ -46,7 +45,7 @@ push and create PR
 ```text
 commit these changes
 push and create PR
-finish branch
+merge pull request
 ```
 
 ## Requirements
@@ -62,4 +61,6 @@ finish branch
 
 **Q: Can I use this without `gh` CLI?** A: Yes, for the commit workflow. PR creation and merge operations require `gh` CLI.
 
-**Q: Does "finish branch" run start to finish on its own?** A: No. It stops for confirmation three times — before rebasing a branch that fell behind (which rewrites its commits and overwrites the remote), before merging, and before deleting the branch. Declining the delete keeps the branch; the merge has already landed by then.
+**Q: Does "merge pull request" run start to finish on its own?** A: No. It asks for confirmation before merging the pull request.
+
+**Q: Does the skill delete branches?** A: No. After a successful merge, it can display local and remote deletion commands for the user to run manually.

@@ -1,12 +1,12 @@
-# Finish Branch
+# Merge Pull Request
 
-Merge a GitHub pull request and clean up the branch.
+Merge a GitHub pull request.
 
 ## When to Use
 
-When ready to merge a PR — approved and CI green. GitHub-based workflow only; requires `gh` CLI.
+When ready to merge a pull request — approved and CI green. GitHub-based workflow only; requires `gh` CLI.
 
-## PR state
+## Pull request state
 
 Run this first — it identifies the PR for the current branch:
 
@@ -64,33 +64,7 @@ git config --local git-helpers.merge-method {method}
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-### Step 3: Sync and Verify
-
-```bash
-git fetch origin {base}
-git rev-list --left-right --count origin/{base}...HEAD
-```
-
-If the branch is behind, it needs a rebase — which rewrites its commits and then overwrites the remote branch. Show how far behind it is and rebase only on explicit user confirmation; on decline, stop here.
-
-```bash
-git rebase origin/{base}
-```
-
-If rebase conflicts: surface and stop — inform the user to resolve and re-run.
-
-After a successful rebase, refresh the remote branch:
-
-```bash
-git push --force-with-lease
-```
-
-Gather branch context for Step 4:
-
-```bash
-git log origin/{base}..HEAD --oneline
-git diff origin/{base}...HEAD
-```
+### Step 3: Verify Mergeability
 
 Verify mergeability:
 
@@ -116,11 +90,11 @@ Merging writes to `{base}` and closes the PR. Show the PR number, the method, th
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
 ```
 
-Omit `--body` when there is none. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error — do not proceed to cleanup.
+Omit `--body` when there is none. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error.
 
 ### Step 5: Confirm Merge Landed
 
-`gh pr merge` exits before GitHub propagates the merge commit. Confirm the PR reached `MERGED` state before pulling:
+`gh pr merge` exits before GitHub propagates the merge commit. Confirm the PR reached `MERGED` state:
 
 ```bash
 gh pr view {pr-number} --json state -q .state
@@ -128,24 +102,15 @@ gh pr view {pr-number} --json state -q .state
 
 If state is not `MERGED`, wait a moment and retry once. If still not `MERGED`, surface and stop.
 
-### Step 6: Cleanup
+Confirm what ran: "PR #{pr-number} merged into `{base}`".
+
+### Optional Manual Branch Cleanup
+
+After confirming the merge, display these commands for the user to run manually. Do not execute them:
 
 ```bash
-git switch {base}
-git pull --ff-only origin {base}
-```
-
-If the pull fails as non-fast-forward, the merge has not propagated — surface and stop.
-
-Deletion is a separate decision from the merge. Name the branch and delete only on explicit user confirmation; on decline, stop here — the merge already landed.
-
-Use `-D`, not `-d`: after a squash or rebase merge the branch's commits are not ancestors of `{base}`, so `-d` refuses the delete even though the merge landed.
-
-```bash
-git branch -D {branch}
+git branch -d {branch}
 git push origin --delete {branch}
 ```
 
-If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` will report the branch already gone — that is expected, not an error.
-
-Confirm what ran: "PR #{pr-number} merged into `{base}` and branch deleted", or "PR #{pr-number} merged into `{base}`; branch `{branch}` kept" when the delete was declined.
+Keep `-d` for the local delete so Git refuses the deletion when the local branch still contains unmerged commits. Do not replace it with `-D` automatically.
