@@ -57,9 +57,9 @@ Approximate hue angles for orientation:
 | lime | 120–130 | violet | 290–310 |
 | | | magenta | 330–350 |
 
-**Gamut caution.** OKLCH can express colors outside sRGB. Chroma above ~0.20 is unreliable at extreme lightness values and will clip on conversion. Keep chroma under ~0.22 for anything that must render consistently, and always convert to hex and check that the result still looks right.
+**Gamut caution.** OKLCH can express colors outside sRGB. Chroma above ~0.20 is unreliable at extreme lightness values and clips when the browser renders it to sRGB. Keep chroma under ~0.22 for anything that must render consistently, and check every high-chroma value against its sRGB result.
 
-**Output format.** Preserve `oklch()` when it is available from the source. Otherwise ship hex as the recommended default for tooling breadth, and use another accepted CSS color string only as a fallback.
+**Output format.** Ship `oklch()` as the token value. Use hex when a consumer cannot parse `oklch()`, and another accepted CSS color string only when the source requires it.
 
 ---
 
@@ -219,14 +219,14 @@ A workable hybrid: define the ramp steps you actually use, and give the key ones
 
 ```yaml
 colors:
-  primary: "#AC6647"
-  primary-strong: "#8B4E34"
-  primary-subtle: "#F5E4DA"
-  neutral: "#F4F2EE"
-  surface: "#FBFAF8"
-  on-surface: "#23201B"
-  border: "#E8E4DD"
-  error: "#9B3A2E"
+  primary: "oklch(0.58 0.128 30)"
+  primary-strong: "oklch(0.47 0.118 28)"
+  primary-subtle: "oklch(0.93 0.028 40)"
+  neutral: "oklch(0.95 0.006 60)"
+  surface: "oklch(0.98 0.004 60)"
+  on-surface: "oklch(0.18 0.008 48)"
+  border: "oklch(0.90 0.008 60)"
+  error: "oklch(0.52 0.150 28)"
 ```
 
 Keep it to the tokens the system actually uses. Every unreferenced token trips `orphaned-tokens`, and that warning is usually correct — an unused token is a decision nobody needed to make.
@@ -257,6 +257,6 @@ def contrast(fg, bg):
 # contrast("#23201B", "#FBFAF8") -> ~14.9:1
 ```
 
-For OKLCH→hex conversion, `culori` (npm) is reliable and available via `npx`. If no converter is at hand, author directly in hex and verify the ramp by checking that computed luminance descends smoothly — an uneven luminance progression is the same defect as an uneven L curve.
+The helper above takes hex, so convert first. For OKLCH→hex conversion, `culori` (npm) is reliable and available via `npx`. If no converter is at hand, verify the ramp by checking that computed luminance descends smoothly — an uneven luminance progression is the same defect as an uneven L curve.
 
 Run the contrast check on every foreground/background pair you put in the components section *before* linting. It's faster than discovering them as warnings and it forces you to notice pairs you forgot to define.

@@ -35,7 +35,7 @@ Run discovery before the selected operation. Load one operation instruction at a
 - Treat `DESIGN.md` at the project root as the only identity artifact.
 - Write `docs/design/moodboard.md` only when direction exploration locks a choice.
 - Keep the frontmatter to `version`, `name`, `description`, `omitted`, `colors`, `typography`, `rounded`, `spacing`, and `components`.
-- Keep color values as flat CSS strings. Preserve source OKLCH; otherwise prefer hex and use another accepted CSS color string only as a fallback.
+- Keep color values as flat CSS strings. Author new colors in `oklch()`; use hex as the fallback and another accepted CSS color string only when the source requires it.
 - Keep light and dark behavior, borders, and elevation in prose.
 - Use the nine body sections in the order defined by [design.md](instructions/design.md). Eight are official spec sections; the Agent Prompt Guide is a skill extension.
 - Patch only confirmed deltas. Never rewrite the whole identity to apply one change.

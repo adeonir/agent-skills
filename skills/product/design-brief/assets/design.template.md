@@ -3,7 +3,7 @@ DESIGN.md skeleton. Delete every comment and replace every square-bracket slot b
 
 Frontmatter keys: version, name, description, omitted, colors, typography, rounded, spacing, components.
 Overview through Do's and Don'ts are the official spec sections. Agent Prompt Guide is a skill extension.
-Colors are flat CSS strings. Keep borders, shadows, elevation, and light/dark behavior in prose.
+Colors are flat CSS strings in `oklch()`, with hex as the fallback. Keep borders, shadows, elevation, and light/dark behavior in prose.
 Use only official component properties. Define backgroundColor and textColor together for every text-bearing component.
 Every color needs a component reference unless a deliberate omission or documented CLI warning remains.
 -->
@@ -17,16 +17,16 @@ description: [one-line visual identity summary]
 #     reason: "[why it does not apply]"
 
 colors:
-  primary: "#______"
-  on-primary: "#______"
-  secondary: "#______"
-  surface: "#______"
-  on-surface: "#______"
-  muted: "#______"
-  on-muted: "#______"
-  border: "#______"
-  error: "#______"
-  on-error: "#______"
+  primary: "oklch(_.__ _.___ ___)"
+  on-primary: "oklch(_.__ _.___ ___)"
+  secondary: "oklch(_.__ _.___ ___)"
+  surface: "oklch(_.__ _.___ ___)"
+  on-surface: "oklch(_.__ _.___ ___)"
+  muted: "oklch(_.__ _.___ ___)"
+  on-muted: "oklch(_.__ _.___ ___)"
+  border: "oklch(_.__ _.___ ___)"
+  error: "oklch(_.__ _.___ ___)"
+  on-error: "oklch(_.__ _.___ ___)"
 
 typography:
   display:

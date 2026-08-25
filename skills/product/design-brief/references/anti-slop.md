@@ -63,7 +63,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 **Anchor the hue to a real referent.** Choose a color because it's the oxide on weathered copper, the specific green of hospital corridors, the amber of a phosphor CRT, the ink density of a 1968 Braun manual, the exact orange of Dutch road signage, the paper stock of a Kinfolk issue. Then name the referent in the DESIGN.md prose. This is the single highest-leverage anti-slop move available, because a sourced color is by construction not the median color, and the sourcing is legible to the reader.
 
-**Build ramps in OKLCH.** Perceptual lightness means a 10% step actually looks like a 10% step; HSL lies to you, and ramps built in HSL have visible dead zones and hot spots. Convert to hex for the tokens.
+**Build ramps in OKLCH.** Perceptual lightness means a 10% step actually looks like a 10% step; HSL lies to you, and ramps built in HSL have visible dead zones and hot spots.
 
 **Bend the ramp.** Two properties separate a hand-built ramp from a generated one:
 - *Hue shift* — real pigments shift hue as they lighten or darken. A red that goes toward orange in the tints and toward maroon in the shades looks like a material. A red at a fixed hue angle across nine steps looks like a spreadsheet. Shift 5–20° across the ramp.

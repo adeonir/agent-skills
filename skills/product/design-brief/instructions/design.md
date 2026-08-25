@@ -22,7 +22,7 @@ Write `DESIGN.md` at the project root.
 The YAML frontmatter is normative. Allow only:
 
 - `version`, `name`, `description`, and `omitted`.
-- `colors`: flat token names to CSS color strings. Preserve source OKLCH; otherwise prefer hex. Use other CSS color strings only when the source requires them.
+- `colors`: flat token names to CSS color strings. Author new colors in `oklch()`; use hex as the fallback. Use other CSS color strings only when the source requires them.
 - `typography`: role objects using the official properties.
 - `rounded`: named dimensions.
 - `spacing`: named dimensions or numbers.
