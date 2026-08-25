@@ -1,0 +1,3 @@
+interface:
+  display_name: "Wrap Up"
+  short_description: "Persist end-of-session notes"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Review Lens"
+  short_description: "Confidence-scored review of code changes"

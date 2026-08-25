@@ -1,0 +1,3 @@
+interface:
+  display_name: "Git Helpers"
+  short_description: "Commit changes, open pull requests, and merge them"

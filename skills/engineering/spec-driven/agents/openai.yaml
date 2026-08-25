@@ -1,0 +1,3 @@
+interface:
+  display_name: "Spec-Driven"
+  short_description: "Plan and implement features from specs"

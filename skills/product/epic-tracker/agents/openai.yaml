@@ -1,0 +1,3 @@
+interface:
+  display_name: "Epic Tracker"
+  short_description: "Manage roadmaps, epics, and delivery work"

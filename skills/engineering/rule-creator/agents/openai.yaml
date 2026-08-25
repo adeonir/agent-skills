@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rule Creator"
+  short_description: "Create and manage Claude Code rules"
