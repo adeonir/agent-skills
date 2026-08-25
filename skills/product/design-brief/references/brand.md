@@ -15,9 +15,9 @@ The register spans every genre — a tech brand, a luxury brand, a consumer prod
 | Question | "Would someone say AI made this?" |
 | Bar | Distinctiveness — a clear point of view |
 | Failure | Safe, average, undifferentiated |
-| Permission | Ambitious motion, committed color, distinctive type, art direction per section |
+| Permission | Committed color, distinctive type, art direction per section |
 
-Restraint without purpose reads as generic, not refined. A move that is voice on a brand surface (a drenched hero, an orchestrated page-load) would be noise on a product surface — author tokens for this register, not the other.
+Restraint without purpose reads as generic, not refined. A move that is voice on a brand surface (a drenched hero, a full-bleed color field) would be noise on a product surface — author tokens for this register, not the other.
 
 ## The brand slop test
 
@@ -29,7 +29,6 @@ What brand can author that product can't:
 
 - **Color** — Committed, Full palette, and Drenched are all on the table. A single saturated color across a hero is voice, not excess. Unnamed ambition collapses into beige; name a real reference before picking a strategy.
 - **Typography** — a characterful display paired with a refined body; real weight and size contrast (display ≥3× body); fluid `clamp()` headings. Reflex defaults (Inter, Roboto, system) are a tell on a brand surface. Typical roles: `display`, `title`, `subtitle`, `tagline`, `lead`, `eyebrow` — expressive voice — on top of the shared core `body` / `caption` / `code` / `label` / `button`. The pool is open, not exclusive: any role a surface needs is available (a brand form uses `label`), a functional variant is a suffixed entry (`-emphasis` / `-muted`), and a role that renders at several sizes may carry the size in its key (`display-sm`), additive to the vocabulary.
-- **Motion** — one well-orchestrated page-load or signature transition, when the brand invites it.
 - **Depth & shape** — expressive elevation and corner language as part of the voice.
 
 ## Brand bans (on top of [anti-slop.md](anti-slop.md))

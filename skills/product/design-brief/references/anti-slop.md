@@ -8,7 +8,7 @@ Load during direction, token authoring, identity assessment, and visual review. 
 
 ## Scope
 
-Apply the color, typography, shape, surface, elevation, and motion guidance to identity and tokens. Layout, iconography, imagery, and language entries provide context only: do not author page composition, product copy, or another concern's artifact from this skill. A tell never becomes a lint finding solely because it appears in this catalog.
+Apply the color, typography, shape, surface, and elevation guidance to identity and tokens. Layout, iconography, imagery, and language entries provide context only: do not author page composition, product copy, or another concern's artifact from this skill. A tell never becomes a lint finding solely because it appears in this catalog.
 
 **Contents**
 - [The mechanism](#the-mechanism)
@@ -16,7 +16,6 @@ Apply the color, typography, shape, surface, elevation, and motion guidance to i
 - [Typography](#typography)
 - [Shape, surface, and elevation](#shape-surface-and-elevation)
 - [Layout](#layout)
-- [Motion](#motion)
 - [Iconography and imagery](#iconography-and-imagery)
 - [Language](#language)
 - [The three legitimate exceptions](#the-three-legitimate-exceptions)
@@ -167,21 +166,6 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 ---
 
-## Motion
-
-### The tells
-
-- **Fade-up-on-scroll on every section**, at the same distance and duration.
-- **One easing curve and duration for everything** (usually 300ms `ease-in-out`).
-- **Animation on elements the user is trying to read**, delaying comprehension for decoration.
-- **Springy bounces** on interface elements that aren't physical.
-
-### What to do instead
-
-Decide what motion is *for* in this system — confirming an action, explaining a spatial relationship, drawing the eye to a change — and animate only that. Use a small set of named durations (fast ~120ms for state changes, medium ~200–250ms for transitions, slow ~400ms+ for entering surfaces) and easings that differ by purpose: something entering decelerates, something leaving accelerates. **Write down what does not animate.** That sentence is what stops universal fade-up from creeping back in.
-
----
-
 ## Iconography and imagery
 
 - **A single icon set applied uniformly** (Lucide/Heroicons at default stroke on everything) reads as default. Fine to use, but set a deliberate stroke weight, size, and optical alignment relative to your type — and note it in the file.
@@ -243,10 +227,9 @@ Run this against the finished DESIGN.md before handing off. Every hit needs a fi
 - [ ] No glassmorphism unless it's the stated direction
 - [ ] Elevation reserved for things actually above other things
 
-**Layout and motion**
+**Layout**
 - [ ] Layout structure follows the content type, not a landing-page template
 - [ ] Density and section rhythm vary purposefully
-- [ ] Motion has a stated purpose, and the file says what doesn't animate
 
 **Overall**
 - [ ] Every token can complete "this is what it is because ___"

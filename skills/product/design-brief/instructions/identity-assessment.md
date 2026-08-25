@@ -21,7 +21,7 @@ Report source conflicts rather than resolving them silently. Load the matching r
 
 ## Workflow
 
-1. Extract the identity as it exists: palette, type, shape, spacing, component roles, depth, motion, responsive posture, and light/dark behavior.
+1. Extract the identity as it exists: palette, type, shape, spacing, component roles, depth, and light/dark behavior.
 2. Classify each finding:
    - **Consistent** — repeated and intentional; preserve by default.
    - **Drifted** — competing values or implementation that differs from `DESIGN.md`.

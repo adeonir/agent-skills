@@ -21,7 +21,7 @@ grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .gi
 Render both transient files under `.artifacts/design/preview/` from the current root `DESIGN.md`:
 
 - `design.html` — a readable document view of the frontmatter and body. Escape embedded HTML so source content cannot execute.
-- `styleguide.html` — a visual identity view for colors, typography, spacing, radii, components, depth prose, shape prose, motion prose, responsive prose, and downstream guidance.
+- `styleguide.html` — a visual identity view for colors, typography, spacing, radii, components, depth prose, shape prose, and downstream guidance.
 
 Use the frontmatter as the normative value source. Render every specimen through CSS custom properties rather than literals. A literal token value may appear only as its label. Show a quiet placeholder when an official group is omitted deliberately.
 

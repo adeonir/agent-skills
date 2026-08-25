@@ -17,7 +17,7 @@ Use for greenfield authoring from a moodboard or supplied reference, or after id
 
 ## Artifact Contract
 
-Write `DESIGN.md` at the project root. Do not read or write a legacy path.
+Write `DESIGN.md` at the project root.
 
 The YAML frontmatter is normative. Allow only:
 
@@ -28,7 +28,7 @@ The YAML frontmatter is normative. Allow only:
 - `spacing`: named dimensions or numbers.
 - `components`: entries composed from official component properties and token references.
 
-Keep borders, elevation, shadows, motion, easing, breakpoints, responsive behavior, and light/dark behavior in prose. Do not encode skins, overrides, inheritance groups, or the removed token groups in frontmatter.
+Keep borders, elevation, shadows, and light/dark behavior in prose.
 
 Use these body sections in this exact order:
 
@@ -39,10 +39,18 @@ Use these body sections in this exact order:
 5. `## Elevation & Depth`
 6. `## Shapes`
 7. `## Components`
-8. `## Motion & Interaction`
-9. `## Responsive Behavior`
-10. `## Do's and Don'ts`
-11. `## Agent Prompt Guide`
+8. `## Do's and Don'ts`
+9. `## Agent Prompt Guide`
+
+Sections 1 to 8 are the official spec sections. `## Agent Prompt Guide` is a skill extension the CLI preserves as an unknown heading, so it never produces a finding.
+
+Write every heading in its official form. Read these aliases as the same section when a source file uses one:
+
+| Official | Alias |
+|---|---|
+| `## Overview` | `## Brand & Style` |
+| `## Layout` | `## Layout & Spacing` |
+| `## Elevation & Depth` | `## Elevation` |
 
 Use `omitted` with a reason when an official token group or canonical section is deliberately absent. Never use it to hide an incomplete system or silence an unrelated warning.
 
@@ -69,7 +77,6 @@ Preserve the identity's DNA and apply the smallest sufficient change. Work in th
 1. Typography.
 2. Spacing and rhythm.
 3. Color.
-4. Motion prose.
 
 Do not recompose pages or replace whole sections.
 
@@ -113,7 +120,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 
 ## Content Boundaries
 
-`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, or UI-library names. It may describe layout identity, density, grid behavior, responsive principles, and component roles without prescribing a product page.
+`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, or UI-library names. It may describe layout identity, density, grid behavior, and component roles without prescribing a product page.
 
 ## Error Handling
 

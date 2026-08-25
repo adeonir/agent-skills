@@ -25,7 +25,6 @@ Use the axes to compose, compare, and explain a direction. The named catalog rem
 | Contrast | quiet or forceful; light, dark, or both; monochrome, limited, or field-based color |
 | Typography | classification, contrast between roles, scale ratio, tracking, numeral behavior, and delivery |
 | Shape | corner hierarchy, border posture, surface separation, and depth language |
-| Motion | none, functional, physical, or expressive; duration, easing, and reduced-motion behavior |
 
 Map every shortlisted catalog direction across the axes to expose meaningful differences. A blend names which direction remains dominant on each disputed axis.
 
@@ -44,4 +43,3 @@ Map every shortlisted catalog direction across the axes to expose meaningful dif
 - Pair typefaces by classification and job. Tune scale, tracking, line height, numerals, weights, fallbacks, and delivery.
 - Build spacing from one base and commit to either generous whitespace or controlled density.
 - Express depth through the direction's material logic: rules, tonal surfaces, shadows, or deliberate flatness.
-- Give motion a job and a reduced-motion alternative.

@@ -12,7 +12,7 @@ Read by `direction.md` to bias a mood toward this register, and by `design.md` t
 |---|---|
 | Question | "Would a fluent user pause at every subtly-off component?" |
 | Bar | Earned familiarity — trust and consistency |
-| Failure | Invented affordances, mismatched controls, gratuitous motion |
+| Failure | Invented affordances, mismatched controls, decorative strangeness |
 | Permission | Density, standard patterns, restraint; delight saved for moments |
 
 Familiarity is a feature here. The consistency that reads as timid on brand is a virtue in product. A move that is voice on a brand surface is noise on this one.
@@ -27,13 +27,11 @@ What product should author:
 
 - **Color** — Restrained is the floor; a single surface can earn Committed (one category color carrying a report, a drenched onboarding welcome). State-rich semantic vocabulary: hover, focus, active, disabled, selected, loading, error, warning, success, info.
 - **Typography** — one well-tuned sans often carries headings, labels, body, and data; fixed rem scale (not fluid); tighter ratio (1.125–1.2). System stacks are acceptable. Typical roles: `heading`, `subheading`, `label`, `button` — functional UI roles — on top of the shared core `body` / `caption` / `code`; `label` names a form-field label, distinct from `button` (action text). The pool is open, not exclusive: a product surface may reach for `display` or `lead` (onboarding, empty-state), a functional variant is a suffixed entry (`-emphasis` / `-muted`), and a role with size variants may carry the size in its key (`button-sm`), additive to the vocabulary.
-- **Motion** — 150–250 ms; motion conveys state, not decoration. No orchestrated page-load — users load into a task.
 - **Components** — every interactive state defined (default / hover / focus / active / disabled / loading / error); consistent affordances across the surface.
 
 ## Product bans (on top of [anti-slop.md](anti-slop.md))
 
 - Display fonts in UI labels, buttons, or data.
-- Decorative motion that doesn't convey state.
 - Reinventing standard affordances for flavor (custom scrollbars, weird form controls).
 - Heavy or full-saturation accents on inactive states.
 

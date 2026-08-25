@@ -19,7 +19,7 @@ Warnings prevent `clean` but do not block. Errors and `not audited` block design
 
 ## Workflow
 
-1. Confirm that `DESIGN.md` exists at the project root. Do not search a legacy path.
+1. Confirm that `DESIGN.md` exists at the project root.
 2. Run the official CLI in parseable form:
 
 ```bash
@@ -41,8 +41,8 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
    - Every token path cited in prose resolves.
    - Every component relationship described in prose agrees with frontmatter.
    - Colors remain flat CSS strings.
-   - No removed token group or structured skin appears in frontmatter.
-   - All present sections follow the canonical order.
+   - Every frontmatter key is one the artifact contract allows.
+   - All present sections follow the canonical order in [design.md](design.md), reading an official alias as its canonical section.
 10. Report initial and final CLI counts, supplemental findings, and the exact final state.
 
 Here is a sensible default format, but use your best judgment:

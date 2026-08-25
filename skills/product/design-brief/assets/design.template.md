@@ -2,7 +2,8 @@
 DESIGN.md skeleton. Delete every comment and replace every square-bracket slot before writing the file.
 
 Frontmatter keys: version, name, description, omitted, colors, typography, rounded, spacing, components.
-Colors are flat CSS strings. Keep borders, shadows, elevation, motion, breakpoints, responsive rules, and light/dark behavior in prose.
+Overview through Do's and Don'ts are the official spec sections. Agent Prompt Guide is a skill extension.
+Colors are flat CSS strings. Keep borders, shadows, elevation, and light/dark behavior in prose.
 Use only official component properties. Define backgroundColor and textColor together for every text-bearing component.
 Every color needs a component reference unless a deliberate omission or documented CLI warning remains.
 -->
@@ -122,14 +123,6 @@ components:
 ## Components
 
 [Usage, states, sizing, and relationships for the component tokens.]
-
-## Motion & Interaction
-
-[Durations, easing, interaction feedback, what does not animate, and reduced-motion behavior.]
-
-## Responsive Behavior
-
-[Breakpoint intent, reflow, density changes, input differences, and image behavior.]
 
 ## Do's and Don'ts
 

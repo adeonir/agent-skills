@@ -8,7 +8,7 @@ Load before every operation.
 
 ## Workflow
 
-1. Scan the project root for `DESIGN.md`, then scan `docs/design/moodboard.md`, `docs/product/PRODUCT.md`, `docs/product/PRD.md`, and `docs/product/brainstorm.md`. Do not look for an older DESIGN.md path or schema.
+1. Scan the project root for `DESIGN.md`, then scan `docs/design/moodboard.md`, `docs/product/PRODUCT.md`, `docs/product/PRD.md`, and `docs/product/brainstorm.md`.
 2. Read found artifacts as claims to check, not authority to inherit. Extract only the product context, stated register, visual intent, constraints, and current tokens that the selected operation needs. Strip upstream IDs, milestones, feature names, and roadmap language from every design output.
 3. Identify the source on hand: codebase, URL, HTML/CSS, images, design-tool file, or text description.
 4. Identify the requested operation from the user's vocabulary:
@@ -44,6 +44,5 @@ Preview, validate, export, and diff route directly after the scan. Brownfield de
 
 ## Error Handling
 
-- If the only found identity uses an older path, treat the root `DESIGN.md` as absent.
 - If two sources claim the same token value, ask which source is authoritative before assessment or authoring.
 - If a required source cannot be read, ask for another source and do not infer its contents.

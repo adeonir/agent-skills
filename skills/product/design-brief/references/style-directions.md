@@ -29,8 +29,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** A visible, strict column grid (12-col, or 6-col for denser work). Content aligns to it without exception. Baseline grid if you can manage it. Asymmetric placement within a symmetric grid is the signature move.
 
-**Motion.** Minimal. Instant state changes; nothing enters with animation.
-
 **Good for.** Publishing, portfolios, documentation, institutional sites, anything where credibility beats warmth.
 
 **Fails when.** Executed loosely — a Swiss layout with sloppy alignment is worse than no system. Also reads cold for consumer products that need warmth.
@@ -52,8 +50,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `0` or `2px`. Hairline rules (0.5–1px) as the primary structural device. No shadows.
 
 **Layout.** Asymmetric multi-column. Pull quotes, drop caps, marginalia, images that break the column. Wide outer margins.
-
-**Motion.** Restrained; if anything, slow reveals on scroll for imagery only.
 
 **Good for.** Content-heavy products, media, long-form, brand sites, anything with an editorial voice.
 
@@ -77,8 +73,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Visible grid lines. Content in bordered boxes that share edges. Dense, edge-to-edge, minimal outer margin.
 
-**Motion.** None, or deliberately abrupt.
-
 **Good for.** Developer tools, creative studios, art institutions, products with an oppositional stance.
 
 **Fails when.** The audience needs reassurance. Also — brutalism is now itself a trend with its own clichés; commit to the structural logic, not just the borders.
@@ -100,8 +94,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `0` to `8px`, consistently. **Hard offset shadows** — `4px 4px 0 #000`, no blur. This is the signature.
 
 **Layout.** Chunky blocks, obvious grid, generous padding inside heavy borders. Slight rotations on elements are on-style.
-
-**Motion.** Snappy, physical — elements translate on hover into their own shadow.
 
 **Good for.** Consumer products, creator tools, education, anything that wants to feel approachable and confident.
 
@@ -125,8 +117,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Dense rows, tight vertical rhythm (4px base), aligned columns, keyboard-first affordances visible. Sidebar + content.
 
-**Motion.** Fast (100–150ms) or none. Speed is the aesthetic.
-
 **Good for.** Developer tools, dashboards, admin panels, trading and analytics, internal tooling.
 
 **Fails when.** The audience is casual or first-time — density reads as intimidating. Also fails if the dark background drifts blue.
@@ -148,8 +138,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `0–4px`, subtle. Depth via tonal layering — a slightly lighter surface on a slightly darker ground. Shadows, if any, are warm-tinted and very soft.
 
 **Layout.** Wide margins, single column, unhurried vertical rhythm. Images given room.
-
-**Motion.** Slow and soft — 400ms+, gentle easing.
 
 **Good for.** Wellness, food, retail, hospitality, editorial, craft goods, anything premium-but-not-loud.
 
@@ -173,8 +161,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Clear hierarchy, generous but not luxurious margins, dense text blocks treated as content rather than as a problem. Tables and lists are first-class.
 
-**Motion.** Essentially none.
-
 **Good for.** Government, education, research, archives, nonprofits, documentation, anything that must feel durable and trustworthy.
 
 **Fails when.** The product needs energy or novelty — this style reads as deliberately unexciting, which is a feature or a bug depending on the brief.
@@ -196,8 +182,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `2–4px`. Borders only. Zero shadows except for genuinely floating layers.
 
 **Layout.** Tight 4px base grid. Table-forward. Persistent chrome (sidebar, toolbar, status bar). Minimal padding — 8–12px inside cells.
-
-**Motion.** 100ms or nothing.
 
 **Good for.** Operations tooling, CRMs, analytics, admin, anything used professionally for hours.
 
@@ -221,8 +205,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Enormous margins. Very few elements per viewport. Full-bleed imagery alternating with near-empty text screens. Asymmetric, off-center placement.
 
-**Motion.** Slow fades (500–800ms), nothing springy.
-
 **Good for.** Fashion, jewelry, architecture, high-end hospitality, portfolios, premium hardware.
 
 **Fails when.** There's a lot to communicate, or conversion matters more than mood. Requires excellent photography — without it, this is just an empty page.
@@ -244,8 +226,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `4–12px`, soft but not bubbly. Depth via tonal layering, occasionally a very soft warm-tinted shadow.
 
 **Layout.** Generous, calm rhythm. Single or two-column. Nothing crowded, nothing dramatic.
-
-**Motion.** Gentle, 250–350ms, ease-out.
 
 **Good for.** Wellness, finance-for-humans, productivity, healthcare, education, family products.
 
@@ -269,8 +249,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Highly organized, labeled, grouped. Generous touch targets. Clear zones. Redundant encoding — never color alone to convey state.
 
-**Motion.** Minimal and instant; motion can obscure state changes that matter.
-
 **Good for.** Healthcare, lab software, safety-critical systems, compliance, insurance, scientific instruments.
 
 **Fails when.** Warmth or brand personality is a requirement.
@@ -292,8 +270,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `0` or `2px`. Thin rules and brackets. Scanline or subtle grain texture is on-style — the one place a background texture is defensible.
 
 **Layout.** Bracketed panels, corner markers, aligned readouts, visible coordinates and status lines. Dense and instrument-like.
-
-**Motion.** Terse — typewriter reveals, instant state flips, blinking cursors.
 
 **Good for.** Developer tools with attitude, games, crypto/infra, security products, music software.
 
@@ -317,8 +293,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Content with margin annotations. Legends and keys as real interface elements. Layered information density like a map.
 
-**Motion.** Minimal, considered.
-
 **Good for.** Outdoor, environmental, agriculture, science communication, travel, education, data with a geographic dimension.
 
 **Fails when.** Applied to fast transactional flows — the annotative density slows things down.
@@ -341,8 +315,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 
 **Layout.** Diagonal energy, asymmetric balance, large color blocks defining regions, elements overlapping deliberately.
 
-**Motion.** Geometric — elements slide along axes, rotate, scale from a corner.
-
 **Good for.** Culture, events, education, agencies, publishing, anything wanting graphic confidence.
 
 **Fails when.** The content is dense or utilitarian — this is a poster aesthetic and it fights complex interfaces.
@@ -364,8 +336,6 @@ Blending two directions is usually stronger than a pure pick. Blending three can
 **Shape & depth.** Radius `6–8px`, consistent within class but differentiated across classes (inputs 4px, cards 8px). Borders primary; one very subtle shadow level reserved for floating layers.
 
 **Layout.** Clear, organized, moderate density. Sidebar navigation, well-structured content, comfortable spacing on an 8px base.
-
-**Motion.** 150–200ms, ease-out, applied to state changes only.
 
 **Good for.** Developer tools, SaaS, documentation, B2B products — the broad default case, executed with intent.
 

@@ -76,8 +76,6 @@ const SECTIONS: string[] = [
   "elevation-depth",
   "shapes",
   "components",
-  "motion-interaction",
-  "responsive-behavior",
   "dos-donts",
   "agent-prompt-guide",
 ];
