@@ -2,6 +2,12 @@
 
 Choose, assess, author, validate, and refine a visual identity in the official root `DESIGN.md` format.
 
+> A DESIGN.md file combines machine-readable design tokens (YAML front matter) with human-readable design rationale (markdown prose). Tokens give agents exact values. Prose tells them why those values exist and how to apply them.
+>
+> — [design.md](https://github.com/google-labs-code/design.md)
+
+The format is the convention this skill conforms to. The skill adds a layer above it: how to reach the values, how to check them, and how to keep them coherent over time.
+
 ## What It Does
 
 ```mermaid

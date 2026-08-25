@@ -31,13 +31,13 @@ Run discovery before the selected operation. Load one operation instruction at a
 
 ## Contracts
 
+- `DESIGN.md` is an external format the skill conforms to and never redefines. Frontmatter is normative and carries the exact values; prose carries why each value exists and how to apply it.
 - Treat `DESIGN.md` at the project root as the only identity artifact.
 - Write `docs/design/moodboard.md` only when direction exploration locks a choice.
 - Keep the frontmatter to `version`, `name`, `description`, `omitted`, `colors`, `typography`, `rounded`, `spacing`, and `components`.
 - Keep color values as flat CSS strings. Preserve source OKLCH; otherwise prefer hex and use another accepted CSS color string only as a fallback.
 - Keep light and dark behavior, borders, and elevation in prose.
 - Use the nine body sections in the order defined by [design.md](instructions/design.md). Eight are official spec sections; the Agent Prompt Guide is a skill extension.
-- Treat the frontmatter as normative and the prose as application guidance.
 - Patch only confirmed deltas. Never rewrite the whole identity to apply one change.
 - Keep identity and tokens content-agnostic. Product copy, page arrangement, and screen flow never enter `DESIGN.md`.
 
