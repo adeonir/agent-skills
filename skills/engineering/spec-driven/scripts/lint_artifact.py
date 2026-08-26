@@ -329,19 +329,17 @@ def check_criteria(path, lines, findings, warnings):
             findings.append("%s:1: %s is declared more than once in `## Goals`" % (path, identifier))
         seen_goals.add(identifier)
 
-    highest_story = 0
+    seen_stories = set()
     for index, line in enumerate(lines):
         match = STORY_HEADING.match(line)
         if not match:
             continue
-        position = int(match.group(1)[len("S-"):])
-        if position != highest_story + 1:
-            findings.append("%s:%d: %s breaks the slice numbering — slice ids run 1..N in order, leaving no gap"
+        if match.group(1) in seen_stories:
+            findings.append("%s:%d: %s is declared more than once"
                             % (path, index + 1, match.group(1)))
-        highest_story = max(highest_story, position)
+        seen_stories.add(match.group(1))
 
     declared = set()
-    highest = {}  # story id -> the highest M seen under it
     per_story = {}  # story id -> (criteria counted, line of its first criterion)
     for criterion in spec_criteria(lines):
         identifier, number, story = criterion["id"], criterion["line"], criterion["story"]
@@ -349,17 +347,13 @@ def check_criteria(path, lines, findings, warnings):
             findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
         declared.add(identifier)
 
-        story_number, position = identifier[len("AC-"):].split(".")
+        story_number = identifier[len("AC-"):].split(".")[0]
         if story is None:
             findings.append("%s:%d: %s sits under no story" % (path, number, identifier))
         elif story != "S-%s" % story_number:
             findings.append("%s:%d: %s sits under %s — the criterion number names story %s"
                             % (path, number, identifier, story, story_number))
-        elif int(position) != highest.get(story, 0) + 1:
-            findings.append("%s:%d: %s breaks %s's numbering — criterion ids run 1..N in order, leaving no gap"
-                            % (path, number, identifier, story))
         if story is not None:
-            highest[story] = max(highest.get(story, 0), int(position))
             counted, first_line = per_story.get(story, (0, number))
             per_story[story] = (counted + 1, first_line)
 
@@ -393,9 +387,8 @@ def check_criteria(path, lines, findings, warnings):
 def check_downstream_ac_refs(base, live, findings):
     """Report a downstream table row citing a criterion the spec no longer declares.
 
-    A specify re-entry may renumber while the spec is `draft`, and `design.md` and
-    `tasks.md` are read by their own phases only — without this, a row left behind
-    reaches no reader until the audit.
+    `design.md` and `tasks.md` are read by their own phases only — without this, a
+    row naming a retired id reaches no reader until the audit.
     """
     for name, section in (("design.md", "Requirements Traceability"),):
         target = os.path.join(base, name)

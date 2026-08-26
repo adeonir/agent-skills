@@ -36,11 +36,11 @@ Scenario: User signs in with registered credentials
 
 ## `AC-N.M` identity
 
-`N` is the number of the product slice the criterion sits under, `M` its position within that slice. An id is unique across the whole spec.
+`N` is the number of the product slice `S-N` the criterion sits under, `M` its position within that slice when it was written. An id is unique across the whole spec, assigned once and never reassigned: `design.md` references it in `Requirements Traceability` and `tasks.md` in `Covers`, so an id that moves retargets a reference that still resolves, against a criterion that never promised it.
 
-A removed criterion leaves no marker: the ids close up behind it inside its slice, in `draft` and after `ready` alike, so `M` runs 1..N with no gap. A removed slice closes up the same way, and its criteria take the new `N`. The linter reports a gap, which is what distinguishes a deliberate removal from a renumbering nobody finished.
+A removed criterion retires its id and leaves the gap standing — `AC-1.1` beside `AC-1.3`. The next criterion of that slice takes the number after the highest the slice has ever carried, never a retired one. A removed slice retires `S-N` the same way, and its criteria go with it.
 
-Once the spec is `ready`, `design.md` references these ids in `Requirements Traceability` and `tasks.md` references them in `Covers`. Specify renumbers `spec.md` alone; each downstream artifact is corrected by the phase that owns it, on the run that follows. Closing the gap retires the highest id in the slice, so every downstream file still holding the old numbering carries at least one reference the spec no longer declares — the linter reports each one, and the feature cannot close while it stands.
+The linter reports a downstream row naming an id the spec no longer declares, and the feature cannot close while one stands.
 
 ## Two modes
 
