@@ -33,18 +33,18 @@ Omit the blank line and body when the subject already says everything — the co
 
 ## Body guidelines
 
-**The body is never an inventory of what changed.** The subject already carries the *what*. The body states the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work.
+**The body is never an inventory of what changed.** The subject already carries the *what*.
 
 **Most task commits have no body at all.** A body exists in exactly two cases:
 
 - **The previous behavior was a problem** the change does not show on its face. *A problem, not merely a difference.* A rename, a doc edit, a new file that simply did not exist before — nothing was broken, so there is nothing to explain and the subject is the whole commit.
-- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff the task forced. A reader who does not know it reverts the change or reapplies it badly.
+- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff the task forced.
 
-Neither case is about *listing* the work. A boundary that closes so many separable things that you want to enumerate them is a boundary that should have been split — say so instead of padding the body with bullets.
+**One sentence.** State the fact — the problem the change does not show, or the constraint — and stop. Never pair them as the problem and then why this solution: that arc retells the implementation session, which is what the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work. A boundary that closes so many separable things that you want to enumerate them is a boundary that should have been split.
 
 Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the files touched, mechanics, values, counts, AC or task IDs. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the implementation session instead of arming the reader.
 
-The test is one question, asked while writing: *without this line, does the reader get the change wrong?* If not, cut it.
+The test is one question, asked before writing: *what wrong action does a reader take without this line* — reverts the change, reapplies it badly, re-fixes the same bug, reaches again for the mechanism this one rules out? Nothing to name, no body. A reader understanding less is not a wrong action.
 
 ## Anti-Pattern: AI-slop subject
 
@@ -89,14 +89,13 @@ fix: resolve token refresh race condition
 refactor: extract validation logic into shared utilities
 ```
 
-A body when the previous behavior was a problem — the problem, then why this solution:
+A body when the previous behavior was a problem the change does not show:
 
 ```text
 fix(checkout): read the config once at startup
 
-Every request re-parsed the config from disk, so a deploy that rewrote the
-file mid-flight served two different configs within the same second. Reading
-at startup makes the process's view of the config immutable for its lifetime.
+A deploy that rewrote the config while the process ran served two different
+configs to requests in the same second.
 ```
 
 A body when a constraint binds the solution:
@@ -105,7 +104,7 @@ A body when a constraint binds the solution:
 refactor(parser): pin the tokenizer to the sync API
 
 The async path drops surrogate pairs on flush, so the sync call stays until
-that lands upstream — do not "modernize" this back.
+that lands upstream.
 ```
 
 **Bad — a body that inventories the work**, which is what the task list and the diff already are:
