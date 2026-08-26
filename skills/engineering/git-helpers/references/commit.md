@@ -75,16 +75,16 @@ A human subject is terse and structural: it names what moved in the code, in the
 
 **Default to no body.** The subject carries the *what*, and most commits stop there.
 
-A body is earned by one observation, made against the staged diff before any of it is written: read the changed lines and ask what a reader holding them still gets wrong. Point at the lines that would have to carry it and confirm they do not. Nothing found — no body. The observation is the gate, never a trim applied afterwards, because a body written first and justified second always finds its justification.
+A body is earned by one observation, made against the staged diff before any of it is written: name the wrong action a reader holding the diff would take without it — reverts the change, reapplies it badly, re-fixes the same bug, reaches again for the mechanism this one rules out. No wrong action to name, no body. A reader understanding less is not a wrong action, and taking it for one is what puts a body on every commit. The observation is the gate, never a trim applied afterwards, because a body written first and justified second always finds its justification.
 
 The observation finds one of two things:
 
 - **The previous behavior was a problem the changed lines do not show.** *A problem, not merely a difference.* Nearly every change has a problem behind it, and the diff usually shows that problem plainly, so having one settles nothing on its own. Ask whether the changed lines already carry it.
-- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you. A reader who does not know it reverts the change or reapplies it badly.
+- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you.
 
-Write what the observation found: the problem with the previous behavior, then why this solution — plain prose, in one or two short paragraphs. Not bullets: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. The body is never an inventory of what changed. If the commit does so many separable things that you feel the urge to enumerate them, that is a signal to split the commit, not to add bullets.
+**One sentence.** Write the fact the observation found — the problem the diff does not show, or the constraint — and stop. Never pair them as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.
 
-The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
+The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification, why this solution beat the other one — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
 
 When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the observation supports first. Drop the body entirely when the observation finds nothing, and tell the user that is what you did and why.
 
@@ -104,14 +104,13 @@ refactor: extract validation logic into shared utilities
 chore(auth): rotate signing key
 ```
 
-A body when the previous behavior was a problem — the problem, then why this solution:
+A body when the previous behavior was a problem the diff does not show:
 
 ```text
 fix: read the config once at startup
 
-Every request re-parsed the config from disk, so a deploy that rewrote the
-file mid-flight served two different configs within the same second. Reading
-at startup makes the process's view of the config immutable for its lifetime.
+A deploy that rewrote the config while the process ran served two different
+configs to requests in the same second.
 ```
 
 A body when a constraint binds the solution:
@@ -120,7 +119,7 @@ A body when a constraint binds the solution:
 refactor: pin the tokenizer to the sync API
 
 The async path drops surrogate pairs on flush, so the sync call stays until
-that lands upstream — do not "modernize" this back.
+that lands upstream.
 ```
 
 **Bad — a body that inventories the diff.** One line per file operation, which is what the diff already is:
@@ -139,9 +138,8 @@ The previous behavior *was* a problem, so this commit earns a body — but the b
 ```text
 ci: consolidate workflows
 
-Four independent workflows each re-installed the toolchain and ran to
-completion, so a failure in lint still paid for the full test and build run.
-One chained pipeline stops at the first failed step.
+Four independent workflows each re-installed the toolchain, so a lint failure
+still paid for the full test and build run.
 ```
 
 ## Committing

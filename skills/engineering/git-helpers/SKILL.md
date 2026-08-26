@@ -32,7 +32,7 @@ Writing a commit, PR, or merge message from chat context produces fabricated quo
 
 ## Guidelines
 
-**Plain prose** — the bar for every message this skill writes: commit subject and body, PR title and body, merge subject and body.
+**Plain prose** — the word-choice bar for every message this skill writes: commit subject and body, PR title and body, merge subject and body. It governs diction, never length or register; each reference sets those for the message it owns.
 
 - Prefer short, familiar words over corporate ones (`use` not `utilize`, `fix` not `ensure`).
 - Keep one term for one concept in the same message — do not rotate synonyms for variety.
