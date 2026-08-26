@@ -26,7 +26,7 @@ specify → design → tasks → implement → [validate] → [audit] → [archi
    └────────┴────────┴──────────┴──────────┴ a mechanical change skips all of this: one-liner → branch → implement inline
 ```
 
-Specify's triage asks one question and has two outcomes: a mechanical change with zero load-bearing decisions is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit — and everything else produces the artifacts and runs the phases. Depth inside a phase follows what the change needs; the agent judges it as the work runs and never records it as a label. Verify is mental, per task, inside implement — never a user phase. Validate and audit are optional. Archive is manual housekeeping for a feature in any state — never automatic or suggested.
+Specify's triage asks two questions. A mechanical change with zero load-bearing decisions is a one-liner straight to inline implement on its own branch — no `spec.md`, no audit. A prompt carrying outcomes that ship separately becomes one feature per outcome, confirmed before any `spec.md` exists, each running the phases in turn. Everything else produces the artifacts and runs the phases. Depth inside a phase follows what the change needs; the agent judges it as the work runs and never records it as a label. Verify is mental, per task, inside implement — never a user phase. Validate and audit are optional. Archive is manual housekeeping for a feature in any state — never automatic or suggested.
 
 ## References
 
