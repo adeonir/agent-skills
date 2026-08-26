@@ -329,6 +329,17 @@ def check_criteria(path, lines, findings, warnings):
             findings.append("%s:1: %s is declared more than once in `## Goals`" % (path, identifier))
         seen_goals.add(identifier)
 
+    highest_story = 0
+    for index, line in enumerate(lines):
+        match = STORY_HEADING.match(line)
+        if not match:
+            continue
+        position = int(match.group(1)[len("S-"):])
+        if position != highest_story + 1:
+            findings.append("%s:%d: %s breaks the slice numbering — slice ids run 1..N in order, leaving no gap"
+                            % (path, index + 1, match.group(1)))
+        highest_story = max(highest_story, position)
+
     declared = set()
     highest = {}  # story id -> the highest M seen under it
     per_story = {}  # story id -> (criteria counted, line of its first criterion)
@@ -344,8 +355,9 @@ def check_criteria(path, lines, findings, warnings):
         elif story != "S-%s" % story_number:
             findings.append("%s:%d: %s sits under %s — the criterion number names story %s"
                             % (path, number, identifier, story, story_number))
-        elif int(position) <= highest.get(story, 0):
-            findings.append("%s:%d: %s does not ascend within %s" % (path, number, identifier, story))
+        elif int(position) != highest.get(story, 0) + 1:
+            findings.append("%s:%d: %s breaks %s's numbering — criterion ids run 1..N in order, leaving no gap"
+                            % (path, number, identifier, story))
         if story is not None:
             highest[story] = max(highest.get(story, 0), int(position))
             counted, first_line = per_story.get(story, (0, number))
@@ -871,24 +883,33 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         test_values = [match.group(1).strip() for line in block
                        for match in [TASK_TEST.match(line)] if match]
         covers = [reference for value in covers_values for reference in AC_PATTERN.findall(value)]
-        if covers_values and len(covers) != 1:
-            findings.append("%s:%d: %s `Covers` must name exactly one `AC-N.M`" %
+        if covers_values and not covers:
+            findings.append("%s:%d: %s `Covers` must name at least one `AC-N.M`" %
                             (path, number, identifier))
-        if covers:
-            criterion = covers[0]
+        if len(covers) != len(set(covers)):
+            findings.append("%s:%d: %s `Covers` names the same criterion more than once" %
+                            (path, number, identifier))
+        for criterion in covers:
+            if task["slice"] and task["slice"] != "none" and \
+                    "S-%s" % criterion[len("AC-"):].split(".")[0] != task["slice"]:
+                findings.append("%s:%d: %s covers %s, which sits under another slice than %s" %
+                                (path, number, identifier, criterion, task["slice"]))
             if spec_lines is not None and criterion not in spec_ac_ids(spec_lines):
                 findings.append("%s:%d: %s `Covers` names %s, which the spec does not declare" %
                                 (path, number, identifier, criterion))
-            elif criterion in covered:
+            elif criterion in covered and covered[criterion] != identifier:
                 findings.append("%s:%d: %s and %s both cover %s; each AC needs exactly one task" %
                                 (path, number, covered[criterion], identifier, criterion))
             else:
                 covered[criterion] = identifier
-            if len(test_values) != 1 or not test_values[0]:
-                findings.append("%s:%d: %s covers %s but carries no non-empty `Test`" %
-                                (path, number, identifier, criterion))
-            else:
-                marker = TASK_TEST_NONE.match(test_values[0])
+        if covers:
+            named_tests = [value for value in test_values if value]
+            if len(named_tests) != len(covers):
+                findings.append("%s:%d: each covered AC needs its own `Test`: %s covers %d, "
+                                "with %d non-empty `Test`" %
+                                (path, number, identifier, len(covers), len(named_tests)))
+            for value in named_tests:
+                marker = TASK_TEST_NONE.match(value)
                 if marker is not None and not marker.group(1).strip():
                     findings.append("%s:%d: %s `Test: none` must name what no runner reaches" %
                                     (path, number, identifier))

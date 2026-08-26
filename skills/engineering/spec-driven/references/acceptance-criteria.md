@@ -38,7 +38,9 @@ Scenario: User signs in with registered credentials
 
 `N` is the number of the product slice the criterion sits under, `M` its position within that slice. An id is unique across the whole spec.
 
-While the spec is `draft`, renumber freely: a removed criterion leaves no marker and the ids close up behind it. Once the spec is `ready`, `design.md` references these ids in `Requirements Traceability` and `tasks.md` references them in `Covers` — a renumbering after that is carried into both artifacts in the same pass, and the linter reports every reference left pointing at an id the spec no longer declares.
+A removed criterion leaves no marker: the ids close up behind it inside its slice, in `draft` and after `ready` alike, so `M` runs 1..N with no gap. A removed slice closes up the same way, and its criteria take the new `N`. The linter reports a gap, which is what distinguishes a deliberate removal from a renumbering nobody finished.
+
+Once the spec is `ready`, `design.md` references these ids in `Requirements Traceability` and `tasks.md` references them in `Covers`. Specify renumbers `spec.md` alone; each downstream artifact is corrected by the phase that owns it, on the run that follows. Closing the gap retires the highest id in the slice, so every downstream file still holding the old numbering carries at least one reference the spec no longer declares — the linter reports each one, and the feature cannot close while it stands.
 
 ## Two modes
 

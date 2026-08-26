@@ -31,7 +31,7 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 ### Per task — Before
 
 1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
-2. Read the task in `tasks.md` and its design context in `design.md`. Use `Builds` to read each complete component block named by the task. Local interfaces come with those blocks. Read every row of the `Interfaces` table whose `Between` names a component in this task's `Builds`, plus any further interface or endpoint the task content requires. For a task with `Covers`, read the complete scenario of that AC and, where `Test` names a case, that case; the scenario in `spec.md` is the contract the test must prove.
+2. Read the task in `tasks.md` and its design context in `design.md`. Use `Builds` to read each complete component block named by the task. Local interfaces come with those blocks. Read every row of the `Interfaces` table whose `Between` names a component in this task's `Builds`, plus any further interface or endpoint the task content requires. For a task with `Covers`, read the complete scenario of every AC it names and, where a `Test` line names a case, that case; the scenario in `spec.md` is the contract the test must prove.
 3. State the files to touch, the AC / `Done when` this task satisfies, and the main risks.
 4. If the task **modifies** existing code (not a pure add): before changing it, understand what it currently does — its responsibility, its callers, the edge cases it handles — and read `git blame` on the lines you will change for the original intent. Preserve behavior the spec does not mean to alter; a line whose purpose you cannot explain is a fence not to remove blindly. A task that only adds new code skips this.
 
@@ -42,9 +42,9 @@ Work already committed inline is kept, never reset or redone: the new `spec.md` 
 
 ### Per task — After
 
-1. Run the task's **Gate** (command or descriptive check). A `Gate` still red after three attempts at the same task ends the loop: leave the code on disk, report the `Gate` and what it reported, and stop.
+1. Run the task's **Gate** (command or descriptive check). A `Gate` still red after three attempts at the same task ends the loop: leave the code on disk, report the `Gate` and what it reported, and stop. A `Gate` red only because the next task in this selection has not landed is a merged boundary, not an attempt — see [Deviations](#deviations).
 2. Run the project quality checks the repository carries — build, types, linter, and formatter. Never invent a command the repository does not carry, and never install a tool to create one.
-3. Run **verify** (mental — no artifact): design adherence, the complete scenario for the task's `Covers` AC, and pattern adherence. Any "no" → fix before marking done.
+3. Run **verify** (mental — no artifact): design adherence, the complete scenario of every AC the task's `Covers` names, and pattern adherence. Any "no" → fix before marking done.
 4. Flip the task's heading checkbox in `tasks.md`: `### [ ] T-N:` → `### [x] T-N:`, and touch nothing else in the file — no field rewritten, no task renumbered, no task added. The one exception is a test case the runner forced to another name, renamed in the same commit.
 5. **Commit** — stage by name the files this task touched, never `git add -A`: anything else dirty on the branch belongs to another commit. 1 task = 1 commit by default; follow `## Commit Boundary Notes` when it groups or splits. Fixes are always a new commit; message format and prohibitions in [commit-conventions.md](../references/commit-conventions.md).
 6. Update the feature's `STATE.md ## Progress` — point `Next` at the following task **in this selection**. A subagent never points `Next` past its own selection: after its last task it reports and stops. The main agent owns the pointer across selections, moving it to the next slice, or to the selected optional phase once the final one returns.
@@ -68,7 +68,7 @@ The dispatch unit is the isolation boundary, not the task. Tasks inside one unit
 
 Classify a deviation by what happened, not by its apparent size.
 
-Four operational differences carry on and are recorded in `STATE.md ## Notes` so audit can find them: a different name for the same thing, a file one directory over when `design.md` left the placement open, a private helper the design did not foresee, or a test name forced by the runner.
+Five operational differences carry on and are recorded in `STATE.md ## Notes` so audit can find them: a different name for the same thing, a file one directory over when `design.md` left the placement open, a private helper the design did not foresee, a test name forced by the runner, or a task whose `Gate` cannot close until the next task lands — hold the commit, run both tasks, and commit them together under one message that names the outcome the pair delivers.
 
 Stop before the commit when an interface named by the design cannot exist as written, a dependency the design counted on is absent, code contradicts a design decision, a covered acceptance scenario is impossible against the existing product, or the task waits on an open question in `spec.md`. Leave written changes on disk and name the changed files. Record the blocker in `STATE.md ## Blockers` and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction.
 

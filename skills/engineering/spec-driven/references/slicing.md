@@ -14,6 +14,12 @@ Slice vertically: a horizontal slice carries no benefit of its own, so its accep
 
 A product slice carrying two distinct benefits is two slices — split it. A tracker story that is one layer of many is not a product slice — reslice the feature vertically.
 
+## One benefit, several consumers
+
+Name the benefit by what changes for whoever the slice serves, never by what reads the result. One outcome delivered to a preview card, a crawler, and a sitemap is one benefit reaching three consumers, so it is one slice — split it by consumer and each slice delivers a line, while every Independent Test demonstrates the same change under a different name.
+
+Two slices whose statements differ only in who consumes the outcome are one slice: merge them, and let their criteria sit under it. Read the `so that [benefit]` clauses side by side — where the same sentence serves both once the consumer is struck out, the split was by channel.
+
 ## Example
 
 Feature: password reset.

@@ -75,7 +75,7 @@ Artifact states are stored in the owning artifact:
 - Separate by purpose: spec = WHAT + WHY, design = HOW, tasks = WHEN.
 - Triage once, before discovery; default adversarial — in doubt, write the spec.
 - When a one-liner turns out to carry a load-bearing decision, or its inline steps run past ~5, stop and route back to specify; never push through in implement.
-- 1 task = 1 commit by default; fixes are new commits, never `--amend`.
+- 1 task = 1 commit by default; a task whose gate cannot close without the next one commits with it; fixes are new commits, never `--amend`.
 - Author ≠ auditor — the audit runs as an isolated subagent on the diff; every artifact closes on its own self-check plus the linter.
 - Advance by default; ask only when the gray area is load-bearing — it changes Goals, ACs, or the approach.
 
