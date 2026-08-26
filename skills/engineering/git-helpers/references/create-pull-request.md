@@ -6,13 +6,15 @@ Push the current branch and open a pull request shaped to the project's conventi
 
 When pushing a branch and creating a pull request.
 
+Use the available qualified GitHub MCP tool for GitHub operations. If it is unavailable, use the equivalent `gh` CLI command. Use Git commands for local repository operations.
+
 ## Base branch
 
 Use the base the user named. Otherwise the repo default (fall back to `main`). Show it for confirmation before opening — the user can still redirect onto `develop`, a release branch, or a parent feature branch.
 
 ## Push
 
-Push before opening the PR — the API resolves the head ref on the remote, so a branch that exists only locally cannot be a PR head. `gh pr create` offers to push it only through an interactive prompt, which this workflow does not have.
+Push before opening the PR — the API resolves the head ref on the remote, so a branch that exists only locally cannot be a PR head. The GitHub MCP tool or `gh pr create` cannot open a PR for a branch that exists only locally.
 
 ```bash
 git push -u origin HEAD

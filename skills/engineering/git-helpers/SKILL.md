@@ -1,7 +1,7 @@
 ---
 name: git-helpers
 allowed-tools: Bash(git:*) Bash(gh:*) Read
-description: "Git workflow helper for conventional commits, pull request creation, and pull request merging. Use when committing staged or unstaged changes, opening or pushing pull requests, or merging a pull request. Not for code review, acceptance-criteria verification, visual design review, branch management, or session wrap-up."
+description: "Git workflow helper for conventional commits, pull request creation, and pull request merging. Use when committing staged or unstaged changes, opening or pushing pull requests, or merging a pull request. Not for code review, acceptance-criteria verification, visual design review, general branch management, or session wrap-up."
 ---
 
 # Git Helpers
@@ -21,6 +21,10 @@ commit → create-pull-request → merge-pull-request
 ```
 
 Each step is independent. Use any workflow in isolation or chain them together.
+
+## Tool Selection
+
+For GitHub operations, check for an available qualified GitHub MCP tool first. Use it when available; use `gh` CLI only as the fallback. Use local Git commands for repository operations.
 
 ## Anti-Pattern: Conversation-Driven Messages
 

@@ -4,7 +4,9 @@ Merge a GitHub pull request.
 
 ## When to Use
 
-When ready to merge a pull request — approved and CI green. GitHub-based workflow only; requires `gh` CLI.
+When ready to merge a pull request — approved and CI green. GitHub-based workflow only; requires a GitHub MCP tool or `gh` CLI.
+
+Use the available qualified GitHub MCP tool for GitHub operations. If it is unavailable, use the equivalent `gh` CLI command shown below. Use Git commands for local repository operations.
 
 ## Pull request state
 
@@ -64,7 +66,33 @@ git config --local git-helpers.merge-method {method}
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-### Step 3: Verify Mergeability
+### Step 3: Sync and Verify
+
+```bash
+git fetch origin {base}
+git rev-list --left-right --count origin/{base}...HEAD
+```
+
+If the branch is behind, it needs a rebase, which rewrites its commits and then overwrites the remote branch. Show how far behind it is and rebase only on explicit user confirmation; on decline, stop here.
+
+```bash
+git rebase origin/{base}
+```
+
+If rebase conflicts, surface and stop; inform the user to resolve and re-run.
+
+After a successful rebase, refresh the remote branch:
+
+```bash
+git push --force-with-lease
+```
+
+Gather branch context for Step 4:
+
+```bash
+git log origin/{base}..HEAD --oneline
+git diff origin/{base}...HEAD
+```
 
 Verify mergeability:
 
@@ -104,13 +132,24 @@ If state is not `MERGED`, wait a moment and retry once. If still not `MERGED`, s
 
 Confirm what ran: "PR #{pr-number} merged into `{base}`".
 
-### Optional Manual Branch Cleanup
+### Step 6: Cleanup
 
-After confirming the merge, display these commands for the user to run manually. Do not execute them:
+```bash
+git switch {base}
+git pull --ff-only origin {base}
+```
+
+If the pull fails as non-fast-forward, the merge has not propagated; surface and stop.
+
+Deletion is part of completing the merge, but it still requires explicit user confirmation. Name the branch and ask before deleting it.
 
 ```bash
 git branch -d {branch}
 git push origin --delete {branch}
 ```
 
-Keep `-d` for the local delete so Git refuses the deletion when the local branch still contains unmerged commits. Do not replace it with `-D` automatically.
+Use `-d` for the local delete so Git refuses the deletion when the local branch still contains unmerged commits. Do not replace it with `-D` automatically.
+
+If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` can report that the branch is already gone; treat that result as expected.
+
+Confirm what ran: "PR #{pr-number} merged into `{base}` and branch deleted", or "PR #{pr-number} merged into `{base}`; branch `{branch}` kept" when the user declines deletion.
