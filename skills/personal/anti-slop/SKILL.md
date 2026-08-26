@@ -1,6 +1,6 @@
 ---
 name: anti-slop
-description: "Edits prose to remove AI-writing patterns while preserving facts, voice, and format. Use when a draft should read less generic or less machine-made, when checking for AI tells, or when humanizing pasted text or a file. Works across technical, factual, personal, editorial, and conversational prose, with register-appropriate edits. Not for authorship detection, source-code changes, fact-checking, translation, or structured product-copy authoring."
+description: "Prose editing that removes AI-writing patterns while preserving facts, voice, and format. Use when humanizing or checking a draft for machine-written patterns. Not for authorship detection, source-code changes, fact-checking, translation, or product-copy authoring."
 ---
 
 # Anti-Slop

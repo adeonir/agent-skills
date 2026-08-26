@@ -1,6 +1,6 @@
 ---
 name: spec-driven
-description: "Spec-driven feature development. Produces spec.md, design.md, tasks.md, audit.md, and validate.md with requirements traceability. A mechanical change runs inline as a one-liner; everything else runs the full pipeline. Use when planning or specing a feature, turning a PRD into a spec, breaking a change into tasks or product slices, designing a feature, implementing a named task or product slice, auditing goals at a commit boundary or before a PR, running UAT on a user-facing change, or discussing how to build a feature. Not for diagnosing unknown bugs, authoring standalone PRD/RFC/ADR/Design Doc documents, PR/commit mechanics, or PM backlog tracking."
+description: "Spec-driven feature work with traceable requirements, design, tasks, audit, and validation. Use when planning, designing, implementing, or validating a feature. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
 argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M] | [W-N] | [W-N..W-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---

@@ -1,7 +1,7 @@
 ---
 name: design-brief
 allowed-tools: Bash(bun:*) Bash(npx:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
-description: "Explores a visual direction, assesses an existing identity, and authors or refines the root DESIGN.md through the official design.md schema and CLI. Use when creating design tokens, choosing a named visual direction, codifying, refreshing, rebranding, evolving, or syncing an identity, validating or diffing DESIGN.md, exporting tokens, or previewing and tuning the identity. Not for page arrangement, rendered page variants, product copy, feature specs, production implementation, or code review."
+description: "Visual identity development and validation through the official `DESIGN.md` schema and CLI. Use when creating, refreshing, syncing, previewing, exporting, or diffing design tokens. Not for page layout, rendered variants, product copy, feature specs, production code, or code review."
 ---
 
 # Design Brief

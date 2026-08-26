@@ -1,7 +1,7 @@
 ---
 name: copywriting
 allowed-tools: Read Write Edit Grep Glob WebFetch Bash(python3:*)
-description: "Authors and judges copy.yaml across conversion, brand, editorial, product, UX, and informational surfaces: write fresh copy from intent, or extract and structure existing content from a URL, brief, codebase, or screenshot — content only, composable under any design — then critique or audit it before it ships. Use when writing headlines, value propositions, landing-page, CTA, interface, help, or informational copy; extracting, structuring, tightening, or revoicing content; capturing copy from a screenshot; syncing copy.yaml from a drifted implementation; critiquing copy or checking whether it reads as AI slop; scoring copy on voice and proof; or auditing copy for readability, claims, and microcopy before handoff. Not for visual identity or design tokens, page layout or screen flow, or standalone social bios."
+description: "Creates and evaluates copy for brand, editorial, product, UX, conversion, and informational surfaces. Use when writing, extracting, editing, syncing, critiquing, or auditing copy. Not for visual identity, page layout, or standalone social bios."
 ---
 
 # Copywriting

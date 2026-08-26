@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: "Saves current conversation state to disk so a later session resumes with prior context. Consolidates focus, context, next step, decisions, findings, open threads, blockers, and references into one current handoff. Use when ending a session before context loss, checkpointing mid-session, saving, loading, or clearing a handoff, or starting a session that should continue prior work. Not for durable session notes or repository-wide project context."
+description: "Conversation handoff scoped to the current project, for resuming work across sessions. Use when checkpointing, ending a session, loading prior context, or clearing a handoff. Not for handoffs between projects, durable session notes, or repository-wide project context."
 argument-hint: "[focus]"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: craft-ui
 allowed-tools: Bash(bun:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
-description: "Decides how a UI is arranged and how it looks, using optional lo-fi wireframes and full-page mockups. Use when planning a layout, arranging the regions of a page or screen, mapping a screen flow, comparing wireframes, generating design directions, previewing a page, exploring a redesign, or working from a reference page or screenshot. Covers landing pages, marketing sites, dashboards, product UI, and app screens, across information architecture, color, typography, layout, motion, interaction, and responsive behavior. Writes the chosen mockup to docs/design/. Not for authoring the visual identity, writing copy, single-component design, judging or auditing a built UI, or source-code review."
+description: "Creates lo-fi wireframes for UI structure and hi-fi mockups for visual directions. Use for landing pages, dashboards, product UI, and app screens. Not for visual identity, copywriting, single-component design, built-UI audits, or code review."
 ---
 
 # Craft UI

@@ -1,6 +1,6 @@
 ---
 name: plain-spoken
-description: "Writes and rewrites technical prose in clear, precise language while preserving facts, requirements, and technical terms. Use for explanations, runbooks, specifications, incident reports, procedures, documentation, and brief factual answers; also for plain English, less jargon, global readability, or ASD-STE100-inspired writing. Not for code-only output, raw logs, formal compliance certification, or literary and marketing copy."
+description: "Clear, precise technical prose that preserves facts, requirements, and terms. Use for explanations, procedures, specifications, documentation, incident reports, and brief factual answers. Not for code-only output, raw logs, compliance certification, or marketing copy."
 ---
 
 # Plain Spoken
