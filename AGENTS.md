@@ -274,12 +274,6 @@ Skills using MCP must detect availability before invoking the tool, document a f
 
 These conventions apply at the moment of writing skills; they affect the output, not the runtime — consumer Claude never sees AGENTS.md. The rigid, verifiable ones are enforced by rules in `.agents/rules/`; what remains here is guidance that is not a discrete rule.
 
-### Read the Whole File Before Authoring It
-
-Before editing any skill file, read it end to end — and read every reference it names. Not a window, not a grep, not a subagent's summary of it. Authoring from an excerpt produces a patch that fits the excerpt and contradicts the rest: a mechanism reinvented three sections below where one already exists, a rule that fires on a case the file explicitly exempts, a term that already means something else. Each is invisible from inside the window, and each survives review, because the patch reads correct on its own.
-
-The cost is asymmetric. Reading a 90-line reference is cheap; discovering, after it ships, that the test you wrote duplicates the one the file already owns means unwinding every file that consumed the wrong shape.
-
 ### Instruct, Don't Teach
 
 Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain, justify the design, or narrate how the mechanism was arrived at. The test is what the agent *does* with the sentence: a rationale that changes its behavior is a constraint and stays; one that only makes a human nod is weight paid on every load. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
@@ -292,19 +286,11 @@ Competence the model already has is not the skill's to supply. A skill carries p
 
 ### Walk the Consumption Path
 
-Creation, refactor, and port are judged by the consuming agent's path through the result, not by how tidy the model looks on the page. A layering that reads clean top-down still breaks the moment an agent walks it — a level nothing routes to, a lookup that can only be done by exclusion, a step that depends on the agent remembering what no file supplies.
-
-Before shipping a structure, trace one real request through it end to end as the agent would: what it reads, in what order, what it writes, and where it would fall back on habit because nothing told it otherwise. The stumble is the finding. The same walk decides whether a level earns its place at all — a catalog pays for its load only where the agent has a reflex to correct.
-
-Trace the reads and you find the routing gaps; **write the output the request would produce** and you find the rest — a vocabulary with no value for the real case, a field shaped for a different kind of product, a step whose input arrives two steps late, a guard that detects and then offers nothing that helps. Those surface at the moment of composing a body, never from reading the files.
-
-Reading for contradictions and walking a request find disjoint defects, and the reading is the one that feels complete: every file can agree with every other while the instruction they agree on cannot be carried out. Run both, and when repeated passes of either start turning up what the previous pass introduced, the method is measuring its own repairs — switch, rather than sweep again.
+Judge a structure by the path the consuming agent takes through it. Before shipping, trace one real request end to end: what it reads, in what order, what it writes, and where it would fall back on habit because nothing told it otherwise. Then write the output that request would produce — a vocabulary with no value for the real case, a field shaped for a different product, a step whose input arrives two steps late surface only there. Reading for contradictions and walking a request find disjoint defects; run both, and switch when a pass starts finding what the previous pass introduced.
 
 ### Audit on Merit, Not Authorship
 
-When auditing, reviewing, or fixing a skill, judge the current state on its merits. "Pre-existing, not mine" is inverted blame-framing — it waves off a real finding by pointing at who wrote it or when, instead of whether the text is wrong now. A finding stands or falls on the current state, never its provenance: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may still defer a fix to its own change — but say so as scope, not as authorship.
-
-An audit driven down a checklist grows the skill by construction: an item that passes changes nothing, an item that fails adds a section, and the sum of a comparison against any reference is only ever more. The restraint that judges a proposal has to judge the finding too, at the moment it is written down — is the content already required somewhere, is the cost paid on every load against a failure that is rare, does it contradict a register the skill already chose. A finding that cannot survive those questions was never a finding.
+Judge the current state on its merits: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may defer a fix — say so as scope, not as authorship. An audit driven down a checklist only grows the file, so judge each finding as you would judge a proposal: is the content already required somewhere, is the cost paid on every load against a rare failure, does it contradict a register the skill already chose.
 
 ### Dynamic Context Injection
 
