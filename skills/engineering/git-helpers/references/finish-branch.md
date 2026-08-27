@@ -118,7 +118,7 @@ Merging writes to `{base}` and closes the PR. Show the PR number, the method, th
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
 ```
 
-Omit `--body` when there is none. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error.
+Pass `--body ""` when there is no body — omitting the flag makes `gh` fill the body with the branch commit messages. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error.
 
 ### Step 5: Confirm Merge Landed
 
