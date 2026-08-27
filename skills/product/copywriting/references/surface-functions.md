@@ -1,6 +1,6 @@
 # Surface Functions
 
-Classify the reader's job before selecting copy patterns or quality criteria.
+Classify `intent.function`, the reader's job, before selecting copy patterns or quality criteria.
 
 ## When to Use
 
@@ -8,10 +8,10 @@ Read before authoring or judging when the surface function is not explicit, when
 
 ## Choose the Function
 
-- **conversion** — persuade the reader to choose, buy, sign up, contact, or otherwise commit. Use a value proposition, benefits, proof, objection handling, risk reduction, and a CTA when the surface needs a commitment.
-- **brand/editorial** — express a point of view, build recognition, or hold attention. Use narrative, distinctiveness, rhythm, and memorable language. Add conversion patterns only when the surface also asks for a commitment.
-- **product/UX** — guide a task, decision, state, or interaction. Use task-oriented headings, labels, buttons, states, navigation, and recovery guidance. Do not use conversion page shapes as a default.
-- **informational** — explain a subject, process, policy, or result. Use hierarchy, definitions, examples, context, and caveats. Add a next step only when the reader needs one.
+- **conversion:** persuade the reader to choose, buy, sign up, contact, or otherwise commit. Use a value proposition, benefits, proof, objection handling, risk reduction, and a CTA when the surface needs a commitment.
+- **brand/editorial:** express a point of view, build recognition, or hold attention. Use narrative, distinctiveness, rhythm, and memorable language. Add conversion patterns only when the surface also asks for a commitment.
+- **product/UX:** guide a task, decision, state, or interaction. Use task-oriented headings, labels, buttons, states, navigation, and recovery guidance. Do not use conversion page shapes as a default.
+- **informational:** explain a subject, process, policy, or result. Use hierarchy, definitions, examples, context, and caveats. Add a next step only when the reader needs one.
 
 Never infer conversion from a page name alone. A homepage, product page, or landing page may be conversion, brand/editorial, informational, or mixed.
 

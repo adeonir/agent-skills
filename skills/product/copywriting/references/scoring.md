@@ -24,9 +24,9 @@ findings: **error → P0/P1** (P0 if it misleads or blocks, else P1); **warning 
 
 ## Score bands
 
-Each dimension scores **0–4**: 0 absent, 1 major gaps, 2 partial, 3 good with minor gaps, 4 genuinely excellent. Be honest — a 4 is rare; most real copy lands mid-scale.
+Score each dimension from **0–4**: 0 absent, 1 major gaps, 2 partial, 3 good with minor gaps, 4 excellent. Most copy falls in the middle.
 
-**Critique — the seven sweeps as judgment axes, total /28:**
+**Critique: the seven sweeps as judgment axes, total /28:**
 
 Score Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](editing-sweeps.md)) 0–4 each. Apply the function-specific meaning of each sweep.
 
@@ -38,11 +38,11 @@ Score Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pu
 | Poor | 8–13 | Major rewrite |
 | Critical | 0–7 | Start over from intent |
 
-Each weak axis maps straight to the matching refresh sweep — that is the loop.
+Each weak axis maps straight to the matching refresh sweep: that is the loop.
 
-**Audit — five ship-readiness dimensions, total /20:**
+**Audit: five ship-readiness dimensions, total /20:**
 
-Score Readability, Claim integrity, Goal fit, Microcopy correctness, and Anti-pattern density 0–4 each. Read [surface-functions.md](surface-functions.md) for the function-specific meaning of Goal fit.
+Score Readability, Claim integrity, Intent fit, Microcopy correctness, and Anti-pattern density 0–4 each. Intent fit checks the stated purpose, reader goal, constraints, and function.
 
 | Band | Total | Reading |
 |---|---|---|
@@ -54,7 +54,7 @@ Score Readability, Claim integrity, Goal fit, Microcopy correctness, and Anti-pa
 
 ## Report template
 
-Here is a sensible default format, but use your best judgment — the verdict leads, the score supports it, and the findings are ordered by severity:
+Here is a sensible default format, but use your best judgment: the verdict leads, the score supports it, and the findings are ordered by severity:
 
 ```markdown
 ## Verdict
@@ -68,11 +68,11 @@ distinctive / trustworthy, or generic / AI-written? One honest paragraph.}
 
 ## Findings
 
-### P0 — Blocking
-- **{name}** — {where: the copy.yaml path or the line}. {why it costs the
+### P0: Blocking
+- **{name}**: {where: the copy.yaml path or the line}. {why it costs the
   reader}. {fix}.
 
-### P1 — Major
+### P1: Major
 - ...
 
 ### P2 / P3
@@ -80,14 +80,14 @@ distinctive / trustworthy, or generic / AI-written? One honest paragraph.}
 
 ## Strengths
 
-{2–3 things working, and why — so they survive the next edit.}
+{2–3 things working, and why: so they survive the next edit.}
 ```
 
 ## Required shape
 
 The layout is flexible; these invariants are not. Whatever the format:
 
-- the score table lists **every** axis (all seven sweeps for critique) or dimension (all five for audit) — none dropped;
+- the score table lists **every** axis (all seven sweeps for critique) or dimension (all five for audit): none dropped;
 - the printed total equals the sum of the rows;
 - every finding carries its `copy.yaml` path or the quoted line, a severity (P0–P3), the reader impact, and a fix.
 
@@ -95,10 +95,10 @@ critique and audit self-check these before presenting the verdict.
 
 ## Acting on findings
 
-copywriting owns the fix, so the loop closes inside the skill — but critique and audit themselves never write. Map each finding to a concrete next step, in priority order (P0 first):
+copywriting owns the fix, so the loop closes inside the skill: but critique and audit themselves never write. Map each finding to a concrete next step, in priority order (P0 first):
 
 - A weak critique axis → the matching `refresh` sweep (Clarity → clarity pass, Prove it → prove it pass, Reader confidence → the function-appropriate friction or trust pass, and so on); re-critique after.
 - An off-register voice that needs more than tightening → `revoice`.
 - An audit defect on shipping copy → `refresh` for wording, `write` for a missing part. Apply it as that operation; the judgment modes report, they do not patch.
 
-Never present a fix as applied — critique and audit produce the verdict; a permanent change is the relevant authoring operation, confirmed before write.
+Never present a fix as applied: critique and audit produce the verdict; a permanent change is the relevant authoring operation, confirmed before write.

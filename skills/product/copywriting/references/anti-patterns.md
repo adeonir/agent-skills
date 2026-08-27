@@ -130,7 +130,7 @@ Get more done. Your day stops fragmenting into 30 open tabs.
 Reflex phrasing copy reaches for because "marketing pages do this", not because the message asked.
 
 ### borrowed-frame-opener
-**Category:** AI Copy Tells **Severity:** warning **Check:** An opener that borrows a stock frame to set a scene — "Imagine a world where…", "Picture this:", "In a world of…", "We live in an age where…". The frame is generic; the reader has read it a thousand times. **Fix:** Open on the reader's actual problem or the concrete outcome, in their words. **Example fail:**
+**Category:** AI Copy Tells **Severity:** warning **Check:** An opener that borrows a stock frame to set a scene — "Imagine a world where…", "Picture this:", "In a world of…", "We live in an age where…". The frame is generic; the reader has read it a thousand times. **Fix:** Open directly on the subject, problem, outcome, or fact the intent requires. **Example fail:**
 ```text
 Imagine a world where your team never misses a deadline.
 ```
@@ -192,7 +192,7 @@ We get DTC brands to a 3x return on ad spend in 90 days.
 ```
 
 ### feature-without-benefit
-**Category:** Proof and Claim Failures **Severity:** warning **Check:** A feature stated with no bridge to why the reader should care — the "so what" is missing. **Fix:** Add the bridge ("…which means…") so the feature lands as an outcome. **Example fail:**
+**Category:** Proof and Claim Failures **Severity:** warning **Check:** On a conversion surface, a feature stated with no bridge to why the reader should care — the "so what" is missing. On an informational surface the bare fact is the content, and the rule does not fire. **Fix:** Add the bridge ("…which means…") so the feature lands as an outcome. **Example fail:**
 ```text
 Real-time sync across all your devices.
 ```

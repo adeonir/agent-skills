@@ -56,7 +56,11 @@ LEAKAGE = [
 
 # Top-level keys the extract template establishes. Missing ones are flagged only
 # when a YAML parser is available, since the check needs real structure.
-REQUIRED_TOP_KEYS = ("metadata", "project", "content")
+REQUIRED_TOP_KEYS = ("metadata", "project", "intent", "voice", "content")
+REQUIRED_INTENT_KEYS = ("purpose", "reader_goal", "function", "constraints")
+REQUIRED_VOICE_KEYS = ("status", "line", "axes", "avoid")
+INTENT_STATUSES = ("confirmed", "inferred")
+INTENT_FUNCTIONS = ("conversion", "brand/editorial", "product/UX", "informational")
 
 
 def read_input(argv):
@@ -85,6 +89,32 @@ def scan_leakage(text):
     return hits
 
 
+def check_surface_intents(tree, path="content"):
+    """Return schema problems for intent overrides inside the content tree."""
+    problems = []
+    if isinstance(tree, dict):
+        override = tree.get("intent")
+        if override is not None:
+            if not isinstance(override, dict):
+                problems.append(f"{path}.intent is not a mapping")
+            else:
+                function = override.get("function")
+                if function is None:
+                    problems.append(f"{path}.intent is missing function")
+                elif function not in INTENT_FUNCTIONS:
+                    problems.append(f"{path}.intent function is not recognized")
+                constraints = override.get("constraints")
+                if constraints is not None and not isinstance(constraints, list):
+                    problems.append(f"{path}.intent constraints are not a list")
+        for key, value in tree.items():
+            if key != "intent":
+                problems.extend(check_surface_intents(value, f"{path}.{key}"))
+    elif isinstance(tree, list):
+        for index, value in enumerate(tree):
+            problems.extend(check_surface_intents(value, f"{path}[{index}]"))
+    return problems
+
+
 def check_structure(text):
     """Return (ran, problems). Degrades gracefully when no YAML parser exists."""
     try:
@@ -96,9 +126,38 @@ def check_structure(text):
     except yaml.YAMLError as err:
         return True, [f"YAML does not parse: {err}"]
     if not isinstance(tree, dict):
-        return True, ["top level is not a mapping (expected metadata/project/content)"]
+        return True, ["top level is not a mapping (expected metadata/project/intent/content)"]
     missing = [key for key in REQUIRED_TOP_KEYS if key not in tree]
-    return True, ([f"missing top-level key: {key}" for key in missing])
+    problems = [f"missing top-level key: {key}" for key in missing]
+    intent = tree.get("intent")
+    if intent is not None and not isinstance(intent, dict):
+        problems.append("intent is not a mapping")
+    elif isinstance(intent, dict):
+        missing_intent = [key for key in REQUIRED_INTENT_KEYS if key not in intent]
+        problems.extend(f"missing intent key: {key}" for key in missing_intent)
+        status = intent.get("status")
+        if status is not None and status not in INTENT_STATUSES:
+            problems.append("intent status must be confirmed or inferred")
+        function = intent.get("function")
+        if function is not None and function not in INTENT_FUNCTIONS:
+            problems.append("intent function is not recognized")
+        constraints = intent.get("constraints")
+        if constraints is not None and not isinstance(constraints, list):
+            problems.append("intent constraints are not a list")
+    voice = tree.get("voice")
+    if voice is not None and not isinstance(voice, dict):
+        problems.append("voice is not a mapping")
+    elif isinstance(voice, dict):
+        missing_voice = [key for key in REQUIRED_VOICE_KEYS if key not in voice]
+        problems.extend(f"missing voice key: {key}" for key in missing_voice)
+        status = voice.get("status")
+        if status is not None and status not in INTENT_STATUSES:
+            problems.append("voice status must be confirmed or inferred")
+        avoid = voice.get("avoid")
+        if avoid is not None and not isinstance(avoid, list):
+            problems.append("voice avoid is not a list")
+    problems.extend(check_surface_intents(tree.get("content")))
+    return True, problems
 
 
 def report(text, source):
