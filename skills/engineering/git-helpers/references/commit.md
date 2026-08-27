@@ -10,8 +10,6 @@ When committing staged or unstaged changes.
 
 Read `git status --short` to plan staging. Once staging is complete, read `git diff --cached`. Never diff before staging is complete: unstaged changes pollute the message with content that will not land.
 
-Read `git log --oneline -10 --no-merges` for the project's message form: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Match what the log establishes — never add or strip a form element against it. The log sets form only. It never sets the bar for what the subject says; this reference does, however sloppy the log reads.
-
 ## Staging
 
 Stage by name the files that belong to this change — never a blind `git add -A`, never a file containing secrets. Respect `.gitignore`: never `git add -f` an ignored path — ignored files (build output, local scratch, secrets) are excluded on purpose; if a file you mean to stage is ignored, stop and surface it, staging only on explicit user confirmation. If files are already staged, flag them before adding more; `git add .` is only for an explicit "stage everything". When the user says "only staged", commit the existing index as-is.
@@ -39,7 +37,7 @@ The conversation supplies at most an explicit *why* the user stated.
 
    See the AI-slop anti-pattern below for the filler vocabulary to avoid.
 3. **The subject carries the whole *what***: it names the user-observable effect, and it is the only place the *what* lives. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
-4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the message form the recent log establishes. User can override (e.g. "add scope `auth`", "drop the scope").
+4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the log, as the form pass below sets out. User can override (e.g. "add scope `auth`", "drop the scope").
 5. **No attribution**: Never add Co-Authored-By or similar lines
 6. **No future references**: Don't mention upcoming work or architectural reasoning
 7. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
@@ -87,6 +85,12 @@ The observation finds one of two things:
 The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification, why this solution beat the other one — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
 
 When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the observation supports first. Drop the body entirely when the observation finds nothing, and tell the user that is what you did and why.
+
+## Matching the project's form
+
+With the message drafted, read `git log --oneline -10 --no-merges` and adjust the draft to the form the log establishes: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Never add or strip a form element against it.
+
+The log sets form only. It never sets what the subject says.
 
 ## Examples
 
