@@ -43,9 +43,12 @@ LEAKAGE = [
      re.compile(r"\b(?:rounded|shadow)-(?:sm|md|lg|xl|2xl|3xl|full|inner|none)\b"
                 r"|\bgrid-cols-\d+\b|\bflex-(?:row|col|wrap|nowrap)\b")),
     # Literal CSS property declarations.
+    # display/position need a real CSS value: both are copy words on their own.
     ("css property",
-     re.compile(r"\b(?:font-family|font-size|font-weight|line-height|z-index|"
-                r"display|position)\s*:", re.I)),
+     re.compile(r"\b(?:font-family|font-size|font-weight|line-height|z-index)\s*:"
+                r"|\bdisplay\s*:\s*(?:none|block|inline(?:-block|-flex|-grid)?|"
+                r"flex|grid|contents|flow-root|table(?:-\w+)?)\b"
+                r"|\bposition\s*:\s*(?:static|relative|absolute|fixed|sticky)\b", re.I)),
     # Icon picks — iconify-style namespace:name, or an icon key. The skill's
     # design-leakage definition names icons; copy.yaml carries content, not them.
     ("icon reference",
