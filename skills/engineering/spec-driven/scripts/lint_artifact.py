@@ -10,7 +10,6 @@ names what is usually wrong and can be deliberate; it never blocks, and the
 phase says at its gate whether it acted on the warning or kept what it names.
 
 Usage:
-  lint_artifact.py state    .artifacts/specs/{slug}
   lint_artifact.py spec     .artifacts/specs/{slug}
   lint_artifact.py design   .artifacts/specs/{slug}
   lint_artifact.py tasks    .artifacts/specs/{slug}
@@ -49,9 +48,6 @@ SPEC_FRONTMATTER = ["name", "sources", "user-facing", "status", "created", "bran
 SPEC_STATUSES = ["draft", "ready"]
 DESIGN_STATUSES = ["draft", "ready"]
 TASK_STATUSES = ["draft", "ready", "in-progress", "done"]
-STATE_PHASES = ["specify", "design", "tasks", "implement", "validate", "audit"]
-STATE_FINDINGS = ["none", "validate", "audit", "validate,audit"]
-
 # Gherkin keywords that open a step group, and the ones that continue the open group.
 STEP_OPENERS = ("Given", "When", "Then")
 STEP_CONTINUATIONS = ("And", "But")
@@ -324,6 +320,7 @@ def check_criteria(path, lines, findings, warnings):
     """Check every criterion's form, identity, and upward links."""
     goals = spec_goal_ids(lines)
     seen_goals = set()
+    served_goals = set()
     for identifier in goals:
         if identifier in seen_goals:
             findings.append("%s:1: %s is declared more than once in `## Goals`" % (path, identifier))
@@ -369,6 +366,8 @@ def check_criteria(path, lines, findings, warnings):
             elif value not in seen_goals:
                 findings.append("%s:%d: %s serves %s, which `## Goals` does not declare"
                                 % (path, number, identifier, value))
+            else:
+                served_goals.add(value)
 
         if len(criterion["satisfies"]) > 1:
             findings.append("%s:%d: %s carries %d `Satisfies` lines, expected one"
@@ -382,6 +381,11 @@ def check_criteria(path, lines, findings, warnings):
         if counted > SLICE_CRITERIA_CAP:
             warnings.append("%s:%d: warning: %s carries %d criteria — split it, or record the size as deliberate"
                             % (path, first_line, story, counted))
+
+    for identifier in dict.fromkeys(goals):
+        if identifier not in served_goals:
+            findings.append("%s:1: %s is declared in `## Goals` but no acceptance criterion serves it"
+                            % (path, identifier))
 
 
 def check_downstream_ac_refs(base, live, findings):
@@ -579,25 +583,6 @@ def split_field_list(value):
     if value is None or not value.strip() or value.strip().lower() == "none":
         return []
     return [entry.strip() for entry in value.split(",") if entry.strip()]
-
-
-def lint_state(path, lines, findings):
-    """Check the feature-local STATE.md contract."""
-    check_sections(path, lines, ["Progress", "Notes"], findings)
-
-    values = {}
-    for line in lines:
-        match = re.match(r"^- \*\*(Feature|Phase|Next|Blockers|Findings):\*\*\s*(.*)$", line)
-        if match:
-            values[match.group(1)] = match.group(2).strip()
-
-    for field in ("Feature", "Phase", "Next", "Blockers", "Findings"):
-        if field not in values:
-            findings.append("%s: missing `- **%s:**`" % (path, field))
-    if values.get("Phase") and values["Phase"] not in STATE_PHASES:
-        findings.append("%s: `Phase` is `%s`, not one of %s" % (path, values["Phase"], "/".join(STATE_PHASES)))
-    if values.get("Findings") and values["Findings"] not in STATE_FINDINGS:
-        findings.append("%s: `Findings` is `%s`, not one of %s" % (path, values["Findings"], "/".join(STATE_FINDINGS)))
 
 
 def lint_spec(path, lines, base, findings, warnings):
@@ -1053,12 +1038,12 @@ def lint_audit(path, lines, spec_lines, findings):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Lint a spec-driven artifact against its template contract.")
-    parser.add_argument("phase", choices=["state", "spec", "design", "tasks", "validate", "audit"])
+    parser.add_argument("phase", choices=["spec", "design", "tasks", "validate", "audit"])
     parser.add_argument("feature_dir", help="the feature folder, e.g. .artifacts/specs/{slug}")
     args = parser.parse_args(argv)
 
     base = args.feature_dir
-    filename = "STATE.md" if args.phase == "state" else "%s.md" % args.phase
+    filename = "%s.md" % args.phase
     path = os.path.join(base, filename)
     if not os.path.isfile(path):
         sys.stderr.write("error: no %s at %s\n" % (args.phase, path))
@@ -1069,7 +1054,7 @@ def main(argv=None):
 
     spec_path = os.path.join(base, "spec.md")
     spec_lines = lines if args.phase == "spec" else None
-    if args.phase not in ("spec", "state"):
+    if args.phase != "spec":
         if os.path.isfile(spec_path):
             spec_lines = read_lines(spec_path)
         else:
@@ -1078,9 +1063,7 @@ def main(argv=None):
     findings = []
     warnings = []
     try:
-        if args.phase == "state":
-            lint_state(path, lines, findings)
-        elif args.phase == "spec":
+        if args.phase == "spec":
             lint_spec(path, lines, base, findings, warnings)
         elif args.phase == "design":
             lint_design(path, lines, base, spec_path, spec_lines, findings)

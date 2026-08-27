@@ -57,6 +57,8 @@ Name the one `G-N` of `## Goals` the criterion serves. Carry exactly one id, nev
 
 Write no line for a criterion that serves no declared goal and only demonstrates its slice's benefit. Where a criterion serves two goals, one of the two is what its `Then` asserts and the other is a consequence: name the one asserted.
 
+Every declared Goal is served by at least one criterion. The linter rejects a spec when a Goal has no `Serves` reference.
+
 ## Backward provenance — `Satisfies`
 
 Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NFR`, or a ticket whose criteria or done-conditions already name them — each criterion that operationalizes a requirement carries a `**Satisfies**` line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached a criterion. The audit stays criterion-keyed; it never anchors on the requirement ID. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
