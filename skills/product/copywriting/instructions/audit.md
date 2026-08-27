@@ -51,8 +51,10 @@ Score each 0–4 (bands in [scoring.md](../references/scoring.md)); total /20.
 Start with the anti-pattern verdict: does the copy read as AI-generated? Run the deterministic scan first:
 
 ```bash
-python3 <this-skill>/scripts/slop_scan.py <copy file or paste>
+python3 <this-skill>/scripts/slop_scan.py path/to/copy.yaml
 ```
+
+For pasted copy, provide the text on standard input instead of passing it as a file argument.
 
 It tallies the scannable tells (dead words, em-dash density, known openers) with line numbers: these feed dimension 5. Then add the perceptual tells (hollow structures, generic claims, robotic parallelism) by eye; cover both (see the two kinds of check in [anti-patterns.md](../references/anti-patterns.md)).
 

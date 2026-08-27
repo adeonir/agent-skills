@@ -31,8 +31,10 @@ Name the intent, register, and surface, then read [surface-functions.md](../refe
 Run the deterministic scan first:
 
 ```bash
-python3 <this-skill>/scripts/slop_scan.py <copy file or paste>
+python3 <this-skill>/scripts/slop_scan.py path/to/copy.yaml
 ```
+
+For pasted copy, provide the text on standard input instead of passing it as a file argument.
 
 It tallies the scannable tells: listed dead words, em-dash density, known borrowed-frame openers: with line numbers. Take its hits as confirmed, then layer the two perceptual passes against [anti-patterns.md](../references/anti-patterns.md) on top:
 

@@ -12,7 +12,7 @@ Owns `copy.yaml`, the structured content payload that design consumes. The same 
 
 **Author:** produce or change copy:
 
-- **write:** author fresh copy from intent (headlines, body, CTAs). → [write.md](instructions/write.md)
+- **write:** author fresh or net-new copy from intent (headlines, body, CTAs). → [write.md](instructions/write.md)
 - **extract:** structure existing content from a source (URL, brief, codebase, screenshot), preserving tone. → [extract.md](instructions/extract.md)
 - **refresh:** tighten existing copy in the same voice (editing passes). → [refresh.md](instructions/refresh.md)
 - **revoice:** rewrite existing copy in a new voice, keeping the message. → [revoice.md](instructions/revoice.md)
@@ -29,7 +29,7 @@ Run `discovery.md` before every operation. It checks existing context, classifie
 
 ## Artifact
 
-Produces and owns `docs/design/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Later operations read both before drafting or judging; they change only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions: no colors, fonts, or layout. The content stays swappable: any `copy.yaml` must work independent of visual styling.
+Produces and owns `docs/design/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Later operations read both before drafting or judging. Authoring operations change content only after the user confirms the proposed edits; they change intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions: no colors, fonts, or layout. The content stays swappable: any `copy.yaml` must work independent of visual styling.
 
 ## Function, register, and surface
 

@@ -19,7 +19,7 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Write** | Author fresh copy from intent: headlines, body, CTAs | `docs/design/copy.yaml` |
+| **Write** | Author fresh or net-new copy from intent: headlines, body, CTAs | `docs/design/copy.yaml` |
 | **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/design/copy.yaml` |
 | **Refresh** | Tighten existing copy in the same voice: clarity, specificity, proof, cut weak words | Patched `docs/design/copy.yaml` (confirm-before-write) |
 | **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/design/copy.yaml` (confirm-before-write) |

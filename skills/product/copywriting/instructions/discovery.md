@@ -24,7 +24,8 @@ Infer from source and intent: do not ask explicitly. First fork on what the requ
 
 - **author**: produce or change copy. Then split by field:
   - **greenfield**: no existing copy → write fresh from intent.
-  - **brownfield**: existing copy or a source → extract to structure it, refresh to tighten it, revoice to change its voice, or reconcile to sync implementation drift.
+  - **new content in an existing payload**: a new surface or part → write it from intent while preserving the existing tree.
+  - **brownfield**: existing copy or a source that needs structuring, tightening, voice change, or drift sync → extract, refresh, revoice, or reconcile.
 - **judge**: a non-mutating verdict on existing copy, no change applied → critique for a quality / slop verdict that loops to refresh, or audit for a ship-readiness defect report before handoff.
 
 For authoring and judging, establish the intent before choosing patterns or the register. Intent records the purpose, reader goal, function, and functional constraints; voice records stylistic direction. Read [surface-functions.md](../references/surface-functions.md) when the reader's job or the applicable pattern is unclear. Never infer conversion from a page name alone.
@@ -33,7 +34,7 @@ For authoring and judging, establish the intent before choosing patterns or the 
 
 | Intent | Reference |
 |--------|-----------|
-| Write fresh copy from intent | [write.md](write.md) |
+| Write fresh or net-new copy from intent | [write.md](write.md) |
 | Structure existing content from a source | [extract.md](extract.md) |
 | Tighten existing copy in the same voice | [refresh.md](refresh.md) |
 | Rewrite existing copy in a new voice | [revoice.md](revoice.md) |
