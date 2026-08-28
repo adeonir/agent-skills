@@ -31,9 +31,8 @@ import sys
 
 SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions",
                  "Divergences"]
-DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions",
-                   "Semantic Contract Inventory", "Error Handling", "Risks & Concerns",
-                   "Requirements Traceability"]
+DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions", "Error Handling",
+                   "Risks & Concerns", "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
 AUDIT_SECTIONS = ["Summary", "Goals", "Acceptance Criteria", "Discrimination Sensor", "Re-run", "Gaps"]
@@ -626,7 +625,7 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
     check_frontmatter_status(path, fields, DESIGN_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_sections(path, lines, DESIGN_SECTIONS, findings)
-    read_design_components(base, path, findings)
+    design_components = read_design_components(base, path, findings)
 
     bounds = section_bounds(lines, "Decisions")
     if bounds:
@@ -669,7 +668,19 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
     traced = set()
     bounds = section_bounds(lines, "Requirements Traceability")
     if bounds:
-        for number, header, cells in table_rows(lines, *bounds):
+        traceability_rows = list(table_rows(lines, *bounds))
+        if traceability_rows:
+            _, header, _ = traceability_rows[0]
+            for column in ("AC", "Component"):
+                if column not in header:
+                    findings.append("%s:1: `Requirements Traceability` is missing `%s`" % (path, column))
+        for number, header, cells in traceability_rows:
+            component = cell(header, cells, "Component").strip()
+            if not component:
+                findings.append("%s:%d: traceability row has an empty `Component`" % (path, number))
+            elif design_components is not None and component not in design_components:
+                findings.append("%s:%d: traceability names unknown component `%s`" %
+                                (path, number, component))
             for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
                 identifier = match.group(0)
                 traced.add(identifier)
