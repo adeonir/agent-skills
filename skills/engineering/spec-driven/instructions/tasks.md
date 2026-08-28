@@ -16,7 +16,7 @@ When breaking a change into tasks or product slices, or producing the task break
 
    Then run `python3 <this-skill>/scripts/lint_artifact.py tasks .artifacts/specs/<slug>` over the text the reading produced — it settles structure, presence, the dependency graph, and cross-file references, and it reads last because the pass above edits the breakdown. Fix every error and run it again, up to three passes; after the third, stop, record the standing error in `STATE.md ## Blockers`, and leave `tasks.md` at `draft`. A warning never blocks — act on it, or keep what it names as deliberate and say which at the approval gate.
 6. **Approval gate** — present the path of `tasks.md`, the task count, the commit count the boundaries produce, the wave sequence derived by the linter, and every `Test: none` pendency. The user may reorder only tasks that preserve the dependency graph. Then ask *"Move to implement?"* Name anything the run wrote that the project does not ignore and suggest the commit — see [memory.md](../references/memory.md).
-7. **Update the feature's `STATE.md ## Progress`** at the approval gate — phase and next step. When report findings were processed, clear the consumed source from `Findings`; keep any other source. Set `tasks.md` to `status: ready`. See [memory.md](../references/memory.md).
+7. **Update the feature's `STATE.md ## Progress`** at the approval gate — phase and next step. When report findings were processed, clear the consumed source from `Findings`; keep any other source. Set `tasks.md` to `status: ready`. If `.artifacts/` is ignored, these artifact updates are local state and are not part of an implementation commit. See [memory.md](../references/memory.md).
 
 ## Template: `tasks.md`
 

@@ -90,14 +90,14 @@ The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only
 - `Findings` names the report that still carries something and `Phase` names the phase that reads it. `Phase` decides: `tasks` reads a report only when `Phase` names `tasks`, and stops and reports the named phase otherwise, whatever `Findings` carries. `tasks` verifies the findings, creates or adjusts correction tasks, and clears the consumed source; `specify` reads the report before rewriting the contract and clears it the same way.
 - `audit` reads signal history and runs the lesson promotion flow after writing its report.
 
-- A phase that wrote anything the project does not ignore names those files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Never infer that a path is ignored from its name: in the project that runs the skill, pass every path the run wrote to `git check-ignore`, and treat as ignored only the paths it prints. A machine-owned file is never suggested, whatever the check reports. It never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
+- A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. A machine-owned file is never suggested, whatever the check reports. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
 - Include changes to `CONTEXT.md ## Decisions` in the phase's final summary.
 
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
 
 ## Deviations during implementation
 
-Record only the four operational differences that may continue in `STATE.md ## Notes`: a different name for the same thing, a file one directory over when placement was open, an unforeseen private helper, or a test name forced by the runner.
+Record only the five operational differences that may continue in `STATE.md ## Notes`: a different name for the same thing, a file one directory over when placement was open, an unforeseen private helper, a test name forced by the runner, or a task whose gate cannot close until the next task lands.
 
 For an interface, dependency, design decision, acceptance scenario, or open-question contradiction, leave written changes on disk, name the changed files in `STATE.md ## Blockers`, and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction. Do not edit upstream artifacts, widen the task, or rewrite history. The user decides whether to keep or discard the changes.
 
