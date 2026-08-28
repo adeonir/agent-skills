@@ -18,6 +18,8 @@ A cycle means the cut is wrong: merge the two tasks, or move what they both need
 
 `Sequence` is a projection of the graph. A task with no dependencies is in `W-1`; every other task is in the wave after the highest wave of its dependencies. Tasks at the same graph level share a wave and may run in parallel when their dispatch units are independent. List every task exactly once, including completed tasks, in the `Wave` / `Tasks` table.
 
+When the linter reports canonical waves, copy that projection into `Sequence`; do not recalculate or reorder it by intuition.
+
 Do not add a `Wave` field to a task. Do not use `Sequence` to create an ordering that `Depends on` does not express. The linter rejects missing, duplicate, unknown, out-of-order, cyclic, and incompatible entries.
 
 ## Dispatch units

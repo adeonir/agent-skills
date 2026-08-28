@@ -775,6 +775,14 @@ def lint_sequence(path, lines, tasks, expected_waves, findings):
         if actual is not None and actual != expected:
             findings.append("%s:1: %s is in W-%d but the dependency graph derives W-%d" %
                             (path, identifier, actual, expected))
+    if listed and expected_waves and any(listed.get(identifier) != expected
+                                         for identifier, expected in expected_waves.items()):
+        canonical = {}
+        for identifier, wave in sorted(expected_waves.items(), key=lambda item: (item[1], item[0])):
+            canonical.setdefault(wave, []).append(identifier)
+        rendered = "; ".join("W-%d: %s" % (wave, ", ".join(identifiers))
+                             for wave, identifiers in sorted(canonical.items()))
+        findings.append("%s:1: Sequence canonical waves: %s" % (path, rendered))
 
 
 def lint_tasks(path, lines, base, spec_lines, findings, warnings):
@@ -901,6 +909,9 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                 marker = TASK_TEST_NONE.match(value)
                 if marker is not None and not marker.group(1).strip():
                     findings.append("%s:%d: %s `Test: none` must name what no runner reaches" %
+                                    (path, number, identifier))
+                elif marker is not None:
+                    warnings.append("%s:%d: warning: %s has no runner-level test for a covered AC; surface it as a pendency at approval" %
                                     (path, number, identifier))
 
     slices = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
