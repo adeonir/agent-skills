@@ -332,7 +332,8 @@ Rules:
 - **Checklist copiável** — Multi-step workflows and decision points may include `- [ ]` checklists Claude marks as it progresses. Useful, not required.
 - **Validation loop** — When a skill produces verifiable output, document a validator → fix → repeat loop (script or reference doc as validator).
 - **Conditional workflow** — When a skill has 2+ paths, branch explicitly: "Creating? → workflow A. Editing? → workflow B."
-- **Examples pattern** — When output style matters (commits, PR copy, code review notes), embed concrete I/O pairs in the reference. Pairs beat abstract descriptions.
+- **Examples pattern** — Where the output has a form the agent must match (commit subject, PR body, review note), embed concrete I/O pairs. Pairs beat abstract descriptions for form; they narrow the model everywhere else.
+- **Expressive interface over usage example** — For a script flag, a template field, or a tool the skill drives, spend the effort on parameters that carry their own meaning (an enum of allowed states, a named field) rather than on an example of a call. The example fixes one path; the parameter leaves the space open.
 - **Positive examples over proscriptions.** Show the desired form rather than listing what to avoid.
 - **Tool-stack neutrality.** Describe behavior, not specific tools. When a concrete library helps, mention it as an example, not a hard requirement.
 
