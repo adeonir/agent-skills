@@ -257,7 +257,7 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 ## Motion and Interaction
 
 ### ease-default-no-intention
-**Category:** Motion and Interaction **Severity:** warning **Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered. **Fix:** Pick a curve per tone: snappy (`cubic-bezier(0.22, 1, 0.36, 1)`) for tech, gentle (`cubic-bezier(0.25, 0.1, 0.25, 1)`) for editorial, decisive (`cubic-bezier(0.16, 1, 0.3, 1)`) for bold. Never an overshoot or bounce curve. Then interpolate every state change — an instant, un-interpolated jump reads cheaper than a considered 150ms. **Example fail:**
+**Category:** Motion and Interaction **Severity:** warning **Check:** Transitions/animations use bare `ease` or `ease-in-out` without an intentional `cubic-bezier` matching the project tone — or a state change snaps with no transition at all. Both read as unconsidered. **Fix:** Pick a curve that matches the project tone — snappy for tech, gentle for editorial, decisive for bold — and never an overshoot or bounce. Then interpolate every state change — an instant, un-interpolated jump reads cheaper than a considered 150ms. **Example fail:**
 ```html
 transition: transform 200ms ease
 ```
