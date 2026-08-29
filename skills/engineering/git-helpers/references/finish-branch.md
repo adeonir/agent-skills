@@ -141,7 +141,7 @@ git pull --ff-only origin {base}
 
 If the pull fails as non-fast-forward, the merge has not propagated; surface and stop.
 
-Deletion is part of completing the merge, but it still requires explicit user confirmation. Name the branch and ask before deleting it.
+Name the branch and ask for explicit confirmation every time before deleting it.
 
 ```bash
 git branch -d {branch}
