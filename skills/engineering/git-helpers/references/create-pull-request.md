@@ -10,7 +10,7 @@ Use the available qualified GitHub MCP tool for GitHub operations. If it is unav
 
 ## Base branch
 
-Use the base the user named. Otherwise the repo default (fall back to `main`). Show it for confirmation before opening — the user can still redirect onto `develop`, a release branch, or a parent feature branch.
+Use the base the user named. Otherwise the repo default (fall back to `main`). Name the base in the report so a wrong base is visible right away.
 
 ## Push
 
