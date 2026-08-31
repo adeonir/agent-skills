@@ -38,7 +38,7 @@ Core loop: investigate, fix, verify. Techniques are selected based on context:
 
 ## Usage
 
-```
+```text
 debug this issue
 investigate why the login is failing
 trace this error
