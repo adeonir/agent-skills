@@ -2,12 +2,9 @@
 
 Add achievements to a brag document for performance reviews and career growth.
 
-## When to Use
+## Load first
 
-- User says "brag document", "my achievements", "add accomplishment"
-- User mentions something they're proud of at work
-- User wants to track wins for performance review
-- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
+Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 

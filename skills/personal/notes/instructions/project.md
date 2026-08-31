@@ -2,11 +2,9 @@
 
 Create structured documentation for a project in the Obsidian vault.
 
-## When to Use
+## Load first
 
-- User says "create project", "new project note", "document project"
-- User wants to track project scope or learnings
-- Depends on mapping output (`{VaultFolder}` resolution); load [mapping.md](mapping.md) first
+Read [mapping.md](../references/mapping.md) first — every path below depends on its `{VaultFolder}` resolution — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 
@@ -95,4 +93,4 @@ Context prose between H1 and Goals is required. Goals is required. All other sec
 ## Error Handling
 
 - Project note already exists: ask to append, choose new name, or cancel
-- Vault folder unresolved: load [mapping.md](mapping.md), bootstrap if needed
+- Vault folder unresolved: load [mapping.md](../references/mapping.md), bootstrap if needed

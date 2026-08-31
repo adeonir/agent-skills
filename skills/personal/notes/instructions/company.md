@@ -2,11 +2,9 @@
 
 Track companies and roles during job application processes — applications, interviews, offers, decisions.
 
-## When to Use
+## Load first
 
-- User says "company note", "track interview", "job application", "track this role"
-- User mentions an interview process or offer to remember
-- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
+Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 

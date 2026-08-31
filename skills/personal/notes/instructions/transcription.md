@@ -2,12 +2,9 @@
 
 Save meeting, 1:1, feedback, course, lecture, or standup transcription notes to the vault. Body content is preserved verbatim.
 
-## When to Use
+## Load first
 
-- User says "transcription", "meeting notes", "1:1 notes", "feedback notes", "standup notes", "lecture notes", "course notes"
-- User pastes or shares a transcription from Granola, Otter, or similar
-- User wants to save course module notes, workshop notes, or webinar notes
-- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
+Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 

@@ -2,12 +2,9 @@
 
 Document technical challenges from interview processes.
 
-## When to Use
+## Load first
 
-- User says "technical challenge", "take-home", "coding interview", "system design"
-- User mentions interview problems or assignments
-- User wants to record solutions to technical problems
-- Writes to a fixed top-level folder; load [mapping.md](mapping.md) for the vault root
+Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 
