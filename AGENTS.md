@@ -13,9 +13,9 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
 | `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
 | `.agents/rules/naming-conventions` | global | file and directory casing, slash command equals name |
-| `.agents/rules/skill-md-structure` | `SKILL.md` | required top, forbidden sections, routing over bulk reads, body length |
+| `.agents/rules/skill-md-structure` | `SKILL.md` | no constraint in a routing SKILL.md, instructions as the only routing target, required top, forbidden sections, routing over bulk reads, body length |
 | `.agents/rules/skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
-| `.agents/rules/skill-references` | `skills/**` | one level deep, required header, no fan-forward, shared constraint in one file |
+| `.agents/rules/skill-references` | `skills/**` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
 | `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
@@ -32,8 +32,14 @@ No build, no tests, no linter. Validation is manual: read files, verify structur
 After editing a skill, the self-checks worth running over its directory (`skills/<category>/<skill>/`):
 
 ```bash
+grep -n '(references/' SKILL.md                     # the entrypoint routes instructions only (expect empty when instructions/ exists)
+grep -n '^## \(Anti-Pattern\|Guidelines\)' SKILL.md # constraints in a routing entrypoint (expect empty when instructions/ exists)
+grep -n '^## When to Use' instructions/*.md         # an instruction carries none (expect empty)
+for f in instructions/*.md; do b=$(basename "$f"); grep -q "instructions/$b" SKILL.md || echo "orphan: $f"; done
+for f in references/*.md; do b=$(basename "$f"); grep -rq "$b" instructions/ references/ --exclude="$b" || echo "never loaded: $f"; done
+grep -rho '](\.\./references/[a-z-]*\.md)' instructions/ | sed 's|](\.\./references/||;s|)||' | sort -u \
+  | while read t; do [ -f "references/$t" ] || echo "missing: $t"; done
 grep -rn '^```$' .              # bare fences are closings; every opening must carry a language
-grep -rn '\.md)' .             # spot-check that every relative link target still exists
 grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty)
 ```
 
@@ -76,27 +82,29 @@ Skills compose via artifacts on disk (`.artifacts/`), not via cross-references i
 
 ## Skill File Layout
 
-Default — flat `references/` for the on-demand bundle:
+Count the jobs the skill does. A job runs end to end and produces its own outcome; a mode that changes only what the procedure returns, an entry state that changes only where it starts, and a phase inside it are all part of one job.
+
+One job — no `instructions/`. The SKILL.md is the procedure and loads what it needs as a step:
 
 ```text
 skill-name/
-├── SKILL.md           # entrypoint (required)
+├── SKILL.md           # entrypoint and procedure (required)
 ├── README.md          # user-facing doc (required)
-├── references/        # on-demand details (optional)
+├── references/        # what a step loads (optional)
 │   └── *.md
 ├── scripts/           # executables loaded on demand (optional)
 └── assets/            # static files for scripts or render output (optional)
 ```
 
-Split — `instructions/` + `references/` when files genuinely mix intent (≥2 procedural workflows AND ≥2 lookup-style references). The signal is intent mix, not file count.
+Several jobs — one instruction per job, and the SKILL.md routes to them:
 
 ```text
 skill-name/
-├── SKILL.md           # entrypoint (required)
+├── SKILL.md           # entrypoint, routing only (required)
 ├── README.md          # user-facing doc (required)
-├── instructions/      # invokable workflow files (e.g. one per trigger)
+├── instructions/      # one file per job, the routing targets
 │   └── *.md
-├── references/        # lookup tables, principles, enums, rules
+├── references/        # what a step loads (optional)
 │   └── *.md
 ├── scripts/           # executables loaded on demand (optional)
 └── assets/            # static files for scripts or render output (optional)
@@ -104,10 +112,10 @@ skill-name/
 
 Classification rule:
 
-- **Instruction** — procedural workflow the user (or another instruction) invokes to do a job. Has a `## Workflow` with numbered steps. The agent acts on it.
-- **Reference** — lookup material the workflows compose (style axes, validation rules, technical principles, naming taxonomies). The agent reads it for context but does not "run" it.
+- **Instruction** — a procedure the SKILL.md routes to, executed end to end. Several triggers may route to the same one when they share a procedure.
+- **Reference** — what a procedure loads from inside a step: lookup material, a shared constraint, a contract. It carries no trigger and is never a routing target.
 
-Stay flat when in doubt. Splitting too early adds path overhead without information gain. Split when the directory has both invokable files and files that exist purely to be composed by others.
+A file reachable both ways — routed from the top and loaded by a procedure — is doing two jobs and needs splitting.
 
 There is no `CHANGELOG.md` per skill. Git history is the source.
 
@@ -148,13 +156,16 @@ Required at the top:
 1. `# Title` (H1)
 2. Triggers or Quick start
 
-After that, sections are free, named by domain. No canonical order.
+A routing SKILL.md stops there, plus the flow diagram. Everything that changes what an instruction produces belongs to that instruction or to a reference it loads.
 
-Permitted sections:
+A one-job SKILL.md is the procedure, so it carries the procedure's own sections. After the required top, they are free and named by domain, in no canonical order:
+
 - `## Philosophy` — when the skill has strong conceptual framing
 - `## Anti-Pattern: <name>` — an observed trap + the correct alternative
 - `## Workflow` / `## Phases` / `## <domain>` — domain-specific
 - `## Guidelines` — short DO list (4-6 non-obvious items)
+
+The same sections are available to an instruction, whatever the skill's shape.
 
 ### Workflow Notation
 
@@ -175,9 +186,9 @@ Imperative neutral by default. Authorial opinionated voice (italics, bold for em
 
 ## References and Instructions
 
-Layout: `references/` subfolder for lookup material, optional `instructions/` subfolder for procedural workflows when the split criteria in [Skill File Layout](#skill-file-layout) apply. Same internal structure, same kebab-case filenames, same rules apply to both buckets — the only difference is intent (workflows act, references inform). The rest of this section uses "reference" to mean a file in either bucket.
+Both buckets share the kebab-case filenames and every rule in `.agents/rules/`. They differ in who puts the file in context: the SKILL.md routes an instruction, a step loads a reference.
 
-Required internal structure:
+A reference opens with its title, a one-line description, and `## When to Use` — what loading it buys:
 
 ```markdown
 # Title
@@ -186,14 +197,18 @@ One-line description.
 
 ## When to Use
 
-[conditions that trigger this reference]
+[what loading this file settles]
 
 ## [free sections from here]
 ```
 
+An instruction opens with its title, a one-line description, and the step that loads what it needs before the job starts. It carries no `## When to Use`: the SKILL.md already named the condition that routed to it.
+
 After the required header, sections are free (`Workflow`, `Discovery`, `Phases`, `Guidelines`, `Error Handling` — all optional).
 
-Cross-links between sibling references **within the same skill** are permitted when they explain dependencies, hand-offs, or shared logic (e.g. "see [validate.md](validate.md) for the gate flow"). SKILL.md remains the primary routing hub — refs should not re-route operations SKILL.md already owns — but an inline sibling link inside prose is the natural way to surface a prereq or follow-up.
+A constraint two instructions need lives in one reference, and each instruction loads it as a step at the point of use. A prose mention is not the mechanism — an agent working through an instruction applies what a step tells it to load, and reads a bare cross-link as background it may skip. The threshold is size: a constraint that fits in one sentence stays inline in each instruction, and one that needs a block earns the reference.
+
+Sibling cross-links **within the same skill** stay available for a genuine dependency or hand-off. They never re-route an operation the SKILL.md already owns, and a reference never links forward into an instruction.
 
 XML tags (`<example>`, `<instructions>`, `<input>`) are permitted in references when content is ingested as input by the model. Default to markdown; use tags only when structure justifies them.
 
@@ -373,6 +388,7 @@ The docs-writer skill no longer ships a "Technical Design Document" artifact typ
 Before finalizing a new skill, verify the items the path-scoped rules in `.agents/rules/` do not enforce — the rules cover the rest automatically when you edit a skill file:
 
 - [ ] Folder at `skills/<category>/skill-name/`
+- [ ] Jobs counted: one job stays flat with the procedure in the `SKILL.md`; several get one instruction each
 - [ ] Frontmatter minimal (`name` + `description` [+ `argument-hint`]); extended fields only when needed
 - [ ] `description` ≤ 1,024 chars (skill listing cap)
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
@@ -385,7 +401,7 @@ Before finalizing a new skill, verify the items the path-scoped rules in `.agent
 
 ## Reference Exemplars
 
-When in doubt about a pattern, study `brainstorm` (simple — inline templates, prose Anti-Patterns), `spec-driven` (complex — many templates, sub-agent fan-out, the refactor at scale), or `review-lens` (two peer modes sharing one rubric, model tiering).
+When in doubt about a pattern, study `brainstorm` (one job, the procedure in the SKILL.md, a reference per phase), `review-lens` (one job, two modes sharing one rubric reference, model tiering), `git-helpers` (three jobs, one instruction each, one shared reference loaded by all three), or `spec-driven` (seven jobs, many templates, sub-agent fan-out, the refactor at scale).
 
 ## Skill Installation
 
