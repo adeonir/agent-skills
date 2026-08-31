@@ -4,7 +4,7 @@ Template and conventions for rule files. Every rule produced by the create or ed
 
 ## When to Use
 
-Loaded by the create mode after classification and context checks pass, and by the edit mode when applying changes.
+Loaded to render a rule and to verify one: by create and extract after the gates pass, and by edit when applying a change.
 
 ## Template
 

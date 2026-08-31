@@ -4,7 +4,7 @@ Gates that run before rendering a new rule. Classification decides whether the i
 
 ## When to Use
 
-Loaded by the create mode in SKILL.md, and by the extract mode when it runs these gates per approved section. Not used by list, edit, or delete.
+Loaded to run the gates that precede a write: by create for the input, and by extract for each approved section. Edit reloads the context check when the scope or the stack reference changes. List and delete never load it.
 
 ## Classifier
 

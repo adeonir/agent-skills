@@ -7,24 +7,15 @@ description: "Claude Code rule management at project and user level. Use when de
 
 Creates rules at project or user level and manages the rule set at both.
 
-## Triggers and dispatch
+## Triggers
 
-| Signal in input | Mode | Load |
-|-----------------|------|------|
-| "create / add / new rule", "convention", "standard", or a declarative description with no verb | create | [classify-and-context.md](references/classify-and-context.md), then [rule-format.md](references/rule-format.md) |
-| "list / show rules", "what rules exist" | list | [modes.md](references/modes.md) |
-| "edit / update / change rule X" | edit | [modes.md](references/modes.md), [rule-format.md](references/rule-format.md) |
-| "extract / split / move from AGENTS.md / CLAUDE.md", "AGENTS.md / CLAUDE.md is too big" | extract | [modes.md](references/modes.md) |
-| "delete / remove rule X" | delete | [modes.md](references/modes.md) |
-
-A rule has two independent axes:
-
-| Axis | Values | Materializes as |
-|------|--------|-----------------|
-| Level | user (`~/.claude/rules/`) / project (`.claude/rules/`) | the directory written to |
-| Scope | unconditional / path-scoped | absence or presence of `paths:` frontmatter |
-
-Project rules take priority over user rules. `user + path-scoped` is unavailable, so a path signal resolves the level to project.
+| Signal in input | Load |
+|-----------------|------|
+| "create / add / new rule", "convention", "standard", or a declarative description with no verb | [create.md](instructions/create.md) |
+| "list / show rules", "what rules exist" | [list.md](instructions/list.md) |
+| "edit / update / change rule X" | [edit.md](instructions/edit.md) |
+| "extract / split / move from AGENTS.md / CLAUDE.md", "AGENTS.md / CLAUDE.md is too big" | [extract.md](instructions/extract.md) |
+| "delete / remove rule X" | [delete.md](instructions/delete.md) |
 
 ## Workflow
 
@@ -36,13 +27,4 @@ trigger → dispatch → classify → context → destination → render → wri
            extract/del
 ```
 
-Create runs the classifier and context check before rendering the template. Other modes skip classification.
-
-## Create gates (run in order)
-
-1. **Classify input.** Procedural multi-step → refuse and recommend authoring a skill instead. Lifecycle event → refuse and recommend a hook. One-off task → refuse, suggest doing it directly. Declarative convention → proceed. See [classify-and-context.md](references/classify-and-context.md).
-2. **Context check.** Stack mismatch, duplicate topic across both levels, or contradiction with a memory file → flag and ask before writing. Same reference.
-3. **Destination decision.** Level from explicit signals; no signal → ask. Scope from path signals. Same reference.
-4. **Render.** Use the flexible rule template in [rule-format.md](references/rule-format.md). Keep the explanation paragraph; add principles, an `Incorrect`/`Correct` pair, or a reference only when that section clarifies or verifies the constraint.
-5. **Verifiability checklist.** Run the three checks in [rule-format.md](references/rule-format.md). Fail any → rewrite before saving.
-6. **Write.** New topic → new file under the chosen level's rules directory, named for the topic: kebab-case descriptive noun, lowercase ASCII, hyphens only (`testing.md`, `api-design.md` — never `rules.md` or `misc.md`). Discovery is recursive, so a subdirectory (`frontend/testing.md`) is available when a level accumulates enough topics to group them. A shared destination writes the file to the named directory and links it into this project only. Existing topic without conflict → append H2. Existing topic with conflict → ask user.
+Create runs the classifier and context check before rendering the template. The other modes skip classification.
