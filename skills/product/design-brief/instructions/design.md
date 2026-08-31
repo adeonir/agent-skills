@@ -2,22 +2,25 @@
 
 Author or patch the root `DESIGN.md` from a confirmed direction or brownfield intent.
 
-## When to Use
+## Load first
 
-Use for greenfield authoring from a moodboard or supplied reference, or after identity assessment confirms `inherit`, `refresh`, `rebrand`, `evolve`, or `sync`.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](../references/brand.md) or [product.md](../references/product.md) for the register the surfaces carry.
+
+Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
+
+On brownfield, this runs only after the identity assessment confirms `inherit`, `refresh`, `rebrand`, `evolve`, or `sync`.
 
 ## Prerequisites
 
-- Run discovery first.
 - Run identity assessment before every brownfield write.
 - Obtain explicit confirmation for the proposed brownfield delta.
-- Load [aesthetics.md](../references/aesthetics.md), [anti-slop.md](../references/anti-slop.md), and the matching register file.
+- Load [aesthetics.md](../references/aesthetics.md) and [anti-slop.md](../references/anti-slop.md).
 - Load [color-craft.md](../references/color-craft.md) only for palette work and [typography.md](../references/typography.md) only for type work.
 - Read `assets/design.template.md` from this skill before creating a new file. The asset is the single copyable template; remove its comments and replace every slot.
 
 ## Artifact Contract
 
-Write `DESIGN.md` at the project root.
+Write `DESIGN.md` at the project root. Patch only confirmed deltas — never rewrite the whole identity to apply one change.
 
 The YAML frontmatter is normative. Allow only:
 

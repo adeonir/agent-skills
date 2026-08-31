@@ -2,9 +2,9 @@
 
 Export validated DESIGN.md tokens through the official CLI.
 
-## When to Use
+## Load first
 
-Use when the user asks for Tailwind, DTCG, or CSS custom-property output from the root `DESIGN.md`.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](../references/cli.md) for the command surface.
 
 ## Formats
 

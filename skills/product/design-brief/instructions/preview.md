@@ -2,9 +2,11 @@
 
 Render document and styleguide views from one DESIGN.md, collect feedback in batches, and apply only confirmed deltas.
 
-## When to Use
+## Load first
 
-Use after a root `DESIGN.md` exists when the user wants to inspect, comment on, tune, or explicitly export its visual views.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [anti-slop.md](../references/anti-slop.md) for the visual review.
+
+Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
 
 ## Prerequisites
 

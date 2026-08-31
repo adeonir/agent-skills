@@ -2,9 +2,9 @@
 
 Explore and lock a named visual direction without authoring tokens.
 
-## When to Use
+## Load first
 
-Use for greenfield work with no visual reference, or when the user wants to compare, blend, or refine directions before token authoring.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](../references/brand.md) or [product.md](../references/product.md) for the register the surfaces carry.
 
 ## Inputs
 

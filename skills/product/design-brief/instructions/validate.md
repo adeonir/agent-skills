@@ -2,9 +2,13 @@
 
 Validate the root `DESIGN.md` with the official CLI, semantic contrast checks, and document-surface rules.
 
-## When to Use
+## Load first
 
-Use when the user asks to validate, lint, check, or audit `DESIGN.md`; after design writes; after confirmed preview adjustments; and before export or diff.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](../references/cli.md) for the command surface.
+
+Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
+
+This also runs after design writes, after confirmed preview adjustments, and before export or diff.
 
 ## Output
 

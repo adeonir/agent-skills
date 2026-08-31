@@ -2,9 +2,11 @@
 
 Assess an existing identity before any brownfield intent changes it.
 
-## When to Use
+## Load first
 
-Use before `inherit`, `refresh`, `rebrand`, `evolve`, or `sync`, and as a standalone operation when the user asks only for an identity audit.
+Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect.
+
+This runs before `inherit`, `refresh`, `rebrand`, `evolve`, or `sync`, and stands alone when the user asks only for an audit.
 
 ## Source Detection
 
