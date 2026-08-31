@@ -4,7 +4,7 @@ Persist the chosen direction as a structured artifact. Single project-level file
 
 ## When to Use
 
-After the user approves a direction and it survives the grill in converge. Loaded as the final phase.
+Loaded to write the artifact, once the direction survives the grill and the user approves capturing it.
 
 ## Workflow
 

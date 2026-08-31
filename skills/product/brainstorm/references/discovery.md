@@ -4,7 +4,7 @@ Map the territory before exploring it. Understand what exists, what is missing, 
 
 ## When to Use
 
-First phase of every brainstorming session. Auto-loaded when brainstorming triggers.
+Loaded to map the problem space and pass the quality gate that opens diverge.
 
 ## Entry Detection
 

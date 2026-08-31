@@ -4,7 +4,7 @@ Narrow the field. Evaluate trade-offs systematically. Pick a direction with eyes
 
 ## When to Use
 
-After diverge produces at least 4 alternatives. Loaded automatically as third phase.
+Loaded to evaluate trade-offs, pick a direction, and grill it, once diverge produced at least 4 alternatives.
 
 ## Core Principle
 

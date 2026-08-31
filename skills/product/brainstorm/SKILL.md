@@ -5,20 +5,14 @@ description: "Idea exploration from a blank problem space or stress-testing an e
 
 # Brainstorm
 
-Structured idea exploration from vague to direction, in two entries — **greenfield** from a blank problem space, **grill** against an existing idea or plan. Both run breadth-first: surface the non-obvious option before committing, then converge honestly, naming what each direction gives up. Every direction is grilled before capture — the entries differ in when the grill starts, not whether it runs. Problem before solution — a description of what to build is a hypothesis, not a direction.
+Structured idea exploration from vague to direction, in two entries — **greenfield** from a blank problem space, **grill** against an existing idea or plan.
 
 ## Triggers
 
-- **Greenfield entry** ("brainstorm this", "explore options", "compare approaches", "help me think through X") → [discovery.md](references/discovery.md)
-- **Grill entry** ("pressure-test this plan", "find holes in this", "second opinion", "grill my assumptions", "considering a pivot") → [discovery.md](references/discovery.md)
+- **Greenfield entry** ("brainstorm this", "explore options", "compare approaches", "help me think through X") → run the workflow below
+- **Grill entry** ("pressure-test this plan", "find holes in this", "second opinion", "grill my assumptions", "considering a pivot") → run the workflow below
 
-The `deep` argument (`/brainstorm deep`) widens the grill on either entry — every assumption instead of the key one. The grill mechanics live in [converge.md](references/converge.md).
-
-Every entry starts at discovery. The remaining references load as their phase begins:
-
-- [diverge.md](references/diverge.md) — after the discovery gate
-- [converge.md](references/converge.md) — after 4+ alternatives
-- [capture.md](references/capture.md) — after the direction survives the grill
+The `deep` argument (`/brainstorm deep`) widens the grill on either entry — every assumption instead of the key one.
 
 ## Workflow
 
@@ -28,28 +22,14 @@ trigger → detect entry → discover → diverge → converge → grill → cap
                          (hole found / no viable direction)
 ```
 
-Detect entry from state — greenfield when no concrete idea is present, grill when an idea or plan exists regardless of maturity. Discover maps the problem space. Diverge generates alternatives; on grill entry the existing plan enters as a named baseline. Converge evaluates trade-offs and picks a direction. Grill attacks the chosen direction — standard hits the key assumption, deep hits all of them. Capture produces the artifact only after the direction survives.
+1. **Detect the entry from state.** Greenfield when no concrete idea is present; grill when an idea or plan exists, regardless of its maturity. Both run the same chain — they differ in when the grill starts, not whether it runs.
+2. **Load [discovery.md](references/discovery.md)** and map the problem space. On greenfield, a description of what to build is a hypothesis, not a direction: redirect to the problem before generating alternatives, because without grounded motivation diverge produces options for an unverified target. On grill entry the solution is the input by definition — do not redirect; map the assumptions, dependencies, and signals behind the existing plan so diverge can attack from grounded vectors.
+3. **Load [diverge.md](references/diverge.md)** after the discovery gate and generate at least 4 alternatives, including non-obvious ones. Stopping at 2-3 obvious options skips the value of the exercise: the non-obvious option is often the one worth choosing, or the one that reframes the problem. When pressure to commit shows up early, push for breadth first. On grill entry, the existing plan enters here as a named baseline alternative.
+4. **Load [converge.md](references/converge.md)** once 4+ alternatives exist. Evaluate trade-offs, pick a direction, and name the gain and the give-up of every recommendation — a direction recommended without its cost misleads the user, and a trade-off that feels too small to mention usually is not. Then grill the chosen direction: standard hits the key assumption, `deep` hits every one.
+5. **Return to step 3** when the grill opens a hole or leaves no viable direction.
+6. **Load [capture.md](references/capture.md)** only after the direction survives the grill, and only with explicit user approval to capture it.
 
 ## Guidelines
 
-- Generate at least 4 alternatives during diverge, including non-obvious options
-- On grill entry, the existing plan enters diverge as a named baseline alternative
-- Challenge every alternative with trade-offs during converge
-- Grill the chosen direction before capture; loop back when a hole opens
-- Require explicit user approval before capturing the direction
 - Mark unknowns as TBD rather than inventing constraints
 - Stay at the problem-and-direction level; defer implementation choices
-
-## Anti-Pattern: Premature Convergence
-
-Stopping at 2-3 obvious alternatives skips the value of brainstorming. The non-obvious option is often the one worth choosing — or the one that reframes the problem. When pressure to commit shows up early, push for breadth first; converge only after the space has been explored.
-
-## Anti-Pattern: Hidden Trade-offs
-
-Recommending a direction without surfacing what it costs misleads the user. Every recommendation must name the gain and the give-up explicitly. If a trade-off feels too small to mention, it probably isn't.
-
-## Anti-Pattern: Solution-First Discovery
-
-In greenfield, when the user describes what to build before why, discovery has not happened — they have a hypothesis. Redirect to the problem before generating alternatives. Without grounded motivation, diverge produces options for an unverified target.
-
-On grill entry, the solution is the input by definition. Do not redirect — discovery maps the assumptions, dependencies, and signals behind the existing idea or plan so diverge can attack from grounded vectors.

@@ -4,7 +4,7 @@ Explore the space broadly. Quantity over quality. Non-obvious options matter mor
 
 ## When to Use
 
-After discovery quality gate passes. Loaded automatically as second phase.
+Loaded to generate the alternatives, once the discovery quality gate passes.
 
 ## Workflow
 
