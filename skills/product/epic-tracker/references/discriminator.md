@@ -53,3 +53,9 @@ Ask the user when:
 - Something "should work" but was never implemented.
 - The user describes a solution, not the problem or outcome.
 - The same work could be framed as enabling a feature (Task) or as the feature itself (Story).
+
+## One artifact, one type
+
+A single tracker artifact holding both a story and the bugs it spawned, or an epic mixed with its implementation plan, makes status ambiguous — it is done when *what* is done? One tracker artifact carries one artifact type. A bug is its own artifact, child of the epic or standalone; so is a task.
+
+What the tracker models natively, the tracker records: hierarchy lives in its child panel and the parent link in its own field, never as a list or a line inside a body. `## Dependencies` is the one deliberate exception — a rendering for the person reading the description, which every write rewrites from the relation. An exception that is maintained, not a licence to restate the rest.

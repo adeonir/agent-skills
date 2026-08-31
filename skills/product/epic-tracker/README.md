@@ -15,14 +15,14 @@ flowchart TD
     DEC -->|checkpoint → each epic| EP
     RM -.reads its entry.-> EP
     DEC -->|epic → stories/tasks| STK
-    EP --> SY[sync.md]
+    EP --> SY[tracker adapter]
     STK --> SY
     BG --> SY
     SY --> LN[(Linear)]
     SY --> GH[(GitHub)]
 ```
 
-Every artifact is drafted by its create ref — `epic.md`, `story.md`, `task.md`, `bug.md` — and dispatched through `sync.md` to the tracker; the plan usually comes from the user directly. `decompose` is the optional planning ceremony in front: given a PRD it derives the epic set, writes it to the roadmap through `roadmap.md`, and — after a checkpoint — feeds each epic to `epic.md`, then each story and task to `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker whatever the plan's source; a bug hangs under an epic or stands alone, always created directly.
+Every artifact is drafted by its create ref — `epic.md`, `story.md`, `task.md`, `bug.md` — and dispatched through the tracker adapter; the plan usually comes from the user directly. `decompose` is the optional planning ceremony in front: given a PRD it derives the epic set, writes it to the roadmap through `roadmap.md`, and — after a checkpoint — feeds each epic to `epic.md`, then each story and task to `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker whatever the plan's source; a bug hangs under an epic or stands alone, always created directly.
 
 Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing but the roadmap is written locally, and the tracker is the single source of truth for state. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/product/ROADMAP.md` is the one local file — committed, alongside `PRD.md` and `PRODUCT.md`.
 

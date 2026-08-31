@@ -4,7 +4,7 @@ Serialize the settled epic entries `decompose` hands over into `docs/product/ROA
 
 ## When to Use
 
-Composed by [decompose.md](decompose.md) after it has derived, evaluated, ordered, and partitioned the epic set. Not a direct trigger — the user never calls it, and adjusting the roadmap means calling `decompose`, which re-derives the delta and dispatches here again.
+Composed by `decompose` after it has derived, evaluated, ordered, and partitioned the epic set. Not a direct trigger — the user never calls it, and adjusting the roadmap means calling `decompose`, which re-derives the delta and dispatches here again.
 
 The roadmap is `decompose`'s persisted memory of the settled plan: it records every decision so a later run reads them back instead of re-deriving. `decompose` reads it, and `epic.md` reads the entry for the epic it is drafting — no other create ref touches the roadmap. The roadmap references its epics; the epics never reference the roadmap.
 
