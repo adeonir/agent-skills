@@ -4,8 +4,7 @@ Load the session handoff at `.artifacts/HANDOFF.md` for notes written later, the
 
 ## When to Use
 
-- Invoked twice per wrap-up: once after mapping (Load phase, before notes) and once after notes (Cleanup phase, last)
-- Both phases skip silently when `.artifacts/HANDOFF.md` is absent
+Loaded for the two phases that bracket note writing: the Load phase makes the handoff fields available, and the Cleanup phase empties the file afterwards. Both phases skip silently when `.artifacts/HANDOFF.md` is absent.
 
 ## Workflow
 

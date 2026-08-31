@@ -4,8 +4,7 @@ Resolve vault root, project config, and base tags from the `wrap-up.yml` registr
 
 ## When to Use
 
-- Always loaded first, before any other reference
-- All wrap-up steps depend on the output of this resolution
+Loaded to resolve the vault root, the project entry for this repo, and the base tags applied to every note.
 
 ## Vault Root
 
