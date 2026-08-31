@@ -104,3 +104,25 @@ For an interface, dependency, design decision, acceptance scenario, or open-ques
 ## Conflicts with `CONTEXT.md`
 
 Read `CONTEXT.md` before any design decision. A decision that conflicts with it is either conformed to or explicitly superseded with a reason; never ignore it silently.
+
+## Artifact structure and location
+
+Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — an existing file is context, not a structural reference, and the template wins on divergence.
+
+A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`.
+
+Discovery never forages siblings or `archive/` for shape or decisions. The only cross-feature inputs a new feature reads are the root `CONTEXT.md` and confirmed lessons.
+
+## Artifact states
+
+Each state is stored in the artifact that owns it:
+
+- `spec.md`: `draft | ready`
+- `design.md`: `draft | ready`
+- `tasks.md`: `draft | ready | in-progress | done`
+- `validate.md`: `PASS | FAIL | BLOCKED`
+- `audit.md`: `PASS | FAIL | BLOCKED`
+
+`implement` uses the state in `tasks.md` and never changes `spec.md`.
+
+`STATE.md` is the phase router. Read `Phase` and `Next` before loading any downstream artifact; when it points to an earlier phase, stop and report that phase. Never infer a new run from artifact differences or from an old status.

@@ -6,6 +6,8 @@ Turn `spec.md` into a `design.md` describing HOW — architecture, components, f
 
 When designing a feature, planning the build, or producing the technical design for an existing spec. Runs for every feature that produced a `spec.md`.
 
+Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
+
 ## Workflow
 
 1. **Resolve feature** — resolve `.artifacts/specs/<slug>/` per [memory.md](../references/memory.md) and read its `STATE.md` first. If `Phase` points to `specify`, stop and report that phase. Design reads a spec at `status: ready`; one still at `draft` has not closed its own phase, so route back to [specify.md](specify.md) rather than designing against it. When creating or editing `design.md`, set its status to `draft` before writing.

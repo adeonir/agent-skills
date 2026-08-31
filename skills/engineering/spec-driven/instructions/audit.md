@@ -1,10 +1,12 @@
 # Audit
 
-Independent verification — author ≠ auditor. An isolated subagent checks Goals, acceptance criteria, design adherence, and test discrimination — each judgment disprove-first — and writes `audit.md`. It never edits code.
+Independent verification — author ≠ auditor. What makes it independent is the evidence, not the freshness: the auditor reads code and tests, which the authors of `spec.md` and `design.md` never did. A second subagent over the artifact alone would read the same text against the same rules, repeating the self-check instead of adding a reader who can see something else — so no artifact gets one, and each closes on its own self-check plus the linter. An isolated subagent checks Goals, acceptance criteria, design adherence, and test discrimination — each judgment disprove-first — and writes `audit.md`. It never edits code.
 
 ## When to Use
 
 When auditing a feature, validating goals at a commit boundary, or verifying a change before a PR. Optional after implement; a one-liner skips it, since the inline verify is its check.
+
+Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
 
 ## Workflow
 

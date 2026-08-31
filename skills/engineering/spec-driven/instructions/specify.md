@@ -6,6 +6,10 @@ Turn a feature intent into a `spec.md` describing observable behavior and the in
 
 When planning or specing a feature, turning a PRD, ticket, or story into a spec, or reframing a bug as the correct behavior. The first phase: a mechanical change leaves through the one-liner and goes straight to implement; everything else produces `spec.md`.
 
+Triage runs once, here, before discovery, and defaults adversarial. Depth then scales inside the phases, never by skipping them: a canonical reapplication needs no research, and only a novel or ambiguous change earns heavy grounding. Forcing that grounding onto a routine change is process tax. The agent judges depth as the work runs and never records it as a label.
+
+Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
+
 ## Workflow
 
 1. **Triage** — two questions, in order. First, is the change mechanical, with zero load-bearing decisions? If so, state the one-liner, confirm, and load [implement.md](implement.md) — the inline flow owns it from there, branch first; no `spec.md`. In doubt, write the spec. Second, and only when the seed is a prompt rather than a scoped issue: does the request carry outcomes that ship and are verified separately? If so, name each one as a feature slug in build order, confirm the split before any `spec.md` exists, and run this phase on the first slug — one feature is the default, and only a confirmed split changes it. Everything else continues here and runs every phase.

@@ -6,6 +6,8 @@ Execute the tasks in `tasks.md` per `design.md` and `spec.md`. Task-level progre
 
 When implementing a named task, task range, product slice, slice range, wave, wave range, or whole feature. A feature with `tasks.md` runs in an isolated subagent; a one-liner runs inline.
 
+Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
+
 ## Workflow
 
 For a feature with the artifacts — a one-liner has none of them; see [One-liner inline](#one-liner-inline) below.

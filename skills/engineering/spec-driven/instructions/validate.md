@@ -6,6 +6,8 @@ Optional user-facing acceptance testing. The main agent exercises the acceptance
 
 Only when the feature is `user-facing: true` in `spec.md`. Run after `tasks.md` reaches `status: done`. Audit is optional and does not gate validate. Also run when the user asks for UAT, manual testing, or flow validation.
 
+Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
+
 ## Workflow
 
 1. **Resolve feature** — resolve `.artifacts/specs/<slug>/` per [memory.md](../references/memory.md), read its `STATE.md ## Progress`, and confirm `spec.md` is `ready` and `tasks.md` is `done`. If `Findings` names a report, stop and report the phase `Phase` names — that phase consumes the report before validation runs again. If `Phase` points to `specify`, `design`, or `tasks`, stop and report that phase. If a prerequisite is not ready, stop and report that phase. Set the feature's `STATE.md ## Progress` `Phase` to `validate`.
