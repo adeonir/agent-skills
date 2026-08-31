@@ -4,7 +4,7 @@ The fast, default review. Two cheap agents run in parallel by role — one write
 
 ## When to Use
 
-Default when the user asks to "review" changes, "check my diff", or review against a base branch without asking for depth. Reach for [deep-review.md](deep-review.md) only on risky or wide-reaching changes, or when the user asks for a "deep", "full", or "thorough" review.
+Loaded to run the review in the default mode: two cheap agents in parallel by role, no history or PR lookups.
 
 Shared rules — diff annotation, size gate, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply here in full.
 

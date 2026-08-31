@@ -4,7 +4,7 @@ Shared building blocks composed by both review modes: the diff annotation algori
 
 ## When to Use
 
-Composed by [quick-review.md](quick-review.md) and [deep-review.md](deep-review.md). Not a standalone workflow — these are the rules both modes share so neither has to restate them.
+Loaded before either mode runs, and composed by [quick-review.md](quick-review.md) and [deep-review.md](deep-review.md). Not a standalone workflow — these are the rules both modes share so neither has to restate them.
 
 ## Data Trust Boundary
 

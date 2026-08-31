@@ -4,7 +4,7 @@ The thorough review. Several agents run in parallel, each reading a **different 
 
 ## When to Use
 
-When the user asks for a "deep", "full", or "thorough" review, or the change is risky or wide-reaching. The default [quick-review.md](quick-review.md) covers the everyday case more cheaply.
+Loaded to run the review in deep mode: a fan-out by material with an independent confidence judge, at higher cost than [quick-review.md](quick-review.md).
 
 Shared rules — annotation, size gate, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply throughout.
 

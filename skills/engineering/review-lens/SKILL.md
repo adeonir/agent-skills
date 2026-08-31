@@ -10,38 +10,24 @@ Code review with anti-hallucination diff annotation and confidence-scored findin
 
 ## Triggers
 
-- **Quick review** (default — "review", "review my changes", "check my diff", "review against main") → [quick-review.md](references/quick-review.md)
-- **Deep review** ("deep review", "full review", "thorough review") → [deep-review.md](references/deep-review.md)
-- **Re-review** ("re-review", "check fixes", "are the issues resolved") → the Re-Review section of the mode that ran (default quick)
+- **Quick review** (default — "review", "review my changes", "check my diff", "review against main") → run the workflow below
+- **Deep review** ("deep review", "full review", "thorough review") → run it in deep mode
+- **Re-review** ("re-review", "check fixes", "are the issues resolved") → run it against the prior findings
 
-Shared rules live in [common.md](references/common.md); guideline discovery lives in [guidelines-audit.md](references/guidelines-audit.md). Neither is a direct trigger.
+## Workflow
 
-## Modes
+Start immediately when triggered. No confirmation needed to begin.
 
-Both modes share the same `[L<n>]` diff annotation, the confidence ≥ 80 bar, the what-not-to-report rules, and the output template (all in `common.md`). They differ in depth and cost:
-
-- **Quick (default)** — two agents run in parallel by role: a Haiku walkthrough describes the change, a Sonnet findings pass catches issues across every scope. Fast, with reasoning where it counts.
-- **Deep** — fans out by **material** (diff, guideline files, git history, prior PRs) with an independent confidence judge. Thorough, for risky or wide-reaching changes.
-
-Default to quick. Reach for deep only when the user asks for depth or the change is risky.
-
-## Deep Mode: Material Fan-Out
-
-The fan-out divides by **source of material**, not by concern — each agent reads something the others don't, so each adds new signal. The concerns (security, bugs, data-loss, performance) are a checklist inside one bug-scan, not separate agents. Sonnet is used only for the two reasoning passes; everything else is Haiku.
-
-| Agent | Model | Reads |
-|-------|-------|-------|
-| setup | inline | annotate `[L<n>]`, size gate, gather guideline paths, walkthrough |
-| bug-scan | Sonnet | the diff — security/bugs/data-loss/performance checklist |
-| compliance | Haiku | the project's guideline files |
-| git-history | Sonnet | `git log` / `blame` of the changed files |
-| prior-PRs | Haiku | past PRs + review comments (when `gh` + GitHub remote) |
-| judge | Haiku | every finding — scores confidence, drops < 80 |
+1. **Load [common.md](references/common.md)** — the diff annotation algorithm, the size gate, the confidence rubric, what not to report, the output template, the fix-suggestion rules, and the data trust boundary. Both modes apply it in full.
+2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker, and apply the size gate before going further.
+3. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
+4. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
+5. **Assemble and output.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first. Print to the terminal, offer to save `CODE_REVIEW.md`, then offer to apply the suggested fixes.
 
 ## Guidelines
 
 - Annotate the diff with `[L<n>]` markers before reviewing — the line allowlist is the anti-hallucination guard in both modes
-- Only report findings with confidence ≥ 80
+- Only report findings with confidence >= 80
 - Default to quick; reserve the deep fan-out for risky or wide diffs
 - Guideline discovery reads the project's files — including `.claude/rules/*.md` — never `~/.claude` (personal global settings)
 - Suggest fixes freely (they are text); apply to the working tree only with explicit confirmation
