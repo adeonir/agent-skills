@@ -7,8 +7,8 @@ description: "Prose editing that removes AI-writing patterns while preserving fa
 
 ## Quick start
 
-- **edit** — Rewrite a draft with the smallest useful changes. Return the result for the selected mode and a change report when that mode uses one. → [edit.md](instructions/edit.md)
-- **detect** — Find AI-writing patterns without rewriting the draft. → [detect.md](instructions/detect.md)
+- **edit** — Rewrite a draft with the smallest useful changes. Return the result for the selected mode and a change report when that mode uses one.
+- **detect** — Find AI-writing patterns without rewriting the draft.
 
 ## Philosophy
 
@@ -41,13 +41,14 @@ Write in the draft's language. The word lists are English. For another language,
 - Goal unclear — Ask what the reader should think, feel, or do after reading.
 - Core point still unclear after a full read — Ask. Never guess.
 
-## References
+## Workflow
 
-Loaded on demand by the workflows:
-
-- `references/editing-principles.md` — rules for preserving voice and making clear, small edits
-- `references/slop-catalog.md` — word, phrase, and pattern cues for both modes
-- `references/self-check.md` — checks to run before returning an edit
+1. **Read the full draft** before changing a sentence.
+2. **Classify the register and the input form** from the sections above. In file mode, mark code, data, frontmatter, links, identifiers, and structural elements as protected.
+3. **Load [slop-catalog.md](references/slop-catalog.md)** — the word, phrase, and pattern cues both modes scan for.
+4. **Load the mode's contract**: [edit.md](references/edit.md) for a rewrite, [detect.md](references/detect.md) for a report. Each carries its own steps, output template, and MUST-NOT list.
+5. **Load [editing-principles.md](references/editing-principles.md)** when editing — the rules for preserving voice and making the smallest useful change.
+6. **Load [self-check.md](references/self-check.md)** before returning an edit, run the checks directly, fix each failure, and run them again.
 
 ## Guidelines
 

@@ -4,15 +4,15 @@ Rewrite a draft into clear, natural prose with the smallest useful edit.
 
 ## When to Use
 
-The user shares a draft to fix, or asks for writing that is clearer, more direct, more opinionated, or less AI-sounding.
+Loaded for the rewrite mode: the steps, the output template, and what the edit must never contain.
 
 ## Workflow
 
 1. Read the full draft before changing a sentence.
 2. Classify the register and output mode. In file mode, mark code, data, frontmatter, links, identifiers, and structural elements as protected.
 3. Identify the core point and 3-5 voice signals to preserve: words, rhythm, bluntness, humor, uncertainty, digressions, and level of polish. A supplied writing sample has priority. Keep this note internal. Ask the user if the core point is not clear.
-4. Apply [editing-principles.md](../references/editing-principles.md) and the supported patterns in [slop-catalog.md](../references/slop-catalog.md). Treat word lists as cues, not bans. Make the smallest change that fixes the draft.
-5. Check the edit against [self-check.md](../references/self-check.md). Run the check directly.
+4. Apply [editing-principles.md](editing-principles.md) and the supported patterns in [slop-catalog.md](slop-catalog.md). Treat word lists as cues, not bans. Make the smallest change that fixes the draft.
+5. Check the edit against [self-check.md](self-check.md). Run the check directly.
 6. Fix each failed check and run the checks again.
 7. Return the output below.
 
