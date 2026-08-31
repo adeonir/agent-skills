@@ -1,13 +1,8 @@
 # Mockups
 
+This phase writes its own artifacts and nothing else: the mockups, `VARIANTS.md` under `.artifacts/design/`, and the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide a direction rather than production components.
+
 Render N design directions to decide one. When a wireframe handoff exists, render its arrangement; without one, let each direction choose its own arrangement and look. Serve one full-page HTML file per direction.
-
-## When to Use
-
-- The arrangement is settled and the look is undecided
-- User wants to compare visual directions side by side
-- User names a direction to see on the real product ("editorial", "cyberpunk + duotone")
-- User wants the chosen look adjusted and re-rendered
 
 ## The optional structure handoff
 
@@ -167,7 +162,7 @@ Every mockup holds at all three widths; the controls are how that is checked, no
 
 5. **Serve** the mockups, one per tab. The user compares, comments, and picks — one direction, or regions from several.
 
-6. **Adjust and re-render.** Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
+6. **Adjust and re-render.** A comment names something to change in the rendered page, not in an artifact this phase does not own: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here. Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
 
 7. **Deliver the chosen one.** Mark its line **chosen** in `VARIANTS.md` with the reason the choice turned on, then write the file to `docs/design/mockup.html`. A run covering more than one surface names each file for its surface instead: `docs/design/mockup-{surface}.html`.
 

@@ -1,13 +1,8 @@
 # Wireframes
 
+This phase writes its own artifacts and nothing else: the wireframes, the optional `structure.yaml` handoff, and the log under `.artifacts/design/`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide an arrangement rather than production components.
+
 Optionally decide how a surface is arranged before mockups — interview for what the inputs leave open, render the arrangements lo-fi, and pass the chosen arrangement to mockups through `structure.yaml`.
-
-## When to Use
-
-- The arrangement of a page or screen is undecided
-- User wants to compare arrangements of the same content
-- User asks for a layout plan, a region tree, a screen inventory, or a screen flow
-- User wants to settle arrangement separately before mockups
 
 ## Inputs and Fallbacks
 
@@ -63,6 +58,8 @@ bun run <this-skill>/scripts/render-server.ts --session .artifacts/design/wirefr
 ```
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from.
+
+A comment on a served page names something to change in the rendered page, not in an artifact this phase does not own. Re-render with the change applied: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here.
 
 The user comments on the served arrangements and sends the round in one dispatch. Read the round from `.artifacts/design/wireframes/.events`, resolve each comment's element to the block it sits in, apply the adjustments, and re-serve. The dispatch marks the end of a round; a round with no comments means the arrangements stand as rendered.
 
