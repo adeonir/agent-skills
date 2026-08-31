@@ -2,11 +2,6 @@
 
 Consolidate current conversation state into `.artifacts/HANDOFF.md`.
 
-## When to Use
-
-- User invokes a save trigger ("save context", "dump conversation", "checkpoint this", "session handoff", "save handoff")
-- `.artifacts/HANDOFF.md` is created when absent and consolidated when present
-
 ## Format
 
 ALWAYS use this exact template structure:
@@ -42,7 +37,7 @@ The handoff MUST NOT contain:
 
 ## Workflow
 
-1. Read `.artifacts/HANDOFF.md` when present. Check its claims against the current conversation and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
+1. Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Check its claims against the current conversation and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
 2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Next step` to it.
 3. Distinguish verified facts from assumptions. Record an unverified belief as an open thread instead of promoting it to a finding or decision.
 4. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
