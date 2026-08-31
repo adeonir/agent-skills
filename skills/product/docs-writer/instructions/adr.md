@@ -2,11 +2,13 @@
 
 Record one architecture decision with its status, context, decision, consequences, and references.
 
-## When to Use
+## Scope
 
-When a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR.
+Write one when a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR — status, context, decision, consequences, and references — and leave the full design and its trade-offs in the Design Doc.
 
 **Key principle:** ADRs capture the decision and why it was made, not the full exploration that led to it. If multiple decisions are still in play, keep them in the Design Doc until each decision is clear enough to record.
+
+When this record captures a Design Doc Alternatives row, set that row's `Record` to the ADR ID and link the ADR back to the Design Doc section.
 
 ## When NOT to Write an ADR
 
@@ -23,11 +25,11 @@ context → validation → drafting
 
 ### Phase 1: Context
 
-Load [discovery.md](discovery.md) for the shared interview method and critical review.
+Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
 
 **Check Existing Context:**
 
-Apply [discovery.md](discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
+Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
 
 Scan project documents for decisions that might need their own ADR:
 
@@ -71,7 +73,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CONTEXT.md`, add its path to both. Run the checks in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CONTEXT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
 For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 

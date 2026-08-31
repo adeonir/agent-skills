@@ -2,13 +2,17 @@
 
 A Google-style Design Doc: the technical design and the trade-offs behind it — lean and focused.
 
-## When to Use
+## Load first
 
-When writing or updating the technical Design Doc for a software project. The document records how the system is built, why the team chose that design, and which decisions have ADRs. Write one when the project has technical choices with real trade-offs. Keep it as short as the design allows.
+Read [discovery.md](../references/discovery.md) at the start of discovery, and [quality.md](../references/quality.md) before writing to disk. When `docs/tech/design-doc.md` already exists, follow [reconcile.md](../references/reconcile.md) and update only the requested parts.
 
-**Boundary with PRD:** the Design Doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS).
+## Boundaries
 
-**Boundary with ADR:** the Design Doc carries the design and the trade-offs behind it. ADRs record individual decisions. Both coexist and reference each other.
+The document records how the system is built, why the team chose that design, and which decisions have ADRs. Write one when the project has technical choices with real trade-offs, and keep it as short as the design allows.
+
+**Boundary with PRD:** the Design Doc never reframes the product. Context recaps the project in 1-2 paragraphs and links to the PRD. Goals/Non-Goals are technical (latency, throughput, isolation), not product (DAU, conversion, NPS). It is not visual or UI design, and not an exhaustive technical spec.
+
+**Boundary with ADR:** the Design Doc carries the design and the trade-offs behind it. ADRs record individual decisions. Both coexist and reference each other. When several options remain open, keep the decision here with `Record = —`; when it is final, create the ADR, set `Record` to `ADR-NNN`, and link the ADR back to this section.
 
 ## When NOT to Write a Design Doc
 
@@ -23,15 +27,15 @@ document absent  → discovery → analysis → drafting
 document present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/tech/design-doc.md` exists. If absent, run discovery, analysis, and drafting. If present, update only the requested parts by following [reconcile.md](reconcile.md). Discovery covers context, design, trade-offs, and cross-cutting concerns. Analysis prepares the `Record` column that links decisions to ADRs. Run the quality checks before writing.
+Check whether `docs/tech/design-doc.md` exists. If absent, run discovery, analysis, and drafting. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Discovery covers context, design, trade-offs, and cross-cutting concerns. Analysis prepares the `Record` column that links decisions to ADRs. Run the quality checks before writing.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](discovery.md) for the shared interview method and critical review.
+Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
 
 **Check Existing Context:**
 
-Apply [discovery.md](discovery.md) `## Reading Project Files`, then look for `docs/product/PRD.md` and ADRs under `docs/adr/`. Read them for context only. Summarize the PRD in Context and link to it instead of copying its prose. Use existing ADR IDs in the Alternatives Considered `Record` column.
+Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then look for `docs/product/PRD.md` and ADRs under `docs/adr/`. Read them for context only. Summarize the PRD in Context and link to it instead of copying its prose. Use existing ADR IDs in the Alternatives Considered `Record` column.
 
 | PRD Section | Feeds Design Doc |
 |-------------|------------------|
@@ -112,7 +116,7 @@ For key decisions, weigh axes like complexity vs. maintainability, performance v
 
 ### Phase 3: Drafting
 
-Use the template below. Run the checks in [quality.md](quality.md) before writing, then write the Design Doc to its path and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
+Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
 
 **Drafting notes:**
 
@@ -124,7 +128,7 @@ Use the template below. Run the checks in [quality.md](quality.md) before writin
 
 ## Design Doc Template
 
-For a new document, read `<this-skill>/assets/design-doc.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](reconcile.md); use the template only to check structure and never copy it over unchanged content.
+For a new document, read `<this-skill>/assets/design-doc.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
 ## Design Doc Schema
 
@@ -170,7 +174,7 @@ Rows with `Record = —` are design-doc-only records of trade-offs explored alon
 
 ## Updating an Existing Design Doc
 
-If `docs/tech/design-doc.md` exists, read it and update only what changed: a decision, component, resolved question, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](reconcile.md).
+If `docs/tech/design-doc.md` exists, read it and update only what changed: a decision, component, resolved question, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](../references/reconcile.md).
 
 Set `updated` to the current date and preserve `created`. Report any change that conflicts with a linked ADR or an unchanged section.
 

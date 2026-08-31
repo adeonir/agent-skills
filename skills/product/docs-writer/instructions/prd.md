@@ -2,13 +2,11 @@
 
 Capture product requirements: problem, users, scope, journeys, business rules, and success metrics.
 
-## When to Use
-
-When creating a PRD, defining product requirements, or writing product specifications.
-
 ## Scope
 
-Product requirements only. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
+Product requirements only: problem, users, scope, journeys, business rules, success metrics. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
+
+A section is a technical decision in disguise when it presents two implementation options and asks the reader to choose — microservices vs monolith, SQL vs NoSQL, REST vs GraphQL, framework choice, deployment topology. Move that decision to the Design Doc or an ADR and leave a link here.
 
 ## Workflow
 
@@ -18,17 +16,17 @@ check disk
 └ PRD present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/product/PRD.md` exists; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. If absent, run the four discovery phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](reconcile.md). Handle PRODUCT independently based on whether it exists.
+Check whether `docs/product/PRD.md` exists; see [discovery.md](../references/discovery.md) `## Discovery or Update by Document State`. If absent, run the four discovery phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Handle PRODUCT independently based on whether it exists.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](discovery.md) for the shared interview method and critical review.
+Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
 
 Run these four phases when no PRD exists. Never assume context. Use the answers to choose follow-up questions. Each topic defines opening questions, reasons to ask a follow-up, and completion criteria.
 
 #### Read an Earlier Direction
 
-Apply [discovery.md](discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. If absent, run full discovery. If present, confirm its claims and ask only for missing PRD information.
+Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. If absent, run full discovery. If present, confirm its claims and ask only for missing PRD information.
 
 | Upstream section | Supplies | Behavior |
 |---|---|---|
@@ -189,8 +187,8 @@ Summarize the confirmed discovery and validation results.
 ### Phase 4: Drafting
 
 1. Use the PRD template below.
-2. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence.
-3. Run [quality.md](quality.md).
+2. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
+3. Run [quality.md](../references/quality.md).
 4. Write each document to its path.
 5. Report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
 
@@ -209,7 +207,7 @@ Summarize the confirmed discovery and validation results.
 
 ## PRD Template
 
-For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](reconcile.md); use the template only to check structure and never copy it over unchanged content.
+For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
 ## PRD Schema
 

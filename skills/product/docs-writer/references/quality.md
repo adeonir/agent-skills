@@ -28,6 +28,12 @@ Before writing any document to disk, verify:
 
 **If any check fails, fix the document, run that check again, and write only after it passes.** Apply all checks to both new and updated documents.
 
+Mark an unknown as TBD rather than inventing a constraint to fill the slot.
+
+## Writing and Reporting
+
+Write the document to its path directly. Then report a brief prose summary in chat — up to 2-3 paragraphs naming the path, the type, and what it contains. Never paste the full document into the reply.
+
 ## ADR-Specific Gates
 
 When the document is an ADR, additionally verify:

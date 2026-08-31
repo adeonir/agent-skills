@@ -2,13 +2,17 @@
 
 Author the product's strategic positioning in `PRODUCT.md`: what the product is and what it stands for, as prose. Distinct from the PRD, which captures what the product does.
 
-## When to Use
+## Load first
 
-Load this reference to write or update `PRODUCT.md`; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. If `docs/product/PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts when available. If it exists, update only the requested parts by following [reconcile.md](reconcile.md). A positioning change can update PRODUCT without changing the PRD.
+Read [discovery.md](../references/discovery.md) — `## Discovery or Update by Document State` decides the branch below — and [quality.md](../references/quality.md) before writing to disk.
+
+If `docs/product/PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts when available. If it exists, update only the requested parts by following [reconcile.md](../references/reconcile.md). A positioning change can update PRODUCT without changing the PRD.
 
 ## Scope
 
-`PRODUCT.md` is identity, not requirements. It carries the product's posture, audience relationship, personality, what it refuses to be, and the principles that drive design and copy — all as prose. The PRD remains the specification.
+`PRODUCT.md` is identity, not requirements. It carries the product's posture, audience relationship, personality, what it refuses to be, and the principles that drive design and copy — all as prose. The PRD remains the specification: it records what the product does, this records what it is.
+
+Keep three boundaries clear: audience relationship is not the user's job to be done, refused aesthetics are not excluded features, and differentiation is not the problem statement.
 
 Distinction test: two products with an identical feature list must have different `PRODUCT.md` files. Content that survives the same feature list is positioning; content that does not is a requirement and belongs in the PRD.
 
@@ -20,7 +24,7 @@ Three boundary zones to keep clean — the PRD owns the other side of each:
 
 ## Discovery
 
-Apply [discovery.md](discovery.md) `## Reading Project Files` before reading a PRD or upstream direction. PRODUCT uses one Positioning topic. When writing PRODUCT with a new PRD, use the Users and Market & Differentiation answers instead of asking the same questions again. When writing PRODUCT alone, use confirmed PRD facts as input.
+Apply [discovery.md](../references/discovery.md) `## Reading Project Files` before reading a PRD or upstream direction. PRODUCT uses one Positioning topic. When writing PRODUCT with a new PRD, use the Users and Market & Differentiation answers instead of asking the same questions again. When writing PRODUCT alone, use confirmed PRD facts as input.
 
 Check `docs/product/brainstorm.md` for an earlier direction. PRODUCT does not depend on this file. If it is absent, run discovery. If it exists, confirm its claims instead of repeating its questions.
 
@@ -31,7 +35,7 @@ Check `docs/product/brainstorm.md` for an earlier direction. PRODUCT does not de
 
 Use the rejected directions and the reason for rejecting the strongest option to write Anti-references. Ask about register, brand personality, design principles, and audience relationship when the upstream document does not contain them. Do not copy the list of rejected options or Revision History. Write positioning prose, not requirements.
 
-Load [discovery.md](discovery.md) for the shared interview method and critical review.
+Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
 
 ### Topic: Positioning
 
@@ -72,7 +76,7 @@ Use discovery answers to write positioning prose. When updating `PRODUCT.md`, re
 
 ## Template
 
-For a new document, read `<this-skill>/assets/product.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](reconcile.md); use the template only to check structure and never copy it over unchanged content.
+For a new document, read `<this-skill>/assets/product.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
 ## Guidelines
 
