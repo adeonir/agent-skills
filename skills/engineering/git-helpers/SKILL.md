@@ -12,7 +12,7 @@ Git workflow with conventional commits, pull requests, and pull request merges.
 
 - **Commit changes** ("commit this", "create commit", "ready to commit", "all done") → [commit.md](instructions/commit.md)
 - **Push and open PR** ("push this", "create PR", "open pull request", "ready to push") → [create-pull-request.md](instructions/create-pull-request.md)
-- **Merge pull request** ("merge PR", "merge pull request", "ready to merge") → [finish-branch.md](instructions/finish-branch.md)
+- **Merge pull request** ("merge PR", "merge pull request", "ready to merge") → [merge-pull-request.md](instructions/merge-pull-request.md)
 
 ## Workflow
 

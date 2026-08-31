@@ -120,7 +120,7 @@ Read every file in `instructions/` before starting.
 
 - Commit changes ("commit this") → instructions/commit.md
 - Open a pull request ("open PR") → instructions/create-pull-request.md
-- Merge a pull request ("merge PR") → instructions/finish-branch.md
+- Merge a pull request ("merge PR") → instructions/merge-pull-request.md
 ```
 
 ## Body Under 150 Lines
