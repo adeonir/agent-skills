@@ -2,12 +2,9 @@
 
 Author fresh copy from intent into `copy.yaml`. Greenfield: when there is no existing content to structure, write the parts a surface needs for its function, then save the content tree.
 
-## When to Use
+## Load first
 
-- User wants new copy written from a brief, description, or requirements
-- No existing content to extract: the source is intent, not a page
-- User asks for headline, value proposition, landing-page, or CTA copy
-- A planned surface has no content yet and needs it written
+Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 ## Workflow
 
@@ -66,6 +63,8 @@ Resolve any structure or design-leakage flags before done (advisory: judge false
 **DO:**
 
 - Write specific: a number, a name, or a concrete example over an adjective
+- Support a claim about capability, quality, or an outcome with proof; a factual description needs accurate context
+- Select the frameworks and quality criteria from the surface function before drafting
 - Follow the confirmed intent; name a next action only when the intent calls for one
 - Match the author's voice; read copy aloud before saving
 

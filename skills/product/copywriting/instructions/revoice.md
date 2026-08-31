@@ -2,11 +2,9 @@
 
 Rewrite existing copy in `copy.yaml` into a new voice while keeping the message. Brownfield: when the content is right but the tone should change (more playful, more formal, more premium), recast each line and patch the payload in place. The verbal analogue of a rebrand: same message, new voice.
 
-## When to Use
+## Load first
 
-- User wants existing copy in a different voice or tone ("make it playful", "make it sound premium", "drier, less salesy")
-- A rebrand or audience shift means the words should sound different
-- The message is fine, the personality is not
+Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 Not for: tightening in the same voice (see [refresh.md](refresh.md)), writing net-new copy (see [write.md](write.md)), or syncing from code (see [reconcile.md](reconcile.md)).
 

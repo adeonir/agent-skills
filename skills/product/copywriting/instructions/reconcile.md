@@ -2,11 +2,9 @@
 
 Sync `copy.yaml` back from a drifted implementation. Brownfield-only: when the running code's copy no longer matches the authored content payload, this reference diffs the implementation against `copy.yaml` and applies surgical, confirmed patches.
 
-## When to Use
+## Load first
 
-- Implementation copy drifted from `docs/design/copy.yaml` after handoff (text edited directly in components, new strings added, labels changed)
-- User says "sync copy from code", "update copy.yaml from the implementation", or "reconcile content drift" when `copy.yaml` already exists
-- Pre-handoff drift check against the implementation, before treating `copy.yaml` as authoritative (this syncs drifted strings; for a quality verdict with no code involved, that is audit)
+Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 Not for: authoring `copy.yaml` from scratch (see [extract.md](extract.md)): this only syncs drifted values, it does not write or restyle content.
 

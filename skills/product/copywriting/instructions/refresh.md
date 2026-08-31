@@ -2,12 +2,9 @@
 
 Tighten and improve existing copy in `copy.yaml` in the same voice. Brownfield: when the content is sound but the writing is loose, run focused editing passes and patch the payload in place.
 
-## When to Use
+## Load first
 
-- User wants existing `copy.yaml` copy tightened, sharpened, or polished
-- Copy reads weak, wordy, vague, or buries the value
-- Content has gone stale (outdated numbers, dated examples) and needs a refresh
-- After a draft, before handoff: a quality pass on the words
+Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 Not for: changing the voice (a different job; refresh keeps the voice), structuring net-new content (see [extract.md](extract.md) or [write.md](write.md)), or syncing from code (see [reconcile.md](reconcile.md)).
 

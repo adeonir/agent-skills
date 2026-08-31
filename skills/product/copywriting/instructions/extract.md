@@ -2,12 +2,9 @@
 
 Extract structured content from references (URLs, captured regions, briefs) and organize into `copy.yaml`.
 
-## When to Use
+## Load first
 
-- User provides a URL to extract content from (full page or selected region)
-- User provides a brief document (PDF or DOCX) that contains content and intent
-- User wants to structure content from an existing product (new or ongoing work)
-- User needs `copy.yaml` as a structured content payload for later design work
+Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 ## Content Trust Boundary
 

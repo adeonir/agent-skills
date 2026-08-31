@@ -6,7 +6,7 @@ Authors and judges `copy.yaml` across conversion, brand, editorial, product, UX,
 
 ```mermaid
 flowchart TD
-    R[Request] --> DSC{Discovery: classify and route}
+    R[Request] --> DSC{Route by request, then discovery for context}
     DSC -->|write from intent| B[copy.yaml]
     DSC -->|extract from URL / brief / codebase / screenshot| B
     DSC -->|reconcile from implementation| B
@@ -71,7 +71,7 @@ is this copy ready to ship?
 
 ## References
 
-Loaded on demand: `references/brand.md` / `references/product.md` (register posture: read the matching one first), `references/surface-functions.md` (reader job and function-specific patterns), `references/copy-frameworks.md` (headline formulas, content-part types, page shapes, CTA), `references/voice.md` (register bias, voice axes, proof hierarchy), `references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), `references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method, clarity principles, microcopy, a11y/i18n/terminology), `references/anti-patterns.md` (copy slop catalog: dead words, dead structures, AI tells, proof failures), and `references/scoring.md` (severity, bands, and the report template critique and audit share).
+`references/discovery.md` is loaded first by every operation: it settles the existing context, the confirmed intent and voice, the register, and the `copy.yaml` contract. The rest load on demand: `references/brand.md` / `references/product.md` (register posture: read the matching one first), `references/surface-functions.md` (reader job and function-specific patterns), `references/copy-frameworks.md` (headline formulas, content-part types, page shapes, CTA), `references/voice.md` (register bias, voice axes, proof hierarchy), `references/editing-sweeps.md` (Seven Sweeps, quick-pass, plain-English), `references/ux-writing.md` (clarity craft: the assess→plan→improve→verify method, clarity principles, microcopy, a11y/i18n/terminology), `references/anti-patterns.md` (copy slop catalog: dead words, dead structures, AI tells, proof failures), and `references/scoring.md` (severity, bands, and the report template critique and audit share).
 
 ## Output
 
