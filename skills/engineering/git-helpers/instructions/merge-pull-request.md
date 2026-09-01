@@ -136,10 +136,11 @@ Confirm what ran: "PR #{pr-number} merged into `{base}`".
 
 ```bash
 git switch {base}
-git pull --ff-only origin {base}
+git fetch origin {base}
+git merge --ff-only origin/{base}
 ```
 
-If the pull fails as non-fast-forward, the merge has not propagated; surface and stop.
+If the merge fails as non-fast-forward, the merge has not propagated; surface and stop.
 
 Name the branch and ask for explicit confirmation every time before deleting it.
 
