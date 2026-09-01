@@ -27,7 +27,7 @@ If the user or caller observes it → WHAT (enters the spec). If it is an intern
 - **Non-obvious AC why** → an optional `(because …)` inline.
 - **Technical trade-off / decision** → `design.md ## Decisions`.
 - **Gray-area decision** → the AC, Goal, Non-Goal, or `ASM-N` row it settles in `spec.md`.
-- **Project-level decision** → `CONTEXT.md`.
+- **Project-level decision** → `PROJECT.md`.
 
 ## Spec self-check — three questions
 

@@ -65,18 +65,18 @@ run UAT                 # user-facing only
 ## Output
 
 ```text
-CONTEXT.md                          # committed codebase knowledge
+PROJECT.md                         # committed codebase knowledge
 .artifacts/
 ├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
 │   └── <slug>/                    # one folder per feature
 │       ├── spec.md                # WHAT + WHY
-│       ├── STATE.md                # feature state and report routing
-│       ├── SIGNALS.md              # feature-local verified signals
+│       ├── STATE.md               # feature state and report routing
+│       ├── SIGNALS.md             # feature-local verified signals
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
-│       ├── audit.md                # independent audit report
-│       ├── validate.md             # optional user-facing validation report
+│       ├── audit.md               # independent audit report
+│       ├── validate.md            # optional user-facing validation report
 │       └── evidences/             # UAT screenshots (user-facing only)
 ├── research/
 │   └── <topic>.md                 # research cache (reusable)
@@ -95,7 +95,7 @@ CONTEXT.md                          # committed codebase knowledge
 
 **Q: What does spec-driven persist across features?**
 
-A: `CONTEXT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `CONTEXT.md` is shared codebase knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
+A: `PROJECT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `PROJECT.md` is shared codebase knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 

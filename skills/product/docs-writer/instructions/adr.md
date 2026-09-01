@@ -35,11 +35,11 @@ Scan project documents for decisions that might need their own ADR:
 
 | Source | Where decisions hide |
 |--------|---------------------|
-| `CONTEXT.md` | `## Decisions` entries not yet recorded as ADRs |
+| `PROJECT.md` | `## Decisions` entries not yet recorded as ADRs |
 | `docs/tech/design-doc.md` | `## 4. Alternatives Considered & Trade-offs` rows (rows with `Record = —` are candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
-Read `CONTEXT.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as an approved ADR. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**. Report a contradiction instead of recording the entry.
+Read `PROJECT.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as an approved ADR. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**. Report a contradiction instead of recording the entry.
 
 List the unrecorded candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source mean multiple ADRs — one per decision, not one ADR summarizing all of them.
 
@@ -73,7 +73,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `CONTEXT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
 For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 

@@ -106,7 +106,7 @@ business logic:
 
 ```
 spec-driven discovers gap (missing entity, orphan flow, NFR drift)
-    --> records the gap in CONTEXT.md ## Gotchas
+    --> records the gap in PROJECT.md ## Gotchas
     --> user reruns docs-writer with update mode
     --> docs-writer re-enters the responsible phase scoped to the gap
     --> spec-driven resumes with updated technical doc
@@ -121,7 +121,7 @@ docs/
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: locked direction (moodboard.md) · copywriting: content · craft-ui: chosen mockup
 
-CONTEXT.md          # spec-driven: committed project memory
+PROJECT.md          # spec-driven: committed project memory
 .artifacts/
 ├── specs/          # spec-driven: per-feature artifacts, state, and signals
 ├── archive/        # spec-driven: features archived manually, in any state
