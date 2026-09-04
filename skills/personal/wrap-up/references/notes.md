@@ -23,11 +23,25 @@ Session and daily notes target different audiences. The split is rigid and gover
 | | Daily | Session |
 |---|---|---|
 | Reader | stakeholder or future-you scanning what moved | future-you continuing the work |
-| Carries | outcomes at product or project level, in prose; never restates the session's technical detail | the technical detail itself |
+| Carries | outcomes at product or project level, in prose; never restates the session's technical detail | the technical detail of the work itself |
 | Refs allowed | project and feature names only | PR `#N`, Issue `#N`, file paths, commands, `file:line` |
 | Refs forbidden | PR/Issue numbers, file paths, shell commands, branch names, commit hashes | branch names, commit hashes |
 
 Both notes carry only references that remain valid after the work ends. Do not include an identifier that belongs to a workspace artifact. The artifact can be deleted and leave the reference without a target. Name the work in prose instead (`Checkout Refactor`).
+
+## Subject Matter
+
+Both notes carry the work, never the session that produced it. A note records what the project now is and why, so how the assistant arrived there does not belong in either one.
+
+A fact that changed the project's code, configuration, or content stays, stated as the project fact it became. Two tests decide a borderline line: it holds true for anyone reading the repository months later, and it reads the same whether a person or an assistant did the work. A line that fails either test is process — cut it.
+
+Keep out of both notes:
+
+- Mechanics of the session — which steps ran, how work was split, what a subagent did or wrote
+- Quirks of the assistant's own tooling, unless the workaround now lives in the project
+- Self-correction — a wrong assumption later fixed, a file created by mistake, a value first guessed and then measured
+
+A recurring practice belongs in the daily note's `## Observations`, at day level and stated as practice. A method tried once in a session is process and stays out of both notes.
 
 ## Filename Sanitization
 
@@ -96,7 +110,7 @@ Past tense, natural language. [[Wikilinks]] inline only to existing notes.
 
 ## Problems
 
-- Problem + root cause + fix (omit section when nothing notable)
+- Problem in the project + root cause + fix (omit section when nothing notable)
 
 ## Next
 
@@ -111,12 +125,12 @@ Past tense, natural language. [[Wikilinks]] inline only to existing notes.
 Section presence:
 - `## Summary` always present
 - `## Decisions` when decisions were made
-- `## Findings` when there is a notable technical discovery
-- `## Problems` when a problem was encountered and resolved or noted
+- `## Findings` when there is a notable discovery about this codebase, its stack, or the project's tooling
+- `## Problems` when a problem in the project was encountered and resolved or noted
 - `## Next` when there is work to continue
 - `## Relations` for explicit connections between notes
 
-When the handoff Load phase provides content, include it before composing the note. Apply the Audience and Reference Discipline to that content.
+When the handoff Load phase provides content, include it before composing the note. Apply the Audience and Reference Discipline and the Subject Matter constraints to that content.
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
@@ -196,7 +210,7 @@ tags:
 Section presence:
 - `## Activities` always present with at least one project subsection
 - `## Open Items` only when commitments have an owner, a deadline, or an active blocker — mental follow-ups ("install X locally", "remember to test Y") belong in the handoff or session `## Next`, not here
-- `## Observations` for cross-cutting day-level facts — do not restate per-project observations that belong in the session note; common categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
+- `## Observations` for cross-cutting day-level facts — a recurring practice, never a method tried once in a session; do not restate per-project observations that belong in the session note; common categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
 - `## Relations` for explicit connections to today's session notes (`contains`) or other day-level references; omit if no sessions or references
 
 #### If note does not exist
