@@ -1,7 +1,7 @@
 ---
 name: review-lens
 allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Read Write Edit Task
-description: "Code review in quick and deep modes, with confidence-scored findings. Use for diff review, guideline audits, re-reviewing fixes, or applying findings before a pull request. Not for acceptance-criteria verification, visual design review, or commit and branch mechanics."
+description: "Code review in quick and deep modes, with confidence-scored findings. Use for diff review, guideline audits, re-reviewing fixes, or applying findings before a pull request. Not for markdown or prose review, acceptance-criteria verification, visual design review, or commit and branch mechanics."
 ---
 
 # Review Lens
