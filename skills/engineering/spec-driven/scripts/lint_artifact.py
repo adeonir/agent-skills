@@ -905,14 +905,18 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                 findings.append("%s:%d: each covered AC needs its own `Test`: %s covers %d, "
                                 "with %d non-empty `Test`" %
                                 (path, number, identifier, len(covers), len(named_tests)))
+            unreached = 0
             for value in named_tests:
                 marker = TASK_TEST_NONE.match(value)
                 if marker is not None and not marker.group(1).strip():
                     findings.append("%s:%d: %s `Test: none` must name what no runner reaches" %
                                     (path, number, identifier))
                 elif marker is not None:
-                    warnings.append("%s:%d: warning: %s has no runner-level test for a covered AC; surface it as a pendency at approval" %
-                                    (path, number, identifier))
+                    unreached += 1
+            if unreached:
+                warnings.append("%s:%d: warning: %s has no runner-level test for %d covered %s; surface it as a pendency at approval" %
+                                (path, number, identifier, unreached,
+                                 "criterion" if unreached == 1 else "criteria"))
 
     slices = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
     slice_order = []
