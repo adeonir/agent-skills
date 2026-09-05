@@ -112,7 +112,7 @@ gh pr view {pr-number} --json mergeStateStatus -q .mergeStateStatus
 
 Write the merge commit from the PR title and branch context. The subject is `{type}: {description} (#{pr-number})` — never the default `Merge pull request #N from {branch}`, which strips intent and conventional commit type. Take `{type}: {description}` from the PR title when it follows that shape; generate a conforming one only when it does not, at the bar the loaded reference sets. Add a body only when the subject is not self-sufficient — one short sentence stating what the branch solves, never a list of its commits, and traced to the branch diff.
 
-Merging writes to `{base}` and closes the PR. Run it only on explicit user confirmation.
+Merging writes to `{base}` and closes the PR. Proceed once Step 3 confirms `mergeStateStatus` is `CLEAN`. Ask the user only when something is inconsistent: a non-`CLEAN` status, a failing check, or anything else Step 3 surfaces.
 
 ```bash
 gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
