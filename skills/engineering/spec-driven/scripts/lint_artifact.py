@@ -180,6 +180,15 @@ def ac_sort_key(identifier):
     return int(story), int(position)
 
 
+def spec_user_facing(spec_lines):
+    """Return True when the spec frontmatter declares `user-facing: true`."""
+    for line in spec_lines:
+        match = re.match(r"^user-facing:\s*(\S+)", line)
+        if match:
+            return match.group(1).strip().lower() == "true"
+    return False
+
+
 def spec_goal_ids(spec_lines):
     """Return the `G-N` ids declared under `## Goals`, in document order."""
     bounds = section_bounds(spec_lines, "Goals")
@@ -913,8 +922,8 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                                     (path, number, identifier))
                 elif marker is not None:
                     unreached += 1
-            if unreached:
-                warnings.append("%s:%d: warning: %s has no runner-level test for %d covered %s; surface it as a pendency at approval" %
+            if unreached and spec_lines is not None and not spec_user_facing(spec_lines):
+                warnings.append("%s:%d: warning: %s has no runner-level test for %d covered %s on a feature that is not user-facing; route to specify" %
                                 (path, number, identifier, unreached,
                                  "criterion" if unreached == 1 else "criteria"))
 
