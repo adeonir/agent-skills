@@ -109,7 +109,7 @@ Read `PROJECT.md` before any design decision. A decision that conflicts with it 
 
 Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — an existing file is context, not a structural reference, and the template wins on divergence.
 
-A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`.
+A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/specs/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`.
 
 Discovery never forages siblings or `archive/` for shape or decisions. The only cross-feature inputs a new feature reads are the root `PROJECT.md` and confirmed lessons.
 
