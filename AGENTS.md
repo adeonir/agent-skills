@@ -403,6 +403,6 @@ Before finalizing a new skill, verify the items the path-scoped rules in `.agent
 
 When in doubt about a pattern, study `brainstorm` (one job, the procedure in the SKILL.md, a reference per phase), `review-lens` (one job, two modes sharing one rubric reference, model tiering), `git-helpers` (three jobs, one instruction each, one shared reference loaded by all three), or `spec-driven` (seven jobs, many templates, sub-agent fan-out, the refactor at scale).
 
-## Skill Installation
+## Skill Source and Installation
 
-Source of truth is `skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` — those are install targets. See repo `README.md` for `skills.sh` usage.
+Edit skill sources under `agent-skills/skills/<category>/<skill-name>/`. Load an invoked skill only from the path supplied by the runtime; never search or load it from `agent-skills/`. Never edit `~/.agents/skills/` or `~/.claude/skills/` — those are install targets. See repo `README.md` for `skills.sh` usage.
