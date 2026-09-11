@@ -71,7 +71,7 @@ references/auth-login.md
 
 **Impact: MEDIUM**
 
-Every reference opens with an H1 title, a one-line description, and a `## When to Use` section before any free sections — the header tells the agent what loading the file buys. Every instruction opens with an H1 title, a one-line description, and the step that loads what it needs before doing the job. An instruction carries no `## When to Use`: SKILL.md already named the condition that routed to it.
+Every reference opens with an H1 title, a one-line description, and a `## When to Use` section before any free sections — the header tells the agent what loading the file buys. Every instruction opens with an H1 title, a one-line description, and the step that loads what it needs before doing the job. An instruction may also carry `## When to Use` when its job has operational entry conditions, phase or state gates, or optionality that must be applied after routing. Keep trigger routing in `SKILL.md`; do not use the section to duplicate the routing table.
 
 **Incorrect:**
 

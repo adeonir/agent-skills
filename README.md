@@ -43,7 +43,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[design-brief](skills/product/design-brief)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
-| **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD, Brief, Design Doc, ADR |
+| **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 
 ### Personal
@@ -64,6 +64,9 @@ flowchart TD
     BR -.->|direction| SD[spec-driven]
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
+    DW_FEATURE[docs-writer · feature PRD/RFC] -->|feature PRD/RFC| FPRD[feature PRD/RFC]
+    FPRD -->|feature source| ET
+    ET -->|Epic → Stories| SD
     DW_PRD -->|requirements| DB
     DW_PRD -->|requirements| CU[craft-ui]
     DW_PRD -->|requirements| CW[copywriting]
@@ -74,7 +77,6 @@ flowchart TD
     DW_DD -->|technical doc| ET
     DW_DD -->|technical doc| DB
     DW_DD -.->|extract decision| DW_ADR[docs-writer · decision]
-    ET -->|stories| SD
     SD -->|commits & pull requests| GH[git-helpers]
     SD -.->|coherence gap| DW_DD
 ```
@@ -89,7 +91,7 @@ business logic:
 
 ```
 1.  brainstorm       --> direction and constraints
-2.  docs-writer      --> requirements (what to build, for whom, why)
+2.  docs-writer      --> project requirements or feature PRD/RFC
 3.  docs-writer      --> technical decisions and trade-offs
 4.  design-brief     --> visual identity and design tokens
 5.  copywriting      --> content and copy
@@ -116,7 +118,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ```
 docs/
-├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief · copywriting: copy.yaml
+├── product/        # brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: locked direction (moodboard.md) · craft-ui: chosen mockup
@@ -124,7 +126,9 @@ docs/
 PROJECT.md          # spec-driven: committed project memory
 .artifacts/
 ├── specs/          # spec-driven: per-feature artifacts, state, and signals
-├── archive/        # spec-driven: features archived manually, in any state
+├── archive/
+│   ├── specs/       # spec-driven: specs archived manually, in any state
+│   └── features/    # docs-writer: feature PRD/RFC folders archived manually
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── research/       # spec-driven: research cache
 └── design/         # design-brief: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/

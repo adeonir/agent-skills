@@ -34,7 +34,7 @@ After editing a skill, the self-checks worth running over its directory (`skills
 ```bash
 grep -n '(references/' SKILL.md                     # the entrypoint routes instructions only (expect empty when instructions/ exists)
 grep -n '^## \(Anti-Pattern\|Guidelines\)' SKILL.md # constraints in a routing entrypoint (expect empty when instructions/ exists)
-grep -n '^## When to Use' instructions/*.md         # an instruction carries none (expect empty)
+grep -n '^## When to Use' instructions/*.md         # review operational entry conditions when present
 for f in instructions/*.md; do b=$(basename "$f"); grep -q "instructions/$b" SKILL.md || echo "orphan: $f"; done
 for f in references/*.md; do b=$(basename "$f"); grep -rq "$b" instructions/ references/ --exclude="$b" || echo "never loaded: $f"; done
 grep -rho '](\.\./references/[a-z-]*\.md)' instructions/ | sed 's|](\.\./references/||;s|)||' | sort -u \
@@ -202,7 +202,7 @@ One-line description.
 ## [free sections from here]
 ```
 
-An instruction opens with its title, a one-line description, and the step that loads what it needs before the job starts. It carries no `## When to Use`: the SKILL.md already named the condition that routed to it.
+An instruction opens with its title, a one-line description, and the step that loads what it needs before the job starts. It may carry `## When to Use` when the job has operational entry conditions, phase or state gates, or optionality that must be applied after routing; `SKILL.md` still owns trigger routing.
 
 After the required header, sections are free (`Workflow`, `Discovery`, `Phases`, `Guidelines`, `Error Handling` — all optional).
 
