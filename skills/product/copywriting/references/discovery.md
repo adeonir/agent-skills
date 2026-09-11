@@ -10,7 +10,7 @@ Loaded at the start of every operation, before the work begins. It settles what 
 
 Look for:
 
-- `docs/design/copy.yaml`: existing content payload (signals brownfield)
+- `docs/product/copy.yaml`: existing content payload (signals brownfield)
 - Source on hand: URL, brief (PDF/DOCX), codebase, screenshot, or raw paste
 - `docs/product/PRD.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md`: intent, positioning, and requirements when writing fresh
 
@@ -28,7 +28,7 @@ Set the intent before choosing patterns or the register. Once confirmed, it is t
 
 ## The Artifact
 
-The skill owns `docs/design/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Every later operation reads both before drafting or judging.
+The skill owns `docs/product/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Every later operation reads both before drafting or judging.
 
 An authoring operation changes content only after the user confirms the proposed edits, and changes intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions — no colors, fonts, or layout. The content stays swappable: any `copy.yaml` must work independent of visual styling.
 

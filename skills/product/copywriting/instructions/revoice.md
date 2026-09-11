@@ -12,7 +12,7 @@ Not for: tightening in the same voice (see [refresh.md](refresh.md)), writing ne
 
 ### Step 1: Read Current Copy
 
-Parse `docs/design/copy.yaml`. Note the current intent and voice; revoice replaces the voice only.
+Parse `docs/product/copy.yaml`. Note the current intent and voice; revoice replaces the voice only.
 
 ### Step 2: Establish Target Voice
 
@@ -35,7 +35,7 @@ Apply approved rewrites in place. Preserve the content tree paths and every clai
 Before finishing, check that every original claim remains, the content tree is well-formed, and no design leaked into it. Run the validator for the last two:
 
 ```bash
-python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 ```
 
 Resolve any real flag. Judge false positives, such as a product named "Grid".

@@ -55,10 +55,10 @@ Analyze structure and extract:
 
 ### Step 5: Generate copy.yaml
 
-Generate structured content with the template below. Mirror the source tree: name surfaces and parts by context, nest them to match the source, and add only the fields the surface needs. Save to `docs/design/copy.yaml`. After saving, run the validator:
+Generate structured content with the template below. Mirror the source tree: name surfaces and parts by context, nest them to match the source, and add only the fields the surface needs. Save to `docs/product/copy.yaml`. After saving, run the validator:
 
 ```bash
-python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 ```
 
 Resolve any real flag before finishing. Judge false positives, such as a product named "Grid".

@@ -11,7 +11,7 @@ mentions "Blue" is a false positive the human judges — same contract as
 slop_scan.py. Content-only is the invariant; this just surfaces candidates.
 
 Usage:
-    python3 validate_copy.py docs/design/copy.yaml
+    python3 validate_copy.py docs/product/copy.yaml
     python3 validate_copy.py < copy.yaml
 """
 

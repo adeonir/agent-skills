@@ -360,15 +360,15 @@ Skills split outputs between committed strategic docs (`docs/`) and a gitignored
 
 ```text
 docs/
-├── product/   # brainstorm, docs-writer
+├── product/   # brainstorm, docs-writer, copywriting: content
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # design-brief, copywriting, craft-ui
+└── design/    # design-brief, craft-ui
 
 PROJECT.md                 # spec-driven: committed project memory
 .artifacts/
 ├── specs/, archive/, LESSONS.md, research/   # spec-driven
-└── design/    # design-brief; design/structure.yaml + design/VARIANTS.md + design/wireframes/ + design/mockups/ # craft-ui
+└── design/    # design-brief; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts — its output lives in the tracker.

@@ -12,7 +12,7 @@ Not for: changing the voice (a different job; refresh keeps the voice), structur
 
 ### Step 1: Read Current Copy
 
-Parse `docs/design/copy.yaml`. Note the established intent and voice; refresh preserves both. If either block is missing or inferred, use discovery before proposing edits.
+Parse `docs/product/copy.yaml`. Note the established intent and voice; refresh preserves both. If either block is missing or inferred, use discovery before proposing edits.
 
 ### Step 2: Run the Sweeps
 
@@ -35,7 +35,7 @@ Apply approved edits in place. Preserve the content tree paths and the voice; ne
 Before finishing, check the content tree, design leakage, core message, and voice. Run the validator for the first two:
 
 ```bash
-python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 ```
 
 Resolve any real flag. Judge false positives, such as a product named "Grid".

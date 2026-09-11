@@ -19,11 +19,11 @@ flowchart TD
 
 | Step | Trigger | Output |
 | ---- | ------- | ------ |
-| **Write** | Author fresh or net-new copy from intent: headlines, body, CTAs | `docs/design/copy.yaml` |
-| **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/design/copy.yaml` |
-| **Refresh** | Tighten existing copy in the same voice: clarity, specificity, proof, cut weak words | Patched `docs/design/copy.yaml` (confirm-before-write) |
-| **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/design/copy.yaml` (confirm-before-write) |
-| **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/design/copy.yaml` (confirm-before-write) |
+| **Write** | Author fresh or net-new copy from intent: headlines, body, CTAs | `docs/product/copy.yaml` |
+| **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/product/copy.yaml` |
+| **Refresh** | Tighten existing copy in the same voice: clarity, specificity, proof, cut weak words | Patched `docs/product/copy.yaml` (confirm-before-write) |
+| **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/product/copy.yaml` (confirm-before-write) |
+| **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/product/copy.yaml` (confirm-before-write) |
 | **Critique** | Quality and slop verdict on a draft: scores the seven sweeps, loops to refresh | Verdict + score (no write) |
 | **Audit** | Ship-readiness defect report on `copy.yaml` before handoff: P0–P3 | Report + score (no write) |
 
@@ -75,7 +75,7 @@ is this copy ready to ship?
 
 ## Output
 
-`docs/design/copy.yaml`: a context-named content tree (surfaces → parts: headline, body, cta, labels, states, images: named by context), mirroring the source or the brief. It records `intent` and `voice`, so later sessions keep the agreed purpose, limits, and tone instead of deriving them again.
+`docs/product/copy.yaml`: a context-named content tree (surfaces → parts: headline, body, cta, labels, states, images: named by context), mirroring the source or the brief. It records `intent` and `voice`, so later sessions keep the agreed purpose, limits, and tone instead of deriving them again.
 
 ## Requirements
 

@@ -116,10 +116,10 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ```
 docs/
-├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief
+├── product/        # brainstorm: brainstorm.md · docs-writer: PRD, brief · copywriting: copy.yaml
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: locked direction (moodboard.md) · copywriting: content · craft-ui: chosen mockup
+└── design/         # design-brief: locked direction (moodboard.md) · craft-ui: chosen mockup
 
 PROJECT.md          # spec-driven: committed project memory
 .artifacts/

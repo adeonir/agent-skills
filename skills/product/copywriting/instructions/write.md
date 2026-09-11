@@ -50,10 +50,10 @@ Before saving:
 
 ### Step 6: Write copy.yaml
 
-Save to `docs/design/copy.yaml` using the content-tree structure: see [extract.md](extract.md) for the exact template. Set `intent.status` and `voice.status` to `confirmed`. Content-only: the payload is independent of visual styling. After saving, run the validator:
+Save to `docs/product/copy.yaml` using the content-tree structure: see [extract.md](extract.md) for the exact template. Set `intent.status` and `voice.status` to `confirmed`. Content-only: the payload is independent of visual styling. After saving, run the validator:
 
 ```bash
-python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 ```
 
 Resolve any structure or design-leakage flags before done (advisory: judge false positives like a product named "Grid").

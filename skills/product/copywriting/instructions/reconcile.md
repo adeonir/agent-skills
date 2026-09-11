@@ -10,14 +10,14 @@ Not for: authoring `copy.yaml` from scratch (see [extract.md](extract.md)): this
 
 ## Prerequisites
 
-- `docs/design/copy.yaml` exists. If absent, this is not reconciliation: extract or write the content first.
+- `docs/product/copy.yaml` exists. If absent, this is not reconciliation: extract or write the content first.
 - Codebase path or live URL available as the implementation source.
 
 ## Workflow
 
 ### Step 1: Read Current Content
 
-Parse `docs/design/copy.yaml` as the authored state: the context-named content tree.
+Parse `docs/product/copy.yaml` as the authored state: the context-named content tree.
 
 ### Step 2: Extract Implementation Copy
 
@@ -35,10 +35,10 @@ Present the diff inline. User approves, rejects, or edits each patch row. No sil
 
 ### Step 5: Patch copy.yaml
 
-Apply approved string patches to `docs/design/copy.yaml`. Preserve content paths; do not rename or reorganize surface keys. If discovery confirmed missing or inferred metadata, add confirmed root intent and voice in the same patch. Then run the validator:
+Apply approved string patches to `docs/product/copy.yaml`. Preserve content paths; do not rename or reorganize surface keys. If discovery confirmed missing or inferred metadata, add confirmed root intent and voice in the same patch. Then run the validator:
 
 ```bash
-python3 <this-skill>/scripts/validate_copy.py docs/design/copy.yaml
+python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 ```
 
 Resolve any real flag. Judge false positives, such as a product named "Grid".
