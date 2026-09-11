@@ -18,7 +18,7 @@ A resolved decision enters as fact (`Reset links expire in 15 minutes`), never a
 
 ## Translate, don't replicate
 
-Upstream sources — a PRD, a design doc, an ADR, a parent epic, a pasted log or advisory — stay read-only. Extract only what maps to this artifact, then say it in the artifact's own language: strip section numbers, reference and ticket codes, code identifiers, and document or sibling-artifact names. The artifact carries the facts, not the source's tokens. Where a stripped token still has to survive, the drafting ref names the field that holds it.
+Upstream sources — a project PRD, feature PRD, feature RFC, design doc, ADR, parent epic, pasted log or advisory — stay read-only. Extract only what maps to this artifact, then say it in the artifact's own language: strip section numbers, reference and ticket codes, code identifiers, and document or sibling-artifact names. The artifact carries the facts, not the source's tokens. Where a stripped token still has to survive, the drafting ref names the field that holds it.
 
 ## Every line traces to a source
 

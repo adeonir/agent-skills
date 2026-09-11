@@ -1,6 +1,6 @@
 ---
 name: epic-tracker
-description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, stories, bugs, or tasks. Not for implementing a named story, feature status in a spec, project overviews, or quick fixes."
+description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, stories, bugs, or tasks, including creating an epic from an explicit feature PRD or RFC. Not for implementing a named story, feature documents, project overviews, or quick fixes."
 ---
 
 # Epic Tracker
