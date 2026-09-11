@@ -6,24 +6,30 @@ Generates structured product and technical documents through guided discovery.
 
 Routes document creation requests to type-specific workflows, each with appropriate discovery depth:
 
-The skill creates product requirements documents (PRDs), product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
+The skill creates project and feature product requirements documents, feature RFCs, product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
 
 ```mermaid
 flowchart TD
     T[Trigger] --> R{Document type}
-    R -->|PRD or PRODUCT| PD[Product-doc flow]
+    R -->|Project PRD or PRODUCT| PD[Project-doc flow]
+    R -->|Feature PRD| FP[Feature PRD flow]
+    R -->|Feature RFC| FR[Feature RFC flow]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
     PD -->|discover if absent, update if present| P[PRD.md]
     PD -->|discover if absent, update if present| PM[PRODUCT.md]
     DD -->|discover if absent, update if present| D[design-doc.md]
     ADR --> A[adr/NNN-slug.md]
+    FP --> FPM[.artifacts/features/feature-slug/PRD.md]
+    FR --> FRM[.artifacts/features/feature-slug/RFC.md]
     D -.->|extract decision| ADR
 ```
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **PRD** | discovery (4 phases) if absent; update requested parts if present | `PRD.md` |
+| **Project PRD** | discovery (4 phases) if absent; update requested parts if present | `PRD.md` |
+| **Feature PRD** | focused discovery and approval; update requested parts if present | `.artifacts/features/<feature-slug>/PRD.md` |
+| **Feature RFC** | proposal discovery and approval; update requested parts if present | `.artifacts/features/<feature-slug>/RFC.md` |
 | **PRODUCT** | discovery if absent; update requested parts if present | `PRODUCT.md` |
 | **Design Doc** | discovery (4 topics) → analysis → drafting if absent; update requested parts if present | `design-doc.md` |
 | **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
@@ -32,6 +38,9 @@ flowchart TD
 
 ```text
 create PRD for my project
+create a feature PRD for saved searches
+write an RFC for bulk export
+create the feature PRD and RFC for team invitations
 create design doc for my project
 create ADR for switching from REST to gRPC
 write requirements for the new feature
@@ -42,7 +51,7 @@ The skill detects the document type from the trigger and loads the appropriate w
 
 ## Output
 
-Documents are saved by category under `docs/`:
+Project documents are saved by category under `docs/`:
 
 ```text
 docs/product/PRD.md
@@ -51,7 +60,14 @@ docs/tech/design-doc.md
 docs/adr/<NNN>-<slug>.md
 ```
 
-Commit documents by default. PRD and PRODUCT live under `docs/product/`. The Design Doc lives under `docs/tech/`. ADRs use numbered files under `docs/adr/`. Design Doc Alternatives rows link to ADRs through the `Record` column.
+Feature documents are temporary artifacts:
+
+```text
+.artifacts/features/<feature-slug>/PRD.md
+.artifacts/features/<feature-slug>/RFC.md
+```
+
+Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRD and RFC artifacts are temporary and live under `.artifacts/features/`; archive them manually when no longer active.
 
 ## Document Boundaries
 
@@ -84,6 +100,8 @@ When content appears relevant to two documents, keep it in the document that own
 **Q: How does PRODUCT relate to the PRD?** A: PRODUCT records what the product is and stands for. The PRD records what the product does. Discovery can produce both documents for a new product. Later changes can update either document on its own.
 
 **Q: What happens when I run the skill for an existing PRD, PRODUCT, or Design Doc?** A: The skill reads the existing document and reviews only the requested change. Before writing, it states which sections will change and which sections will remain unchanged. The skill never silently replaces existing work.
+
+**Q: Can a feature have a PRD, an RFC, or both?** A: Yes. When both are requested, the feature PRD is approved first and the RFC links to it without duplicating its content.
 
 **Q: How is the Design Doc sized?** A: Keep the Design Doc as short as the design allows. A small service with a few decisions can use one page. A system with several services and trade-offs needs more detail. Add content only when a decision needs it.
 

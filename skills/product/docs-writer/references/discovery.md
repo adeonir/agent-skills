@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Load this reference during PRD, PRODUCT, Design Doc, and ADR discovery. It also defines how to update existing documents and how to challenge weak claims. Do not use it as a direct trigger.
+Load this reference during project PRD, feature PRD, PRODUCT, feature RFC, Design Doc, and ADR discovery. It also defines how to update existing documents and how to challenge weak claims. Do not use it as a direct trigger.
 
 ## Core Principle
 
