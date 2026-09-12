@@ -1,6 +1,6 @@
 ---
 name: epic-tracker
-description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, stories, bugs, or tasks, including creating an epic from an explicit feature PRD or RFC. Not for implementing a named story, feature documents, project overviews, or quick fixes."
+description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, stories, bugs, or tasks, including sizing an explicit feature PRD or RFC into an epic, a standalone story, or a standalone task. Not for implementing a named story, feature documents, project overviews, or quick fixes."
 ---
 
 # Epic Tracker
@@ -9,6 +9,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 
 ## Triggers
 
+- **Feature source** ("create from this RFC", "create from this feature PRD", "turn this RFC into issues", "track this feature") → [feature.md](instructions/feature.md)
 - **Plan / decompose** ("create roadmap", "plan the roadmap", "organize epics", "roadmap the PRD", "decompose", "break down the roadmap", "break this epic into stories", "materialize the epics") → [decompose.md](instructions/decompose.md)
 - **Epic** ("create epic", "new epic", "edit epic") → [epic.md](instructions/epic.md)
 - **Story** ("create story", "new story", "add story", "edit story", "update story", "change story") → [story.md](instructions/story.md)
@@ -25,7 +26,8 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 create ref → tracker → the tracker      every artifact takes this path
     ↑
     ├ user brings the plan               the usual input
-    └ decompose (optional): derives the plan from a PRD, feeds the ref
+    ├ decompose (optional): derives the plan from the project PRD
+    └ feature (optional): sizes a feature PRD/RFC, picks the ref
 ```
 
-Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. The plan usually comes from the user directly. `decompose` is the optional ceremony in front — it derives the plan from a PRD, records it in the roadmap, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. A tracker is required: without one configured, the bootstrap runs first and nothing is created until it completes.
+Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. The plan usually comes from the user directly. Two optional ceremonies sit in front. `decompose` derives the plan from the project PRD, records it in the roadmap, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. `feature` sizes a feature PRD or RFC into an epic, a standalone story, or a standalone task, and writes no roadmap. A tracker is required: without one configured, the bootstrap runs first and nothing is created until it completes.

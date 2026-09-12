@@ -10,7 +10,9 @@ flowchart TD
     USER --> STK[story.md / task.md]
     USER --> BG[bug.md]
     PRD[docs/product/PRD.md] -->|project planning| DEC[decompose:<br>ICE framework, order, partition, deps]
-    FPRD[feature PRD/RFC] -->|feature source| EP[epic.md]
+    FPRD[feature PRD/RFC] -->|feature source| FT[feature:<br>size into epic, story, or task]
+    FT -->|epic| EP
+    FT -->|standalone story or task| STK
     DEC -->|entries| RW[roadmap.md]
     RW -->|writes| RM[(docs/product/ROADMAP.md)]
     DEC -->|checkpoint → each epic| EP
@@ -23,13 +25,14 @@ flowchart TD
     SY --> GH[(GitHub)]
 ```
 
-Every artifact is drafted by its create ref — `epic.md`, `story.md`, `task.md`, `bug.md` — and dispatched through the tracker adapter; the plan usually comes from the user directly. `decompose` is the optional planning ceremony in front: given a PRD it derives the epic set, writes it to the roadmap through `roadmap.md`, and — after a checkpoint — feeds each epic to `epic.md`, then each story and task to `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. A story's acceptance criteria are validated before anything reaches the tracker whatever the plan's source; a bug hangs under an epic or stands alone, always created directly.
+Every artifact is drafted by its create ref — `epic.md`, `story.md`, `task.md`, `bug.md` — and dispatched through the tracker adapter; the plan usually comes from the user directly. `decompose` is the optional planning ceremony in front: given the project PRD it derives the epic set, writes it to the roadmap through `roadmap.md`, and — after a checkpoint — feeds each epic to `epic.md`, then each story and task to `story.md`/`task.md`. `roadmap.md` only writes the record; it decides nothing. `feature` is the second optional ceremony: it sizes a feature PRD or RFC along the same seams and routes the result to the ref that fits — an epic when two or more units fall out, a standalone story when the single unit has an outcome a user observes, a standalone task otherwise. A story's acceptance criteria are validated before anything reaches the tracker whatever the plan's source; a bug hangs under an epic or stands alone, always created directly.
 
 Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `gh` CLI. Nothing but the project roadmap is written locally, and the tracker is the single source of truth for state. A tracker is required: without one configured, bootstrap runs first and nothing is created until it completes. `docs/product/ROADMAP.md` is the local project-planning file — committed, alongside `PRD.md` and `PRODUCT.md`. A feature PRD or RFC is consumed as a feature source and never creates a roadmap.
 
 | Phase | What Happens | Output |
 | ----- | ------------ | ------ |
-| Discover | Epic only — read the explicit feature PRD/RFC or the project PRD, PRODUCT, and roadmap entry | Context for the draft |
+| Size | Feature source only — cut the feature PRD/RFC along the epic seams and pick the artifact type | Epic, standalone story, or standalone task |
+| Discover | Epic only — read the feature PRD/RFC or the project PRD, PRODUCT, and roadmap entry | Context for the draft |
 | Draft | Compose epic, story, bug, or task to its canonical template | Body + dispatch inputs |
 | Sync | Dispatch to the tracker via its adapter | Tracker artifact + URL |
 
@@ -86,7 +89,8 @@ Dependencies are editable for the life of the artifact, not just at creation: "b
 
 ```text
 create roadmap             -- derive the epic set from the PRD, write docs/product/ROADMAP.md, then materialize
-create epic                -- draft one epic directly — bring the plan or an explicit feature PRD/RFC
+create epic                -- draft one epic directly — bring the plan
+create from this RFC       -- size a feature PRD/RFC into an epic, a standalone story, or a standalone task
 decompose                  -- run the ceremony: PRD into a roadmap of epics, or an epic into stories/tasks
 create story               -- add a story (a demonstrable slice of user value) to an existing epic
 edit story                 -- update an existing story; AC changes re-validate
@@ -150,6 +154,8 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 **Q: Do I have to use a tracker?** A: Yes. The tracker is the single source of truth; the skill keeps no local copy of an epic, story, bug, or task. When no MCP or CLI is detected, bootstrap stops and tells you what to set up.
 
 **Q: Am I asked before every push?** A: No. Bootstrap asks once per project and stores the answer in `epic-tracker.kind`. After that, creates follow the config without re-asking. Name a destination in the request to override it for a single artifact — "create the issue on GitHub" when the config says Linear. The override never rewrites the config; only `configure tracker` does. It does not apply to an artifact under an epic, whose parent lives in the configured tracker; an epic or a standalone artifact carries no such constraint.
+
+**Q: Does every feature RFC or PRD become an epic?** A: No. `feature` cuts the document along the same seams `decompose` uses on the project PRD and counts what falls out. Two or more units make it an epic; one unit whose outcome a user observes is a standalone story; one unit nobody observes is a standalone task. Document length is not a seam, and the sized result is settled with you before anything is created. The project PRD is the exception — it describes the whole product, so it always yields epics.
 
 **Q: Can I create an epic, story, or task without running decompose?** A: Yes — that is the default. You bring the plan; the create ref drafts it to the canonical template and pushes to the tracker. It runs no derivation, partition, coverage, or ICE — those belong to `decompose`, the optional ceremony that derives the plan from a PRD. Creating directly works whether or not a PRD exists.
 
