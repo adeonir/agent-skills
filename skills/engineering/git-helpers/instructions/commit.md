@@ -48,20 +48,24 @@ Both shapes of slop applied to a commit subject:
 
 ## Body
 
-**Default to no body.** The subject carries the *what*, and most commits stop there.
+**Default to no body.** The subject carries the *what*, and most commits stop there. Commit the subject alone unless a sentence passes both tests below.
 
-A body is earned by one observation, made against the staged diff before any of it is written: name the wrong action a reader holding the diff would take without it — reverts the change, reapplies it badly, re-fixes the same bug, reaches again for the mechanism this one rules out. No wrong action to name, no body. A reader understanding less is not a wrong action, and taking it for one is what puts a body on every commit. The observation is the gate, never a trim applied afterwards, because a body written first and justified second always finds its justification.
+**The order.** Write the subject. Run both tests against the staged diff. Write the sentence only once both pass. Never draft a sentence and then judge whether it stays: a body written first and justified second always finds its justification.
 
-The observation finds one of two things:
+**Test 1 — does the diff already answer it?** Read the staged diff alone and ask what problem it solves. If the changed lines answer, there is no body. A body is for the goal the diff cannot show: a problem in code the diff does not touch, or a constraint that forces this solution over the obvious one. "The previous behavior was wrong" never qualifies on its own: every commit has a previous behavior, and the diff shows what replaced it.
 
-- **The previous behavior was a problem the changed lines do not show.** *A problem, not merely a difference.* Nearly every change has a problem behind it, and the diff usually shows that problem plainly, so having one settles nothing on its own. Ask whether the changed lines already carry it.
-- **A constraint binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you.
+**Test 2 — substitution.** Take the candidate sentence, put another commit of the same type in front of it, and read it again. A sentence that stays true does not describe this commit, and it goes. `The request crashed instead of returning an error` stays true for most fixes — cut it. `A deploy that rewrote the config while the process ran served two different configs in the same second` is true of one commit only — keep it.
 
-**One sentence.** Write the fact the observation found — the problem the diff does not show, or the constraint — and stop. Never pair them as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.
+What survives both tests is one of two facts:
+
+- **A problem in the surrounding code that the changed lines do not show.** Ask whether the changed lines already carry it; usually they do.
+- **A constraint that binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you.
+
+**One sentence.** Write the fact and stop. Never pair the two as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.
 
 The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification, why this solution beat the other one — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
 
-When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the observation supports first. Drop the body entirely when the observation finds nothing, and tell the user that is what you did and why.
+When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the tests support first. Drop the body entirely when nothing survives them, and tell the user that is what you did and why.
 
 ## Matching the project's form
 
@@ -101,6 +105,20 @@ refactor: pin the tokenizer to the sync API
 
 The async path drops surrogate pairs on flush, so the sync call stays until
 that lands upstream.
+```
+
+**Bad — a body that restates what the diff shows.** The diff adds the expired-session check, so it already answers the problem; and the sentence stays true of every fix that replaces a crash with a handled response.
+
+```text
+fix: reject an expired session before the handler runs
+
+The expired session reached the handler with no user attached and crashed the request.
+```
+
+The subject alone is the whole commit:
+
+```text
+fix: reject an expired session before the handler runs
 ```
 
 **Bad — a body that inventories the diff.** One line per file operation, which is what the diff already is:
