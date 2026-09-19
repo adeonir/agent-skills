@@ -164,15 +164,15 @@ Rules:
 
 `Daily/YYYY-MM-DD.md`, at the root of `Daily/` — that is where a daily note is created when none exists for the date.
 
-Past months are archived into `Daily/YYYY-MM/` folders. Search for the date before writing: when a note for that date already sits in a monthly folder, patch it there rather than creating a second one at the root. Never create the monthly folder — archiving is not this skill's operation.
+Past months are archived into `Daily/YYYY-MM/` folders. Search for the date before writing: when a note for that date already sits in a monthly folder, patch it there rather than creating a second one at the root. Archiving is step 3, after the daily note is written; never move a note as part of writing it.
 
 #### Daily template
 
-Use Activities for project work, Open Items for pending work, Observations for day-level facts that apply across projects, and Relations for explicit connections to today's session notes.
+Use Activities for project work, Open Items for pending work, Observations for day-level facts that apply across projects, and Relations for explicit connections to today's session notes. The title carries the calendar day the note covers, weekend included.
 
 ```markdown
 ---
-title: "DayOfWeek, Month DD, YYYY"
+title: "Saturday, September 19, 2026"
 type: daily
 tags:
   - daily
@@ -239,6 +239,12 @@ Rules:
 - Relations use typed verbs (`contains`, `relates_to`); `contains` points to today's session notes
 - Past tense, natural language
 - Omit empty sections entirely
+
+### 3. Offer to archive past months
+
+After the daily note is written, list `Daily/` with `Obsidian:list_directory` and collect the `YYYY-MM-DD.md` files at its root whose month is earlier than the current month. When none exist, skip this step silently.
+
+When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? This is the only question the workflow asks, and it comes after the report, never before a write. On yes, move each note with `Obsidian:move_note` to `Daily/YYYY-MM/YYYY-MM-DD.md` and report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
 
 ## Guidelines
 
