@@ -70,16 +70,16 @@ git config --local git-helpers.merge-method {method}
 
 ```bash
 git fetch origin {base}
-git rev-list --left-right --count origin/{base}...HEAD
+gh pr view --json mergeable --jq .mergeable
 ```
 
-If the branch is behind, it needs a rebase, which rewrites its commits and then overwrites the remote branch. Show how far behind it is and rebase only on explicit user confirmation; on decline, stop here.
+If `mergeable` is `CONFLICTING`, rebase. The rebase rewrites the branch commits and overwrites the remote branch, so rebase only on explicit user confirmation; on decline, stop here. Any other value: skip the rebase.
 
 ```bash
 git rebase origin/{base}
 ```
 
-If rebase conflicts, surface and stop; inform the user to resolve and re-run.
+Resolve each conflict with the user, then continue the rebase. If a conflict cannot be resolved, abort and stop.
 
 After a successful rebase, refresh the remote branch:
 
