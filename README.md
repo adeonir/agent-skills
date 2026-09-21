@@ -40,6 +40,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | Skill | Description |
 | ----- | ----------- |
 | **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
+| **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[design-brief](skills/product/design-brief)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
@@ -59,6 +60,12 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 ```mermaid
 flowchart TD
+    CTX[context or materials] --> BF[briefing]
+    BR -->|direction| BF
+    BF -.->|brief| DW_PRD
+    BF -.->|brief| DB
+    BF -.->|brief| CW
+    BF -.->|brief| CU
     BR[brainstorm] -->|direction| DW_PRD[docs-writer · product]
     BR -->|direction| DB[design-brief]
     BR -.->|direction| SD[spec-driven]
@@ -91,15 +98,16 @@ business logic:
 
 ```
 1.  brainstorm       --> direction and constraints
-2.  docs-writer      --> project requirements or feature PRD/RFC
-3.  docs-writer      --> technical decisions and trade-offs
-4.  design-brief     --> visual identity and design tokens
-5.  copywriting      --> content and copy
-6.  craft-ui         --> wireframe the arrangement, mockup the visual direction
-7.  epic-tracker     --> epics, stories, acceptance criteria
-8.  spec-driven      --> per-story spec, design, tasks, implementation
-9.  review-lens      --> review changes before commit
-10. git-helpers      --> commit, pull request, finish branch
+2.  briefing         --> problem, objectives, audience, budget, timing, and gaps, when context needs consolidation
+3.  docs-writer      --> project requirements or feature PRD/RFC
+4.  docs-writer      --> technical decisions and trade-offs
+5.  design-brief     --> visual identity and design tokens
+6.  copywriting      --> content and copy
+7.  craft-ui         --> wireframe the arrangement, mockup the visual direction
+8.  epic-tracker     --> epics, stories, acceptance criteria
+9.  spec-driven      --> per-story spec, design, tasks, implementation
+10. review-lens      --> review changes before commit
+11. git-helpers      --> commit, pull request, finish branch
 ```
 
 ### Feedback loop
@@ -118,7 +126,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 
 ```
 docs/
-├── product/        # brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
+├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
 └── design/         # design-brief: locked direction (moodboard.md) · craft-ui: chosen mockup
