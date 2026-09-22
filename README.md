@@ -46,6 +46,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[design-brief](skills/product/design-brief)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
+| **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
 
 ### Personal
 
@@ -62,6 +63,8 @@ npx skills add adeonir/agent-skills/<skill-name>
 flowchart TD
     CTX[context or materials] --> BF[briefing]
     BR -->|direction| BF
+    BF -->|open questions| RS[research]
+    RS -->|findings| BF
     BF -.->|brief| DW_PRD
     BF -.->|brief| DB
     BF -.->|brief| CW
@@ -99,15 +102,16 @@ business logic:
 ```
 1.  brainstorm       --> direction and constraints
 2.  briefing         --> problem, objectives, audience, budget, timing, and gaps, when context needs consolidation
-3.  docs-writer      --> project requirements or feature PRD/RFC
-4.  docs-writer      --> technical decisions and trade-offs
-5.  design-brief     --> visual identity and design tokens
-6.  copywriting      --> content and copy
-7.  craft-ui         --> wireframe the arrangement, mockup the visual direction
-8.  epic-tracker     --> epics, stories, acceptance criteria
-9.  spec-driven      --> per-story spec, design, tasks, implementation
-10. review-lens      --> review changes before commit
-11. git-helpers      --> commit, pull request, finish branch
+3.  research         --> findings, implications, and open questions, when the brief leaves gaps
+4.  docs-writer      --> project requirements or feature PRD/RFC
+5.  docs-writer      --> technical decisions and trade-offs
+6.  design-brief     --> visual identity and design tokens
+7.  copywriting      --> content and copy
+8.  craft-ui         --> wireframe the arrangement, mockup the visual direction
+9.  epic-tracker     --> epics, stories, acceptance criteria
+10. spec-driven      --> per-story spec, design, tasks, implementation
+11. review-lens      --> review changes before commit
+12. git-helpers      --> commit, pull request, finish branch
 ```
 
 ### Feedback loop
@@ -138,7 +142,7 @@ PROJECT.md          # spec-driven: committed project memory
 │   ├── specs/       # spec-driven: specs archived manually, in any state
 │   └── features/    # docs-writer: feature PRD/RFC folders archived manually
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
-├── research/       # spec-driven: research cache
+├── research/       # research: <topic>.md reports · spec-driven: research cache
 └── design/         # design-brief: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
