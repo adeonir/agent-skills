@@ -11,17 +11,17 @@ Before creating an artifact when the trigger does not already name the type, or 
 Most specific first — the Story/Task/Bug split:
 
 1. **Defect** — does it fix behavior that already exists and is broken? → **Bug**
-2. **User-value slice** — does it deliver a demonstrable slice of user value, an outcome the user observes on its own? → **Story**
-3. **Anything else actionable** — enabling, technical, research, tooling, or docs, where no user observes an outcome of its own → **Task**
+2. **User-value slice** — does it deliver a demonstrable slice of user value, an outcome a user of the product observes on its own? → **Story**
+3. **Anything else actionable** — enabling, technical, research, internal tooling, or docs, where no user of the product observes an outcome of its own → **Task**
 
 ## Decision Tree
 
 ```text
 Does the behavior already exist and is broken?
 ├ yes → Bug
-└ no  → Does the user observe an outcome of its own?
+└ no  → Does a user of the product observe an outcome of its own?
         ├ yes → Story
-        └ no  → Is it actionable work with a statable done-condition?
+        └ no  → Is it actionable work with a statable acceptance criterion?
                 ├ yes → Task
                 └ no  → Ask the user
 ```
@@ -32,12 +32,12 @@ Does the behavior already exist and is broken?
 |------|----|---------|
 | Bug | a defect in existing behavior | repro steps, severity, environment |
 | Story | a demonstrable slice of user value | Gherkin acceptance criteria in fenced ```` ```gherkin ```` blocks (Scenario/Scenario Outline with Given/When/Then/And/But), each carrying `Satisfies` when a parent epic declares the requirement |
-| Task | general actionable work | Definition of Done, no acceptance criteria; a done-condition carries `Satisfies` when it discharges a requirement no story can |
+| Task | general actionable work | acceptance criteria as a checklist, no Gherkin; a criterion carries `Satisfies` when it discharges a requirement no story can |
 
 ## Notes
 
-- **Story vs Task is the observable outcome, not the audience.** A Story delivers something a user sees happen; everything else actionable is a Task, even when user-adjacent. Work being *about* users does not make it a Story — a horizontal building block with no outcome of its own is a Task however close to the user it sits.
-- **The shape follows the type; it never picks it.** A Story states its outcome as Gherkin acceptance criteria, a Task states its as a Definition of Done — consequences of the choice above, not tests for it. Writing no acceptance criteria does not turn a user-observable slice into a Task, and adding them does not turn enabling work into a Story.
+- **Story vs Task is who observes the outcome.** A user is whoever the product serves, a developer included when the product serves developers — an SDK, a CLI, a public API. A Story delivers something a user sees happen; everything else actionable is a Task, even when user-adjacent. Work whose beneficiary is the team building the product — CI, a build script, internal tooling — is a Task even when a developer on that team sees its result. Work being *about* users does not make it a Story — a horizontal building block with no outcome of its own is a Task however close to the user it sits.
+- **The shape follows the type; it never picks it.** A Story states its acceptance criteria as Gherkin scenarios, a Task states its as a checklist — consequences of the choice above, not tests for it. Writing a checklist does not turn a user-observable slice into a Task, and writing scenarios does not turn enabling work into a Story.
 - **Example — password reset.** "Set a new password from a reset link" is a Story: demonstrable on its own, carries acceptance criteria. "Add the password_resets table" or "stand up the mail queue" is a Task: a horizontal building block the story needs but that shows the user nothing on its own.
 - **Anti-pattern — task dressed as story.** "Send a welcome email" is a Task if the user outcome is not observable on its own. "Complete onboarding and receive a welcome email" is a Story because the user sees the result.
 - **No epic to sit under is not a type signal.** A demonstrable user-value slice with no theme to group it is a standalone Story, not a Task — an Epic groups Stories, it never qualifies them. Downgrading the slice to a Task to give it a parent is the inverse of the anti-pattern above.

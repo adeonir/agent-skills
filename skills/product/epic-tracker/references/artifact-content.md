@@ -22,8 +22,8 @@ Upstream sources — a project PRD, feature PRD, feature RFC, design doc, ADR, p
 
 ## Every line traces to a source
 
-A constraint, a done-condition, or a criterion is written only when it traces to a source — a file in the repository, a linked doc, the parent epic, pasted context, or what the user stated.
+A constraint or a criterion is written only when it traces to a source — a file in the repository, a linked doc, the parent epic, pasted context, or what the user stated.
 
-Filling a Definition of Done item, a success criterion, or an open question with generic best-practice lore — "a slow pre-commit hook trains the developer to skip it", "this will not scale", "cache invalidation gets tricky here" — states a concern the project never reported. It reads as a finding and behaves as scope: the invented concern pulls an implementation decision nobody asked for, and the reader cannot tell it apart from the constraints that came from the repository.
+Filling an acceptance criterion, a success criterion, or an open question with generic best-practice lore — "a slow pre-commit hook trains the developer to skip it", "this will not scale", "cache invalidation gets tricky here" — states a concern the project never reported. It reads as a finding and behaves as scope: the invented concern pulls an implementation decision nobody asked for, and the reader cannot tell it apart from the constraints that came from the repository.
 
 When one feels real but has no source, ask instead of asserting. The answer either becomes a sourced line or does not enter the artifact.

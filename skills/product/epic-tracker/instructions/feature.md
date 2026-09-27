@@ -41,7 +41,7 @@ The create ref drafts the body and validates it. This ref drafts no prose.
 
 ## Requirements on a standalone artifact
 
-When the feature source enumerates requirements (`FR/BR/EC/NFR`) and the gate picks a single standalone artifact, no epic declares them, so nothing carries a `Satisfies` line. The statements enter as what the artifact must hold — acceptance criteria on a story, done-conditions on a task — translated in form but never in norm: the modal, the actor, the object, and every bound survive the trip. An id that reaches neither is surfaced, and the user adds coverage or confirms the omission.
+When the feature source enumerates requirements (`FR/BR/EC/NFR`) and the gate picks a single standalone artifact, no epic declares them, so nothing carries a `Satisfies` line. The statements enter as what the artifact must hold — Gherkin acceptance criteria on a story, checklist acceptance criteria on a task — translated in form but never in norm: the modal, the actor, the object, and every bound survive the trip. An id that reaches neither is surfaced, and the user adds coverage or confirms the omission.
 
 ## Guidelines
 

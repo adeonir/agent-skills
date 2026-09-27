@@ -112,7 +112,7 @@ Each artifact is drafted to a fixed set of sections. A section marked optional i
 | -------- | -------- |
 | Epic | Summary, Scope, Success Criteria*, Requirements*, Open Questions*, Dependencies*, References |
 | Story | Summary, Out of Scope*, Acceptance Criteria, Open Questions*, Dependencies*, References* |
-| Task | Summary, Definition of Done, Dependencies*, References* |
+| Task | Summary, Acceptance Criteria, Dependencies*, References* |
 | Bug | Summary, Signals*, Steps to Reproduce, Expected, Actual, Impact, Environment*, Workaround, Regression*, Dependencies* |
 
 What is worth knowing about the shapes:
@@ -125,11 +125,11 @@ What is worth knowing about the shapes:
 
 ## Story Acceptance Criteria
 
-Stories enforce Gherkin acceptance criteria. Each AC is a `### AC-N` block with a fenced ```` ```gherkin ```` scenario and an optional `**Satisfies**` line linking it to the parent-epic requirement it operationalizes. Use `Scenario` for single cases and `Scenario Outline` + `Examples` for parametrized cases; `And` and `But` may continue any step. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Resolving each `Satisfies` against the parent epic also flags a Then that promises what the requirement never asked for — a timing, a count, a threshold, a mechanism, or an outcome beyond the one it names — so the story does not quietly owe more than the requirement demands. Past five criteria the skill asks whether the story is really one outcome — a confirm, never a block, and the one size check every story gets whether it came from `decompose` or straight from you. Artifacts read from the tracker are not validated.
+Stories enforce Gherkin acceptance criteria. Each AC is a `### AC-N` block with a fenced ```` ```gherkin ```` scenario and an optional `**Satisfies**` line linking it to the parent-epic requirement it operationalizes. Use `Scenario` for single cases and `Scenario Outline` + `Examples` for parametrized cases; `And` and `But` may continue any step. The skill validates on story create and on edits that change AC text, before any tracker round-trip. Resolving each `Satisfies` against the parent epic also flags a Then that promises what the requirement never asked for — a timing, a count, a threshold, a mechanism, or an outcome beyond the one it names — so the story does not quietly owe more than the requirement demands. Artifacts read from the tracker are not validated.
 
 ## Requirement Traceability
 
-The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** is AC-less work measured by its `## Definition of Done`, and a done-condition carries the same link when it discharges a requirement no story can — typically an `NFR` or `BR` delivered by work nobody observes. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage runs from the epic to its children: every requirement it declares is operationalized by ≥1 `Satisfies`, on a story AC or a task done-condition. A standalone story or task sits under no epic, so it carries no `Satisfies` line and enters no coverage set.
+The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## Requirements` section, read from the PRD via its PRD link. Each **story** operationalizes them: every `### AC-N` links the requirement it satisfies on a `**Satisfies**` line, which the spec inherits 1:1 downstream. A **task** writes its `## Acceptance Criteria` as a checklist, and a criterion carries the same link when it discharges a requirement no story can — typically an `NFR` or `BR` delivered by work nobody observes. `ADR-NNN` is a decision dependency recorded in References, not a requirement. Requirement coverage runs from the epic to its children: every requirement it declares is operationalized by ≥1 `Satisfies`, on a story or task acceptance criterion. A standalone story or task sits under no epic, so it carries no `Satisfies` line and enters no coverage set.
 
 ## Roadmap
 
