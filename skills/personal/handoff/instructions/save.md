@@ -12,9 +12,11 @@ ALWAYS use this exact template structure:
 **Focus:** [what the next session should pick up; 1 line]
 
 **Context:**
-- [live context the next session needs, including why the work is in its current direction]
+- [user's goal, constraints, and why the work is in its current direction]
 
-**Next step:** [concrete entry point — file, symbol, or command]
+**Current state:**
+- [work completed, remaining work, and relevant workspace state]
+- [checks run and results, when relevant]
 ````
 
 Append a section below only when its condition holds. Never write "none" — an absent section is the empty answer.
@@ -37,13 +39,16 @@ The handoff MUST NOT contain:
 
 ## Workflow
 
-1. Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Check its claims against the current conversation and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
-2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Next step` to it.
-3. Distinguish verified facts from assumptions. Record an unverified belief as an open thread instead of promoting it to a finding or decision.
-4. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
-5. Report `Focus` and `Next step`.
+1. Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Treat its claims as unverified until checked against the current conversation, workspace, and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
+2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Current state` to it.
+3. Carry the user's goal and constraints, the rationale for the current direction, work completed, and remaining work. Let the next session infer its next action from this context.
+4. For code work, capture the relevant branch, commit, changed paths, and checks with their results. Omit workspace details that do not affect resumption.
+5. Mark each load-bearing claim `verified` with its evidence or `unverified` with its source. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions.
+6. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
+7. Report `Focus` and `Current state`.
 
 ## Guidelines
 
 - Keep `Context` and optional sections as terse bullets
-- Point `Next step` at a symbol, path, or command rather than a line number; line numbers drift between sessions
+- Include enough rationale to explain the current direction; omit raw conversation history
+- Reference existing artifacts instead of copying their contents

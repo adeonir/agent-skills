@@ -15,8 +15,8 @@ flowchart TD
 
 | Operation | Output |
 |-----------|--------|
-| save | Consolidates the existing handoff with the current conversation state |
-| load | Reads the complete handoff into the current session |
+| save | Consolidates the existing handoff with the current conversation and work state |
+| load | Reads the handoff, checks claims that may have changed, and resumes from its context |
 | clear | Writes empty content to the file (opt-in, separate operation) |
 
 ## Usage
@@ -40,7 +40,7 @@ reset handoff
 
 `.artifacts/HANDOFF.md` — one current, consolidated handoff.
 
-Three sections are always present (`Focus`, `Context`, `Next step`); five are optional and omitted when empty:
+Three sections are always present (`Focus`, `Context`, `Current state`); five are optional and omitted when empty:
 
 ```markdown
 # Handoff
@@ -48,12 +48,14 @@ Three sections are always present (`Focus`, `Context`, `Next step`); five are op
 **Focus:** [one line]
 
 **Context:**
-- ...
+- User goal, constraints, and why the work is in its current direction
 
-**Next step:** [concrete entry point]
+**Current state:**
+- Work completed and remaining
+- Relevant workspace state and checks with results
 
 **Decisions:**
-- ...
+- Active choice and rationale when no other artifact records it
 
 **Findings:**
 - ...
@@ -74,9 +76,13 @@ Three sections are always present (`Focus`, `Context`, `Next step`); five are op
 
 A: No. Save reads the existing handoff and consolidates it with the current conversation. Relevant information remains; superseded and redundant content is removed.
 
-**Q: Does load auto-clear?**
+**Q: Does load auto-clear the handoff?**
 
-A: No. Load reads, clear is a separate explicit op.
+A: No. Load reads the handoff; clear is a separate explicit operation.
+
+**Q: Does the handoff prescribe what to do next?**
+
+A: No. The next session infers what to do from the focus, context, and current state.
 
 **Q: What if the file is absent?**
 
@@ -84,8 +90,8 @@ A: Load and clear no-op silently. Save creates the file.
 
 **Q: How does this differ from end-of-session note persistence?**
 
-A: End-of-session flows write a narrative of what happened into a durable memory system. The handoff skill carries live focus, context, and the next step for resuming work. An end-of-session flow may consume and clear the handoff after it persists the content.
+A: End-of-session flows write a narrative of what happened into a durable memory system. The handoff skill carries the live focus, rationale, and work state needed to resume. An end-of-session flow may consume and clear the handoff after it persists the content.
 
 **Q: Can I describe what the next session should focus on?**
 
-A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus` and `Next step` to that focus. Without an argument, save captures the current focus from the conversation.
+A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus`, `Context`, and `Current state` to that focus. Without an argument, save captures the current focus from the conversation.
