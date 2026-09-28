@@ -94,7 +94,7 @@ After discovery, summarize the confirmed information before writing:
 4. Ask the user to confirm the summary
 5. Only proceed to drafting after user confirms
 
-Use this confirmation for a new document. When updating an existing document, confirm only the planned changes as described in [reconcile.md](reconcile.md).
+Use this confirmation for a new document. When updating an existing document, follow [reconcile.md](reconcile.md) instead.
 
 ## Critical Review
 
@@ -119,7 +119,7 @@ Challenge weak claims with respect. Do not accept them only because the user sta
 
 ## Quality Gate
 
-Use these criteria for full discovery. When updating an existing document, confirm the planned changes in [reconcile.md](reconcile.md) instead of reviewing every topic.
+Use these criteria for full discovery. When updating an existing document, follow [reconcile.md](reconcile.md) instead of reviewing every topic.
 
 Before moving from discovery to drafting, verify:
 
