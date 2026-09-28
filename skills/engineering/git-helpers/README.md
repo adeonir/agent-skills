@@ -57,6 +57,8 @@ merge pull request
 
 **Q: Do I need to stage files before committing?** A: No. By default, the skill stages modified and untracked files by name. If you already staged something before asking, the skill flags it so nothing lands silently. Use "commit only staged files" if you prefer to stage manually and skip the auto-stage step.
 
+**Q: How does the skill decide whether a commit is breaking?** A: It checks whether the diff makes an existing consumer incompatible with an established contract. If so, it explains the impact and asks whether to use a breaking marker or another classification. A changed format alone is not enough; ordinary commit types and scopes need no confirmation.
+
 **Q: What base branch is used for pull requests?** A: The repo's default branch, with `main` as fallback. Name another base upfront to override it: "create PR against develop".
 
 **Q: Can I use this without `gh` CLI?** A: Yes, when a GitHub MCP tool is available. Otherwise, `gh` CLI is required for PR creation and merge operations.

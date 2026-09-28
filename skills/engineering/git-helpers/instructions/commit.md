@@ -32,7 +32,9 @@ Split only when the types fall on file boundaries. When one file carries both, t
 4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the log, as the form pass below sets out. User can override (e.g. "add scope `auth`", "drop the scope").
 5. **No attribution**: Never add Co-Authored-By or similar lines
 6. **No future references**: Don't mention upcoming work or architectural reasoning
-7. **Breaking changes**: mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) when the diff alters observable behavior for a consumer, however small. A one-line change that alters what a caller observes is breaking; a large refactor that preserves behavior is not — the observable contract decides, not the diff size.
+7. **Breaking changes**: use a breaking marker (`type!:` or a `BREAKING CHANGE:` footer, per project style) only when the diff makes an existing consumer incompatible with an established, observable contract. Identify the affected consumer and the concrete incompatibility. A changed internal artifact format or documentation example alone does not establish a breaking change; check whether existing consumers still work with the new form.
+
+   If the evidence supports a breaking classification, state the affected contract and proposed marker, then ask whether to proceed with that classification or use another one. Wait for the user's answer before committing. If the diff does not show a concrete incompatibility, do not propose a breaking marker or interrupt the commit. Do not ask about ordinary type or scope choices. Skip confirmation when the user explicitly specifies the breaking marker.
 
 ## Anti-Pattern: AI-slop subject
 
