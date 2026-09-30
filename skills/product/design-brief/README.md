@@ -27,7 +27,7 @@ flowchart TD
 
 | Operation | Result |
 |---|---|
-| Direction | Text-only named-direction convergence and `docs/design/moodboard.md` |
+| Direction | Named-direction convergence, `docs/design/moodboard.md`, and optional image tiles per direction |
 | Identity assessment | Interactive findings with no report artifact or identity mutation |
 | Design | Root `DESIGN.md` using the official token groups, the eight spec sections, and the Agent Prompt Guide extension |
 | Validate | `clean`, `passed with warnings`, `failed`, or `not audited` |
@@ -57,6 +57,7 @@ compare DESIGN.md with the previous version
 ```text
 DESIGN.md                         # only identity source, at the project root
 docs/design/moodboard.md          # locked direction when exploration ran
+docs/design/moodboard/<direction>/ # optional tiles when an image tool generated them
 docs/design/design.html           # explicit preview export only
 docs/design/styleguide.html       # explicit preview export only
 .artifacts/design/preview/        # transient views and feedback events
@@ -70,6 +71,7 @@ The frontmatter contains only `colors`, `typography`, `rounded`, `spacing`, and 
 - Python for supplemental component contrast.
 - Bun for interactive preview.
 - Optional design-tool MCP for reading an existing user-owned design file.
+- Optional image-generation tool for direction tiles.
 
 ## FAQ
 
