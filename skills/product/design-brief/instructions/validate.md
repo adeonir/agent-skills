@@ -1,6 +1,6 @@
 # Validate
 
-Validate the root `DESIGN.md` with the official CLI, semantic contrast checks, and document-surface rules.
+Validate the root `DESIGN.md` with the official CLI, component contrast checks, and document-surface rules.
 
 ## Load first
 
@@ -33,13 +33,13 @@ npx -y @google/design.md@latest lint --format json DESIGN.md
 3. Parse `findings` and `summary`. Never infer the result from the exit code because warnings do not make the command fail.
 4. When validate is the gate inside an authoring workflow, fix structural errors and rerun until `errors: 0`. Stop when a correction changes the identity or needs a user decision. When validate is invoked as an audit, report findings without writing.
 5. During an authoring gate, fix warnings when the correction is supported by the source and does not change a confirmed identity decision. Keep deliberate warnings visible. Use `omitted` only for a genuinely absent official group or section.
-6. Run the semantic contrast checker:
+6. Run the component contrast checker:
 
 ```bash
 python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 ```
 
-7. Require every `<base>` / `<base>-foreground` or `on-<base>` pair to reach 4.5:1. Require `muted-foreground` or `on-muted` against both `background` or `surface` and `card` or `muted` when those tokens exist. Treat an unparseable required pair as an error, never a skip.
+7. Require every component that declares both `backgroundColor` and `textColor` to reach 4.5:1 after compositing a translucent text color over its background. Treat an unparseable color or a translucent background as an error, never a skip. Never infer a pair from token names: a text color is checked only against the surfaces that components put it on.
 8. Load [anti-patterns.md](../references/anti-patterns.md) and run only rules whose Surface is `DESIGN.md` or `both`.
 9. Check prose-to-YAML parity:
    - Every token path cited in prose resolves.

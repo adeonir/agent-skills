@@ -19,7 +19,7 @@ flowchart TD
     C[Existing identity] --> I[Identity assessment]
     I -->|confirmed intent| W
     W --> R[DESIGN.md]
-    R --> V[Official CLI and semantic contrast]
+    R --> V[Official CLI and component contrast]
     V --> P[Document and styleguide preview]
     P -->|confirmed delta| R
     R --> E[CLI export or diff]
@@ -67,7 +67,7 @@ The frontmatter contains only `colors`, `typography`, `rounded`, `spacing`, and 
 ## Requirements
 
 - Node and `npx` for the official `@google/design.md` CLI.
-- Python for supplemental semantic contrast.
+- Python for supplemental component contrast.
 - Bun for interactive preview.
 - Optional design-tool MCP for reading an existing user-owned design file.
 

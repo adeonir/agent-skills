@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check semantic DESIGN.md color pairs with WCAG 2.x contrast."""
+"""Check DESIGN.md component color pairs with WCAG 2.x contrast."""
 
 import colorsys
 import json
@@ -204,27 +204,6 @@ def resolve_reference(value, colors):
     return colors.get(match.group(1)) if match else value
 
 
-def semantic_pairs(colors):
-    pairs = []
-    for token in colors:
-        if token.endswith("-foreground"):
-            base = token[: -len("-foreground")]
-            if base in colors:
-                pairs.append((base, token))
-        if token.startswith("on-"):
-            base = token[len("on-") :]
-            if base in colors:
-                pairs.append((base, token))
-    if "foreground" in colors and "background" in colors:
-        pairs.append(("background", "foreground"))
-    secondary_text = "muted-foreground" if "muted-foreground" in colors else "on-muted" if "on-muted" in colors else None
-    if secondary_text:
-        for surface in ("background", "surface", "card", "muted"):
-            if surface in colors and (surface, secondary_text) not in pairs:
-                pairs.append((surface, secondary_text))
-    return pairs
-
-
 def check_pair(label, background_value, text_value):
     background = parse_color(background_value)
     text = parse_color(text_value)
@@ -264,14 +243,6 @@ def run_file(path):
     colors = parse_subtree(frontmatter, "colors")
     components = parse_subtree(frontmatter, "components")
     results = []
-    for background_key, text_key in semantic_pairs(colors):
-        results.append(
-            check_pair(
-                f"colors.{text_key} on colors.{background_key}",
-                colors[background_key],
-                colors[text_key],
-            )
-        )
     for component_name, properties in components.items():
         if not isinstance(properties, dict):
             continue
@@ -287,7 +258,7 @@ def run_file(path):
             )
         )
     if not results:
-        return [], "no checkable semantic or component color pair"
+        return [], "no component declares both backgroundColor and textColor"
     return results, None
 
 

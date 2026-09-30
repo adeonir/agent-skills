@@ -104,6 +104,7 @@ Treat implementation values as truth for drifted `colors`, `typography`, `rounde
 - Name typography roles by purpose. Include delivery, fallbacks, optical adjustments, numeral behavior, and variable axes in prose when relevant.
 - Use only component properties accepted by the official schema. Put borders, shadows, gaps, opacity policy, and interaction detail in prose.
 - Reference tokens with `{path.to.token}` and define `backgroundColor` plus `textColor` together for text-bearing components.
+- Name a text color after its surface (`on-surface`) only when it sits on that one surface. Give a text color used over several surfaces a role name such as `text-muted`; the components that place it carry the contrast obligation.
 - Keep every product string out of the artifact. Agent Prompt Guide examples use placeholders such as `[Headline]`, `[Body]`, `[CTA Label]`, and `[Nav Label]`.
 
 ## Workflow
@@ -112,7 +113,7 @@ Treat implementation values as truth for drifted `colors`, `typography`, `rounde
 2. Read an existing root `DESIGN.md` before patching. For a new file, copy the structure from `assets/design.template.md` and remove all comments.
 3. Build a patch list by frontmatter group and prose section. Show the list before any brownfield write; the prior confirmation must cover it.
 4. Patch the frontmatter first, then only the prose sections affected by the same delta. Preserve unknown prose sections without moving them, but report that they are outside the canonical contract.
-5. Run the supplemental semantic contrast checker:
+5. Run the supplemental component contrast checker:
 
 ```bash
 python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json

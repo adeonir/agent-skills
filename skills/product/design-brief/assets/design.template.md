@@ -4,7 +4,7 @@ DESIGN.md skeleton. Delete every comment and replace every square-bracket slot b
 Frontmatter keys: version, name, description, omitted, colors, typography, rounded, spacing, components.
 Overview through Do's and Don'ts are the official spec sections. Agent Prompt Guide is a skill extension.
 Colors are flat CSS strings in `oklch()`, with hex as the fallback. Keep borders, shadows, elevation, and light/dark behavior in prose.
-Use only official component properties. Define backgroundColor and textColor together for every text-bearing component.
+Use only official component properties. Define backgroundColor and textColor together for every text-bearing component; contrast is checked only through these pairs, never inferred from token names.
 Every color needs a component reference unless a deliberate omission or documented CLI warning remains.
 -->
 ---
@@ -23,7 +23,7 @@ colors:
   surface: "oklch(_.__ _.___ ___)"
   on-surface: "oklch(_.__ _.___ ___)"
   muted: "oklch(_.__ _.___ ___)"
-  on-muted: "oklch(_.__ _.___ ___)"
+  text-muted: "oklch(_.__ _.___ ___)"
   border: "oklch(_.__ _.___ ___)"
   error: "oklch(_.__ _.___ ___)"
   on-error: "oklch(_.__ _.___ ___)"
@@ -82,9 +82,13 @@ components:
     textColor: "{colors.on-primary}"
   card:
     backgroundColor: "{colors.muted}"
-    textColor: "{colors.on-muted}"
+    textColor: "{colors.on-surface}"
     rounded: "{rounded.md}"
     padding: "{spacing.lg}"
+  text-secondary:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.text-muted}"
+    typography: "{typography.body}"
   error-message:
     backgroundColor: "{colors.error}"
     textColor: "{colors.on-error}"
