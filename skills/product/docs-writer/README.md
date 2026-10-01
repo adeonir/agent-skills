@@ -51,11 +51,11 @@ The skill detects the document type from the trigger and loads the appropriate w
 
 ## Output
 
-Project documents are saved by category under `docs/`:
+Project documents are saved at the project root and by category under `docs/`:
 
 ```text
+PRODUCT.md
 docs/product/PRD.md
-docs/product/PRODUCT.md
 docs/tech/design-doc.md
 docs/adr/<NNN>-<slug>.md
 ```

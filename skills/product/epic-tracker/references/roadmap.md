@@ -20,7 +20,7 @@ Render the entries into the template below, in the order `decompose` settled. Ph
 
 ### 3. Write in place
 
-Write to `docs/product/ROADMAP.md` — committed, alongside `PRD.md` and `PRODUCT.md`. Update in place on a re-run; never duplicate the file. Bump the frontmatter `updated` and refresh `sources` on every write. Preserve untouched entries as `decompose` passes them.
+Write to `docs/product/ROADMAP.md` — committed, alongside `PRD.md`. Update in place on a re-run; never duplicate the file. Bump the frontmatter `updated` and refresh `sources` on every write. Preserve untouched entries as `decompose` passes them.
 
 ## Template
 
@@ -31,7 +31,7 @@ ALWAYS use this exact template structure:
 updated: {{YYYY-MM-DD}}
 sources:
   - PRD: {{link to docs/product/PRD.md}}
-  - PRODUCT: {{link to docs/product/PRODUCT.md or "None"}}
+  - PRODUCT: {{link to PRODUCT.md or "None"}}
 ---
 
 # Roadmap: {{Project Name}}

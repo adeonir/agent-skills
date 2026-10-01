@@ -133,7 +133,7 @@ The **epic** declares the PRD requirement IDs it owns (`FR/BR/EC/NFR`) in a `## 
 
 ## Roadmap
 
-The roadmap is `decompose`'s record of the settled plan — the project's epics in an ordered flow, in `docs/product/ROADMAP.md`, committed alongside `PRD.md` and `PRODUCT.md`. `decompose` requires a PRD, derives the epics, and writes the roadmap through `roadmap.md`; there is no separate step that decides the plan elsewhere. Each entry carries the epic's capability, the requirement IDs it owns, and its `Blocked by` dependencies — enough for a re-run to read the plan back instead of re-deriving. Phase headings are cosmetic grouping for the reader. Epics stay self-contained: they never reference the roadmap.
+The roadmap is `decompose`'s record of the settled plan — the project's epics in an ordered flow, in `docs/product/ROADMAP.md`, committed alongside `PRD.md`. `decompose` requires a PRD, derives the epics, and writes the roadmap through `roadmap.md`; there is no separate step that decides the plan elsewhere. Each entry carries the epic's capability, the requirement IDs it owns, and its `Blocked by` dependencies — enough for a re-run to read the plan back instead of re-deriving. Phase headings are cosmetic grouping for the reader. Epics stay self-contained: they never reference the roadmap.
 
 ## Milestones
 
@@ -143,7 +143,7 @@ A milestone is a property of the whole epic subtree: the epic takes its phase na
 
 ## Output
 
-Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/product/ROADMAP.md`, committed alongside `PRD.md` and `PRODUCT.md`.
+Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/product/ROADMAP.md`, committed alongside `PRD.md`.
 
 ## Requirements
 

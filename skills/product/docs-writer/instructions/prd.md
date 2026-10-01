@@ -187,7 +187,7 @@ Summarize the confirmed discovery and validation results.
 ### Phase 4: Drafting
 
 1. Use the PRD template below.
-2. Handle PRODUCT by following [product.md](product.md). If `docs/product/PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
+2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
 3. Run [quality.md](../references/quality.md).
 4. Write each document to its path.
 5. Report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
@@ -251,4 +251,4 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 ## Output
 
 - PRD: `docs/product/PRD.md`
-- PRODUCT: `docs/product/PRODUCT.md`
+- PRODUCT: `PRODUCT.md`

@@ -4,7 +4,7 @@ Read an existing PRD, PRODUCT, or Design Doc and update only the requested parts
 
 ## When to Use
 
-When `docs/product/PRD.md`, `docs/product/PRODUCT.md`, or `docs/tech/design-doc.md` already exists. Discover any absent document; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. Load this reference when the target document exists. Do not use it as a direct trigger.
+When `docs/product/PRD.md`, `PRODUCT.md`, or `docs/tech/design-doc.md` already exists. Discover any absent document; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. Load this reference when the target document exists. Do not use it as a direct trigger.
 
 ## Procedure
 

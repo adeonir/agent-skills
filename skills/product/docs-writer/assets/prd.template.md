@@ -160,7 +160,7 @@ Examples:
 
 Durable pointers to related documents. Use typed labels so a fresh session knows where to recover context.
 
-- **PRODUCT:** [link to docs/product/PRODUCT.md or "None"]
+- **PRODUCT:** [link to PRODUCT.md or "None"]
 - **PRD:** [link to this PRD or upstream PRD]
 - **Design Doc:** [link to docs/tech/design-doc.md or "None"]
 - **Research:** [link to research, interviews, data — or "None"]

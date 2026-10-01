@@ -6,7 +6,7 @@ Author the product's strategic positioning in `PRODUCT.md`: what the product is 
 
 Read [discovery.md](../references/discovery.md) — `## Discovery or Update by Document State` decides the branch below — and [quality.md](../references/quality.md) before writing to disk.
 
-If `docs/product/PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts when available. If it exists, update only the requested parts by following [reconcile.md](../references/reconcile.md). A positioning change can update PRODUCT without changing the PRD.
+If `PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts when available. If it exists, update only the requested parts by following [reconcile.md](../references/reconcile.md). A positioning change can update PRODUCT without changing the PRD.
 
 ## Scope
 
@@ -87,4 +87,4 @@ For a new document, read `<this-skill>/assets/product.template.md`, copy its exa
 
 ## Output
 
-Write to `docs/product/PRODUCT.md` directly, then report a brief prose summary in chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the full document.
+Write to `PRODUCT.md` directly, then report a brief prose summary in chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the full document.

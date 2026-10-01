@@ -12,7 +12,7 @@ Look for:
 
 - `docs/product/copy.yaml`: existing content payload (signals brownfield)
 - Source on hand: URL, brief (PDF/DOCX), codebase, screenshot, or raw paste
-- `docs/product/PRD.md`, `docs/product/PRODUCT.md`, `docs/product/brainstorm.md`: intent, positioning, and requirements when writing fresh
+- `docs/product/PRD.md`, `PRODUCT.md`, `docs/product/brainstorm.md`: intent, positioning, and requirements when writing fresh
 
 If found, read and extract purpose, audience, tone, surface function, register (brand or product), brand personality, copy anti-references, and surfaces: copy-relevant facts only; requirement IDs, milestones, sprint or release names, roadmap language, and sibling-artifact references stay out of `copy.yaml`. An `intent` or `voice` block with `status: confirmed` is a decision already made: hold it, never re-derive it from the copy or ask for it again. A block with `status: inferred` is provisional; confirm it before authoring.
 
