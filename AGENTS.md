@@ -363,7 +363,7 @@ docs/
 ├── product/   # brainstorm, docs-writer, copywriting: content
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # style-builder, craft-ui
+└── design/    # style-builder, craft-ui, storytelling
 
 PROJECT.md                 # spec-driven: committed project memory
 .artifacts/

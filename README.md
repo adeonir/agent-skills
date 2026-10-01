@@ -46,6 +46,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
+| **[storytelling](skills/product/storytelling)** | Story and experience direction for a site: thesis, tension, arc, pacing, and the role of interaction and movement in `storytelling.md` |
 | **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 
 ### Personal
@@ -97,6 +98,7 @@ flowchart TD
 Dotted arrows show optional handoffs. The visual paths go through `style-builder`: `craft-ui` and `design-loop` are separate paths, and neither requires the other. `copywriting` can supply final copy after either visual path. `review-lens` and `git-helpers` act after implementation when needed.
 
 **debug-tools**, **rule-creator**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
+**storytelling** runs at any phase and reads whatever materials exist.
 
 ## Using the Flow
 
@@ -135,7 +137,7 @@ docs/
 ├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup
+└── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
 
 PROJECT.md          # spec-driven: committed project memory
 .artifacts/
