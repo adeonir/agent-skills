@@ -38,7 +38,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 | Skill | Description |
 | ----- | ----------- |
-| **[brainstorm](skills/product/brainstorm)** | Structured idea exploration and plan stress-testing, diverge to converge |
+| **[brainstorm](skills/product/brainstorm)** | Structured idea exploration from a blank space or an existing plan, diverge to converge |
 | **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |

@@ -4,7 +4,7 @@ Narrow the field. Evaluate trade-offs systematically. Pick a direction with eyes
 
 ## When to Use
 
-Loaded to evaluate trade-offs, pick a direction, and grill it, once diverge produced at least 4 alternatives.
+Loaded to evaluate trade-offs, pick a direction, and challenge it, once diverge produced at least 4 alternatives.
 
 ## Core Principle
 
@@ -30,7 +30,7 @@ Remaining alternatives proceed to evaluation.
 
 ### Step 2: Evaluate Against Criteria
 
-Use the success criteria from discovery as evaluation dimensions. For each surviving alternative, assess against each criterion. On grill entry, the baseline plan is evaluated in the same columns as every challenger -- no special treatment, no incumbency bonus.
+Use the success criteria from discovery as evaluation dimensions. For each surviving alternative, assess against each criterion. On plan entry, the baseline plan is evaluated in the same columns as every challenger -- no special treatment, no incumbency bonus.
 
 | Alternative | {Criterion 1} | {Criterion 2} | {Criterion 3} |
 |-------------|---------------|---------------|---------------|
@@ -66,16 +66,16 @@ If no clear winner: present the top 2 with the key deciding factor between them.
 
 User picks the direction or asks to loop back.
 
-- If picked: the direction proceeds to the grill (Step 7)
+- If picked: the direction proceeds to the challenge (Step 7)
 - If loop back: return to discovery with refined understanding, articulate what new information is needed before restarting
 
-### Step 7: Grill the Direction
+### Step 7: Challenge the Direction
 
 Attack the chosen direction before capture. This step always runs; the `deep` argument sets its width.
 
-**Standard grill:** attack the key assumption -- the one thing that must hold for the direction to work. State the strongest realistic scenario where it breaks and let the direction answer.
+**Standard challenge:** attack the key assumption -- the one thing that must hold for the direction to work. State the strongest realistic scenario where it breaks and let the direction answer.
 
-**Deep grill (`/brainstorm deep`):** widen the attack -- every assumption and dependency, evidence demanded per claim, an explicit failure criterion ("what result would prove this direction wrong?"), and the decision inverted ("argue the strongest rejected alternative over the chosen one").
+**Deep challenge (`/brainstorm deep`):** widen the attack -- every assumption and dependency, evidence demanded per claim, an explicit failure criterion ("what result would prove this direction wrong?"), and the decision inverted ("argue the strongest rejected alternative over the chosen one").
 
 Outcome:
 
@@ -88,7 +88,7 @@ Outcome:
 - Give every alternative a fair screening before elimination
 - Make trade-offs explicit and visible
 - Present a recommendation but let the user decide
-- Grill every chosen direction -- standard by default, deep on `/brainstorm deep`
+- Challenge every chosen direction -- standard by default, deep on `/brainstorm deep`
 - Allow looping back if no direction feels right
 - Present the comparison table for structured evaluation
 

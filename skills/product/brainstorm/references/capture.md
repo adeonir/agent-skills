@@ -4,7 +4,7 @@ Persist the chosen direction as a structured artifact. Single project-level file
 
 ## When to Use
 
-Loaded to write the artifact, once the direction survives the grill and the user approves capturing it.
+Loaded to write the artifact, once the direction survives the challenge and the user approves capturing it.
 
 ## Workflow
 
@@ -27,7 +27,7 @@ Save the artifact to `docs/product/brainstorm.md` (single project-level file).
 
 If the file already exists, compare the chosen direction against the existing `## Decision`:
 
-- **Validated** — the chosen direction matches the existing Decision. Do not ask pivot-or-replace. Refresh Alternatives Considered with any new challengers, then append a `— Validated` entry to Revision History recording what the grill attacked and why the direction survived.
+- **Validated** — the chosen direction matches the existing Decision. Do not ask pivot-or-replace. Refresh Alternatives Considered with any new challengers, then append a `— Validated` entry to Revision History recording what the challenge attacked and why the direction survived.
 - **Direction changed** — ask the user: pivot the existing direction, or replace from scratch?
   - **Pivot** — keep Context/Constraints/Success Criteria as-is unless discovery surfaced changes, update Alternatives Considered and Decision, append a `— Pivot` entry to Revision History.
   - **Replace** — confirm with the user that the prior direction is being abandoned (not pivoted), then rewrite the file fresh; Revision History resets to a single `— Replaced` entry recording the abandoned direction and the reason, so the abandonment leaves a trace.
@@ -112,7 +112,7 @@ trade-off picture}}
 ### {{YYYY-MM-DD}} — Validated
 
 **Direction:** {{unchanged chosen direction}}
-**Grilled against:** {{what the grill attacked — the key assumption,
+**Challenged on:** {{what the challenge attacked — the key assumption,
 or every assumption on deep}}
 **Survived because:** {{why the direction held; name the strongest
 challenger and why it lost}}

@@ -12,13 +12,13 @@ Classify entry state from the user's input.
 
 **Greenfield entry** — no concrete idea or plan yet. Exploratory framing, open questions, requests to map a space from scratch.
 
-**Grill entry** — an idea or plan already exists at any maturity. Requests to challenge, validate, refine, pivot, or audit committed thinking.
+**Plan entry** — an idea or plan already exists at any maturity. Requests to refine, pivot, or reconsider committed thinking.
 
-The `deep` argument does not select the entry — it widens the grill phase; see [converge.md](converge.md).
+The `deep` argument does not select the entry — it widens the challenge phase; see [converge.md](converge.md).
 
 Do not announce the entry as a label or headline. Lead directly with a proposed interpretation that reflects the detected entry. User can redirect at any point.
 
-Greenfield entry: open with your read of the situation, invite correction. Grill entry: open by acknowledging the committed direction, then probe the core assumption behind it. Do not repeat "stress-test" or "pressure-test" as labels throughout the response — acknowledge the mode once if at all, then focus on the substance.
+Greenfield entry: open with your read of the situation, invite correction. Plan entry: open by acknowledging the committed direction, then probe the core assumption behind it. Do not repeat the entry name as a label throughout the response — acknowledge the mode once if at all, then focus on the substance.
 
 The proposed interpretation with its redirect invite is the complete first turn. Do not add a second question after the interpretation. End on the invite ("Is that right?" / "Is that a fair read?") and wait for the response.
 
@@ -71,7 +71,7 @@ Probe further when answers are:
 
 **Greenfield entry:** Adaptive deepening applies. When the user genuinely doesn't know, mark as TBD and move on. Not all unknowns block advancement.
 
-**Grill entry:** Push once more before accepting any TBD on Topics 1 and 2. "You said you're not sure — what's your best guess, even if uncertain?" Only mark TBD after a genuine second attempt. This second push is guaranteed on grill entry regardless of the `deep` argument. Topic 3 (success criteria) follows greenfield rules — genuine uncertainty there is acceptable.
+**Plan entry:** Push once more before accepting any TBD on Topics 1 and 2. "You said you're not sure — what's your best guess, even if uncertain?" Only mark TBD after a genuine second attempt. This second push is guaranteed on plan entry regardless of the `deep` argument. Topic 3 (success criteria) follows greenfield rules — genuine uncertainty there is acceptable.
 
 ### Topics
 
@@ -99,7 +99,7 @@ Depending on the answer, explore dependent branches:
 - Current state understood (what exists, what does not)
 - Timing rationale clear or explicitly unknown
 
-**TBD weight:** High. A TBD on motivation means diverge has no anchor. Grill entry: push once more before accepting. Greenfield entry: flag the gap explicitly before advancing.
+**TBD weight:** High. A TBD on motivation means diverge has no anchor. Plan entry: push once more before accepting. Greenfield entry: flag the gap explicitly before advancing.
 
 #### Topic 2: Constraints and Boundaries
 
@@ -123,7 +123,7 @@ Depending on the answer, explore dependent branches:
 - Soft constraints identified (preferences that can flex)
 - Key stakeholders named or explicitly noted as absent
 
-**TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives. Grill entry: push once more before accepting. Greenfield entry: flag explicitly — note which alternatives may be affected.
+**TBD weight:** High. Constraint TBDs mean diverge generates infeasible alternatives. Plan entry: push once more before accepting. Greenfield entry: flag explicitly — note which alternatives may be affected.
 
 #### Topic 3: Success Criteria
 
@@ -171,15 +171,15 @@ Present a summary and confirm before advancing to diverge. Only proceed after co
 - Explore the codebase when current-state questions can be answered that way
 - Walk the decision tree within each topic — let answers drive the next branch
 - Shift to declared assumptions on a rubber-stamp streak — spend questions where the answer could change the branch
-- Push once more on Topics 1 and 2 TBDs before accepting on grill entry
+- Push once more on Topics 1 and 2 TBDs before accepting on plan entry
 - Log open TBDs with their topic weight before advancing
 
 **DON'T:**
 - Follow scripted question lists regardless of answers
 - Ask any question without attaching your recommended answer — every turn carries a POV, whether an interpretation or a question-with-recommendation
 - Ask about current state when the codebase can answer it
-- Accept motivation or constraint TBDs without a second push on grill entry
+- Accept motivation or constraint TBDs without a second push on plan entry
 - Move past the quality gate without user confirmation
 - Batch dependent questions, or batch anything on Topics 1 and 2
 - Add a second question after the opening interpretation invite
-- Repeat "stress-test" or "pressure-test" as labels throughout the response
+- Repeat the entry name as a label throughout the response

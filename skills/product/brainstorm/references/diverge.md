@@ -12,9 +12,9 @@ Before generating alternatives, surface open TBDs carried from discovery. List t
 
 Breadth over depth. Generate at least 4 alternatives, aim for 6-8. Include at least one non-obvious or uncomfortable option. Separate generation from evaluation -- no judging during diverge.
 
-### Grill Entry: Plan as Baseline
+### Plan Entry: Plan as Baseline
 
-On grill entry, the existing idea or plan enters the pool as a named baseline alternative before any technique runs:
+On plan entry, the existing idea or plan enters the pool as a named baseline alternative before any technique runs:
 
 ```markdown
 **{Plan name}** -- {one-sentence description of the existing plan}
@@ -87,7 +87,7 @@ Before advancing to converge:
 | At least 1 uncomfortable option | Challenges assumptions about what is acceptable |
 | Status quo or incremental option | Provides a baseline for comparison |
 
-On grill entry, the existing plan is the baseline row. If fewer than 4 alternatives: apply unused techniques before advancing.
+On plan entry, the existing plan is the baseline row. If fewer than 4 alternatives: apply unused techniques before advancing.
 
 Reach the minimum bar before advancing to converge.
 
