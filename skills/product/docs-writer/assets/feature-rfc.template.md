@@ -10,50 +10,34 @@ sources: []
 
 # RFC: [Feature Name]
 
-## 1. Summary
+## 1. Context
 
-[Proposal in one short paragraph.]
+[Why a decision is needed, in one short paragraph. Link the feature PRD instead when one exists.]
 
-## 2. Problem & Motivation
-
-[Problem, evidence, and why a decision is needed.]
-
-## 3. Goals
-
-- [Outcome this proposal targets.]
-
-## 4. Non-Goals
-
-- [Outcome outside this proposal.]
-
-## 5. Proposed Direction
+## 2. Proposed Direction
 
 [What is proposed and the boundaries of the proposal.]
 
-## 6. Alternatives Considered
+## 3. Alternatives Considered
 
 | Alternative | Benefits | Costs | Reason not selected |
 |-------------|----------|-------|--------------------|
 | [alternative] | [benefits] | [costs] | [reason] |
 
-## 7. Scope
-
-- [Capability or boundary included in the proposal.]
-
-## 8. Risks & Dependencies
+## 4. Risks & Dependencies
 
 - [Risk or dependency, impact, and mitigation or owner.]
 
-## 9. Open Questions
+## 5. Open Questions
 
 - [Question that remains open.]
 
-## 10. Decision
+## 6. Decision
 
 [Proposed, Accepted, Deprecated, or Superseded by <feature-slug>, with the decision statement.]
 
-## 11. References
+## 7. References
 
 - [Typed reference and link, including the feature PRD when one exists.]
 
-MUST NOT contain: a task list, tracker User Stories, architecture detail, implementation sequence, or duplicated feature PRD content.
+MUST NOT contain: goals, non-goals, a scope list, a task list, tracker User Stories, architecture detail, implementation sequence, or duplicated feature PRD content.

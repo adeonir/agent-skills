@@ -21,4 +21,4 @@ check feature artifact
 
 ## Boundaries
 
-Do not include a task list, tracker User Stories, architecture detail, implementation sequence, or duplicated feature PRD content. Do not invoke or mention another skill. The document ends at approval.
+Do not include goals, non-goals, a scope list, a task list, tracker User Stories, architecture detail, implementation sequence, or duplicated feature PRD content. Do not invoke or mention another skill. The document ends at approval.
