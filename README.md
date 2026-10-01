@@ -44,6 +44,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[design-loop](skills/product/design-loop)** | Create or improve a visual artifact against a reference through construction and independent critique |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
+| **[domain-modeling](skills/product/domain-modeling)** | Canonical domain vocabulary kept in `GLOSSARY.md`: challenge, sharpen, and record terms as they resolve |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
 | **[storytelling](skills/product/storytelling)** | Story and experience direction for a site: thesis, tension, arc, pacing, and the role of interaction and movement in `storytelling.md` |
@@ -97,7 +98,7 @@ flowchart TD
 
 Dotted arrows show optional handoffs. The visual paths go through `style-builder`: `craft-ui` and `design-loop` are separate paths, and neither requires the other. `copywriting` can supply final copy after either visual path. `review-lens` and `git-helpers` act after implementation when needed.
 
-**debug-tools**, **rule-creator**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
+**debug-tools**, **rule-creator**, **domain-modeling**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
 **storytelling** runs at any phase and reads whatever materials exist.
 
 ## Using the Flow
@@ -140,6 +141,7 @@ docs/
 └── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
 
 PROJECT.md          # spec-driven: committed project memory
+GLOSSARY.md         # domain-modeling: canonical domain terms
 .artifacts/
 ├── specs/          # spec-driven: per-feature artifacts, state, and signals
 ├── archive/
