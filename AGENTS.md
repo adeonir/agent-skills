@@ -18,7 +18,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-references` | `skills/**` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
-| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents |
+| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs (`grill-me` excepted), own-artifact isolation, inline subagents with lookup allowed |
 | `.agents/rules/skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
@@ -40,7 +40,7 @@ for f in references/*.md; do b=$(basename "$f"); grep -rq "$b" instructions/ ref
 grep -rho '](\.\./references/[a-z-]*\.md)' instructions/ | sed 's|](\.\./references/||;s|)||' | sort -u \
   | while read t; do [ -f "references/$t" ] || echo "missing: $t"; done
 grep -rn '^```$' .              # bare fences are closings; every opening must carry a language
-grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty)
+grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty; `grill-me` excepted)
 ```
 
 Also confirm the `description` stays within the 1,024-char listing cap.
@@ -74,11 +74,11 @@ Skills directories use flat lowercase kebab-case names. Skill folders also use k
 |-----------|-------|
 | engineering | Debugging, specs, system design, code review, git tooling |
 | product | Brainstorming, design, documentation, domain modeling, epic tracking |
-| personal | Session notes, vault sync, end-of-session wrap-up |
+| personal | Session notes, vault sync, end-of-session wrap-up, plan interviews |
 
 ## Canonical Workflow
 
-Skills compose via artifacts on disk (`.artifacts/`), not via cross-references inside skill files. The repo `README.md` owns the pipeline diagram and the skill index — this file does not duplicate them.
+Skills compose via artifacts on disk (`.artifacts/`), not via cross-references inside skill files; `grill-me` is the one skill that names others, the ones that record what its interview resolves. The repo `README.md` owns the pipeline diagram and the skill index — this file does not duplicate them.
 
 ## Skill File Layout
 
@@ -366,6 +366,7 @@ docs/
 └── design/    # style-builder, craft-ui, storytelling
 
 PROJECT.md                 # spec-driven: committed project memory
+GLOSSARY.md                # domain-modeling: canonical domain terms
 .artifacts/
 ├── specs/, archive/, LESSONS.md, research/   # spec-driven
 └── design/    # style-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
