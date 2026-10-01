@@ -1,10 +1,10 @@
 ---
-name: design-brief
+name: style-builder
 allowed-tools: Bash(bun:*) Bash(npx:*) Bash(python3:*) Read Write Edit Grep Glob WebFetch
 description: "Visual identity development and validation through the official `DESIGN.md` schema and CLI. Use when creating, refreshing, syncing, previewing, exporting, or diffing design tokens. Not for page layout, rendered variants, product copy, feature specs, production code, or code review."
 ---
 
-# Design Brief
+# Style Builder
 
 Develops and validates the visual identity carried by the root `DESIGN.md`.
 

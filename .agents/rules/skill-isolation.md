@@ -12,7 +12,7 @@ A SKILL.md or reference never names another skill or links to a file in another 
 **Incorrect:**
 
 ```markdown
-For the visual identity, see the design-brief skill's DESIGN.md.
+For the visual identity, see the style-builder skill's DESIGN.md.
 ```
 
 **Correct:**

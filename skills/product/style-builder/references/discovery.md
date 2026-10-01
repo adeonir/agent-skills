@@ -1,6 +1,6 @@
 # Discovery
 
-Establish the available context, the field, and the register every design-brief operation works from.
+Establish the available context, the field, and the register every style-builder operation works from.
 
 ## When to Use
 

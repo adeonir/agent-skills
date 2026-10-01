@@ -43,7 +43,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
-| **[design-brief](skills/product/design-brief)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
+| **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
@@ -70,7 +70,7 @@ flowchart TD
     BF -.->|brief| CW
     BF -.->|brief| CU
     BR[brainstorm] -->|direction| DW_PRD[docs-writer · product]
-    BR -->|direction| DB[design-brief]
+    BR -->|direction| DB[style-builder]
     BR -.->|direction| SD[spec-driven]
     DW_PRD -->|requirements| DW_DD[docs-writer · technical]
     DW_PRD -->|requirements| ET[epic-tracker]
@@ -105,7 +105,7 @@ business logic:
 3.  research         --> findings, implications, and open questions, when the brief leaves gaps
 4.  docs-writer      --> project requirements or feature PRD/RFC
 5.  docs-writer      --> technical decisions and trade-offs
-6.  design-brief     --> visual identity and design tokens
+6.  style-builder    --> visual identity and design tokens
 7.  copywriting      --> content and copy
 8.  craft-ui         --> wireframe the arrangement, mockup the visual direction
 9.  epic-tracker     --> epics, stories, acceptance criteria
@@ -133,7 +133,7 @@ docs/
 ├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
 ├── tech/           # docs-writer: design-doc
 ├── adr/            # docs-writer: append-only decision log
-└── design/         # design-brief: locked direction (moodboard.md) · craft-ui: chosen mockup
+└── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup
 
 PROJECT.md          # spec-driven: committed project memory
 .artifacts/
@@ -143,7 +143,7 @@ PROJECT.md          # spec-driven: committed project memory
 │   └── features/    # docs-writer: feature PRD/RFC folders archived manually
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
-└── design/         # design-brief: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
+└── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks

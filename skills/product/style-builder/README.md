@@ -1,4 +1,4 @@
-# Design Brief
+# Style Builder
 
 Choose, assess, author, validate, and refine a visual identity in the official root `DESIGN.md` format.
 

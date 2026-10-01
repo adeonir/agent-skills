@@ -363,12 +363,12 @@ docs/
 ├── product/   # brainstorm, docs-writer, copywriting: content
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # design-brief, craft-ui
+└── design/    # style-builder, craft-ui
 
 PROJECT.md                 # spec-driven: committed project memory
 .artifacts/
 ├── specs/, archive/, LESSONS.md, research/   # spec-driven
-└── design/    # design-brief; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
+└── design/    # style-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts — its output lives in the tracker.
@@ -381,7 +381,7 @@ PROJECT.md                 # spec-driven: committed project memory
 
 The docs-writer skill no longer ships a "Technical Design Document" artifact type — that role is now covered by the project-wide Design Doc.
 
-`register` / `surface` are shared design vocabulary across `craft-ui`, `design-brief`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
+`register` / `surface` are shared design vocabulary across `craft-ui`, `style-builder`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
 
 ## New Skill Checklist
 

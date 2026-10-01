@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Preview server for the design-brief skill.
+ * Preview server for the style-builder skill.
  * Serves transient document and styleguide views, and records one feedback
  * batch across both views.
  *
@@ -173,22 +173,22 @@ function contrastRatio(first, second) {
 
 window.addEventListener("message", (e) => {
   if (e.source !== window.parent || !e.data) return;
-  if (e.data.designbrief === "mode") {
+  if (e.data.visualidentity === "mode") {
     commentMode = !!e.data.on;
     document.documentElement.style.cursor = commentMode ? "crosshair" : "";
   }
-  if (e.data.designbrief === "navigate") {
+  if (e.data.visualidentity === "navigate") {
     const target = document.getElementById(e.data.section);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  if (e.data.designbrief === "tune") {
+  if (e.data.visualidentity === "tune") {
     document.documentElement.style.setProperty(e.data.variable, e.data.value);
     const swatch = Array.from(document.querySelectorAll("[data-tune-swatch]")).find((element) => element.dataset.var === e.data.variable);
     if (swatch && swatch.dataset.pair) {
       const first = resolvedRgb(e.data.variable);
       const second = resolvedRgb(swatch.dataset.pair);
       if (first && second) {
-        window.parent.postMessage({ designbrief: "contrast", token: swatch.dataset.token, ratio: contrastRatio(first, second) }, location.origin);
+        window.parent.postMessage({ visualidentity: "contrast", token: swatch.dataset.token, ratio: contrastRatio(first, second) }, location.origin);
       }
     }
   }
@@ -199,7 +199,7 @@ document.addEventListener("click", (e) => {
   if (window.parent === window || !commentMode) return;
   e.preventDefault();
   e.stopPropagation();
-  window.parent.postMessage({ designbrief: "target", selector: cssPath(e.target) }, location.origin);
+  window.parent.postMessage({ visualidentity: "target", selector: cssPath(e.target) }, location.origin);
 }, true);
 
 if (window.parent !== window) {
@@ -209,7 +209,7 @@ if (window.parent !== window) {
     pair: element.dataset.pair || "",
     original: element.dataset.original,
   })).filter((item) => item.token && item.variable && item.original);
-  window.parent.postMessage({ designbrief: "ready", swatches }, location.origin);
+  window.parent.postMessage({ visualidentity: "ready", swatches }, location.origin);
 }
 `;
 
@@ -366,7 +366,7 @@ ${
     function tellFrames() {
       frames.forEach((frame) => {
         try {
-          frame.contentWindow.postMessage({ designbrief: "mode", on: commentMode }, location.origin);
+          frame.contentWindow.postMessage({ visualidentity: "mode", on: commentMode }, location.origin);
         } catch {}
       });
     }
@@ -406,7 +406,7 @@ ${
     document.querySelectorAll("[data-section]").forEach((button) => {
       button.addEventListener("click", () => {
         const frame = frames.find((candidate) => candidate.dataset.file === activeFile);
-        if (frame) frame.contentWindow.postMessage({ designbrief: "navigate", section: button.dataset.section }, location.origin);
+        if (frame) frame.contentWindow.postMessage({ visualidentity: "navigate", section: button.dataset.section }, location.origin);
       });
     });
 
@@ -427,13 +427,13 @@ ${
     }
 
     window.addEventListener("message", (e) => {
-      if (!e.data || !["target", "ready", "contrast"].includes(e.data.designbrief)) return;
-      if (e.data.designbrief === "contrast") {
+      if (!e.data || !["target", "ready", "contrast"].includes(e.data.visualidentity)) return;
+      if (e.data.visualidentity === "contrast") {
         const ratio = inspector && inspector.querySelector('[data-ratio="' + CSS.escape(e.data.token) + '"]');
         if (ratio) ratio.textContent = e.data.ratio.toFixed(2) + ":1 " + (e.data.ratio >= 4.5 ? "AA" : "fail");
         return;
       }
-      if (e.data.designbrief === "ready") {
+      if (e.data.visualidentity === "ready") {
         tellFrames();
         if (!inspector || !e.data.swatches || e.data.swatches.length === 0) return;
         inspector.innerHTML = "";
@@ -453,7 +453,7 @@ ${
             const existing = adjustments.find((item) => item.token === swatch.token && item.view === view);
             if (existing) existing.new = input.value;
             else adjustments.push({ token: swatch.token, old: swatch.original, new: input.value, view });
-            frames.forEach((frame) => frame.contentWindow.postMessage({ designbrief: "tune", variable: swatch.variable, value: input.value }, location.origin));
+            frames.forEach((frame) => frame.contentWindow.postMessage({ visualidentity: "tune", variable: swatch.variable, value: input.value }, location.origin));
             renderQueue();
           });
           name.appendChild(document.createElement("br"));
