@@ -44,6 +44,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
+| **[design-loop](skills/product/design-loop)** | Create or improve a visual artifact against a reference through construction and independent critique |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
@@ -61,58 +62,59 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 ```mermaid
 flowchart TD
-    CTX[context or materials] --> BF[briefing]
+    CTX["context or materials"]:::plain --> BF[briefing]
+    IDEA["vague idea"]:::plain --> BR[brainstorm]
     BR -->|direction| BF
     BF -->|open questions| RS[research]
     RS -->|findings| BF
-    BF -.->|brief| DW_PRD
-    BF -.->|brief| DB
-    BF -.->|brief| CW
-    BF -.->|brief| CU
-    BR[brainstorm] -->|direction| DW_PRD[docs-writer · product]
-    BR -->|direction| DB[style-builder]
-    BR -.->|direction| SD[spec-driven]
-    DW_PRD -->|requirements| DW_DD[docs-writer · technical]
-    DW_PRD -->|requirements| ET[epic-tracker]
-    DW_FEATURE[docs-writer · feature PRD/RFC] -->|feature PRD/RFC| FPRD[feature PRD/RFC]
-    FPRD -->|feature source| ET
-    ET -->|Epic → Stories| SD
-    DW_PRD -->|requirements| DB
-    DW_PRD -->|requirements| CU[craft-ui]
-    DW_PRD -->|requirements| CW[copywriting]
-    CW -->|content| CU
-    DB -->|tokens| CU
-    CU -->|interface| SD
-    DW_DD -->|technical doc| SD
-    DW_DD -->|technical doc| ET
-    DW_DD -->|technical doc| DB
-    DW_DD -.->|extract decision| DW_ADR[docs-writer · decision]
-    SD -->|commits & pull requests| GH[git-helpers]
-    SD -.->|coherence gap| DW_DD
+    BF -->|brief| DW_P[docs-writer · product]
+    BR -->|direction| DW_P
+    DW_P -->|requirements| DW_T[docs-writer · technical]
+    DW_T -.->|record decision| DW_A[docs-writer · ADR]
+    DW_P -->|requirements| ET[epic-tracker]
+    DW_F[docs-writer · feature PRD/RFC] -->|feature source| ET
+    DW_T -->|technical context| ET
+
+    DW_P -.->|identity input| SB[style-builder]
+    SB -.->|visual identity| CU[craft-ui]
+    SB -.->|visual identity| DL[design-loop]
+    DW_P -.->|content input| CW[copywriting]
+    CU -.->|mockup| CW
+    DL -.->|visual result| CW
+
+    ET -->|delivery item| SD[spec-driven]
+    DW_T -.->|technical context| SD
+    CU -.->|mockup| SD
+    DL -.->|visual result| SD
+    CW -.->|final copy| SD
+
+    SD -.->|review changes| RL[review-lens]
+    SD -.->|commit or pull-request| GH[git-helpers]
+    RL -.->|review findings resolved| GH
+    classDef plain fill:transparent,stroke:transparent
 ```
 
-Dashed arrow: optional shortcut for small, well-scoped work.
-**debug-tools**, **rule-creator**, **notes**, **handoff**, and **wrap-up** are available at any point — utilities and reviews used as needed, not mandatory pipeline stages.
+Dotted arrows show optional handoffs. The visual paths go through `style-builder`: `craft-ui` and `design-loop` are separate paths, and neither requires the other. `copywriting` can supply final copy after either visual path. `review-lens` and `git-helpers` act after implementation when needed.
+
+**debug-tools**, **rule-creator**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
 
 ## Using the Flow
 
-The full flow when building a new product or feature with non-trivial
-business logic:
+For a feature, a common route is:
 
-```
-1.  brainstorm       --> direction and constraints
-2.  briefing         --> problem, objectives, audience, budget, timing, and gaps, when context needs consolidation
-3.  research         --> findings, implications, and open questions, when the brief leaves gaps
-4.  docs-writer      --> project requirements or feature PRD/RFC
-5.  docs-writer      --> technical decisions and trade-offs
-6.  style-builder    --> visual identity and design tokens
-7.  copywriting      --> content and copy
-8.  craft-ui         --> wireframe the arrangement, mockup the visual direction
-9.  epic-tracker     --> epics, stories, acceptance criteria
-10. spec-driven      --> per-story spec, design, tasks, implementation
-11. review-lens      --> review changes before commit
-12. git-helpers      --> commit, pull request, finish branch
-```
+1. `brainstorm` -> direction and constraints from a vague idea.
+2. `briefing` -> context, objectives, audience, constraints, and gaps.
+3. `research` -> evidence for open questions when needed.
+4. `docs-writer` -> product or feature requirements.
+5. `docs-writer` -> technical decisions and trade-offs when needed.
+6. `epic-tracker` -> delivery work in the tracker.
+7. `style-builder` -> visual identity when a visual path is needed.
+8. `craft-ui` -> wireframes and mockups when this visual path is used.
+9. `design-loop` -> visual result refined against a reference when this visual path is used.
+10. `copywriting` -> final copy when needed, including after either visual path.
+11. `spec-driven` -> feature specification and implementation.
+12. `review-lens` -> review of the changes when needed.
+13. `git-helpers` -> commits and pull requests when needed.
 
 ### Feedback loop
 
@@ -143,7 +145,7 @@ PROJECT.md          # spec-driven: committed project memory
 │   └── features/    # docs-writer: feature PRD/RFC folders archived manually
 ├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
-└── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
+└── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/ · design-loop: <slug>/STATE.md + reference-criteria.md
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
