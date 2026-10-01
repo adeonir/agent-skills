@@ -64,7 +64,7 @@ agent-skills/
     │   └── skill-name/
     ├── product/
     │   └── skill-name/
-    └── personal/
+    └── productivity/
         └── skill-name/
 ```
 
@@ -74,7 +74,7 @@ Skills directories use flat lowercase kebab-case names. Skill folders also use k
 |-----------|-------|
 | engineering | Debugging, specs, system design, code review, git tooling |
 | product | Brainstorming, design, documentation, domain modeling, epic tracking |
-| personal | Session notes, vault sync, end-of-session wrap-up, plan interviews |
+| productivity | Session notes, vault sync, end-of-session wrap-up, plan interviews |
 
 ## Canonical Workflow
 

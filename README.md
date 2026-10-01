@@ -50,16 +50,16 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[storytelling](skills/product/storytelling)** | Story and experience direction for a site: thesis, tension, arc, pacing, and the role of interaction and movement in `storytelling.md` |
 | **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 
-### Personal
+### Productivity
 
 | Skill | Description |
 | ----- | ----------- |
-| **[anti-slop](skills/personal/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
-| **[grill-me](skills/personal/grill-me)** | Round-by-round interview of a plan until every decision is settled, then records terms and decisions |
-| **[handoff](skills/personal/handoff)** | Save and resume conversation state across sessions |
-| **[notes](skills/personal/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
-| **[plain-spoken](skills/personal/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
-| **[wrap-up](skills/personal/wrap-up)** | End-of-session context persistence to Obsidian |
+| **[anti-slop](skills/productivity/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
+| **[grill-me](skills/productivity/grill-me)** | Round-by-round interview of a plan until every decision is settled, then records terms and decisions |
+| **[handoff](skills/productivity/handoff)** | Save and resume conversation state across sessions |
+| **[notes](skills/productivity/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
+| **[plain-spoken](skills/productivity/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
+| **[wrap-up](skills/productivity/wrap-up)** | End-of-session context persistence to Obsidian |
 
 ## How They Connect
 
