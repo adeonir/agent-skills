@@ -55,6 +55,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | Skill | Description |
 | ----- | ----------- |
 | **[anti-slop](skills/personal/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
+| **[grill-me](skills/personal/grill-me)** | Round-by-round interview of a plan until every decision is settled, then records terms and decisions |
 | **[handoff](skills/personal/handoff)** | Save and resume conversation state across sessions |
 | **[notes](skills/personal/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
 | **[plain-spoken](skills/personal/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
@@ -98,7 +99,7 @@ flowchart TD
 
 Dotted arrows show optional handoffs. The visual paths go through `style-builder`: `craft-ui` and `design-loop` are separate paths, and neither requires the other. `copywriting` can supply final copy after either visual path. `review-lens` and `git-helpers` act after implementation when needed.
 
-**debug-tools**, **rule-creator**, **domain-modeling**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
+**debug-tools**, **rule-creator**, **domain-modeling**, **grill-me**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
 **storytelling** runs at any phase and reads whatever materials exist.
 
 ## Using the Flow
