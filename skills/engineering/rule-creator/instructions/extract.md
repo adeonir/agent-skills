@@ -43,4 +43,4 @@ One run has one source, so one destination level. Never move a section across le
 ## Notes
 
 - Path-scoped rules are the primary win — they remove instructions from every-session context until Claude touches matching files. They are available at project level only.
-- Claude Code reads `CLAUDE.md`, not `AGENTS.md`. Removing a section from an `AGENTS.md` changes what Claude loads only when a `CLAUDE.md` imports it or symlinks to it; when nothing does, say so before editing — the file is reaching other agents, not this one.
+- Claude Code loads `AGENTS.md` when no `CLAUDE.md` or `CLAUDE.local.md` sits in the working directory or above it, or when a `CLAUDE.md` imports or symlinks to it. Removing a section from an `AGENTS.md` that neither case loads changes nothing for Claude; say so before editing — the file is reaching other agents, not this one.
