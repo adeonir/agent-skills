@@ -30,7 +30,6 @@ npx skills add adeonir/agent-skills/<skill-name>
 | ----- | ----------- |
 | **[debug-tools](skills/engineering/debug-tools)** | Iterative investigate–fix–verify debugging with confidence scoring |
 | **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
-| **[plain-spoken](skills/engineering/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[rule-creator](skills/engineering/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to audited delivery, with requirements traceability |
@@ -43,19 +42,20 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
-| **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 | **[design-loop](skills/product/design-loop)** | Create or improve a visual artifact against a reference through construction and independent critique |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
+| **[style-builder](skills/product/style-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 
 ### Personal
 
 | Skill | Description |
 | ----- | ----------- |
 | **[anti-slop](skills/personal/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
-| **[notes](skills/personal/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
 | **[handoff](skills/personal/handoff)** | Save and resume conversation state across sessions |
+| **[notes](skills/personal/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
+| **[plain-spoken](skills/personal/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
 | **[wrap-up](skills/personal/wrap-up)** | End-of-session context persistence to Obsidian |
 
 ## How They Connect
