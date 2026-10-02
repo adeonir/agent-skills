@@ -13,7 +13,7 @@ flowchart TD
     A --> E{Frontier empty?}
     E -->|No| Q
     E -->|Yes| C[Confirm the shared understanding]
-    C --> R[Record terms and decisions]
+    C --> R[Report terms and decisions to record]
 ```
 
 | Phase | What Happens | Output |
@@ -21,7 +21,7 @@ flowchart TD
 | Map and round | Break the plan into a design tree and ask every decision whose prerequisites are settled | Questions |
 | Ask | Use the harness question tool, four questions per call at most, recommended answer first; a numbered list in chat without the tool | Answers |
 | Facts | Look up what the environment can answer instead of asking | Facts for later rounds |
-| Close and record | Confirm the shared understanding, then write resolved terms to the glossary and qualifying decisions to ADRs | Updated records |
+| Close and report | Confirm the shared understanding, then list resolved terms that need a glossary entry and qualifying decisions that need an ADR, and suggest the next step | Report |
 
 ## Usage
 
@@ -35,11 +35,11 @@ resolve the open decisions before the spec
 
 ## Output
 
-The interview writes nothing while it runs. After the confirmation, resolved terms go to the glossary and qualifying decisions go to ADRs.
+The interview writes nothing. After the confirmation, it reports the resolved terms that need a glossary entry, the decisions that need an ADR, and suggests the next step: an issue, a feature document, or a specification.
 
 ## Requirements
 
-Uses the harness question tool when available and falls back to a numbered list in chat. Recording needs the glossary and documentation skills installed; the harness reports a missing one.
+Uses the harness question tool when available and falls back to a numbered list in chat.
 
 ## FAQ
 

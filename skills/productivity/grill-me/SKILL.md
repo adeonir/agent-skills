@@ -18,10 +18,10 @@ Interview the user until every decision in the plan is settled and nothing is le
 ```text
 tree → ask the frontier → answers → tree
          ^____________________________|
-         frontier empty → confirm → record
+         frontier empty → confirm → report
 ```
 
 1. **Map the plan as a design tree**: every decision branches into the decisions that hang off it. The frontier is every decision whose prerequisites are settled. Ask the whole frontier as one round, then let the answers reshape the tree and ask the next frontier.
 2. **Ask with the harness question tool**, at most four questions per call, continuing in further calls of the same round. Give each question two to four mutually exclusive options, the recommended answer first and marked as recommended. Ask a question with no discrete options in chat, alone. With no question tool, ask the round as a numbered list in chat, each question carrying its recommended answer.
 3. **Find facts yourself.** Look up what the environment can answer, by a subagent when the reading is long, and never ask the user for it. Ask the rest of the frontier meanwhile.
-4. **Close when the frontier is empty.** State the shared understanding and wait for the user to confirm it before acting on it. Then apply `domain-modeling` for every term the interview resolved, and the ADR flow of `docs-writer` for every decision that is hard to reverse, surprising without context, and the result of a real trade-off.
+4. **Close when the frontier is empty.** State the shared understanding and wait for the user to confirm it before acting on it. Then report every term the interview resolved as needing a glossary entry, and every decision that is hard to reverse, surprising without context, and the result of a real trade-off as needing an ADR. Write neither. Suggest the next step the plan leads to: an issue, a feature document, or a specification.
