@@ -7,7 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-A SKILL.md or reference never names another skill or links to a file in another skill's directory. Skills ship standalone, so a cross-skill reference breaks the moment the sibling is not installed. Composition between skills happens through artifacts on disk, never through direct file links. The one exception is `grill-me`, which names the skills that record a resolved term or decision and carries no fallback: when a named skill is missing, the harness reports it to the user.
+A SKILL.md or reference never names another skill or links to a file in another skill's directory. Skills ship standalone, so a cross-skill reference breaks the moment the sibling is not installed. Composition between skills happens through artifacts on disk, never through direct file links.
 
 **Incorrect:**
 
@@ -26,7 +26,7 @@ which skill produced them.
 
 **Impact: MEDIUM**
 
-A skill names only the artifact it produces, never a sibling's output by name or path, and states a boundary in terms of its own concern rather than where the excluded thing lives. The exceptions are an integrator — a renderer or cross-artifact validator whose job is to compose several artifacts — which may name what it integrates, and `grill-me`, which may name the glossary and the decision record it hands off to.
+A skill names only the artifact it produces, never a sibling's output by name or path, and states a boundary in terms of its own concern rather than where the excluded thing lives. The one exception is an integrator — a renderer or cross-artifact validator whose job is to compose several artifacts — which may name what it integrates.
 
 **Incorrect:**
 
