@@ -88,6 +88,7 @@ TASK_REF = re.compile(r"\bT-\d+\b")
 TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_TEST = re.compile(r"^\s*-\s*\*\*Test:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_TEST_NONE = re.compile(r"^none\b\s*[—–:-]*\s*(.*)$", re.IGNORECASE)
+TASKS_RUNNER = re.compile(r"^\*\*Runner:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_BUILDS = re.compile(r"^\s*-\s*\*\*Builds:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
@@ -852,6 +853,33 @@ def lint_sequence(path, lines, tasks, expected_waves, findings):
         findings.append("%s:1: Sequence canonical waves: %s" % (path, rendered))
 
 
+def check_runner(path, lines, findings):
+    """Check the `**Runner:**` line in `## Scope`; return its line number and whether it is `none`."""
+    bounds = section_bounds(lines, "Scope")
+    if bounds is None:
+        return 1, False
+    entries = []
+    for index in range(*bounds):
+        match = TASKS_RUNNER.match(lines[index].strip())
+        if match:
+            value = re.sub(r"<!--.*?-->", "", match.group(1)).strip().strip("`").strip()
+            entries.append((index + 1, value))
+    if not entries:
+        findings.append("%s:%d: `## Scope` carries no `**Runner:**` line" % (path, bounds[0] + 1))
+        return bounds[0] + 1, False
+    if len(entries) > 1:
+        findings.append("%s:%d: `## Scope` carries more than one `**Runner:**` line" % (path, entries[1][0]))
+    number, value = entries[0]
+    if not value:
+        findings.append("%s:%d: `Runner` must name the test command or `none — [why the project has none]`" %
+                        (path, number))
+        return number, False
+    marker = TASK_TEST_NONE.match(value)
+    if marker is not None and not marker.group(1).strip():
+        findings.append("%s:%d: `Runner: none` must name why the project has no test runner" % (path, number))
+    return number, marker is not None
+
+
 def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     fields, _ = parse_frontmatter(lines)
     check_frontmatter_status(path, fields, TASK_STATUSES, findings)
@@ -859,6 +887,8 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     check_frontmatter_path(path, base, fields, "design", findings)
     design_components = read_design_components(base, fields.get("design"), findings)
     check_sections(path, lines, TASKS_SECTIONS, findings)
+    runner_line, runner_none = check_runner(path, lines, findings)
+    unreached_total = 0
     tasks = []
     current = None
     for index, line in enumerate(lines):
@@ -977,7 +1007,12 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                                 (path, number, covered[criterion], identifier, criterion))
             else:
                 covered[criterion] = identifier
-        if covers:
+        if covers and runner_none:
+            if test_values:
+                findings.append("%s:%d: %s carries `Test` under `Runner: none`; drop it" %
+                                (path, number, identifier))
+            unreached_total += len(covers)
+        elif covers:
             named_tests = [value for value in test_values if value]
             if len(named_tests) != len(covers):
                 findings.append("%s:%d: each covered AC needs its own `Test`: %s covers %d, "
@@ -987,7 +1022,7 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
             for value in named_tests:
                 marker = TASK_TEST_NONE.match(value)
                 if marker is not None and not marker.group(1).strip():
-                    findings.append("%s:%d: %s `Test: none` must name what no runner reaches" %
+                    findings.append("%s:%d: %s `Test: none` must name what the runner does not reach" %
                                     (path, number, identifier))
                 elif marker is not None:
                     unreached += 1
@@ -995,6 +1030,11 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                 warnings.append("%s:%d: warning: %s has no runner-level test for %d covered %s on a feature that is not user-facing; route to specify" %
                                 (path, number, identifier, unreached,
                                  "criterion" if unreached == 1 else "criteria"))
+
+    if unreached_total and spec_lines is not None and not spec_user_facing(spec_lines):
+        warnings.append("%s:%d: warning: `Runner: none` leaves %d covered %s without a runner-level test on a feature that is not user-facing; route to specify" %
+                        (path, runner_line, unreached_total,
+                         "criterion" if unreached_total == 1 else "criteria"))
 
     removed_ids = {task["id"] for task in tasks if task["state"] == "-"}
     started = any(task["state"] == "x" for task in tasks)
