@@ -71,8 +71,8 @@ status: draft
 |----------|--------|----------|--------|
 
 ## Risks & Concerns
-<!-- the costs this feature leaves standing; each Concern names the component it touches. Work
-     already in scope and a condition already in PROJECT.md are neither. `none` when nothing survives. -->
+<!-- the costs this feature leaves standing. Work already in scope and a condition already in
+     PROJECT.md are neither. `none` when nothing survives. -->
 | Concern | Impact | Mitigation |
 |---------|--------|------------|
 ```
