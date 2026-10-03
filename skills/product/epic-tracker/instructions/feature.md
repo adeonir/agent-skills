@@ -6,6 +6,8 @@ Turn a feature PRD or RFC into the delivery artifacts it warrants — an epic wi
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+
 ## When to Use
 
 The user supplies a feature PRD or RFC and asks for tracker artifacts from it. Not for `docs/product/PRD.md` — a project PRD always yields epics, and [decompose.md](decompose.md) Level 1 owns that path. This path writes no roadmap.

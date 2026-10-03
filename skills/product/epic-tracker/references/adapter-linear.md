@@ -1,10 +1,10 @@
 # Linear Adapter
 
-Translate generic epic-tracker operations into Linear primitives. Loaded by [sync.md](../instructions/sync.md) when `epic-tracker.kind: linear`.
+Translate generic epic-tracker operations into Linear primitives. Loaded by [tracker.md](tracker.md) when `epic-tracker.kind: linear`.
 
 ## When to Use
 
-Loaded by `sync.md` when `epic-tracker.kind` is `linear`. Not a direct trigger.
+Loaded by `tracker.md` when `epic-tracker.kind` is `linear`. Not a direct trigger.
 
 ## Integration Channel
 
@@ -19,7 +19,7 @@ Take each tool name from the connected server's own tool list and call it qualif
 | `epic-tracker.team` | Linear team the issues belong to |
 | `epic-tracker.project` | Linear project that holds every artifact |
 
-Both are required. Every Issue is created in `epic-tracker.team` and placed in `epic-tracker.project`. When either is unset, ask the user to name an existing one or create it, then persist with `git config --local`.
+Both are required. Every Issue is created in `epic-tracker.team` and placed in `epic-tracker.project`. When either is unset, ask the user to name an existing one or create it, then persist with `git config --local` and rewrite the tracker block (see [tracker.md](tracker.md) "Tracker Block").
 
 ## Primitive Mapping
 

@@ -153,7 +153,8 @@ GLOSSARY.md         # domain-modeling: canonical domain terms
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
-live in the tracker (Linear or GitHub).
+live in the tracker (Linear or GitHub), and an `## Issue tracker` block in
+`AGENTS.md` or `CLAUDE.md` records which tracker is configured.
 
 Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace).
 

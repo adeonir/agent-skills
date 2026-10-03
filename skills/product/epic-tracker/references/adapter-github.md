@@ -1,10 +1,10 @@
 # GitHub Adapter
 
-Translate generic epic-tracker operations into GitHub primitives. Loaded by [sync.md](../instructions/sync.md) when `epic-tracker.kind: github`.
+Translate generic epic-tracker operations into GitHub primitives. Loaded by [tracker.md](tracker.md) when `epic-tracker.kind: github`.
 
 ## When to Use
 
-Loaded by `sync.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
+Loaded by `tracker.md` when `epic-tracker.kind` is `github`. Not a direct trigger.
 
 ## Config
 
@@ -39,7 +39,7 @@ One opt-in layer wraps the same Issue substrate, independent of hierarchy.
 
 ## Integration Channel
 
-MCP and the `gh` CLI are both channels. The caller (`sync.md`) selects the active one from `epic-tracker.channel` and `epic-tracker.fallback`; every operation below runs through whichever is active. When a capability is missing from the active channel, surface it and let the caller decide whether to try the other.
+MCP and the `gh` CLI are both channels. The caller (`tracker.md`) selects the active one from `epic-tracker.channel` and `epic-tracker.fallback`; every operation below runs through whichever is active. When a capability is missing from the active channel, surface it and let the caller decide whether to try the other.
 
 Take each MCP tool name from the connected server's own tool list and call it qualified (`GitHub:tool_name`).
 

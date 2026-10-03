@@ -47,7 +47,7 @@ Every artifact lives in the tracker — Linear via MCP, GitHub via MCP or the `g
 
 Every artifact is an Issue, and sub-issues carry the hierarchy in both trackers. Each one classifies the artifact type its own way (a Linear label, a GitHub issue type or label). On GitHub, Projects v2 is an orthogonal opt-in layer for board views and custom fields.
 
-Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects what is reachable: GitHub through MCP or the `gh` CLI, with one falling back to the other; Linear through MCP alone. Config is stored in `git config --local`, so it stays with the project.
+Configure via `configure tracker` (runs bootstrap once per project). Bootstrap detects what is reachable: GitHub through MCP or the `gh` CLI, with one falling back to the other; Linear through MCP alone. Config is stored in `git config --local`, so it stays with the project. An `## Issue tracker` block in the repo's instruction file mirrors it, so any agent working in the repo sees which tracker is configured: it goes to `CLAUDE.md` when one exists without importing `AGENTS.md`, and to `AGENTS.md` otherwise. The skill rewrites the block whenever it is missing or disagrees with the config.
 
 ## Status
 
@@ -143,7 +143,7 @@ A milestone is a property of the whole epic subtree: the epic takes its phase na
 
 ## Output
 
-Artifacts live in the tracker; the skill writes no local files for them. The roadmap is the one exception — `docs/product/ROADMAP.md`, committed alongside `PRD.md`.
+Artifacts live in the tracker; the skill writes no local files for them. Two files are the exception — `docs/product/ROADMAP.md`, committed alongside `PRD.md`, and the `## Issue tracker` block in `AGENTS.md` or `CLAUDE.md`.
 
 ## Requirements
 
@@ -161,7 +161,7 @@ Artifacts live in the tracker; the skill writes no local files for them. The roa
 
 **Q: Can I plan without creating anything in the tracker?** A: Yes. `decompose` writes the roadmap first and confirms before materializing — decline the checkpoint and the plan is saved to `docs/product/ROADMAP.md` with nothing created. Run `decompose` again later to materialize.
 
-**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects what is reachable and updates the git config. Artifacts already created stay in the old tracker — the switch applies to what you create next.
+**Q: How do I switch trackers?** A: Run `configure tracker`. Bootstrap re-detects what is reachable and updates the git config and the `## Issue tracker` block. Artifacts already created stay in the old tracker — the switch applies to what you create next.
 
 **Q: What happens when I push and the tracker is unavailable?** A: On GitHub, the skill tries the other channel (MCP when `gh` fails, or the reverse). On Linear, which runs on MCP alone, there is no second channel. When no channel is left, it holds the draft in the session, surfaces the error, and offers to retry — the drafted content is never discarded. No partial state is left in the tracker.
 

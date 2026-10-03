@@ -372,7 +372,7 @@ GLOSSARY.md                # domain-modeling: canonical domain terms
 └── design/    # style-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
-`epic-tracker` writes no artifacts — its output lives in the tracker.
+`epic-tracker` writes no artifacts — its output lives in the tracker, plus an `## Issue tracker` block in the consumer repo's `AGENTS.md` or `CLAUDE.md` that mirrors its config.
 
 `wrap-up` is the only skill that mutates another skill's artifact: it reads `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it writes to Obsidian, then clears it — only after persisting, and within the empty-file-equals-cleared contract `handoff` defines. Reading a sibling's artifact is ordinary composition (`craft-ui`'s mockup phase integrates the arrangement, tokens, and content); a mutating integrator is the exception, and `wrap-up` is its single instance — no other skill may write to or clear a sibling's artifact.
 

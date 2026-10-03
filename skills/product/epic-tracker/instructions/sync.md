@@ -4,7 +4,7 @@ Change status, read delivery state, reparent an artifact, edit its dependencies,
 
 ## Load first
 
-Read [tracker.md](../references/tracker.md) — the config, the bootstrap, the dispatch flows, and the adapter operations every step below goes through. Without a tracker configured, its bootstrap runs first and nothing else proceeds until it completes.
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step — the config, the bootstrap, the tracker block, the dispatch flows, and the adapter operations every step below goes through. Without a tracker configured, its bootstrap runs first and nothing else proceeds until it completes.
 
 ## Status change
 

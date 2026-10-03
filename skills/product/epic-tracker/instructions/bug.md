@@ -6,6 +6,8 @@ Document a defect with structured reproduction steps, severity, and environment 
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+
 - Unsure if it's a defect vs new work — see [discriminator.md](../references/discriminator.md)
 
 ## Workflow
@@ -88,8 +90,6 @@ Apply the resumption gate before proceeding:
 Load [tracker.md](../references/tracker.md) and dispatch the draft, passing the parent epic's id when the bug has one. The adapter applies the `bug` label and the severity label. The tracker is the source of truth; nothing is written locally.
 
 An explicit destination in the user's request ("create the issue on GitHub") overrides the configured tracker for this artifact only; it never rewrites the config. See [tracker.md](../references/tracker.md) "Explicit Override".
-
-When `epic-tracker.kind` is not set, [tracker.md](../references/tracker.md) bootstrap runs first — a tracker is required.
 
 ## Editing an Existing Bug
 

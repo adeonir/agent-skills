@@ -6,6 +6,8 @@ Define a story: a demonstrable slice of user-visible value, with acceptance crit
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+
 ## Workflow
 
 ### 1. Resolve the Parent
@@ -87,8 +89,6 @@ Validation runs locally, before any tracker round-trip — a failure costs no di
 Load [tracker.md](../references/tracker.md) and dispatch the draft, passing the parent epic's id when the story has one, so it is created as that epic's child. The tracker is the source of truth; nothing is written locally.
 
 An explicit destination in the user's request overrides the configured tracker — but **not for a story under an epic**: the parent lives in the configured tracker, and there is no `epic_id` for it in another one. A standalone story carries no such constraint. See [tracker.md](../references/tracker.md) "Explicit Override".
-
-When `epic-tracker.kind` is not set, [tracker.md](../references/tracker.md) bootstrap runs first — a tracker is required.
 
 ## Editing an Existing Story
 
