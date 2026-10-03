@@ -1,4 +1,4 @@
-<!-- Temporary feature RFC. Delete every comment, ALWAYS use this exact template structure, and replace every square-bracket slot before writing the file. -->
+<!-- Temporary feature RFC. ALWAYS use this exact template structure. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
 ---
 name: [feature-slug]
@@ -10,33 +10,35 @@ sources: []
 
 # RFC: [Feature Name]
 
-## 1. Context
+## Context
 
 [Why a decision is needed, in one short paragraph. Link the feature PRD instead when one exists.]
 
-## 2. Proposed Direction
+## Proposed Direction
 
 [What is proposed and the boundaries of the proposal.]
 
-## 3. Alternatives Considered
+## Alternatives Considered
 
-| Alternative | Benefits | Costs | Reason not selected |
-|-------------|----------|-------|--------------------|
-| [alternative] | [benefits] | [costs] | [reason] |
+<!-- Optional: only when a real alternative was weighed. -->
 
-## 4. Risks & Dependencies
+- [Alternative not selected, and the reason.]
+
+## Risks & Dependencies
+
+<!-- Optional: only when no feature PRD exists. -->
 
 - [Risk or dependency, impact, and mitigation or owner.]
 
-## 5. Open Questions
+## Open Questions
+
+<!-- Optional: only when no feature PRD exists. -->
 
 - [Question that remains open.]
 
-## 6. Decision
+## References
 
-[Proposed, Accepted, Deprecated, or Superseded by <feature-slug>, with the decision statement.]
-
-## 7. References
+<!-- Optional. -->
 
 - [Typed reference and link, including the feature PRD when one exists.]
 

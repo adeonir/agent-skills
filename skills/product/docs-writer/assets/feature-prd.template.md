@@ -1,4 +1,4 @@
-<!-- Temporary feature PRD. Delete every comment, ALWAYS use this exact template structure, and replace every square-bracket slot before writing the file. -->
+<!-- Temporary feature PRD. ALWAYS use this exact template structure. Remove an optional section, or an optional subsection, that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
 ---
 name: [feature-slug]
@@ -10,31 +10,27 @@ sources: []
 
 # Feature PRD: [Feature Name]
 
-## 1. Executive Summary
+## Summary
 
-[Problem, users, intended change, and primary outcome in one short paragraph.]
+[Problem and its evidence or hypothesis, the primary users and the job each needs to complete, and the primary outcome, in one short paragraph.]
 
-## 2. Problem Statement
-
-[Problem and evidence or hypothesis.]
-
-## 3. Users
-
-[Primary users and the job each user needs to complete.]
-
-## 4. Goals
-
-- [Measurable goal and target.]
-
-## 5. Scope
+## Scope
 
 ### In
 - [Capability included in this feature.]
 
 ### Out
-- [Capability excluded from this feature and why.]
+- [Capability excluded from this feature, or outcome deliberately not pursued, and why.]
 
-## 6. User Journeys
+## Goals
+
+<!-- Optional. -->
+
+- [Measurable goal and target.]
+
+## User Journeys
+
+<!-- Optional. -->
 
 ### [Journey Name]
 - **Actor:** [user]
@@ -42,23 +38,27 @@ sources: []
 - **Main flow:** [precondition, steps, and postcondition]
 - **Alternative flows:** [important variants]
 
-## 7. Business Rules
+## Business Rules
+
+<!-- Optional. -->
 
 - [Rule that the product must enforce.]
 
-## 8. Edge Cases
+## Edge Cases
+
+<!-- Optional. -->
 
 - [Boundary or failure case and expected product behavior.]
 
-## 9. Non-Goals
+## Risks & Dependencies
 
-- [Outcome deliberately not pursued.]
-
-## 10. Risks & Dependencies
+<!-- Optional. -->
 
 - [Risk or dependency, impact, and owner or mitigation.]
 
-## 11. Open Questions & Assumptions
+## Open Questions & Assumptions
+
+<!-- Optional; each subsection is optional too. -->
 
 ### Assumptions
 - [Assumption and what depends on it.]
@@ -66,7 +66,9 @@ sources: []
 ### Open Questions
 - [Question with no safe default.]
 
-## 12. References
+## References
+
+<!-- Optional. -->
 
 - [Typed reference and link.]
 
