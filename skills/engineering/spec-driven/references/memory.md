@@ -10,7 +10,7 @@ At the load-context step of every phase, and whenever a phase discovers durable 
 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
-| `PROJECT.md` | project-wide, committed knowledge | when specify records Stakes or a phase records durable Conventions, Decisions, or Gotchas | every phase |
+| `PROJECT.md` | project-wide, committed knowledge | when a phase records durable Conventions, Decisions, or Gotchas | every phase |
 | `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report routing changes | every phase for that feature |
 
 `PROJECT.md` is shared project memory. `STATE.md` is the operational state of one feature. Neither file carries the detailed finding text owned by `validate.md` or `audit.md`.
@@ -22,10 +22,6 @@ Keep `PROJECT.md` at the project root, beside `AGENTS.md`, and commit it. It is 
 Write only these sections:
 
 ```markdown
-## Stakes
-- [what the product is]
-- [surface] — [what a silent failure here costs]
-
 ## Conventions
 - [project convention] — [where it applies]
 
@@ -38,7 +34,7 @@ Write only these sections:
 
 `Conventions` holds durable project rules that implementation must follow. A phase records a convention only when the codebase establishes it and it is useful beyond the current feature. `AGENTS.md` and `CLAUDE.md` belong to the project and no phase writes them. When an entry already exists in either, cite it instead of restating it, so a later edit cannot leave one copy stale.
 
-`Stakes` holds the current product surface and the cost of a silent failure. Specify writes it when absent and rewrites it when a later feature contradicts the current surface. `Decisions` is append-only unless a later decision explicitly supersedes an earlier one. `Gotchas` records durable traps found in the codebase.
+`Decisions` is append-only unless a later decision explicitly supersedes an earlier one. `Gotchas` records durable traps found in the codebase.
 
 Every entry records what is true now. Never record how something worked before, which release changed it, or an API the project no longer calls — a superseded decision is the one exception, and it stays only because a later decision names it. `source:` cites the file that proves the entry; an entry about third-party behaviour with no file to point at carries no `source:` rather than an invented one.
 

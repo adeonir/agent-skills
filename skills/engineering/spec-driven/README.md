@@ -94,7 +94,7 @@ PROJECT.md                         # committed codebase knowledge
 
 **Q: What does spec-driven persist across features?**
 
-A: `PROJECT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas. `archive/` is never foraged.
+A: `PROJECT.md` at the project root accumulates cross-feature conventions, decisions, and gotchas. `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 
