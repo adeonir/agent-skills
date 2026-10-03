@@ -4,7 +4,7 @@ The dependency graph and its derived execution waves.
 
 ## When to Use
 
-During tasks to build and check the graph, during implement to select and dispatch work, and during audit to verify execution order.
+During tasks to build and check the graph, and during implement to select and dispatch work.
 
 ## Dependency graph
 

@@ -4,7 +4,7 @@ Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identit
 
 ## When to Use
 
-During specify, when writing or reshaping the acceptance criteria under each product slice, and when confirming every PRD requirement reached an AC. Also read during audit to confirm each AC maps to a discriminating test.
+During specify, when writing or reshaping the acceptance criteria under each product slice, and when confirming every PRD requirement reached an AC.
 
 ## Form
 
@@ -26,7 +26,7 @@ Scenario: User signs in with registered credentials
 - One criterion is one scenario. Two criteria never carry the same scenario.
 - `Scenario` states a single case and carries no `Examples`. `Scenario Outline` carries exactly one `Examples` table: one non-empty, unique-column header and at least one data row; every row matches the header width, every placeholder is a column, and every column binds a placeholder.
 - `Given`, `When` and `Then` each open a step group, and `And` or `But` continues the group open at that point.
-- A `Then` asserting two independent outcomes is two criteria — split it, however they were joined, in one step with `and` or across an `And` continuation. Two observables of one outcome stay one criterion. The audit maps each criterion to one discriminating test and draws its mutation points from them, so a criterion carrying three observables has no single assertion.
+- A `Then` asserting two independent outcomes is two criteria — split it, however they were joined, in one step with `and` or across an `And` continuation. Two observables of one outcome stay one criterion. Each criterion maps to one test case, so a criterion carrying three observables has no single assertion.
 - A conjunctive precondition that names one state the criterion needs whole stays one `Given` group: "the user is signed in and has three items in the cart".
 - Measure the `Then` alone. `Given` and `When` narrow when the criterion applies, and narrowing what a criterion covers promises nothing extra.
 - Write the outcome as something observable: "the modal appears", never "the flow feels natural".
@@ -73,7 +73,7 @@ Every declared Goal is served by at least one criterion. The linter rejects a sp
 
 ## Backward provenance — `Satisfies`
 
-Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NFR`, or a ticket whose criteria or done-conditions already name them — each criterion that operationalizes a requirement carries a `**Satisfies**` line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached a criterion. The audit stays criterion-keyed; it never anchors on the requirement ID. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
+Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NFR`, or a ticket whose criteria or done-conditions already name them — each criterion that operationalizes a requirement carries a `**Satisfies**` line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached a criterion. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
 
 ## Case convention — three classes
 

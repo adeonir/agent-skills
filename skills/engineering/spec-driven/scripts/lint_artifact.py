@@ -14,7 +14,6 @@ Usage:
   lint_artifact.py design   .artifacts/specs/{slug}
   lint_artifact.py tasks    .artifacts/specs/{slug}
   lint_artifact.py validate .artifacts/specs/{slug}
-  lint_artifact.py audit    .artifacts/specs/{slug}
 
 Exit codes:
   0  no error (warnings may still be printed)
@@ -34,13 +33,10 @@ DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions", 
                    "Risks & Concerns", "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
-AUDIT_SECTIONS = ["Summary", "Goals", "Acceptance Criteria", "Discrimination Sensor", "Re-run", "Gaps"]
 
 VALIDATE_SUMMARY = ["Status", "Feature", "Date", "Application", "Criteria"]
-AUDIT_SUMMARY = ["Status", "Feature", "Commit range", "Failed audits in a row", "Auditor", "Date", "Disproof"]
 REPORT_STATUSES = ["PASS", "FAIL", "BLOCKED"]
 VALIDATE_VERDICTS = ["met", "unmet", "blocked"]
-AUDIT_AC_STATUSES = ["PASS", "FAIL", "UNSETTLED"]
 
 SPEC_FRONTMATTER = ["name", "sources", "user-facing", "status", "created", "branch"]
 SPEC_STATUSES = ["draft", "ready"]
@@ -1110,17 +1106,9 @@ def lint_validate(path, lines, spec_lines, findings):
                           report_criteria_rows(lines, "Out of Scope", "AC"))
 
 
-def lint_audit(path, lines, spec_lines, findings):
-    """Check the audit report: sections, summary, per-criterion status, coverage."""
-    check_sections(path, lines, AUDIT_SECTIONS, findings)
-    check_report_summary(path, lines, AUDIT_SUMMARY, findings)
-    check_report_verdicts(path, lines, "Acceptance Criteria", "Status", AUDIT_AC_STATUSES, findings)
-    check_report_coverage(path, report_criteria_rows(lines, "Acceptance Criteria", "AC"), spec_lines, findings)
-
-
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Lint a spec-driven artifact against its template contract.")
-    parser.add_argument("phase", choices=["spec", "design", "tasks", "validate", "audit"])
+    parser.add_argument("phase", choices=["spec", "design", "tasks", "validate"])
     parser.add_argument("feature_dir", help="the feature folder, e.g. .artifacts/specs/{slug}")
     args = parser.parse_args(argv)
 
@@ -1151,8 +1139,6 @@ def main(argv=None):
             lint_design(path, lines, base, spec_path, spec_lines, findings)
         elif args.phase == "validate":
             lint_validate(path, lines, spec_lines, findings)
-        elif args.phase == "audit":
-            lint_audit(path, lines, spec_lines, findings)
         else:
             lint_tasks(path, lines, base, spec_lines, findings, warnings)
     except Exception as error:  # last-resort guard: never surface a raw traceback
