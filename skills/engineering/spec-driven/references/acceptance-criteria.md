@@ -32,7 +32,6 @@ Scenario: User signs in with registered credentials
 - Write the outcome as something observable: "the modal appears", never "the flow feels natural".
 - An invariant is written as the event that would violate it — `When a record is written / Then the audit log carries the actor` — since every scenario carries a trigger.
 - A non-obvious criterion carries its `(because …)` rationale on the heading, after the title.
-- A slice past five criteria has usually stopped being one outcome: split it, or record the size as deliberate.
 
 ## `AC-N.M` identity
 

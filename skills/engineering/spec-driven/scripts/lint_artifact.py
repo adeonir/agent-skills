@@ -53,9 +53,6 @@ STEP_CONTINUATIONS = ("And", "But")
 
 TASK_FIELDS = ["Slice", "Builds", "Depends on", "Gate", "Done when"]
 
-# A slice past this many criteria has usually stopped being one outcome. A warning,
-# never an error: the size may be recorded as deliberate.
-SLICE_CRITERIA_CAP = 5
 
 # Source-file extensions barred from spec.md prose: naming one is a HOW leak.
 # Backtick-quoted only, so a bare domain term with a dot never trips it.
@@ -379,7 +376,6 @@ def check_criteria(path, lines, findings, warnings):
                                 % (path, index + 1, match.group(1)))
 
     declared = set()
-    per_story = {}  # story id -> (criteria counted, line of its first criterion)
     for criterion in spec_criteria(lines):
         identifier, number, story = criterion["id"], criterion["line"], criterion["story"]
         if identifier in declared:
@@ -401,9 +397,6 @@ def check_criteria(path, lines, findings, warnings):
                 findings.append("%s:%d: %s is removed but carries no `Reason:` line"
                                 % (path, number, identifier))
             continue
-        if story is not None:
-            counted, first_line = per_story.get(story, (0, number))
-            per_story[story] = (counted + 1, first_line)
 
         validate_gherkin(path, criterion, findings)
 
@@ -427,11 +420,6 @@ def check_criteria(path, lines, findings, warnings):
             if not SATISFIES_ID.match(value):
                 findings.append("%s:%d: %s `Satisfies %s` is not exactly one `FR/BR/EC/NFR-N` id"
                                 % (path, number, identifier, value))
-
-    for story, (counted, first_line) in sorted(per_story.items()):
-        if counted > SLICE_CRITERIA_CAP:
-            warnings.append("%s:%d: warning: %s carries %d criteria — split it, or record the size as deliberate"
-                            % (path, first_line, story, counted))
 
     for identifier in dict.fromkeys(goals):
         if identifier not in served_goals:
@@ -1022,16 +1010,21 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     live_tasks = [task for task in tasks if task["state"] != "-"]
 
     slices = spec_live_stories(spec_lines or [])
+    slice_task_ids = {task["id"] for task in live_tasks if task["slice"] and task["slice"] != "none"}
     slice_order = []
     declared_before = set()
+    slice_task_seen = False
     for task in tasks:
         identifier, number = task["id"], task["line"]
         if task["state"] == "-":
             declared_before.add(identifier)
             continue
         if task["slice"] == "none":
-            pass
+            if slice_task_seen and not any(dependency in slice_task_ids for dependency in task["depends"]):
+                findings.append("%s:%d: %s is groundwork listed after a slice task it does not depend on — move it before the slice tasks" %
+                                (path, number, identifier))
         elif task["slice"]:
+            slice_task_seen = True
             slice_order.append(task["slice"])
             if spec_lines is not None and task["slice"] not in slices:
                 findings.append("%s:%d: %s names %s, which the spec does not declare" %
