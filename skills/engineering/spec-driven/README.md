@@ -63,7 +63,7 @@ PROJECT.md                         # committed codebase knowledge
 ├── specs/
 │   └── <slug>/                    # one folder per feature
 │       ├── spec.md                # WHAT + WHY
-│       ├── STATE.md               # feature state and report routing
+│       ├── STATE.md               # feature state
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
 │       ├── validate.md            # optional user-facing validation report
@@ -94,7 +94,7 @@ A: When it is mechanical, with zero load-bearing decisions. It runs as a one-lin
 
 **Q: What is the difference between self-check, verify, and validate?**
 
-A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. A failed report sets the feature's `STATE.md` routing field, and `tasks` turns its verified findings into correction tasks that `implement` executes.
+A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. A failed report points the feature's `STATE.md` at `tasks`, which turns its verified findings into correction tasks that `implement` executes.
 
 **Q: How are tasks ordered and dispatched?**
 

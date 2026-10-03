@@ -1,17 +1,17 @@
 # Memory and Progress
 
-The project's shared memory, the feature state, and the routing field that sends reports to task triage.
+The project's shared memory and the feature state.
 
 ## When to Use
 
-At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, finishes a task, or routes a report.
+At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, or finishes a task.
 
 ## The two files
 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `PROJECT.md` | project-wide, committed knowledge | when a phase records durable Conventions, Decisions, or Gotchas | every phase |
-| `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report routing changes | every phase for that feature |
+| `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates and after implement tasks | every phase for that feature |
 
 `PROJECT.md` is shared project memory. `STATE.md` is the operational state of one feature. Neither file carries the detailed finding text owned by `validate.md`.
 
@@ -55,16 +55,13 @@ ALWAYS use this exact structure:
 - **Phase:** specify | design | tasks | implement | validate
 - **Next:** [the next task or step, e.g. T-3, run validate, or none]
 - **Blockers:** [none | ...]
-- **Findings:** [none | validate]
 
 ## Notes
 
 - [feature-local observations]
 ```
 
-`Findings` is a routing field. It names the report files that still carry something for the phase `Phase` points to; it never contains the finding text. The detailed findings remain in `validate.md`. The phase that consumes a report clears its source after acting on it.
-
-Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` stores the coarse phase pointer, the next step, blockers, and report routing only. `implement` has no `BLOCKED` artifact state; an open task remains open and `tasks.md` remains `in-progress`.
+Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` stores the coarse phase pointer, the next step, and blockers only. `implement` has no `BLOCKED` artifact state; an open task remains open and `tasks.md` remains `in-progress`.
 
 ## Read and write routing
 
@@ -73,7 +70,7 @@ Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` s
 - `specify`, `design`, `tasks`, `implement`, and `validate` resolve state from that directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
 - `validate` writes detailed findings to its own report.
-- `Findings` names the report that still carries something and `Phase` names the phase that reads it. `Phase` decides: `tasks` reads a report only when `Phase` names `tasks`, and stops and reports the named phase otherwise, whatever `Findings` carries. `tasks` verifies the findings, creates or adjusts correction tasks, and clears the consumed source.
+- A `validate` FAIL sets `Phase: tasks` and `Next: validate findings`; `tasks` verifies the findings in `validate.md` and creates or adjusts correction tasks.
 
 - A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
 - Include changes to `PROJECT.md ## Decisions` in the phase's final summary.

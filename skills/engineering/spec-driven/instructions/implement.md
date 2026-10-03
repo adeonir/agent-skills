@@ -1,6 +1,6 @@
 # Implement
 
-Execute the tasks in `tasks.md` per `design.md` and `spec.md`. Task-level progress and status live in `tasks.md`; the coarse pointer, blockers, and report routing live in the feature's `STATE.md`.
+Execute the tasks in `tasks.md` per `design.md` and `spec.md`. Task-level progress and status live in `tasks.md`; the coarse pointer and blockers live in the feature's `STATE.md`.
 
 ## When to Use
 
@@ -12,7 +12,7 @@ Resolve `<this-skill>` to the directory this `SKILL.md` was read from before run
 
 For a feature with the artifacts — a one-liner has none of them; see [One-liner inline](#one-liner-inline) below.
 
-1. **Resolve feature** — resolve `.artifacts/specs/<slug>/` per [memory.md](../references/memory.md) and read its `STATE.md ## Progress` before loading downstream artifacts. If `Findings` is not `none`, stop and report the phase `Phase` names — that phase consumes the report, not this one. If `Phase` points to `specify`, `design`, or `tasks`, stop and report that phase. Require `spec.md` and `design.md` at `status: ready`, and `tasks.md` at `status: ready` or `status: in-progress`; if a prerequisite phase is not ready, stop and report that phase. Otherwise load `spec.md`, `design.md`, `tasks.md`, and the root `PROJECT.md`. `STATE.md ## Progress` is read again per task in the Before step.
+1. **Resolve feature** — resolve `.artifacts/specs/<slug>/` per [memory.md](../references/memory.md) and read its `STATE.md ## Progress` before loading downstream artifacts. If `Phase` points to `specify`, `design`, or `tasks`, stop and report that phase. Require `spec.md` and `design.md` at `status: ready`, and `tasks.md` at `status: ready` or `status: in-progress`; if a prerequisite phase is not ready, stop and report that phase. Otherwise load `spec.md`, `design.md`, `tasks.md`, and the root `PROJECT.md`. `STATE.md ## Progress` is read again per task in the Before step.
 2. **Create branch** — from the spec's `branch:` field. Already on it → skip. On `main`/`master` → create: `git switch -c <branch> 2>/dev/null || git switch <branch>`. On an unrelated branch → stop and ask before branching, so the feature never carries foreign commits.
 3. **Update status** — set `tasks.md` from `ready` to `in-progress`. Never change `spec.md`; it remains `ready` throughout implementation and later checks.
 4. **Select and dispatch** — run `python3 <this-skill>/scripts/select_tasks.py .artifacts/specs/<slug> [selector]` with a task, task range, slice, or slice range. With no selector, select the whole feature. The selector reads `Depends on`, filters completed tasks, reports tasks blocked by dependencies outside the selection, and does not expand the selection. Dispatch the selected units per [Subagent dispatch](#subagent-dispatch); each unit runs its tasks through Before / During / After and returns the compact summary.
