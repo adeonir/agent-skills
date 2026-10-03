@@ -2,9 +2,13 @@
 
 MUST NOT contain: a page layout, section order, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; a claim about the current experience without evidence; a concept the user has not accepted, outside Open Questions; sibling artifact names, milestones, or roadmap references; the same fact in two sections.
 
-ALWAYS use this exact template structure, from the Status line to the end of References. Write `None` in a section with nothing to record:
+ALWAYS use this exact template structure, from the frontmatter to the end of References. Write `None` in a section with nothing to record:
 
-**Status:** [Draft | Agreed]
+---
+status: [draft | agreed]
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
+---
 
 Every entry below is a suggestion for whoever builds; none binds the build.
 

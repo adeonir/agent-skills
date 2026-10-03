@@ -75,7 +75,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
-For a new ADR, write `Proposed` under Status. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
+For a new ADR, set `status` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename and frontmatter `name` use bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
 
@@ -85,11 +85,10 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 
 ## ADR Schema
 
-5 body sections matching the template:
+`status` in the frontmatter holds the current state of the decision, from the existing record or the user's confirmation. 4 body sections matching the template:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
-| Status | Current state of the decision | Existing record or user confirmation |
 | Context | Issue and forces that motivate or constrain the decision | Opening and follow-up questions |
 | Decision | Proposed or agreed response | Opening and follow-up questions |
 | Consequences | Material outcomes, risks, and constraints | Opening and follow-up questions |
@@ -102,7 +101,7 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
 - Record the material consequences without forcing positive, negative, and neutral subsections
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
-- Link `ADR-NNN` to the replacement ADR when Status marks a decision as superseded
+- Link `ADR-NNN` to the replacement ADR when `status` marks a decision as superseded
 - When extracted from a Design Doc Alternatives row, the ADR's References section links back to the Design Doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
@@ -111,14 +110,14 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 ## Status Lifecycle
 
 ```text
-Proposed → Accepted
-Accepted → Deprecated | Superseded by ADR-NNN
+proposed → accepted
+accepted → deprecated | superseded by ADR-NNN
 ```
 
-- **Proposed**: Drafted and awaiting review.
-- **Accepted**: Approved and in effect.
-- **Deprecated**: No longer recommended but not replaced.
-- **Superseded by ADR-NNN**: Replaced by the linked ADR.
+- **proposed**: Drafted and awaiting review.
+- **accepted**: Approved and in effect.
+- **deprecated**: No longer recommended but not replaced.
+- **superseded by ADR-NNN**: Replaced by the linked ADR.
 
 Update an ADR when its record needs correction or clarification, and set `updated` to the current date. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
 

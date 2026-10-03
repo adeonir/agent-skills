@@ -8,7 +8,7 @@ Load before creating or updating a feature PRD or RFC.
 
 ## Lifecycle
 
-Set a new document to `Proposed`. Set it to `Accepted` only after explicit approval. An accepted document may become `Deprecated` or `Superseded by <feature-slug>`.
+Set a new document to `proposed`. Set it to `accepted` only after explicit approval. An accepted document may become `deprecated` or `superseded by <feature-slug>`.
 
 ## Updates
 

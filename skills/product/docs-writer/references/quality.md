@@ -42,11 +42,10 @@ When the document is an ADR, additionally verify:
 - [ ] Decision stated as a positive imperative ("We will...")
 - [ ] Context is value-neutral (states forces, does not advocate)
 - [ ] Consequences capture the material outcomes of the decision
-- [ ] Status is present in the body
-- [ ] Frontmatter contains `name`, `date`, `updated`, and `sources`
+- [ ] Frontmatter contains `name`, `status`, `date`, `updated`, and `sources`
 - [ ] References follow the document reference pattern
 - [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
-- [ ] When superseding, the prior ADR's Status links to its replacement
+- [ ] When superseding, the prior ADR's `status` names its replacement
 
 ## Document Boundaries
 

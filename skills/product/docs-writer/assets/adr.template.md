@@ -5,16 +5,13 @@ ALWAYS use this exact template structure.
 -->
 ---
 name: [NNN-slug]
+status: [proposed | accepted | deprecated | superseded by ADR-NNN]
 date: [YYYY-MM-DD]
 updated: [YYYY-MM-DD]
 sources: []
 ---
 
 # ADR-[NNN]: [Decision Title]
-
-## Status
-
-[Proposed | Accepted | Deprecated | Superseded by ADR-NNN]
 
 ## Context
 

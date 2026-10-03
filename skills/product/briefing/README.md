@@ -41,4 +41,4 @@ docs/product/briefing.md            # one brief per project
 docs/product/briefing-<work>.md     # when the project holds several works
 ```
 
-The brief carries a Status line. The skill writes `Draft`; the user sets `Agreed` once the requester and the performer accept it.
+The brief carries `status`, `created`, and `updated` in its frontmatter. The skill writes `draft`; the user sets `agreed` once the requester and the performer accept it.

@@ -4,7 +4,7 @@
 name: [feature-slug]
 created: [YYYY-MM-DD]
 updated: [YYYY-MM-DD]
-status: Proposed
+status: proposed
 sources: []
 ---
 
