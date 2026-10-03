@@ -53,7 +53,7 @@ Only an AC obligates: an `## Edge Cases` row, an `ASM-N`, and an `OQ-N` are on r
 
 ### Deviation handling
 
-The four operational differences allowed by `implement` are accepted only when recorded in `STATE.md ## Notes`: a different name for the same thing, a file one directory over where placement was open, an unforeseen private helper, or a test name forced by the runner. A recorded interface, dependency, design-decision, acceptance-scenario, or open-question contradiction is not authorized; audit reports it as a gap and emits its signal. Any other unrecorded difference is also a finding.
+The four operational differences allowed by `implement` are accepted only when recorded in `STATE.md ## Notes`: a different name for the same thing, a file one directory over where placement was open, an unforeseen private helper, or a test name forced by the runner. A recorded interface, dependency, design-decision, acceptance-scenario, or open-question contradiction is not authorized; audit reports it as a gap. Any other unrecorded difference is also a finding.
 
 ### The criterion's status
 
@@ -70,8 +70,6 @@ Such a criterion takes its verdict from `validate.md` where that report carries 
 Where no row exists the criterion stays `UNSETTLED` and the run FAILs. An audit that could not settle a criterion has nothing to approve, and the way out is to run validate.
 
 On a feature that is not `user-facing`, validate cannot run and nothing settles such a criterion. The criterion names an outcome this system has no observable for, which the ownership rule in [acceptance-criteria.md](../references/acceptance-criteria.md) already forbids. The run FAILs, records the criterion under `## Spec Defects`, sets `STATE.md` to `Phase: specify` and `Next: specify`, and creates no correction task — the contract is what is wrong, so no task can fix it.
-
-No signal is recorded for a criterion whose verdict came from `validate.md`, and none for one left `UNSETTLED`. Neither phase saw the mechanism, and a rule stated without one is a guess.
 
 ### Discrimination sensor
 
@@ -165,15 +163,11 @@ Spec-defects: [count]
 | `UNVERIFIED` marker | `design.md` | verifying the claim |
 | Empty `Disproof` on judgment-laden code | `audit.md` | re-auditing with real disproof, or accepting it as low-confidence |
 
-The verdict stays PASS regardless of surviving pendencies. Keep `spec.md` at `status: ready`, keep `tasks.md` at `status: done`, and leave the feature's `STATE.md` available for progress history. Resolve the signals fixed by this run and do not change artifact status after PASS.
+The verdict stays PASS regardless of surviving pendencies. Keep `spec.md` at `status: ready`, keep `tasks.md` at `status: done`, and leave the feature's `STATE.md` available for progress history. Do not change artifact status after PASS.
 
-**FAIL** — the auditor does not fix. Write the ranked gaps to `audit.md`, add eligible signals with `scripts/signals.py`, set the feature's `STATE.md ## Progress` `Findings` to include `audit`, report the gaps to the user, and stop. The `tasks` phase reads `audit.md`, verifies the gaps, creates or adjusts correction tasks, clears the consumed routing value, and sets `tasks.md` to `ready`. Then `implement` executes the tasks and `audit` runs again. A FAIL caused by a criterion no phase can observe points `Phase` at `specify` instead: `Findings` still names `audit`, and specify reads the report and rewrites the criterion, since no task can correct a contract. Increment `Failed audits in a row` from the previous `audit.md` when the previous verdict was `FAIL`. On the third consecutive failure, stop the automatic loop and ask the user to reconsider or decompose the feature; do not run a fourth pass automatically. See [memory.md](../references/memory.md).
+**FAIL** — the auditor does not fix. Write the ranked gaps to `audit.md`, set the feature's `STATE.md ## Progress` `Findings` to include `audit`, report the gaps to the user, and stop. The `tasks` phase reads `audit.md`, verifies the gaps, creates or adjusts correction tasks, clears the consumed routing value, and sets `tasks.md` to `ready`. Then `implement` executes the tasks and `audit` runs again. A FAIL caused by a criterion no phase can observe points `Phase` at `specify` instead: `Findings` still names `audit`, and specify reads the report and rewrites the criterion, since no task can correct a contract. Increment `Failed audits in a row` from the previous `audit.md` when the previous verdict was `FAIL`. On the third consecutive failure, stop the automatic loop and ask the user to reconsider or decompose the feature; do not run a fourth pass automatically. See [memory.md](../references/memory.md).
 
 **BLOCKED** — write the blocker to `audit.md`, set `Failed audits in a row` to `0`, record it in the feature's `STATE.md ## Progress` `Blockers`, report it to the user, and stop. Do not create correction tasks. Re-run `audit` after the user resolves the condition.
-
-## Lessons
-
-After writing `audit.md`, run the signals and lessons flow in [lessons.md](../references/lessons.md). Each lesson must cite a signal row from this feature's `SIGNALS.md`; the script refuses an ungrounded lesson. Add one short, general rule per eligible signal. A clean PASS with no eligible signal writes no lesson. Penalize every confirmed lesson loaded into this feature when the warned failure recurred; two penalties quarantine it.
 
 ## Boundary
 

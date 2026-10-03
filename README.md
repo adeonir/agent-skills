@@ -144,11 +144,10 @@ docs/
 PROJECT.md          # spec-driven: committed project memory
 GLOSSARY.md         # domain-modeling: canonical domain terms
 .artifacts/
-├── specs/          # spec-driven: per-feature artifacts, state, and signals
+├── specs/          # spec-driven: per-feature artifacts and state
 ├── archive/
 │   ├── specs/       # spec-driven: specs archived manually, in any state
 │   └── features/    # docs-writer: feature PRD/RFC folders archived manually
-├── LESSONS.md      # spec-driven: canonical lessons (machine-owned)
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
 └── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/ · design-loop: <slug>/STATE.md + reference-criteria.md
 ```

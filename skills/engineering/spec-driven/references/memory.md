@@ -1,20 +1,19 @@
 # Memory and Progress
 
-The project's shared memory, the feature state, and the routing signal that sends reports to task triage.
+The project's shared memory, the feature state, and the routing field that sends reports to task triage.
 
 ## When to Use
 
-At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, finishes a task, or creates or resolves a report signal.
+At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, finishes a task, or routes a report.
 
-## The three files
+## The two files
 
 | File | Scope | Updated | Read |
 |------|-------|---------|------|
 | `PROJECT.md` | project-wide, committed knowledge | when specify records Stakes or a phase records durable Conventions, Decisions, or Gotchas | every phase |
-| `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report signals change | every phase for that feature |
-| `.artifacts/specs/<slug>/SIGNALS.md` | the feature's verified signal history | when implement or audit records or resolves a signal | audit and the lessons script |
+| `.artifacts/specs/<slug>/STATE.md` | feature state and routing | at approval gates, after implement tasks, and when report routing changes | every phase for that feature |
 
-`PROJECT.md` is shared project memory. `STATE.md` is the operational state of one feature. `SIGNALS.md` is the local history that grounds lessons. None of these files carries the detailed finding text owned by `validate.md` or `audit.md`.
+`PROJECT.md` is shared project memory. `STATE.md` is the operational state of one feature. Neither file carries the detailed finding text owned by `validate.md` or `audit.md`.
 
 ## `PROJECT.md`
 
@@ -45,7 +44,7 @@ Every entry records what is true now. Never record how something worked before, 
 
 Leave every other section in the file untouched.
 
-MUST NOT contain feature-local state, phase progress, findings, signals, or task notes.
+MUST NOT contain feature-local state, phase progress, findings, or task notes.
 
 ## `STATE.md`
 
@@ -73,24 +72,16 @@ Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` s
 
 No audit retry counter belongs in `STATE.md`. The audit report owns the count of consecutive failed audit runs.
 
-## `SIGNALS.md`
-
-Create it at `.artifacts/specs/<slug>/SIGNALS.md`. It is local, machine-owned, and excluded from commits. It records verified signal rows, not detailed findings.
-
-The file uses the contract in [lessons.md](lessons.md). `signals.py` is the only writer.
-
 ## Read and write routing
 
 - The feature directory is the `.artifacts/specs/<slug>/` the user names when invoking the phase. With no name, take the only directory there. If more than one directory exists, ask the user which one before reading anything.
 - Every phase reads the root `PROJECT.md` and the feature's `STATE.md` when the feature exists.
 - `specify`, `design`, `tasks`, `implement`, `validate`, and `audit` resolve state from that directory.
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
-- `validate` and `audit` write detailed findings to their own reports. `audit` also adds or resolves signal rows through `signals.py`; `validate` writes no signal.
-- `implement` records only verified upstream failures; a task failure that is corrected in the same run is not a signal.
+- `validate` and `audit` write detailed findings to their own reports.
 - `Findings` names the report that still carries something and `Phase` names the phase that reads it. `Phase` decides: `tasks` reads a report only when `Phase` names `tasks`, and stops and reports the named phase otherwise, whatever `Findings` carries. `tasks` verifies the findings, creates or adjusts correction tasks, and clears the consumed source; `specify` reads the report before rewriting the contract and clears it the same way.
-- `audit` reads signal history and runs the lesson promotion flow after writing its report.
 
-- A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. A machine-owned file is never suggested, whatever the check reports. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
+- A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
 - Include changes to `PROJECT.md ## Decisions` in the phase's final summary.
 
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
@@ -111,7 +102,7 @@ Every artifact's structure is canonical in the instruction or reference that own
 
 A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/specs/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`.
 
-Discovery never forages siblings or `archive/` for shape or decisions. The only cross-feature inputs a new feature reads are the root `PROJECT.md` and confirmed lessons.
+Discovery never forages siblings or `archive/` for shape or decisions. The only cross-feature input a new feature reads is the root `PROJECT.md`.
 
 ## Artifact states
 

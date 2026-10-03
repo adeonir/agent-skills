@@ -76,7 +76,3 @@ Five operational differences carry on and are recorded in `STATE.md ## Notes` so
 Stop before the commit when an interface named by the design cannot exist as written, a dependency the design counted on is absent, code contradicts a design decision, a covered acceptance scenario is impossible against the existing product, or the task waits on an open question in `spec.md`. Leave written changes on disk and name the changed files. Record the blocker in `STATE.md ## Blockers` and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction.
 
 Do not edit `spec.md` or `design.md` during implementation. Do not widen the task or use `git reset --soft` to recover a prior commit. The phase that owns the contradicted artifact resolves it; the user decides whether to keep or discard the uncommitted changes. Never push through a gap the task cannot close.
-
-## Signals
-
-When the run verifies a failure of an upstream artifact, contract, test, task, or repository rule, add one row to the feature's `SIGNALS.md` with `scripts/signals.py`. Do not add a signal for a task failure that the same run corrects before its `Gate` passes. When the task's `Gate` passes, resolve the corresponding open signal. Use the signal codes and references in [lessons.md](../references/lessons.md).

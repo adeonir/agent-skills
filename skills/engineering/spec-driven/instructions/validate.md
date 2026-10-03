@@ -20,8 +20,6 @@ Resolve `<this-skill>` to the directory this `SKILL.md` was read from before run
 8. **Write `validate.md`** — always write the report, including on `FAIL` or `BLOCKED`. Set `Status: PASS` when every criterion exercised is `met` and no failing accessibility or responsive defect was found, `Status: FAIL` on any `unmet` criterion or any failing defect, and `Status: BLOCKED` when a required condition prevented the test. A criterion carried to `## Out of Scope` never moves the status. Then run `python3 <this-skill>/scripts/lint_artifact.py validate .artifacts/specs/<slug>` and fix every error before reporting: the audit reads this file row by row, so a criterion missing from both tables reads there as one nobody exercised.
 9. **Update the feature's `STATE.md ## Progress` and report** — the report is the path of `validate.md`, the counts by verdict, and the defects found. On `PASS`, clear `validate` from `Findings`; on `FAIL`, add `validate` to `Findings`; on `BLOCKED`, record the condition in `Blockers` and name it. Do not change `spec.md` or `tasks.md` status. If `FAIL`, stop until the phase `STATE.md` names processes the report and the correction lands. If `BLOCKED`, keep `Phase: validate` and run validate again after the user resolves the condition.
 
-This phase writes no signal. A signal grounds a lesson, a lesson is a general rule about how the project builds, and stating one takes having seen the mechanism — which this phase never opens code to see. Every finding stays in `validate.md` and reaches correction through `Findings`.
-
 ## Template: `validate.md`
 
 Location: `.artifacts/specs/<slug>/validate.md`. ALWAYS use this exact template structure.
@@ -66,4 +64,4 @@ Location: `.artifacts/specs/<slug>/validate.md`. ALWAYS use this exact template 
 | 1 | [defect or blocker] | high/medium/low | [evidence] |
 ```
 
-MUST NOT contain: code fixes, changes to `spec.md` or `tasks.md` status, audit findings, or signal rows. A defect a criterion row already carries is named here by its `AC-N.M` rather than restated. Record validate findings here and route the correction through `STATE.md`.
+MUST NOT contain: code fixes, changes to `spec.md` or `tasks.md` status, or audit findings. A defect a criterion row already carries is named here by its `AC-N.M` rather than restated. Record validate findings here and route the correction through `STATE.md`.

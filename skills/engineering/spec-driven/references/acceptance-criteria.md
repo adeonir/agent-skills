@@ -79,7 +79,7 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
 - **Tags / metadata / status / markers** (labels) → lowercase / kebab: `draft`, `ready`, `open`, `answered`, `confirmed`; owned pendencies use `ASM-N` and `OQ-N` identifiers.
-- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
+- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
 
 ## Non-functional criteria
 

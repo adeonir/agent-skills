@@ -368,7 +368,7 @@ docs/
 PROJECT.md                 # spec-driven: committed project memory
 GLOSSARY.md                # domain-modeling: canonical domain terms
 .artifacts/
-├── specs/, archive/, LESSONS.md, research/   # spec-driven
+├── specs/, archive/, research/   # spec-driven
 └── design/    # style-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 

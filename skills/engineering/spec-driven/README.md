@@ -67,12 +67,10 @@ run UAT                 # user-facing only
 ```text
 PROJECT.md                         # committed codebase knowledge
 .artifacts/
-├── LESSONS.md                     # local lessons state (machine-owned)
 ├── specs/
 │   └── <slug>/                    # one folder per feature
 │       ├── spec.md                # WHAT + WHY
 │       ├── STATE.md               # feature state and report routing
-│       ├── SIGNALS.md             # feature-local verified signals
 │       ├── design.md              # HOW
 │       ├── tasks.md               # WHEN
 │       ├── audit.md               # independent audit report
@@ -88,7 +86,7 @@ PROJECT.md                         # committed codebase knowledge
 ## Requirements
 
 - An existing project directory.
-- `python3` (standard library only) for `scripts/signals.py`, `scripts/lessons.py`, `scripts/lint_artifact.py`, and `scripts/select_tasks.py`.
+- `python3` (standard library only) for `scripts/lint_artifact.py` and `scripts/select_tasks.py`.
 - Optional: a browser-automation MCP (e.g. Playwright) for Validate/UAT screenshots — falls back to user-guided capture when absent.
 - Optional: a docs MCP (e.g. Context7) for design research — the knowledge chain falls through to web search when absent.
 
@@ -96,7 +94,7 @@ PROJECT.md                         # committed codebase knowledge
 
 **Q: What does spec-driven persist across features?**
 
-A: `PROJECT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas; feature-local `SIGNALS.md` records verified failures; the local lessons layer (`.artifacts/LESSONS.md`) records rules that recur into confirmed lessons. These layers are not interchangeable: `PROJECT.md` is shared codebase knowledge, a signal is a verified feature-local failure, and a lesson is a recurring rule. `archive/` is never foraged.
+A: `PROJECT.md` at the project root accumulates cross-feature stakes, conventions, decisions, and gotchas. `archive/` is never foraged.
 
 **Q: When does a change skip the pipeline?**
 
@@ -104,15 +102,11 @@ A: When it is mechanical, with zero load-bearing decisions. It runs as a one-lin
 
 **Q: What is the difference between self-check, verify, audit, and validate?**
 
-A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. It writes no signal — it never opens code, so it sees that an outcome diverged and never why. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, writes `audit.md`, adds eligible signals, and promotes lessons. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
+A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. Audit is an optional independent check: a fresh subagent (author ≠ auditor) verifies Goals and ACs against the diff and tests, and writes `audit.md`. A criterion no reading of code or test can settle takes the verdict `validate.md` recorded for it, and fails the run where that report carries none. When both phases run, validate runs first. A failed report sets the feature's `STATE.md` routing field, and `Phase` names who reads it: `tasks` turns verified findings into correction tasks that `implement` executes, and `specify` takes back what needs the contract itself corrected.
 
 **Q: How are tasks ordered and dispatched?**
 
 A: `Depends on` is the only ordering source. An edge exists where the dependent task cannot leave the tree green without the other, and where two tasks write the same file — those never run in parallel. `Sequence` derives graph waves and lists every task once. Implement accepts task, slice, and wave selectors; sequential mode is the default and uses the current worktree. Parallel mode is optional and creates one worktree per dispatch unit, not per task. A wave can always run sequentially without a worktree.
-
-**Q: How does the lessons layer work?**
-
-A: Each lesson is grounded in a row of the feature's `SIGNALS.md`, and `scripts/lessons.py add` refuses one without that grounding. It enters as a candidate, becomes confirmed when the same lesson recurs on a second feature, and only confirmed lessons load into future specify and design. When a confirmed lesson was loaded and the failure it warned about happened anyway, `penalize` records it, and two penalties quarantine it for good. The skill never changes — the project's local lessons set does.
 
 **Q: What happens after implementation and optional checks?**
 
