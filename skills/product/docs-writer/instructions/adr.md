@@ -73,7 +73,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md` and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, reread it per [quality.md](../references/quality.md) `## Reread`, and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
 
 For a new ADR, set `status` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 

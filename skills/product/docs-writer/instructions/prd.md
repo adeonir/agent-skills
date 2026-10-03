@@ -189,7 +189,7 @@ Summarize the confirmed discovery and validation results.
 1. Use the PRD template below.
 2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
 3. Run [quality.md](../references/quality.md).
-4. Write each document to its path.
+4. Write each document to its path, then reread each per [quality.md](../references/quality.md) `## Reread`.
 5. Report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
 
 **Drafting notes:**
@@ -236,7 +236,7 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
 - Complete discovery before writing a new PRD. For an existing PRD, update only the requested parts.
 - Challenge weak claims during discovery, validation, and updates.
-- Write the PRD to its path directly, then report a brief prose summary in chat (path, scope, primary metric)
+- Write the PRD to its path directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report a brief prose summary in chat (path, scope, primary metric)
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Discover PRODUCT if absent. Update only the requested parts if present.

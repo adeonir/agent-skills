@@ -4,7 +4,7 @@ Quality checks for requirements and document integrity before writing any docume
 
 ## When to Use
 
-Load during the Drafting phase, before writing any document to disk.
+Load during the Drafting phase, before writing any document to disk, and again after writing it.
 
 ## Requirements Quality
 
@@ -20,7 +20,7 @@ Requirements must be concrete and measurable across all document types.
 
 Before writing any document to disk, verify:
 
-- [ ] No contradictions between sections
+- [ ] No contradictions: read each statement that excludes or limits (an Out item, a Non-Goal, a Business Rule) against each statement that requires (a Goal, an In item, a Journey step, an Edge Case). A pair that cannot both hold is a contradiction — resolve it with the user.
 - [ ] No unresolved TBDs that block the document's purpose
 - [ ] Scope is focused (one document, one purpose)
 - [ ] Cross-references to other docs are valid
@@ -32,7 +32,11 @@ Mark an unknown as TBD rather than inventing a constraint to fill the slot.
 
 ## Writing and Reporting
 
-Write the document to its path directly. Then report a brief prose summary in chat — up to 2-3 paragraphs naming the path, the type, and what it contains. Never paste the full document into the reply.
+Write the document to its path directly, and reread it per `## Reread`. Then report a brief prose summary in chat — up to 2-3 paragraphs naming the path, the type, and what it contains. Never paste the full document into the reply.
+
+## Reread
+
+After writing, read the written file whole and run the Review Checklist and the gates for its type over it. When a check finds a contradiction or a gap the document cannot settle on its own, interview the user about it, one question at a time, and fix the file from the answer. Read the file again until every check passes; report only after that.
 
 ## ADR-Specific Gates
 

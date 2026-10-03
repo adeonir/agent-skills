@@ -116,7 +116,7 @@ For key decisions, weigh axes like complexity vs. maintainability, performance v
 
 ### Phase 3: Drafting
 
-Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
+Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path, reread it per [quality.md](../references/quality.md) `## Reread`, and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
 
 **Drafting notes:**
 

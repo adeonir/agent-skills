@@ -87,4 +87,4 @@ For a new document, read `<this-skill>/assets/product.template.md`, copy its exa
 
 ## Output
 
-Write to `PRODUCT.md` directly, then report a brief prose summary in chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the full document.
+Write to `PRODUCT.md` directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report a brief prose summary in chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the full document.
