@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identity, the `Serves` and `Satisfies` lines, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
+Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identity, the `Satisfies` line, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
 
 ## When to Use
 
@@ -8,7 +8,7 @@ During specify, when writing or reshaping the acceptance criteria under each pro
 
 ## Form
 
-One criterion is one `#### AC-N.M:` heading, one fenced `gherkin` block, and the lines that link it upward.
+One criterion is one `#### AC-N.M:` heading, one fenced `gherkin` block, and the `Satisfies` line when the seed names requirement IDs.
 
 ````markdown
 #### AC-1.1: Sign in with registered credentials
@@ -19,7 +19,6 @@ Scenario: User signs in with registered credentials
   When they submit a valid email and password
   Then they are authenticated
 ```
-**Serves** G-1
 **Satisfies** FR-1
 ````
 
@@ -62,14 +61,6 @@ The agent judges inline — no formal type detection:
 - **Author** — a prompt or PRD with no criteria. Write them from the intent.
 
 An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry a criterion unexamined — one that fails Ownership or Calibration below surfaces as a question during discovery and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
-
-## `Serves`
-
-Name the one `G-N` of `## Goals` the criterion serves. Carry exactly one id, never a list, and never put the link in prose.
-
-Write no line for a criterion that serves no declared goal and only demonstrates its slice's benefit. Where a criterion serves two goals, one of the two is what its `Then` asserts and the other is a consequence: name the one asserted.
-
-Every declared Goal is served by at least one criterion. The linter rejects a spec when a Goal has no `Serves` reference.
 
 ## Backward provenance — `Satisfies`
 

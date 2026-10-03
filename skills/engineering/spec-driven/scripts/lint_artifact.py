@@ -28,7 +28,7 @@ import os
 import re
 import sys
 
-SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions"]
+SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Assumptions", "Open Questions"]
 DESIGN_SECTIONS = ["Architecture Overview", "Components", "Decisions", "Risks & Concerns"]
 TASKS_SECTIONS = ["Scope", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
@@ -58,14 +58,12 @@ DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 AC_PATTERN = re.compile(r"\bAC-\d+\.\d+\b")
 AC_DEFINITION = re.compile(r"^####\s+(AC-\d+\.\d+)\b")
 GOAL_DEFINITION = re.compile(r"^\s*-\s*(?:\[[ x]\]\s*)?\*\*(G-\d+)\*\*")
-SERVES = re.compile(r"^\*\*Serves\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES = re.compile(r"^\*\*Satisfies\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
 ASSUMPTION_ID = re.compile(r"^ASM-[1-9]\d*$")
 ASSUMPTION_STATUSES = ["open", "confirmed", "invalidated"]
 OPEN_QUESTION_ID = re.compile(r"^OQ-[1-9]\d*$")
 OPEN_QUESTION_STATUSES = ["open", "answered"]
-GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
@@ -211,8 +209,8 @@ def spec_goal_ids(spec_lines):
 def spec_criteria(lines):
     """Return one record per `#### AC-N.M` block.
 
-    Each is {id, line, story, block, serves, satisfies}: the enclosing story id,
-    the fenced gherkin block's step lines, and the two bold sub-lines it carries.
+    Each is {id, line, story, block, satisfies}: the enclosing story id,
+    the fenced gherkin block's step lines, and the `Satisfies` sub-line it carries.
     """
     criteria = []
     story = None
@@ -230,7 +228,7 @@ def spec_criteria(lines):
         heading = AC_DEFINITION.match(line)
         if heading:
             current = {"id": heading.group(1), "line": index + 1, "story": story,
-                       "block": [], "serves": [], "satisfies": [], "fenced": False,
+                       "block": [], "satisfies": [], "fenced": False,
                        "removed": bool(AC_REMOVED.match(line)), "under_removed": story_removed,
                        "reason": False}
             criteria.append(current)
@@ -254,10 +252,6 @@ def spec_criteria(lines):
         if stripped.startswith("```gherkin"):
             in_block = True
             current["fenced"] = True
-            continue
-        found = SERVES.match(stripped)
-        if found:
-            current["serves"].append(found.group(1).strip())
             continue
         found = SATISFIES.match(stripped)
         if found:
@@ -342,10 +336,9 @@ def validate_gherkin(path, criterion, findings):
 
 
 def check_criteria(path, lines, findings, warnings):
-    """Check every criterion's form, identity, and upward links."""
+    """Check every criterion's form, identity, and `Satisfies` link."""
     goals = spec_goal_ids(lines)
     seen_goals = set()
-    served_goals = set()
     for identifier in goals:
         if identifier in seen_goals:
             findings.append("%s:1: %s is declared more than once in `## Goals`" % (path, identifier))
@@ -391,19 +384,6 @@ def check_criteria(path, lines, findings, warnings):
 
         validate_gherkin(path, criterion, findings)
 
-        if len(criterion["serves"]) > 1:
-            findings.append("%s:%d: %s carries %d `Serves` lines, expected one"
-                            % (path, number, identifier, len(criterion["serves"])))
-        for value in criterion["serves"]:
-            if not GOAL_ID.match(value):
-                findings.append("%s:%d: %s `Serves %s` is not exactly one `G-N` id"
-                                % (path, number, identifier, value))
-            elif value not in seen_goals:
-                findings.append("%s:%d: %s serves %s, which `## Goals` does not declare"
-                                % (path, number, identifier, value))
-            else:
-                served_goals.add(value)
-
         if len(criterion["satisfies"]) > 1:
             findings.append("%s:%d: %s carries %d `Satisfies` lines, expected one"
                             % (path, number, identifier, len(criterion["satisfies"])))
@@ -411,11 +391,6 @@ def check_criteria(path, lines, findings, warnings):
             if not SATISFIES_ID.match(value):
                 findings.append("%s:%d: %s `Satisfies %s` is not exactly one `FR/BR/EC/NFR-N` id"
                                 % (path, number, identifier, value))
-
-    for identifier in dict.fromkeys(goals):
-        if identifier not in served_goals:
-            findings.append("%s:1: %s is declared in `## Goals` but no acceptance criterion serves it"
-                            % (path, identifier))
 
 
 def check_frozen_ids(path, lines, started, warnings):

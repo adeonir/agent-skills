@@ -10,7 +10,7 @@ At the self-check step of specify, design, and tasks, to confirm the artifact ca
 
 | Phase | Answers | Enters | Stays out |
 |-------|---------|--------|-----------|
-| **Spec** | WHAT + WHY | observable behavior, ACs, goals, edge cases, open questions, intent-why | tech, file path, component, algorithm, architecture, implementation order |
+| **Spec** | WHAT + WHY | observable behavior, ACs, goals, open questions, intent-why | tech, file path, component, algorithm, architecture, implementation order |
 | **Design** | HOW | architecture, components, files, interface contracts (signatures), data model, contestable technical decisions, risks | function bodies, tests, step sequences, commit order |
 | **Tasks** | WHEN / ORDER | atomic steps, dependencies, per-task tests, gates, commit boundary | new architecture (already in design), behavior (already in spec) |
 
@@ -31,7 +31,7 @@ If the user or caller observes it → WHAT (enters the spec). If it is an intern
 
 ## Spec self-check — three questions
 
-1. Does any AC or edge case name a tech, file, or component/function? → rewrite as behavior.
+1. Does any AC name a tech, file, or component/function? → rewrite as behavior.
 2. Does every AC have an observable, *precise* result (not vague)?
 3. Is any "goal" an implementation task in disguise?
 
