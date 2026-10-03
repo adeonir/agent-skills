@@ -31,7 +31,7 @@ Resolve `<this-skill>` to the directory this `SKILL.md` was read from before run
    Set `status: ready` once every pass above is fixed and the script reports no error, and never run the linter after that. The spec is closed at that point, and design reads only a `ready` spec.
 8. **Approval gate** — present the path of `spec.md`, one or two sentences of what the feature does — naming any decision that departs from a document in `sources` or `## References`, confirmed against the document's current text — and every `open` `ASM-N` and `OQ-N`. Never hide the surviving pendencies. When any is open, suggest reviewing it before moving on, then ask *"Move to design?"* Name anything the run wrote that the project does not ignore and suggest the commit — see [memory.md](../references/memory.md).
 
-    When `specify` is run for an existing feature, treat downstream artifacts as context only. After the approval gate, point the feature's `STATE.md ## Progress` to `Phase: design` and `Next: design`. Do not compare artifact versions or update downstream traceability tables in this phase; `design` and `tasks` own their own artifacts.
+    When `specify` is run for an existing feature, treat downstream artifacts as context only. After the approval gate, point the feature's `STATE.md ## Progress` to `Phase: design` and `Next: design`. Do not compare artifact versions or update downstream artifacts in this phase; `design` and `tasks` own their own artifacts.
 9. **Update the feature's `STATE.md ## Progress`** — for a new or existing spec, point to `Phase: design` and `Next: design`. See [memory.md](../references/memory.md).
 
 A new `spec.md` is written at `status: draft`, and the self-check turns it `ready`.

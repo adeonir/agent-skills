@@ -11,7 +11,7 @@ At the self-check step of specify, design, and tasks, to confirm the artifact ca
 | Phase | Answers | Enters | Stays out |
 |-------|---------|--------|-----------|
 | **Spec** | WHAT + WHY | observable behavior, ACs, goals, edge cases, open questions, intent-why | tech, file path, component, algorithm, architecture, implementation order |
-| **Design** | HOW | architecture, components, files, interface contracts (signatures), data model, non-obvious technical decisions, error strategy, risks | function bodies, tests, step sequences, commit order |
+| **Design** | HOW | architecture, components, files, interface contracts (signatures), data model, contestable technical decisions, risks | function bodies, tests, step sequences, commit order |
 | **Tasks** | WHEN / ORDER | atomic steps, dependencies, per-task tests, gates, commit boundary | new architecture (already in design), behavior (already in spec) |
 
 Design *staying out of* function bodies means it never authors one — not that it ignores existing bodies. Exploration reads them, and design may point at a derivation an existing body already computes to record reuse; that pointer is not a body.
@@ -40,6 +40,6 @@ If the user or caller observes it → WHAT (enters the spec). If it is an intern
 - `When Y, then Z` in the design → leaked from spec (that is an AC).
 - `step 1: create X; step 2: create Y` in the design → leaked from tasks.
 - New architecture introduced in tasks → leaked from design.
-- An AC restated in the design → design references `AC-N.M` via traceability, never copies it.
+- An AC restated in the design → leaked from spec; tasks links each criterion to its work through `Covers`.
 - An AC stronger than the benefit its story states → the leak is in the clause's strength, not its vocabulary, so no question above catches it; see [acceptance-criteria.md](acceptance-criteria.md).
 - An AC whose obligation something outside this system satisfies → observable and precise, so the questions above pass it; see [acceptance-criteria.md](acceptance-criteria.md).

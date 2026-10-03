@@ -29,8 +29,7 @@ import re
 import sys
 
 SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions"]
-DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions", "Error Handling",
-                   "Risks & Concerns", "Requirements Traceability"]
+DESIGN_SECTIONS = ["Architecture Overview", "Components", "Decisions", "Risks & Concerns"]
 TASKS_SECTIONS = ["Scope", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
 
@@ -601,7 +600,7 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
     check_frontmatter_status(path, fields, DESIGN_STATUSES, findings)
     check_frontmatter_path(path, base, fields, "spec", findings)
     check_sections(path, lines, DESIGN_SECTIONS, findings)
-    design_components = read_design_components(base, path, findings)
+    read_design_components(base, path, findings)
 
     bounds = section_bounds(lines, "Decisions")
     if bounds:
@@ -609,62 +608,12 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
             if not cell(header, cells, "Rejected") and not cell(header, cells, "Source"):
                 findings.append("%s:%d: Decisions row has neither `Rejected` nor `Source` — a fork closed silently" % (path, number))
 
-    inventory_columns = ["Candidate", "Existing declarations/usages", "Established meaning",
-                         "Renderer/token mapping", "Conflict", "Source"]
-    bounds = section_bounds(lines, "Semantic Contract Inventory")
-    inventory_rows = list(table_rows(lines, *bounds)) if bounds else []
-    if bounds and not inventory_rows:
-        findings.append("%s:1: `Semantic Contract Inventory` needs a table with at least one row" % path)
-    elif inventory_rows:
-        _, header, _ = inventory_rows[0]
-        for column in inventory_columns:
-            if column not in header:
-                findings.append("%s:1: `Semantic Contract Inventory` is missing `%s`" % (path, column))
-        for number, row_header, cells in inventory_rows[1:]:
-            candidate = cell(row_header, cells, "Candidate").strip().strip("`").lower()
-            if not candidate:
-                findings.append("%s:%d: semantic inventory row has an empty `Candidate`" % (path, number))
-                continue
-            if candidate == "none":
-                continue
-            for column in inventory_columns[1:]:
-                if not cell(row_header, cells, column).strip():
-                    findings.append("%s:%d: semantic inventory row for `%s` has an empty `%s`" %
-                                    (path, number, cell(row_header, cells, "Candidate"), column))
-
     bounds = section_bounds(lines, "Risks & Concerns")
     if bounds:
         for number, header, cells in table_rows(lines, *bounds):
             if not cell(header, cells, "Mitigation"):
                 findings.append("%s:%d: Risks row has an empty `Mitigation`" % (path, number))
 
-    if spec_lines is None:
-        return
-    live = spec_ac_ids(spec_lines)
-    traced = set()
-    bounds = section_bounds(lines, "Requirements Traceability")
-    if bounds:
-        traceability_rows = list(table_rows(lines, *bounds))
-        if traceability_rows:
-            _, header, _ = traceability_rows[0]
-            for column in ("AC", "Component"):
-                if column not in header:
-                    findings.append("%s:1: `Requirements Traceability` is missing `%s`" % (path, column))
-        for number, header, cells in traceability_rows:
-            component = cell(header, cells, "Component").strip()
-            if not component:
-                findings.append("%s:%d: traceability row has an empty `Component`" % (path, number))
-            elif design_components is not None and component not in design_components:
-                findings.append("%s:%d: traceability names unknown component `%s`" %
-                                (path, number, component))
-            for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
-                identifier = match.group(0)
-                traced.add(identifier)
-                if identifier not in live:
-                    findings.append("%s:%d: traceability names %s, which the spec does not declare" % (path, number, identifier))
-    for identifier in sorted(set(live), key=ac_sort_key):
-        if identifier not in traced:
-            findings.append("%s:1: %s reaches no row in Requirements Traceability" % (path, identifier))
 
 def check_dependency_cycles(tasks, path, findings):
     """Report every cycle in the `Depends on` graph."""
