@@ -1,6 +1,6 @@
 ---
 name: spec-driven
-description: "Spec-driven feature work with traceable requirements, design, tasks, and validation. Use when planning, designing, implementing, or validating a feature from a story, feature PRD, or feature RFC. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
+description: "Spec-driven feature work with traceable requirements, design, tasks, and user acceptance testing (UAT). Use when planning, designing, implementing, or validating a feature from a story, feature PRD, or feature RFC. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
 argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
@@ -25,4 +25,4 @@ specify → design → tasks → implement → [validate] → [archive]
    └────────┴────────┴──────────┴──────────┴ a mechanical change skips all of this: one-liner → branch → implement inline
 ```
 
-Specify's triage decides the path: a mechanical change with zero load-bearing decisions becomes a one-liner straight to inline implement on its own branch, and a prompt carrying outcomes that ship separately becomes one feature per outcome. Everything else produces the artifacts and runs the phases in turn. Verify is mental, per task, inside implement — never a user phase. Validate is optional. Archive is manual housekeeping for a feature in any state, never automatic or suggested.
+Specify's triage decides the path: a mechanical change with zero load-bearing decisions becomes a one-liner straight to inline implement on its own branch, and a prompt carrying outcomes that ship separately becomes one feature per outcome. Everything else produces the artifacts and runs the phases in turn. Verify is mental, per task, inside implement — never a user phase. Validate is optional UAT on the running application. Archive is manual housekeeping for a feature in any state, never automatic or suggested.

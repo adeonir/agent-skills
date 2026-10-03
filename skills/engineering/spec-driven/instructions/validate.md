@@ -1,6 +1,6 @@
 # Validate / UAT
 
-Optional user-facing acceptance testing. The main agent exercises the acceptance criteria a running application can settle and writes `validate.md`. It never opens code, never runs the suite, never edits code, and never changes artifact status.
+Optional user acceptance testing (UAT) on the running application. The main agent exercises the acceptance criteria a running application can settle and writes `validate.md`. It never opens code, never runs the suite, never edits code, and never changes artifact status.
 
 ## When to Use
 
