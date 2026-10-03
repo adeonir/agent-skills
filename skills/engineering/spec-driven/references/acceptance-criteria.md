@@ -79,7 +79,7 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
 - **Tags / metadata / status / markers** (labels) → lowercase / kebab: `draft`, `ready`, `open`, `answered`, `confirmed`; owned pendencies use `ASM-N` and `OQ-N` identifiers.
-- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `DV-N` (divergence), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
+- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion), `L-NNN` (lesson). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
 
 ## Non-functional criteria
 
@@ -104,7 +104,7 @@ Two clauses are exempt:
 
 A miscalibrated criterion changes a criterion, so it is load-bearing — resolved with the user, never rewritten unilaterally. An inherited one that arrives before drafting surfaces during discovery; one authored in the body is caught at the self-check over the drafted spec; either way the approval gate presents the outcome before the phase closes. The resolution is one of two:
 
-- **Loosen** to the observable the benefit requires. The spec then states the correct criterion while the seed still asserts the tighter clause — a real pendency, and one only the user can settle. It is recorded as a `Loosened` row in the spec's `## Divergences`, naming the criterion and the clause the seed still holds, and the next specify run removes it once the seed is corrected.
+- **Loosen** to the observable the benefit requires. The spec states the loosened criterion; the seed carries intent and needs no correction.
 - **Keep** the strictness as a deliberate constraint, carrying its `(because …)` rationale.
 
 Read the Goal the other way as well. Take each outcome clause it states and name the criterion that asserts that clause. A clause no criterion asserts is the opposite defect: every criterion passes and the outcome still falls short. Name the clause, since a finding without a clause to quote is an impression. This reading resolves like the other one — with the user, never rewritten alone.

@@ -160,13 +160,10 @@ Spec-defects: [count]
 | Pendency | Where | Resolve now by |
 | --- | --- | --- |
 | Open `ASM-N` or `OQ-N` row | `spec.md ## Assumptions` or `spec.md ## Open Questions` | confirming or invalidating the default, answering the question, or carrying the open item explicitly |
-| Open `DV-N` row | `spec.md ## Divergences` | carrying the correction back to the seed — see below |
 | `## Spec Defects` row | `audit.md` | routing back to specify to loosen the AC |
 | Surviving mutant, not promoted | `audit.md` | accepting the cost, or promoting it to a fix task |
 | `UNVERIFIED` marker | `design.md` | verifying the claim |
 | Empty `Disproof` on judgment-laden code | `audit.md` | re-auditing with real disproof, or accepting it as low-confidence |
-
-An open `DV-N` carries a consequence the others do not, so name it: the artifact this spec was specced from is now behind the code — it never declared what the spec added, still asserts what the spec loosened, or still owes what no AC covers. The correction lands on the seed, not here, and the next specify run removes the row once the two agree.
 
 The verdict stays PASS regardless of surviving pendencies. Keep `spec.md` at `status: ready`, keep `tasks.md` at `status: done`, and leave the feature's `STATE.md` available for progress history. Resolve the signals fixed by this run and do not change artifact status after PASS.
 

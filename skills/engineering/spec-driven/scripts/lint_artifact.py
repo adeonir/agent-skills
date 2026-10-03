@@ -29,8 +29,7 @@ import os
 import re
 import sys
 
-SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions",
-                 "Divergences"]
+SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions", "Error Handling",
                    "Risks & Concerns", "Requirements Traceability"]
 TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
@@ -67,9 +66,6 @@ GOAL_DEFINITION = re.compile(r"^\s*-\s*(?:\[[ x]\]\s*)?\*\*(G-\d+)\*\*")
 SERVES = re.compile(r"^\*\*Serves\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES = re.compile(r"^\*\*Satisfies\*\*\s*(.*)$", re.IGNORECASE)
 SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
-DIVERGENCE_ID = re.compile(r"^DV-\d+$")
-DIVERGENCE_STATUSES = ["open", "accepted"]
-DIVERGENCE_DIRECTIONS = ["Added", "Dropped", "Loosened"]
 ASSUMPTION_ID = re.compile(r"^ASM-[1-9]\d*$")
 ASSUMPTION_STATUSES = ["open", "confirmed", "invalidated"]
 OPEN_QUESTION_ID = re.compile(r"^OQ-[1-9]\d*$")
@@ -533,50 +529,6 @@ def check_pending_table(path, lines, title, identifier_pattern, statuses, expect
     return declared
 
 
-def check_divergences(path, lines, prompt_seeded, findings, seen_ids):
-    """Check the `## Divergences` table: identity, status, direction, and the AC it names."""
-    bounds = section_bounds(lines, "Divergences")
-    if bounds is None:
-        return  # check_sections already reports the missing section
-    live = set(spec_ac_ids(lines))
-    rows = 0
-    for number, header, cells in table_rows(lines, *bounds):
-        rows += 1
-        identifier = cell(header, cells, "ID")
-        if not DIVERGENCE_ID.match(identifier):
-            findings.append("%s:%d: `%s` is not a well-formed `DV-N` id" % (path, number, identifier))
-        elif identifier in seen_ids:
-            findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
-        else:
-            seen_ids.add(identifier)
-
-        status = cell(header, cells, "Status")
-        if status not in DIVERGENCE_STATUSES:
-            findings.append("%s:%d: %s carries status `%s`, not one of %s"
-                            % (path, number, identifier, status, "/".join(DIVERGENCE_STATUSES)))
-
-        divergence = cell(header, cells, "Divergence")
-        direction = divergence.split(":", 1)[0].strip()
-        if direction not in DIVERGENCE_DIRECTIONS:
-            findings.append("%s:%d: %s opens with `%s`, not one of %s"
-                            % (path, number, identifier, direction, "/".join(DIVERGENCE_DIRECTIONS)))
-            continue
-
-        named = cell(header, cells, "AC").strip("— -")
-        if direction == "Dropped":
-            if named:
-                findings.append("%s:%d: %s is `Dropped` and names %s — no criterion carries a dropped obligation"
-                                % (path, number, identifier, named))
-        elif not named:
-            findings.append("%s:%d: %s is `%s` and names no criterion" % (path, number, identifier, direction))
-        elif named not in live:
-            findings.append("%s:%d: %s names %s, which the spec does not declare" % (path, number, identifier, named))
-
-    if prompt_seeded and rows:
-        findings.append("%s:1: Divergences carries %d row(s) on a prompt-seeded spec (`sources` names no seed)"
-                        % (path, rows))
-
-
 def check_sections(path, lines, titles, findings):
     for title in titles:
         if section_bounds(lines, title) is None:
@@ -665,7 +617,6 @@ def lint_spec(path, lines, base, findings, warnings):
 
     check_criteria(path, lines, findings, warnings)
 
-    prompt_seeded = fields.get("sources", "").strip() in ("", "none", "[]")
     seen_ids = set()
     assumption_ids = check_pending_table(
         path, lines, "Assumptions", ASSUMPTION_ID, ASSUMPTION_STATUSES,
@@ -673,7 +624,6 @@ def lint_spec(path, lines, base, findings, warnings):
     check_pending_table(
         path, lines, "Open Questions", OPEN_QUESTION_ID, OPEN_QUESTION_STATUSES,
         ["ID", "Question", "Answer", "Status"], seen_ids, findings)
-    check_divergences(path, lines, prompt_seeded, findings, seen_ids)
     check_downstream_ac_refs(base, set(spec_ac_ids(lines)), findings)
     check_frozen_ids(path, lines, implementation_started(base), warnings)
 
