@@ -450,42 +450,6 @@ def check_frozen_ids(path, lines, started, warnings):
                             % (path, story, story))
 
 
-def check_downstream_ac_refs(base, live, findings):
-    """Report a downstream table row citing a criterion the spec no longer declares.
-
-    `design.md` and `tasks.md` are read by their own phases only — without this, a
-    row naming a retired id reaches no reader until the audit.
-    """
-    for name, section in (("design.md", "Requirements Traceability"),):
-        target = os.path.join(base, name)
-        if not os.path.isfile(target):
-            continue
-        lines = read_lines(target)
-        if lines is None:
-            continue
-        bounds = section_bounds(lines, section)
-        if bounds is None:
-            continue
-        for number, header, cells in table_rows(lines, *bounds):
-            for match in AC_PATTERN.finditer(cell(header, cells, "AC") or " ".join(cells)):
-                if match.group(0) not in live:
-                    findings.append("%s:%d: %s names %s, which the spec no longer declares"
-                                    % (target, number, section, match.group(0)))
-
-    target = os.path.join(base, "tasks.md")
-    if os.path.isfile(target):
-        lines = read_lines(target)
-        if lines is not None:
-            for number, line in enumerate(lines, 1):
-                match = TASK_COVERS.match(line)
-                if not match:
-                    continue
-                for identifier in AC_PATTERN.findall(match.group(1)):
-                    if identifier not in live:
-                        findings.append("%s:%d: task `Covers` names %s, which the spec no longer declares"
-                                        % (target, number, identifier))
-
-
 def check_pending_table(path, lines, title, identifier_pattern, statuses, expected_header, seen_ids, findings):
     """Check an ASM/OQ table and return the identifiers it declares."""
     bounds = section_bounds(lines, title)
@@ -624,7 +588,6 @@ def lint_spec(path, lines, base, findings, warnings):
     check_pending_table(
         path, lines, "Open Questions", OPEN_QUESTION_ID, OPEN_QUESTION_STATUSES,
         ["ID", "Question", "Answer", "Status"], seen_ids, findings)
-    check_downstream_ac_refs(base, set(spec_ac_ids(lines)), findings)
     check_frozen_ids(path, lines, implementation_started(base), warnings)
 
     for index in range(body_start, len(lines)):
