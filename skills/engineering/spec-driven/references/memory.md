@@ -71,39 +71,9 @@ Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` s
 - `STATE.md` is the only phase router. `Phase` names the phase that owns the next action, and `Next` names the next step inside that phase. Read both before loading downstream artifacts. If `Phase` names an earlier phase, stop and report that phase instead of continuing with stale downstream artifacts.
 - `validate` writes detailed findings to its own report.
 - A `validate` FAIL sets `Phase: tasks` and `Next: validate findings`; `tasks` verifies the findings in `validate.md` and creates or adjusts correction tasks.
-
+- Every artifact's structure is canonical in the instruction or reference that owns it. Load the owning file before reading an existing file in `.artifacts/`: an existing file is context, and the template wins on divergence.
+- The only cross-feature input a new feature reads is the root `PROJECT.md`; never forage sibling features or `archive/` for shape or decisions.
 - A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
 - Include changes to `PROJECT.md ## Decisions` in the phase's final summary.
 
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.
-
-## Deviations during implementation
-
-Record only the five operational differences that may continue in `STATE.md ## Notes`: a different name for the same thing, a file one directory over when placement was open, an unforeseen private helper, a test name forced by the runner, or a task whose gate cannot close until the next task lands.
-
-For an interface, dependency, design decision, acceptance scenario, or open-question contradiction, leave written changes on disk, name the changed files in `STATE.md ## Blockers`, and route `Phase` and `Next` to `design` for a technical contradiction or `specify` for a contract contradiction. Do not edit upstream artifacts, widen the task, or rewrite history. The user decides whether to keep or discard the changes.
-
-## Conflicts with `PROJECT.md`
-
-Read `PROJECT.md` before any design decision. A decision that conflicts with it is either conformed to or explicitly superseded with a reason; never ignore it silently.
-
-## Artifact structure and location
-
-Every artifact's structure is canonical in the instruction or reference that owns it, inline and marked strict or flexible. Load the owning file before reading any existing file in `.artifacts/` — an existing file is context, not a structural reference, and the template wins on divergence.
-
-A feature lives in `.artifacts/specs/<slug>/` and moves to `.artifacts/archive/specs/<created>-<slug>/` only when the user explicitly archives it, taking the date from the spec's `created:`.
-
-Discovery never forages siblings or `archive/` for shape or decisions. The only cross-feature input a new feature reads is the root `PROJECT.md`.
-
-## Artifact states
-
-Each state is stored in the artifact that owns it:
-
-- `spec.md`: `draft | ready`
-- `design.md`: `draft | ready`
-- `tasks.md`: `draft | ready | in-progress | done`
-- `validate.md`: `PASS | FAIL | BLOCKED`
-
-`implement` uses the state in `tasks.md` and never changes `spec.md`.
-
-`STATE.md` is the phase router. Read `Phase` and `Next` before loading any downstream artifact; when it points to an earlier phase, stop and report that phase. Never infer a new run from artifact differences or from an old status.
