@@ -11,7 +11,7 @@ import re
 import sys
 
 
-TASK_HEADING = re.compile(r"^###\s+\[([ x])\]\s+(T-\d+):\s*(.*)$")
+TASK_HEADING = re.compile(r"^###\s+\[([ x-])\]\s+(T-\d+):\s*(.*)$")
 TASK_REF = re.compile(r"\bT-\d+\b")
 SLICE_REF = re.compile(r"\bS-\d+\b")
 WAVE_REF = re.compile(r"\bW-\d+\b")
@@ -71,6 +71,7 @@ def parse_tasks(lines):
                 "id": match.group(2),
                 "title": match.group(3),
                 "done": match.group(1).lower() == "x",
+                "removed": match.group(1) == "-",
                 "slice": "none",
                 "depends": [],
                 "block": [],
@@ -164,7 +165,8 @@ def main(argv=None):
         unknown = sorted(requested - set(by_id), key=lambda value: int(value.split("-")[1]))
         if unknown:
             raise RuntimeError("selector names unknown task(s): %s" % ", ".join(unknown))
-        incomplete = {identifier for identifier in requested if not by_id[identifier]["done"]}
+        removed = {identifier for identifier in requested if by_id[identifier]["removed"]}
+        incomplete = {identifier for identifier in requested - removed if not by_id[identifier]["done"]}
         ordered = [task for wave in sorted(sequence, key=lambda value: int(value.split("-")[1]))
                    for identifier in sequence[wave]
                    if identifier in incomplete
@@ -179,9 +181,11 @@ def main(argv=None):
                        if dependency not in selected_set and dependency in by_id and not by_id[dependency]["done"]]
             status = "blocked by %s" % ", ".join(waiting) if waiting else "ready"
             print("- %s [%s] %s" % (task["id"], status, task["title"]))
-        skipped = sorted(requested - incomplete, key=lambda value: int(value.split("-")[1]))
+        skipped = sorted(requested - incomplete - removed, key=lambda value: int(value.split("-")[1]))
         if skipped:
             print("Skipped complete: %s" % ", ".join(skipped))
+        if removed:
+            print("Skipped removed: %s" % ", ".join(sorted(removed, key=lambda value: int(value.split("-")[1]))))
         return 0
     except RuntimeError as error:
         print("error: %s" % error, file=sys.stderr)

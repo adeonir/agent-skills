@@ -36,11 +36,24 @@ Scenario: User signs in with registered credentials
 
 ## `AC-N.M` identity
 
-`N` is the number of the product slice `S-N` the criterion sits under, `M` its position within that slice when it was written. An id is unique across the whole spec, assigned once and never reassigned: `design.md` references it in `Requirements Traceability` and `tasks.md` in `Covers`, so an id that moves retargets a reference that still resolves, against a criterion that never promised it.
+`N` is the number of the product slice `S-N` the criterion sits under, `M` its position within that slice. An id is unique across the whole spec. `design.md` references it in `Requirements Traceability` and `tasks.md` in `Covers`, so an id that moves retargets a reference that still resolves, against a criterion that never promised it.
 
-A removed criterion retires its id and leaves the gap standing — `AC-1.1` beside `AC-1.3`. The next criterion of that slice takes the number after the highest the slice has ever carried, never a retired one. A removed slice retires `S-N` the same way, and its criteria go with it.
+Until `tasks.md` carries a ticked task, renumber to close any gap a removal or a reorder leaves: slices from `S-1`, criteria from `AC-N.1` within each slice, and tasks from `T-1`. Each phase renumbers only its own artifact, and `design` and `tasks` rebuild every id reference from the current spec on each run, never carrying a row over.
 
-The linter reports a downstream row naming an id the spec no longer declares, and the feature cannot close while one stands.
+From the first ticked task on, an id is assigned once and never reassigned. A removed slice, criterion, or task stays in place with its title struck through, ` removed` after it, and a `Reason:` line under it; a removed slice takes its criteria with it, so they leave the spec. A new item takes the number after the highest its kind has ever carried.
+
+```markdown
+### S-2: ~~Export to PDF~~ removed
+Reason: the client dropped PDF export.
+
+#### AC-1.2: ~~Reset link expires~~ removed
+Reason: merged into AC-1.3, the expiry is part of the link rule.
+
+### [-] T-4: ~~Add expiry job~~ removed
+Reason: AC-1.2 removed.
+```
+
+The linter reports a reference to a removed or undeclared id, and the feature cannot close while one stands.
 
 ## Two modes
 

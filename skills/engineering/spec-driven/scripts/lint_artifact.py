@@ -81,7 +81,11 @@ GOAL_ID = re.compile(r"^G-\d+$")
 STEP_KEYWORD = re.compile(r"^(Given|When|Then|And|But)\s+\S")
 GHERKIN_PLACEHOLDER = re.compile(r"<([^<>]+)>")
 STORY_HEADING = re.compile(r"^###\s+(S-\d+):")
-TASK_HEADING = re.compile(r"^###\s+\[[ x]\]\s+(T-\d+):")
+TASK_HEADING = re.compile(r"^###\s+\[([ x-])\]\s+(T-\d+):\s*(.*)$")
+AC_REMOVED = re.compile(r"^####\s+AC-\d+\.\d+:\s*~~.+~~\s+removed\s*$")
+STORY_REMOVED = re.compile(r"^###\s+S-\d+:\s*~~.+~~\s+removed\s*$")
+REMOVED_TITLE = re.compile(r"^~~.+~~\s+removed\s*$")
+REASON_LINE = re.compile(r"^Reason:\s*\S")
 SLICE_REF = re.compile(r"\bS-\d+\b")
 TASK_REF = re.compile(r"\bT-\d+\b")
 TASK_COVERS = re.compile(r"^\s*-\s*\*\*Covers:\*\*\s*(.*)$", re.IGNORECASE)
@@ -169,9 +173,26 @@ def cell(header, cells, name):
 
 
 def spec_ac_ids(spec_lines):
-    """Return the `AC-N.M` ids the spec declares, in document order."""
-    return [match.group(1) for line in spec_lines
-            for match in [AC_DEFINITION.match(line)] if match]
+    """Return the live `AC-N.M` ids the spec declares, in document order.
+
+    A removed criterion, or one under a removed slice, is not live.
+    """
+    return [criterion["id"] for criterion in spec_criteria(spec_lines)
+            if not criterion["removed"] and not criterion["under_removed"]]
+
+
+def spec_live_stories(spec_lines):
+    """Return the `S-N` ids the spec declares and has not removed."""
+    return {match.group(1) for line in spec_lines
+            for match in [STORY_HEADING.match(line)]
+            if match and not STORY_REMOVED.match(line)}
+
+
+def implementation_started(base):
+    """Return True once `tasks.md` carries a ticked task; ids are frozen from then on."""
+    lines = read_lines(os.path.join(base, "tasks.md"))
+    return any(match and match.group(1) == "x"
+               for line in (lines or []) for match in [TASK_HEADING.match(line)])
 
 
 def ac_sort_key(identifier):
@@ -207,6 +228,7 @@ def spec_criteria(lines):
     """
     criteria = []
     story = None
+    story_removed = False
     current = None
     in_block = False
     for index, line in enumerate(lines):
@@ -220,19 +242,26 @@ def spec_criteria(lines):
         heading = AC_DEFINITION.match(line)
         if heading:
             current = {"id": heading.group(1), "line": index + 1, "story": story,
-                       "block": [], "serves": [], "satisfies": [], "fenced": False}
+                       "block": [], "serves": [], "satisfies": [], "fenced": False,
+                       "removed": bool(AC_REMOVED.match(line)), "under_removed": story_removed,
+                       "reason": False}
             criteria.append(current)
             continue
         match = STORY_HEADING.match(line)
         if match:
             story = match.group(1)
+            story_removed = bool(STORY_REMOVED.match(line))
             current = None
             continue
         if line.startswith("## "):
             story = None
+            story_removed = False
             current = None
             continue
         if current is None:
+            continue
+        if REASON_LINE.match(stripped):
+            current["reason"] = True
             continue
         if stripped.startswith("```gherkin"):
             in_block = True
@@ -343,6 +372,11 @@ def check_criteria(path, lines, findings, warnings):
             findings.append("%s:%d: %s is declared more than once"
                             % (path, index + 1, match.group(1)))
         seen_stories.add(match.group(1))
+        if STORY_REMOVED.match(line):
+            following = next((other.strip() for other in lines[index + 1:] if other.strip()), "")
+            if not REASON_LINE.match(following):
+                findings.append("%s:%d: %s is removed but carries no `Reason:` line"
+                                % (path, index + 1, match.group(1)))
 
     declared = set()
     per_story = {}  # story id -> (criteria counted, line of its first criterion)
@@ -358,6 +392,15 @@ def check_criteria(path, lines, findings, warnings):
         elif story != "S-%s" % story_number:
             findings.append("%s:%d: %s sits under %s — the criterion number names story %s"
                             % (path, number, identifier, story, story_number))
+        if criterion["under_removed"]:
+            findings.append("%s:%d: %s sits under removed %s — a removed slice takes its criteria with it"
+                            % (path, number, identifier, story))
+            continue
+        if criterion["removed"]:
+            if not criterion["reason"]:
+                findings.append("%s:%d: %s is removed but carries no `Reason:` line"
+                                % (path, number, identifier))
+            continue
         if story is not None:
             counted, first_line = per_story.get(story, (0, number))
             per_story[story] = (counted + 1, first_line)
@@ -394,6 +437,32 @@ def check_criteria(path, lines, findings, warnings):
         if identifier not in served_goals:
             findings.append("%s:1: %s is declared in `## Goals` but no acceptance criterion serves it"
                             % (path, identifier))
+
+
+def check_frozen_ids(path, lines, started, warnings):
+    """Before any task is done, ask for renumbering instead of a removal or a gap."""
+    if started:
+        return
+    for index, line in enumerate(lines):
+        if STORY_REMOVED.match(line) or AC_REMOVED.match(line):
+            warnings.append("%s:%d: warning: a removal before any task is done — renumber instead"
+                            % (path, index + 1))
+    stories = [int(identifier[len("S-"):]) for line in lines
+               for match in [STORY_HEADING.match(line)] if match and not STORY_REMOVED.match(line)
+               for identifier in [match.group(1)]]
+    if stories != list(range(1, len(stories) + 1)):
+        warnings.append("%s:1: warning: slices are not numbered S-1 onward without gaps — renumber before any task is done"
+                        % path)
+    per_story = {}
+    for criterion in spec_criteria(lines):
+        if criterion["removed"] or criterion["under_removed"]:
+            continue
+        story, position = ac_sort_key(criterion["id"])
+        per_story.setdefault(story, []).append(position)
+    for story, positions in sorted(per_story.items()):
+        if positions != list(range(1, len(positions) + 1)):
+            warnings.append("%s:1: warning: S-%d criteria are not numbered AC-%d.1 onward without gaps — renumber before any task is done"
+                            % (path, story, story))
 
 
 def check_downstream_ac_refs(base, live, findings):
@@ -617,6 +686,7 @@ def lint_spec(path, lines, base, findings, warnings):
         ["ID", "Question", "Answer", "Status"], seen_ids, findings)
     check_divergences(path, lines, prompt_seeded, findings, seen_ids)
     check_downstream_ac_refs(base, set(spec_ac_ids(lines)), findings)
+    check_frozen_ids(path, lines, implementation_started(base), warnings)
 
     for index in range(body_start, len(lines)):
         line = lines[index]
@@ -806,7 +876,8 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
     for index, line in enumerate(lines):
         match = TASK_HEADING.match(line)
         if match:
-            current = {"id": match.group(1), "line": index + 1, "slice": "", "depends": [], "block": []}
+            current = {"id": match.group(2), "line": index + 1, "slice": "", "depends": [], "block": [],
+                       "state": match.group(1), "title": match.group(3).strip(), "builds": []}
             tasks.append(current)
         elif current is not None and line.startswith("### "):
             current = None
@@ -825,6 +896,16 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
             findings.append("%s:%d: %s breaks the monotonic sequence" % (path, number, identifier))
         declared.add(identifier)
         highest = max(highest, value)
+        removed_title = REMOVED_TITLE.match(task["title"])
+        if task["state"] == "-":
+            if not removed_title:
+                findings.append("%s:%d: %s is marked `[-]` but its title is not `~~title~~ removed`"
+                                % (path, number, identifier))
+            if not any(REASON_LINE.match(line.strip()) for line in block):
+                findings.append("%s:%d: %s is removed but carries no `Reason:` line" % (path, number, identifier))
+            continue
+        if removed_title:
+            findings.append("%s:%d: %s has a removed title but is not marked `[-]`" % (path, number, identifier))
         body = "\n".join(block)
         for field in TASK_FIELDS:
             if "**%s:**" % field not in body:
@@ -927,11 +1008,27 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                                 (path, number, identifier, unreached,
                                  "criterion" if unreached == 1 else "criteria"))
 
-    slices = {match.group(1) for line in (spec_lines or []) for match in [STORY_HEADING.match(line)] if match}
+    removed_ids = {task["id"] for task in tasks if task["state"] == "-"}
+    started = any(task["state"] == "x" for task in tasks)
+    if not started:
+        for task in tasks:
+            if task["state"] == "-":
+                warnings.append("%s:%d: warning: %s is removed before any task is done — renumber instead"
+                                % (path, task["line"], task["id"]))
+        numbers = [int(task["id"].split("-")[1]) for task in tasks if task["state"] != "-"]
+        if numbers != list(range(1, len(numbers) + 1)):
+            warnings.append("%s:1: warning: tasks are not numbered T-1 onward without gaps — renumber before any task is done"
+                            % path)
+    live_tasks = [task for task in tasks if task["state"] != "-"]
+
+    slices = spec_live_stories(spec_lines or [])
     slice_order = []
     declared_before = set()
     for task in tasks:
         identifier, number = task["id"], task["line"]
+        if task["state"] == "-":
+            declared_before.add(identifier)
+            continue
         if task["slice"] == "none":
             pass
         elif task["slice"]:
@@ -942,6 +1039,10 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         elif spec_lines is not None:
             findings.append("%s:%d: %s names no slice" % (path, number, identifier))
         for dependency in task["depends"]:
+            if dependency in removed_ids:
+                findings.append("%s:%d: %s depends on %s, which was removed" %
+                                (path, number, identifier, dependency))
+                continue
             if dependency not in declared_before:
                 if dependency in declared:
                     warnings.append("%s:%d: warning: %s depends on %s, which is declared later" %
@@ -960,11 +1061,11 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         if not seen_slices or seen_slices[-1] != slice_id:
             seen_slices.append(slice_id)
 
-    expected_waves = derive_task_waves(tasks, path, findings)
-    lint_sequence(path, lines, tasks, expected_waves, findings)
+    expected_waves = derive_task_waves(live_tasks, path, findings)
+    lint_sequence(path, lines, live_tasks, expected_waves, findings)
 
     if design_components:
-        built_components = {component for task in tasks for component in task["builds"]}
+        built_components = {component for task in live_tasks for component in task["builds"]}
         for component in design_components:
             if component not in built_components:
                 warnings.append("%s:1: warning: component `%s` from the design reaches no task `Builds` field" %
