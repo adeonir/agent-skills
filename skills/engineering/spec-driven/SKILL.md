@@ -1,7 +1,7 @@
 ---
 name: spec-driven
 description: "Spec-driven feature work with traceable requirements, design, tasks, and validation. Use when planning, designing, implementing, or validating a feature from a story, feature PRD, or feature RFC. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
-argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M] | [W-N] | [W-N..W-M]"
+argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
@@ -14,7 +14,7 @@ Feature development in phases. Light by default; weight only where the change pa
 - **Specify** ("plan feature", "spec this", "from PRD", "modify feature", "discuss how to build") → [specify.md](instructions/specify.md)
 - **Design** ("design this feature", "technical design", "plan the build") → [design.md](instructions/design.md)
 - **Tasks** ("create tasks", "break into tasks", "task breakdown") → [tasks.md](instructions/tasks.md)
-- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement slice S-1", "implement wave W-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
+- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement slice S-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
 - **Validate / UAT** ("run UAT", "manual testing", "validate flows") → [validate.md](instructions/validate.md)
 - **Archive** ("archive feature", "archive this spec") → [archive.md](instructions/archive.md)
 

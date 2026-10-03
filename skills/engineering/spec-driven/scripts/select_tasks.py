@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Select incomplete spec-driven tasks by task, slice, or derived wave.
+"""Select incomplete spec-driven tasks by task or slice.
 
 Usage:
-  select_tasks.py .artifacts/specs/{slug} [T-N | T-N..T-M | S-N | S-N..S-M | W-N | W-N..W-M]
+  select_tasks.py .artifacts/specs/{slug} [T-N | T-N..T-M | S-N | S-N..S-M]
 """
 
 import argparse
@@ -14,7 +14,6 @@ import sys
 TASK_HEADING = re.compile(r"^###\s+\[([ x-])\]\s+(T-\d+):\s*(.*)$")
 TASK_REF = re.compile(r"\bT-\d+\b")
 SLICE_REF = re.compile(r"\bS-\d+\b")
-WAVE_REF = re.compile(r"\bW-\d+\b")
 TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
 
@@ -96,28 +95,12 @@ def parse_tasks(lines):
     return tasks
 
 
-def parse_sequence(lines):
-    bounds = section_bounds(lines, "Sequence")
-    if bounds is None:
-        raise RuntimeError("tasks.md has no `Sequence` section")
-    sequence = {}
-    for header, cells in table_rows(lines, bounds):
-        wave = cell(header, cells, "Wave")
-        refs = TASK_REF.findall(cell(header, cells, "Tasks"))
-        if not WAVE_REF.fullmatch(wave) or not refs:
-            continue
-        sequence[wave] = refs
-    if not sequence:
-        raise RuntimeError("`Sequence` has no valid wave rows")
-    return sequence
-
-
 def parse_selector(selector):
     if selector is None:
         return None, None, None
-    match = re.fullmatch(r"([TSW])-(\d+)(?:\.\.([TSW])-(\d+))?", selector)
+    match = re.fullmatch(r"([TS])-(\d+)(?:\.\.([TS])-(\d+))?", selector)
     if not match or (match.group(3) and match.group(1) != match.group(3)):
-        raise RuntimeError("invalid selector `%s`; use T, S, or W with an optional same-kind range" % selector)
+        raise RuntimeError("invalid selector `%s`; use T or S with an optional same-kind range" % selector)
     kind = match.group(1)
     start = int(match.group(2))
     end = int(match.group(4) or match.group(2))
@@ -126,24 +109,17 @@ def parse_selector(selector):
     return kind, start, end
 
 
-def selected_ids(tasks, sequence, selector):
+def selected_ids(tasks, selector):
     kind, start, end = parse_selector(selector)
     if kind is None:
         return {task["id"] for task in tasks}
     if kind == "T":
         return {"T-%d" % value for value in range(start, end + 1)}
-    if kind == "S":
-        selected = set()
-        for task in tasks:
-            match = re.fullmatch(r"S-(\d+)", task["slice"])
-            if match and start <= int(match.group(1)) <= end:
-                selected.add(task["id"])
-        return selected
     selected = set()
-    for wave, refs in sequence.items():
-        wave_number = int(wave.split("-")[1])
-        if start <= wave_number <= end:
-            selected.update(refs)
+    for task in tasks:
+        match = re.fullmatch(r"S-(\d+)", task["slice"])
+        if match and start <= int(match.group(1)) <= end:
+            selected.add(task["id"])
     return selected
 
 
@@ -157,20 +133,16 @@ def main(argv=None):
         task_path = os.path.join(args.feature_dir, "tasks.md")
         lines = read_lines(task_path)
         tasks = parse_tasks(lines)
-        sequence = parse_sequence(lines)
         by_id = {task["id"]: task for task in tasks}
         if len(by_id) != len(tasks):
             raise RuntimeError("tasks.md declares a task more than once")
-        requested = selected_ids(tasks, sequence, args.selector)
+        requested = selected_ids(tasks, args.selector)
         unknown = sorted(requested - set(by_id), key=lambda value: int(value.split("-")[1]))
         if unknown:
             raise RuntimeError("selector names unknown task(s): %s" % ", ".join(unknown))
         removed = {identifier for identifier in requested if by_id[identifier]["removed"]}
         incomplete = {identifier for identifier in requested - removed if not by_id[identifier]["done"]}
-        ordered = [task for wave in sorted(sequence, key=lambda value: int(value.split("-")[1]))
-                   for identifier in sequence[wave]
-                   if identifier in incomplete
-                   for task in [by_id[identifier]]]
+        ordered = [task for task in tasks if task["id"] in incomplete]
         selected_set = {task["id"] for task in ordered}
         print("Selection: %s" % (args.selector or "whole feature"))
         print("Tasks:")

@@ -48,8 +48,6 @@ design this feature
 create tasks
 implement T-1 to T-4
 implement S-1
-implement W-1
-implement W-1..W-3 in parallel
 implement everything
 
 # Close it out
@@ -100,7 +98,7 @@ A: Self-check closes each artifact before its approval gate: the phase reads its
 
 **Q: How are tasks ordered and dispatched?**
 
-A: `Depends on` is the only ordering source. An edge exists where the dependent task cannot leave the tree green without the other, and where two tasks write the same file — those never run in parallel. `Sequence` derives graph waves and lists every task once. Implement accepts task, slice, and wave selectors; sequential mode is the default and uses the current worktree. Parallel mode is optional and creates one worktree per dispatch unit, not per task. A wave can always run sequentially without a worktree.
+A: `Depends on` is the only ordering source. An edge exists where the dependent task cannot leave the tree green without the other. Implement accepts task and slice selectors and dispatches one unit per slice. Units with no dependency path between them that write no file in common may run in parallel; the agent decides how to isolate each one.
 
 **Q: What happens after implementation and optional checks?**
 

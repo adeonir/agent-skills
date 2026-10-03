@@ -31,7 +31,7 @@ import sys
 SPEC_SECTIONS = ["Overview", "Goals", "Non-Goals", "User Stories", "Edge Cases", "Assumptions", "Open Questions"]
 DESIGN_SECTIONS = ["Scope", "Architecture Overview", "Components", "Decisions", "Error Handling",
                    "Risks & Concerns", "Requirements Traceability"]
-TASKS_SECTIONS = ["Scope", "Sequence", "Task List"]
+TASKS_SECTIONS = ["Scope", "Task List"]
 VALIDATE_SECTIONS = ["Summary", "Criteria", "Accessibility", "Responsiveness", "Out of Scope", "Findings"]
 
 VALIDATE_SUMMARY = ["Status", "Feature", "Date", "Application", "Criteria"]
@@ -84,7 +84,6 @@ TASKS_RUNNER = re.compile(r"^\*\*Runner:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_SLICE = re.compile(r"^\s*-\s*\*\*Slice:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_BUILDS = re.compile(r"^\s*-\s*\*\*Builds:\*\*\s*(.*)$", re.IGNORECASE)
 TASK_DEPENDS = re.compile(r"^\s*-\s*\*\*Depends on:\*\*\s*(.*)$", re.IGNORECASE)
-WAVE_ID = re.compile(r"^W-(\d+)$")
 BACKTICKED = re.compile(r"`([^`]+)`")
 BLOCK_ITEM = re.compile(r"^\s*-\s+(.*)$")
 
@@ -667,16 +666,16 @@ def lint_design(path, lines, base, spec_path, spec_lines, findings):
         if identifier not in traced:
             findings.append("%s:1: %s reaches no row in Requirements Traceability" % (path, identifier))
 
-def derive_task_waves(tasks, path, findings):
-    """Return the graph level for each task, or an empty map on a cycle."""
+def check_dependency_cycles(tasks, path, findings):
+    """Report every cycle in the `Depends on` graph."""
     by_id = {task["id"]: task for task in tasks}
-    waves = {}
+    levels = {}
     visiting = set()
     cycle_reported = set()
 
     def visit(identifier, trail):
-        if identifier in waves:
-            return waves[identifier]
+        if identifier in levels:
+            return levels[identifier]
         if identifier in visiting:
             cycle = tuple(trail[trail.index(identifier):] + [identifier])
             if cycle not in cycle_reported:
@@ -687,79 +686,22 @@ def derive_task_waves(tasks, path, findings):
         if task is None:
             return None
         visiting.add(identifier)
-        dependency_waves = []
+        dependency_levels = []
         for dependency in task["depends"]:
             result = visit(dependency, trail + [identifier])
             if result is not None:
-                dependency_waves.append(result)
+                dependency_levels.append(result)
         visiting.remove(identifier)
         if any(dependency in visiting for dependency in task["depends"]):
             return None
-        if len(dependency_waves) != len(task["depends"]):
+        if len(dependency_levels) != len(task["depends"]):
             return None
-        waves[identifier] = max(dependency_waves, default=0) + 1
-        return waves[identifier]
+        levels[identifier] = max(dependency_levels, default=0) + 1
+        return levels[identifier]
 
     for task in tasks:
         visit(task["id"], [])
-    return waves
-
-
-def lint_sequence(path, lines, tasks, expected_waves, findings):
-    """Validate the Sequence table against the dependency-derived waves."""
-    bounds = section_bounds(lines, "Sequence")
-    if bounds is None:
-        return
-    rows = list(table_rows(lines, *bounds))
-    if not rows:
-        findings.append("%s:1: `Sequence` needs a `Wave` / `Tasks` table" % path)
-        return
-    _, header, _ = rows[0]
-    if "Wave" not in header or "Tasks" not in header:
-        findings.append("%s:%d: `Sequence` table must have `Wave` and `Tasks` columns" % (path, rows[0][0]))
-        return
-
-    known = {task["id"] for task in tasks}
-    listed = {}
-    wave_numbers = []
-    for number, row_header, cells in rows:
-        wave = cell(row_header, cells, "Wave")
-        match = WAVE_ID.match(wave)
-        if not match:
-            findings.append("%s:%d: Sequence row has invalid wave `%s`" % (path, number, wave))
-            continue
-        wave_number = int(match.group(1))
-        wave_numbers.append(wave_number)
-        task_refs = TASK_REF.findall(cell(row_header, cells, "Tasks"))
-        if not task_refs:
-            findings.append("%s:%d: %s lists no tasks" % (path, number, wave))
-        for identifier in task_refs:
-            if identifier not in known:
-                findings.append("%s:%d: %s names unknown task %s" % (path, number, wave, identifier))
-            elif identifier in listed:
-                findings.append("%s:%d: %s appears more than once in Sequence" % (path, number, identifier))
-            else:
-                listed[identifier] = wave_number
-
-    if wave_numbers and wave_numbers != list(range(1, max(wave_numbers) + 1)):
-        findings.append("%s:1: Sequence waves must start at W-1 and have no gaps" % path)
-    for task in tasks:
-        identifier = task["id"]
-        if identifier not in listed:
-            findings.append("%s:1: %s is missing from Sequence" % (path, identifier))
-    for identifier, expected in expected_waves.items():
-        actual = listed.get(identifier)
-        if actual is not None and actual != expected:
-            findings.append("%s:1: %s is in W-%d but the dependency graph derives W-%d" %
-                            (path, identifier, actual, expected))
-    if listed and expected_waves and any(listed.get(identifier) != expected
-                                         for identifier, expected in expected_waves.items()):
-        canonical = {}
-        for identifier, wave in sorted(expected_waves.items(), key=lambda item: (item[1], item[0])):
-            canonical.setdefault(wave, []).append(identifier)
-        rendered = "; ".join("W-%d: %s" % (wave, ", ".join(identifiers))
-                             for wave, identifiers in sorted(canonical.items()))
-        findings.append("%s:1: Sequence canonical waves: %s" % (path, rendered))
+    return levels
 
 
 def check_runner(path, lines, findings):
@@ -1003,8 +945,7 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         if not seen_slices or seen_slices[-1] != slice_id:
             seen_slices.append(slice_id)
 
-    expected_waves = derive_task_waves(live_tasks, path, findings)
-    lint_sequence(path, lines, live_tasks, expected_waves, findings)
+    check_dependency_cycles(live_tasks, path, findings)
 
     if design_components:
         built_components = {component for task in live_tasks for component in task["builds"]}
