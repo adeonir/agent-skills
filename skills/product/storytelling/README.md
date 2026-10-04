@@ -10,8 +10,7 @@ flowchart TD
     S -->|Yes| A[Assess the current experience]
     S -->|No| C[Define the concept]
     A --> C
-    C -->|User accepts| R[Shape the arc and direct the experience]
-    C -->|User adjusts or rejects| C
+    C --> R[Shape the arc and direct the experience]
     R --> RC[Recommend]
     RC --> D[Write the document]
 ```
@@ -20,7 +19,7 @@ flowchart TD
 | --- | --- |
 | Find the materials | Materials matched by kind, the role of each site, the starting state |
 | Assess the current experience | Evidence-backed observations from the code and the rendered pages |
-| Define the concept | Thesis, tension, and feeling, accepted by the user |
+| Define the concept | Thesis, tension, and feeling |
 | Shape the arc | Ordered moments with intent and pace |
 | Direct the experience | Rhythm, role of interaction, whether movement serves the story, visual mood in words |
 | Recommend | What to preserve, what to reinterpret, conflicts with the visual identity |

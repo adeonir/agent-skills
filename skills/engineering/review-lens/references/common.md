@@ -140,7 +140,7 @@ Every actionable finding may carry a suggested fix as a corrected code block (se
 ## Output Channel
 
 - Default: print the report to the terminal (chat).
-- Then ask whether to save it to `CODE_REVIEW.md`.
+- Save it to `CODE_REVIEW.md` only when the user asks for it.
 - The review runs before a pull request exists, so it never posts to a PR.
 
 ## Re-Review Status Table

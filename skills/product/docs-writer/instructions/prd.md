@@ -12,17 +12,17 @@ A section is a technical decision in disguise when it presents two implementatio
 
 ```text
 check disk
-├ PRD absent  → discovery → validation → summary → drafting
+├ PRD absent  → discovery → validation → drafting
 └ PRD present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/product/PRD.md` exists; see [discovery.md](../references/discovery.md) `## Discovery or Update by Document State`. If absent, run the four discovery phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Handle PRODUCT independently based on whether it exists.
+Check whether `docs/product/PRD.md` exists; see [discovery.md](../references/discovery.md) `## Discovery or Update by Document State`. If absent, run the three phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Handle PRODUCT independently based on whether it exists.
 
 ### Phase 1: Discovery
 
 Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
 
-Run these four phases when no PRD exists. Never assume context. Use the answers to choose follow-up questions. Each topic defines opening questions, reasons to ask a follow-up, and completion criteria.
+Run these three phases when no PRD exists. Never assume context. Use the answers to choose follow-up questions. Each topic defines opening questions, reasons to ask a follow-up, and completion criteria.
 
 #### Read an Earlier Direction
 
@@ -166,25 +166,8 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 5. **Define scope**: Categorize features into must/should/could priorities
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 7. **Validate journeys**: Do the described flows cover all must-have features? Are there gaps?
-8. **Confirm with user**: Present validation findings and get explicit agreement before proceeding
 
-Do not write the summary until the user confirms scope and priorities.
-
-### Phase 3: Summary
-
-Summarize the confirmed discovery and validation results.
-
-1. Summarize what was learned across all discovery topics
-2. Present the agreed scope (must/should/could)
-3. List user journeys with main and alternative flows
-4. List business rules and edge cases identified
-5. List open questions and hypotheses identified during validation (risks too, when material)
-6. Identify gaps and mark as TBD
-7. Surface assumptions made (distinguish from validated facts)
-8. Ask the user to confirm the summary
-9. Only proceed to drafting after user confirms
-
-### Phase 4: Drafting
+### Phase 3: Drafting
 
 1. Use the PRD template below.
 2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.

@@ -110,7 +110,6 @@ Synthesize discovery into the design:
 1. Draft the system-context / component sketch
 2. Identify the key decisions and the trade-offs behind each
 3. For each alternative, set the `Record` column to `—` or `ADR-NNN`
-4. Present analysis to the user before drafting
 
 For key decisions, weigh axes like complexity vs. maintainability, performance vs. development speed, flexibility vs. simplicity, build vs. buy, lock-in vs. managed services.
 

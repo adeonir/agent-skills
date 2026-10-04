@@ -59,7 +59,7 @@ Collect every finding from every agent and pass them to **one** Haiku judge in a
 
 ### Step 6: Output
 
-Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal, offer to save `CODE_REVIEW.md`, and offer to apply the suggested fixes (opt-in, with confirmation).
+Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
 
 ## Re-Review
 

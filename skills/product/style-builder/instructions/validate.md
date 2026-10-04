@@ -8,7 +8,7 @@ Read [discovery.md](../references/discovery.md) before starting — it settles t
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
 
-This also runs after design writes, after confirmed preview adjustments, and before export or diff.
+This also runs after design writes, after applied preview adjustments, and before export or diff.
 
 ## Output
 
@@ -67,7 +67,7 @@ Warnings
 
 ## Boundaries
 
-- Keep standalone validation read-only. A validation gate may patch structural defects inside its parent authoring workflow, but never change the identity without confirmation.
+- Keep standalone validation read-only. A validation gate may patch structural defects inside its parent authoring workflow; present an identity delta the validation proposed and write it only after the user accepts it.
 - Do not repeat CLI rules as supplemental rules.
 - Do not turn every anti-slop tell into a lint finding.
 - Do not call a result with warnings `clean`.

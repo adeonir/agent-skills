@@ -314,7 +314,7 @@ ${
   </div>
   <aside class="inspector" aria-label="Color inspector">
     <h2>Inspector</h2>
-    <div data-inspector><p class="empty-inspector">Open the styleguide to tune declared colors. Adjustments stay temporary until the feedback round is confirmed in chat.</p></div>
+    <div data-inspector><p class="empty-inspector">Open the styleguide to tune declared colors. Adjustments stay temporary until the agent applies the sent feedback round.</p></div>
   </aside>
   </div>
   <section class="composer" hidden aria-label="New comment">

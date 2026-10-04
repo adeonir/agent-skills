@@ -12,7 +12,7 @@ Set a new document to `proposed`. Set it to `accepted` only after explicit appro
 
 ## Updates
 
-Preserve `created`, `sources`, and the existing status unless the user requests a status change. Set `updated` when changing an existing document. Preserve sections outside the approved change.
+Preserve `created`, `sources`, and the existing status unless the user requests a status change. Set `updated` when changing an existing document. Preserve sections outside the requested change.
 
 ## Sources and archive
 

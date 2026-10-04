@@ -27,7 +27,7 @@ trigger → detect entry → discover → diverge → converge → challenge →
 3. **Load [diverge.md](references/diverge.md)** after the discovery gate and generate at least 4 alternatives, including non-obvious ones. Stopping at 2-3 obvious options skips the value of the exercise: the non-obvious option is often the one worth choosing, or the one that reframes the problem. When pressure to commit shows up early, push for breadth first. On plan entry, the existing plan enters here as a named baseline alternative.
 4. **Load [converge.md](references/converge.md)** once 4+ alternatives exist. Evaluate trade-offs, pick a direction, and name the gain and the give-up of every recommendation — a direction recommended without its cost misleads the user, and a trade-off that feels too small to mention usually is not. Then challenge the chosen direction: standard hits the key assumption, `deep` hits every one.
 5. **Return to step 3** when the challenge opens a hole or leaves no viable direction.
-6. **Load [capture.md](references/capture.md)** only after the direction survives the challenge, and only with explicit user approval to capture it.
+6. **Load [capture.md](references/capture.md)** once the direction survives the challenge.
 
 ## Guidelines
 

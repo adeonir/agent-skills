@@ -6,7 +6,7 @@ Judge shipping copy for quality defects before it goes live: a prioritized P0–
 
 Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
-This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the verdict and let the score support it rather than replace it. To apply a finding, run the matching authoring operation and confirm it first: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
+This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the verdict and let the score support it rather than replace it. To apply a finding, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
 
 ## Scope
 

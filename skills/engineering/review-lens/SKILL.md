@@ -22,7 +22,7 @@ Start immediately when triggered. No confirmation needed to begin.
 2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker, and apply the size gate before going further.
 3. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
 4. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
-5. **Assemble and output.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first. Print to the terminal, offer to save `CODE_REVIEW.md`, then offer to apply the suggested fixes.
+5. **Assemble and output.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first. Print to the terminal, then offer to apply the suggested fixes.
 
 ## Guidelines
 
@@ -31,7 +31,7 @@ Start immediately when triggered. No confirmation needed to begin.
 - Default to quick; reserve the deep fan-out for risky or wide diffs
 - Guideline discovery reads the project's files — including `.claude/rules/*.md` — never `~/.claude` (personal global settings)
 - Suggest fixes freely (they are text); apply to the working tree only with explicit confirmation
-- The review runs pre-PR — output goes to the chat (and optional `CODE_REVIEW.md`), never posted to a pull request
+- The review runs pre-PR — output goes to the chat (and `CODE_REVIEW.md` when the user asks for it), never posted to a pull request
 
 ## Anti-Pattern: Confidence Inflation
 

@@ -101,4 +101,4 @@ copywriting owns the fix, so the loop closes inside the skill: but critique and 
 - An off-register voice that needs more than tightening → `revoice`.
 - An audit defect on shipping copy → `refresh` for wording, `write` for a missing part. Apply it as that operation; the judgment modes report, they do not patch.
 
-Never present a fix as applied: critique and audit produce the verdict; a permanent change is the relevant authoring operation, confirmed before write.
+Never present a fix as applied: critique and audit produce the verdict; a permanent change is the relevant authoring operation.

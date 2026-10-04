@@ -49,7 +49,7 @@ Required references:
 
 ## Direction
 
-Ask how many directions. No composed form is needed when `structure.yaml` exists. Without it, decide the arrangement independently inside each direction.
+Without `structure.yaml`, decide the arrangement independently inside each direction.
 
 Compose each direction from [design-thinking.md](../references/design-thinking.md). When the user names one ("Cyberpunk", "Editorial dark mode", "Grainy Duotone"), compose from that name. With none named, compose one that three conditions hold for: it is biased by the register the surface carries, it fits the surface, and `VARIANTS.md` does not list it as already spent there. When `structure.yaml` is absent, the direction also includes its arrangement. Vary the direction per mockup; never converge on a house style.
 
@@ -148,7 +148,7 @@ Every mockup holds at all three widths; the controls are how that is checked, no
 
 1. **Read the handoff.** If `structure.yaml` exists, load the arrangement, the surfaces, and the register each one carries. If it is absent, use the brief and other supplied inputs to let each direction choose its own arrangement.
 
-2. **Confirm count and direction.** Read the surface's section in `VARIANTS.md` for the directions already spent. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. Then state the plan before generating anything, as the lines it will append to `VARIANTS.md` — one per direction. When no `structure.yaml` exists, choose the arrangement inside each direction without adding structural detail to `VARIANTS.md`. Close with one sentence naming what was inferred rather than given: audience, use, and tone. A wrong pick is corrected here, not after N pages exist.
+2. **Set count and directions.** Read the surface's section in `VARIANTS.md` for the directions already spent. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. When no `structure.yaml` exists, choose the arrangement inside each direction without adding structural detail to `VARIANTS.md`.
 
 3. **Start the render server** (if not running):
 

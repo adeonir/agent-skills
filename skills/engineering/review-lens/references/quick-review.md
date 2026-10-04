@@ -27,7 +27,7 @@ Dispatch both in a single turn (two Task calls). Each receives `ANNOTATED_DIFF`,
 
 ### Step 3: Assemble and Output
 
-The main agent merges the walkthrough and the findings into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report. Then it follows the output-channel and fix-suggestion rules in [common.md](common.md): print to the terminal, offer to save `CODE_REVIEW.md`, and offer to apply the suggested fixes (opt-in, with confirmation).
+The main agent merges the walkthrough and the findings into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report. Then it follows the output-channel and fix-suggestion rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
 
 ## Re-Review
 

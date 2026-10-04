@@ -84,17 +84,14 @@ Move on when:
 
 Design Doc discovery stays lean and trade-off-focused. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes Alternatives rows into formal ADRs.
 
-## Confirmation Summary
+## Gaps and Assumptions
 
-After discovery, summarize the confirmed information before writing:
+After discovery, before drafting:
 
-1. Summarize the confirmed information
-2. Identify gaps (mark as TBD)
-3. State the assumptions
-4. Ask the user to confirm the summary
-5. Only proceed to drafting after user confirms
+1. Identify gaps (mark as TBD)
+2. State the assumptions
 
-Use this confirmation for a new document. When updating an existing document, follow [reconcile.md](reconcile.md) instead.
+Apply this to a new document. When updating an existing document, follow [reconcile.md](reconcile.md) instead.
 
 ## Critical Review
 
@@ -125,6 +122,5 @@ Before moving from discovery to drafting, verify:
 
 - [ ] All topics have met their completion criteria or gaps are marked as TBD
 - [ ] Open questions and unknowns are explicitly marked (TBD)
-- [ ] User has confirmed the summary
 - [ ] No critical ambiguity remains (ask if unclear)
 - [ ] Problem is understood with evidence or explicitly marked as hypothesis

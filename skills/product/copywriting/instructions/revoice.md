@@ -22,15 +22,11 @@ Get the target from the user: a stated direction ("more playful", "luxury", "dri
 
 Rewrite each line into the target voice, preserving the message, every claim, and the structure. Change *how* it is said, never *what*. Do not introduce dead adjectives (see [../references/anti-patterns.md](../references/anti-patterns.md)) or drop proof (see [../references/voice.md](../references/voice.md)).
 
-### Step 4: Confirm Before Write
+### Step 4: Patch copy.yaml
 
-Per content path, show the current line → the revoiced line + a one-line note. User approves, rejects, or edits each. No silent writes. If the user rejects every row, stop with `no changes applied`.
+Apply the rewrites in place. Preserve the content tree paths and every claim; only the voice changes. Update the `voice` block to the target voice with `status: confirmed` in the same patch. If discovery established missing or inferred metadata, add the confirmed root intent and voice in the same patch.
 
-### Step 5: Patch copy.yaml
-
-Apply approved rewrites in place. Preserve the content tree paths and every claim; only the voice changes. Update the `voice` block to the target voice with `status: confirmed` in the same patch. If discovery established missing or inferred metadata, add the confirmed root intent and voice in the same patch.
-
-### Step 6: Self-Check
+### Step 5: Self-Check
 
 Before finishing, check that every original claim remains, the content tree is well-formed, and no design leaked into it. Run the validator for the last two:
 
@@ -40,6 +36,10 @@ python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 
 Resolve any real flag. Judge false positives, such as a product named "Grid".
 
+### Step 6: Report
+
+Per content path, show the original line → the revoiced line + a one-line note.
+
 ## Guidelines
 
 **DO:**
@@ -47,7 +47,6 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 - Change the voice, keep the message and surface function: same claims, same structure
 - Set and confirm the target voice before recasting
 - Hold the new voice consistently across every part
-- Confirm each rewrite; the author owns the copy
 
 **DON'T:**
 
@@ -62,4 +61,3 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 - `copy.yaml` missing: nothing to revoice; route to extract or write first
 - Target voice unclear: ask for a descriptor or a sample to match before recasting
 - A claim cannot survive the new voice honestly: keep the claim, flag the tension
-- User rejects every rewrite: leave the file untouched, report what was rejected

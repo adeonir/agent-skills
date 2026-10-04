@@ -27,9 +27,9 @@ flowchart TD
 
 | Type | Workflow | Output |
 |------|----------|--------|
-| **Project PRD** | discovery (4 phases) if absent; update requested parts if present | `PRD.md` |
-| **Feature PRD** | focused discovery and approval; update requested parts if present | `.artifacts/features/<feature-slug>/PRD.md` |
-| **Feature RFC** | proposal discovery and approval; update requested parts if present | `.artifacts/features/<feature-slug>/RFC.md` |
+| **Project PRD** | discovery (3 phases) if absent; update requested parts if present | `PRD.md` |
+| **Feature PRD** | focused discovery; update requested parts if present | `.artifacts/features/<feature-slug>/PRD.md` |
+| **Feature RFC** | proposal discovery; update requested parts if present | `.artifacts/features/<feature-slug>/RFC.md` |
 | **PRODUCT** | discovery if absent; update requested parts if present | `PRODUCT.md` |
 | **Design Doc** | discovery (4 topics) → analysis → drafting if absent; update requested parts if present | `design-doc.md` |
 | **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
@@ -99,9 +99,9 @@ When content appears relevant to two documents, keep it in the document that own
 
 **Q: How does PRODUCT relate to the PRD?** A: PRODUCT records what the product is and stands for. The PRD records what the product does. Discovery can produce both documents for a new product. Later changes can update either document on its own.
 
-**Q: What happens when I run the skill for an existing PRD, PRODUCT, or Design Doc?** A: The skill reads the existing document and reviews only the requested change. Before writing, it states which sections will change and which sections will remain unchanged. The skill never silently replaces existing work.
+**Q: What happens when I run the skill for an existing PRD, PRODUCT, or Design Doc?** A: The skill reads the existing document and reviews only the requested change. After writing, it states what changed and where. The skill never silently replaces existing work.
 
-**Q: Can a feature have a PRD, an RFC, or both?** A: Yes. When both are requested, the feature PRD is approved first and the RFC links to it without duplicating its content.
+**Q: Can a feature have a PRD, an RFC, or both?** A: Yes. When both are requested, the feature PRD is written first and the RFC links to it without duplicating its content.
 
 **Q: How is the Design Doc sized?** A: Keep the Design Doc as short as the design allows. A small service with a few decisions can use one page. A system with several services and trade-offs needs more detail. Add content only when a decision needs it.
 

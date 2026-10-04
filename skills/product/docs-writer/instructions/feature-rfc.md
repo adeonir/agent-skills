@@ -6,8 +6,8 @@ Create a temporary proposal document for one feature and record its decision.
 
 ```text
 check feature artifact
-├ absent → proposal discovery → validation → approval → write
-└ present → requested update → approval → write
+├ absent → proposal discovery → validation → write
+└ present → requested update → write
 ```
 
 1. Load [discovery.md](../references/discovery.md) for the interview method and trust boundary, and [feature-document.md](../references/feature-document.md) for lifecycle, update, source, and archive rules.

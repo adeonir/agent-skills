@@ -21,9 +21,9 @@ flowchart TD
 | ---- | ------- | ------ |
 | **Write** | Author fresh or net-new copy from intent: headlines, body, CTAs | `docs/product/copy.yaml` |
 | **Extract** | Structure existing content from a URL, brief, codebase, or screenshot, preserving tone | `docs/product/copy.yaml` |
-| **Refresh** | Tighten existing copy in the same voice: clarity, specificity, proof, cut weak words | Patched `docs/product/copy.yaml` (confirm-before-write) |
-| **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/product/copy.yaml` (confirm-before-write) |
-| **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/product/copy.yaml` (confirm-before-write) |
+| **Refresh** | Tighten existing copy in the same voice: clarity, specificity, proof, cut weak words | Patched `docs/product/copy.yaml`, changes reported in chat |
+| **Revoice** | Rewrite existing copy in a new voice, keeping the message | Patched `docs/product/copy.yaml`, changes reported in chat |
+| **Reconcile** | Sync `copy.yaml` from a drifted implementation (copy edited in code) | Patched `docs/product/copy.yaml`, changes reported in chat |
 | **Critique** | Quality and slop verdict on a draft: scores the seven sweeps, loops to refresh | Verdict + score (no write) |
 | **Audit** | Ship-readiness defect report on `copy.yaml` before handoff: P0–P3 | Report + score (no write) |
 

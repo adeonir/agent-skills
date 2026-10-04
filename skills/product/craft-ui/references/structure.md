@@ -62,7 +62,7 @@ MUST NOT contain: a token value, a font or color name, a copy string, a requirem
 
 Resolve the arrangement one decision at a time, skipping anything the conversation, brief, or supplied inputs already settled. Per surface: the register, then the region set and the block order, the shape of each block, and the flow links out of it.
 
-Match the cadence to how settled the decision is. When the arrangement is clear from context, assert it and ask for confirmation — "this reads as a sidebar layout, list left, detail right — confirm?" moves faster than a menu. Reserve the 2-3 option menu, each with a one-line rationale, for a genuinely open choice. Let the user settle it before committing the plan.
+Match the cadence to how settled the decision is. When the arrangement is clear from context, assert it and carry it into the plan. Reserve the 2-3 option menu, each with a one-line rationale, for a genuinely open choice, and let the user settle that choice before committing the plan.
 
 ## Reflow and volume
 

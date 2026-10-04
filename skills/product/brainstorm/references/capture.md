@@ -4,7 +4,7 @@ Persist the chosen direction as a structured artifact. Single project-level file
 
 ## When to Use
 
-Loaded to write the artifact, once the direction survives the challenge and the user approves capturing it.
+Loaded to write the artifact, once the direction survives the challenge.
 
 ## Workflow
 

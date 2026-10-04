@@ -31,7 +31,7 @@ Report source conflicts rather than resolving them silently. Load the matching r
    - **Slop** — an unconsidered default or incoherent combination, subject to legitimate exceptions in the anti-slop reference.
 3. Present the evidence and the smallest recommendation that resolves each material finding. Do not write a report artifact.
 4. If the request is audit-only, stop after the interaction report.
-5. If the intent is explicit, present the delta that intent would apply and wait for confirmation.
+5. If the intent is explicit, name the delta that intent would apply. Hand a delta the user stated to design directly; present a delta the agent proposed and hand it on only after the user accepts it.
 6. If refresh versus rebrand is ambiguous, recommend refresh when the identity's DNA still serves the stated intent; recommend rebrand when it does not. Wait for confirmation.
 7. Hand the confirmed intent, baseline, preserved DNA, accepted recommendations, and rejected recommendations to design.
 

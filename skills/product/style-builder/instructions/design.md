@@ -13,14 +13,13 @@ On brownfield, this runs only after the identity assessment confirms `inherit`, 
 ## Prerequisites
 
 - Run identity assessment before every brownfield write.
-- Obtain explicit confirmation for the proposed brownfield delta.
 - Load [aesthetics.md](../references/aesthetics.md) and [anti-slop.md](../references/anti-slop.md).
 - Load [color-craft.md](../references/color-craft.md) only for palette work and [typography.md](../references/typography.md) only for type work.
 - Read `assets/design.template.md` from this skill before creating a new file. The asset is the single copyable template; remove its comments and replace every slot.
 
 ## Artifact Contract
 
-Write `DESIGN.md` at the project root. Patch only confirmed deltas — never rewrite the whole identity to apply one change.
+Write `DESIGN.md` at the project root. Patch only a delta the user stated or accepted — never rewrite the whole identity to apply one change.
 
 The YAML frontmatter is normative. Allow only:
 
@@ -71,7 +70,7 @@ Derive one coherent system from the locked moodboard or supplied visual referenc
 
 ### Inherit
 
-Codify the confirmed consistent identity. Preserve exact values and roles. Apply only consolidations the assessment presented and the user confirmed.
+Codify the confirmed consistent identity. Preserve exact values and roles. Apply only consolidations the assessment presented and the user accepted.
 
 ### Refresh
 
@@ -85,11 +84,11 @@ Do not recompose pages or replace whole sections.
 
 ### Rebrand
 
-Replace the confirmed identity dimensions while preserving product surfaces and structural constraints. Apply the confirmed section mapping only.
+Replace the identity dimensions the user stated or accepted while preserving product surfaces and structural constraints. Apply only the section mapping the user stated or accepted.
 
 ### Evolve
 
-Compare the baseline with the visual intent in `PRODUCT.md` and the PRD. Present where it still fits, where it drifted, and a recommended direction. After confirmation, apply the delta through refresh or rebrand according to its size.
+Compare the baseline with the visual intent in `PRODUCT.md` and the PRD. Present where it still fits, where it drifted, and a recommended direction. After the user accepts it, apply the delta through refresh or rebrand according to its size.
 
 ### Sync
 
@@ -111,7 +110,7 @@ Treat implementation values as truth for drifted `colors`, `typography`, `rounde
 
 1. State the interpreted surfaces, register, source, direction, field, and confirmed intent. A locked moodboard already settles the direction.
 2. Read an existing root `DESIGN.md` before patching. For a new file, copy the structure from `assets/design.template.md` and remove all comments.
-3. Build a patch list by frontmatter group and prose section. Show the list before any brownfield write; the prior confirmation must cover it.
+3. Build a patch list by frontmatter group and prose section. On brownfield, write a delta the user stated directly; present a delta the agent proposed and write it only after the user accepts it.
 4. Patch the frontmatter first, then only the prose sections affected by the same delta. Preserve unknown prose sections without moving them, but report that they are outside the canonical contract.
 5. Run the supplemental component contrast checker:
 
@@ -130,7 +129,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 
 - No usable source: ask for a source or route direction-absent greenfield work to direction.
 - Unreadable source: request another source and do not fabricate values.
-- Unconfirmed brownfield delta: stop after presenting the patch list.
+- Brownfield delta the agent proposed and the user has not accepted: stop after presenting the patch list.
 - Invalid existing frontmatter: run validate and stop before patching.
 - Empty sync diff: report `no drift detected` and do not write.
 - Source contrast failure: present the exact pair and ask whether to preserve it as a recorded trade-off or adjust lightness.

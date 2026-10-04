@@ -1,6 +1,6 @@
 # Reconcile
 
-Sync `copy.yaml` back from a drifted implementation. Brownfield-only: when the running code's copy no longer matches the authored content payload, this reference diffs the implementation against `copy.yaml` and applies surgical, confirmed patches.
+Sync `copy.yaml` back from a drifted implementation. Brownfield-only: when the running code's copy no longer matches the authored content payload, this reference diffs the implementation against `copy.yaml` and applies surgical patches.
 
 ## Load first
 
@@ -25,17 +25,13 @@ Extract strings from rendered routes or component files. Scope to the content pa
 
 ### Step 3: Diff
 
-List the content paths whose values diverged: changed or missing in the implementation. Present one structured diff.
+List the content paths whose values diverged: changed or missing in the implementation.
 
 Strings present in the implementation but absent from `copy.yaml` are **additions**: report them in a separate section of the diff, never as patch rows. Reconcile syncs values on existing paths only; bringing an addition into the tree is a write (or extract) run the user chooses after seeing the report.
 
-### Step 4: Confirm Before Write
+### Step 4: Patch copy.yaml
 
-Present the diff inline. User approves, rejects, or edits each patch row. No silent writes. If the user rejects every row, stop with `no patches applied`.
-
-### Step 5: Patch copy.yaml
-
-Apply approved string patches to `docs/product/copy.yaml`. Preserve content paths; do not rename or reorganize surface keys. If discovery confirmed missing or inferred metadata, add confirmed root intent and voice in the same patch. Then run the validator:
+Apply the string patches to `docs/product/copy.yaml`. Preserve content paths; do not rename or reorganize surface keys. If discovery confirmed missing or inferred metadata, add confirmed root intent and voice in the same patch. Then run the validator:
 
 ```bash
 python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
@@ -43,17 +39,20 @@ python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 
 Resolve any real flag. Judge false positives, such as a product named "Grid".
 
+### Step 5: Report
+
+Present the diff inline as one structured report: the patched rows, then the additions in their own section.
+
 ## Guidelines
 
 **DO:**
 
-- Treat the implementation as authoritative for drifted strings only after the user confirms each patch row
+- Treat the implementation as authoritative for drifted strings
 - Preserve the content tree structure; patch values, not shape
 - Scope to content paths present in `copy.yaml`
 
 **DON'T:**
 
-- Patch silently (contrasts: confirm-before-write per row)
 - Invent new surfaces or keys from the implementation (contrasts: scope to the existing tree)
 - Rewrite or editorialize while reconciling (contrasts: this syncs drifted values; it does not change voice or rewrite content)
 
@@ -63,4 +62,3 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 - Implementation source unreadable (codebase path missing, URL unreachable): ask the user to re-supply or provide a live URL fallback
 - Diff is empty: report `no drift detected` and stop
 - Diff carries only additions: report them, route to write or extract, apply no patches
-- User rejects every patch row: leave the file untouched, report what was rejected so the user can revisit later
