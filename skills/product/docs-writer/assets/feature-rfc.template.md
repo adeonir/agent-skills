@@ -10,19 +10,29 @@ sources: []
 
 # RFC: [Feature Name]
 
-## Context
+## Motivation
 
-[Why a decision is needed, in one short paragraph. Link the feature PRD instead when one exists.]
+[Why the feature is needed, the use cases it serves, and the expected outcome. Link the feature PRD instead of restating it when one exists.]
 
-## Proposed Direction
+## Detailed Design
 
-[What is proposed and the boundaries of the proposal.]
+[The technical design: components, contracts, data flow, and every decision taken with its reason, plus the edge cases. Enough detail for a new session to implement from this document alone.]
+
+## Drawbacks
+
+- [Cost of going ahead with this design.]
 
 ## Alternatives Considered
 
 <!-- Optional: only when a real alternative was weighed. -->
 
 - [Alternative not selected, and the reason.]
+
+## Prior Art
+
+<!-- Optional: only when existing code or an outside solution informed the design. -->
+
+- [What exists, where, and what the design takes from it.]
 
 ## Risks & Dependencies
 
@@ -32,7 +42,7 @@ sources: []
 
 ## Open Questions
 
-<!-- Optional: only when no feature PRD exists. -->
+<!-- Optional: only when a question remains open. -->
 
 - [Question that remains open.]
 
@@ -42,4 +52,4 @@ sources: []
 
 - [Typed reference and link, including the feature PRD when one exists.]
 
-MUST NOT contain: goals, non-goals, a scope list, a task list, tracker User Stories, architecture detail, implementation sequence, duplicated feature PRD content, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
+MUST NOT contain: goals, non-goals, a scope list, a task list, tracker User Stories, implementation sequence, duplicated feature PRD content, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
