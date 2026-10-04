@@ -1,6 +1,6 @@
 # Note Conventions
 
-The filename, body, wikilink, and update rules every note type follows.
+The filename, body, wikilink, update, and report rules every note type follows.
 
 ## When to Use
 
@@ -32,6 +32,10 @@ Creating `[[Some Note]]` to a file that does not exist makes Obsidian generate a
 Templates apply to new notes only. When updating an existing note, read it first with `Obsidian:read_note`, then patch with `Obsidian:patch_note`. Re-applying a template overwrites prior content and loses history.
 
 Refresh `updated` in the frontmatter whenever an existing note is patched.
+
+## Reporting the Note
+
+After writing or patching a note, report its vault path, what the note holds in one to three sentences — what changed, on an update — and any open item it carries. Never paste the note. For a transcription, describe the note — the kind of session and its topic — and never quote its body.
 
 ## Gathering Context
 

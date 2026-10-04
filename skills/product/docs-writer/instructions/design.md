@@ -23,7 +23,7 @@ The document records how the system is built, why the team chose that design, an
 ## Workflow
 
 ```text
-document absent  → discovery → analysis → drafting
+document absent  → discovery → analysis → drafting → report
 document present → update requested parts (reconcile.md)
 ```
 
@@ -115,7 +115,7 @@ For key decisions, weigh axes like complexity vs. maintainability, performance v
 
 ### Phase 3: Drafting
 
-Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path, reread it per [quality.md](../references/quality.md) `## Reread`, and report a brief prose summary in chat (up to 2-3 paragraphs) — the path and the key decisions recorded. Do not paste the full document.
+Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path, and reread it per [quality.md](../references/quality.md) `## Reread`.
 
 **Drafting notes:**
 
@@ -124,6 +124,10 @@ Use the template below. Run the checks in [quality.md](../references/quality.md)
 - The design describes itself to the depth the decisions need — no exhaustive coverage checklist.
 - Alternatives Considered is the heart; the Record column defaults to `—` until an ADR is created.
 - Mark unknowns as Open Questions rather than inventing technical answers.
+
+### Phase 4: Report
+
+Report the path, what the document holds in one to three sentences — the key decisions recorded, or what changed on an update — and any open question it carries. Never paste the document.
 
 ## Design Doc Template
 

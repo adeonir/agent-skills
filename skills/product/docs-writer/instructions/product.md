@@ -87,4 +87,8 @@ For a new document, read `<this-skill>/assets/product.template.md`, copy its exa
 
 ## Output
 
-Write to `PRODUCT.md` directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report a brief prose summary in chat (up to 2-3 paragraphs) — the register and the identity. Do not paste the full document.
+Write to `PRODUCT.md` directly, and reread it per [quality.md](../references/quality.md) `## Reread`.
+
+## Report
+
+Report the path, what the document holds in one to three sentences — the register and the identity, or what changed on an update — and any open question it carries. Never paste the document.

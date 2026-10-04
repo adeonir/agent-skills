@@ -90,6 +90,10 @@ Load [tracker.md](../references/tracker.md) and dispatch the draft, passing the 
 
 An explicit destination in the user's request overrides the configured tracker — but **not for a story under an epic**: the parent lives in the configured tracker, and there is no `epic_id` for it in another one. A standalone story carries no such constraint. See [tracker.md](../references/tracker.md) "Explicit Override".
 
+### 5. Report
+
+Report as [tracker.md](../references/tracker.md) "Report" states.
+
 ## Editing an Existing Story
 
 Creating a story runs the flow above; editing one runs this branch. It changes the body — title, prose, AC, references — and may change `blocked_by`, `priority`, or `estimate`. A `blocked_by` change re-renders `## Dependencies` in the same write. A status change runs the Status change flow in [tracker.md](../references/tracker.md). Create and edit hold the story to the same canonical contract: the template structure, its MUST-NOT boundaries, the AC contract, and requirement linkage — an edit conforms the result, never a free-form rewrite.
@@ -99,6 +103,7 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 3. **Reconcile the Summary and the AC in whichever direction the edit moved** — the Summary states the outcome the story owes and the AC demonstrate it; they are drafted together and describe the same thing, one in prose and one in verifiable criteria. An edit that moves one half and leaves the other behind ships a story whose two halves disagree. When the AC block changed, bring the Summary to the outcome the story now owes. When the Summary changed, check that the AC still demonstrate the outcome it now states — an outcome no AC demonstrates is a coverage hole to settle with the user, not prose to leave standing. The declaration's role reconciles the same way: an edit that changes who the story is for, on either side, leaves the declaration and every Given naming the same actor. Reconcile before validating.
 4. **Re-validate only when the AC block changed** — including a `**Satisfies**` line added, removed, or re-pointed. If it changed, run Step 3 as create does: V1-V8, then resolve each `Satisfies` against the epic's `## Requirements`. That resolution needs the epic: the `fetch_artifact` in step 1 above returns the story's `parent`, so `fetch_artifact` on that id reads it — a standalone story has no parent and stops at V1-V8. An edit that leaves the AC block untouched skips validation; the existing AC is preserved as written.
 5. Dispatch the update through [tracker.md](../references/tracker.md), which refetches immediately before writing. When someone wrote in between, it re-applies this edit onto their body rather than over it — and the AC contract runs again on that merged result, because the validation in step 4 saw the draft, not what will be written. Two criteria carrying the same id is the ordinary outcome of a merge, and V7 is what catches it.
+6. **Report.** Report as [tracker.md](../references/tracker.md) "Report" states.
 
 ## Guidelines
 

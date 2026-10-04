@@ -63,6 +63,10 @@ python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 
 Resolve any real flag before finishing. Judge false positives, such as a product named "Grid".
 
+### Step 6: Report
+
+Report the path, what `copy.yaml` holds in one to three sentences, and any open item it carries. Never paste the file.
+
 ## Template
 
 ALWAYS use this exact template structure:

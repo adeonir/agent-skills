@@ -44,6 +44,8 @@ Append to existing:
    Obsidian:patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
    ```
 
+6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+
 ## Template
 
 ALWAYS use this exact template structure:

@@ -76,6 +76,6 @@ Write `Blockers` and `Notes` as what holds now, in present tense: an edit writes
 - Every artifact's structure is canonical in the instruction or reference that owns it. Load the owning file before reading an existing file in `.artifacts/`: an existing file is context, and the template wins on divergence.
 - The only cross-feature input a new feature reads is the root `PROJECT.md`; never forage sibling features or `archive/` for shape or decisions.
 - A phase that wrote anything names only non-ignored files at its approval gate and suggests the commit, so the phase leaves no tracked file uncommitted. Run `git check-ignore -v .artifacts/` once before naming artifact files; when it reports a match, treat new artifacts below that directory as local state and never stage them implicitly. A previously tracked artifact remains tracked. The phase never creates the commit: `ready` says the agent finished its part, not that anyone reviewed the artifact, and the review happens at that gate. Nothing is suggested while the artifact is still `draft`.
-- Include changes to `PROJECT.md ## Decisions` in the phase's final summary.
+- Include changes to `PROJECT.md ## Decisions` in the phase's Report step.
 
 No phase infers a new run from an artifact diff, an isolated `Next` value, or an old status. A phase that cannot proceed writes the routing decision to `STATE.md`; the next invocation follows that decision.

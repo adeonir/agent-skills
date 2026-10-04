@@ -36,6 +36,10 @@ If the file already exists, compare the chosen direction against the existing `#
 
 Always bump `updated:` to today's date and increment `revisions:` on any change.
 
+### Step 3: Report
+
+Report the path, what the artifact holds in one to three sentences — what changed, on a pivot, validation, or replace — and any open question it carries. Never paste the artifact.
+
 ## Template
 
 ALWAYS use this exact template structure:

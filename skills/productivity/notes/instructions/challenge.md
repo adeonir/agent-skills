@@ -38,6 +38,8 @@ Read [mapping.md](../references/mapping.md) for the vault root — this note wri
    Obsidian:write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
    ```
 
+6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+
 ## Template
 
 ALWAYS use this exact template structure:

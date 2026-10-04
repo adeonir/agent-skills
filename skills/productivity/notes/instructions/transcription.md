@@ -32,6 +32,8 @@ If a note with the same topic exists, ask to append or create new.
    Obsidian:write_note path="{destination}/Description.md" content="..." frontmatter={...}
    ```
 
+8. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+
 ## Template
 
 ALWAYS use this exact template structure:

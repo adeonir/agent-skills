@@ -91,6 +91,10 @@ Load [tracker.md](../references/tracker.md) and dispatch the draft, passing the 
 
 An explicit destination in the user's request ("create the issue on GitHub") overrides the configured tracker for this artifact only; it never rewrites the config. See [tracker.md](../references/tracker.md) "Explicit Override".
 
+### 6. Report
+
+Report as [tracker.md](../references/tracker.md) "Report" states.
+
 ## Editing an Existing Bug
 
 Creating a bug runs the flow above; editing one runs this branch. It changes the body — title, summary, signals, repro steps, environment, workaround — and may change severity, `priority`, `estimate`, or `blocked_by`. A `blocked_by` change re-renders `## Dependencies` in the same write. A status change runs the Status change flow in [tracker.md](../references/tracker.md). Create and edit hold the bug to the same canonical contract: the template structure and its MUST-NOT boundaries. An edit conforms the result, never a free-form rewrite.
@@ -99,6 +103,7 @@ Creating a bug runs the flow above; editing one runs this branch. It changes the
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
 3. A severity change travels as the `severity` input on `update_artifact`, not as body prose; the adapter re-maps the severity label. A priority change travels the same way on the `priority` input, and moves neither the severity nor anything else.
 4. Dispatch the update through [tracker.md](../references/tracker.md), which refetches immediately before writing. When someone wrote in between, it re-applies this edit onto their body rather than over it, and reports what merged.
+5. **Report.** Report as [tracker.md](../references/tracker.md) "Report" states.
 
 ## Guidelines
 

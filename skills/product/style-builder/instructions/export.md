@@ -33,7 +33,7 @@ npx -y @google/design.md@latest export DESIGN.md --format css-vars --prefix <pre
 ```
 
 4. Return stdout when the user requested output only. If the user expects a file and did not name its path, confirm the destination before writing. Never invent a committed export path.
-5. Report the format, destination or stdout, and the validation state.
+5. **Report.** Report the destination path or stdout, what the export holds in one to three sentences, naming the format, and the open items it carries: the validation state and every preserved warning. Never paste a written file.
 
 ## Error Handling
 

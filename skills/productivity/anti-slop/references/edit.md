@@ -14,18 +14,20 @@ Loaded for the rewrite mode: the steps, the output template, and what the edit m
 4. Apply [editing-principles.md](editing-principles.md) and the supported patterns in [slop-catalog.md](slop-catalog.md). Treat word lists as cues, not bans. Make the smallest change that fixes the draft.
 5. Check the edit against [self-check.md](self-check.md). Run the check directly.
 6. Fix each failed check and run the checks again.
-7. Return the output below.
+7. **Report.** Return the output below.
 
 Reorganize only when the structure hurts meaning or reading. Do not merge or split procedural steps, requirements, headings, or references just for polish. Explain structural changes in What changed when the output has a change log.
 
 ## Output
 
-A pasted draft comes back whole in the reply. A draft read from a file path is written back to that file, and the reply carries the What changed section alone. Embedded text comes back as final text only, without a preamble or change log.
+A pasted draft comes back whole in the reply. A draft read from a file path is written back to that file, and the reply carries the report and the What changed section, never the edited draft. Embedded text comes back as final text only, without a preamble or change log.
 
 Use this exact template for pasted and file modes:
 
 ```markdown
 {{full edited draft — complete, never an excerpt or a diff; omitted when the draft was edited in its own file}}
+
+{{file mode only: the file path, what the edit did to the draft in one to three sentences, and any open item it leaves, such as a pattern kept on purpose}}
 
 ## What changed
 

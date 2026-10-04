@@ -11,6 +11,7 @@ flowchart LR
     S --> O[Open the sources]
     O --> I[Draw the implications]
     I --> W[Write the report]
+    W --> R[Report]
 ```
 
 | Phase | Output |
@@ -21,6 +22,7 @@ flowchart LR
 | Open the sources | Findings marked primary, secondary, or inference, with disagreements kept apart |
 | Draw the implications | What each finding changes for the project, and nothing past that |
 | Write the report | `.artifacts/research/<topic>.md`, revised in place when the question already has one |
+| Report | The path, the answer in two or three sentences, the unknowns, and the open questions |
 
 ## Usage
 

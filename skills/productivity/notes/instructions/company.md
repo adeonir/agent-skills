@@ -36,6 +36,8 @@ If a note for the same role+company exists, ask whether to append a new timeline
    Obsidian:write_note path="Companies/{{Company Name}}/{{Role}} — {{Company Name}}.md" content="..."
    ```
 
+6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+
 ## Template
 
 ALWAYS use this exact template structure:
@@ -92,6 +94,7 @@ When the application progresses (interview scheduled, offer received, decision m
 2. Use `Obsidian:patch_note` to append a row to the Timeline table
 3. Update the frontmatter `status` field via `Obsidian:update_frontmatter`
 4. Add new observations as the process unfolds
+5. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
 
 Do not overwrite — keep the historical timeline intact.
 

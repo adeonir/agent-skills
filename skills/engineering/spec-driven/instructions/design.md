@@ -24,7 +24,8 @@ Resolve `<this-skill>` to the directory this `SKILL.md` was read from before run
    - **Decisions and contracts** — every contestable decision fills `Rejected` and `Source`; every interface and endpoint names the operation, parameters, return, and errors that are feature decisions.
 
    Then run `python3 <this-skill>/scripts/lint_artifact.py design .artifacts/specs/<slug>` — it settles structure and component names, and it reads last because the checks above edit the design. Fix every error and run it again, up to three passes; after the third, stop, record the standing error in `STATE.md ## Blockers`, and leave the design `draft`. A warning never blocks — act on it, or keep what it names as deliberate and say which at the approval gate. Set `status: ready` once the checks pass and the script reports no error.
-6. **Approval gate** — present the path of `design.md`, the architecture in one or two sentences — naming any decision that departs from a document in the spec's `sources` or `## References`, confirmed against the document's current text — and what stayed open: an `OQ-N` no evidence settled, and every claim marked `UNVERIFIED`. Then ask *"Move to tasks?"* Name anything the run wrote that the project does not ignore and suggest the commit, and update the feature's `STATE.md ## Progress` — see [memory.md](../references/memory.md).
+6. **Update the feature's `STATE.md ## Progress`** — see [memory.md](../references/memory.md).
+7. **Report** — at the approval gate, present the path of `design.md`, the architecture in one or two sentences — naming any decision that departs from a document in the spec's `sources` or `## References`, confirmed against the document's current text — and what stayed open: an `OQ-N` no evidence settled, and every claim marked `UNVERIFIED`. Name anything the run wrote that the project does not ignore and suggest the commit — see [memory.md](../references/memory.md).
 
 ## Template: `design.md`
 

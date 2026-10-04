@@ -38,7 +38,7 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 
 ### Step 6: Report
 
-Per content path, show the original line → the revoiced line + a one-line note.
+Report the path, what changed in one to three sentences, and any open item `copy.yaml` carries. Never paste the file. Then, per content path, show the original line → the revoiced line + a one-line note.
 
 ## Guidelines
 

@@ -92,7 +92,7 @@ Compare the baseline with the visual intent in `PRODUCT.md` and the PRD. Present
 
 ### Sync
 
-Treat implementation values as truth for drifted `colors`, `typography`, `rounded`, `spacing`, and `components`. Diff by group, patch only changed groups, and leave narrative sections untouched. Report the applied group diff. Do not introduce a new direction or use sync to clean up slop.
+Treat implementation values as truth for drifted `colors`, `typography`, `rounded`, `spacing`, and `components`. Diff by group, patch only changed groups, and leave narrative sections untouched. The report names the applied group diff as what changed. Do not introduce a new direction or use sync to clean up slop.
 
 ## Token Authoring
 
@@ -119,7 +119,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 ```
 
 6. Load [validate.md](validate.md) and run the full gate. Errors block completion. Warnings remain visible and produce `passed with warnings`, not `clean`.
-7. Report the artifact path, applied groups and sections, validation state, and every remaining warning.
+7. **Report.** Report the path, what `DESIGN.md` holds in one to three sentences — the groups and sections applied, on an update — and the open items it carries: the validation state and every remaining warning. Never paste the file.
 
 ## Content Boundaries
 

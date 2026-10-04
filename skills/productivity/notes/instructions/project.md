@@ -33,6 +33,8 @@ If exists, ask to append, choose new name, or cancel.
    Obsidian:write_note path="{VaultFolder}/Checkout Refactor/Checkout Refactor Overview.md" content="..."
    ```
 
+6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+
 ## Template
 
 ALWAYS use this exact template structure:

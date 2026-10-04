@@ -134,8 +134,12 @@ Every actionable finding may carry a suggested fix as a corrected code block (se
 **Applying** a fix edits the working tree, so it is opt-in:
 
 - Never write to a code file without explicit confirmation in this turn.
-- After presenting the report, offer to apply the fixes. If the user agrees, apply only the confirmed ones, then report what changed.
 - The report itself, and `CODE_REVIEW.md`, are the only outputs written without a code-edit confirmation.
+
+After presenting the report, offer to apply the fixes. If the user agrees:
+
+1. **Apply.** Apply only the confirmed fixes.
+2. **Report.** Report what changed.
 
 ## Output Channel
 

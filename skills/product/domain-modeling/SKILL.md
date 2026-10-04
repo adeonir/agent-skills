@@ -30,6 +30,7 @@ locate glossary → read → work the term → resolve → write inline
    - **Edge cases.** Test a relationship between concepts with a concrete scenario that probes the boundary.
    - **Code.** When the user states how something works, check the code. Surface a contradiction as a question.
 4. **Write inline.** Update `GLOSSARY.md` as each term resolves, never in a batch at the end. A rename updates the definition and the `_Avoid_` line. A merge keeps one entry. A retired term is removed.
+5. **Report.** Once the session's glossary work ends, never after each term, report the path, the terms added, changed, or removed in one to three sentences, and any term still open. Never paste the glossary.
 
 ## Entry rules
 

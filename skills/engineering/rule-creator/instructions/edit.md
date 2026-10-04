@@ -14,6 +14,7 @@ Update an existing rule by name.
 4. **Load [rule-format.md](../references/rule-format.md)** and re-run its verifiability checklist against the edited rule.
 5. **Load [classify-and-context.md](../references/classify-and-context.md)** and re-run its context check when the scope or the stack reference changed.
 6. **Write back.** Preserve the order of unrelated rules in the file.
+7. **Report.** Report the path, what changed in one to three sentences, and any open item the rule carries. Never paste the rule.
 
 ## When the rule does not exist
 

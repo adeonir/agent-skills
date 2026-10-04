@@ -29,3 +29,7 @@ Reading delivery state is a tracker query, not a stored report:
 - **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, plus `update_artifact` carrying the re-rendered `## Dependencies` section, under the same refetch guard as any other write (see the loaded reference's Dependencies).
 
 Each needs an adapter, so this ref is loaded for them even though no artifact is being drafted.
+
+## Report
+
+Report every status change, reparent, and dependency change as the loaded reference's Report states.

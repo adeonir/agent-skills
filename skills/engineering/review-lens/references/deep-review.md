@@ -57,7 +57,7 @@ Collect every finding from every agent and pass them to **one** Haiku judge in a
 3. Coverage: from `CHANGED_FILES`, list files that received zero findings; exclude `*.json`, `*.yaml`, `*.lock`, `*.d.ts`, and pure type-declaration files.
 4. If an agent errored, continue with the rest and note `Partial review (<N> of <M> agents)` in the totals line.
 
-### Step 6: Output
+### Step 6: Report
 
 Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
 

@@ -58,6 +58,10 @@ python3 <this-skill>/scripts/validate_copy.py docs/product/copy.yaml
 
 Resolve any structure or design-leakage flags before done (advisory: judge false positives like a product named "Grid").
 
+### Step 7: Report
+
+Report the path, what `copy.yaml` holds in one to three sentences, and any open item it carries. Never paste the file.
+
 ## Guidelines
 
 **DO:**

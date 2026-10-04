@@ -59,6 +59,8 @@ bun run <this-skill>/scripts/render-server.ts --session .artifacts/design/wirefr
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from.
 
+On each serve, report the served URL and the file paths, what the arrangements hold in one to three sentences — the surfaces and what each arrangement leads with; what changed, on a re-serve — and any open item they carry. Never paste the HTML.
+
 A comment on a served page names something to change in the rendered page, not in an artifact this phase does not own. Re-render with the change applied: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here.
 
 The user comments on the served arrangements and sends the round in one dispatch. Read the round from `.artifacts/design/wireframes/.events`, resolve each comment's element to the block it sits in, apply the adjustments, and re-serve. The dispatch marks the end of a round; a round with no comments means the arrangements stand as rendered.
@@ -78,6 +80,10 @@ The two gates split the work: the self-check reads what only a reading settles �
 Once the file exists, it is the arrangement handoff for the mockup phase. It is an intermediate artifact, not a permanent source for later design work.
 
 When the request is only for the plan — "map the screen flow", "arrange the screens" — render the mermaid screen-flow from the chosen arrangement's `flow:` and stop without creating `structure.yaml`.
+
+## Report
+
+Once the lint passes, report the path, what `structure.yaml` holds in one to three sentences — the surfaces and the chosen arrangement for each — and any open item it carries, such as a warning the file keeps. Never paste the file.
 
 ## Error Handling
 

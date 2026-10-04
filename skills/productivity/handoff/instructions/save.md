@@ -46,7 +46,7 @@ The handoff MUST NOT contain:
 4. For code work, capture the relevant branch, commit, changed paths, and checks with their results. Omit workspace details that do not affect resumption.
 5. Mark each load-bearing claim `verified` with its evidence or `unverified` with its source. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions.
 6. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
-7. Report `Focus` and `Current state`.
+7. **Report.** Report the path, what the handoff holds — its focus and current state — in one to three sentences, and the open threads and blockers it carries. Never paste the handoff.
 
 ## Guidelines
 

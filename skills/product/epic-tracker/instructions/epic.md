@@ -74,6 +74,10 @@ Load [tracker.md](../references/tracker.md) and dispatch the draft. The tracker 
 
 An explicit destination in the user's request ("create the issue on GitHub") overrides the configured tracker for this artifact only; it never rewrites the config. See [tracker.md](../references/tracker.md) "Explicit Override".
 
+### 4. Report
+
+Report as [tracker.md](../references/tracker.md) "Report" states.
+
 ## Editing an Existing Epic
 
 Creating an epic runs the flow above; editing one runs this branch. It changes the body — title, summary, scope, success criteria, requirements, references — and may change `blocked_by` or `priority`. A `blocked_by` change re-renders `## Dependencies` in the same write. A status change runs the Status change flow in [tracker.md](../references/tracker.md). Create and edit hold the epic to the same canonical contract: the template structure and its MUST-NOT boundaries. An edit conforms the result, never a free-form rewrite.
@@ -82,6 +86,7 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 2. Apply the edit as standing fact, not its history — the same **declare, don't narrate** discipline as create.
 3. When `## Requirements` changes, the children's `Satisfies` links may dangle. Via [tracker.md](../references/tracker.md), run `list_artifacts` filtered to this epic's stories and tasks, then `fetch_artifact` on each to read its `Satisfies` lines — the listing carries no body. Surface which children reference a removed ID and settle them before writing; a requirement is not silently dropped from under its children.
 4. Dispatch the update through [tracker.md](../references/tracker.md), which refetches immediately before writing. When someone wrote in between, it re-applies this edit onto their body rather than over it, and reports what merged.
+5. **Report.** Report as [tracker.md](../references/tracker.md) "Report" states.
 
 ## Guidelines
 

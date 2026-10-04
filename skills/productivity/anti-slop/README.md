@@ -19,7 +19,7 @@ flowchart TD
 
 | Mode | Output |
 |------|--------|
-| edit | The full edited pasted draft plus What changed; file mode writes the file and reports the changes |
+| edit | The full edited pasted draft plus What changed; file mode writes the file and reports its path, a summary of the edit, open items, and What changed |
 | detect | One line per pattern found: name, quoted line, fix — nothing rewritten |
 | embedded | Final edited text only, ready for another workflow |
 
@@ -35,7 +35,7 @@ Scan this for AI tells, do not rewrite it
 
 ## Output
 
-Pasted text comes back in the reply. A file path is edited in place, with What changed reported in the reply. Embedded text comes back without a preamble or change log.
+Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log.
 
 Write in the draft's language. The word lists are English, but the skill matches the same patterns in other languages. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
 

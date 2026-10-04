@@ -68,19 +68,13 @@ Based on investigation findings, determine:
 
 Insert each log in the project's language using the standard format, at the locations the Placement Guide names.
 
-### Step 3: Report What Was Added
-
-```markdown
-## Debug Logs Added ({count})
-
-| Location | Purpose |
-|----------|---------|
-| {file}:{line} | {what it captures} |
-```
-
-### Step 4: Collect the Output
+### Step 3: Collect the Output
 
 Run the reproduction and read the output. Ask the user for it only when the repro is out of reach from here — it needs their credentials, their device, a manual interaction, or an environment this session cannot enter. Then name the steps to run and ask for the output plus what they observed.
+
+### Step 4: Report
+
+Report the files touched, how many logs were added and what they trace in one to three sentences, and the reproduction that collects their output. Never paste the log statements.
 
 ## What to Capture
 

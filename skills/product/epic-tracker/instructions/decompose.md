@@ -66,7 +66,7 @@ Dispatch the settled set as structured entries to [roadmap.md](../references/roa
 
 ### 7. Checkpoint before materializing
 
-Present the written plan and **confirm before creating anything in the tracker**. When the user declines, stop here: the roadmap is written, nothing is materialized. Planning without materializing is declining at this gate, not a separate mode.
+Present the written plan and **confirm before creating anything in the tracker**. When the user declines, stop here and report (see Report): the roadmap is written, nothing is materialized. Planning without materializing is declining at this gate, not a separate mode.
 
 ### 8. Materialize
 
@@ -77,6 +77,10 @@ Idempotent: load [tracker.md](../references/tracker.md), run `list_artifacts` fi
 The partition is not re-validated here. Step 3 settled it with the PRD in hand, which is the only place orphans are visible at all — the roadmap holds the IDs that landed, never the ones that did not. A roadmap read back from a previous run carries a partition already settled and confirmed at its checkpoint, and `epic.md` reads each entry as a claim, so an ID that contradicts an epic's scope surfaces there, per epic.
 
 On a re-run, `list_artifacts` also surfaces epics that no longer fit the current plan — offer to cancel (`update_status` `cancelled`), reparent (`set_parent`), or keep them; never auto-delete.
+
+### 9. Report
+
+Report as the Report section states.
 
 ## Level 2 — epic → stories/tasks
 
@@ -105,6 +109,14 @@ Order the children so foundational outcomes precede dependent ones; set `blocked
 ### 6. Settle and materialize
 
 Settle the set and each child's boundary with the user, then dispatch **structured decisions in-memory** to [story.md](story.md) / [task.md](task.md) — there is no roadmap at this level, so the tracker (the epic plus its sub-issues) is the memory. Each create ref writes the body prose, validates (a story's AC through [../references/ac-validation.md](../references/ac-validation.md)), and dispatches through [tracker.md](../references/tracker.md). Idempotent via `list_artifacts`; surface orphans on re-run (cancel / reparent / keep), never auto-delete. The settled boundary travels into each child, stated in the child's own terms and never naming the sibling that owns the excluded work: a story records it in `## Out of Scope`, and a task in the `## Acceptance Criteria` that bound it — a task has no Out of Scope section, because what it is done having built is what it does not build beyond. Each child also carries the requirement IDs Step 3 assigned it, as a dispatch input: that subset is the menu its acceptance criteria operationalize, and the create ref validates that every assigned ID reaches a `Satisfies` line.
+
+### 7. Report
+
+Report as the Report section states.
+
+## Report
+
+End the run with one report for the whole set, never one per artifact: `docs/product/ROADMAP.md` at Level 1 or the parent epic's URL at Level 2, the set written in one to three sentences — what changed, on a re-run — and any open item the run leaves. Never paste the roadmap or an issue body.
 
 ## Milestone
 

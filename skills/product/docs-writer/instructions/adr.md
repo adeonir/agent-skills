@@ -20,7 +20,7 @@ When this record captures a Design Doc Alternatives row, set that row's `Record`
 ## Workflow
 
 ```text
-context → validation → drafting
+context → validation → drafting → report
 ```
 
 ### Phase 1: Context
@@ -73,11 +73,15 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, reread it per [quality.md](../references/quality.md) `## Reread`, and report a brief prose summary in chat (up to 2-3 paragraphs) — the ADR ID and the decision recorded. Do not paste the full document.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
 
 For a new ADR, set `status` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 
 **Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename and frontmatter `name` use bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
+
+### Phase 4: Report
+
+Report the path, what the ADR holds in one to three sentences — its ID and the decision recorded, or what changed on an update — and any TBD it carries. Never paste the ADR.
 
 ## ADR Template
 

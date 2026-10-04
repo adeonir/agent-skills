@@ -17,7 +17,7 @@ check feature artifact
 5. Run the checks in [quality.md](../references/quality.md) before writing. Read `<this-skill>/assets/feature-rfc.template.md`, use its exact structure, remove every optional section that has no content, delete comments, and replace every remaining square-bracket slot.
 6. Populate `sources` from supplied files or URLs, or leave it `[]` when none were supplied. Write `.artifacts/features/<feature-slug>/RFC.md` with the lifecycle status set by [feature-document.md](../references/feature-document.md), then reread it per [quality.md](../references/quality.md) `## Reread`.
 7. Identify content that should become durable project knowledge. Recommend promoting stable product context to the project PRD or Design Doc, general codebase knowledge to `PROJECT.md`, and permanent architectural decisions to an ADR. Do not update those documents automatically.
-8. Report the path and approval status. The paired-document order is controlled by the entrypoint.
+8. **Report.** Report the path, what the document holds in one to three sentences with its approval status — what changed, on an update — and any open question it carries. Never paste the document. The paired-document order is controlled by the entrypoint.
 
 ## Boundaries
 

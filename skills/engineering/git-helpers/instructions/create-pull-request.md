@@ -10,7 +10,7 @@ Use the available qualified GitHub MCP tool for GitHub operations. If it is unav
 
 ## Base branch
 
-Use the base the user named. Otherwise the repo default (fall back to `main`). Name the base in the report so a wrong base is visible right away.
+Use the base the user named. Otherwise the repo default (fall back to `main`).
 
 ## Push
 
@@ -70,4 +70,8 @@ Leave these out of the body — a reviewer reads it to understand the diff, so a
 - Implementation internals in the outcome — symbol names or which path ran; state only what the reviewer observes
 - Attribution lines
 
-Open the PR with the base, title, and body above; omit any null section (`## Changes`, `## Test Plan`, `Closes #N`). If the branch already has an open PR, do not open a second one — surface it and ask whether to update it. Report the PR title and URL in chat — not the full body.
+Open the PR with the base, title, and body above; omit any null section (`## Changes`, `## Test Plan`, `Closes #N`). If the branch already has an open PR, do not open a second one — surface it and ask whether to update it.
+
+## Report
+
+Report the PR title and URL in chat — not the full body. Name the base in the report so a wrong base is visible right away.

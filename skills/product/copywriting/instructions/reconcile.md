@@ -41,7 +41,7 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 
 ### Step 5: Report
 
-Present the diff inline as one structured report: the patched rows, then the additions in their own section.
+Report the path, what changed in one to three sentences, and any open item `copy.yaml` carries. Never paste the file. Then present the diff inline: the patched rows, then the additions in their own section.
 
 ## Guidelines
 

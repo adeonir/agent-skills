@@ -22,5 +22,6 @@ mapping → handoff:Load → notes (compose) → handoff:Cleanup → archive off
 3. **Load [notes.md](references/notes.md)** and write the Obsidian session note and the daily note.
 4. **Run the Cleanup phase** of the reference loaded in step 2 — clear the handoff once every configured note write succeeded.
 5. **Offer to archive past months** as the reference loaded in step 3 sets out — daily notes from earlier months still at the root of `Daily/` are listed in the report, and moved into their monthly folder only on the user's yes.
+6. **Report.** End with one report: the session note path when one was written and the daily note path, what the notes record in one to three sentences — what changed, on an update — and the open items: a stale handoff claim, a failed write, and the past-month daily notes awaiting the archive answer, grouped by target folder. Never paste either note.
 
-Run the five steps in one pass. The initial invocation authorizes the first four: never pause for confirmation between them, never preview the note content in chat, and report only at the end. The archive question in step 5 is the one exception, asked once alongside the report.
+Run the six steps in one pass. The initial invocation authorizes the first four: never pause for confirmation between them, never preview the note content in chat, and report only at the end. The archive question in step 5 is the one exception, asked once alongside the report.

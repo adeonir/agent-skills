@@ -173,7 +173,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
 3. Run [quality.md](../references/quality.md).
 4. Write each document to its path, then reread each per [quality.md](../references/quality.md) `## Reread`.
-5. Report the paths, must/should/could scope, and primary metric in up to three short paragraphs. Do not paste the full documents.
+5. **Report.** Report each path, what each document holds in one to three sentences — the must/should/could scope and the primary metric for the PRD — and any open question or TBD each carries. Never paste the documents.
 
 **Drafting notes:**
 
@@ -219,7 +219,7 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
 - Complete discovery before writing a new PRD. For an existing PRD, update only the requested parts.
 - Challenge weak claims during discovery, validation, and updates.
-- Write the PRD to its path directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report a brief prose summary in chat (path, scope, primary metric)
+- Write the PRD to its path directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report as Phase 3 step 5 states
 - Mark unknowns as TBD rather than inventing constraints
 - Use concrete, measurable requirements
 - Discover PRODUCT if absent. Update only the requested parts if present.

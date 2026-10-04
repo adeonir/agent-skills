@@ -56,8 +56,9 @@ The server stays local to `127.0.0.1` and serves only files inside the session d
 4. Send records one `feedback` event with all queued comments and adjustments. It does not write `DESIGN.md`.
 5. Read the batch and map each item to a frontmatter group or prose section. A composed instruction may combine aspects named in several comments; reconcile it into one coherent identity instead of pasting incompatible systems together.
 6. Write a delta the user stated directly; present a delta the agent proposed and write it only after the user accepts it. A comment or adjustment that names the change is a delta the user stated.
-7. Patch frontmatter first and then only affected prose. Write the new values as the standing identity, never the old value, the change, or the comment that asked for it; report old and new values in chat.
+7. Patch frontmatter first and then only affected prose. Write the new values as the standing identity, never the old value, the change, or the comment that asked for it.
 8. Regenerate both transient views, run component contrast, then run full validation. Errors block completion; warnings remain visible.
+9. **Report.** Report the path, what changed in one to three sentences, naming each old and new value, and the open items `DESIGN.md` carries: the validation state and every remaining warning. Never paste the file.
 
 Conversational tweaks follow the same flow from step 5. No interaction in the served views writes the identity.
 
@@ -69,6 +70,8 @@ Do not create persistent HTML during normal preview. When the user explicitly re
 - `docs/design/styleguide.html`
 
 Use a user-supplied destination when provided. Exported files contain no feedback chrome, event client, or server dependency.
+
+**Report.** Report the paths, what the exported views hold in one to three sentences, and any open item they carry. Never paste the HTML.
 
 ## Rendered Review
 

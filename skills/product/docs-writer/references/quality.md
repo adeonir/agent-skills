@@ -41,7 +41,7 @@ Mark an unknown as TBD rather than inventing a constraint to fill the slot.
 
 ## Writing and Reporting
 
-Write the document to its path directly, and reread it per `## Reread`. Then report a brief prose summary in chat — up to 2-3 paragraphs naming the path, the type, and what it contains. Never paste the full document into the reply.
+Write the document to its path directly, and reread it per `## Reread`. Then report the path, what the document holds in one to three sentences — what changed, on an update — and any open question or TBD it carries. Never paste the document.
 
 ## Reread
 

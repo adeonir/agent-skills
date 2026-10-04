@@ -49,7 +49,7 @@ Score each one 0-100 and carry the number into the report. The score says how fa
 
 If only one hypothesis is plausible, that is fine -- do not invent weak alternatives to fill the slate. The goal is honest enumeration, not three items.
 
-### Step 4: Report Findings
+### Step 4: Rank Hypotheses
 
 Rank hypotheses by score, highest first — that is reading order. Which one to pursue is the one closest to a mechanism you can show, and the rest stay as fallbacks if the leading theory is disproven.
 
@@ -111,6 +111,10 @@ Once the fix is applied, run the reproduction and read the result. Hand it to th
 2. For race conditions or intermittent bugs, repeat it 3-5 times -- a single pass can hide timing-dependent failures
 3. If not fixed, return to Step 1 with what the run showed
 4. If fixed, clean up debug logs (load [log-cleanup.md](log-cleanup.md))
+
+### Step 7: Report
+
+Report the files changed, what the fix changes and the verification result in one to three sentences, and any open item the run leaves. Never paste the diff.
 
 ## Fix Attempt Tracking
 

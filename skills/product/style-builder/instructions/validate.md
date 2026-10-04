@@ -47,7 +47,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
    - Colors remain flat CSS strings.
    - Every frontmatter key is one the artifact contract allows.
    - All present sections follow the canonical order in [design.md](design.md), reading an official alias as its canonical section.
-10. Report initial and final CLI counts, supplemental findings, and the exact final state.
+10. **Report.** Report the path, the result in one to three sentences — the initial and final CLI counts, the exact final state, and what the gate patched, if anything — and every remaining CLI and supplemental finding as an open item. Never paste the file.
 
 Here is a sensible default format, but use your best judgment:
 

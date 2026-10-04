@@ -145,4 +145,8 @@ still paid for the full test and build run.
 
 ## Committing
 
-Commit runs the project's hooks (lint, tests, secret scans) — never `--no-verify`, `--no-gpg-sign`, or any bypass flag; never `--amend`. If a hook fails, fix the cause and make a new commit — the failed commit did not land, so a new commit is the only forward path. Confirm the commit landed — if the files still show as pending, stop and tell the user. Report the subject and body in chat, not the diff.
+Commit runs the project's hooks (lint, tests, secret scans) — never `--no-verify`, `--no-gpg-sign`, or any bypass flag; never `--amend`. If a hook fails, fix the cause and make a new commit — the failed commit did not land, so a new commit is the only forward path. Confirm the commit landed — if the files still show as pending, stop and tell the user.
+
+## Report
+
+Report the subject and body in chat, not the diff.

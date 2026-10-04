@@ -130,8 +130,6 @@ gh pr view {pr-number} --json state -q .state
 
 If state is not `MERGED`, wait a moment and retry once. If still not `MERGED`, surface and stop.
 
-Confirm what ran: "PR #{pr-number} merged into `{base}`".
-
 ### Step 6: Cleanup
 
 ```bash
@@ -140,7 +138,7 @@ git fetch origin {base}
 git merge --ff-only origin/{base}
 ```
 
-If the merge fails as non-fast-forward, the merge has not propagated; surface and stop.
+If the merge fails as non-fast-forward, the merge has not propagated; surface it and go to Step 7: Report.
 
 Name the branch and ask for explicit confirmation every time before deleting it.
 
@@ -153,4 +151,6 @@ Use `-d` for the local delete so Git refuses the deletion when the local branch 
 
 If the repo has `deleteBranchOnMerge` enabled, the remote `--delete` can report that the branch is already gone; treat that result as expected.
 
-Confirm what ran: "PR #{pr-number} merged into `{base}` and branch deleted", or "PR #{pr-number} merged into `{base}`; branch `{branch}` kept" when the user declines deletion.
+### Step 7: Report
+
+Confirm what ran: "PR #{pr-number} merged into `{base}` and branch deleted", or "PR #{pr-number} merged into `{base}`; branch `{branch}` kept" when the user declines deletion. When Step 6 stops before the branch question, confirm "PR #{pr-number} merged into `{base}`".

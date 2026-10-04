@@ -9,13 +9,14 @@ When `docs/product/PRD.md`, `PRODUCT.md`, or `docs/tech/design-doc.md` already e
 ## Procedure
 
 ```text
-read → scope → validate changes → write
+read → scope → validate changes → write → report
 ```
 
 1. **Read.** Apply [discovery.md](discovery.md) `## Reading Project Files`, then read the existing documents. Identify the supported content already present. Do not ask for this information again.
 2. **Set the scope.** Identify what the user wants to change and what the change directly affects. If the request is unclear, ask for the missing detail.
 3. **Validate the changes.** Apply [discovery.md](discovery.md) `## Critical Review` only to the planned changes. Ask what evidence supports the change. Report conflicts with unchanged sections, such as a metric that conflicts with a persona or a rule that breaks a journey.
-4. **Write.** Preserve every section outside the scope. Use the matching template only to check the existing structure; never copy a template over unchanged content. Write the document to its path, then briefly state what changed and where. Do not paste the full document.
+4. **Write.** Preserve every section outside the scope. Use the matching template only to check the existing structure; never copy a template over unchanged content. Write the document to its path.
+5. **Report.** Report the path, what changed in one to three sentences, and any open question or TBD it carries. Never paste the document.
 
 ## Reading the Sibling Artifact
 

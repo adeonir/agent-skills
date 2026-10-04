@@ -24,13 +24,6 @@ Remove each debug log statement. Only lines carrying the `[DEBUG]` prefix are in
 
 Re-run the grep command from Step 1. Expected output: no matches.
 
-### Step 4: Report to User
+### Step 4: Report
 
-```markdown
-## Cleanup Complete
-
-Removed {count} debug logs from:
-
-- {file}: {count} logs
-- {file}: {count} logs
-```
+Report the files cleaned, how many logs were removed in one to three sentences, and any near-miss prefix left for the user to confirm. Never paste the removed lines.

@@ -25,9 +25,13 @@ Dispatch both in a single turn (two Task calls). Each receives `ANNOTATED_DIFF`,
 - **Walkthrough (Haiku):** produce the `## Summary` block — a plain-language description of what the change does, grouped by area or file — plus the `## Highlights` (at least one positive observation). No findings, just orientation.
 - **Findings (Sonnet):** a single generalist pass over `ANNOTATED_DIFF` covering every scope. Code issues (security, bugs, data-loss, performance) are returned in the Finding Format ([common.md](common.md)); guideline violations use the violation shape and discovery in [guidelines-audit.md](guidelines-audit.md) (includes `.claude/rules/*.md`). Cite only `[L<n>]` lines, apply the confidence rubric (report `>= 80`), and attach a suggested fix where non-obvious. After listing findings, re-read the diff once and name every file left uncommented, stating why it is clean (second-pass coverage).
 
-### Step 3: Assemble and Output
+### Step 3: Assemble
 
-The main agent merges the walkthrough and the findings into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report. Then it follows the output-channel and fix-suggestion rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
+The main agent merges the walkthrough and the findings into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report.
+
+### Step 4: Report
+
+Follow the output-channel and fix-suggestion rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
 
 ## Re-Review
 

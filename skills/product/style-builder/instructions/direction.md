@@ -26,6 +26,7 @@ Load [aesthetics.md](../references/aesthetics.md), the matching register file, [
 7. Mark every brand constraint the user did not state as an assumption. Assumptions land in `## Constraints` of the moodboard, labeled as such.
 8. Continue until the user locks the direction.
 9. Write `docs/design/moodboard.md`. This record is additional context for design, not an intermediary gate. Direction ends without authoring tokens.
+10. **Report.** Report the path, what the moodboard holds in one to three sentences, and any open item it carries, such as an assumed constraint. Never paste the file.
 
 ALWAYS use this exact template structure:
 

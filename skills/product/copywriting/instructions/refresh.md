@@ -34,7 +34,7 @@ Resolve any real flag. Judge false positives, such as a product named "Grid".
 
 ### Step 5: Report
 
-Per part, quote the original line and the tightened line with a one-line reason. Group by `copy.yaml` content path.
+Report the path, what changed in one to three sentences, and any open item `copy.yaml` carries. Never paste the file. Then, per part, quote the original line and the tightened line with a one-line reason. Group by `copy.yaml` content path.
 
 ## Guidelines
 

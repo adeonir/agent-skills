@@ -24,7 +24,7 @@ Edit like a sharp human editor. Keep the writer's point, facts, and voice. Remov
 
 The input form controls the output:
 
-- **File path** — read the file, apply the edit in place, and report What changed in the reply.
+- **File path** — read the file, apply the edit in place, and reply with the path, a summary of the edit, any open item, and What changed.
 - **Pasted text** — return the full edited draft in the reply; disk is never touched.
 - **Embedded text** — return only the final text when another workflow supplies the draft and needs a drop-in result.
 
