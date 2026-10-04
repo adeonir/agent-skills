@@ -4,7 +4,7 @@ Read every rule file under both levels and report them as a table.
 
 ## Workflow
 
-1. **Walk `~/.claude/rules/` and `.claude/rules/` recursively** — discovery includes subdirectories, so a rule at `frontend/testing.md` counts. If neither directory holds a `.md` file, output "No rules defined." and exit.
+1. **Walk `~/.claude/rules/` and `.claude/rules/` recursively.** Discovery includes subdirectories, so a rule at `frontend/testing.md` counts. If neither directory holds a `.md` file, output "No rules defined." and exit.
 2. **For each file, read the frontmatter and the H2 headings.**
 3. **Render the table**, keyed by the path relative to its rules directory:
 
@@ -26,5 +26,5 @@ Read every rule file under both levels and report them as a table.
    ```
 
 5. **Mark a topic path present at both levels** and state that the project rule prevails.
-6. **Report a file that does not follow the template as it is** — a missing title, Impact line, or Incorrect/Correct pair is noted, never rewritten. Rewriting is the edit job, on request.
+6. **Report a file that does not follow the template as it is.** A missing title, Impact line, or Incorrect/Correct pair is noted, never rewritten. Rewriting is the edit job, on request.
 7. **Modify no file.**

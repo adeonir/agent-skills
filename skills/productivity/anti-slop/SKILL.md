@@ -45,7 +45,7 @@ Write in the draft's language. The word lists are English. For another language,
 
 1. **Read the full draft** before changing a sentence.
 2. **Classify the register and the input form** from the sections above. In file mode, mark code, data, frontmatter, links, identifiers, and structural elements as protected.
-3. **Load [slop-catalog.md](references/slop-catalog.md)** — the word, phrase, and pattern cues both modes scan for.
+3. **Load [slop-catalog.md](references/slop-catalog.md).** The word, phrase, and pattern cues both modes scan for.
 4. **Load the mode's contract**: [edit.md](references/edit.md) for a rewrite, [detect.md](references/detect.md) for a report. Each carries its own steps, output template, and MUST-NOT list.
 5. **Load [editing-principles.md](references/editing-principles.md)** when editing — the rules for preserving voice and making the smallest useful change.
 6. **Load [self-check.md](references/self-check.md)** before returning an edit, run the checks directly, fix each failure, and run them again.

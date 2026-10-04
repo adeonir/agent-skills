@@ -8,9 +8,9 @@ Only when the user explicitly asks to archive a feature. Optional and manual —
 
 ## Workflow
 
-1. **Resolve feature** — the `.artifacts/specs/<slug>/` to archive. Read `created:` from `spec.md` frontmatter; that date prefixes the archive name.
-2. **Move** `.artifacts/specs/<slug>/` to `.artifacts/archive/specs/<created>-<slug>/`.
-3. **Keep** every artifact, including `STATE.md`, unchanged.
-4. **Report** only the archive paths the move created. Make no claim about the artifacts or `STATE.md`; the move does not check them.
+1. **Resolve feature.** The `.artifacts/specs/<slug>/` to archive. Read `created:` from `spec.md` frontmatter; that date prefixes the archive name.
+2. **Move.** Move `.artifacts/specs/<slug>/` to `.artifacts/archive/specs/<created>-<slug>/`.
+3. **Keep.** Keep every artifact, including `STATE.md`, unchanged.
+4. **Report.** Report only the archive paths the move created. Make no claim about the artifacts or `STATE.md`; the move does not check them.
 
 The agent never reads `.artifacts/archive/specs/` when creating a new spec — archived features are cold storage, not discovery input.

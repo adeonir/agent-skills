@@ -5,7 +5,7 @@ Remove a rule file.
 ## Workflow
 
 1. **Resolve the target** the same way [edit.md](edit.md) does: by filename, topic, or rule title, asking when ambiguous.
-2. **Read the file and show the user what is about to be deleted** — the full content, not just the filename.
+2. **Read the file and show the user what is about to be deleted.** The full content, not just the filename.
 3. **Ask for explicit confirmation, naming the level:** "Delete this rule?". At user level, state that it stops applying to every project on the machine. Default no.
 4. **On confirmation, `rm` the file.**
 5. **Output a summary:** filename deleted, level, scope, rule titles removed.

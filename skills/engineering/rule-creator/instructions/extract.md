@@ -15,7 +15,7 @@ One run has one source, so one destination level. Never move a section across le
 
 ## Workflow
 
-1. **Load [classify-and-context.md](../references/classify-and-context.md)** — the classifier, the context check, and the destination decision this instruction runs per approved section.
+1. **Load [classify-and-context.md](../references/classify-and-context.md).** The classifier, the context check, and the destination decision this instruction runs per approved section.
 2. **Resolve the source.** A `CLAUDE.md` may be a pointer rather than the content — a one-line `@AGENTS.md` import carries the whole imported file. Follow imports as the loaded reference describes, then target the file that actually holds the content. Confirm with the user when several independent sources exist.
 3. **Measure the resolved content**, not the file on disk. The docs put the target at under 200 lines per memory file, past which context cost rises and adherence drops; a one-line `CLAUDE.md` importing four hundred lines is over it. Use the number to suggest extract, never as a hard gate.
 4. **Walk the headings.** For each H2/H3 section, decide a verdict:
