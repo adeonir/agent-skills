@@ -44,6 +44,7 @@ create the feature PRD and RFC for team invitations
 create design doc for my project
 create ADR for switching from REST to gRPC
 write requirements for the new feature
+upload the feature PRD to the Linear issue
 update design doc with new component
 ```
 
@@ -68,6 +69,12 @@ Feature documents are temporary artifacts:
 ```
 
 Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRD and RFC artifacts are temporary and live under `.artifacts/features/`; archive them manually when no longer active.
+
+When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tracker` section and the conversation carries a Linear issue, a feature PRD or RFC can live as a document on that issue, titled `PRD: <Feature Name>` or `RFC: <Feature Name>`, with no frontmatter. An upload request moves the local file to the issue and deletes it after the document reads back intact. Later edits go to the document on the issue.
+
+## Requirements
+
+The Linear MCP server is optional. Without it, feature documents stay under `.artifacts/features/`.
 
 ## Document Boundaries
 

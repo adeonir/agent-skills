@@ -23,7 +23,7 @@ For a feature request that asks for both documents, load `feature-prd.md` first 
 ## Workflow
 
 ```text
-trigger → detect type → load instruction → check disk → drafting
+trigger → detect type → load instruction → locate document → drafting
   document exists → update the requested parts
   document absent → full discovery
   ADR → create a numbered record or update the requested record
