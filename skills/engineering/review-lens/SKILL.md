@@ -18,8 +18,8 @@ Code review with anti-hallucination diff annotation and confidence-scored findin
 
 Start immediately when triggered. No confirmation needed to begin.
 
-1. **Load [common.md](references/common.md).** The diff annotation algorithm, the size gate, the confidence rubric, what not to report, the output template, the fix-suggestion rules, and the data trust boundary. Both modes apply it in full.
-2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker, and apply the size gate before going further.
+1. **Load [common.md](references/common.md).** The diff annotation algorithm, the confidence rubric, what not to report, the output template, the fix-suggestion rules, and the data trust boundary. Both modes apply it in full.
+2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker.
 3. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
 4. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
 5. **Assemble.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first.

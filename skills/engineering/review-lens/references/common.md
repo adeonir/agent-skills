@@ -29,10 +29,6 @@ Algorithm:
 
 Capture as `ANNOTATED_DIFF`. This is what reviewing agents receive — never the raw diff.
 
-## Size Gate
-
-Compute `DIFF_LINES` (total lines in `ANNOTATED_DIFF`) and `DIFF_FILES` (count in `CHANGED_FILES`). If `DIFF_LINES > 3000` OR `DIFF_FILES > 40`, stop and tell the user the diff is too large for a reliable review (cite the limits, suggest splitting the branch). Do not proceed.
-
 ## Confidence Scoring
 
 Rate each finding 0-100 using the scale below; only findings scoring `>= 80` reach the report. **Where** the gate is applied depends on the mode — quick applies it at the findings agent (it has no separate judge); deep lets the finders surface candidates and applies the `>= 80` cut once, at the judge (a deep finder reports, it does not score).

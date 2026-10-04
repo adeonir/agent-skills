@@ -18,7 +18,7 @@ flowchart TD
     G -->|deep| D4[Haiku: prior-PRs]
     Q1 --> R[Report: summary + findings + fixes]
     Q2 --> R
-    D1 --> J[Haiku judge]
+    D1 --> J[Opus judge]
     D2 --> J
     D3 --> J
     D4 --> J
@@ -56,12 +56,10 @@ The report prints to the chat by default. On request it can be saved to `CODE_RE
 
 **Q: Quick vs deep — when do I use which?** A: Quick is the default: two cheap agents (a walkthrough and a generalist findings pass) over the diff — fast, good for everyday changes. Deep fans out across different materials — the diff, your guideline files, git history, and prior PRs — with a separate judge, and costs more. Use it on risky or wide-reaching changes, or say "deep review".
 
-**Q: How does it keep cost down?** A: Model tiering. Quick runs a Haiku walkthrough and a Sonnet findings pass. Deep uses the stronger model only for the two reasoning passes (bug-scan and git-history); compliance, prior-PRs, and the batched judge run on Haiku, and the history/PR passes are skipped when there is nothing to read.
+**Q: How does it keep cost down?** A: Model tiering. Quick runs a Haiku walkthrough and a Sonnet findings pass. Deep runs Sonnet for the two reasoning passes (bug-scan and git-history) and Haiku for compliance and prior-PRs; the single batched judge runs on Opus, since it is the only gate to the report. The history and PR passes are skipped when there is nothing to read.
 
 **Q: Will it change my code?** A: It suggests fixes as code blocks in the report. It only edits the working tree if you explicitly confirm.
 
 **Q: What guideline files does it read?** A: `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `.editorconfig`, and `.claude/rules/*.md` inside the repository root. Personal global settings (e.g. `~/.claude/`) are excluded.
 
 **Q: Why are some issues not reported?** A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Style preferences, hypotheticals, and "could be simplified" suggestions are intentionally skipped.
-
-**Q: What's the size limit?** A: 3000 lines or 40 files. Above that, the review stops and suggests splitting the branch.

@@ -6,7 +6,7 @@ The thorough review. Several agents run in parallel, each reading a **different 
 
 Loaded to run the review in deep mode: a fan-out by material with an independent confidence judge, at higher cost than [quick-review.md](quick-review.md).
 
-Shared rules — annotation, size gate, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply throughout.
+Shared rules — annotation, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply throughout.
 
 ## Why fan out by material, not by concern
 
@@ -16,7 +16,7 @@ A capable model already looks for security, bugs, data-loss, and performance in 
 
 ### Step 1: Setup (inline, main agent)
 
-- Determine target and base as in [quick-review.md](quick-review.md) Step 1; capture `DIFF` and `CHANGED_FILES`; produce `ANNOTATED_DIFF` (annotation algorithm in [common.md](common.md)); apply the size gate.
+- Determine target and base as in [quick-review.md](quick-review.md) Step 1; capture `DIFF` and `CHANGED_FILES`; produce `ANNOTATED_DIFF` (annotation algorithm in [common.md](common.md)).
 - Gather the project's guideline file paths once (per [guidelines-audit.md](guidelines-audit.md), including `.claude/rules/*.md`) and pass them to the compliance agent so it does not rediscover them.
 - Write the `## Summary` walkthrough — a plain-language description of the change, grouped by area — and the `## Highlights` (at least one positive observation drawn from the change).
 
@@ -46,9 +46,9 @@ The bug-scan concern checklist:
 - **data-loss** — destructive migrations, wrong update/delete predicates, missing transactions on multi-write paths, irreversible ops behind weak guards
 - **performance** — N+1 queries, unbounded `find()` without pagination, sequential `await` for independent operations
 
-### Step 4: Judge (batched, Haiku)
+### Step 4: Judge (batched, Opus)
 
-Collect every finding from every agent and pass them to **one** Haiku judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims. Drop everything below 80. The judge is independent of the finders — a finder never scores its own work.
+Collect every finding from every agent and pass them to **one** Opus judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims. Drop everything below 80. The judge is independent of the finders — a finder never scores its own work.
 
 ### Step 5: Consolidate
 
@@ -77,6 +77,5 @@ On "re-review" / "check fixes": reload prior findings, re-run the fan-out and ju
 - No changes to review: tell the user there is nothing to review.
 - No base branch found: ask which branch to compare against.
 - `gh` unavailable or no GitHub remote: skip prior-PRs, note it, continue.
-- Diff exceeds the size gate: stop, cite the limits, suggest splitting the branch.
 - An agent fails: continue with the rest, mark `Partial review` in the totals line.
 - Re-review requested with no prior findings: fall back to a standard deep review.

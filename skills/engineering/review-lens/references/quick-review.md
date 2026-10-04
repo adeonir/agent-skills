@@ -6,7 +6,7 @@ The fast, default review. Two cheap agents run in parallel by role — one write
 
 Loaded to run the review in the default mode: two cheap agents in parallel by role, no history or PR lookups.
 
-Shared rules — diff annotation, size gate, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply here in full.
+Shared rules — diff annotation, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply here in full.
 
 ## Workflow
 
@@ -16,7 +16,7 @@ Start immediately when triggered. No confirmation needed to begin.
 
 - **Target:** run `git status --porcelain`. If there are uncommitted changes, review the working directory; otherwise compare the current branch against the base.
 - **Base:** the branch the user names, else `main`.
-- Capture `DIFF` and `CHANGED_FILES`, then produce `ANNOTATED_DIFF` with the annotation algorithm in [common.md](common.md). Apply the size gate.
+- Capture `DIFF` and `CHANGED_FILES`, then produce `ANNOTATED_DIFF` with the annotation algorithm in [common.md](common.md).
 
 ### Step 2: Fan Out — Two Agents in Parallel by Role
 
@@ -49,5 +49,4 @@ On "re-review" / "check fixes": reload the prior findings (from `CODE_REVIEW.md`
 - No changes to review: tell the user there is nothing to review.
 - No base branch found: ask which branch to compare against.
 - Binary files in diff: skip and note them in the summary.
-- Diff exceeds the size gate: stop, cite the limits, suggest splitting the branch.
 - Re-review requested with no prior findings: fall back to a standard quick review.
