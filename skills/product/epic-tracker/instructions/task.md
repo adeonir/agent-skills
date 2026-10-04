@@ -64,7 +64,7 @@ Fill the template (below).
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [tracker.md](../references/tracker.md) "Dependencies".
 - **References**: the source this task came from — a PR, advisory, dashboard, runbook, or the feature PRD or RFC it was sized from — plus external docs and any `ADR-NNN` it depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
-**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a task, the tokens that survive translation are the source link and any `ADR-NNN`, and both travel in `## References`.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in [artifact-content.md](../references/artifact-content.md). For a task, the tokens that survive translation are the source link and any `ADR-NNN`, and both travel in `## References`.
 
 Apply this gate before proceeding:
 

@@ -53,7 +53,7 @@ Fill the template (below).
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [tracker.md](../references/tracker.md) "Dependencies".
 - **References**: durable pointers to what the tracker does not model — design doc, UI design, the feature PRD or RFC the story came from, and any `ADR-NNN` the story depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
-**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a story, the unresolved decision they exclude goes to `## Open Questions`, and the one token that survives translation is the requirement id on a `**Satisfies**` line.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in [artifact-content.md](../references/artifact-content.md). For a story, the unresolved decision they exclude goes to `## Open Questions`, and the one token that survives translation is the requirement id on a `**Satisfies**` line.
 
 Apply the resumption gate before proceeding:
 

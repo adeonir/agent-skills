@@ -52,7 +52,7 @@ Fill the template (below) with discovered context.
 
 The epic carries no child list. The tracker's native child panel (GitHub Sub-issues, Linear sub-issues) is the source of truth for hierarchy; stories and tasks are materialized via [decompose.md](decompose.md) or a direct create, and linked there.
 
-**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For an epic, the unresolved decision they exclude goes to `## Open Questions`.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in [artifact-content.md](../references/artifact-content.md). For an epic, the unresolved decision they exclude goes to `## Open Questions`.
 
 Apply the resumption gate before proceeding:
 

@@ -77,7 +77,7 @@ Fill the template (below).
 - **Regression**: when the defect first appeared and the last known good — only when it is a regression
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [tracker.md](../references/tracker.md) "Dependencies".
 
-**Declare, don't narrate. Translate, don't replicate.** Both are stated in the skill body under Input as Content. For a bug, the tokens that survive translation are the source links and identifiers, which travel in `## Signals` together with the verbatim evidence — a fact extracted from a paste enters as a standing statement, never as the report of it. An `ADR-NNN` belongs to the fix, not to the defect, and enters the bug nowhere.
+**Declare, don't narrate. Translate, don't replicate.** Both are stated in [artifact-content.md](../references/artifact-content.md). For a bug, the tokens that survive translation are the source links and identifiers, which travel in `## Signals` together with the verbatim evidence — a fact extracted from a paste enters as a standing statement, never as the report of it. An `ADR-NNN` belongs to the fix, not to the defect, and enters the bug nowhere.
 
 Apply the resumption gate before proceeding:
 
