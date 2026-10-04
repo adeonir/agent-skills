@@ -35,6 +35,7 @@ The handoff MUST NOT contain:
 
 - Content already carried by artifacts on disk, commits, pull requests, issues, or documentation. Reference that content by path or URL instead.
 - Claims from the prior handoff that conflict with current evidence.
+- Chat phrasing — "as discussed", "the user confirmed", "we agreed", "you chose". State a rationale, decision, or constraint as a fact about the work, keeping all of its content.
 - Secrets of any kind. Replace API keys, tokens, passwords, personally identifiable information, and credentials embedded in URLs with `{redacted}`.
 
 ## Workflow

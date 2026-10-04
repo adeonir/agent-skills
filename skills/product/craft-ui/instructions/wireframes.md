@@ -46,7 +46,7 @@ Lo-fi is the point — the arrangement is judged without a look to judge it by:
 
 - One HTML file per arrangement, with a single inline `<style>` block. No CDN, no build step, no icon set, no web font, no palette.
 - Boxes and labels. Color and type carry two jobs only: marking what is actionable, and marking what carries the value on the surface.
-- Label each block with a structural name (`hero`, `pricing`, `primary-action`) rather than final wording.
+- Label each block with a structural name (`hero`, `pricing`, `primary-action`) rather than final wording. A page carries no note of the request, the round, or what changed.
 - Size each box to the volume it will carry, so a region that holds forty rows does not read like one that holds three.
 
 Write each file to `.artifacts/design/wireframes/<surface>-<slug>.html`.

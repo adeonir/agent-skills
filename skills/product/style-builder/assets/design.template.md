@@ -137,4 +137,4 @@ components:
 
 [Short downstream guidance that refers to tokens and component roles. Use placeholders such as [Headline], [Body], [CTA Label], and [Nav Label].]
 
-MUST NOT contain: product copy, product-domain token keys, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, UI-library names, structured skin groups, or frontmatter keys outside the official schema.
+MUST NOT contain: product copy, product-domain token keys, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, UI-library names, structured skin groups, frontmatter keys outside the official schema, conversation narrative ("as discussed", "the user confirmed", "we agreed"), or the history of a value.

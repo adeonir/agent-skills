@@ -42,4 +42,4 @@ sources: []
 
 - [Typed reference and link, including the feature PRD when one exists.]
 
-MUST NOT contain: goals, non-goals, a scope list, a task list, tracker User Stories, architecture detail, implementation sequence, or duplicated feature PRD content.
+MUST NOT contain: goals, non-goals, a scope list, a task list, tracker User Stories, architecture detail, implementation sequence, duplicated feature PRD content, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

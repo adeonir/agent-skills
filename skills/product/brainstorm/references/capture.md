@@ -18,6 +18,8 @@ Verify the artifact before saving:
 - [ ] Trade-offs are explicit (nothing hidden to make the choice look better)
 - [ ] Open questions are genuine unknowns, not laziness
 - [ ] No implementation detail or codebase symbols (file paths, function or class names) — the artifact stays at the problem-and-direction level
+- [ ] Every section except Alternatives Considered and Revision History states the direction as it stands, in present tense, never how it was reached; on a pivot or validation, the section carries the new state, never the change
+- [ ] No section, Alternatives Considered and Revision History included, quotes the session that produced it ("as discussed", "the user preferred", "we agreed") — a rejected alternative or a past event is a fact about the direction
 
 If issues found: fix inline before saving. Don't deliver a flawed artifact.
 
@@ -104,8 +106,8 @@ On replace, the `— Replaced` entry is the one entry the reset keeps.}
 
 **From:** {{prior chosen direction}}
 **To:** {{new chosen direction}}
-**Trigger:** {{what changed — new evidence, failed assumption, user
-request, etc.}}
+**Trigger:** {{what changed in the problem or its inputs — new
+evidence, failed assumption, new constraint, user request, etc.}}
 **Trade-offs reassessed:** {{short note on what shifted in the
 trade-off picture}}
 

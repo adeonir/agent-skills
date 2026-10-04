@@ -70,7 +70,8 @@ Impact is the author's judgment. When unsure, write MEDIUM. Do not omit the line
 
 - One paragraph, two to four sentences
 - States the constraint and the reason
-- No preamble, no motivation history, no acknowledgments
+- No preamble, no motivation history, no acknowledgments, no trace of the conversation that produced the rule ("as discussed", "the user asked", "we agreed")
+- An edit states the rule as it now stands, never the change from the previous version
 - No "this rule ensures..." filler; state the constraint directly
 
 ### Principles

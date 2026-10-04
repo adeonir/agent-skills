@@ -166,4 +166,4 @@ Durable pointers to related documents. Use typed labels so a fresh session knows
 - **Research:** [link to research, interviews, data — or "None"]
 - **ADRs:** [link to relevant ADRs or "None"]
 
-MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT.
+MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

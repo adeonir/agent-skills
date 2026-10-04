@@ -40,6 +40,7 @@ Keep out of both notes:
 - Mechanics of the session — which steps ran, how work was split, what a subagent did or wrote
 - Quirks of the assistant's own tooling, unless the workaround now lives in the project
 - Self-correction — a wrong assumption later fixed, a file created by mistake, a value first guessed and then measured
+- The exchange behind a decision — "as discussed", "the user confirmed", "we agreed", "the assistant suggested"; a rationale or a rejected alternative is stated as a fact about the project
 
 A recurring practice belongs in the daily note's `## Observations`, at day level and stated as practice. A method tried once in a session is process and stays out of both notes.
 

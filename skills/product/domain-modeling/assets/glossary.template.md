@@ -10,4 +10,4 @@
 [One or two sentence definition of what the term is.]
 _Avoid_: [rejected word], [rejected word]
 
-MUST NOT contain: implementation detail, general programming concepts, requirements, decisions, or a term whose meaning is still open.
+MUST NOT contain: implementation detail, general programming concepts, requirements, decisions, conversation narrative ("as discussed", "we agreed", "the user confirmed"), a note of a rename or merge, or a term whose meaning is still open.

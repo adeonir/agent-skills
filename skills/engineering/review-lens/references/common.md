@@ -125,6 +125,8 @@ X files | Y findings | Z guideline violations
 
 Sort findings by severity in this order: `critical > warning > suggestion > nit`. Domain tags do not affect the order.
 
+Write every line as a present-tense fact about the code under review, never the review session behind it or the conversation around it ("as discussed", "as you asked", "the user confirmed"). The re-review status table is the one record of what changed since the previous review, and it carries no conversation either.
+
 ## Fix Suggestions
 
 Every actionable finding may carry a suggested fix as a corrected code block (see the template). Suggesting is always safe — it is text.

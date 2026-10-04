@@ -58,4 +58,4 @@ sources: []
 - [Links to ADRs that record extracted decisions]
 - [External documentation, RFCs, prior art]
 
-MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs, or restated PRD prose — recap in 1-2 lines and link the PRD instead.
+MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs, or restated PRD prose — recap in 1-2 lines and link the PRD instead; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

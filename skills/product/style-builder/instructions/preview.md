@@ -56,7 +56,7 @@ The server stays local to `127.0.0.1` and serves only files inside the session d
 4. Send records one `feedback` event with all queued comments and adjustments. It does not write `DESIGN.md`.
 5. Read the batch and map each item to a frontmatter group or prose section. A composed instruction may combine aspects named in several comments; reconcile it into one coherent identity instead of pasting incompatible systems together.
 6. Present the proposed patch list in chat and wait for explicit confirmation.
-7. After confirmation, patch frontmatter first and then only affected prose. Report old and new values.
+7. After confirmation, patch frontmatter first and then only affected prose. Write the new values as the standing identity, never the old value, the change, or the comment that asked for it; report old and new values in chat.
 8. Regenerate both transient views, run component contrast, then run full validation. Errors block completion; warnings remain visible.
 
 Conversational tweaks follow the same propose → confirm → apply flow. No interaction writes the identity immediately.

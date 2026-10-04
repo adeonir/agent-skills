@@ -37,4 +37,4 @@ sources: []
 
 [The handful of principles that drive design and copy decisions — what the product always does, stated as commitments.]
 
-MUST NOT contain: requirements, scope or feature lists, success metrics, user journeys, business rules, or accessibility targets — those belong to the PRD.
+MUST NOT contain: requirements, scope or feature lists, success metrics, user journeys, business rules, or accessibility targets — those belong to the PRD; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

@@ -37,6 +37,7 @@ locate glossary → read → work the term → resolve → write inline
 - Define what the term is in one or two sentences, never what it does.
 - Include only terms specific to this project's domain. A general programming concept (timeout, error type, utility pattern) stays out.
 - Carry no implementation detail. The glossary is not a spec, a scratch pad, or a record of decisions.
+- State each entry as the standing definition, in present tense. A rename or merge rewrites the entry to its new state, never a note of the change, and nothing from the conversation enters it: no "as discussed", "the user confirmed", "we agreed".
 - Group entries under subheadings when clusters form; keep a flat list otherwise.
 
 ## Guidelines

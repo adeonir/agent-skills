@@ -16,6 +16,8 @@ Trace every claim about what changed back to the diff. One sentence may cover se
 
 Context explicitly supplied by the user may support why the change was needed, even when the diff does not show that context. Use it only to explain a change supported by the diff. Do not invent a problem or constraint, or use context to establish what changed. This source allowance does not qualify a commit for a body on its own; apply the body criteria in the commit instruction.
 
+Write the message as fact about the change, never as the session behind it: no deliberation, no discarded alternative, and no trace of the exchange that asked for it ("as discussed", "per the user's request", "we agreed"). A *why* the user stated enters as the problem or constraint itself, never attributed to the user. A rewritten pull request title or body describes the branch as it stands, never what changed since the previous version.
+
 ## Diction
 
 The bar for every message this skill writes. It governs word choice, never length or register; each instruction sets those for the message it owns.

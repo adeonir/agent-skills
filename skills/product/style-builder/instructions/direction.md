@@ -80,7 +80,7 @@ sources:
 - [prompt for one tile, or None]
 ```
 
-MUST NOT contain: tokens, color values, rendered HTML, product copy, feature names, requirement IDs, milestones, roadmap language, or page arrangement.
+MUST NOT contain: tokens, color values, rendered HTML, product copy, feature names, requirement IDs, milestones, roadmap language, page arrangement, conversation narrative ("as discussed", "the user picked", "we agreed"), or the history of the lock (the shortlist, the rounds, the directions not taken).
 
 ## Tiles
 

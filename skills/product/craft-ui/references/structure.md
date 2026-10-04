@@ -56,7 +56,7 @@ flow:
   # Optional. Screen-to-screen paths for multi-surface products.
 ```
 
-MUST NOT contain: a token value, a font or color name, a copy string, or a requirement ID.
+MUST NOT contain: a token value, a font or color name, a copy string, a requirement ID, conversation narrative ("as discussed", "the user confirmed", "we agreed"), or how a block, its shape, or its order was decided. A `note` states the intent as it stands, in present tense.
 
 ## Walking the plan
 

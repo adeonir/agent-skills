@@ -40,7 +40,7 @@ Every entry records what is true now. Never record how something worked before, 
 
 Leave every other section in the file untouched.
 
-MUST NOT contain feature-local state, phase progress, findings, or task notes.
+MUST NOT contain feature-local state, phase progress, findings, task notes, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
 
 ## `STATE.md`
 
@@ -62,6 +62,8 @@ ALWAYS use this exact structure:
 ```
 
 Task completion lives in the `tasks.md` checkboxes and frontmatter. `STATE.md` stores the coarse phase pointer, the next step, and blockers only. `implement` has no `BLOCKED` artifact state; an open task remains open and `tasks.md` remains `in-progress`.
+
+Write `Blockers` and `Notes` as what holds now, in present tense: an edit writes the new state, never the change, and no entry carries its history or the conversation that produced it ("as discussed", "the user confirmed", "we agreed").
 
 ## Read and write routing
 

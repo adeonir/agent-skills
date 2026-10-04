@@ -124,7 +124,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 
 ## Content Boundaries
 
-`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, or UI-library names. It may describe layout identity, density, grid behavior, and component roles without prescribing a product page.
+`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, or UI-library names. It may describe layout identity, density, grid behavior, and component roles without prescribing a product page. It states the identity as it stands, in present tense: never the value a token replaced, the delta a patch applied, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed").
 
 ## Error Handling
 

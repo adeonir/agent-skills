@@ -1,6 +1,6 @@
 # Note Conventions
 
-The filename, wikilink, and update rules every note type follows.
+The filename, body, wikilink, and update rules every note type follows.
 
 ## When to Use
 
@@ -14,6 +14,14 @@ When generating filenames from user input:
 - Preserve accented characters — Obsidian imposes no charset limit beyond the filesystem's
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
+
+## Writing the Body
+
+State each fact and decision as it stands, in present tense, never the deliberation that produced it; on a patch, write the new state, never the change. A section that records history keeps its history: a timeline, the reasoning behind a company decision, a challenge's approach and trade-offs, learnings, and a brag period.
+
+Leave every trace of the exchange with the agent out of every note, history sections included — "as discussed", "the user confirmed", "we agreed", "you chose". A past event or a rejected option is a fact about the work.
+
+A transcription body passes through verbatim; neither rule applies to it.
 
 ## Wikilinks
 

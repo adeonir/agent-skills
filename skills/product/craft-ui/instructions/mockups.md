@@ -134,7 +134,7 @@ A direction already listed under a surface does not come back. One marked **chos
 
 The reason on the chosen line is what a later round cannot reconstruct from the direction name alone. Write the property that won, in one clause — "the only one where the pricing table stayed readable at three tiers". A round that reopens a settled look reads this line first.
 
-MUST NOT contain: an arrangement, a block name, token values, copy strings, or a review of any direction. The reason names what the choice turned on, never how well a direction was executed and never why the others lost.
+MUST NOT contain: an arrangement, a block name, token values, copy strings, a review of any direction, or the exchange behind a pick ("the user preferred", "we went with", "as discussed"). The reason names what the choice turned on as a property of the direction, never how well a direction was executed and never why the others lost.
 
 ## Viewport Switching
 
@@ -158,11 +158,11 @@ Every mockup holds at all three widths; the controls are how that is checked, no
 
    Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from. Add `--viewport mobile | tablet | desktop` only when the run is scoped to a single surface decided at that width.
 
-4. **Generate one HTML per direction.** When `structure.yaml` exists, render the arrangement it fixes. Otherwise, choose the arrangement inside the direction. Resolve tokens and neutral placeholders per the fallback rule, and wire Tailwind and iconify-icon via CDN. Write each file to `.artifacts/design/mockups/<slug>.html` and append its line to the surface's section in `VARIANTS.md`.
+4. **Generate one HTML per direction.** When `structure.yaml` exists, render the arrangement it fixes. Otherwise, choose the arrangement inside the direction. Resolve tokens and neutral placeholders per the fallback rule, and wire Tailwind and iconify-icon via CDN. The page carries no account of the request or the round: no "as requested", no change note, no caption explaining its choices. Write each file to `.artifacts/design/mockups/<slug>.html` and append its line to the surface's section in `VARIANTS.md`.
 
 5. **Serve** the mockups, one per tab. The user compares, comments, and picks — one direction, or regions from several.
 
-6. **Adjust and re-render.** A comment names something to change in the rendered page, not in an artifact this phase does not own: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here. Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
+6. **Adjust and re-render.** A comment names something to change in the rendered page, not in an artifact this phase does not own: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here. Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to as its new state, with no note of what changed. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
 
 7. **Deliver the chosen one.** Mark its line **chosen** in `VARIANTS.md` with the reason the choice turned on, then write the file to `docs/design/mockup.html`. A run covering more than one surface names each file for its surface instead: `docs/design/mockup-{surface}.html`.
 

@@ -98,6 +98,8 @@ voice:
 # as a content-part key.
 # MUST NOT carry upstream scaffolding: no requirement IDs, milestones, sprint
 # or release names, roadmap language, or sibling-artifact references: copy only.
+# No conversation narrative ("as discussed", "the user confirmed", "we agreed")
+# and no history of a value, in any field including `notes`.
 
 content:
   "{{surface key, named by context: home, dashboard, product, checkout}}":
@@ -122,8 +124,8 @@ content:
     # Nest freely; the tree mirrors the source's own structure.
 
 notes: |
-  {{Observations about the extraction: content that was unclear,
-  surfaces or parts that appeared empty or dynamically loaded,
+  {{Facts about the source, in present tense: content that is unclear,
+  surfaces or parts that are empty or dynamically loaded,
   tone or language patterns worth preserving.}}
 ```
 

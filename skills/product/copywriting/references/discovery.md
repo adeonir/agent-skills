@@ -30,7 +30,7 @@ Set the intent before choosing patterns or the register. Once confirmed, it is t
 
 The skill owns `docs/product/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Every later operation reads both before drafting or judging.
 
-An authoring operation changes content only after the user confirms the proposed edits, and changes intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions — no colors, fonts, or layout. The content stays swappable: any `copy.yaml` must work independent of visual styling.
+An authoring operation changes content only after the user confirms the proposed edits, and changes intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions — no colors, fonts, or layout. Write every field, `notes` included, as the current fact in present tense: never the value it replaced, the change, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed"). The content stays swappable: any `copy.yaml` must work independent of visual styling.
 
 ## Fill Gaps
 

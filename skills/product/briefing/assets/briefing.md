@@ -1,6 +1,6 @@
 # Brief
 
-MUST NOT contain: requirements, features, user stories, or a prioritized list of either; product metrics beyond the success measures the requester stated; a solution, technology, visual direction, layout, final copy, deliverable specification, or estimate that the requester did not state; a choice that limits the solution space, taken from a material the user did not write, recorded outside Declared Decisions before the user confirms it; the same fact recorded in two sections.
+MUST NOT contain: requirements, features, user stories, or a prioritized list of either; product metrics beyond the success measures the requester stated; a solution, technology, visual direction, layout, final copy, deliverable specification, or estimate that the requester did not state; a choice that limits the solution space, taken from a material the user did not write, recorded outside Declared Decisions before the user confirms it; the same fact recorded in two sections; conversation narrative ("as discussed", "the user confirmed", "we agreed"), the history of a decision, or a note of what an update changed.
 
 ALWAYS use this exact template structure, from the frontmatter to the end of References. Write `None` in a section with nothing to record:
 

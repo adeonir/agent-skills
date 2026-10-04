@@ -42,7 +42,7 @@ Omit the blank line and body when the subject already says everything — the co
 
 **One sentence.** State the fact — the problem the change does not show, or the constraint — and stop. Never pair them as the problem and then why this solution: that arc retells the implementation session, which is what the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the work. A boundary that closes so many separable things that you want to enumerate them is a boundary that should have been split.
 
-Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the files touched, mechanics, values, or counts. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the implementation session instead of arming the reader.
+Never in the body: the reasoning that led to the change (the rationale, the discarded alternative, the design justification), the conversation that asked for it ("as discussed", "per the user"), the files touched, mechanics, values, or counts. The rationale is the most seductive of these — it *feels* like a *why*, but it binds nothing: it retells the implementation session instead of arming the reader.
 
 **The order.** Write the subject, run both tests below against the staged diff, and write the sentence only once both pass. Never draft a sentence and then judge whether it stays: a body written first and justified second always finds its justification.
 

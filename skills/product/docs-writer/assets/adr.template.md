@@ -29,4 +29,4 @@ sources: []
 
 - [Related project documents, ADRs, external documentation, or prior art]
 
-MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, or product scope.
+MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, product scope, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

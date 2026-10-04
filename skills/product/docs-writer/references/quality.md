@@ -16,6 +16,14 @@ Requirements must be concrete and measurable across all document types.
 | "Easy to use" | "New users complete onboarding in under 2 minutes" |
 | "Intuitive interface" | "Task completion rate above 90% without help text" |
 
+## Declare, Don't Narrate
+
+What produced a document is not what the document says. The conversation is input; the document states standing facts in present tense.
+
+A resolved decision enters as fact (`Reset links expire in 15 minutes`), never as its history (`we discussed 24 hours but the user preferred 15 minutes`). Strip conversation narrative — "as discussed", "the user confirmed", "we agreed", "you chose" — and decision history. An updated document states the new state, never the change. An ADR Decision keeps its "We will..." form.
+
+A section that keeps alternatives — Alternatives Considered, a Rejected column, the alternatives in an ADR Context — records each rejected option and why it fails, never the exchange that rejected it.
+
 ## Review Checklist
 
 Before writing any document to disk, verify:
@@ -25,6 +33,7 @@ Before writing any document to disk, verify:
 - [ ] Scope is focused (one document, one purpose)
 - [ ] Cross-references to other docs are valid
 - [ ] Requirements are concrete and measurable (no vague adjectives)
+- [ ] The document declares and does not narrate, per `## Declare, Don't Narrate`
 
 **If any check fails, fix the document, run that check again, and write only after it passes.** Apply all checks to both new and updated documents.
 

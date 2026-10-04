@@ -72,4 +72,4 @@ sources: []
 
 - [Typed reference and link.]
 
-MUST NOT contain: PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, release plans, tracker User Stories, or references to another skill.
+MUST NOT contain: PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, release plans, tracker User Stories, references to another skill, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
