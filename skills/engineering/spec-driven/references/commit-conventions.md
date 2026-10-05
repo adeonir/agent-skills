@@ -21,6 +21,18 @@ Commits run hooks normally: never `--no-verify`, never `--amend`. A failed hook 
 5. **No attribution, no future references** — never add Co-Authored-By or mention upcoming work.
 6. **Breaking changes** — mark a change breaking (`type!:` or a `BREAKING CHANGE:` footer, per project style) only when the diff makes an existing consumer incompatible with an established, observable contract. Name the affected consumer and the concrete incompatibility in the return summary. A changed internal artifact format or documentation example alone does not establish a breaking change, and neither does a fix that existing consumers still work with.
 
+## Diction
+
+The bar for the subject and the body. It governs word choice, never length or register; the format rules and the body guidelines set those.
+
+- Prefer short, familiar words over corporate ones (`use` not `utilize`, `fix` not `ensure`).
+- Keep one term for one concept in the same message — do not rotate synonyms for variety.
+- Use active voice: name what the change does, not what "was updated".
+- Put one main point in each sentence, and lead with the change or the problem — never `This commit…`, `In order to…`.
+- In the body, repeat the noun when `it`, `this`, or `that` could point at more than one thing, and break noun clusters into plain relations (`timeout for the database connection`). A subject keeps the developer's terse shorthand instead.
+- Keep every condition, limit, exception, and stated uncertainty the source carries — a shorter message never drops one.
+- Use no idiom, metaphor, or slang, and no abbreviation the reader cannot expand from the diff or the project.
+
 ## Template
 
 ALWAYS use this exact template structure:

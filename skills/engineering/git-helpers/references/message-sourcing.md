@@ -27,6 +27,8 @@ The bar for every message this skill writes. It governs word choice, never lengt
 - Use active voice: name what the change does, not what "was updated".
 - Put one main point in each sentence, and lead with the change or the problem — never `This commit…`, `This PR…`, `In order to…`.
 - In prose, repeat the noun when `it`, `this`, or `that` could point at more than one thing, and break noun clusters into plain relations (`timeout for the database connection`). A subject keeps the developer's terse shorthand instead.
+- Keep every condition, limit, exception, and stated uncertainty the source carries — a shorter message never drops one.
+- Use no idiom, metaphor, or slang, and no abbreviation the reader cannot expand from the diff or the project.
 
 ## The two shapes of slop
 
