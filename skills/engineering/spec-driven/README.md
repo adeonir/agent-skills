@@ -98,7 +98,7 @@ A: Self-check closes each artifact before its approval gate: the phase reads its
 
 **Q: How are tasks ordered and dispatched?**
 
-A: `Depends on` is the only ordering source. An edge exists where the dependent task cannot leave the tree green without the other. Implement accepts task and slice selectors and dispatches one unit per slice. Units with no dependency path between them that write no file in common may run in parallel; the agent decides how to isolate each one.
+A: `Depends on` is the only dependency source. An edge exists where the dependent task cannot leave the tree green without the other. Among tasks the graph leaves free, the task that restores what another task leaves worse in the product comes directly after it. Implement accepts task and slice selectors and dispatches one unit per slice. Units with no dependency path between them that write no file in common may run in parallel; the agent decides how to isolate each one.
 
 **Q: What happens after implementation and optional checks?**
 
