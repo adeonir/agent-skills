@@ -31,18 +31,14 @@ Write the message from the diff, never from chat context.
 
 **Impact: HIGH**
 
-In a skill that has `instructions/`, every link in SKILL.md points at one. A link to `references/` makes the same file reachable two ways — routed from the top and loaded by a procedure — and the routed copy arrives without the procedure that knows what to do with it. A reference enters context because a step asked for it, never because SKILL.md announced it; a one-job SKILL.md is itself that step, and links its references directly.
+In a skill that has `instructions/`, every trigger in SKILL.md routes to an instruction, never to a reference: a routed reference arrives without the procedure that knows what to do with it. SKILL.md may index each file in `references/` under `## References`, one line per file naming the instruction that loads it, with no trigger, so every file is reachable from SKILL.md. A reference enters context because a step loaded it, never because the index announced it. A one-job SKILL.md is itself that step, and links its references directly.
 
 **Incorrect:**
 
 ```markdown
 ## Triggers
 
-- Commit changes ("commit this") → [commit.md](references/commit.md)
-
-## References
-
-- [untrusted-content.md](references/untrusted-content.md) — the trust boundary
+- Commit changes ("commit this") → [message-sourcing.md](references/message-sourcing.md)
 ```
 
 **Correct:**
@@ -51,6 +47,10 @@ In a skill that has `instructions/`, every link in SKILL.md points at one. A lin
 ## Triggers
 
 - Commit changes ("commit this") → [commit.md](instructions/commit.md)
+
+## References
+
+- [message-sourcing.md](references/message-sourcing.md) — loaded by the commit, pull request, and merge instructions
 ```
 
 ## Required Top Sections

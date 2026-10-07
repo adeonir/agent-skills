@@ -32,7 +32,7 @@ No build, no tests, no linter. Validation is manual: read files, verify structur
 After editing a skill, the self-checks worth running over its directory (`skills/<category>/<skill>/`):
 
 ```bash
-grep -n '(references/' SKILL.md                     # the entrypoint routes instructions only (expect empty when instructions/ exists)
+grep -n '(references/' SKILL.md                     # triggers route instructions only (expect only `## References` index lines when instructions/ exists)
 grep -n '^## \(Anti-Pattern\|Guidelines\)' SKILL.md # constraints in a routing entrypoint (expect empty when instructions/ exists)
 grep -n '^## When to Use' instructions/*.md         # review operational entry conditions when present
 for f in instructions/*.md; do b=$(basename "$f"); grep -q "instructions/$b" SKILL.md || echo "orphan: $f"; done
@@ -90,6 +90,8 @@ One job — no `instructions/`. The SKILL.md is the procedure and loads what it 
 skill-name/
 ├── SKILL.md           # entrypoint and procedure (required)
 ├── README.md          # user-facing doc (required)
+├── agents/            # display metadata for the host, never loaded by a step
+│   └── openai.yaml
 ├── references/        # what a step loads (optional)
 │   └── *.md
 ├── scripts/           # executables loaded on demand (optional)
@@ -100,8 +102,10 @@ Several jobs — one instruction per job, and the SKILL.md routes to them:
 
 ```text
 skill-name/
-├── SKILL.md           # entrypoint, routing only (required)
+├── SKILL.md           # entrypoint, routing plus a references index (required)
 ├── README.md          # user-facing doc (required)
+├── agents/            # display metadata for the host, never loaded by a step
+│   └── openai.yaml
 ├── instructions/      # one file per job, the routing targets
 │   └── *.md
 ├── references/        # what a step loads (optional)
@@ -113,9 +117,9 @@ skill-name/
 Classification rule:
 
 - **Instruction** — a procedure the SKILL.md routes to, executed end to end. Several triggers may route to the same one when they share a procedure.
-- **Reference** — what a procedure loads from inside a step: lookup material, a shared constraint, a contract. It carries no trigger and is never a routing target.
+- **Reference** — what a procedure loads from inside a step: lookup material, a shared constraint, a contract. It carries no trigger and is never a routing target. SKILL.md may index it under `## References`, one line naming the instruction that loads it.
 
-A file reachable both ways — routed from the top and loaded by a procedure — is doing two jobs and needs splitting.
+A file reachable both ways — routed by a trigger and loaded by a procedure — is doing two jobs and needs splitting.
 
 There is no `CHANGELOG.md` per skill. Git history is the source.
 
@@ -156,7 +160,7 @@ Required at the top:
 1. `# Title` (H1)
 2. Triggers or Quick start
 
-A routing SKILL.md stops there, plus the flow diagram. Everything that changes what an instruction produces belongs to that instruction or to a reference it loads.
+A routing SKILL.md stops there, plus the flow diagram and the references index. Everything that changes what an instruction produces belongs to that instruction or to a reference it loads.
 
 A one-job SKILL.md is the procedure, so it carries the procedure's own sections. After the required top, they are free and named by domain, in no canonical order:
 
@@ -344,7 +348,7 @@ Rules:
 
 ### Recommended Patterns
 
-- **Checklist copiável** — Multi-step workflows and decision points may include `- [ ]` checklists Claude marks as it progresses. Useful, not required.
+- **Checklist copiável** — Multi-step workflows and decision points may include `- [ ]` checklists Claude marks as it progresses.
 - **Validation loop** — When a skill produces verifiable output, document a validator → fix → repeat loop (script or reference doc as validator).
 - **Conditional workflow** — When a skill has 2+ paths, branch explicitly: "Creating? → workflow A. Editing? → workflow B."
 - **Examples pattern** — Where the output has a form the agent must match (commit subject, PR body, review note), embed concrete I/O pairs. Pairs beat abstract descriptions for form; they narrow the model everywhere else.
@@ -395,6 +399,7 @@ Before finalizing a new skill, verify the items the path-scoped rules in `.agent
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
 - [ ] Dynamic context injection (`` !`<cmd>` ``) confined to `SKILL.md` and limited to read-only commands
 - [ ] `README.md` present with mermaid + Usage
+- [ ] `agents/openai.yaml` present with `interface.display_name` and `interface.short_description`
 - [ ] Skill listed in repo `README.md` table
 - [ ] No links to untrusted or non-official domains
 

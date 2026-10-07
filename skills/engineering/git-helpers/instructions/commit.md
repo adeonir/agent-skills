@@ -6,21 +6,45 @@ Create a conventional commit shaped to the project's conventions from the actual
 
 Read [message-sourcing.md](../references/message-sourcing.md) before writing anything — it carries where the words come from, the diction bar, and the two shapes of slop this subject must avoid.
 
-## Reading the change
+## Contents
 
-Read `git status --short` to plan staging. Once staging is complete, read `git diff --cached`. Never diff before staging is complete: unstaged changes pollute the message with content that will not land.
+- Rules for every run
+- Workflow
+- Examples
 
-## Staging
+## Rules for every run
 
-Stage by name the files that belong to this change — never a blind `git add -A`, never a file containing secrets. Respect `.gitignore`: never `git add -f` an ignored path — ignored files (build output, local scratch, secrets) are excluded on purpose; if a file you mean to stage is ignored, stop and surface it, staging only on explicit user confirmation. If files are already staged, flag them before adding more; `git add .` is only for an explicit "stage everything". When the user says "only staged", commit the existing index as-is.
+1. Stage by name the files that belong to this change — never a blind `git add -A`, never a file containing secrets, never `git add -f` an ignored path: ignored files (build output, local scratch, secrets) are excluded on purpose.
+2. Never run `git diff` before staging is complete: unstaged changes and the chat pollute the message with content that will not land.
+3. Never use `--no-verify`, `--no-gpg-sign`, or any bypass flag: the project's hooks (lint, tests, secret scans) are the gate. Never use `--amend` without explicit confirmation; a failed commit did not land, so after a hook failure a new commit is the only forward path.
 
-## One commit, one type
+## Workflow
 
-Run the mixed-type check on the staged diff before writing — not optional: if the diff mixes unrelated change types (a feature plus an unrelated fix), flag it and ask whether to split. On accept, unstage the unrelated files and commit them separately; on decline, pick the primary type.
+Copy this checklist and tick it off:
+
+```text
+Progress:
+- [ ] Step 1: Stage only this change's files
+- [ ] Step 2: Read the staged diff in full
+- [ ] Step 3: Check one type in the staged diff. If a split was accepted, return to Step 1
+- [ ] Step 4: Write the subject
+- [ ] Step 5: Decide the body: none, or one sentence that passed both tests
+- [ ] Step 6: Match the log's form
+- [ ] Step 7: Commit. If a hook fails, return to Step 1
+- [ ] Step 8: Report the subject and body
+```
+
+**Step 1. Stage.** Read `git status --short` to plan staging, then stage the files of this change by name. If a file you mean to stage is ignored, stop and surface it, staging only on explicit user confirmation. If files are already staged, flag them before adding more; `git add .` is only for an explicit "stage everything". When the user says "only staged", commit the existing index as-is. Done when only the files of this change are staged.
+
+**Step 2. Read the staged diff.** Read `git diff --cached`. Done when the whole staged diff has been read.
+
+**Step 3. Check one type.** Run the mixed-type check on the staged diff before writing — not optional: if the diff mixes unrelated change types (a feature plus an unrelated fix), flag it and ask whether to split. On accept, unstage the unrelated files, commit this change first, then return to Step 1 for the rest; on decline, pick the primary type.
 
 Split only when the types fall on file boundaries. When one file carries both, the split is no longer available: never stage selected hunks to manufacture it, because every commit built that way asserts a file state that never existed on disk and was never read. Say the commit mixes types, pick the primary one, and commit it whole.
 
-## Format Rules
+Done when the staged diff carries one type.
+
+**Step 4. Write the subject.**
 
 1. **Imperative mood**: write the subject as a command — "add", "fix", "move", never "added" or "fixes".
 2. **Human readable**: Write the subject so a teammate understands it without opening the diff. Prefer descriptions that tell the story of the change — what actually moved and why it matters — over abstract framing. The first reads like a story; the second like a release-note abstraction:
@@ -28,15 +52,13 @@ Split only when the types fall on file boundaries. When one file carries both, t
    - `refactor: swap client and adapter for d1 pattern`
 
    The filler vocabulary to avoid is in the loaded reference; the table below applies it to a subject.
-3. **The subject carries the whole *what***: it names the user-observable effect, and it is the only place the *what* lives. Keep out *where* (file names, paths, the location touched) and *how* (mechanics, specific values, counts, package versions) — those live in the diff and the code. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
-4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the log, as the form pass below sets out. User can override (e.g. "add scope `auth`", "drop the scope").
+3. **The subject carries the whole *what***: it names the user-observable effect and is the only place the *what* lives. Keep out *where* and *how* as the loaded reference sets out. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
+4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the log, as Step 6 sets out. User can override (e.g. "add scope `auth`", "drop the scope").
 5. **No attribution**: Never add Co-Authored-By or similar lines
 6. **No future references**: Don't mention upcoming work or architectural reasoning
 7. **Breaking changes**: use a breaking marker (`type!:` or a `BREAKING CHANGE:` footer, per project style) only when the diff makes an existing consumer incompatible with an established, observable contract. Identify the affected consumer and the concrete incompatibility. A changed internal artifact format or documentation example alone does not establish a breaking change; check whether existing consumers still work with the new form.
 
    If the evidence supports a breaking classification, state the affected contract and proposed marker, then ask whether to proceed with that classification or use another one. Wait for the user's answer before committing. If the diff does not show a concrete incompatibility, do not propose a breaking marker or interrupt the commit. Do not ask about ordinary type or scope choices. Skip confirmation when the user explicitly specifies the breaking marker.
-
-## Anti-Pattern: AI-slop subject
 
 Both shapes of slop applied to a commit subject:
 
@@ -48,11 +70,11 @@ Both shapes of slop applied to a commit subject:
 | `feat: implement user authentication functionality` | `feat: add password login` |
 | `fix: ensure proper token refresh behavior` | `fix: refresh tokens before they expire` |
 
-## Body
+Done when the subject passes the seven rules.
 
-**Default to no body.** The subject carries the *what*, and most commits stop there. Commit the subject alone unless a sentence passes both tests below.
+**Step 5. Decide the body.** Default to no body. The subject carries the *what*, and most commits stop there. Commit the subject alone unless a sentence passes both tests below.
 
-**The order.** Write the subject. Run both tests against the staged diff. Write the sentence only once both pass. Never draft a sentence and then judge whether it stays: a body written first and justified second always finds its justification.
+The order. Write the subject. Run both tests against the staged diff. Write the sentence only once both pass. Never draft a sentence and then judge whether it stays: a body written first and justified second always finds its justification.
 
 **Test 1 — does the diff already answer it?** Read the staged diff alone and ask what problem it solves. If the changed lines answer, there is no body. A body is for the goal the diff cannot show: a problem in code the diff does not touch, or a constraint that forces this solution over the obvious one. "The previous behavior was wrong" never qualifies on its own: every commit has a previous behavior, and the diff shows what replaced it.
 
@@ -63,17 +85,19 @@ What survives both tests is one of two facts:
 - **A problem in the surrounding code that the changed lines do not show.** Ask whether the changed lines already carry it; usually they do.
 - **A constraint that binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you.
 
-**One sentence.** Write the fact and stop. Never pair the two as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.
+One sentence. Write the fact and stop. Never pair the two as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.
 
 The rationale is not a finding. The reader already holds the change, so the reasoning that led to it — the discarded alternative, the design justification, why this solution beat the other one — retells the conversation instead of arming them. Neither are the files touched, the mechanics, the values, versions, or counts.
 
 When the user asks to reevaluate or fix a bloated body, do not silently delete it. Cut it to what the tests support first. Drop the body entirely when nothing survives them, and tell the user that is what you did and why.
 
-## Matching the project's form
+Done when the commit is subject-only or carries one sentence that passed both tests.
 
-With the message drafted, read `git log --oneline -10 --no-merges` and adjust the draft to the form the log establishes: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Never add or strip a form element against it.
+**Step 6. Match the project's form.** With the message drafted, read `git log --oneline -10 --no-merges` and adjust the draft to the form the log establishes: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Never add or strip a form element against it. The log sets form only. It never sets what the subject says. Done when the draft matches the log's form.
 
-The log sets form only. It never sets what the subject says.
+**Step 7. Commit.** Run the commit. If a hook fails, fix the cause, return to Step 1, and make a new commit. Confirm the commit landed — if the files still show as pending, stop and tell the user. Done when `git status --short` no longer lists the staged files.
+
+**Step 8. Report.** Report the subject and body in chat, not the diff. Done when the report carries the subject and body.
 
 ## Examples
 
@@ -142,11 +166,3 @@ ci: consolidate workflows
 Four independent workflows each re-installed the toolchain, so a lint failure
 still paid for the full test and build run.
 ```
-
-## Committing
-
-Commit runs the project's hooks (lint, tests, secret scans) — never `--no-verify`, `--no-gpg-sign`, or any bypass flag; never `--amend`. If a hook fails, fix the cause and make a new commit — the failed commit did not land, so a new commit is the only forward path. Confirm the commit landed — if the files still show as pending, stop and tell the user.
-
-## Report
-
-Report the subject and body in chat, not the diff.
