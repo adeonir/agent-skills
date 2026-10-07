@@ -30,11 +30,11 @@ flowchart TD
 
 | Note Type | Folder | Pattern |
 |-----------|--------|---------|
-| Project | `{VaultFolder}/{Project}/` | `{Project Name} Overview.md` |
-| Challenge | `Challenges/{Company}/` | `{Type Topic}.md` |
-| Brag | `Brags/` | `{YYYY}.md` or `{YYYY} Q1.md` |
-| Transcription | `Meetings/` or `Courses/` | `{Description}.md` |
-| Company | `Companies/{Company}/` | `{Role} — {Company}.md` |
+| Project | `<obsidian.path>/<Project Name>/` | `<Project Name> Overview.md` |
+| Challenge | `Challenges/<Company>/` | `<Type Topic>.md` |
+| Brag | `Brags/` | `YYYY.md` or `YYYY Qn.md` |
+| Transcription | `Meetings/` or `Courses/` | `<Description>.md` |
+| Company | `Companies/<Company>/` | `<Role> — <Company>.md` |
 
 ## Usage
 
@@ -52,9 +52,9 @@ Notes are created in the Obsidian vault following this structure:
 
 ```text
 Vault/
-├── {VaultFolder}/
-│   └── {Project}/
-│       └── {Project Name} Overview.md
+├── <obsidian.path>/
+│   └── <Project Name>/
+│       └── <Project Name> Overview.md
 ├── Challenges/
 ├── Brags/
 ├── Meetings/
@@ -65,7 +65,7 @@ Vault/
 ## Requirements
 
 - Obsidian MCP server configured and connected
-- An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
+- An Obsidian vault served by the Obsidian MCP server. On the first project note in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ
 

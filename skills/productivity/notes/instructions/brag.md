@@ -8,43 +8,32 @@ Read [mapping.md](../references/mapping.md) for the vault root — this note wri
 
 ## Workflow
 
-1. **Determine time period**
-   - Current year: `{{YYYY}}.md`
-   - Or by quarter: `{{YYYY}} Q1.md`
-   - Ask user preference on first use
+Copy this checklist and tick it off:
 
-2. **Check if brag doc exists**
+```text
+Progress:
+- [ ] Step 1: Determine the period file
+- [ ] Step 2: Gather the achievement
+- [ ] Step 3: Compose the entry
+- [ ] Step 4: Write the note
+- [ ] Step 5: Report
+```
 
-   ```text
-   Obsidian:search_notes query="{{YYYY}}" path="Brags/"
-   ```
+**Step 1. Determine the period.** Search `Brags/` for the current year:
 
-3. **Create or append**
-   - If does not exist: create using the template below
-   - If exists: append the new achievement to the appropriate category
+```text
+Obsidian:search_notes query="YYYY" path="Brags/"
+```
 
-4. **Gather achievement details**
-   - What was accomplished
-   - Context (project, team, situation)
-   - Result with metrics (quantify when possible)
-   - Category (impact, technical, growth)
+When quarter files (`YYYY Qn.md`) exist, use the current quarter's file; otherwise use the year file (`YYYY.md`). Use a quarter file for a new year only when the user asks for one. Done when the target filename is known and whether it exists.
 
-5. **Write note**
+**Step 2. Gather.** Gather what was accomplished, the context (project, team, situation), the result with a metric, and the category: Impact (business results, user metrics), Technical (architecture, performance, reliability), or Growth (learning, mentoring, new skills, feedback received). Done when each of the four is known.
 
-New document:
+**Step 3. Compose.** For a new file, fill the template below. For an existing file, compose the entry for its category section. If the entry has neither a metric nor the proxy the anti-pattern below allows, return to Step 2. Done when the entry carries one of them.
 
-   ```text
-   Obsidian:write_note path="Brags/{{YYYY}}.md" content="..."
-   ```
+**Step 4. Write.** Create a new file with `Obsidian:write_note`. For an existing file, read it with `Obsidian:read_note` and append the entry to its category with `Obsidian:patch_note`. Done when the write returned success.
 
-Append to existing:
-
-   ```text
-   Obsidian:read_note path="Brags/{{YYYY}}.md"
-   Obsidian:patch_note path="Brags/{{YYYY}}.md" oldString="..." newString="..."
-   ```
-
-6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+**Step 5. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and the entry's summary.
 
 ## Template
 
@@ -52,46 +41,44 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
 status: active
 tags:
   - brag
   - career
-  - {{dynamic tags based on content}}
+  - [tags derived from the content]
 ---
-# {{Month YYYY}}
+# [YYYY or YYYY Qn, matching the filename]
 
-{{What this period looked like — themes, milestones, shifts in focus.
-Write enough context that future-you can reconstruct what mattered and
-why these achievements stand out.}}
+[What this period looked like — themes, milestones, shifts in focus. Write enough context that future-you can reconstruct what mattered and why these achievements stand out.]
 
 ## Impact
 
-- **{{achievement with metrics}}**
-  - Context: {{situation}}
-  - Result: {{quantified outcome}}
+- **[achievement with metrics]**
+  - Context: [situation]
+  - Result: [quantified outcome]
 
 ## Technical
 
-- {{technical achievements, architecture decisions}}
+- [technical achievements, architecture decisions]
 
 ## Growth
 
-- {{new skills, mentoring, feedback received}}
+- [new skills, mentoring, feedback received]
 
 ## Observations
 
-- #achievement {{key accomplishment with metrics}}
-- #growth {{skill or area of development}}
-- #impact {{business or team impact}}
+- #achievement [key accomplishment with metrics]
+- #growth [skill or area of development]
+- #impact [business or team impact]
 
 ## Relations
 
-- [[{{Related Note}}]]
+- [[Related Note]]
 ````
 
-## Achievement Format
+An entry in its final form:
 
 ```markdown
 - **Reduced API latency by 40% through query optimization**
@@ -99,22 +86,6 @@ why these achievements stand out.}}
   - Result: Improved user experience, reduced server costs by $2k/month
 ```
 
-## Guidelines
-
-- Quantify impact when possible (%, $, time saved)
-- Include both technical and soft-skill achievements
-- Record achievements as they happen — do not wait for review season
-- Categorize by type (impact, technical, growth)
-- Use active voice ("led", "built", "shipped" — not "was responsible for")
-
-## Categorization
-
-Common categories for organizing brags:
-
-- **Impact** — Business results, user metrics
-- **Technical** — Architecture, performance, reliability
-- **Growth** — Learning, mentoring, new skills, feedback received
-
 ## Anti-Pattern: Vague Impact Claims
 
-"Improved performance" is invisible at review time. "Reduced p99 latency from 800ms to 220ms" is concrete and defensible. Always quantify with a metric, a percentage, or a time saved. When data is unavailable, state the proxy ("estimated 30% fewer support tickets in the affected flow").
+"Improved performance" is invisible at review time. "Reduced p99 latency from 800ms to 220ms" is concrete and defensible. Quantify with a metric, a percentage, or a time saved. When data is unavailable, state the proxy ("estimated 30% fewer support tickets in the affected flow").

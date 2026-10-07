@@ -8,35 +8,32 @@ Read [mapping.md](../references/mapping.md) for the vault root — this note wri
 
 ## Workflow
 
-1. **Gather company info**
-   - Company name
-   - Role title
-   - Stack (technologies advertised)
-   - Application status (applied, screening, interview, offer, rejected)
-   - How the application started (referral, cold apply, recruiter outreach)
+Copy this checklist and tick it off:
 
-2. **Generate folder and filename**
-   - Folder: `Companies/{{Company Name}}/`
-   - Filename: `{{Role}} — {{Company Name}}.md`
-   - Example: `Companies/Stripe/Senior Frontend Engineer — Stripe.md`
+```text
+Progress:
+- [ ] Step 1: Gather the company info
+- [ ] Step 2: Check for an existing note
+- [ ] Step 3: Compose the note or the update
+- [ ] Step 4: Write the note
+- [ ] Step 5: Report
+```
 
-3. **Check if exists**
+**Step 1. Gather.** Gather the company name, the role title, the advertised stack, the status (applied, screening, interview, offer, rejected), and how the application started (referral, cold apply, recruiter outreach). Done when each is known.
 
-   ```text
-   Obsidian:search_notes query="{{Role}} {{Company Name}}" path="Companies/"
-   ```
+**Step 2. Check for an existing note.** The note lives at `Companies/<Company Name>/<Role> — <Company Name>.md`, for example `Companies/Stripe/Senior Frontend Engineer — Stripe.md`.
 
-If a note for the same role+company exists, ask whether to append a new timeline entry or create a separate note (e.g., re-application later).
+```text
+Obsidian:search_notes query="Senior Frontend Engineer Stripe" path="Companies/"
+```
 
-4. **Compose content** using the template below.
+When a note for the same role and company exists, ask whether to append a timeline entry or create a separate note, such as for a later re-application. Done when the path is free, or the user chose.
 
-5. **Write note**
+**Step 3. Compose.** For a new note, fill the template below. For an update, compose a Timeline row, the new `status`, and any new observation. Done when a status change carries its Timeline row.
 
-   ```text
-   Obsidian:write_note path="Companies/{{Company Name}}/{{Role}} — {{Company Name}}.md" content="..."
-   ```
+**Step 4. Write.** Create a new note with `Obsidian:write_note`. For an update, read the note with `Obsidian:read_note`, append the Timeline row with `Obsidian:patch_note`, and set `status` with `Obsidian:update_frontmatter`; never overwrite the existing timeline. Done when every write returned success.
 
-6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+**Step 5. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and what changed.
 
 ## Template
 
@@ -44,66 +41,44 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
-status: {{applied / screening / interview / offer / rejected}}
-company: {{company-name}}
-role: {{role}}
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
+status: [applied / screening / interview / offer / rejected]
+company: [company-name]
+role: [role]
 stack:
-  - {{technology}}
+  - [technology]
 tags:
   - company
   - job-search
-  - {{dynamic tags based on content}}
+  - [tags derived from the content]
 ---
-# {{Role}} — {{Company Name}}
+# [Role] — [Company Name]
 
-{{What the company does, what the role involves, and why this opportunity
-is interesting. Capture what attracted attention — the product, team,
-tech, or scope. Write enough context that revisiting the note months
-later still surfaces the full picture.}}
+[What the company does, what the role involves, and why this opportunity is interesting. Capture what attracted attention — the product, team, tech, or scope. Write enough context that revisiting the note months later still surfaces the full picture.]
 
 ## Timeline
 
 | Date | Event | Notes |
 |------|-------|-------|
-| {{date-applied}} | Applied | {{how applied, referral?}} |
-| {{date}} | {{event}} | {{notes}} |
+| [date applied] | Applied | [how applied, referral?] |
+| [date] | [event] | [notes] |
 
 ## Decision
 
-{{Why accepted, declined, ghosted, or paused. Write the reasoning, not
-just the outcome.}}
+[Why accepted, declined, ghosted, or paused. Write the reasoning, not just the outcome.]
 
 ## Observations
 
-- #status {{current application status}}
-- #impression {{impression of the company or team}}
-- #lesson {{what was learned from the process}}
+- #status [current application status]
+- #impression [impression of the company or team]
+- #lesson [what was learned from the process]
 
 ## Relations
 
-- [[{{Related Note}}]]
+- [[Related Note]]
 ````
-
-## Updating Existing Company Notes
-
-When the application progresses (interview scheduled, offer received, decision made):
-
-1. Read the note with `Obsidian:read_note`
-2. Use `Obsidian:patch_note` to append a row to the Timeline table
-3. Update the frontmatter `status` field via `Obsidian:update_frontmatter`
-4. Add new observations as the process unfolds
-5. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
-
-Do not overwrite — keep the historical timeline intact.
-
-## Guidelines
-
-- Update the Timeline table as events happen (interviews, offers, feedback) rather than reconstructing from memory later
-- Capture impressions of the team and process — useful for future application decisions and referrals
-- Link related notes (challenge notes for technical interviews, brag notes when applying impacted achievements)
 
 ## Anti-Pattern: Status-Only Updates
 
-Updating only the frontmatter `status` field strips the narrative — why the status changed, what happened in the conversation, what shifted. Always pair a status change with a Timeline row and an observation.
+Updating only the frontmatter `status` field strips the narrative — why the status changed, what happened in the conversation, what shifted. Pair every status change with a Timeline row and an observation.

@@ -8,37 +8,35 @@ Read [mapping.md](../references/mapping.md) for the vault root — this note wri
 
 ## Workflow
 
-1. **Gather challenge info**
-   - Company (if part of interview process)
-   - Brief description
-   - Tech stack
-   - Time constraints
-   - Current status (pending, completed, submitted, feedback received)
+Copy this checklist and tick it off:
 
-2. **Generate folder and filename**
-   - Folder: company or context name in Title Case under `Challenges/`
-   - Filename: Title Case describing the challenge
-   - Pattern: `Challenges/{{Company}}/{{Type Topic}}.md`
-   - Examples:
-     - `Challenges/Stripe/System Design URL Shortener.md`
-     - `Challenges/Algo/Binary Tree Traversal.md`
-     - `Challenges/Figma/React Component Library.md`
+```text
+Progress:
+- [ ] Step 1: Gather the challenge info
+- [ ] Step 2: Generate the path
+- [ ] Step 3: Check for an existing note
+- [ ] Step 4: Compose the note
+- [ ] Step 5: Write the note
+- [ ] Step 6: Report
+```
 
-3. **Check if exists**
+**Step 1. Gather.** Gather the company (when part of an interview process), a brief description, the tech stack, the time constraints, and the status (pending, completed, submitted, feedback received). Done when each is known or stated as absent.
 
-   ```text
-   Obsidian:search_notes query="System Design URL Shortener" path="Challenges/"
-   ```
+**Step 2. Generate the path.** `Challenges/<Company>/<Type Topic>.md`, Title Case; use a context name such as `Algo` when no company applies. Examples: `Challenges/Stripe/System Design URL Shortener.md`, `Challenges/Algo/Binary Tree Traversal.md`. Done when the path is set.
 
-4. **Compose content** using the template below.
+**Step 3. Check for an existing note.**
 
-5. **Write note**
+```text
+Obsidian:search_notes query="System Design URL Shortener" path="Challenges/"
+```
 
-   ```text
-   Obsidian:write_note path="Challenges/Stripe/System Design URL Shortener.md" content="..."
-   ```
+When a note exists, update it as note-conventions.md "Updating an Existing Note" states. Done when the path is free, or the update path is chosen.
 
-6. **Report.** Report as [note-conventions.md](../references/note-conventions.md) "Reporting the Note" states.
+**Step 4. Compose.** Fill the template below. Paraphrase the challenge text, never copy it verbatim. Record a failed attempt as fully as a success. Done when no slot is left unfilled.
+
+**Step 5. Write.** Create the note with `Obsidian:write_note`. Done when the write returned success.
+
+**Step 6. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and the summary.
 
 ## Template
 
@@ -46,58 +44,45 @@ ALWAYS use this exact template structure:
 
 ````markdown
 ---
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
-status: {{pending / completed / submitted / feedback-received}}
-company: {{company}}
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
+status: [pending / completed / submitted / feedback-received]
+company: [company]
 stack:
-  - {{technology}}
+  - [technology]
 tags:
   - challenge
   - interview
-  - {{dynamic tags based on content}}
+  - [tags derived from the content]
 ---
-# {{Challenge Description}}
+# [Challenge Description]
 
-{{What the challenge was about, the constraints (time, tools, scope),
-and the environment. Include the initial reaction and how the problem
-was framed before diving in. Paraphrase — do not copy proprietary
-challenge text verbatim.}}
+[What the challenge was about, the constraints (time, tools, scope), and the environment. Include the initial reaction and how the problem was framed before diving in.]
 
 ## Approach
 
-{{How the problem was approached — thought process, trade-offs considered}}
+[How the problem was approached — thought process, trade-offs considered]
 
 ## Solution
 
-{{The solution — code, architecture, diagrams (mermaid)}}
+[The solution — code, architecture, a mermaid diagram for system design, and time and space complexity for an algorithm]
 
 ## Learnings
 
-- {{what was learned}}
-- {{what could be done differently}}
+- [what was learned]
+- [what could be done differently]
+- [feedback received, when any]
 
 ## Observations
 
-- #technique {{approach or pattern used}}
-- #complexity {{time/space complexity if algorithmic}}
-- #feedback {{feedback received, if any}}
-- #lesson {{key takeaway}}
+- #technique [approach or pattern used]
+- #lesson [key takeaway]
 
 ## Relations
 
-- [[{{Related Note}}]]
+- [[Related Note]]
 ````
-
-## Guidelines
-
-- Include the solution approach and thought process
-- Document what was learned, even from failures
-- Note time and space complexity for algorithms (inside Solution section)
-- Include diagrams for system design (using mermaid)
-- Record feedback received in the Learnings section
-- Paraphrase proprietary challenge text — never copy verbatim
 
 ## Anti-Pattern: Skipping Failed Attempts
 
-Failed challenges contain the most useful learnings — they reveal which assumptions broke and what would be tried differently. Documenting only successes turns the brag/challenge log into a vanity record. Capture both.
+Failed challenges contain the most useful learnings — they reveal which assumptions broke and what would be tried differently. Documenting only successes turns the challenge log into a vanity record. Capture both.

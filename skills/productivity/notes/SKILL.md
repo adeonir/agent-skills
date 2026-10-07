@@ -1,6 +1,6 @@
 ---
 name: notes
-description: "Obsidian note creation and updates for projects, challenges, achievements, transcriptions, companies, and job applications. Use when documenting work or preserving meeting and lecture notes. Not for session handoffs or repository-wide project context."
+description: "Obsidian note creation and updates for projects, interview challenges, achievements, transcriptions, and job applications. Use when recording a project overview, a technical challenge, a brag entry, a meeting or lecture transcription, or a company application. Not for session handoffs, end-of-session notes, or repository-wide project context."
 ---
 
 # Notes
@@ -18,7 +18,13 @@ Creates and manages Obsidian notes using the Obsidian MCP for structured documen
 ## Workflow
 
 ```text
-resolve-vault → select-type → compose-note → write → link-related
+resolve-vault → select-type → compose-note → write → report
 ```
 
 Each note type has its own workflow. Use any type independently.
+
+## References
+
+- [mapping.md](references/mapping.md) — loaded by every instruction
+- [note-conventions.md](references/note-conventions.md) — loaded by every instruction
+- [bootstrap.md](references/bootstrap.md) — loaded by mapping.md when the project instruction finds no registry or no entry
