@@ -49,23 +49,23 @@ Progress:
 - [ ] Step 3: Compose the handoff
 - [ ] Step 4: Capture the workspace state
 - [ ] Step 5: Mark unverified claims
-- [ ] Step 6: Write the file. If it breaks the format, return to Step 3
+- [ ] Step 6: Write the file and check it. If the check fails, return to Step 3
 - [ ] Step 7: Report
 ```
 
-**Step 1. Read the existing handoff.** Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Treat its claims as unverified until checked against the current conversation, workspace, and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`. Done when every prior claim is kept, updated, removed, or recorded as an open thread, or the file is confirmed absent.
+**Step 1. Read the existing handoff.** Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Treat its claims as unverified until checked against the current conversation, workspace, and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`. Before composing, list in working context one disposition per prior bullet — `kept`, `updated`, `removed`, or `open thread` — and never write the list to the file. Done when the list covers every prior bullet, or the file is confirmed absent.
 
 **Step 2. Confirm new work.** If the conversation holds no work beyond what the existing handoff carries, write nothing, offer to load it instead, and stop. Done when the conversation holds work the handoff does not carry, or the offer is made.
 
 **Step 3. Compose.** Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Current state` to it. Done when `Focus`, `Context`, and `Current state` are filled and each optional section is present only when its condition holds.
 
-**Step 4. Capture the workspace state.** For code work, capture the relevant branch, commit, changed paths, and checks with their commands and results. For a failing check or error, capture the command that reproduces it. Omit workspace details that do not affect resumption. Done when `Current state` carries what the next session needs to reproduce the workspace, or the work involves no code.
+**Step 4. Capture the workspace state.** For code work, run `git branch --show-current`, `git log -1 --oneline`, and `git status --short`, and take the branch, commit, and changed paths in `Current state` from their output, never from memory. Add the checks run with their commands and results. For a failing check or error, capture the command that reproduces it. Omit workspace details that do not affect resumption. Done when `Current state` carries what the next session needs to reproduce the workspace, or the work involves no code.
 
 **Step 5. Mark unverified claims.** End each load-bearing claim not checked against current evidence with `(unverified: [source])`. A bullet without the mark was verified at save. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions. Done when every load-bearing claim was checked or carries the mark.
 
-**Step 6. Write.** Write the handoff to `.artifacts/HANDOFF.md`. Done when the file follows the template and holds nothing the handoff must not contain; otherwise return to Step 3.
+**Step 6. Write and check.** Write the handoff to `.artifacts/HANDOFF.md`, then run `python3 <this-skill>/scripts/check_handoff.py .artifacts/HANDOFF.md`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. The script flags a missing required section, a section that says none, chat phrasing, and secrets; fix each line it flags as its message says and run it again. Done when the script prints `clean` and the file holds no content already carried by an artifact and no raw conversation history; otherwise return to Step 3.
 
-**Step 7. Report.** Report the path, what the handoff holds — its focus and current state — in one to three sentences, and the open threads and blockers it carries. Never paste the handoff. Done when the report names the path, the focus, and every open thread and blocker.
+**Step 7. Report.** Report the path, what the handoff holds — its focus and current state — in one to three sentences, and the open threads and blockers it carries. List on one line the prior bullets Step 1 marked `removed`. Never paste the handoff. Done when the report names the path, the focus, every open thread and blocker, and every removed bullet.
 
 ## Examples
 

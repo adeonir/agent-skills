@@ -49,6 +49,10 @@ reset handoff
 
 Save consolidates it on each run and clear empties it. An empty file reads as no handoff.
 
+## Requirements
+
+Python 3 (standard library only) for the format and secret check save runs on the written file.
+
 ## FAQ
 
 **Q: Does save discard the previous handoff?**
