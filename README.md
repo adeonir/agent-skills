@@ -31,7 +31,6 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[debug-tools](skills/engineering/debug-tools)** | Iterative investigate–fix–verify debugging with confidence scoring |
 | **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
-| **[rule-creator](skills/engineering/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with requirements traceability |
 
 ### Product
@@ -59,6 +58,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[handoff](skills/productivity/handoff)** | Save and resume conversation state across sessions |
 | **[notes](skills/productivity/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
 | **[plain-spoken](skills/productivity/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
+| **[rule-creator](skills/productivity/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
 | **[wrap-up](skills/productivity/wrap-up)** | End-of-session context persistence to Obsidian |
 
 ## How They Connect
