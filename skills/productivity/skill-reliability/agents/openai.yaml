@@ -1,0 +1,3 @@
+interface:
+  display_name: "Skill Reliability"
+  short_description: "Analyze skill reliability and trigger precision"
