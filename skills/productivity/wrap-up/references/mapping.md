@@ -1,20 +1,18 @@
-# Project Resolution via .notes Registry Symlink
+# Project Resolution via the Registry
 
-Resolve vault root, project config, and base tags from the `wrap-up.yml` registry symlinked into `.notes/`.
+Resolve the project entry and the base tags from the registry at `~/.config/wrap-up/projects.yml`.
 
 ## When to Use
 
-Loaded to resolve the vault root, the project entry for this repo, and the base tags applied to every note.
+Loaded to resolve the project entry for this repo and the base tags applied to every note.
 
-## Vault Root
+## Vault
 
-`.notes/wrap-up.yml` is a local symlink to the shared registry at `{vault_root}/wrap-up.yml` — one registry per vault, shared across every repo. Resolve the symlink target to find the vault root.
-
-When `.notes/wrap-up.yml` is absent, the vault is not linked to this repo yet: see [bootstrap.md](bootstrap.md), then continue here.
+Every note path is relative to the vault the Obsidian MCP server serves. The registry lives outside the vault and holds no vault path.
 
 ## Config Registry
 
-Schema:
+`~/.config/wrap-up/projects.yml`, one registry per machine, shared across every repo. Schema:
 
 ```yaml
 projects:
@@ -35,11 +33,11 @@ Fields:
 
 ## Project Lookup
 
-1. Resolve the repo root: `git rev-parse --show-toplevel` if available, otherwise use the current working directory
-2. Read `.notes/wrap-up.yml`
+1. Resolve the repo root: the path on the first line of `git worktree list --porcelain`, after `worktree `. It names the main worktree, so a linked worktree resolves to the same entry. Outside a git repo, use the current working directory.
+2. Read `~/.config/wrap-up/projects.yml`. When the file is absent, load [bootstrap.md](bootstrap.md), then continue here.
 3. Look up the repo root path as a key in `projects`
 4. Entry found: use the entry's fields
-5. Entry not found: see [bootstrap.md](bootstrap.md), then continue here
+5. Entry not found: load [bootstrap.md](bootstrap.md), then continue here
 
 ## Resolved Paths
 
@@ -56,13 +54,6 @@ Given this entry:
 
 - **Obsidian session**: `Work/Acme/Sessions/YYYY-MM-DD — Description.md`
 - **Obsidian daily**: `Daily/YYYY-MM-DD.md` (always the same)
-
-## Rules
-
-- `obsidian.path` is `--`: skip Obsidian session note
-- Daily note always runs, even when `obsidian.path` is `--`
-- Base tags apply to every note — downstream refs append context tags
-- Vault structure mirrors filesystem conventions (`obsidian.path` Title Case)
 
 ## Error Handling
 

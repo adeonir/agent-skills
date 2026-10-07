@@ -13,7 +13,7 @@ Loaded for the two phases that bracket note writing: the Load phase makes the ha
 Runs after mapping, before notes.
 
 1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
-2. Read the **whole file**. Check its claims against the current conversation. If a claim is stale or unsupported, report the conflict instead of copying the claim into a durable note.
+2. Read the **whole file**. Report a claim the current conversation or the repository contradicts — a file that no longer exists, a next step already done, a decision since reversed — instead of copying it into a durable note. A claim neither confirmed nor contradicted carries over.
 3. Make these fields available to the rest of the workflow:
    - `**Focus:**` line (always present)
    - `**Context:**` bullets (always present)
@@ -30,7 +30,7 @@ The notes phase consumes from working context — it does not re-read the file.
 
 ### Cleanup Phase
 
-Run this phase last. If every configured note write succeeds, clear the handoff without asking. If any required write fails, preserve the handoff so the user can retry.
+Run this phase once the note writes finish. If every configured note write succeeds, clear the handoff without asking. If any configured note write fails, preserve the handoff so the user can retry.
 
 Write empty content to `.artifacts/HANDOFF.md`. Do not delete the file. An empty file is treated as missing on the next Load, and writing avoids a Bash permission prompt.
 
@@ -38,6 +38,4 @@ Skip silently if Load found no usable handoff.
 
 ## Error Handling
 
-- File missing on Load: skip Load, skip Cleanup; downstream refs proceed without folded content
 - Handoff file empty or contains neither `Focus` nor `Next step`: treat as missing, skip Cleanup
-- Any configured note write fails: preserve the handoff and report the failed persistence

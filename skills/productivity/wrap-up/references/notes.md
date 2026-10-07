@@ -6,15 +6,26 @@ Create session notes in the project folder and update the daily note using Obsid
 
 Loaded to write the notes themselves. The session note is written when `obsidian.path` is not `--`; the daily note is always written, even when the session note is skipped. Both consume the resolved Obsidian path and base tags, plus whatever the handoff Load phase put in working context.
 
+## Contents
+
+- Obsidian Syntax Rules
+- Audience and Reference Discipline
+- Subject Matter
+- Filename Sanitization
+- Workflow: 1. Create session note, 2. Create or update daily note, 3. Offer to archive past months
+- Guidelines
+- Error Handling
+
 ## Obsidian Syntax Rules
 
 Obsidian notes render for humans (Graph view, daily review, Dataview). Keep notes brief and scannable — prose narrative up front, structured sections below, typed relations for graph edges.
 
 - **Frontmatter**: YAML with `title`, `type`, `tags`
-- **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood` — day-level cross-cutting facts). Use `#hashtags`, not `[brackets]`. Session notes do not have an Observations section.
-- **Relations**: each relation is a verb followed by a wikilink under `## Relations`: `- follows [[Target]]`. Common verbs: `follows`, `part_of`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Use inline `[[wikilinks]]` for ordinary mentions. Use the Relations section for explicit connections between notes.
-- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify before linking.
+- **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`). Use `#hashtags`, not `[brackets]`.
+- **Relations**: each relation is a verb followed by a wikilink under `## Relations`: `- follows [[Target]]`. Common verbs: `follows`, `part_of`, `contains`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Use inline `[[wikilinks]]` for ordinary mentions. Add a relation only for an explicit connection between notes.
+- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify each target with `Obsidian:search_notes` before linking.
 - **H1 heading**: all notes omit the body `# H1` — the frontmatter `title` is the canonical heading. Top-level body sections start at `##`.
+- **Prose**: past tense, natural language. Omit every empty section.
 
 ## Audience and Reference Discipline
 
@@ -53,75 +64,67 @@ When generating filenames from user input:
 - Use Title Case for all filenames
 - Example: `What's Next?` becomes `Whats Next.md`
 
-## Obsidian Tools
-
-Call these directly — do not invoke any skill.
-
-| Tool | Purpose |
-|------|---------|
-| `Obsidian:write_note` | Create new note with content and frontmatter |
-| `Obsidian:read_note` | Read existing note before patching |
-| `Obsidian:patch_note` | In-place update (oldString → newString) |
-| `Obsidian:search_notes` | Search-before-create, find existing notes |
-
-Always search before creating to avoid duplicates.
-
 ## Workflow
+
+Compose each note in full before writing it, then check the draft line by line against Audience and Reference Discipline and the two Subject Matter tests. Rewrite or cut every line that fails, and write only a draft with no failing line.
 
 ### 1. Create session note
 
 #### Determine path
 
-- Folder: `{obsidian.path}/Sessions/`
+- Folder: `<obsidian.path>/Sessions/`
 - Filename: `YYYY-MM-DD — Description.md`
 - Example: `Work/Acme/Sessions/YYYY-MM-DD — Checkout Refactor.md`
 
 #### Check for existing note
 
 ```text
-Obsidian:search_notes query="YYYY-MM-DD" path="{obsidian.path}/Sessions/"
+Obsidian:search_notes query="YYYY-MM-DD" path="<obsidian.path>/Sessions/"
 ```
 
 If a match exists for the same date and topic, read it with `Obsidian:read_note` and append a new section with `Obsidian:patch_note` (horizontal rule `---` plus date header as separator). Otherwise create a new note.
 
 #### Session template
 
+ALWAYS use this exact template structure:
+
 ```markdown
 ---
-title: "YYYY-MM-DD — Description"
+title: "YYYY-MM-DD — [Description]"
 type: session
 tags:
   - session
-  - {base tags from mapping}
-  - {context tags from content}
+  - [base tags from mapping]
+  - [context tags from content]
 ---
 
 ## Summary
 
-2-3 sentence narrative. What happened, key outcome, why it matters.
-Past tense, natural language. [[Wikilinks]] inline only to existing notes.
+[2-3 sentence narrative: what happened, key outcome, why it matters. Inline wikilinks only to existing notes.]
 
 ## Decisions
 
-- Decision + rationale + named alternative rejected (when a real option was considered)
+- [Decision + rationale + named alternative rejected, when a real option was considered]
 
 ## Findings
 
-- Brief finding worth capturing (omit section when nothing notable)
+- [Brief finding worth capturing]
 
 ## Problems
 
-- Problem in the project + root cause + fix (omit section when nothing notable)
+- [Problem in the project + root cause + fix]
 
 ## Next
 
-- Entry point for next session (file, function, path, or command)
+- [Entry point for next session: file, function, path, or command]
 
 ## Relations
 
 - follows [[Previous Session]]
 - part_of [[Project]]
 ```
+
+MUST NOT contain: branch names, commit hashes, identifiers of workspace artifacts, session mechanics, self-correction, the exchange behind a decision.
 
 Section presence:
 - `## Summary` always present
@@ -131,7 +134,7 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for explicit connections between notes
 
-When the handoff Load phase provides content, include it before composing the note. Apply the Audience and Reference Discipline and the Subject Matter constraints to that content.
+When the handoff Load phase provides content, include it before composing the note:
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
@@ -141,23 +144,12 @@ When the handoff Load phase provides content, include it before composing the no
 
 #### Write
 
-```text
-Obsidian:write_note(
-  path="{obsidian.path}/Sessions/YYYY-MM-DD — Description.md",
-  content="## Summary\n\n2-3 sentence narrative...\n\n## Decisions\n- ...\n\n## Findings\n- ...\n\n## Problems\n- ...\n\n## Next\n- ...\n\n## Relations\n- follows [[...]]",
-  frontmatter={title: "...", type: "session", tags: ["session", ...base_tags, ...context_tags]}
-)
-```
+Create the note with `Obsidian:write_note`, passing the frontmatter in its `frontmatter` field.
 
 Rules:
 - Keep each section brief — this is a human note, not an AI knowledge base
-- Decisions bullets distill with rationale — name rejected alternatives when a real option was considered
 - Findings and Problems: brief bullets only, no detailed narratives
-- Write a relation as a verb followed by a wikilink (`- follows [[X]]`). Add a relation only when it records an explicit connection between notes.
-- Wikilinks only to existing notes/entities; verify with `Obsidian:search_notes` before linking
-- Past tense, natural language
 - One project per session note
-- Omit empty sections
 
 ### 2. Create or update daily note
 
@@ -165,66 +157,59 @@ Rules:
 
 `Daily/YYYY-MM-DD.md`, at the root of `Daily/` — that is where a daily note is created when none exists for the date.
 
-Past months are archived into `Daily/YYYY-MM/` folders. Search for the date before writing: when a note for that date already sits in a monthly folder, patch it there rather than creating a second one at the root. Archiving is step 3, after the daily note is written; never move a note as part of writing it.
+Past months are archived into `Daily/YYYY-MM/` folders. Search for the date before writing: when a note for that date already sits in a monthly folder, patch it there rather than creating a second one at the root. Archiving runs only after the daily note is written; never move a note as part of writing it.
 
 #### Daily template
 
-Use Activities for project work, Open Items for pending work, Observations for day-level facts that apply across projects, and Relations for explicit connections to today's session notes. The title carries the calendar day the note covers, weekend included.
+The title carries the calendar day the note covers, weekend included.
+
+ALWAYS use this exact template structure:
 
 ```markdown
 ---
-title: "Saturday, September 19, 2026"
+title: "[Weekday, Month D, YYYY]"
 type: daily
 tags:
   - daily
-  - {base tags from mapping}
-  - {context tags from content}
+  - [base tags from mapping]
+  - [context tags from content]
 ---
 
 ## Activities
 
-### {Project Name}
+### [Project Name]
 
-- Outcome or task, with inline `[[wikilink]]` to the session note
-  on the first bullet (e.g. [[YYYY-MM-DD — Description]])
-- Another outcome or task
+- [Outcome or task, with an inline wikilink to the session note on the first bullet, e.g. [[YYYY-MM-DD — Description]]]
+- [Another outcome or task]
 
-### {Another Project}
+### [Another Project]
 
 - ...
 
 ## Open Items
 
-- [ ] Pending work, blockers, next steps
+- [ ] [Pending work, blockers, next steps]
 
 ## Observations
 
-- #category cross-cutting observation (patterns, methods, cadence,
-  blockers, mood — day-level facts that are not tied to a single
-  project's session)
+- #category [cross-cutting observation: patterns, methods, cadence, blockers, mood]
 
 ## Relations
 
 - contains [[YYYY-MM-DD — Session Note]]
 ```
 
+MUST NOT contain: PR or Issue numbers, file paths, shell commands, branch names, commit hashes, the session's technical detail.
+
 Section presence:
-- `## Activities` always present with at least one project subsection
+- `## Activities` always present, split by project with `### Project Name` headers, at least one project subsection
 - `## Open Items` only when commitments have an owner, a deadline, or an active blocker — mental follow-ups ("install X locally", "remember to test Y") belong in the handoff or session `## Next`, not here
-- `## Observations` for cross-cutting day-level facts — a recurring practice, never a method tried once in a session; do not restate per-project observations that belong in the session note; common categories: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`
-- `## Relations` for explicit connections to today's session notes (`contains`) or other day-level references; omit if no sessions or references
+- `## Observations` for cross-cutting day-level facts — a recurring practice, never a method tried once in a session; project-specific facts stay in the session note
+- `## Relations` for `contains` links to today's session notes or other day-level references
 
 #### If note does not exist
 
-Compose content following the template above. Only `## Activities` is required; omit empty sections.
-
-```text
-Obsidian:write_note(
-  path="Daily/YYYY-MM-DD.md",
-  content="## Activities\n...\n\n## Relations\n- contains [[...]]",
-  frontmatter={title: "...", type: "daily", tags: [...]}
-)
-```
+Compose content following the template above, then create the note with `Obsidian:write_note`.
 
 #### If note already exists
 
@@ -234,26 +219,18 @@ Read first with `Obsidian:read_note`, then use `Obsidian:patch_note`:
 - Add items to Open Items if relevant (create the section if it does not exist)
 - Consolidate `## Observations` and `## Relations` the same way — merge existing with new, deduplicate, keep only distinct items
 
-Rules:
-- Activities split by project with `### Project Name` headers
-- Observations are day-level and cross-cutting — project-specific facts stay in the session note
-- Relations use typed verbs (`contains`, `relates_to`); `contains` points to today's session notes
-- Past tense, natural language
-- Omit empty sections entirely
-
 ### 3. Offer to archive past months
 
 After the daily note is written, list `Daily/` with `Obsidian:list_directory` and collect the `YYYY-MM-DD.md` files at its root whose month is earlier than the current month. When none exist, skip this step silently.
 
-When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? This is the only question the workflow asks, and it comes after the report, never before a write. On yes, move each note with `Obsidian:move_note` to `Daily/YYYY-MM/YYYY-MM-DD.md` and report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
+When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? It comes after the report, never before a write. On yes, move each note with `Obsidian:move_note` to `Daily/YYYY-MM/YYYY-MM-DD.md` and report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
 
 ## Guidelines
 
-- Write notes immediately — no preview message, no rendered-content dump, no "about to write..." narration. The user invoked wrap-up to persist, not to review drafts in chat.
 - Tag every note `[note-type, ...base_tags, ...context_tags]` — `note-type` is `session` or `daily`, `base_tags` come from mapping output, `context_tags` are derived from the session content
 - Never write changelog-style content or a list of steps taken
 
 ## Error Handling
 
-- Obsidian MCP unavailable: skip the Obsidian step entirely, warn the user
+- Obsidian MCP unavailable: stop before any write, keep the handoff, and report that no note was written
 - No meaningful session content: keep the session note brief, still update the daily note

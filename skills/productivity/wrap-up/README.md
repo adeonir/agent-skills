@@ -25,11 +25,10 @@ flowchart LR
 ## Usage
 
 ```text
-wrap up
-end session
-finish up
-close session
+/wrap-up
 ```
+
+The skill runs only from the slash command; the model never starts it on its own.
 
 ## Output
 
@@ -42,7 +41,7 @@ close session
 |------------|--------|------------|
 | Obsidian MCP server | required | The workflow cannot write either note |
 
-- An Obsidian vault. On first run the skill asks for its path, then creates the `wrap-up.yml` registry, the global pointer, and the `.notes/` symlink itself.
+- An Obsidian vault served by the Obsidian MCP server. On first run in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ
 
@@ -54,4 +53,4 @@ close session
 
 **Q: Can I run wrap-up multiple times in a day?** A: Yes. The workflow finds existing notes and appends the new content instead of overwriting them. The daily note merges activities from each invocation.
 
-**Q: What if the project is not in the registry yet?** A: A bootstrap prompt asks for project name, Obsidian path, and base tags. The new entry is appended to `wrap-up.yml`.
+**Q: What if the project is not in the registry yet?** A: A bootstrap prompt asks for project name, Obsidian path, and base tags. The new entry is appended to `~/.config/wrap-up/projects.yml`.
