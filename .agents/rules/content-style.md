@@ -8,6 +8,7 @@ Write skills and rules in clear, consistent English so agents can apply the repo
 
 - Write repository files in English.
 - Never use emoji.
+- Never write emphasis in capitals (`ALWAYS`, `NEVER`, `MUST`, `CRITICAL`). The only capitalized directives are the template markers `ALWAYS use this exact template structure:` and `MUST NOT contain:`.
 - Never hard wrap the body. One paragraph is one line, one bullet is one line.
 - Write the frontmatter `description` on one line. Quote the value that carries a colon.
 - Write the frontmatter `description` in third person.
