@@ -16,6 +16,6 @@ Preserve `created`, `sources`, and the existing status unless the user requests 
 
 ## Sources and archive
 
-Populate `sources` with user-supplied files or URLs that informed the document; use `[]` only when no source was supplied. Archive the complete feature folder manually at `.artifacts/archive/features/<created>-<feature-slug>/`. Do not archive automatically.
+Populate `sources` with user-supplied files or URLs that informed the document; use `[]` only when no source was supplied. Archive the complete feature folder manually at `.artifacts/archive/features/<created>-<feature-slug>/`, including any audit report. Do not archive automatically.
 
 Keep the approved feature document self-contained. A source link in a later delivery artifact is provenance only.

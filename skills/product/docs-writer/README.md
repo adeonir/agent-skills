@@ -6,7 +6,7 @@ Generates structured product and technical documents through guided discovery.
 
 Routes document creation requests to type-specific workflows, each with appropriate discovery depth:
 
-The skill creates project and feature product requirements documents, feature RFCs, product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
+The skill creates project and feature product requirements documents, feature RFCs, consolidated feature audit reports, product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
 
 ```mermaid
 flowchart TD
@@ -14,6 +14,7 @@ flowchart TD
     R -->|Project PRD or PRODUCT| PD[Project-doc flow]
     R -->|Feature PRD| FP[Feature PRD flow]
     R -->|Feature RFC| FR[Feature RFC flow]
+    R -->|Feature audit report| FA[Consolidate supplied findings]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
     PD -->|discover if absent, update if present| P[PRD.md]
@@ -22,6 +23,7 @@ flowchart TD
     ADR --> A[adr/NNN-slug.md]
     FP --> FPM[.artifacts/features/feature-slug/PRD.md]
     FR --> FRM[.artifacts/features/feature-slug/RFC.md]
+    FA --> FAM[.artifacts/features/feature-slug/audit.md]
     D -.->|extract decision| ADR
 ```
 
@@ -30,6 +32,7 @@ flowchart TD
 | **Project PRD** | discovery (3 phases) if absent; update requested parts if present | `PRD.md` |
 | **Feature PRD** | focused discovery; update requested parts if present | `.artifacts/features/<feature-slug>/PRD.md` |
 | **Feature RFC** | proposal discovery; update requested parts if present | `.artifacts/features/<feature-slug>/RFC.md` |
+| **Feature audit report** | consolidate supplied findings; update requested parts if present | `.artifacts/features/<feature-slug>/audit.md` |
 | **PRODUCT** | discovery if absent; update requested parts if present | `PRODUCT.md` |
 | **Design Doc** | discovery (4 topics) → analysis → drafting if absent; update requested parts if present | `design-doc.md` |
 | **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
@@ -40,6 +43,7 @@ flowchart TD
 create PRD for my project
 create a feature PRD for saved searches
 write an RFC for bulk export
+consolidate these audit findings for saved searches
 create the feature PRD and RFC for team invitations
 create design doc for my project
 create ADR for switching from REST to gRPC
@@ -66,9 +70,10 @@ Feature documents are temporary artifacts:
 ```text
 .artifacts/features/<feature-slug>/PRD.md
 .artifacts/features/<feature-slug>/RFC.md
+.artifacts/features/<feature-slug>/audit.md
 ```
 
-Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRD and RFC artifacts are temporary and live under `.artifacts/features/`; archive them manually when no longer active.
+Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRDs, RFCs, and audit reports are temporary and live under `.artifacts/features/`; archive the complete feature folder manually when no longer active.
 
 When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tracker` section and the conversation carries a Linear issue, a feature PRD or RFC can live as a document on that issue, titled `PRD: <Feature Name>` or `RFC: <Feature Name>`, with no frontmatter. An upload request moves the local file to the issue and deletes it after the document reads back intact. Later edits go to the document on the issue.
 
@@ -86,6 +91,7 @@ Each document type has a distinct audience and scope. Keep their content separat
 | **PRD** | Product managers, engineers, designers | Product specification: problem, personas, must/should/could/won't priorities, journeys, business rules, non-functional requirements (targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
 | **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product key performance indicators, personas, journey walkthroughs, exhaustive specification coverage |
 | **ADR** | Engineers, future engineers | One technical decision with status, context, consequences, and references | Multiple decisions in one file, open trade-offs, advocacy as context |
+| **Audit report** | Product and engineering teams | Findings consolidated from supplied audit outputs, with evidence, status, and source attribution | Independently validated claims, inferred severity or status, implementation changes, requirements, tasks |
 
 ### How they relate
 
@@ -109,6 +115,8 @@ When content appears relevant to two documents, keep it in the document that own
 **Q: What happens when I run the skill for an existing PRD, PRODUCT, or Design Doc?** A: The skill reads the existing document and reviews only the requested change. After writing, it states what changed and where. The skill never silently replaces existing work.
 
 **Q: Can a feature have a PRD, an RFC, or both?** A: Yes. When both are requested, the feature PRD is written first and the RFC links to it without duplicating its content.
+
+**Q: What does the audit report do?** A: It consolidates findings supplied from other audit tools into one report. It preserves their evidence and status; it does not run an audit or implement fixes.
 
 **Q: How is the Design Doc sized?** A: Keep the Design Doc as short as the design allows. A small service with a few decisions can use one page. A system with several services and trade-offs needs more detail. Add content only when a decision needs it.
 
