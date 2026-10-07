@@ -34,41 +34,20 @@ continue from last
 
 clear handoff
 reset handoff
+
+/handoff
+/handoff continue auth race fix
+/handoff load
+/handoff clear
 ```
 
 ## Output
 
-`.artifacts/HANDOFF.md` — one current, consolidated handoff.
-
-Three sections are always present (`Focus`, `Context`, `Current state`); five are optional and omitted when empty:
-
-```markdown
-# Handoff
-
-**Focus:** [one line]
-
-**Context:**
-- User goal, constraints, and why the work is in its current direction
-
-**Current state:**
-- Work completed and remaining
-- Relevant workspace state and checks with results
-
-**Decisions:**
-- Active choice and rationale when no other artifact records it
-
-**Findings:**
-- ...
-
-**Open threads:**
-- ...
-
-**Blockers:**
-- ...
-
-**References:**
-- ...
+```text
+.artifacts/HANDOFF.md      # one current, consolidated handoff
 ```
+
+Save consolidates it on each run and clear empties it. An empty file reads as no handoff.
 
 ## FAQ
 
@@ -86,7 +65,7 @@ A: No. The next session infers what to do from the focus, context, and current s
 
 **Q: What if the file is absent?**
 
-A: Load and clear no-op silently. Save creates the file.
+A: Load reports that no handoff exists. Clear no-ops silently. Save creates the file.
 
 **Q: How does this differ from end-of-session note persistence?**
 
@@ -94,4 +73,4 @@ A: End-of-session flows write a narrative of what happened into a durable memory
 
 **Q: Can I describe what the next session should focus on?**
 
-A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus`, `Context`, and `Current state` to that focus. Without an argument, save captures the current focus from the conversation.
+A: Yes. Pass the focus as an argument: `/handoff continue auth race fix`. Save tailors `Focus`, `Context`, and `Current state` to that focus. Without an argument, save captures the current focus from the conversation. `load` and `clear` are the only arguments that select another operation.

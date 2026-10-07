@@ -1,7 +1,7 @@
 ---
 name: handoff
 description: "Conversation handoff scoped to the current project, for resuming work across sessions. Use when checkpointing, ending a session, loading prior context, or clearing a handoff. Not for handoffs between projects, durable session notes, or repository-wide project context."
-argument-hint: "[focus]"
+argument-hint: "load | clear | [focus]"
 ---
 
 # Handoff
@@ -12,7 +12,9 @@ argument-hint: "[focus]"
 - **Load** ("resume session", "load handoff", "continue from last") → [load.md](instructions/load.md)
 - **Clear** ("clear handoff", "reset handoff") → [clear.md](instructions/clear.md)
 
-Capture conversation state in one consolidated `.artifacts/HANDOFF.md` so a later session resumes with prior context. Three operations: save, load, clear.
+`/handoff load` → load. `/handoff clear` → clear. Any other argument, or none → save, with the argument as the focus.
+
+Capture conversation state in one consolidated `.artifacts/HANDOFF.md` so a later session resumes with prior context.
 
 ## Workflow
 

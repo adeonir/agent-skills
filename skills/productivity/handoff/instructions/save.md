@@ -12,44 +12,78 @@ ALWAYS use this exact template structure:
 **Focus:** [what the next session should pick up; 1 line]
 
 **Context:**
-- [user's goal, constraints, and why the work is in its current direction]
+- [user's goal, the condition that marks it done, constraints, and why the work is in its current direction]
 
 **Current state:**
 - [work completed, remaining work, and relevant workspace state]
-- [checks run and results, when relevant]
+- [checks run with their commands and results, when relevant]
 ````
 
 Append a section below only when its condition holds. Never write "none" — an absent section is the empty answer.
 
 | Section | Add when |
 |---------|----------|
-| `**Decisions:**` | an active decision and its rationale live in no artifact |
+| `**Decisions:**` | an active decision, its rationale, or an alternative rejected for it lives in no artifact |
 | `**Findings:**` | something was discovered worth carrying |
 | `**Open threads:**` | a question is still open |
 | `**Blockers:**` | something blocks progress |
 | `**References:**` | a path, artifact, or URL orients the next session |
 
-Each is a bullet list.
+Every section after `Focus` is a list of terse bullets.
 
 The handoff MUST NOT contain:
 
 - Content already carried by artifacts on disk, commits, pull requests, issues, or documentation. Reference that content by path or URL instead.
-- Claims from the prior handoff that conflict with current evidence.
+- Raw conversation history.
 - Chat phrasing — "as discussed", "the user confirmed", "we agreed", "you chose". State a rationale, decision, or constraint as a fact about the work, keeping all of its content.
 - Secrets of any kind. Replace API keys, tokens, passwords, personally identifiable information, and credentials embedded in URLs with `{redacted}`.
 
 ## Workflow
 
-1. Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Treat its claims as unverified until checked against the current conversation, workspace, and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`.
-2. Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Current state` to it.
-3. Carry the user's goal and constraints, the rationale for the current direction, work completed, and remaining work. Let the next session infer its next action from this context.
-4. For code work, capture the relevant branch, commit, changed paths, and checks with their results. Omit workspace details that do not affect resumption.
-5. Mark each load-bearing claim `verified` with its evidence or `unverified` with its source. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions.
-6. Compose the complete handoff before writing it to `.artifacts/HANDOFF.md`.
-7. **Report.** Report the path, what the handoff holds — its focus and current state — in one to three sentences, and the open threads and blockers it carries. Never paste the handoff.
+Copy this checklist and tick it off:
 
-## Guidelines
+```text
+Progress:
+- [ ] Step 1: Read and check the existing handoff
+- [ ] Step 2: Confirm there is new work to carry
+- [ ] Step 3: Compose the handoff
+- [ ] Step 4: Capture the workspace state
+- [ ] Step 5: Mark unverified claims
+- [ ] Step 6: Write the file. If it breaks the format, return to Step 3
+- [ ] Step 7: Report
+```
 
-- Keep `Context` and optional sections as terse bullets
-- Include enough rationale to explain the current direction; omit raw conversation history
-- Reference existing artifacts instead of copying their contents
+**Step 1. Read the existing handoff.** Read `.artifacts/HANDOFF.md` when present — it is created when absent and consolidated when present. Treat its claims as unverified until checked against the current conversation, workspace, and artifacts. Preserve relevant information, update changed information, and remove superseded or redundant content. Record any unresolved conflict under `Open threads`. Done when every prior claim is kept, updated, removed, or recorded as an open thread, or the file is confirmed absent.
+
+**Step 2. Confirm new work.** If the conversation holds no work beyond what the existing handoff carries, write nothing, offer to load it instead, and stop. Done when the conversation holds work the handoff does not carry, or the offer is made.
+
+**Step 3. Compose.** Compose the complete handoff from the prior handoff and current working context. When an argument is present, treat it as the next session's focus and tailor `Focus`, `Context`, and `Current state` to it. Done when `Focus`, `Context`, and `Current state` are filled and each optional section is present only when its condition holds.
+
+**Step 4. Capture the workspace state.** For code work, capture the relevant branch, commit, changed paths, and checks with their commands and results. For a failing check or error, capture the command that reproduces it. Omit workspace details that do not affect resumption. Done when `Current state` carries what the next session needs to reproduce the workspace, or the work involves no code.
+
+**Step 5. Mark unverified claims.** End each load-bearing claim not checked against current evidence with `(unverified: [source])`. A bullet without the mark was verified at save. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions. Done when every load-bearing claim was checked or carries the mark.
+
+**Step 6. Write.** Write the handoff to `.artifacts/HANDOFF.md`. Done when the file follows the template and holds nothing the handoff must not contain; otherwise return to Step 3.
+
+**Step 7. Report.** Report the path, what the handoff holds — its focus and current state — in one to three sentences, and the open threads and blockers it carries. Never paste the handoff. Done when the report names the path, the focus, and every open thread and blocker.
+
+## Examples
+
+A consolidated handoff with one optional section and one unverified claim:
+
+```markdown
+# Handoff
+
+**Focus:** finish the audit fixes to the `handoff` skill
+
+**Context:**
+- Goal: the skill passes the audit checklist with no fail left; done when the decision items are settled and the validator shows no new warning
+- Constraint: every edit follows the rules in `.agents/rules/`
+
+**Current state:**
+- Branch `main`; changed paths: `skills/productivity/handoff/SKILL.md`, `instructions/save.md`, `instructions/load.md`
+- Validator not re-run since the edits
+
+**Open threads:**
+- Whether `load.md` keeps its last guideline (unverified: no with/without test run yet)
+```
