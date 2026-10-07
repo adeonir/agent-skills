@@ -19,27 +19,32 @@ BUILTIN_COLLISIONS = ("code-review", "review", "simplify", "security-review")
 FILLER_OPENERS = ("helps with", "assists with", "supports", "tool for", "utility for")
 TRIGGER_PHRASES = ("use when", "use this", "use for", "use to")
 FOLD_INDICATORS = (">", ">-", ">+", "|", "|-", "|+")
-MECHANICS_PHRASES = ("under the hood", "behind the scenes", "falls back to")  # generic how-it-runs tells
+NEGATIVE_SCOPE = "not for"  # repo convention: the description closes with a "Not for ..." clause
+MECHANICS_PHRASES =("under the hood", "behind the scenes", "falls back to")  # generic how-it-runs tells
 MECHANICS_TOKEN_RE = re.compile(r"\b(mcp|cli)\b")  # naming the transport is mechanics, not what/when
 
 
 def parse_frontmatter(text):
-    """Return (name, description) from SKILL.md frontmatter, or (None, None)."""
+    """Return (name, description, argument_hint) from SKILL.md frontmatter, or (None, None, None)."""
     if not text.startswith("---"):
-        return None, None
+        return None, None, None
     end = text.find("\n---", 3)
     if end == -1:
-        return None, None
+        return None, None, None
     lines = text[3:end].splitlines()
 
     name = None
     description = None
+    hint = None
     index = 0
     while index < len(lines):
         line = lines[index]
         name_match = re.match(r"^name:\s*(.*)$", line)
         if name_match:
             name = name_match.group(1).strip().strip("\"'")
+        hint_match = re.match(r"^argument-hint:\s*(.*)$", line)
+        if hint_match:
+            hint = hint_match.group(1).strip().strip("\"'")
         desc_match = re.match(r"^description:\s*(.*)$", line)
         if desc_match:
             head = desc_match.group(1).strip()
@@ -56,7 +61,7 @@ def parse_frontmatter(text):
                 continue
             description = head.strip("\"'")
         index += 1
-    return name, description
+    return name, description, hint
 
 
 def lint_name(name, findings):
@@ -73,6 +78,15 @@ def lint_name(name, findings):
             findings.append(("MAJOR", "name", f"name must not contain '{token}'"))
     if name in BUILTIN_COLLISIONS:
         findings.append(("MAJOR", "name", f"name collides with a built-in command: {name}"))
+
+
+def lint_hint(hint, findings):
+    if hint is None:
+        return
+    if "<" in hint or ">" in hint:
+        findings.append(("MINOR", "argument-hint", "argument-hint wraps a placeholder in angle brackets — use square brackets: [skill-name]"))
+    elif re.match(r"^\[[^\]]*\|[^\]]*\]$", hint):
+        findings.append(("MINOR", "argument-hint", "argument-hint wraps the whole hint in one outer bracket — bracket each placeholder only"))
 
 
 def lint_description(description, findings):
@@ -106,6 +120,9 @@ def lint_description(description, findings):
         if len(capability.split()) < CAPABILITY_MIN_WORDS:
             findings.append(("MINOR", "description", "description states no capability before its first trigger — lead with what the skill does"))
 
+    if NEGATIVE_SCOPE not in lowered:
+        findings.append(("MINOR", "description", "description has no 'Not for' clause — close with the adjacent jobs the skill does not cover"))
+
     mechanics = next((phrase for phrase in MECHANICS_PHRASES if phrase in lowered), None)
     if not mechanics:
         token = MECHANICS_TOKEN_RE.search(lowered)
@@ -129,10 +146,11 @@ def main():
         print(f"cannot read {skill_md}: {error}", file=sys.stderr)
         return 1
 
-    name, description = parse_frontmatter(text)
+    name, description, hint = parse_frontmatter(text)
     findings = []
     lint_name(name, findings)
     lint_description(description, findings)
+    lint_hint(hint, findings)
 
     if not findings:
         print(f"PASS trigger_lint — name={name}, description ok ({len(description.split())} words)")

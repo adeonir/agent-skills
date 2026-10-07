@@ -18,6 +18,9 @@ from pathlib import Path
 TIER_STRONG = 0.90    # product >= 0.90 -> Strong
 TIER_MODERATE = 0.75  # product >= 0.75 -> Moderate, else Fragile
 
+# Cap on a derived step label so a long list item stays one readable line in the inventory.
+TITLE_MAX_CHARS = 60
+
 # A step heading: "### Step 3: Stage Files", "### Phase 1: Context", or "### 3. Draft".
 STEP_HEADING = re.compile(r"^#{2,4}\s+(?:Step|Phase)\s+(\d+)\s*[:.\-)]?\s*(.*)$", re.IGNORECASE)
 NUM_HEADING = re.compile(r"^#{2,4}\s+(\d+)\s*[:.)]\s+(.*)$")
@@ -53,7 +56,7 @@ def _clean_title(raw):
     bold = re.match(r"\*\*(.+?)\*\*", raw)
     if bold:
         return bold.group(1).strip()
-    return re.split(r"\s+[—–-]\s+|(?<=\w)\. ", raw)[0].strip()[:60]
+    return re.split(r"\s+[—–-]\s+|(?<=\w)\. ", raw)[0].strip()[:TITLE_MAX_CHARS]
 
 
 def steps_in(path):

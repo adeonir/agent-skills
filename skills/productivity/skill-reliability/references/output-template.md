@@ -4,7 +4,7 @@ The strict report format for a reliability analysis.
 
 ## When to Use
 
-Step 7 of the analysis, to format the final report. Loaded alongside SKILL.md.
+Step 7 of the analysis, to format the final report.
 
 ## Template
 
