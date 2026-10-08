@@ -35,11 +35,11 @@ resolve the open decisions before the spec
 
 ## Output
 
-The interview writes nothing. It closes with a brief summary of the session: the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR.
+The interview writes nothing to the repository. It keeps the decision tree in a JSON ledger in a temporary directory, and closes with a brief summary of the session: the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR.
 
 ## Requirements
 
-Uses the harness question tool when available and falls back to a numbered list in chat.
+Uses the harness question tool when available and falls back to a numbered list in chat. Python 3, standard library only, for the bundled ledger script.
 
 ## FAQ
 
