@@ -44,11 +44,11 @@ Fields:
 
 ## Project Lookup
 
-1. Resolve the repo root: the path on the first line of `git worktree list --porcelain`, after `worktree `. It names the main worktree, so a linked worktree resolves to the same entry. Outside a git repo, use the current working directory.
-2. Read `~/.config/wrap-up/projects.yml`. When the file is absent, see [bootstrap.md](bootstrap.md), then continue here.
-3. Look up the repo root path as a key in `projects`
-4. Hit: use the entry's fields
-5. Miss: the repo has no entry yet — see [bootstrap.md](bootstrap.md), then continue here
+Run `python3 <this-skill>/scripts/registry.py lookup`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. The script resolves the repo root to the main worktree, so a linked worktree finds the same entry.
+
+- Exit 0: use the entry it prints as JSON (`root`, `name`, `obsidian_path`, `tags`)
+- Exit 1: the registry or the entry is missing — load [bootstrap.md](bootstrap.md), then continue here
+- Exit 2: the registry cannot be parsed — report the script's message and stop; never edit the registry by hand
 
 ## Resolved Paths
 
@@ -71,6 +71,3 @@ Given this entry:
 - `obsidian.path` is `--`: skip project-folder writes; fixed-folder writes still proceed
 - Vault structure mirrors filesystem conventions (`obsidian.path` Title Case)
 
-## Error Handling
-
-- Malformed YAML: surface the error to the user, do not silently overwrite

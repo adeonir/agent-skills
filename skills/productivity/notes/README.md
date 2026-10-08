@@ -65,6 +65,7 @@ Vault/
 ## Requirements
 
 - Obsidian MCP server configured and connected
+- Python 3, standard library only, for the bundled scripts
 - An Obsidian vault served by the Obsidian MCP server. On the first project note in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ

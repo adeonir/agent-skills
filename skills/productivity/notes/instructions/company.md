@@ -15,7 +15,7 @@ Progress:
 - [ ] Step 1: Gather the company info
 - [ ] Step 2: Check for an existing note
 - [ ] Step 3: Compose the note or the update
-- [ ] Step 4: Write the note
+- [ ] Step 4: Write and check the note
 - [ ] Step 5: Report
 ```
 
@@ -31,7 +31,7 @@ When a note for the same role and company exists, ask whether to append a timeli
 
 **Step 3. Compose.** For a new note, fill the template below. For an update, compose a Timeline row, the new `status`, and any new observation. Done when a status change carries its Timeline row.
 
-**Step 4. Write.** Create a new note with `Obsidian:write_note`. For an update, read the note with `Obsidian:read_note`, append the Timeline row with `Obsidian:patch_note`, and set `status` with `Obsidian:update_frontmatter`; never overwrite the existing timeline. Done when every write returned success.
+**Step 4. Write and check.** Create a new note with `Obsidian:write_note`. For an update, read the note with `Obsidian:read_note`, append the Timeline row with `Obsidian:patch_note`, and set `status` with `Obsidian:update_frontmatter`; never overwrite the existing timeline. Then run `python3 <this-skill>/scripts/check_note.py company "<note-path>"`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with `Obsidian:patch_note` and run it again. Done when the script prints `clean`.
 
 **Step 5. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and what changed.
 

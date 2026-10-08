@@ -16,7 +16,7 @@ Progress:
 - [ ] Step 2: Generate the path
 - [ ] Step 3: Check for an existing note
 - [ ] Step 4: Compose the note
-- [ ] Step 5: Write the note
+- [ ] Step 5: Write and check the note
 - [ ] Step 6: Report
 ```
 
@@ -34,7 +34,7 @@ When a note exists, update it as note-conventions.md "Updating an Existing Note"
 
 **Step 4. Compose.** Fill the template below. Paraphrase the challenge text, never copy it verbatim. Record a failed attempt as fully as a success. Done when no slot is left unfilled.
 
-**Step 5. Write.** Create the note with `Obsidian:write_note`. Done when the write returned success.
+**Step 5. Write and check.** Create the note with `Obsidian:write_note`, then run `python3 <this-skill>/scripts/check_note.py challenge "<note-path>"`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with `Obsidian:patch_note` and run it again. Done when the script prints `clean`; if a flagged line needs content the user has not given, return to Step 1.
 
 **Step 6. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and the summary.
 
