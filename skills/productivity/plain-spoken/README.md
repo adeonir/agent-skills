@@ -12,11 +12,11 @@ flowchart LR
     P --> O[Clear technical prose]
 ```
 
-| Phase | Output |
-| ----- | ------ |
-| Preserve | Requirements, limits, code, identifiers, and domain terms remain accurate |
-| Simplify | Familiar words, stable terminology, direct sentences, and clear conditions |
-| Verify | A final check for ambiguity, lost meaning, and unclear references |
+| Mode | Output |
+| ---- | ------ |
+| Write | A new technical answer in clear language, with requirements, code, identifiers, and domain terms kept accurate |
+| Rewrite | The supplied text simplified without changing its technical meaning, returned alone |
+| Audit | A verdict and the clarity defects found, followed by the rewritten text |
 
 ## Usage
 
