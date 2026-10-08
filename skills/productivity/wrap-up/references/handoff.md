@@ -13,7 +13,7 @@ Loaded for the two phases that bracket note writing: the Load phase makes the ha
 Runs after mapping, before notes.
 
 1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
-2. Read the **whole file**. Report a claim the current conversation or the repository contradicts — a file that no longer exists, a next step already done, a decision since reversed — instead of copying it into a durable note. A claim neither confirmed nor contradicted carries over.
+2. Read the **whole file**. The handoff predates the work done after its last save, so the current conversation and the repository take precedence on current state. Where the session's work superseded a claim — a step since done, a branch since merged — record the current state and drop the claim without reporting it. Report a claim only when the session's work does not explain the contradiction — a file that no longer exists, a decision reversed outside this session — and never copy it into a durable note. A claim neither confirmed nor contradicted carries over.
 3. Make these fields available to the rest of the workflow:
    - `**Focus:**` line (always present)
    - `**Context:**` bullets (always present)
