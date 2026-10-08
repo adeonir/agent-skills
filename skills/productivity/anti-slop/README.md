@@ -12,16 +12,15 @@ flowchart TD
     MODE -->|detect| SCAN[scan catalog and context]
     SCAN --> REPORT[pattern, quoted line, fix]
     MODE -->|edit| CUT[apply principles and cut supported patterns]
-    CUT --> CHECK[run the self-check]
+    CUT --> CHECK[script, self-check, isolated reviewer]
     CHECK -->|fail| CUT
-    CHECK -->|pass| OUT[mode-specific output]
+    CHECK -->|pass| OUT[output for the input form]
 ```
 
 | Mode | Output |
 |------|--------|
-| edit | The full edited pasted draft plus What changed; file mode writes the file and reports its path, a summary of the edit, open items, and What changed |
+| edit | Pasted draft: the full edit plus What changed. File: the file is edited in place and the reply reports its path, a summary, open items, and What changed. Embedded: final text only, ready for another workflow |
 | detect | One line per pattern found: name, quoted line, fix — nothing rewritten |
-| embedded | Final edited text only, ready for another workflow |
 
 ## Usage
 
@@ -35,7 +34,11 @@ Scan this for AI tells, do not rewrite it
 
 ## Output
 
-Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
+Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log. The file form changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
+
+## Requirements
+
+Python 3, standard library only, for the bundled check script.
 
 ## FAQ
 

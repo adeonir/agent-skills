@@ -4,7 +4,7 @@ Word, phrase, and pattern cues for edit and detect modes.
 
 ## When to Use
 
-Read this file before editing or detecting. Edit mode applies supported patterns from this file. Detect mode reports supported findings with a fix.
+Loaded by both modes. Edit mode applies supported patterns from this file. Detect mode reports supported findings with a fix.
 
 ## Word and Phrase Cues
 
