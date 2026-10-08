@@ -41,6 +41,7 @@ The skill runs only from the slash command; the model never starts it on its own
 |------------|--------|------------|
 | Obsidian MCP server | required | The workflow cannot write either note |
 
+- Python 3, standard library only, for the bundled script
 - An Obsidian vault served by the Obsidian MCP server. On first run in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ
