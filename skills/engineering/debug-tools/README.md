@@ -10,7 +10,7 @@ flowchart TD
     B -->|Yes| C[Propose Fix]
     B -->|No, needs runtime data| D[Inject Logs]
     B -->|No, still unclear| E[Pattern Comparison]
-    D --> F[User reproduces bug]
+    D --> F[Run reproduction]
     F --> G[Analyze output]
     G --> A
     E --> A
@@ -38,6 +38,7 @@ flowchart TD
 debug this issue
 investigate why the login is failing
 trace this error
+this used to work last week, find what broke it
 add debug logs to trace the data flow
 inject logs to see what's happening
 remove debug logs

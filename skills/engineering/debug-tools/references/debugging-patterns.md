@@ -1,28 +1,14 @@
 # Debugging Patterns
 
-Quick-reference for common bug patterns, pattern comparison, and regression tracing.
+Pattern comparison against working code, and regression tracing.
 
 ## When to Use
 
-When a symptom needs matching against a known bug shape, when investigation stalls and broken code has to be diffed against a working example, or when the user reports that something used to work.
-
-## Common Bug Patterns
-
-| Pattern | Symptom | Check |
-|---------|---------|-------|
-| Null access | "Cannot read property X of undefined" | Optional chaining, defaults |
-| Race condition | Works sometimes, fails randomly | Async ordering, state timing |
-| Stale closure | Using old values in callbacks | useCallback deps, event bindings |
-| API mismatch | Data not displaying | Response shape, null handling |
-| Silent error | Nothing happens | Empty catch blocks, missing error state |
-| Infinite loop | App freezes | Dependency arrays, state updates |
-| Memory leak | Performance degrades over time | Event listeners, subscriptions |
-| Timing issue | Works in dev, fails in prod | Timing assumptions, async/await |
-| Regression | Used to work, broke after change | Diff vs last working commit, dependency upgrades |
+When investigation stalls and broken code has to be diffed against a working example, or when the user reports that something used to work.
 
 ## Pattern Comparison
 
-When investigation stalls, compare broken code against working examples to spot the difference. This technique is effective for bugs introduced by recent changes or when similar code elsewhere works correctly.
+Compare the broken code against similar code in the project that works, to spot where it diverges.
 
 ### How to Compare
 
@@ -40,13 +26,6 @@ When investigation stalls, compare broken code against working examples to spot 
 | Different import/version | Breaking change in dependency |
 | Extra/missing await | Async bug, unhandled promise |
 | Different config shape | Schema mismatch, missing field |
-
-### When to Use Pattern Comparison
-
-- Initial analysis did not surface the mechanism
-- The bug appeared after a change to working code
-- Similar code in the project works correctly
-- The error suggests a contract or interface mismatch
 
 ## Regression Tracing
 
@@ -69,4 +48,4 @@ When the user reports "this used to work", treat the change history as primary e
 | Config diff | Env vars, build flags, feature flags toggled |
 | Test diff | Tests removed or weakened around the affected area |
 
-The output of regression tracing feeds back into the hypothesis ranking in investigation.md -- a recent commit that touches the failing path is strong evidence and should score above generic theories.
+The output of regression tracing feeds back into the hypothesis ranking -- a recent commit that touches the failing path is strong evidence and should score above generic theories.

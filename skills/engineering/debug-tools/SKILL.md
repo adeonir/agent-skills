@@ -5,30 +5,42 @@ description: "Evidence-led debugging for unexpected, silent, or intermittent fai
 
 # Debug Tools
 
-Iterative debugging workflow with flexible technique selection and escalation.
+Iterative debugging workflow that gates a fix on evidence and escalates after repeated failures.
 
 ## Triggers
 
-- **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → run the workflow below
-- **Add debug logs** ("add debug logs", "inject logs", "trace with logs") → enter at step 3
-- **Cleanup logs** ("remove debug logs", "cleanup logs") → enter at step 5
-- **Pattern lookup** ("debug patterns", "common bugs", "used to work") → enter at step 2
+- **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → Step 1
+- **Regression or comparison** ("used to work", "broke after the update", "works there but not here") → Step 2
+- **Add debug logs** ("add debug logs", "inject logs", "trace with logs") → Step 3
+- **Cleanup logs** ("remove debug logs", "cleanup logs") → Step 5
 
 ## Workflow
 
+Copy this checklist and tick it off:
+
 ```text
-investigate → fix → verify → done
-  ^_______________________|  (max 3 attempts, then escalate)
+Progress:
+- [ ] Step 1: Investigate
+- [ ] Step 2: Compare against working code (when needed)
+- [ ] Step 3: Gather runtime evidence (when needed)
+- [ ] Step 4: Fix and verify
+- [ ] Step 5: Clean up logs
 ```
 
-1. **Load [investigation.md](references/investigation.md)** and work its steps: understand the bug, analyze the code, enumerate hypotheses with confidence scores, rank them, propose a fix, verify, report. Enter at the step the current state calls for — a session already carrying evidence does not restart at Step 1.
-2. **Load [debugging-patterns.md](references/debugging-patterns.md)** when a symptom needs matching against a known bug shape, when analysis stalls and the broken code has to be diffed against a working example, or when the user reports that something used to work.
-3. **Load [log-injection.md](references/log-injection.md)** when reading the code cannot show the mechanism and only observing the running system can. Not every session needs it.
-4. **Fix and verify.** Propose a fix only when the evidence names the mechanism; never as exploration. Run the reproduction after the fix is applied, and repeat it 3-5 times for a race condition or an intermittent bug.
-5. **Load [log-cleanup.md](references/log-cleanup.md)** once the fix is verified, or on explicit request. Run it before changes go to version control.
+Start at the step the session's state calls for; a session already carrying evidence does not restart at Step 1.
 
-A sensitive value never reaches an injected log — passwords, tokens, API keys, PII, session identifiers. This binds anywhere a log is added, including mid-investigation without step 3 loaded.
+**Step 1. Investigate.** Load [investigation.md](references/investigation.md) and work its sections from Understand the Bug through Rank Hypotheses. Done when the hypotheses are scored and ranked, and the leading one either names the mechanism or names the runtime data it needs.
+
+**Step 2. Compare against working code.** When analysis stalls and the broken code has to be diffed against a working example, or when the user reports that something used to work, load [debugging-patterns.md](references/debugging-patterns.md). Done when the comparison or the regression trace is in hand; then return to Step 1 to re-rank.
+
+**Step 3. Gather runtime evidence.** When reading the code cannot show the mechanism and only observing the running system can, load [log-injection.md](references/log-injection.md). Done when the reproduction's output is read; then return to Step 1 to re-rank.
+
+**Step 4. Fix and verify.** Work the Propose Fix, Verify, and Report sections of investigation.md. Done when the reproduction no longer shows the symptom and the report is written. If the symptom remains, return to Step 1 with what the run showed.
+
+**Step 5. Clean up logs.** Once the fix is verified, or on explicit request, load [log-cleanup.md](references/log-cleanup.md). Run it before changes go to version control. Done when its search returns no `[DEBUG]` line.
+
+A sensitive value never reaches an injected log — passwords, tokens, API keys, PII, session identifiers. This binds anywhere a log is added, including mid-investigation without Step 3 loaded.
 
 ## Anti-Pattern: Symptom Whack-a-Mole
 
-Fixing the same symptom in multiple places signals an architectural issue, not a localized bug. When fix N introduces bug N+1, stop. The 4th attempt must escalate to architectural review: re-examine the abstraction, the missing layer, or the flawed assumption — not retry a deeper version of the same approach.
+Fixing the same symptom in multiple places signals an architectural issue, not a localized bug. Count each fix attempt that fails Step 4. After three, stop fixing: the fourth move is an architectural assessment for the user — what was tried and why it failed, whether the issue is systemic (wrong abstraction, missing layer, flawed assumption), and the architectural change that would resolve it. Stop and reassess earlier when the root cause keeps changing, the changes grow with each attempt, or the confidence score drops between attempts.
