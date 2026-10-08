@@ -27,4 +27,7 @@ trigger → dispatch → classify → context → destination → render → wri
            extract/del
 ```
 
-Create runs the classifier and context check before rendering the template. The other modes skip classification.
+## References
+
+- [classify-and-context.md](references/classify-and-context.md) - classifier, context check, and destination decision; loaded by create, edit, and extract
+- [rule-format.md](references/rule-format.md) - rule template and verifiability checklist; loaded by create, edit, and extract

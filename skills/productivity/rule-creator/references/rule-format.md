@@ -1,10 +1,19 @@
 # Rule Format
 
-Template and conventions for rule files. Every rule produced by the create or edit mode uses this format. Required and optional sections are marked.
+Template and conventions for rule files. Every rule produced by the create, edit, or extract mode uses this format. Required and optional sections are marked.
 
 ## When to Use
 
 Loaded to render a rule and to verify one: by create and extract after the gates pass, and by edit when applying a change.
+
+## Contents
+
+- Template
+- Section rules: title, impact line, explanation paragraph, principles, Incorrect / Correct blocks, reference line
+- Frontmatter
+- Multi-rule files
+- Verifiability checklist
+- Example
 
 ## Template
 
@@ -160,9 +169,7 @@ paths:
 
 **Impact: HIGH**
 
-Every API handler validates its request body with Zod before touching the
-database. Skipping validation lets malformed input reach the schema layer
-and corrupts data.
+Every API handler validates its request body with Zod before touching the database. Skipping validation lets malformed input reach the schema layer and corrupts data.
 
 **Incorrect:**
 

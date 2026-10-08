@@ -6,6 +6,12 @@ Gates that run before rendering a new rule. Classification decides whether the i
 
 Loaded to run the gates that precede a write: by create for the input, and by extract for each approved section. Edit reloads the context check when the scope or the stack reference changes. List and delete never load it.
 
+## Contents
+
+- Classifier: decision table, refusal script
+- Context check: resolving a memory file, checks in order
+- Destination decision: level, scope, glob shape
+
 ## Classifier
 
 The input must be **declarative** (a standing constraint Claude should follow). Anything else routes elsewhere.
@@ -23,15 +29,11 @@ When the input is ambiguous, ask one targeted question:
 
 > "Is this a standing convention or a one-off task?"
 
-Do not auto-proceed when ambiguous.
-
 ### Refusal script
 
 When the classifier rejects, output the verdict plainly and stop:
 
-> "This reads as a multi-step workflow. Rules describe standing
-> constraints, not procedures. Recommend authoring a skill for this
-> instead. Continue there?"
+> "This reads as a multi-step workflow. Rules describe standing constraints, not procedures. Recommend authoring a skill for this instead. Continue there?"
 
 Do not write a partial rule file when refusing, and do not invoke the recommended skill or hook workflow automatically — the user confirms and re-invokes.
 
@@ -56,7 +58,7 @@ A `CLAUDE.md` at either level may hold its content behind `@path` imports — a 
 2. **Duplicate topic.** List both rules directories recursively. Topic identity is the path relative to the rules directory, so `frontend/testing.md` and `backend/testing.md` are distinct topics. If a file matches the intended topic, read it: already covered → tell the user and exit; adjacent topic → propose appending an H2 section instead of a new file.
 3. **Contradiction.** Read the memory files at both levels with imports resolved — `AGENTS.md` / `CLAUDE.md` and `.claude/CLAUDE.md` in the project, `~/.claude/CLAUDE.md` at user level — plus the rules at the other level. If the rule contradicts an instruction there, flag both passages and ask which wins. When the conflict crosses levels, name the winner: project.
 
-Flag findings as a short list and let the user decide. Do not silently override. Verifiability is checked separately in the final gate before write — see [rule-format.md](rule-format.md).
+Flag findings as a short list and let the user decide. Do not silently override.
 
 ## Destination decision
 
@@ -71,7 +73,7 @@ Two independent axes.
 
 ### Level
 
-**User signals:** "all my projects", "every project", "always", "user-level", or a personal tooling or workflow preference naming no repository.
+**User signals:** "all my projects", "every project", "user-level", or a personal tooling or workflow preference naming no repository.
 
 **Project signals:** the input names a stack, directory, or framework of the current repository, or says "this project", "here", "in this repo". A path signal is a project signal.
 
@@ -100,7 +102,6 @@ Symlinks in a rules directory are resolved and loaded normally, and a circular l
 
 - Universal stylistic conventions: "indentation", "naming", "imports"
 - Cross-cutting concerns: "security", "logging", "error handling"
-- Workflow conventions: "before committing", "test before merging" (note: these may also be hook candidates — re-check classifier)
 
 ### Glob shape
 
@@ -114,7 +115,7 @@ When path-scoped, infer the most specific glob from the signal:
 | "React components" | `src/components/**/*.tsx` |
 | "Python tests" | `tests/**/*.py` |
 
-Prefer brace expansion (`{ts,tsx}`) over multiple array entries when extensions share a parent. Each brace group multiplies the expanded pattern count, and a rule's whole `paths` list shares one budget of 1,000 expanded patterns — a list that exceeds it is used unexpanded, and its literal braces match nothing.
+Prefer brace expansion (`{ts,tsx}`) over multiple array entries when extensions share a parent. Each brace group multiplies the expanded pattern count, and a rule's whole `paths` list shares one budget of 1,000 expanded patterns — a pattern that would exceed it is used unexpanded, and its literal braces match nothing. Patterns without braces do not count against the budget.
 
 Always validate the glob: forward slashes, standard glob syntax, no backslashes or shell-specific expansions. A `[` opens a bracket expression, so one that cannot be read as such matches nothing — escape a literal bracket as `\[`.
 
