@@ -1,10 +1,8 @@
-# Spec-Driven Development
+# Spec-Driven
 
-Spec-driven feature development. Light by default; weight only where the change pays for it.
+Feature work with traceable requirements, design, tasks, and UAT. Light by default; weight only where the change pays for it.
 
 ## What It Does
-
-Builds features in phases. A mechanical fix is a one-liner; anything larger runs a full pipeline where each artifact closes on its own self-check plus a linter.
 
 ```mermaid
 flowchart TD
@@ -19,41 +17,29 @@ flowchart TD
 
 | Phase | Output |
 |-------|--------|
-| **Specify** | `spec.md` — WHAT + WHY |
+| **Specify** | `spec.md` — WHAT + WHY; a mechanical change with zero load-bearing decisions skips it and runs as a one-liner straight to inline implement on its own branch |
 | **Design** | `design.md` — HOW: architecture, components, decisions |
 | **Tasks** | `tasks.md` — WHEN: atomic steps, tests, gates, coverage |
 | **Implement** | code + commits + updated `tasks.md` (verify per task) |
 | **Validate / UAT** | `validate.md` — per-criterion browser verdicts, accessibility, and responsiveness on a user-facing feature |
 | **Archive** | feature moved to `.artifacts/archive/specs/<created>-<slug>/` (optional and manual, any state) |
 
-### Triage
-
-| Change | Pipeline |
-|--------|----------|
-| Mechanical, zero load-bearing decisions | one-liner → branch → inline implement |
-| Everything else | Specify → Design → Tasks → Implement → [Validate] |
-
-Depth inside the phases follows what the change needs — how far discovery probes, whether design has to research. The agent judges that depth as the work runs; nothing fixes it in advance.
-
 ## Usage
 
 ```text
-# Specify a feature (greenfield or brownfield)
 plan a feature for user authentication
-from PRD @docs/payment-prd.md
+plan a feature from the PRD at @docs/payment-prd.md
 modify the existing auth flow to add 2FA
-
-# Move through the pipeline
 design this feature
-create tasks
+create tasks for this feature
 implement T-1 to T-4
-implement S-1
+implement slice S-1
 implement everything
-
-# Close it out
-run UAT                 # user-facing only
-
+run UAT on this feature
+archive this feature
 ```
+
+UAT runs only on a user-facing feature.
 
 ## Output
 
@@ -84,22 +70,14 @@ PROJECT.md                         # committed codebase knowledge
 
 ## FAQ
 
-**Q: What does spec-driven persist across features?**
+**Q: What does spec-driven persist across features?** A: `PROJECT.md` at the project root accumulates cross-feature conventions, decisions, and gotchas. `archive/` is never foraged.
 
-A: `PROJECT.md` at the project root accumulates cross-feature conventions, decisions, and gotchas. `archive/` is never foraged.
+**Q: When does a change skip the pipeline?** A: When it is mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md`. If it turns out to carry a real decision, it routes back to specify and the full pipeline applies.
 
-**Q: When does a change skip the pipeline?**
+**Q: What is the difference between self-check, verify, and validate?** A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. A failed report points the feature's `STATE.md` at `tasks`, which turns its verified findings into correction tasks that `implement` executes.
 
-A: When it is mechanical, with zero load-bearing decisions. It runs as a one-liner straight to inline implement on its own branch, with no `spec.md`. If it turns out to carry a real decision, it routes back to specify and the full pipeline applies.
+**Q: How are tasks ordered and dispatched?** A: `Depends on` is the only dependency source. An edge exists where the dependent task cannot leave the tree green without the other. Among tasks the graph leaves free, the task that restores what another task leaves worse in the product comes directly after it. Implement accepts task and slice selectors and dispatches one unit per slice. Units with no dependency path between them that write no file in common may run in parallel; the agent decides how to isolate each one.
 
-**Q: What is the difference between self-check, verify, and validate?**
+**Q: What happens after implementation and optional checks?** A: Pull request and merge happen outside this skill. The optional archive command is manual and accepts a feature in any state; it moves the feature from `.artifacts/specs/<slug>/` to `.artifacts/archive/specs/<created>-<slug>/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/specs/` when creating a new spec.
 
-A: Self-check closes each artifact before its approval gate: the phase reads its own output for what no script can settle, then runs the linter over the text that reading produced, and an error keeps the artifact at `draft`. No artifact gets a second subagent over the same text — that reads the same rules twice and buys a second pass rather than a second view. Verify is mental and internal to implement — it runs after each task and never appears as a user phase. Validate is an optional user-facing check: it exercises every acceptance criterion a running application can settle, checks accessibility and responsiveness on the screens it visits, and writes `validate.md`. A failed report points the feature's `STATE.md` at `tasks`, which turns its verified findings into correction tasks that `implement` executes.
-
-**Q: How are tasks ordered and dispatched?**
-
-A: `Depends on` is the only dependency source. An edge exists where the dependent task cannot leave the tree green without the other. Among tasks the graph leaves free, the task that restores what another task leaves worse in the product comes directly after it. Implement accepts task and slice selectors and dispatches one unit per slice. Units with no dependency path between them that write no file in common may run in parallel; the agent decides how to isolate each one.
-
-**Q: What happens after implementation and optional checks?**
-
-A: Pull request and merge happen outside this skill. The optional archive command is manual and accepts a feature in any state; it moves the feature from `.artifacts/specs/<slug>/` to `.artifacts/archive/specs/<created>-<slug>/` (the date comes from the spec's `created:`, added only at archive). The agent never reads `archive/specs/` when creating a new spec.
+**Q: How deep does each phase go?** A: As deep as the change needs: how far discovery probes, whether design has to research. The agent judges that depth as the work runs; nothing fixes it in advance.

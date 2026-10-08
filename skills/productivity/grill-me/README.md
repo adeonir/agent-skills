@@ -16,12 +16,12 @@ flowchart TD
     S --> C[User confirms or corrects]
 ```
 
-| Phase | What Happens | Output |
-|-------|-------------|--------|
-| Map and round | Break the plan into a design tree and ask every decision whose prerequisites are settled | Questions |
-| Ask | Use the harness question tool, four questions per call at most, recommended answer first; a numbered list in chat without the tool | Answers |
-| Facts | Look up what the environment can answer instead of asking | Facts for later rounds |
-| Close | Summarize the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR, then wait for the user to confirm or correct it | Summary |
+| Phase | Output |
+|-------|--------|
+| Map and round | Questions: every decision whose prerequisites are settled, from the design tree the plan breaks into |
+| Ask | Answers, collected through the harness question tool (four questions per call at most, recommended answer first), or through a numbered list in chat without the tool |
+| Facts | Facts looked up in the environment instead of asked, for later rounds |
+| Close | Summary of the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR, which the user confirms or corrects |
 
 ## Usage
 
@@ -46,7 +46,3 @@ Uses the harness question tool when available and falls back to a numbered list 
 **Q: How is this different from brainstorming?** A: Brainstorming generates and compares alternatives. Grilling takes a plan as given and settles each decision in it.
 
 **Q: What if a question has no fixed options?** A: It is asked in chat, alone, instead of through the question tool.
-
-## Credits
-
-Inspired by Matt Pocock's [grilling](https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md) skill.

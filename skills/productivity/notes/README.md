@@ -4,14 +4,6 @@ Structured note creation for Obsidian using the Obsidian MCP.
 
 ## What It Does
 
-Creates and manages documentation in the Obsidian vault with consistent structure across five note types:
-
-- **Projects** — Full project documentation (overview, goals, architecture)
-- **Challenges** — Technical interview challenges (take-homes, system design)
-- **Brags** — Achievement tracking for performance reviews
-- **Transcriptions** — Meetings, 1:1s, feedback sessions, lectures, courses
-- **Companies** — Job application tracking (timeline, status, decision)
-
 ```mermaid
 flowchart TD
     T[User Request] --> D{Note Type}
@@ -28,13 +20,13 @@ flowchart TD
     M --> N[Note in Vault]
 ```
 
-| Note Type | Folder | Pattern |
-|-----------|--------|---------|
-| Project | `<obsidian.path>/<Project Name>/` | `<Project Name> Overview.md` |
-| Challenge | `Challenges/<Company>/` | `<Type Topic>.md` |
-| Brag | `Brags/` | `YYYY.md` or `YYYY Qn.md` |
-| Transcription | `Meetings/` or `Courses/` | `<Description>.md` |
-| Company | `Companies/<Company>/` | `<Role> — <Company>.md` |
+| Note Type | Output |
+|-----------|--------|
+| Project | Full project documentation (overview, goals, architecture) in `<obsidian.path>/<Project Name>/<Project Name> Overview.md` |
+| Challenge | Technical interview challenge (take-home, system design) in `Challenges/<Company>/<Type Topic>.md` |
+| Brag | Achievement tracking for performance reviews in `Brags/YYYY.md` or `Brags/YYYY Qn.md` |
+| Transcription | Meeting, 1:1, feedback session, lecture, or course in `Meetings/<Description>.md` or `Courses/<Description>.md` |
+| Company | Job application tracking (timeline, status, decision) in `Companies/<Company>/<Role> — <Company>.md` |
 
 ## Usage
 
@@ -70,8 +62,7 @@ Vault/
 
 ## FAQ
 
-**Q: How do filenames handle special characters?**
-A: Characters the OS rejects or Obsidian links break on (`/ \ : * ? " < > | # ^ [ ] %`) are removed. Accented characters are kept. All filenames are Title Case.
+**Q: How do filenames handle special characters?** A: Characters the OS rejects or Obsidian links break on (`/ \ : * ? " < > | # ^ [ ] %`) are removed. Accented characters are kept. All filenames are Title Case.
 
 **Q: What if a note with the same name exists?** A: The skill detects duplicates via `Obsidian:search_notes` and asks whether to append, choose a new name, or cancel.
 

@@ -28,23 +28,23 @@ flowchart TD
 ```text
 Clean up this draft, keep it sounding like me
 Make this post less AI-sounding
-Edit docs/notes/launch.md
+Remove the AI-writing patterns from docs/notes/launch.md
 Does this read as AI slop?
 Scan this for AI tells, do not rewrite it
 ```
 
 ## Output
 
-Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log.
-
-Write in the draft's language. The word lists are English, but the skill matches the same patterns in other languages. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
+Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log. File mode changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
 
 ## FAQ
 
-**Does detect tell me whether AI wrote the piece?** No. It names patterns and quotes the lines that carry them. It does not identify the author.
+**Q: Does it work in languages other than English?** A: Yes. It writes in the draft's language. The word lists are English, but the skill matches the same patterns in other languages.
 
-**Will it flatten my voice?** The edit keeps distinctive words, rhythm, bluntness, humor, and digressions. It cuts only what the draft needs, so the result still sounds like the same person.
+**Q: Does detect tell me whether AI wrote the piece?** A: No. It names patterns and quotes the lines that carry them. It does not identify the author.
 
-**Does it add opinions or personality?** Not by default. Technical, reference, legal, and factual prose stays neutral and precise. Personal and editorial prose can keep personality when the source supports it.
+**Q: Will it flatten my voice?** A: The edit keeps distinctive words, rhythm, bluntness, humor, and digressions. It cuts only what the draft needs, so the result still sounds like the same person.
 
-**Does one word or dash prove AI writing?** No. Findings require context or a pattern cluster.
+**Q: Does it add opinions or personality?** A: Not by default. Technical, reference, legal, and factual prose stays neutral and precise. Personal and editorial prose can keep personality when the source supports it.
+
+**Q: Does one word or dash prove AI writing?** A: No. Findings require context or a pattern cluster.

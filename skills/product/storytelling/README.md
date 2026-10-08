@@ -25,8 +25,6 @@ flowchart TD
 | Recommend | What to preserve, what to reinterpret, conflicts with the visual identity |
 | Write the document | `storytelling.md` |
 
-The skill states intent only. Layout, visual identity values, timing, renderer, and assets belong to whoever builds, and every entry is a suggestion the builder may contest.
-
 ## Usage
 
 ```text
@@ -55,5 +53,7 @@ A re-run revises the same file: untouched sections stay, and each recorded claim
 **Q: Does it need a brief or any other input?** A: No. It works from whatever exists (a work description, a visual identity, pages, code, reference sites) and asks for what is missing.
 
 **Q: Does it change my code or visual identity?** A: No. Conflicts and changes appear as recommendations in the document.
+
+**Q: Does it decide layout, visual values, timing, or assets?** A: No. It states intent only. Layout, visual identity values, timing, renderer, and assets belong to whoever builds, and every entry is a suggestion the builder may contest.
 
 **Q: Can it conclude that the site needs no motion or video?** A: Yes. The Movement entry records the decision and the reason, including a decision for none.

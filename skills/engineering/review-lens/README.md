@@ -4,8 +4,6 @@ Confidence-scored code review in two modes — a fast walkthrough-plus-findings 
 
 ## What It Does
 
-Annotates the diff with line markers, then reviews it in one of two modes and reports a change summary plus severity-sorted findings with suggested fixes:
-
 ```mermaid
 flowchart TD
     A[Get diff] --> N[Annotate lines L&lt;n&gt;]
@@ -35,12 +33,12 @@ flowchart TD
 ## Usage
 
 ```text
-review my changes          # quick (default)
-review against main        # quick
-deep review my changes     # multi-material fan-out
-full review                # deep
-apply the suggested fixes  # opt-in, with confirmation
-re-review (check if the issues are fixed)
+review my changes
+review against main
+deep review my changes
+full review
+apply the suggested fixes
+re-review to check if the issues are fixed
 ```
 
 ## Output

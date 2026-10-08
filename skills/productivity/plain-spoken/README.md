@@ -18,15 +18,7 @@ flowchart LR
 | Simplify | Familiar words, stable terminology, direct sentences, and clear conditions |
 | Verify | A final check for ambiguity, lost meaning, and unclear references |
 
-The method adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to agent responses. It does not reproduce the controlled dictionary or claim formal compliance.
-
-The principles apply in any language. The controlled dictionary is English; in another language, apply the same test to the equivalent word pair.
-
 ## Usage
-
-The agent can select this skill automatically for technical prose written for people. This includes brief factual answers, explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
-
-Examples:
 
 ```text
 explain this architecture in plain technical English
@@ -36,8 +28,6 @@ use an ASD-STE100 style for this maintenance procedure
 audit this technical note for complex words and ambiguous sentences
 ```
 
-The default result is the improved text only. Ask for an audit to receive findings and a rewritten version.
-
 ## Requirements
 
 None for STE-inspired writing.
@@ -46,8 +36,14 @@ Formal ASD-STE100 conformance requires the official standard and the approved te
 
 ## FAQ
 
-**Does it remove every technical term?** No. It keeps terms that carry necessary meaning and defines unfamiliar terms when the reader needs the definition.
+**Q: Does the agent use it without being asked?** A: Yes. The agent can select it automatically for technical prose written for people, including brief factual answers, explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
 
-**Does it work for Portuguese output?** Yes. The structural rules and the word-choice test apply the same way; only English text can be called Simplified Technical English, because formal conformance is defined for English.
+**Q: What does it return?** A: The improved text only, by default. An audit request returns findings and a rewritten version.
 
-**Does simple mean childish?** No. The target is direct, precise language for readers with different levels of proficiency in the language of the text.
+**Q: Does it follow ASD-STE100?** A: It adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to agent responses. It does not reproduce the controlled dictionary or claim formal compliance.
+
+**Q: Does it remove every technical term?** A: No. It keeps terms that carry necessary meaning and defines unfamiliar terms when the reader needs the definition.
+
+**Q: Does it work for Portuguese output?** A: Yes. The structural rules and the word-choice test apply the same way in any language. The controlled dictionary is English; in another language, apply the same test to the equivalent word pair. Only English text can be called Simplified Technical English, because formal conformance is defined for English.
+
+**Q: Does simple mean childish?** A: No. The target is direct, precise language for readers with different levels of proficiency in the language of the text.

@@ -4,15 +4,6 @@ Create and manage Claude Code rules at project and user level, with classificati
 
 ## What It Does
 
-Rules auto-load into every session (unconditional) or trigger when Claude reads matching files (path-scoped). This skill classifies the input, picks level, scope, and topic, renders the template, and writes the file. It also manages existing rules: list, edit, extract from an oversized AGENTS.md / CLAUDE.md, and delete.
-
-Two independent axes decide where a rule lands:
-
-| Axis | Values | Materializes as |
-|------|--------|-----------------|
-| Level | user (`~/.claude/rules/`) / project (`.claude/rules/`) | the directory written to |
-| Scope | unconditional / path-scoped | absence or presence of `paths:` frontmatter |
-
 ```mermaid
 flowchart TD
     T[Trigger] --> D{Dispatch}
@@ -31,15 +22,13 @@ flowchart TD
     D -->|delete| DL[Delete rule]
 ```
 
-| Mode | What Happens | Output |
-|------|--------------|--------|
-| create | Classify, context check, destination decision, render template, verify, write | `<rules-dir>/<topic>.md` |
-| list | Read every rule at both levels, summarize by level, scope, impact | Table + expanded list |
-| edit | Resolve target by name across both levels, apply change, re-verify | Updated rule file |
-| extract | Walk an oversized AGENTS.md / CLAUDE.md, propose verdicts, extract approved | New rule files + trimmed source |
-| delete | Show full content, confirm with the level named, remove | Removed file |
-
-Refusal is not a mode. It is how create ends when the classifier rejects the input: the verdict is reported with the destination that fits it — a skill for procedural input, a hook for a lifecycle trigger, direct action for a one-off — and nothing is written.
+| Mode | Output |
+|------|--------|
+| create | `<rules-dir>/<topic>.md`, after classify, context check, and destination decision: the level picks the directory (`~/.claude/rules/` or `.claude/rules/`) and a path-scoped rule carries `paths:` frontmatter. When the classifier rejects the input, the verdict is reported with the destination that fits it (a skill for procedural input, a hook for a lifecycle trigger, direct action for a one-off) and nothing is written |
+| list | Table + expanded list of every rule at both levels, summarized by level, scope, and impact |
+| edit | Updated rule file, resolved by name across both levels and re-verified |
+| extract | New rule files + trimmed source, from an oversized AGENTS.md / CLAUDE.md, after you approve each proposed verdict |
+| delete | Removed file, after showing its full content and confirming with the level named |
 
 ## Usage
 
@@ -48,9 +37,9 @@ create a rule that always uses type instead of interface in TypeScript files
 add a rule for API handlers under src/api: validate body with Zod before db calls
 new rule for all my projects: never commit secrets in plain text
 list rules
-edit rule testing
-extract rules from AGENTS.md / CLAUDE.md
-delete rule typescript
+edit the testing rule to cover integration tests
+extract rules from CLAUDE.md
+delete the typescript rule
 ```
 
 ## Output

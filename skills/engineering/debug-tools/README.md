@@ -4,8 +4,6 @@ Iterative debugging workflow that gates a fix on evidence, not on a hunch.
 
 ## What It Does
 
-Flexible debugging workflow that helps find and fix bugs systematically:
-
 ```mermaid
 flowchart TD
     A[Investigate] --> B{Mechanism named?}
@@ -23,8 +21,6 @@ flowchart TD
     I -->|No, attempt >= 3| K[Escalate]
     J --> L[Done]
 ```
-
-Core loop: investigate, fix, verify. Techniques are selected based on context:
 
 | Phase | Output |
 |---|---|

@@ -1,4 +1,4 @@
-# Wrap Up Session
+# Wrap Up
 
 End-of-session documentation to Obsidian.
 
@@ -13,14 +13,14 @@ flowchart LR
     E --> F[Offer Archive of Past Months]
 ```
 
-| Step | System | Output | Audience |
-|------|--------|--------|----------|
-| Resolve Project | -- | Obsidian path, base tags | Internal |
-| Load Handoff | filesystem | Consolidated handoff context | Internal |
-| Obsidian Session | Obsidian | Session note (work details) | Humans |
-| Obsidian Daily | Obsidian | Daily note (day summary) | Humans |
-| Cleanup | filesystem | Empty handoff file (auto) | Internal |
-| Archive offer | Obsidian | Past-month daily notes moved into `Daily/YYYY-MM/` (on yes) | Humans |
+| Step | Output |
+|------|--------|
+| Resolve Project | Obsidian path and base tags, used internally |
+| Load Handoff | Consolidated handoff context read from the filesystem, used internally |
+| Obsidian Session | Session note in Obsidian with the work details |
+| Obsidian Daily | Daily note in Obsidian with the day summary |
+| Cleanup | Handoff file emptied on the filesystem, automatically |
+| Archive offer | Past-month daily notes moved into `Daily/YYYY-MM/` in Obsidian, on yes |
 
 ## Usage
 

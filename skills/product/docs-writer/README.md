@@ -4,10 +4,6 @@ Generates structured product and technical documents through guided discovery.
 
 ## What It Does
 
-Routes document creation requests to type-specific workflows, each with appropriate discovery depth:
-
-The skill creates project and feature product requirements documents, feature RFCs, consolidated feature audit reports, product positioning documents (`PRODUCT.md`), technical Design Docs, and architecture decision records (ADRs).
-
 ```mermaid
 flowchart TD
     T[Trigger] --> R{Document type}
@@ -27,20 +23,21 @@ flowchart TD
     D -.->|extract decision| ADR
 ```
 
-| Type | Workflow | Output |
-|------|----------|--------|
-| **Project PRD** | discovery (3 phases) if absent; update requested parts if present | `PRD.md` |
-| **Feature PRD** | focused discovery; update requested parts if present | `.artifacts/features/<feature-slug>/PRD.md` |
-| **Feature RFC** | proposal discovery; update requested parts if present | `.artifacts/features/<feature-slug>/RFC.md` |
-| **Feature audit report** | consolidate supplied findings; update requested parts if present | `.artifacts/features/<feature-slug>/audit.md` |
-| **PRODUCT** | discovery if absent; update requested parts if present | `PRODUCT.md` |
-| **Design Doc** | discovery (4 topics) → analysis → drafting if absent; update requested parts if present | `design-doc.md` |
-| **ADR** | context → validation → drafting or requested update | `adr/NNN-slug.md` |
+| Type | Output |
+|------|--------|
+| **Project PRD** | `PRD.md`, from a three-phase discovery when absent, or with only the requested parts updated when present |
+| **Feature PRD** | `.artifacts/features/<feature-slug>/PRD.md`, from a focused discovery, or with only the requested parts updated when present |
+| **Feature RFC** | `.artifacts/features/<feature-slug>/RFC.md`, from a proposal discovery, or with only the requested parts updated when present |
+| **Feature audit report** | `.artifacts/features/<feature-slug>/audit.md`, consolidated from supplied findings, or with only the requested parts updated when present |
+| **PRODUCT** | `PRODUCT.md`, from discovery when absent, or with only the requested parts updated when present |
+| **Design Doc** | `design-doc.md`, from discovery (4 topics), analysis, and drafting when absent, or with only the requested parts updated when present |
+| **ADR** | `adr/NNN-slug.md`, from context, validation, and drafting, or with the requested update applied |
 
 ## Usage
 
 ```text
 create PRD for my project
+create PRODUCT.md with the positioning for my project
 create a feature PRD for saved searches
 write an RFC for bulk export
 consolidate these audit findings for saved searches
@@ -51,8 +48,6 @@ write requirements for the new feature
 upload the feature PRD to the Linear issue
 update design doc with new component
 ```
-
-The skill detects the document type from the trigger and loads the appropriate workflow.
 
 ## Output
 
@@ -81,32 +76,9 @@ When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tra
 
 The Linear MCP server is optional. Without it, feature documents stay under `.artifacts/features/`.
 
-## Document Boundaries
-
-Each document type has a distinct audience and scope. Keep their content separate so each document stays short and easy to review.
-
-| Doc | Audience | Owns | Never carries |
-|-----|----------|------|---------------|
-| **PRODUCT** | Product managers, designers, marketing | Strategic positioning: register (`brand` or `product`), desired audience relationship, brand personality, rejected styles, design principles | Requirements, scope, metrics, journeys, technical content |
-| **PRD** | Product managers, engineers, designers | Product specification: problem, personas, must/should/could/won't priorities, journeys, business rules, non-functional requirements (targets, not mechanisms) | Architecture, tech stack, APIs, UI components, framework choices |
-| **Design Doc** | Engineers, future engineers | The technical design and the trade-offs behind it — context, design, alternatives | Product key performance indicators, personas, journey walkthroughs, exhaustive specification coverage |
-| **ADR** | Engineers, future engineers | One technical decision with status, context, consequences, and references | Multiple decisions in one file, open trade-offs, advocacy as context |
-| **Audit report** | Product and engineering teams | Findings consolidated from supplied audit outputs, with evidence, status, and source attribution | Independently validated claims, inferred severity or status, implementation changes, requirements, tasks |
-
-### How they relate
-
-- If PRODUCT does not exist, write it during discovery. If it exists, update it only when the positioning changes.
-- The PRD is the main product record. The Design Doc links to the PRD instead of copying its prose.
-- The Design Doc records the design and its trade-offs. When a decision becomes final, create an ADR and add its ID to the Alternatives `Record` column.
-- ADRs can be updated as their record becomes clearer. When one decision replaces another, create a new ADR and mark the prior ADR as superseded.
-
-When content appears relevant to two documents, keep it in the document that owns the subject and link to it from the other document.
-
 ## FAQ
 
-**Q: How are ADRs linked to the Design Doc?** A: The Design Doc's Alternatives Considered table includes a `Record` column. Each row starts with `—`. When a decision becomes final, create an ADR, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc section.
-
-**Q: When should I use an ADR vs a Design Doc?** A: Use the Design Doc to examine the design and its trade-offs. Each Alternatives Considered row starts with `Record = —`. When a decision becomes final, create a numbered ADR with one decision, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc.
+**Q: When should I use an ADR vs a Design Doc, and how are they linked?** A: Use the Design Doc to examine the design and its trade-offs. Each row of its Alternatives Considered table starts with `Record = —`. When a decision becomes final, create a numbered ADR with one decision, set the row's `Record` to `ADR-NNN`, and link the ADR back to the Design Doc section.
 
 **Q: How do I record decisions found in project documents?** A: Start an ADR workflow. The Context phase scans `PROJECT.md`, the PRD, and the Design Doc for qualifying decisions that have no ADR. Create one ADR for each decision.
 
@@ -121,3 +93,7 @@ When content appears relevant to two documents, keep it in the document that own
 **Q: How is the Design Doc sized?** A: Keep the Design Doc as short as the design allows. A small service with a few decisions can use one page. A system with several services and trade-offs needs more detail. Add content only when a decision needs it.
 
 **Q: What if the user has no PRD when starting a Design Doc?** A: Start Design Doc discovery without a PRD. If `docs/product/PRD.md` exists, read it for product context and link to it from Context. If no PRD exists, gather the required product context during the Context & Goals topic.
+
+**Q: What content stays out of each document?** A: PRODUCT carries strategic positioning and no requirements or technical content. The PRD carries the product specification and no architecture, tech stack, APIs, UI components, or framework choices. The Design Doc carries the technical design and its trade-offs and links to the PRD instead of copying its prose. An ADR carries one decision. The audit report carries supplied findings and no independently validated claims or inferred severity. Content relevant to two documents stays in the one that owns the subject, and the other links to it.
+
+**Q: What happens when a decision recorded in an ADR is replaced?** A: Create a new ADR and mark the prior ADR as superseded. An ADR can still be updated when its record needs correction or clarification.

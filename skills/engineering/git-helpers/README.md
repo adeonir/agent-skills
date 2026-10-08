@@ -4,47 +4,26 @@ Git workflow skill for conventional commits, pull request creation, and pull req
 
 ## What It Does
 
-Runs the git workflow from local changes to merged PR:
-
 ```mermaid
 flowchart LR
     A[Commit] --> B[Create PR]
     B --> C[Merge PR]
 ```
 
-| Phase | Output |
-|-------|--------|
+| Operation | Output |
+|-----------|--------|
 | Commit | Conventional commit message based on staged diff |
 | Create PR | Opened pull request via GitHub MCP or `gh` CLI |
 | Merge PR | Merged pull request via GitHub MCP or `gh` CLI, with its branch marked for deletion when `gh` merges, and completed local cleanup with Git |
 
 ## Usage
 
-Use any workflow independently or chain them:
-
 ```text
 commit these changes
 commit only staged files
-
 push and create PR
 create pull request against main
-
 merge PR
-merge pull request
-```
-
-### Quick bug fix
-
-```text
-commit these changes
-push and create PR
-```
-
-### Feature flow
-
-```text
-commit these changes
-push and create PR
 merge pull request
 ```
 

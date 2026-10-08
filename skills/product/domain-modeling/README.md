@@ -19,11 +19,11 @@ flowchart TD
     X --> U
 ```
 
-| Phase | What Happens | Output |
-|-------|-------------|--------|
-| Locate | Root `GLOSSARY.md`, or none yet | Target glossary |
-| Work the term | Challenge conflicts, sharpen vague words, probe edge cases, cross-check code | Resolved term |
-| Write | Update the entry as soon as the term resolves | Edited `GLOSSARY.md` |
+| Phase | Output |
+|-------|--------|
+| Locate | Target glossary: the root `GLOSSARY.md`, or none yet |
+| Work the term | Resolved term, after conflicts are challenged, vague words sharpened, edge cases probed, and the code cross-checked |
+| Write | Edited `GLOSSARY.md`, updated as soon as the term resolves |
 
 ## Usage
 

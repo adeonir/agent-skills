@@ -4,8 +4,6 @@ Structured idea exploration from vague to direction, or from an existing idea or
 
 ## What It Does
 
-Explore ideas systematically before committing to a formal document or implementation, or reconsider an existing idea or plan before building:
-
 ```mermaid
 flowchart TD
     T[Trigger] --> P{Detect entry}
@@ -19,14 +17,14 @@ flowchart TD
     G -->|Hole found| DV
 ```
 
-| Phase | What Happens | Output |
-|-------|-------------|--------|
-| Detect entry | Classify entry state: greenfield (vague idea) or plan entry (existing idea or plan) | Entry selected |
-| Discover | Map context, constraints, success criteria via decision tree | Understanding of the space |
-| Diverge | Generate 4-8 alternatives using structured techniques; on plan entry the plan enters as baseline | Named alternatives |
-| Converge | Evaluate trade-offs, compare, recommend | Chosen direction |
-| Challenge | Attack the chosen direction: key assumption by default, every assumption with `/brainstorm deep` | Survived direction, or loop back |
-| Capture | Produce structured artifact | `docs/product/brainstorm.md` |
+| Phase | Output |
+|-------|--------|
+| Detect entry | Entry selected: greenfield (vague idea) or plan entry (existing idea or plan) |
+| Discover | Understanding of the space: context, constraints, and success criteria, mapped through a decision tree |
+| Diverge | 4-8 named alternatives from structured techniques; on plan entry the plan enters as the baseline |
+| Converge | Chosen direction, after evaluating trade-offs, comparing, and recommending |
+| Challenge | Survived direction, or a loop back to diverge; the attack covers the key assumption by default, every assumption with `/brainstorm deep` |
+| Capture | Structured artifact at `docs/product/brainstorm.md` |
 
 ## Usage
 

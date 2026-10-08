@@ -24,14 +24,14 @@ flowchart TD
 
 ## Usage
 
-Ask for a design loop around a specific page, video, presentation, or document. Provide the goal, a reference, and any existing design system or base files. The skill can create a new artifact or improve an existing one.
-
 ```text
 Run a design loop for this landing page using the supplied reference and design system.
 Create a presentation at the level of this reference deck and keep iterating until the critics approve it.
+Improve this existing product video until it reaches the quality of the reference video.
+Run a design loop on this report document against the reference report, with a limit of five rounds.
 ```
 
-The loop has no default round limit. You can stop it or set a limit. The builder and critics inherit the session's model and effort unless you choose otherwise.
+Each request needs a goal and a concrete reference, plus any existing design system or base files.
 
 ## Output
 
@@ -46,3 +46,9 @@ The created artifact remains at the output path agreed for the task. The skill's
 ## Requirements
 
 The agent needs a way to open the reference, render the result, and create independent agents with fresh context. The visual critic needs to inspect the rendered evidence.
+
+## FAQ
+
+**Q: Does the loop stop after a set number of rounds?** A: No. The loop has no default round limit; you can stop it or set a limit.
+
+**Q: Which model do the builder and critics use?** A: They inherit the session's model and effort unless you choose otherwise.

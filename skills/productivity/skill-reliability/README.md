@@ -4,8 +4,6 @@ Score a skill's end-to-end reliability and propose verifiable fixes.
 
 ## What It Does
 
-Reads a skill's workflows and scores both factors of reliability — does it fire on the right request, then does the workflow complete:
-
 ```mermaid
 flowchart LR
     A[Locate + read] --> B[Trigger reliability]
@@ -30,13 +28,13 @@ flowchart LR
 ```text
 /skill-reliability git-helpers
 analyze the reliability of spec-driven
-which skill should I harden first?     (ranks all skills)
+which skill should I harden first?
 check whether epic-tracker fires on the right requests
 ```
 
 ## Output
 
-A reliability analysis printed in the chat: the trigger verdict, per-workflow step tables with baselines, the compound product and tier, the top variance points with levers, and a verification plan. The report then offers to apply the fixes — the target skill is edited only on your confirmation (Step 8).
+A reliability analysis printed in the chat: the trigger verdict, per-workflow step tables with baselines, the compound product and tier, the top variance points with levers, and a verification plan.
 
 ## Requirements
 
@@ -44,11 +42,8 @@ A reliability analysis printed in the chat: the trigger verdict, per-workflow st
 
 ## FAQ
 
-**Q: Does it run the skill or any evals?**
-A: No. The analysis is static — it reads the skill's files and reasons about them. Trigger reliability is judged by probing the description, not by executing it. That keeps it cheap and side-effect-free.
+**Q: Does it run the skill or any evals?** A: No. The analysis is static — it reads the skill's files and reasons about them. Trigger reliability is judged by probing the description, not by executing it. That keeps it cheap and side-effect-free.
 
-**Q: Where do the percentages come from?**
-A: Each step nature has a heuristic baseline; the end-to-end number is their product. It is a transparent calculation over visible inputs, not a measured hit rate — the per-step baselines are always shown so the number stays auditable.
+**Q: Where do the percentages come from?** A: Each step nature has a heuristic baseline; the end-to-end number is their product. It is a transparent calculation over visible inputs, not a measured hit rate — the per-step baselines are always shown so the number stays auditable.
 
-**Q: Will it change my skill?**
-A: Only with your confirmation. It proposes changes and can apply a description rewrite straight to the target on your OK; workflow fixes it implements on explicit request. Nothing is applied silently.
+**Q: Will it change my skill?** A: Only with your confirmation. It proposes changes and can apply a description rewrite straight to the target on your OK; workflow fixes it implements on explicit request. Nothing is applied silently.
