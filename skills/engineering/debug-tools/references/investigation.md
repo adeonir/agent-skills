@@ -16,7 +16,7 @@ Based on user's description, identify:
 - Frequency: deterministic, intermittent, or load-dependent
 - Recent changes that might have introduced it
 
-If the user did not state expected vs actual or reproduction steps, ask before analyzing. Diagnosis built on assumed behavior wastes attempts.
+If the user did not state expected vs actual or reproduction steps, build them from the code, the tests, or a repro script in the project, and state the assumption. Ask before analyzing only when neither the code nor the tests can give them. Diagnosis built on assumed behavior wastes attempts.
 
 ## Analyze Code
 
@@ -26,7 +26,7 @@ Start at the error and trace backwards from the symptom toward its origin.
 
 Generate 2-3 candidate root causes from the analysis. Multiple hypotheses up front prevent premature commitment to the first plausible explanation.
 
-Score each one 0-100 and carry the number into the report. The score says how far the evidence reaches, so the user can weigh the finding; it decides nothing on its own — the gate in Propose Fix does that, against evidence rather than against a number.
+Score each one 0-100 and carry the number into the report. Give each an evidence type: `stack trace`, `diff`, or `runtime reading` when that source shows the code producing the symptom, and `none` when the mechanism is inferred from reading the code. The `Evidence` line quotes the exact stack frame, diff hunk, or log line that shows the mechanism; output that only repeats the symptom counts as `none`. The score says how far the evidence reaches, so the user can weigh the finding; it decides nothing on its own — the gate in Propose Fix does that, against evidence rather than against a number.
 
 If only one hypothesis is plausible, that is fine -- do not invent weak alternatives to fill the slate. The goal is honest enumeration, not three items.
 
@@ -42,6 +42,7 @@ Here is a sensible default format, but use your best judgment:
 **[85] Login fails silently on expired token**
 
 - File: auth.ts:42
+- Evidence type: stack trace
 - Evidence: catch block swallows TokenExpiredError without updating UI state
 - Fix: Add error state update in catch block to show login form
 ```
@@ -52,6 +53,7 @@ Here is a sensible default format, but use your best judgment:
 **[60] Possible race condition in session refresh**
 
 - File: session.ts:18
+- Evidence type: none
 - Need: Execution order of refresh vs. redirect calls
 - Suggest: Inject logs at session.ts:18, session.ts:25, redirect.ts:10
 ```
@@ -59,14 +61,14 @@ Here is a sensible default format, but use your best judgment:
 **Multiple hypotheses example:**
 
 ```markdown
-1. **[75] Stale closure in retry handler** -- file: retry.ts:22, evidence: deps array missing `attempt`
-2. **[55] Race between cache write and read** -- file: cache.ts:48, need: ordering of write/read calls
-3. **[40] Network flakiness** -- no mechanism, kept as fallback
+1. **[75] Stale closure in retry handler** -- file: retry.ts:22, evidence type: diff, evidence: deps array missing `attempt`
+2. **[55] Race between cache write and read** -- file: cache.ts:48, evidence type: none, need: ordering of write/read calls
+3. **[40] Network flakiness** -- evidence type: none, no mechanism, kept as fallback
 ```
 
 ## Propose Fix
 
-**Gate:** Propose a fix only when the evidence names the mechanism — you can point at the code that produces the symptom and say how it produces it, from a stack trace, a diff, or a runtime reading. A story that merely fits the symptom is not that. Without it, gather runtime evidence first. Never propose a fix as exploration.
+**Gate:** Propose a fix only for a hypothesis whose evidence type is `stack trace`, `diff`, or `runtime reading` — you can point at the code that produces the symptom and say how it produces it. A hypothesis at `none` is a story that fits the symptom: gather runtime evidence first, however high its score. Never propose a fix as exploration.
 
 When root cause is confirmed, present it. Here is a sensible default format, but use your best judgment:
 
