@@ -9,7 +9,9 @@ verbatim in the draft. Every code span, URL, link target, path, and number in
 the source must appear verbatim in the draft. Each condition word (only,
 unless, never, ...) must appear at least as often, and each modal verb (must,
 should, may, can, ...) exactly as often. Pass --accept <word> for a condition
-or modal the draft states another way.
+or modal the draft states another way. Chat-tool citation markers such as
+[cite: 1] or turn0search0 are dropped from the source first, since the edit
+removes them.
 
 Exit 0 when clean, 1 when a line is flagged, 2 when a file cannot be read.
 """
@@ -19,6 +21,14 @@ import re
 import sys
 from collections import Counter
 
+# Markers chat tools leave in pasted answers; the edit removes them, so their digits are not literals.
+CITATION_MARKER = re.compile(
+    r":?contentReference\[oaicite:\d+\](?:\{index=\d+\})?"
+    r"|\[?oaicite:\d+\]?"
+    r"|\[cite(?::\s*[\d,\s]+)?\]"
+    r"|\bturn\d+(?:search|news|view|fetch)\d+\b"
+    r"|【[^】\n]*】"
+)
 FENCE = re.compile(r"^(`{3,}|~{3,})[^\n]*\n.*?^\1[ \t]*$", re.M | re.S)
 FRONTMATTER = re.compile(r"\A---\n.*?\n---[ \t]*$", re.M | re.S)
 CODE_SPAN = re.compile(r"`([^`\n]+)`")
@@ -67,6 +77,7 @@ def count(text, vocabulary):
 
 def check(source, draft, accepted):
     findings = []
+    source = CITATION_MARKER.sub("", source)
     for block in blocks(source):
         if block not in draft:
             first = block.splitlines()[0]
