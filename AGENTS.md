@@ -24,6 +24,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
+| `.agents/rules/skill-readme` | `README.md` | fixed sections, What It Does shape, self-explanatory Usage requests, title from `display_name`, one-line FAQ entries |
 
 ## Commands
 
@@ -90,6 +91,7 @@ One job — no `instructions/`. The SKILL.md is the procedure and loads what it 
 skill-name/
 ├── SKILL.md           # entrypoint and procedure (required)
 ├── README.md          # user-facing doc (required)
+├── CREDITS.md         # attribution for adapted work (optional)
 ├── agents/            # display metadata for the host, never loaded by a step
 │   └── openai.yaml
 ├── references/        # what a step loads (optional)
@@ -104,6 +106,7 @@ Several jobs — one instruction per job, and the SKILL.md routes to them:
 skill-name/
 ├── SKILL.md           # entrypoint, routing plus a references index (required)
 ├── README.md          # user-facing doc (required)
+├── CREDITS.md         # attribution for adapted work (optional)
 ├── agents/            # display metadata for the host, never loaded by a step
 │   └── openai.yaml
 ├── instructions/      # one file per job, the routing targets
@@ -226,10 +229,10 @@ A trap is found, not derived. It names something an agent did — in a run, in a
 
 ## README per Skill
 
-Required structure:
+Required structure, enforced by the `skill-readme` rule:
 
 ````markdown
-# Skill Name
+# Display Name
 
 One-line tagline.
 
@@ -246,7 +249,9 @@ flowchart TD    # or LR — see direction rule below
 
 ## Usage
 
-Natural-language examples of how the user invokes the skill.
+```text
+[one self-explanatory request per line, at least one per instruction]
+```
 
 ## Output (if applicable)
 
@@ -257,13 +262,17 @@ Where artifacts land.
 External tools or MCPs.
 
 ## FAQ (if applicable)
+
+**Q: [question]?** A: [answer]
 ````
+
+The first table column names the skill's own unit: `Phase`, `Mode`, `Operation`, or `Note Type`.
 
 Mermaid direction:
 - `flowchart TD` for branching, loops, decision trees
 - `flowchart LR` for linear sequential pipelines
 
-There is no per-skill `Installation` or `Integration` section. Installation is handled by `skills.sh`. Skills are isolated and do not document integration with other skills.
+There is no per-skill `Installation` or `Integration` section. Installation is handled by `skills.sh`. Skills are isolated and do not document integration with other skills. Attribution for adapted work lives in the skill's `CREDITS.md`, never in the README.
 
 ## Discovery
 
@@ -398,7 +407,7 @@ Before finalizing a new skill, verify the items the path-scoped rules in `.agent
 - [ ] `description` ≤ 1,024 chars (skill listing cap)
 - [ ] `allowed-tools` declared when the skill always runs the same deterministic tool set (e.g. `git`, `gh`)
 - [ ] Dynamic context injection (`` !`<cmd>` ``) confined to `SKILL.md` and limited to read-only commands
-- [ ] `README.md` present with mermaid + Usage
+- [ ] `README.md` present and following the `skill-readme` rule
 - [ ] `agents/openai.yaml` present with `interface.display_name` and `interface.short_description`
 - [ ] Skill listed in repo `README.md` table
 - [ ] No links to untrusted or non-official domains

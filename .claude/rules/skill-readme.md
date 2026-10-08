@@ -1,0 +1,1 @@
+../../.agents/rules/skill-readme.md
