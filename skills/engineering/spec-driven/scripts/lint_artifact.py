@@ -176,7 +176,10 @@ def spec_live_stories(spec_lines):
 
 def implementation_started(base):
     """Return True once `tasks.md` carries a ticked task; ids are frozen from then on."""
-    lines = read_lines(os.path.join(base, "tasks.md"))
+    tasks_path = os.path.join(base, "tasks.md")
+    if not os.path.isfile(tasks_path):
+        return False
+    lines = read_lines(tasks_path)
     return any(match and match.group(1) == "x"
                for line in (lines or []) for match in [TASK_HEADING.match(line)])
 
