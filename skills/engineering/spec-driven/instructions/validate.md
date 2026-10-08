@@ -4,7 +4,7 @@ Optional user acceptance testing (UAT) on the running application. The main agen
 
 ## When to Use
 
-Only when the feature is `user-facing: true` in `spec.md`. Run after `tasks.md` reaches `status: done`. Also run when the user asks for UAT, manual testing, or flow validation.
+Only when the feature is `user-facing: true` in `spec.md`. Run after `tasks.md` reaches `status: done`. Validate settles an outcome visible only on the published application, against any environment that serves the branch — a pull request preview, staging. Also run when the user asks for UAT, manual testing, or flow validation.
 
 Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running any bundled script below.
 
