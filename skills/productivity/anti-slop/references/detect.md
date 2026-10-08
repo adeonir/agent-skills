@@ -10,7 +10,8 @@ Loaded for the report mode: the steps, the output template, and what the report 
 
 1. Scan the draft against the catalog, looking for supported patterns or clusters, not isolated tokens.
 2. Report one entry per supported finding, quoting the shortest useful excerpt and naming a concrete fix. Report what the text does, never who wrote it.
-3. End after the report and offer to edit the draft.
+3. Write the report to a temporary file outside the repository and run `python3 <this-skill>/scripts/check_report.py --catalog "<this-skill>/references/slop-catalog.md" --draft "<source-file>" --report "<report-file>"`. The script flags a finding name that is not a catalog entry name and a quote that is not in the draft. If it flags a line, return to step 2 for that finding. Done when the script prints `clean`.
+4. End after the report and offer to edit the draft.
 
 ## Output
 

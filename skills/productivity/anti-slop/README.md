@@ -11,8 +11,10 @@ flowchart TD
     VOICE --> MODE{edit or detect}
     MODE -->|detect| SCAN[scan catalog and context]
     SCAN --> REPORT[pattern, quoted line, fix]
+    REPORT --> RCHECK[script checks names and quotes]
+    RCHECK -->|fail| REPORT
     MODE -->|edit| CUT[apply principles and cut supported patterns]
-    CUT --> CHECK[script, self-check, isolated reviewer]
+    CUT --> CHECK[script + isolated reviewer]
     CHECK -->|fail| CUT
     CHECK -->|pass| OUT[output for the input form]
 ```
@@ -38,7 +40,7 @@ Pasted text comes back in the reply. A file path is edited in place; the reply r
 
 ## Requirements
 
-Python 3, standard library only, for the bundled check script.
+Python 3, standard library only, for the bundled check scripts.
 
 ## FAQ
 
