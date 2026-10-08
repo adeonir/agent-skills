@@ -1,6 +1,6 @@
 ---
 name: rule-creator
-description: "Claude Code rule management at project and user level. Use when defining conventions, scoping, listing, editing, extracting, or deleting rules. Not for procedural workflows, lifecycle hooks, or one-off task instructions."
+description: "Creates and manages Claude Code rules in .claude/rules/ and ~/.claude/rules/, at project or user level. Use when adding a coding convention or standing preference as a rule, listing, editing, or deleting rules, or splitting an oversized CLAUDE.md or AGENTS.md into rule files. Not for linter rules such as ESLint, procedural workflows, lifecycle hooks, one-off task instructions, or edits that keep the text in CLAUDE.md."
 ---
 
 # Rule Creator

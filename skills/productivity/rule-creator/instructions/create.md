@@ -7,7 +7,7 @@ Author a new rule at the level and scope the input calls for.
 Run the gates in order. A failed gate stops the run; never write a partial rule file.
 
 1. **Load [classify-and-context.md](../references/classify-and-context.md)** and classify the input. Procedural multi-step → refuse and recommend authoring a skill instead. Lifecycle event → refuse and recommend a hook. One-off task → refuse, suggest doing it directly. Declarative convention → proceed.
-2. **Run the context check** from the same reference. Stack mismatch, duplicate topic across both levels, or contradiction with a memory file → flag and ask before writing.
+2. **Run the context check** from the same reference. Resolve `<this-skill>` to the directory the `SKILL.md` was read from; the duplicate check runs `python3 <this-skill>/scripts/rules_index.py`. Stack mismatch, duplicate topic across both levels, or contradiction with a memory file → flag and ask before writing.
 3. **Decide the destination**, same reference. Level from explicit signals; no signal → ask, because writing to `~/.claude/rules/` reaches every project on the machine. Scope from path signals; a path signal resolves the level to project.
 4. **Load [rule-format.md](../references/rule-format.md)** and render through its flexible template. Keep the explanation paragraph; add principles, an `Incorrect`/`Correct` pair, or a reference only when that section clarifies or verifies the constraint.
 5. **Run the verifiability checklist** in the loaded format reference. Fail any check → rewrite before saving.

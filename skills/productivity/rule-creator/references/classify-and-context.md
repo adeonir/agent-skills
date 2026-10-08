@@ -50,12 +50,12 @@ Project rules load after user rules and take priority.
 
 ### Resolving a memory file
 
-A `CLAUDE.md` at either level may hold its content behind `@path` imports — a one-line `CLAUDE.md` importing `AGENTS.md` carries every line of that file. Resolve imports before reading or measuring: follow each `@path` up to four hops, and skip any `@path` inside a code span or fenced block, which is literal text that never loads.
+A `CLAUDE.md` at either level may hold its content behind `@path` imports — a one-line `CLAUDE.md` importing `AGENTS.md` carries every line of that file. Resolve imports before reading or measuring: run `python3 <this-skill>/scripts/resolve_memory.py <memory-file>`, which follows each `@path` up to four hops, skips any `@path` inside a code span or fenced block, and maps each section to the file that holds it.
 
 ### Checks in order
 
 1. **Stack mismatch.** Project level only. Read `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, or equivalent to identify the stack; if the rule names a stack the project does not use, flag and ask whether to proceed. Skip at user level — a rule spanning every project is not bound to the current one's stack.
-2. **Duplicate topic.** List both rules directories recursively. Topic identity is the path relative to the rules directory, so `frontend/testing.md` and `backend/testing.md` are distinct topics. If a file matches the intended topic, read it: already covered → tell the user and exit; adjacent topic → propose appending an H2 section instead of a new file.
+2. **Duplicate topic.** Run `python3 <this-skill>/scripts/rules_index.py`; it lists both rules directories recursively. Topic identity is the path relative to the rules directory, so `frontend/testing.md` and `backend/testing.md` are distinct topics. If a file matches the intended topic, read it: already covered → tell the user and exit; adjacent topic → propose appending an H2 section instead of a new file.
 3. **Contradiction.** Read the memory files at both levels with imports resolved — `AGENTS.md` / `CLAUDE.md` and `.claude/CLAUDE.md` in the project, `~/.claude/CLAUDE.md` at user level — plus the rules at the other level. If the rule contradicts an instruction there, flag both passages and ask which wins. When the conflict crosses levels, name the winner: project.
 
 Flag findings as a short list and let the user decide. Do not silently override.

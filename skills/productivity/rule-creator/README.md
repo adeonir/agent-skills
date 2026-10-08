@@ -53,7 +53,7 @@ Rules auto-load via Claude Code (no manual `@` import). Discovery is recursive, 
 
 ## Requirements
 
-None. Works with any project that uses Claude Code.
+Python 3, standard library only, for the bundled scripts that index the rules and resolve `@path` imports. Works with any project that uses Claude Code.
 
 ## FAQ
 
