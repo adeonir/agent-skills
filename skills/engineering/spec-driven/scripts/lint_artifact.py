@@ -680,18 +680,26 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
         elif current is not None:
             current["block"].append(line)
 
+    started = any(task["state"] == "x" for task in tasks)
     declared = set()
     covered = {}
     highest = 0
+    open_numbers = []
+    reserved_numbers = set()
     for task in tasks:
         identifier, number, block = task["id"], task["line"], task["block"]
         value = int(identifier.split("-")[1])
         if identifier in declared:
             findings.append("%s:%d: %s is declared more than once" % (path, number, identifier))
-        elif value < highest:
+        elif not started and value < highest:
             findings.append("%s:%d: %s breaks the monotonic sequence" % (path, number, identifier))
         declared.add(identifier)
-        highest = max(highest, value)
+        if not started:
+            highest = max(highest, value)
+        elif task["state"] == " ":
+            open_numbers.append(value)
+        else:
+            reserved_numbers.add(value)
         removed_title = REMOVED_TITLE.match(task["title"])
         if task["state"] == "-":
             if not removed_title:
@@ -809,13 +817,22 @@ def lint_tasks(path, lines, base, spec_lines, findings, warnings):
                                 (path, number, identifier, unreached,
                                  "criterion" if unreached == 1 else "criteria"))
 
+    if started:
+        expected_open_numbers = []
+        candidate = 1
+        while len(expected_open_numbers) < len(open_numbers):
+            if candidate not in reserved_numbers:
+                expected_open_numbers.append(candidate)
+            candidate += 1
+        if open_numbers != expected_open_numbers:
+            findings.append("%s:1: open tasks are not numbered from the lowest available ID in list order" % path)
+
     if unreached_total and spec_lines is not None and not spec_user_facing(spec_lines):
         warnings.append("%s:%d: warning: `Runner: none` leaves %d covered %s without a runner-level test on a feature that is not user-facing; route to specify" %
                         (path, runner_line, unreached_total,
                          "criterion" if unreached_total == 1 else "criteria"))
 
     removed_ids = {task["id"] for task in tasks if task["state"] == "-"}
-    started = any(task["state"] == "x" for task in tasks)
     if not started:
         for task in tasks:
             if task["state"] == "-":

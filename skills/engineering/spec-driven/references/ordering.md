@@ -14,6 +14,8 @@ An edge exists when the dependent task cannot leave the tree green without the o
 
 A cycle means the cut is wrong: merge the two tasks, or move what they both need into a third task both depend on.
 
+After the first task is ticked, keep IDs on completed tasks and removed entries fixed. Reorder open task entries only when every prerequisite remains before its dependent, each slice stays contiguous, and groundwork stays before slice tasks unless it depends on one. Then assign open tasks the lowest available IDs in their new list order, skipping IDs reserved by completed and removed tasks. Remap each `Depends on` reference and each task ID in `## Commit Boundary Notes` by task identity to preserve the same dependency edges and commit groupings. Keep a task that restores a product regression directly after the task that causes it. Keep removed task entries in place.
+
 ## Dispatch units
 
 The selected argument determines the dispatch units:

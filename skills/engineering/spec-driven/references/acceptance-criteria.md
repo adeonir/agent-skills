@@ -38,7 +38,7 @@ Scenario: User signs in with registered credentials
 
 Until `tasks.md` carries a ticked task, renumber to close any gap a removal or a reorder leaves: slices from `S-1`, criteria from `AC-N.1` within each slice, and tasks from `T-1`. Each phase renumbers only its own artifact, and `tasks` rebuilds every id reference from the current spec on each run, never carrying a row over.
 
-From the first ticked task on, an id is assigned once and never reassigned. A removed slice, criterion, or task stays in place with its title struck through, ` removed` after it, and a `Reason:` line under it; a removed slice takes its criteria with it, so they leave the spec. A new item takes the number after the highest its kind has ever carried.
+From the first ticked task on, a slice or criterion id is assigned once and never reassigned, and a completed or removed task keeps its id. A removed slice, criterion, or task stays in place with its title struck through, ` removed` after it, and a `Reason:` line under it; a removed slice takes its criteria with it, so they leave the spec. A new slice or criterion takes the number after the highest its kind has ever carried. Open tasks, new ones included, take the lowest ids no completed or removed task holds, in list order.
 
 ```markdown
 ### S-2: ~~Export to PDF~~ removed
@@ -70,7 +70,7 @@ Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NF
 
 - **Gherkin keywords** (scenario prose) → `Scenario`, `Scenario Outline`, `Examples`, `Given`, `When`, `Then`, `And`, `But`, as written.
 - **Tags / metadata / status / markers** (labels) → lowercase / kebab: `draft`, `ready`, `open`, `answered`, `confirmed`; owned pendencies use `ASM-N` and `OQ-N` identifiers.
-- **Identifiers** (owned, never reused across a slice) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
+- **Identifiers** (owned) → uppercase letter(s) + hyphen + number: `S-N` (product slice), `T-N` (task), `G-N` (goal), `AC-N.M` (criterion). `P-N` shares the grammar but is a priority label, not a sequence — `P-1` is the highest rank, carried on the slice heading as an attribute.
 
 ## Non-functional criteria
 
