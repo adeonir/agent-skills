@@ -20,6 +20,13 @@ These rules apply in every language. English word pairs are examples; use the eq
 ## Sentence structure
 
 1. In a procedure step, put one action in each sentence. In an explanation, keep a cause and its effect, a condition and what it controls, or a contrast in one sentence, with the connective that shows the relation (`because`, `so`, `but`, `if`). Split a sentence only when it joins two unrelated points.
+
+   An explanation in its final form:
+
+   ```text
+   Before: The cache expires. The service reloads. Latency rises.
+   After:  When the cache expires, the service reloads it, so latency rises until the reload ends.
+   ```
 2. Use active voice when the actor is known: “The server rejects the request,” not “The request is rejected by the server.”
 3. State conditions before the action when the condition controls the action: “If the token expires, sign in again.”
 4. Use positive instructions when they are equally accurate. Keep explicit negatives for prohibitions, safety rules, and boundary conditions.

@@ -30,7 +30,7 @@ audit this technical note for complex words and ambiguous sentences
 
 ## Requirements
 
-None for STE-inspired writing.
+Python 3, standard library only, for the bundled script.
 
 Formal ASD-STE100 conformance requires the official standard and the approved terminology for the applicable company, industry, or subject field. Without both sources, the skill labels the result as best effort rather than compliant.
 
