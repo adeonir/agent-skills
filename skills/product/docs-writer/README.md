@@ -13,6 +13,7 @@ flowchart TD
     R -->|Feature audit report| FA[Consolidate supplied findings]
     R -->|Design Doc| DD[Design Doc workflow]
     R -->|ADR| ADR[ADR workflow]
+    R -->|Archive feature| AR[Select feature folders]
     PD -->|discover if absent, update if present| P[PRD.md]
     PD -->|discover if absent, update if present| PM[PRODUCT.md]
     DD -->|discover if absent, update if present| D[design-doc.md]
@@ -20,6 +21,7 @@ flowchart TD
     FP --> FPM[.artifacts/features/feature-slug/PRD.md]
     FR --> FRM[.artifacts/features/feature-slug/RFC.md]
     FA --> FAM[.artifacts/features/feature-slug/audit.md]
+    AR --> ARM[.artifacts/archive/features/created-feature-slug/]
     D -.->|extract decision| ADR
 ```
 
@@ -32,6 +34,7 @@ flowchart TD
 | **PRODUCT** | `PRODUCT.md`, from discovery when absent, or with only the requested parts updated when present |
 | **Design Doc** | `design-doc.md`, from discovery (4 topics), analysis, and drafting when absent, or with only the requested parts updated when present |
 | **ADR** | `adr/NNN-slug.md`, from context, validation, and drafting, or with the requested update applied |
+| **Archive feature** | each feature folder picked from a multi-select list, moved whole to `.artifacts/archive/features/<created>-<feature-slug>/` |
 
 ## Usage
 
@@ -47,6 +50,7 @@ create ADR for switching from REST to gRPC
 write requirements for the new feature
 upload the feature PRD to the Linear issue
 update design doc with new component
+archive the saved searches feature
 ```
 
 ## Output
@@ -66,9 +70,10 @@ Feature documents are temporary artifacts:
 .artifacts/features/<feature-slug>/PRD.md
 .artifacts/features/<feature-slug>/RFC.md
 .artifacts/features/<feature-slug>/audit.md
+.artifacts/archive/features/<created>-<feature-slug>/
 ```
 
-Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRDs, RFCs, and audit reports are temporary and live under `.artifacts/features/`; archive the complete feature folder manually when no longer active.
+Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRDs, RFCs, and audit reports are temporary and live under `.artifacts/features/`; the archive operation moves a whole feature folder to `.artifacts/archive/features/` when it is no longer active.
 
 When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tracker` section and the conversation carries a Linear issue, a feature PRD or RFC can live as a document on that issue, titled `PRD: <Feature Name>` or `RFC: <Feature Name>`, with no frontmatter. An upload request moves the local file to the issue and deletes it after the document reads back intact. Later edits go to the document on the issue.
 

@@ -1,6 +1,6 @@
 ---
 name: docs-writer
-description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature RFCs, audit reports, positioning docs, Design Docs, and ADRs. Use when defining requirements, consolidating findings from external audits, feature proposals, strategy, trade-offs, or architecture decisions. Not for running audits, UI design, implementation, or meeting notes."
+description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature RFCs, audit reports, positioning docs, Design Docs, and ADRs, plus archiving of feature folders. Use when defining requirements, consolidating findings from external audits, feature proposals, strategy, trade-offs, or architecture decisions, or when archiving a feature. Not for running audits, UI design, implementation, or meeting notes."
 ---
 
 # Docs Writer
@@ -16,6 +16,7 @@ description: "Product and technical document creation through guided discovery, 
 | PRODUCT — strategic positioning and identity | [product.md](instructions/product.md) |
 | Design Doc — lean technical design and trade-offs | [design.md](instructions/design.md) |
 | ADR — single architecture decision record | [adr.md](instructions/adr.md) |
+| Archive feature — move feature folders to cold storage | [feature-archive.md](instructions/feature-archive.md) |
 
 Detect the document type from the trigger. If ambiguous, ask the user.
 
@@ -28,4 +29,6 @@ trigger → detect type → load instruction → locate document → drafting
   document exists → update the requested parts
   document absent → full discovery
   ADR → create a numbered record or update the requested record
+
+archive → select feature folders → move to .artifacts/archive/features/
 ```
