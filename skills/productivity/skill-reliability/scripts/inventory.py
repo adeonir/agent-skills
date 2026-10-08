@@ -24,6 +24,8 @@ TITLE_MAX_CHARS = 60
 # A step heading: "### Step 3: Stage Files", "### Phase 1: Context", or "### 3. Draft".
 STEP_HEADING = re.compile(r"^#{2,4}\s+(?:Step|Phase)\s+(\d+)\s*[:.\-)]?\s*(.*)$", re.IGNORECASE)
 NUM_HEADING = re.compile(r"^#{2,4}\s+(\d+)\s*[:.)]\s+(.*)$")
+# A bold step paragraph: "**Step 3. Stage the files.** Read `git status` ...".
+BOLD_STEP = re.compile(r"^\*\*(?:Step|Phase)\s+(\d+)\s*[:.\-)]?\s*(.*?)\.?\*\*", re.IGNORECASE)
 # When a file has no step headings, numbered list items under a procedural
 # section (## Workflow, ## Steps, ## Create gates …) are the steps instead.
 WORKFLOW_SECTION = re.compile(r"^##\s+.*\b(?:workflow|steps|phases|process|procedure|gates)\b", re.IGNORECASE)
@@ -62,7 +64,8 @@ def _clean_title(raw):
 def steps_in(path):
     """Enumerate a file's workflow steps.
 
-    'Step N'/'Phase N' headings are self-signaling and count anywhere. A bare
+    'Step N'/'Phase N' headings and bold '**Step N. Name.**' paragraphs are
+    self-signaling and count anywhere. A bare
     '### N.' heading or a numbered list item counts only inside a procedural
     section (## Workflow, ## Create gates …) — outside one, numbered headings
     are catalog entries (heuristics, personas), not steps.
@@ -81,7 +84,7 @@ def steps_in(path):
             section_has_headings = False
             expected = 1
             continue
-        labeled = STEP_HEADING.match(line)
+        labeled = STEP_HEADING.match(line) or BOLD_STEP.match(line)
         if labeled:
             steps.append((int(labeled.group(1)), labeled.group(2).strip()))
             section_has_headings = True
