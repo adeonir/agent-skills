@@ -19,7 +19,7 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Map and round | Questions: every decision whose prerequisites are settled, from the design tree the plan breaks into |
-| Ask | Answers, collected through the harness question tool (four questions per call at most, recommended answer first), or through a numbered list in chat without the tool |
+| Ask | Answers, collected through the harness question tool (four questions per call at most, each opened with what is at stake, recommended answer first), or through a numbered list in chat without the tool |
 | Facts | Facts looked up in the environment instead of asked, for later rounds |
 | Close | Summary of the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR, which the user confirms or corrects |
 
