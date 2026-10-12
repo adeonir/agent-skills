@@ -24,9 +24,9 @@ const DEFAULT_LIMIT = 2000
 // does not return as lines and this gate therefore cannot reason about.
 const BINARY_SNIFF_BYTES = 8192
 
-// Authoring only: the two product trees the CLI ships, the two workshop trees that
-// produce them, and the bridge a call reaches a workshop skill through.
-const AUTHORED_DIRS = ['README.md', 'AGENTS.md', '.agents', 'src']
+// Authoring only: the repo-level docs, the rules under `.agents`, and the skills under
+// `skills`.
+const AUTHORED_DIRS = ['README.md', 'AGENTS.md', '.agents', 'skills']
 
 const WRITE_TOOLS = new Set(['Edit', 'NotebookEdit', 'Write'])
 
