@@ -10,7 +10,7 @@ Composed by `decompose` after derivation, over candidates that already exist. Le
 
 Score each candidate on each axis; keep the scale consistent across the set (a simple 1–5 or low/medium/high is enough — the ranking matters, not the absolute number).
 
-- **Impact** — how much this candidate moves the outcome the PRD cares about. A candidate that unlocks a core journey scores higher than a peripheral one.
+- **Impact** — how much this candidate moves the outcome the PRD cares about. A candidate that unlocks a core capability scores higher than a peripheral one.
 - **Confidence** — how sure the boundary and the value are. A well-understood capability scores higher than a speculative one; low confidence is a signal to keep the candidate small or to sequence it early to learn.
 - **Ease** — how self-contained and deliverable the candidate is on its own. High ease = few dependencies, a clear done-state.
 

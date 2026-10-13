@@ -76,7 +76,7 @@ Rules:
 - IDs unique within the Story.
 - Strings non-empty for every step line.
 - `Scenario Outline` must have an `Examples` section.
-- `**Satisfies**` is optional; when present it names exactly one requirement id matching `FR/BR/EC/NFR-<n>` — a single id, never a list.
+- `**Satisfies**` is optional; when present it names exactly one requirement id matching `FR/NFR-<n>` — a single id, never a list.
 - Keep this shape stable; downstream consumers (implementation specs, test generators) parse these blocks and rely on the format.
 
 ## Workflow
@@ -111,7 +111,7 @@ Run V1-V8 against the parsed tuples and the raw section text.
 | V5 | No duplicate AC | strict | two AC tuples with identical normalized {given, when, then} |
 | V6 | Then is observable | warn-only with confirm | Then step group contains a red word from the list below (case-insensitive whole word) |
 | V7 | Unique AC ids | strict | two `### AC-N` blocks with the same id |
-| V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/BR/EC/NFR-<n>` id (empty, a list, or malformed) |
+| V8 | Satisfies is one well-formed id | strict | a `**Satisfies**` line is present but its value is not exactly one `FR/NFR-<n>` id (empty, a list, or malformed) |
 
 What a Then asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
 

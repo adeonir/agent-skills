@@ -42,7 +42,7 @@ This absorbs the reconcile-on-re-run: adjusting the roadmap means running `decom
 
 ### 1. Derive the candidates
 
-Cluster the PRD into capability-level epics using [../references/derivation.md](../references/derivation.md) — journeys and scope capabilities as the primary seams, cross-cutting rules and NFRs as foundation epics, a validation-demanding Definition of Done as a readiness epic. Read the PRD as a claim, not authority: where its scope leaves a requirement no epic can own, or two requirements contradict, surface the disagreement instead of forcing a cut around it. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry.
+Cluster the PRD into capability-level epics using [../references/derivation.md](../references/derivation.md) — scope capabilities as the primary seams, NFRs that serve several capabilities as foundation epics, phases as the sequencing hint. Read the PRD as a claim, not authority: where its scope leaves a requirement no epic can own, or two requirements contradict, surface the disagreement instead of forcing a cut around it. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry.
 
 ### 2. Evaluate and order
 
@@ -50,7 +50,7 @@ Score the candidates with [../references/ice-scoring.md](../references/ice-scori
 
 ### 3. Partition the requirements
 
-Assign every in-scope PRD requirement ID (`FR/BR/EC/NFR`) to **exactly one** epic: no orphans (every Must/Should ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). `Could` IDs are assigned only when an epic genuinely carries them. An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `epic.md` when it drafts the epic body.
+Assign every in-scope PRD requirement ID (`FR/NFR`) to **exactly one** epic: no orphans (every Must/Should ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). `Could` IDs are assigned only when an epic genuinely carries them. An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `epic.md` when it drafts the epic body.
 
 ### 4. Decide the dependencies
 
@@ -94,7 +94,7 @@ From the epic's Scope **and its `## Requirements`**, derive candidate stories (d
 
 ### 3. Assign the requirements
 
-Assign every requirement ID the epic owns to at least one candidate — the story that will operationalize it, or the task that will discharge it where no story can. A requirement nobody observes the outcome of, typically an `NFR` or `BR`, lands on a task rather than forcing a ceremonial story into existence. Unlike the Level 1 partition, an ID may land on more than one: two stories can each operationalize part of the same requirement. An ID no candidate can carry is flagged here, and the user adds a child to carry it or confirms the omission. `ADR-NNN` is a decision dependency, not a requirement — it is not assigned.
+Assign every requirement ID the epic owns to at least one candidate — the story that will operationalize it, or the task that will discharge it where no story can. A requirement nobody observes the outcome of, typically an `NFR`, lands on a task rather than forcing a ceremonial story into existence. Unlike the Level 1 partition, an ID may land on more than one: two stories can each operationalize part of the same requirement. An ID no candidate can carry is flagged here, and the user adds a child to carry it or confirms the omission. `ADR-NNN` is a decision dependency, not a requirement — it is not assigned.
 
 The candidates have no acceptance criteria yet; `story.md` and `task.md` write them at Step 6. So this level assigns, and never inspects a `Satisfies` line. The assignment travels with each child's dispatch, and the create ref confirms that child wrote the lines it was assigned — coverage then holds by construction, and is never re-checked once the children exist.
 
