@@ -4,11 +4,11 @@ Record one architecture decision with its status, context, decision, consequence
 
 ## Scope
 
-Write one when a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR — status, context, decision, consequences, and references — and leave the full design and its trade-offs in the Design Doc.
+Write one when a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR — status, context, decision, consequences, and references — and leave the system design in the Design Doc.
 
 **Key principle:** ADRs capture the decision and why it was made, not the full exploration that led to it. If multiple decisions are still in play, keep them in the Design Doc until each decision is clear enough to record.
 
-When this record captures a Design Doc Alternatives row, set that row's `Record` to the ADR ID and link the ADR back to the Design Doc section.
+When this record captures a Design Doc Stack choice, add the ADR ID to that stack item and link the ADR back to the Design Doc Stack section.
 
 ## When NOT to Write an ADR
 
@@ -36,7 +36,7 @@ Scan project documents for decisions that might need their own ADR:
 | Source | Where decisions hide |
 |--------|---------------------|
 | `PROJECT.md` | `## Decisions` entries not yet recorded as ADRs |
-| `docs/tech/design-doc.md` | `## 4. Alternatives Considered & Trade-offs` rows (rows with `Record = —` are candidates for promotion) |
+| `docs/tech/design-doc.md` | `## Stack` items without an `ADR-NNN` (candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
 Read `PROJECT.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as an approved ADR. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**. Report a contradiction instead of recording the entry.
@@ -51,13 +51,13 @@ List the unrecorded candidate decisions and ask the user which one this ADR reco
 
 - What is the decision being recorded?
 - What forces (technical, business, regulatory, team) made this decision necessary now?
-- What alternatives or constraints explain why this response was chosen?
 - What becomes easier or more difficult because of this decision?
 
 **Ask follow-up when:**
 
 - Multiple decisions appear → "These look like separate decisions. Should we split them?"
 - The reason is unclear → "Which force or constraint made this response appropriate?"
+- No alternative mentioned → "What else was considered, and why was it not chosen?"
 - Consequences omit material costs → "What becomes harder or riskier because of this decision?"
 - Decision is vague → "Stated as a positive imperative, what will we do? 'We will X' or 'We will not X'."
 
@@ -73,7 +73,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to both. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
+Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to References only, never to `sources`. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
 
 For a new ADR, set `status` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
 
@@ -89,12 +89,13 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 
 ## ADR Schema
 
-`status` in the frontmatter holds the current state of the decision, from the existing record or the user's confirmation. 4 body sections matching the template:
+`status` in the frontmatter holds the current state of the decision, from the existing record or the user's confirmation. 5 body sections matching the template, with Alternatives Considered optional:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
 | Context | Issue and forces that motivate or constrain the decision | Opening and follow-up questions |
 | Decision | Proposed or agreed response | Opening and follow-up questions |
+| Alternatives Considered (optional) | Each option not selected and the reason | Follow-up questions |
 | Consequences | Material outcomes, risks, and constraints | Opening and follow-up questions |
 | References | Related project documents, ADRs, and external sources | All phases |
 
@@ -102,11 +103,14 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 
 - One decision per ADR — split or step back to a Design Doc if bundled
 - State the decision as a positive imperative ("We will...")
+- Write the title as the decision in the affirmative imperative ("Use Postgres as the primary database")
+- Keep the ADR to one page
+- Put each alternative not selected in Alternatives Considered with its reason, not in Context
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
 - Record the material consequences without forcing positive, negative, and neutral subsections
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
 - Link `ADR-NNN` to the replacement ADR when `status` marks a decision as superseded
-- When extracted from a Design Doc Alternatives row, the ADR's References section links back to the Design Doc section anchor; the Design Doc row's `Record` column is updated to this ADR's ID
+- When extracted from a Design Doc Stack item, the ADR's References section links back to the Design Doc Stack section anchor; the stack item is updated with this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
 - External facts (vendor pricing, provider capabilities) are dated and kept verifiable — for example "rates valid as of [Month YYYY]"

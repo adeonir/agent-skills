@@ -13,157 +13,68 @@ sources: []
 
 # PRD: [Product Name]
 
-## 1. Executive Summary
+## 1. Problem
 
-[One short paragraph for a quick scan of the spec: the problem, who it is for, the must-have scope, and the primary success metric. Requirements digest only — positioning (what the product is and stands for) lives in PRODUCT, never here.]
+[The pain, who is affected, the evidence behind it (or an explicit hypothesis), and why it is worth solving now.]
 
-## 2. Problem Statement
+## 2. Audience
 
-[Describe the problem being solved. What pain point exists? Who is affected? What evidence supports this?]
+- **[User profile]:** [context and main use cases]
 
-## 3. Goals & Non-Goals
+## 3. Goals & Metrics
 
 | Goal | Metric | Target |
 |------|--------|--------|
-| [goal] | [how it will be measured] | [concrete number or threshold, or TBD] |
+| [goal] | [how it will be measured] | [a number the user supplied, the target in words, or TBD] |
 
-### Non-Goals
+Primary metric: [the one metric that defines success].
 
-- [An outcome this product deliberately does not pursue. Distinct from a cut feature — that goes to Scope → Won't Have.]
-
-## 4. User Personas
-
-### [Persona Name]
-
-- **Role:** [role or job title]
-- **Pain Point:** [primary frustration or problem]
-- **Goal:** [what they want to achieve with this product]
-
-## 5. User Journeys
-
-### [Journey Name]
-
-**Actor:** [persona]
-**Goal:** [what the user is trying to accomplish]
-
-**Pre-conditions:**
-
-- [what must be true before this journey starts]
-
-**Main Flow:**
-
-1. [user action] → [system behavior]
-2. [user action] → [system behavior]
-3. [user action] → [system behavior]
-
-**Alternative Flows:**
-
-- [step]a. [condition] → [what happens instead]
-
-**Post-conditions:**
-
-- [what is true after the journey completes]
-
-## 6. Scope
+## 4. Scope
 
 ### Must Have
 
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-1 | [core capability required for launch] | |
-| FR-2 | [another core capability] | |
+- FR-1 [core capability required for launch]
 
 ### Should Have
 
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-3 | [important but not launch-blocking] | |
+- FR-2 [important but not launch-blocking]
 
 ### Could Have
 
-| ID | Requirement | Notes |
-|----|------------|-------|
-| FR-4 | [nice-to-have for future iteration] | |
+- FR-3 [nice-to-have for a later iteration]
 
 ### Won't Have
 
-| ID | Requirement | Reason for exclusion |
-|----|------------|----------------------|
-| FR-N | [feature considered and cut from this release] | [why it is out of scope now — informs future revisit] |
+- FR-4 [capability considered and cut] — [why it is out now]
 
-## 7. Business Rules
+### Out of Scope
 
-| ID | Rule | Scope |
-|----|------|-------|
-| BR-1 | [functional constraint that applies across features] | [which features/journeys it affects] |
-| BR-2 | [another business rule] | [scope] |
+- [An outcome this product deliberately does not pursue.]
 
-## 8. Edge Cases (optional)
-
-[Include only when exception scenarios are material to the product.]
-
-| ID | Scenario | Expected Behavior |
-|----|----------|-------------------|
-| EC-1 | [what goes wrong or what unusual situation occurs] | [how the product should respond] |
-| EC-2 | [another exception scenario] | [expected behavior] |
-
-## 9. Non-Functional Requirements
-
-Non-functional requirements state measurable targets without prescribing the mechanism.
+## 5. Non-Functional Requirements
 
 | ID | Requirement | Target |
 |----|------------|--------|
-| NFR-1 | Performance | [for example, page load < 2s] |
-| NFR-2 | Accessibility | [applicable WCAG conformance level] |
+| NFR-1 | [quality the product needs: performance, security, accessibility, privacy] | [the requirement in words, or a number the user supplied] |
 
-Examples:
-- "Use Redis caching" (prescribes mechanism)
-- "Search returns results within 200ms" (states measurable target)
+## 6. Phases
 
-## 10. Definition of Done
+| Phase | Delivery | Criterion to advance |
+|-------|----------|----------------------|
+| MVP | [what ships first] | [what must hold before the next phase] |
+| [Next phase] | [what follows] | [criterion] |
 
-[Product-level criteria that tell us this is ready to ship. Independent of any calendar; applies whenever launch happens.]
+## 7. Assumptions & Risks
 
-| Criterion | How verified |
-|-----------|--------------|
-| [for example, all Must Have requirements implemented and validated] | [test/validation method] |
-| [for example, primary success metric meeting target for 7 days] | [measurement source] |
-| [for example, no critical or blocker defects open] | [issue tracker state] |
+- **Assumption:** [what is taken as true; if wrong, the plan changes]
+- **Risk:** [what could invalidate the project] — [mitigation]
 
-## 11. External Dependencies
+## 8. Open Questions
 
-[Dependencies outside the product team that can block or shape delivery.]
+- [ ] [Question with no safe default]
 
-| ID | Dependency | Impact if blocked | Owner / Status |
-|----|-----------|-------------------|----------------|
-| DEP-1 | [for example, legal approval on terms of use] | [blocks launch] | [Owner — pending] |
+## 9. References
 
-## 12. Risks (optional)
-
-[Include only when there are material risks worth tracking.]
-
-| Risk | Impact | Likelihood | Mitigation |
-|------|--------|------------|------------|
-| [what could go wrong] | High | Medium | [how to address] |
-
-## 13. Open Questions & Assumptions
-
-### Assumptions
-
-- [Assumption that, if wrong, would change the plan]
-
-### Open Questions
-
-- [ ] [Hypothesis to validate with data or user research, or unknown to resolve before implementation (mark TBD)]
-
-## 14. References
-
-Durable pointers to related documents. Use typed labels so a fresh session knows where to recover context.
-
-- **PRODUCT:** [link to PRODUCT.md or "None"]
-- **PRD:** [link to this PRD or upstream PRD]
-- **Design Doc:** [link to docs/tech/design-doc.md or "None"]
-- **Research:** [link to research, interviews, data — or "None"]
-- **ADRs:** [link to relevant ADRs or "None"]
+- [Typed reference to a related document that exists, such as the Design Doc, an ADR, or research.]
 
 MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

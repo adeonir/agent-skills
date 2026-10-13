@@ -11,15 +11,21 @@ updated: [YYYY-MM-DD]
 sources: []
 ---
 
-# ADR-[NNN]: [Decision Title]
+# ADR-[NNN]: [Decision as an affirmative imperative, such as "Use Postgres as the primary database"]
 
 ## Context
 
-[Describe the issue that motivates this decision and the forces that influence or constrain it. Include considered alternatives here when they help explain the response. Keep the language value-neutral.]
+[Describe the issue that motivates this decision and the forces that influence or constrain it. Keep the language value-neutral.]
 
 ## Decision
 
 [State the change that is proposed or agreed. Use active voice and a positive imperative such as "We will adopt X".]
+
+## Alternatives Considered
+
+<!-- Optional: only when a real alternative was weighed. -->
+
+- **[Alternative not selected]:** [the reason]
 
 ## Consequences
 
@@ -29,4 +35,4 @@ sources: []
 
 - [Related project documents, ADRs, external documentation, or prior art]
 
-MUST NOT contain: more than one decision, still-open trade-offs, implementation planning, product scope, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
+MUST NOT contain: more than one decision, more than one page, still-open trade-offs, implementation planning, product scope, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

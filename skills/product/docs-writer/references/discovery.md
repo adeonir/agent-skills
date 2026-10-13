@@ -4,7 +4,7 @@ Common interview and discovery patterns used across document types.
 
 ## When to Use
 
-Load this reference during project PRD, feature PRD, PRODUCT, feature RFC, Design Doc, and ADR discovery. It also defines how to update existing documents and how to challenge weak claims. Do not use it as a direct trigger.
+Load this reference during project PRD, feature PRD, PRODUCT, feature design doc, Design Doc, and ADR discovery. It also defines how to update existing documents and how to challenge weak claims. Do not use it as a direct trigger.
 
 ## Core Principle
 
@@ -41,7 +41,7 @@ Adapt discovery to the user's answers. Each document type defines topics with op
 
 ### How It Works
 
-1. Start each topic with its opening questions (2-4 per topic)
+1. Start each topic with its opening questions (2-3 per topic)
 2. Evaluate answers against the topic's completion criteria
 3. If criteria are not met, ask a follow-up about the missing information
 4. If criteria are met, move to the next topic
@@ -77,12 +77,12 @@ Move on when:
 
 | Type | Structure | Focus |
 |------|-----------|-------|
-| PRD | 5 topics | Problem, users, market, scope, journeys & constraints |
+| PRD | 4 topics | Problem, users, market (PRODUCT only), scope & phases |
 | PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (part of the product-doc pair; depth = full minus what an existing sibling already supplies) |
-| Design Doc | 4 topics | Context & goals, the design, alternatives & trade-offs, cross-cutting concerns |
+| Design Doc | 3 topics | Overview & stack; architecture, data & integrations; infra, NFRs & conventions |
 | ADR | 1 topic | The decision: context forces, response, consequences (lightweight) |
 
-Design Doc discovery stays lean and trade-off-focused. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes Alternatives rows into formal ADRs.
+Design Doc discovery stays lean. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes stack choices into formal ADRs.
 
 ## Gaps and Assumptions
 

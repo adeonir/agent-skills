@@ -1,6 +1,6 @@
 ---
 name: docs-writer
-description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature RFCs, audit reports, positioning docs, Design Docs, and ADRs, plus archiving of feature folders. Use when defining requirements, consolidating findings from external audits, feature proposals, strategy, trade-offs, or architecture decisions, or when archiving a feature. Not for running audits, UI design, implementation, or meeting notes."
+description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature design docs, audit reports, positioning docs, Design Docs, and ADRs, plus archiving of feature folders. Use when defining requirements, consolidating findings from external audits, feature proposals, strategy, trade-offs, or architecture decisions, or when archiving a feature. Not for running audits, UI design, implementation, or meeting notes."
 ---
 
 # Docs Writer
@@ -10,8 +10,8 @@ description: "Product and technical document creation through guided discovery, 
 | Type | Load |
 |------|------|
 | PRD — product requirements | [prd.md](instructions/prd.md) |
-| Feature PRD — temporary feature requirements | [feature-prd.md](instructions/feature-prd.md) |
-| Feature RFC — temporary feature proposal | [feature-rfc.md](instructions/feature-rfc.md) |
+| Feature PRD — feature requirements | [feature-prd.md](instructions/feature-prd.md) |
+| Feature Design Doc — feature technical design | [feature-design.md](instructions/feature-design.md) |
 | Audit report — consolidated findings from supplied audit outputs | [feature-audit.md](instructions/feature-audit.md) |
 | PRODUCT — strategic positioning and identity | [product.md](instructions/product.md) |
 | Design Doc — lean technical design and trade-offs | [design.md](instructions/design.md) |
@@ -20,7 +20,7 @@ description: "Product and technical document creation through guided discovery, 
 
 Detect the document type from the trigger. If ambiguous, ask the user.
 
-For a feature request that asks for both documents, load `feature-prd.md` first and then `feature-rfc.md`.
+For a feature request that asks for both documents, load `feature-prd.md` first and then `feature-design.md`.
 
 ## Workflow
 

@@ -1,4 +1,4 @@
-<!-- Temporary feature audit report. ALWAYS use this exact structure. Remove the optional annex when it has no supplied content. Delete every comment and replace every square-bracket slot before writing the file. -->
+<!-- Feature audit report. ALWAYS use this exact structure. Remove the optional annex when it has no supplied content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
 # Audit: [Feature or target name]
 

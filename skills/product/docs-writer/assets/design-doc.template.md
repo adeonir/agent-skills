@@ -1,5 +1,5 @@
 <!--
-Design Doc skeleton. Delete every comment and replace every square-bracket slot before writing the file.
+Design Doc skeleton. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file.
 
 ALWAYS use this exact template structure.
 -->
@@ -12,50 +12,54 @@ sources: []
 
 # Design Doc: [Project Name]
 
-## 1. Context & Scope
+## Overview
 
-[One or two paragraphs: what is being built, why it matters, and the surrounding system landscape. Keep it succinct — the reader follows the PRD link for product depth.]
-
-> See PRD: `docs/product/PRD.md`
-
-## 2. Goals & Non-Goals
-
-### Goals
-
-- **[Goal name]:** [Measurable technical objective — latency, throughput, isolation guarantee, zero-downtime target, etc.]
-
-### Non-Goals
-
-- [A choice deliberately excluded — for example "ACID compliance" considered and not pursued. Not a negated goal like "shouldn't crash".]
-
-## 3. Design
-
-[Describe the high-level architecture, the surrounding system, the key components and their responsibilities, and the data or interfaces the design depends on. Add Mermaid diagrams when they clarify the design. Include only the detail needed to explain the decisions.]
+[One paragraph: the system and what it does.]
 
 ```mermaid
 [System-context or component diagram]
 ```
 
-## 4. Alternatives Considered & Trade-offs
+## Stack
 
-| Decision | Chosen | Rejected | Reasoning | Record |
-|----------|--------|----------|-----------|--------|
-| [what was decided] | [what was chosen] | [what was rejected] | [trade-offs, why this choice] | [— or ADR-NNN] |
+- **[Layer]:** [technology] — [one-line justification] ([ADR-NNN, when an ADR records the choice])
 
-`—` = the Design Doc is the only record of this decision. `ADR-NNN` = the decision is formalized as an ADR.
+## Architecture
 
-## 5. Cross-cutting Concerns
+[Modules or layers, how they communicate, and where each responsibility lives. Add Mermaid diagrams when they clarify the design.]
 
-[Brief prose on the concerns that shape this design — security/privacy, observability, operations, testing. Cover only what affects the design; leave the rest out.]
+## Data Model
 
-## 6. Open Questions
+<!-- Optional. -->
 
-- [ ] [Question or uncertainty to resolve before implementation can proceed]
+[Main entities and their relationships.]
 
-## 7. References
+## External Integrations
 
-- [Link to PRD]
-- [Links to ADRs that record extracted decisions]
-- [External documentation, RFCs, prior art]
+<!-- Optional. -->
 
-MUST NOT contain: product KPIs, personas, journey walkthroughs, requirement IDs, or restated PRD prose — recap in 1-2 lines and link the PRD instead; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").
+- **[Service]:** [use, and behavior on failure]
+
+## Infra & Deploy
+
+- **Hosting:** [where the system runs]
+- **Environments:** [the environments in use]
+- **CI/CD:** [how a change reaches production]
+
+## Non-Functional Requirements
+
+[For each NFR-N the design must satisfy, how the design meets it. Cite the NFR by ID; do not restate it. Cover only the requirements that shape the design.]
+
+- **[NFR-N]:** [how it is met]
+
+## Conventions
+
+<!-- Optional: only what is not documented elsewhere. -->
+
+- [Folder structure, code patterns, or testing approach.]
+
+## References
+
+- [Typed reference to a related document that exists, such as the PRD or an ADR.]
+
+MUST NOT contain: product KPIs, personas, journey walkthroughs, or restated PRD prose or requirement text — cite the PRD and NFR IDs instead; nor product framing; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

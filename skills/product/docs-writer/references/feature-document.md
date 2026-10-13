@@ -1,10 +1,10 @@
 # Feature Document Rules
 
-Shared lifecycle, update, and source rules for temporary feature PRDs and RFCs.
+Shared lifecycle, update, and source rules for feature PRDs and feature design docs.
 
 ## When to Use
 
-Load before creating or updating a feature PRD or RFC.
+Load before creating or updating a feature PRD or feature design doc.
 
 ## Lifecycle
 

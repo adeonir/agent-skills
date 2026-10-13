@@ -1,4 +1,4 @@
-<!-- Temporary feature PRD. ALWAYS use this exact template structure. Remove an optional section, or an optional subsection, that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
+<!-- Feature PRD. ALWAYS use this exact template structure. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
 ---
 name: [feature-slug]
@@ -10,66 +10,57 @@ sources: []
 
 # Feature PRD: [Feature Name]
 
-## Summary
+## Context
 
-[Problem and its evidence or hypothesis, the primary users and the job each needs to complete, and the primary outcome, in one short paragraph.]
+[The product objective this feature serves, in one or two sentences.]
+
+## Problem
+
+[The specific use case: the pain, who has it, the evidence behind it (or an explicit hypothesis), and why it is worth solving now.]
 
 ## Scope
 
-### In
-- [Capability included in this feature.]
+### Must Have
 
-### Out
-- [Capability excluded from this feature, or outcome deliberately not pursued, and why.]
+- FR-1 [capability required for this feature]
 
-## Goals
+### Should Have
 
-<!-- Optional. -->
+- FR-2 [important but not blocking]
 
-- [Measurable goal and target.]
+### Could Have
 
-## User Journeys
+- FR-3 [nice-to-have for a later iteration]
 
-<!-- Optional. -->
+### Won't Have
 
-### [Journey Name]
-- **Actor:** [user]
-- **Goal:** [outcome]
-- **Main flow:** [precondition, steps, and postcondition]
-- **Alternative flows:** [important variants]
+- FR-4 [capability considered and cut] — [why it is out now]
 
-## Business Rules
+### Out of Scope
 
-<!-- Optional. -->
+- [An outcome this feature deliberately does not pursue.]
 
-- [Rule that the product must enforce.]
+## Metric
 
-## Edge Cases
+<!-- Optional: only when the feature has its own measurable impact. -->
+
+- [The metric, and a target only when the user supplied one.]
+
+## Assumptions & Risks
 
 <!-- Optional. -->
 
-- [Boundary or failure case and expected product behavior.]
+- **Assumption:** [what is taken as true; if wrong, the plan changes]
+- **Risk:** [what could invalidate the feature] — [mitigation]
 
-## Risks & Dependencies
+## Open Questions
 
 <!-- Optional. -->
 
-- [Risk or dependency, impact, and owner or mitigation.]
-
-## Open Questions & Assumptions
-
-<!-- Optional; each subsection is optional too. -->
-
-### Assumptions
-- [Assumption and what depends on it.]
-
-### Open Questions
-- [Question with no safe default.]
+- [ ] [Question with no safe default]
 
 ## References
 
-<!-- Optional. -->
-
-- [Typed reference and link.]
+- [Typed reference to a related document that exists, such as the project PRD.]
 
 MUST NOT contain: PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, release plans, tracker User Stories, references to another skill, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
