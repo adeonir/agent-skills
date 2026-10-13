@@ -42,7 +42,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
 | **[design-loop](skills/product/design-loop)** | Create or improve a visual artifact against a reference through construction and independent critique |
-| **[docs-writer](skills/product/docs-writer)** | Structured docs: project PRD, feature PRD/RFC, Design Doc, ADR |
+| **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD and Design Doc for a project or a feature, plus ADR |
 | **[domain-modeling](skills/product/domain-modeling)** | Canonical domain vocabulary kept in `GLOSSARY.md`: challenge, sharpen, and record terms as they resolve |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
@@ -76,7 +76,7 @@ flowchart TD
     DW_P -->|requirements| DW_T[docs-writer · technical]
     DW_T -.->|record decision| DW_A[docs-writer · ADR]
     DW_P -->|requirements| ET[epic-tracker]
-    DW_F[docs-writer · feature PRD/RFC] -->|feature source| ET
+    DW_F[docs-writer · feature PRD/design doc] -->|feature source| ET
     DW_T -->|technical context| ET
 
     DW_P -.->|identity input| SB[style-builder]
@@ -136,21 +136,23 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 ## Output Structure
 
 ```
-docs/
-├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
-├── tech/           # docs-writer: design-doc
-├── adr/            # docs-writer: append-only decision log
-└── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
-
-PROJECT.md          # spec-driven: committed project memory
-GLOSSARY.md         # domain-modeling: canonical domain terms
 .artifacts/
-├── specs/          # spec-driven: per-feature artifacts and state
 ├── archive/
-│   ├── specs/       # spec-driven: specs archived manually, in any state
-│   └── features/    # docs-writer: feature PRD/RFC folders archived manually
+│   ├── features/   # docs-writer: feature PRD/design doc folders archived manually
+│   └── specs/      # spec-driven: specs archived manually
+├── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/ · design-loop: <slug>/STATE.md + reference-criteria.md
+├── features/       # docs-writer: feature PRD, design doc, and audit report per feature
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
-└── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/ · design-loop: <slug>/STATE.md + reference-criteria.md
+└── specs/          # spec-driven: per-feature artifacts and state
+
+docs/
+├── adr/            # docs-writer: append-only decision log
+├── design/         # style-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
+├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
+└── tech/           # docs-writer: design-doc
+
+GLOSSARY.md         # domain-modeling: canonical domain terms
+PROJECT.md          # spec-driven: committed project memory
 ```
 
 `epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
