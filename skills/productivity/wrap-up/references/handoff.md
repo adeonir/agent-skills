@@ -13,8 +13,9 @@ Loaded for the two phases that bracket note writing: the Load phase makes the ha
 Runs after mapping, before notes.
 
 1. Check `.artifacts/HANDOFF.md`. If absent, no-op silently — Cleanup will likewise no-op later.
-2. Read the **whole file**. The handoff predates the work done after its last save, so the current conversation and the repository take precedence on current state. Where the session's work superseded a claim — a step since done, a branch since merged — record the current state and drop the claim without reporting it. Report a claim only when the session's work does not explain the contradiction — a file that no longer exists, a decision reversed outside this session — and never copy it into a durable note. A claim neither confirmed nor contradicted carries over.
-3. Make these fields available to the rest of the workflow:
+2. Read the **whole file**, then check that it belongs to this session: its `**Focus:**` and `**Context:**` must describe work this conversation did or continued. A handoff about unrelated work was saved by another session. Treat it as missing, leave the file untouched, skip Cleanup, and report it once as unrelated. Read on only when it belongs.
+3. The handoff predates the work done after its last save, so the current conversation and the repository take precedence on current state. Where the session's work superseded a claim — a step since done, a branch since merged — record the current state and drop the claim without reporting it. Report a claim only when the session's work does not explain the contradiction — a file that no longer exists, a decision reversed outside this session — and never copy it into a durable note. A claim neither confirmed nor contradicted carries over.
+4. Make these fields available to the rest of the workflow:
    - `**Focus:**` line (always present)
    - `**Context:**` bullets (always present)
    - `**Next step:**` line (always present)
@@ -34,8 +35,9 @@ Run this phase once the note writes finish. If every configured note write succe
 
 Write empty content to `.artifacts/HANDOFF.md`. Do not delete the file. An empty file is treated as missing on the next Load, and writing avoids a Bash permission prompt.
 
-Skip silently if Load found no usable handoff.
+Skip silently if Load found no usable handoff, including one that belongs to another session.
 
 ## Error Handling
 
 - Handoff file empty or contains neither `Focus` nor `Next step`: treat as missing, skip Cleanup
+- Handoff describes work this session did not do: treat as missing, preserve the file, skip Cleanup
