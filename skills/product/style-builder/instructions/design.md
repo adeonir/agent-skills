@@ -24,7 +24,7 @@ Write `DESIGN.md` at the project root. Patch only a delta the user stated or acc
 The YAML frontmatter is normative. Allow only:
 
 - `version`, `name`, `description`, and `omitted`.
-- `colors`: flat token names to CSS color strings. Author new colors in `oklch()`; use hex as the fallback. Use other CSS color strings only when the source requires them.
+- `colors`: flat token names to CSS color strings. Prefer `oklch()` for new colors, with hex as the fallback. Keep the source's format when it is another CSS color string.
 - `typography`: role objects using the official properties.
 - `rounded`: named dimensions.
 - `spacing`: named dimensions or numbers.
@@ -32,7 +32,7 @@ The YAML frontmatter is normative. Allow only:
 
 Keep borders, elevation, shadows, and light/dark behavior in prose.
 
-Use these body sections in this exact order:
+Use these body sections in this order:
 
 1. `## Overview`
 2. `## Colors`
@@ -42,9 +42,13 @@ Use these body sections in this exact order:
 6. `## Shapes`
 7. `## Components`
 8. `## Do's and Don'ts`
-9. `## Agent Prompt Guide`
+9. `## Imagery`
+10. `## Motion`
+11. `## Agent Prompt Guide`
 
-Sections 1 to 8 are the official spec sections. `## Agent Prompt Guide` is a skill extension the CLI preserves as an unknown heading, so it never produces a finding.
+Sections 1 to 8 are the official spec sections. Sections 9 to 11 are skill extensions the CLI preserves as unknown headings, so they never produce a finding. Write `## Imagery` and `## Motion` when the source shows them and leave them out otherwise; `omitted` covers official groups only.
+
+`## Imagery` records the treatment, never the subject: photographic genre, color grade, framing and corner treatment, share of the page, and illustration style with stroke weight. `## Motion` records the animated properties, durations, easing, stagger, and what never animates.
 
 Write every heading in its official form. Read these aliases as the same section when a source file uses one:
 
@@ -100,11 +104,11 @@ Treat implementation values as truth for drifted `colors`, `typography`, `rounde
 - Use a real referent and the color-craft rules for generated palettes.
 - Keep each color as one CSS string; never emit `{ hex, oklch }` objects.
 - Describe light and dark palettes in `## Colors`, including which surface uses each palette and how depth and contrast change.
-- Name typography roles by purpose. Include delivery, fallbacks, optical adjustments, numeral behavior, and variable axes in prose when relevant.
-- Use only component properties accepted by the official schema. Put borders, shadows, gaps, opacity policy, and interaction detail in prose.
+- Name typography roles by purpose. Add a role for each step of a size ladder the source uses, and record in prose the tracking that changes with size. Include delivery, fallbacks, optical adjustments, numeral behavior, and variable axes in prose when relevant.
+- Use only component properties accepted by the official schema. In `## Components`, give each component a line for what the properties cannot carry: border width, tracking, stroke, gaps, opacity policy, and the hover, active, and focus states.
 - Reference tokens with `{path.to.token}` and define `backgroundColor` plus `textColor` together for text-bearing components.
 - Name a text color after its surface (`on-surface`) only when it sits on that one surface. Give a text color used over several surfaces a role name such as `text-muted`; the components that place it carry the contrast obligation.
-- Keep every product string out of the artifact. Agent Prompt Guide examples use placeholders such as `[Headline]`, `[Body]`, `[CTA Label]`, and `[Nav Label]`.
+- Keep every product string out of the artifact. Agent Prompt Guide examples use placeholders for text, such as `[Headline]`, `[Body]`, `[CTA Label]`, and `[Nav Label]`, and carry concrete values for everything else: size, weight, tracking, case, alignment, and padding.
 
 ## Workflow
 
@@ -123,7 +127,11 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 
 ## Content Boundaries
 
-`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, or UI-library names. It may describe layout identity, density, grid behavior, and component roles without prescribing a product page. It states the identity as it stands, in present tense: never the value a token replaced, the delta a patch applied, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed").
+`DESIGN.md` describes identity and tokens only. It never contains product copy, feature names, audience pitches, requirement IDs, milestones, roadmap language, the section order of a product page, screen flow, framework classes, or UI-library components. It may describe layout identity, density, grid behavior, structural patterns without content (a full-bleed hero with the mark in the top-left corner), component roles, the icon set, and the font source.
+
+Copy is text the product shows: labels, headings, calls to action, and sample data. The case, tracking, and format of that text are style and stay (uppercase, `dd.mm.yyyy`).
+
+`DESIGN.md` states the identity as it stands, in present tense: never the value a token replaced, the delta a patch applied, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed").
 
 ## Error Handling
 
@@ -132,5 +140,5 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 - Brownfield delta the agent proposed and the user has not accepted: stop after presenting the patch list.
 - Invalid existing frontmatter: run validate and stop before patching.
 - Empty sync diff: report `no drift detected` and do not write.
-- Source contrast failure: present the exact pair and ask whether to preserve it as a recorded trade-off or adjust lightness.
+- Source contrast failure: keep the source value and record the exact pair as a warning. Adjust lightness only when the user asks.
 - Validation error: do not declare completion or continue to preview, export, or diff.

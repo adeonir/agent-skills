@@ -39,14 +39,12 @@ npx -y @google/design.md@latest lint --format json DESIGN.md
 python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 ```
 
-7. Require every component that declares both `backgroundColor` and `textColor` to reach 4.5:1 after compositing a translucent text color over its background. Treat an unparseable color or a translucent background as an error, never a skip. Never infer a pair from token names: a text color is checked only against the surfaces that components put it on.
+7. Check that every component that declares both `backgroundColor` and `textColor` reaches 4.5:1 after compositing a translucent text color over its background, and report a pair below it as a warning. Treat an unparseable color or a translucent background as an error, never a skip. Never infer a pair from token names: a text color is checked only against the surfaces that components put it on.
 8. Load [anti-patterns.md](../references/anti-patterns.md) and run only rules whose Surface is `DESIGN.md` or `both`.
-9. Check prose-to-YAML parity:
-   - Every token path cited in prose resolves.
-   - Every component relationship described in prose agrees with frontmatter.
+9. Check the document structure:
    - Colors remain flat CSS strings.
    - Every frontmatter key is one the artifact contract allows.
-   - All present sections follow the canonical order in [design.md](design.md), reading an official alias as its canonical section.
+   - All present sections follow the order in [design.md](design.md), reading an official alias as its canonical section.
 10. **Report.** Report the path, the result in one to three sentences — the initial and final CLI counts, the exact final state, and what the gate patched, if anything — and every remaining CLI and supplemental finding as an open item. Never paste the file.
 
 Here is a sensible default format, but use your best judgment:

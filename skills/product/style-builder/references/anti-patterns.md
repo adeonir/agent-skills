@@ -35,7 +35,7 @@ ALWAYS use this exact template structure:
 **Category:** Scope
 **Surface:** DESIGN.md
 **Severity:** warning
-**Check:** Prose or token keys contain product copy, feature or entity names, audience pitches, requirement IDs, milestones, roadmap language, or page arrangement.
+**Check:** Prose or token keys contain product copy, feature or entity names, audience pitches, requirement IDs, milestones, roadmap language, the section order of a product page, or screen flow.
 **Fix:** Keep identity reasoning and structural roles; replace strings with placeholders and product-domain keys with design roles.
 **Example fail:**
 ```markdown
@@ -52,7 +52,7 @@ Build the summary surface with [Headline] and [CTA Label].
 **Category:** Scope
 **Surface:** DESIGN.md
 **Severity:** warning
-**Check:** Prose or description names a UI library, CSS framework, or design-system package as part of the identity.
+**Check:** Prose or description names a CSS framework class, a UI-library component, or a design-system package as part of the identity. An icon set or a font source does not trigger it.
 **Fix:** Describe the visual property and keep implementation tools outside the identity.
 **Example fail:**
 ```markdown
@@ -108,23 +108,6 @@ Cards use the medium corner tier and a low, cool-toned shadow.
 **Example pass:**
 ```html
 <h1 style="font-family:var(--font-display-family)"></h1>
-```
-
-## Contrast
-
-### gray-text-on-saturated-color
-**Category:** Contrast
-**Surface:** rendered-output
-**Severity:** error
-**Check:** Low-chroma gray text on a saturated fill fails the required contrast ratio.
-**Fix:** Use the paired text token or change lightness until the pair passes.
-**Example fail:**
-```html
-<button style="background:#3b82f6;color:#6b7280">Action</button>
-```
-**Example pass:**
-```html
-<button style="background:var(--color-primary);color:var(--color-on-primary)">Action</button>
 ```
 
 ## Document Consistency

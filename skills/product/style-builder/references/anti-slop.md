@@ -8,7 +8,7 @@ Load during direction, token authoring, identity assessment, and visual review. 
 
 ## Scope
 
-Apply the color, typography, shape, surface, and elevation guidance to identity and tokens. Layout, iconography, imagery, and language entries provide context only: do not author page composition, product copy, or another concern's artifact from this skill. A tell never becomes a lint finding solely because it appears in this catalog.
+Apply the color, typography, shape, surface, and elevation guidance to identity and tokens. Imagery entries guide the treatment recorded in `## Imagery`. Layout, iconography, and language entries provide context only: do not author page composition, product copy, or another concern's artifact from this skill. A tell never becomes a lint finding solely because it appears in this catalog.
 
 **Contents**
 - [The mechanism](#the-mechanism)

@@ -2,8 +2,9 @@
 DESIGN.md skeleton. Delete every comment and replace every square-bracket slot before writing the file.
 
 Frontmatter keys: version, name, description, omitted, colors, typography, rounded, spacing, components.
-Overview through Do's and Don'ts are the official spec sections. Agent Prompt Guide is a skill extension.
-Colors are flat CSS strings in `oklch()`, with hex as the fallback. Keep borders, shadows, elevation, and light/dark behavior in prose.
+Overview through Do's and Don'ts are the official spec sections. Imagery, Motion, and Agent Prompt Guide are skill extensions; write Imagery and Motion only when the source shows them.
+Colors are flat CSS strings, preferably `oklch()`, with hex accepted as the fallback. Keep borders, shadows, elevation, and light/dark behavior in prose.
+Typography carries a role for each step of a size ladder the source uses; the four below are the minimum.
 Use only official component properties. Define backgroundColor and textColor together for every text-bearing component; contrast is checked only through these pairs, never inferred from token names.
 Every color needs a component reference unless a deliberate omission or documented CLI warning remains.
 -->
@@ -126,15 +127,23 @@ components:
 
 ## Components
 
-[Usage, states, sizing, and relationships for the component tokens.]
+[Usage, states, sizing, and relationships for the component tokens. One line per component for what the properties cannot carry: border width, tracking, stroke, and the hover, active, and focus states.]
 
 ## Do's and Don'ts
 
 - Do [specific enforceable identity rule].
 - Don't [specific failure this identity is prone to].
 
+## Imagery
+
+[Photographic genre, color grade, framing and corner treatment, share of the page, and illustration style with stroke weight. Treatment only, never the subject.]
+
+## Motion
+
+[Animated properties, durations, easing, stagger, and what never animates.]
+
 ## Agent Prompt Guide
 
-[Short downstream guidance that refers to tokens and component roles. Use placeholders such as [Headline], [Body], [CTA Label], and [Nav Label].]
+[Short downstream guidance that refers to tokens and component roles. Use placeholders for text, such as [Headline], [Body], [CTA Label], and [Nav Label], and concrete values for size, weight, tracking, case, alignment, and padding.]
 
-MUST NOT contain: product copy, product-domain token keys, feature names, audience pitches, requirement IDs, milestones, roadmap language, page arrangement, screen flow, UI-library names, structured skin groups, frontmatter keys outside the official schema, conversation narrative ("as discussed", "the user confirmed", "we agreed"), or the history of a value.
+MUST NOT contain: product copy, product-domain token keys, feature names, audience pitches, requirement IDs, milestones, roadmap language, the section order of a product page, screen flow, framework classes, UI-library components, structured skin groups, frontmatter keys outside the official schema, conversation narrative ("as discussed", "the user confirmed", "we agreed"), or the history of a value.
