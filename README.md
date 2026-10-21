@@ -41,7 +41,6 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
 | **[craft-ui](skills/product/craft-ui)** | Wireframe the arrangement, then mockup the visual direction, and deliver the chosen one |
-| **[design-loop](skills/product/design-loop)** | Create or improve a visual artifact against a reference through construction and independent critique |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD and Design Doc for a project or a feature, plus ADR |
 | **[domain-modeling](skills/product/domain-modeling)** | Canonical domain vocabulary kept in `GLOSSARY.md`: challenge, sharpen, and record terms as they resolve |
 | **[epic-tracker](skills/product/epic-tracker)** | Epics, stories, bugs, and tasks — tracked in Linear or GitHub |
@@ -81,15 +80,12 @@ flowchart TD
 
     DW_P -.->|identity input| SB[style-builder]
     SB -.->|visual identity| CU[craft-ui]
-    SB -.->|visual identity| DL[design-loop]
     DW_P -.->|content input| CW[copywriting]
     CU -.->|mockup| CW
-    DL -.->|visual result| CW
 
     ET -->|delivery item| SD[spec-driven]
     DW_T -.->|technical context| SD
     CU -.->|mockup| SD
-    DL -.->|visual result| SD
     CW -.->|final copy| SD
 
     SD -.->|review changes| RL[review-lens]
@@ -98,7 +94,7 @@ flowchart TD
     classDef plain fill:transparent,stroke:transparent
 ```
 
-Dotted arrows show optional handoffs. The visual paths go through `style-builder`: `craft-ui` and `design-loop` are separate paths, and neither requires the other. `copywriting` can supply final copy after either visual path. `review-lens` and `git-helpers` act after implementation when needed.
+Dotted arrows show optional handoffs. The visual path goes through `style-builder` to `craft-ui`. `copywriting` can supply final copy after it. `review-lens` and `git-helpers` act after implementation when needed.
 
 **debug-tools**, **rule-creator**, **domain-modeling**, **grill-me**, **notes**, **handoff**, and **wrap-up** run when their own jobs are needed.
 **storytelling** runs at any phase and reads whatever materials exist.
@@ -115,11 +111,10 @@ For a feature, a common route is:
 6. `epic-tracker` -> delivery work in the tracker.
 7. `style-builder` -> visual identity when a visual path is needed.
 8. `craft-ui` -> wireframes and mockups when this visual path is used.
-9. `design-loop` -> visual result refined against a reference when this visual path is used.
-10. `copywriting` -> final copy when needed, including after either visual path.
-11. `spec-driven` -> feature specification and implementation.
-12. `review-lens` -> review of the changes when needed.
-13. `git-helpers` -> commits and pull requests when needed.
+9. `copywriting` -> final copy when needed, including after the visual path.
+10. `spec-driven` -> feature specification and implementation.
+11. `review-lens` -> review of the changes when needed.
+12. `git-helpers` -> commits and pull requests when needed.
 
 ### Feedback loop
 
@@ -140,7 +135,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 ├── archive/
 │   ├── features/   # docs-writer: feature PRD/design doc folders archived manually
 │   └── specs/      # spec-driven: specs archived manually
-├── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/ · design-loop: <slug>/STATE.md + reference-criteria.md
+├── design/         # style-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ├── features/       # docs-writer: feature PRD, design doc, and audit report per feature
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
 └── specs/          # spec-driven: per-feature artifacts and state
