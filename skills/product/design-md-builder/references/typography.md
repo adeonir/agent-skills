@@ -109,7 +109,7 @@ For code, numerics, identifiers, timestamps, and anything tabular.
 
 **Constrain a variable font anyway.** Pick two or three instances and treat them as the only cuts available.
 
-**Specify a real fallback stack**, not `sans-serif`. If the brand face fails to load, what remains must still be a defensible choice. Note the stack in the DESIGN.md prose; the tokens carry `fontFamily` as a single name.
+**Specify a real fallback stack**, not `sans-serif`. If the brand face fails to load, what remains must still be a defensible choice. Note the stack in the DESIGN.md prose; the tokens carry `fontFamily` as a single name. For a commercial or custom face, also name a free substitute of the same classification.
 
 **Commercial licensing is per-use** — web, app, and desktop are typically separate. If the product ships a native app, flag it.
 
