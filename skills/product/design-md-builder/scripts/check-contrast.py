@@ -204,7 +204,17 @@ def resolve_reference(value, colors):
     return colors.get(match.group(1)) if match else value
 
 
-def check_pair(label, background_value, text_value):
+def page_backdrop(components, colors):
+    page = components.get("page")
+    if not isinstance(page, dict) or "backgroundColor" not in page:
+        return None
+    color = parse_color(resolve_reference(page["backgroundColor"], colors))
+    if color is None or color[3] < 1.0:
+        return None
+    return color[:3]
+
+
+def check_pair(label, background_value, text_value, backdrop):
     background = parse_color(background_value)
     text = parse_color(text_value)
     if background is None or text is None:
@@ -214,21 +224,24 @@ def check_pair(label, background_value, text_value):
             "ratio": None,
             "message": "required CSS color could not be parsed",
         }
+    message = f"requires {BODY_TEXT_RATIO}:1"
     if background[3] < 1.0:
-        return {
-            "label": label,
-            "status": "ERROR",
-            "ratio": None,
-            "message": "translucent background has no known backdrop",
-        }
-    background_rgb = background[:3]
+        if backdrop is None:
+            return {
+                "label": label,
+                "status": "ERROR",
+                "ratio": None,
+                "message": "translucent background needs an opaque components.page backgroundColor",
+            }
+        message += ", composited over components.page"
+    background_rgb = composite(background, backdrop)
     text_rgb = composite(text, background_rgb)
     ratio = contrast_ratio(background_rgb, text_rgb)
     return {
         "label": label,
         "status": "PASS" if ratio >= BODY_TEXT_RATIO else "FAIL",
         "ratio": round(ratio, 2),
-        "message": f"requires {BODY_TEXT_RATIO}:1",
+        "message": message,
     }
 
 
@@ -242,6 +255,7 @@ def run_file(path):
         return [], "missing YAML frontmatter"
     colors = parse_subtree(frontmatter, "colors")
     components = parse_subtree(frontmatter, "components")
+    backdrop = page_backdrop(components, colors)
     results = []
     for component_name, properties in components.items():
         if not isinstance(properties, dict):
@@ -255,6 +269,7 @@ def run_file(path):
                 f"components.{component_name}",
                 background_value,
                 text_value,
+                backdrop,
             )
         )
     if not results:
