@@ -1,0 +1,3 @@
+interface:
+  display_name: "Skill Feedback"
+  short_description: "Report a skill's defects from the session where it ran"
