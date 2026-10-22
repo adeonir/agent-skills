@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Preview server for the style-builder skill.
+ * Preview server for the design-md-builder skill.
  * Serves transient document and styleguide views, and records one feedback
  * batch across both views.
  *

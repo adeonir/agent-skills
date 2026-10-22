@@ -376,13 +376,13 @@ docs/
 ├── product/   # brainstorm, docs-writer, copywriting: content
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
-└── design/    # style-builder, craft-ui, storytelling
+└── design/    # design-md-builder, craft-ui, storytelling
 
 PROJECT.md                 # spec-driven: committed project memory
 GLOSSARY.md                # domain-modeling: canonical domain terms
 .artifacts/
 ├── specs/, archive/, research/   # spec-driven
-└── design/    # style-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
+└── design/    # design-md-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts — its output lives in the tracker, plus an `## Issue tracker` block in the consumer repo's `AGENTS.md` or `CLAUDE.md` that mirrors its config.
@@ -395,7 +395,7 @@ GLOSSARY.md                # domain-modeling: canonical domain terms
 
 The docs-writer skill no longer ships a "Technical Design Document" artifact type — that role is now covered by the project-wide Design Doc.
 
-`register` / `surface` are shared design vocabulary across `craft-ui`, `style-builder`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
+`register` / `surface` are shared design vocabulary across `craft-ui`, `design-md-builder`, and `copywriting`: **register** = posture (`brand` vs `product`, two values), **surface** = granular type named by context. Each skill carries its own `brand.md` + `product.md`; the terms must not diverge. `docs-writer` originates `register` upstream: its `PRODUCT.md` sets the product's posture (`brand` vs `product`), which the design skills read from that artifact — the definition must not diverge from theirs.
 
 ## New Skill Checklist
 
