@@ -34,9 +34,9 @@ Progress:
 - [ ] Step 8: Report the subject and body
 ```
 
-**Step 1. Stage.** Read `git status --short` to plan staging, then stage the files of this change by name. If a file you mean to stage is ignored, stop and surface it, staging only on explicit user confirmation. If files are already staged, flag them before adding more; `git add .` is only for an explicit "stage everything". When the user says "only staged", commit the existing index as-is. Done when only the files of this change are staged.
+**Step 1. Stage.** Read `git status --short` to plan staging and `git log --oneline -10 --no-merges` for Step 6, in the same turn, then stage the files of this change by name. If a file you mean to stage is ignored, stop and surface it, staging only on explicit user confirmation. If files are already staged, flag them before adding more; `git add .` is only for an explicit "stage everything". When the user says "only staged", commit the existing index as-is. Done when only the files of this change are staged.
 
-**Step 2. Read the staged diff.** Read `git diff --cached`. Done when the whole staged diff has been read.
+**Step 2. Read the staged diff.** Read `git diff --cached` in one call. If the output arrives truncated or compacted, rerun it once with truncation disabled; never page through it in slices. Done when the whole staged diff has been read.
 
 **Step 3. Check one type.** Run the mixed-type check on the staged diff before writing — not optional: if the diff mixes unrelated change types (a feature plus an unrelated fix), flag it and ask whether to split. On accept, unstage the unrelated files, commit this change first, then return to Step 1 for the rest; on decline, pick the primary type.
 
@@ -93,7 +93,7 @@ When the user asks to reevaluate or fix a bloated body, do not silently delete i
 
 Done when the commit is subject-only or carries one sentence that passed both tests.
 
-**Step 6. Match the project's form.** With the message drafted, read `git log --oneline -10 --no-merges` and adjust the draft to the form the log establishes: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Never add or strip a form element against it. The log sets form only. It never sets what the subject says. Done when the draft matches the log's form.
+**Step 6. Match the project's form.** With the message drafted, take the log read at Step 1 and adjust the draft to the form the log establishes: scope usage (`type(scope):` vs `type:`) and which scopes exist, subject casing, the type vocabulary in use, the language the messages are written in, and any trailing reference the merge style appends (`(#42)`). Never add or strip a form element against it. The log sets form only. It never sets what the subject says. Done when the draft matches the log's form.
 
 **Step 7. Commit.** Run the commit. If a hook fails, fix the cause, return to Step 1, and make a new commit. Confirm the commit landed — if the files still show as pending, stop and tell the user. Done when `git status --short` no longer lists the staged files.
 
