@@ -26,7 +26,7 @@ Operations on the CLI. Every command opens with `vault="<vault>"`, the folder na
 | List a folder | `obsidian vault="<vault>" files folder="<folder>/"` |
 | Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` — both endpoints vault-relative; updates links when the vault has Automatically update internal links turned on |
 
-A plain file write cannot update links. A move or rename of linked notes runs only on the CLI or MCP; when neither is available, report the path and skip — never do it with `mv`.
+Only the CLI Move updates links. The MCP `Obsidian:move_note` and a plain file write leave every wikilink to the moved note unchanged, so a move or rename of linked notes runs only on the CLI; when the CLI is unavailable, report the path and skip.
 
 ## Filename Sanitization
 
