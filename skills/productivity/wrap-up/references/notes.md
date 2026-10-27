@@ -19,24 +19,24 @@ Loaded to write the notes themselves. The session note is written when `obsidian
 
 ## Vault Access
 
-Every write or read goes through one channel, tried in this order. Never open the Obsidian app or focus its window yourself.
+Every write or read goes through one channel, tried in this order. Open the Obsidian app only after the user agrees.
 
-1. **CLI (default).** `obsidian` ships with the desktop app. When `command -v obsidian` finds it, run its commands. The CLI works only while the app runs; with the app closed, a command fails with `The CLI is unable to find Obsidian. Please make sure Obsidian is running and try again.`
-2. **MCP (fallback).** When the CLI binary is missing or the app is closed, use the Obsidian MCP tools (`Obsidian:read_note`, `Obsidian:write_note`, `Obsidian:patch_note`, and kin).
-3. **Direct vault write (last).** When neither the CLI nor the MCP tools are available, write the notes as plain files into the vault resolved from Obsidian's `obsidian.json`: the only vault, or the open one.
+1. **CLI (default).** When `command -v obsidian` finds it, run its commands. When a command fails because Obsidian is closed, ask the user whether to open it: on yes, run `open -a Obsidian` and retry; on no, use the MCP tools for the rest of the run.
+2. **MCP (fallback).** When the CLI binary is missing, or the user declined to open the app, use the Obsidian MCP tools (`Obsidian:read_note`, `Obsidian:write_note`, `Obsidian:patch_note`, and kin).
+3. **Direct vault write (last).** When neither is available, write the notes as plain files into the vault resolved from Obsidian's `obsidian.json`: the only vault, or the open one.
 
-Operations on the CLI. Every command opens with `vault="<vault>"`, the folder name of the vault resolved as in Direct vault write; without it, the CLI fails with `Vault not found.` when no vault is active:
+Every CLI command starts with `vault="<vault>"`, the vault's folder name.
 
 | Operation | Command |
 |---|---|
 | Search | `obsidian vault="<vault>" search query="<query>" path="<folder>/" format=json` |
 | Read | `obsidian vault="<vault>" read path="<path>"` |
-| Create | `obsidian vault="<vault>" create path="<path>" content="$(cat "<temp-file>")"` — the value is the whole note, frontmatter included. The CLI turns every `\n` and `\t` in the value into a newline and a tab, with no escape; when the note text holds a literal `\n` or `\t`, write it as a plain file into the vault, as in Direct vault write |
-| Patch | read the note, edit the text, then run Create with the `overwrite` flag — a patch is read-modify-rewrite |
+| Create | `obsidian vault="<vault>" create path="<path>" content="$(cat "<temp-file>")"`; when the note text holds a literal `\n` or `\t`, write a plain file instead |
+| Patch | read the note, edit the text, then run Create with the `overwrite` flag |
 | List a folder | `obsidian vault="<vault>" files folder="<folder>/"` |
-| Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` — both endpoints vault-relative; updates links when the vault has Automatically update internal links turned on |
+| Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` |
 
-Only the CLI Move updates links. The MCP `Obsidian:move_note` and a plain file write leave every wikilink to the moved note unchanged, so a move of linked notes runs only on the CLI; when the CLI is unavailable, report the path and skip.
+Move a linked note only through the CLI; without it, report the path and skip.
 
 ## Obsidian Syntax Rules
 
@@ -45,7 +45,7 @@ Obsidian notes render for humans (Graph view, daily review, Dataview). Keep note
 - **Frontmatter**: YAML with `title`, `type`, `tags`
 - **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`). Use `#hashtags`, not `[brackets]`.
 - **Relations**: each relation is a verb followed by a wikilink under `## Relations`: `- follows [[Target]]`. Common verbs: `follows`, `part_of`, `contains`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Use inline `[[wikilinks]]` for ordinary mentions. Add a relation only for an explicit connection between notes.
-- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify each target with Search in Vault Access, run without `path` so it covers the whole vault, before linking.
+- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify each target with Search in Vault Access, run without `path`, before linking.
 - **H1 heading**: all notes omit the body `# H1` — the frontmatter `title` is the canonical heading. Top-level body sections start at `##`.
 - **Prose**: past tense, natural language. Omit every empty section.
 
@@ -256,5 +256,5 @@ When some exist, include them in the end-of-run report grouped by target folder,
 
 ## Error Handling
 
-- Obsidian CLI binary missing or app closed: use the MCP tools; both unavailable: write the notes as plain files into the vault. A move without the CLI: report and leave the notes at the root. Never open the Obsidian app or focus its window.
+- Obsidian closed or the CLI binary missing: follow the channel order in Vault Access
 - No meaningful session content: keep the session note brief, still update the daily note
