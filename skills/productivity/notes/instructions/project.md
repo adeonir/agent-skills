@@ -27,14 +27,14 @@ Progress:
 **Step 3. Check for an existing note.** The note lives at `<obsidian.path>/<name>/<name> Overview.md`; the filename stays unique across the vault so wikilinks resolve.
 
 ```text
-Obsidian:search_notes query="Checkout Refactor Overview" path="<obsidian.path>/"
+obsidian vault="<vault>" search query="Checkout Refactor Overview" path="<obsidian.path>/" format=json
 ```
 
 If the note exists, ask whether to append, choose a new name, or cancel. Done when the target path is free, or the user chose.
 
 **Step 4. Compose.** Fill the template below. The context prose and `## Goals` are required; include every other section only when the user mentions relevant content. Done when no slot is left unfilled.
 
-**Step 5. Write and check.** Create the note with `Obsidian:write_note`, then run `python3 <this-skill>/scripts/check_note.py project "<note-path>"`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with `Obsidian:patch_note` and run it again. Done when the script prints `clean`; if a flagged line needs content the user has not given, return to Step 2.
+**Step 5. Write and check.** Create the note with the Create operation in note-conventions.md Vault Access, then run `python3 <this-skill>/scripts/check_note.py project "<note-path>"`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with Patch and run it again. Done when the script prints `clean`; if a flagged line needs content the user has not given, return to Step 2.
 
 **Step 6. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and the summary.
 

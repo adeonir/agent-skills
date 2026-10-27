@@ -5,7 +5,7 @@ description: "Obsidian note creation and updates for projects, interview challen
 
 # Notes
 
-Creates and manages Obsidian notes using the Obsidian MCP for structured documentation.
+Creates and manages structured Obsidian notes — project, challenge, brag, transcription, and company.
 
 ## Triggers
 

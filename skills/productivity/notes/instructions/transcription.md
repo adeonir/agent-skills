@@ -38,10 +38,10 @@ The subagent derives every field only from what the transcription says, writes f
 **Step 3. Set the path.** The destination follows the context: `Meetings/` for meeting, 1:1, feedback, and standup; `Courses/` for course, lecture, workshop, and webinar — unless the request names another folder. The filename is the title, sanitized, with no date prefix — the date lives in the frontmatter.
 
 ```text
-Obsidian:search_notes query="Checkout Kickoff" path="<destination>/"
+obsidian vault="<vault>" search query="Checkout Kickoff" path="<destination>/" format=json
 ```
 
-When a note on the same topic exists, ask whether to append or create a new one. Keep only the relation candidates `Obsidian:search_notes` finds. Done when the note path is set and each kept relation exists.
+When a note on the same topic exists, ask whether to append or create a new one. Keep only the relation candidates the search finds. Done when the note path is set and each kept relation exists.
 
 **Step 4. Write and check.** Write a meta JSON file to a temporary location — `frontmatter` (`created`, `updated`, `status`, `date`, `context`, `tags` as the template sets them), `title`, `observations`, `relations` as `[[Note]]` strings, and `source_link` or `null` — then run:
 
@@ -49,7 +49,7 @@ When a note on the same topic exists, ask whether to append or create a new one.
 python3 <this-skill>/scripts/write_transcription.py --source "<file>" --meta "<meta-file>" --note "<note-path>"
 ```
 
-To append to an existing note, pass `--append` instead of `--meta`, then add the new observations with `Obsidian:patch_note` and run `python3 <this-skill>/scripts/check_note.py transcription "<note-path>" --source "<file>"`. The script reads the body from the source file, refuses to overwrite an existing note, and checks the note it wrote. On exit 1, fix each flagged frontmatter or section line with `Obsidian:patch_note` and run `check_note.py` again; a flagged body means the note was edited after the write, so write it again from the source. On exit 2, report the message; when the note already exists, return to Step 3. Done when the script prints `clean`.
+To append to an existing note, pass `--append` instead of `--meta`, then add the new observations with Patch and run `python3 <this-skill>/scripts/check_note.py transcription "<note-path>" --source "<file>"`. The script reads the body from the source file, refuses to overwrite an existing note, and checks the note it wrote. On exit 1, fix each flagged frontmatter or section line with Patch and run `check_note.py` again; a flagged body means the note was edited after the write, so write it again from the source. On exit 2, report the message; when the note already exists, return to Step 3. Done when the script prints `clean`.
 
 **Step 5. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and describes the note without quoting its body.
 

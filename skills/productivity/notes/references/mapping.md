@@ -10,7 +10,7 @@ Resolve the vault paths, and for project notes the project folder, from the regi
 
 ## Vault Root
 
-Every note path is relative to the vault the Obsidian MCP server serves. The vault root needs no registry and no bootstrap.
+Every note path is relative to the Obsidian vault root, whatever channel writes it. The vault root needs no registry and no bootstrap.
 
 ## Fixed Folders
 

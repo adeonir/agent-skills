@@ -6,6 +6,28 @@ The filename, body, wikilink, update, and report rules every note type follows.
 
 Loaded before writing or patching any note, whatever its type.
 
+## Vault Access
+
+Every note operation goes through one channel, tried in this order. Never open the Obsidian app or focus its window yourself.
+
+1. **CLI (default).** `obsidian` ships with the desktop app. When `command -v obsidian` finds it, run its commands. The CLI works only while the app runs; with the app closed, a command fails with `The CLI is unable to find Obsidian. Please make sure Obsidian is running and try again.`
+2. **MCP (fallback).** When the CLI binary is missing or the app is closed, use the Obsidian MCP tools (`Obsidian:read_note`, `Obsidian:write_note`, `Obsidian:patch_note`, and kin).
+3. **Direct vault write (last).** When neither the CLI nor the MCP tools are available, write the note as a plain file into the vault resolved the way the bundled `check_note.py` resolves it: `--vault` when given, the only vault in Obsidian's `obsidian.json`, or the open one.
+
+Operations on the CLI. Every command opens with `vault="<vault>"`, the folder name of the vault resolved as in Direct vault write; without it, the CLI fails with `Vault not found.` when no vault is active:
+
+| Operation | Command |
+|---|---|
+| Search | `obsidian vault="<vault>" search query="<query>" path="<folder>/" format=json` |
+| Read | `obsidian vault="<vault>" read path="<path>"` |
+| Create | `obsidian vault="<vault>" create path="<path>" content="$(cat "<temp-file>")"` — the value is the whole note, frontmatter included. The CLI turns every `\n` and `\t` in the value into a newline and a tab, with no escape; when the note text holds a literal `\n` or `\t`, write it as a plain file into the vault, as in Direct vault write |
+| Patch | read the note, edit the text, then run Create with the `overwrite` flag — a patch is read-modify-rewrite |
+| Set property | `obsidian vault="<vault>" property:set name=<name> value=<value> path="<path>"` |
+| List a folder | `obsidian vault="<vault>" files folder="<folder>/"` |
+| Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` — both endpoints vault-relative; updates links when the vault has Automatically update internal links turned on |
+
+A plain file write cannot update links. A move or rename of linked notes runs only on the CLI or MCP; when neither is available, report the path and skip — never do it with `mv`.
+
 ## Filename Sanitization
 
 When generating filenames from user input:
@@ -25,11 +47,11 @@ A transcription body passes through verbatim; neither rule applies to it.
 
 ## Wikilinks
 
-Creating `[[Some Note]]` to a file that does not exist makes Obsidian generate an empty file at the vault root. Run `Obsidian:search_notes` before linking to verify the target exists. If the target is missing, either create it first or omit the link.
+Creating `[[Some Note]]` to a file that does not exist makes Obsidian generate an empty file at the vault root. Before linking, verify the target exists with Search in Vault Access, run without `path` so it covers the whole vault. If the target is missing, either create it first or omit the link.
 
 ## Updating an Existing Note
 
-Templates apply to new notes only. When updating an existing note, read it first with `Obsidian:read_note`, then patch with `Obsidian:patch_note`. Re-applying a template overwrites prior content and loses history.
+Templates apply to new notes only. When updating an existing note, read it first, then patch it — the Read and Patch operations in Vault Access. Re-applying a template overwrites prior content and loses history.
 
 Refresh `updated` in the frontmatter whenever an existing note is patched.
 

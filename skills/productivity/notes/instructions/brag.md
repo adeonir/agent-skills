@@ -22,7 +22,7 @@ Progress:
 **Step 1. Determine the period.** Search `Brags/` for the current year:
 
 ```text
-Obsidian:search_notes query="YYYY" path="Brags/"
+obsidian vault="<vault>" search query="YYYY" path="Brags/" format=json
 ```
 
 When quarter files (`YYYY Qn.md`) exist, use the current quarter's file; otherwise use the year file (`YYYY.md`). Use a quarter file for a new year only when the user asks for one. Done when the target filename is known and whether it exists.
@@ -31,7 +31,7 @@ When quarter files (`YYYY Qn.md`) exist, use the current quarter's file; otherwi
 
 **Step 3. Compose.** For a new file, fill the template below. For an existing file, compose the entry for its category section. If the entry has neither a metric nor the proxy the anti-pattern below allows, return to Step 2. Done when the entry carries one of them.
 
-**Step 4. Write and check.** Create a new file with `Obsidian:write_note`. For an existing file, read it with `Obsidian:read_note`, then append the entry with `Obsidian:patch_note`: `oldString` is the heading after the entry's category (`## Technical` for Impact, `## Growth` for Technical, `## Observations` for Growth), and `newString` is the entry, a blank line, and that same heading. Then run `python3 <this-skill>/scripts/check_note.py brag "<note-path>" --entry "<first line of the entry>" --category <Impact|Technical|Growth>`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with `Obsidian:patch_note` and run it again. Done when the script prints `clean`.
+**Step 4. Write and check.** Create a new file with the Create operation in note-conventions.md Vault Access. For an existing file, read it, then patch the entry in: insert it before the heading after the entry's category (`## Technical` for Impact, `## Growth` for Technical, `## Observations` for Growth), followed by a blank line. Then run `python3 <this-skill>/scripts/check_note.py brag "<note-path>" --entry "<first line of the entry>" --category <Impact|Technical|Growth>`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Fix each line the script flags with Patch and run it again. Done when the script prints `clean`.
 
 **Step 5. Report.** Report as note-conventions.md "Reporting the Note" states. Done when the report carries the path and the entry's summary.
 
