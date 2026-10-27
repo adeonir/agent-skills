@@ -36,7 +36,7 @@ Operations on the CLI. Every command opens with `vault="<vault>"`, the folder na
 | List a folder | `obsidian vault="<vault>" files folder="<folder>/"` |
 | Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` — both endpoints vault-relative; updates links when the vault has Automatically update internal links turned on |
 
-A plain file write cannot update links. A move of linked notes runs only on the CLI or MCP; when neither is available, report the path and skip — never do it with `mv`.
+Only the CLI Move updates links. The MCP `Obsidian:move_note` and a plain file write leave every wikilink to the moved note unchanged, so a move of linked notes runs only on the CLI; when the CLI is unavailable, report the path and skip.
 
 ## Obsidian Syntax Rules
 
@@ -247,7 +247,7 @@ Read it first, then Patch it:
 
 After the daily note is written, list `Daily/` with `obsidian vault="<vault>" files folder="Daily/"` and collect the `YYYY-MM-DD.md` files at its root whose month is earlier than the current month. When none exist, skip this step silently.
 
-When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? It comes after the report, never before a write. On yes, move each note with Move, which needs the CLI or MCP; when neither is available, report the paths and leave the notes at the root. Report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
+When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? It comes after the report, never before a write. On yes, move each note with Move, which needs the CLI; when the CLI is unavailable, report the paths and leave the notes at the root. Report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
 
 ## Guidelines
 
@@ -256,5 +256,5 @@ When some exist, include them in the end-of-run report grouped by target folder,
 
 ## Error Handling
 
-- Obsidian CLI binary missing or app closed: use the MCP tools; both unavailable: write the notes as plain files into the vault. A move without the CLI or MCP: report and leave the notes at the root. Never open the Obsidian app or focus its window.
+- Obsidian CLI binary missing or app closed: use the MCP tools; both unavailable: write the notes as plain files into the vault. A move without the CLI: report and leave the notes at the root. Never open the Obsidian app or focus its window.
 - No meaningful session content: keep the session note brief, still update the daily note
