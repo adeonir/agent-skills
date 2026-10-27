@@ -1,6 +1,6 @@
 # Write Obsidian Notes
 
-Create session notes in the project folder and update the daily note using Obsidian MCP tools directly.
+Create session notes in the project folder and update the daily note in the Obsidian vault.
 
 ## When to Use
 
@@ -8,6 +8,7 @@ Loaded to write the notes themselves. The session note is written when `obsidian
 
 ## Contents
 
+- Vault Access
 - Obsidian Syntax Rules
 - Audience and Reference Discipline
 - Subject Matter
@@ -16,6 +17,27 @@ Loaded to write the notes themselves. The session note is written when `obsidian
 - Guidelines
 - Error Handling
 
+## Vault Access
+
+Every write or read goes through one channel, tried in this order. Never open the Obsidian app or focus its window yourself.
+
+1. **CLI (default).** `obsidian` ships with the desktop app. When `command -v obsidian` finds it, run its commands. The CLI works only while the app runs; with the app closed, a command fails with `The CLI is unable to find Obsidian. Please make sure Obsidian is running and try again.`
+2. **MCP (fallback).** When the CLI binary is missing or the app is closed, use the Obsidian MCP tools (`Obsidian:read_note`, `Obsidian:write_note`, `Obsidian:patch_note`, and kin).
+3. **Direct vault write (last).** When neither the CLI nor the MCP tools are available, write the notes as plain files into the vault resolved from Obsidian's `obsidian.json`: the only vault, or the open one.
+
+Operations on the CLI. Every command opens with `vault="<vault>"`, the folder name of the vault resolved as in Direct vault write; without it, the CLI fails with `Vault not found.` when no vault is active:
+
+| Operation | Command |
+|---|---|
+| Search | `obsidian vault="<vault>" search query="<query>" path="<folder>/" format=json` |
+| Read | `obsidian vault="<vault>" read path="<path>"` |
+| Create | `obsidian vault="<vault>" create path="<path>" content="$(cat "<temp-file>")"` — the value is the whole note, frontmatter included. The CLI turns every `\n` and `\t` in the value into a newline and a tab, with no escape; when the note text holds a literal `\n` or `\t`, write it as a plain file into the vault, as in Direct vault write |
+| Patch | read the note, edit the text, then run Create with the `overwrite` flag — a patch is read-modify-rewrite |
+| List a folder | `obsidian vault="<vault>" files folder="<folder>/"` |
+| Move | `obsidian vault="<vault>" move path="<path>" to="<dest>"` — both endpoints vault-relative; updates links when the vault has Automatically update internal links turned on |
+
+A plain file write cannot update links. A move of linked notes runs only on the CLI or MCP; when neither is available, report the path and skip — never do it with `mv`.
+
 ## Obsidian Syntax Rules
 
 Obsidian notes render for humans (Graph view, daily review, Dataview). Keep notes brief and scannable — prose narrative up front, structured sections below, typed relations for graph edges.
@@ -23,7 +45,7 @@ Obsidian notes render for humans (Graph view, daily review, Dataview). Keep note
 - **Frontmatter**: YAML with `title`, `type`, `tags`
 - **Observations**: daily notes only. Bullets under `## Observations` formatted as `- #category content`. Category is free-form (examples: `#pattern`, `#method`, `#cadence`, `#blocker`, `#mood`). Use `#hashtags`, not `[brackets]`.
 - **Relations**: each relation is a verb followed by a wikilink under `## Relations`: `- follows [[Target]]`. Common verbs: `follows`, `part_of`, `contains`, `expands`, `relates_to`, `implements`, `requires`, `replaces`, `pairs_with`, `extends`, `depends_on`. Use inline `[[wikilinks]]` for ordinary mentions. Add a relation only for an explicit connection between notes.
-- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify each target with `Obsidian:search_notes` before linking.
+- **Wikilinks**: only to existing notes or entity files. Orphan links create empty files at the vault root — verify each target with Search in Vault Access, run without `path` so it covers the whole vault, before linking.
 - **H1 heading**: all notes omit the body `# H1` — the frontmatter `title` is the canonical heading. Top-level body sections start at `##`.
 - **Prose**: past tense, natural language. Omit every empty section.
 
@@ -81,10 +103,10 @@ Compose each note in full before writing it, then check the draft line by line a
 #### Check for existing note
 
 ```text
-Obsidian:search_notes query="YYYY-MM-DD" path="<obsidian.path>/Sessions/"
+obsidian vault="<vault>" search query="YYYY-MM-DD" path="<obsidian.path>/Sessions/" format=json
 ```
 
-If a match exists for the same date and topic, read it with `Obsidian:read_note` and append a new section with `Obsidian:patch_note` (horizontal rule `---` plus date header as separator). Otherwise create a new note.
+If a match exists for the same date and topic, read it and append a new section with Patch (horizontal rule `---` plus date header as separator). Otherwise create a new note.
 
 #### Session template
 
@@ -146,7 +168,7 @@ When the handoff Load phase provides content, include it before composing the no
 
 #### Write
 
-Create the note with `Obsidian:write_note`, passing the frontmatter in its `frontmatter` field.
+Create the note with Create — the content carries the frontmatter and the body together.
 
 Rules:
 - Keep each section brief — this is a human note, not an AI knowledge base
@@ -211,11 +233,11 @@ Section presence:
 
 #### If note does not exist
 
-Compose content following the template above, then create the note with `Obsidian:write_note`.
+Compose content following the template above, then create the note with Create.
 
 #### If note already exists
 
-Read first with `Obsidian:read_note`, then use `Obsidian:patch_note`:
+Read it first, then Patch it:
 - If the project already has a subsection in Activities, merge the existing bullets with new bullets — deduplicate, keep distinct items
 - If the project is new, add a `### Project Name` subsection at the end of Activities (before the next `##` section)
 - Add items to Open Items if relevant (create the section if it does not exist)
@@ -223,9 +245,9 @@ Read first with `Obsidian:read_note`, then use `Obsidian:patch_note`:
 
 ### 3. Offer to archive past months
 
-After the daily note is written, list `Daily/` with `Obsidian:list_directory` and collect the `YYYY-MM-DD.md` files at its root whose month is earlier than the current month. When none exist, skip this step silently.
+After the daily note is written, list `Daily/` with `obsidian vault="<vault>" files folder="Daily/"` and collect the `YYYY-MM-DD.md` files at its root whose month is earlier than the current month. When none exist, skip this step silently.
 
-When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? It comes after the report, never before a write. On yes, move each note with `Obsidian:move_note` to `Daily/YYYY-MM/YYYY-MM-DD.md` and report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
+When some exist, include them in the end-of-run report grouped by target folder, and ask one question: move them into `Daily/YYYY-MM/`? It comes after the report, never before a write. On yes, move each note with Move, which needs the CLI or MCP; when neither is available, report the paths and leave the notes at the root. Report the count moved per folder. On no, leave them at the root. If a move fails, report the failed path and continue with the rest.
 
 ## Guidelines
 
@@ -234,5 +256,5 @@ When some exist, include them in the end-of-run report grouped by target folder,
 
 ## Error Handling
 
-- Obsidian MCP unavailable: stop before any write, keep the handoff, and report that no note was written
+- Obsidian CLI binary missing or app closed: use the MCP tools; both unavailable: write the notes as plain files into the vault. A move without the CLI or MCP: report and leave the notes at the root. Never open the Obsidian app or focus its window.
 - No meaningful session content: keep the session note brief, still update the daily note

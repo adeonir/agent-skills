@@ -39,14 +39,14 @@ The skill runs only from the slash command; the model never starts it on its own
 
 | Dependency | Status | Without it |
 |------------|--------|------------|
-| Obsidian MCP server | required | The workflow cannot write either note |
+| Obsidian CLI (`obsidian`, shipped with the desktop app) | default | Obsidian MCP server as fallback when the CLI binary is missing or the app is closed, then a plain file write into the vault. The skill never opens the app |
 
 - Python 3, standard library only, for the bundled script
-- An Obsidian vault served by the Obsidian MCP server. On first run in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
+- An Obsidian vault. On first run in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ
 
-**Q: What happens if Obsidian MCP is unavailable?** A: The workflow cannot write the session note or the daily note because both use the Obsidian MCP server.
+**Q: What happens if Obsidian is closed?** A: The skill does not open it. The CLI works only while the app runs, so both notes go through the Obsidian MCP server, or a plain file write into the vault folder resolved from Obsidian's configuration when the MCP server is unavailable.
 
 **Q: Does it ask before clearing the session handoff?** A: No. Cleanup writes empty content after every configured note write succeeds. If persistence fails, the handoff remains available for retry.
 

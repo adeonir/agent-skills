@@ -8,7 +8,7 @@ Loaded to resolve the project entry for this repo and the base tags applied to e
 
 ## Vault
 
-Every note path is relative to the vault the Obsidian MCP server serves. The registry lives outside the vault and holds no vault path.
+Every note path is relative to the Obsidian vault root, whatever channel writes it. The registry lives outside the vault and holds no vault path.
 
 ## Config Registry
 
