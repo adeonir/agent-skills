@@ -58,6 +58,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[notes](skills/productivity/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |
 | **[plain-spoken](skills/productivity/plain-spoken)** | STE-inspired technical prose with less jargon and preserved precision |
 | **[rule-creator](skills/productivity/rule-creator)** | Create and manage Claude Code rules in `.claude/rules/` |
+| **[session-retro](skills/productivity/session-retro)** | Propose changes to the agent's environment from what went wrong in a session |
 | **[skill-feedback](skills/productivity/skill-feedback)** | Report a skill's defects from the session where it ran, ready for the session that edits it |
 | **[skill-reliability](skills/productivity/skill-reliability)** | Score a skill's trigger precision and workflow risk, then propose verifiable fixes |
 | **[wrap-up](skills/productivity/wrap-up)** | End-of-session context persistence to Obsidian |
@@ -97,7 +98,7 @@ flowchart TD
 
 Dotted arrows show optional handoffs. The visual path goes through `design-md-builder` to `craft-ui`. `copywriting` can supply final copy after it. `review-lens` and `git-helpers` act after implementation when needed.
 
-**debug-tools**, **rule-creator**, **domain-modeling**, **grill-me**, **notes**, **handoff**, **skill-feedback**, and **wrap-up** run when their own jobs are needed.
+**debug-tools**, **rule-creator**, **domain-modeling**, **grill-me**, **notes**, **handoff**, **session-retro**, **skill-feedback**, and **wrap-up** run when their own jobs are needed.
 **storytelling** runs at any phase and reads whatever materials exist.
 
 ## Using the Flow

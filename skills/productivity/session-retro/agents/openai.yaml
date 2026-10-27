@@ -1,0 +1,3 @@
+interface:
+  display_name: "Session Retro"
+  short_description: "Propose environment changes from what went wrong in a session"
