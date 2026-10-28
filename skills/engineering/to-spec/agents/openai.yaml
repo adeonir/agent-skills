@@ -1,0 +1,3 @@
+interface:
+  display_name: "To Spec"
+  short_description: "Turn agreed context into a behavior and technical spec"

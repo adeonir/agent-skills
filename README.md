@@ -33,6 +33,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with requirements traceability |
 | **[to-intent](skills/engineering/to-intent)** | Turn inputs into concrete intents with the user |
+| **[to-spec](skills/engineering/to-spec)** | Turn agreed context into a local behavior and technical specification |
 | **[tracker-config](skills/engineering/tracker-config)** | Configure tracker destinations and operate issues through Linear or GitHub |
 
 ### Product
