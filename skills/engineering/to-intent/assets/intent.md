@@ -1,6 +1,13 @@
 ALWAYS use this exact template structure:
 
 ```markdown
+---
+name: [slug]
+status: [draft | approved]
+created: [YYYY-MM-DD]
+updated: [YYYY-MM-DD]
+---
+
 # Intent: [Outcome]
 
 ## Problem

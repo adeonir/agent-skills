@@ -8,10 +8,9 @@ Turn an input into concrete intents with the user.
 flowchart TD
     A[Receive input] --> B[Make concrete]
     B --> C[Calibrate outcomes]
-    C --> D[Draft issue bodies]
+    C --> D[Write intents]
     D --> E[User review]
     E -->|Corrections| D
-    E -->|Approved| F[Register issues]
 ```
 
 | Phase | Output |
@@ -19,9 +18,8 @@ flowchart TD
 | Receive | Input and claims to check |
 | Make concrete | Template fields filled; unknowns kept explicit |
 | Calibrate | One intent per independent outcome |
-| Draft | Issue bodies with problem, outcome, affected users and systems, constraints, and open questions |
-| Review | User-approved issue bodies |
-| Register | Verified tracker issues and links |
+| Write | Intent files with problem, outcome, affected users and systems, constraints, and open questions |
+| Review | User-approved intent files |
 
 ## Usage
 
@@ -33,8 +31,4 @@ Capture the independent outcomes in this document as intents for review.
 
 ## Output
 
-One tracker issue per approved intent. Drafts stay in the conversation; no local intent file is written.
-
-## Requirements
-
-A connected tracker tool or authenticated CLI is required for registration. Without tracker access, the skill returns approved issue bodies and reports the blocker.
+One `.artifacts/work/<slug>/intent.md` per approved intent. `.artifacts/` is excluded from Git through `.git/info/exclude`.
