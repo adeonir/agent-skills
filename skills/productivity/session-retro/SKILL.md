@@ -1,6 +1,7 @@
 ---
 name: session-retro
 description: 'Reviews a finished coding session and, from the evidence in it, proposes changes to the environment the agent works in so the same lost time and mistakes do not recur: `AGENTS.md` files, rules, automated checks, navigation, tool use, and information access. Use when the user asks for a retro or retrospective, to improve the agent setup after a session, or says "what should we change so this does not happen again". Not for writing or trimming an AGENTS.md or rule with no session behind it, reviewing an earlier session, a defect report on one skill, session handoffs, end-of-session notes, code review, or editing the files it proposes to change.'
+disable-model-invocation: true
 ---
 
 # Session Retro

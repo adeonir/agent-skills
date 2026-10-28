@@ -2,6 +2,7 @@
 name: to-intent
 description: "Turns an idea, problem, document, ticket, incident, or metric into concrete intents with the user. Use when capturing intent, turning input into an intent, or clarifying the problem and proposed outcome before specification. Not for open-ended ideation, exhaustive decision interviews, feature specifications, implementation slicing, or coding."
 argument-hint: "[input]"
+disable-model-invocation: true
 ---
 
 # To Intent

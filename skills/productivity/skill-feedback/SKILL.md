@@ -2,6 +2,7 @@
 name: skill-feedback
 argument-hint: "[skill-name]"
 description: 'Writes a normalized improvement report about a skill used in the current session, built from evidence in the conversation and printed in chat for a later editing session. Use when a skill misbehaved, missed a case, or gave an unclear instruction during the session, or when the user says "report this skill issue", "skill feedback", or "write a report for the skill". Not for editing, auditing, or creating a skill, scoring trigger precision, or session handoffs.'
+disable-model-invocation: true
 ---
 
 # Skill Feedback

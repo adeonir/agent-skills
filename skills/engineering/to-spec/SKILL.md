@@ -2,6 +2,7 @@
 name: to-spec
 description: "Turns agreed context into a specification of behavior, technical decisions, and testing. Use when specifying a change from conversation or supplied materials. Not for discovery interviews, issue decomposition, execution planning, or implementation."
 argument-hint: "[context]"
+disable-model-invocation: true
 ---
 
 # To Spec
