@@ -7,8 +7,10 @@ Interview a plan, decision, or idea in rounds until every decision is settled.
 ```mermaid
 flowchart TD
     P[Plan or idea] --> T[Map the design tree]
-    T --> Q[Ask the frontier as one round]
-    L[Look up facts in the environment] -.-> Q
+    T --> L[Dispatch bounded fact lookups]
+    L --> Q[Ask independent frontier questions]
+    L -.-> F[Evidence and terminology discrepancies]
+    F --> A
     Q --> A[Answers reshape the tree]
     A --> E{Frontier empty?}
     E -->|No| Q
@@ -19,8 +21,8 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Map and round | Questions: every decision whose prerequisites are settled, from the design tree the plan breaks into |
-| Ask | Answers, collected through the harness question tool (four questions per call at most, each opened with what is at stake, recommended answer first), or through a numbered list in chat without the tool |
-| Facts | Facts looked up in the environment instead of asked, for later rounds |
+| Facts | Subagent findings scoped to a blocking fact, with source locations, terminology discrepancies, and unresolved facts; repository lookups include relevant glossary entries and code |
+| Ask | Answers to independent questions while lookups run, collected through the harness question tool within its limits, or through a numbered list in chat without the tool |
 | Close | Summary of the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR, which the user confirms or corrects |
 
 ## Usage
@@ -39,7 +41,7 @@ The interview writes nothing to the repository. It keeps the decision tree in a 
 
 ## Requirements
 
-Uses the harness question tool when available and falls back to a numbered list in chat. Python 3, standard library only, for the bundled ledger script.
+Uses the harness question tool when available and falls back to a numbered list in chat. Uses subagents for fact-finding when available and falls back to a bounded lookup in the main thread. A repository is optional. Python 3, standard library only, for the bundled ledger script.
 
 ## FAQ
 
