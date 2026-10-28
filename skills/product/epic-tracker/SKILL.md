@@ -18,7 +18,6 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 - **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "update status") → [sync.md](instructions/sync.md)
 - **Reparent** ("move this to epic X", "reparent this story", "change the parent epic") → [sync.md](instructions/sync.md)
 - **Dependencies** ("block this on X", "unblock this", "this depends on X") → [sync.md](instructions/sync.md)
-- **Configure tracker** ("configure tracker") → [sync.md](instructions/sync.md)
 
 ## Workflow
 
@@ -30,4 +29,4 @@ create ref → tracker → the tracker      every artifact takes this path
     └ feature (optional): sizes a feature PRD/design doc, picks the ref
 ```
 
-Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. The plan usually comes from the user directly. Two optional ceremonies sit in front. `decompose` derives the plan from the project PRD, records it in the roadmap, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. `feature` sizes a feature PRD or feature design doc into an epic, a standalone story, or a standalone task, and writes no roadmap. A tracker is required: without one configured, the bootstrap runs first and nothing is created until it completes.
+Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. The plan usually comes from the user directly. Two optional ceremonies sit in front. `decompose` derives the plan from the project PRD, records it in the roadmap, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. `feature` sizes a feature PRD or feature design doc into an epic, a standalone story, or a standalone task, and writes no roadmap. A configured tracker is required for tracker operations; report missing access without configuring the integration.

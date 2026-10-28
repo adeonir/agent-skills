@@ -6,7 +6,7 @@ Document a general unit of actionable work — anything no user of the product o
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 - No user of the product observes an outcome of the work on its own, and it is not a defect
 

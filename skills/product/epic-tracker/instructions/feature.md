@@ -6,7 +6,7 @@ Turn a feature PRD or feature design doc into the delivery artifacts it warrants
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## When to Use
 

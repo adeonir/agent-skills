@@ -154,9 +154,9 @@ GLOSSARY.md         # domain-modeling: canonical domain terms
 PROJECT.md          # spec-driven: committed project memory
 ```
 
-`epic-tracker` writes no artifacts here — its epics, stories, bugs, and tasks
-live in the tracker (Linear or GitHub), and an `## Issue tracker` block in
-`AGENTS.md` or `CLAUDE.md` records which tracker is configured.
+`epic-tracker` keeps its epics, stories, bugs, and tasks in the configured tracker.
+`tracker-config` owns tracker configuration and the `## Issue tracker` block in
+`AGENTS.md` or `CLAUDE.md`.
 
 Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace).
 

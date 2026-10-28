@@ -6,7 +6,7 @@ Orchestrate the delivery plan: derive the epic set from the PRD, settle it, writ
 
 Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — the configured tracker, its adapter, and the tracker block settle there.
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 - **Level 1** — turn the PRD into a roadmap of epics and materialize them in the tracker.
 - **Level 2** — turn an epic's scope into stories and tasks.

@@ -1,10 +1,10 @@
 # Sync
 
-Change status, read delivery state, reparent an artifact, edit its dependencies, or configure the tracker.
+Change status, read delivery state, reparent an artifact, or edit its dependencies.
 
 ## Load first
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step — the config, the bootstrap, the tracker block, the dispatch flows, and the adapter operations every step below goes through. Without a tracker configured, its bootstrap runs first and nothing else proceeds until it completes.
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step — the existing destination, content guards, and generic operations used below. If the required tracker access is not configured, report the prerequisite without configuring it.
 
 ## Status change
 
@@ -28,7 +28,7 @@ Reading delivery state is a tracker query, not a stored report:
   4. `fetch_artifact` on the target epic and dispatch `set_milestone` with the milestone it carries — none clears the artifact's milestone — so it follows its epic under the milestone grouping.
 - **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list, plus `update_artifact` carrying the re-rendered `## Dependencies` section, under the same refetch guard as any other write (see the loaded reference's Dependencies).
 
-Each needs an adapter, so this ref is loaded for them even though no artifact is being drafted.
+Apply these delivery-state rules even when no artifact body is being drafted.
 
 ## Report
 
