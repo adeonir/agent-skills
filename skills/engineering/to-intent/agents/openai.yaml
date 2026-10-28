@@ -1,0 +1,3 @@
+interface:
+  display_name: "To Intent"
+  short_description: "Turn input into concrete intents with the user"

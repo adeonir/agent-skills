@@ -32,6 +32,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with requirements traceability |
+| **[to-intent](skills/engineering/to-intent)** | Turn inputs into concrete intents with the user |
 
 ### Product
 
