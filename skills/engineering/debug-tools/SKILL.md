@@ -29,15 +29,15 @@ Progress:
 
 Start at the step the session's state calls for; a session already carrying evidence does not restart at Step 1.
 
-**Step 1. Investigate.** Load [investigation.md](references/investigation.md) and work its sections from Understand the Bug through Rank Hypotheses. Done when every hypothesis carries a score and an evidence type, and the leading one either has evidence or names the runtime data it needs.
+**Step 1. Investigate.** Load [investigation.md](references/investigation.md) and work its sections from Understand the Bug through Rank Hypotheses. Done when the symptom-specific feedback and any reproduction limits are recorded, every hypothesis carries a score, evidence type, experiment, and prediction, and the leading one either has evidence or names the runtime data it needs.
 
 **Step 2. Compare against working code.** When analysis stalls and the broken code has to be diffed against a working example, or when the user reports that something used to work, load [debugging-patterns.md](references/debugging-patterns.md). Done when the comparison or the regression trace is in hand; then return to Step 1 to re-rank.
 
 **Step 3. Gather runtime evidence.** When reading the code cannot show the mechanism and only observing the running system can, load [log-injection.md](references/log-injection.md). Done when the reproduction's output is read; then return to Step 1 to re-rank.
 
-**Step 4. Fix and verify.** Work the Propose Fix, Verify, and Report sections of investigation.md. Done when the reproduction no longer shows the symptom and the report is written. If the symptom remains, return to Step 1 with what the run showed.
+**Step 4. Fix and verify.** Work the Propose Fix, Lock Down the Regression, Verify, and Report sections of investigation.md. Done when the available regression test, minimized reproduction, and original scenario pass and the report states any unverified checks. If the symptom remains, return to Step 1 with what the run showed. If required checks are inaccessible, report verification as blocked rather than declaring the fix verified.
 
-**Step 5. Clean up logs.** Once the fix is verified, or on explicit request, load [log-cleanup.md](references/log-cleanup.md). Run it before changes go to version control. Done when the script's `find` reports no `[DEBUG]` statement and the project's syntax check passes.
+**Step 5. Clean up logs.** Once the fix is verified, or on explicit request, load [log-cleanup.md](references/log-cleanup.md). Run it before changes go to version control. Done when no debug log remains, every held marker is reviewed, and the project's syntax check passes.
 
 A sensitive value never reaches an injected log — passwords, tokens, API keys, PII, session identifiers. This binds anywhere a log is added, including mid-investigation without Step 3 loaded.
 

@@ -24,12 +24,12 @@ flowchart TD
 
 | Phase | Output |
 |---|---|
-| Investigate | Root cause with a confidence score |
+| Investigate | Symptom-specific feedback, optional minimized reproduction, and falsifiable hypotheses with confidence scores |
 | Pattern Comparison | Diff of broken code against working examples |
 | Inject Logs | Targeted `[DEBUG]` logs that capture runtime data |
 | Propose Fix | Minimal fix based on evidence |
-| Verify | Confirmation the fix resolves the issue |
-| Cleanup | Debug logs removed automatically |
+| Verify | Regression test at a suitable boundary, minimized reproduction, and original-scenario results, with inaccessible checks stated |
+| Cleanup | Recognized standalone logs removed automatically; shared lines and ambiguous markers reviewed before manual cleanup |
 | Escalate | Architecture review after 3 failed fixes |
 
 ## Usage
@@ -55,7 +55,7 @@ cleanup debug statements
 
 **Q: What if the first fix doesn't work?** A: The workflow loops back to investigation with new evidence. After 3 failed attempts, it escalates to architectural review instead of retrying the same approach.
 
-**Q: Are debug logs left in my code?** A: No. Cleanup is automatic after fix verification. You can also request cleanup anytime.
+**Q: Are debug logs left in my code?** A: Cleanup runs after fix verification or on request. Recognized standalone calls are removed automatically; other candidates are reviewed so surrounding code and non-log data remain intact.
 
 **Q: Do I need specific tools for this to work?** A: No. The skill adapts to whatever tools are available. Runtime inspection and browser debugging tools enhance the experience but are not required.
 

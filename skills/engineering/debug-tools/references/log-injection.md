@@ -33,7 +33,7 @@ Based on investigation findings, determine:
 
 - Which files need logs — never a generated or read-only file, where the log is lost on the next build; log the source that produces it, or the nearest caller
 - What data to capture at each point
-- How many logs (3-5 strategic points, not flooding)
+- Which hypothesis prediction each probe tests; add only the points needed to distinguish the hypotheses
 
 ### Add Debug Logs
 

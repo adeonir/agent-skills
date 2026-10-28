@@ -6,20 +6,20 @@ Usage:
   python3 debug_logs.py remove [<root>]
 
 Walks <root> (default: the current directory) for source files and finds every
-statement that carries the exact [DEBUG] prefix. A statement spans from the
+candidate that carries the exact [DEBUG] prefix. A statement spans from the
 line where its brackets open to the line where they close, so a call a
 formatter split across lines is found and removed whole. Brackets inside
 strings and comments are ignored. Dependency, build, and VCS directories are
 skipped: generated output is rebuilt, never edited.
 
 find prints one entry per statement as <file>:<start>-<end>, then the spans
-held back for manual removal (the statement shares its line with other code,
-or its brackets never close), then near-miss prefixes such as [debug] or
+held back for review (shared lines, non-log data, unsupported calls, comments,
+or brackets that never close), then near-miss prefixes such as [debug] or
 [DEBUG ] for the user to confirm. remove deletes every safe span and prints
 the same report for what is left.
 
-Exit 0 when no [DEBUG] statement is left after the command, 1 when one is
-left (held back, or not removed yet by find), 2 when an argument is invalid.
+Exit 0 when no [DEBUG] candidate is left after the command, 1 when one is
+left (including non-log markers held for review), 2 when an argument is invalid.
 """
 
 import os
@@ -41,8 +41,58 @@ SKIP_DIRS = {
 MAX_SPAN = 50  # 50: a log call longer than this is not a log call; hold it back for a person
 PREFIX = "[DEBUG]"
 NEAR_MISS = re.compile(r"\[\s*debug\s*\]", re.IGNORECASE)
-UNSAFE_START = re.compile(r"^(if|else|elif|for|while|return|case|when|unless|until|do|try|catch|except|finally|defer|go|await)\b|^[})\]]|^(&&|\|\||\?|:)")
-SAFE_END = re.compile(r"""[)\]"'`;]\s*$""")
+LOG_CALLS = {
+    **dict.fromkeys((".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".vue", ".svelte"), r"console\.(?:log|debug|info|warn|error|trace)"),
+    ".py": r"print",
+    ".go": r"fmt\.(?:Print|Printf|Println)",
+    ".rs": r"(?:println|eprintln)!",
+    ".rb": r"puts",
+}
+
+
+def standalone_log(text, ext):
+    """Accept only a recognized log call with no code outside its parentheses."""
+    name = LOG_CALLS.get(ext)
+    if name is None:
+        return False
+    match = re.match(r"\s*(?:" + name + r")\s*\(", text)
+    if not match:
+        return False
+    stack = ["("]
+    marker = False
+    i = match.end()
+    while i < len(text):
+        ch = text[i]
+        if ch in "'\"`":
+            quote = ch * 3 if text.startswith(ch * 3, i) else ch
+            begin = i
+            i += len(quote)
+            while i < len(text) and not text.startswith(quote, i):
+                i += 2 if text[i] == "\\" else 1
+            if i >= len(text):
+                return False
+            marker |= PREFIX in text[begin:i]
+            i += len(quote)
+            continue
+        if text.startswith("/*", i) and ext not in HASH_COMMENT:
+            end = text.find("*/", i + 2)
+            if end == -1:
+                return False
+            i = end + 2
+            continue
+        if (ch == "#" and ext in HASH_COMMENT) or (text.startswith("//", i) and ext not in HASH_COMMENT):
+            i = skip_to_eol(text, i)
+            continue
+        if ch in "([{":
+            stack.append(ch)
+        elif ch in ")]}":
+            if not stack or stack.pop() != {")": "(", "]": "[", "}": "{"}[ch]:
+                return False
+            if not stack:
+                suffix = text[i + 1:].strip()
+                return marker and re.fullmatch(r";?\s*(?:(?://|\#)[^\n]*)?", suffix) is not None
+        i += 1
+    return False
 
 
 def skip_to_eol(text, i):
@@ -51,14 +101,14 @@ def skip_to_eol(text, i):
 
 
 def scan(text, ext):
-    """Per line, return the bracket stack depth at its start and end, and the innermost open bracket at its start.
+    """Return per-line bracket depths, innermost bracket, and code-at-start state.
 
     Brackets inside strings and comments are ignored.
     """
     line_comment = "#" if ext in HASH_COMMENT else "--" if ext in DASH_COMMENT else "//"
     block_comments = ext not in HASH_COMMENT | DASH_COMMENT
     stack = []
-    starts, ends, inner = [0], [], [None]
+    starts, ends, inner, active = [0], [], [None], [True]
     quote = None
     block = False
     i, n = 0, len(text)
@@ -70,6 +120,7 @@ def scan(text, ext):
             inner.append(stack[-1] if stack else None)
             if quote in ("'", '"'):
                 quote = None
+            active.append(not block and quote is None)
             i += 1
             continue
         if block:
@@ -79,10 +130,12 @@ def scan(text, ext):
         elif quote:
             if ch == "\\":
                 i += 1
-            elif ch == quote:
+            elif text.startswith(quote, i):
+                i += len(quote) - 1
                 quote = None
         elif ch in "'\"`":
-            quote = ch
+            quote = ch * 3 if ext == ".py" and text.startswith(ch * 3, i) else ch
+            i += len(quote) - 1
         elif text.startswith(line_comment, i):
             i = skip_to_eol(text, i)
             continue
@@ -95,7 +148,7 @@ def scan(text, ext):
             stack.pop()
         i += 1
     ends.append(len(stack))
-    return starts, ends, inner
+    return starts, ends, inner, active
 
 
 def find_in_file(path):
@@ -108,7 +161,7 @@ def find_in_file(path):
     if PREFIX not in text and not NEAR_MISS.search(text):
         return [], [], []
     lines = text.split("\n")
-    starts, ends, inner = scan(text, ext)
+    starts, ends, inner, active = scan(text, ext)
     spans, held, near = [], [], []
     seen = set()
     for idx, line in enumerate(lines):
@@ -124,12 +177,10 @@ def find_in_file(path):
             while end < len(lines) - 1 and ends[end] > base and end - start < MAX_SPAN:
                 end += 1
             seen.update(range(start, end + 1))
-            first = lines[start].strip()
-            last = lines[end].strip()
             if ends[end] != base or inner[start] in ("(", "["):
                 held.append((start, end, "brackets never close"))
-            elif UNSAFE_START.search(first) or not SAFE_END.search(last):
-                held.append((start, end, "shares its line with other code"))
+            elif not active[start] or not standalone_log("\n".join(lines[start:end + 1]), ext):
+                held.append((start, end, "not a standalone recognized log call; preserve and review"))
             else:
                 spans.append((start, end))
         elif NEAR_MISS.search(line):
