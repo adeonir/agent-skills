@@ -1,0 +1,3 @@
+interface:
+  display_name: "Tracker Config"
+  short_description: "Configure tracker destinations and operate issues"
