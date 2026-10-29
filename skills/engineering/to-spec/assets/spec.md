@@ -1,6 +1,6 @@
 # Spec Format
 
-Use `[Work title]` as the issue title and the block below as the issue body. Include `Current Behavior` only when the work changes existing behavior.
+Use `[Work title]` as the issue title and the block below as the issue body. Include `Reference` only when a related document exists, and `Current Behavior` only when the work changes existing behavior. For a repository file, link its URL on the repository host; if the file is not on the remote, ask the user before registering.
 
 ALWAYS use this exact template structure:
 
@@ -40,6 +40,10 @@ ALWAYS use this exact template structure:
 
 [Relevant risks, conflicting constraints, assumptions, unverified claims, and unanswered questions. State their consequences; do not present them as settled decisions. Write `None` when there are no additional notes.]
 
+## Reference
+
+[Link to each related document.]
+
 ```
 
-MUST NOT contain: source section numbers or requirement IDs; sibling artifact names, downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
+MUST NOT contain: source section numbers or requirement IDs; sibling artifact names outside `Reference`; downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
