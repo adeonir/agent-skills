@@ -157,12 +157,6 @@ GLOSSARY.md         # domain-modeling: canonical domain terms
 PROJECT.md          # spec-driven: committed project memory
 ```
 
-`epic-tracker` keeps its epics, stories, bugs, and tasks in the configured tracker.
-`to-spec` keeps each spec as an issue in the configured tracker.
-`to-tasks` keeps each task as a sub-issue of its spec in the configured tracker.
-`tracker-config` owns tracker configuration and the `## Issue tracker` block in
-`AGENTS.md` or `CLAUDE.md`.
-
 Skills write to `docs/` (committed, human-facing) and `.artifacts/` (gitignored agent workspace).
 
 ## License
