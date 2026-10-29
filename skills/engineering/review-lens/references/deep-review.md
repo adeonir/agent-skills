@@ -1,6 +1,6 @@
 # Deep Review (Multi-Material Fan-Out)
 
-The thorough review. Several agents run in parallel, each reading a **different source of material** — the diff, the project's guideline files, the git history, and (when available) prior pull requests — so each surfaces signal a single pass over the diff could not reach. A separate agent then judges every finding's confidence. Reserved for risky or wide-reaching changes.
+The thorough review. Several agents run in parallel, each reading a **different source of material** — the diff, the project's guideline files, the spec, the git history, and (when available) prior pull requests — so each surfaces signal a single pass over the diff could not reach. A separate agent then judges every finding's confidence. Reserved for risky or wide-reaching changes.
 
 ## When to Use
 
@@ -18,24 +18,27 @@ A capable model already looks for security, bugs, data-loss, and performance in 
 
 - Determine target and base as in [quick-review.md](quick-review.md) Step 1; capture `DIFF` and `CHANGED_FILES`; produce `ANNOTATED_DIFF` (annotation algorithm in [common.md](common.md)).
 - Gather the project's guideline file paths once (per [guidelines-audit.md](guidelines-audit.md), including `.claude/rules/*.md`) and pass them to the compliance agent so it does not rediscover them.
+- Locate the spec per [spec-review.md](spec-review.md) Step 1.
 - Write the `## Summary` walkthrough — a plain-language description of the change, grouped by area — and the `## Highlights` (at least one positive observation drawn from the change).
 
 ### Step 2: Select Active Agents
 
-Two agents always run; two are conditional:
+Two agents always run; three are conditional:
 
 - **bug-scan** and **compliance** — always.
+- **spec** — when a spec was found. If not, skip it and show `Spec: none` in the totals line.
 - **git-history** — when the changed files have meaningful history (skip on brand-new files with no prior commits).
 - **prior-PRs** — when `gh` is available **and** the repo has a GitHub remote. If not, skip it and note the skip in the totals line.
 
 ### Step 3: Fan Out by Material
 
-Dispatch the active agents in a single turn. Each returns findings in the Finding Format ([common.md](common.md)), citing only `[L<n>]` lines and attaching a suggested fix where non-obvious. Finders **surface candidates** with their reasoning — they do not drop on confidence; the judge (Step 4) is the single `>= 80` gate.
+Dispatch the active agents in a single turn. Each returns findings in the Finding Format ([common.md](common.md)), citing only `[L<n>]` lines (a `missing/partial` spec gap may cite the spec alone) and attaching a suggested fix where non-obvious. Finders **surface candidates** with their reasoning — they do not drop on confidence; the judge (Step 4) is the single `>= 80` gate.
 
 | Agent | Model | Reads | Looks for |
 |-------|-------|-------|-----------|
 | bug-scan | Sonnet | `ANNOTATED_DIFF` | the full concern checklist in one pass: security, bugs, data-loss, performance |
 | compliance | Haiku | the gathered guideline files | diff vs explicit documented rules — follow [guidelines-audit.md](guidelines-audit.md) |
+| spec | Sonnet | the spec content | missing/partial, incorrect, and out-of-scope behavior — follow [spec-review.md](spec-review.md) |
 | git-history | Sonnet | `git log` / `git blame` of `CHANGED_FILES` | regressions, reverted fixes, and changes that contradict why the code was last touched |
 | prior-PRs | Haiku | past PRs touching these files + their review comments (`gh`) | recurring concerns reviewers raised before that apply again |
 
@@ -48,7 +51,7 @@ The bug-scan concern checklist:
 
 ### Step 4: Judge (batched, Opus)
 
-Collect every finding from every agent and pass them to **one** Opus judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims. Drop everything below 80. The judge is independent of the finders — a finder never scores its own work.
+Collect every finding from every agent and pass them to **one** Opus judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims, and for spec findings that the quoted requirement says what the gap claims. Drop everything below 80. The judge is independent of the finders — a finder never scores its own work.
 
 ### Step 5: Consolidate
 
@@ -59,11 +62,11 @@ Collect every finding from every agent and pass them to **one** Opus judge in a 
 
 ### Step 6: Report
 
-Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
+Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, spec compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
 
 ## Re-Review
 
-On "re-review" / "check fixes": reload prior findings, re-run the fan-out and judge steps constrained to the previously flagged `file:line` set plus newly changed lines, and mark each prior finding `fixed`, `persisting`, or `regressed`. Output the status table ([common.md](common.md)) before the standard report.
+On "re-review" / "check fixes": reload prior findings, re-run the fan-out and judge steps constrained to the previously flagged `file:line` set plus newly changed lines (the spec agent re-checks the requirements behind prior spec gaps, line or not), and mark each prior finding `fixed`, `persisting`, or `regressed`. Output the status table ([common.md](common.md)) before the standard report.
 
 ## Guidelines
 

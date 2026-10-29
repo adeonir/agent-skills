@@ -7,17 +7,22 @@ Confidence-scored code review in two modes — a fast walkthrough-plus-findings 
 ```mermaid
 flowchart TD
     A[Get diff] --> N[Annotate lines L&lt;n&gt;]
-    N --> G{Mode}
+    N --> S[Locate spec]
+    S --> G{Mode}
     G -->|quick · default| Q1[Haiku: walkthrough]
     G -->|quick · default| Q2[Sonnet: findings]
+    G -->|quick · with spec| Q3[Sonnet: spec]
     G -->|deep| D1[Sonnet: bug-scan]
     G -->|deep| D2[Haiku: compliance]
+    G -->|deep · with spec| D5[Sonnet: spec]
     G -->|deep| D3[Sonnet: git-history]
     G -->|deep| D4[Haiku: prior-PRs]
     Q1 --> R[Report: summary + findings + fixes]
     Q2 --> R
+    Q3 --> R
     D1 --> J[Opus judge]
     D2 --> J
+    D5 --> J
     D3 --> J
     D4 --> J
     J --> R
@@ -26,8 +31,9 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Annotate | Diff with `[L<n>]` post-image markers (anti-hallucination allowlist) |
-| Quick (default) | Change walkthrough (Haiku) + generalist findings (Sonnet), in parallel |
-| Deep (on demand) | Fan-out by material (diff, guideline files, git history, prior PRs) + an independent confidence judge |
+| Locate spec | Spec from the request, the issue referenced in commits or branch, or the user; skipped when none |
+| Quick (default) | Change walkthrough (Haiku) + generalist findings (Sonnet) + spec gaps (Sonnet, with a spec), in parallel |
+| Deep (on demand) | Fan-out by material (diff, guideline files, spec, git history, prior PRs) + an independent confidence judge |
 | Report | Summary + severity-sorted findings with suggested fixes; chat output, optional `CODE_REVIEW.md` |
 
 ## Usage
@@ -35,6 +41,7 @@ flowchart TD
 ```text
 review my changes
 review against main
+review my changes against issue #42
 deep review my changes
 full review
 apply the suggested fixes
@@ -52,12 +59,14 @@ The report prints to the chat by default. On request it can be saved to `CODE_RE
 
 ## FAQ
 
-**Q: Quick vs deep — when do I use which?** A: Quick is the default: two cheap agents (a walkthrough and a generalist findings pass) over the diff — fast, good for everyday changes. Deep fans out across different materials — the diff, your guideline files, git history, and prior PRs — with a separate judge, and costs more. Use it on risky or wide-reaching changes, or say "deep review".
+**Q: Quick vs deep — when do I use which?** A: Quick is the default: two cheap agents (a walkthrough and a generalist findings pass) over the diff, plus a spec pass when a spec exists — fast, good for everyday changes. Deep fans out across different materials — the diff, your guideline files, the spec, git history, and prior PRs — with a separate judge, and costs more. Use it on risky or wide-reaching changes, or say "deep review".
 
-**Q: How does it keep cost down?** A: Model tiering. Quick runs a Haiku walkthrough and a Sonnet findings pass. Deep runs Sonnet for the two reasoning passes (bug-scan and git-history) and Haiku for compliance and prior-PRs; the single batched judge runs on Opus, since it is the only gate to the report. The history and PR passes are skipped when there is nothing to read.
+**Q: How does it keep cost down?** A: Model tiering. Quick runs a Haiku walkthrough, a Sonnet findings pass, and a Sonnet spec pass when a spec exists. Deep runs Sonnet for the reasoning passes (bug-scan, spec, and git-history) and Haiku for compliance and prior-PRs; the single batched judge runs on Opus, since it is the only gate to the report. The history and PR passes are skipped when there is nothing to read.
 
 **Q: Will it change my code?** A: It suggests fixes as code blocks in the report. It only edits the working tree if you explicitly confirm.
 
 **Q: What guideline files does it read?** A: `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `.editorconfig`, and `.claude/rules/*.md` inside the repository root. Personal global settings (e.g. `~/.claude/`) are excluded.
+
+**Q: Where does the spec come from?** A: A path or issue you name in the request, else an issue referenced in the commit messages or branch name, else it asks you once. With no spec, the spec check is skipped and the totals line shows `Spec: none`.
 
 **Q: Why are some issues not reported?** A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Style preferences, hypotheticals, and "could be simplified" suggestions are intentionally skipped.

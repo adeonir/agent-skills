@@ -1,10 +1,10 @@
 # Quick Review
 
-The fast, default review. Two cheap agents run in parallel by role — one writes a plain-language walkthrough of the change, the other finds issues across every scope — and the main agent assembles a single report. No deep fan-out, no history or PR lookups. Built for everyday changes.
+The fast, default review. Two cheap agents run in parallel by role — one writes a plain-language walkthrough of the change, the other finds issues across every scope — plus a spec agent when a spec was found, and the main agent assembles a single report. No deep fan-out, no history or PR lookups. Built for everyday changes.
 
 ## When to Use
 
-Loaded to run the review in the default mode: two cheap agents in parallel by role, no history or PR lookups.
+Loaded to run the review in the default mode: two cheap agents in parallel by role, a third for the spec when one exists, no history or PR lookups.
 
 Shared rules — diff annotation, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply here in full.
 
@@ -17,17 +17,19 @@ Start immediately when triggered. No confirmation needed to begin.
 - **Target:** run `git status --porcelain`. If there are uncommitted changes, review the working directory; otherwise compare the current branch against the base.
 - **Base:** the branch the user names, else `main`.
 - Capture `DIFF` and `CHANGED_FILES`, then produce `ANNOTATED_DIFF` with the annotation algorithm in [common.md](common.md).
+- Locate the spec per [spec-review.md](spec-review.md) Step 1.
 
-### Step 2: Fan Out — Two Agents in Parallel by Role
+### Step 2: Fan Out — Agents in Parallel by Role
 
-Dispatch both in a single turn (two Task calls). Each receives `ANNOTATED_DIFF`, `CHANGED_FILES`, and the shared rules from [common.md](common.md).
+Dispatch every active agent in a single turn (one Task call each). Each receives `ANNOTATED_DIFF`, `CHANGED_FILES`, and the shared rules from [common.md](common.md).
 
 - **Walkthrough (Haiku):** produce the `## Summary` block — a plain-language description of what the change does, grouped by area or file — plus the `## Highlights` (at least one positive observation). No findings, just orientation.
 - **Findings (Sonnet):** a single generalist pass over `ANNOTATED_DIFF` covering every scope. Code issues (security, bugs, data-loss, performance) are returned in the Finding Format ([common.md](common.md)); guideline violations use the violation shape and discovery in [guidelines-audit.md](guidelines-audit.md) (includes `.claude/rules/*.md`). Cite only `[L<n>]` lines, apply the confidence rubric (report `>= 80`), and attach a suggested fix where non-obvious. After listing findings, re-read the diff once and name every file left uncommented, stating why it is clean (second-pass coverage).
+- **Spec (Sonnet), only when a spec was found:** also receives the spec content. Compares the diff against it per [spec-review.md](spec-review.md), applies the confidence rubric (report `>= 80`), and returns the `### Spec Compliance` block.
 
 ### Step 3: Assemble
 
-The main agent merges the walkthrough and the findings into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report.
+The main agent merges the walkthrough, the findings, and the spec gaps into the [common.md](common.md) output template, sorts findings by severity (order in `common.md`), and renders the report.
 
 ### Step 4: Report
 
@@ -35,13 +37,13 @@ Follow the output-channel and fix-suggestion rules in [common.md](common.md): pr
 
 ## Re-Review
 
-On "re-review" / "check fixes": reload the prior findings (from `CODE_REVIEW.md` or chat), re-run the setup and fan-out steps constrained to the previously flagged `file:line` set plus newly changed lines, and mark each prior finding `fixed`, `persisting`, or `regressed`. Output the status table ([common.md](common.md)) before the standard report.
+On "re-review" / "check fixes": reload the prior findings (from `CODE_REVIEW.md` or chat), re-run the setup and fan-out steps constrained to the previously flagged `file:line` set plus newly changed lines (the spec agent re-checks the requirements behind prior spec gaps, line or not), and mark each prior finding `fixed`, `persisting`, or `regressed`. Output the status table ([common.md](common.md)) before the standard report.
 
 ## Guidelines
 
 - Keep the `[L<n>]` annotation and the `>= 80` confidence bar — quick changes the depth, not the rigor.
 - The findings agent covers every scope in one pass; do not silently drop one because the diff "looks" unrelated.
-- The two agents are independent — the walkthrough never invents findings, the findings agent never narrates the change.
+- The agents are independent — the walkthrough never invents findings, the findings agent never narrates the change, and only the spec agent reads the spec.
 - Sort the final report by severity, not by discovery order.
 
 ## Error Handling

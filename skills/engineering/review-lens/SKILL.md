@@ -1,7 +1,7 @@
 ---
 name: review-lens
 allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Read Write Edit Task
-description: "Code review in quick and deep modes, with confidence-scored findings. Use for diff review, guideline audits, re-reviewing fixes, or applying findings before a pull request. Not for markdown or prose review, acceptance-criteria verification, visual design review, or commit and branch mechanics."
+description: "Code review in quick and deep modes, with confidence-scored findings and a check of the change against its spec or issue. Use for diff review, guideline audits, spec compliance review, re-reviewing fixes, or applying findings before a pull request. Not for markdown or prose review, manual acceptance testing, visual design review, or commit and branch mechanics."
 ---
 
 # Review Lens
@@ -20,10 +20,11 @@ Start immediately when triggered. No confirmation needed to begin.
 
 1. **Load [common.md](references/common.md).** The diff annotation algorithm, the confidence rubric, what not to report, the output template, the fix-suggestion rules, and the data trust boundary. Both modes apply it in full.
 2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker.
-3. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
-4. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
-5. **Assemble.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first.
-6. **Report.** Print to the terminal, then offer to apply the suggested fixes.
+3. **Load [spec-review.md](references/spec-review.md)** for the spec-compliance portion. The mode's setup locates the spec; with one, either mode runs the spec agent, and without one it skips the agent.
+4. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
+5. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
+6. **Assemble.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first.
+7. **Report.** Print to the terminal, then offer to apply the suggested fixes.
 
 ## Guidelines
 
