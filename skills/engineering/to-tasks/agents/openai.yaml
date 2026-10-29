@@ -1,0 +1,3 @@
+interface:
+  display_name: "To Tasks"
+  short_description: "Break a spec into tasks an agent can implement"

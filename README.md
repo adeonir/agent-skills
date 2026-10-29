@@ -34,6 +34,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with requirements traceability |
 | **[to-intent](skills/engineering/to-intent)** | Turn inputs into concrete intents with the user |
 | **[to-spec](skills/engineering/to-spec)** | Turn agreed context into a behavior and technical specification tracked as an issue |
+| **[to-tasks](skills/engineering/to-tasks)** | Break an approved spec into tasks registered as sub-issues with native blocking links |
 | **[tracker-config](skills/engineering/tracker-config)** | Configure tracker destinations and operate issues through Linear or GitHub |
 
 ### Product
@@ -158,6 +159,7 @@ PROJECT.md          # spec-driven: committed project memory
 
 `epic-tracker` keeps its epics, stories, bugs, and tasks in the configured tracker.
 `to-spec` keeps each spec as an issue in the configured tracker.
+`to-tasks` keeps each task as a sub-issue of its spec in the configured tracker.
 `tracker-config` owns tracker configuration and the `## Issue tracker` block in
 `AGENTS.md` or `CLAUDE.md`.
 
