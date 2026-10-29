@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 ## Quick start
 
-Use `/to-intent [input]` to capture one or more outcomes with the user and save each intent to `.artifacts/intent/<slug>.md`. Keep the interview short and driven by the intent template. Produce no specification or implementation slices.
+Use `/to-intent [input]` to capture one or more outcomes with the user and save each intent to `docs/intents/<slug>.md`. Keep the interview short and driven by the intent template. Produce no specification or implementation slices.
 
 ## Workflow
 
@@ -30,6 +30,6 @@ Progress:
 
 **Step 3. Calibrate the intents.** Default to one intent. Split only when the input contains independent outcomes; do not split by technical layer or implementation step. Done when each intent has one distinct outcome.
 
-**Step 4. Write the intents.** Use the template for each intent. Keep the problem, proposed outcome, affected users and systems, constraints, and open questions at intent level. Compare each intent with the input and conversation: preserve constraints, keep unanswered gaps open, mark assumptions, and remove unsupported factual claims and technical design. If the comparison fails, correct the intent and repeat the comparison. Derive `<slug>` from the outcome in lowercase kebab-case. Before the first write, list `.artifacts/intent/` for an existing intent with the same problem and proposed outcome; confirm a candidate's content before reusing its file, and ask the user when the match is ambiguous. Ask before replacing an existing intent file. When `<slug>` is taken by a different intent, ask the user for another slug. On the first write, add `.artifacts/` to `.git/info/exclude` unless it is already ignored. Write each intent to `.artifacts/intent/<slug>.md` with `status: draft`, and set `updated` on every edit. Done when every intent is saved, passes the comparison, and contains no implementation plan.
+**Step 4. Write the intents.** Use the template for each intent. Keep the problem, proposed outcome, affected users and systems, constraints, and open questions at intent level. Compare each intent with the input and conversation: preserve constraints, keep unanswered gaps open, mark assumptions, and remove unsupported factual claims and technical design. If the comparison fails, correct the intent and repeat the comparison. Derive `<slug>` from the outcome in lowercase kebab-case. Before the first write, list `docs/intents/` for an existing intent with the same problem and proposed outcome; confirm a candidate's content before reusing its file, and ask the user when the match is ambiguous. Ask before replacing an existing intent file. When `<slug>` is taken by a different intent, ask the user for another slug. Write each intent to `docs/intents/<slug>.md` with `status: draft`, and set `updated` on every edit. Done when every intent is saved, passes the comparison, and contains no implementation plan.
 
 **Step 5. Review with the user.** Return each path for review. If the user corrects an intent, return to Step 4 and edit the same file. On approval, set `status: approved`. Done when the user has approved each intent and its file carries `status: approved`.

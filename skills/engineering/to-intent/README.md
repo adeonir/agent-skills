@@ -31,4 +31,4 @@ Capture the independent outcomes in this document as intents for review.
 
 ## Output
 
-One `.artifacts/intent/<slug>.md` per intent. `.artifacts/` is excluded from Git through `.git/info/exclude`.
+One `docs/intents/<slug>.md` per intent.

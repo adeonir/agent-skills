@@ -376,6 +376,7 @@ docs/
 ├── product/   # brainstorm, docs-writer, copywriting: content
 ├── tech/      # docs-writer
 ├── adr/       # docs-writer
+├── intents/   # to-intent
 └── design/    # design-md-builder, craft-ui, storytelling
 
 PROJECT.md                 # spec-driven: committed project memory
