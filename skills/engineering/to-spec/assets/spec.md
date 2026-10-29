@@ -1,19 +1,10 @@
 # Spec Format
 
+Use `[Work title]` as the issue title and the block below as the issue body.
+
 ALWAYS use this exact template structure:
 
 ```markdown
----
-name: [slug]
-status: [draft | approved]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-sources:
-  - [Source path or URL]
----
-
-# [Work title]
-
 ## Problem Statement
 
 [The problem, affected users, and why the outcome matters.]
@@ -47,4 +38,4 @@ sources:
 
 ```
 
-MUST NOT contain: source section numbers or requirement IDs; sibling artifact names outside `sources`, downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
+MUST NOT contain: source section numbers or requirement IDs; sibling artifact names, downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
