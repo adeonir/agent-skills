@@ -18,7 +18,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-references` | `skills/**` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
-| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents with lookup allowed |
+| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents with lookup allowed, parallel subagents only for an orchestrator |
 | `.agents/rules/skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |

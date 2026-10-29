@@ -44,7 +44,7 @@ This plan carries no styling; it describes structure only.
 
 **Impact: MEDIUM**
 
-A skill executes inline by default. It may spawn a subagent for **context isolation** or to look up a fact the main thread would otherwise read at length — the subagent receives a narrow, task-specific input (a diff, a file, a question) and returns structured output. Spawning subagents to split the skill's own job for parallelism is not allowed.
+A skill executes inline by default. It may spawn a subagent for **context isolation** or to look up a fact the main thread would otherwise read at length — the subagent receives a narrow, task-specific input (a diff, a file, a question) and returns structured output. Spawning subagents to split the skill's own job for parallelism is not allowed. The one exception is an orchestrator — a skill whose job is to coordinate independent units of a dependency graph — which may run one subagent per ready unit in parallel, each with a narrow input and a structured output.
 
 **Incorrect:**
 
