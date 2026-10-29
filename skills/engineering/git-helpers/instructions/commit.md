@@ -52,7 +52,9 @@ Done when the staged diff carries one type.
    - `refactor: swap client and adapter for d1 pattern`
 
    The filler vocabulary to avoid is in the loaded reference; the table below applies it to a subject.
-3. **The subject carries the whole *what***: it names the user-observable effect and is the only place the *what* lives. Keep out *where* and *how* as the loaded reference sets out. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in.
+3. **The subject carries the whole *what***: it names the user-observable effect and is the only place the *what* lives. Keep out *where* and *how* as the loaded reference sets out. This holds even when a single file is the whole change: name what the edit does (`docs: document the install steps`), not the file it lands in. When the diff holds several related changes, name their shared effect at topic altitude; the subject never lists each change, and a change left unnamed is not a gap. The first names the shared effect; the second lists the changes:
+   - `feat(implement): harden resume and integration checks`
+   - `feat(implement): find branches by ID and tie verification to the task tip`
 4. **Follow project conventions**: Documented rules (AGENTS.md / CLAUDE.md) win over everything here. Otherwise match the log, as Step 6 sets out. User can override (e.g. "add scope `auth`", "drop the scope").
 5. **No attribution**: Never add Co-Authored-By or similar lines
 6. **No future references**: Don't mention upcoming work or architectural reasoning
@@ -97,7 +99,7 @@ Done when the commit is subject-only or carries one sentence that passed both te
 
 **Step 7. Commit.** Run the commit. If a hook fails, fix the cause, return to Step 1, and make a new commit. Confirm the commit landed — if the files still show as pending, stop and tell the user. Done when `git status --short` no longer lists the staged files.
 
-**Step 8. Report.** Report the subject and body in chat, not the diff. Done when the report carries the subject and body.
+**Step 8. Report.** Report the subject and body in chat, not the diff. Never comment on changes the subject does not name. Done when the report carries the subject and body.
 
 ## Examples
 
