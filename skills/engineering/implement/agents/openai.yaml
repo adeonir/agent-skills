@@ -1,0 +1,3 @@
+interface:
+  display_name: "Implement"
+  short_description: "Implement a spec or task on one integration branch"
