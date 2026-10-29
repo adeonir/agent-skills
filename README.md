@@ -33,7 +33,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with requirements traceability |
 | **[to-intent](skills/engineering/to-intent)** | Turn inputs into concrete intents with the user |
-| **[to-spec](skills/engineering/to-spec)** | Turn agreed context into a local behavior and technical specification |
+| **[to-spec](skills/engineering/to-spec)** | Turn agreed context into a behavior and technical specification tracked as an issue |
 | **[tracker-config](skills/engineering/tracker-config)** | Configure tracker destinations and operate issues through Linear or GitHub |
 
 ### Product
@@ -142,6 +142,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 │   └── specs/      # spec-driven: specs archived manually
 ├── design/         # design-md-builder: tune session events · craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
 ├── features/       # docs-writer: feature PRD, design doc, and audit report per feature
+├── intent/         # to-intent: <slug>.md per intent
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
 └── specs/          # spec-driven: per-feature artifacts and state
 
@@ -156,6 +157,7 @@ PROJECT.md          # spec-driven: committed project memory
 ```
 
 `epic-tracker` keeps its epics, stories, bugs, and tasks in the configured tracker.
+`to-spec` keeps each spec as an issue in the configured tracker.
 `tracker-config` owns tracker configuration and the `## Issue tracker` block in
 `AGENTS.md` or `CLAUDE.md`.
 
