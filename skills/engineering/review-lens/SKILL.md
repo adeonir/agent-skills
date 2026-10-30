@@ -1,6 +1,6 @@
 ---
 name: review-lens
-allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Read Write Edit Task
+allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Bash(python3:*) Read Write Edit Task
 description: "Code review in quick and deep modes, with confidence-scored findings and a check of the change against its spec or issue. Use for diff review, guideline audits, spec compliance review, re-reviewing fixes, or applying findings before a pull request. Not for markdown or prose review, manual acceptance testing, visual design review, or commit and branch mechanics."
 ---
 
@@ -18,22 +18,24 @@ Code review with anti-hallucination diff annotation and confidence-scored findin
 
 Start immediately when triggered. No confirmation needed to begin.
 
-1. **Load [common.md](references/common.md).** The diff annotation algorithm, the confidence rubric, what not to report, the output template, the fix-suggestion rules, and the data trust boundary. Both modes apply it in full.
-2. **Set up.** Run `git status --porcelain`: review the working directory when it has uncommitted changes, otherwise compare the current branch against the base the user names, else `main`. Capture the diff and changed files, annotate every added line with its `[L<n>]` marker.
-3. **Load [spec-review.md](references/spec-review.md)** for the spec-compliance portion. The mode's setup locates the spec; with one, either mode runs the spec agent, and without one it skips the agent.
-4. **Pick the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost.
-5. **Load [guidelines-audit.md](references/guidelines-audit.md)** for the guideline-compliance portion, whichever mode ran.
-6. **Assemble.** Render the loaded template, sorted by severity. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first.
-7. **Report.** Print to the terminal, then offer to apply the suggested fixes.
+```text
+Progress:
+- [ ] Step 1: Load the shared rules
+- [ ] Step 2: Set up
+- [ ] Step 3: Locate the spec
+- [ ] Step 4: Run the mode
+- [ ] Step 5: Report
+```
 
-## Guidelines
+**Step 1. Load the shared rules.** Load [common.md](references/common.md), [guidelines-audit.md](references/guidelines-audit.md), and [spec-review.md](references/spec-review.md). The modes hand these rules to their agents. Done when all three are loaded.
 
-- Annotate the diff with `[L<n>]` markers before reviewing — the line allowlist is the anti-hallucination guard in both modes
-- Only report findings with confidence >= 80
-- Default to quick; reserve the deep fan-out for risky or wide diffs
-- Guideline discovery reads the project's files — including `.claude/rules/*.md` — never `~/.claude` (personal global settings)
-- Suggest fixes freely (they are text); apply to the working tree only with explicit confirmation
-- The review runs pre-PR — output goes to the chat (and `CODE_REVIEW.md` when the user asks for it), never posted to a pull request
+**Step 2. Set up.** Run `git status --porcelain`. With uncommitted changes, the range is the working tree (`git diff HEAD`); otherwise it is the current branch against the base the user names, else `main` (`git diff <base>...HEAD`). Run `git diff <range> | python3 <this-skill>/scripts/annotate_diff.py | tee ${TMPDIR:-/tmp}/review-lens-annotated.diff`: its output above `CHANGED_FILES:` is `ANNOTATED_DIFF`, and the paths below it are `CHANGED_FILES`. With no changes, tell the user there is nothing to review and stop. With no base branch found, ask which branch to compare against. If the script exits 1, check the range and run it again. Done when `ANNOTATED_DIFF` and `CHANGED_FILES` are in hand.
+
+**Step 3. Locate the spec.** Follow the Locate the Spec section of spec-review.md. Done when the spec content is in hand or the totals line will show `Spec: none`.
+
+**Step 4. Run the mode.** Default to quick and load [quick-review.md](references/quick-review.md). Load [deep-review.md](references/deep-review.md) only when the user asks for depth or the change is risky or wide-reaching — it fans out by material, at higher cost. Run the mode through its Assemble section; on a re-review, constrain it with the mode's Re-Review section. Write every returned item under its `## Findings`, `## Guidelines Compliance`, or `## Spec Compliance` heading, each with its `- confidence: N` line, and pipe that text into `python3 <this-skill>/scripts/merge_findings.py ${TMPDIR:-/tmp}/review-lens-annotated.diff`. The script drops an item with an unknown severity, a missing or sub-80 confidence, or a line with no `[L<n>]` marker (a `missing/partial` spec gap has no line), dedups, and sorts each section by severity. If it exits 1, fix the input it names and run it again. Done when the script's sections and `COUNTS:` line are in hand.
+
+**Step 5. Report.** Render the common.md output template from the script's sections, taking the totals from its `COUNTS:` line. On a re-review, mark each prior finding `fixed`, `persisting`, or `regressed` and output the status table first. Print to the terminal, then offer to apply the suggested fixes under the Fix Suggestions rules. Done when the report is printed and the offer is made.
 
 ## Anti-Pattern: Confidence Inflation
 

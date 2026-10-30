@@ -31,7 +31,7 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Annotate | Diff with `[L<n>]` post-image markers (anti-hallucination allowlist) |
-| Locate spec | Spec from the request, the issue referenced in commits or branch, or the user; skipped when none |
+| Locate spec | Spec from the request or the issue referenced in commits or branch; skipped when none |
 | Quick (default) | Change walkthrough (Haiku) + generalist findings (Sonnet) + spec gaps (Sonnet, with a spec), in parallel |
 | Deep (on demand) | Fan-out by material (diff, guideline files, spec, git history, prior PRs) + an independent confidence judge |
 | Report | Summary + severity-sorted findings with suggested fixes; chat output, optional `CODE_REVIEW.md` |
@@ -55,6 +55,7 @@ The report prints to the chat by default. On request it can be saved to `CODE_RE
 ## Requirements
 
 - Git
+- Python 3.9 or newer, standard library only — annotates the diff and validates, dedups, and sorts the findings
 - `gh` CLI — optional, only for the deep review's prior-PRs pass; it is skipped gracefully when `gh` or a GitHub remote is absent
 
 ## FAQ
@@ -67,6 +68,6 @@ The report prints to the chat by default. On request it can be saved to `CODE_RE
 
 **Q: What guideline files does it read?** A: `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `.editorconfig`, and `.claude/rules/*.md` inside the repository root. Personal global settings (e.g. `~/.claude/`) are excluded.
 
-**Q: Where does the spec come from?** A: A path or issue you name in the request, else an issue referenced in the commit messages or branch name, else it asks you once. With no spec, the spec check is skipped and the totals line shows `Spec: none`.
+**Q: Where does the spec come from?** A: A path or issue you name in the request, else an issue referenced in the commit messages or branch name. With no spec, the spec check is skipped and the totals line shows `Spec: none`.
 
 **Q: Why are some issues not reported?** A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Style preferences, hypotheticals, and "could be simplified" suggestions are intentionally skipped.

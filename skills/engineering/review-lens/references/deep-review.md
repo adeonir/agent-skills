@@ -4,35 +4,29 @@ The thorough review. Several agents run in parallel, each reading a **different 
 
 ## When to Use
 
-Loaded to run the review in deep mode: a fan-out by material with an independent confidence judge, at higher cost than [quick-review.md](quick-review.md).
-
-Shared rules — annotation, confidence rubric, what-not-to-report, output template, fix suggestions, data trust boundary — live in [common.md](common.md) and apply throughout.
+Loaded to run the review in deep mode: a fan-out by material with an independent confidence judge, at higher cost than quick mode.
 
 ## Why fan out by material, not by concern
 
 A capable model already looks for security, bugs, data-loss, and performance in one reading of a diff — splitting those into separate agents re-reads the same material at multiplied cost for little new signal. The leverage is in giving each agent **different material**: the history and prior reviews carry information the diff alone does not. So the concerns become a checklist inside one bug-scan; the fan-out divides by source.
 
-## Workflow
+## Prepare
 
-### Step 1: Setup (inline, main agent)
-
-- Determine target and base as in [quick-review.md](quick-review.md) Step 1; capture `DIFF` and `CHANGED_FILES`; produce `ANNOTATED_DIFF` (annotation algorithm in [common.md](common.md)).
-- Gather the project's guideline file paths once (per [guidelines-audit.md](guidelines-audit.md), including `.claude/rules/*.md`) and pass them to the compliance agent so it does not rediscover them.
-- Locate the spec per [spec-review.md](spec-review.md) Step 1.
+- Gather the project's guideline file paths once (Find Guideline Files in [guidelines-audit.md](guidelines-audit.md)) and pass them to the compliance agent so it does not rediscover them.
 - Write the `## Summary` walkthrough — a plain-language description of the change, grouped by area — and the `## Highlights` (at least one positive observation drawn from the change).
 
-### Step 2: Select Active Agents
+## Select Active Agents
 
 Two agents always run; three are conditional:
 
 - **bug-scan** and **compliance** — always.
-- **spec** — when a spec was found. If not, skip it and show `Spec: none` in the totals line.
+- **spec** — when a spec was found. If not, skip it.
 - **git-history** — when the changed files have meaningful history (skip on brand-new files with no prior commits).
 - **prior-PRs** — when `gh` is available **and** the repo has a GitHub remote. If not, skip it and note the skip in the totals line.
 
-### Step 3: Fan Out by Material
+## Fan Out by Material
 
-Dispatch the active agents in a single turn. Each returns findings in the Finding Format ([common.md](common.md)), citing only `[L<n>]` lines (a `missing/partial` spec gap may cite the spec alone) and attaching a suggested fix where non-obvious. Finders **surface candidates** with their reasoning — they do not drop on confidence; the judge (Step 4) is the single `>= 80` gate.
+Dispatch the active agents in a single turn. Each returns findings in the Finding Format ([common.md](common.md)) and attaches a suggested fix where non-obvious. Finders **surface candidates** with their reasoning — they do not drop on confidence; the judge is the single gate.
 
 | Agent | Model | Reads | Looks for |
 |-------|-------|-------|-----------|
@@ -49,36 +43,27 @@ The bug-scan concern checklist:
 - **data-loss** — destructive migrations, wrong update/delete predicates, missing transactions on multi-write paths, irreversible ops behind weak guards
 - **performance** — N+1 queries, unbounded `find()` without pagination, sequential `await` for independent operations
 
-### Step 4: Judge (batched, Opus)
+## Judge (batched, Opus)
 
-Collect every finding from every agent and pass them to **one** Opus judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims, and for spec findings that the quoted requirement says what the gap claims. Drop everything below 80. The judge is independent of the finders — a finder never scores its own work.
+Collect every finding from every agent and pass them to **one** Opus judge in a single call. For each finding it returns a confidence score 0-100 (rubric in [common.md](common.md)); for guideline findings it confirms the cited rule actually says what the finding claims, and for spec findings that the quoted requirement says what the gap claims. The judge is independent of the finders — a finder never scores its own work.
 
-### Step 5: Consolidate
+## Assemble
 
-1. Dedup by `file:line` + similar title across agents; keep the highest severity and merge sources.
-2. Sort by severity (order in [common.md](common.md)).
-3. Coverage: from `CHANGED_FILES`, list files that received zero findings; exclude `*.json`, `*.yaml`, `*.lock`, `*.d.ts`, and pure type-declaration files.
-4. If an agent errored, continue with the rest and note `Partial review (<N> of <M> agents)` in the totals line.
-
-### Step 6: Report
-
-Render with the [common.md](common.md) output template (summary on top, issues, guideline compliance, spec compliance, highlights, coverage). Then follow the output-channel and fix rules in [common.md](common.md): print to the terminal and offer to apply the suggested fixes (opt-in, with confirmation).
+1. Attach each judge score to its finding as a `- confidence: N` line. The merge script dedups across agents by `file:line` + similar title, keeps the highest severity, and sorts each section by severity.
+2. Merge into the [common.md](common.md) output template.
+3. For `## Files With No Findings`: from `CHANGED_FILES`, list files that received zero findings; exclude `*.json`, `*.yaml`, `*.lock`, `*.d.ts`, and pure type-declaration files.
 
 ## Re-Review
 
-On "re-review" / "check fixes": reload prior findings, re-run the fan-out and judge steps constrained to the previously flagged `file:line` set plus newly changed lines (the spec agent re-checks the requirements behind prior spec gaps, line or not), and mark each prior finding `fixed`, `persisting`, or `regressed`. Output the status table ([common.md](common.md)) before the standard report.
+Reload the prior findings (from `CODE_REVIEW.md` or chat) and run the fan-out and judge constrained to the previously flagged `file:line` set plus newly changed lines; the spec agent re-checks the requirements behind prior spec gaps, line or not.
 
 ## Guidelines
 
 - Each agent reads **different** material — never send the same source to two agents.
-- Keep find and judge separate; the judge is the only gate to the report.
 - Skip a conditional agent cleanly and note it, rather than running it on empty material.
-- Sort the final report by severity, not by agent or discovery order.
 
 ## Error Handling
 
-- No changes to review: tell the user there is nothing to review.
-- No base branch found: ask which branch to compare against.
 - `gh` unavailable or no GitHub remote: skip prior-PRs, note it, continue.
 - An agent fails: continue with the rest, mark `Partial review` in the totals line.
 - Re-review requested with no prior findings: fall back to a standard deep review.
