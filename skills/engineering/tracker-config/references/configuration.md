@@ -14,13 +14,15 @@ Use repository-local `git config` under `tracker.*` only. Do not store credentia
 |-----|---------|
 | kind | Required: `linear` or `github` |
 | team | Linear team ID; required for Linear |
+| team-name | Linear team name; required for Linear; used in the instruction block |
 | project | Linear project ID, required; GitHub Projects number, optional |
+| project-name | Linear project name; required for Linear; used in the instruction block |
 | repository | GitHub `owner/name`; required for GitHub |
 | project-owner | GitHub project owner; required when project is set |
 | channel | GitHub primary: `mcp` or `cli` |
 | fallback | GitHub secondary: `mcp`, `cli`, or `none`; different from primary |
 
-Linear settings contain only kind, team, and project. GitHub settings contain no team; omit project-owner when project is absent. Resolve names against the service before persistence. A one-operation override never changes saved settings. The repository and project owner make GitHub's destination explicit even when remotes or project ownership differ.
+Linear settings contain kind, team, team-name, project, and project-name. Keep the stable team and project IDs in local settings for tracker operations; render only the names in the versioned instruction block. Resolve each name against its ID before persistence. GitHub settings contain no team; omit project-owner when project is absent. A one-operation override never changes saved settings. The repository and project owner make GitHub's destination explicit even when remotes or project ownership differ.
 
 ## Persistence commands
 
@@ -42,7 +44,7 @@ ALWAYS use this exact template structure:
 ```markdown
 ## Issue tracker
 
-Tracker: [Linear team and project IDs, or GitHub repository and optional project owner/number]. Configuration: repository-local `tracker.*`; inspect with `git config --local --get-regexp '^tracker\.'`. Change with "configure tracker".
+Tracker: [Linear team and project names, or GitHub repository and optional project owner/number]. Configuration: repository-local `tracker.*`; inspect with `git config --local --get-regexp '^tracker\.'`. Change with "configure tracker".
 ```
 
 MUST NOT contain: credentials, another configuration namespace, issue-body content, delivery plans, or instructions to invoke another skill.

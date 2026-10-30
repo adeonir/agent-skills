@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 PREFIX = "tracker."
-KEYS = {"kind", "team", "project", "repository", "project-owner", "channel", "fallback"}
+KEYS = {"kind", "team", "team-name", "project", "project-name", "repository", "project-owner", "channel", "fallback"}
 
 
 def git(root, *args, allowed=(0,)):
@@ -41,12 +41,12 @@ def validate(settings):
             raise ValueError(key + " must be a nonempty single-line string.")
     kind = settings.get("kind")
     if kind == "linear":
-        if set(settings) != {"kind", "team", "project"}:
-            raise ValueError("Linear requires exactly kind, team, and project.")
+        if set(settings) != {"kind", "team", "team-name", "project", "project-name"}:
+            raise ValueError("Linear requires kind, team, team-name, project, and project-name.")
     elif kind == "github":
         required = {"kind", "repository", "channel", "fallback"}
-        if not required <= set(settings) or "team" in settings:
-            raise ValueError("GitHub requires kind, repository, channel, fallback, and no team.")
+        if not required <= set(settings) or {"team", "team-name", "project-name"} & set(settings):
+            raise ValueError("GitHub requires kind, repository, channel, and fallback, without Linear settings.")
         if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", settings["repository"]):
             raise ValueError("repository must be owner/name.")
         primary, fallback = settings["channel"], settings["fallback"]
@@ -77,7 +77,7 @@ def instruction_path(root):
 
 def block(settings):
     if settings["kind"] == "linear":
-        destination = "Linear; team " + settings["team"] + "; project " + settings["project"]
+        destination = "Linear; team " + settings["team-name"] + "; project " + settings["project-name"]
     else:
         destination = "GitHub Issues; repository " + settings["repository"]
         if "project" in settings:
