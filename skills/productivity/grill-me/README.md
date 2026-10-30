@@ -23,7 +23,7 @@ flowchart TD
 | Map and round | Questions: every decision whose prerequisites are settled, from the design tree the plan breaks into |
 | Facts | Subagent findings scoped to a blocking fact, with source locations, terminology discrepancies, and unresolved facts; repository lookups include relevant glossary entries and code |
 | Ask | Answers to independent questions while lookups run, collected through the harness question tool within its limits, or through a numbered list in chat without the tool |
-| Close | Summary of the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR, which the user confirms or corrects |
+| Close | Summary of the settled decisions, confirmed defaults, glossary terms, and decisions that need an ADR, which the user confirms or corrects |
 
 ## Usage
 
@@ -37,7 +37,7 @@ resolve the open decisions before the spec
 
 ## Output
 
-The interview writes nothing to the repository. It keeps the decision tree in a JSON ledger in a temporary directory, and closes with a brief summary of the session: the settled decisions, the terms that need a glossary entry, and the decisions that need an ADR.
+The interview writes nothing to the repository. It keeps the decision tree in a JSON ledger in a temporary directory, and closes with a brief summary of the settled decisions, confirmed defaults, glossary terms, and decisions that need an ADR.
 
 ## Requirements
 
