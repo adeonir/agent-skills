@@ -2,6 +2,7 @@ ALWAYS use this exact template structure:
 
 ```markdown
 ---
+id: [id]
 name: [slug]
 status: [draft | approved]
 created: [YYYY-MM-DD]
