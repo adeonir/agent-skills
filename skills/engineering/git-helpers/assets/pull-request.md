@@ -25,7 +25,7 @@ Here is a sensible default format, but use your best judgment:
 
 [Optional ramifications of merging.]
 
-Closes #[issue-number]
+Closes [issue-id]
 ```
 
 Keep Summary. Omit other sections and the closing reference when they do not apply.
