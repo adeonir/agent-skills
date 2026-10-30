@@ -23,7 +23,7 @@ flowchart TD
 | State | Each task integrated, resumed, or pending |
 | Exploration | Shared notes in `.artifacts/implement/[spec-id]/`, when the tasks need them |
 | Dispatch | One fresh implementer per ready task, in its own worktree, with the task set to in progress |
-| Integration | Integration branch fast-forwarded to each task already verified on its tip |
+| Integration | Integration branch fast-forwarded to each verified task, with the task set to done |
 | Report | Tasks with commits and verification, blockers, and tasks not started |
 
 ## Usage
@@ -35,7 +35,7 @@ flowchart TD
 
 ## Output
 
-Local commits on the integration branch `[spec-id]-[slug]`, one branch per task, tasks set to in progress in the tracker, and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
+Local commits on the integration branch `[spec-id]-[slug]`, one branch per task, tracker statuses set to in progress on dispatch and done on integration, and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
 
 ## Requirements
 
