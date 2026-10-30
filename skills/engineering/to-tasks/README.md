@@ -1,6 +1,6 @@
 # To Tasks
 
-Break an approved spec into tasks an agent can implement.
+Break an approved spec into tasks an agent can implement, or register one task that belongs to no spec.
 
 ## What It Does
 
@@ -19,18 +19,19 @@ flowchart TD
 | Investigation | Prefactor candidates and wide mechanical changes |
 | Breakdown | Tasks cut as vertical slices that together cover the spec, with blocking edges |
 | Review | User-approved breakdown |
-| Registration | One sub-issue per task, with native parent and blocking links |
+| Registration | One sub-issue per task, with native parent and blocking links; a standalone task is created with no parent |
 
 ## Usage
 
 ```text
 /to-tasks break this spec issue into tasks
 /to-tasks split the approved spec into tasks an agent can pick up
+/to-tasks standalone add SwiftFormat to the project, with no spec
 ```
 
 ## Output
 
-One tracker sub-issue per task under the spec issue. Blocking edges are native tracker links. No local file is written.
+One tracker sub-issue per task under the spec issue, or one issue with no parent in standalone mode. Blocking edges are native tracker links. No local file is written.
 
 ## Requirements
 
