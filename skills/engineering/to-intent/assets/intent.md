@@ -20,10 +20,10 @@ updated: [YYYY-MM-DD]
 [The people and systems affected, or unknown.]
 
 ## Constraints
-[Known limits, or unknown.]
+[Known limits that bound this outcome, or unknown.]
 
 ## Open questions
 [Unanswered gaps, or none.]
 ```
 
-MUST NOT contain: source section codes, sibling artifact names, downstream task or release references, milestones, roadmap framing, a technical design, or implementation slices.
+MUST NOT contain: source section codes, sibling artifact names, downstream task or release references, milestones, roadmap framing, an exclusion of a feature this intent does not propose, a technical design, or implementation slices.
