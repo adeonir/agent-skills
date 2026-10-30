@@ -31,17 +31,19 @@ Primary metric: [the one metric that defines success].
 
 ## 4. Scope
 
+Must Have, Should Have, and Could Have state how much a requirement matters to the user. They do not set the order of delivery.
+
 ### Must Have
 
-- FR-1 [core capability required for launch]
+- FR-1 [capability essential to the user]
 
 ### Should Have
 
-- FR-2 [important but not launch-blocking]
+- FR-2 [capability important to the user]
 
 ### Could Have
 
-- FR-3 [nice-to-have for a later iteration]
+- FR-3 [capability useful but less important to the user]
 
 ### Won't Have
 
@@ -57,23 +59,16 @@ Primary metric: [the one metric that defines success].
 |----|------------|--------|
 | NFR-1 | [quality the product needs: performance, security, accessibility, privacy] | [the requirement in words, or a number the user supplied] |
 
-## 6. Phases
-
-| Phase | Delivery | Criterion to advance |
-|-------|----------|----------------------|
-| MVP | [what ships first] | [what must hold before the next phase] |
-| [Next phase] | [what follows] | [criterion] |
-
-## 7. Assumptions & Risks
+## 6. Assumptions & Risks
 
 - **Assumption:** [what is taken as true; if wrong, the plan changes]
 - **Risk:** [what could invalidate the project] — [mitigation]
 
-## 8. Open Questions
+## 7. Open Questions
 
 - [ ] [Question with no safe default]
 
-## 9. References
+## 8. References
 
 - [Typed reference to a related document that exists, such as the Design Doc, an ADR, or research.]
 
