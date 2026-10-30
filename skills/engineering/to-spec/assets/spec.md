@@ -19,8 +19,8 @@ ALWAYS use this exact template structure:
 
 ## User Stories
 
-- As [actor], I want [behavior], so that [benefit].
-  - Acceptance: [One observable outcome with concrete values, including relevant limits or failure cases.]
+1. As [actor], I want [behavior], so that [benefit].
+   - Acceptance: [One observable outcome with concrete values, including relevant limits or failure cases.]
 
 [Cover the agreed behavior without padding the list. Write one behavior per acceptance line.]
 
