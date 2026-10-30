@@ -15,12 +15,16 @@ flowchart TD
     M --> Pick[User picks one]
     Pick --> F[docs/design/mockup.html]
     Pick --> C[copy]
+    I --> E[experiments — existing codebase]
+    E --> V[variants in the app, dev-only selector]
+    V --> R[VARIANTS.md + throwaway branch]
 ```
 
 | Phase | Output |
 |-------|--------|
 | wireframes | Optional interview and N lo-fi arrangements per surface, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
 | mockups | N directions rendered from `structure.yaml` when present, or with an arrangement chosen per direction when absent, using brief inputs and neutral placeholders since final copy comes after the mockup; the chosen one lands in `docs/design/` |
+| experiments | On a project with UI, N variants of a page or section built as sibling components inside the running app and switched by a dev-only `?variant=` selector; the choice and its reason are recorded in `VARIANTS.md`, and the code stays on a throwaway branch |
 
 ## Usage
 
@@ -33,6 +37,8 @@ render a mockup of this page before there is a DESIGN.md
 make the chosen mockup denser
 combine the header from direction B with the hero from direction C into a new direction
 move the pricing above the features in the active direction
+try three layouts for the settings page in the running app
+compare a sidebar and a top navigation on the existing dashboard
 ```
 
 ## Output
@@ -46,6 +52,8 @@ move the pricing above the features in the active direction
 
 docs/design/
 └── mockup.html          # the chosen mockup (mockup-{surface}.html with more than one surface)
+
+experiment/{surface}     # throwaway branch holding the in-app variants, never merged
 ```
 
 When present, `structure.yaml` is the intermediate handoff from wireframes to mockups. Without it, each mockup direction may choose its own arrangement. `VARIANTS.md` records which directions are spent and what the winning choice turned on, so a later round neither repeats a spent direction nor reopens a settled one without knowing why it was settled. The wireframes and mockups themselves are regenerable.
@@ -59,7 +67,11 @@ The delivered `docs/design/mockup.html` is self-contained — it opens in a brow
 
 ## FAQ
 
-**Q: What does it write?** A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, and `VARIANTS.md` under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
+**Q: What does it write?** A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, and `VARIANTS.md` under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. An in-app experiment also writes variant code, on a throwaway branch only. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
+
+**Q: When does it run an experiment instead of a mockup?** A: When the project already has UI and the idea is a change to it. With no codebase, or no UI to host the idea, it renders a wireframe or a mockup.
+
+**Q: Does the winning variant reach main?** A: No. The variant code stays on the experiment branch as a reference. `VARIANTS.md` records the chosen variant, the reason, and the branch; the production implementation rewrites it.
 
 **Q: Can I skip the wireframe and go straight to mockups?** A: Yes. When `structure.yaml` exists, every direction renders its arrangement. When it does not, each direction may choose its own arrangement and look.
 

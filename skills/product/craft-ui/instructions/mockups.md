@@ -117,25 +117,6 @@ Prefer standard Tailwind tokens over arbitrary `[value]` syntax. Arbitrary value
 | `p-[16px]` | `p-4` |
 | `rounded-[8px]` | `rounded-lg` |
 
-## Direction memory
-
-The directions this project already spent live in `.artifacts/design/VARIANTS.md` — append-only, one line per direction generated, grouped by surface.
-
-ALWAYS use this exact template structure:
-
-```markdown
-## {{surface}} · {{brand | product}}
-
-- {{direction}} — **chosen**: {{what the choice turned on}}
-- {{direction}}
-```
-
-A direction already listed under a surface does not come back. One marked **chosen** may return when the surface is being extended rather than re-explored. A surface with no section yet has no history.
-
-The reason on the chosen line is what a later round cannot reconstruct from the direction name alone. Write the property that won, in one clause — "the only one where the pricing table stayed readable at three tiers". A round that reopens a settled look reads this line first.
-
-MUST NOT contain: an arrangement, a block name, token values, copy strings, a review of any direction, or the exchange behind a pick ("the user preferred", "we went with", "as discussed"). The reason names what the choice turned on as a property of the direction, never how well a direction was executed and never why the others lost.
-
 ## Viewport Switching
 
 The served page carries viewport controls that resize the frame: 375 (mobile), 768 (tablet), 1440 (desktop). No device chrome frames — just viewport width — so the HTML stays vanilla and self-contained.
@@ -148,7 +129,7 @@ Every mockup holds at all three widths; the controls are how that is checked, no
 
 1. **Read the handoff.** If `structure.yaml` exists, load the arrangement, the surfaces, and the register each one carries. If it is absent, use the brief and other supplied inputs to let each direction choose its own arrangement.
 
-2. **Set count and directions.** Read the surface's section in `VARIANTS.md` for the directions already spent. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. When no `structure.yaml` exists, choose the arrangement inside each direction without adding structural detail to `VARIANTS.md`.
+2. **Set count and directions.** Load [direction-memory.md](../references/direction-memory.md), then read the surface's section in `VARIANTS.md` for the directions already spent. With no `DESIGN.md`, run the brownfield scan and carry its incumbent as one of the N. When no `structure.yaml` exists, choose the arrangement inside each direction without adding structural detail to `VARIANTS.md`.
 
 3. **Start the render server** (if not running):
 
