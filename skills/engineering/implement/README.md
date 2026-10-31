@@ -1,6 +1,6 @@
 # Implement
 
-Implement a spec or one of its tasks, building each task test-first in a fresh sub-agent and integrating the results on one branch.
+Implement a spec, one of its tasks, or a standalone task, building each task test-first in a fresh sub-agent and integrating the results on one branch.
 
 ## What It Does
 
@@ -31,6 +31,7 @@ flowchart TD
 ```text
 /implement spec implement every task of this spec issue
 /implement task implement this task of the spec
+/implement task implement this standalone task that has no spec
 ```
 
 ## Output
