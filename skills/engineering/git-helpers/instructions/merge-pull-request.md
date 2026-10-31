@@ -14,8 +14,7 @@ Read [message-sourcing.md](../references/message-sourcing.md) before writing the
 ## Rules for every run
 
 1. Use the GitHub channel the project's AGENTS.md or CLAUDE.md records as primary, the GitHub MCP server or `gh`, and the other channel when the primary fails; when the project records none, use whichever is available. The MCP tools are `GitHub:pull_request_read` and `GitHub:merge_pull_request`; the `gh` command is shown at each step. Use Git commands for local repository operations.
-2. Merge only a pull request that is approved with CI green.
-3. Target the pull request by `{pr-number}` in every command, never by the current branch or `HEAD`: the current branch may be the base.
+2. Target the pull request by `{pr-number}` in every command, never by the current branch or `HEAD`: the current branch may be the base.
 
 ## Workflow
 

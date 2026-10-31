@@ -44,6 +44,6 @@ merge pull request
 
 **Q: Can I use this without `gh` CLI?** A: Yes. The skill uses the channel the project's AGENTS.md or CLAUDE.md records as primary, GitHub MCP or `gh`, and falls back to the other when it fails. With none recorded, it uses whichever is available.
 
-**Q: Does "merge pull request" run start to finish on its own?** A: Yes. It merges once the pull request is approved with CI green, with no confirmation, and deletes the merged branch. It stops and asks only when the merge state is not clean.
+**Q: Does "merge pull request" run start to finish on its own?** A: Yes. It merges once the merge state is clean, with no confirmation, and deletes the merged branch. It stops and asks only when the merge state is not clean.
 
 **Q: Does the skill delete branches?** A: Yes, as part of completing a merged pull request, with no confirmation. When `gh` merges, the merge marks the branch for deletion, which removes the remote branch; the MCP merge tool leaves the remote branch as it is. In both cases the skill then switches to the base branch, pulls the merge, and deletes the local branch.
