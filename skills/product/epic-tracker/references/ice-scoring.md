@@ -4,7 +4,7 @@ Evaluate and prioritize derived candidates with ICE — Impact, Confidence, Ease
 
 ## When to Use
 
-Composed by `decompose` after derivation, over candidates that already exist. Level 1 (epics): always. Level 2 (stories/tasks): **optional** — apply it only when there is a value spread worth discriminating; skip it when dependency already dictates the order.
+Composed by `decompose` after derivation, over candidates that already exist. Level 1 (epics): always. Level 2 (stories): **optional** — apply it only when there is a value spread worth discriminating; skip it when dependency already dictates the order.
 
 ## The Three Axes
 

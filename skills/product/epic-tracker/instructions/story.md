@@ -1,6 +1,8 @@
 # Create Story
 
-Define a story: a demonstrable slice of user-visible value, with acceptance criteria that are verified independently. Under an epic, its AC link back to the requirements that epic declares; standalone, they link to nothing. Enabling work with no demonstrable user outcome is a Task, not a Story — see [discriminator.md](../references/discriminator.md).
+Define a story: a slice of work with one outcome, with acceptance criteria that are verified independently. Under an epic, its AC link back to the requirements that epic declares; standalone, they link to nothing. A defect in behavior that already exists is a bug — route to [bug.md](bug.md).
+
+A story is the input to a later decision interview and specification, so it states the outcome and leaves the behavior open: its AC demonstrate that the outcome landed, and how the work behaves on the way there — error paths, edge cases, messages, mechanisms — goes to `## Open Questions`.
 
 ## Load first
 
@@ -14,7 +16,7 @@ Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step
 
 A story is a child of an epic, or standalone. Standalone means *no epic id* — not a location.
 
-1. Ask the user whether this story belongs to an epic or is standalone. A slice with no theme to sit under is a standalone story, never a Task — see [discriminator.md](../references/discriminator.md).
+1. Ask the user whether this story belongs to an epic or is standalone. A slice with no theme to sit under is a standalone story.
 2. When it belongs to an epic, resolve the epic's tracker id: the user names it (id or URL), or load [tracker.md](../references/tracker.md) and use its Resolving the Parent Epic step to list the epics and let the user pick. No epic exists yet: route to [epic.md](epic.md) to create one first.
 3. When standalone, no epic id travels with the dispatch.
 
@@ -48,8 +50,8 @@ Fill the template (below).
 
 - **Summary**: opens with the story declaration — `**As a** {role}, **I want** {capability}, **so that** {benefit}.` — one sentence carrying who the story is for, what they get, and why it is worth doing. The role is the same actor the acceptance criteria name in their Given; a role invented to fill the slot, or a `so that` that restates the capability (`so that I can reset my password`), says nothing. Prose after it carries only what the declaration does not, and is dropped when the declaration carries everything. Keep it focused — one story, one outcome. Requirement IDs go on each AC's `Satisfies` line, not the prose; no section numbers or stray cross-references here.
 - **Out of Scope**: explicit boundaries -- what this story does not cover, stated in terms of this story's own concern (never naming the sibling that covers it). The section is present when an exclusion was decided for **this story** — work the user cut, a capability deferred, a boundary settled against a neighbour — and absent when none was. What the parent epic excludes is the epic's boundary and never crosses: a story that sits inside the epic's scope is already outside what the epic put out. A story materialized via decompose always has one, since its boundary was settled with the set (see [decompose.md](decompose.md)).
-- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a fenced ```` ```gherkin ```` scenario and an optional `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/NFR`; omit the line for an AC that maps to no requirement). Use `Scenario` for single cases and `Scenario Outline` + `Examples` for parametrized cases. `And` and `But` may continue any step. When the parent epic has `## Requirements`, every story should operationalize at least one of them. Mapping to none is not a type signal — a standalone story has no menu, and an epic may declare no requirements at all; what makes the work a story is that a user observes its outcome. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story or task owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome the requirement asks for and nothing beyond it — not a timing, a count, a threshold, a mechanism, and not a second outcome the statement never mentions. A Then asserting two independent outcomes is two AC: split it, however they were joined — one line with `and`, or a step plus an `And` continuation. Two observables of one outcome — authenticated, then landed on the dashboard — stay one AC. Validated in Step 3 against rules V1-V8, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
-- **Open Questions**: unknowns that seed *this story's* spec discovery; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
+- **Acceptance Criteria**: one or more `### AC-N` blocks, each with a fenced ```` ```gherkin ```` scenario and an optional `**Satisfies**` line naming the parent epic requirement it operationalizes (`FR/NFR`; omit the line for an AC that maps to no requirement). Use `Scenario` for single cases and `Scenario Outline` + `Examples` for parametrized cases. `And` and `But` may continue any step. When the parent epic has `## Requirements`, every story should operationalize at least one of them. Mapping to none is valid — a standalone story has no menu, and an epic may declare no requirements at all. Every AC demonstrates the outcome this story owns — an AC whose Then is observed on a surface a sibling story owns belongs to that sibling: relocate it, and being the first story created does not make this story the owner. A Then satisfied by something no artifact here builds — a platform, a runtime, a service, or a library behaving as documented — belongs to no story at all: nobody implements it and nobody can fail it. Drop it, or replace it with the observable this story owns that rests on it. A Then names the outcome the requirement asks for and nothing beyond it — not a timing, a count, a threshold, a mechanism, and not a second outcome the statement never mentions. Write AC at the level of the outcome: one scenario per outcome, never one per error path, edge case, or message. A behavior detail the source settles may stay; one it leaves open goes to `## Open Questions`, never into an AC. A Then asserting two independent outcomes is two AC: split it, however they were joined — one line with `and`, or a step plus an `And` continuation. Two observables of one outcome — authenticated, then landed on the dashboard — stay one AC. Validated in Step 3 against rules V1-V8, then against the epic's requirements. See [ac-validation.md](../references/ac-validation.md).
+- **Open Questions**: unknowns that seed *this story's* spec discovery, including the behavior details the AC leave open; omit the section when nothing is undecided. An unknown that gates no AC here is not this story's question — it belongs to the story whose domain it gates. A foundational decision spanning stories may be kept as a blocked open question that suggests an ADR to settle it; a story suggests an ADR, never generates one, and never parks the decision on whichever story is created first
 - **Dependencies**: renders the tracker's dependency relations for whoever opens the issue — `Blocked by` from the dispatch input, `Blocks` from the inverse the tracker maintains. The relation is the record; this section is rewritten on every write. See [tracker.md](../references/tracker.md) "Dependencies".
 - **References**: durable pointers to what the tracker does not model — design doc, UI design, the feature PRD or feature design doc the story came from, and any `ADR-NNN` the story depends on. The parent epic and every dependency are tracker relations, so they never appear here. A field with nothing to point at is omitted, and the section goes when none survives.
 
@@ -109,8 +111,9 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 
 **DO:**
 - Open the Summary with the declaration, and give it the same actor the acceptance criteria name in their Given
-- Write acceptance criteria that are testable without knowing implementation
-- Keep scope tight — one story delivers one demonstrable user outcome, not a horizontal building block
+- Write acceptance criteria that are testable without knowing implementation, at the level of the outcome
+- Put open behavior — error paths, edge cases, messages — in Open Questions, not in AC
+- Keep scope tight — one story delivers one outcome
 - Read the parent epic for broader context, as a claim to check rather than authority to inherit
 - Ensure at least one AC links to a parent-epic requirement ID when the epic has `## Requirements`
 - Parse the epic's `## Requirements` with whitespace tolerance — tracker descriptions are reflowed
@@ -120,7 +123,6 @@ Creating a story runs the flow above; editing one runs this branch. It changes t
 - Include implementation details or technical design
 - Carry requirement IDs in prose — link them on each AC's `Satisfies` line; still strip `§x.x` section numbers, sibling names, and roadmap language
 - Invent a ceremonial epic just to give a story a parent (contrasts: a slice with no theme is a standalone story)
-- Treat tasks as stories — tasks are sibling work items with no demonstrable user outcome and no `Satisfies` line
 
 ## Template
 
@@ -144,7 +146,7 @@ a story nobody drew a line around has no boundary to state.}
 
 - {{What this story explicitly does not cover — stated in this story's own terms, never naming the sibling that covers it. Example: "Email-based password reset" not "the reset-via-SMS story"}}
 
-MUST NOT contain: sibling story or task names — state each boundary in terms of what this story does not cover, never where the excluded work lives.
+MUST NOT contain: sibling story names — state each boundary in terms of what this story does not cover, never where the excluded work lives.
 
 ## Acceptance Criteria
 
@@ -163,7 +165,7 @@ Scenario: {{short description of the case}}
 
 {Add additional `### AC-N` blocks as needed. Each AC is one fenced ```` ```gherkin ```` block with one `Scenario` or `Scenario Outline`. `And` and `But` may continue any step. The `**Satisfies**` line is optional and names one parent-epic requirement (`FR/NFR`). See [ac-validation.md](../references/ac-validation.md) for the contract and worked examples.}
 
-MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), a Then satisfied by something no artifact here builds — platform, runtime, service, or library behavior nobody implements and nobody can fail — or a Then that restates a sibling's deliverable or anything listed in Out of Scope.
+MUST NOT contain: an AC whose Then is observed on a surface a sibling story owns (relocate it to that story), a Then satisfied by something no artifact here builds — platform, runtime, service, or library behavior nobody implements and nobody can fail — a Then that restates a sibling's deliverable or anything listed in Out of Scope, or an AC per error path, edge case, or message the source leaves open (move it to Open Questions).
 
 ## Open Questions
 

@@ -38,7 +38,7 @@ Honor a destination explicitly supplied for one artifact without changing saved 
 
 ## Resolving the Parent Epic
 
-A story, bug, or task may carry an `epic_id`. It comes from one of two places:
+A story or bug may carry an `epic_id`. It comes from one of two places:
 
 1. **The user names it** — a tracker id or URL in the request. Extract the id from a URL; never resolve it through local files.
 2. **A listing** — resolve the tracker (see Resolve the Tracker), then call `list_artifacts` filtered to epics, present them, and let the user pick. Use this when the request names an epic by title, or names none at all.
@@ -54,7 +54,7 @@ The artifact body — including `## Dependencies`, `## References`, and `## Sign
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Resolve the tracker (see Resolve the Tracker), unless this run already did.
 3. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
-4. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone story, bug, or task (no `epic_id`) passes none.
+4. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone story or bug (no `epic_id`) passes none.
 5. Execute the matching generic create operation with the prepared body and structured fields, using the configured tracker access.
 6. On success: when the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies). When the create carves this artifact out of one that already exists, that artifact's dependency on the new one is written onto it, not here (see Dependencies).
 7. On failure, retain the draft and report the error and any issue already created. After an unknown write outcome, read tracker state before retrying; never create a duplicate to repair an incomplete relation.
@@ -114,7 +114,7 @@ If a referenced blocker does not exist, skip it with a warning and report the om
 
 ## Priority
 
-Any epic, story, bug, or task can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug. This section is the single home for that split; `bug.md` owns how a severity is chosen, and states nothing else about the difference.
+Any epic, story, or bug can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug. This section is the single home for that split; `bug.md` owns how a severity is chosen, and states nothing else about the difference.
 
 Priority travels as a structured input on create and on `update_artifact`, never as body prose. Report an unsupported field rather than silently dropping the requested value.
 
@@ -124,7 +124,7 @@ Priority is per-artifact and does not cascade: a child does not inherit its epic
 
 ## Estimate
 
-A story, bug, or task can carry an `estimate` — a number, in whatever unit the tracker is already configured for. It travels as a dispatch input on create and on `update_artifact`, never as body prose.
+A story or bug can carry an `estimate` — a number, in whatever unit the tracker is already configured for. It travels as a dispatch input on create and on `update_artifact`, never as body prose.
 
 **An epic never carries one.** Its size is the sum of its children, which both trackers roll up; a number on the epic as well is a second answer to the same question, and reports add the two together.
 
@@ -141,7 +141,6 @@ Use these generic operations for delivery work through the configured tracker ac
 | `create_epic` | title, body, milestone (optional), priority (optional) | tracker id + url |
 | `create_story` | epic_id (optional), title, body, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
 | `create_bug` | epic_id (optional), title, body, severity, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
-| `create_task` | epic_id (optional), title, body, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
 | `update_artifact` | tracker_id, title, body, severity (bugs), priority (optional), estimate (optional) | success |
 | `update_status` | tracker_id, new_status | success |
 | `set_parent` | tracker_id, epic_id | success |
@@ -150,17 +149,17 @@ Use these generic operations for delivery work through the configured tracker ac
 | `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, updated_at, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
-Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on all four types (see Priority).
+Acceptance criteria and repro steps travel inside `body`; a story's `### AC-N` blocks travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on all three types (see Priority).
 
 Create delivery artifacts in `planned`; verify the resulting status and apply `update_status` when the service default differs.
 
 `set_parent` moves an artifact under a different epic; its milestone then follows the new epic (see Reparent).
 
-`epic_id` is optional on `create_story`, `create_bug`, and `create_task` alike: each may sit under an epic or stand alone — standalone means *no `epic_id`*, not a location. Only `create_epic` never takes one. The create ref settles the parent with the user before dispatching (see Resolving the Parent Epic); a missing `epic_id` here means standalone was chosen, never that the question went unasked.
+`epic_id` is optional on `create_story` and `create_bug` alike: each may sit under an epic or stand alone — standalone means *no `epic_id`*, not a location. Only `create_epic` never takes one. The create ref settles the parent with the user before dispatching (see Resolving the Parent Epic); a missing `epic_id` here means standalone was chosen, never that the question went unasked.
 
 Artifact type and severity are structured delivery metadata, not body fields.
 
-`milestone` is a property of the epic's subtree. Its name is a roadmap phase, derived only by `decompose.md` — never hand-typed. The epic receives it from its phase on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone story, bug, or task — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; reuse an existing milestone by that name or create one without a date. An explicit none clears the association; an omitted value leaves it unchanged. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the phase.
+`milestone` is a property of the epic's subtree. Its name is a roadmap phase, derived only by `decompose.md` — never hand-typed. The epic receives it from its phase on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone story or bug — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; reuse an existing milestone by that name or create one without a date. An explicit none clears the association; an omitted value leaves it unchanged. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the phase.
 
 Status is `planned`, `in-progress`, `done`, or `cancelled`; use these delivery meanings consistently when reading and writing state. Dropped work is `cancelled`, never `done`.
 

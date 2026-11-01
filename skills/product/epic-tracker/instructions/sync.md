@@ -12,7 +12,7 @@ A bare status change ("mark done", "cancel this", "move to in-progress") is an u
 
 1. `fetch_artifact` to read the current status, and the artifact's type.
 2. When the tracker's status already differs from what the user expects, surface it and confirm before proceeding — someone moved it.
-3. Closing an **epic** — `done` or `cancelled` — is a claim about its whole subtree, so read the subtree first: `list_artifacts` filtered to that epic. When any child is not closed, surface how many and in which status, and confirm before proceeding. Never close or cancel a child to make the epic's status true; each child is its own decision, taken on its own artifact. A story, bug, or task closes without this read — nothing hangs under it.
+3. Closing an **epic** — `done` or `cancelled` — is a claim about its whole subtree, so read the subtree first: `list_artifacts` filtered to that epic. When any child is not closed, surface how many and in which status, and confirm before proceeding. Never close or cancel a child to make the epic's status true; each child is its own decision, taken on its own artifact. A story or bug closes without this read — nothing hangs under it.
 4. Call `update_status` with the new value.
 
 ## Status and Overview
