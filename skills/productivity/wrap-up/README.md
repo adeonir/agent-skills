@@ -55,3 +55,9 @@ The skill runs only from the slash command; the model never starts it on its own
 **Q: Can I run wrap-up multiple times in a day?** A: Yes. The workflow finds existing notes and appends the new content instead of overwriting them. The daily note merges activities from each invocation.
 
 **Q: What if the project is not in the registry yet?** A: A bootstrap prompt asks for project name, Obsidian path, and base tags. The new entry is appended to `~/.config/wrap-up/projects.yml`.
+
+**Q: What if the repo moved or the project was renamed?** A: When the old root no longer exists, the skill offers to update that entry instead of adding a second one. If the Obsidian folder is not at the new path, it warns you to rename the folder in Obsidian's file explorer, waits, and checks again; it never moves the folder itself.
+
+**Q: What if I renamed the project's Obsidian folder?** A: When the folder at `obsidian.path` no longer exists, the skill asks whether it was renamed and updates the entry with the new path.
+
+**Q: What happens to older notes after a rename?** A: The skill updates base tags, `part_of` links, and prose that refers to the project by its previous name in the notes under the project folder. Commands, paths, identifiers, and quotations stay unchanged. Daily notes outside that folder are not changed.

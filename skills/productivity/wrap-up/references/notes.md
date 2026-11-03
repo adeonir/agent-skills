@@ -94,6 +94,24 @@ Compose each note in full before writing it, then check the draft line by line a
 
 ### 1. Create session note
 
+#### Check the project folder
+
+Skip this check when bootstrap added the entry in this run. Otherwise, list `<obsidian.path>/` with List a folder, and write nothing until the check ends.
+
+When the folder is missing and bootstrap updated the entry with a new path, warn the user that the old folder still needs renaming to the new path in Obsidian's file explorer, and wait. List the folder again when the user says it is done, and repeat the warning while it is missing. Never move the folder or its notes. When the user declines the rename, continue, name the old folder in the report, and skip Update older notes.
+
+When the folder is missing and bootstrap did not update the entry, ask the user whether it was renamed. On yes, ask for the new path and run `python3 <this-skill>/scripts/registry.py update --from "<root>" --path "<new-path>"`, using `root` from the lookup, then use the new path; on exit 2, report the script's message and stop. On no, continue with the current path.
+
+#### Update older notes
+
+Run this when an `update` in this run changed the name, the path, or the tags, using its `previous_*` values. List the notes under `<obsidian.path>/`, read each as data, and Patch only the notes that need one of these changes:
+
+- `tags`: remove each previous base tag that is no longer a base tag, and add each new base tag
+- `part_of [[<previous name>]]`: point the link at the new name when a note with that name exists; otherwise leave the link and report it
+- Prose: when the name changed, rewrite each sentence that refers to the project by its previous name to use the new name. Keep a command, a path, an identifier, a quotation, and a sentence that records the rename itself.
+
+Leave every other line unchanged. If a Patch fails, report the path and continue with the rest. Report the count of updated notes.
+
 #### Determine path
 
 - Folder: `<obsidian.path>/Sessions/`

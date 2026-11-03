@@ -36,7 +36,7 @@ Fields:
 Run `python3 <this-skill>/scripts/registry.py lookup`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. The script resolves the repo root to the main worktree, so a linked worktree finds the same entry.
 
 - Exit 0: use the entry it prints as JSON (`root`, `name`, `obsidian_path`, `tags`)
-- Exit 1: the registry or the entry is missing — load [bootstrap.md](bootstrap.md), then continue here
+- Exit 1: the registry or the entry is missing, and the message lists any entries whose root no longer exists — load [bootstrap.md](bootstrap.md), then continue here
 - Exit 2: the registry cannot be parsed — report the script's message and stop; never edit the registry by hand
 
 ## Resolved Paths
