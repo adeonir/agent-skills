@@ -23,7 +23,7 @@ flowchart TD
 |---|---|
 | Direction | Named-direction convergence, `docs/design/moodboard.md`, and optional image tiles per direction |
 | Identity assessment | Interactive findings with no report artifact or identity mutation |
-| Design | Root `DESIGN.md` using the official token groups, the eight spec sections, and the Imagery, Motion, and Agent Prompt Guide extensions |
+| Design | Root `DESIGN.md` using the official token groups, the eight spec sections, and the Imagery and Motion extensions |
 | Validate | `clean`, `passed with warnings`, `failed`, or `not audited` |
 | Preview | On-demand `/design` and `/styleguide` with comments and temporary tuning |
 | Export | Official Tailwind, DTCG, or CSS custom-property output |

@@ -229,7 +229,7 @@ colors:
   error: "oklch(0.52 0.150 28)"
 ```
 
-Keep it to the tokens the system actually uses. Every unreferenced token trips `orphaned-tokens`, and that warning is usually correct — an unused token is a decision nobody needed to make.
+Keep it to the tokens the system actually uses, unless the brand's design system already defines the full scale: then keep every step and point each role at its step with a token reference. Every unreferenced token trips `orphaned-tokens`, and that warning is usually correct — an unused token is a decision nobody needed to make.
 
 **Use the descriptive name in prose, the systematic name in tokens.** The spec explicitly supports this: prose says "Weathered Terracotta," tokens say `primary`. That pairing is what makes the document readable by a human and usable by a machine.
 

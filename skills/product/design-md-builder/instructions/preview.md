@@ -23,9 +23,15 @@ grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .gi
 Render both transient files under `.artifacts/design/preview/` from the current root `DESIGN.md`:
 
 - `design.html` — a readable document view of the frontmatter and body. Escape embedded HTML so source content cannot execute.
-- `styleguide.html` — a visual identity view for colors, typography, spacing, radii, components, depth prose, shape prose, and downstream guidance.
+- `styleguide.html` — a visual identity view for colors, typography, spacing, radii, components, depth, shape, imagery, and motion.
 
 Use the frontmatter as the normative value source. Render every specimen through CSS custom properties rather than literals. A literal token value may appear only as its label. Show a quiet placeholder when an official group is omitted deliberately.
+
+Render in `styleguide.html` what the frontmatter alone cannot show, from the exact values the prose carries:
+
+- Each component in its default, hover, focus, and active states, from its `## Components` line. Show only the states that line names.
+- One specimen per elevation tier with its exact shadow, and one animated specimen per duration and easing in `## Motion`.
+- A brand color scale as one strip per family, marking the step each role references. Render a strip only for steps that exist as tokens; never synthesize a step.
 
 Add IDs matching the canonical body sections so the server sidebar can navigate both views. Add `data-tune-swatch`, `data-token`, `data-var`, `data-pair`, and `data-original` to tunable color specimens.
 

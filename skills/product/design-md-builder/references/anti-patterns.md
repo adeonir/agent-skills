@@ -39,13 +39,13 @@ ALWAYS use this exact template structure:
 **Fix:** Keep identity reasoning and structural roles; replace strings with placeholders and product-domain keys with design roles.
 **Example fail:**
 ```markdown
-## Agent Prompt Guide
-Build the Refund Center hero with “Recover revenue today”.
+## Components
+The Refund Center hero reads “Recover revenue today” in display type.
 ```
 **Example pass:**
 ```markdown
-## Agent Prompt Guide
-Build the summary surface with [Headline] and [CTA Label].
+## Components
+The hero carries one display-type headline over the surface color.
 ```
 
 ### library-name-leakage

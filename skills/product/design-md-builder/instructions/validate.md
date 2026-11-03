@@ -32,7 +32,7 @@ npx -y @google/design.md@latest lint --format json DESIGN.md
 
 3. Parse `findings` and `summary`. Never infer the result from the exit code because warnings do not make the command fail.
 4. When validate is the gate inside an authoring workflow, fix structural errors and rerun until `errors: 0`. Stop when a correction changes the identity or needs a user decision. When validate is invoked as an audit, report findings without writing.
-5. During an authoring gate, fix warnings when the correction is supported by the source and does not change a confirmed identity decision. Keep deliberate warnings visible. Use `omitted` only for a genuinely absent official group or section.
+5. During an authoring gate, fix warnings when the correction is supported by the source and does not change a confirmed identity decision. Keep deliberate warnings visible. Never clear `orphaned-tokens` by adding a component or a `textColor` the source does not have. Use `omitted` only for a genuinely absent official group or section.
 6. Run the component contrast checker:
 
 ```bash

@@ -2,11 +2,11 @@
 DESIGN.md skeleton. Delete every comment and replace every square-bracket slot before writing the file.
 
 Frontmatter keys: version, name, description, omitted, colors, typography, rounded, spacing, components.
-Overview through Do's and Don'ts are the official spec sections. Imagery, Motion, and Agent Prompt Guide are skill extensions; write Imagery and Motion only when the source shows them.
+Overview through Do's and Don'ts are the official spec sections. Imagery and Motion are skill extensions; write them only when the source shows them.
 Colors are flat CSS strings, preferably `oklch()`, with hex accepted as the fallback. Keep borders, shadows, elevation, and light/dark behavior in prose.
-Typography carries a role for each step of a size ladder the source uses; the four below are the minimum.
-Use only official component properties. Define backgroundColor and textColor together for every text-bearing component; contrast is checked only through these pairs, never inferred from token names.
-Every color needs a component reference unless a deliberate omission or documented CLI warning remains.
+Typography carries a role for each step of a size ladder the source uses; the five below are the minimum.
+Use only official component properties. Set textColor only on a component that renders text over its backgroundColor in the source; contrast is checked only through these pairs, never inferred from token names.
+Keep a component below only when the source has it. Never add a component to reference a color; an unreferenced color stays in Colors prose with its orphaned-tokens warning.
 -->
 ---
 # version: [schema version only when required]
@@ -42,6 +42,11 @@ typography:
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: -0.02em
+  title:
+    fontFamily: "[body face]"
+    fontSize: 1.25rem
+    fontWeight: 600
+    lineHeight: 1.3
   body:
     fontFamily: "[body face]"
     fontSize: 1rem
@@ -103,15 +108,17 @@ components:
 
 ## Overview
 
-[Named direction, identity thesis, register, density, signature, and explicit trade-off.]
+**[Named direction as a quoted metaphor for the whole system]**
+
+[Identity thesis worked outward from that metaphor, register, density, signature, and explicit trade-off.]
 
 ## Colors
 
-[Palette argument and real referent. Explain each color's job. Describe light and dark behavior in prose without structured skin tokens.]
+[Palette argument and real referent. Open each color with a descriptive name, then its token and job. Describe light and dark behavior in prose without structured skin tokens.]
 
 ## Typography
 
-[Typeface classification, pairing, scale, optical adjustments, weight discipline, numerals, variable axes, delivery, and fallbacks.]
+[Typeface classification, pairing, scale and its ratio, optical adjustments, weight discipline, numerals, variable axes, delivery, and fallbacks.]
 
 ## Layout
 
@@ -141,9 +148,5 @@ components:
 ## Motion
 
 [Animated properties, durations, easing, stagger, and what never animates.]
-
-## Agent Prompt Guide
-
-[Short downstream guidance that refers to tokens and component roles. Use placeholders for text, such as [Headline], [Body], [CTA Label], and [Nav Label], and concrete values for size, weight, tracking, case, alignment, and padding.]
 
 MUST NOT contain: product copy, product-domain token keys, feature names, audience pitches, requirement IDs, milestones, roadmap language, the section order of a product page, screen flow, framework classes, UI-library components, structured skin groups, frontmatter keys outside the official schema, conversation narrative ("as discussed", "the user confirmed", "we agreed"), or the history of a value.
