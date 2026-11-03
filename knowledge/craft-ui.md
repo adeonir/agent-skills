@@ -99,13 +99,15 @@ Every surface sits under one of two postures. The posture sets the bar, the perm
 
 ### Brand
 
-Design is the deliverable: brand sites, landing pages, campaigns, portfolios, long-form content, about pages. They share one stance (communicate, not transact) and diverge widely in look; never collapse them into one.
+Design is the deliverable: brand sites, landing pages, campaigns, portfolios, long-form content, documentation, about pages. They share one stance (communicate, not transact) and diverge widely in look; never collapse them into one.
 
 - **Bar**: distinctiveness, a clear point of view. The question is "would someone say AI made this?", and a visitor should ask "how was this made?". Failure is safe, average, undifferentiated. Restraint without purpose reads as generic, not refined.
 - **Color**: permission for Committed, Full palette, and Drenched. Name a real reference before picking a strategy ("a Klim-style orange drench", "pure-black monochrome"); unnamed ambition becomes beige. When the strategy is Committed or Drenched, commit; do not hedge with neutrals at the edges.
 - **Layout**: asymmetry is available; break the grid on purpose for emphasis; fluid spacing that breathes on wide screens. On image-led briefs (hotels, restaurants, magazines), the photograph carries the surface at full bleed with type over it.
 - **Motion**: one well-orchestrated page load beats scattered micro-interactions. Some brands skip entrance motion; that restraint is voice too.
-- **Permissions**: ambitious first-load choreography, single-purpose viewports, unexpected color strategies, art direction per section. Consistency of voice beats consistency of treatment.
+- **Primary action**: on a landing or storefront, the primary action appears in its working form (an airline's route-and-dates search, a clinic's open slots, a store's add to cart), visible in the first viewport. A decorative link pointing at it elsewhere does not count.
+- **Reading surfaces**: on long-form, editorial, and documentation surfaces the direction owns the frame, never the column. The frame is the masthead, the navigation rail, the ground, the title and section openers, and the way code, tables, and callouts are set. The reading column stays calm: a reading face, real contrast, a 60 to 75ch measure, body near 16px. The direction never supplies the reading order or replaces the navigation with something to learn.
+- **Permissions**: ambitious first-load choreography, single-purpose viewports, unexpected color strategies, art direction per section short of a reading column. Consistency of voice beats consistency of treatment.
 - **Bans**: monospace as shorthand for "technical" when the brand is not; large rounded icons above every heading; a single family chosen by reflex; all-caps body copy; timid palettes and average layouts; zero imagery on a brief that implies it; editorial-magazine as the default brand look; a tiny uppercase tracked label repeated above every section heading.
 
 ### Product
@@ -113,6 +115,7 @@ Design is the deliverable: brand sites, landing pages, campaigns, portfolios, lo
 Design serves a task: app UI, dashboards, settings, data tables, tools, authenticated surfaces.
 
 - **Bar**: earned familiarity. Would a user fluent in the category's best tools sit down and trust it, or pause at every subtly off component? Failure is strangeness without purpose: over-decorated buttons, mismatched form controls, gratuitous motion, display fonts in labels, invented affordances for standard tasks.
+- **What a direction may change**: type, palette, density, and one signature move, named concretely (service health drawn as a transit map, a schedule set in a timetable's column rhythm). Never the layout, the navigation model, or the controls; those stay the platform's and the category's standard ones. A direction drawn from a tool the audience operates (a terminal, an instrument panel, a cockpit) comes back as a costume of that tool: take only what transfers as type, palette, density, and the signature move.
 - **Type**: one well-tuned family usually carries headings, buttons, labels, body, and data. A fixed rem scale with a 1.125 to 1.2 ratio; no fluid headings.
 - **Color**: Restrained by default. One screen can earn Committed (a report carried by one category color, a drenched onboarding welcome). The accent marks primary actions, the current selection, and state, never decoration. A second neutral layer separates sidebars, toolbars, and panels. Standardize the state vocabulary: hover, focus, active, disabled, selected, loading, error, warning, success, info.
 - **Components**: every interactive component has default, hover, focus, active, disabled, loading, and error. Skeletons for loading, not spinners in the middle of content. Empty states teach the interface. One button shape, one form-control vocabulary, one icon style across the surface.
@@ -288,6 +291,21 @@ Exits run about 75% of the entrance. Feedback over 500 ms feels laggy. Ease-out 
 - Phone: one column, full-width components, larger and more widely spaced touch targets, primary content first, actions within thumb reach at the bottom. Tablet: two columns or master-detail, for touch and pointer. Desktop: multiple columns, persistent navigation, a `max-width` container instead of stretching to the window.
 - Navigation in three stages: a drawer on phones, compact horizontal on tablets, full with labels on desktop.
 
+## Browser Surfaces
+
+The parts the page did not draw still carry the design. Theme them from the palette instead of shipping the browser default: text selection, the caret, scrollbars on scrolling panels, focus rings, link underline offset and thickness, and tabular figures on data.
+
+## Verify Before Handing Over
+
+Check the built design, not the intention, and fix what fails before showing it:
+
+- Contrast computed from the actual values: body and placeholder text at least 4.5:1, large text at least 3:1.
+- The real text lengths at the narrowest width the surface supports, with nothing overflowing or clipped.
+- More space above a heading than below it; a body measure of 65 to 75ch.
+- Hover, focus, disabled, loading, error, and empty present on the interactive elements.
+- Every region the brief requires present and findable.
+- The browser surfaces themed.
+
 ## Anti-Patterns
 
 Patterns that mark a design as a generated default, beyond those named in the sections above. Each one fires only when nothing in the brief or the identity asks for it.
@@ -313,6 +331,9 @@ Patterns that mark a design as a generated default, beyond those named in the se
 - Cramped throughout: section padding under 2rem, content wider than 1200px, line height under 1.4.
 - The same 8px radius on every element; a stock shadow on every surface.
 - Blur glass with no solid background behind it.
+- A zero-blur offset block shadow (`box-shadow: 4px 4px 0`) outside a neobrutalist direction.
+- Stripes or a grid overlay as a background with no map, blueprint, or measuring tool in the direction to justify it.
+- A circle, polygon, or radial cutout standing in for the contour of a photographed subject.
 
 ### Generated scaffolding
 
@@ -323,6 +344,8 @@ Patterns that mark a design as a generated default, beyond those named in the se
 - A filled progress or score bar on a marketing page where nothing is in progress.
 - Browser, device, or editor chrome drawn by hand around content: URL pills, traffic-light dots, phone bezels, fake status bars.
 - A small monochrome icon floating with no container, label, or anchor.
+- Unicode glyphs or emoji standing in for an icon system; icons come from one set, in one stroke and weight.
+- Hand-drawn-style SVG scenes or doodles imitating a picture. SVG doing geometry (shapes, diagrams, linework) is fine.
 
 ### Invented evidence
 
