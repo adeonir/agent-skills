@@ -46,9 +46,11 @@ Before rendering, draft five to seven candidate arrangements internally, without
 
 Lo-fi is the point — the arrangement is judged without a look to judge it by:
 
-- One HTML file per arrangement, with a single inline `<style>` block. No CDN, no build step, no icon set, no web font, no palette.
-- Boxes and labels. Color and type carry two jobs only: marking what is actionable, and marking what carries the value on the surface.
-- Label each block with a structural name (`hero`, `pricing`, `primary-action`) rather than final wording. A page carries no note of the request, the round, or what changed.
+- One HTML file per arrangement, with a single inline `<style>` block and no build step. The system sans-serif stack, no web font. The only CDN is the official `iconify-icon` script, for the icons the components need, in one stroke set.
+- Greyscale only: a light ground, darker grey bands to separate sections, mid-grey boxes where images go, and dark grey text. No brand color and no photograph.
+- Draw each component in its recognizable form: navigation with its links, buttons, inputs, steppers, tabs, ratings, prices, cards, forms. The primary action is the one filled dark element; every other control is outlined.
+- Type shows the hierarchy in size and weight: a title reads as a title, metadata reads as metadata.
+- Text is placeholder at realistic lengths: generic control labels ("Sign in", "Add to cart"), a plausible title for the item, filler prose in paragraphs. A page carries no note of the request, the round, or what changed.
 - Size each box to the volume it will carry, so a region that holds forty rows does not read like one that holds three.
 
 Write each file to `.artifacts/design/wireframes/<surface>-<slug>.html`.
@@ -90,6 +92,6 @@ Once the lint passes, report the path, what `structure.yaml` holds in one to thr
 ## Error Handling
 
 - Every input absent: run the interview alone, and state which parts of the arrangement came from an assumption rather than an artifact
-- The brief or supplied inputs are incomplete: label the blocks from the interview and state the assumptions
+- The brief or supplied inputs are incomplete: shape the blocks from the interview and state the assumptions
 - A comment round carries no selector: ask the user to re-send that comment from the served page
 - User asks for a visual direction here: the arrangement is decided without one; the look is the mockup phase's job

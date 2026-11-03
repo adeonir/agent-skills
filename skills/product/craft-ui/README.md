@@ -22,7 +22,7 @@ flowchart TD
 
 | Phase | Output |
 |-------|--------|
-| wireframes | Optional interview and N lo-fi arrangements per surface, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
+| wireframes | Optional interview and N greyscale arrangements per surface, drawn with real components and placeholder text, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
 | mockups | N directions rendered from `structure.yaml` when present, or with an arrangement chosen per direction when absent, using brief inputs and neutral placeholders since final copy comes after the mockup; the chosen one lands in `docs/design/` |
 | experiments | On a project with UI, N variants of a page, a section, or one element built inside the running app and switched by `?variant=`; an overlay loaded on the branch cycles them, picks an element to comment on or branch into new variants, and records the choice; the code stays committed on a throwaway branch |
 
