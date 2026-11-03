@@ -42,6 +42,8 @@ Where a surface stays ambiguous after the form, an anti-goal sharpens it: ask wh
 
 Render N arrangements per surface, each a hypothesis about what the surface leads with and what follows from it. Vary the order of the parts and the shape of each part ([structure.md](../references/structure.md)); two arrangements that differ only in spacing are one arrangement rendered twice.
 
+Before rendering, draft five to seven candidate arrangements internally, without showing them to the user. Cut the arrangement this category always ships and its predictable opposite, then render N from what remains.
+
 Lo-fi is the point — the arrangement is judged without a look to judge it by:
 
 - One HTML file per arrangement, with a single inline `<style>` block. No CDN, no build step, no icon set, no web font, no palette.

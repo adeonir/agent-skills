@@ -11,14 +11,11 @@
  * Usage:
  *   bun run scripts/render-server.ts --session <path>
  *   bun run scripts/render-server.ts --session <path> --port 8080
- *   bun run scripts/render-server.ts --session <path> --viewport mobile
  *
  * The server:
  * - Serves HTML files from the session directory only
  * - Serves a gallery at "/" holding every file as a tab, one shown at a time,
- *   with viewport controls (375 / 768 / 1440), a Choose button, and a comment
- *   mode that queues comments across tabs and sends them in one dispatch
- * - Opens the gallery at --viewport: mobile | tablet | desktop (default desktop)
+ *   with a Choose button and a comment mode that queues comments across tabs and sends them in one dispatch
  * - Records user events to .events file (JSON lines, append-only)
  * - Injects the interaction client into every served file, whether the file
  *   is a full document or a fragment
@@ -44,7 +41,6 @@ import { existsSync, watch } from "node:fs";
 const args: string[] = process.argv.slice(2);
 const sessionIdx: number = args.indexOf("--session");
 const portIdx: number = args.indexOf("--port");
-const viewportIdx: number = args.indexOf("--viewport");
 
 if (sessionIdx === -1 || !args[sessionIdx + 1]) {
   console.error("Missing --session: pass the directory holding the files to serve, e.g. --session .artifacts/design/mockups");
@@ -60,18 +56,6 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) {
   console.error(`Invalid --port value: must be an integer between 1024 and 65535 (got: ${args[portIdx + 1]})`);
   process.exit(1);
 }
-
-// 375 / 768 / 1440: the widths the gallery switches between, named by the device
-// class each one stands for; --viewport takes the name, and desktop is the default
-const VIEWPORTS: Record<string, number> = { mobile: 375, tablet: 768, desktop: 1440 };
-const viewportName: string = viewportIdx !== -1 ? args[viewportIdx + 1] : "desktop";
-
-if (!(viewportName in VIEWPORTS)) {
-  console.error(`Invalid --viewport value: must be one of ${Object.keys(VIEWPORTS).join(", ")} (got: ${args[viewportIdx + 1]})`);
-  process.exit(1);
-}
-
-const viewport: number = VIEWPORTS[viewportName];
 
 if (!existsSync(sessionDir)) {
   await mkdir(sessionDir, { recursive: true });
@@ -204,7 +188,7 @@ const galleryTemplate = (files: string[]): string => `<!DOCTYPE html>
     .controls button.chosen { background: #16a34a; color: #fff; border-color: #16a34a; }
     .controls .sep { width: 1px; height: 1.4rem; background: #e4e4e7; margin: 0 0.4rem; }
     .stage { display: flex; justify-content: center; padding: 1.25rem; }
-    iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 85vh; width: ${viewport}px; }
+    iframe { border: 1px solid #d4d4d8; border-radius: 8px; background: #fff; height: 85vh; width: 100%; }
     iframe[hidden] { display: none; }
     .empty { padding: 3rem 1.25rem; color: #71717a; font-size: 0.9rem; }
     .queue { position: fixed; right: 1rem; bottom: 1rem; z-index: 50; width: 320px; background: #111; color: #fff; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); font-size: 13px; overflow: hidden; }
@@ -232,9 +216,6 @@ ${
     : `  <header>
     <div class="tabs" role="tablist">
       ${files.map((f, i) => `<button role="tab" data-file="${f}" aria-selected="${i === 0}">${f}</button>`).join("\n      ")}
-    </div>
-    <div class="controls" role="group" aria-label="Viewport width">
-      ${Object.values(VIEWPORTS).map((w) => `<button data-width="${w}" aria-pressed="${w === viewport}">${w}</button>`).join("\n      ")}
     </div>
     <div class="controls">
       <span class="sep"></span>
@@ -327,13 +308,6 @@ ${
         if (openLink) openLink.href = "/" + activeFile;
         if (chooseBtn) chooseBtn.classList.remove("chosen");
         closeComposer();
-      });
-    });
-
-    document.querySelectorAll("[data-width]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll("[data-width]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-        frames.forEach((f) => { f.style.width = btn.dataset.width + "px"; });
       });
     });
 

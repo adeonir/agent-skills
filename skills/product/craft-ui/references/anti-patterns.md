@@ -267,14 +267,13 @@ transition: transform 200ms var(--ease-out)
 ```
 
 ### transition-all
-**Category:** Motion and Interaction **Severity:** error **Check:** `transition: all` or `transition-all` Tailwind class. Animates unintended properties (font-size, color) and causes layout thrash. **Fix:** List the properties explicitly. In Tailwind that is a single-property utility, or the bracket form when more than one property moves. **Example fail:**
-```html
-<div class="transition-all">
+**Category:** Motion and Interaction **Severity:** error **Check:** `transition: all`. Animates unintended properties (font-size, color) and causes layout thrash. **Fix:** List the properties explicitly. **Example fail:**
+```css
+.card { transition: all 200ms; }
 ```
 **Example pass:**
-```html
-<div class="transition-transform">
-<div class="transition-[transform,color]">
+```css
+.card { transition: transform 200ms var(--ease-out), color 200ms var(--ease-out); }
 ```
 
 ### animation-without-stagger
@@ -488,7 +487,7 @@ Claims the surface makes that no input supports. A mockup is a decision aid and 
 
 ## Drift
 
-Drift fires against the **resolved token set** — the DESIGN.md frontmatter where it exists, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield mockup as much as on one with an identity already authored.
+Drift fires against the **resolved token set** — the DESIGN.md frontmatter when the run uses it, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield mockup as much as on one with an identity already authored.
 
 ### inline-hex-not-in-tokens
 **Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `bg-{name}` / `var(--{name})`. **Example fail:**
@@ -520,15 +519,14 @@ Drift fires against the **resolved token set** — the DESIGN.md frontmatter whe
 <h1 style="font-family: var(--font-display)">Title</h1>
 ```
 
-### arbitrary-tailwind-value-repeated
-**Category:** Drift **Severity:** warning **Check:** Same arbitrary Tailwind value (`w-[317px]`, `bg-[#abc123]`, `mt-[7px]`) appears 2+ times in the same mockup. **Fix:** Promote to `@theme` in the inline `<style type="text/tailwindcss">` block once, then reference everywhere as a named utility. **Example fail:**
-```html
-<div class="bg-[#abc123]">A</div>
-<div class="bg-[#abc123]">B</div>
+### literal-value-repeated
+**Category:** Drift **Severity:** warning **Check:** Same literal value (`#abc123`, `317px`, `7px`) appears 2+ times in the same mockup's CSS. **Fix:** Promote it to a custom property in `:root` once, then reference it everywhere. **Example fail:**
+```css
+.hero { background: #abc123; }
+.cta { background: #abc123; }
 ```
 **Example pass:**
-```html
-<style type="text/tailwindcss">@theme { --color-brand: #abc123; }</style>
-<div class="bg-brand">A</div>
-<div class="bg-brand">B</div>
+```css
+:root { --color-brand: #abc123; }
+.hero, .cta { background: var(--color-brand); }
 ```

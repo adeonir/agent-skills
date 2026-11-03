@@ -8,7 +8,6 @@ The project already has a codebase with UI and the request tests an idea against
 
 ## Load first
 
-- [direction-memory.md](../references/direction-memory.md) — the log of spent directions and how a chosen one is recorded.
 - [brand.md](../references/brand.md) / [product.md](../references/product.md) — the register's permissions and bans; read the one the surface's register names, first.
 - [design-thinking.md](../references/design-thinking.md) — style axes, color strategy, the dials, the slop test.
 - [visual-laws.md](../references/visual-laws.md), [layout.md](../references/layout.md), [interaction.md](../references/interaction.md) — hierarchy, arrangement, states.
@@ -16,7 +15,7 @@ The project already has a codebase with UI and the request tests an idea against
 
 ## Boundaries
 
-This phase writes variant code on a throwaway branch, plus `VARIANTS.md` under `.artifacts/design/`. It never writes `DESIGN.md`, `copy.yaml`, or `PRODUCT.md`, never touches the branch the user started on, and never merges, pushes, or deletes the experiment branch. The variant code is a reference for the production implementation, which rewrites it.
+This phase writes variant code on a throwaway branch. It never writes `DESIGN.md`, `copy.yaml`, or `PRODUCT.md`, never touches the branch the user started on, and never merges, pushes, or deletes the experiment branch. The variant code is a reference for the production implementation, which rewrites it.
 
 Variants are read-only: a variant that needs a mutation points it at a stub. They carry no tests, no persistence, and no abstraction beyond what makes them run.
 
@@ -40,7 +39,7 @@ Progress:
 
 **Step 2. Open the experiment branch.** Run `git status --short`; with uncommitted changes, stop and ask what to do with them. Otherwise create `experiment/<surface>` from the current branch and switch to it. Done when the working tree is on the experiment branch.
 
-**Step 3. Set the count and the directions.** Read the surface's section in `VARIANTS.md`. Default to the incumbent plus two variants; cap the total at five, and honor any N the user names. Compose each variant as a direction from design-thinking.md: biased by the register the surface carries, fitting the surface, and absent from `VARIANTS.md` for that surface. A variant tests the hypothesis the request names, so it differs from the others in structure (layout, information hierarchy, primary affordance) or in visual direction as the hypothesis asks; a recolor of the same arrangement is a tweak, not a variant. Append each variant's line to the surface's section. Done when each variant has a distinct direction and its line.
+**Step 3. Set the count and the directions.** Run `git branch --list 'experiment/*'` and read the variants an existing branch for the surface holds; they are spent. Default to the incumbent plus two variants; cap the total at five, and honor any N the user names. Compose each variant as a direction from design-thinking.md: biased by the register the surface carries, fitting the surface, and absent from the spent variants. A variant tests the hypothesis the request names, so it differs from the others in structure (layout, information hierarchy, primary affordance) or in visual direction as the hypothesis asks; a recolor of the same arrangement is a tweak, not a variant. Done when each variant has a distinct direction.
 
 **Step 4. Build the variants.** Write each as a sibling component of the host, named `Variant<Key>`, in the project's own styling system and components. Keep the host's data fetching, params, and auth above the switch; only the rendered subtree changes. Share small pieces (a header, an icon) but never the layout, so each variant stays free to discard it. Done when every variant renders from the host's own data.
 
@@ -53,11 +52,11 @@ Progress:
 
 Done when switching the param renders each variant and a production build renders none of the bar.
 
-**Step 6. Run and hand over.** Start the app with the project's own dev command. Report the URL and the variant keys with what each variant holds in one sentence, and never paste the code. The user flips through, compares in the same state and data, and comments in the conversation. A comment names a variant and a region; apply it to that variant. A verdict that spans variants ("the header from B with the sidebar from C") is a composite: reconcile the type scale, palette, density, and arrangement into one system and add it as a new variant, with its own line in `VARIANTS.md`; the variants it drew from stay listed and stay spent. Done when the user names the chosen variant.
+**Step 6. Run and hand over.** Start the app with the project's own dev command. Report the URL and the variant keys with what each variant holds in one sentence, and never paste the code. The user flips through, compares in the same state and data, and comments in the conversation. A comment names a variant and a region; apply it to that variant. A verdict that spans variants ("the header from B with the sidebar from C") is a composite: reconcile the type scale, palette, density, and arrangement into one system and add it as a new variant; the variants it drew from stay on the branch. Done when the user names the chosen variant.
 
-**Step 7. Record the decision.** Mark the chosen line in `VARIANTS.md` with the reason the choice turned on and the branch name, per direction-memory.md. Commit the experiment on its branch, then switch back to the branch the user started on. Done when the chosen line carries the reason and the branch, and the experiment code is committed.
+**Step 7. Commit the experiment.** Commit the experiment on its branch, then switch back to the branch the user started on. Done when the experiment code is committed.
 
-**Step 8. Report.** Report the chosen variant, the branch, and the `VARIANTS.md` path in one to three sentences, and state that the branch is a reference the production implementation rewrites. Done when the report carries the three.
+**Step 8. Report.** Report the chosen variant, the property the choice turned on, and the branch in one to three sentences, and state that the branch is a reference the production implementation rewrites. Done when the report carries the three.
 
 ## Error Handling
 

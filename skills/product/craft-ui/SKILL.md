@@ -22,11 +22,7 @@ A request to try an idea against the UI a codebase already has routes to experim
 [wireframes] → structure.yaml → mockups → docs/design/mockup.html
       └──────── skipped ────────┘  (each direction picks its own arrangement)
 
-experiments → variants in the app on a throwaway branch → VARIANTS.md
+experiments → variants in the app on a throwaway branch
 ```
 
 Final copy comes after the mockup and is an input to no phase.
-
-## References
-
-- [direction-memory.md](references/direction-memory.md) — loaded by the mockups and experiments instructions

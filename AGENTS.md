@@ -383,7 +383,7 @@ PROJECT.md                 # spec-driven: committed project memory
 GLOSSARY.md                # domain-modeling: canonical domain terms
 .artifacts/
 ├── specs/, archive/, research/   # spec-driven
-└── design/    # design-md-builder; craft-ui: structure.yaml + VARIANTS.md + wireframes/ + mockups/
+└── design/    # design-md-builder; craft-ui: structure.yaml + wireframes/ + mockups/
 ```
 
 `epic-tracker` writes no artifacts — its output lives in the tracker, plus an `## Issue tracker` block in the consumer repo's `AGENTS.md` or `CLAUDE.md` that mirrors its config.

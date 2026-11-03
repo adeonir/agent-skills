@@ -75,7 +75,7 @@ Rules for text rendering — see typography.md for pairing and visual-laws.md fo
 - `<img>` needs explicit `width` and `height` attributes to prevent CLS.
 - Below-fold images: `loading="lazy"`.
 - Above-fold critical images: `fetchpriority="high"` on the Largest Contentful Paint candidate only.
-- Aspect ratio containers (`aspect-video`, `aspect-square`) for placeholder slots.
+- `aspect-ratio` on every image and placeholder slot, so the layout holds before the image loads.
 
 ## Navigation and State
 

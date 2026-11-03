@@ -73,7 +73,7 @@ Brand has permission for Committed, Full palette, and Drenched. Use it. A single
 
 Brand surfaces lean on imagery. A restaurant, hotel, or product page without imagery reads as incomplete, not restrained. **When the brief implies imagery, imagery must ship** — zero images is a bug, not a choice. A solid-color rectangle where a hero image belongs is worse than a representative photo.
 
-- Greenfield without local assets: use stock (Unsplash default). **Verify URLs before referencing** — guessed IDs 404 and ship as broken-image placeholders.
+- Greenfield without local assets: generate the image when an image generation tool is available, and fall back to stock (Unsplash default) otherwise. **Verify URLs before referencing** — guessed IDs 404 and ship as broken-image placeholders.
 - Search for the brand's *physical object* ("handmade pasta on a scratched wooden table"), not the generic category ("Italian food").
 - One decisive photo beats five mediocre ones. Alt text is part of the voice.
 
