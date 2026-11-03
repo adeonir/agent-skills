@@ -46,7 +46,7 @@ Progress:
    - When the tip is not contained, or `git update-ref` refuses because the tip moved, dispatch a fresh implementer into the same worktree with the brief. The second consecutive return of the same task makes it blocked.
    - A blocked task keeps its worktree and its branch.
 
-   Return to Step 5 while ready tasks remain. Done when no task is ready or running.
+   Return to Step 5 while ready tasks remain. When no task is ready or running, remove `.artifacts/implement/[spec-id]/worktrees/` if it is empty. Done when no task is ready or running.
 
 7. **Report.** ALWAYS use this exact template structure:
 
