@@ -1,6 +1,6 @@
 # Brand register
 
-When design IS the product: brand sites, landing pages, marketing surfaces, campaign pages, portfolios, long-form content, about pages. The deliverable is the design itself; a visitor's impression is the thing being made.
+When design IS the product: brand sites, landing pages, marketing surfaces, campaign pages, portfolios, long-form content, documentation, about pages. The deliverable is the design itself; a visitor's impression is the thing being made.
 
 ## When to Use
 
@@ -69,6 +69,14 @@ Brand has permission for Committed, Full palette, and Drenched. Use it. A single
 - Asymmetric compositions are one option; break the grid intentionally for emphasis. Fluid `clamp()` spacing that breathes on larger viewports.
 - On image-led briefs (hotels, restaurants, magazines), let the photograph carry the surface — imagery at full bleed with type over it, not imagery sized down to sit beside the type.
 
+## The primary action
+
+On a landing or storefront surface, the primary action appears in its working form: an airline's route-and-dates search, a clinic's open slots, a store's add to cart. A decorative link pointing at it elsewhere does not count. The offer reads in one line, and the action is visible in the first viewport, inside the direction's own vocabulary.
+
+## Reading surfaces
+
+Long-form, editorial, and documentation surfaces sit under this register, but the direction owns the frame, never the column. The frame is the masthead, the navigation rail, the ground, the title and section openers, and the way code, tables, and callouts are set: there the palette, the type, and the signature commit fully. The reading column stays calm — a reading face, real contrast, a 60–75ch measure, body near 16px, nothing performing behind the text. Drenched color and art direction per section stop at the frame. The direction never supplies the reading order and never replaces the navigation with something the reader has to learn.
+
 ## Imagery
 
 Brand surfaces lean on imagery. A restaurant, hotel, or product page without imagery reads as incomplete, not restrained. **When the brief implies imagery, imagery must ship** — zero images is a bug, not a choice. A solid-color rectangle where a hero image belongs is worse than a representative photo.
@@ -77,7 +85,7 @@ Brand surfaces lean on imagery. A restaurant, hotel, or product page without ima
 - Search for the brand's *physical object* ("handmade pasta on a scratched wooden table"), not the generic category ("Italian food").
 - One decisive photo beats five mediocre ones. Alt text is part of the voice.
 
-"Imagery" is broader than stock photos: product screenshots, data viz, generated SVG, and canvas/WebGL scenes count. Text-only pages where type carries the entire visual weight are the failure mode.
+"Imagery" is broader than stock photos: product screenshots, data viz, generated SVG, and canvas/WebGL scenes count. On a brief that implies imagery, a text-only page where type carries the entire visual weight is the failure mode; a reading surface carries its imagery in the frame, never in the column.
 
 That breadth is not licence to assert. A photograph stands in for a shoot that has not happened; a product capture or a chart states a fact about something that exists. Render the second kind from something real, or render it as visibly sampled — see `fabricated-product-evidence` in [anti-patterns.md](anti-patterns.md).
 
@@ -103,10 +111,10 @@ Brand can afford things product can't. Take them.
 - Ambitious first-load motion — reveals and typographic choreography that earn their place; not fade-on-scroll for every section.
 - Single-purpose viewports — the dominant idea rendered at full scale instead of packed in beside its neighbours.
 - Unexpected color strategies — palette IS voice.
-- Art direction per section — different sections can have different visual worlds if the narrative demands it. Consistency of *voice* beats consistency of *treatment*.
+- Art direction per section — different sections can have different visual worlds if the narrative demands it, short of a reading column. Consistency of *voice* beats consistency of *treatment*.
 
 ## Register is not surface
 
 **Register** (brand vs product) is the posture — two values. **Surface** is the granular type the work actually is (landing, campaign, portfolio, about, storefront-marketing…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
 
-**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see [product.md](product.md)).
+**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, documentation, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see [product.md](product.md)).

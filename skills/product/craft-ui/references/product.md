@@ -23,6 +23,12 @@ Not "would someone say AI made this" — familiarity is often the point. The tes
 
 Product UI's failure mode isn't flatness, it's **strangeness without purpose**: over-decorated buttons, mismatched form controls, gratuitous motion, display fonts where labels should be, invented affordances for standard tasks. The bar is earned familiarity — the tool disappears into the task.
 
+## What a direction may change
+
+On a product surface, a direction lends four things and only these: type, palette, density, and one signature move. It never supplies the layout, the navigation model, or the controls; those stay the standard ones the platform and the category already use. Name the signature move concretely — service health drawn as a transit map, a schedule set in a timetable's column rhythm — so the mockup can find it.
+
+A direction drawn from a tool the audience operates (a terminal, an instrument panel, a cockpit) or from a fictional interface comes back as a costume of that tool on a working screen. Take from it only what transfers as type, palette, density, and the signature move: no function-key bar, no instrument bezel, no ruled ledger standing in for a table.
+
 ## Typography
 
 - **One family is often right.** Product UIs don't need display/body pairing; a well-tuned sans carries headings, buttons, labels, body, data.
