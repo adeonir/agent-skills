@@ -60,4 +60,4 @@ Progress:
    Not started: [each task still waiting on a blocker, or none]
    ```
 
-   Fill `Verification` from the implementer's report. Done when every task in scope appears in the table or under Blockers or Not started.
+   Fill `Verification` from the implementer's report. Done when every task in scope appears in the table or under Blockers or Not started. The run ends with the report, and this procedure no longer applies to later requests.
