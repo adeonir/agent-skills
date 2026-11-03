@@ -6,7 +6,7 @@ description: "Creates lo-fi wireframes for UI structure, hi-fi mockups for visua
 
 # Craft UI
 
-Three phases over the brief and the other supplied inputs. The wireframe phase is optional: when it runs, it settles the arrangement and passes it to mockups through `structure.yaml`; without it, each mockup direction chooses its own arrangement. Experiments test an idea inside the running app of a project that already has UI, comparing variants there.
+Three phases over the brief and the other supplied inputs. Wireframes and mockups each run on their own; when both run, `structure.yaml` carries the arrangement from one to the other, and without it each mockup direction chooses its own arrangement. Experiments test an idea inside the running app of a project that already has UI, comparing variants there.
 
 ## Triggers
 
@@ -19,8 +19,9 @@ A request to try an idea against the UI a codebase already has routes to experim
 ## Workflow
 
 ```text
-[wireframes] → structure.yaml → mockups → docs/design/mockup.html
-      └──────── skipped ────────┘  (each direction picks its own arrangement)
+wireframes → chosen arrangement
+     └→ structure.yaml ┐  (when mockups follow)
+mockups ───────────────┴→ docs/design/mockup.html
 
 experiments → variants in the app on a throwaway branch
 ```

@@ -2,7 +2,7 @@
 
 This phase writes its own artifacts and nothing else: the wireframes, the optional `structure.yaml` handoff, and the log under `.artifacts/design/`. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code, and it builds pages to decide an arrangement rather than production components.
 
-Optionally decide how a surface is arranged before mockups — interview for what the inputs leave open, render the arrangements lo-fi, and pass the chosen arrangement to mockups through `structure.yaml`.
+Decide how a surface is arranged — interview for what the inputs leave open, render the arrangements lo-fi, and, when mockups follow, pass the chosen arrangement through `structure.yaml`.
 
 ## Inputs and Fallbacks
 

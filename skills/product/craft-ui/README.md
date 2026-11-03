@@ -1,15 +1,16 @@
 # Craft UI
 
-Decide how the interface is arranged, then how it looks, by building both.
+Decide how the interface is arranged, how it looks, or both, by building it.
 
 ## What It Does
 
 ```mermaid
 flowchart TD
-    I[brief / inputs] --> W[wireframes — optional]
+    I[brief / inputs] --> W[wireframes]
     P[PRODUCT.md — posture] --> W
-    W --> S[structure.yaml — intermediate handoff]
-    S --> M[mockups]
+    W --> A[chosen arrangement]
+    W -.->|when mockups follow| S[structure.yaml — intermediate handoff]
+    S -.-> M[mockups]
     I --> M
     D[DESIGN.md — tokens] --> M
     M --> Pick[User picks one]
@@ -22,7 +23,7 @@ flowchart TD
 
 | Phase | Output |
 |-------|--------|
-| wireframes | Optional interview and N greyscale arrangements per surface, drawn with real components and placeholder text, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
+| wireframes | An interview and N greyscale arrangements per surface, drawn with real components and placeholder text, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff when mockups follow |
 | mockups | N directions rendered from `structure.yaml` when present, or with an arrangement chosen per direction when absent, using brief inputs and neutral placeholders since final copy comes after the mockup; the chosen one lands in `docs/design/` |
 | experiments | On a project with UI, N variants of a page, a section, or one element built inside the running app and switched by `?variant=`; an overlay loaded on the branch cycles them, picks an element to comment on or branch into new variants, and records the choice; the code stays committed on a throwaway branch |
 
@@ -46,8 +47,8 @@ try three takes on the pricing card in the running app
 
 ```text
 .artifacts/design/
-├── structure.yaml       # intermediate handoff when wireframes are used
-├── wireframes/          # optional lo-fi arrangement HTML + .events session log
+├── structure.yaml       # intermediate handoff when wireframes and mockups both run
+├── wireframes/          # lo-fi arrangement HTML + .events session log
 ├── mockups/             # full-page HTML per direction + .events session log; every file counts as a spent direction
 └── experiments/         # .events session log from the in-app overlay
 
@@ -68,13 +69,13 @@ The delivered `docs/design/mockup.html` is self-contained — it opens in a brow
 
 ## FAQ
 
-**Q: What does it write?** A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. An in-app experiment also writes variant code and the overlay script tag, on a throwaway branch only. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
+**Q: What does it write?** A: Its own artifacts only — wireframes, mockups, the `structure.yaml` handoff when both run, under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. An in-app experiment also writes variant code and the overlay script tag, on a throwaway branch only. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
 
 **Q: When does it run an experiment instead of a mockup?** A: When the project already has UI and the idea is a change to it. With no codebase, or no UI to host the idea, it renders a wireframe or a mockup.
 
 **Q: Does the winning variant reach main?** A: No. The variant code stays committed on the experiment branch as the primary source. The report names the question it settled, the chosen variant, the reason, and the branch, ready to paste into the implementing issue; the production implementation rewrites it.
 
-**Q: Can I skip the wireframe and go straight to mockups?** A: Yes. When `structure.yaml` exists, every direction renders its arrangement. When it does not, each direction may choose its own arrangement and look.
+**Q: Do wireframes and mockups depend on each other?** A: No. Each runs on its own. When a wireframe round wrote `structure.yaml`, every mockup direction renders that arrangement; without it, each direction chooses its own arrangement and look.
 
 **Q: What if I don't have a brief, PRODUCT.md, or DESIGN.md yet?** A: It still works. The wireframe interviews for what the inputs do not answer, and the mockup phase falls back to inferred direction and neutral placeholders. Missing inputs are flagged as illustrative. On a project that already carries a font stack, a palette, and components in code, the mockup phase reads them and offers what the product wears today as one of the directions — rendering the components it already ships rather than inventing new ones — so extending it and redesigning it are the same comparison.
 
