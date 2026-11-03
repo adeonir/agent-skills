@@ -12,7 +12,7 @@ Three phases over the brief and the other supplied inputs. The wireframe phase i
 
 - **Wireframes** ("plan the layout", "map the screen flow", "arrange the screens", "compare arrangements", "settle the structure first") → [wireframes.md](instructions/wireframes.md)
 - **Mockups** ("generate directions", "compare looks", "preview a direction", "try an editorial direction", "adjust the chosen look") → [mockups.md](instructions/mockups.md)
-- **Experiments** ("try this in the app", "compare variants in the running app", "test a new layout on the existing page", "try an idea in the codebase") → [experiments.md](instructions/experiments.md)
+- **Experiments** ("try this in the app", "compare variants in the running app", "test a new layout on the existing page", "try variants of this element in the app", "try an idea in the codebase") → [experiments.md](instructions/experiments.md)
 
 A request to try an idea against the UI a codebase already has routes to experiments; with no codebase, or no UI yet, it routes to wireframes and mockups.
 

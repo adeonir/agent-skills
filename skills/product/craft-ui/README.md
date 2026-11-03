@@ -16,15 +16,15 @@ flowchart TD
     Pick --> F[docs/design/mockup.html]
     Pick --> C[copy]
     I --> E[experiments — existing codebase]
-    E --> V[variants in the app, dev-only selector]
-    V --> R[throwaway branch]
+    E --> V[variants in the app, live overlay]
+    V --> R[throwaway branch — primary source]
 ```
 
 | Phase | Output |
 |-------|--------|
 | wireframes | Optional interview and N lo-fi arrangements per surface, judged with no palette, font pick, or tokens; the chosen arrangement becomes the intermediate `structure.yaml` handoff |
 | mockups | N directions rendered from `structure.yaml` when present, or with an arrangement chosen per direction when absent, using brief inputs and neutral placeholders since final copy comes after the mockup; the chosen one lands in `docs/design/` |
-| experiments | On a project with UI, N variants of a page or section built as sibling components inside the running app and switched by a dev-only `?variant=` selector; the code stays on a throwaway branch |
+| experiments | On a project with UI, N variants of a page, a section, or one element built inside the running app and switched by `?variant=`; an overlay loaded on the branch cycles them, picks an element to comment on or branch into new variants, and records the choice; the code stays committed on a throwaway branch |
 
 ## Usage
 
@@ -39,6 +39,7 @@ combine the header from direction B with the hero from direction C into a new di
 move the pricing above the features in the active direction
 try three layouts for the settings page in the running app
 compare a sidebar and a top navigation on the existing dashboard
+try three takes on the pricing card in the running app
 ```
 
 ## Output
@@ -47,12 +48,13 @@ compare a sidebar and a top navigation on the existing dashboard
 .artifacts/design/
 ├── structure.yaml       # intermediate handoff when wireframes are used
 ├── wireframes/          # optional lo-fi arrangement HTML + .events session log
-└── mockups/             # full-page HTML per direction + .events session log; every file counts as a spent direction
+├── mockups/             # full-page HTML per direction + .events session log; every file counts as a spent direction
+└── experiments/         # .events session log from the in-app overlay
 
 docs/design/
 └── mockup.html          # the chosen mockup (mockup-{surface}.html with more than one surface)
 
-experiment/{surface}     # throwaway branch holding the in-app variants, never merged
+experiment/{surface}     # throwaway branch holding the in-app variants and the overlay tag, never merged
 ```
 
 When present, `structure.yaml` is the intermediate handoff from wireframes to mockups. Without it, each mockup direction may choose its own arrangement. The mockups already in `mockups/` and the existing `experiment/*` branches are the directions a later round does not repeat.
@@ -66,11 +68,11 @@ The delivered `docs/design/mockup.html` is self-contained — it opens in a brow
 
 ## FAQ
 
-**Q: What does it write?** A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. An in-app experiment also writes variant code, on a throwaway branch only. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
+**Q: What does it write?** A: Its own artifacts only — optional wireframes, mockups, the optional `structure.yaml` handoff, under `.artifacts/design/`, plus the chosen mockup at `docs/design/mockup.html`. An in-app experiment also writes variant code and the overlay script tag, on a throwaway branch only. It never writes `DESIGN.md`, `copy.yaml`, `PRODUCT.md`, or production code. Final wording is authored after the mockup; this phase only uses neutral placeholders.
 
 **Q: When does it run an experiment instead of a mockup?** A: When the project already has UI and the idea is a change to it. With no codebase, or no UI to host the idea, it renders a wireframe or a mockup.
 
-**Q: Does the winning variant reach main?** A: No. The variant code stays on the experiment branch as a reference. The report names the chosen variant, the reason, and the branch; the production implementation rewrites it.
+**Q: Does the winning variant reach main?** A: No. The variant code stays committed on the experiment branch as the primary source. The report names the question it settled, the chosen variant, the reason, and the branch, ready to paste into the implementing issue; the production implementation rewrites it.
 
 **Q: Can I skip the wireframe and go straight to mockups?** A: Yes. When `structure.yaml` exists, every direction renders its arrangement. When it does not, each direction may choose its own arrangement and look.
 

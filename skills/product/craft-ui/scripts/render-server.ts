@@ -3,7 +3,7 @@
  * Render server for the craft-ui skill.
  * Serves the generated pages of one session, one per tab, and records user
  * interactions. The server does not know which phase it serves: --session
- * points it at the wireframe directory or the mockup directory.
+ * points it at the wireframe, the mockup, or the experiment directory.
  *
  * Security: local-only server (127.0.0.1), read-only filesystem access
  * scoped to session directory, append-only event recording.
@@ -21,10 +21,17 @@
  *   is a full document or a fragment
  * - Live-reloads connected browsers on session-directory changes via SSE
  *   (`/__reload` endpoint, debounced 100ms, ignores .events and hidden files)
+ * - Serves `/live.js`, an overlay a running app loads through a script tag:
+ *   `<script src="http://127.0.0.1:<port>/live.js?variants=A,B,C"></script>`.
+ *   It cycles the `?variant=` search param, picks an element to send a
+ *   request about, and records the chosen variant. `/event` accepts it
+ *   cross-origin from localhost pages only
  *
  * Event types (one JSON per line in .events):
  *   choice:   { type: "choice", choice: "editorial.html", timestamp }
  *   comments: { type: "comments", items: [{ file, selector, text }], timestamp }
+ *   live:     { type: "live", items: [{ kind: "variants" | "comment", variant, url, selector, html, text }], timestamp }
+ *   choice:   { type: "choice", choice: "B", url, timestamp }   (from live.js)
  *
  * Client interactions:
  *   - Click a tab to switch the shown file; click Choose to record the pick
@@ -143,6 +150,198 @@ if (window.parent !== window) {
   window.parent.postMessage({ craftui: "ready" }, location.origin);
 }
 `;
+
+// Served at /live.js and loaded by the running app on an experiment branch.
+// The page is another origin, so every call back goes to the script's own origin.
+const liveScript = `(() => {
+  if (window.__craftuiLive) return;
+  window.__craftuiLive = true;
+  const me = document.currentScript;
+  const src = new URL(me.src);
+  const origin = src.origin;
+  const keys = (src.searchParams.get("variants") || "A").split(",").map((k) => k.trim()).filter(Boolean);
+  // 2000: enough markup for the agent to find the element in source without
+  // flooding the event log with a whole subtree
+  const HTML_LIMIT = 2000;
+
+  function cssPath(el) {
+    const parts = [];
+    while (el && el.nodeType === 1 && el !== document.body) {
+      let part = el.nodeName.toLowerCase();
+      if (el.id) { part += "#" + el.id; parts.unshift(part); break; }
+      // 2: enough class tokens to disambiguate siblings without pinning the selector to a long utility string
+      const classes = Array.from(el.classList).slice(0, 2).join(".");
+      if (classes) part += "." + classes;
+      const parent = el.parentElement;
+      if (parent) {
+        const same = Array.from(parent.children).filter((c) => c.nodeName === el.nodeName);
+        if (same.length > 1) part += ":nth-of-type(" + (same.indexOf(el) + 1) + ")";
+      }
+      parts.unshift(part);
+      el = el.parentElement;
+    }
+    return parts.join(" > ");
+  }
+
+  function post(payload) {
+    return fetch(origin + "/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  }
+
+  function current() {
+    return new URL(location.href).searchParams.get("variant") || keys[0];
+  }
+
+  function go(step) {
+    const i = keys.indexOf(current());
+    const next = keys[(i + step + keys.length) % keys.length];
+    const url = new URL(location.href);
+    url.searchParams.set("variant", next);
+    location.assign(url.toString());
+  }
+
+  const host = document.createElement("div");
+  host.setAttribute("data-craftui-live", "");
+  const root = host.attachShadow({ mode: "open" });
+  root.innerHTML = \`
+    <style>
+      :host { all: initial; }
+      .bar { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 2147483646; display: flex; gap: 4px; align-items: center; padding: 6px; background: #111; color: #fff; border-radius: 999px; box-shadow: 0 8px 32px rgba(0,0,0,.4); font: 13px system-ui, sans-serif; }
+      button { font: inherit; color: inherit; background: transparent; border: 1px solid #333; border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+      button[aria-pressed="true"] { background: #3b82f6; border-color: #3b82f6; }
+      button.chosen { background: #16a34a; border-color: #16a34a; }
+      .key { padding: 0 8px; min-width: 2ch; text-align: center; }
+      .panel { position: fixed; right: 16px; bottom: 72px; z-index: 2147483647; width: 320px; background: #111; color: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,.4); font: 13px system-ui, sans-serif; }
+      .panel[hidden] { display: none; }
+      .panel p { opacity: .55; font-size: 11px; margin: 0 0 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .panel textarea { box-sizing: border-box; width: 100%; min-height: 72px; background: #222; color: #fff; border: 1px solid #333; border-radius: 4px; padding: 6px; font: inherit; }
+      .panel footer { display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px; flex-wrap: wrap; }
+      .panel ol { margin: 0 0 6px; padding-left: 18px; max-height: 30vh; overflow-y: auto; }
+    </style>
+    <div class="bar" role="toolbar" aria-label="Experiment">
+      <button data-prev aria-label="Previous variant">&larr;</button>
+      <span class="key" data-key></span>
+      <button data-next aria-label="Next variant">&rarr;</button>
+      <button data-pick aria-pressed="false">Pick</button>
+      <button data-choose>Choose</button>
+    </div>
+    <section class="panel" data-composer hidden aria-label="Request">
+      <p data-target></p>
+      <textarea placeholder="Variants of this element, or a comment on it..."></textarea>
+      <footer>
+        <button data-cancel>Cancel</button>
+        <button data-add-comment>Comment</button>
+        <button data-add-variants>Variants</button>
+      </footer>
+    </section>
+    <section class="panel" data-queue hidden aria-label="Queued requests" style="bottom: 260px">
+      <ol></ol>
+      <footer>
+        <button data-clear>Clear</button>
+        <button data-send>Send round</button>
+      </footer>
+    </section>\`;
+  document.documentElement.appendChild(host);
+
+  const $ = (sel) => root.querySelector(sel);
+  const composer = $("[data-composer]");
+  const text = composer.querySelector("textarea");
+  const queueBox = $("[data-queue]");
+  const queue = [];
+  let picking = false;
+  let target = null;
+
+  $("[data-key]").textContent = current();
+  $("[data-prev]").onclick = () => go(-1);
+  $("[data-next]").onclick = () => go(1);
+  $("[data-choose]").onclick = () => {
+    $("[data-choose]").classList.add("chosen");
+    post({ type: "choice", choice: current(), url: location.href, timestamp: new Date().toISOString() });
+  };
+  $("[data-pick]").onclick = () => {
+    picking = !picking;
+    $("[data-pick]").setAttribute("aria-pressed", String(picking));
+    document.documentElement.style.cursor = picking ? "crosshair" : "";
+  };
+
+  function close() { composer.hidden = true; text.value = ""; target = null; }
+  function render() {
+    queueBox.querySelector("ol").innerHTML = "";
+    queue.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item.kind + ": " + item.text;
+      queueBox.querySelector("ol").appendChild(li);
+    });
+    queueBox.hidden = queue.length === 0;
+  }
+  function add(kind) {
+    const value = text.value.trim();
+    if (!value || !target) return;
+    queue.push({
+      kind,
+      variant: current(),
+      url: location.href,
+      selector: cssPath(target),
+      html: target.outerHTML.slice(0, HTML_LIMIT),
+      text: value,
+    });
+    close();
+    render();
+  }
+  $("[data-cancel]").onclick = close;
+  $("[data-add-comment]").onclick = () => add("comment");
+  $("[data-add-variants]").onclick = () => add("variants");
+  $("[data-clear]").onclick = () => { queue.length = 0; render(); };
+  $("[data-send]").onclick = async () => {
+    if (!queue.length) return;
+    await post({ type: "live", items: queue.slice(), timestamp: new Date().toISOString() });
+    queue.length = 0;
+    render();
+  };
+
+  document.addEventListener("click", (e) => {
+    if (!picking || e.composedPath().includes(host)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    target = e.target;
+    $("[data-target]").textContent = cssPath(target);
+    composer.hidden = false;
+    text.focus();
+  }, true);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { close(); return; }
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    if (e.composedPath().includes(host)) return;
+    if (e.key === "ArrowLeft") go(-1);
+    if (e.key === "ArrowRight") go(1);
+  });
+})();`;
+
+// Only a page served from this machine may post events through /live.js
+function localOrigin(req: Request): string | null {
+  const origin = req.headers.get("Origin");
+  if (!origin) return null;
+  try {
+    const host = new URL(origin).hostname;
+    return host === "localhost" || host === "127.0.0.1" || host === "[::1]" ? origin : null;
+  } catch {
+    return null;
+  }
+}
+
+function corsHeaders(origin: string): Record<string, string> {
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    Vary: "Origin",
+  };
+}
 
 function injectClientScripts(html: string): string {
   const tag = `<script>${clientScript}</script><script>${reloadScript}</script>`;
@@ -382,20 +581,37 @@ const serverOptions = {
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
 
+    const allowed = localOrigin(req);
+    const cors: Record<string, string> = allowed ? corsHeaders(allowed) : {};
+
+    if (url.pathname === "/event" && req.method === "OPTIONS") {
+      return new Response(null, { status: allowed ? 204 : 403, headers: cors });
+    }
+
+    if (url.pathname === "/live.js") {
+      return new Response(liveScript, {
+        headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
+      });
+    }
+
     if (url.pathname === "/event" && req.method === "POST") {
+      const origin = req.headers.get("Origin");
+      if (origin && !allowed) {
+        return new Response("Forbidden origin", { status: 403 });
+      }
       let event: unknown;
       try {
         event = await req.json();
       } catch {
-        return new Response("Malformed event body", { status: 400 });
+        return new Response("Malformed event body", { status: 400, headers: cors });
       }
       try {
         await appendFile(eventsFile, JSON.stringify(event) + "\n");
       } catch (err) {
         console.error(`Could not append to ${eventsFile}:`, err);
-        return new Response("Event not recorded", { status: 500 });
+        return new Response("Event not recorded", { status: 500, headers: cors });
       }
-      return new Response("ok");
+      return new Response("ok", { headers: cors });
     }
 
     if (url.pathname === "/__reload") {
