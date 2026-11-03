@@ -126,13 +126,21 @@ Mockup code works in the browser and is never production code.
 
 4. **Generate one HTML per direction.** When `structure.yaml` exists, render the arrangement it fixes. Otherwise, choose the arrangement inside the direction. Resolve tokens and neutral placeholders per the fallback rule, fill the image regions per Imagery, and wire iconify-icon via CDN. The page carries no account of the request or the round: no "as requested", no change note, no caption explaining its choices. Write each file to `.artifacts/design/mockups/<surface>-<slug>.html`.
 
-5. **Serve** the mockups, one per tab. Report the served URL and the file paths, what the mockups hold in one to three sentences — the direction each one renders; what changed, on a re-serve — and any open item they carry. Never paste the HTML. The user compares, comments, and picks — one direction, or regions from several.
+5. **Verify each file against the floor.** Check the built page, not the intention, and fix what fails before serving:
+   - contrast computed from the resolved values: body and placeholder text at least 4.5:1, large text at least 3:1
+   - the real text lengths at the narrowest width the surface supports, with nothing overflowing or clipped
+   - more space above a heading than below it, a body measure of 65–75ch
+   - hover, focus, disabled, loading, error, and empty present on the surface's interactive elements
+   - every region the brief requires present and findable
+   - text selection, caret, scrollbars, focus rings, underline offset, and tabular figures themed from the palette, as [web-standards.md](../references/web-standards.md) sets out
 
-6. **Adjust and re-render.** A comment names something to change in the rendered page, not in an artifact this phase does not own: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here. Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to as its new state, with no note of what changed. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
+6. **Serve** the mockups, one per tab. Report the served URL and the file paths, what the mockups hold in one to three sentences — the direction each one renders; what changed, on a re-serve — and any open item they carry. Never paste the HTML. The user compares, comments, and picks — one direction, or regions from several.
 
-7. **Deliver the chosen one.** Write the file to `docs/design/mockup.html`. A run covering more than one surface names each file for its surface instead: `docs/design/mockup-{surface}.html`.
+7. **Adjust and re-render.** A comment names something to change in the rendered page, not in an artifact this phase does not own: a look worth keeping is authored in the tokens, and wording worth keeping is authored in the content — neither happens here. Read the comment round from `.artifacts/design/mockups/.events`, resolve each comment's element to the block it sits in, and re-render the direction it belongs to as its new state, with no note of what changed, and verify it as step 5 sets out. When `structure.yaml` exists, preserve its arrangement. Without it, a direction may change its arrangement during this loop. A verdict that spans directions is a composite: reconcile it into one system and render it whole, then serve it against the directions it came from. The dispatch marks the end of a round.
 
-8. **Report.** Report the path, what the delivered mockup holds in one to three sentences — the chosen direction per surface and the property the choice turned on — and any open item it carries, such as a placeholder still unresolved. Never paste the file.
+8. **Deliver the chosen one.** Write the file to `docs/design/mockup.html`. A run covering more than one surface names each file for its surface instead: `docs/design/mockup-{surface}.html`.
+
+9. **Report.** Report the path, what the delivered mockup holds in one to three sentences — the chosen direction per surface and the property the choice turned on — and any open item it carries, such as a placeholder still unresolved. Never paste the file.
 
 ## Error Handling
 

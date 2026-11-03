@@ -210,6 +210,22 @@ backdrop-filter: blur(12px)
 background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 ```
 
+### hard-offset-shadow
+**Category:** Decoration and Depth **Severity:** warning **Check:** A zero-blur offset block shadow (`box-shadow: 4px 4px 0`) on a direction that is not neobrutalist. **Fix:** Use a soft shadow with an offset and a blur from the shadow scale; keep the block shadow for a direction that chose it. **Example fail:**
+```html
+box-shadow: 4px 4px 0 var(--color-ink)
+```
+**Example pass:**
+```html
+box-shadow: var(--shadow-raised)
+```
+
+### geometric-occlusion-mask
+**Category:** Decoration and Depth **Severity:** warning **Check:** A circle, polygon, or radial-gradient cutout standing in for the contour of a photographed subject. **Fix:** Use a cut-out asset or an alpha matte derived from the image, or drop the effect.
+
+### patterned-background-without-subject
+**Category:** Decoration and Depth **Severity:** warning **Check:** Stripes (`repeating-linear-gradient`) or a two-axis grid overlay as a background with no map, blueprint, canvas, or measuring tool in the direction to justify it. **Fix:** Texture the ground from the direction's own world, or leave it plain.
+
 ### shadow-on-every-surface
 **Category:** Decoration and Depth **Severity:** warning **Check:** Cards, buttons, sections, and inputs all carry shadows — no surfaces are flat. Erodes hierarchy. **Fix:** Reserve shadows for elements that actually need to lift (interactive cards, modals). Keep most surfaces flat.
 
@@ -424,6 +440,19 @@ from { transform: scale(0.95); opacity: 0 }
 ## AI Scaffolding Tells
 
 Reflex section-grammar and template clichés — the moves an interface reaches for because "landing pages do this", not because the brief asked.
+
+### glyph-as-icon
+**Category:** AI Scaffolding Tells **Severity:** warning **Check:** Unicode glyphs or emoji (`→`, `✓`, `★`, or an emoji) standing in for an icon system. **Fix:** Draw icons from one icon set, in one stroke and weight. **Example fail:**
+```html
+<span>★</span> Featured
+```
+**Example pass:**
+```html
+<iconify-icon icon="lucide:star" aria-hidden="true"></iconify-icon> Featured
+```
+
+### sketchy-svg-illustration
+**Category:** AI Scaffolding Tells **Severity:** warning **Check:** Hand-drawn-style SVG scenes, doodles, or turbulence-filter grain imitating a picture. SVG doing geometry (crisp shapes, diagrams, linework) is not this rule. **Fix:** Use a real illustration or image per the imagery rules, or none.
 
 ### side-stripe-accent-border
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** A `border-left` or `border-right` wider than 1px used as a colored accent on cards, list items, callouts, or alerts. **Fix:** Use a full border, a background tint, a leading icon or number, or nothing. The single colored side-stripe is never an intentional system. **Example fail:**

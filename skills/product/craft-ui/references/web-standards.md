@@ -22,8 +22,8 @@ Composed by `mockups.md` as generation rules. Not a direct trigger.
 
 ## Focus States
 
-- Every interactive element needs visible focus: `focus-visible:ring-*` or equivalent outline.
-- Never `outline-none` / `outline: none` without a `focus-visible` replacement.
+- Every interactive element needs visible focus: a `:focus-visible` outline or ring.
+- Never `outline: none` without a `:focus-visible` replacement.
 - Use `:focus-visible` over `:focus` — avoids focus ring on mouse click.
 - Group focus with `:focus-within` for compound controls (search bar with button, input groups).
 
@@ -65,8 +65,8 @@ Rules for text rendering — see typography.md for pairing and visual-laws.md fo
 
 ## Content Handling
 
-- Text containers must handle long content: `truncate`, `line-clamp-*`, or `break-words`.
-- Flex children need `min-w-0` (or `min-width: 0`) to allow text truncation.
+- Text containers must handle long content: `text-overflow: ellipsis`, `line-clamp`, or `overflow-wrap: anywhere`.
+- Flex children need `min-width: 0` to allow text truncation.
 - Handle empty states — never render broken UI for empty strings or arrays.
 - Anticipate short, average, and very long user-generated content.
 
@@ -98,6 +98,17 @@ Rules for text rendering — see typography.md for pairing and visual-laws.md fo
 - Avoid unwanted scrollbars: `overflow-x: clip` on the root, never `hidden` — `hidden` turns the root into a scroll container and `position: sticky` inside it stops working. Fix content overflow at source either way.
 - Prefer flex/grid over JS measurement for layout.
 
+## Browser Surfaces
+
+The parts the page did not draw still carry the design. Theme each from the palette instead of shipping the browser default:
+
+- `::selection` background and text color.
+- `caret-color` on inputs and editable text.
+- Scrollbars on scrolling panels: `scrollbar-color` and `scrollbar-width`.
+- Focus rings in the palette's accent (see Focus States).
+- Links: `text-underline-offset` and `text-decoration-thickness` set, the underline color from the palette.
+- Tabular figures on data, as Typography (Technical) sets out.
+
 ## Dark Mode (Technical)
 
 Rules for implementation — see color.md for color direction.
@@ -114,7 +125,7 @@ Rules for implementation — see color.md for color direction.
 
 ## Hover and Interactive States
 
-- Buttons and links need `hover:` state for visual feedback.
+- Buttons and links need a `:hover` state for visual feedback.
 - Interactive states increase contrast progressively: rest < hover < active < focus.
 
 ## Content and copy
