@@ -110,7 +110,7 @@ linear-gradient(135deg, var(--accent), var(--accent-shadow))
 ```
 
 ### gray-text-on-saturated-color
-**Category:** Color and Theme **Severity:** error **Check:** Gray text (`#6b7280`, `#9ca3af`, `slate-500`, etc.) placed on saturated colored background fails WCAG AA 4.5:1 contrast. **Fix:** Use the foreground color paired with that background, or recompute contrast: white/near-white on saturated backgrounds, dark gray only on neutral backgrounds. **Example fail:**
+**Category:** Color and Theme **Severity:** error **Check:** Gray text (`#6b7280`, `#9ca3af`, etc.) placed on saturated colored background fails WCAG AA 4.5:1 contrast. **Fix:** Use the foreground color paired with that background, or recompute contrast: white/near-white on saturated backgrounds, dark gray only on neutral backgrounds. **Example fail:**
 ```html
 background: #3b82f6; color: #6b7280
 ```
@@ -156,15 +156,15 @@ body { background: #111 }
 ### nested-cards
 **Category:** Layout and Spacing **Severity:** warning **Check:** A bordered/shadowed card contains another bordered/shadowed card inside it. Doubles the visual chrome without adding hierarchy. **Fix:** Flatten inner card or remove the outer surround. Use spacing and typography for grouping, not nested boxes. **Example fail:**
 ```html
-<div class="border shadow"><div class="border shadow-sm">
+.card .card { box-shadow: var(--shadow-subtle) }
 ```
 **Example pass:**
 ```html
-<div class="border shadow"><div class="p-4">
+.card .group { padding: var(--space-md) }
 ```
 
 ### uniform-gutter
-**Category:** Layout and Spacing **Severity:** warning **Check:** Every gap, margin, and padding in the layout uses the same value (`gap-4`, `p-4`, `mt-4`). No spacing scale rhythm. **Fix:** Apply the spacing scale tokens — section gaps larger, component gaps medium, inline gaps small. Vary at least three steps.
+**Category:** Layout and Spacing **Severity:** warning **Check:** Every gap, margin, and padding in the layout uses the same value (`gap: 16px`, `padding: 16px`, `margin-top: 16px`). No spacing scale rhythm. **Fix:** Apply the spacing scale tokens — section gaps larger, component gaps medium, inline gaps small. Vary at least three steps.
 
 ### hero-centered-stack-default
 **Category:** Layout and Spacing **Severity:** warning **Check:** Hero is centered eyebrow + centered headline + centered subtext + centered single CTA. Generic AI default. **Fix:** Anchor at least one element. Asymmetric image-text split, left-aligned headline with right-aligned CTA, or overlap a visual element across the grid boundary.
@@ -185,10 +185,10 @@ padding: 5rem 0; max-width: 60ch; line-height: 1.6
 ## Decoration and Depth
 
 ### rounded-8px-everywhere
-**Category:** Decoration and Depth **Severity:** warning **Check:** Every interactive element uses `border-radius: 8px` (or `rounded-lg`). No corner-language variation. **Fix:** Pick a corner system: sharp (0-2px), subtle (4-6px), medium (8-12px), or pill (full). Use one corner style per role, varying by component class.
+**Category:** Decoration and Depth **Severity:** warning **Check:** Every interactive element uses `border-radius: 8px`. No corner-language variation. **Fix:** Pick a corner system: sharp (0-2px), subtle (4-6px), medium (8-12px), or pill (full). Use one corner style per role, varying by component class.
 
 ### stock-shadow
-**Category:** Decoration and Depth **Severity:** warning **Check:** Shadow uses default `0 4px 6px rgba(0, 0, 0, 0.1)` or framework default (`shadow-md` everywhere). No elevation hierarchy. **Fix:** Implement three shadow levels — subtle (cards at rest), medium (hover/raised), elevated (modals). Tint shadows toward the dominant hue when possible.
+**Category:** Decoration and Depth **Severity:** warning **Check:** Shadow uses default `0 4px 6px rgba(0, 0, 0, 0.1)` or a framework default shadow on every surface. No elevation hierarchy. **Fix:** Implement three shadow levels — subtle (cards at rest), medium (hover/raised), elevated (modals). Tint shadows toward the dominant hue when possible.
 
 ### gradient-border-stock
 **Category:** Decoration and Depth **Severity:** warning **Check:** Decorative gradient border using mask hack with purple→pink or purple→blue stock palette. **Fix:** Either drop the gradient border (solid accent does the same job) or use a brand-relevant gradient with purpose. **Example fail:**
@@ -221,21 +221,21 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 ### missing-hover-states
 **Category:** Component States **Severity:** error **Check:** Interactive element (`<a>`, `<button>`, `[role="button"]`, `[onclick]`) has no `:hover` styling — no color change, no transform, no shadow shift. **Fix:** Combine color change with `transform` (slight scale or translate) and `box-shadow` shift for tactile feedback. Missing hover signals broken interactivity. **Example fail:**
 ```html
-<button class="bg-primary">
+.button { background: var(--color-primary) }
 ```
 **Example pass:**
 ```html
-<button class="bg-primary hover:bg-primary-hover">
+.button:hover { background: var(--color-primary-hover) }
 ```
 
 ### focus-state-removed
-**Category:** Component States **Severity:** error **Check:** `outline: none` or `outline-none` applied without a `:focus-visible` replacement. **Fix:** Add `focus-visible:ring-2 focus-visible:ring-offset-2` or visible outline replacement. **Example fail:**
+**Category:** Component States **Severity:** error **Check:** `outline: none` applied without a `:focus-visible` replacement. **Fix:** Add a visible `:focus-visible` outline with an offset. **Example fail:**
 ```html
-<button class="outline-none">
+.button { outline: none }
 ```
 **Example pass:**
 ```html
-<button class="outline-none focus-visible:ring-2">
+.button:focus-visible { outline: 2px solid var(--color-accent) }
 ```
 
 ### empty-state-blank
@@ -245,13 +245,13 @@ background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px)
 **Category:** Component States **Severity:** warning **Check:** Small monochrome icon (`<svg>`, `<iconify-icon>`) rendered without container, label, or border — visually disappears. **Fix:** Anchor every icon with a colored container, text label, or both.
 
 ### button-stock-blue
-**Category:** Component States **Severity:** warning **Check:** Primary button uses the framework default blue (`#3b82f6`, `bg-blue-500`) — a hue with no relation to the rest of the surface's palette. **Fix:** Draw the primary from the surface's own accent, referenced as a named utility rather than a raw value. **Example fail:**
+**Category:** Component States **Severity:** warning **Check:** Primary button uses the framework default blue (`#3b82f6`) — a hue with no relation to the rest of the surface's palette. **Fix:** Draw the primary from the surface's own accent, referenced as a custom property rather than a raw value. **Example fail:**
 ```html
-<button class="bg-blue-500">
+background: #3b82f6
 ```
 **Example pass:**
 ```html
-<button class="bg-primary">
+background: var(--color-primary)
 ```
 
 ## Motion and Interaction
@@ -268,12 +268,12 @@ transition: transform 200ms var(--ease-out)
 
 ### transition-all
 **Category:** Motion and Interaction **Severity:** error **Check:** `transition: all`. Animates unintended properties (font-size, color) and causes layout thrash. **Fix:** List the properties explicitly. **Example fail:**
-```css
-.card { transition: all 200ms; }
+```html
+transition: all 200ms
 ```
 **Example pass:**
-```css
-.card { transition: transform 200ms var(--ease-out), color 200ms var(--ease-out); }
+```html
+transition: transform 200ms
 ```
 
 ### animation-without-stagger
@@ -428,11 +428,11 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 ### side-stripe-accent-border
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** A `border-left` or `border-right` wider than 1px used as a colored accent on cards, list items, callouts, or alerts. **Fix:** Use a full border, a background tint, a leading icon or number, or nothing. The single colored side-stripe is never an intentional system. **Example fail:**
 ```html
-<div class="border-l-4 border-accent">
+border-left: 4px solid var(--color-accent)
 ```
 **Example pass:**
 ```html
-<div class="bg-accent-subtle">
+background: var(--color-accent-subtle)
 ```
 
 ### redrawn-ui-chrome
@@ -441,11 +441,11 @@ Reflex section-grammar and template clichés — the moves an interface reaches 
 ### gradient-clip-text
 **Category:** AI Scaffolding Tells **Severity:** warning **Check:** `background-clip: text` (or `-webkit-background-clip: text`) over a gradient, turning text into a gradient fill. Decorative, never meaningful. **Fix:** Use a single solid color. Carry emphasis with weight or size, not a gradient wash. **Example fail:**
 ```html
-<h1 class="bg-clip-text text-transparent">
+background-clip: text; color: transparent
 ```
 **Example pass:**
 ```html
-<h1 class="text-foreground">
+color: var(--color-foreground)
 ```
 
 ### eyebrow-on-every-section
@@ -490,23 +490,23 @@ Claims the surface makes that no input supports. A mockup is a decision aid and 
 Drift fires against the **resolved token set** — the DESIGN.md frontmatter when the run uses it, the composed seed otherwise. A value outside that set is drift either way, so the rules below hold on a greenfield mockup as much as on one with an identity already authored.
 
 ### inline-hex-not-in-tokens
-**Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or class `bg-[#abc123]`) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `bg-{name}` / `var(--{name})`. **Example fail:**
+**Category:** Drift **Severity:** error **Check:** Rendered HTML contains an inline color hex (`style="color: #abc123"` or a CSS rule with a raw hex) that is not present in DESIGN.md `colors` frontmatter. **Fix:** Replace it with the nearest existing token, referenced via `var(--color-{name})`. **Example fail:**
 ```html
 <div style="background: #7d3aed">Hero</div>
 ```
 **Example pass:**
 ```html
-<div class="bg-primary">Hero</div>
+<div style="background: var(--color-primary)">Hero</div>
 ```
 
 ### inline-style-bypass-tokens
-**Category:** Drift **Severity:** warning **Check:** Inline `style="padding: 12px"`, `style="border-radius: 9px"`, or `class="p-[15px]"` used for properties that have token equivalents in DESIGN.md `spacing` / `rounded` / `elevation`. **Fix:** Replace inline literal with the nearest token (`p-4`, `rounded-md`, or `var(--space-md)`). **Example fail:**
+**Category:** Drift **Severity:** warning **Check:** Inline `style="padding: 12px"` or `style="border-radius: 9px"` used for properties that have token equivalents in DESIGN.md `spacing` / `rounded`, or in the shadow values its prose names. **Fix:** Replace the literal with the nearest token (`var(--space-md)`, `var(--radius-md)`). **Example fail:**
 ```html
 <div style="padding: 12px; border-radius: 9px">A</div>
 ```
 **Example pass:**
 ```html
-<div class="p-3 rounded-md">A</div>
+<div style="padding: var(--space-sm); border-radius: var(--radius-md)">A</div>
 ```
 
 ### font-family-not-in-tokens
@@ -521,12 +521,10 @@ Drift fires against the **resolved token set** — the DESIGN.md frontmatter whe
 
 ### literal-value-repeated
 **Category:** Drift **Severity:** warning **Check:** Same literal value (`#abc123`, `317px`, `7px`) appears 2+ times in the same mockup's CSS. **Fix:** Promote it to a custom property in `:root` once, then reference it everywhere. **Example fail:**
-```css
-.hero { background: #abc123; }
-.cta { background: #abc123; }
+```html
+.hero { background: #abc123 } .cta { background: #abc123 }
 ```
 **Example pass:**
-```css
-:root { --color-brand: #abc123; }
-.hero, .cta { background: var(--color-brand); }
+```html
+.hero { background: var(--color-brand) } .cta { background: var(--color-brand) }
 ```
