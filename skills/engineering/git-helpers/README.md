@@ -40,7 +40,7 @@ merge pull request
 
 **Q: What base branch is used for pull requests?** A: The repo's default branch, with `main` as fallback. Name another base upfront to override it: "create PR against develop".
 
-**Q: Are all PR body sections required?** A: Summary is always present. Changes, Evidence, and Merge risk are proportional to the change. Missing manual screenshots for UI changes are reported in chat, without placeholders in the PR body.
+**Q: Are all PR body sections required?** A: Summary is always present. Changes, Evidence, and Merge risk are proportional to the change. Missing manual screenshots for UI changes are reported in chat and marked in Evidence with HTML comments, visible only when editing the PR body.
 
 **Q: Can I use this without `gh` CLI?** A: Yes. The skill uses the channel the project's AGENTS.md or CLAUDE.md records as primary, GitHub MCP or `gh`, and falls back to the other when it fails. With none recorded, it uses whichever is available.
 

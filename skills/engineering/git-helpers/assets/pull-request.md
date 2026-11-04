@@ -15,6 +15,9 @@ Here is a sensible default format, but use your best judgment:
   **Before:** [Observed output or failing test; state if not captured.]
   **After:** [Observed output or passing test; state if not captured.]
 
+<!-- Before screenshot: [screen or state] -->
+<!-- After screenshot: [screen or state] -->
+
 ## Merge risk
 
 **Door:** [one-way | two-way]
@@ -28,6 +31,6 @@ Here is a sensible default format, but use your best judgment:
 Closes [issue-id]
 ```
 
-Keep Summary. Omit other sections and the closing reference when they do not apply.
+Keep Summary. Omit other sections and the closing reference when they do not apply. Keep a screenshot comment only for a missing screenshot of a UI change.
 
-MUST NOT contain: invented execution results, missing-screenshot placeholders, session narrative, rejected alternatives, future tasks, release plans, roadmap references, or attribution lines.
+MUST NOT contain: invented execution results, visible missing-screenshot placeholders, session narrative, rejected alternatives, future tasks, release plans, roadmap references, or attribution lines.
