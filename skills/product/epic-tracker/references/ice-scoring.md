@@ -4,14 +4,14 @@ Evaluate and prioritize derived candidates with ICE — Impact, Confidence, Ease
 
 ## When to Use
 
-Composed by `decompose` after derivation, over candidates that already exist. Level 1 (epics): always. Level 2 (stories): **optional** — apply it only when there is a value spread worth discriminating; skip it when dependency already dictates the order.
+Composed by `decompose` after derivation, over candidates that already exist, at level 1 (epics) and level 2 (stories).
 
 ## The Three Axes
 
 Score each candidate on each axis; keep the scale consistent across the set (a simple 1–5 or low/medium/high is enough — the ranking matters, not the absolute number).
 
-- **Impact** — how much this candidate moves the outcome the PRD cares about. A candidate that unlocks a core capability scores higher than a peripheral one.
-- **Confidence** — how sure the boundary and the value are. A well-understood capability scores higher than a speculative one; low confidence is a signal to keep the candidate small or to sequence it early to learn.
+- **Impact** — how much this candidate moves the PRD's expected outcome. A candidate that unlocks a core outcome scores higher than a peripheral one. At level 1, the PRD's order of requirements is evidence for this axis, read as a claim: a score may disagree with it.
+- **Confidence** — how sure the boundary and the value are. A well-understood candidate scores higher than a speculative one; low confidence is a signal to keep the candidate small or to sequence it early to learn.
 - **Ease** — how self-contained and deliverable the candidate is on its own. High ease = few dependencies, a clear done-state.
 
 Combine the three into one comparable score per candidate (the product or the sum — hold one method across the set).
@@ -29,4 +29,3 @@ A foundation epic with low Impact and low Ease still comes first when others dep
 
 - Score to rank, not to grade — the output is an order, not a report.
 - Be honest about Confidence; it is the axis that most often exposes an epic that should be split or sequenced early to de-risk.
-- At level 2, reach for ICE only when stories in the epic genuinely spread in value; otherwise dependency ordering is enough.

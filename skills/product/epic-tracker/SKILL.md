@@ -10,7 +10,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 ## Triggers
 
 - **Feature source** ("create from this feature design doc", "create from this feature PRD", "turn this feature design doc into issues", "track this feature") → [feature.md](instructions/feature.md)
-- **Plan / decompose** ("create roadmap", "plan the roadmap", "organize epics", "roadmap the PRD", "decompose", "break down the roadmap", "break this epic into stories", "materialize the epics") → [decompose.md](instructions/decompose.md)
+- **Plan / decompose** ("create roadmap", "plan the roadmap", "organize epics", "roadmap the PRD", "decompose", "break down the roadmap", "break this epic into stories", "create the epics from the roadmap") → [decompose.md](instructions/decompose.md)
 - **Epic** ("create epic", "new epic", "edit epic") → [epic.md](instructions/epic.md)
 - **Story** ("create story", "new story", "add story", "edit story", "update story", "change story", "create task", "create chore") → [story.md](instructions/story.md)
 - **Bug** ("create bug", "report bug", "bug report", "edit bug") → [bug.md](instructions/bug.md)
@@ -23,9 +23,9 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 ```text
 create ref → tracker → the tracker      every artifact takes this path
     ↑
-    ├ user brings the plan               the usual input
-    ├ decompose (optional): derives the plan from the project PRD
-    └ feature (optional): sizes a feature PRD/design doc, picks the ref
+    ├ decompose: derives the plan from the project PRD
+    ├ feature: sizes a feature PRD/design doc, picks the ref
+    └ user request: goes straight to the create ref
 ```
 
-Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. The plan usually comes from the user directly. Two optional ceremonies sit in front. `decompose` derives the plan from the project PRD, records it in the roadmap, and confirms before materializing; a declined checkpoint leaves the roadmap written and nothing created. `feature` sizes a feature PRD or feature design doc into an epic or a standalone story, and writes no roadmap. A configured tracker is required for tracker operations; report missing access without configuring the integration.
+Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. `decompose` derives the plan from the project PRD, shows it as a draft in the chat, and creates the epics after the user approves it. When the user asks for a roadmap file, it writes `docs/product/ROADMAP.md` after that approval; a user who asks for only the roadmap gets it with nothing created. `feature` sizes a feature PRD or feature design doc into an epic or a standalone story, shows it as a draft in the chat, creates it after the user approves it, and writes no roadmap. A user request goes straight to the create ref, with no derivation. A configured tracker is required for tracker operations; report missing access without configuring the integration.

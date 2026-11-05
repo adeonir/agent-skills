@@ -12,11 +12,11 @@ The roadmap is `decompose`'s persisted memory of the settled plan: it records ev
 
 ### 1. Receive the entries
 
-`decompose` passes the settled set as structured entries — per epic: title, capability line, `Driven by`, the requirement IDs it owns, its `Blocked by` dependencies, its position in the flow, and its phase (when the flow is phased). This ref does not derive, evaluate, or reorder any of it — it serializes what it is given.
+`decompose` passes the settled set as structured entries — per epic: title, outcome line, `Driven by`, the requirement IDs it owns, its `Blocked by` dependencies, its position in the flow, and its milestone (when the roadmap has milestones). This ref does not derive, evaluate, or reorder any of it — it serializes what it is given.
 
 ### 2. Serialize via the template
 
-Render the entries into the template below, in the order `decompose` settled. Phase headings are **cosmetic** — a visual grouping for the human reader; they carry no scheduling of their own. (`decompose` derives each epic's milestone from its phase, but that origin lives there, not here.) A flat ordered list is fine when the flow has no phases.
+Render the entries into the template below, in the order `decompose` settled. Each milestone is a heading over its epics; `decompose` settles the grouping. A flat ordered list is fine when the roadmap has no milestones.
 
 ### 3. Write in place
 
@@ -38,19 +38,19 @@ sources:
 
 {{One line on what this roadmap sequences and why.}}
 
-## {{Phase name, or omit the heading for a flat flow}}
+## {{Milestone name, or omit the heading for a flat roadmap}}
 
-1. **{{Epic Title}}** — {{one-line capability the epic delivers}} — _Driven by: {{capability, requirement, or goal that motivates this epic}}_ — _Requirements: {{FR/NFR IDs this epic owns — omit the field when the epic owns none}}_ — _Blocked by: {{epic titles this one depends on — omit the field when nothing blocks it}}_ — {{optional tag: foundation | high-risk}}
-2. **{{Epic Title}}** — {{one-line capability}} — _Driven by: {{capability, requirement, or goal}}_ — _Requirements: {{IDs}}_
+1. **{{Epic Title}}** — {{one-line outcome the epic delivers}} — _Driven by: {{outcome or requirement that motivates this epic}}_ — _Requirements: {{FR/NFR IDs this epic owns — omit the field when the epic owns none}}_ — _Blocked by: {{epic titles this one depends on — omit the field when nothing blocks it}}_ — {{optional tag: foundation | high-risk}}
+2. **{{Epic Title}}** — {{one-line outcome}} — _Driven by: {{outcome or requirement}}_ — _Requirements: {{IDs}}_
 
-MUST NOT contain, in any entry: deadlines or dates, per-story detail, section numbers, `ADR-NNN`, or implementation specifics. The frontmatter's `updated` is the only permitted date. Requirement IDs (`FR/NFR`) appear only in the `Requirements` field, dependencies only in the `Blocked by` field — never in the capability line or any prose. Tags are short signals only; they never replace the capability description or introduce scheduling.
+MUST NOT contain, in any entry: deadlines or dates, per-story detail, section numbers, `ADR-NNN`, or implementation specifics. The frontmatter's `updated` is the only permitted date. Requirement IDs (`FR/NFR`) appear only in the `Requirements` field, dependencies only in the `Blocked by` field — never in the outcome line or any prose. Tags are short signals only; they never replace the outcome description or introduce scheduling.
 ````
 
 ## Guidelines
 
 - Serialize what `decompose` settled — never reorder, re-partition, or re-derive here; this ref owns the file's form, not its content.
-- Keep the entry line's fields in order: capability, `Driven by`, `Requirements`, `Blocked by`, tag — each field omitted when empty.
-- Phase headings are cosmetic grouping for the reader; a flat list is equally valid.
+- Keep the entry line's fields in order: outcome, `Driven by`, `Requirements`, `Blocked by`, tag — each field omitted when empty.
+- A flat list is as valid as milestone headings.
 - One living doc: update in place, never duplicate.
 - The roadmap references its epics; epics never point back at it — they stay self-contained.
 - Populate frontmatter `updated` and `sources` on every write.
