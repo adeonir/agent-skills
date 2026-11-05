@@ -59,25 +59,27 @@ Set each epic's `blocked_by` — the epics that must finish before it can start.
 
 ### 5. Group into milestones
 
-The first milestone is the smallest run of the ordered set, foundation epics included, that resolves the problem the PRD states. The remaining epics form later milestones, or the set stays flat when it needs no grouping.
+The first milestone is the smallest run of the ordered set, foundation epics included, that resolves the problem the PRD states. The remaining epics form later milestones, or the set stays flat when it needs no grouping. When the user asked for a roadmap file, also state the ordering criteria, each epic's tags, and the Definition of Done: the conditions the release must meet, each with the check that proves it.
 
 ### 6. Settle with the user
 
-Show the proposed set as a draft in the chat — each epic with its one-line boundary (the outcome it owns and the adjacent one it does not), its requirement IDs, its dependencies, its position, and its milestone. The user adds, drops, merges, splits, renames, or reorders. **Wait for explicit approval before writing anything**: approval authorizes creating the epics, unless the user asked in the chat for only the roadmap. Without approval, stop and report that nothing was written. Boundaries partition the PRD's scope: work claimed by two epics means the set is wrong, not the boundary.
+Show the proposed set as a draft in the chat — each epic with its one-line boundary (the outcome it owns and the adjacent one it does not), its requirement IDs, its dependencies, its position, and its milestone, plus the tags, ordering criteria, and Definition of Done when Step 5 set them. The user adds, drops, merges, splits, renames, or reorders. **Wait for explicit approval before writing anything**: approval authorizes creating the epics, unless the user asked in the chat for only the roadmap. Without approval, stop and report that nothing was written. Boundaries partition the PRD's scope: work claimed by two epics means the set is wrong, not the boundary.
 
 ### 7. Write the roadmap when asked
 
 When the user did not ask for a roadmap file, skip to Step 8.
 
-When the user asked for one, dispatch the settled set as structured entries to [roadmap.md](../references/roadmap.md), which serializes them via its inline template — title, outcome, `Driven by`, `Requirements` IDs, `Blocked by`, milestone. `roadmap.md` decides nothing; it records what this step settled.
+When the user asked for one, dispatch the settled set as structured entries to [roadmap.md](../references/roadmap.md), which serializes them via its inline template — title, outcome description, `Driven by`, `Requirements` IDs, `Blocked by`, tags, the tracker link of an epic that already exists, milestone, the ordering criteria, and the Definition of Done. `roadmap.md` decides nothing; it records what this step settled.
 
 When the user asked for only the roadmap, stop here and report (see Report): the roadmap is written, nothing is materialized.
 
 ### 8. Materialize
 
-Materialize in **dependency order** — a blocker before its dependents. The settled set records `Blocked by` as epic **titles** (the only stable reference at plan time, before any epic has a tracker id); creating in dependency order means each epic's blockers already exist when it is created, so their titles resolve to tracker ids from the epics created earlier this run (or found via `list_artifacts`). Pass those resolved ids as the epic's `blocked_by` dispatch input.
+Materialize in **dependency order** — a blocker before its dependents. The settled set records `Blocked by` as epic **titles** (the only stable reference at plan time, before any epic has a tracker id); creating in dependency order means each epic's blockers already exist when it is created, so their titles resolve to tracker ids from the epic's roadmap link, the epics created earlier this run, or `list_artifacts`. Pass those resolved ids as the epic's `blocked_by` dispatch input.
 
-Idempotent: load [tracker.md](../references/tracker.md), run `list_artifacts` filtered to epics, and dispatch only the **missing** ones to [epic.md](epic.md), passing the resolved `blocked_by` ids, the epic's milestone, and the requirement IDs it owns. Each epic reads the PRD for their statements, and drafts its body — `decompose` never bypasses the create ref, and never drafts prose itself.
+Idempotent: load [tracker.md](../references/tracker.md), run `list_artifacts` filtered to epics, and dispatch only the **missing** ones to [epic.md](epic.md), passing the resolved `blocked_by` ids, the epic's milestone, and the requirement IDs it owns. Each epic reads the PRD for their statements, and drafts its body — `decompose` never bypasses the create ref, and never drafts an epic body itself.
+
+When `docs/product/ROADMAP.md` exists, dispatch the tracker link of each epic created in this run to [roadmap.md](../references/roadmap.md).
 
 The partition is not re-validated here. Step 3 settled it with the PRD in hand, which is the only place orphans are visible at all. A roadmap read back from a previous run carries a partition already settled with the user, and `epic.md` reads each requirement set as a claim, so an ID that contradicts an epic's scope surfaces there, per epic.
 
@@ -133,7 +135,7 @@ End the run with one report for the whole set, never one per artifact: `docs/pro
 - Materialize one level per run — roadmap → epics, or epic → stories.
 - Read the roadmap or the tracker's epics back on a re-run and compute the delta; derive fresh only when neither exists.
 - Write the roadmap only when the user asks for it; show the draft in the chat and wait for approval before any write, unless the request is to materialize an existing roadmap as written.
-- Delegate every artifact to its create ref — canonical shape and validation are non-negotiable; `decompose` drafts no prose.
+- Delegate every artifact to its create ref — canonical shape and validation are non-negotiable; `decompose` drafts no epic body.
 - Settle boundaries with the set — every child states what it owns and what it does not before any child is created.
 - Carry each epic's settled milestone as its `milestone` dispatch input; reconcile the whole subtree on re-run and never overwrite a manual milestone without confirming.
 
