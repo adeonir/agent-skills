@@ -417,7 +417,7 @@ Before finalizing a new skill, verify the items the path-scoped rules in `.agent
 
 ## Reference Exemplars
 
-When in doubt about a pattern, study `brainstorm` (one job, the procedure in the SKILL.md, a reference per phase), `review-lens` (one job, two modes sharing one rubric reference, model tiering), `git-helpers` (three jobs, one instruction each, one shared reference loaded by all three), or `spec-driven` (seven jobs, many templates, sub-agent fan-out, the refactor at scale).
+When in doubt about a pattern, study `review-lens` (one job, two modes sharing one rubric reference, model tiering), `git-helpers` (three jobs, one instruction each, one shared reference loaded by all three), or `app-flow` (three jobs, hybrid intake reference plus a vocabulary reference shared by all, an assets template). These are the exemplars that pass the validator with zero errors; other skills predate the current rules — never copy from them.
 
 ## Skill Source and Installation
 
