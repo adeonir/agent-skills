@@ -17,8 +17,9 @@ Creates and manages structured Obsidian notes — project, challenge, brag, tran
 
 ## Workflow
 
-```text
-resolve-vault → select-type → compose-note → write → report
+```mermaid
+flowchart LR
+    resolve-vault --> select-type --> compose-note --> write --> report
 ```
 
 Each note type has its own workflow. Use any type independently.

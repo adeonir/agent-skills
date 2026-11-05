@@ -22,11 +22,12 @@ Plans the user paths of a website, a mobile app, or any other product surface as
 
 ## Workflow
 
-```text
-intake (prose | doc | artifact | code) → discovery → the flow
-                                             ├ plan:   draft + connect + write docs/product/FLOWS.md
-                                             ├ audit:  findings report, no edit
-                                             └ refine: restructure the flow, written back
+```mermaid
+flowchart TD
+    IN["intake"] --> discovery
+    discovery --> P["plan"]
+    discovery --> A["audit"]
+    discovery --> R["refine"]
 ```
 
 Each entry is independent. Every entry states its read of the situation before flow work and lets the user redirect.

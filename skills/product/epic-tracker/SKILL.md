@@ -20,12 +20,12 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track stories
 
 ## Workflow
 
-```text
-create ref → tracker → the tracker      every artifact takes this path
-    ↑
-    ├ decompose: derives the plan from the project PRD
-    ├ feature: sizes a feature PRD/design doc, picks the ref
-    └ user request: goes straight to the create ref
+```mermaid
+flowchart TD
+    DE[decompose] -->|plan| CR[create ref]
+    FE[feature] -->|size| CR
+    UR[user request] --> CR
+    CR --> out[the tracker]
 ```
 
 Every artifact takes the same path: a create ref drafts it and dispatches it to the tracker. `decompose` derives the plan from the project PRD, shows it as a draft in the chat, and creates the epics after the user approves it. When the user asks for a roadmap file, it writes `docs/product/ROADMAP.md` after that approval; a user who asks for only the roadmap gets it with nothing created. `feature` sizes a feature PRD or feature design doc into an epic or a standalone story, shows it as a draft in the chat, creates it after the user approves it, and writes no roadmap. A user request goes straight to the create ref, with no derivation. A configured tracker is required for tracker operations; report missing access without configuring the integration.

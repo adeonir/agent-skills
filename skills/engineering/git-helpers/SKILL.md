@@ -21,8 +21,9 @@ Git workflow with conventional commits, pull requests, and pull request merges.
 
 ## Workflow
 
-```text
-commit → create-pull-request → merge-pull-request
+```mermaid
+flowchart LR
+    commit --> create-pull-request --> merge-pull-request
 ```
 
 Each step is independent. Use any workflow in isolation or chain them together.

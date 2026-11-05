@@ -24,10 +24,11 @@ Load one operation at a time. Preview, validate, export, and diff enter directly
 
 ## Workflow
 
-```text
-greenfield, direction absent → direction → design → validate → preview
-greenfield, direction given  ───────────→ design → validate → preview
-brownfield → identity-assessment → confirmed intent → design → validate
+```mermaid
+flowchart TD
+    GA["greenfield · direction absent"] --> direction --> design --> validate --> preview
+    GG["greenfield · direction given"] --> design
+    BR[brownfield] --> IA[identity] --> I[confirmed] --> design
 ```
 
 Every operation starts by loading discovery. A brownfield assessment may end after presenting its findings when the user asked for an audit only.

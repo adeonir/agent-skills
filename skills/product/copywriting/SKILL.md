@@ -27,10 +27,11 @@ Classify the request by what it wants done to the copy, and infer from source an
 
 ## Workflow
 
-```text
-trigger → discovery (context, intent, register) → operation → copy.yaml or verdict
-                                                      |
-                              critique → refresh → critique again
+```mermaid
+flowchart TD
+    trigger --> D[discovery] --> operation --> out["verdict"]
+    operation --> C[critique] --> RF[refresh]
+    RF --> C
 ```
 
 Every operation starts by loading discovery. A judging verdict is applied by running the matching authoring operation, never by patching from the judgment itself.

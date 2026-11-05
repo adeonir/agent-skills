@@ -19,8 +19,9 @@ Capture conversation state in one consolidated `.artifacts/HANDOFF.md` so a late
 
 ## Workflow
 
-```text
-save  → consolidate current context into .artifacts/HANDOFF.md
-load  → read the consolidated handoff
-clear → overwrite .artifacts/HANDOFF.md with empty content
+```mermaid
+flowchart LR
+    save -->|write| H[HANDOFF.md]
+    load -->|read| H
+    clear -->|empty| H
 ```

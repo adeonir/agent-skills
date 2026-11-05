@@ -20,12 +20,11 @@ Creates rules at project or user level and manages the rule set at both.
 
 ## Workflow
 
-```text
-trigger → dispatch → classify → context → destination → render → write
-              |              |
-              v              v
-           list/edit     refuse (procedural / lifecycle / one-off)
-           extract/del
+```mermaid
+flowchart TD
+    trigger --> dispatch --> classify --> context --> destination --> render --> write
+    dispatch -.-> edit
+    classify -.-> refuse
 ```
 
 ## References

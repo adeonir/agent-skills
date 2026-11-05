@@ -13,9 +13,10 @@ argument-hint: "configure | [operation]"
 
 ## Workflow
 
-```text
-configure → persisted destination
-operate → resolved destination → adapter → verified result
+```mermaid
+flowchart LR
+    configure --> persisted
+    operate --> resolved --> adapter --> verified
 ```
 
 ## References

@@ -18,12 +18,14 @@ A request to try an idea against the UI a codebase already has routes to experim
 
 ## Workflow
 
-```text
-wireframes → chosen arrangement
-     └→ structure.yaml ┐  (when mockups follow)
-mockups ───────────────┴→ docs/design/mockup.html
-
-experiments → variants in the app on a throwaway branch
+```mermaid
+flowchart TD
+    WF[wireframes] --> CA[chosen arrangement]
+    WF --> SY[structure]
+    CA -.->|"when mockups follow"| MO
+    SY --> MO[mockups]
+    MO --> OUT[output]
+    EX[experiments] --> VAR[variants]
 ```
 
 Final copy comes after the mockup and is an input to no phase.
