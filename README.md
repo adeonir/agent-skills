@@ -43,6 +43,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 | Skill | Description |
 | ----- | ----------- |
+| **[app-flow](skills/product/app-flow)** | Plan, audit, and refine user flows for a website or mobile app, one flow per task |
 | **[brainstorm](skills/product/brainstorm)** | Structured idea exploration from a blank space or an existing plan, diverge to converge |
 | **[briefing](skills/product/briefing)** | Work brief: background, objectives, audience, budget, timing, constraints, and gaps in `briefing.md` |
 | **[copywriting](skills/product/copywriting)** | Authors `copy.yaml` — write, extract, refresh, plus critique and audit |
@@ -88,6 +89,8 @@ flowchart TD
 
     DW_P -.->|identity input| SB[design-md-builder]
     SB -.->|visual identity| CU[craft-ui]
+    DW_P -.->|product requirements| AF[app-flow]
+    AF -.->|flow map| CU
     DW_P -.->|content input| CW[copywriting]
     CU -.->|mockup| CW
 
@@ -153,7 +156,7 @@ docs/
 ├── adr/            # docs-writer: append-only decision log
 ├── design/         # design-md-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
 ├── intents/        # to-intent: <id>-<slug>.md per intent
-├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml
+├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml · app-flow: FLOWS.md
 └── tech/           # docs-writer: design-doc
 
 GLOSSARY.md         # domain-modeling: canonical domain terms
