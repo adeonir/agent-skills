@@ -20,25 +20,14 @@ sources: []
 
 ## Scope
 
-### Must Have
+Requirements appear from most to least important to the user. This order does not set the order of delivery.
 
-- FR-1 [capability required for this feature]
-
-### Should Have
-
-- FR-2 [important but not blocking]
-
-### Could Have
-
-- FR-3 [nice-to-have for a later iteration]
-
-### Won't Have
-
-- FR-4 [capability considered and cut] — [why it is out now]
+- FR-1 [requirement]
+- FR-2 [requirement]
 
 ### Out of Scope
 
-- [An outcome this feature deliberately does not pursue.]
+- [What is left out] — [why it is out]
 
 ## Metric
 

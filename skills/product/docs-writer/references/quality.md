@@ -28,7 +28,7 @@ A section that keeps alternatives, such as an ADR's Alternatives Considered, rec
 
 Before writing any document to disk, verify:
 
-- [ ] No contradictions: read each statement that excludes or limits (an Out of Scope item, a Won't Have item) against each statement that requires (a Must Have item, a Should Have item, a phase delivery). A pair that cannot both hold is a contradiction — resolve it with the user.
+- [ ] No contradictions: read each statement that excludes or limits (an Out of Scope item) against each statement that requires (a functional requirement, a phase delivery). A pair that cannot both hold is a contradiction — resolve it with the user.
 - [ ] No unresolved TBDs that block the document's purpose
 - [ ] Scope is focused (one document, one purpose)
 - [ ] Cross-references to other docs are valid

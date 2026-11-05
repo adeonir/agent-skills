@@ -1,10 +1,10 @@
 # PRD — Product Requirements Document
 
-Capture product requirements: problem, audience, scope, and success metrics.
+Capture product requirements: problem, audience, expected outcome, and scope.
 
 ## Scope
 
-Product requirements only: problem, audience, scope, success metrics. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
+Product requirements only: problem, audience, expected outcome, scope. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
 
 A section is a technical decision in disguise when it presents two implementation options and asks the reader to choose — microservices vs monolith, SQL vs NoSQL, REST vs GraphQL, framework choice, deployment topology. Move that decision to the Design Doc or an ADR and leave a reference here.
 
@@ -32,13 +32,13 @@ Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, the
 |---|---|---|
 | Context | Topic 1 — problem, motivation, current state | confirm; ask follow-ups only for evidence gaps |
 | Constraints | Assumptions & Risks | confirm |
-| Success Criteria | Goals & metrics | confirm |
+| Success Criteria | Expected Outcome | confirm |
 | Alternatives Considered + Decision | Topic 3 (when it runs), chosen-approach rationale | confirm |
 | Trade-offs Accepted | Out of Scope; Risks when a trade-off rests on a fragile assumption | confirm |
 | Key Assumption | Assumptions | carry |
 | Open Questions | Open Questions | carry |
 
-Present each supplied topic as an interpretation for the user to confirm or correct. Do not repeat its opening questions. Run discovery for information the upstream document does not contain: audience, scope levels and FR IDs, and NFRs.
+Present each supplied topic as an interpretation for the user to confirm or correct. Do not repeat its opening questions. Run discovery for information the upstream document does not contain: audience, the ordered requirements and FR IDs, and NFRs.
 
 Do not copy rejected alternatives, Revision History, or the direction's name into the PRD. Carry only the confirmed problem, constraints, and criteria, expressed as product requirements.
 
@@ -58,10 +58,12 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 - No evidence → "What would convince you this is real? Have you talked to users?"
 - Multiple problems mixed → "These sound like separate problems. Which one is primary?"
 - User starts with solution → "What problem does this solution address? Let's start there."
+- Current situation not described → "How do people cope with this today?"
 
 **Complete when:**
 
 - Problem can be stated in one clear sentence
+- How people cope today is known or marked unknown
 - Evidence exists or is explicitly marked as hypothesis
 - Single primary problem identified (secondary problems noted separately)
 
@@ -110,13 +112,13 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 **Opening questions:**
 
-- What matters most to the user?
+- What does the user need the product to do, from most to least important?
 - What does the product deliberately not do?
-- What defines success, and what could invalidate the project?
+- What changes for the user once the problem is solved, and what could invalidate the project?
 
 **Ask follow-up when:**
 
-- Everything is "must have" → "Which features matter most to the user?"
+- Everything seems equally important → "If the user could have only one of these, which would it be?"
 - Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
 - Features without clear user connection → "Which user profile needs this? What problem does it solve for them?"
 - No success measure → "What single metric would tell you this worked?"
@@ -124,8 +126,8 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 **Complete when:**
 
-- Clear must/should/could grouping by importance to the user, with a reason for each cut
-- Each must-have connects to the primary problem and a user profile
+- Requirements are ordered from most to least important to the user, and each Out of Scope item carries a reason
+- The expected outcome states what changes for the user
 - A primary metric exists or is marked TBD
 - Assumptions and risks are named
 
@@ -137,7 +139,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. **Question scope**: Is the scope realistic? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "How much does the user need X?"
 4. **Flag a fragile direction**: If the direction itself seems fragile after discovery, say so and recommend reopening the direction decision before specifying — the PRD does not generate or choose alternatives
-5. **Define scope**: Categorize features into must/should/could by importance to the user, and record exclusions under won't
+5. **Define scope**: Order requirements from most to least important to the user, and record exclusions under Out of Scope
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 
 ### Phase 3: Drafting
@@ -146,14 +148,14 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
 3. Run [quality.md](../references/quality.md).
 4. Write each document to its path, then reread each per [quality.md](../references/quality.md) `## Reread`.
-5. **Report.** Report each path, what each document holds in one to three sentences — the must/should/could scope and the primary metric for the PRD — and any open question or TBD each carries. Never paste the documents.
+5. **Report.** Report each path, what each document holds in one to three sentences — the expected outcome, the most important requirements, and the primary metric for the PRD — and any open question or TBD each carries. Never paste the documents.
 
 **Drafting notes:**
 
 - Market & differentiation content goes to PRODUCT, not PRD
 - Value proposition content goes to PRODUCT, not PRD
-- Out of Scope lists outcome-level exclusions; capabilities cut from scope go to Scope → Won't Have
-- Won't Have must record the reason for exclusion so future revisits have context
+- Out of Scope lists what is left out, without FR IDs, each with the reason for exclusion
+- Reordering requirements never renumbers an FR ID
 - NFRs state the requirement without prescribing the mechanism ("search stays responsive on mobile networks", not "use Redis caching"). Add a number only when the user supplies one; otherwise keep the requirement in words
 - Assumptions & Risks is a flat list; each risk carries its mitigation
 - Out-of-team blockers enter Assumptions & Risks; technical dependencies belong in the Design Doc
@@ -168,10 +170,10 @@ For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact s
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
-| 1. Problem | The pain, who is affected, evidence, why it is worth solving | Topic 1: Problem |
+| 1. Problem | The pain, who has it, how they cope today, evidence, why it is worth solving | Topic 1: Problem |
 | 2. Audience | User profiles and main use cases | Topic 2: Users |
-| 3. Goals & Metrics | Goals with metrics and one primary metric | Topic 1: Problem, Topic 4: Scope |
-| 4. Scope | Must/Should/Could/Won't (FR-1...) plus Out of Scope | Topic 4: Scope |
+| 3. Expected Outcome | What changes for the user and one primary metric | Topic 1: Problem, Topic 4: Scope |
+| 4. Scope | Requirements (FR-1...) from most to least important, and Out of Scope | Topic 4: Scope |
 | 5. Non-Functional Requirements | Quality requirements (NFR-1...) in words or with a supplied number | Topic 4: Scope |
 | 6. Assumptions & Risks | What is assumed and what could invalidate the project, with mitigations | Validation phase |
 | 7. Open Questions | Unresolved questions as a checklist | Validation phase |
@@ -186,7 +188,7 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 - Write the PRD to its path directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report as Phase 3 step 5 states
 - Mark unknowns as TBD rather than inventing constraints or numbers
 - Discover PRODUCT if absent. Update only the requested parts if present.
-- Record a reason for exclusion on every Won't Have item
+- Record a reason for exclusion on every Out of Scope item
 - Reference only documents that exist; omit a reference rather than writing "None"
 
 ## Output

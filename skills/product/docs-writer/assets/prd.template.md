@@ -15,49 +15,33 @@ sources: []
 
 ## 1. Problem
 
-[The pain, who is affected, the evidence behind it (or an explicit hypothesis), and why it is worth solving now.]
+[The pain, who has it, how they cope today, the evidence behind it (or an explicit hypothesis), and why it is worth solving now.]
 
 ## 2. Audience
 
 - **[User profile]:** [context and main use cases]
 
-## 3. Goals & Metrics
+## 3. Expected Outcome
 
-| Goal | Metric | Target |
-|------|--------|--------|
-| [goal] | [how it will be measured] | [a number the user supplied, the target in words, or TBD] |
+[What changes for the user once the problem is solved.]
 
-Primary metric: [the one metric that defines success].
+Primary metric: [the one metric that defines success] — [a number the user supplied, the target in words, or TBD]
 
 ## 4. Scope
 
-Must Have, Should Have, and Could Have state how much a requirement matters to the user. They do not set the order of delivery.
+Requirements appear from most to least important to the user. This order does not set the order of delivery.
 
-### Must Have
-
-- FR-1 [capability essential to the user]
-
-### Should Have
-
-- FR-2 [capability important to the user]
-
-### Could Have
-
-- FR-3 [capability useful but less important to the user]
-
-### Won't Have
-
-- FR-4 [capability considered and cut] — [why it is out now]
+- FR-1 [requirement]
+- FR-2 [requirement]
+- FR-3 [requirement]
 
 ### Out of Scope
 
-- [An outcome this product deliberately does not pursue.]
+- [What is left out] — [why it is out]
 
 ## 5. Non-Functional Requirements
 
-| ID | Requirement | Target |
-|----|------------|--------|
-| NFR-1 | [quality the product needs: performance, security, accessibility, privacy] | [the requirement in words, or a number the user supplied] |
+- NFR-1 [quality the product needs: performance, security, accessibility, privacy, in words or with a number the user supplied]
 
 ## 6. Assumptions & Risks
 
