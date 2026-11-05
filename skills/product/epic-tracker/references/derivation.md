@@ -1,6 +1,6 @@
 # Epic Derivation
 
-Cluster a PRD into a set of epics, one per user outcome — the method that turns requirements into candidate epics before they are evaluated and ordered.
+Cluster a PRD into a set of epics, one per user outcome plus the foundations they depend on — the method that turns requirements into candidate epics before they are evaluated and ordered.
 
 ## When to Use
 
@@ -8,7 +8,7 @@ Composed by `decompose` at level 1 (roadmap → epics), after the PRD is read an
 
 ## What an Epic Is
 
-An epic groups stories around **one outcome that users receive and evaluate on their own**. The boundary is where one outcome ends and the next begins. Name an epic for what users get, never for a UI widget, an endpoint, or a technology.
+An epic groups stories around **one outcome that users receive and evaluate on their own**, or around a foundation: work other epics depend on, which users may never see. The boundary is where one outcome ends and the next begins. Name an epic for what users get, never for a UI widget, an endpoint, or a technology.
 
 ## The Seams
 
