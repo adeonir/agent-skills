@@ -159,6 +159,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 - NFRs state the requirement without prescribing the mechanism ("search stays responsive on mobile networks", not "use Redis caching"). Add a number only when the user supplies one; otherwise keep the requirement in words
 - Assumptions & Risks is a flat list; each risk carries its mitigation
 - Out-of-team blockers enter Assumptions & Risks; technical dependencies belong in the Design Doc
+- Set `status` to `draft` on a new PRD and to `approved` only after explicit user approval; an approved PRD may return to `draft` when the direction reopens
 
 ## PRD Template
 

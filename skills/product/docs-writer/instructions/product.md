@@ -78,6 +78,8 @@ Use discovery answers to write positioning prose. When updating `PRODUCT.md`, re
 
 For a new document, read `<this-skill>/assets/product.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
+Set `status` to `draft` on a new PRODUCT and to `approved` only after explicit user approval; an approved PRODUCT may return to `draft` when the positioning is reworked. Preserve an existing status unless the user explicitly changes it, per [reconcile.md](../references/reconcile.md).
+
 ## Guidelines
 
 - Write every section as prose, not symbol lists. Later design work translates this positioning into its own terms.
