@@ -20,7 +20,7 @@ Copy this checklist and tick it off:
 Progress:
 - [ ] Step 1: Take the flows in — artifact, description, or code
 - [ ] Step 2: Check each flow against the rubric, priority flows first
-- [ ] Step 3: Rank findings by impact, with evidence per finding
+- [ ] Step 3: Rank findings — four named fields each, evidence required
 - [ ] Step 4: Report with the one-line verdict — no file edited
 
 If a finding exposes an unstated flow boundary, return to Step 1.
@@ -37,6 +37,6 @@ If a finding exposes an unstated flow boundary, return to Step 1.
 - **Branch before happy path** — the happy path cannot be read as its own line.
 - **Priority without detail** — a flow marked most valuable with nothing but its happy path drafted.
 
-**Step 3. Rank.** By impact — a broken hand-off on a priority flow outranks a merged flow on a settings one. Each finding states the flow, the rule it breaks, and evidence of where the path breaks down.
+**Step 3. Rank.** By impact — a broken hand-off on a priority flow outranks a merged flow on a settings one. Every finding carries the four named fields — **flow** / **rule** / **evidence** / **severity** (high, medium, low) — and a finding without an evidence line is dropped before ranking, not ranked with a hole. The evidence names where the path breaks down: the screen, state, or hand-off.
 
 **Step 4. Report.** Print the ranked findings in chat and end with a one-line verdict on which 1–2 fixes would change the product most. Do not edit `docs/product/FLOWS.md` or the flows themselves — the user decides what happens to the findings.

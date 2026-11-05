@@ -1,7 +1,7 @@
 ---
 name: app-flow
 allowed-tools: Read Write Edit
-description: "Plan, audit, and refine app flows — the user paths through a website, a mobile app, or another product surface, one flow per task. Use when mapping flows for a new product, drawing checkout, onboarding, or task flows, auditing an existing app's flows for dead ends and drop-off, or restructuring and shortening an existing flow. Not for UI design, wireframes, domain modeling, or implementation."
+description: "Plan, audit, and refine app flows — the user paths through a website, a mobile app, or another product surface, one flow per task. Use when mapping flows for a new product, drawing checkout, onboarding, or task flows, auditing an existing app's flows for dead ends and drop-off, or restructuring and shortening an existing flow. Not for UI design or wireframes, information architecture, usability review, domain modeling, or implementation."
 ---
 
 # App Flow

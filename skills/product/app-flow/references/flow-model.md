@@ -54,4 +54,4 @@ flowchart LR
 
 ## Well-formed flow
 
-A draft is done when it has: a name, a goal ("complete checkout from the product screen"), an entry, wireflow with labeled arrows, dead ends enumerated (error, cancel, timeout — each with its exit), and the connections it starts from or hands to. Every step counts as exactly one screen.
+A draft is done when it has: a name, a goal ("complete checkout from the product screen"), an entry, wireflow with labeled arrows, dead ends enumerated across the register's categories (error, cancel, timeout, empty state, denied — each with its exit, or marked `n/a`), and the connections it starts from or hands to. Every step counts as exactly one screen.

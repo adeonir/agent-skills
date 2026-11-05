@@ -20,7 +20,7 @@ Copy this checklist and tick it off:
 Progress:
 - [ ] Step 1: Locate the flow — artifact section or chat description
 - [ ] Step 2: State the improvement goal, confirmed or declared
-- [ ] Step 3: Draft the new happy path in wireflow notation
+- [ ] Step 3: Copy the dead-end register, then draft the new happy path in wireflow notation
 - [ ] Step 4: Judge against the goal; keep the dead-end register; update the connect map
 - [ ] Step 5: Write back with before/after wireflows in chat
 
@@ -31,12 +31,12 @@ If the draft loses a hand-off, return to Step 3.
 
 **Step 2. Name the goal.** In one line: shorter, fewer screens, a branch added, a dead end closed, two tasks unmerged. Have the user confirm the goal — or proceed as a declared assumption they can redirect. Rebuilding a flow for the wrong goal is the cost this confirm prevents.
 
-**Step 3. Draft the new happy path first.** Entry → screens → success exit, in wireflow notation, before touching branches — a rewrite that starts from the old branch list inherits the old shape.
+**Step 3. Copy the register, then draft the new happy path.** Before drawing anything, copy the flow's dead-end register lines from the artifact (the connect map's role included) — this copy is what the rewrite must account for. Then draft the new happy path first, entry → screens → success exit, in wireflow notation, before touching branches — a rewrite that starts from the old branch list inherits the old shape.
 
 **Step 4. Judge and keep.**
 
 - **Against the goal, not eternally** — count screens, exits, and hand-offs against the stated goal; a shorter flow with a lost hand-off is a worse flow.
-- **Keep the dead-end register** — every state of the old flow that survives the rewrite keeps its exit; a state dropped while a branch it served still exists is a hole.
+- **Reconcile the copied register** — every state of the old flow that survives the rewrite keeps its exit; a state dropped while a branch it served still exists is a hole. A state deliberately dropped is marked `dropped` in the register with the reason, never silently removed.
 - **Update the connect map** — the flow's inbound and outbound hand-offs are re-named where the rewrite moved them.
 
 **Step 5. Write back.** Apply the result to the flow's section in `docs/product/FLOWS.md` (create the file from [../assets/flows-template.md](../assets/flows-template.md) when the product has none yet, carrying only this flow plus, empty, the connect map). Show the before-and-after wireflows of the changed structure in chat, with what the count of screens and dead ends did — the change should make the flow measurably better, and when a rewrite makes it longer for no structural gain, say so instead of writing it.
