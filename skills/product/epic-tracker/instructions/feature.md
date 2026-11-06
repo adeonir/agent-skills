@@ -1,6 +1,6 @@
 # Feature Source
 
-Turn a feature PRD or feature design doc into the delivery artifacts it warrants — an epic with children or a standalone story.
+Turn a feature PRD or feature design doc into the delivery artifacts it warrants — an epic with children or a standalone task.
 
 ## Load first
 
@@ -27,7 +27,7 @@ Load [tracker.md](../references/tracker.md) and run `list_artifacts`. An artifac
 Cut the source's outcome and boundary along the seams in [../references/derivation.md](../references/derivation.md) — user outcomes first, cross-cutting quality targets after — then count what falls out:
 
 - **Two or more units** → an epic. The epic groups the children.
-- **One unit** → a **standalone story**, or a bug when the unit fixes behavior that already exists and is broken.
+- **One unit** → a **standalone task**, or a bug when the unit fixes behavior that already exists and is broken.
 
 The seams decide the count; the count is not a target. A feature that reads as one configuration change, one defect class, or one enabling move is one unit however long its document is — document length is not a seam.
 
@@ -38,13 +38,13 @@ Show the sized result as a draft in the chat with its boundary — what the arti
 ### 4. Dispatch
 
 - **Epic** → [epic.md](epic.md), passing the feature source. Materializing its children is a separate run of [decompose.md](decompose.md) at Level 2, confirmed with the user.
-- **Standalone story** → [story.md](story.md), passing the feature source and no epic id.
+- **Standalone task** → [task.md](task.md), passing the feature source and no epic id.
 
 The create ref drafts the body and validates it. This ref drafts no prose.
 
 ## Requirements on a standalone artifact
 
-When the feature source enumerates requirements (`FR/NFR`) and the gate picks a single standalone artifact, no epic declares them, so nothing carries a `Satisfies` line. The statements enter as what the story must hold, as Gherkin acceptance criteria, translated in form but never in norm: the modal, the actor, the object, and every bound survive the trip. An id that reaches neither is surfaced, and the user adds coverage or confirms the omission.
+When the feature source enumerates requirements (`FR/NFR`) and the gate picks a single standalone artifact, no epic declares them, so nothing carries a requirement link. The statements enter as what the task must hold, as acceptance conditions, translated in form but never in norm: the modal, the actor, the object, and every bound survive the trip. An id that reaches neither is surfaced, and the user adds coverage or confirms the omission.
 
 ## Guidelines
 

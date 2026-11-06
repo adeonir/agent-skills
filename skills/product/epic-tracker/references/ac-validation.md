@@ -1,193 +1,127 @@
 # AC Validation
 
-Enforce Gherkin acceptance criteria on Story create and on edits that change AC text. Each AC is one markdown heading followed by one Gherkin scenario; `And` and `But` may continue any step block. A well-formed scenario keeps each AC testable and lets it reshape cleanly downstream; a malformed AC is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes an AC carries is settled while it is drafted, and what it promises is measured against the requirement it satisfies, upstream, where the epic is in hand.
+Enforce the acceptance criteria checklist on Task create and on edits that change a condition. Each condition is one checklist line, optionally ending with one requirement link. A well-formed line keeps each condition testable and parseable; a malformed one is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes a condition carries is settled while it is drafted, and what it promises is measured against the requirement it links, upstream, where the epic is in hand.
 
 ## When to Use
 
-- Auto-loaded by `story.md` (Step 3 Validate, before the story is dispatched)
-- Auto-loaded by `story.md`'s edit branch when an edit changes AC text
+- Auto-loaded by `task.md` (Step 3 Validate, before the task is dispatched)
+- Auto-loaded by `task.md`'s edit branch when an edit changes a condition
 - Not a direct trigger
 
-This ref is the single home for the AC contract. Do not duplicate the rules in `story.md` -- its create and edit paths load this ref at the validation step.
+This ref is the single home for the condition contract. Do not duplicate the rules in `task.md` -- its create and edit paths load this ref at the validation step.
 
-## AC Schema
+## Condition Schema
 
-Each AC is a `### AC-N` markdown heading followed by a fenced Gherkin block and an optional `**Satisfies**` line. Inside the block, the scenario uses `Given`, `When`, `Then`, `And` and `But`.
-
-````markdown
-### AC-1
-
-```gherkin
-Scenario: {short description}
-  Given {precondition}
-  And {additional precondition}
-  When {action}
-  Then {observable outcome}
-  But {negative observable outcome}
-```
-
-**Satisfies** {one parent-epic requirement id — optional}
-````
-
-Example of a valid AC:
+Each condition is a checklist line under `## Acceptance Criteria`: `- [ ]`, then the condition, then an optional requirement link — ` — ` followed by one `FR/NFR` id.
 
 ````markdown
-### AC-1
+## Acceptance Criteria
 
-```gherkin
-Scenario: User signs in with registered credentials
-  Given the user is on the sign-in page
-  And the user has a registered account
-  When they submit a valid email and password
-  Then they are authenticated
-  And they are redirected to the dashboard
-```
-
-**Satisfies** FR-1
-````
-
-Example with a Scenario Outline:
-
-````markdown
-### AC-2
-
-```gherkin
-Scenario Outline: Rate limit by plan
-  Given the user is on the <plan> plan
-  When they request <count> reset links within 1 minute
-  Then the system <result>
-
-  Examples:
-    | plan | count | result             |
-    | free | 3     | blocks the request |
-    | pro  | 10    | allows the request |
-```
-
-**Satisfies** FR-7
+- [ ] A signed-in user can reset their password without contacting support — FR-3
+- [ ] A reset link stops working 15 minutes after it is issued — FR-4
+- [ ] The reset screen is reachable from the sign-in screen
 ````
 
 Rules:
 
-- 1 AC = 1 Gherkin scenario.
-- The scenario must start with `Scenario:` or `Scenario Outline:`.
-- The scenario must contain at least one `Given`, one `When` and one `Then`.
-- `And` and `But` continue the preceding `Given`, `When` or `Then` block.
-- Each AC has a stable id (`AC-1`, `AC-2`, ...; dash-separated, no zero-padding).
-- IDs unique within the Story.
-- Strings non-empty for every step line.
-- `Scenario Outline` must have an `Examples` section.
-- `**Satisfies**` is optional; when present it names exactly one requirement id matching `FR/NFR-<n>` — a single id, never a list.
-- Keep this shape stable; downstream consumers (implementation specs, test generators) parse these blocks and rely on the format.
+- One line is one condition, one outcome.
+- The line starts with `- [ ]`.
+- The condition text is non-empty.
+- The requirement link is optional; when present it is the final element of the line and names exactly one id matching `FR/NFR-<n>` — a single id, never a list.
+- No two conditions share the same text once their requirement links are removed.
+- Keep this shape stable; the link is parsed from the end of the line.
 
 ## Workflow
 
 ### 1. Parse
 
-Extract the AC section from the Story body:
+Extract the conditions from the Task body:
 
 - Find the `## Acceptance Criteria` heading.
 - Read until the next `## ` heading or end of document.
-- Inside that section, every `### AC-N` heading begins a new AC block.
-- For each block, read until the next `### ` or the end of the section.
-- Within a block, find the fenced code block tagged `gherkin`.
-- Read its opening `Scenario:` or `Scenario Outline:` line, then the steps that follow.
-- Group the steps by keyword: the first `Given`, `When` and `Then` open the `given`, `when` and `then` groups, and every following `And` or `But` joins the group open at that point. Two lines break the grouping instead of opening a group of their own — an `And` or `But` before any group is open, and a keyword repeating one already open. Record both on the group they land in; V3 and V4 read them. A `Scenario Outline`'s `Examples` table is not a step — carry it whole, outside the groups.
-- Parse the optional `**Satisfies**` line (case-insensitive bold label, whitespace-tolerant).
+- Inside that section, every line opening with a checklist marker begins a new condition. A following line that opens with no marker continues the condition above it.
+- Split the requirement link off each condition at its last spaced dash (`—`, `–`, or `-`) when the text after that dash begins with `FR` or `NFR`. A dash followed by anything else is prose and stays in the condition text. Text after the dash that is not exactly one well-formed id is a malformed link, and rule V4 reports it.
 
-Tolerate tracker normalization: trailing whitespace, blank lines between blocks, single vs double newlines around headings. Linear occasionally reflows paragraphs; the parser must not break on these.
+Tolerate tracker normalization: trailing whitespace, blank lines between items, `*` for `-`, a checked box `[x]` for `[ ]`, escaped brackets, and items rewrapped across lines. Linear occasionally reflows paragraphs; the parser must not break on these.
 
-Output a list of `{id, scenario, given, when, then, examples, satisfies}` tuples plus any malformed blocks. `given`, `when` and `then` are the step groups, each a list of non-empty strings carrying their keyword; `examples` and `satisfies` are null when absent.
+Output a list of `{n, text, link}` tuples plus any malformed lines. `n` is the condition's position, 1-based; `link` is null when absent.
 
 ### 2. Validate
 
-Run V1-V7 against the parsed tuples and the raw section text. Every rule is strict.
+Run V1-V4 against the parsed tuples and the raw section text. Every rule is strict.
 
 | # | Rule | Trigger |
 |---|------|---------|
-| V1 | Story has at least one AC | parse yields zero `### AC-N` blocks |
-| V2 | Each AC has a well-formed Gherkin scenario | the block is missing or empty, carries no `Scenario:` / `Scenario Outline:` opening line or more than one, lacks one of the required step types, has an empty step line, or is a `Scenario Outline` with no `Examples` table |
-| V3 | Given step group starts with `Given` | the first `Given` step is preceded by `And`/`But`, or the group contains a second standalone `Given` line |
-| V4 | Then step group starts with `Then` | the first `Then` step is preceded by `And`/`But`, or the group contains a second standalone `Then` line |
-| V5 | No duplicate AC | two AC tuples with identical normalized {given, when, then} |
-| V6 | Unique AC ids | two `### AC-N` blocks with the same id |
-| V7 | Satisfies is one well-formed id | a `**Satisfies**` line is present but its value is not exactly one `FR/NFR-<n>` id (empty, a list, or malformed) |
+| V1 | Task has at least one condition | parse yields zero checklist lines |
+| V2 | Each condition has text | a checklist line with no text after the marker, or text under the heading before the first checklist line |
+| V3 | No duplicate condition | two conditions with identical normalized text, requirement link excluded |
+| V4 | The requirement link is one well-formed id | a spaced dash followed by `FR` or `NFR` is present but its value is not exactly one `FR/NFR-<n>` id (a list, or malformed) |
 
-What a Then asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the AC satisfies, and this ref holds the id, never the epic that carries the statement. See Satisfies linkage below.
-
-V3 and V4 preserve Gherkin's keyword order: `And` and `But` continue a block, they do not start one, and the keyword that opens a block (`Given` or `Then`) appears exactly once. A `When` block follows the same rule, surfaced under V2. This keeps each AC one scenario while allowing natural Gherkin continuations.
+What a condition asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the condition links, and this ref holds the id, never the epic that carries the statement. See Requirement linkage below.
 
 ### 3. Report
 
 On failure, surface a structured error per failed rule:
 
 ```text
-AC-{id} fails {V#}: {reason}. {suggested fix}.
+Condition {n} fails {V#}: {reason}. {suggested fix}.
 ```
 
 Examples:
 
 ```text
-AC-1 fails V2: missing Gherkin block or missing Given/When/Then. Add a fenced ```gherkin block opening with Scenario: and carrying at least one Given, one When and one Then.
+Task fails V1: no checklist lines under Acceptance Criteria. Add at least one `- [ ]` condition.
 
-AC-2 fails V2: Scenario Outline has no Examples table. Add an Examples table binding every placeholder the steps use, or rewrite the block as a plain Scenario.
+Condition 2 fails V2: empty condition. Write the condition after the marker, or remove the line.
 
-AC-1 fails V3: Given step group does not start with "Given" (starts with And/But) or contains a second standalone Given. Open the group with Given and continue with And/But.
+Condition 3 fails V3: duplicate of condition 1. Remove or differentiate one of them.
 
-AC-1 fails V4: Then step group does not start with "Then" (starts with And/But) or contains a second standalone Then. Open the group with Then and continue with And/But.
-
-AC-2 fails V5: duplicate of AC-1 (same Given/When/Then). Remove or differentiate one of them.
-
-AC-1 fails V6: duplicate id. Renumber to the next free id.
-
-AC-1 fails V7: Satisfies "FR-3, FR-4" names two ids. Name exactly one requirement per AC; split the AC if it operationalizes two.
+Condition 1 fails V4: link "FR-3, FR-4" names two ids. Name exactly one requirement per condition; split the condition if it operationalizes two.
 ```
 
-If any rule fails: do not dispatch. The caller (`story.md` Step 3 or its edit branch) loops back to Draft until the user fixes the AC.
+If any rule fails: do not dispatch. The caller (`task.md` Step 3 or its edit branch) loops back to Draft until the user fixes the conditions.
 
-## Satisfies linkage
+## Requirement linkage
 
-V7 checks the shape of a `**Satisfies**` value. Three further relations hold across the epic↔story boundary — none parsed here (this ref reads the story's AC section in isolation), all owned by the create/edit flow that has the parent epic in hand:
+V4 checks the shape of a requirement link. Three further relations hold across the epic↔task boundary — none parsed here (this ref reads the task's section in isolation), all owned by the create/edit flow that has the parent epic in hand:
 
-- **Link validity** — a present `Satisfies` references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the story in isolation and holds the id, never the epic. `story.md` Step 3 runs it, right after V1-V7, with the epic it fetched in Step 1; a dangling id routes back to fix.
-- **Bound provenance** — a bound in a Then traces to the statement of the requirement the AC satisfies. Resolving the id yields the statement, so `story.md` Step 3 runs this on the same resolution as link validity.
-- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 `Satisfies` across its children: an AC on a story. It is settled in two halves, neither here: `decompose.md` assigns each of the epic's requirement IDs to the child that will carry it, and the create ref confirms that child wrote a `Satisfies` line for every ID it was assigned. Coverage then holds by construction — no pass re-checks it across the children afterward.
+- **Link validity** — a present link references a requirement the parent epic declares in its `## Requirements`. This ref cannot check it: it reads the task in isolation and holds the id, never the epic. `task.md` Step 3 runs it, right after V1-V4, with the epic it fetched in Step 1; a dangling id routes back to fix.
+- **Bound provenance** — a bound in a condition traces to the statement of the requirement it links. Resolving the id yields the statement, so `task.md` Step 3 runs this on the same resolution as link validity.
+- **Requirement coverage** — every requirement the epic declares is operationalized by ≥1 link across its children: a condition on a task. It is settled in two halves, neither here: `decompose.md` assigns each of the epic's requirement IDs to the child that will carry it, and the create ref confirms that child wrote a link for every ID it was assigned. Coverage then holds by construction — no pass re-checks it across the children afterward.
 
-`Satisfies` stays optional per AC: an AC may be implied quality with no backing requirement. What this ref enforces is shape (V7); the three relations above hold upstream.
+The link stays optional per condition: a condition may be implied quality with no backing requirement. What this ref enforces is shape (V4); the three relations above hold upstream.
 
-This section is the single home for what the `Satisfies` link means and who settles it. A ref that writes one states its own half and never restates the relation.
+This section is the single home for what the requirement link means and who settles it. A ref that writes one states its own half and never restates the relation.
 
 ## Read-path tolerance
 
 Read paths do not invoke this ref:
 
-- `fetch_artifact` from the tracker -- a story fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry AC in any shape; the implementation consumer decides how to handle it.
+- `fetch_artifact` from the tracker -- a task fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry conditions in any shape; the consumer decides how to handle it.
 - Status and overview reads -- no body inspection.
 
-Edits that do not change AC text skip validation (see `story.md`'s edit branch) — validation fires on the write path, when AC text changed, never on the read that precedes it.
+Edits that do not change a condition skip validation (see `task.md`'s edit branch) — validation fires on the write path, when a condition changed, never on the read that precedes it.
 
 ## Guidelines
 
 **DO:**
-- Parse the AC section with whitespace-tolerant matching so tracker normalization does not break the validator
-- Surface every failure with AC id, rule name, and a concrete suggested fix
+- Parse the section with whitespace-tolerant matching so tracker normalization does not break the validator
+- Surface every failure with the condition number, rule name, and a concrete suggested fix
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
 **DON'T:**
-- Invent AC content for the user (contrasts: surface failures, let the user fix)
-- Validate on a `fetch_artifact` read (contrasts: validate only on create and AC-text-changing edits)
-- Judge a bound in a Then here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
-- Embed validation logic in `story.md` (contrasts: this ref is the single home; story.md loads it on create and edit)
+- Invent a condition for the user (contrasts: surface failures, let the user fix)
+- Validate on a `fetch_artifact` read (contrasts: validate only on create and condition-changing edits)
+- Judge a bound in a condition here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
+- Embed validation logic in `task.md` (contrasts: this ref is the single home; task.md loads it on create and edit)
 
 ## Error Handling
 
-- AC section missing entirely: V1 fires; ask the user to add at least one `### AC-N` block.
-- Block has heading but no Gherkin block, or a block that opens with no `Scenario` line: V2 fires.
-- `Scenario Outline` written with no `Examples` table: V2 fires; add the table or rewrite it as a plain `Scenario`.
-- User explicitly wants a second standalone `Given` or `Then` keyword inside one AC: still rejected — route them to use `And`/`But` continuations or split the AC.
-- Tracker body returns malformed markdown (Linear collapsed list items): widen the parser regex tolerance; if still unparseable, route to manual fix in the tracker UI.
+- Section missing entirely: V1 fires; ask the user to add at least one condition.
+- Text under the heading before the first checklist line: V2 fires.
+- Tracker body returns malformed markdown (Linear collapsed list items): widen the parser tolerance; if still unparseable, route to manual fix in the tracker UI.
 
 ## Outcomes
 
-- On pass: caller proceeds to dispatch — the create flow pushes the new story, the edit flow writes the update.
+- On pass: caller proceeds to dispatch — the create flow pushes the new task, the edit flow writes the update.
 - On fail: caller loops back to review with the structured error visible to the user.
-- Block shape is a stable contract: each `### AC-N` is `id` + one fenced ```` ```gherkin ```` block with one `Scenario` or `Scenario Outline`, plus an optional `**Satisfies**` line. Keep the shape stable so any downstream consumer that parses these blocks does not break.

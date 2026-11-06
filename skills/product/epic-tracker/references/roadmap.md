@@ -56,7 +56,7 @@ sources:
 | --- | --- |
 | {{condition the release must meet}} | {{check that proves it}} |
 
-MUST NOT contain, in any entry: deadlines or dates, per-story detail, section numbers, `ADR-NNN`, or implementation specifics. The frontmatter's `updated` is the only permitted date. Inside an entry, requirement IDs appear only in the `Requirements` field and dependencies only in the `Blocked by` field. The Definition of Done may cite requirement IDs, and carries no dates, section numbers, or `ADR-NNN`. Tags are short signals only; they never replace the outcome description or introduce scheduling.
+MUST NOT contain, in any entry: deadlines or dates, per-task detail, section numbers, `ADR-NNN`, or implementation specifics. The frontmatter's `updated` is the only permitted date. Inside an entry, requirement IDs appear only in the `Requirements` field and dependencies only in the `Blocked by` field. The Definition of Done may cite requirement IDs, and carries no dates, section numbers, or `ADR-NNN`. Tags are short signals only; they never replace the outcome description or introduce scheduling.
 ````
 
 ## Guidelines

@@ -1,23 +1,23 @@
 # Epic Tracker
 
-Manages the delivery lifecycle from roadmap and epic planning through story tracking, in an external tracker.
+Manages the delivery lifecycle from roadmap and epic planning through task tracking, in an external tracker.
 
 ## What It Does
 
 ```mermaid
 flowchart TD
     USER[User request] --> EP[epic.md]
-    USER --> STK[story.md]
+    USER --> STK[task.md]
     USER --> BG[bug.md]
     PRD[docs/product/PRD.md] -->|project planning| DEC[decompose:<br>ICE framework, order, partition, deps]
-    FPRD[feature PRD/design doc] -->|feature source| FT[feature:<br>size into epic or story]
+    FPRD[feature PRD/design doc] -->|feature source| FT[feature:<br>size into epic or task]
     FT -->|epic| EP
-    FT -->|standalone story| STK
+    FT -->|standalone task| STK
     DEC -->|when asked| RW[roadmap.md]
     RW -->|writes| RM[(docs/product/ROADMAP.md)]
     DEC -->|each epic| EP
     RM -.reads its entry.-> EP
-    DEC -->|epic → stories| STK
+    DEC -->|epic → tasks| STK
     EP --> SY[Tracker operations]
     STK --> SY
     BG --> SY
@@ -27,28 +27,28 @@ flowchart TD
 
 | Phase | Output |
 | ----- | ------ |
-| Plan | Project PRD only, through `decompose`: the epic set, cut by user outcome and grouped into milestones, shown as a draft in the chat for your approval, then each epic and its stories sent to Draft; the optional `docs/product/ROADMAP.md` is written after that approval when you ask for it |
-| Size | Feature PRD or feature design doc only, through `feature`: the document cut along the epic seams into an epic (two or more units), or a standalone story (one unit); no roadmap is written |
+| Plan | Project PRD only, through `decompose`: the epic set, cut by user outcome and grouped into milestones, shown as a draft in the chat for your approval, then each epic and its tasks sent to Draft; the optional `docs/product/ROADMAP.md` is written after that approval when you ask for it |
+| Size | Feature PRD or feature design doc only, through `feature`: the document cut along the epic seams into an epic (two or more units), or a standalone task (one unit); no roadmap is written |
 | Discover | Epic only: context for the draft, read from the feature PRD or feature design doc, or from the project PRD, PRODUCT, and roadmap entry |
-| Draft | Epic, story, or bug body composed to its canonical template, plus dispatch inputs; a story's acceptance criteria are validated before anything reaches the tracker |
+| Draft | Epic, task, or bug body composed to its canonical template, plus dispatch inputs; a task's acceptance criteria are validated before anything reaches the tracker |
 | Sync | Tracker artifact and URL, created and updated through configured tracker access; the tracker is the single source of truth for state |
 
 ## Usage
 
 ```text
 create a roadmap of epics from the PRD
-break this epic into stories
+break this epic into tasks
 create issues from this feature design doc
 create an epic for the billing redesign
-add a story to the billing epic
-edit the story and update its acceptance criteria
+add a task to the billing epic
+edit the task and update its acceptance criteria
 report a bug with reproduction steps and severity
-create a story to upgrade the CI runner
+create a task to upgrade the CI runner
 list epics and what is in progress
-mark this story done
-cancel this story because it will not be delivered
-move this story to the onboarding epic
-block this story on ENG-42
+mark this task done
+cancel this task because it will not be delivered
+move this task to the onboarding epic
+block this task on ENG-42
 ```
 
 ## Output
@@ -65,9 +65,9 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 
 **Q: Am I asked before every push?** A: No. Operations use the existing configured destination; `decompose` and `feature` wait for your approval of the draft. An explicit destination applies to one artifact without changing saved settings; a child must remain in the same tracker as its parent epic.
 
-**Q: Does every feature design doc or PRD become an epic?** A: No. `feature` cuts the document along the same seams `decompose` uses on the project PRD and counts what falls out. Two or more units make it an epic; one unit is a standalone story. Document length is not a seam, and the sized result is settled with you before anything is created. The project PRD is the exception — it describes the whole product, so it always yields epics.
+**Q: Does every feature design doc or PRD become an epic?** A: No. `feature` cuts the document along the same seams `decompose` uses on the project PRD and counts what falls out. Two or more units make it an epic; one unit is a standalone task. Document length is not a seam, and the sized result is settled with you before anything is created. The project PRD is the exception — it describes the whole product, so it always yields epics.
 
-**Q: Can I create an epic, story, or bug without running decompose?** A: Yes. The create ref drafts your request to the canonical template and pushes to the tracker. It runs no derivation, partition, coverage, or ICE — those belong to `decompose`, which derives the plan from a PRD. Creating directly works whether or not a PRD exists.
+**Q: Can I create an epic, task, or bug without running decompose?** A: Yes. The create ref drafts your request to the canonical template and pushes to the tracker. It runs no derivation, partition, coverage, or ICE — those belong to `decompose`, which derives the plan from a PRD. Creating directly works whether or not a PRD exists.
 
 **Q: Can I plan without creating anything in the tracker?** A: Yes. `decompose` shows the plan as a draft and creates nothing until you approve it. To keep the plan, ask in the chat for only the roadmap: the plan stays in `docs/product/ROADMAP.md` with nothing created. Ask later to create the epics from the roadmap; that request is the authorization, so no second draft is shown.
 
@@ -75,14 +75,14 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 
 **Q: What if someone edits the issue while I'm editing it here?** A: Every write to an existing artifact refetches immediately before it lands. When the tracker moved underneath, the skill surfaces the divergence and asks before overwriting — a teammate's edit is never silently destroyed.
 
-**Q: Can a story or bug exist outside an epic?** A: Yes. Standalone means no parent epic — the artifact is created without an `epic_id`. A standalone story carries no `Satisfies` line, since no epic declares the requirements it would link to.
+**Q: Can a task or bug exist outside an epic?** A: Yes. Standalone means no parent epic — the artifact is created without an `epic_id`. A standalone task carries no requirement link, since no epic declares the requirements it would link to.
 
 **Q: What is the difference between done and cancelled?** A: Both close the artifact. `done` means delivered and `cancelled` means dropped, so work abandoned rather than finished is `cancelled` and the tracker never reports it as shipped. Blocked is not a status; waiting on another artifact is carried by `blocked_by`.
 
-**Q: What happens when I close an epic that still has open children?** A: The skill says how many stories or bugs beneath it are still open and asks before closing. It never closes a child to make the epic's status true.
+**Q: What happens when I close an epic that still has open children?** A: The skill says how many tasks or bugs beneath it are still open and asks before closing. It never closes a child to make the epic's status true.
 
 **Q: Does the skill set priority or estimates for me?** A: No. Priority and estimates travel only when stated, independently of severity, dependencies, scope, and roadmap position. An epic carries no estimate. Unsupported metadata is reported.
 
-**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored in the tracker's native relation; the `## Dependencies` section in the body is a rendering rewritten on every write, so the tracker's relations panel is what is live.
+**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored in the tracker's native relation. An epic or bug body also renders it in a `## Dependencies` section, rewritten on every write; a task body carries no such section. The tracker's relations panel is what is live.
 
-**Q: How are milestones assigned?** A: When `decompose` groups the epics into milestones, each epic takes its settled milestone, reusing an existing one or creating it with no date, and every story and bug under the epic mirrors it. An ungrouped set and a standalone artifact carry none, and a milestone changed by hand is confirmed before it is overwritten.
+**Q: How are milestones assigned?** A: When `decompose` groups the epics into milestones, each epic takes its settled milestone, reusing an existing one or creating it with no date, and every task and bug under the epic mirrors it. An ungrouped set and a standalone artifact carry none, and a milestone changed by hand is confirmed before it is overwritten.
