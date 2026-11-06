@@ -60,7 +60,7 @@ Session and daily notes target different audiences. The split is rigid and gover
 | Refs allowed | project and feature names only | PR `#N`, Issue `#N`, file paths, commands, `file:line` |
 | Refs forbidden | PR/Issue numbers, file paths, shell commands, branch names, commit hashes | branch names, commit hashes |
 
-Both notes carry only references that remain valid after the work ends. Do not include an identifier that belongs to a workspace artifact. The artifact can be deleted and leave the reference without a target. Name the work in prose instead (`Checkout Refactor`).
+Both notes carry only references that remain valid after the work ends. Do not include a branch name, a commit hash, or a path under `.artifacts/`: each names a workspace artifact that can be deleted and leave the reference without a target. Name the work in prose instead (`Checkout Refactor`).
 
 ## Subject Matter
 
@@ -166,7 +166,7 @@ tags:
 - part_of [[Project]]
 ```
 
-MUST NOT contain: branch names, commit hashes, identifiers of workspace artifacts, session mechanics, self-correction, the exchange behind a decision.
+MUST NOT contain: branch names, commit hashes, paths under `.artifacts/`, session mechanics, self-correction, the exchange behind a decision.
 
 Section presence:
 - `## Summary` always present
@@ -182,7 +182,7 @@ When the handoff Load phase provides content, include it before composing the no
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
 - `**Open threads:**` and the work still remaining in `**Current state:**` → `## Next` bullets, preserving the concrete entry point
 - `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
-- `**Context:**`, the completed work in `**Current state:**`, and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
+- `**Context:**`, the completed work in `**Current state:**` (never the checks run and their results), and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
 
 #### Write
 
