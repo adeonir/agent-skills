@@ -48,11 +48,13 @@ Progress:
 6. If found, summarize what was extracted and confirm with user
 7. When the reads leave gaps, interview to close them — never a cold questionnaire. Lead with your read and let the user confirm or redirect; where the codebase or docs answer a question, state what you found rather than asking. Every turn carries a recommendation — an interpretation with its redirect invite when you have signal, or a question paired with your recommended answer when you do not. Three unknowns anchor the epic: the problem it solves, who benefits, and what changes for the user when it ships. Resolve them through the interview, not as a fixed list. When the user provides vague context, ask clarifying questions; do not assume.
 
+Fed by `plan-epics.md`, the approved set or the request to materialize is the confirmation: items 6 and 7 do not run, and a gap goes to `## Open Questions`.
+
 One upstream token crosses into the epic intact, as backward provenance: project-PRD requirements this epic owns are recorded in `## Requirements` as `ID — statement` (`FR/NFR`), never in prose. A feature PRD or feature design doc may have no enumerated requirements; omit `## Requirements` in that case. `ADR-NNN` is a decision dependency, not an owned requirement — it stays out of `## Requirements` and travels in References when the epic depends on one.
 
 **Translate the form, never the norm.** A requirement statement is the thing that has to hold, so translating it is rewriting a rule. Strip only the framing — section numbers, doc-internal codes, PRD voice. Keep the modal (`must`, `should`), the actor, the object, and every bound the PRD states (a timing, a count, a threshold) exactly as strong as they are there. A statement that lands looser or stricter than the PRD's is a mistranslation, not a rewording: restate it. When the requirement cannot be phrased in the epic's language without changing what it demands, keep the PRD's wording verbatim.
 
-Done when the three anchoring unknowns are answered and the requirement set, if any, is settled.
+Done when the three anchoring unknowns are answered, or recorded as open questions on a run fed by `plan-epics.md`, and the requirement set, if any, is settled.
 
 **Step 2. Draft.** Read [epic.md](../assets/epic.md) and fill its template with the discovered context.
 

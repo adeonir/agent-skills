@@ -46,7 +46,15 @@ Progress:
 
 **Step 3. Assign the requirements.** Assign every requirement ID the epic owns to at least one task candidate — the task that will operationalize it. A spike's conditions carry no requirement link, so a spike takes no ID. A quality target, typically an `NFR`, lands on the task whose outcome it bounds, or on a task of its own when none does. Unlike the partition across epics, an ID may land on more than one: two tasks can each operationalize part of the same requirement. An ID no candidate can carry is flagged here, and the user adds a child to carry it or confirms the omission. `ADR-NNN` is a decision dependency, not a requirement — it is not assigned.
 
-The candidates have no acceptance criteria yet; `create-task.md` writes them at Step 6. So this instruction assigns, and never inspects a requirement link. The assignment travels with each child's dispatch, and the create instruction confirms that child wrote the links it was assigned — coverage then holds by construction, and is never re-checked once the children exist. Done when every ID sits on a task candidate or its omission is confirmed.
+The candidates have no acceptance criteria yet; `create-task.md` writes them at Step 6. So this instruction assigns, and never inspects a requirement link. The assignment travels with each child's dispatch, and the create instruction confirms that child wrote the links it was assigned — coverage then holds by construction, and is never re-checked once the children exist.
+
+Check the assignment. Resolve `<this-skill>` to the directory the `SKILL.md` was read from, and pass `{"assignments": {"<task candidate>": ["FR-1"]}, "omitted": ["FR-9"]}` on stdin, where `omitted` lists only the IDs whose omission the user confirmed:
+
+```bash
+python3 <this-skill>/scripts/check_requirements.py --ids "<the epic's requirement IDs>" --allow-repeat
+```
+
+Resolve each `ORPHAN` and `UNKNOWN` line it prints, and run it again. Done when the script exits 0.
 
 **Step 4. Granularity gate.** Before creating, split any candidate that spans multiple unrelated domains or cannot state a single outcome. Both are judgeable on the candidate's own boundary line, which is all that exists at this point. Respect the user's decision to keep one whole. Done when every candidate passes the gate or the user kept it whole.
 

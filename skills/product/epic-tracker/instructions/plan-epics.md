@@ -72,7 +72,15 @@ Progress:
 
 **Step 2. Evaluate and order.** Read [ice-scoring.md](../references/ice-scoring.md) and score the candidates. Order the set: **flow-dependency is primary and bounds the sequence** — an epic never precedes one it depends on — and **ICE decides within that bound**, breaking ties among unblocked peers. The PRD's order of requirements is a claim, not authority: where the ICE order disagrees with it, keep the ICE order and state the disagreement and its reason at Step 6. Done when the set has one order.
 
-**Step 3. Partition the requirements.** Assign every in-scope PRD requirement ID (`FR/NFR`) to **exactly one** epic: no orphans (every ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `create-epic.md` when it drafts the epic body. Done when every in-scope ID sits on one epic or its omission is confirmed.
+**Step 3. Partition the requirements.** Assign every in-scope PRD requirement ID (`FR/NFR`) to **exactly one** epic: no orphans (every ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `create-epic.md` when it drafts the epic body.
+
+Check the partition. Resolve `<this-skill>` to the directory the `SKILL.md` was read from, and pass `{"assignments": {"<epic title>": ["FR-1"]}, "omitted": ["FR-9"]}` on stdin, where `omitted` lists only the IDs whose omission the user confirmed:
+
+```bash
+python3 <this-skill>/scripts/check_requirements.py --source docs/product/PRD.md
+```
+
+Resolve each `ORPHAN`, `DUPLICATE`, and `UNKNOWN` line it prints, and run it again. Done when the script exits 0.
 
 **Step 4. Decide the dependencies.** Set each epic's `blocked_by` — the epics that must finish before it can start. These are the hard edges the ordering respects; they are recorded per entry so a re-run reads them back instead of re-deriving. Done when each epic has its `blocked_by`, or none.
 

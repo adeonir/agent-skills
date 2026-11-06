@@ -70,6 +70,7 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 ## Requirements
 
 - **Required:** a configured tracker destination and access capable of the requested operations. Without those prerequisites, no tracker artifact can be created.
+- **Required:** `python3` for the bundled condition and requirement checks. Standard library only.
 
 ## FAQ
 

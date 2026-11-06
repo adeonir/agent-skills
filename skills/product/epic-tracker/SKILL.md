@@ -1,6 +1,6 @@
 ---
 name: epic-tracker
-description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, tasks, spikes, or bugs, including sizing an explicit feature PRD or feature design doc into an epic, a task, a spike, or a bug. Not for implementing a named task, feature documents, project overviews, or quick fixes."
+description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or closing roadmaps, epics, tasks, spikes, or bugs as tracker issues, listing what is in progress, setting blockers, or sizing an existing feature document into those issues. Not for implementing a named task, tracker setup, writing feature documents, project overviews, or quick fixes."
 ---
 
 # Epic Tracker
@@ -33,6 +33,8 @@ Manages the delivery lifecycle in Linear or GitHub: plans epics, tracks tasks an
 - [spike.md](assets/spike.md) — written by the create spike instruction, conformed by the edit artifact instruction
 - [bug.md](assets/bug.md) — written by the report bug instruction, conformed by the edit artifact instruction
 - [roadmap.md](assets/roadmap.md) — written by the plan epics instruction, read by the create epic instruction
+- [validate_conditions.py](scripts/validate_conditions.py) — run through `ac-validation.md`
+- [check_requirements.py](scripts/check_requirements.py) — run by the plan epics and break down epic instructions
 
 ## Workflow
 

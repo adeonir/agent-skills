@@ -45,22 +45,23 @@ Rules:
 
 ## Workflow
 
-### 1. Parse
+### 1. Run the validator
 
-Extract the conditions from the Task, Spike, or Bug body:
+Resolve `<this-skill>` to the directory the `SKILL.md` was read from. Pass the whole body on stdin through a quoted heredoc, so the shell expands nothing in it:
 
-- Find the `## Acceptance Criteria` heading, or `## Exit Criteria` on a spike.
-- Read until the next `## ` heading or end of document.
-- Inside that section, every line opening with a checklist marker begins a new condition. A following line that opens with no marker continues the condition above it.
-- Split the requirement link off each condition at its last spaced dash (`—`, `–`, or `-`) when the text after that dash begins with `FR` or `NFR`. A dash followed by anything else is prose and stays in the condition text. Text after the dash that is not exactly one well-formed id is a malformed link, and rule V4 reports it.
+```bash
+python3 <this-skill>/scripts/validate_conditions.py --type <task|spike|bug>
+```
 
-Tolerate tracker normalization: trailing whitespace, blank lines between items, `*` for `-`, a checked box `[x]` for `[ ]`, escaped brackets, and items rewrapped across lines. Linear occasionally reflows paragraphs; the parser must not break on these.
+The script reads the section under `## Acceptance Criteria`, or `## Exit Criteria` on a spike, up to the next `## ` heading. Every line opening with a checklist marker begins a new condition, and a following line with no marker continues it. It splits the requirement link off at the last spaced dash (`—`, `–`, or `-`) when the text after that dash begins with `FR` or `NFR`; a dash followed by anything else is prose and stays in the condition text.
 
-Output a list of `{n, text, link}` tuples plus any malformed lines. `n` is the condition's position, 1-based; `link` is null when absent.
+It tolerates tracker normalization: trailing whitespace, blank lines between items, `*` for `-`, a checked box `[x]` for `[ ]`, escaped brackets, and items rewrapped across lines.
 
-### 2. Validate
+On a pass it exits 0 and prints each condition's number and link. On a failure it exits 1 and prints one error per failed rule.
 
-Run V1-V4 against the parsed tuples and the raw section text. Every rule is strict.
+### 2. The rules
+
+The script enforces V1-V4 against the parsed conditions and the raw section text. Every rule is strict.
 
 | # | Rule | Trigger |
 |---|------|---------|
@@ -117,7 +118,7 @@ Edits that do not change a condition skip validation (see `edit-artifact.md`) �
 ## Guidelines
 
 **DO:**
-- Parse the section with whitespace-tolerant matching so tracker normalization does not break the validator
+- Run the script rather than judging a rule by reading the conditions
 - Surface every failure with the condition number, rule name, and a concrete suggested fix
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
@@ -131,7 +132,7 @@ Edits that do not change a condition skip validation (see `edit-artifact.md`) �
 
 - Section missing entirely: V1 fires; ask the user to add at least one condition.
 - Text under the heading before the first checklist line: V2 fires.
-- Tracker body returns malformed markdown (Linear collapsed list items): widen the parser tolerance; if still unparseable, route to manual fix in the tracker UI.
+- The script reports V1 on a body that visibly holds conditions (Linear collapsed list items): route to manual fix in the tracker UI.
 
 ## Outcomes
 
