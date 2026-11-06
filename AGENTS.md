@@ -19,7 +19,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
 | `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents with lookup allowed, parallel subagents only for an orchestrator |
-| `.agents/rules/skill-templates` | `skills/**` | inline 1:1, no `templates/` folder, marked strict or flexible |
+| `.agents/rules/skill-templates` | `skills/**` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
