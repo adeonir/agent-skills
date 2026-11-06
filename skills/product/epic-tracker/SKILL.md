@@ -1,11 +1,11 @@
 ---
 name: epic-tracker
-description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, tasks, or bugs, including sizing an explicit feature PRD or feature design doc into an epic or a standalone task. Not for implementing a named task, feature documents, project overviews, or quick fixes."
+description: "Roadmap and delivery artifact management in Linear or GitHub. Use when creating, editing, decomposing, moving, or updating roadmaps, epics, tasks, spikes, or bugs, including sizing an explicit feature PRD or feature design doc into an epic or a standalone task. Not for implementing a named task, feature documents, project overviews, or quick fixes."
 ---
 
 # Epic Tracker
 
-Manages the delivery lifecycle in an external tracker. Plan epics, track tasks, and report bugs — every artifact lives in Linear or GitHub, which is the single source of truth.
+Manages the delivery lifecycle in an external tracker. Plan epics, track tasks and spikes, and report bugs — every artifact lives in Linear or GitHub, which is the single source of truth.
 
 ## Triggers
 
@@ -13,6 +13,7 @@ Manages the delivery lifecycle in an external tracker. Plan epics, track tasks, 
 - **Plan / decompose** ("create roadmap", "plan the roadmap", "organize epics", "roadmap the PRD", "decompose", "break down the roadmap", "break this epic into tasks", "create the epics from the roadmap") → [decompose.md](instructions/decompose.md)
 - **Epic** ("create epic", "new epic", "edit epic") → [epic.md](instructions/epic.md)
 - **Task** ("create task", "new task", "add task", "edit task", "update task", "change task", "create story", "create chore") → [task.md](instructions/task.md)
+- **Spike** ("create spike", "new spike", "add spike", "edit spike", "update spike", "change spike") → [spike.md](instructions/spike.md)
 - **Bug** ("create bug", "report bug", "bug report", "edit bug") → [bug.md](instructions/bug.md)
 - **Status / overview** ("mark done", "cancel this", "won't fix", "list epics", "what's in progress", "update status") → [sync.md](instructions/sync.md)
 - **Reparent** ("move this to epic X", "reparent this task", "change the parent epic") → [sync.md](instructions/sync.md)

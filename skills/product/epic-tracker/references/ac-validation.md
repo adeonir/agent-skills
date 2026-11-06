@@ -1,18 +1,18 @@
 # AC Validation
 
-Enforce the acceptance criteria checklist on Task create and on edits that change a condition. Each condition is one checklist line, optionally ending with one requirement link. A well-formed line keeps each condition testable and parseable; a malformed one is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes a condition carries is settled while it is drafted, and what it promises is measured against the requirement it links, upstream, where the epic is in hand.
+Enforce the checklist of conditions on Task and Spike create and on edits that change a condition. Each condition is one checklist line, optionally ending with one requirement link. A well-formed line keeps each condition testable and parseable; a malformed one is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes a condition carries is settled while it is drafted, and what it promises is measured against the requirement it links, upstream, where the epic is in hand.
 
 ## When to Use
 
-- Auto-loaded by `task.md` (Step 3 Validate, before the task is dispatched)
-- Auto-loaded by `task.md`'s edit branch when an edit changes a condition
+- Auto-loaded by `task.md` and `spike.md` (Step 3 Validate, before the artifact is dispatched)
+- Auto-loaded by the edit branch of `task.md` and `spike.md` when an edit changes a condition
 - Not a direct trigger
 
-This ref is the single home for the condition contract. Do not duplicate the rules in `task.md` -- its create and edit paths load this ref at the validation step.
+This ref is the single home for the condition contract. Do not duplicate the rules in `task.md` or `spike.md` -- their create and edit paths load this ref at the validation step.
 
 ## Condition Schema
 
-Each condition is a checklist line under `## Acceptance Criteria`: `- [ ]`, then the condition, then an optional requirement link — ` — ` followed by one `FR/NFR` id.
+Each condition is a checklist line under `## Acceptance Criteria` (`## Exit Criteria` on a spike): `- [ ]`, then the condition, then an optional requirement link — ` — ` followed by one `FR/NFR` id.
 
 ````markdown
 ## Acceptance Criteria
@@ -28,6 +28,7 @@ Rules:
 - The line starts with `- [ ]`.
 - The condition text is non-empty.
 - The requirement link is optional; when present it is the final element of the line and names exactly one id matching `FR/NFR-<n>` — a single id, never a list.
+- A spike's conditions carry no requirement link.
 - No two conditions share the same text once their requirement links are removed.
 - Keep this shape stable; the link is parsed from the end of the line.
 
@@ -35,9 +36,9 @@ Rules:
 
 ### 1. Parse
 
-Extract the conditions from the Task body:
+Extract the conditions from the Task or Spike body:
 
-- Find the `## Acceptance Criteria` heading.
+- Find the `## Acceptance Criteria` heading, or `## Exit Criteria` on a spike.
 - Read until the next `## ` heading or end of document.
 - Inside that section, every line opening with a checklist marker begins a new condition. A following line that opens with no marker continues the condition above it.
 - Split the requirement link off each condition at its last spaced dash (`—`, `–`, or `-`) when the text after that dash begins with `FR` or `NFR`. A dash followed by anything else is prose and stays in the condition text. Text after the dash that is not exactly one well-formed id is a malformed link, and rule V4 reports it.
@@ -52,10 +53,10 @@ Run V1-V4 against the parsed tuples and the raw section text. Every rule is stri
 
 | # | Rule | Trigger |
 |---|------|---------|
-| V1 | Task has at least one condition | parse yields zero checklist lines |
+| V1 | The artifact has at least one condition | parse yields zero checklist lines |
 | V2 | Each condition has text | a checklist line with no text after the marker, or text under the heading before the first checklist line |
 | V3 | No duplicate condition | two conditions with identical normalized text, requirement link excluded |
-| V4 | The requirement link is one well-formed id | a spaced dash followed by `FR` or `NFR` is present but its value is not exactly one `FR/NFR-<n>` id (a list, or malformed) |
+| V4 | The requirement link is one well-formed id | a spaced dash followed by `FR` or `NFR` is present but its value is not exactly one `FR/NFR-<n>` id (a list, or malformed), or a spike condition carries any requirement link |
 
 What a condition asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the condition links, and this ref holds the id, never the epic that carries the statement. See Requirement linkage below.
 
@@ -70,7 +71,7 @@ Condition {n} fails {V#}: {reason}. {suggested fix}.
 Examples:
 
 ```text
-Task fails V1: no checklist lines under Acceptance Criteria. Add at least one `- [ ]` condition.
+Artifact fails V1: no checklist lines under the criteria heading. Add at least one `- [ ]` condition.
 
 Condition 2 fails V2: empty condition. Write the condition after the marker, or remove the line.
 
@@ -79,7 +80,7 @@ Condition 3 fails V3: duplicate of condition 1. Remove or differentiate one of t
 Condition 1 fails V4: link "FR-3, FR-4" names two ids. Name exactly one requirement per condition; split the condition if it operationalizes two.
 ```
 
-If any rule fails: do not dispatch. The caller (`task.md` Step 3 or its edit branch) loops back to Draft until the user fixes the conditions.
+If any rule fails: do not dispatch. The caller (Step 3 of `task.md` or `spike.md`, or an edit branch) loops back to Draft until the user fixes the conditions.
 
 ## Requirement linkage
 
@@ -97,10 +98,10 @@ This section is the single home for what the requirement link means and who sett
 
 Read paths do not invoke this ref:
 
-- `fetch_artifact` from the tracker -- a task fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry conditions in any shape; the consumer decides how to handle it.
+- `fetch_artifact` from the tracker -- a task or spike fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry conditions in any shape; the consumer decides how to handle it.
 - Status and overview reads -- no body inspection.
 
-Edits that do not change a condition skip validation (see `task.md`'s edit branch) — validation fires on the write path, when a condition changed, never on the read that precedes it.
+Edits that do not change a condition skip validation (see the edit branch of `task.md` and `spike.md`) — validation fires on the write path, when a condition changed, never on the read that precedes it.
 
 ## Guidelines
 
@@ -113,7 +114,7 @@ Edits that do not change a condition skip validation (see `task.md`'s edit branc
 - Invent a condition for the user (contrasts: surface failures, let the user fix)
 - Validate on a `fetch_artifact` read (contrasts: validate only on create and condition-changing edits)
 - Judge a bound in a condition here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
-- Embed validation logic in `task.md` (contrasts: this ref is the single home; task.md loads it on create and edit)
+- Embed validation logic in `task.md` or `spike.md` (contrasts: this ref is the single home; both load it on create and edit)
 
 ## Error Handling
 
@@ -123,5 +124,5 @@ Edits that do not change a condition skip validation (see `task.md`'s edit branc
 
 ## Outcomes
 
-- On pass: caller proceeds to dispatch — the create flow pushes the new task, the edit flow writes the update.
+- On pass: caller proceeds to dispatch — the create flow pushes the new artifact, the edit flow writes the update.
 - On fail: caller loops back to review with the structured error visible to the user.

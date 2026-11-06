@@ -38,7 +38,7 @@ Honor a destination explicitly supplied for one artifact without changing saved 
 
 ## Resolving the Parent Epic
 
-A task or bug may carry an `epic_id`. It comes from one of two places:
+A task, spike, or bug may carry an `epic_id`. It comes from one of two places:
 
 1. **The user names it** — a tracker id or URL in the request. Extract the id from a URL; never resolve it through local files.
 2. **A listing** — resolve the tracker (see Resolve the Tracker), then call `list_artifacts` filtered to epics, present them, and let the user pick. Use this when the request names an epic by title, or names none at all.
@@ -54,7 +54,7 @@ The artifact body — including `## References`, and `## Dependencies` and `## S
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Resolve the tracker (see Resolve the Tracker), unless this run already did.
 3. Check for a duplicate: `list_artifacts` filtered to the artifact's type — and to the parent epic when the draft carries an `epic_id` — and compare the draft's title against the listing. On a match (exact or near-identical), surface the existing artifact and ask whether to edit that one or create a distinct artifact; proceed only on confirmation. A run that already listed the children (decompose) reuses that listing instead of calling again.
-4. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone task or bug (no `epic_id`) passes none.
+4. When the artifact carries an `epic_id`, resolve its milestone first — `fetch_artifact` on the parent epic (or reuse the epic already read this run) — and pass the milestone it carries as the child's `milestone` input, so the child groups under the same milestone as the epic. A standalone task, spike, or bug (no `epic_id`) passes none.
 5. Execute the matching generic create operation with the prepared body and structured fields, using the configured tracker access.
 6. On success: when the artifact declares `blocked_by`, call `set_dependencies` (see Dependencies). When the create carves this artifact out of one that already exists, that artifact's dependency on the new one is written onto it, not here (see Dependencies).
 7. On failure, retain the draft and report the error and any issue already created. After an unknown write outcome, read tracker state before retrying; never create a duplicate to repair an incomplete relation.
@@ -66,10 +66,10 @@ An artifact already in the tracker is edited through its create ref's edit branc
 **Refetch immediately before every write.** This applies to a body edit and to a status change alike.
 
 1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is the read the create ref's edit branch already ran to load the artifact — one read, not two. It writes nothing.
-2. Apply the edit. For a task, the create ref re-validates the conditions when their text changed (see [ac-validation.md](ac-validation.md)).
+2. Apply the edit. For a task or spike, the create ref re-validates the conditions when their text changed (see [ac-validation.md](ac-validation.md)).
 3. **`fetch_artifact` again, immediately before writing.** Compare `updated_at` with what step 1 returned — that marker, not the body. A tracker reflows what it stores, so a body that differs byte for byte says nothing about whether a person touched it, and comparing bodies would raise the guard on every write.
 4. When the marker moved, someone wrote in between. Read what they changed by diffing the two bodies field by field, and **re-apply this edit onto the body that came back**, not the one drafted against the stale read. A change that touches nothing this edit touches merges silently and is reported to the user; where both touched the same field, the user chooses which stands. Never write the drafted body over theirs.
-5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task, run the condition contract again over the merged result (see [ac-validation.md](ac-validation.md)); a failure routes back to the user with both versions in hand.
+5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task or spike, run the condition contract again over the merged result (see [ac-validation.md](ac-validation.md)); a failure routes back to the user with both versions in hand.
 6. Execute `update_artifact` with the validated body and changed fields.
 7. When `blocked_by` changed, call `set_dependencies` with the full list (see Dependencies).
 
@@ -89,7 +89,7 @@ Dependencies travel as structured `blocked_by` metadata. Resolve URLs to tracker
 
 ### The body renders them too
 
-An epic or bug body renders the relation; a task body does not. A task's dependencies live in the relation alone, so every dependency write on a task is `set_dependencies` with no body update, and the rest of this section applies to epics and bugs.
+An epic or bug body renders the relation; a task or spike body does not. A task's or spike's dependencies live in the relation alone, so every dependency write on a task or spike is `set_dependencies` with no body update, and the rest of this section applies to epics and bugs.
 
 The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
 
@@ -116,7 +116,7 @@ If a referenced blocker does not exist, skip it with a warning and report the om
 
 ## Priority
 
-Any epic, task, or bug can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug. This section is the single home for that split; `bug.md` owns how a severity is chosen, and states nothing else about the difference.
+Any epic, task, spike, or bug can carry a `priority` — `urgent`, `high`, `medium`, or `low`. It is orthogonal to every other field: severity states how badly a defect breaks the product for whoever hits it, priority states what to pick up next, and the two are set independently on the same bug. This section is the single home for that split; `bug.md` owns how a severity is chosen, and states nothing else about the difference.
 
 Priority travels as a structured input on create and on `update_artifact`, never as body prose. Report an unsupported field rather than silently dropping the requested value.
 
@@ -126,7 +126,7 @@ Priority is per-artifact and does not cascade: a child does not inherit its epic
 
 ## Estimate
 
-A task or bug can carry an `estimate` — a number, in whatever unit the tracker is already configured for. It travels as a dispatch input on create and on `update_artifact`, never as body prose.
+A task, spike, or bug can carry an `estimate` — a number, in whatever unit the tracker is already configured for. It travels as a dispatch input on create and on `update_artifact`, never as body prose.
 
 **An epic never carries one.** Its size is the sum of its children, which both trackers roll up; a number on the epic as well is a second answer to the same question, and reports add the two together.
 
@@ -142,6 +142,7 @@ Use these generic operations for delivery work through the configured tracker ac
 | --------- | ------ | ------ |
 | `create_epic` | title, body, milestone (optional), priority (optional) | tracker id + url |
 | `create_task` | epic_id (optional), title, body, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
+| `create_spike` | epic_id (optional), title, body, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
 | `create_bug` | epic_id (optional), title, body, severity, milestone (optional), priority (optional), estimate (optional) | tracker id + url |
 | `update_artifact` | tracker_id, title, body, severity (bugs), priority (optional), estimate (optional) | success |
 | `update_status` | tracker_id, new_status | success |
@@ -151,17 +152,17 @@ Use these generic operations for delivery work through the configured tracker ac
 | `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, updated_at, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
-Acceptance criteria and repro steps travel inside `body`; a task's checklist lines travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on all three types (see Priority).
+Acceptance criteria and repro steps travel inside `body`; a task's or spike's checklist lines travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on every type (see Priority).
 
 Create delivery artifacts in `planned`; verify the resulting status and apply `update_status` when the service default differs.
 
 `set_parent` moves an artifact under a different epic; its milestone then follows the new epic (see Reparent).
 
-`epic_id` is optional on `create_task` and `create_bug` alike: each may sit under an epic or stand alone — standalone means *no `epic_id`*, not a location. Only `create_epic` never takes one. The create ref settles the parent with the user before dispatching (see Resolving the Parent Epic); a missing `epic_id` here means standalone was chosen, never that the question went unasked.
+`epic_id` is optional on `create_task`, `create_spike`, and `create_bug` alike: each may sit under an epic or stand alone — standalone means *no `epic_id`*, not a location. Only `create_epic` never takes one. The create ref settles the parent with the user before dispatching (see Resolving the Parent Epic); a missing `epic_id` here means standalone was chosen, never that the question went unasked.
 
 Artifact type and severity are structured delivery metadata, not body fields.
 
-`milestone` is a property of the epic's subtree. Its name is derived only by `decompose.md` — never hand-typed. The epic receives it on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone task or bug — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; reuse an existing milestone by that name or create one without a date. An explicit none clears the association; an omitted value leaves it unchanged. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the milestone.
+`milestone` is a property of the epic's subtree. Its name is derived only by `decompose.md` — never hand-typed. The epic receives it on `create_epic`; every child mirrors its parent epic's current milestone, so a whole epic groups under one milestone in the tracker. A standalone task, spike, or bug — one with no `epic_id` — carries none. Like a label it is orthogonal metadata on the Issue, never body prose and never part of the hierarchy; reuse an existing milestone by that name or create one without a date. An explicit none clears the association; an omitted value leaves it unchanged. `set_milestone` reconciles an Issue's milestone under the same refetch guard as any other write. The epic body still never names the roadmap; only this metadata carries the milestone.
 
 Status is `planned`, `in-progress`, `done`, or `cancelled`; use these delivery meanings consistently when reading and writing state. Dropped work is `cancelled`, never `done`.
 

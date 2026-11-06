@@ -51,7 +51,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[design-md-builder](skills/product/design-md-builder)** | Visual identity — explore a direction, assess or evolve an existing one, and author `DESIGN.md` |
 | **[docs-writer](skills/product/docs-writer)** | Structured docs: PRD and Design Doc for a project or a feature, plus ADR |
 | **[domain-modeling](skills/product/domain-modeling)** | Canonical domain vocabulary kept in `GLOSSARY.md`: challenge, sharpen, and record terms as they resolve |
-| **[epic-tracker](skills/product/epic-tracker)** | Epics, tasks, and bugs — tracked in Linear or GitHub |
+| **[epic-tracker](skills/product/epic-tracker)** | Epics, tasks, spikes, and bugs — tracked in Linear or GitHub |
 | **[research](skills/product/research)** | Sourced evidence on a product or code question: findings, implications, unknowns, and open questions in `.artifacts/research/` |
 | **[storytelling](skills/product/storytelling)** | Story and experience direction for a site: thesis, tension, arc, pacing, and the role of interaction and movement in `storytelling.md` |
 

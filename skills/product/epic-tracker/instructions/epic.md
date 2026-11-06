@@ -104,9 +104,9 @@ Creating an epic runs the flow above; editing one runs this branch. It changes t
 **DON'T:**
 - Include implementation details (criteria stay implementation-agnostic)
 - Carry `§3.7` section numbers, sibling names, or doc-internal codes into the epic prose — translate to plain language (requirements are the exception: `ID — statement` goes in `## Requirements`)
-- List the epic's children in the body — tasks or bugs alike (contrasts: the tracker's child panel owns hierarchy; materialize them via decompose)
+- List the epic's children in the body — tasks, spikes, or bugs alike (contrasts: the tracker's child panel owns hierarchy; materialize them via decompose)
 - Skip discover (run discover first regardless of provided context)
-- Give the epic an estimate — its size is the roll-up of its children, and a number here is a second answer reports add to that one (contrasts: a task or bug carries its own)
+- Give the epic an estimate — its size is the roll-up of its children, and a number here is a second answer reports add to that one (contrasts: a task, spike, or bug carries its own)
 - Reference the roadmap in the epic body
 
 ## Template
@@ -195,7 +195,7 @@ translated facts it needs.}
 - **Design Doc:** {{link}}
 - **UI Design:** {{link}}
 
-MUST NOT contain: a child task list, roadmap references, or sibling epic names.
+MUST NOT contain: a child list, roadmap references, or sibling epic names.
 ````
 
 ## Error Handling
