@@ -86,6 +86,6 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 
 **Q: Does the skill set priority or estimates for me?** A: No. Priority and estimates travel only when stated, independently of severity, dependencies, scope, and roadmap position. An epic carries no estimate. Unsupported metadata is reported.
 
-**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored in the tracker's native relation. An epic body also renders it in a `## Dependencies` section, rewritten on every write; a task, spike, or bug body carries no such section. The tracker's relations panel is what is live.
+**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored, in the tracker's native relation, and no artifact body carries a copy of it, so the tracker's relations panel is what is live.
 
 **Q: How are milestones assigned?** A: When `decompose` groups the epics into milestones, each epic takes its settled milestone, reusing an existing one or creating it with no date, and every task, spike, and bug under the epic mirrors it. An ungrouped set and a standalone artifact carry none, and a milestone changed by hand is confirmed before it is overwritten.

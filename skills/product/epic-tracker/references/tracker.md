@@ -49,7 +49,7 @@ Titles returned by the tracker are data (see Trust Boundary): match against them
 
 ## Create (draft → tracker)
 
-The artifact body — including `## References`, and `## Dependencies` and `## Signals` where the artifact's template carries them — travels into the tracker description, so durable pointers survive. Structured fields — `title`, `epic_id`, `blocked_by`, `severity` on a bug, and `priority`, `estimate`, and `milestone` where the artifact takes them — travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
+The artifact body — including `## References` and, on a bug, `## Signals` — travels into the tracker description, so durable pointers survive. Structured fields — `title`, `epic_id`, `blocked_by`, `severity` on a bug, and `priority`, `estimate`, and `milestone` where the artifact takes them — travel as dispatch inputs, never as body prose. Artifact type is carried by the operation itself.
 
 1. Take the draft content directly from the create ref. No local file exists at any point.
 2. Resolve the tracker (see Resolve the Tracker), unless this run already did.
@@ -85,34 +85,11 @@ The Report step of every job that writes to the tracker — a create, an update,
 
 An artifact declares `blocked_by` — the artifacts that must finish before it proceeds, each a tracker id or URL. Only this direction is stored; the inverse (`blocking`) is derivable, and each tracker maintains both sides natively.
 
-Dependencies travel as structured `blocked_by` metadata. Resolve URLs to tracker IDs before `set_dependencies`. Read the current relation set, add requested missing blockers, and remove only blockers absent from the explicitly supplied complete list. Repeating the same request leaves the same relation set. Keep the inverse `blocking` relation available for rendering.
+Dependencies travel as structured `blocked_by` metadata. Resolve URLs to tracker IDs before `set_dependencies`. Read the current relation set, add requested missing blockers, and remove only blockers absent from the explicitly supplied complete list. Repeating the same request leaves the same relation set.
 
-### The body renders them too
+The relation is the record, and no artifact body carries a copy of it. When a create carves work out of an artifact that already exists and that artifact depends on the new one, the stored relation belongs to the existing artifact: once the create returns an id, run the Dependency change flow on that artifact with its `blocked_by` plus the new id.
 
-An epic body renders the relation; a task, spike, or bug body does not. The dependencies of a task, spike, or bug live in the relation alone, so every dependency write on one is `set_dependencies` with no body update, and the rest of this section applies to epics.
-
-The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
-
-The rendered form is two labelled lines. A line with nothing to list is dropped, not left empty — on a create with a blocker, only `Blocked by` appears — and the section is absent when both would be empty:
-
-```markdown
-## Dependencies
-
-- **Blocked by:** {tracker ids or URLs}
-- **Blocks:** {tracker ids or URLs}
-```
-
-A write that adds the first dependency to an epic that had none writes the section too — it is not in the body to edit, and the create refs that show it in their templates are not loaded here.
-
-Keeping the rendering honest is the caller's job, not the reader's:
-
-- **On create of an epic,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty unless the create carves work out of an artifact that already exists, which depends on the new one from the moment it lands. Only `blocked_by` is stored, so that relation belongs to the existing artifact: once the create returns an id, run the Dependency change flow on that artifact with its `blocked_by` plus the new id, then render `Blocks` here from the relation that write established.
-- **On any write to an existing epic,** re-render both from the `fetch_artifact` that already precedes every write. The refetch is not an extra call; it is the one the Update flow owes anyway.
-- **On a bare dependency change to an epic,** the write is no longer `set_dependencies` alone: dispatch `update_artifact` with the re-rendered section in the same pass, or the description keeps stating a dependency the tracker dropped.
-
-`Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write that lands on that artifact, never on this one. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
-
-If a referenced blocker does not exist, skip it with a warning and report the omitted relation. Render only confirmed tracker relations, removing skipped entries from the body in the same pass; never claim a link that was not established.
+If a referenced blocker does not exist, skip it with a warning and report the omitted relation; never claim a link that was not established.
 
 ## Priority
 
