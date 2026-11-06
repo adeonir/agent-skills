@@ -32,7 +32,7 @@ flowchart TD
 | Plan | Project PRD only, through `decompose`: the epic set, cut by user outcome and grouped into milestones, shown as a draft in the chat for your approval, then each epic and its tasks sent to Draft; the optional `docs/product/ROADMAP.md` is written after that approval when you ask for it |
 | Size | Feature PRD or feature design doc only, through `feature`: the document cut along the epic seams into an epic (two or more units), or a standalone task (one unit); no roadmap is written |
 | Discover | Epic only: context for the draft, read from the feature PRD or feature design doc, or from the project PRD, PRODUCT, and roadmap entry |
-| Draft | Epic, task, spike, or bug body composed to its canonical template, plus dispatch inputs; a task's acceptance criteria and a spike's exit criteria are validated before anything reaches the tracker |
+| Draft | Epic, task, spike, or bug body composed to its canonical template, plus dispatch inputs; the acceptance criteria of a task or bug and the exit criteria of a spike are validated before anything reaches the tracker |
 | Sync | Tracker artifact and URL, created and updated through configured tracker access; the tracker is the single source of truth for state |
 
 ## Usage
@@ -86,6 +86,6 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 
 **Q: Does the skill set priority or estimates for me?** A: No. Priority and estimates travel only when stated, independently of severity, dependencies, scope, and roadmap position. An epic carries no estimate. Unsupported metadata is reported.
 
-**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored in the tracker's native relation. An epic or bug body also renders it in a `## Dependencies` section, rewritten on every write; a task or spike body carries no such section. The tracker's relations panel is what is live.
+**Q: Can I change dependencies after an artifact is created?** A: Yes. "block this on ENG-42" and "unblock this" work for the life of the artifact. Only `blocked_by` is stored in the tracker's native relation. An epic body also renders it in a `## Dependencies` section, rewritten on every write; a task, spike, or bug body carries no such section. The tracker's relations panel is what is live.
 
 **Q: How are milestones assigned?** A: When `decompose` groups the epics into milestones, each epic takes its settled milestone, reusing an existing one or creating it with no date, and every task, spike, and bug under the epic mirrors it. An ungrouped set and a standalone artifact carry none, and a milestone changed by hand is confirmed before it is overwritten.

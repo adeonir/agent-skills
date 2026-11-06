@@ -66,10 +66,10 @@ An artifact already in the tracker is edited through its create ref's edit branc
 **Refetch immediately before every write.** This applies to a body edit and to a status change alike.
 
 1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is the read the create ref's edit branch already ran to load the artifact — one read, not two. It writes nothing.
-2. Apply the edit. For a task or spike, the create ref re-validates the conditions when their text changed (see [ac-validation.md](ac-validation.md)).
+2. Apply the edit. For a task, spike, or bug, the create ref re-validates the conditions when their text changed (see [ac-validation.md](ac-validation.md)).
 3. **`fetch_artifact` again, immediately before writing.** Compare `updated_at` with what step 1 returned — that marker, not the body. A tracker reflows what it stores, so a body that differs byte for byte says nothing about whether a person touched it, and comparing bodies would raise the guard on every write.
 4. When the marker moved, someone wrote in between. Read what they changed by diffing the two bodies field by field, and **re-apply this edit onto the body that came back**, not the one drafted against the stale read. A change that touches nothing this edit touches merges silently and is reported to the user; where both touched the same field, the user chooses which stands. Never write the drafted body over theirs.
-5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task or spike, run the condition contract again over the merged result (see [ac-validation.md](ac-validation.md)); a failure routes back to the user with both versions in hand.
+5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task, spike, or bug, run the condition contract again over the merged result (see [ac-validation.md](ac-validation.md)); a failure routes back to the user with both versions in hand.
 6. Execute `update_artifact` with the validated body and changed fields.
 7. When `blocked_by` changed, call `set_dependencies` with the full list (see Dependencies).
 
@@ -89,7 +89,7 @@ Dependencies travel as structured `blocked_by` metadata. Resolve URLs to tracker
 
 ### The body renders them too
 
-An epic or bug body renders the relation; a task or spike body does not. A task's or spike's dependencies live in the relation alone, so every dependency write on a task or spike is `set_dependencies` with no body update, and the rest of this section applies to epics and bugs.
+An epic body renders the relation; a task, spike, or bug body does not. The dependencies of a task, spike, or bug live in the relation alone, so every dependency write on one is `set_dependencies` with no body update, and the rest of this section applies to epics.
 
 The relation is the source of truth; the artifact's `## Dependencies` section is a rendering of it, for the person who opens the issue and reads the description rather than the relations panel. Both directions appear there — `Blocked by` and `Blocks` — even though only `blocked_by` is stored.
 
@@ -102,13 +102,13 @@ The rendered form is two labelled lines. A line with nothing to list is dropped,
 - **Blocks:** {tracker ids or URLs}
 ```
 
-A write that adds the first dependency to an epic or bug that had none writes the section too — it is not in the body to edit, and the create refs that show it in their templates are not loaded here.
+A write that adds the first dependency to an epic that had none writes the section too — it is not in the body to edit, and the create refs that show it in their templates are not loaded here.
 
 Keeping the rendering honest is the caller's job, not the reader's:
 
-- **On create of an epic or bug,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty unless the create carves work out of an artifact that already exists, which depends on the new one from the moment it lands. Only `blocked_by` is stored, so that relation belongs to the existing artifact: once the create returns an id, run the Dependency change flow on that artifact with its `blocked_by` plus the new id, then render `Blocks` here from the relation that write established.
-- **On any write to an existing epic or bug,** re-render both from the `fetch_artifact` that already precedes every write. The refetch is not an extra call; it is the one the Update flow owes anyway.
-- **On a bare dependency change to an epic or bug,** the write is no longer `set_dependencies` alone: dispatch `update_artifact` with the re-rendered section in the same pass, or the description keeps stating a dependency the tracker dropped.
+- **On create of an epic,** render `Blocked by` from the same list that goes to `set_dependencies`. `Blocks` is empty unless the create carves work out of an artifact that already exists, which depends on the new one from the moment it lands. Only `blocked_by` is stored, so that relation belongs to the existing artifact: once the create returns an id, run the Dependency change flow on that artifact with its `blocked_by` plus the new id, then render `Blocks` here from the relation that write established.
+- **On any write to an existing epic,** re-render both from the `fetch_artifact` that already precedes every write. The refetch is not an extra call; it is the one the Update flow owes anyway.
+- **On a bare dependency change to an epic,** the write is no longer `set_dependencies` alone: dispatch `update_artifact` with the re-rendered section in the same pass, or the description keeps stating a dependency the tracker dropped.
 
 `Blocks` is derived, so it moves when *another* artifact declares a dependency on this one — a write that lands on that artifact, never on this one. Its rendering is current as of this artifact's last write, and the tracker's own panel is what is live. That limit belongs in the section itself, not in the reader's assumptions.
 
@@ -152,7 +152,7 @@ Use these generic operations for delivery work through the configured tracker ac
 | `fetch_artifact` | tracker_id | full state (type, status, title, body, severity, priority, estimate, parent, blocked_by, blocking, milestone, updated_at, url) |
 | `list_artifacts` | filter (type, epic, status) | list of `{id, title, status, url}` |
 
-Acceptance criteria and repro steps travel inside `body`; a task's or spike's checklist lines travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on every type (see Priority).
+Acceptance criteria and repro steps travel inside `body`; the checklist lines of a task, spike, or bug travel verbatim so a downstream consumer can parse them back. Severity travels as a structured input. Priority travels the same way, on every type (see Priority).
 
 Create delivery artifacts in `planned`; verify the resulting status and apply `update_status` when the service default differs.
 

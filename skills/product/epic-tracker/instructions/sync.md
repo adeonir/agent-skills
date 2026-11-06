@@ -26,7 +26,7 @@ Reading delivery state is a tracker query, not a stored report:
   2. When it has a parent, `fetch_artifact` on that epic for the milestone the artifact should be carrying. A match is ordinary inheritance. Anything else — a different milestone, or one on an artifact that was standalone — is state the skill did not put there, so it is confirmed before being replaced, exactly as a body the tracker moved underneath is.
   3. `set_parent` with the target `epic_id`, resolved through the loaded reference's Resolving the Parent Epic when the request names an epic by title or names none.
   4. `fetch_artifact` on the target epic and dispatch `set_milestone` with the milestone it carries — none clears the artifact's milestone — so it follows its epic under the milestone grouping.
-- **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list. An epic or bug also gets `update_artifact` carrying the re-rendered `## Dependencies` section, under the same refetch guard as any other write; a task or spike has no such section and gets no body write (see the loaded reference's Dependencies).
+- **Dependency change** ("block this on ENG-42", "unblock this", "this depends on X") → `set_dependencies` with the artifact's full `blocked_by` list. An epic also gets `update_artifact` carrying the re-rendered `## Dependencies` section, under the same refetch guard as any other write; a task, spike, or bug has no such section and gets no body write (see the loaded reference's Dependencies).
 
 Apply these delivery-state rules even when no artifact body is being drafted.
 

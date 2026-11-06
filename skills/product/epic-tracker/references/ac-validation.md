@@ -1,14 +1,14 @@
 # AC Validation
 
-Enforce the checklist of conditions on Task and Spike create and on edits that change a condition. Each condition is one checklist line, optionally ending with one requirement link. A well-formed line keeps each condition testable and parseable; a malformed one is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes a condition carries is settled while it is drafted, and what it promises is measured against the requirement it links, upstream, where the epic is in hand.
+Enforce the checklist of conditions on Task, Spike, and Bug create and on edits that change a condition. Each condition is one checklist line, optionally ending with one requirement link. A well-formed line keeps each condition testable and parseable; a malformed one is ambiguous to anything that consumes it. Shape is what this ref judges — how many outcomes a condition carries is settled while it is drafted, and what it promises is measured against the requirement it links, upstream, where the epic is in hand.
 
 ## When to Use
 
-- Auto-loaded by `task.md` and `spike.md` (Step 3 Validate, before the artifact is dispatched)
-- Auto-loaded by the edit branch of `task.md` and `spike.md` when an edit changes a condition
+- Auto-loaded by `task.md`, `spike.md`, and `bug.md` (the validation step, before the artifact is dispatched)
+- Auto-loaded by the edit branch of `task.md`, `spike.md`, and `bug.md` when an edit changes a condition
 - Not a direct trigger
 
-This ref is the single home for the condition contract. Do not duplicate the rules in `task.md` or `spike.md` -- their create and edit paths load this ref at the validation step.
+This ref is the single home for the condition contract. Do not duplicate the rules in `task.md`, `spike.md`, or `bug.md` -- their create and edit paths load this ref at the validation step.
 
 ## Condition Schema
 
@@ -28,7 +28,7 @@ Rules:
 - The line starts with `- [ ]`.
 - The condition text is non-empty.
 - The requirement link is optional; when present it is the final element of the line and names exactly one id matching `FR/NFR-<n>` — a single id, never a list.
-- A spike's conditions carry no requirement link.
+- A spike's or bug's conditions carry no requirement link.
 - No two conditions share the same text once their requirement links are removed.
 - Keep this shape stable; the link is parsed from the end of the line.
 
@@ -36,7 +36,7 @@ Rules:
 
 ### 1. Parse
 
-Extract the conditions from the Task or Spike body:
+Extract the conditions from the Task, Spike, or Bug body:
 
 - Find the `## Acceptance Criteria` heading, or `## Exit Criteria` on a spike.
 - Read until the next `## ` heading or end of document.
@@ -56,7 +56,7 @@ Run V1-V4 against the parsed tuples and the raw section text. Every rule is stri
 | V1 | The artifact has at least one condition | parse yields zero checklist lines |
 | V2 | Each condition has text | a checklist line with no text after the marker, or text under the heading before the first checklist line |
 | V3 | No duplicate condition | two conditions with identical normalized text, requirement link excluded |
-| V4 | The requirement link is one well-formed id | a spaced dash followed by `FR` or `NFR` is present but its value is not exactly one `FR/NFR-<n>` id (a list, or malformed), or a spike condition carries any requirement link |
+| V4 | The requirement link is one well-formed id | a spaced dash followed by `FR` or `NFR` is present but its value is not exactly one `FR/NFR-<n>` id (a list, or malformed), or a spike or bug condition carries any requirement link |
 
 What a condition asserts beyond its requirement — a timing, a count, a threshold, a mechanism, an extra outcome — is not checked here. Its source is the requirement the condition links, and this ref holds the id, never the epic that carries the statement. See Requirement linkage below.
 
@@ -80,7 +80,7 @@ Condition 3 fails V3: duplicate of condition 1. Remove or differentiate one of t
 Condition 1 fails V4: link "FR-3, FR-4" names two ids. Name exactly one requirement per condition; split the condition if it operationalizes two.
 ```
 
-If any rule fails: do not dispatch. The caller (Step 3 of `task.md` or `spike.md`, or an edit branch) loops back to Draft until the user fixes the conditions.
+If any rule fails: do not dispatch. The caller (the validation step of `task.md`, `spike.md`, or `bug.md`, or an edit branch) loops back to Draft until the user fixes the conditions.
 
 ## Requirement linkage
 
@@ -98,10 +98,10 @@ This section is the single home for what the requirement link means and who sett
 
 Read paths do not invoke this ref:
 
-- `fetch_artifact` from the tracker -- a task or spike fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry conditions in any shape; the consumer decides how to handle it.
+- `fetch_artifact` from the tracker -- a task, spike, or bug fetched to be read, or fetched as the first step of an edit, is not validated on arrival. A fetched body may carry conditions in any shape; the consumer decides how to handle it.
 - Status and overview reads -- no body inspection.
 
-Edits that do not change a condition skip validation (see the edit branch of `task.md` and `spike.md`) — validation fires on the write path, when a condition changed, never on the read that precedes it.
+Edits that do not change a condition skip validation (see the edit branch of `task.md`, `spike.md`, and `bug.md`) — validation fires on the write path, when a condition changed, never on the read that precedes it.
 
 ## Guidelines
 
@@ -114,7 +114,7 @@ Edits that do not change a condition skip validation (see the edit branch of `ta
 - Invent a condition for the user (contrasts: surface failures, let the user fix)
 - Validate on a `fetch_artifact` read (contrasts: validate only on create and condition-changing edits)
 - Judge a bound in a condition here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
-- Embed validation logic in `task.md` or `spike.md` (contrasts: this ref is the single home; both load it on create and edit)
+- Embed validation logic in `task.md`, `spike.md`, or `bug.md` (contrasts: this ref is the single home; each loads it on create and edit)
 
 ## Error Handling
 
