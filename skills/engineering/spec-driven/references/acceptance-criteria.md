@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identity, the `Satisfies` line, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
+Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identity, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
 
 ## When to Use
 
@@ -8,7 +8,7 @@ During specify, when writing or reshaping the acceptance criteria under each pro
 
 ## Form
 
-One criterion is one `#### AC-N.M:` heading, one fenced `gherkin` block, and the `Satisfies` line when the seed names requirement IDs.
+One criterion is one `#### AC-N.M:` heading and one fenced `gherkin` block.
 
 ````markdown
 #### AC-1.1: Sign in with registered credentials
@@ -19,7 +19,6 @@ Scenario: User signs in with registered credentials
   When they submit a valid email and password
   Then they are authenticated
 ```
-**Satisfies** FR-1
 ````
 
 - One criterion is one scenario. Two criteria never carry the same scenario.
@@ -57,14 +56,10 @@ The linter reports a reference to a removed or undeclared id, and the feature ca
 
 The agent judges inline — no formal type detection:
 
-- **Reshape** — the input already carries criteria or a definition of done. Convert one to one, changing the notation and never the substance. An input already in Gherkin keeps its scenarios as they stand; a definition of done or a bullet list becomes one scenario each, its condition entering as the `Given`/`When` and its obligation as the `Then`. Split an obligation joining two independent assertions into one criterion each, and carry its requirement id onto both. A reason stated beside an item crosses with it as that criterion's `(because …)`, and a requirement id it names crosses on the `Satisfies` line.
+- **Reshape** — the input already carries criteria or a definition of done. Convert one to one, changing the notation and never the substance. An input already in Gherkin keeps its scenarios as they stand; a checklist, a definition of done, or a bullet list becomes one scenario each, its condition entering as the `Given`/`When` and its obligation as the `Then`. Split an obligation joining two independent assertions into one criterion each. A reason stated beside an item crosses with it as that criterion's `(because …)`.
 - **Author** — a prompt or PRD with no criteria. Write them from the intent.
 
 An input carrying acceptance criteria is a set of claims, not a settled contract. Reshape's freeze binds the *silent* change: substance never moves on the agent's own authority. It does not oblige the agent to carry a criterion unexamined — one that fails Ownership or Calibration below surfaces as a question during discovery and is resolved there, not rewritten in place. Author mode inherits nothing and calibrates the same way.
-
-## Backward provenance — `Satisfies`
-
-Only when the seed carries per-item requirement IDs — a PRD's own `FR/BR/EC/NFR`, or a ticket whose criteria or done-conditions already name them — each criterion that operationalizes a requirement carries a `**Satisfies**` line naming that ID — backward provenance the specify completeness check consumes to confirm every PRD requirement reached a criterion. A seed without per-item IDs writes no `Satisfies` line: the link has no stable target, and one written by position breaks silently when the seed is edited. Its provenance is checked at specify's self-check instead. Keep the link on the `**Satisfies**` line, never in prose.
 
 ## Case convention — three classes
 

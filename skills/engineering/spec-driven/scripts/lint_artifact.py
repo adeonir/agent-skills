@@ -58,8 +58,6 @@ DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 AC_PATTERN = re.compile(r"\bAC-\d+\.\d+\b")
 AC_DEFINITION = re.compile(r"^####\s+(AC-\d+\.\d+)\b")
 GOAL_DEFINITION = re.compile(r"^\s*-\s*(?:\[[ x]\]\s*)?\*\*(G-\d+)\*\*")
-SATISFIES = re.compile(r"^\*\*Satisfies\*\*\s*(.*)$", re.IGNORECASE)
-SATISFIES_ID = re.compile(r"^(?:FR|BR|EC|NFR)-\d+$")
 ASSUMPTION_ID = re.compile(r"^ASM-[1-9]\d*$")
 ASSUMPTION_STATUSES = ["open", "confirmed", "invalidated"]
 OPEN_QUESTION_ID = re.compile(r"^OQ-[1-9]\d*$")
@@ -212,8 +210,8 @@ def spec_goal_ids(spec_lines):
 def spec_criteria(lines):
     """Return one record per `#### AC-N.M` block.
 
-    Each is {id, line, story, block, satisfies}: the enclosing story id,
-    the fenced gherkin block's step lines, and the `Satisfies` sub-line it carries.
+    Each is {id, line, story, block}: the enclosing story id and the fenced
+    gherkin block's step lines.
     """
     criteria = []
     story = None
@@ -231,7 +229,7 @@ def spec_criteria(lines):
         heading = AC_DEFINITION.match(line)
         if heading:
             current = {"id": heading.group(1), "line": index + 1, "story": story,
-                       "block": [], "satisfies": [], "fenced": False,
+                       "block": [], "fenced": False,
                        "removed": bool(AC_REMOVED.match(line)), "under_removed": story_removed,
                        "reason": False}
             criteria.append(current)
@@ -255,10 +253,6 @@ def spec_criteria(lines):
         if stripped.startswith("```gherkin"):
             in_block = True
             current["fenced"] = True
-            continue
-        found = SATISFIES.match(stripped)
-        if found:
-            current["satisfies"].append(found.group(1).strip())
     return criteria
 
 
@@ -339,7 +333,7 @@ def validate_gherkin(path, criterion, findings):
 
 
 def check_criteria(path, lines, findings, warnings):
-    """Check every criterion's form, identity, and `Satisfies` link."""
+    """Check every criterion's form and identity."""
     goals = spec_goal_ids(lines)
     seen_goals = set()
     for identifier in goals:
@@ -386,14 +380,6 @@ def check_criteria(path, lines, findings, warnings):
             continue
 
         validate_gherkin(path, criterion, findings)
-
-        if len(criterion["satisfies"]) > 1:
-            findings.append("%s:%d: %s carries %d `Satisfies` lines, expected one"
-                            % (path, number, identifier, len(criterion["satisfies"])))
-        for value in criterion["satisfies"]:
-            if not SATISFIES_ID.match(value):
-                findings.append("%s:%d: %s `Satisfies %s` is not exactly one `FR/BR/EC/NFR-N` id"
-                                % (path, number, identifier, value))
 
 
 def check_frozen_ids(path, lines, started, warnings):

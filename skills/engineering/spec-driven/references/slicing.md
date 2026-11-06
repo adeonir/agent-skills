@@ -8,11 +8,11 @@ When authoring user stories in specify, and when validating slice grouping in ta
 
 ## Vertical vs horizontal
 
-A product slice (`S-N`) is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. It is not a tracker story or a task. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.
+A product slice (`S-N`) is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. It is not a tracker task or bug. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.
 
 Slice vertically: a horizontal slice carries no benefit of its own, so its acceptance criteria have nothing observable to assert.
 
-A product slice carrying two distinct benefits is two slices — split it. A tracker story that is one layer of many is not a product slice — reslice the feature vertically.
+A product slice carrying two distinct benefits is two slices — split it. A tracker task that is one layer of many is not a product slice — reslice the feature vertically.
 
 ## One benefit, several consumers
 

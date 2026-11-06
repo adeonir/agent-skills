@@ -1,6 +1,6 @@
 # Spec-Driven
 
-Feature work with traceable requirements, design, tasks, and UAT. Light by default; weight only where the change pays for it.
+Feature work with traceable acceptance criteria, design, tasks, and user acceptance testing. Light by default; weight only where the change pays for it.
 
 ## What It Does
 

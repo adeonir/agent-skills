@@ -1,6 +1,6 @@
 ---
 name: spec-driven
-description: "Spec-driven feature work with traceable requirements, design, tasks, and user acceptance testing (UAT). Use when planning, designing, implementing, or validating a feature from a story, feature PRD, or feature RFC. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
+description: "Spec-driven feature work with traceable acceptance criteria, design, tasks, and user acceptance testing. Use when planning, designing, implementing, or validating a feature, or turning an existing input into a spec. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
 argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
