@@ -6,20 +6,20 @@ End-of-session documentation to Obsidian.
 
 ```mermaid
 flowchart LR
-    A[Resolve Project] --> B[Load Handoff]
+    A[Resolve Project] --> B[Load Handoff Blocks]
     B --> C[Obsidian Session Note]
     C --> D[Obsidian Daily Note]
-    D --> E[Clear Handoff Automatically]
+    D --> E[Remove Session Blocks Automatically]
     E --> F[Offer Archive of Past Months]
 ```
 
 | Step | Output |
 |------|--------|
 | Resolve Project | Obsidian path and base tags, used internally |
-| Load Handoff | Consolidated handoff context read from the filesystem, used internally |
+| Load Handoff | Handoff blocks this session worked on, read from the filesystem, used internally |
 | Obsidian Session | Session note in Obsidian with the work details |
 | Obsidian Daily | Daily note in Obsidian with the day summary |
-| Cleanup | Handoff file emptied on the filesystem, automatically |
+| Cleanup | This session's blocks removed from the handoff file, automatically; the file is emptied when no block remains |
 | Archive offer | Past-month daily notes moved into `Daily/YYYY-MM/` in Obsidian, on yes |
 
 ## Usage
@@ -41,14 +41,16 @@ The skill runs only from the slash command; the model never starts it on its own
 |------------|--------|------------|
 | Obsidian CLI (`obsidian`) | default | Obsidian MCP server when the CLI binary is missing or you decline to open the app, then a plain file write into the vault |
 
-- Python 3, standard library only, for the bundled script
+- Python 3, standard library only, for the bundled scripts
 - An Obsidian vault. On first run in a repo the skill creates the registry at `~/.config/wrap-up/projects.yml` when absent and asks for the project entry.
 
 ## FAQ
 
 **Q: What happens if Obsidian is closed?** A: The skill asks whether to open it. On no, it writes both notes through the Obsidian MCP server.
 
-**Q: Does it ask before clearing the session handoff?** A: No. Cleanup writes empty content after every configured note write succeeds. If persistence fails, the handoff remains available for retry.
+**Q: Does it ask before removing the session's handoff blocks?** A: No. Cleanup removes the blocks this session worked on after every configured note write succeeds, and leaves the blocks of other topics in the file. If persistence fails, the handoff remains available for retry.
+
+**Q: What happens to handoff blocks from other sessions?** A: They stay in the file untouched, and the report lists their headings. A block belongs to the session when its context and current state describe work the conversation did or continued.
 
 **Q: Does it move old daily notes on its own?** A: No. When daily notes from an earlier month remain at the root of `Daily/`, the report lists them and asks once whether to move them into `Daily/YYYY-MM/`. Nothing moves without a yes.
 

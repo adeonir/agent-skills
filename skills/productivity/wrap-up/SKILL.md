@@ -23,23 +23,23 @@ Copy this checklist and tick it off:
 ```text
 Progress:
 - [ ] Step 1: Resolve the project entry
-- [ ] Step 2: Load the handoff
+- [ ] Step 2: Load the session's handoff blocks
 - [ ] Step 3: Write the session note and the daily note
-- [ ] Step 4: Clear the handoff
+- [ ] Step 4: Remove the session's handoff blocks
 - [ ] Step 5: Collect past-month daily notes
 - [ ] Step 6: Report
 ```
 
 **Step 1. Resolve the project.** Load [mapping.md](references/mapping.md) and resolve the project entry and the base tags. When the registry or the entry is missing, load [bootstrap.md](references/bootstrap.md) as mapping directs. Every later step depends on this output. Done when the entry's `name`, `obsidian.path`, and `tags` are known.
 
-**Step 2. Load the handoff.** Load [handoff.md](references/handoff.md) and run its Load phase — the consolidated handoff at `.artifacts/HANDOFF.md`, when present, feeds the note content. It enters as a claim to check, not as authority: record the current state where the session's work superseded a claim, and report a claim only when the session's work does not explain the contradiction. A handoff that describes work this session did not do is not used and not cleared. Done when the handoff fields are in working context, or the handoff is known to be absent or unrelated.
+**Step 2. Load the handoff.** Load [handoff.md](references/handoff.md) and run its Load phase — the blocks of the consolidated handoff at `.artifacts/HANDOFF.md` that this session worked on, when present, feed the note content. They enter as a claim to check, not as authority: record the current state where the session's work superseded a claim, and report a claim only when the session's work does not explain the contradiction. A block that describes work this session did not do is not used and not removed. Done when the fields of this session's blocks are in working context, or the handoff is known to be absent or unrelated.
 
 **Step 3. Write the notes.** Load [notes.md](references/notes.md) and write the Obsidian session note and the daily note. If a draft fails the check in notes.md, rewrite it and check again before writing. Done when each configured write returned success or a failure to report.
 
-**Step 4. Clear the handoff.** Run the Cleanup phase of handoff.md — clear the handoff once every configured note write succeeded. Done when the handoff is empty, or preserved because a write failed.
+**Step 4. Remove the handoff blocks.** Run the Cleanup phase of handoff.md — remove this session's blocks once every configured note write succeeded. Done when this session's blocks are gone from the file, or preserved because a write failed.
 
 **Step 5. Collect past months.** Offer to archive past months as notes.md sets out — daily notes from earlier months still at the root of `Daily/` are listed in the report, and moved into their monthly folder only on the user's yes. Done when the list is collected, or none exist.
 
-**Step 6. Report.** End with one report: the session note path when one was written and the daily note path, what the notes record in one to three sentences — what changed, on an update — and the open items: a handoff left untouched because it belongs to another session, a handoff claim the session's work does not explain, a failed write, an old Obsidian folder the user did not rename, older notes updated or left with a link to the previous project name, and the past-month daily notes awaiting the archive answer, grouped by target folder. Never paste either note. Done when the report carries the note paths, the summary, and every open item, or states that none exist.
+**Step 6. Report.** End with one report: the session note path when one was written and the daily note path, what the notes record in one to three sentences — what changed, on an update — and the open items: handoff blocks left in the file because they belong to other sessions, a handoff claim the session's work does not explain, a failed write, an old Obsidian folder the user did not rename, older notes updated or left with a link to the previous project name, and the past-month daily notes awaiting the archive answer, grouped by target folder. Never paste either note. Done when the report carries the note paths, the summary, and every open item, or states that none exist.
 
 Run the six steps in one pass. The initial invocation authorizes the first four: never pause for confirmation between them, never preview the note content in chat, and report only at the end. Four exceptions: the bootstrap questions in Step 1, the warning or question about a missing project folder in Step 3, which waits for the user, the question whether to open Obsidian when the CLI finds the app closed, and the archive question in Step 5, asked once alongside the report.

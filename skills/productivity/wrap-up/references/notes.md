@@ -176,13 +176,13 @@ Section presence:
 - `## Next` when there is work to continue
 - `## Relations` for explicit connections between notes
 
-When the handoff Load phase provides content, include it before composing the note:
+When the handoff Load phase provides content, include it before composing the note. The blocks of this session merge into the one note:
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
-- `**Next step:**` and `**Open threads:**` → `## Next` bullets, preserving the concrete entry point
+- `**Open threads:**` and the work still remaining in `**Current state:**` → `## Next` bullets, preserving the concrete entry point
 - `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
-- `**Focus:**`, `**Context:**`, and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
+- `**Context:**`, the completed work in `**Current state:**`, and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
 
 #### Write
 
