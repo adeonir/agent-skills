@@ -3,21 +3,28 @@
 
 Usage: python3 check_handoff.py <path>
 
-Flags a missing required section, a section filled with "none", chat
-phrasing, and lines that look like they carry a secret. Exit 0 when the
-file is clean, 1 when a line is flagged, 2 when the file cannot be read.
-Flagged secret values are masked in the output, never printed.
+Flags a missing topic block, a section outside a topic block, a missing
+required section, a repeated section or topic, a section filled with
+"none", a commit hash, chat phrasing, and lines that look like they carry a
+secret. Exit 0 when the file is clean, 1 when a line is flagged, 2 when the
+file cannot be read. Flagged secret values are masked in the output, never
+printed.
 """
 
 import re
 import sys
 
-REQUIRED_SECTIONS = ["Focus", "Context", "Current state"]
+REQUIRED_SECTIONS = ["Context", "Current state"]
 
+HEADING = re.compile(r"^## +(.+?)\s*$")
 SECTION = re.compile(r"^\*\*([A-Za-z ]+):\*\*\s*(.*)$")
 NONE_VALUE = re.compile(r"^(?:-\s*)?(?:none|n/a|nothing)\.?$", re.IGNORECASE)
 
 CHAT_PHRASES = re.compile(r"(?i)\b(?:as discussed|the user confirmed|we agreed|you chose)\b")
+
+# 7: git's default abbreviated hash length; 40: a full SHA-1. The lookaheads require
+# both a digit and a letter, so plain words and plain numbers do not match.
+COMMIT_HASH = re.compile(r"\b(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\b")
 
 SECRET_PATTERNS = [
     ("private key", re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----")),
@@ -44,25 +51,46 @@ def mask(text):
 
 def check_sections(lines):
     findings = []
-    sections = {}
-    current = None
+    blocks = []
     for number, line in enumerate(lines, start=1):
+        heading = HEADING.match(line)
+        if heading:
+            blocks.append({"topic": heading.group(1), "line": number, "sections": {}, "current": None})
+            continue
         match = SECTION.match(line)
+        if not blocks:
+            if match:
+                findings.append((number, f"section `{match.group(1)}` sits outside a topic block. Put it under a `## <topic>` heading."))
+            continue
+        block = blocks[-1]
         if match:
-            current = match.group(1)
-            sections[current] = {"line": number, "body": [match.group(2)] if match.group(2) else []}
-        elif current and line.strip():
-            sections[current]["body"].append(line.strip())
+            name = match.group(1)
+            if name in block["sections"]:
+                findings.append((number, f"section `{name}` appears twice in topic `{block['topic']}`. Merge the two."))
+            block["current"] = name
+            block["sections"][name] = {"line": number, "body": [match.group(2)] if match.group(2) else []}
+        elif block["current"] and line.strip():
+            block["sections"][block["current"]]["body"].append(line.strip())
 
-    for name in REQUIRED_SECTIONS:
-        if name not in sections:
-            findings.append((0, f"missing required section `{name}`. Add it from the template."))
-    for name, section in sections.items():
-        body = section["body"]
-        if not body:
-            findings.append((section["line"], f"section `{name}` is empty. Fill it, or remove an optional section."))
-        elif all(NONE_VALUE.match(entry) for entry in body):
-            findings.append((section["line"], f"section `{name}` says none. Remove the section; an absent section is the empty answer."))
+    if not blocks:
+        findings.append((0, "no topic block. Add a `## <topic>` heading with the template sections under it."))
+
+    seen = {}
+    for block in blocks:
+        topic = block["topic"]
+        if topic.lower() in seen:
+            findings.append((block["line"], f"topic `{topic}` repeats the heading on line {seen[topic.lower()]}. Merge the two blocks."))
+        else:
+            seen[topic.lower()] = block["line"]
+        for name in REQUIRED_SECTIONS:
+            if name not in block["sections"]:
+                findings.append((block["line"], f"topic `{topic}` is missing required section `{name}`. Add it from the template."))
+        for name, section in block["sections"].items():
+            body = section["body"]
+            if not body:
+                findings.append((section["line"], f"section `{name}` in topic `{topic}` is empty. Fill it, or remove an optional section."))
+            elif all(NONE_VALUE.match(entry) for entry in body):
+                findings.append((section["line"], f"section `{name}` in topic `{topic}` says none. Remove the section; an absent section is the empty answer."))
     return findings
 
 
@@ -71,6 +99,8 @@ def check_lines(lines):
     for number, line in enumerate(lines, start=1):
         for match in CHAT_PHRASES.finditer(line):
             findings.append((number, f"chat phrasing \"{match.group(0)}\". State the fact about the work instead."))
+        for match in COMMIT_HASH.finditer(line):
+            findings.append((number, f"commit hash ({mask(match.group(0))}). Remove it; the next session reads git state from git."))
         for kind, pattern in SECRET_PATTERNS:
             for match in pattern.finditer(line):
                 if REDACTED in match.group(0):
