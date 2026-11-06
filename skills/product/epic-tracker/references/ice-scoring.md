@@ -4,13 +4,13 @@ Evaluate and prioritize derived candidates with ICE — Impact, Confidence, Ease
 
 ## When to Use
 
-Composed by `decompose` after derivation, over candidates that already exist, at level 1 (epics) and level 2 (tasks).
+Loaded after derivation, over candidates that already exist, by `plan-epics.md` (epics) and `break-down-epic.md` (tasks).
 
 ## The Three Axes
 
 Score each candidate on each axis; keep the scale consistent across the set (a simple 1–5 or low/medium/high is enough — the ranking matters, not the absolute number).
 
-- **Impact** — how much this candidate moves the PRD's expected outcome. A candidate that unlocks a core outcome scores higher than a peripheral one. At level 1, the PRD's order of requirements is evidence for this axis, read as a claim: a score may disagree with it.
+- **Impact** — how much this candidate moves the PRD's expected outcome. A candidate that unlocks a core outcome scores higher than a peripheral one. For epics, the PRD's order of requirements is evidence for this axis, read as a claim: a score may disagree with it.
 - **Confidence** — how sure the boundary and the value are. A well-understood candidate scores higher than a speculative one; low confidence is a signal to keep the candidate small or to sequence it early to learn.
 - **Ease** — how self-contained and deliverable the candidate is on its own. High ease = few dependencies, a clear done-state.
 

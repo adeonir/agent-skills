@@ -4,7 +4,7 @@ Cluster a PRD into a set of epics, one per user outcome plus the foundations the
 
 ## When to Use
 
-Composed by `decompose` at level 1 (roadmap → epics), after the PRD is read and before ICE scoring. It produces the candidate set; it does not rank or order it (that is `ice-scoring.md` and the ordering step in `decompose`).
+Loaded by `plan-epics.md`, after the PRD is read and before ICE scoring, and by `create-from-feature.md` to count the units in a feature source. It produces the candidate set; it does not rank or order it (that is `ice-scoring.md` and the ordering step in `plan-epics.md`).
 
 ## What an Epic Is
 

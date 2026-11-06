@@ -1,0 +1,53 @@
+# Sync State
+
+Change status, read delivery state, reparent an artifact, or edit its dependencies.
+
+## Load first
+
+Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step — the existing destination, content guards, and generic operations used below. If the required tracker access is not configured, report the prerequisite without configuring it.
+
+## Contents
+
+- Rules for every run
+- Workflow
+
+## Rules for every run
+
+1. Apply these delivery-state rules even when no artifact body is being drafted.
+
+## Workflow
+
+Copy this checklist and tick it off:
+
+```text
+Progress:
+- [ ] Step 1: Name the operation: list, status change, reparent, or dependency change
+- [ ] Step 2: Run that operation. If the tracker moved underneath, confirm before writing
+- [ ] Step 3: Report
+```
+
+**Step 1. Name the operation.** Take it from the request: a list, a status change, a reparent, or a dependency change. Done when one operation is named.
+
+**Step 2. Run the operation.**
+
+**List** ("list epics", "what's in progress", "show the tasks in this epic"). Reading delivery state is a tracker query, not a stored report: `list_artifacts` with the matching filter. Present the results; write nothing.
+
+**Status change** ("mark done", "cancel this", "won't fix", "move to in-progress"). A bare status change is an update like any other, and takes the same guard:
+
+1. `fetch_artifact` to read the current status, and the artifact's type.
+2. When the tracker's status already differs from what the user expects, surface it and confirm before proceeding — someone moved it.
+3. Closing an **epic** — `done` or `cancelled` — is a claim about its whole subtree, so read the subtree first: `list_artifacts` filtered to that epic. When any child is not closed, surface how many and in which status, and confirm before proceeding. Never close or cancel a child to make the epic's status true; each child is its own decision, taken on its own artifact. A task, spike, or bug closes without this read — nothing hangs under it.
+4. Call `update_status` with the new value.
+
+**Reparent** ("move this to epic X", "reparent this task"). Settle the milestone guard **before** moving. `set_parent` replaces the parent link, so once it runs the artifact no longer points at the epic the guard compares against.
+
+1. `fetch_artifact` on the artifact — its current parent and its current milestone. This is the refetch every write already owes.
+2. When it has a parent, `fetch_artifact` on that epic for the milestone the artifact should be carrying. A match is ordinary inheritance. Anything else — a different milestone, or one on an artifact that was standalone — is state the skill did not put there, so it is confirmed before being replaced, exactly as a body the tracker moved underneath is.
+3. `set_parent` with the target `epic_id`, resolved through the loaded reference's Resolving the Parent Epic when the request names an epic by title or names none.
+4. `fetch_artifact` on the target epic and dispatch `set_milestone` with the milestone it carries — none clears the artifact's milestone — so it follows its epic under the milestone grouping.
+
+**Dependency change** ("block this on ENG-42", "unblock this", "this depends on X"). `set_dependencies` with the artifact's full `blocked_by` list, under the same refetch guard as any other write (see the loaded reference's Dependencies). The relation is the record, and no body is written.
+
+Done when the listing is presented, or the tracker confirms the write.
+
+**Step 3. Report.** Report every status change, reparent, and dependency change as the loaded reference's Report states. Done when the report carries the URL and what changed, or the listing is presented.
