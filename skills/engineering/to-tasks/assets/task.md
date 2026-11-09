@@ -1,6 +1,6 @@
 # Task Format
 
-Use `[Task title]` as the issue title and the block below as the issue body. The parent spec and the blocking tasks are native tracker links, never sections of the body.
+Use `[Task title]` as the issue title and the block below as the issue body. The parent spec and the blocking tasks are native tracker links, never sections of the body. Written as a file, the task uses `[Task title]` as its H1 and ends with a `Parent:` line linking the spec issue and a `Blocked by:` line naming the blocking tasks by their file numbers, or `None`.
 
 ALWAYS use this exact template structure:
 
@@ -15,4 +15,4 @@ ALWAYS use this exact template structure:
 
 ```
 
-MUST NOT contain: a parent or blocked-by section; specific file paths or implementation code, except a prototype snippet that captures a decision; implementation decisions copied from the spec; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.
+MUST NOT contain: a parent or blocked-by section in an issue body; specific file paths or implementation code, except a prototype snippet that captures a decision; implementation decisions copied from the spec; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.

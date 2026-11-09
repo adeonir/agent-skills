@@ -8,9 +8,11 @@ Break an approved spec into tasks an agent can implement, or register one task t
 flowchart TD
     A[Read spec] --> B[Investigate code]
     B --> C[Draft tasks]
-    C --> D[User review]
+    C --> D[Review breakdown]
     D -->|Corrections| C
     D -->|Approved| E[Register tasks]
+    E --> F[Review bodies in tracker]
+    F -->|Corrections| C
 ```
 
 | Phase | Output |
@@ -18,8 +20,9 @@ flowchart TD
 | Spec | Stories, criteria, decisions, and exclusions to break down, plus existing sub-issues |
 | Investigation | Prefactor candidates and wide mechanical changes |
 | Breakdown | Tasks cut as vertical slices that together cover the spec, with blocking edges |
-| Review | User-approved breakdown |
+| Breakdown review | User-approved titles, one-line summaries, and blocking edges |
 | Registration | One sub-issue per task, with native parent and blocking links; a standalone task is created with no parent |
+| Body review | User-approved task bodies in their tracker issues |
 
 ## Usage
 
@@ -31,8 +34,8 @@ flowchart TD
 
 ## Output
 
-One tracker sub-issue per task under the spec issue, or one issue with no parent in standalone mode. Blocking edges are native tracker links. No local file is written.
+One tracker sub-issue per task under the spec issue, or one issue with no parent in standalone mode. Blocking edges are native tracker links. Without a configured tracker or tracker access, one numbered markdown file per task in a project directory the user confirms, or the conversation when the user declines the files.
 
 ## Requirements
 
-A connected tracker tool or authenticated CLI that supports sub-issues and blocking links. Without tracker access, the skill returns the approved tasks and reports the blocker.
+A connected tracker tool or authenticated CLI that supports sub-issues and blocking links. Without a configured tracker or tracker access, the skill reports the blocker and offers the markdown files.

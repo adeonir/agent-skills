@@ -1,6 +1,6 @@
 # Standalone Task Format
 
-Use `[Task title]` as the issue title and the block below as the issue body. The task has no parent spec. The blocking issues are native tracker links, never sections of the body.
+Use `[Task title]` as the issue title and the block below as the issue body. The task has no parent spec. The blocking issues are native tracker links, never sections of the body. Written as a file, the task uses `[Task title]` as its H1 and ends with a `Blocked by:` line naming the blocking issues, or `None`.
 
 ALWAYS use this exact template structure:
 
@@ -14,4 +14,4 @@ ALWAYS use this exact template structure:
 - [ ] [One observable outcome with concrete values that shows this task works.]
 ```
 
-MUST NOT contain: a parent or blocked-by section; specific file paths or implementation code, except a prototype snippet that captures a decision; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.
+MUST NOT contain: a parent or blocked-by section in an issue body; specific file paths or implementation code, except a prototype snippet that captures a decision; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.
