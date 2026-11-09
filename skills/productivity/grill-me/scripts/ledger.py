@@ -7,10 +7,11 @@ Usage:
 
 frontier prints every open decision whose depends_on entries are all settled,
 split into fact and preference. close prints every settled decision with its
-answer, the terms, and the decisions whose three adr flags are all true; it
-flags a settled decision whose adr is not three booleans. Both validate the
-ledger first: the JSON, the fields, duplicate ids, unknown dependencies, and
-dependency cycles.
+answer, the terms, the decisions whose three adr flags are all true, and the
+out_of_scope decisions; it flags a settled decision whose adr is not three
+booleans. Both validate the ledger first: the JSON, the fields, duplicate ids,
+unknown dependencies, dependencies on an out_of_scope decision, and dependency
+cycles.
 
 Exit 0 when the ledger is valid, 1 when it has a problem, 2 when it cannot be read.
 """
@@ -20,7 +21,7 @@ import sys
 
 FIELDS = ["id", "question", "depends_on", "kind", "status", "answer", "adr", "term"]
 KINDS = {"fact", "preference"}
-STATUSES = {"open", "settled"}
+STATUSES = {"open", "settled", "out_of_scope"}
 
 
 def load(path):
@@ -49,7 +50,7 @@ def validate(entries):
         if entry.get("kind") not in KINDS:
             problems.append(f"{label}: kind must be fact or preference, not {entry.get('kind')!r}.")
         if entry.get("status") not in STATUSES:
-            problems.append(f"{label}: status must be open or settled, not {entry.get('status')!r}.")
+            problems.append(f"{label}: status must be open, settled, or out_of_scope, not {entry.get('status')!r}.")
         if entry.get("status") == "settled" and entry.get("answer") in (None, ""):
             problems.append(f"{label}: settled without an answer.")
         if not isinstance(entry.get("depends_on", []), list):
@@ -61,6 +62,8 @@ def validate(entries):
         for dep in entry.get("depends_on") or []:
             if dep not in ids:
                 problems.append(f"{label}: depends_on {dep!r}, which is not an id in the ledger.")
+            elif ids[dep].get("status") == "out_of_scope" and entry.get("status") != "out_of_scope":
+                problems.append(f"{label}: depends_on {dep!r}, which is out_of_scope. Drop the dependency or mark {label} out_of_scope too.")
     problems += cycles(ids)
     return problems
 
@@ -121,6 +124,9 @@ def close(entries):
         print(f"  {entry['term']}")
     print("adr:")
     for entry in (e for e in settled if all(e["adr"])):
+        print(f"  {entry['id']}: {entry['question']}")
+    print("out_of_scope:")
+    for entry in (e for e in entries if e["status"] == "out_of_scope"):
         print(f"  {entry['id']}: {entry['question']}")
     return 0
 

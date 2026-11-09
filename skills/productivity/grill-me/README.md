@@ -21,9 +21,9 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Map and round | Questions: every decision whose prerequisites are settled, from the design tree the plan breaks into |
-| Facts | Subagent findings scoped to a blocking fact, with source locations, terminology discrepancies, and unresolved facts; repository lookups include relevant glossary entries and code |
+| Facts | Subagent findings scoped to a blocking fact, with source locations, terminology discrepancies, and unresolved facts; repository lookups include relevant glossary entries, and code unless the stated focus excludes implementation |
 | Ask | Answers to independent questions while lookups run, collected through the harness question tool within its limits, or through a numbered list in chat without the tool |
-| Close | Summary of the settled decisions, confirmed defaults, glossary terms, and decisions that need an ADR, which the user confirms or corrects |
+| Close | Summary of the settled decisions, confirmed defaults, glossary terms, decisions that need an ADR, and decisions left outside the stated focus, which the user confirms or corrects |
 
 ## Usage
 
@@ -33,11 +33,12 @@ grill this architecture before we write the document
 stress-test my idea for the export feature
 ask me questions until we agree on the export feature
 resolve the open decisions before the spec
+grill me on the requirements only, with no implementation questions
 ```
 
 ## Output
 
-The interview writes nothing to the repository. It keeps the decision tree in a JSON ledger in a temporary directory, and closes with a brief summary of the settled decisions, confirmed defaults, glossary terms, and decisions that need an ADR.
+The interview writes nothing to the repository. It keeps the decision tree in a JSON ledger in a temporary directory, and closes with a brief summary of the settled decisions, confirmed defaults, glossary terms, decisions that need an ADR, and decisions left outside the stated focus.
 
 ## Requirements
 
@@ -48,3 +49,5 @@ Uses the harness question tool when available and falls back to a numbered list 
 **Q: How is this different from brainstorming?** A: Brainstorming generates and compares alternatives. Grilling takes a plan as given and settles each decision in it.
 
 **Q: What if a question has no fixed options?** A: It is asked in chat, alone, instead of through the question tool.
+
+**Q: Can I keep the questions to requirements or to implementation?** A: Yes. State the focus when you invoke the skill; decisions outside it are never asked and are listed in the close.
