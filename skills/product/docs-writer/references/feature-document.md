@@ -1,21 +1,17 @@
 # Feature Document Rules
 
-Shared lifecycle, update, and source rules for feature PRDs and feature design docs.
+Shared update and source rules for feature PRDs and feature design docs.
 
 ## When to Use
 
 Load before creating or updating a feature PRD or feature design doc.
 
-## Lifecycle
-
-Set a new document to `proposed`. Set it to `accepted` only after explicit approval. An accepted document may become `deprecated` or `superseded by <feature-slug>`.
-
 ## Updates
 
-Preserve `created`, `sources`, and the existing status unless the user requests a status change. Set `updated` when changing an existing document. Preserve sections outside the requested change.
+Preserve the `Created:` line and the `## Sources` section. Set `Updated:` when changing an existing document. Preserve sections outside the requested change.
 
 ## Sources
 
-Populate `sources` with user-supplied files or URLs that informed the document; use `[]` only when no source was supplied. Never archive the feature folder while writing a document.
+Populate the `## Sources` section with user-supplied files or URLs that informed the document; write `- None` only when no source was supplied. Never archive the feature folder while writing a document.
 
-Keep the approved feature document self-contained. A source link in a later delivery artifact is provenance only.
+Keep the feature document self-contained. A source link in a later delivery artifact is provenance only.

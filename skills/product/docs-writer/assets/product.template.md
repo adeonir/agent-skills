@@ -3,15 +3,10 @@ PRODUCT.md skeleton. Delete every comment and replace every square-bracket slot 
 
 ALWAYS use this exact template structure.
 -->
----
-name: [document-name]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-status: draft
-sources: []
----
 
 # Product: [Product Name]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Register
 
@@ -36,5 +31,9 @@ sources: []
 ## Design Principles
 
 [The handful of principles that drive design and copy decisions — what the product always does, stated as commitments.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: requirements, scope or feature lists, success metrics, user journeys, business rules, or accessibility targets — those belong to the PRD; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

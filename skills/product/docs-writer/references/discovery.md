@@ -33,7 +33,7 @@ Handle `docs/tech/design-doc.md` the same way: discover it if absent or update t
 
 For a new document, cover every required topic that another confirmed document does not already answer. For an existing document, update only missing information or the requested parts. Apply `## Reading Project Files` before reading any project file. Follow [reconcile.md](reconcile.md) when updating a document. If `docs/product/brainstorm.md` exists, use its confirmed direction as input to PRD discovery; see [prd.md](prd.md). Read the codebase separately when you need facts about current behavior.
 
-For a new decision, create a new numbered ADR. When the user identifies an existing ADR, update only the requested parts and bump `updated`.
+For a new decision, create a new numbered ADR. When the user identifies an existing ADR, update only the requested parts and bump `Updated:`.
 
 ## Interview Strategy
 

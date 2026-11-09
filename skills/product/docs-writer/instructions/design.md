@@ -102,7 +102,7 @@ Use the template below. Run the checks in [quality.md](../references/quality.md)
 - Data Model, External Integrations, and Conventions are optional. Include them only when a decision needs them.
 - Non-Functional Requirements cite each NFR by ID and state how the design meets it, never the requirement text.
 - Mark unknowns as TBD rather than inventing technical answers.
-- `sources` lists the files and URLs the user supplied as input. References lists related documents that exist, such as the PRD and ADRs.
+- The `## Sources` section holds the files and URLs the user supplied as input. References lists related documents that exist, such as the PRD and ADRs.
 
 ### Phase 3: Report
 
@@ -157,7 +157,7 @@ Stack items without an ADR are recorded only here, with their one-line justifica
 
 If `docs/tech/design-doc.md` exists, read it and update only what changed: a stack choice, component, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](../references/reconcile.md).
 
-Set `updated` to the current date and preserve `created`. Report any change that conflicts with a linked ADR or an unchanged section.
+Set `Updated:` to the current date and preserve `Created:`. Report any change that conflicts with a linked ADR or an unchanged section.
 
 ## Anti-Pattern: Product Prose in Technical Sections
 

@@ -3,14 +3,10 @@ Design Doc skeleton. Remove an optional section that has no content. Delete ever
 
 ALWAYS use this exact template structure.
 -->
----
-name: [document-name]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-sources: []
----
 
 # Design Doc: [Project Name]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Overview
 
@@ -60,6 +56,10 @@ sources: []
 
 ## References
 
-- [Typed reference to a related document that exists, such as the PRD or an ADR.]
+- [Typed reference to a related document that exists, such as the PRD or an ADR. Write `- None` when none exists.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: product KPIs, personas, journey walkthroughs, or restated PRD prose or requirement text — cite the PRD and NFR IDs instead; nor product framing; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

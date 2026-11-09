@@ -3,15 +3,10 @@ PRD skeleton. Delete every comment and replace every square-bracket slot before 
 
 ALWAYS use this exact template structure.
 -->
----
-name: [document-name]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-status: draft
-sources: []
----
 
 # PRD: [Product Name]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## 1. Problem
 
@@ -54,6 +49,10 @@ Requirements appear from most to least important to the user. This order does no
 
 ## 8. References
 
-- [Typed reference to a related document that exists, such as the Design Doc, an ADR, or research.]
+- [Typed reference to a related document that exists, such as the Design Doc, an ADR, or research. Write `- None` when none exists.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

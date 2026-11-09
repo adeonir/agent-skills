@@ -73,11 +73,11 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `sources` and References patterns. When the decision came from `PROJECT.md`, add its path to References only, never to `sources`. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
+Use the template below. Follow the document-wide `## Sources` and References patterns. When the decision came from `PROJECT.md`, add its path to the References list only, never to `## Sources`. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
 
-For a new ADR, set `status` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `updated` to the current date.
+For a new ADR, set `Status:` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `Updated:` to the current date.
 
-**Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename and frontmatter `name` use bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
+**Numbering:** Scan `docs/adr/` for existing files. Next ADR takes the next ID, zero-padded to three digits (`001`, `002`, ...). Filename uses bare ID (`001-slug`); document title heading uses prefix (`ADR-001`).
 
 ### Phase 4: Report
 
@@ -89,7 +89,7 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 
 ## ADR Schema
 
-`status` in the frontmatter holds the current state of the decision, from the existing record or the user's confirmation. 5 body sections matching the template, with Alternatives Considered optional:
+The `Status:` line under the title holds the current state of the decision, from the existing record or the user's confirmation. 5 body sections matching the template, with Alternatives Considered optional:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|
@@ -109,7 +109,7 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
 - Record the material consequences without forcing positive, negative, and neutral subsections
 - Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
-- Link `ADR-NNN` to the replacement ADR when `status` marks a decision as superseded
+- Link `ADR-NNN` to the replacement ADR when `Status:` marks a decision as superseded
 - When extracted from a Design Doc Stack item, the ADR's References section links back to the Design Doc Stack section anchor; the stack item is updated with this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
 - Monitoring criteria, confirmation steps, and follow-up actions belong in the issue tracker, not in the ADR
@@ -127,7 +127,7 @@ accepted → deprecated | superseded by ADR-NNN
 - **deprecated**: No longer recommended but not replaced.
 - **superseded by ADR-NNN**: Replaced by the linked ADR.
 
-Update an ADR when its record needs correction or clarification, and set `updated` to the current date. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
+Update an ADR when its record needs correction or clarification, and set `Updated:` to the current date. When the decision itself is replaced, create a new ADR and mark the prior ADR as superseded by the replacement.
 
 ## Anti-Pattern: Bundled Decisions
 

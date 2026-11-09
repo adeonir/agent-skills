@@ -1,14 +1,8 @@
 <!-- Feature design doc. ALWAYS use this exact template structure. Remove an optional section, or an optional subsection, that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
----
-name: [feature-slug]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-status: proposed
-sources: []
----
-
 # Feature Design Doc: [Feature Name]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Context
 
@@ -51,6 +45,10 @@ sources: []
 
 ## References
 
-- [Typed reference to a related document that exists, such as the feature PRD or an ADR.]
+- [Typed reference to a related document that exists, such as the feature PRD or an ADR. Write `- None` when none exists.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: goals, non-goals, a scope list, requirements, acceptance criteria, edge-case lists, a task list, tracker User Stories, implementation sequence, duplicated feature PRD content, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

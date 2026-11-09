@@ -58,10 +58,10 @@ When the document is an ADR, additionally verify:
 - [ ] Alternatives not selected sit in Alternatives Considered with their reasons, not in Context
 - [ ] The ADR fits on one page
 - [ ] Consequences capture the material outcomes of the decision
-- [ ] Frontmatter contains `name`, `status`, `date`, `updated`, and `sources`
+- [ ] The line under the title carries `Status:`, `Date:`, and `Updated:`, and the ADR carries a `## Sources` section
 - [ ] References follow the document reference pattern
 - [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
-- [ ] When superseding, the prior ADR's `status` names its replacement
+- [ ] When superseding, the prior ADR's `Status:` line names its replacement
 
 ## Document Boundaries
 
@@ -88,4 +88,4 @@ When the document is a Design Doc, additionally verify:
 - [ ] Every Stack item carries a one-line justification, and `ADR-NNN` where an ADR records the choice
 - [ ] Non-Functional Requirements cite each NFR by ID and state how the design meets it, never the requirement text
 - [ ] Optional sections appear only where they shape the design — no exhaustive coverage of axes with no decision behind them
-- [ ] `sources` lists supplied input; References lists related documents that exist
+- [ ] The `## Sources` section holds supplied input; References lists related documents that exist

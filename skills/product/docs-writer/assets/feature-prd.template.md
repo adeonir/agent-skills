@@ -1,14 +1,8 @@
 <!-- Feature PRD. ALWAYS use this exact template structure. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
----
-name: [feature-slug]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-status: proposed
-sources: []
----
-
 # Feature PRD: [Feature Name]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Context
 
@@ -50,6 +44,10 @@ Requirements appear from most to least important to the user. This order does no
 
 ## References
 
-- [Typed reference to a related document that exists, such as the project PRD.]
+- [Typed reference to a related document that exists, such as the project PRD. Write `- None` when none exists.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, release plans, tracker User Stories, references to another skill, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

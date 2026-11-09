@@ -70,7 +70,7 @@ Feature documents are artifacts:
 
 Project documents live under `docs/` and ADRs remain permanent records under `docs/adr/`. Feature PRDs and feature design docs live under `.artifacts/features/`; the archive operation moves a whole feature folder to `.artifacts/archive/features/` when it is no longer active.
 
-When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tracker` section and the conversation carries a Linear issue, a feature PRD or feature design doc can live as a document on that issue, titled `PRD: <Feature Name>` or `Design Doc: <Feature Name>`, with no frontmatter. An upload request moves the local file to the issue and deletes it after the document reads back intact. Later edits go to the document on the issue.
+When the repository `AGENTS.md` or `CLAUDE.md` names Linear in its `## Issue tracker` section and the conversation carries a Linear issue, a feature PRD or feature design doc can live as a document on that issue, titled `PRD: <Feature Name>` or `Design Doc: <Feature Name>`, with no date line and no `## Sources` section. An upload request moves the local file to the issue and deletes it after the document reads back intact. Later edits go to the document on the issue.
 
 ## Requirements
 

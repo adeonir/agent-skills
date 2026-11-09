@@ -3,15 +3,10 @@ ADR skeleton. Delete every comment and replace every square-bracket slot before 
 
 ALWAYS use this exact template structure.
 -->
----
-name: [NNN-slug]
-status: [proposed | accepted | deprecated | superseded by ADR-NNN]
-date: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
-sources: []
----
 
 # ADR-[NNN]: [Decision as an affirmative imperative, such as "Use Postgres as the primary database"]
+
+Status: [proposed | accepted | deprecated | superseded by ADR-NNN]. Date: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Context
 
@@ -33,6 +28,10 @@ sources: []
 
 ## References
 
-- [Related project documents, ADRs, external documentation, or prior art]
+- [Related project documents, ADRs, external documentation, or prior art. Write `- None` when none exists.]
+
+## Sources
+
+- [File or URL the user supplied as input. Write `- None` when none was supplied.]
 
 MUST NOT contain: more than one decision, more than one page, still-open trade-offs, implementation planning, product scope, or conversation narrative ("as discussed", "we agreed", "the user confirmed").
