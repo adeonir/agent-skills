@@ -1,6 +1,6 @@
 ---
 name: docs-writer
-description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature design docs, audit reports, positioning docs, Design Docs, and ADRs, plus archiving of feature folders. Use when defining requirements, consolidating findings from external audits, feature proposals, strategy, trade-offs, or architecture decisions, or when archiving a feature. Not for running audits, UI design, implementation, or meeting notes."
+description: "Product and technical document creation through guided discovery, including project PRDs, feature PRDs, feature design docs, positioning docs, Design Docs, and ADRs, plus archiving of feature folders. Use when defining requirements, feature proposals, strategy, trade-offs, or architecture decisions, or when archiving a feature. Not for audits, UI design, implementation, or meeting notes."
 ---
 
 # Docs Writer
@@ -12,7 +12,6 @@ description: "Product and technical document creation through guided discovery, 
 | PRD — product requirements | [prd.md](instructions/prd.md) |
 | Feature PRD — feature requirements | [feature-prd.md](instructions/feature-prd.md) |
 | Feature Design Doc — feature technical design | [feature-design.md](instructions/feature-design.md) |
-| Audit report — consolidated findings from supplied audit outputs | [feature-audit.md](instructions/feature-audit.md) |
 | PRODUCT — strategic positioning and identity | [product.md](instructions/product.md) |
 | Design Doc — lean technical design and trade-offs | [design.md](instructions/design.md) |
 | ADR — single architecture decision record | [adr.md](instructions/adr.md) |

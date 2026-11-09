@@ -147,7 +147,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 │   ├── features/   # docs-writer: feature PRD/design doc folders archived manually
 │   └── specs/      # spec-driven: specs archived manually
 ├── design/         # design-md-builder: tune session events · craft-ui: structure.yaml + wireframes/ + mockups/ + experiments/
-├── features/       # docs-writer: feature PRD, design doc, and audit report per feature
+├── features/       # docs-writer: feature PRD and design doc per feature
 ├── implement/      # implement: exploration notes and worktrees per spec
 ├── research/       # research: <topic>.md reports · spec-driven: research cache
 └── specs/          # spec-driven: per-feature artifacts and state
