@@ -36,7 +36,7 @@ flowchart TD
 
 ## Output
 
-Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch and done on integration except for a standalone task, and the checklist and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
+Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and done on integration except for a standalone task, and the checklist and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
 
 ## Requirements
 
