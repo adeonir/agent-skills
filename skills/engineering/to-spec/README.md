@@ -8,9 +8,9 @@ Turn agreed context into a specification of behavior, technical decisions, and t
 flowchart TD
     A[Read context] --> B[Investigate code]
     B --> C[Draft spec]
-    C --> D[User review]
-    D -->|Corrections| C
-    D -->|Approved| E[Register issue]
+    C --> D[Register issue]
+    D --> E[Review in tracker]
+    E -->|Corrections| C
 ```
 
 | Phase | Output |
@@ -18,8 +18,8 @@ flowchart TD
 | Context | Intended outcome, constraints, and explicit uncertainties |
 | Investigation | Grounded implementation and testing decisions |
 | Specification | Draft spec with problem, solution, user stories, decisions, exclusions, and notes |
-| Review | User-approved spec text |
-| Registration | One tracker issue holding the approved spec |
+| Registration | One tracker issue holding the draft, carrying the `spec` label |
+| Review | User-approved spec in its tracker issue |
 
 ## Usage
 
@@ -31,8 +31,8 @@ flowchart TD
 
 ## Output
 
-One tracker issue per spec. Drafts stay in the conversation; no local spec file is written.
+One tracker issue per spec, registered as a draft and reviewed in the tracker. Without tracker access, a markdown file in the project at a path the user confirms, or the conversation when the user declines the file.
 
 ## Requirements
 
-A connected tracker tool or authenticated CLI is required for registration. Without tracker access, the skill returns the approved spec and reports the blocker.
+A connected tracker tool or authenticated CLI is required for registration. Without tracker access, the skill reports the blocker and offers the markdown file.
