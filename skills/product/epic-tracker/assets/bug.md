@@ -13,7 +13,7 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 2. {{Next action}}
 3. {{Action where the bug shows}}
 
-**Reproducible:** {{always | intermittently | once, as it behaved while live — plus whether it still occurs, and when it is not always, what is known about when it happened}}
+**Reproducible:** {{always | intermittently | once, as it behaved while live — whether it still occurs, whether it reproduces on the mainline, and, when it is not always, what is known about when it happened}}
 
 ## Expected Behavior
 
@@ -27,8 +27,8 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 
 {Forensic data from logs/dashboards/error reports. Populate from pasted context. Remove this section if no signals are available.}
 
-- **Links:** {{deployment URL, error tracker issue, observability dashboard, repo URL}}
-- **Identifiers:** {{request id, trace id, deployment id, commit hash, user id}}
+- **Links:** {{mainline deployment URL, error tracker issue, observability dashboard, repo URL}}
+- **Identifiers:** {{request id, trace id, deployment id, mainline commit hash, user id}}
 - **First observed:** {{timestamp}}
 - **Error excerpt:**
 
@@ -39,9 +39,11 @@ MUST NOT contain: conversation narrative ("as discussed", "the user reported tha
 ## Environment
 
 {Remove this section when nothing about the running system bears on the
-defect. Name what identifies the run: browser and OS for a client defect;
-deploy, commit, runtime, and region for a server defect. Drop a line with
-nothing to say.}
+defect. Name what identifies the run the fix ships to: browser and OS for a
+client defect; deploy, version, commit, runtime, and region for a server
+defect. A branch, pull request head, or preview deployment identifies the
+session, not the run; when that is the only evidence, state that the
+mainline is unverified. Drop a line with nothing to say.}
 
 - {{Field: value}}
 

@@ -20,6 +20,12 @@ A resolved decision enters as fact (`Reset links expire in 15 minutes`), never a
 
 Upstream sources — a project PRD, feature PRD, feature design doc, design doc, ADR, parent epic, pasted log or advisory — stay read-only. Extract only what maps to this artifact, then say it in the artifact's own language: strip section numbers, reference and ticket codes, code identifiers, and document or sibling-artifact names. The artifact carries the facts, not the source's tokens. Where a stripped token still has to survive, the drafting instruction names the field that holds it.
 
+## Anchor to where the work lands
+
+The session's working tree is input, like the conversation. A pointer or an identifier resolves on the mainline, never on the temporary state the session stands on: a branch name, a pull request head, a preview deployment, a local path, and a line number in a pending change all move or disappear at merge.
+
+Naming the temporary state as where the evidence came from is allowed; the body still gives the mainline equivalent, or states that the mainline is unverified, so the next session re-checks before trusting it.
+
 ## Title
 
 A title is a short human-readable phrase, slug-safe. No commands, flags, file paths, parentheses, brackets, or pipes — it becomes a branch name slug downstream. It is declarative:
