@@ -24,7 +24,7 @@ flowchart TD
 | Exploration | Notes in `.artifacts/implement/[spec-id]/`, when a task needs them |
 | Dispatch | One fresh implementer per ready task, in its own worktree, with the task set to in progress |
 | Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to in review when it has a criterion left to a manual step and to done otherwise, unless it is standalone, and the task branch deleted |
-| Report | Tasks with commits and verification, blockers, tasks not started, and criteria left to a manual step |
+| Report | Tasks with commits and verification, blockers, tasks not started, and criteria left to a manual step, with an offer of a step-by-step manual procedure |
 
 ## Usage
 
@@ -36,7 +36,7 @@ flowchart TD
 
 ## Output
 
-Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and in review or done on integration except for a standalone task, and the checklist and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
+Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and in review or done on integration except for a standalone task, and the checklist, exploration notes, and manual steps (`manual.md`) in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
 
 ## Requirements
 

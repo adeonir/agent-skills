@@ -29,6 +29,8 @@ Before reporting, merge the current tip of [integration branch] into your branch
 
 Stop and report when the task contradicts the spec or the code, or when a test is wrong against the source. Never ask the user.
 
+For each manual entry, record what a person needs to carry it out, as found while implementing: setup, the services to register and the values to copy; env, the variables to set and the file that holds them; run, the commands and the port; check, what to observe. Write `none` for a field that does not apply.
+
 Return only:
-{task, commits, verification: [{command, exit code, commit}], manual: [criterion], blockers: [reason]}
+{task, commits, verification: [{command, exit code, commit}], manual: [{criterion, setup, env, run, check}], blockers: [reason]}
 ```
