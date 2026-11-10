@@ -1,6 +1,6 @@
 # Implement
 
-Implement a spec, one of its tasks, or a standalone task, building each task test-first in a fresh sub-agent and integrating the results on one branch.
+Implement a spec, one of its tasks, or a standalone task, building each task in a fresh sub-agent and integrating the results on one branch.
 
 ## What It Does
 
@@ -23,8 +23,8 @@ flowchart TD
 | State | Each task integrated, resumed, or pending, with integration tracked in `.artifacts/implement/[spec-id]/checklist.md` |
 | Exploration | Shared notes in `.artifacts/implement/[spec-id]/`, when the tasks need them |
 | Dispatch | One fresh implementer per ready task, in its own worktree, with the task set to in progress |
-| Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to done unless it is standalone, and the task branch deleted |
-| Report | Tasks with commits and verification, blockers, and tasks not started |
+| Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to in review when it has a criterion left to a manual step and to done otherwise, unless it is standalone, and the task branch deleted |
+| Report | Tasks with commits and verification, blockers, tasks not started, and criteria left to a manual step |
 
 ## Usage
 
@@ -36,7 +36,7 @@ flowchart TD
 
 ## Output
 
-Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and done on integration except for a standalone task, and the checklist and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
+Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and in review or done on integration except for a standalone task, and the checklist and exploration notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
 
 ## Requirements
 
