@@ -21,6 +21,7 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents with lookup allowed, parallel subagents only for an orchestrator |
 | `.agents/rules/skill-templates` | `skills/**` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
+| `.agents/rules/instruction-file-target` | `skills/**` | canonical instruction-file target selection and owned-block maintenance |
 | `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
@@ -386,7 +387,7 @@ GLOSSARY.md                # domain-modeling: canonical domain terms
 └── design/    # design-md-builder; craft-ui: structure.yaml + wireframes/ + mockups/ + experiments/
 ```
 
-`epic-tracker` writes no artifacts — its output lives in the tracker, plus an `## Issue tracker` block in the consumer repo's `AGENTS.md` or `CLAUDE.md` that mirrors its config.
+`epic-tracker` writes no artifacts — its output lives in the tracker.
 
 `wrap-up` is the only skill that mutates another skill's artifact: it reads `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it writes to Obsidian, then clears it — only after persisting, and within the empty-file-equals-cleared contract `handoff` defines. Reading a sibling's artifact is ordinary composition (`craft-ui`'s mockup phase integrates the arrangement, tokens, and content); a mutating integrator is the exception, and `wrap-up` is its single instance — no other skill may write to or clear a sibling's artifact.
 
