@@ -4,7 +4,7 @@ Execute a requested tracker operation without authoring its issue content.
 
 ## Load first
 
-Read [configuration.md](../references/configuration.md) and [operations.md](../references/operations.md). Resolve bundled script paths from this skill's installed directory.
+Read [configuration.md](../references/configuration.md), [operations.md](../references/operations.md), and [instruction-file.md](../references/instruction-file.md). Resolve bundled script paths from this skill's installed directory.
 
 ## Workflow
 

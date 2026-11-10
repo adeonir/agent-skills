@@ -22,6 +22,7 @@ flowchart LR
 ## References
 
 - [configuration.md](references/configuration.md) — loaded by configure and operate.
+- [instruction-file.md](references/instruction-file.md) — loaded by configure and operate for the `## Issue tracker` block target.
 - [operations.md](references/operations.md) — loaded by operate.
 - [adapter-linear.md](references/adapter-linear.md) — loaded by operate for Linear.
 - [adapter-github.md](references/adapter-github.md) — loaded by operate for GitHub.

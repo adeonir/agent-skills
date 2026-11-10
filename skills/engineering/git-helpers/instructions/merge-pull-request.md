@@ -89,7 +89,7 @@ Whatever path resolved `{method}`, record the rule:
 python3 <this-skill>/scripts/merge-method.py {method}
 ```
 
-The script maintains one `## Merge method` section in the repository's instruction file: one sentence, the merge rule itself. Re-running with the resolved method changes nothing. If the script exits non-zero, surface the error; the instruction file stays untouched on failure. Done when `{method}` is one of `squash`, `merge`, or `rebase`, and the script exited zero.
+The script maintains one `## Merge method` section in the repository's instruction file: one sentence, the merge rule itself. Re-running with the resolved method changes nothing. The target and maintenance contract is [instruction-file.md](../references/instruction-file.md). If the script exits non-zero, surface the error; the instruction file stays untouched on failure. Done when `{method}` is one of `squash`, `merge`, or `rebase`, and the script exited zero.
 
 **Step 3. Sync and verify.**
 

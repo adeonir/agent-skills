@@ -37,7 +37,7 @@ python3 <this-skill>/scripts/config.py apply <settings.json>
 
 ## Instruction block
 
-Maintain one `## Issue tracker` section in the instruction file the harness reads. Prefer a root CLAUDE.md, then .claude/CLAUDE.md; when it imports AGENTS.md, resolve that import relative to the importing file and use the imported path. Otherwise use that CLAUDE.md. Without either, use AGENTS.md. Preserve unrelated sections; reject duplicate blocks, extra or ambiguous section content, and targets outside the repository. Replace only a tracker heading with its single summary paragraph; resolve other content manually before retrying.
+Maintain one `## Issue tracker` section in the instruction file resolved by [instruction-file.md](instruction-file.md). Preserve unrelated sections; replace only a tracker heading with its single summary paragraph; resolve other content manually before retrying.
 
 ALWAYS use this exact template structure:
 

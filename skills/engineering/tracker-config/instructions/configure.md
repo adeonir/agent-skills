@@ -4,7 +4,7 @@ Detect reachable integrations, select a destination, and persist repository-loca
 
 ## Load first
 
-Read [configuration.md](../references/configuration.md). Resolve bundled script paths from this skill's installed directory.
+Read [configuration.md](../references/configuration.md) and [instruction-file.md](../references/instruction-file.md). Resolve bundled script paths from this skill's installed directory.
 
 ## Workflow
 
