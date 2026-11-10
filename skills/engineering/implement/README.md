@@ -21,7 +21,7 @@ flowchart TD
 | Target | Spec and tasks with their native blocking links |
 | Branch | One integration branch per spec, reused across runs |
 | State | Each task integrated, resumed, or pending, with integration tracked in `.artifacts/implement/[spec-id]/checklist.md` |
-| Exploration | Shared notes in `.artifacts/implement/[spec-id]/`, when the tasks need them |
+| Exploration | Notes in `.artifacts/implement/[spec-id]/`, when a task needs them |
 | Dispatch | One fresh implementer per ready task, in its own worktree, with the task set to in progress |
 | Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to in review when it has a criterion left to a manual step and to done otherwise, unless it is standalone, and the task branch deleted |
 | Report | Tasks with commits and verification, blockers, tasks not started, and criteria left to a manual step |
