@@ -14,7 +14,7 @@ flowchart LR
 |-----------|--------|
 | Commit | Conventional commit message based on staged diff |
 | Create PR | Opened pull request with a visual summary, proportional changes, before-and-after evidence, and merge risk via GitHub MCP or `gh` CLI |
-| Merge PR | Merged pull request via GitHub MCP or `gh` CLI, with its branch marked for deletion when `gh` merges, and completed local cleanup with Git |
+| Merge PR | Merged pull request via GitHub MCP or `gh` CLI, followed by cleanup with Git that deletes the merged branch locally and on the remote |
 
 ## Usage
 
@@ -46,4 +46,4 @@ merge pull request
 
 **Q: Does "merge pull request" run start to finish on its own?** A: Yes. It merges once the merge state is clean, with no confirmation, and deletes the merged branch. It stops and asks only when the merge state is not clean.
 
-**Q: Does the skill delete branches?** A: Yes, as part of completing a merged pull request, with no confirmation. When `gh` merges, the merge marks the branch for deletion, which removes the remote branch; the MCP merge tool leaves the remote branch as it is. In both cases the skill then switches to the base branch, pulls the merge, and deletes the local branch.
+**Q: Does the skill delete branches?** A: Yes, in the same cleanup pass, with no confirmation: switch to the base branch, pull the merge, then delete the merged branch locally and on the remote. Deleting happens only after the merge is confirmed as MERGED.

@@ -135,10 +135,10 @@ Done when `mergeStateStatus` is `CLEAN`. On any other value, act as the table sa
 Merging writes to `{base}` and closes the pull request. Proceed once Step 3 confirms `mergeStateStatus` is `CLEAN`. Ask the user only when something is inconsistent: a non-`CLEAN` status, a failing check, or anything else Step 3 surfaces.
 
 ```bash
-gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}" --delete-branch
+gh pr merge {pr-number} --{method} --subject "{subject}" --body "{body}"
 ```
 
-`--delete-branch` is optional and exists only on `gh pr merge`: it marks `{branch}` for deletion with the merge, so `gh` deletes the remote branch, and the local one when it exists. A merge through `GitHub:merge_pull_request` leaves the remote branch as it is; it takes the subject as `commit_title`, the body as `commit_message`, and the method as `merge_method`. Pass `--body ""` when there is no body — omitting the flag makes `gh` fill the body with the branch commit messages. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error. Done when `gh pr merge` exits zero.
+A merge through `GitHub:merge_pull_request` takes the subject as `commit_title`, the body as `commit_message`, and the method as `merge_method`. Pass `--body ""` when there is no body — omitting the flag makes `gh` fill the body with the branch commit messages. For `--rebase`, subject and body are unused (the original commits are replayed onto base). If `gh pr merge` exits non-zero, stop and surface the error. Done when `gh pr merge` exits zero.
 
 **Step 5. Confirm the merge landed.** `gh pr merge` exits before GitHub propagates the merge commit. Confirm the pull request reached `MERGED` state:
 
@@ -158,7 +158,14 @@ git merge --ff-only origin/{base}
 
 If the merge fails as non-fast-forward, the merge has not propagated; surface it and go to Step 7.
 
-Delete `{branch}` locally without asking when it still exists. Step 5 confirmed the pull request is `MERGED`, so its work is on `{base}`. Use `-D`: after a squash or rebase merge the branch commits are not ancestors of `{base}`, and `git branch -d` refuses.
+Delete `{branch}` remotely and locally without asking. Step 5 confirmed the pull request is `MERGED`, so its work is on `{base}`. Delete the remote branch first: skip when nothing is listed, and surface the error otherwise.
+
+```bash
+git ls-remote --heads origin {branch}
+git push origin --delete {branch}
+```
+
+Delete `{branch}` locally when it still exists. Use `-D`: after a squash or rebase merge the branch commits are not ancestors of `{base}`, and `git branch -d` refuses.
 
 ```bash
 git branch --list {branch}
@@ -167,6 +174,6 @@ git branch -D {branch}
 
 Skip the delete when the first command prints nothing.
 
-Done when the local `{base}` matches `origin/{base}` and `{branch}` no longer exists locally.
+Done when the local `{base}` matches `origin/{base}` and `{branch}` no longer exists locally and on the remote.
 
-**Step 7. Report.** Confirm what ran, naming the branches deleted: "Pull request #{pr-number} merged into `{base}`; local branch `{branch}` deleted", adding "and the remote branch" when `--delete-branch` ran. When Step 6 stops before the delete, confirm "Pull request #{pr-number} merged into `{base}`". Done when the report states what ran.
+**Step 7. Report.** Confirm what ran, naming the branches deleted: "Pull request #{pr-number} merged into `{base}`; local branch `{branch}` deleted", adding "and the remote branch" only when it existed on the remote. When Step 6 stops before the deletes, confirm "Pull request #{pr-number} merged into `{base}`". Done when the report states what ran.
