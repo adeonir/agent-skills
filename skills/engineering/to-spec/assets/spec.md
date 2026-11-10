@@ -30,7 +30,7 @@ ALWAYS use this exact template structure:
 
 ## Testing Decisions
 
-[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Name the acceptance criteria demonstrated by hand and how to demonstrate each.]
+[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Quote each acceptance criterion demonstrated by hand and how to demonstrate it in the local environment. List the one-time setup a person does before the demonstration, such as registering an OAuth app with the local callback address.]
 
 ## Out of Scope
 
@@ -38,7 +38,7 @@ ALWAYS use this exact template structure:
 
 ## Further Notes
 
-[Relevant risks, conflicting constraints, assumptions, unverified claims, and unanswered questions. State their consequences; do not present them as settled decisions. Write `None` when there are no additional notes.]
+[Relevant risks, conflicting constraints, assumptions, unverified claims, and unanswered questions; never setup steps. State their consequences; do not present them as settled decisions. Write `None` when there are no additional notes.]
 
 ## Reference
 

@@ -9,14 +9,24 @@ ALWAYS use this exact template structure:
 
 [The end-to-end behavior this task makes work, from the user's perspective, not a layer-by-layer implementation list. For a prefactor or wide-change task, the structural change and the behavior it keeps unchanged.]
 
+## Manual setup
+
+- [A one-time step a person does in the local environment before the criteria can be met, such as registering an OAuth app with the local callback address. Omit the section when there is none.]
+
 ## Acceptance criteria
 
-- [ ] [One observable outcome with concrete values that shows this task works. End with `(manual)` when a person meets it outside the repository, such as a setting on the platform.]
+### Tested
+
+- [ ] [One observable outcome with concrete values that a test at the spec's test boundary checks.]
+
+### Demonstrated by hand
+
+- [ ] [One observable outcome with concrete values that a person demonstrates in the local environment because no test covers it. Omit the list when there is none.]
 
 ## Verification
 
-[How the criteria are verified, as the spec's Testing Decisions set it: the test boundary, or the criteria demonstrated by hand and how.]
+[How the criteria are verified, as the spec's Testing Decisions set it: the test boundary for the tested criteria, and how to demonstrate each criterion demonstrated by hand in the local environment.]
 
 ```
 
-MUST NOT contain: a parent or blocked-by section in an issue body; specific file paths or implementation code, except a prototype snippet that captures a decision; implementation decisions copied from the spec, which never include its testing decisions; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.
+MUST NOT contain: a setup step as an acceptance criterion; a step in a published environment; a parent or blocked-by section in an issue body; specific file paths or implementation code, except a prototype snippet that captures a decision; implementation decisions copied from the spec, which never include its testing decisions; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.
