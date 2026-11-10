@@ -44,7 +44,7 @@ ALWAYS use this exact template structure:
 ```markdown
 ## Issue tracker
 
-Tracker: [Linear team and project names, or GitHub repository and optional project owner/number]. Configuration: repository-local `tracker.*`; inspect with `git config --local --get-regexp '^tracker\.'`. Change with "configure tracker".
+Tracker: [Linear team and project names, or GitHub repository and optional project owner/number].
 ```
 
 MUST NOT contain: credentials, another configuration namespace, issue-body content, delivery plans, or instructions to invoke another skill.

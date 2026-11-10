@@ -82,7 +82,7 @@ def block(settings):
         destination = "GitHub Issues; repository " + settings["repository"]
         if "project" in settings:
             destination += "; project " + settings["project-owner"] + "/" + settings["project"]
-    return "## Issue tracker\n\nTracker: " + destination + ". Configuration: repository-local `tracker.*`; inspect with `git config --local --get-regexp '^tracker\\.'`. Change with \"configure tracker\".\n"
+    return "## Issue tracker\n\nTracker: " + destination + ".\n"
 
 
 def tracker_sections(text):
