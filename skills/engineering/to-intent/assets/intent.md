@@ -1,15 +1,9 @@
 ALWAYS use this exact template structure:
 
 ```markdown
----
-id: [id]
-name: [slug]
-status: [draft | approved]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
----
-
 # Intent: [Outcome]
+
+Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 ## Problem
 [The problem in the originator's own terms.]

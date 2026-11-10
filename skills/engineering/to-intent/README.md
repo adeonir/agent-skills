@@ -19,7 +19,7 @@ flowchart TD
 | Make concrete | Template fields filled; unknowns kept explicit |
 | Calibrate | One intent per independent outcome |
 | Write | Intent files, each with a stable ID |
-| Review | User-approved intent files |
+| Review | Intent files corrected with the user |
 
 ## Usage
 
@@ -31,4 +31,4 @@ Capture the independent outcomes in this document as separate intents for review
 
 ## Output
 
-One `docs/intents/<id>-<slug>.md` per intent, for example `docs/intents/003-claim-status-portal.md`. The three-digit `id` is also in the frontmatter, grows with each new intent, and is never reused or renumbered.
+One `docs/intents/<id>-<slug>.md` per intent, for example `docs/intents/003-claim-status-portal.md`. The three-digit `id` grows with each new intent, and is never reused or renumbered.
