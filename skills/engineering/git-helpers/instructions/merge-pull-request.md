@@ -4,7 +4,7 @@ Merge a GitHub pull request.
 
 ## Load first
 
-Read [message-sourcing.md](../references/message-sourcing.md) before writing the merge subject — it carries where the words come from, the diction bar, and the two shapes of slop.
+Read [message-sourcing.md](../references/message-sourcing.md) before writing the merge subject — it carries where the words come from, the diction bar, and the two shapes of slop. Resolve bundled script paths from this skill's installed directory.
 
 ## Contents
 
@@ -51,7 +51,7 @@ Use `baseRefName` as `{base}` and `headRefName` as `{branch}` for the rest of th
 git config --get git-helpers.merge-method
 ```
 
-If a value is returned (`squash`, `merge`, or `rebase`), use it directly — skip the rest of this step.
+If a value is returned (`squash`, `merge`, or `rebase`), use it as `{method}` and skip to the record step at the end of this step.
 
 If no value is set, infer from recent merges on base:
 
@@ -83,7 +83,13 @@ git config --local git-helpers.merge-method {method}
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-Done when `{method}` is one of `squash`, `merge`, or `rebase`.
+Whatever path resolved `{method}`, record the rule:
+
+```bash
+python3 <this-skill>/scripts/merge-method.py {method}
+```
+
+The script maintains one `## Merge method` section in the repository's instruction file: one sentence, the merge rule itself. Re-running with the resolved method changes nothing. If the script exits non-zero, surface the error; the instruction file stays untouched on failure. Done when `{method}` is one of `squash`, `merge`, or `rebase`, and the script exited zero.
 
 **Step 3. Sync and verify.**
 

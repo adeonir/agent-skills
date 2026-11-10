@@ -27,9 +27,14 @@ merge PR
 merge pull request
 ```
 
+## Output
+
+The repository instruction file carries one `## Merge method` section.
+
 ## Requirements
 
 - Git
+- Python 3 (maintains the `## Merge method` section)
 - GitHub MCP or `gh` CLI (for PR operations)
 
 ## FAQ
