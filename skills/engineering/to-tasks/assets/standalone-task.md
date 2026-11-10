@@ -11,7 +11,11 @@ ALWAYS use this exact template structure:
 
 ## Acceptance Criteria
 
-- [ ] [One observable outcome with concrete values that shows this task works.]
+- [ ] [One observable outcome with concrete values that shows this task works. End with `(manual)` when a person meets it outside the repository, such as a setting on the platform.]
+
+## Verification
+
+[How the criteria are verified: an automated test, or a demonstration by hand and how.]
 ```
 
 MUST NOT contain: a parent or blocked-by section in an issue body; specific file paths or implementation code, except a prototype snippet that captures a decision; source section numbers or requirement IDs; downstream work, milestones, or releases; conversation narrative.

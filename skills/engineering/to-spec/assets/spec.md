@@ -22,7 +22,7 @@ ALWAYS use this exact template structure:
 1. As [actor], I want [behavior], so that [benefit].
    - Acceptance: [One observable outcome with concrete values, including relevant limits or failure cases.]
 
-[Cover the agreed behavior without padding the list. Write one behavior per acceptance line.]
+[Cover the agreed behavior without padding the list. Write one behavior per acceptance line, observable through the test boundary or the manual demonstration in Testing Decisions. Leave out an absence that only reading configuration shows, such as a removed dependency.]
 
 ## Implementation Decisions
 
@@ -30,7 +30,7 @@ ALWAYS use this exact template structure:
 
 ## Testing Decisions
 
-[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. Test external behavior rather than implementation details. Describe how to demonstrate the acceptance criteria.]
+[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Name the acceptance criteria demonstrated by hand and how to demonstrate each.]
 
 ## Out of Scope
 
