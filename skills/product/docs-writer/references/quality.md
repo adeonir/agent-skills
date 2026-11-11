@@ -32,6 +32,7 @@ Before writing any document to disk, verify:
 - [ ] No unresolved TBDs that block the document's purpose
 - [ ] Scope is focused (one document, one purpose)
 - [ ] Cross-references to other docs are valid
+- [ ] Every claim that another document says something was checked against that document: read the passage and cite it as file:line
 - [ ] Requirements are concrete (no vague adjectives) and carry no invented numbers
 - [ ] The document declares and does not narrate, per `## Declare, Don't Narrate`
 
