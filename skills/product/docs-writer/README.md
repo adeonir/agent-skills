@@ -56,7 +56,7 @@ Project documents are saved at the project root and by category under `docs/`:
 ```text
 PRODUCT.md
 docs/product/PRD.md
-docs/tech/design-doc.md
+docs/product/design-doc.md
 docs/adr/<NNN>-<slug>.md
 ```
 

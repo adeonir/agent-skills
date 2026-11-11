@@ -29,7 +29,7 @@ Handle `docs/product/PRD.md` and `PRODUCT.md` independently. One run can discove
 | PRODUCT exists, PRD absent | Discover PRD using confirmed PRODUCT facts + update PRODUCT |
 | Both exist | Update only the requested parts of both documents |
 
-Handle `docs/tech/design-doc.md` the same way: discover it if absent or update the requested parts if present. No paired document changes this choice.
+Handle `docs/product/design-doc.md` the same way: discover it if absent or update the requested parts if present. No paired document changes this choice.
 
 For a new document, cover every required topic that another confirmed document does not already answer. For an existing document, update only missing information or the requested parts. Apply `## Reading Project Files` before reading any project file. Follow [reconcile.md](reconcile.md) when updating a document. If `docs/product/brainstorm.md` exists, use its confirmed direction as input to PRD discovery; see [prd.md](prd.md). Read the codebase separately when you need facts about current behavior.
 

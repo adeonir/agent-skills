@@ -4,7 +4,7 @@ A lean project Design Doc: the technical foundation of the system and the reason
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) at the start of discovery, and [quality.md](../references/quality.md) before writing to disk. When `docs/tech/design-doc.md` already exists, follow [reconcile.md](../references/reconcile.md) and update only the requested parts.
+Read [discovery.md](../references/discovery.md) at the start of discovery, and [quality.md](../references/quality.md) before writing to disk. When `docs/product/design-doc.md` already exists, follow [reconcile.md](../references/reconcile.md) and update only the requested parts.
 
 ## Boundaries
 
@@ -27,7 +27,7 @@ document absent  → discovery → drafting → report
 document present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/tech/design-doc.md` exists. If absent, run discovery and drafting. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Run the quality checks before writing.
+Check whether `docs/product/design-doc.md` exists. If absent, run discovery and drafting. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Run the quality checks before writing.
 
 ### Phase 1: Discovery
 
@@ -155,7 +155,7 @@ Stack items without an ADR are recorded only here, with their one-line justifica
 
 ## Updating an Existing Design Doc
 
-If `docs/tech/design-doc.md` exists, read it and update only what changed: a stack choice, component, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](../references/reconcile.md).
+If `docs/product/design-doc.md` exists, read it and update only what changed: a stack choice, component, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](../references/reconcile.md).
 
 Set `Updated:` to the current date and preserve `Created:`. Report any change that conflicts with a linked ADR or an unchanged section.
 
@@ -169,4 +169,4 @@ A Design Doc is not a full technical specification. Include the optional section
 
 ## Output
 
-Save to: `docs/tech/design-doc.md`.
+Save to: `docs/product/design-doc.md`.
