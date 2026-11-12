@@ -30,7 +30,7 @@ ALWAYS use this exact template structure:
 
 ## Testing Decisions
 
-[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Quote each acceptance criterion demonstrated by hand and how to demonstrate it in the local environment. List the one-time setup a person does before the demonstration, such as registering an OAuth app with the local callback address.]
+[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Quote each acceptance criterion demonstrated by hand, and for each surface those criteria share, one pass through it in the local environment that demonstrates them, as what a person sees while using the product, such as "press the button; it compresses and settles back". Name a developer tool, a playback rate, or a media-feature emulation only for an outcome no one can see without it. List the one-time setup a person does before the demonstration, such as registering an OAuth app with the local callback address.]
 
 ## Out of Scope
 

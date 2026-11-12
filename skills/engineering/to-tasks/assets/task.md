@@ -21,11 +21,11 @@ ALWAYS use this exact template structure:
 
 ### Demonstrated by hand
 
-- [ ] [One observable outcome with concrete values that a person demonstrates in the local environment because no test covers it. Omit the list when there is none.]
+- [ ] [One observable outcome with concrete values that a person demonstrates in the local environment because no test covers it, written as what the person sees while using the product. Omit the list when there is none.]
 
 ## Verification
 
-[How the criteria are verified, as the spec's Testing Decisions set it: the test boundary for the tested criteria, and how to demonstrate each criterion demonstrated by hand in the local environment.]
+[How the criteria are verified, as the spec's Testing Decisions set it: the test boundary for the tested criteria, and one pass through the product that shows the criteria demonstrated by hand in the local environment. Carry the intent of the spec's demonstration, not its wording. Name a developer tool, a playback rate, or a media-feature emulation only for an outcome no one can see without it.]
 
 ```
 
