@@ -31,8 +31,8 @@ flowchart TD
 
 ## Output
 
-One tracker issue per spec, registered as a draft and reviewed in the tracker. Without tracker access, a markdown file in the project at a path the user confirms, or the conversation when the user declines the file.
+One tracker issue per spec, registered as a draft and reviewed in the tracker. Without tracker access, the draft in the conversation.
 
 ## Requirements
 
-A connected tracker tool or authenticated CLI is required for registration. Without tracker access, the skill reports the blocker and offers the markdown file.
+A connected tracker tool or authenticated CLI is required for registration. Without tracker access, the skill reports the blocker and shows the draft in the conversation.

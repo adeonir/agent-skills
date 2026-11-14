@@ -34,8 +34,8 @@ flowchart TD
 
 ## Output
 
-One tracker sub-issue per task under the spec issue, or one issue with no parent in standalone mode. Blocking edges are native tracker links. Without a configured tracker or tracker access, one numbered markdown file per task in a project directory the user confirms, or the conversation when the user declines the files.
+One tracker sub-issue per task under the spec issue, or one issue with no parent in standalone mode. Blocking edges are native tracker links. Without a configured tracker or tracker access, the tasks in the conversation.
 
 ## Requirements
 
-A connected tracker tool or authenticated CLI that supports sub-issues and blocking links. Without a configured tracker or tracker access, the skill reports the blocker and offers the markdown files.
+A connected tracker tool or authenticated CLI that supports sub-issues and blocking links. Without a configured tracker or tracker access, the skill reports the blocker and shows the tasks in the conversation.

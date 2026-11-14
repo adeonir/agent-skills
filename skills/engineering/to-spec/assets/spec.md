@@ -22,7 +22,7 @@ ALWAYS use this exact template structure:
 1. As [actor], I want [behavior], so that [benefit].
    - Acceptance: [One observable outcome with concrete values, including relevant limits or failure cases.]
 
-[Cover the agreed behavior without padding the list. Write one behavior per acceptance line, observable through the test boundary or the manual demonstration in Testing Decisions. Leave out an absence that only reading configuration shows, such as a removed dependency.]
+[Cover the agreed behavior without padding the list. Write one behavior per acceptance line, observable through the test boundary in Testing Decisions. Leave out an absence that only reading configuration shows, such as a removed dependency.]
 
 ## Implementation Decisions
 
@@ -30,7 +30,7 @@ ALWAYS use this exact template structure:
 
 ## Testing Decisions
 
-[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it, or that it has no seam. Test external behavior rather than implementation details. Quote each acceptance criterion demonstrated by hand, and for each surface those criteria share, one pass through it in the local environment that demonstrates them, as what a person sees while using the product, such as "press the button; it compresses and settles back". Name a developer tool, a playback rate, or a media-feature emulation only for an outcome no one can see without it. List the one-time setup a person does before the demonstration, such as registering an OAuth app with the local callback address.]
+[The boundary through which tests exercise the behavior, the modules covered, and relevant testing precedent in the repository. For each external dependency, the seam where a test replaces it. Test external behavior rather than implementation details.]
 
 ## Out of Scope
 
@@ -38,7 +38,7 @@ ALWAYS use this exact template structure:
 
 ## Further Notes
 
-[Relevant risks, conflicting constraints, assumptions, unverified claims, and unanswered questions; never setup steps. State their consequences; do not present them as settled decisions. Write `None` when there are no additional notes.]
+[Relevant risks, conflicting constraints, assumptions, unverified claims, and unanswered questions. State their consequences; do not present them as settled decisions. Write `None` when there are no additional notes.]
 
 ## Reference
 
