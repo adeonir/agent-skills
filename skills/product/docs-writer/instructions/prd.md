@@ -38,7 +38,7 @@ Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, the
 | Key Assumption | Assumptions | carry |
 | Open Questions | Open Questions | carry |
 
-Present each supplied topic as an interpretation for the user to confirm or correct. Do not repeat its opening questions. Run discovery for information the upstream document does not contain: audience, the ordered requirements and FR IDs, and NFRs.
+Present each supplied topic as an interpretation for the user to confirm or correct. Do not repeat its opening questions. Run discovery for information the upstream document does not contain: audience, the requirements with their priority, order, and FR IDs, and NFRs.
 
 Do not copy rejected alternatives, Revision History, or the direction's name into the PRD. Carry only the confirmed problem, constraints, and criteria, expressed as product requirements.
 
@@ -112,7 +112,7 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 **Opening questions:**
 
-- What does the user need the product to do, from most to least important?
+- What does the user need the product to do, and is each item needed to solve the problem (P0), an improvement (P1), or out of this scope with room left for it (P2)?
 - What does the product deliberately not do?
 - What changes for the user once the problem is solved, and what could invalidate the project?
 
@@ -126,7 +126,7 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 **Complete when:**
 
-- Requirements are ordered from most to least important to the user, and each Out of Scope item carries a reason
+- Each requirement carries a priority (P0, P1, P2) and, within a priority, the requirements are ordered from most to least important to the user; each Out of Scope item carries a reason
 - The expected outcome states what changes for the user
 - A primary metric exists or is marked TBD
 - Assumptions and risks are named
@@ -139,7 +139,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. **Question scope**: Is the scope realistic? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "How much does the user need X?"
 4. **Flag a fragile direction**: If the direction itself seems fragile after discovery, say so and recommend reopening the direction decision before specifying — the PRD does not generate or choose alternatives
-5. **Define scope**: Order requirements from most to least important to the user, and record exclusions under Out of Scope
+5. **Define scope**: Give each requirement a priority (P0, P1, P2), order requirements within a priority from most to least important to the user, and record exclusions under Out of Scope
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 
 ### Phase 3: Drafting
@@ -173,7 +173,7 @@ For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact s
 | 1. Problem | The pain, who has it, how they cope today, evidence, why it is worth solving | Topic 1: Problem |
 | 2. Audience | User profiles and main use cases | Topic 2: Users |
 | 3. Expected Outcome | What changes for the user and one primary metric | Topic 1: Problem, Topic 4: Scope |
-| 4. Scope | Requirements (FR-1...) from most to least important, and Out of Scope | Topic 4: Scope |
+| 4. Scope | Requirements (FR-1...) with a priority (P0, P1, P2), from most to least important within a priority, and Out of Scope | Topic 4: Scope |
 | 5. Non-Functional Requirements | Quality requirements (NFR-1...) in words or with a supplied number | Topic 4: Scope |
 | 6. Assumptions & Risks | What is assumed and what could invalidate the project, with mitigations | Validation phase |
 | 7. Open Questions | Unresolved questions as a checklist | Validation phase |
@@ -189,7 +189,7 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 - Mark unknowns as TBD rather than inventing constraints or numbers
 - Discover PRODUCT if absent. Update only the requested parts if present.
 - Record a reason for exclusion on every Out of Scope item
-- Reference only documents that exist; omit a reference rather than writing "None"
+- Reference only documents that exist; write `- None` when none exists
 
 ## Output
 
