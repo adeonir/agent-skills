@@ -18,8 +18,8 @@ flowchart TD
 
 | Mode | Output |
 |------|--------|
-| New | `docs/product/FLOWS.md` — one wireflow per task, dead-end register, connect map, priority order |
-| Audit | Ranked findings in chat: dead ends, merged flows, broken hand-offs — no file edited |
+| New | `docs/product/FLOWS.md` — one wireflow per task, dead-end register, rules, connect map, priority order |
+| Audit | Ranked findings in chat: dead ends, merged flows, broken hand-offs, notation defects — no file edited |
 | Refine | The named flow rewritten and written back, with before/after wireflows and a screen count |
 
 Every flow keeps one diagram, one task. Connections between flows are named hand-offs, never a merged mega-map.
@@ -32,11 +32,12 @@ Map the flows for this checkout — here is the PRD
 Audit the flows of this app and tell me where the dead ends are
 Shorten the signup flow
 Restructure the onboarding — it covers both signup and tour, split it
+Update the signup flow from these review comments
 ```
 
 ## Output
 
-`docs/product/FLOWS.md`, committed — product name, priority flows, one section per flow (goal, entry, wireflow, dead ends, connections), the connect map, and what discovery left unset.
+`docs/product/FLOWS.md`, committed — product name, priority flows, one section per flow (goal, entry, wireflow, dead ends, rules, connections), the connect map, and what discovery left unset.
 
 ## FAQ
 

@@ -26,7 +26,7 @@ One flow per task. Priority flows carry full branch coverage; the rest are happy
 **Entry:** [first-open | deep link | from Flow: browse]
 **Type:** [onboarding/auth | task | conversion | settings]
 
-[wireflow diagram — mermaid flowchart, one diagram, labeled arrows]
+[wireflow diagram — mermaid flowchart, one diagram, labeled per the notation rules]
 
 **Dead ends:**
 
@@ -35,7 +35,9 @@ One flow per task. Priority flows carry full branch coverage; the rest are happy
 | [card rejected] | [payment screen with error message] |
 | [timeout] | [return to cart] |
 
-**Connects:** starts from [flow], hands off on [terminal state] to [flow].
+**Rules:** [business rules the flow enforces, one per line — e.g. the cart holds items for 30 minutes]
+
+**Connects:** starts from [flow], hands off on [terminal node] to [flow].
 
 ## Connect Map
 

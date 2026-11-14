@@ -1,7 +1,7 @@
 ---
 name: app-flow
 allowed-tools: Read Write Edit
-description: "Plan, audit, and refine app flows — the user paths through a website, a mobile app, or another product surface, one flow per task. Use when mapping flows for a new product, drawing checkout, onboarding, or task flows, auditing an existing app's flows for dead ends and drop-off, or restructuring and shortening an existing flow. Not for UI design or wireframes, information architecture, usability review, domain modeling, or implementation."
+description: "Plan, audit, and refine app flows — the user paths through a website, a mobile app, or another product surface, one flow per task. Use when mapping flows for a new product, drawing checkout, onboarding, or task flows, auditing an existing app's flows for dead ends and drop-off, or restructuring, shortening, or revising an existing flow against review comments or feedback. Not for UI design or wireframes, information architecture, usability review, domain modeling, or implementation."
 ---
 
 # App Flow
@@ -12,7 +12,7 @@ Plans the user paths of a website, a mobile app, or any other product surface as
 
 - **Plan new app flows** ("plan the app flow", "map the flows", "design the flow for this checkout", "what flows does this app need") → [plan.md](instructions/plan.md)
 - **Audit** ("audit the flows", "check my app's flows", "find the dead ends") → [audit.md](instructions/audit.md)
-- **Refine** ("improve this flow", "shorten the signup flow", "restructure the onboarding") → [refine.md](instructions/refine.md)
+- **Refine** ("improve this flow", "shorten the signup flow", "restructure the onboarding", "update this flow from the review comments", "apply this feedback to the flow") → [refine.md](instructions/refine.md)
 
 ## References
 

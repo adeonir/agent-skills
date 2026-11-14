@@ -1,10 +1,10 @@
 # Audit
 
-Examine a product's app flows for structural defects — dead ends, unmerged steps, broken hand-offs — and report findings in chat. The audit writes no artifact; it reports.
+Examine a product's app flows for structural and notation defects — dead ends, unmerged steps, broken hand-offs, labels against the notation — and report findings in chat. The audit writes no artifact; it reports.
 
 ## Load first
 
-Read [flow-model.md](../references/flow-model.md) — the structure rules are the audit's rubric.
+Read [flow-model.md](../references/flow-model.md) — the structure rules and the wireflow notation are the audit's rubric.
 
 Read [discovery.md](../references/discovery.md) and run its intake step — the flows may arrive as `docs/product/FLOWS.md`, as prose, or as a codebase that can be read for screens.
 
@@ -35,8 +35,9 @@ If a finding exposes an unstated flow boundary, return to Step 1.
 - **Broken hand-off** — a flow ends with no named receiver, or connects to a flow from a state that flow does not cover.
 - **Action as step** — a step drawn for an action ("pay") instead of the screen it happens on.
 - **Branch before happy path** — the happy path cannot be read as its own line.
+- **Notation** — a label, condition, or state change drawn against the wireflow notation rules: a label that carries a rule or "X or not X", a condition repeated across paths with no diamond, a domain state in the exit circle.
 - **Priority without detail** — a flow marked most valuable with nothing but its happy path drafted.
 
-**Step 3. Rank.** By impact — a broken hand-off on a priority flow outranks a merged flow on a settings one. Every finding carries the four named fields — **flow** / **rule** / **evidence** / **severity** (high, medium, low) — and a finding without an evidence line is dropped before ranking, not ranked with a hole. The evidence names where the path breaks down: the screen, state, or hand-off.
+**Step 3. Rank.** By impact — a broken hand-off on a priority flow outranks a merged flow on a settings one. Every finding carries the four named fields — **flow** / **rule** / **evidence** / **severity** (high, medium, low) — and a finding without an evidence line is dropped before ranking, not ranked with a hole. The evidence names where the path breaks down: the screen, state, hand-off, or arrow label.
 
 **Step 4. Report.** Print the ranked findings in chat and end with a one-line verdict on which 1–2 fixes would change the product most. Do not edit `docs/product/FLOWS.md` or the flows themselves — the user decides what happens to the findings.
