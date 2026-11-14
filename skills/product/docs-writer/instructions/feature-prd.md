@@ -22,4 +22,4 @@ resolve location → check feature artifact
 
 ## Boundaries
 
-Use requirements and the problem, not tracker User Stories. Do not include PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, or release plans. Do not invoke or mention another skill. The document ends at approval.
+Do not invoke another skill. The document ends at approval.

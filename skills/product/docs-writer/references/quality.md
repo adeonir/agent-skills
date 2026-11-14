@@ -70,11 +70,8 @@ Apply these boundaries to the PRD and Design Doc. Keep each subject in its ownin
 
 **When the document is a PRD, verify:**
 
-- [ ] No architecture, tech stack, framework choices, or deployment topology — those belong to the Design Doc
-- [ ] No API contracts, endpoint paths, request/response shapes, or database schema details
-- [ ] No UI component names, library references, or styling instructions
+- [ ] Nothing the template's `MUST NOT contain` line names appears in any section
 - [ ] NFRs state the requirement without prescribing the mechanism ("search stays responsive on mobile networks" not "use Redis caching")
-- [ ] No positioning (What/Why/Who, personality, anti-references) in any section — it lives in PRODUCT
 
 **When the document is a Design Doc, verify:**
 
