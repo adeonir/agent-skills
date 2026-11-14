@@ -34,6 +34,7 @@ Before writing any document to disk, verify:
 - [ ] Cross-references to other docs are valid
 - [ ] Every claim that another document says something was checked against that document: read the passage and cite it as file:line
 - [ ] Requirements are concrete (no vague adjectives) and carry no invented numbers
+- [ ] In a PRD or a feature PRD, every requirement serves the stated problem; resolve one that does not with the user, by cutting it or moving it to Out of Scope
 - [ ] The document declares and does not narrate, per `## Declare, Don't Narrate`
 
 **If any check fails, fix the document, run that check again, and write only after it passes.** Apply all checks to both new and updated documents.

@@ -119,6 +119,7 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 **Ask follow-up when:**
 
 - Everything seems equally important → "If the user could have only one of these, which would it be?"
+- Requirements cover only the path where everything works → "What does the user see when this fails, comes back empty, or hits a limit?" Record the answer as user-visible behavior, never as the mechanism behind it.
 - Scope keeps expanding → "We started with X, now it's X+Y+Z. Should we narrow down?"
 - Features without clear user connection → "Which user profile needs this? What problem does it solve for them?"
 - No success measure → "What single metric would tell you this worked?"
