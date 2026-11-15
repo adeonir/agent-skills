@@ -16,7 +16,7 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Context | Intended outcome, constraints, and explicit uncertainties |
-| Investigation | Grounded implementation and testing decisions |
+| Investigation | Grounded decisions, a confirmed test boundary, and answered open questions |
 | Specification | Draft spec with problem, solution, user stories, decisions, exclusions, and notes |
 | Registration | One tracker issue holding the draft, carrying the `spec` label |
 | Review | User-approved spec in its tracker issue |
