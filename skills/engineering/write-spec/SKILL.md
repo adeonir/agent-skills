@@ -1,15 +1,15 @@
 ---
-name: to-spec
+name: write-spec
 description: "Turns already-agreed context from the conversation or supplied materials into a lightweight specification of behavior, technical decisions, and testing. Use when turning an agreed intent or discussion into a spec, or updating that spec with revised decisions. Not for feature specs or PRDs started from scratch, discovery interviews, traceable requirements or task plans, issue decomposition, or implementation."
 argument-hint: "[context]"
 disable-model-invocation: true
 ---
 
-# To Spec
+# Write Spec
 
 ## Quick start
 
-Use `/to-spec [context]` to produce one spec for a unit of work and register it as a tracker issue. Synthesize the available conversation and supplied materials; keep detail proportional to the work.
+Use `/write-spec [context]` to produce one spec for a unit of work and register it as a tracker issue. Synthesize the available conversation and supplied materials; keep detail proportional to the work.
 
 ## Workflow
 

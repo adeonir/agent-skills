@@ -34,10 +34,10 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with acceptance-criteria traceability |
 | **[test-driven](skills/engineering/test-driven)** | Build a change test-first, with tests anchored to the spec, issue, or request and reviewed by a fresh reviewer |
-| **[to-intent](skills/engineering/to-intent)** | Turn inputs into concrete intents with the user |
-| **[to-spec](skills/engineering/to-spec)** | Turn agreed context into a behavior and technical specification tracked as an issue |
 | **[to-tasks](skills/engineering/to-tasks)** | Break an approved spec into tasks registered as sub-issues with native blocking links |
 | **[tracker-config](skills/engineering/tracker-config)** | Configure tracker destinations and operate issues through Linear or GitHub |
+| **[write-intents](skills/engineering/write-intents)** | Turn inputs into concrete intents with the user |
+| **[write-spec](skills/engineering/write-spec)** | Turn agreed context into a behavior and technical specification tracked as an issue |
 
 ### Product
 
@@ -155,7 +155,7 @@ spec-driven discovers gap (missing entity, orphan flow, NFR drift)
 docs/
 ├── adr/            # docs-writer: append-only decision log
 ├── design/         # design-md-builder: locked direction (moodboard.md) · craft-ui: chosen mockup · storytelling: storytelling.md
-├── intents/        # to-intent: <id>-<slug>.md per intent
+├── intents/        # write-intents: <id>-<slug>.md per intent
 ├── product/        # briefing: briefing.md · brainstorm: brainstorm.md · docs-writer: project PRD · copywriting: copy.yaml · app-flow: FLOWS.md
 └── tech/           # docs-writer: design-doc
 

@@ -376,7 +376,7 @@ Skills split outputs between committed strategic docs (`docs/`) and a gitignored
 docs/
 ├── product/   # brainstorm, docs-writer, copywriting: content
 ├── adr/       # docs-writer
-├── intents/   # to-intent
+├── intents/   # write-intents
 └── design/    # design-md-builder, craft-ui, storytelling
 
 PROJECT.md                 # spec-driven: committed project memory

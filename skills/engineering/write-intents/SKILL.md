@@ -1,15 +1,15 @@
 ---
-name: to-intent
+name: write-intents
 description: "Turns an idea, problem, document, ticket, incident, or metric into concrete intents with the user. Use when capturing intent, turning input into an intent, or clarifying the problem and proposed outcome before specification. Not for open-ended ideation, exhaustive decision interviews, feature specifications, implementation slicing, or coding."
 argument-hint: "[input]"
 disable-model-invocation: true
 ---
 
-# To Intent
+# Write Intents
 
 ## Quick start
 
-Use `/to-intent [input]` to capture one or more deliverables with the user and save each intent to `docs/intents/<id>-<slug>.md`. Keep the interview short and driven by the intent template. Produce no specification or implementation slices.
+Use `/write-intents [input]` to capture one or more deliverables with the user and save each intent to `docs/intents/<id>-<slug>.md`. Keep the interview short and driven by the intent template. Produce no specification or implementation slices.
 
 ## Workflow
 

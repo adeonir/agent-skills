@@ -1,4 +1,4 @@
-# To Intent
+# Write Intents
 
 Turn an input into concrete intents with the user.
 
@@ -24,7 +24,7 @@ flowchart TD
 ## Usage
 
 ```text
-/to-intent Customers call to ask for claim status; let them check it in the portal using their existing login.
+/write-intents Customers call to ask for claim status; let them check it in the portal using their existing login.
 Turn this incident into an intent and keep unknowns as open questions.
 Cut this PRD into deliverables, one intent each, for review.
 ```

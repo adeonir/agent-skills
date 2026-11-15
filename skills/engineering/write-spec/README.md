@@ -1,4 +1,4 @@
-# To Spec
+# Write Spec
 
 Turn agreed context into a specification of behavior, technical decisions, and tests.
 
@@ -24,9 +24,9 @@ flowchart TD
 ## Usage
 
 ```text
-/to-spec turn this conversation into a specification
-/to-spec specify the agreed change from the supplied materials
-/to-spec update the existing specification with these revised decisions
+/write-spec turn this conversation into a specification
+/write-spec specify the agreed change from the supplied materials
+/write-spec update the existing specification with these revised decisions
 ```
 
 ## Output
