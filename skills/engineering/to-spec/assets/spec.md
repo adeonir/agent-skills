@@ -22,7 +22,7 @@ ALWAYS use this exact template structure:
 1. As [actor], I want [behavior], so that [benefit].
    - Acceptance: [One observable outcome with concrete values, including relevant limits or failure cases.]
 
-[Cover the agreed behavior without padding the list. Write one behavior per acceptance line, observable through the test boundary in Testing Decisions. Leave out an absence that only reading configuration shows, such as a removed dependency.]
+[Cover all aspects of the agreed behavior: every actor, path, and failure case or limit the context names. Add no story the context does not support. Write one behavior per acceptance line, observable through the test boundary in Testing Decisions. Leave out an absence that only reading configuration shows, such as a removed dependency.]
 
 ## Implementation Decisions
 
