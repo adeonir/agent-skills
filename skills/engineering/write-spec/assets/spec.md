@@ -35,7 +35,7 @@ ALWAYS use this exact template structure:
 
 ## Out of Scope
 
-[Explicit exclusions for this unit of work.]
+[Explicit exclusions for this unit of work. Write `None` when there are none.]
 
 ## Further Notes
 
@@ -44,7 +44,6 @@ ALWAYS use this exact template structure:
 ## Reference
 
 [Link to each related document.]
-
 ```
 
 MUST NOT contain: source section numbers or requirement IDs; sibling artifact names outside `Reference`; downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
