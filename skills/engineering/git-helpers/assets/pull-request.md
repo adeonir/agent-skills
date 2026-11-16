@@ -32,4 +32,4 @@ Keep Summary. Omit other sections and the closing reference when they do not app
 
 The `Closes #N` line is for a GitHub tracker only — it closes the issue on merge. On a Linear tracker the issue completes through the id in the branch name, so end the Summary instead with `Spec: [issue-id]` (URL when known) linking the issue whose acceptance criteria the reviewer verifies.
 
-MUST NOT contain: invented execution results, screenshot placeholders, session narrative, rejected alternatives, future tasks, release plans, roadmap references, or attribution lines.
+MUST NOT contain: invented execution results, session narrative, rejected alternatives, future tasks, release plans, roadmap references, or attribution lines.
