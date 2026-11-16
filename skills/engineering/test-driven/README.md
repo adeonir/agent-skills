@@ -1,29 +1,20 @@
 # Test Driven
 
-Build a change test-first, with tests anchored to the source of truth and reviewed by a fresh reviewer.
+Build a change test-first, with tests anchored to the source of truth at confirmed seams.
 
 ## What It Does
 
 ```mermaid
-flowchart TD
-    A[Read source of truth] --> B[Discover test commands]
-    B --> C[State seams]
-    C --> D[Red-green loop per criterion]
-    D --> E[Self-check tests]
-    E --> F[Independent review]
-    F -->|Findings| E
-    F -->|No findings| G[Report]
+flowchart LR
+    A[Read source of truth] --> B[State seams]
+    B --> C[Red-green-refactor loop per criterion]
 ```
 
 | Phase | Output |
 |-------|--------|
-| Source | Concrete expected value per acceptance criterion, plus recorded gaps |
-| Discovery | Focused-test and full-suite commands |
-| Seams | One line per seam: what it catches and what it misses |
-| Loop | One failing test, then the minimum code to pass, per criterion |
-| Self-check | Tests checked against the quality checks and anti-patterns |
-| Review | Findings from a fresh reviewer, fixed and checked again |
-| Report | Criteria mapped to tests, gaps, contradictions, and test results |
+| Source | Acceptance criteria, and each contradiction between the source and the code, reported to the user |
+| Seams | One line per seam: what it catches and what it misses, confirmed by the user or taken from the spec |
+| Loop | One failing test, the minimum code to pass, then a refactor with the tests green, per criterion |
 
 ## Usage
 

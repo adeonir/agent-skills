@@ -1,27 +1,29 @@
 # Test Quality
 
-The checks a test passes before the change is reported done.
+The anti-patterns a test avoids while the loop writes it.
 
 ## When to Use
 
-Load to self-check the tests a change touched, and to brief the reviewer of those tests.
-
-## Checks
-
-Every test:
-
-- Asserts something. A test the runner reports with no assertions fails.
-- Traces to an acceptance criterion or a listed edge case in the source of truth.
-- Fails under a plausible wrong implementation.
-- Asserts each field the source names for a returned object, an event, or a stored record.
+Load before writing the first test of the loop, and apply on every cycle.
 
 ## Anti-patterns
 
-- **Implementation-coupled:** mocks an internal collaborator, tests a private method, or verifies through a side channel, such as querying the database instead of reading through the interface. It breaks on a refactor that keeps behavior.
+- **Implementation-coupled:** mocks an internal collaborator, tests a private method, asserts on call counts or call order, or verifies through a side channel, such as querying the database instead of reading through the interface. It breaks on a refactor that keeps behavior. Mock only at system boundaries: external APIs, time, and randomness. For the database and the file system, use the repository's test instance when one exists.
 - **Tautological:** the expected value is recomputed the way the code computes it, so the test passes by construction.
-- **Shallow:** passes under a plausible wrong implementation. "No error thrown" as the only assertion, a call count or spy where the criterion names a resulting state, or only the happy path when the source lists edge cases.
-- **Unanchored:** asserts behavior the source of truth does not ask for.
-- **Framework test:** asserts behavior of a library or the framework, not of the change.
+- **Horizontal slicing:** writing all the tests first, then all the code. Tests written in bulk verify imagined behavior: they test the shape of things instead of the behavior a caller sees, and they fix the test structure before the code exists. Write one test, then the code that passes it, and let each cycle respond to what the previous one taught.
+
+A side-channel assertion and its fix:
+
+```typescript
+// Implementation-coupled: bypasses the interface to verify
+await createUser({ name: "Alice" });
+const row = await db.query("SELECT * FROM users WHERE name = ?", ["Alice"]);
+expect(row).toBeDefined();
+
+// Through the interface: reads back what the caller can read
+const user = await createUser({ name: "Alice" });
+expect((await getUser(user.id)).name).toBe("Alice");
+```
 
 A tautological assertion and its fix:
 
