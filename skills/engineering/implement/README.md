@@ -12,6 +12,7 @@ flowchart TD
     D --> E[Dispatch ready tasks]
     E --> F[Integrate each finished task]
     F -->|Integration branch moved| E
+    F -->|Report unverified| E
     F -->|Tasks unblocked| E
     F -->|Nothing ready| G[Report]
 ```
@@ -19,11 +20,11 @@ flowchart TD
 | Phase | Output |
 |-------|--------|
 | Target | Spec and tasks with their native blocking links |
-| Branch | One integration branch per spec, reused across runs |
-| State | Each task integrated, resumed, or pending, with integration tracked in `.artifacts/implement/[spec-id]/checklist.md` |
-| Investigation | Notes in `.artifacts/implement/[spec-id]/`, when a task needs them |
+| Branch | One integration branch per spec or standalone task, reused across runs |
+| State | Each task integrated, blocked, resumed, or pending, with integration tracked in `.artifacts/implement/[issue-id]/checklist.md` |
+| Investigation | Notes in `.artifacts/implement/[issue-id]/`, when a task needs them |
 | Dispatch | One fresh implementer per ready task, in its own worktree, with the task set to in progress |
-| Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to done unless it is standalone, and the task branch deleted |
+| Integration | Integration branch fast-forwarded to each verified task, with the checklist line ticked, the task set to done, and the task branch deleted; a standalone task keeps its branch, which is the integration branch, and stays in progress for its pull request to close |
 | Report | Tasks with commits and verification, blockers, and tasks not started |
 
 ## Usage
@@ -36,7 +37,7 @@ flowchart TD
 
 ## Output
 
-Local commits on the integration branch `[spec-id]-[slug]`, one branch per task until it is integrated, tracker statuses set to in progress on dispatch, the spec with its first task, and done on integration except for a standalone task, and the checklist and investigation notes in `.artifacts/implement/[spec-id]/`. Nothing is pushed, and the main checkout is never switched.
+Local commits on the integration branch `[issue-id]-[slug]`, one branch per task until it is integrated, each task set to in progress on dispatch and to done on integration, the spec set to in progress with its first task, a standalone task left in progress for its pull request to close, and the checklist and investigation notes in `.artifacts/implement/[issue-id]/`. Nothing is pushed, and the main checkout is never switched.
 
 ## Requirements
 
