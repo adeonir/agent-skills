@@ -6,18 +6,20 @@ Turn an input into concrete intents with the user.
 
 ```mermaid
 flowchart TD
-    A[Receive input] --> B[Make concrete]
-    B --> C[Calibrate deliverables]
+    A[Receive input] --> B[Calibrate deliverables]
+    B --> C[Make concrete]
+    C -->|Cut changes| B
     C --> D[Write intents]
     D --> E[User review]
-    E -->|Corrections| D
+    E -->|Cut corrections| B
+    E -->|Content corrections| D
 ```
 
 | Phase | Output |
 |-------|--------|
-| Receive | Input and claims to check |
-| Make concrete | Template fields filled; unknowns kept explicit |
+| Receive | Input understood |
 | Calibrate | One intent per deliverable |
+| Make concrete | Template fields filled per intent; unknowns kept explicit |
 | Write | Intent files, each with a stable ID |
 | Review | Intent files corrected with the user |
 
@@ -25,8 +27,8 @@ flowchart TD
 
 ```text
 /write-intents Customers call to ask for claim status; let them check it in the portal using their existing login.
-Turn this incident into an intent and keep unknowns as open questions.
-Cut this PRD into deliverables, one intent each, for review.
+/write-intents Turn this incident into an intent and keep unknowns as open questions.
+/write-intents Cut this PRD into deliverables, one intent each, for review.
 ```
 
 ## Output
