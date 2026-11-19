@@ -25,9 +25,11 @@ REQUIRED_HEADINGS = [
 ARC_HEADER = ["Moment", "Visitor should feel or understand", "Pace", "Leads to next"]
 PACE_VALUES = {"peak", "breather"}
 
-STATUS_LINE = re.compile(
-    r"^Status: (draft|agreed)\. Created: \d{4}-\d{2}-\d{2}\. Updated: \d{4}-\d{2}-\d{2}\.$"
-)
+METADATA_LIST = [
+    re.compile(r"^- Status: (draft|agreed)$"),
+    re.compile(r"^- Created: \d{4}-\d{2}-\d{2}$"),
+    re.compile(r"^- Updated: \d{4}-\d{2}-\d{2}$"),
+]
 
 # A square-bracket slot left from the template; a markdown link [text](url) is not a slot.
 SLOT = re.compile(r"\[[^\]\n]+\](?!\()")
@@ -82,13 +84,16 @@ def check(text):
     if not lines or lines[0].strip() != "# Storytelling":
         errors.append("line 1: the document must open with '# Storytelling'")
 
-    status = [i for i, line in enumerate(lines) if line.startswith("Status:")]
+    status = [i for i, line in enumerate(lines) if line.startswith("- Status:")]
     if not status:
-        errors.append("no 'Status:' line under the title")
-    elif not STATUS_LINE.match(lines[status[0]].strip()):
-        errors.append(
-            f"line {status[0] + 1}: the status line must read 'Status: draft|agreed. Created: YYYY-MM-DD. Updated: YYYY-MM-DD.'"
-        )
+        errors.append("no '- Status:' item under the title")
+    else:
+        block = [line.strip() for line in lines[status[0]:status[0] + len(METADATA_LIST)]]
+        if len(block) < len(METADATA_LIST) or not all(p.match(line) for p, line in zip(METADATA_LIST, block)):
+            errors.append(
+                f"line {status[0] + 1}: the metadata list must read '- Status: draft|agreed', "
+                "'- Created: YYYY-MM-DD', '- Updated: YYYY-MM-DD', one item per line"
+            )
 
     positions = []
     for heading in REQUIRED_HEADINGS:

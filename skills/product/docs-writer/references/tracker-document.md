@@ -24,7 +24,7 @@ Call `Linear:get_issue` with the identifier. The `documents` field lists each do
 
 ## Format on the Issue
 
-Title the document `PRD: [Feature Name]` or `Design Doc: [Feature Name]`. The content is the template body without the H1 title, which the document title replaces, without the `Created:` and `Updated:` line under it, and without the `## Sources` section.
+Title the document `PRD: [Feature Name]` or `Design Doc: [Feature Name]`. The content is the template body without the H1 title, which the document title replaces, without the list below it that holds `Created:` and `Updated:`, and without the `## Sources` section.
 
 ## Edit on the Issue
 

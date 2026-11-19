@@ -3,7 +3,8 @@ ALWAYS use this exact template structure:
 ```markdown
 # Intent: [Outcome]
 
-Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Created: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 ## Problem
 [The problem in the originator's own terms.]

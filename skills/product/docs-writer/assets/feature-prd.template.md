@@ -2,7 +2,8 @@
 
 # Feature PRD: [Feature Name]
 
-Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Created: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 ## Context
 

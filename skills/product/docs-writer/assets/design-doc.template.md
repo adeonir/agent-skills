@@ -6,7 +6,8 @@ ALWAYS use this exact template structure.
 
 # Design Doc: [Project Name]
 
-Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Created: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 ## Overview
 

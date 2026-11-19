@@ -89,7 +89,7 @@ For a new record, read `<this-skill>/assets/adr.template.md`, copy its exact str
 
 ## ADR Schema
 
-The `Status:` line under the title holds the current state of the decision, from the existing record or the user's confirmation. 5 body sections matching the template, with Alternatives Considered optional:
+The `Status:` item in the list below the title holds the current state of the decision, from the existing record or the user's confirmation. 5 body sections matching the template, with Alternatives Considered optional:
 
 | Section | Content | Discovery Source |
 |---------|---------|-----------------|

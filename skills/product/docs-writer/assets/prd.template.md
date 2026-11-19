@@ -6,7 +6,8 @@ ALWAYS use this exact template structure.
 
 # PRD: [Product Name]
 
-Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Created: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 ## 1. Problem
 

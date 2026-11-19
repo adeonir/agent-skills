@@ -6,7 +6,9 @@ ALWAYS use this exact template structure.
 
 # ADR-[NNN]: [Decision as an affirmative imperative, such as "Use Postgres as the primary database"]
 
-Status: [proposed | accepted | deprecated | superseded by ADR-NNN]. Date: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Status: [proposed | accepted | deprecated | superseded by ADR-NNN]
+- Date: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 ## Context
 

@@ -8,7 +8,7 @@ Load before creating or updating a feature PRD or feature design doc.
 
 ## Updates
 
-Preserve the `Created:` line and the `## Sources` section. Set `Updated:` when changing an existing document. Preserve sections outside the requested change.
+Preserve the `Created:` item and the `## Sources` section. Set `Updated:` when changing an existing document. Preserve sections outside the requested change.
 
 ## Sources
 

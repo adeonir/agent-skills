@@ -6,7 +6,9 @@ ALWAYS use this exact template structure.
 
 # Storytelling
 
-Status: [draft | agreed]. Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
+- Status: [draft | agreed]
+- Created: [YYYY-MM-DD]
+- Updated: [YYYY-MM-DD]
 
 Each entry states direction for whoever builds; realization is theirs. Contest a draft by revising the document — not by deviating silently.
 

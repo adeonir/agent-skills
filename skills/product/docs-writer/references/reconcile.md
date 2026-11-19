@@ -22,6 +22,6 @@ read → scope → validate changes → write → report
 
 If either PRD or PRODUCT is absent, read the existing document for context only. Do not copy its prose. Keep requirements in the PRD. Keep audience relationship, refused aesthetics, and differentiation in PRODUCT. Use confirmed facts from the existing document to avoid repeated questions. This rule applies only to the PRD and PRODUCT pair.
 
-## Metadata Lines on Reconcile
+## Metadata List on Reconcile
 
-Preserve the `Created:` line and the `## Sources` section. Set `Updated:` to the current date.
+Preserve the `Created:` item and the `## Sources` section. Set `Updated:` to the current date.
