@@ -112,7 +112,7 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 **Opening questions:**
 
-- What does the user need the product to do, and is each item needed to solve the problem (P0), an improvement (P1), or out of this scope with room left for it (P2)?
+- What does the user need the product to do, and is each item a blocker for shipping the product (P0), a significant improvement with a workaround that can ship later (P1), or a low-impact improvement (P2)?
 - What does the product deliberately not do?
 - What changes for the user once the problem is solved, and what could invalidate the project?
 
@@ -140,7 +140,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 2. **Question scope**: Is the scope realistic? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "How much does the user need X?"
 4. **Flag a fragile direction**: If the direction itself seems fragile after discovery, say so and recommend reopening the direction decision before specifying — the PRD does not generate or choose alternatives
-5. **Define scope**: Give each requirement a priority (P0, P1, P2), order requirements within a priority from most to least important to the user, and record exclusions under Out of Scope
+5. **Define scope**: Give each requirement a priority (P0: the product does not ship without it; P1: it improves the product significantly, a workaround exists, and it can ship in a later release; P2: a low-impact improvement, the first cut when time runs short), order requirements within a priority from most to least important to the user, and record exclusions under Out of Scope
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 
 ### Phase 3: Drafting

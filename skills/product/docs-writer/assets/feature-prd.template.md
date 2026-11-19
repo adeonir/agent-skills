@@ -15,8 +15,6 @@
 
 ## Scope
 
-Each requirement carries a priority. P0: the feature does not solve the problem without it. P1: it improves the feature, and the core works without it. P2: it stays out of this scope, and the solution leaves room for it. Within a priority, requirements appear from most to least important to the user. This order does not set the order of delivery.
-
 - FR-1 [P0 | P1 | P2] [requirement]
 - FR-2 [P0 | P1 | P2] [requirement]
 
