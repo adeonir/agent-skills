@@ -17,10 +17,10 @@ flowchart TD
 
 | Phase | Output |
 | --- | --- |
-| Find the materials | Materials matched by kind, the role of each site, the starting state |
-| Assess the current experience | Observations from the code and the rendered pages |
+| Find the materials | Materials matched by kind, the role of each site, the starting state, and whether the work evolves the current site or starts from a new vision |
+| Assess the current experience | Observations from the code, and from the rendered pages when you supply an address |
 | Define the concept | Thesis, tension, and feeling |
-| Shape the arc | Ordered moments, grouped by page when the arc spans pages, with an entry line on a page a visitor can land on directly, each moment with its intent, its pace (peak or breather), and what leads to the next |
+| Shape the arc | Ordered moments, grouped by page when the arc spans pages, with an entry line on every page after the first, each moment with its intent, its pace (peak or breather), and what leads to the next |
 | Direct the experience | Role of interaction, the moments movement serves and its role at each, visual mood in words |
 | Recommend | What to preserve, what to reinterpret, conflicts with the visual identity |
 | Write the document | `storytelling.md` |
@@ -33,6 +33,7 @@ this landing page feels generic, give it a central idea
 what narrative should the home page tell
 direct the experience of this site before we build it
 revise the storytelling now that the pages are live
+give this site a new story instead of building on the current one
 use this site as a reference for the story, not for the look
 ```
 
@@ -46,7 +47,8 @@ A re-run revises the same file: untouched sections stay, and each recorded claim
 
 ## Requirements
 
-- A way to render the site (optional): the skill starts a local dev server for code in the repository, or opens a published address. When rendering fails, it asks how to proceed; on continuing without a render, it assesses from the code and records the limit.
+- A way to render the site (optional): the skill reads the code in the repository and renders the site only when you supply an address, local or published; it never starts a server. Without a render, it records what the code alone could not show.
+- Python 3 (standard library only): runs `scripts/check_storytelling.py`, which checks the written document against the template's mechanical rules.
 - `agents/openai.yaml`: display metadata for hosts that show skills (`display_name` + `short_description`); never loaded by a step of the skill.
 
 ## FAQ

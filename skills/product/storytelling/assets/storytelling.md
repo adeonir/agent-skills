@@ -18,7 +18,7 @@ Each entry states direction for whoever builds; realization is theirs. Contest a
 
 ## Arc
 
-<!-- One table per page, each under its page heading, when the arc spans pages; a single table with no page heading otherwise. Keep the Entry line only on a page a visitor can land on directly, and delete it otherwise. -->
+<!-- One table per page, each under its page heading, when the arc spans pages; a single table with no page heading otherwise. Keep the Entry line on every page after the first, and delete it on the first page. -->
 
 ### [Page]
 
@@ -30,25 +30,27 @@ Entry: [What the page carries from the arc so that a visitor who lands on it dir
 
 ## Experience
 
-- Interaction: [Where an interaction earns a role in the story, and the role]
+- Interaction: [Where an interaction earns a role in the story: what the visitor does, in words of intent, and what it makes them feel or understand; never a control, a widget, or a feature]
 - Movement: [The moments where motion, video, or scroll serves the story, and the role at each; or that the story needs none, and why]
 - Visual mood: [The mood the story needs from the visual layer, in words]
 
 ## Current Experience
 
-[Observations: what the experience communicates, where sections connect and where they stand apart, and what could not be assessed and why; None when no project site exists]
+[Observations, each tagged (rendered) or (code): what the experience communicates, where sections connect and where they stand apart, and what could not be assessed and why; None when no project site exists]
 
 ## Recommendations
 
 - Preserve: [What the current work keeps]
 - Reinterpret: [What changes to carry the concept, including where the current site departs from the concept]
-- Identity conflict: [Where the visual identity pulls apart from the concept or the current experience]
+- Identity conflict: [Where the visual identity pulls apart from the concept or the current experience; delete this line when no visual identity exists or no conflict exists]
 
 [Replace the list with None when no project site and no visual identity exists]
 
 ## Open Questions
 
-- [Unanswered item and why it matters]
+- [An item still unanswered and why it matters; never an absence the user confirmed or a limit recorded in another section]
+
+[Replace the list with None when nothing is open]
 
 ## References
 
