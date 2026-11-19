@@ -15,7 +15,7 @@ materials → state → assess → concept → arc → experience → recommend 
 ```
 
 1. **Load [context.md](references/context.md).** Find the materials, settle the role of each site, and detect the state the work starts from.
-2. **Assess the current experience.** When a project site exists, load [assessment.md](references/assessment.md) and describe what the experience delivers today. Done when every section in visitor order is described.
+2. **Assess the current experience.** When a project site exists, describe what it delivers today: read the code for structure and content, and render it for what only the rendered page shows — pacing, scroll behavior, and how sections connect. For each section in visitor order, what it communicates and whether it connects to the previous one or stands apart. Observations only; no concept exists yet to judge against.
 3. **Define the concept.** Write the thesis, the tension, and the feeling from the materials and the assessment. Where a material already states the message, the audience, or the objectives, use them and add only what the materials lack. A prior document's concept is the starting claim: confirm, adjust, or replace it.
    - Thesis: one sentence the experience asserts.
    - Tension: what the visitor believes or feels on arrival that the experience must change.
