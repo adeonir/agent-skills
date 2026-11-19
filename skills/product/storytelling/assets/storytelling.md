@@ -18,9 +18,9 @@ Every entry below is a suggestion for whoever builds; none binds the build.
 
 ## Arc
 
-| Moment | Visitor should feel or understand | Pace |
-| --- | --- | --- |
-| [Short name] | [Intent of the moment] | [Pause, accelerate, or hold] |
+| Moment | Section | Visitor should feel or understand | Pace |
+| --- | --- | --- | --- |
+| [Short name] | [The section that carries the moment] | [Intent of the moment] | [Pause, accelerate, or hold] |
 
 ## Experience
 
@@ -47,4 +47,4 @@ Every entry below is a suggestion for whoever builds; none binds the build.
 
 - [Material] — [Role] — [What the document took from it]
 
-MUST NOT contain: a page layout, section order, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; a claim about the current experience without evidence; sibling artifact names, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.
+MUST NOT contain: a page layout, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; a claim about the current experience without evidence; sibling artifact names, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.

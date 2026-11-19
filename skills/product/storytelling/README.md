@@ -20,7 +20,7 @@ flowchart TD
 | Find the materials | Materials matched by kind, the role of each site, the starting state |
 | Assess the current experience | Evidence-backed observations from the code and the rendered pages |
 | Define the concept | Thesis, tension, and feeling |
-| Shape the arc | Ordered moments with intent and pace |
+| Shape the arc | Ordered moments, the section that carries each, intent, and pace |
 | Direct the experience | Rhythm, role of interaction, whether movement serves the story, visual mood in words |
 | Recommend | What to preserve, what to reinterpret, conflicts with the visual identity |
 | Write the document | `storytelling.md` |
@@ -55,6 +55,6 @@ A re-run revises the same file: untouched sections stay, and each recorded claim
 
 **Q: Does it change my code or visual identity?** A: No. Conflicts and changes appear as recommendations in the document.
 
-**Q: Does it decide layout, visual values, timing, or assets?** A: No. It states intent only. Layout, visual identity values, timing, renderer, and assets belong to whoever builds, and every entry is a suggestion the builder may contest.
+**Q: Does it decide layout, visual values, timing, or assets?** A: It decides the order the sections arrive in — that pacing is the story's — but never the arrangement inside a section. Visual identity values, timing, renderer, and assets belong to whoever builds, and every entry is a suggestion the builder may contest.
 
 **Q: Can it conclude that the site needs no motion or video?** A: Yes. The Movement entry records the decision and the reason, including a decision for none.
