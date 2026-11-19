@@ -7,7 +7,7 @@ description: "Creates or revises the story and experience direction of a site fr
 
 ## Quick start
 
-Create or revise the story and experience direction of a site in one document, `docs/design/storytelling.md`, from whatever materials the project already holds. The document states intent: what the visitor should feel and understand at each moment and the order the sections arrive in, never how a page is arranged or built. Every entry is a suggestion the builder may contest. The skill builds nothing.
+Create or revise the story and experience direction of a site in one document, `docs/design/storytelling.md`, from whatever materials the project already holds. The document states intent: what the visitor should feel and understand at each moment and the order the sections arrive in, never how a page is arranged or built. The skill builds nothing.
 
 ```text
 materials → state → assess → concept → arc → experience → recommend → document
@@ -15,7 +15,7 @@ materials → state → assess → concept → arc → experience → recommend 
 ```
 
 1. **Load [context.md](references/context.md).** Find the materials, settle the role of each site, and detect the state the work starts from.
-2. **Assess the current experience.** When a project site exists, load [assessment.md](references/assessment.md) and describe what the experience delivers today. Done when every section in visitor order has an evidenced claim.
+2. **Assess the current experience.** When a project site exists, load [assessment.md](references/assessment.md) and describe what the experience delivers today. Done when every section in visitor order is described.
 3. **Define the concept.** Write the thesis, the tension, and the feeling from the materials and the assessment. Where a material already states the message, the audience, or the objectives, use them and add only what the materials lack. A prior document's concept is the starting claim: confirm, adjust, or replace it.
    - Thesis: one sentence the experience asserts.
    - Tension: what the visitor believes or feels on arrival that the experience must change.

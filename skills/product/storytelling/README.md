@@ -18,7 +18,7 @@ flowchart TD
 | Phase | Output |
 | --- | --- |
 | Find the materials | Materials matched by kind, the role of each site, the starting state |
-| Assess the current experience | Evidence-backed observations from the code and the rendered pages |
+| Assess the current experience | Observations from the code and the rendered pages |
 | Define the concept | Thesis, tension, and feeling |
 | Shape the arc | Ordered moments, the section that carries each, intent, and pace |
 | Direct the experience | Rhythm, role of interaction, whether movement serves the story, visual mood in words |
@@ -46,7 +46,7 @@ A re-run revises the same file: untouched sections stay, and each recorded claim
 
 ## Requirements
 
-- A way to render the site (optional): the skill starts a local dev server for code in the repository, or opens a published address. When rendering fails, it asks how to proceed and never assesses silently from code alone.
+- A way to render the site (optional): the skill starts a local dev server for code in the repository, or opens a published address. When rendering fails, it asks how to proceed; on continuing without a render, it assesses from the code and records the limit.
 - `agents/openai.yaml`: display metadata for hosts that show skills (`display_name` + `short_description`); never loaded by a step of the skill.
 
 ## FAQ
@@ -55,6 +55,6 @@ A re-run revises the same file: untouched sections stay, and each recorded claim
 
 **Q: Does it change my code or visual identity?** A: No. Conflicts and changes appear as recommendations in the document.
 
-**Q: Does it decide layout, visual values, timing, or assets?** A: It decides the order the sections arrive in — that pacing is the story's — but never the arrangement inside a section. Visual identity values, timing, renderer, and assets belong to whoever builds, and every entry is a suggestion the builder may contest.
+**Q: Does it decide layout, visual values, timing, or assets?** A: It decides the order the sections arrive in — that pacing is the story's — but never the arrangement inside a section. Visual identity values, timing, renderer, and assets belong to whoever builds.
 
 **Q: Can it conclude that the site needs no motion or video?** A: Yes. The Movement entry records the decision and the reason, including a decision for none.

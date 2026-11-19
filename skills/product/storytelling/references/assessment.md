@@ -6,9 +6,9 @@ Describe the current experience of the project site from its code and its render
 
 Loaded when a project site exists, to produce the observations the concept builds on.
 
-## Evidence
+## Sources
 
-Read the code for structure, content, and declared movement. Render the site for what the visitor perceives: pacing, scroll behavior, and how sections connect do not show in code. Both feed the assessment, and every claim rests on a capture or a code location.
+Read the code for structure, content, and declared movement. Render the site for what the visitor perceives: pacing, scroll behavior, and how sections connect do not show in code.
 
 ## Rendering
 
