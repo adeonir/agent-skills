@@ -4,7 +4,7 @@ Find the materials, settle the role of each site, and detect the state the work 
 
 ## When to Use
 
-Loaded first, before any assessment or concept work.
+Settles which materials the work draws on, whether each site is the project site or a reference, and which state the work starts from: context only, evolve, new vision, or prior document.
 
 ## Materials
 
@@ -24,6 +24,7 @@ Work from whatever kinds exist; none is required.
 3. For each of project site and visual identity not found, ask the user for it. Use any other kind only when supplied.
 4. Ask the role of a site, project site or reference site, only when the request does not state it. Never presume a role from where the site was found or how it looks.
 5. When a project site exists, ask whether the work evolves the current site or starts from a new vision, unless the request states it. Never presume evolution from the presence of site code.
+6. A request states a role or a choice only when it says it in words; when the request only implies it, ask.
 
 ## State
 

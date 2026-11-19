@@ -38,7 +38,7 @@ Entry: [What the page carries from the arc so that a visitor who lands on it dir
 
 ## Current Experience
 
-[Observations, each tagged (rendered) or (code): what the experience communicates, where sections connect and where they stand apart, and what could not be assessed and why; None when no project site exists]
+[Observations: what the experience communicates, where sections connect and where they stand apart; None when no project site exists]
 
 ## Recommendations
 
@@ -50,7 +50,7 @@ Entry: [What the page carries from the arc so that a visitor who lands on it dir
 
 ## Open Questions
 
-- [An item still unanswered and why it matters; never an absence the user confirmed or a limit recorded in another section]
+- [An item still unanswered and why it matters; never an absence the user confirmed]
 
 [Replace the list with None when nothing is open]
 

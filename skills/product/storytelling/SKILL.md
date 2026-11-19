@@ -1,6 +1,6 @@
 ---
 name: storytelling
-description: "Creates or revises the story and experience direction of a site from the materials that exist: the central thesis, the tension, the arc of moments, the pacing, the order of the moments, and the role of interaction, motion, video, or scroll. Use when a site needs one idea tying content, visual, and interaction together, when pages feel generic or disconnected, or when storytelling, narrative direction, or scrollytelling comes up. Not for visual identity, wireframes, storyboards, page layout, final copy, building the experience, code review, or auditing a built UI."
+description: "Creates or revises the story and experience direction of a site. Use when a site needs one idea tying content, visual, and interaction together, when pages feel generic or disconnected, or when storytelling, narrative direction, or scrollytelling comes up. Not for visual identity, wireframes, storyboards, page layout, final copy, building the experience, code review, or auditing a built UI."
 ---
 
 # Storytelling
@@ -30,7 +30,7 @@ Progress:
 
 **Step 1. Load the context.** Load [context.md](references/context.md). Find the materials, settle the role of each site, and detect the state the work starts from. Done when each material found has a kind, each site has a role, the state is known, and, with a project site, the work is marked evolve or new vision from the request or the user's answer.
 
-**Step 2. Assess the current experience.** When a project site exists, describe what it delivers today: read the code in the repository for structure and content, and when the user supplied an address for the site, also render that address for what only the rendered page shows — pacing, scroll behavior, and how sections connect. Never start a server to render. For each section in visitor order, what it communicates and whether it connects to the previous one or stands apart, tagged with its source: `(rendered)` or `(code)`. Observations only; no concept exists yet to judge against. When no address was supplied or the address does not render, record what could not be assessed and why. Without a project site, skip this step. Done when every section has a tagged observation and, without a render, the limit is recorded, or the step was skipped.
+**Step 2. Assess the current experience.** When a project site exists, describe what it delivers today: read the code in the repository, and when the user supplied an address for the site, also render that address. Page by page, and within each page from top to bottom, record for each section what it communicates and whether it connects to the previous section on the same page or stands apart. Observations only; no concept exists yet to judge against. Without a project site, skip this step. Done when every section has an observation, or the step was skipped.
 
 **Step 3. Define the concept.** Write the thesis, the tension, and the feeling from the materials, and from the assessment only when the work evolves the current site. Where a material already states the message, the audience, or the objectives, use them and add only what the materials lack. A prior document's concept is the starting claim: confirm, adjust, or replace it. Done when all three entries are written.
 
