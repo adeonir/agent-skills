@@ -30,7 +30,7 @@ Dispatch the active agents in a single turn. Each returns findings in the Findin
 
 | Agent | Model | Reads | Looks for |
 |-------|-------|-------|-----------|
-| bug-scan | Sonnet | `ANNOTATED_DIFF` | the full concern checklist in one pass: security, bugs, data-loss, performance |
+| bug-scan | Sonnet | `ANNOTATED_DIFF` | the full concern checklist in one pass: security, bugs, data-loss, performance, structure |
 | compliance | Haiku | the gathered guideline files | diff vs explicit documented rules — follow [guidelines-audit.md](guidelines-audit.md) |
 | spec | Sonnet | the spec content | missing/partial, incorrect, and out-of-scope behavior — follow [spec-review.md](spec-review.md) |
 | git-history | Sonnet | `git log` / `git blame` of `CHANGED_FILES` | regressions, reverted fixes, and changes that contradict why the code was last touched |
@@ -42,6 +42,7 @@ The bug-scan concern checklist:
 - **bugs** — logic errors, runtime failures, swallowed errors, weakened error handling or test assertions, dead code, type assertions hiding real errors
 - **data-loss** — destructive migrations, wrong update/delete predicates, missing transactions on multi-write paths, irreversible ops behind weak guards
 - **performance** — N+1 queries, unbounded `find()` without pagination, sequential `await` for independent operations
+- **structure** — duplication, extractable helpers, and simpler control flow in the changed lines, each with its behavior-preserving rewrite
 
 ## Judge (batched, Opus)
 

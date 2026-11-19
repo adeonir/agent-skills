@@ -33,30 +33,30 @@ Every added line in `ANNOTATED_DIFF` carries its post-image line number as `[L<n
 
 ## Confidence Scoring
 
-Rate each finding 0-100 using the scale below; only findings scoring `>= 80` reach the report. **Where** the gate is applied depends on the mode — quick applies it at the findings agent (it has no separate judge); deep lets the finders surface candidates and applies the `>= 80` cut once, at the judge (a deep finder reports, it does not score).
+Rate each finding 0-100 using the scale below: the score is how certain the finding holds for the code as written, and severity, not the score, carries its impact. Only findings scoring `>= 80` reach the report. **Where** the gate is applied depends on the mode — quick applies it at the findings agent (it has no separate judge); deep lets the finders surface candidates and applies the `>= 80` cut once, at the judge (a deep finder reports, it does not score).
 
 | Score | Calibration | Examples |
 |-------|-------------|----------|
-| 90-100 | Reproducible bug, CVE-class security issue, clear violation of a documented rule | Hardcoded API key in committed file; SQL string concatenated from request body; null-deref reachable from a public handler |
-| 80-89 | Likely bug under realistic conditions; clear pattern violation with low ambiguity | N+1 query in a request hot path; missing await on a Promise whose result is used later; auth check bypassed for a specific role |
+| 90-100 | Reproducible bug, CVE-class security issue, clear violation of a documented rule, or a behavior-preserving rewrite written out in full | Hardcoded API key in committed file; SQL string concatenated from request body; null-deref reachable from a public handler; duplicated block in the changed lines, with the extraction written out |
+| 80-89 | Likely bug under realistic conditions; clear pattern violation with low ambiguity; a concrete simplification whose rewrite keeps the behavior | N+1 query in a request hot path; missing await on a Promise whose result is used later; auth check bypassed for a specific role; nested conditionals in the changed lines that collapse to one guard clause |
 | 60-79 | Possible issue depending on context not visible in the diff — do not report, ask for context if needed | "This loop might be slow at scale"; "Could leak memory if X"; "Maybe wrong if Y" |
-| <60 | Speculation, style preference, or aesthetic concern — do not report | "Could be simplified"; "Prefer arrow function"; "Consider extracting a helper" |
+| <60 | Speculation, style preference, or aesthetic concern — do not report | "Prefer arrow function"; "Could be cleaner" with no concrete rewrite |
 
 Self-check before assigning a score:
 
-- "Will this actually cause a bug or security vulnerability?"
+- "Is this true of the code as written — a bug that will happen, or a behavior-preserving rewrite I can write out?"
 - "Do I have enough context to understand why the code is written this way?"
 - "Is this a real problem or just a different coding style?"
 
 ## What NOT to Report
 
-- Style preferences (naming, formatting, structure) not codified in a guideline file
+- Style preferences (naming, formatting) not codified in a guideline file
 - Hypothetical issues under unlikely conditions
 - Missing error handling for internal code with no failure mode
 - Defensive programming for trusted data
 - Framework lifecycle suggestions without a concrete bug
 - Type suggestions unless they cause runtime errors
-- "Could be simplified" suggestions
+- Simplification or refactoring without a concrete, behavior-preserving rewrite of the changed lines
 - Configuration files for local development
 - Issues on lines the change did not touch (no `[L<n>]` marker); a `missing/partial` spec gap is the one finding without a line
 - Anything a linter, typechecker, or compiler would catch (assume CI runs them)
@@ -134,7 +134,7 @@ X files | Y findings | Z guideline violations | W spec gaps
 
 Each compliance section stays apart from `## Findings` and is sorted on its own; never merge or rerank findings across sections. A `missing/partial` spec gap with no line drops the `[{file}:{line}]` part.
 
-`{severity}` is the level of concern — `critical`, `warning`, `suggestion`, or `nit` — set by impact (a serious security or data-loss issue is `critical` or `warning`, never downgraded because it is "just" a domain). A finding may carry an optional domain tag (`security`, `data-loss`, `performance`) as a title prefix, e.g. `Security: SQL injection in ...`; the tag labels the category and does not affect sort. `{file}` is the relative path; `{line}` is the post-image line carrying its `[L<n>]` marker. Never use a function or symbol name in place of `file:line`.
+`{severity}` is the level of concern — `critical`, `warning`, `suggestion`, or `nit` — set by impact (a serious security or data-loss issue is `critical` or `warning`, never downgraded because it is "just" a domain; a structural finding is `suggestion` or `nit`, never higher). A finding may carry an optional domain tag (`security`, `data-loss`, `performance`) as a title prefix, e.g. `Security: SQL injection in ...`; the tag labels the category and does not affect sort. `{file}` is the relative path; `{line}` is the post-image line carrying its `[L<n>]` marker. Never use a function or symbol name in place of `file:line`.
 
 Sort findings by severity in this order: `critical > warning > suggestion > nit`. Domain tags do not affect the order.
 

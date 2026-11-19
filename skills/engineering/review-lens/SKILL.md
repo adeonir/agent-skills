@@ -39,4 +39,4 @@ Progress:
 
 ## Anti-Pattern: Confidence Inflation
 
-Reporting findings below 80 confidence buries real issues under noise. The rubric is calibrated: <80 means speculation or style preference, not a real bug. When unsure, drop down — gather more context, re-read the diff — instead of pushing a low-confidence finding through.
+Reporting findings below 80 confidence buries real issues under noise. The rubric is calibrated: <80 means speculation or style preference the reviewer cannot show holds. When unsure, drop down — gather more context, re-read the diff — instead of pushing a low-confidence finding through.

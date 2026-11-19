@@ -70,4 +70,4 @@ The report prints to the chat by default. On request it can be saved to `CODE_RE
 
 **Q: Where does the spec come from?** A: A path or issue you name in the request, else an issue referenced in the commit messages or branch name. With no spec, the spec check is skipped and the totals line shows `Spec: none`.
 
-**Q: Why are some issues not reported?** A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Style preferences, hypotheticals, and "could be simplified" suggestions are intentionally skipped.
+**Q: Why are some issues not reported?** A: Conservative confidence scoring (≥ 80) in both modes, plus a separate judge in deep. Refactoring and simplification are reported as `suggestion` or `nit` when they come with a concrete rewrite; style preferences and hypotheticals are intentionally skipped.
