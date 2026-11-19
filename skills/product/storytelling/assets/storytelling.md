@@ -18,15 +18,20 @@ Each entry states direction for whoever builds; realization is theirs. Contest a
 
 ## Arc
 
-| Moment | Section | Visitor should feel or understand | Pace |
+<!-- One table per page, each under its page heading, when the arc spans pages; a single table with no page heading otherwise. Keep the Entry line only on a page a visitor can land on directly, and delete it otherwise. -->
+
+### [Page]
+
+Entry: [What the page carries from the arc so that a visitor who lands on it directly meets the story]
+
+| Moment | Visitor should feel or understand | Pace | Leads to next |
 | --- | --- | --- | --- |
-| [Short name] | [The section that carries the moment] | [Intent of the moment] | [Pause, accelerate, or hold] |
+| [Short name] | [Intent of the moment] | [Peak or breather] | [What the moment leaves in the visitor that pulls them on; on the last moment, what it leaves the visitor to do] |
 
 ## Experience
 
-- Rhythm: [Where the story pauses and where it moves]
 - Interaction: [Where an interaction earns a role in the story, and the role]
-- Movement: [Whether motion, video, or scroll serves the story, and why; or that the story needs none]
+- Movement: [The moments where motion, video, or scroll serves the story, and the role at each; or that the story needs none, and why]
 - Visual mood: [The mood the story needs from the visual layer, in words]
 
 ## Current Experience
@@ -36,8 +41,10 @@ Each entry states direction for whoever builds; realization is theirs. Contest a
 ## Recommendations
 
 - Preserve: [What the current work keeps]
-- Reinterpret: [What changes to carry the concept, including deviations from a prior concept]
+- Reinterpret: [What changes to carry the concept, including where the current site departs from the concept]
 - Identity conflict: [Where the visual identity pulls apart from the concept or the current experience]
+
+[Replace the list with None when no project site and no visual identity exists]
 
 ## Open Questions
 
@@ -47,4 +54,4 @@ Each entry states direction for whoever builds; realization is theirs. Contest a
 
 - [Material] — [Role] — [What the document took from it]
 
-MUST NOT contain: a page layout, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; sibling artifact names, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.
+MUST NOT contain: a page layout, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; sibling artifact names outside References, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.

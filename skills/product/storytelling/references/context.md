@@ -21,14 +21,14 @@ Work from whatever kinds exist; none is required.
 
 1. Search the project for material that matches each kind, by content rather than by name. Read a candidate before treating it as a match.
 2. When more than one candidate matches a kind, ask the user which one to use.
-3. When no project site and no visual identity was found, ask the user for each. Use any other kind only when supplied. When the user says a kind does not exist, record the absence under Open Questions.
+3. For each of project site and visual identity not found, ask the user for it. Use any other kind only when supplied. When the user says a kind does not exist, record the absence under Open Questions.
 4. Ask the role of a site, project site or reference site, only when the request does not state it. Never presume a role from where the site was found or how it looks.
 
 ## State
 
 - Context only: no project site. Skip the assessment; the concept comes from the materials.
 - Project site: the assessment runs.
-- Prior document: its concept is the starting claim. With a project site, the assessment still runs first, and the deviations from the prior concept land in Recommendations.
+- Prior document: its concept is the starting claim. With a project site, the assessment still runs first, and where the site departs from the concept lands in Recommendations.
 
 States combine.
 
