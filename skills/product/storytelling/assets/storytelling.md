@@ -56,6 +56,8 @@ Entry: [What the page carries from the arc so that a visitor who lands on it dir
 
 ## References
 
-- [Material] — [Role] — [What the document took from it]
+<!-- One line per material the document draws on, labeled with its kind: work description, visual identity, project site, reference site, prior document, or other material. Link a file with its repository path as the text and the path relative to this document as the target. Write a URL bare. Write `supplied in the request` for a material with no address. Write `- None` when no material exists. -->
+
+- [Kind]: [[repository path]]([path relative to this document])
 
 MUST NOT contain: a page layout, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; sibling artifact names outside References, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.
