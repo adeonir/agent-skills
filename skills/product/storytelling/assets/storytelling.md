@@ -6,7 +6,6 @@ ALWAYS use this exact template structure.
 
 # Storytelling
 
-- Status: [draft | agreed]
 - Created: [YYYY-MM-DD]
 - Updated: [YYYY-MM-DD]
 

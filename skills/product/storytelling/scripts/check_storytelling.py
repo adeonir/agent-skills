@@ -26,7 +26,6 @@ ARC_HEADER = ["Moment", "Visitor should feel or understand", "Pace", "Leads to n
 PACE_VALUES = {"peak", "breather"}
 
 METADATA_LIST = [
-    re.compile(r"^- Status: (draft|agreed)$"),
     re.compile(r"^- Created: \d{4}-\d{2}-\d{2}$"),
     re.compile(r"^- Updated: \d{4}-\d{2}-\d{2}$"),
 ]
@@ -84,14 +83,14 @@ def check(text):
     if not lines or lines[0].strip() != "# Storytelling":
         errors.append("line 1: the document must open with '# Storytelling'")
 
-    status = [i for i, line in enumerate(lines) if line.startswith("- Status:")]
-    if not status:
-        errors.append("no '- Status:' item under the title")
+    created = [i for i, line in enumerate(lines) if line.startswith("- Created:")]
+    if not created:
+        errors.append("no '- Created:' item under the title")
     else:
-        block = [line.strip() for line in lines[status[0]:status[0] + len(METADATA_LIST)]]
+        block = [line.strip() for line in lines[created[0]:created[0] + len(METADATA_LIST)]]
         if len(block) < len(METADATA_LIST) or not all(p.match(line) for p, line in zip(METADATA_LIST, block)):
             errors.append(
-                f"line {status[0] + 1}: the metadata list must read '- Status: draft|agreed', "
+                f"line {created[0] + 1}: the metadata list must read "
                 "'- Created: YYYY-MM-DD', '- Updated: YYYY-MM-DD', one item per line"
             )
 
