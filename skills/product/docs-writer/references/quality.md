@@ -61,7 +61,7 @@ When the document is an ADR, additionally verify:
 - [ ] The ADR fits on one page
 - [ ] Consequences capture the material outcomes of the decision
 - [ ] A list below the title holds `Status:`, `Date:`, and `Updated:`, one item each, and the ADR carries a `## Sources` section
-- [ ] References list only related documents that exist, each named by type, or `- None`
+- [ ] References list only related documents that exist, one link per line, or `- None`
 - [ ] Numbering is sequential and zero-padded (no gaps, no duplicates)
 - [ ] When superseding, the prior ADR's `Status:` item names its replacement
 

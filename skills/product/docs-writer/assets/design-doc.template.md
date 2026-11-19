@@ -57,10 +57,14 @@ ALWAYS use this exact template structure.
 
 ## References
 
-- [Typed reference to a related document that exists, such as the PRD or an ADR. Write `- None` when none exists.]
+<!-- One link per line to a related document that exists, such as the PRD or an ADR: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none exists. -->
+
+- [[repository path]]([path relative to this document])
 
 ## Sources
 
-- [File or URL the user supplied as input. Write `- None` when none was supplied.]
+<!-- One link per line to a file the user supplied as input: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none was supplied. -->
+
+- [[repository path]]([path relative to this document])
 
 MUST NOT contain: product KPIs, personas, journey walkthroughs, or restated PRD prose or requirement text — cite the PRD and NFR IDs instead; nor product framing; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

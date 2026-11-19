@@ -48,10 +48,14 @@ Primary metric: [the one metric that defines success] — [a number the user sup
 
 ## 8. References
 
-- [Typed reference to a related document that exists, such as the Design Doc, an ADR, or research. Write `- None` when none exists.]
+<!-- One link per line to a related document that exists, such as the Design Doc, an ADR, or research: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none exists. -->
+
+- [[repository path]]([path relative to this document])
 
 ## Sources
 
-- [File or URL the user supplied as input. Write `- None` when none was supplied.]
+<!-- One link per line to a file the user supplied as input: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none was supplied. -->
+
+- [[repository path]]([path relative to this document])
 
 MUST NOT contain: architecture, tech stack, framework or deployment choices, API contracts, database schema, or UI components — those belong to the Design Doc or ADR; nor strategic positioning (brand personality, anti-references) — that lives in PRODUCT; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

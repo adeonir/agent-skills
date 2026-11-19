@@ -43,10 +43,14 @@
 
 ## References
 
-- [Typed reference to a related document that exists, such as the project PRD. Write `- None` when none exists.]
+<!-- One link per line to a related document that exists, such as the project PRD: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none exists. -->
+
+- [[repository path]]([path relative to this document])
 
 ## Sources
 
-- [File or URL the user supplied as input. Write `- None` when none was supplied.]
+<!-- One link per line to a file the user supplied as input: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none was supplied. -->
+
+- [[repository path]]([path relative to this document])
 
 MUST NOT contain: PRODUCT, roadmap, architecture, detailed technical contracts, implementation tasks, release plans, tracker User Stories, references to another skill, or conversation narrative ("as discussed", "we agreed", "the user confirmed").

@@ -35,6 +35,8 @@ ALWAYS use this exact template structure.
 
 ## Sources
 
-- [File or URL the user supplied as input. Write `- None` when none was supplied.]
+<!-- One link per line to a file the user supplied as input: the repository path as the link text and the path relative to this document as the target. Write a URL bare. Write `- None` when none was supplied. -->
+
+- [[repository path]]([path relative to this document])
 
 MUST NOT contain: requirements, scope or feature lists, success metrics, user journeys, business rules, or accessibility targets — those belong to the PRD; nor conversation narrative ("as discussed", "we agreed", "the user confirmed").

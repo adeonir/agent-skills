@@ -178,7 +178,7 @@ For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact s
 | 5. Non-Functional Requirements | Quality requirements (NFR-1...) in words or with a supplied number | Topic 4: Scope |
 | 6. Assumptions & Risks | What is assumed and what could invalidate the project, with mitigations | Validation phase |
 | 7. Open Questions | Unresolved questions as a checklist | Validation phase |
-| 8. References | Typed references to related documents that exist | All phases |
+| 8. References | Links to related documents that exist | All phases |
 
 Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
