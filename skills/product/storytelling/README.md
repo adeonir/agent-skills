@@ -42,11 +42,12 @@ use this site as a reference for the story, not for the look
 docs/design/storytelling.md
 ```
 
-A re-run revises the same file: untouched sections stay, and each recorded claim is re-checked against the new materials. The document carries `status`, `created`, and `updated` in its frontmatter. The skill writes `draft`; the user sets `agreed`.
+A re-run revises the same file: untouched sections stay, and each recorded claim is re-checked against the new materials. The skill writes `draft`; the user sets `agreed`.
 
 ## Requirements
 
 - A way to render the site (optional): the skill starts a local dev server for code in the repository, or opens a published address. When rendering fails, it asks how to proceed and never assesses silently from code alone.
+- `agents/openai.yaml`: display metadata for hosts that show skills (`display_name` + `short_description`); never loaded by a step of the skill.
 
 ## FAQ
 

@@ -1,14 +1,12 @@
+<!--
+Storytelling document skeleton. Delete every comment and replace every square-bracket slot before writing the file.
+
+ALWAYS use this exact template structure.
+-->
+
 # Storytelling
 
-MUST NOT contain: a page layout, section order, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; a claim about the current experience without evidence; sibling artifact names, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.
-
-ALWAYS use this exact template structure, from the frontmatter to the end of References. Write `None` in a section with nothing to record:
-
----
-status: [draft | agreed]
-created: [YYYY-MM-DD]
-updated: [YYYY-MM-DD]
----
+Status: [draft | agreed]. Created: [YYYY-MM-DD]. Updated: [YYYY-MM-DD].
 
 Every entry below is a suggestion for whoever builds; none binds the build.
 
@@ -48,3 +46,5 @@ Every entry below is a suggestion for whoever builds; none binds the build.
 ## References
 
 - [Material] — [Role] — [What the document took from it]
+
+MUST NOT contain: a page layout, section order, grid, or wireframe; a palette, typeface, token, or other visual identity value (an identity conflict names the aspect in dispute, never its value); a timing, easing, frame rate, scroll length, renderer, library, or asset specification; final copy beyond a short phrase naming a moment's intent; requirements, features, or user stories; a claim about the current experience without evidence; sibling artifact names, milestones, or roadmap references; the same fact in two sections; a trace of the conversation ("as discussed", "the user accepted", "we agreed"), the history of a decision, or a note of what a revision changed.
