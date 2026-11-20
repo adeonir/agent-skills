@@ -1,6 +1,6 @@
 # Rule Creator
 
-Create and manage Claude Code rules at project and user level, with classification, destination decisions, and a flexible rule template.
+Create and manage rules at project and user level, in `.claude/rules/` and `.agents/rules/`, with classification, destination decisions, and a flexible rule template.
 
 ## What It Does
 
@@ -8,15 +8,15 @@ Create and manage Claude Code rules at project and user level, with classificati
 flowchart TD
     T[Trigger] --> D{Dispatch}
     D -->|create| C[Classify]
-    C -->|declarative| X[Context check, both levels]
+    C -->|declarative| X[Context check, all directories]
     C -->|procedural| SK[Recommend skill]
     C -->|lifecycle| HK[Recommend hook]
     C -->|one-off| OF[Refuse]
-    X --> S[Destination: level + scope]
+    X --> S[Destination: level + home + scope]
     S --> R[Render template]
     R --> V[Verify]
     V --> W[Write rule]
-    D -->|list| L[List rules, both levels]
+    D -->|list| L[List rules, all directories]
     D -->|edit| E[Edit rule]
     D -->|extract| EX[Extract from AGENTS.md / CLAUDE.md]
     D -->|delete| DL[Delete rule]
@@ -24,9 +24,9 @@ flowchart TD
 
 | Mode | Output |
 |------|--------|
-| create | `<rules-dir>/<topic>.md`, after classify, context check, and destination decision: the level picks the directory (`~/.claude/rules/` or `.claude/rules/`) and a path-scoped rule carries `paths:` frontmatter. When the classifier rejects the input, the verdict is reported with the destination that fits it (a skill for procedural input, a hook for a lifecycle trigger, direct action for a one-off) and nothing is written |
-| list | Table + expanded list of every rule at both levels, summarized by level, scope, and impact |
-| edit | Updated rule file, resolved by name across both levels and re-verified |
+| create | `<rules-dir>/<topic>.md`, after classify, context check, and destination decision: the level and home pick the directory (`~/.claude/rules/`, `.claude/rules/`, `~/.agents/rules/`, or `.agents/rules/`) and a path-scoped rule in a Claude home carries `paths:` frontmatter. When the classifier rejects the input, the verdict is reported with the destination that fits it (a skill for procedural input, a hook for a lifecycle trigger, direct action for a one-off) and nothing is written |
+| list | Table + expanded list of every rule in all four directories, summarized by level, scope, and impact |
+| edit | Updated rule file, resolved by name across all four directories and re-verified |
 | extract | New rule files + trimmed source, from an oversized AGENTS.md / CLAUDE.md, after you approve each proposed verdict |
 | delete | Removed file, after showing its full content and confirming with the level named |
 
@@ -36,6 +36,7 @@ flowchart TD
 create a rule that always uses type instead of interface in TypeScript files
 add a rule for API handlers under src/api: validate body with Zod before db calls
 new rule for all my projects: never commit secrets in plain text
+add a rule in .agents/rules for this repo: skill files are written in English
 list rules
 edit the testing rule to cover integration tests
 extract rules from CLAUDE.md
@@ -47,13 +48,15 @@ delete the typescript rule
 ```text
 .claude/rules/<topic>.md      # project level
 ~/.claude/rules/<topic>.md    # user level
+.agents/rules/<topic>.md      # project level, agents home
+~/.agents/rules/<topic>.md    # user level, agents home
 ```
 
-Rules auto-load via Claude Code (no manual `@` import). Discovery is recursive, so `<rules-dir>/frontend/naming.md` loads too. Path-scoped rules load only when Claude reads files matching the glob, and project rules take priority over user rules.
+Rules in `.claude/rules/` auto-load via Claude Code (no manual `@` import). Discovery is recursive, so `<rules-dir>/frontend/naming.md` loads too. Path-scoped rules load only when Claude reads files matching the glob, and project rules take priority over user rules.
 
 ## Requirements
 
-Python 3, standard library only, for the bundled scripts that index the rules and resolve `@path` imports. Works with any project that uses Claude Code.
+Python 3, standard library only, for the bundled scripts that index the rules, resolve `@path` imports, and remove sections from a memory file. Works with any project that uses Claude Code.
 
 ## FAQ
 
@@ -63,13 +66,15 @@ Python 3, standard library only, for the bundled scripts that index the rules an
 
 **Q: How does the skill choose between user and project level?** A: From explicit signals — "for all my projects" or "user-level" picks user, naming the repo's stack or a directory picks project. With no signal it asks, because writing to `~/.claude/rules/` reaches every project on the machine. It never infers the level from what the rule says.
 
+**Q: Does Claude Code load rules from `.agents/rules/`?** A: No. It loads only `.claude/rules/`, so an agents rule applies where a memory file points to it, and the skill reports the pointer line to add after writing. It writes to the agents home only on an explicit signal such as ".agents", and an agents rule is always unconditional.
+
 **Q: Can a user-level rule be path-scoped?** A: No. Path-scoped user rules are not documented as supported and are reported to be ignored, so a path signal resolves the level to project. User-level rules carry no `paths:` block.
 
 **Q: What if the rule belongs to several projects but not all of them?** A: Neither level fits, so the rule is written once into a shared directory you name and linked into the current project — `ln -s ~/shared-claude-rules/security.md .claude/rules/security.md`. Only the current project is reachable, so the skill reports the same command for you to run in the others. Rules directories resolve symlinks, and circular links are detected rather than followed.
 
 **Q: What happens when I edit or delete a linked rule?** A: Editing writes through to the shared target, so the skill names the target and the blast radius before applying. Deleting asks which act you mean: unlink here (the rule stops applying to this project only) or delete the shared target (the rule dies everywhere, leaving dangling links in the other projects). It defaults to unlinking.
 
-**Q: What if a rule already exists for the same topic?** A: The context check reads both levels and detects the duplicate. If the new rule is the same as the existing one, the skill exits. If complementary, it proposes appending an H2 section to the existing file. If contradictory, it asks the user which wins — and when the conflict crosses levels, it names the winner: project rules load after user rules and take priority.
+**Q: What if a rule already exists for the same topic?** A: The context check reads all four directories and detects the duplicate. If the new rule is the same as the existing one, the skill exits. If complementary, it proposes appending an H2 section to the existing file. If contradictory, it asks the user which wins — and when the conflict crosses levels, it names the winner: project rules load after user rules and take priority.
 
 **Q: How does extract decide what to pull from AGENTS.md / CLAUDE.md?** A: It walks each H2/H3 section and proposes a verdict: keep (cross-cutting), extract (declarative and self-contained), or reject (procedural or lifecycle). The user confirms each verdict before anything is moved. The source file sets the destination level; a section is never moved across levels.
 

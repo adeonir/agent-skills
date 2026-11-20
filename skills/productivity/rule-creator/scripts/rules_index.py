@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""Index the Claude Code rules at user and project level.
+"""Index the rules at user and project level, under .claude/rules and .agents/rules.
 
 Usage:
   python3 rules_index.py [--user <dir>] [--project <dir>]
+                         [--user-agents <dir>] [--project-agents <dir>]
 
-Walks the user rules directory (default ~/.claude/rules) and the project rules
-directory (default .claude/rules under the project root) recursively, following symlinks once, and
-prints a table, then each file expanded with its rule titles and Impact, then
-the notes: a topic present at both levels, a symlink and its target, a
-dangling link, and a file that departs from the rule template. Topic identity
-is the path relative to its rules directory. The project root is the nearest
-directory at or above the current one that holds .claude/rules or .git,
-stopping below the home directory, so the index is the same from any
-subdirectory.
+Walks four rules directories recursively, following symlinks once: the user
+directories (default ~/.claude/rules and ~/.agents/rules) and the project
+directories (default .claude/rules and .agents/rules under the project root).
+Prints a table, then each file expanded with its rule titles and Impact, then
+the notes: a topic present in more than one directory, a symlink and its
+target, a dangling link, and a file that departs from the rule template. Topic
+identity is the path relative to its rules directory. The project root is the
+nearest directory at or above the current one that holds .claude/rules,
+.agents/rules, or .git, stopping below the home directory, so the index is the
+same from any subdirectory.
 
 Exit 0 when the index was printed, 2 when an argument is invalid.
 """
@@ -21,6 +23,7 @@ import os
 import re
 import sys
 
+H1 = re.compile(r"^#\s+\S")
 H2 = re.compile(r"^##\s+(.+?)\s*#*\s*$")
 IMPACT = re.compile(r"^\*\*Impact:\s*(HIGH|MEDIUM|LOW)\*\*\s*$")
 FENCE = re.compile(r"^(`{3,}|~{3,})")  # 3: shortest code fence CommonMark accepts
@@ -65,8 +68,9 @@ def parse_frontmatter(lines):
 
 
 def parse_rules(lines, start):
-    """Return a list of (title, impact) for every H2 outside a fenced block."""
+    """Return ([(title, impact)] for every H2, whether an H1 stands) outside fenced blocks."""
     rules = []
+    heading_one = False
     fence = None
     for line in lines[start:]:
         opening = FENCE.match(line.strip())
@@ -79,6 +83,9 @@ def parse_rules(lines, start):
             continue
         if fence is not None:
             continue
+        if H1.match(line):
+            heading_one = True
+            continue
         heading = H2.match(line)
         if heading:
             rules.append([heading.group(1), None])
@@ -86,7 +93,7 @@ def parse_rules(lines, start):
         impact = IMPACT.match(line.strip())
         if impact and rules and rules[-1][1] is None:
             rules[-1][1] = impact.group(1)
-    return [tuple(rule) for rule in rules]
+    return [tuple(rule) for rule in rules], heading_one
 
 
 def read_lines(path):
@@ -99,7 +106,11 @@ def read_lines(path):
         return None, error.strerror or "unreadable"
 
 
-def walk(level, root):
+def label(entry):
+    return entry["level"] if entry["home"] == "claude" else f"{entry['level']}-agents"
+
+
+def walk(level, home, root):
     """Yield one entry per .md file under root, following each linked directory once."""
     entries = []
     if not os.path.isdir(root):
@@ -118,6 +129,7 @@ def walk(level, root):
             path = os.path.join(current, name)
             entry = {
                 "level": level,
+                "home": home,
                 "file": os.path.relpath(path, root),
                 "path": path,
                 "link": None,
@@ -142,7 +154,11 @@ def walk(level, root):
                 entry["problems"].append(problem)
             if level == "user" and paths:
                 entry["problems"].append("user-level rule carries paths:, which is reported to be ignored")
-            entry["rules"] = parse_rules(lines, start)
+            if home == "agents" and paths:
+                entry["problems"].append("rule under an .agents directory carries paths:, which only .claude rules directories use")
+            entry["rules"], heading_one = parse_rules(lines, start)
+            if heading_one:
+                entry["problems"].append("H1 heading; a rule file carries none")
             if not entry["rules"]:
                 entry["problems"].append("no H2 rule title")
             missing = [title for title, impact in entry["rules"] if impact is None]
@@ -153,13 +169,14 @@ def walk(level, root):
 
 
 def find_project_root(start):
-    """Return the nearest ancestor of start holding .claude/rules or .git, or None."""
+    """Return the nearest ancestor of start holding .claude/rules, .agents/rules, or .git, or None."""
     home = os.path.realpath(os.path.expanduser("~"))
     current = os.path.realpath(start)
     while True:
         if current == home:
             return None
-        if os.path.isdir(os.path.join(current, ".claude", "rules")) or os.path.exists(os.path.join(current, ".git")):
+        markers = (os.path.join(".claude", "rules"), os.path.join(".agents", "rules"), ".git")
+        if any(os.path.exists(os.path.join(current, marker)) for marker in markers):
             return current
         parent = os.path.dirname(current)
         if parent == current:
@@ -181,61 +198,78 @@ def scope(entry):
     return ", ".join(entry["paths"]) if entry["paths"] else "unconditional"
 
 
+FLAGS = {"--user": "user", "--project": "project", "--user-agents": "user_agents", "--project-agents": "project_agents"}
+USAGE = "Usage: rules_index.py [--user <dir>] [--project <dir>] [--user-agents <dir>] [--project-agents <dir>]"
+
+
 def main(argv):
-    user = os.path.expanduser("~/.claude/rules")
-    project = None
+    dirs = {
+        "user": os.path.expanduser("~/.claude/rules"),
+        "user_agents": os.path.expanduser("~/.agents/rules"),
+        "project": None,
+        "project_agents": None,
+    }
     args = list(argv)
     while args:
         flag = args.pop(0)
-        if flag in ("--user", "--project") and args:
-            value = os.path.expanduser(args.pop(0))
-            if flag == "--user":
-                user = value
-            else:
-                project = value
+        if flag in FLAGS and args:
+            dirs[FLAGS[flag]] = os.path.expanduser(args.pop(0))
         else:
-            print(f"unknown or incomplete argument {flag!r}. Usage: rules_index.py [--user <dir>] [--project <dir>]")
+            print(f"unknown or incomplete argument {flag!r}. {USAGE}")
             return 2
 
-    if project is None:
-        root = find_project_root(os.getcwd())
-        if root is not None:
-            project = os.path.join(root, ".claude", "rules")
-    print(f"USER RULES: {user}")
-    print(f"PROJECT RULES: {project if project else 'none, no .claude/rules or .git at or above the current directory'}")
+    root = find_project_root(os.getcwd())
+    if root is not None:
+        if dirs["project"] is None:
+            dirs["project"] = os.path.join(root, ".claude", "rules")
+        if dirs["project_agents"] is None:
+            dirs["project_agents"] = os.path.join(root, ".agents", "rules")
+    absent = "none, no .claude/rules, .agents/rules or .git at or above the current directory"
+    print(f"USER RULES: {dirs['user']}")
+    print(f"USER AGENTS RULES: {dirs['user_agents']}")
+    print(f"PROJECT RULES: {dirs['project'] or absent}")
+    print(f"PROJECT AGENTS RULES: {dirs['project_agents'] or absent}")
     print()
 
-    entries = walk("user", user)
-    if project and os.path.realpath(project) != os.path.realpath(user):
-        entries += walk("project", project)
+    entries = []
+    walked = set()
+    for level, home, key in (("user", "claude", "user"), ("user", "agents", "user_agents"), ("project", "claude", "project"), ("project", "agents", "project_agents")):
+        root_dir = dirs[key]
+        if not root_dir or os.path.realpath(root_dir) in walked:
+            continue
+        walked.add(os.path.realpath(root_dir))
+        entries += walk(level, home, root_dir)
     if not entries:
         print("No rules defined.")
         return 0
 
     width = max(len(entry["file"]) for entry in entries) + 2
+    label_width = max(len("LEVEL"), max(len(label(entry)) for entry in entries)) + 2
     scope_width = max(len(scope(entry)) for entry in entries) + 2
-    print(f"{'LEVEL':<10}{'FILE':<{width}}{'SCOPE':<{scope_width}}RULES")
+    print(f"{'LEVEL':<{label_width}}{'FILE':<{width}}{'SCOPE':<{scope_width}}RULES")
     for entry in entries:
-        print(f"{entry['level']:<10}{entry['file']:<{width}}{scope(entry):<{scope_width}}{summary(entry['rules'])}")
+        print(f"{label(entry):<{label_width}}{entry['file']:<{width}}{scope(entry):<{scope_width}}{summary(entry['rules'])}")
 
     print()
     for entry in entries:
-        print(f"{entry['file']} ({entry['level']}, {scope(entry)})")
+        print(f"{entry['file']} ({label(entry)}, {scope(entry)})")
         for title, impact in entry["rules"]:
             print(f"  - {title} ({impact or 'no Impact'})")
 
     notes = []
     by_file = {}
     for entry in entries:
-        by_file.setdefault(entry["file"], set()).add(entry["level"])
-    for name, levels in sorted(by_file.items()):
-        if levels == {"user", "project"}:
+        by_file.setdefault(entry["file"], set()).add(label(entry))
+    for name, labels in sorted(by_file.items()):
+        if labels == {"user", "project"}:
             notes.append(f"{name}: present at both levels; the project rule prevails")
+        elif len(labels) > 1:
+            notes.append(f"{name}: present in {', '.join(sorted(labels))}")
     for entry in entries:
         if entry["link"]:
-            notes.append(f"{entry['file']} ({entry['level']}): symlink to {entry['link']}; an edit writes through to every project linked to it")
+            notes.append(f"{entry['file']} ({label(entry)}): symlink to {entry['link']}; an edit writes through to every project linked to it")
         for problem in entry["problems"]:
-            notes.append(f"{entry['file']} ({entry['level']}): {problem}")
+            notes.append(f"{entry['file']} ({label(entry)}): {problem}")
     if notes:
         print()
         print("NOTES")

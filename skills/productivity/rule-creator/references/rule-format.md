@@ -111,6 +111,7 @@ Impact is the author's judgment. When unsure, write MEDIUM. Do not omit the line
 - Multiple entries in the array only when brace expansion does not fit (different parent directories)
 - Unconditional rule: no frontmatter at all — do not write an empty `---` block
 - A user-level rule is always unconditional, so it never carries a `paths:` block
+- A rule under an `.agents/rules/` directory is always unconditional, so it never carries a `paths:` block
 
 ## Multi-rule files
 

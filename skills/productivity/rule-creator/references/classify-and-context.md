@@ -1,6 +1,6 @@
 # Classify and Context
 
-Gates that run before rendering a new rule. Classification decides whether the input deserves a rule at all, the context check whether the rule makes sense where it will land, and the destination decision picks the level and the scope.
+Gates that run before rendering a new rule. Classification decides whether the input deserves a rule at all, the context check whether the rule makes sense where it will land, and the destination decision picks the level, the home, and the scope.
 
 ## When to Use
 
@@ -10,7 +10,7 @@ Loaded to run the gates that precede a write: by create for the input, and by ex
 
 - Classifier: decision table, refusal script
 - Context check: resolving a memory file, checks in order
-- Destination decision: level, scope, glob shape
+- Destination decision: level, home, scope, glob shape
 
 ## Classifier
 
@@ -39,14 +39,14 @@ Do not write a partial rule file when refusing, and do not invoke the recommende
 
 ## Context check
 
-Rules live at two levels, and a rule at either level may already cover the input. Validate against both, whichever level the new rule targets.
+Rules live at two levels in two homes, and a rule in any of the four directories may already cover the input. Validate against all four, whichever directory the new rule targets.
 
-| Level | Directory | Reaches |
-|-------|-----------|---------|
-| user | `~/.claude/rules/` | every project on the machine |
-| project | `.claude/rules/` | this repository |
+| Level | Claude home | Agents home | Reaches |
+|-------|-------------|-------------|---------|
+| user | `~/.claude/rules/` | `~/.agents/rules/` | every project on the machine |
+| project | `.claude/rules/` | `.agents/rules/` | this repository |
 
-Project rules load after user rules and take priority.
+Claude Code loads the Claude home on its own, and project rules load after user rules and take priority. It does not load the Agents home: an agents rule applies only where a memory file points to it.
 
 ### Resolving a memory file
 
@@ -55,21 +55,28 @@ A `CLAUDE.md` at either level may hold its content behind `@path` imports — a 
 ### Checks in order
 
 1. **Stack mismatch.** Project level only. Read `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, or equivalent to identify the stack; if the rule names a stack the project does not use, flag and ask whether to proceed. Skip at user level — a rule spanning every project is not bound to the current one's stack.
-2. **Duplicate topic.** Run `python3 <this-skill>/scripts/rules_index.py`; it lists both rules directories recursively. Topic identity is the path relative to the rules directory, so `frontend/testing.md` and `backend/testing.md` are distinct topics. If a file matches the intended topic, read it: already covered → tell the user and exit; adjacent topic → propose appending an H2 section instead of a new file.
-3. **Contradiction.** Read the memory files at both levels with imports resolved — `AGENTS.md` / `CLAUDE.md` and `.claude/CLAUDE.md` in the project, `~/.claude/CLAUDE.md` at user level — plus the rules at the other level. If the rule contradicts an instruction there, flag both passages and ask which wins. When the conflict crosses levels, name the winner: project.
+2. **Duplicate topic.** Run `python3 <this-skill>/scripts/rules_index.py`; it lists all four rules directories recursively. Topic identity is the path relative to the rules directory, so `frontend/testing.md` and `backend/testing.md` are distinct topics. If a file matches the intended topic, read it: already covered → tell the user and exit; adjacent topic → propose appending an H2 section instead of a new file.
+3. **Contradiction.** Read the memory files at both levels with imports resolved — `AGENTS.md` / `CLAUDE.md` and `.claude/CLAUDE.md` in the project, `~/.claude/CLAUDE.md` at user level — plus the rules in the other directories. If the rule contradicts an instruction there, flag both passages and ask which wins. When the conflict crosses levels, name the winner: project.
 
 Flag findings as a short list and let the user decide. Do not silently override.
 
 ## Destination decision
 
-Two independent axes.
+Three independent axes.
 
 | Axis | Values | Materializes as |
 |------|--------|-----------------|
 | Level | user / project | the directory written to |
+| Home | claude / agents | `.claude/rules/` or `.agents/rules/` |
 | Scope | unconditional / path-scoped | absence or presence of `paths:` frontmatter |
 
 **user + path-scoped is unavailable.** Path-scoped user rules are not documented as supported and are reported to be ignored, so a path signal resolves the level to project. A user-level rule is always unconditional.
+
+### Home
+
+**Agents signals:** ".agents", "agents rules", "agent-agnostic", "for every agent". **No signal → claude home**, the only home Claude Code loads on its own.
+
+An agents rule is always unconditional and carries no `paths:` block; a path signal still resolves the level to project, and the pointer line states the scope. Claude Code reads an agents rule only when a memory file points to it, so the create report names the pointer line to add. Never edit the memory file unasked.
 
 ### Level
 
@@ -77,7 +84,7 @@ Two independent axes.
 
 **Project signals:** the input names a stack, directory, or framework of the current repository, or says "this project", "here", "in this repo". A path signal is a project signal.
 
-**No signal → ask.** Never infer the level from the content of the rule; writing to `~/.claude/rules/` reaches every project on the machine.
+**No signal → ask.** Never infer the level from the content of the rule; writing to a user directory reaches every project on the machine.
 
 When the rule belongs to several projects but not all of them, neither level fits. Write the rule once into a shared directory the user names, then link it into this project's rules directory:
 

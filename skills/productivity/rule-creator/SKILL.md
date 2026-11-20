@@ -1,6 +1,6 @@
 ---
 name: rule-creator
-description: "Creates and manages Claude Code rules in .claude/rules/ and ~/.claude/rules/, at project or user level. Use when adding a coding convention or standing preference as a rule, listing, editing, or deleting rules, or splitting an oversized CLAUDE.md or AGENTS.md into rule files. Not for linter rules such as ESLint, procedural workflows, lifecycle hooks, one-off task instructions, or edits that keep the text in CLAUDE.md."
+description: "Creates and manages rules in .claude/rules/, ~/.claude/rules/, .agents/rules/ and ~/.agents/rules/, at project or user level. Use when adding a coding convention or standing preference as a rule, listing, editing, or deleting rules, or splitting an oversized CLAUDE.md or AGENTS.md into rule files. Not for linter rules such as ESLint, procedural workflows, lifecycle hooks, one-off task instructions, or edits that keep the text in CLAUDE.md."
 disable-model-invocation: true
 ---
 

@@ -41,8 +41,8 @@ Resolve `<this-skill>` to the directory the `SKILL.md` was read from; if the hos
    - Scope each rule to its own topic — drop cross-references to other sections of the source or to sibling rule files; carry only the section's own instruction so the rule stands alone.
    - Write the new rule file.
 
-   Done when every approved section has a rule file, written now or found from an earlier run.
-8. **Remove the extracted sections from the source.** Only after step 7 is done, remove each section that has a rule file: its heading and its body, up to the next heading of the same or a higher level.
+   Run `python3 <this-skill>/scripts/rules_index.py` again. Done when every approved section has a rule file, written now or found from an earlier run, and the index carries no note about a departure from the template for a file written now.
+8. **Remove the extracted sections from the source.** Only after step 7 is done, run `python3 <this-skill>/scripts/remove_sections.py <source-file> <heading>...` with the heading of each section that has a rule file, written as `## Heading` when the same text appears at two levels. The script removes each heading with its body up to the next heading of the same or a higher level, and reports a heading that is already gone as absent.
 9. **Verify the source.** Run `resolve_memory.py` on the memory file again. Every extracted heading is gone, and every kept or rejected heading is still listed. If a check fails, restore what was lost from the source text read in step 4 and return to step 8.
 10. **Output a summary** listing files created, sections already extracted, and sections removed.
 
