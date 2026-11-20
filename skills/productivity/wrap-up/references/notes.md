@@ -173,14 +173,14 @@ Section presence:
 - `## Decisions` when decisions were made
 - `## Findings` when there is a notable discovery about this codebase, its stack, or the project's tooling
 - `## Problems` when a problem in the project was encountered and resolved or noted
-- `## Next` when there is work to continue
+- `## Next` when work remains that the next session would plan around: a feature, a fix, a decision, or a blocker. A small edit that one command or one sentence finishes, such as a copy tweak or rewording a tracker issue or a document, stays out even when it names a real file or issue. When nothing passes, omit `## Next`
 - `## Relations` for explicit connections between notes
 
 When the handoff Load phase provides content, include it before composing the note. The blocks of this session merge into the one note:
 
 - `**Findings:**` → brief bullets in `## Findings`
 - `**Decisions:**` → `## Decisions` bullets with rationale (name rejected alternatives when applicable)
-- `**Open threads:**` and the work still remaining in `**Current state:**` → `## Next` bullets, preserving the concrete entry point
+- `**Open threads:**` and the work still remaining in `**Current state:**` → `## Next` bullets that pass its section-presence bar, preserving the concrete entry point
 - `**Blockers:**` → `## Problems` bullets when applicable, or `## Next` flagged as blocking
 - `**Context:**`, the completed work in `**Current state:**` (never the checks run and their results), and `**References:**` → contribute to the `## Summary` narrative; not a dedicated section
 
