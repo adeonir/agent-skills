@@ -1,19 +1,19 @@
 # Test Driven
 
-Build a change test-first, with tests anchored to the source of truth at confirmed seams.
+Build a change test-first, with tests anchored to the source of truth at public seams.
 
 ## What It Does
 
 ```mermaid
 flowchart LR
-    A[Read source of truth] --> B[State seams]
+    A[Read source of truth] --> B[Choose seams]
     B --> C[Red-green-refactor loop per criterion]
 ```
 
 | Phase | Output |
 |-------|--------|
 | Source | Acceptance criteria |
-| Seams | One line per seam: what it catches and what it misses, confirmed by the user or taken from the spec |
+| Seams | One seam per criterion, taken from the spec or from the tests already there |
 | Loop | One failing test, the minimum code to pass, then a refactor with the tests green, per criterion |
 
 ## Usage
