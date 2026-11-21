@@ -12,7 +12,7 @@ flowchart LR
 
 | Phase | Output |
 |-------|--------|
-| Source | Acceptance criteria, and each contradiction between the source and the code, reported to the user |
+| Source | Acceptance criteria |
 | Seams | One line per seam: what it catches and what it misses, confirmed by the user or taken from the spec |
 | Loop | One failing test, the minimum code to pass, then a refactor with the tests green, per criterion |
 
