@@ -41,4 +41,4 @@ In `spec` mode: local commits on the integration branch `[issue-id]-[slug]`, one
 
 ## Requirements
 
-Git. For `spec` mode, a connected tracker tool or authenticated CLI with sub-issues and blocking links, git worktree support, and sub-agents. For `task` mode with an issue, a connected tracker tool or authenticated CLI.
+Git. For `spec` mode, a connected tracker tool or authenticated CLI with sub-issues and blocking links, git worktree support, sub-agents, and a spec whose testing decisions name a test boundary. For `task` mode with an issue, a connected tracker tool or authenticated CLI.
