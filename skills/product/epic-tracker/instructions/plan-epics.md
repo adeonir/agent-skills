@@ -68,9 +68,9 @@ Progress:
 - [ ] Step 9: Report
 ```
 
-**Step 1. Derive the candidates.** Read [derivation.md](../references/derivation.md) and cluster the PRD into epics by its seams — user outcomes as the primary seams, NFRs that serve several outcomes as foundation epics. Read the PRD as a claim, not authority: where its scope leaves a requirement no epic can own, or two requirements contradict, surface the disagreement instead of forcing a cut around it. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry. Done when every candidate carries its one-line boundary.
+**Step 1. Derive the candidates.** Read [derivation.md](../references/derivation.md) and cluster the PRD into epics by its seams — user outcomes as the primary seams, NFRs that serve several outcomes as foundation epics. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry. Done when every candidate carries its one-line boundary.
 
-**Step 2. Evaluate and order.** Read [ice-scoring.md](../references/ice-scoring.md) and score the candidates. Order the set: **flow-dependency is primary and bounds the sequence** — an epic never precedes one it depends on — and **ICE decides within that bound**, breaking ties among unblocked peers. The PRD's order of requirements is a claim, not authority: where the ICE order disagrees with it, keep the ICE order and state the disagreement and its reason at Step 6. Done when the set has one order.
+**Step 2. Evaluate and order.** Read [ice-scoring.md](../references/ice-scoring.md) and score the candidates. Order the set: **flow-dependency is primary and bounds the sequence** — an epic never precedes one it depends on — and **ICE decides within that bound**, breaking ties among unblocked peers. Where the ICE order differs from the PRD's order of requirements, keep the ICE order and state the difference and its reason at Step 6. Done when the set has one order.
 
 **Step 3. Partition the requirements.** Assign every in-scope PRD requirement ID (`FR/NFR`) to **exactly one** epic: no orphans (every ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `create-epic.md` when it drafts the epic body.
 
@@ -96,7 +96,7 @@ Idempotent: run `list_artifacts` filtered to epics, and dispatch only the **miss
 
 When `docs/product/ROADMAP.md` exists, write the tracker link of each epic created in this run into it through the same template.
 
-The partition is not re-validated here. Step 3 settled it with the PRD in hand, which is the only place orphans are visible at all. A roadmap read back from a previous run carries a partition already settled with the user, and `create-epic.md` reads each requirement set as a claim, so an ID that contradicts an epic's scope surfaces there, per epic.
+The partition is not re-validated here. Step 3 settled it with the PRD in hand, which is the only place orphans are visible at all. A roadmap read back from a previous run carries a partition already settled with the user.
 
 On a re-run, `list_artifacts` also surfaces epics that no longer fit the current plan — offer to cancel (`update_status` `cancelled`), reparent (`set_parent`), or keep them; never auto-delete. A title that conflicts with an existing artifact follows the conflict handling in `tracker.md` "Create". Done when every settled epic exists in the tracker.
 

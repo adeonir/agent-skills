@@ -22,7 +22,6 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-templates` | `skills/**` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/instruction-file-target` | `skills/**` | canonical instruction-file target selection and owned-block maintenance |
-| `.agents/rules/inbound-posture` | `skills/**` | upstream artifact enters as a claim, not authority; read step states the rebuttal |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 | `.agents/rules/skill-readme` | `README.md` | fixed sections, What It Does shape, self-explanatory Usage requests, title from `display_name`, one-line FAQ entries |
@@ -307,7 +306,7 @@ These conventions apply at the moment of writing skills; they affect the output,
 
 Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain, justify the design, or narrate how the mechanism was arrived at. The test is what the agent *does* with the sentence: a rationale that changes its behavior is a constraint and stays; one that only makes a human nod is weight paid on every load. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
 
-The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing: the read step saying an upstream artifact enters as a claim to check, not authority to inherit, is what tells the agent to rebut — cut it and the step reads as "go read the file". Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining. Neither section suspends the test — a heading permits prose, it never justifies it.
+The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing. Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining. Neither section suspends the test — a heading permits prose, it never justifies it.
 
 The same discipline applies to mechanism. The trap is building a detector for an event that announces itself. Before adding a test, a comparison, or a state to track, ask what the agent already knows at that moment: an artifact it just wrote, a phase it just re-entered, an input the user just handed it. A mechanism that infers what is already given is scaffolding, and scaffolding attracts more scaffolding — each round of review finds real defects in it, and fixing them makes it larger, never smaller.
 

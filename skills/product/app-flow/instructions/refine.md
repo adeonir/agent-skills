@@ -27,9 +27,9 @@ Progress:
 If the draft loses a hand-off, return to Step 3.
 ```
 
-**Step 1. Locate.** In `docs/product/FLOWS.md`, find the named flow's section and the role it plays on the connect map. When the artifact exists, the flow's shape (errors, dead ends) comes from what it says, not recalled; when it is being described, carry the description as a claim to check — where the described path contradicts the artifact's version, surface the disagreement before rewriting.
+**Step 1. Locate.** In `docs/product/FLOWS.md`, find the named flow's section and the role it plays on the connect map. When the artifact exists, the flow's shape (errors, dead ends) comes from what it says, not recalled.
 
-**Step 2. Name the goal.** In one line, or one line per comment: shorter, fewer screens, a branch added, a dead end closed, two tasks unmerged, the diagram readable, the labels clear. When the user brings review comments, treat each one as a claim to check against the flow, not an order: list the comments, state the change each asks for, and confirm the set as the goal. Have the user confirm the goal — or proceed as a declared assumption they can redirect. Rebuilding a flow for the wrong goal is the cost this confirm prevents.
+**Step 2. Name the goal.** In one line, or one line per comment: shorter, fewer screens, a branch added, a dead end closed, two tasks unmerged, the diagram readable, the labels clear. When the user brings review comments, list the comments, state the change each asks for, and confirm the set as the goal. Have the user confirm the goal — or proceed as a declared assumption they can redirect. Rebuilding a flow for the wrong goal is the cost this confirm prevents.
 
 **Step 3. Copy the register and rules, then draft the new happy path.** Before drawing anything, copy the flow's dead-end register lines and its rules from the artifact (the connect map's role included) — this copy is what the rewrite must account for. Then draft the new happy path first, entry → screens → success exit, in wireflow notation, before touching branches — a rewrite that starts from the old branch list inherits the old shape.
 

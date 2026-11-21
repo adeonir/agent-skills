@@ -1,1 +1,0 @@
-../../.agents/rules/inbound-posture.md

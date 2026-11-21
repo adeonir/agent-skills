@@ -28,7 +28,7 @@ Progress:
 If a draft reveals an unmapped task, return to Step 1.
 ```
 
-**Step 1. Discover.** Settle: the platform in the product's own words (a website, a mobile app, a desktop client — whatever the intake names), the tasks users perform, which 1–2 flows carry the value, and where a first-time user enters versus a returning one. Do not draft off settlement shortcuts — a flow guessed from the task name opens the wrong screens. When the intake is a product doc, treat it as a claim, not authority: where its feature list names no user task, or two sections imply contradictory paths, surface the disagreement instead of forcing a flow around it.
+**Step 1. Discover.** Settle: the platform in the product's own words (a website, a mobile app, a desktop client — whatever the intake names), the tasks users perform, which 1–2 flows carry the value, and where a first-time user enters versus a returning one. Do not draft off settlement shortcuts — a flow guessed from the task name opens the wrong screens.
 
 **Step 2. List the flows.** One per task, unmerged — split anything covering two tasks (flow-model's type table shows the shapes). Mark the 1–2 priority ones.
 

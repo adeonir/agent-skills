@@ -39,7 +39,7 @@ Scan project documents for decisions that might need their own ADR:
 | `docs/product/design-doc.md` | `## Stack` items without an `ADR-NNN` (candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
-Read `PROJECT.md` only when it exists. Treat each entry as a claim to verify against the current codebase and existing ADRs, not as an approved ADR. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**. Report a contradiction instead of recording the entry.
+Read `PROJECT.md` only when it exists. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**.
 
 List the unrecorded candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source mean multiple ADRs — one per decision, not one ADR summarizing all of them.
 

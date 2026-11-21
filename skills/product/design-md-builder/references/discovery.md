@@ -9,7 +9,7 @@ Loaded at the start of every operation, before the work begins. It settles what 
 ## Scan the available context
 
 1. Scan the project root for `DESIGN.md`, then scan `docs/design/moodboard.md`, `PRODUCT.md`, `docs/product/PRD.md`, and `docs/product/brainstorm.md`.
-2. Read found artifacts as claims to check, not authority to inherit. Extract only the product context, stated register, visual intent, constraints, and current tokens that the selected operation needs. Strip upstream IDs, milestones, feature names, and roadmap language from every design output.
+2. From found artifacts, extract only the product context, stated register, visual intent, constraints, and current tokens that the selected operation needs. Strip upstream IDs, milestones, feature names, and roadmap language from every design output.
 3. Identify the source on hand: codebase, URL, HTML/CSS, images, design-tool file, or text description. An external design-tool file is user-owned and read-only: read values out of it, never write back to it.
 
 `DESIGN.md` at the project root is the only identity artifact. It is an external format this skill conforms to and never redefines: the frontmatter is normative and carries the exact values, while the prose carries why each value exists and how to apply it.

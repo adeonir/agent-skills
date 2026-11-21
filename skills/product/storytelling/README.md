@@ -43,7 +43,7 @@ use this site as a reference for the story, not for the look
 docs/design/storytelling.md
 ```
 
-A re-run revises the same file: untouched sections stay, and each recorded claim is re-checked against the new materials.
+A re-run revises the same file: untouched sections stay.
 
 ## Requirements
 

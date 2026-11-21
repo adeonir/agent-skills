@@ -8,7 +8,7 @@ Read [discovery.md](../references/discovery.md) before starting — it settles t
 
 ## Inputs
 
-Read product documents as claims to check, not authority. Use purpose, audience, usage conditions, stated register, taste, anti-references, and hard constraints. Strip document IDs, feature names, milestones, and roadmap language from the moodboard.
+From product documents, use purpose, audience, usage conditions, stated register, taste, anti-references, and hard constraints. Strip document IDs, feature names, milestones, and roadmap language from the moodboard.
 
 Load [aesthetics.md](../references/aesthetics.md), the matching register file, [style-directions.md](../references/style-directions.md), and [anti-slop.md](../references/anti-slop.md). Keep the moodboard text-only: no token maps, color values, or rendered HTML. Image tiles are an optional companion to the moodboard, never its content.
 
