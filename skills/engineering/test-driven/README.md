@@ -14,7 +14,7 @@ flowchart LR
 |-------|--------|
 | Source | Acceptance criteria |
 | Seams | One seam per criterion, taken from the spec or from the tests already there |
-| Loop | One failing test, the minimum code to pass, then a refactor with the tests green, per criterion |
+| Loop | One failing test, the minimum code to pass, then a refactor with the tests green, per criterion, or the closest executable check when a test is impractical |
 
 ## Usage
 
