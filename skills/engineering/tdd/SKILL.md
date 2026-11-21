@@ -1,9 +1,9 @@
 ---
-name: test-driven
+name: tdd
 description: "Test-first implementation of one change, with tests at public seams that encode the intended behavior and are never weakened to pass. Use when implementing a task, slice, or issue test-first, fixing a bug with a reproduction test, or when the user asks for TDD or red-green-refactor. Not for writing a spec, breaking work into tasks, finding a bug's root cause, refactoring, reviewing a diff against a spec or standards, or managing branches and merges."
 ---
 
-# Test Driven
+# TDD
 
 ## Quick start
 

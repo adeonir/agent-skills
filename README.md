@@ -33,7 +33,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | **[implement](skills/engineering/implement)** | Implement a spec with each task in a fresh sub-agent integrated on one branch, or one task or request on the current branch |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with acceptance-criteria traceability |
-| **[test-driven](skills/engineering/test-driven)** | Build a change test-first, with tests anchored to the spec, issue, or request at confirmed seams |
+| **[tdd](skills/engineering/tdd)** | Build a change test-first, with tests anchored to the spec, issue, or request at confirmed seams |
 | **[to-tasks](skills/engineering/to-tasks)** | Break the work in the conversation or in supplied material into tasks with their blocking issues, as sub-issues when an issue is supplied |
 | **[tracker-config](skills/engineering/tracker-config)** | Configure tracker destinations and operate issues through Linear or GitHub |
 | **[write-intents](skills/engineering/write-intents)** | Turn inputs into concrete intents with the user |
