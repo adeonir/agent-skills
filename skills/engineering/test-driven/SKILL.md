@@ -26,7 +26,7 @@ Progress:
 
 3. **Run the loop, one criterion at a time.** Load [test-quality.md](references/test-quality.md) before the first test. Take one criterion per cycle.
    - Write one test at the criterion's seam. Make it encode the intended behavior, never mirror the current implementation. Name the test and any new interface in the glossary's terms; keep the source's section numbers and IDs out of test names.
-   - Run the focused test and confirm it fails for the expected reason, not from a syntax, import, or setup error.
+   - Run the focused test and confirm it fails for the expected reason. If it passes, or fails from a syntax, import, or setup error, correct the test before writing code.
    - Write the minimum code that makes it pass. Do not anticipate later tests.
    - Run the focused test again. Never weaken, delete, or skip a test to make it pass; a test that is wrong against the source is a stop: report it to the user and wait.
    - Refactor only with the tests green: simplify the code and tests this change wrote or touched, change no behavior and no assertion, and run the tests afterward.
