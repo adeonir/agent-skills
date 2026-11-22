@@ -129,7 +129,7 @@ Read every file in `instructions/` before starting.
 
 Keep SKILL.md at or below 150 lines, preferring 100. Past that, move detail into the instruction that uses it, or into a reference the procedure loads, so the entry point stays short rather than becoming the manual.
 
-The cap is a **line count**, not a character budget — the harness enforces no per-line width and no body character limit, so wrapping is purely cosmetic. Do not hard-wrap body prose at ~80 columns; write full-width lines so wrapping never inflates the count. The `description` frontmatter field is the one with a character budget (see `skill-frontmatter`).
+The cap is a **line count**, not a character budget. The `description` frontmatter field is the one with a character budget (see `skill-frontmatter`).
 
 **Incorrect:**
 

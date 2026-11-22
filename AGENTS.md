@@ -11,16 +11,15 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
 | `.agents/rules/content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
-| `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes, English-only |
+| `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes |
 | `.agents/rules/naming-conventions` | global | file and directory casing, slash command equals name |
 | `.agents/rules/skill-md-structure` | `SKILL.md` | no constraint in a routing SKILL.md, instructions as the only routing target, required top, forbidden sections, routing over bulk reads, body length |
-| `.agents/rules/skill-timeless` | `skills/**` | no dates or version pins, consistent terminology |
-| `.agents/rules/skill-references` | `skills/**` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
-| `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
-| `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
-| `.agents/rules/skill-templates` | `skills/**` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
-| `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
-| `.agents/rules/instruction-file-target` | `skills/**` | canonical instruction-file target selection and owned-block maintenance |
+| `.agents/rules/skill-timeless` | `skills/**/*.md` | no dates or version pins, consistent terminology |
+| `.agents/rules/skill-references` | `skills/**/*.md` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
+| `.agents/rules/skill-voice` | `skills/**/*.md` | no authoring-chat rationale, declarative not narrated |
+| `.agents/rules/scope-boundary` | `skills/**/*.md` | strip upstream scope from output, MUST-NOT in templates |
+| `.agents/rules/skill-templates` | `skills/**/*.md` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
+| `.agents/rules/skill-security` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 | `.agents/rules/skill-readme` | `README.md` | fixed sections, What It Does shape, self-explanatory Usage requests, title from `display_name`, one-line FAQ entries |

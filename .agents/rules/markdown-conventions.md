@@ -37,25 +37,3 @@ scripts\helper.py
 ```text
 scripts/helper.py
 ```
-
-## English-Only Files
-
-**Impact: MEDIUM**
-
-Author every repository file in English — SKILL.md, references, templates, and README. Chat may be in any language, but shipped files stay English so the model and every reader share one source.
-
-**Incorrect:**
-
-```markdown
-## Configuração
-
-Defina a chave de API antes de executar.
-```
-
-**Correct:**
-
-```markdown
-## Configuration
-
-Set the API key before running.
-```

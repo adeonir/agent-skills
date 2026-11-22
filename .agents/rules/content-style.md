@@ -22,7 +22,6 @@ Write skills and rules in clear, consistent English so agents can apply the repo
 - Keep a reason only when it decides something: a cost the agent has to weigh, or the condition that selects between two options.
 - Give exact instructions where a wrong move is expensive and the sequence matters. Name the goal where many routes work.
 - For a workflow, offer one default and one escape hatch. A body that lays out three routes makes the agent pick again on every run.
-- Use one term per concept across the whole file. Never alternate between "endpoint", "route" and "path" for the same thing.
 - Make every example a real path, command or type from the domain. Never `foo`, `bar` or `doSomething`.
 - Leave the example out where the domain carries none. The line asks for the real case over the placeholder, never for an invented case over no case: a fabricated example is read as a fact about the tree the reader is in.
 - State the rule, then show the case. Never restate the rule after the example.

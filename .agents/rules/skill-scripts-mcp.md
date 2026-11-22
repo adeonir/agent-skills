@@ -1,6 +1,6 @@
 ---
 paths:
-  - "skills/**/*.md"
+  - "skills/**"
 ---
 
 ## Resolve Bundled Scripts From the Skill Directory
