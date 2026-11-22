@@ -46,4 +46,4 @@ ALWAYS use this exact template structure:
 [Link to each related document.]
 ```
 
-MUST NOT contain: source section numbers or requirement IDs; sibling artifact names outside `Reference`; downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
+MUST NOT contain: source section numbers or requirement IDs; sibling artifact names outside `Reference`; a supplied material's name or provenance; downstream tasks, milestones, or releases; implementation steps or file lists; traceability matrices, workflow states, or process gates; conversation narrative.
