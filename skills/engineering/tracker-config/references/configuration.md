@@ -37,7 +37,7 @@ python3 <this-skill>/scripts/config.py apply <settings.json>
 
 ## Instruction block
 
-Maintain one `## Issue tracker` section in the instruction file resolved by [instruction-file.md](instruction-file.md). Preserve unrelated sections; replace only a tracker heading with its single summary paragraph; resolve other content manually before retrying.
+Maintain one `## Issue tracker` section in the instruction file that `show` reports. Preserve unrelated sections; replace only a tracker heading with its single summary paragraph; resolve other content manually before retrying.
 
 ALWAYS use this exact template structure:
 

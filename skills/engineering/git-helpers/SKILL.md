@@ -17,7 +17,6 @@ Git workflow with conventional commits, pull requests, and pull request merges.
 ## References
 
 - [message-sourcing.md](references/message-sourcing.md) — loaded by the commit, create pull request, and merge pull request instructions
-- [instruction-file.md](references/instruction-file.md) — loaded by the merge pull request instruction for the `## Merge method` block target
 - [pull-request.md](assets/pull-request.md) — body format loaded by the create pull request instruction
 
 ## Workflow

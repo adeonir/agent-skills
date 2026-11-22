@@ -7,7 +7,7 @@ paths:
 
 **Impact: HIGH**
 
-A skill that maintains an owned block in the project's instruction file uses the same target selection and the same section maintenance as every other skill. Every skill that resolves the instruction file bundles this contract as `references/instruction-file.md`, and the copies across skills stay identical; the canonical text is the one in the `git-helpers` skill. Skills that edit instruction-file content instead (extracting, trimming, placing facts) carry their own placement contracts and are outside this rule. Skills ship standalone, so the mechanism repeats as code or reference; the copies must implement the contract exactly. The canonical code lives in the `instruction_path`, `tracker_sections`, and `replace_block` functions of `tracker-config/scripts/config.py` — copy from there, rename freely, change the algorithm in all copies together.
+A skill that maintains an owned block in the project's instruction file uses the same target selection and the same section maintenance as every other skill. Skills that edit instruction-file content instead (extracting, trimming, placing facts) carry their own placement contracts and are outside this rule. Each skill's bundled script carries the mechanism and implements the contract exactly. The canonical code lives in the `instruction_path`, `tracker_sections`, and `replace_block` functions of `tracker-config/scripts/config.py` — copy from there, rename freely, change the algorithm in all copies together.
 
 Target selection, resolved from the repository root (`git rev-parse --show-toplevel`):
 
