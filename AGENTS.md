@@ -259,6 +259,10 @@ Where artifacts land.
 
 External tools or MCPs.
 
+## Integration (if applicable)
+
+Other skills this skill names or loads.
+
 ## FAQ (if applicable)
 
 **Q: [question]?** A: [answer]

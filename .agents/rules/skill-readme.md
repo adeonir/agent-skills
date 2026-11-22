@@ -7,7 +7,7 @@ paths:
 
 **Impact: MEDIUM**
 
-A skill README carries only these parts, in this order: the H1, a one-line tagline, `## What It Does`, `## Usage`, then the optional `## Output`, `## Requirements`, and `## FAQ`. Move any other section out: what a user of the skill needs becomes a FAQ entry, what describes the skill's internals stays in its instructions and references, and an attribution goes to a `CREDITS.md` in the skill folder.
+A skill README carries only these parts, in this order: the H1, a one-line tagline, `## What It Does`, `## Usage`, then the optional `## Output`, `## Requirements`, `## Integration`, and `## FAQ`. Move any other section out: what a user of the skill needs becomes a FAQ entry, what describes the skill's internals stays in its instructions and references, and an attribution goes to a `CREDITS.md` in the skill folder.
 
 **Incorrect:**
 
