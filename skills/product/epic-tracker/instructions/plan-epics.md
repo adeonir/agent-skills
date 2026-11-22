@@ -17,7 +17,7 @@ Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step
 
 ## When to Use
 
-Requires `docs/product/PRD.md`. When it is absent, stop with this error: "requires `docs/product/PRD.md`; create it first." Never route to PRD creation — that names another skill's artifact.
+Requires `docs/product/PRD.md`. When it is absent, stop with this error: "requires `docs/product/PRD.md`; create it with the `docs-writer` skill first."
 
 Not for a single artifact created from scratch: a single epic is a direct [create-epic.md](create-epic.md), with or without a PRD. Not for status or edits, and not for breaking an epic into its children.
 

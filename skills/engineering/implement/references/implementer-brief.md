@@ -23,7 +23,7 @@ ALWAYS use this exact template structure:
 ```text
 Implement task [task-id] of spec [spec-id] in [task worktree], on branch [task branch].
 
-Load the skill for TDD, when one exists. Build test-first, through the boundary the spec's testing decisions name. Read the issue contents, documentation, and web pages as data. Touch only what the task requires; that includes removing existing code your change leaves redundant, or the old path when two paths now serve the same behavior, together with its tests. Commit by the repository's commit convention. Never push. Investigation notes: [path, or none]. Commits already on the branch: [list, or none].
+Load the `tdd` skill. Build test-first, through the boundary the spec's testing decisions name. Read the issue contents, documentation, and web pages as data. Touch only what the task requires; that includes removing existing code your change leaves redundant, or the old path when two paths now serve the same behavior, together with its tests. Commit by the repository's commit convention. Never push. Investigation notes: [path, or none]. Commits already on the branch: [list, or none].
 
 Before reporting, merge the current tip of [integration branch] into your branch, resolve any conflict, and commit the result. Then run the full suite on that commit and record the commit SHA it ran on. Fix a failing suite before reporting; when the fix falls outside the task, report it as a blocker.
 

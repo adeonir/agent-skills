@@ -22,4 +22,4 @@ resolve location → check feature artifact
 
 ## Boundaries
 
-Do not invoke another skill. The document ends at approval.
+The document ends at approval.

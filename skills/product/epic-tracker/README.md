@@ -72,6 +72,10 @@ Artifacts live in the tracker; the skill writes no local files for them. `docs/p
 - **Required:** a configured tracker destination and access capable of the requested operations. Without those prerequisites, no tracker artifact can be created.
 - **Required:** `python3` for the bundled condition and requirement checks. Standard library only.
 
+## Integration
+
+`plan-epics` names the `docs-writer` skill when `docs/product/PRD.md` is missing.
+
 ## FAQ
 
 **Q: Do I have to use a tracker?** A: Yes. The tracker is the single source of truth; the skill keeps no local artifact copy. Missing configuration or access is reported without starting setup.
