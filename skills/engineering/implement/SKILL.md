@@ -14,6 +14,8 @@ disable-model-invocation: true
 
 If the mode is missing or is neither `spec` nor `task`, ask for it.
 
+A spec run ends with its report, and its procedure no longer applies. A later request in the same session works on the integration branch directly, with no worktree.
+
 ## References
 
 - [implementer-brief.md](references/implementer-brief.md) — loaded by the implement spec instruction to dispatch an implementer
