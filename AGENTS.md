@@ -2,7 +2,7 @@
 
 Authoring conventions for skills in this repository.
 
-This file is **repo-level guidance for skill authors**. It is never installed alongside skills and never reaches the consumer. Each skill ships standalone via `skills.sh`.
+This file is **repo-level guidance for skill authors**. It is never installed alongside skills and never reaches the consumer. Each skill ships via `skills.sh`.
 
 ## Rules
 
@@ -18,7 +18,6 @@ Verifiable conventions live as rules in `.agents/rules/`, loaded automatically w
 | `.agents/rules/skill-references` | `skills/**` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
 | `.agents/rules/skill-voice` | `skills/**` | no authoring-chat rationale, declarative not narrated |
 | `.agents/rules/scope-boundary` | `skills/**` | strip upstream scope from output, MUST-NOT in templates |
-| `.agents/rules/skill-isolation` | `skills/**` | no cross-skill refs, own-artifact isolation, inline subagents with lookup allowed, parallel subagents only for an orchestrator |
 | `.agents/rules/skill-templates` | `skills/**` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
 | `.agents/rules/skill-security` | `skills/**` | no secrets, no piped download-execute, trust boundary, safe shell |
 | `.agents/rules/instruction-file-target` | `skills/**` | canonical instruction-file target selection and owned-block maintenance |
@@ -41,7 +40,6 @@ for f in references/*.md; do b=$(basename "$f"); grep -rq "$b" instructions/ ref
 grep -rho '](\.\./references/[a-z-]*\.md)' instructions/ | sed 's|](\.\./references/||;s|)||' | sort -u \
   | while read t; do [ -f "references/$t" ] || echo "missing: $t"; done
 grep -rn '^```$' .              # bare fences are closings; every opening must carry a language
-grep -rln '<sibling-skill>' .  # isolation: a skill never names a sibling (expect empty)
 ```
 
 Also confirm the `description` stays within the 1,024-char listing cap.
@@ -79,7 +77,7 @@ Skills directories use flat lowercase kebab-case names. Skill folders also use k
 
 ## Canonical Workflow
 
-Skills compose via artifacts on disk (`.artifacts/`), not via cross-references inside skill files. The repo `README.md` owns the pipeline diagram and the skill index — this file does not duplicate them.
+Skills compose via artifacts on disk (`.artifacts/`), and a skill file may name or load another skill. The repo `README.md` owns the pipeline diagram and the skill index — this file does not duplicate them.
 
 ## Skill File Layout
 
@@ -272,7 +270,7 @@ Mermaid direction:
 - `flowchart TD` for branching, loops, decision trees
 - `flowchart LR` for linear sequential pipelines
 
-There is no per-skill `Installation` or `Integration` section. Installation is handled by `skills.sh`. Skills are isolated and do not document integration with other skills. Attribution for adapted work lives in the skill's `CREDITS.md`, never in the README.
+There is no per-skill `Installation` section. Installation is handled by `skills.sh`. Attribution for adapted work lives in the skill's `CREDITS.md`, never in the README.
 
 ## Discovery
 
