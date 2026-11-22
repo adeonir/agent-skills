@@ -8,7 +8,8 @@ Makes technical prose easier to understand without removing necessary precision.
 flowchart LR
     R[Technical request or draft] --> C[Preserve facts and required terms]
     C --> S[Apply STE-inspired clarity rules]
-    S --> P[Check precision]
+    S --> A[Remove AI-writing patterns with anti-slop]
+    A --> P[Check precision]
     P --> O[Clear technical prose]
 ```
 
@@ -23,6 +24,7 @@ flowchart LR
 ```text
 explain this architecture in plain technical English
 rewrite this runbook with less jargon
+write a how-to guide for rotating the signing key
 make this API error explanation easier for a global team to understand
 use an ASD-STE100 style for this maintenance procedure
 audit this technical note for complex words and ambiguous sentences
@@ -31,6 +33,8 @@ audit this technical note for complex words and ambiguous sentences
 ## Requirements
 
 Python 3, standard library only, for the bundled script.
+
+The `anti-slop` skill is optional. When it is installed, the skill runs it over each draft; when it is absent, the skill skips that pass.
 
 Formal ASD-STE100 conformance requires the official standard and the approved terminology for the applicable company, industry, or subject field. Without both sources, the skill labels the result as best effort rather than compliant.
 
