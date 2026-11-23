@@ -4,7 +4,7 @@ Apply selected Simplified Technical English principles to agent output. Do not c
 
 ## When to Use
 
-Read before writing, rewriting, or auditing technical prose. Use the official ASD-STE100 standard when the user requires formal conformance.
+Read before writing or rewriting technical prose. Use the official ASD-STE100 standard when the user requires formal conformance.
 
 These rules apply in every language. English word pairs are examples; use the equivalent pair in the language of the text.
 
@@ -75,20 +75,16 @@ Before returning the text, check each item:
 - No simpler word would preserve the same technical meaning better.
 - Code, commands, paths, identifiers, values, and quoted interface text are unchanged unless the user asked to change them.
 
-## Audit format
+## Change report
 
 ALWAYS use this exact template structure:
 
-```text
-Verdict: clear | needs revision
+```markdown
+## What changed
 
-Findings
-- Original: [problem text]
-  Problem: [jargon, ambiguity, noun cluster, passive voice, long sentence, broken line of thought, or inconsistent term]
-  Revision: [clear alternative]
-
-Rewritten text
-[complete revision]
+- [principle or anti-slop pattern]: "[original wording]" becomes "[new wording]"; "[original wording]" becomes "[new wording]"
+- [principle or pattern with a mechanical change]: [count] replaced
+- Open: "[wording left in place]", [why it stays]
 ```
 
-Do not add the audit wrapper to a normal writing or rewriting request.
+Write one line per principle or pattern, with every pair of original and new wording it accounts for. Write a cut as "[original wording]" cut, and a reorganization as its reason. Give only the count for a mechanical change, such as a dash or a Latin abbreviation. Write one Open line per item the draft leaves for the writer, and omit the line when there is none. Add the report only when the request supplied text.

@@ -10,14 +10,14 @@ flowchart LR
     C --> S[Apply STE-inspired clarity rules]
     S --> A[Remove AI-writing patterns with anti-slop]
     A --> P[Check precision]
-    P --> O[Clear technical prose]
+    P --> D[Reread against the supplied text]
+    D --> O[Clear technical prose]
 ```
 
-| Mode | Output |
-| ---- | ------ |
-| Write | A new technical answer in clear language, with requirements, code, identifiers, and domain terms kept accurate |
-| Rewrite | The supplied text simplified without changing its technical meaning, returned alone |
-| Audit | A verdict and the clarity defects found, followed by the rewritten text |
+| Phase | Output |
+| ----- | ------ |
+| Write | The text in clear language, with requirements, code, identifiers, and domain terms kept accurate |
+| Report | When the request supplied text, What changed: one line per principle or pattern with the original and new wording, a count for mechanical changes, and any open item |
 
 ## Usage
 
@@ -27,12 +27,10 @@ rewrite this runbook with less jargon
 write a how-to guide for rotating the signing key
 make this API error explanation easier for a global team to understand
 use an ASD-STE100 style for this maintenance procedure
-audit this technical note for complex words and ambiguous sentences
+simplify this technical note and show what changed
 ```
 
 ## Requirements
-
-Python 3, standard library only, for the bundled script.
 
 The `anti-slop` skill is optional. When it is installed, the skill runs it over each draft; when it is absent, the skill skips that pass.
 
@@ -42,7 +40,7 @@ Formal ASD-STE100 conformance requires the official standard and the approved te
 
 **Q: Does the agent use it without being asked?** A: Yes. The agent can select it automatically for technical prose written for people, including brief factual answers, explanations, runbooks, specifications, incident reports, architecture notes, procedures, and documentation. One-word confirmations, code-only output, and raw logs remain unchanged.
 
-**Q: What does it return?** A: The improved text only, by default. An audit request returns findings and a rewritten version.
+**Q: What does it return?** A: The text in clear language. When the request supplied text, a What changed report follows it, one line per principle or pattern.
 
 **Q: Does it follow ASD-STE100?** A: It adapts principles from [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) to agent responses. It does not reproduce the controlled dictionary or claim formal compliance.
 
