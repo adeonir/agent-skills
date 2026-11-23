@@ -59,7 +59,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 
 | Skill | Description |
 | ----- | ----------- |
-| **[anti-slop](skills/productivity/anti-slop)** | Edit drafts into sharper, more human prose, or detect AI tells without rewriting |
+| **[anti-slop](skills/productivity/anti-slop)** | Edit drafts into sharper, more human prose, with a report of each change against the original |
 | **[grill-me](skills/productivity/grill-me)** | Round-by-round interview of a plan until every decision is settled, then reports terms and decisions to record |
 | **[handoff](skills/productivity/handoff)** | Save and resume conversation state across sessions |
 | **[notes](skills/productivity/notes)** | Obsidian notes for projects, meetings, challenges, and brag docs |

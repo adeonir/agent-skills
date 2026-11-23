@@ -4,13 +4,13 @@ Rules for deciding what stays, what changes, and how far an edit may go.
 
 ## When to Use
 
-Loaded for the rewrite mode, before editing a draft.
+Loaded before editing a draft.
 
 ## Principles
 
 - **Preserve the writer's real voice.** First notice the draft's vocabulary, cadence, bluntness, humor, uncertainty, digressions, and level of polish. Keep the traits that feel personal to the writer. Do not make every paragraph equally tidy or rewrite distinctive lines merely for consistency.
 - **Make the smallest useful edit.** Fix AI patterns, errors, repetition, and unclear passages. Leave strong human sentences alone. Keep the amount of cutting proportional to the actual slop. The draft should still sound like the same person after editing.
-- **Lock the source before editing.** Keep every claim, factual detail, qualification, source, and supported uncertainty. Add no fact, name, number, date, quote, citation, or opinion. If something is unclear, ask.
+- **Lock the source before editing.** Keep every claim, factual detail, qualification, source, and supported uncertainty. Add no fact, name, number, date, quote, citation, or opinion.
 - **Lead with the point when the setup adds nothing.** Cut generic throat-clearing. Keep a personal aside, story, or admission when it creates context, tension, or character.
 - **Front-load only when it improves clarity.** Put conclusions early when that helps the reader. Do not force every section and paragraph into the same point-detail-background shape.
 - **Make it easier to read, not less precise.** Keep the substance, nuance, and precision. Remove only what makes the draft hard to read: jargon, long sentences, abstract nouns, and tangled structure.

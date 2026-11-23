@@ -1,28 +1,21 @@
 # Anti-Slop
 
-Edits drafts into clear, natural prose, or names AI-writing patterns without changing the draft.
+Edits drafts into clear, natural prose and reports the changes.
 
 ## What It Does
 
 ```mermaid
-flowchart TD
-    IN[draft: file path or pasted text] --> READ[read the full draft]
-    READ --> VOICE[register + voice signals]
-    VOICE --> MODE{edit or detect}
-    MODE -->|detect| SCAN[scan catalog and context]
-    SCAN --> REPORT[pattern, quoted line, fix]
-    REPORT --> RCHECK[script checks names and quotes]
-    RCHECK -->|fail| REPORT
-    MODE -->|edit| CUT[apply principles and cut supported patterns]
-    CUT --> CHECK[script + isolated reviewer]
-    CHECK -->|fail| CUT
-    CHECK -->|pass| OUT[output for the input form]
+flowchart LR
+    IN[draft] --> READ[read the full draft]
+    READ --> CUT[apply principles, bans, and supported cues]
+    CUT --> COMPARE[reread against the original]
+    COMPARE --> OUT[edit + What changed]
 ```
 
-| Mode | Output |
-|------|--------|
-| edit | Pasted draft: the full edit plus What changed. File: the file is edited in place and the reply reports its path, a summary, open items, and What changed. Embedded: final text only, ready for another workflow |
-| detect | One line per pattern found: name, quoted line, fix — nothing rewritten |
+| Phase | Output |
+|-------|--------|
+| Edit | The edited draft, with prose changed only and code, data, frontmatter, link targets, and identifiers kept |
+| Report | What changed: one line per pattern or principle with the original and new wording, a count for mechanical changes, and any open item |
 
 ## Usage
 
@@ -30,26 +23,16 @@ flowchart TD
 Clean up this draft, keep it sounding like me
 Make this post less AI-sounding
 Remove the AI-writing patterns from docs/notes/launch.md
-Does this read as AI slop?
-Scan this for AI tells, do not rewrite it
 ```
-
-## Output
-
-Pasted text comes back in the reply. A file path is edited in place; the reply reports the path, a short summary of the edit, any open item, and What changed, never the edited file. Embedded text comes back without a preamble or change log. The file form changes prose only and preserves code, data, frontmatter, links, identifiers, and document structure.
-
-## Requirements
-
-Python 3, standard library only, for the bundled check scripts.
 
 ## FAQ
 
 **Q: Does it work in languages other than English?** A: Yes. It writes in the draft's language. The word lists are English, but the skill matches the same patterns in other languages.
 
-**Q: Does detect tell me whether AI wrote the piece?** A: No. It names patterns and quotes the lines that carry them. It does not identify the author.
+**Q: Does it tell me whether AI wrote the piece?** A: No. It edits the patterns and reports the changes. It does not identify the author.
 
-**Q: Will it flatten my voice?** A: The edit keeps distinctive words, rhythm, bluntness, humor, and digressions. It cuts only what the draft needs, so the result still sounds like the same person.
+**Q: Will it flatten my voice?** A: The edit keeps distinctive words, rhythm, bluntness, humor, and digressions, except where they match a ban. A writing sample you supply overrides the bans.
 
 **Q: Does it add opinions or personality?** A: Not by default. Technical, reference, legal, and factual prose stays neutral and precise. Personal and editorial prose can keep personality when the source supports it.
 
-**Q: Does one word or dash prove AI writing?** A: No. Findings require context or a pattern cluster.
+**Q: Does it change every word on its lists?** A: No. Bans, such as a dash used as an aside, change except in quotations, proper names, code, the grammar of the draft's language, and a supplied writing sample. Cues, such as a listed word, change only when the context supports it.
