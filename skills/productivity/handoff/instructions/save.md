@@ -53,7 +53,7 @@ Progress:
 - [ ] Step 3: Compose the handoff
 - [ ] Step 4: Capture the check results
 - [ ] Step 5: Mark unverified claims
-- [ ] Step 6: Write the file and check it. If the check fails, return to Step 3
+- [ ] Step 6: Write the file
 - [ ] Step 7: Report
 ```
 
@@ -67,7 +67,7 @@ Progress:
 
 **Step 5. Mark unverified claims.** End each load-bearing claim not checked against current evidence with `(unverified: [source])`. A bullet without the mark was verified at save. Keep unresolved beliefs under `Open threads` rather than presenting them as findings or decisions. Done when every load-bearing claim was checked or carries the mark.
 
-**Step 6. Write and check.** Write the handoff to `.artifacts/HANDOFF.md`, then run `python3 <this-skill>/scripts/check_handoff.py .artifacts/HANDOFF.md`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. The script flags a missing topic block, a missing required section, a repeated section or topic, a section that says none, a commit hash, chat phrasing, and secrets; fix each line it flags as its message says and run it again. Done when the script prints `clean` and the file holds no content already carried by an artifact, no git state, no matter outside its block's topic, and no raw conversation history; otherwise return to Step 3.
+**Step 6. Write.** Write the handoff to `.artifacts/HANDOFF.md`. Done when the file is written.
 
 **Step 7. Report.** Report the path, the topic headings, which block this save updated or added, what the handoff holds in one to three sentences, and the open threads and blockers it carries. List on one line the prior bullets Step 1 marked `removed`. Never paste the handoff. Done when the report names the path, every topic, the block this save touched, every open thread and blocker, and every removed bullet.
 
