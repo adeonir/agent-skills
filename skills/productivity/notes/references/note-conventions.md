@@ -12,7 +12,7 @@ Every note operation goes through one channel, tried in this order. Open the Obs
 
 1. **CLI (default).** When `command -v obsidian` finds it, run its commands. When a command fails because Obsidian is closed, ask the user whether to open it: on yes, run `open -a Obsidian` and retry; on no, use the MCP tools for the rest of the run.
 2. **MCP (fallback).** When the CLI binary is missing, or the user declined to open the app, use the Obsidian MCP tools (`Obsidian:read_note`, `Obsidian:write_note`, `Obsidian:patch_note`, and kin).
-3. **Direct vault write (last).** When neither is available, write the note as a plain file into the vault resolved the way the bundled `check_note.py` resolves it: `--vault` when given, the only vault in Obsidian's `obsidian.json`, or the open one.
+3. **Direct vault write (last).** When neither is available, write the note as a plain file into the vault `python3 <this-skill>/scripts/vault.py` prints, resolving `<this-skill>` to the directory the `SKILL.md` was read from. On exit 2, ask the user for the vault directory and pass it with `--vault`.
 
 Every CLI command starts with `vault="<vault>"`, the vault's folder name.
 

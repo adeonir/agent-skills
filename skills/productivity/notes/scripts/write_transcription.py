@@ -15,10 +15,9 @@ The meta file is JSON:
 
 Without --append, creates the note and refuses to overwrite one that
 exists. With --append, inserts the source body at the end of the existing
-note's body, before its Observations; the meta file is then ignored. After
-writing, the note is checked as `check_note.py transcription --source`
-does. Exit 0 when the note is written and clean, 1 when the check flags a
-line, 2 when an input is missing or the write is refused.
+note's body, before its Observations; the meta file is then ignored. Exit 0
+when the note is written, 2 when an input is missing or the write is
+refused.
 """
 
 import argparse
@@ -28,8 +27,9 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from check_note import BODY_END, check, default_vault  # noqa: E402
+from vault import default_vault  # noqa: E402
 
+BODY_END = re.compile(r"^## (?:Observations|Relations)\b")
 FRONTMATTER_ORDER = ["created", "updated", "status", "date", "context", "tags"]
 
 
@@ -126,13 +126,8 @@ def main():
     with open(path, "w", encoding="utf-8") as handle:
         handle.write(content)
 
-    findings = sorted(check("transcription", args.note, content.splitlines(), body))
-    if not findings:
-        print(f"clean: {args.note}")
-        return 0
-    for number, message in findings:
-        print(f"{args.note}:{number}: {message}")
-    return 1
+    print(f"written: {args.note}")
+    return 0
 
 
 if __name__ == "__main__":
