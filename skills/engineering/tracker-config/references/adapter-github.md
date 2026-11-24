@@ -2,10 +2,6 @@
 
 Map generic issue operations to GitHub MCP or the authenticated gh CLI.
 
-## When to Use
-
-Load after resolving a GitHub destination and primary/fallback channels.
-
 ## Channels and capabilities
 
 Use the configured repository explicitly for every operation; do not rely on the CLI's working-directory inference. With MCP, discover fully qualified tool names and inspect their input contracts. With CLI, inspect installed `gh` command help before relying on flags or JSON fields. Use the CLI's supported issue/project operations; where installed gh exposes a needed capability through its authenticated API command, inspect its documentation before using it. Do not introduce a separate REST client, SDK, or credential store.

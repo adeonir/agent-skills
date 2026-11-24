@@ -2,10 +2,6 @@
 
 Map generic issue operations to the connected Linear MCP tools.
 
-## When to Use
-
-Load after resolving a Linear destination.
-
 ## Channel and capabilities
 
 Use MCP only. Discover the connected server and its fully qualified tool names from the host catalog; inspect each tool's input contract before calling it. Do not assume tool names or a REST/SDK alternative. Probe the configured team and project with read-only calls. Check support for each requested field and relation before writing. If the MCP lacks a needed operation, return that limitation; do not change trackers or discard fields.

@@ -2,10 +2,6 @@
 
 Owned keys, instruction-block format, and the persistence interface.
 
-## When to Use
-
-Load when inspecting, configuring, or resolving the project's tracker.
-
 ## Owned keys
 
 Use repository-local `git config` under `tracker.*` only. Do not store credentials. Persist a complete settings object with the unprefixed keys below; absent optional keys remove stale values from this namespace during reconfiguration.

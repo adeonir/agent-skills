@@ -2,10 +2,6 @@
 
 Generic issue and relationship contracts independent of content authoring.
 
-## When to Use
-
-Load before executing tracker reads or writes.
-
 ## Operations
 
 | Operation | Required inputs | Optional inputs | Result |
