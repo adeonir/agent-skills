@@ -85,7 +85,7 @@ Commits should tell a story...
 
 **Impact: MEDIUM**
 
-The frontmatter carries the fields the Agent Skills standard defines: `name`, `description`, `license`, `compatibility`, `metadata`, and `allowed-tools`. `disable-model-invocation` is the one field outside it, because Claude Code reads it there. Every other host field stays in the host's own configuration, so the skill keeps working where the host ignores it.
+The frontmatter carries the fields the Agent Skills standard defines: `name`, `description`, `license`, `compatibility`, `metadata`, and `allowed-tools`. `argument-hint` and `disable-model-invocation` are the two fields outside it, because Claude Code reads them there. Every other host field stays in the host's own configuration, so the skill keeps working where the host ignores it.
 
 **Incorrect:**
 

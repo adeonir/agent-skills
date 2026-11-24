@@ -111,7 +111,7 @@ Declare the input, the action, and the completion condition in every step. Numbe
 
 ### Material
 
-Use free sections. A procedure loads the material at the step that needs it; material never links to another file. Put a `## Contents` list at the top of any file above 100 lines, so a partial read still shows the full scope.
+Use free sections. A procedure loads the material at the step that needs it; material never links to another file. Put a `## Contents` list at the top of a long file, so a partial read still shows the full scope.
 
 ### Naming
 
@@ -161,7 +161,7 @@ An asset is data a procedure reads or fills.
 
 `agents/openai.yaml` holds what the host displays and enforces: `interface.display_name`, `interface.short_description`, `policy`, and `dependencies.tools`.
 
-Claude Code reads its invocation flag, `disable-model-invocation`, from the `SKILL.md` frontmatter; that is the one field outside the specification. Allow implicit invocation by default, and reserve explicit invocation for a skill with a side effect — a deploy, a send, a merge, a publication. Declare it per host: `disable-model-invocation: true` for Claude Code, `policy.allow_implicit_invocation: false` for Codex.
+Claude Code reads its invocation flag, `disable-model-invocation`, and its `/command [arg]` hint, `argument-hint`, from the `SKILL.md` frontmatter; those are the two fields outside the specification. Allow implicit invocation by default, and reserve explicit invocation for a skill with a side effect — a deploy, a send, a merge, a publication. Declare invocation per host: `disable-model-invocation: true` for Claude Code, `policy.allow_implicit_invocation: false` for Codex.
 
 Treat file-scoped activation, argument hints, and isolated context as convenience. A portable skill works when a host withholds them.
 
