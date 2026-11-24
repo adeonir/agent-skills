@@ -29,8 +29,6 @@ python3 <this-skill>/scripts/lint_structure.py .artifacts/design/structure.yaml
 
 The handoff is an intermediate artifact, so one that was clean when written can arrive broken. An error stops the wireframe-backed path: correct it in `structure.yaml`, never work around it in a mockup.
 
-When `structure.yaml` exists, one arrangement feeds every direction and only the look varies. When it is absent, directions may vary both arrangement and look.
-
 ## Inputs and Fallbacks
 
 - `.artifacts/design/structure.yaml` — the arrangement and the register per surface. **Absent** → each direction may choose its own arrangement.
