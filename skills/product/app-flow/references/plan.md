@@ -8,7 +8,7 @@ Copy this checklist and tick it off:
 
 ```text
 Progress:
-- [ ] Step 1: Settle platform, tasks, priority flows, entry points — with flow-model and discovery
+- [ ] Step 1: Load flow-model and discovery, then settle platform, tasks, priority flows, entry points
 - [ ] Step 2: List the flows, one per task, mark the priority ones
 - [ ] Step 3: Draft happy path per flow, in wireflow notation
 - [ ] Step 4: Fill the dead-end register and rules per flow — all template categories, exits included
@@ -18,7 +18,7 @@ Progress:
 If a draft reveals an unmapped task, return to Step 1.
 ```
 
-**Step 1. Discover.** Settle: the platform in the product's own words (a website, a mobile app, a desktop client — whatever the intake names), the tasks users perform, which 1–2 flows carry the value, and where a first-time user enters versus a returning one. When the intake is an upstream product doc, read it for context only: its section numbers, doc codes, and framing never cross into `FLOWS.md`. Do not draft off settlement shortcuts — a flow guessed from the task name opens the wrong screens.
+**Step 1. Discover.** Load [flow-model.md](references/flow-model.md) · the vocabulary, wireflow notation, and structure rules, and [discovery.md](references/discovery.md) · the intake and the interview. Settle: the platform in the product's own words (a website, a mobile app, a desktop client — whatever the intake names), the tasks users perform, which 1–2 flows carry the value, and where a first-time user enters versus a returning one. When the intake is an upstream product doc, read it for context only: its section numbers, doc codes, and framing never cross into `FLOWS.md`. Do not draft off settlement shortcuts — a flow guessed from the task name opens the wrong screens.
 
 **Step 2. List the flows.** One per task, unmerged — split anything covering two tasks (flow-model's type table shows the shapes). Mark the 1–2 priority ones.
 

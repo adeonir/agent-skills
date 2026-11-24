@@ -16,7 +16,7 @@ Progress:
 If a finding exposes an unstated flow boundary, return to Step 1.
 ```
 
-**Step 1. Take the flows in.** When the artifact exists, read every flow section in it, including the connect map and the dead-end register — the audit reads what was written, not what the conversation adds. When the user describes flows in chat, build the same mental model first and confirm the description back in one sentence before judging it. When the product is code, explore instead of asking: read the routing, screen list, and navigation state to extract the flows that actually run — extract the flow, not the code; implementation detail states evidence for a finding but never becomes new content in the report.
+**Step 1. Take the flows in.** Load [flow-model.md](references/flow-model.md) · the structure rules and wireflow notation, and [discovery.md](references/discovery.md) · the intake. When the artifact exists, read every flow section in it, including the connect map and the dead-end register — the audit reads what was written, not what the conversation adds. When the user describes flows in chat, build the same mental model first and confirm the description back in one sentence before judging it. When the product is code, explore instead of asking: read the routing, screen list, and navigation state to extract the flows that actually run — extract the flow, not the code; implementation detail states evidence for a finding but never becomes new content in the report.
 
 **Step 2. Check the rubric.** In priority order — priority flows first, non-priority flows checked only for consistency with the same rules. The findings:
 
