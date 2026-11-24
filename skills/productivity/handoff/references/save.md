@@ -12,10 +12,10 @@ ALWAYS use this exact template structure:
 ## [topic]
 
 **Context:**
-- [user's goal, the condition that marks it done, constraints, and why the work is in its current direction]
+- [user's goal, the condition that marks it done, the constraints that bind the next session — access, tooling, or scope limits — and why the work is in its current direction]
 
 **Current state:**
-- [work completed and remaining work]
+- [the state the artifacts are in now, referenced by path, and the work still open]
 - [checks run with their commands and results, when relevant]
 ````
 
@@ -27,11 +27,11 @@ Add a section to a block only when its condition holds. Never write "none" — a
 |---------|----------|
 | `**Decisions:**` | an active decision, its rationale, or an alternative rejected for it lives in no artifact |
 | `**Findings:**` | something was discovered worth carrying |
-| `**Open threads:**` | a question that decides the topic's remaining work is still open |
+| `**Open threads:**` | a question that decides the topic's remaining work is still open; a decided matter belongs under `Decisions`, never here |
 | `**Blockers:**` | something blocks progress |
 | `**References:**` | a path, artifact, or URL orients the next session |
 
-Every section is a list of terse bullets.
+Every section is a list of terse bullets. State what the artifacts are now and where they are; a list of edits the session made is history the artifacts already carry.
 
 The handoff MUST NOT contain:
 
