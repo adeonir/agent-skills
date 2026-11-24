@@ -26,7 +26,7 @@ Progress:
 - [ ] Step 6: Report
 ```
 
-**Step 1. Resolve the project.** Load [mapping.md](references/mapping.md) · the project entry and the base tags. When the registry or the entry is missing, load [bootstrap.md](references/bootstrap.md) · the entry and registry creation, as `mapping.md` directs. Every later step depends on this output. Done when the entry's `name`, `obsidian.path`, and `tags` are known.
+**Step 1. Resolve the project.** Load [mapping.md](references/mapping.md) · the project entry and the base tags. When the registry or the entry is missing, load [bootstrap.md](references/bootstrap.md) · the entry and registry creation, as `mapping.md` directs. Done when the entry's `name`, `obsidian.path`, and `tags` are known.
 
 **Step 2. Load the handoff.** Load [handoff.md](references/handoff.md) · the Load phase, and run it over `.artifacts/HANDOFF.md`: the blocks this session worked on, when present, feed the note content. A block that describes work this session did not do is not used and not removed. Done when the fields of this session's blocks are in working context, or the handoff is known to be absent or unrelated.
 

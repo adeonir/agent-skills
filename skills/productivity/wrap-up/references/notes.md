@@ -60,7 +60,7 @@ Both notes carry only references that remain valid after the work ends. Do not i
 
 ## Subject Matter
 
-Both notes carry the work, never the session that produced it. A note records what the project now is and why, so how the assistant arrived there does not belong in either one.
+Both notes carry the work, never the session that produced it.
 
 A fact that changed the project's code, configuration, or content stays, stated as the project fact it became. Three tests decide a borderline line: it holds true for anyone reading the repository months later, it reads the same whether a person or an assistant did the work, and a reader tomorrow, in a week, or in a month would use it to understand or continue the project. A line that fails any test is process or noise — cut it.
 
@@ -86,7 +86,7 @@ When generating filenames from user input:
 
 ## Workflow
 
-Compose each note in full before writing it, then check the draft line by line against Audience and Reference Discipline and the three Subject Matter tests. Rewrite or cut every line that fails, and write only a draft with no failing line.
+Compose each note in full before writing it, then check the draft line by line against Audience and Reference Discipline and the three Subject Matter tests. Rewrite or cut every line that fails.
 
 ### 1. Create session note
 
