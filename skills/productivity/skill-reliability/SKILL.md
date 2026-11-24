@@ -19,7 +19,7 @@ Step 3 audits the prose; Step 4 scores the first factor (trigger reliability); S
 
 ## Workflow
 
-The commands below write a bundled script as `<this-skill>/scripts/<name>`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from; `<skill-dir>` is the skill under analysis, resolved in Step 1.
+The commands below run the bundled scripts in `<this-skill>/scripts/`. Resolve `<this-skill>` to the directory this `SKILL.md` was read from; `<skill-dir>` is the skill under analysis, resolved in Step 1.
 
 Copy this checklist and tick it off:
 
