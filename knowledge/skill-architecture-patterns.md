@@ -8,7 +8,7 @@ Build every skill to the specification. A rule in `.agents/rules/` adds a requir
 
 Treat the format as portable. Behavior that makes a skill work belongs in `SKILL.md` and `references/`; behavior that involves one host belongs in that host's metadata. A conformant skill keeps working when a host ignores a host-specific field.
 
-Keep one level of guidance: every supporting file sits one hop from `SKILL.md`, and a file under `references/` refers by path to its scripts and assets.
+Keep one routing level. `SKILL.md` selects the procedure; the procedure loads the material its steps need, so material sits one hop from the procedure and never from another procedure. A procedure refers by path to its scripts and assets.
 
 ## The skill directory
 
@@ -58,7 +58,7 @@ A router routes. The procedure and the rules that shape its output live in the f
 
 ### Index
 
-Give every file under `references/` exactly one entry, in this shape:
+Give every procedure under `references/` exactly one entry, in this shape:
 
 ```text
 - **<branch>** — <the situation that makes it relevant> → [references/<file>.md](references/<file>.md) · <what loading it buys>
@@ -70,14 +70,13 @@ Give every file under `references/` exactly one entry, in this shape:
 - **Commit** — the user asks to commit staged or unstaged changes → [references/commit.md](references/commit.md) · staging rules and the message bar
 - **Create pull request** — a branch is ready for review → [references/create-pull-request.md](references/create-pull-request.md) · body structure and evidence
 - **Merge pull request** — a pull request is ready to land → [references/merge-pull-request.md](references/merge-pull-request.md) · merge method, state checks, and cleanup
-- **Wording** — any branch above is about to write text → [references/message-sourcing.md](references/message-sourcing.md) · where the words come from
 ```
 
 Test each condition by asking whether the agent can choose from the entry itself, at the moment the request arrives, because the index is read once. A situation passes the test; a topic label sends the agent into the file to find out.
 
-A single-job skill carries its procedure in `## Workflow` and places each entry in the step that loads the file, in the same shape. The entry is what the step says to load before relying on it.
+A single-job skill carries its procedure in `## Workflow`; the material its steps need is named at the step that needs it.
 
-Three completeness rules: every supporting file has one entry, every entry states a condition, and every procedure lives in the file a router points to.
+Three completeness rules: every procedure has one entry, every entry states a condition, and every material file is named by a step in a procedure.
 
 ### Length
 
@@ -87,7 +86,7 @@ Keep the body at or below 150 lines. Move detail into the file that needs it.
 
 ### Header
 
-Open with the H1. A procedure reuses the words of the index branch that selects it, which makes the pair checkable by comparison; a material file names its topic, and its branch states when to load it. Then one sentence: the result a procedure produces, or what the material provides. A single-job skill has no branch label, so its H1 names the job and the sentence carries the payload.
+Open with the H1. A procedure reuses the words of the index branch that selects it, which makes the pair checkable by comparison; a material file names its topic, and the step that loads it states why. Then one sentence: the result a procedure produces, or what the material provides. A single-job skill has no branch label, so its H1 names the job and the sentence carries the payload.
 
 ### Procedure
 
@@ -112,7 +111,7 @@ Declare the input, the action, and the completion condition in every step. Numbe
 
 ### Material
 
-Use free sections. Put a `## Contents` list at the top of any file above 100 lines, so a partial read still shows the full scope.
+Use free sections. A procedure loads the material at the step that needs it; material never points to another file. Put a `## Contents` list at the top of any file above 100 lines, so a partial read still shows the full scope.
 
 ### Naming
 
@@ -156,7 +155,7 @@ An asset is data a procedure reads or fills.
 - State its rigidity on the first line, above the template body: `Use this template as written:` for an exact structure, or `Adapt this template to the case:` for a default to adapt.
 - Have the step say whether it reads or fills the asset, and what to substitute.
 - Keep the steps in the file that uses the asset.
-- Keep a short template that every run uses inline in the procedure. Move it to `assets/` when it is long or needed on some runs, and announce it in the index.
+- Keep a short template that every run uses inline in the procedure. Move it to `assets/` when it is long or needed on some runs, and have the step that uses it name it by path.
 
 ## Host metadata
 

@@ -3,26 +3,26 @@ paths:
   - "skills/**/*.md"
 ---
 
-## One Level, One Selector
+## One Routing Level
 
 **Impact: HIGH**
 
-Every supporting file sits one hop from `SKILL.md`, and the index is the only selector: a reference never links to another reference.
+`SKILL.md` selects the procedure; the procedure loads the material its steps need. A procedure never hands the job to another procedure, and material never points to another file.
 
-A constraint two procedures need is its own reference, announced in the index with a condition that covers both jobs. The condition has to be decidable when the request arrives, because the index is read once: a constraint that only surfaces in the middle of a procedure stays inline in the job that needs it.
+A load is a step: the procedure says when to read the file and what it buys. A constraint two procedures need is one material file, loaded by each at the step that needs it, so a condition that only surfaces mid-procedure is still delivered.
 
 **Incorrect:**
 
 ```markdown
 <!-- references/create-pull-request.md -->
-Read [message-sourcing.md](../references/message-sourcing.md) before writing the body.
+For the wording, see [message-sourcing.md](../references/message-sourcing.md).
 ```
 
 **Correct:**
 
 ```markdown
-<!-- SKILL.md -->
-- **Wording** — a commit, pull request, or merge is about to write text → [message-sourcing.md](references/message-sourcing.md) · the diction bar and the sourcing rule
+<!-- references/create-pull-request.md -->
+**Step 4. Load [message-sourcing.md](references/message-sourcing.md)** · the diction bar and the sourcing rule. Done when every line of the body comes from a hunk read in Step 3.
 ```
 
 ## Reference Header

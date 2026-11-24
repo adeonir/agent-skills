@@ -16,8 +16,8 @@ These are authoring rules: path-scoped to the skill files they govern and applie
 
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
-| `.agents/rules/skill-markdown` | `SKILL.md` | router carries routing only, index every reference, entry point format, standard frontmatter fields, description boundary |
-| `.agents/rules/skill-references` | `skills/**/*.md` | one level and one selector, reference header, procedure scope, scripts and tool calls, assets |
+| `.agents/rules/skill-markdown` | `SKILL.md` | router carries routing only, index every procedure, entry point format, standard frontmatter fields, description boundary |
+| `.agents/rules/skill-references` | `skills/**/*.md` | one routing level, material loaded at its step, reference header, procedure scope, scripts and tool calls, assets |
 | `.agents/rules/skill-writing` | `skills/**/*.md` | English and imperative, a reason that changes behavior, one default, no dates |
 | `.agents/rules/skill-safety` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary, read-only injected commands |
 

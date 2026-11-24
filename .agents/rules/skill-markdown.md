@@ -27,19 +27,19 @@ Write the message from the diff, never from chat context.
 **Step 3. Write the message.** — from the staged diff, never from chat context. Trace every line back to a hunk before returning it.
 ```
 
-## Index Every Reference
+## Index Every Procedure
 
 **Impact: HIGH**
 
-Give every file under `references/` one entry, directly after the opening:
+Give every procedure under `references/` one entry, directly after the opening:
 
 ```text
 - **<branch>** — <the situation that makes it relevant> → [references/<file>.md](references/<file>.md) · <what loading it buys>
 ```
 
-The condition lets the agent choose from the entry alone; the payload says what loading the file buys. A single-job skill places the entry in the step that loads the file.
+The condition lets the agent choose from the entry alone; the payload says what loading the file buys. A single-job skill carries its procedure in `## Workflow`, and the material its steps need is named at the step that needs it.
 
-The trigger index is the only list of files.
+The index lists procedures only. Material is named by the step that loads it, never listed here.
 
 **Incorrect:**
 
@@ -52,7 +52,7 @@ The trigger index is the only list of files.
 
 ```markdown
 - **Commit** — the user asks to commit staged or unstaged changes → [commit.md](references/commit.md) · staging rules and the message bar
-- **Wording** — any branch above is about to write text → [message-sourcing.md](references/message-sourcing.md) · where the words come from
+- **Create pull request** — a branch is ready for review → [create-pull-request.md](references/create-pull-request.md) · body structure and evidence
 ```
 
 ## Entry Point Format
