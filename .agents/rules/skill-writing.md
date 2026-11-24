@@ -25,7 +25,7 @@ Read the issue through the tracker's MCP server.
 
 **Impact: MEDIUM**
 
-State the standing fact. Keep a reason when it changes what the agent does: a cost to weigh, or the condition that selects between two options. Drop the account of what was found, tried, or fixed.
+State the standing fact. Keep a reason when it changes what the agent does: a cost to weigh, the condition that selects between two options, or the intent that lets it apply the rule to a case the rule did not foresee. Drop the account of what was found, tried, or fixed.
 
 **Incorrect:**
 

@@ -4,7 +4,7 @@ Authoring conventions for skills in this repository.
 
 This file is **repo-level guidance for skill authors**. It is never installed alongside skills and never reaches the consumer. Each skill ships via `skills.sh`.
 
-The canonical form of a skill — its files, `SKILL.md`, the reference layer, scripts, and assets — is defined in [`knowledge/skill-architecture-patterns.md`](knowledge/skill-architecture-patterns.md). Read it before writing or reshaping a skill. For a worked shape, study `review-lens` (one job, two modes sharing one rubric reference) or `app-flow` (several jobs, a shared vocabulary reference, an assets template).
+The canonical form of a skill — its files, `SKILL.md`, the reference layer, scripts, and assets — is defined in [`knowledge/skill-architecture-patterns.md`](knowledge/skill-architecture-patterns.md). Read it before writing or reshaping a skill.
 
 Skills written before the pattern still carry `instructions/`; give each one the canonical shape when you next edit it, rather than in a separate pass.
 
@@ -18,7 +18,7 @@ These are authoring rules: path-scoped to the skill files they govern and applie
 |-----------|-------|--------|
 | `.agents/rules/skill-markdown` | `SKILL.md` | router carries routing only, index every reference, entry point format, standard frontmatter fields, description boundary |
 | `.agents/rules/skill-references` | `skills/**/*.md` | one level and one selector, reference header, procedure scope, scripts and tool calls, assets |
-| `.agents/rules/skill-writing` | `skills/**/*.md` | English and imperative, a reason only when it decides, one default, no dates |
+| `.agents/rules/skill-writing` | `skills/**/*.md` | English and imperative, a reason that changes behavior, one default, no dates |
 | `.agents/rules/skill-safety` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary, read-only injected commands |
 
 Validation is manual, with no build, tests, or linter: after editing a skill, read its files against the rules above.
@@ -57,9 +57,7 @@ Skills compose via artifacts on disk (`.artifacts/`), and a skill file may name 
 
 ### Instruct, Don't Teach
 
-Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain, justify the design, or narrate how the mechanism was arrived at. The test is what the agent *does* with the sentence: a rationale that changes its behavior is a constraint and stays; one that only makes a human nod is weight paid on every load. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
-
-The test cuts both ways, so a why is not stripped on sight. A constraint often wears one, and there it is load-bearing. Where prose earns more room than a clause, it says so structurally: `## Philosophy` and `## Anti-Pattern` exist for the trap that needs explaining. Neither section suspends the test — a heading permits prose, it never justifies it.
+Write the least that does the job, and stop there. A skill file directs the agent — it does not explain the domain or narrate how the mechanism was arrived at. State the constraint and move on: "MCP is the only channel" carries everything the agent needs; the sentence explaining that there is no CLI to fall back to carries nothing it can act on.
 
 Competence the model already has is not the skill's to supply. A skill carries preference and constraint — how this project wants a thing done, and what it must not be — never the craft underneath it. A component entry needs its intent, its knob, and what it is wrong for; the DOM sketch and the CSS block are the model's job and cost a load every time they ship.
 

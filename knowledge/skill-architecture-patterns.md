@@ -4,7 +4,7 @@ The canonical form every skill in this repository is built to. It builds on the 
 
 ## Baseline
 
-Build every skill to the specification, with `skills-ref` as the floor. A rule in `.agents/rules/` adds a requirement the specification leaves open or tightens a limit it sets, staying consistent with the specification and holding one structure for each thing.
+Build every skill to the specification. A rule in `.agents/rules/` adds a requirement the specification leaves open or tightens a limit it sets, staying consistent with the specification and holding one structure for each thing.
 
 Treat the format as portable. Behavior that makes a skill work belongs in `SKILL.md` and `references/`; behavior that involves one host belongs in that host's metadata. A conformant skill keeps working when a host ignores a host-specific field.
 
