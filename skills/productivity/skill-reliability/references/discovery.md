@@ -20,7 +20,7 @@ Do not ask both questions if one answer makes the other obvious.
 
 **Single skill** (default): run the full workflow from SKILL.md and produce the standard analysis report.
 
-**All skills**: list every skill in `skills/` and `.claude/skills/`. Run the step-map for each, then produce a ranked summary table:
+**All skills**: list every skill in the directories the host exposes. Run the step-map for each, then produce a ranked summary table:
 
 | Skill | Workflows | Total steps | Weakest link | Est. end-to-end |
 |-------|-----------|-------------|--------------|-----------------|

@@ -4,7 +4,7 @@ The strict report format for a reliability analysis.
 
 ## Template
 
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ```text
 ## <Skill Name>: Reliability Analysis

@@ -32,7 +32,7 @@ For each probe, reason about two things and compare them:
 
 When a probe misses, propose the smallest description change that fixes it without overfitting — generalize to the intent category rather than appending a growing list of literal queries, but keep the concrete anchors (task family, file types, domain nouns, real user phrasings) that let it fire when the user never names the skill. Hold the rewrite to the repo conventions:
 
-- third-person and intent-first ("Use when …", not "this skill does …")
+- third person, with the trigger in an inline "Use when …" clause, never "this skill does …"
 - what + when in the user's vocabulary — keep the concrete anchors a user would say (the anchors above), drop the mechanics a user would not (execution mechanism, tooling, MCP or CLI transport, storage, fallback logic); the test is "would the user say this word?" — mechanics live in the skill body, not the trigger surface
 - distinctive enough to compete with sibling skills
 - triggers woven into prose, never a separate numbered list
