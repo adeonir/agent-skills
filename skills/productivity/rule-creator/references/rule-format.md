@@ -13,7 +13,7 @@ Template and conventions for rule files. Every rule produced by the create, edit
 
 ## Template
 
-Here is a sensible default format, but use your best judgment:
+Use this format:
 
 ````markdown
 ---

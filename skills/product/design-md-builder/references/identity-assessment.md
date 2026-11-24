@@ -35,7 +35,7 @@ Report source conflicts rather than resolving them silently. Load the matching r
 6. If refresh versus rebrand is ambiguous, recommend refresh when the identity's DNA still serves the stated intent; recommend rebrand when it does not. Wait for confirmation.
 7. Hand the confirmed intent, baseline, preserved DNA, accepted recommendations, and rejected recommendations to design.
 
-Here is a sensible default format, but use your best judgment:
+Report in this format:
 
 ```text
 Identity assessment

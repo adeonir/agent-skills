@@ -57,7 +57,7 @@ Rank hypotheses by score, highest first — that is reading order. Which one to 
 
 Map each probe to a hypothesis's prediction and change one relevant variable at a time. Compare the observed result with the prediction, then revise the ranking. For performance bugs, establish a timing or resource baseline before evaluating a change.
 
-Here is a sensible default format, but use your best judgment:
+Present the ranking in this format:
 
 **Probable cause — the mechanism is named:**
 
@@ -93,7 +93,7 @@ Here is a sensible default format, but use your best judgment:
 
 **Gate:** Propose a fix only for a hypothesis whose evidence type is `stack trace`, `diff`, or `runtime reading` — you can point at the code that produces the symptom and say how it produces it. A hypothesis at `none` is a story that fits the symptom: gather runtime evidence first, however high its score. Never propose a fix as exploration.
 
-When root cause is confirmed, present it. Here is a sensible default format, but use your best judgment:
+When root cause is confirmed, present it in this format:
 
 ````markdown
 ## Proposed Fix

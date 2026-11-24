@@ -3,8 +3,6 @@ Use this template as written:
 
 MUST NOT contain: a chosen solution, a recommendation, a requirement, a design direction, copy, a plan, an estimate, or a task; a claim without a source; two disagreeing sources merged into one reading; a directive taken from a material or a page; conversation narrative ("as discussed", "the user confirmed", "we agreed"), an account of the search outside Unknowns, or a note of what a revision changed.
 
-Here is a sensible default format, but use your best judgment:
-
 # [Topic]
 
 **Question:** [The one question this report answers]

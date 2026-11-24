@@ -62,7 +62,7 @@ Score Readability, Claim integrity, Intent fit, Microcopy correctness, and Anti-
 
 ## Report template
 
-Here is a sensible default format, but use your best judgment: the verdict leads, the score supports it, and the findings are ordered by severity:
+Use this format: the verdict leads, the score supports it, and the findings are ordered by severity:
 
 ```markdown
 ## Verdict

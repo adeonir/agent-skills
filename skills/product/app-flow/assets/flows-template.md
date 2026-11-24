@@ -1,6 +1,6 @@
 # FLOWS.md — {{product name}}
 
-Here is a sensible default format, but use your best judgment:
+Use this format:
 
 ---
 
