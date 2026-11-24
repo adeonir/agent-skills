@@ -4,7 +4,7 @@ Save meeting, 1:1, feedback, course, lecture, or standup transcription notes to 
 
 ## Load first
 
-Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
+Read [mapping.md](mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 

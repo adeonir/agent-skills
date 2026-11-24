@@ -1,13 +1,6 @@
 # Registry Bootstrap
 
-Create the project entry that [mapping.md](mapping.md) reads, and the registry when it is absent.
-
-## When to Use
-
-- A project write found `~/.config/wrap-up/projects.yml` absent
-- A project write found no entry for the repo root under `projects:`
-
-Both are first-run conditions. Once bootstrapped, mapping resolves without loading this file again.
+Create the project entry that `mapping.md` reads, and the registry when it is absent.
 
 ## Add the Project Entry
 

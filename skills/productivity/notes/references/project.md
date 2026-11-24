@@ -4,7 +4,9 @@ Create structured documentation for a project in the Obsidian vault.
 
 ## Load first
 
-Read [mapping.md](../references/mapping.md) first — every path below depends on the entry its Project Lookup resolves — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
+Read [mapping.md](mapping.md) first — every path below depends on the entry its Project Lookup resolves — and [note-conventions.md](note-conventions.md) for the filename, wikilink, and update rules.
+
+When the registry or the project entry is missing (`mapping.md` exits 1), load [bootstrap.md](bootstrap.md) · creating the entry and the registry, then continue here.
 
 ## Workflow
 

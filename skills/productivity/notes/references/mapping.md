@@ -2,12 +2,6 @@
 
 Resolve the vault paths, and for project notes the project folder, from the registry at `~/.config/wrap-up/projects.yml`.
 
-## When to Use
-
-- Loaded first by every note-creation instruction
-- Challenge, brag, transcription, and company writes need the **Vault Root** section only — they write to fixed top-level folders
-- Project writes continue through **Project Lookup**
-
 ## Vault Root
 
 Every note path is relative to the Obsidian vault root, whatever channel writes it. The vault root needs no registry and no bootstrap.
@@ -47,7 +41,7 @@ Fields:
 Run `python3 <this-skill>/scripts/registry.py lookup`, resolving `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. The script resolves the repo root to the main worktree, so a linked worktree finds the same entry.
 
 - Exit 0: use the entry it prints as JSON (`root`, `name`, `obsidian_path`, `tags`)
-- Exit 1: the registry or the entry is missing — load [bootstrap.md](bootstrap.md), then continue here
+- Exit 1: the registry or the entry is missing — load `bootstrap.md`, then continue here
 - Exit 2: the registry cannot be parsed — report the script's message and stop; never edit the registry by hand
 
 ## Resolved Paths

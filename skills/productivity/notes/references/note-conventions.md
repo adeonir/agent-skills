@@ -2,10 +2,6 @@
 
 The filename, body, wikilink, update, and report rules every note type follows.
 
-## When to Use
-
-Loaded before writing or patching any note, whatever its type.
-
 ## Vault Access
 
 Every note operation goes through one channel, tried in this order. Open the Obsidian app only after the user agrees.

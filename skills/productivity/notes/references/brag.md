@@ -4,7 +4,7 @@ Add achievements to a brag document for performance reviews and career growth.
 
 ## Load first
 
-Read [mapping.md](../references/mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](../references/note-conventions.md) for the filename, wikilink, and update rules.
+Read [mapping.md](mapping.md) for the vault root — this note writes to a fixed top-level folder — and [note-conventions.md](note-conventions.md) for the filename, wikilink, and update rules.
 
 ## Workflow
 
