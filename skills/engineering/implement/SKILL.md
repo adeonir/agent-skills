@@ -1,7 +1,7 @@
 ---
 name: implement
-description: "Implements a spec issue end to end, building each task in a fresh sub-agent and integrating the results on one integration branch, or implements one task of a spec, a standalone task, or a free-form request directly on the current branch. Use when implementing a spec end to end, running its tasks in dependency order, implementing a single task, or implementing a described change. Not for writing or changing the spec, breaking a spec into tasks, reviewing the result against the spec or standards, opening or merging a pull request, or pushing."
-argument-hint: "spec [issue] | task [issue or request]"
+description: "Implements a spec issue end to end, building each task in a fresh sub-agent and integrating the results on one integration branch, or implements one task of a spec, a standalone task, or a free-form request directly on the current branch. Use when implementing a spec end to end, running its tasks in dependency order, implementing a single task, or implementing a described change. Not for writing or changing the spec, breaking a spec into tasks, reviewing a result outside the `--review` flag, opening or merging a pull request, or pushing."
+argument-hint: "spec [issue] [--review [deep]] | task [issue or request]"
 disable-model-invocation: true
 metadata:
   inspired-by:
@@ -17,7 +17,7 @@ Implement work from a spec or a single task, end to end.
 
 ## Triggers
 
-- **Implement a spec** — the whole spec should run (`/implement spec [issue]`, "implement every task of this spec") → [implement-spec.md](references/implement-spec.md) · each task in a fresh sub-agent, integrated on one branch
+- **Implement a spec** — the whole spec should run (`/implement spec [issue]`, "implement every task of this spec"; `--review` adds a code review with fixes at the end, `--review deep` makes it deep) → [implement-spec.md](references/implement-spec.md) · each task in a fresh sub-agent, integrated on one branch
 - **Implement one task or request** — a single task or a described change (`/implement task [issue or request]`, "implement this task") → [implement-task.md](references/implement-task.md) · the change on the current branch
 
 If the mode is missing or is neither `spec` nor `task`, ask for it.
