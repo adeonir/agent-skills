@@ -2,13 +2,6 @@
 
 Create or update the project entry that the project lookup reads, and create the registry when it is absent.
 
-## When to Use
-
-- `~/.config/wrap-up/projects.yml` is absent
-- The repo root has no entry under `projects:` in the registry
-
-Once bootstrapped, the project lookup resolves without loading this file again.
-
 ## Check for a Moved Project
 
 When the lookup listed entries whose root no longer exists, ask the user whether this repo is one of them. On yes, follow Update the Project Entry; on no, follow Add the Project Entry. When the lookup listed none, follow Add the Project Entry.

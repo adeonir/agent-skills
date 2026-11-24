@@ -2,10 +2,6 @@
 
 Create session notes in the project folder and update the daily note in the Obsidian vault.
 
-## When to Use
-
-Loaded to write the notes themselves. The session note is written when `obsidian.path` is not `--`; the daily note is always written, even when the session note is skipped. Both consume the resolved Obsidian path and base tags, plus whatever the handoff Load phase put in working context.
-
 ## Contents
 
 - Vault Access

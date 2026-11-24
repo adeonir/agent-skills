@@ -2,10 +2,6 @@
 
 Load the blocks of `.artifacts/HANDOFF.md` that this session worked on for notes written later, then remove those blocks after successful persistence.
 
-## When to Use
-
-Loaded for the two phases that bracket note writing: the Load phase makes the fields of this session's blocks available, and the Cleanup phase removes those blocks afterwards. Both phases skip silently when `.artifacts/HANDOFF.md` is absent.
-
 ## Workflow
 
 ### Load Phase

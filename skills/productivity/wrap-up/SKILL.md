@@ -6,11 +6,7 @@ disable-model-invocation: true
 
 # Wrap Up Session
 
-## Triggers
-
-- **End-of-session command** (`/wrap-up`) → run the workflow below
-
-End-of-session documentation to Obsidian. The skill is single-trigger: every invocation runs the full workflow.
+End-of-session documentation to Obsidian: the session note per project and the daily note.
 
 ## Workflow
 
@@ -30,11 +26,11 @@ Progress:
 - [ ] Step 6: Report
 ```
 
-**Step 1. Resolve the project.** Load [mapping.md](references/mapping.md) and resolve the project entry and the base tags. When the registry or the entry is missing, load [bootstrap.md](references/bootstrap.md) as mapping directs. Every later step depends on this output. Done when the entry's `name`, `obsidian.path`, and `tags` are known.
+**Step 1. Resolve the project.** Load [mapping.md](references/mapping.md) · the project entry and the base tags. When the registry or the entry is missing, load [bootstrap.md](references/bootstrap.md) · the entry and registry creation, as `mapping.md` directs. Every later step depends on this output. Done when the entry's `name`, `obsidian.path`, and `tags` are known.
 
-**Step 2. Load the handoff.** Load [handoff.md](references/handoff.md) and run its Load phase — the blocks of the consolidated handoff at `.artifacts/HANDOFF.md` that this session worked on, when present, feed the note content. A block that describes work this session did not do is not used and not removed. Done when the fields of this session's blocks are in working context, or the handoff is known to be absent or unrelated.
+**Step 2. Load the handoff.** Load [handoff.md](references/handoff.md) · the Load phase, and run it over `.artifacts/HANDOFF.md`: the blocks this session worked on, when present, feed the note content. A block that describes work this session did not do is not used and not removed. Done when the fields of this session's blocks are in working context, or the handoff is known to be absent or unrelated.
 
-**Step 3. Write the notes.** Load [notes.md](references/notes.md) and write the Obsidian session note and the daily note. If a draft fails the check in notes.md, rewrite it and check again before writing. Done when each configured write returned success or a failure to report.
+**Step 3. Write the notes.** Load [notes.md](references/notes.md) · the note shape and its check, and write the Obsidian session note and the daily note. If a draft fails the check in notes.md, rewrite it and check again before writing. Done when each configured write returned success or a failure to report.
 
 **Step 4. Remove the handoff blocks.** Run the Cleanup phase of handoff.md — remove this session's blocks once every configured note write succeeded. Done when this session's blocks are gone from the file, or preserved because a write failed.
 

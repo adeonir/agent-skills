@@ -2,10 +2,6 @@
 
 Resolve the project entry and the base tags from the registry at `~/.config/wrap-up/projects.yml`.
 
-## When to Use
-
-Loaded to resolve the project entry for this repo and the base tags applied to every note.
-
 ## Vault
 
 Every note path is relative to the Obsidian vault root, whatever channel writes it. The registry lives outside the vault and holds no vault path.
