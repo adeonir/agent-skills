@@ -49,5 +49,5 @@ Resolve `<this-skill>` to the directory the `SKILL.md` was read from; if the hos
 
 ## Notes
 
-- Path-scoped rules are the primary win — they remove instructions from every-session context until Claude touches matching files. They are available at project level only.
+- Path-scoped rules are available at project level only.
 - Claude Code loads `AGENTS.md` when no `CLAUDE.md` or `CLAUDE.local.md` sits in the working directory or above it, or when a `CLAUDE.md` imports or symlinks to it. Removing a section from an `AGENTS.md` that neither case loads changes nothing for Claude; say so before editing — the file is reaching other agents, not this one.
