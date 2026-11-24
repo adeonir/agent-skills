@@ -27,7 +27,6 @@ What to look for in each dimension, and where the primary source of each one liv
 ## Sources to prefer
 
 - The owner of a fact over a report about it.
-- The page a search result points to over its snippet.
 - A source with a named author, method, or date over one without.
 - The version the repository uses over the latest version, when they differ; record the difference.
 - Several independent sources for a market pattern; one product is an example, never a pattern.

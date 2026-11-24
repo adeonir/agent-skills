@@ -46,7 +46,3 @@ Done when every finding carries its source level, and a claim without a source i
 **Step 6. Write the report.** Load [research.md](../assets/research.md) · the report shape and its MUST NOT list, then write to `.artifacts/research/<topic>.md`, where `<topic>` is the question's subject in kebab-case, unless the user names another path. State each finding and implication as it stands, in present tense, never the search that reached it — only Unknowns records where the research looked; a revision writes the new state, never the change. Nothing from the conversation enters the report: no "as discussed", "the user confirmed", "we agreed". When a report on the same question exists, revise it in place. Done when the report sits at its path and carries findings, unknowns, and open questions.
 
 **Step 7. Report.** Report the path, the answer in two or three sentences, the unknowns, and the open questions. Done when all four are reported.
-
-## The report
-
-The report states what was found, where each finding comes from, what it implies for the project, what stays unknown, and which questions someone must still decide.
