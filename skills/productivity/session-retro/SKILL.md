@@ -2,11 +2,13 @@
 name: session-retro
 description: 'Reviews a finished coding session and, from the evidence in it, proposes changes to the environment the agent works in so the same lost time and mistakes do not recur: `AGENTS.md` files, rules, automated checks, navigation, tool use, and information access. Use when the user asks for a retro or retrospective, to improve the agent setup after a session, or says "what should we change so this does not happen again". Not for writing or trimming an AGENTS.md or rule with no session behind it, reviewing an earlier session, a defect report on one skill, session handoffs, end-of-session notes, code review, or editing the files it proposes to change.'
 disable-model-invocation: true
+compatibility: Requires jq and Claude Code session logs.
+metadata:
+  inspired-by:
+    - "retro — https://github.com/mattpocock/skills"
 ---
 
 # Session Retro
-
-## Quick start
 
 Find where a session lost time or went wrong, and propose changes to the environment the agent works in. Print the candidates in chat and edit no file.
 
@@ -63,7 +65,7 @@ A point with no evidence in the session is not a candidate. Done when every poin
 
 **Step 4. Print the candidates.** Score each candidate: cost 1 to 3 (1 up to 3 turns spent on the point, 2 from 4 to 10 turns, 3 more than 10 turns or wrong output shipped) times recurrence 1 to 3 (1 once, 2 likely again, 3 every session of this kind). Rank by the product and show it in the heading. Reply with the candidates alone and stop; the user picks which to apply.
 
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ```markdown
 # Session retro: [session task in one line]
