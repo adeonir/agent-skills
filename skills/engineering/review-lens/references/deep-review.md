@@ -2,9 +2,9 @@
 
 The thorough review. Several agents run in parallel, each reading a **different source of material** — the diff, the project's guideline files, the spec, the git history, and (when available) prior pull requests — so each surfaces signal a single pass over the diff could not reach. A separate agent then judges every finding's confidence. Reserved for risky or wide-reaching changes.
 
-## Why fan out by material, not by concern
+## Fan out by material
 
-A capable model already looks for security, bugs, data-loss, and performance in one reading of a diff — splitting those into separate agents re-reads the same material at multiplied cost for little new signal. The leverage is in giving each agent **different material**: the history and prior reviews carry information the diff alone does not. So the concerns become a checklist inside one bug-scan; the fan-out divides by source.
+Give each agent **different material**: the history and prior reviews carry information the diff alone does not. The concerns become a checklist inside one bug-scan.
 
 ## Prepare
 
