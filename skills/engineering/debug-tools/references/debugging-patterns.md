@@ -25,7 +25,7 @@ Compare the broken code against similar code in the project that works, to spot 
 
 ## Regression Tracing
 
-When the user reports "this used to work", treat the change history as primary evidence. The bug is somewhere in the diff between the last known good state and now.
+When the user reports "this used to work", treat the change history as primary evidence.
 
 ### Checklist
 
@@ -33,7 +33,7 @@ When the user reports "this used to work", treat the change history as primary e
 2. **Inspect git log on the suspect area** -- list commits touching the relevant files since that point
 3. **Diff against the last working commit** -- focus on logic changes, not formatting
 4. **Check dependency changes** -- review `package.json`, `lockfile`, or equivalents for upgrades in the same window
-5. **Bisect when the suspect range is wide** -- `git bisect` narrows it to a single commit when manual diffing is too noisy
+5. **Bisect when the suspect range is wide** -- `git bisect`
 
 ### What to Compare
 

@@ -49,11 +49,11 @@ Start at the error and trace backwards from the symptom toward its origin.
 
 Enumerate plausible candidate root causes without a required count. For each, state an experiment and the predicted result that would support or refute it. Sharpen a hypothesis that makes no testable prediction before pursuing it.
 
-Score each one 0-100 and carry the number into the report. Give each an evidence type: `stack trace`, `diff`, or `runtime reading` when that source shows the code producing the symptom, and `none` when the mechanism is inferred from reading the code. The `Evidence` line quotes the exact stack frame, diff hunk, or log line that shows the mechanism; output that only repeats the symptom counts as `none`. The score says how far the evidence reaches, so the user can weigh the finding; it decides nothing on its own — the gate in Propose Fix does that, against evidence rather than against a number.
+Score each one 0-100 and carry the number into the report. Give each an evidence type: `stack trace`, `diff`, or `runtime reading` when that source shows the code producing the symptom, and `none` when the mechanism is inferred from reading the code. The `Evidence` line quotes the exact stack frame, diff hunk, or log line that shows the mechanism; output that only repeats the symptom counts as `none`. The score says how far the evidence reaches; the gate in Propose Fix decides, against evidence rather than against the number.
 
 ## Rank Hypotheses
 
-Rank hypotheses by score, highest first — that is reading order. Which one to pursue is the one closest to a mechanism you can show, and the rest stay as fallbacks if the leading theory is disproven.
+Rank hypotheses by score, highest first — that is reading order. Pursue the one closest to a mechanism you can show, and keep the rest as fallbacks if the leading theory is disproven.
 
 Map each probe to a hypothesis's prediction and change one relevant variable at a time. Compare the observed result with the prediction, then revise the ranking. For performance bugs, establish a timing or resource baseline before evaluating a change.
 
