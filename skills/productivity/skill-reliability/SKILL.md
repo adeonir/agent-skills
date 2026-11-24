@@ -53,9 +53,9 @@ Then follow [trigger-eval.md](references/trigger-eval.md) · the probe design: p
 python3 <this-skill>/scripts/inventory.py <skill-dir>
 ```
 
-For each step assign Nature, Baseline, and Risk from `framework.md`. If the inventory misses a workflow you read in Step 2, add its steps by hand and say so. Done when every inventoried step has a Nature, Baseline, and Risk.
+Mark each step as a checkpoint or a decision. For a decision, assign Nature, Baseline, and Risk from `framework.md`; a checkpoint runs a command, reads a file, or verifies a named condition and carries none. If the inventory misses a workflow you read in Step 2, add its steps by hand and say so. Done when every step is marked and every decision has a Nature, Baseline, and Risk.
 
-**Step 5. Assess compound reliability.** Multiply the baselines into the end-to-end product and tier; feed the values to `inventory.py --product "<b1> <b2> …"` for the deterministic arithmetic. Keep the per-step baselines visible so the number stays auditable. For a chained skill (commit → PR → finish), compute the full-chain product too. Done when each workflow has a product and tier.
+**Step 5. Assess compound reliability.** Multiply the decision baselines into the end-to-end product and tier; feed the values to `inventory.py --product "<b1> <b2> …"` for the deterministic arithmetic. Keep the per-decision baselines visible so the number stays auditable. For a chained skill (commit → PR → finish), compute the full-chain product too. Done when each workflow has a product and tier.
 
 **Step 6. Identify the top variance points.** Rank the three highest-variance steps. Write each as a labelled block:
 
