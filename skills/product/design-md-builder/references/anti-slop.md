@@ -36,11 +36,7 @@ Apply the color, typography, shape, surface, and elevation guidance to identity 
 
 None of the items below are *bad* in isolation. Indigo is a fine color. Inter is an excellent typeface. Rounded corners are pleasant. The problem is that each one is the **highest-probability answer** to its question, and a design assembled entirely from highest-probability answers has a recognizable texture: frictionless, competent, and completely anonymous.
 
-Two consequences worth internalizing:
-
-**Slop is a distribution problem, not a quality problem.** You cannot fix it by trying harder at the same choices, or by adding polish. Polished slop is still slop. It's fixed only by moving *off* the center — deliberately, in a direction you can name.
-
-**One authored decision beats ten avoided clichés.** A design that uses Inter but has a genuinely strange, defensible color story reads as authored. A design that dutifully avoids every item on this list but has no argument behind any of its choices just reads as *differently* anonymous. The lists below are diagnostic, not a recipe. The recipe is: commit to a direction, derive from a source, accept a tradeoff.
+**One authored decision beats ten avoided clichés.** A design that avoids every item below but argues for nothing reads as *differently* anonymous. Commit to a direction, derive from a source, accept a tradeoff.
 
 The reliable test for any token: **can you finish the sentence "this value is what it is because ___" with something other than "it looked good"?**
 
