@@ -2,9 +2,15 @@
 
 Conventional commit message format for the commit that closes a task boundary.
 
-## When to Use
+## Contents
 
-When building the message for a task commit in [implement.md](../instructions/implement.md) — the default 1 task = 1 commit boundary, and any grouped or split boundary noted in `tasks.md ## Commit Boundary Notes`. It defines the message only; which files to stage, branching, pushing, and pull requests are out of scope.
+- Sourcing
+- Format rules
+- Diction
+- Template
+- Body guidelines
+- Anti-Pattern: AI-slop subject
+- Examples
 
 ## Sourcing
 

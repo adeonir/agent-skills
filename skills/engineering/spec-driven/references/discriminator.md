@@ -2,10 +2,6 @@
 
 The WHAT / HOW / WHEN boundary between spec, design, and tasks — what each phase answers, what enters, what stays out, and the signals that a concern leaked into the wrong artifact.
 
-## When to Use
-
-At the self-check step of specify, design, and tasks, to confirm the artifact carries only its own concern. Also read whenever content feels like it might belong to a neighbor phase.
-
 ## The boundary
 
 | Phase | Answers | Enters | Stays out |
@@ -41,5 +37,5 @@ If the user or caller observes it → WHAT (enters the spec). If it is an intern
 - `step 1: create X; step 2: create Y` in the design → leaked from tasks.
 - New architecture introduced in tasks → leaked from design.
 - An AC restated in the design → leaked from spec; tasks links each criterion to its work through `Covers`.
-- An AC stronger than the benefit its story states → the leak is in the clause's strength, not its vocabulary, so no question above catches it; see [acceptance-criteria.md](acceptance-criteria.md).
-- An AC whose obligation something outside this system satisfies → observable and precise, so the questions above pass it; see [acceptance-criteria.md](acceptance-criteria.md).
+- An AC stronger than the benefit its story states → the leak is in the clause's strength, not its vocabulary, so no question above catches it; see `acceptance-criteria.md`.
+- An AC whose obligation something outside this system satisfies → observable and precise, so the questions above pass it; see `acceptance-criteria.md`.

@@ -2,10 +2,6 @@
 
 The project's shared memory and the feature state.
 
-## When to Use
-
-At the load-context step of every phase, and whenever a phase discovers durable project knowledge, reaches an approval gate, or finishes a task.
-
 ## The two files
 
 | File | Scope | Updated | Read |

@@ -2,10 +2,6 @@
 
 The simplest architecture that satisfies the ACs — a ladder for choosing HOW, and the check that a simplification is real before it becomes a decision.
 
-## When to Use
-
-During design, at the Ladder step, when choosing among viable entry points, components, or dependencies — at the self-check before writing, and before verifying a mechanism, to check the premise it serves. Read it whenever a design adds a layer, an abstraction, or a dependency: climb the ladder first.
-
 ## The ladder
 
 Every component the design introduces stops at the first rung that satisfies the ACs:

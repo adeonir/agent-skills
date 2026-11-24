@@ -2,10 +2,6 @@
 
 What makes a product slice one vertical slice, and how to tell a vertical slice from a horizontal one.
 
-## When to Use
-
-When authoring user stories in specify, and when validating slice grouping in tasks. Read it whenever a slice feels too big, or a task list will not group cleanly under one slice.
-
 ## Vertical vs horizontal
 
 A product slice (`S-N`) is **one vertical slice**: it cuts through every layer it needs to deliver one benefit, demonstrable on its own — that demonstration is its Independent Test. It is not a tracker task or bug. A **horizontal slice** cuts one layer across the whole feature — all the data model, then all the endpoints, then all the UI — and nothing it produces is demonstrable until the last layer lands.

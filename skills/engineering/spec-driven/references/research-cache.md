@@ -2,10 +2,6 @@
 
 The shape of a `.artifacts/research/<topic>.md` entry: a finding that outlives the design that produced it.
 
-## When to Use
-
-When reading the cache as the first evidence a question is put to, and when writing a finding — documentary or observed — that could answer the same question for a later feature.
-
 ## Reading
 
 Compare `verified-against` with the project's current state before using any finding in the file.

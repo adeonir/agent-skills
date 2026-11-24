@@ -2,10 +2,6 @@
 
 The dependency graph and the dispatch units it feeds.
 
-## When to Use
-
-During tasks to build and check the graph, and during implement to select and dispatch work.
-
 ## Dependency graph
 
 `Depends on` is the only normative ordering field in `tasks.md`. Name every prerequisite task there, use `none` when a task has no prerequisite, declare prerequisites before dependents, and keep dependencies acyclic. Slice numbering does not create an ordering edge.

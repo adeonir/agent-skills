@@ -1,22 +1,21 @@
 ---
 name: spec-driven
 description: "Spec-driven feature work with traceable acceptance criteria, design, tasks, and user acceptance testing. Use when planning, designing, implementing, or validating a feature, or turning an existing input into a spec. Not for unknown-bug diagnosis, standalone product or technical documents, PR or commit mechanics, or backlog tracking."
-argument-hint: "[T-N] | [T-N..T-M] | [S-N] | [S-N..S-M]"
 allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 ---
 
 # Spec-Driven Development
 
-Feature development in phases. Light by default; weight only where the change pays for it.
+Feature development in phases, light by default and weighty only where the change pays for it.
 
 ## Triggers
 
-- **Specify** ("plan feature", "spec this", "from PRD", "modify feature", "discuss how to build") → [specify.md](instructions/specify.md)
-- **Design** ("design this feature", "technical design", "plan the build") → [design.md](instructions/design.md)
-- **Tasks** ("create tasks", "break into tasks", "task breakdown") → [tasks.md](instructions/tasks.md)
-- **Implement** ("implement task T-1", "implement T-1 to T-4", "implement slice S-1", "execute tasks", "implement everything") → [implement.md](instructions/implement.md)
-- **Validate / UAT** ("run UAT", "manual testing", "validate flows") → [validate.md](instructions/validate.md)
-- **Archive** ("archive feature", "archive this spec") → [archive.md](instructions/archive.md)
+- **Specify** — plan a feature or turn an input into a spec ("plan feature", "spec this", "from PRD", "modify feature") → [specify.md](references/specify.md) · the feature spec and its triage
+- **Design** — the technical design ("design this feature", "technical design", "plan the build") → [design.md](references/design.md) · the design document
+- **Tasks** — break the design into tasks ("create tasks", "task breakdown") → [tasks.md](references/tasks.md) · the task list with its ordering
+- **Implement** — execute tasks or slices ("implement task T-1", "implement slice S-1", "implement everything") → [implement.md](references/implement.md) · the implemented and verified change
+- **Validate** — user acceptance testing ("run UAT", "manual testing", "validate flows") → [validate.md](references/validate.md) · the UAT result
+- **Archive** — archive a finished feature ("archive feature", "archive this spec") → [archive.md](references/archive.md) · the archived spec
 
 ## Workflow
 

@@ -2,10 +2,6 @@
 
 Gherkin acceptance criteria: the form, the two authoring modes, `AC-N.M` identity, the case convention, non-functional criteria, ownership of the obligation, calibration against the goal, and ambiguity closure.
 
-## When to Use
-
-During specify, when writing or reshaping the acceptance criteria under each product slice, and when confirming every PRD requirement reached an AC.
-
 ## Form
 
 One criterion is one `#### AC-N.M:` heading and one fenced `gherkin` block.
