@@ -59,7 +59,7 @@ A router routes. The procedure and the rules that shape its output live in the f
 
 ### Index
 
-Give every supporting file exactly one entry, in this shape:
+Give every file under `references/` exactly one entry, in this shape:
 
 ```text
 - **<branch>** — <the situation that makes it relevant> → [references/<file>.md](references/<file>.md) · <what loading it buys>
