@@ -77,12 +77,6 @@ Report the path, what `copy.yaml` holds in one to three sentences, and any open 
 - Scope extracted output to what was actually captured: a region input produces region output, not a full-surface tree
 - Keep `copy.yaml` independent of design choices: content only; the payload stays swappable across any visual identity
 
-**DON'T:**
-- Rewrite or editorialize the original copy (contrasts: preserve original tone)
-- Skip surfaces or omit content found in the source (contrasts: extract thoroughly)
-- Embed visual decisions (icon names, color references, layout hints, font picks) into `copy.yaml` (contrasts: copy carries content only; visual decisions stay out)
-- Treat a captured region as a full page (contrasts: scope output to the captured region)
-
 ## Error Handling
 
 - Full-page fetch fails: ask user to paste a screenshot or use a captured region path

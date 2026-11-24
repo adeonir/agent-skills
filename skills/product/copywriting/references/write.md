@@ -74,10 +74,10 @@ Report the path, what `copy.yaml` holds in one to three sentences, and any open 
 
 **DON'T:**
 
-- Fabricate numbers, clients, or testimonials (contrasts: honest over sensational)
-- Bury the value in qualifications (contrasts: be direct)
-- Stack three CTAs in one hero (contrasts: one primary action)
-- Embed visual decisions in `copy.yaml` (contrasts: content-only; no styling)
+- Fabricate numbers, clients, or testimonials; be honest over sensational
+- Bury the value in qualifications; be direct
+- Stack three CTAs in one hero; one primary action
+- Embed visual decisions in `copy.yaml`; content only, no styling
 
 ## Error Handling
 

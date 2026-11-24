@@ -31,6 +31,6 @@ If the copy could sit on any competitor's page unchanged, it has no point of vie
 
 ## Register is not surface
 
-**Register** (brand vs product) is the posture with two values. **Surface** is the granular type the copy actually serves (landing, campaign, portfolio, about, the marketing shell of a storefront…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
+**Surface** is the granular type the copy serves, and the register is the posture it sits under; see `discovery.md` for the definition. Surfaces under this register:
 
 **Brand surfaces:** landing, campaign, launch announcement, portfolio, personal site, long-form / editorial, about, the marketing shell of a storefront. Storefronts straddle: the catalog copy is Brand, the checkout / account microcopy is Product (see `product.md`).

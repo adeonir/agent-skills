@@ -31,6 +31,6 @@ Not "does it have a voice": clarity is the point here. The test: can a user flue
 
 ## Register is not surface
 
-**Register** (brand vs product) is the posture with two values. **Surface** is the granular type the copy actually serves (dashboard, settings, form, data-table, onboarding, empty-state…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
+**Surface** is the granular type the copy serves, and the register is the posture it sits under; see `discovery.md` for the definition. Surfaces under this register:
 
 **Product surfaces:** dashboard, settings, form / wizard, data-table, onboarding, empty-state, navigation, checkout / account, authenticated tools. Storefronts straddle: the checkout / account microcopy is Product, the catalog copy is Brand (see `brand.md`).

@@ -48,11 +48,11 @@ Report the path, what changed in one to three sentences, and any open item `copy
 
 **DON'T:**
 
-- Add or drop claims (contrasts: revoice changes tone, not substance)
+- Add or drop claims
 - Change the surface function or introduce conversion, marketing, or task elements that were not present
-- Restructure the content tree (contrasts: patch values, not shape)
-- Reintroduce dead adjectives or marketing clichés (contrasts: see anti-patterns.md)
-- Embed visual decisions in `copy.yaml` (contrasts: content-only)
+- Restructure the content tree
+- Reintroduce dead adjectives or marketing clichés (see `anti-patterns.md`)
+- Embed visual decisions in `copy.yaml`
 
 ## Error Handling
 

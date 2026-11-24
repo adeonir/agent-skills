@@ -44,11 +44,11 @@ Report the path, what changed in one to three sentences, and any open item `copy
 
 **DON'T:**
 
-- Change the voice (contrasts: refresh keeps it; changing voice is a separate job)
+- Change the voice
 - Change the surface function or add function-specific parts that were not requested
-- Restructure the content tree (contrasts: patch values, not shape)
-- Embed visual decisions in `copy.yaml` (contrasts: content-only)
-- Invent proof to satisfy a sweep (contrasts: soften the claim instead)
+- Restructure the content tree
+- Embed visual decisions in `copy.yaml`
+- Invent proof to satisfy a sweep; soften the claim instead
 
 ## Error Handling
 

@@ -51,8 +51,8 @@ Report the path, what changed in one to three sentences, and any open item `copy
 
 **DON'T:**
 
-- Invent new surfaces or keys from the implementation (contrasts: scope to the existing tree)
-- Rewrite or editorialize while reconciling (contrasts: this syncs drifted values; it does not change voice or rewrite content)
+- Invent new surfaces or keys from the implementation
+- Rewrite or editorialize while reconciling: this syncs drifted values; it does not change voice or rewrite content
 
 ## Error Handling
 
