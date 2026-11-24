@@ -10,8 +10,6 @@ Read [tracker.md](tracker.md) and run its Resolve the Tracker step before editin
 
 ## What each type changes
 
-Create and edit hold the artifact to the same canonical contract: the template structure and its MUST-NOT boundaries, plus the condition contract and requirement linkage on a task. An edit conforms the result, never a free-form rewrite.
-
 | Type | Template | Body fields | Metadata |
 | ---- | -------- | ----------- | -------- |
 | Epic | [epic.md](../assets/epic.md) | title, outcome, why, scope, success criteria, requirements, open questions, references | `blocked_by`, `priority` |
@@ -41,8 +39,8 @@ Progress:
 
 - **Epic.** When `## Requirements` changes, the requirement links on the children's conditions may dangle. Run `list_artifacts` filtered to this epic's tasks, then `fetch_artifact` on each to read the requirement links on its conditions — the listing carries no body. Surface which children reference a removed ID and settle them before writing; a requirement is not silently dropped from under its children.
 - **Task.** Reconcile the Summary and the conditions in whichever direction the edit moved. The Summary states the outcome the task owes and the conditions demonstrate it; they are drafted together and describe the same thing, one in prose and one in verifiable conditions. An edit that moves one half and leaves the other behind ships a task whose two halves disagree. When the conditions changed, bring the Summary to the outcome the task now owes. When the Summary changed, check that the conditions still demonstrate the outcome it now states — an outcome no condition demonstrates is a coverage hole to settle with the user, not prose to leave standing.
-- **Spike.** Reconcile the Question and the Exit Criteria in whichever direction the edit moved. The Question states what must be answered and the conditions say when it is. An edit that moves one half and leaves the other behind ships a spike whose two halves disagree.
-- **Bug.** Reconcile Expected Behavior and the conditions. The first condition restates the expected behavior as a check. An edit that moves one and leaves the other behind ships a bug whose two halves disagree.
+- **Spike.** Reconcile the Question and the Exit Criteria in whichever direction the edit moved. The Question states what must be answered and the conditions say when it is.
+- **Bug.** Reconcile Expected Behavior and the conditions. The first condition restates the expected behavior as a check.
 
 Done when the two halves agree, or the epic's children are settled.
 

@@ -21,6 +21,4 @@ A foundation epic derived from cross-cutting NFRs carries the requirement IDs of
 
 ## Guidelines
 
-- Cut along user outcomes first; promote cross-cutting concerns to foundation epics rather than scattering them into other epics.
-- Name what users get, not the mechanism — "secure password storage", not "bcrypt hashing".
 - Decide the boundary before the count — the number of epics falls out of the seams, it is not a target.

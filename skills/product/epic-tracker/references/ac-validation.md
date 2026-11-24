@@ -4,14 +4,12 @@ Enforce the checklist of conditions on Task, Spike, and Bug create and on edits 
 
 ## Contents
 
-- When to Use
 - Condition Schema
 - Workflow
 - Requirement linkage
 - Read-path tolerance
 - Guidelines
 - Error Handling
-- Outcomes
 
 ## Condition Schema
 
@@ -96,8 +94,6 @@ V4 checks the shape of a requirement link. Three further relations hold across t
 
 The link stays optional per condition: a condition may be implied quality with no backing requirement. What this reference enforces is shape (V4); the three relations above hold upstream.
 
-This section is the single home for what the requirement link means and who settles it. An instruction that writes one states its own half and never restates the relation.
-
 ## Read-path tolerance
 
 Read paths do not invoke this reference:
@@ -125,8 +121,3 @@ Edits that do not change a condition skip validation (see `edit-artifact.md`) â€
 - Section missing entirely: V1 fires; ask the user to add at least one condition.
 - Text under the heading before the first checklist line: V2 fires.
 - The script reports V1 on a body that visibly holds conditions (Linear collapsed list items): route to manual fix in the tracker UI.
-
-## Outcomes
-
-- On pass: caller proceeds to dispatch â€” the create flow pushes the new artifact, the edit flow writes the update.
-- On fail: caller loops back to review with the structured error visible to the user.

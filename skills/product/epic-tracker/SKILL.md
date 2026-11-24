@@ -33,5 +33,3 @@ flowchart TD
     EA[edit-artifact] --> out
     SS[sync-state] --> out
 ```
-
-Every artifact reaches the tracker through its create instruction.

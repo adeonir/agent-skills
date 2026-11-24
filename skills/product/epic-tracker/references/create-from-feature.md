@@ -37,7 +37,7 @@ Run `list_artifacts`. An artifact this source already produced is the starting p
 - **Two or more units** → an epic. The epic groups the children.
 - **One unit** → a **standalone task**; a **bug** when the unit fixes behavior that already exists and is broken; a **spike** when the unit answers a question and builds nothing.
 
-The seams decide the count; the count is not a target. A feature that reads as one configuration change, one defect class, or one enabling move is one unit however long its document is — document length is not a seam. Done when the count and the type are set.
+The seams decide the count. A feature that reads as one configuration change, one defect class, or one enabling move is one unit however long its document is — document length is not a seam. Done when the count and the type are set.
 
 **Step 3. Settle.** Show the sized result as a draft in the chat with its boundary — what the artifact owns, and the adjacent work it does not — plus the type the gate picked and why. The user changes the type or splits differently. When the gate picks one unit and the user wants an epic anyway, respect the decision and route to [create-epic.md](create-epic.md); an epic with one child is the user's call, not a shape to argue twice. **Wait for explicit approval before creating anything**. Without approval, stop and report that nothing was written. Done when the user approved the type and the boundary.
 

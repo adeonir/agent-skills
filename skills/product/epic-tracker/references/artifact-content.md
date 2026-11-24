@@ -31,7 +31,7 @@ A title is a short human-readable phrase, slug-safe. No commands, flags, file pa
 - **Spike** — names the subject of the question (`Queue provider choice`), never the question itself (`Which queue provider should we use?`) and never an answer.
 - **Bug** — names the defect (`Login fails with expired token`), never a narrative of the fix or its outcome (`Users stay logged in after token refresh`).
 
-The name is translated from its source, not copied: strip any borrowed token — reference or ticket codes, section numbers, code identifiers, document or sibling-artifact names — which travel in the body, in References, or on a bug in Signals, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body.
+The name is translated, not copied — see `Translate, don't replicate`: a borrowed token travels in the body, in References, or on a bug in Signals, never the title. The title maps to the tracker's summary field; outcome prose lives only in the body.
 
 ## Every line traces to a source
 

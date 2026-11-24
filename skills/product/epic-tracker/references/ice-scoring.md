@@ -19,9 +19,8 @@ ICE is a **soft** signal; dependency is a **hard** constraint. Never let ICE ove
 - **Dependency is primary and bounds the sequence** — a candidate never precedes one it depends on, however high its ICE.
 - **ICE decides within that bound** — when two candidates are both unblocked, the higher ICE score comes first.
 
-A foundation epic with low Impact and low Ease still comes first when others depend on it. The hard constraint defines the field; the soft signal plays inside it.
+A foundation epic with low Impact and low Ease still comes first when others depend on it.
 
 ## Guidelines
 
 - Score to rank, not to grade — the output is an order, not a report.
-- Be honest about Confidence; it is the axis that most often exposes an epic that should be split or sequenced early to de-risk.

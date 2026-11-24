@@ -10,7 +10,6 @@ Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafti
 
 ## Contents
 
-- When to Use
 - Rules for every run
 - Workflow
 
@@ -60,7 +59,7 @@ If no context was pasted, proceed to Step 2 and ask for all fields. Done when th
 1. **Steps to reproduce** -- ordered steps to trigger the bug, and how reliably they did it while the defect was live: always, intermittently, or once, and whether it reproduces on the mainline. A defect that stopped occurring because it was mitigated still reproduced however it reproduced; say that it no longer occurs, and let `Workaround` carry what stopped it, and `Regression` what introduced it. When the user cannot provide reproduction steps, document what is known and record the reproducibility as `once`, or `intermittently` with whatever is known about when it happened — an unreproducible defect is still a bug
 2. **Expected and actual behavior** -- what should happen and what happens instead
 3. **Impact** -- who is affected and how badly
-4. **Severity** -- critical (system down, or data at risk), high (a major feature broken), medium (a feature degraded, or broken for few), low (cosmetic or minor). One axis only: how badly the defect breaks the product. A workaround does not lower it — the breakage is the same, with a way around it — and where the mitigation changes what to pick up next, it changes the priority instead
+4. **Severity** -- critical (system down, or data at risk), high (a major feature broken), medium (a feature degraded, or broken for few), low (cosmetic or minor). A workaround changes what to pick up next, so it moves the priority, never the severity
 5. **Environment** -- what identifies the run the fix ships to, only if relevant
 6. **Workaround** -- any known mitigation
 
@@ -74,7 +73,7 @@ Done when every field is provided, inferred, or stated as unknown.
 
 Fed by [create-from-feature.md](create-from-feature.md), the bug arrives standalone — the sizing gate already settled it, so the question above does not run.
 
-A bug inside an epic is a sibling of the epic's tasks. Done when the parent is settled.
+Done when the parent is settled.
 
 **Step 4. Draft.** Read [bug.md](../assets/bug.md) and fill its template.
 
@@ -90,7 +89,7 @@ A bug inside an epic is a sibling of the epic's tasks. Done when the parent is s
 **Body** — the content that becomes the tracker description:
 
 - **Summary**: what is broken and who it affects, in one to three sentences. Severity travels as metadata and stays out of the prose
-- **Steps to Reproduce**: numbered, specific steps, plus how reliably they triggered it while the defect was live — `always`, `intermittently`, or `once` — and whether it still occurs and whether it reproduces on the mainline. A defect that does not reproduce on demand is still a bug, and so is one a rollback stopped; what makes either hard to act on is not knowing which, so the line is written even when the answer is that nobody can say when it happened
+- **Steps to Reproduce**: numbered, specific steps, plus how reliably they triggered it while the defect was live — `always`, `intermittently`, or `once` — and whether it still occurs and whether it reproduces on the mainline
 - **Expected Behavior**: what should happen
 - **Actual Behavior**: what happens instead
 - **Signals**: forensic data from logs/dashboards — links, ids, timestamps, error excerpts; populate from pasted context, omit if empty

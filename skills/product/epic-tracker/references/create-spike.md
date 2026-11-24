@@ -54,7 +54,7 @@ Pasted context (a thread, a log, a design excerpt, a link) and a feature source 
 - **Why**: why the answer is needed now and which work it unblocks, stated as plain facts.
 - **Scope**: what will be investigated — the options to compare, the systems to read, the constraints to respect.
 - **Out of Scope**: explicit boundaries -- what this spike does not investigate or implement, stated in terms of this spike's own concern (never naming the sibling that covers it). The section is present when an exclusion was decided and absent when none was.
-- **Exit Criteria**: a checklist, one verifiable condition per line, that says when the question is answered, each checkable against the output of the investigation. A condition is adapted to this spike and presumes no answer. The conditions typically cover the answer with its evidence, the alternatives with their trade-offs and risks, the recorded decision or recommendation, and the follow-up work; a line that does not apply to this spike is omitted. Validated in Step 3 against `ac-validation.md`.
+- **Exit Criteria**: a checklist, one verifiable condition per line, that says when the question is answered, each checkable against the output of the investigation. A condition is adapted to this spike and presumes no answer. Validated in Step 3 against `ac-validation.md`.
 - **Expected Deliverable**: where the answer is recorded and in what form — an ADR, a decision in the spec, a throwaway prototype, a benchmark, a report.
 - **References**: durable pointers to what the tracker does not model, chosen for what matters to this spike. The parent epic and every dependency are tracker relations, so they never appear here. Omit the section when there is nothing to point at.
 

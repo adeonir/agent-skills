@@ -12,7 +12,7 @@ Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafti
 
 1. Run Step 1 first, even when the user provides context directly.
 2. Keep implementation details out; criteria stay implementation-agnostic.
-3. Include scope boundaries — what is explicitly out helps as much as what is in.
+3. Include scope boundaries — what is explicitly out belongs there too.
 4. Never reference the roadmap in the epic body, and never list the epic's children or dependencies there. The tracker's native child panel (GitHub Sub-issues, Linear sub-issues) is the source of truth for hierarchy, and its relations are the source for blocking.
 
 ## Workflow
@@ -36,7 +36,7 @@ Progress:
 4. When [plan-epics.md](plan-epics.md) fed this epic, take the requirement IDs it passes as the set this epic owns. Otherwise look for `docs/product/ROADMAP.md`, only for a project-PRD epic, and inherit its entry's requirement set when present; its absence is no gap. Never silently add or drop IDs. Do not record the roadmap as a source; epics never reference the roadmap.
 5. Look for `docs/product/design-doc.md` if it exists -- read only for constraints that may affect scope. Record it in `## References` if relevant.
 6. If found, summarize what was extracted and confirm with user
-7. When the reads leave gaps, interview to close them — never a cold questionnaire. Lead with your read and let the user confirm or redirect; where the codebase or docs answer a question, state what you found rather than asking. Every turn carries a recommendation — an interpretation with its redirect invite when you have signal, or a question paired with your recommended answer when you do not. Three unknowns anchor the epic: the problem it solves, who benefits, and what changes for the user when it ships. Resolve them through the interview, not as a fixed list. When the user provides vague context, ask clarifying questions; do not assume.
+7. When the reads leave gaps, interview to close them — never a cold questionnaire. Lead with your read and let the user confirm or redirect; where the codebase or docs answer a question, state what you found rather than asking. Every turn carries a recommendation — an interpretation with its redirect invite when you have signal, or a question paired with your recommended answer when you do not. Three unknowns anchor the epic: the problem it solves, who benefits, and what changes for the user when it ships. Resolve them through the interview, not as a fixed list.
 
 Fed by `plan-epics.md`, the approved set or the request to materialize is the confirmation: items 6 and 7 do not run, and a gap goes to `## Open Questions`.
 
@@ -65,8 +65,6 @@ Done when the three anchoring unknowns are answered, or recorded as open questio
 - **Requirements**: the project-PRD requirements this epic owns (`FR/NFR`), one per line as `ID — statement` — a contract the children operationalize, each task condition linking back with its requirement id. A feature PRD or feature design doc may supply the same IDs, but does not require them. Resolve each statement from the feature source or project PRD, translated in form but never in norm. Omit the section when the source has no enumerated requirements. `ADR-NNN` is excluded — a decision dependency, not an owned requirement. Every requirement here must be satisfiable by a child within this epic's scope.
 - **Open Questions**: decisions that can change the scope or how the epic is broken down; omit the section when nothing is undecided
 - **References**: durable pointers the next session follows, chosen for what matters to this epic — a PRD, a design doc, an ADR, a UI design. They travel into the tracker description, so a fresh session recovers context from the tracker alone. The section has no fixed field list. Omit it when there is nothing to point at.
-
-For an epic, the unresolved decision that `artifact-content.md` excludes goes to `## Open Questions`.
 
 Done when every template section is filled or removed as its note states.
 
