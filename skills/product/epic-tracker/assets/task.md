@@ -1,4 +1,4 @@
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ````markdown
 ## Summary
@@ -12,7 +12,7 @@ MUST NOT contain: conversation narrative ("as discussed", "we agreed", "the user
 - [ ] {{Verifiable condition on what this task delivers.}} — {{FR-3}}
 - [ ] {{Another condition. Omit the id when it maps to no requirement.}}
 
-{Each line is one condition, one outcome. The ` — FR-3` ending names one parent-epic requirement (`FR/NFR`) and is optional. See [ac-validation.md](../references/ac-validation.md) for the contract.}
+{Each line is one condition, one outcome. The ` — FR-3` ending names one parent-epic requirement (`FR/NFR`) and is optional. See `ac-validation.md` for the contract.}
 
 MUST NOT contain: a condition observed on a surface a sibling task owns (relocate it to that task), a condition satisfied by something no artifact here builds — platform, runtime, service, or library behavior nobody implements and nobody can fail — a condition that restates a sibling's deliverable or anything listed in Out of Scope, or a condition per error path, edge case, or message the source leaves open (move it to Open Questions).
 

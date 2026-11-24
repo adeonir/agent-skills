@@ -13,14 +13,6 @@ Enforce the checklist of conditions on Task, Spike, and Bug create and on edits 
 - Error Handling
 - Outcomes
 
-## When to Use
-
-- Loaded by `create-task.md`, `create-spike.md`, and `report-bug.md` (the validation step, before the artifact is dispatched)
-- Loaded by `edit-artifact.md` when an edit changes a condition
-- Not a direct trigger
-
-This reference is the single home for the condition contract. Do not duplicate the rules in the instructions that load it at the validation step.
-
 ## Condition Schema
 
 Each condition is a checklist line under `## Acceptance Criteria` (`## Exit Criteria` on a spike): `- [ ]`, then the condition, then an optional requirement link — ` — ` followed by one `FR/NFR` id.

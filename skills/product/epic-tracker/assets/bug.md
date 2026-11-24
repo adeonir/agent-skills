@@ -1,4 +1,4 @@
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ````markdown
 ## Summary
@@ -65,7 +65,7 @@ mainline is unverified. Drop a line with nothing to say.}
 - [ ] {{The steps above produce the expected behavior.}}
 - [ ] {{A check that fails before the fix and passes after it covers the case. Omit when the project has no way to run one.}}
 
-{Each line is one verifiable condition. See [ac-validation.md](../references/ac-validation.md) for the contract.}
+{Each line is one verifiable condition. See `ac-validation.md` for the contract.}
 
 MUST NOT contain: a requirement link, a fix mechanism, or a condition no outcome of the fix can show.
 

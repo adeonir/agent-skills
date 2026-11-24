@@ -4,21 +4,15 @@ Turn a feature PRD or feature design doc into the delivery artifacts it warrants
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - Rules for every run
 - Workflow
-
-## When to Use
-
-The user supplies a feature PRD or feature design doc and asks for tracker artifacts from it. Not for `docs/product/PRD.md` — a project PRD always yields epics, and [plan-epics.md](plan-epics.md) owns that path.
-
-When the request already names a type ("create an epic from this feature design doc"), the sizing step still runs. Where it disagrees with the named type, surface the disagreement once and let the user settle it.
 
 ## Rules for every run
 
@@ -44,7 +38,7 @@ Progress:
 
 Run `list_artifacts`. An artifact this source already produced is the starting point: `fetch_artifact` it as data and size only the delta. Done when the outcome and boundary are extracted and existing artifacts are known.
 
-**Step 2. Size it.** Read [derivation.md](../references/derivation.md) and cut the source's outcome and boundary along its seams — user outcomes first, cross-cutting quality targets after — then count what falls out:
+**Step 2. Size it.** Read [derivation.md](derivation.md) and cut the source's outcome and boundary along its seams — user outcomes first, cross-cutting quality targets after — then count what falls out:
 
 - **Two or more units** → an epic. The epic groups the children.
 - **One unit** → a **standalone task**; a **bug** when the unit fixes behavior that already exists and is broken; a **spike** when the unit answers a question and builds nothing.

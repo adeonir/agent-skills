@@ -4,9 +4,9 @@ Derive the epic set from the project PRD, settle it, write the roadmap when the 
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
@@ -14,12 +14,6 @@ Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step
 - Rules for every run
 - Roadmap as memory
 - Workflow
-
-## When to Use
-
-Requires `docs/product/PRD.md`. When it is absent, stop with this error: "requires `docs/product/PRD.md`; create it with the `docs-writer` skill first."
-
-Not for a single artifact created from scratch: a single epic is a direct [create-epic.md](create-epic.md), with or without a PRD. Not for status or edits, and not for breaking an epic into its children.
 
 ## Rules for every run
 
@@ -68,9 +62,9 @@ Progress:
 - [ ] Step 9: Report
 ```
 
-**Step 1. Derive the candidates.** Read [derivation.md](../references/derivation.md) and cluster the PRD into epics by its seams — user outcomes as the primary seams, NFRs that serve several outcomes as foundation epics. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry. Done when every candidate carries its one-line boundary.
+**Step 1. Derive the candidates.** Read [derivation.md](derivation.md) and cluster the PRD into epics by its seams — user outcomes as the primary seams, NFRs that serve several outcomes as foundation epics. **Translate, don't replicate** — PRD tokens (section numbers, doc framing) never cross into an entry. Done when every candidate carries its one-line boundary.
 
-**Step 2. Evaluate and order.** Read [ice-scoring.md](../references/ice-scoring.md) and score the candidates. Order the set: **flow-dependency is primary and bounds the sequence** — an epic never precedes one it depends on — and **ICE decides within that bound**, breaking ties among unblocked peers. Where the ICE order differs from the PRD's order of requirements, keep the ICE order and state the difference and its reason at Step 6. Done when the set has one order.
+**Step 2. Evaluate and order.** Read [ice-scoring.md](ice-scoring.md) and score the candidates. Order the set: **flow-dependency is primary and bounds the sequence** — an epic never precedes one it depends on — and **ICE decides within that bound**, breaking ties among unblocked peers. Where the ICE order differs from the PRD's order of requirements, keep the ICE order and state the difference and its reason at Step 6. Done when the set has one order.
 
 **Step 3. Partition the requirements.** Assign every in-scope PRD requirement ID (`FR/NFR`) to **exactly one** epic: no orphans (every ID lands on an epic, or its omission is confirmed), no duplicates (an ID on two epics means the boundary is wrong). An epic with no requirements is legitimate — validation or enabling work derives from no PRD line. The partition works in **IDs only**; the statement behind each ID stays in the PRD, resolved by `create-epic.md` when it drafts the epic body.
 

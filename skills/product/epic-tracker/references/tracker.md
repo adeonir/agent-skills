@@ -2,12 +2,6 @@
 
 Delivery artifact reads and writes, content guards, and generic tracking operations.
 
-## When to Use
-
-Load when creating or editing delivery artifacts or reading and updating their tracker state.
-
-Dispatch immediately after the draft step: no separate preview gate, and no local copy. Artifacts are never written to disk — the tracker is the single source of truth, and status and overview read from it directly.
-
 ## Contents
 
 - Trust Boundary
@@ -67,10 +61,10 @@ An artifact already in the tracker is edited through `edit-artifact.md`, which r
 **Refetch immediately before every write.** This applies to a body edit and to a status change alike.
 
 1. `fetch_artifact` at the start of the edit, to load the current body into memory. This is the read `edit-artifact.md` already ran to load the artifact — one read, not two. It writes nothing.
-2. Apply the edit. For a task, spike, or bug, `edit-artifact.md` re-validates the conditions when their text changed (see [ac-validation.md](ac-validation.md)).
+2. Apply the edit. For a task, spike, or bug, `edit-artifact.md` re-validates the conditions when their text changed (see `ac-validation.md`).
 3. **`fetch_artifact` again, immediately before writing.** Compare `updated_at` with what step 1 returned — that marker, not the body. A tracker reflows what it stores, so a body that differs byte for byte says nothing about whether a person touched it, and comparing bodies would raise the guard on every write.
 4. When the marker moved, someone wrote in between. Read what they changed by diffing the two bodies field by field, and **re-apply this edit onto the body that came back**, not the one drafted against the stale read. A change that touches nothing this edit touches merges silently and is reported to the user; where both touched the same field, the user chooses which stands. Never write the drafted body over theirs.
-5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task, spike, or bug, run the condition contract again over the merged result (see [ac-validation.md](ac-validation.md)); a failure routes back to the user with both versions in hand.
+5. **A merged body is validated before it is written.** Re-applying can produce what neither side alone contained — two identical conditions is the ordinary case — and the validation in step 2 ran on the draft, not on this. For a task, spike, or bug, run the condition contract again over the merged result (see `ac-validation.md`); a failure routes back to the user with both versions in hand.
 6. Execute `update_artifact` with the validated body and changed fields.
 7. When `blocked_by` changed, call `set_dependencies` with the full list (see Dependencies).
 

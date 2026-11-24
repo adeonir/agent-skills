@@ -1,4 +1,4 @@
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ````markdown
 ## Question
@@ -32,7 +32,7 @@ MUST NOT contain: sibling artifact names — state each boundary in terms of wha
 - [ ] {{The resulting decision or recommendation is documented.}}
 - [ ] {{The follow-up work is identified. Omit when the answer needs none.}}
 
-{Adapt each line to this spike, and add a line for any condition the answer must meet, such as a measured threshold. Each line is one verifiable condition. See [ac-validation.md](../references/ac-validation.md) for the contract.}
+{Adapt each line to this spike, and add a line for any condition the answer must meet, such as a measured threshold. Each line is one verifiable condition. See `ac-validation.md` for the contract.}
 
 MUST NOT contain: a condition that presumes the answer, a condition no output of this spike can show, or a requirement link.
 

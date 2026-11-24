@@ -4,19 +4,15 @@ Derive an epic's children from its scope and requirements, settle them, and crea
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - Rules for every run
 - Workflow
-
-## When to Use
-
-Needs no PRD and no roadmap. Not for a single artifact created from scratch, and not for status or edits.
 
 ## Rules for every run
 
@@ -58,7 +54,7 @@ Resolve each `ORPHAN` and `UNKNOWN` line it prints, and run it again. Done when 
 
 **Step 4. Granularity gate.** Before creating, split any candidate that spans multiple unrelated domains or cannot state a single outcome. Both are judgeable on the candidate's own boundary line, which is all that exists at this point. Respect the user's decision to keep one whole. Done when every candidate passes the gate or the user kept it whole.
 
-**Step 5. Order.** Read [ice-scoring.md](../references/ice-scoring.md) and score the children. Order them so foundational outcomes precede dependent ones, and let ICE decide among unblocked peers; set `blocked_by` where one outcome is a precondition for another. Done when the set has one order.
+**Step 5. Order.** Read [ice-scoring.md](ice-scoring.md) and score the children. Order them so foundational outcomes precede dependent ones, and let ICE decide among unblocked peers; set `blocked_by` where one outcome is a precondition for another. Done when the set has one order.
 
 **Step 6. Settle and materialize.** Show the set and each child's boundary as a draft in the chat. The user adds, drops, merges, splits, renames, or reorders. **Wait for explicit approval before writing anything**. Without approval, stop and report that nothing was written. Once the user approves, dispatch **structured decisions in-memory** to [create-task.md](create-task.md) for each task and to [create-spike.md](create-spike.md) for each spike — there is no roadmap at this level, so the tracker (the epic plus its sub-issues) is the memory. The create instruction writes the body prose, validates the conditions through `ac-validation.md`, and dispatches through `tracker.md`. Idempotent via `list_artifacts`; surface orphans on re-run (cancel / reparent / keep), never auto-delete. The settled boundary travels into each child, stated in the child's own terms and never naming the sibling that owns the excluded work: the child records it in `## Out of Scope`. Each task also carries the requirement IDs Step 3 assigned it, as a dispatch input: that subset is the menu its acceptance criteria operationalize, and the create instruction validates that every assigned ID reaches a condition's requirement link. Done when every settled child exists in the tracker.
 

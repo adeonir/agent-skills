@@ -4,7 +4,7 @@ Change status, read delivery state, reparent an artifact, or edit its dependenci
 
 ## Load first
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step — the existing destination, content guards, and generic operations used below. If the required tracker access is not configured, report the prerequisite without configuring it.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step — the existing destination, content guards, and generic operations used below. If the required tracker access is not configured, report the prerequisite without configuring it.
 
 ## Contents
 

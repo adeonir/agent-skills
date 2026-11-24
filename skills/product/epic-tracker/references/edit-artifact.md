@@ -4,19 +4,15 @@ Change the body or metadata of an epic, task, spike, or bug that already exists 
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before editing — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before editing — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - What each type changes
 - Workflow
-
-## When to Use
-
-A status change, a reparent, or a bare dependency change is not an edit; [sync-state.md](sync-state.md) owns those. A `blocked_by` change that arrives with a body edit is a `set_dependencies` call and writes nothing to the body.
 
 ## What each type changes
 
@@ -56,7 +52,7 @@ Progress:
 
 Done when the two halves agree, or the epic's children are settled.
 
-**Step 4. Re-validate only when the conditions changed.** On a task, spike, or bug, read [ac-validation.md](../references/ac-validation.md) and run its rules, including when a requirement link was added, removed, or re-pointed. On a task, then resolve each requirement link against the epic's `## Requirements`, as `create-task.md` Step 3 does. That resolution needs the epic: the `fetch_artifact` in Step 1 returns the task's `parent`, so `fetch_artifact` on that id reads it — a standalone task has no parent and stops at the rules. An edit that leaves the conditions untouched skips validation; the existing conditions are preserved as written. Done when the rules pass, or the conditions are untouched.
+**Step 4. Re-validate only when the conditions changed.** On a task, spike, or bug, read [ac-validation.md](ac-validation.md) and run its rules, including when a requirement link was added, removed, or re-pointed. On a task, then resolve each requirement link against the epic's `## Requirements`, as `create-task.md` Step 3 does. That resolution needs the epic: the `fetch_artifact` in Step 1 returns the task's `parent`, so `fetch_artifact` on that id reads it — a standalone task has no parent and stops at the rules. An edit that leaves the conditions untouched skips validation; the existing conditions are preserved as written. Done when the rules pass, or the conditions are untouched.
 
 **Step 5. Dispatch.** Dispatch the update through `tracker.md` "Update", which refetches immediately before writing. When someone wrote in between, it re-applies this edit onto their body rather than over it, and reports what merged. On a task, spike, or bug, the condition contract runs again on that merged result, because the validation in Step 4 saw the draft, not what will be written. Two identical conditions is the ordinary outcome of a merge, and the duplicate rule is what catches it. Done when `update_artifact` succeeds.
 

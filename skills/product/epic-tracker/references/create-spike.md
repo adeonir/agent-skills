@@ -4,19 +4,15 @@ Define a spike: an investigation that answers one question, closed by the answer
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - Rules for every run
 - Workflow
-
-## When to Use
-
-Work that builds a known outcome is a task — route to [create-task.md](create-task.md); a request that already names the answer is a task too. A defect in behavior that already exists is a bug — route to [report-bug.md](report-bug.md).
 
 ## Rules for every run
 
@@ -76,7 +72,7 @@ Apply the resumption gate before proceeding:
 
 Done when the template is filled and the gate passes.
 
-**Step 3. Validate the exit criteria.** Read [ac-validation.md](../references/ac-validation.md) and run its rules on the drafted conditions. A spike's conditions carry no requirement link, so the rules are the whole validation. If any rule fails: surface the structured error (condition, rule name, suggested fix), do not proceed to push. Loop back to Step 2 until the user fixes the conditions. Validation runs locally, before any tracker round-trip. Done when every rule passes.
+**Step 3. Validate the exit criteria.** Read [ac-validation.md](ac-validation.md) and run its rules on the drafted conditions. A spike's conditions carry no requirement link, so the rules are the whole validation. If any rule fails: surface the structured error (condition, rule name, suggested fix), do not proceed to push. Loop back to Step 2 until the user fixes the conditions. Validation runs locally, before any tracker round-trip. Done when every rule passes.
 
 **Step 4. Dispatch.** Dispatch the draft through `tracker.md` "Create", passing the parent epic's id when the spike has one, so it is created as that epic's child. The tracker is the source of truth; nothing is written locally. An explicit destination follows `tracker.md` "Explicit Override". Done when the tracker returns the spike's id and URL.
 

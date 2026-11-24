@@ -1,4 +1,4 @@
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ````markdown
 ## Outcome

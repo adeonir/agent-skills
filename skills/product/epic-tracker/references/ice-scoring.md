@@ -2,10 +2,6 @@
 
 Evaluate and prioritize derived candidates with ICE — Impact, Confidence, Ease — to break ties within a dependency-bounded order.
 
-## When to Use
-
-Loaded after derivation, over candidates that already exist, by `plan-epics.md` (epics) and `break-down-epic.md` (tasks).
-
 ## The Three Axes
 
 Score each candidate on each axis; keep the scale consistent across the set (a simple 1–5 or low/medium/high is enough — the ranking matters, not the absolute number).

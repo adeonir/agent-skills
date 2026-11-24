@@ -2,10 +2,6 @@
 
 Cluster a PRD into a set of epics, one per user outcome plus the foundations they depend on — the method that turns requirements into candidate epics before they are evaluated and ordered.
 
-## When to Use
-
-Loaded by `plan-epics.md`, after the PRD is read and before ICE scoring, and by `create-from-feature.md` to count the units in a feature source. It produces the candidate set; it does not rank or order it (that is `ice-scoring.md` and the ordering step in `plan-epics.md`).
-
 ## What an Epic Is
 
 An epic groups tasks around **one outcome that users receive and evaluate on their own**, or around a foundation: work other epics depend on, which users may never see. The boundary is where one outcome ends and the next begins. Name an epic for what users get, never for a UI widget, an endpoint, or a technology.

@@ -4,19 +4,15 @@ Define a task: a unit of work with one outcome, with acceptance criteria that ar
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - Rules for every run
 - Workflow
-
-## When to Use
-
-Under an epic, a task's conditions link back to the requirements that epic declares; standalone, they link to nothing. A defect in behavior that already exists is a bug — route to [report-bug.md](report-bug.md). Work that answers a question and builds nothing is a spike — route to [create-spike.md](create-spike.md).
 
 ## Rules for every run
 
@@ -89,7 +85,7 @@ Apply the resumption gate before proceeding:
 
 Done when the template is filled and the gate passes.
 
-**Step 3. Validate the conditions.** Read [ac-validation.md](../references/ac-validation.md) and run its rules on the drafted conditions.
+**Step 3. Validate the conditions.** Read [ac-validation.md](ac-validation.md) and run its rules on the drafted conditions.
 
 Then resolve each requirement link against the epic's `## Requirements`, fetched in Step 1. Only this step can do it, because only this step holds the epic. A standalone task has no epic and writes no requirement link, so the rules in `ac-validation.md` are the whole validation for it — an id on a standalone task's condition is a link to nowhere: drop it, or give the task the parent it names. The resolution answers two questions at once:
 

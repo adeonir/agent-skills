@@ -2,10 +2,6 @@
 
 What may enter an artifact's body, and what the inputs that produced it never contribute.
 
-## When to Use
-
-Loaded by every instruction that drafts or edits an artifact body, before writing it.
-
 ## The template holds either way
 
 Create and edit both conform the artifact to its canonical template: the structure and the MUST-NOT boundaries hold on an edit exactly as on a create, never a free-form write.

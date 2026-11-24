@@ -4,19 +4,15 @@ Document a defect with reproduction steps, expected and actual behavior, severit
 
 ## Load first
 
-Read [artifact-content.md](../references/artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
+Read [artifact-content.md](artifact-content.md) before drafting or editing a body — what the conversation and the upstream sources may contribute to it, and what they never do.
 
-Read [tracker.md](../references/tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
+Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
 ## Contents
 
 - When to Use
 - Rules for every run
 - Workflow
-
-## When to Use
-
-Behavior that already exists and is broken is a bug; anything else is a task — route to [create-task.md](create-task.md), and ask if ambiguous.
 
 ## Rules for every run
 
@@ -115,7 +111,7 @@ Apply the resumption gate before proceeding:
 
 Done when the template is filled and the gate passes.
 
-**Step 5. Validate the conditions.** Read [ac-validation.md](../references/ac-validation.md) and run its rules on the drafted conditions. A bug's conditions carry no requirement link, so the rules are the whole validation. If any rule fails: surface the structured error (condition, rule name, suggested fix), do not proceed to push. Loop back to Step 4 until the user fixes the conditions. Validation runs locally, before any tracker round-trip. Done when every rule passes.
+**Step 5. Validate the conditions.** Read [ac-validation.md](ac-validation.md) and run its rules on the drafted conditions. A bug's conditions carry no requirement link, so the rules are the whole validation. If any rule fails: surface the structured error (condition, rule name, suggested fix), do not proceed to push. Loop back to Step 4 until the user fixes the conditions. Validation runs locally, before any tracker round-trip. Done when every rule passes.
 
 **Step 6. Dispatch.** Dispatch the draft through `tracker.md` "Create", passing the parent epic's id when the bug has one. Pass the bug type and severity as structured metadata. The tracker is the source of truth; nothing is written locally. An explicit destination follows `tracker.md` "Explicit Override". Done when the tracker returns the bug's id and URL.
 
