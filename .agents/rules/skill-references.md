@@ -29,7 +29,7 @@ Read [message-sourcing.md](../references/message-sourcing.md) before writing the
 
 **Impact: MEDIUM**
 
-Open with the H1, using the same words as the index entry, then one sentence: the result a procedure produces, or what the material provides. The index states the condition; the file states the payload.
+Open with the H1, using the same words as the index branch that selects it, then one sentence: the result a procedure produces, or what the material provides. The index states the condition; the file states the payload. A single-job skill has no branch label, so its H1 names the job and the sentence carries the payload.
 
 **Incorrect:**
 
