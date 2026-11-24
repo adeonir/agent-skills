@@ -30,4 +30,4 @@ flowchart TD
     BR[brownfield] --> IA[identity] --> I[confirmed] --> design
 ```
 
-Every operation starts by loading discovery. A brownfield assessment may end after presenting its findings when the user asked for an audit only.
+Every operation starts by loading discovery.

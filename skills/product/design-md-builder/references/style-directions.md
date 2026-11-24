@@ -358,4 +358,4 @@ A few heuristics for shortlisting:
 - **Match the usage duration.** Products used for hours want Terminal Precision, Utility Dense, or Soft Technical. Products seen once want Editorial Print, Luxury Minimal, or Bauhaus.
 - **Match the trust requirement.** High-stakes, low-novelty domains (health, finance, government) want Clinical, Archival, or Utility. Discretionary consumer products can take more risk.
 - **Match the content.** Long-form text wants Editorial or Archival. Tables and numbers want Utility or Terminal. Imagery wants Luxury Minimal or Warm Analog.
-- **Then offer one outlier.** Include one direction that's a slight stretch. Users often recognize what they want only when they see something they didn't expect, and the outlier is frequently what gets picked.
+- **Offer one outlier.** Include one direction that is a slight stretch; users often recognize what they want only in something they did not expect.

@@ -103,7 +103,7 @@ For code, numerics, identifiers, timestamps, and anything tabular.
 
 **Two weights, far apart.** 400 and 700 reads as a decision; 400/500/600 reads as indecision. A third weight is a genuine extreme with a specific job. Prefer size and space to weight for hierarchy — weight is the loudest tool and the first one overused. Never synthesize a cut the face does not ship.
 
-**A single line-height across the whole scale is a tell.** So is default tracking on uppercase. Optical adjustment is where a system stops looking like defaults: invisible one at a time, unmistakable in aggregate.
+**A single line-height across the whole scale is a tell.** So is default tracking on uppercase.
 
 **Set the measure explicitly** (`max-width: 65ch`) rather than letting the container decide. Space above a heading is larger than space below it — the heading belongs to what follows.
 
@@ -152,7 +152,7 @@ typography:
     fontFeature: "'tnum' 1"
 ```
 
-Every level differs in more than size — tracking, line-height, and family all carry information. That is what distinguishes a typographic system from a list of font sizes.
+Every level differs in more than size — tracking, line-height, and family all carry information.
 
 Faces with an `opsz` axis (Fraunces, Newsreader, Source Serif 4, Inter) adjust contrast and spacing for the size they are set at; the spec supports `fontFeature` and `fontVariation` for that and for stylistic sets:
 

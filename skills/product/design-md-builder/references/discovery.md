@@ -29,7 +29,7 @@ When the request names it:
 | `evolve` | Compare the identity with stated product intent and recommend the required scale of change. |
 | `sync` | Accept implementation values as truth for drifted token groups without introducing a direction. |
 
-When the request is ambiguous between refresh and rebrand, carry both into the identity assessment. Recommend one after examining whether the existing DNA still serves the stated intent, then wait for confirmation.
+When the request is ambiguous between refresh and rebrand, carry both into the identity assessment, which settles which one the DNA supports.
 
 ## Settle surfaces and register
 

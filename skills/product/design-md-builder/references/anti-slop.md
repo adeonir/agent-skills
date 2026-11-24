@@ -2,19 +2,6 @@
 
 A field guide to the specific defaults that make a design read as machine-generated, why each one happens, and what to do instead.
 
-## Contents
-
-- Scope
-- The mechanism
-- Color
-- Typography
-- Shape, surface, and elevation
-- Layout
-- Iconography and imagery
-- Language
-- The three legitimate exceptions
-- Final checklist
-
 ## Scope
 
 Apply the color, typography, shape, surface, and elevation guidance to identity and tokens. Imagery entries guide the treatment recorded in `## Imagery`. Layout, iconography, and language entries provide context only: do not author page composition, product copy, or another concern's artifact from this skill. A tell never becomes a lint finding solely because it appears in this catalog.
@@ -46,7 +33,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 ### The tells
 
-**The indigo-violet complex.** `#6366F1` (Tailwind indigo-500), `#8B5CF6` (violet-500), `#9333EA` (purple-600), `#4F46E5` (indigo-600). These four are the single most reliable signal of unconsidered AI output. They arrived as Tailwind's demo accent, propagated through a decade of bootstrapped SaaS, and are now the default answer to "pick a brand color."
+**The indigo-violet complex.** `#6366F1` (Tailwind indigo-500), `#8B5CF6` (violet-500), `#9333EA` (purple-600), `#4F46E5` (indigo-600). These four are the single most reliable signal of unconsidered AI output.
 
 **The purple-to-cyan gradient**, and its siblings: violet→pink→orange, blue→purple, `from-purple-500 via-pink-500 to-orange-400`. Especially as a background mesh or blob behind a hero.
 
@@ -66,19 +53,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 ### What to do instead
 
-**Anchor the hue to a real referent.** Choose a color because it's the oxide on weathered copper, the specific green of hospital corridors, the amber of a phosphor CRT, the ink density of a 1968 Braun manual, the exact orange of Dutch road signage, the paper stock of a Kinfolk issue. Then name the referent in the DESIGN.md prose. This is the single highest-leverage anti-slop move available, because a sourced color is by construction not the median color, and the sourcing is legible to the reader.
-
-**Build ramps in OKLCH.** Perceptual lightness means a 10% step actually looks like a 10% step; HSL lies to you, and ramps built in HSL have visible dead zones and hot spots.
-
-**Bend the ramp.** Two properties separate a hand-built ramp from a generated one:
-- *Hue shift* — real pigments shift hue as they lighten or darken. A red that goes toward orange in the tints and toward maroon in the shades looks like a material. A red at a fixed hue angle across nine steps looks like a spreadsheet. Shift 5–20° across the ramp.
-- *Chroma taper* — chroma should peak in the mid-lightness range and fall off toward both ends, because the gamut narrows there. Flat chroma produces muddy darks and neon lights.
-
-**Tint every neutral.** Carry a small amount of the brand hue (or its complement, for a cooler feel) through the entire grey ramp — chroma around 0.005–0.02 in OKLCH. The effect is nearly invisible per-swatch and completely transformative in aggregate. Warm neutrals for paper/craft/editorial tones, cool for clinical/technical.
-
-**Move off the endpoints.** Instead of `#FFFFFF`, an off-white with a trace of warmth (`#FAF9F6`, `#F7F5F2`) or coolness (`#F8FAFC` is Tailwind's — build your own). Instead of `#000000`, a near-black carrying the brand hue (`#1A1C1E`, `#141210`).
-
-**Derive semantics from the family.** Your error color should look like it belongs to your brand — a rust, a brick, a vermilion — not like a stock alert red imported from another system.
+**Anchor the hue to a real referent, then name the referent in the DESIGN.md prose.** A sourced color is by construction not the median color, and the sourcing is legible to the reader. Load `color-craft.md` for the mechanics when the run does palette work: OKLCH ramps, hue shift, chroma taper, the neutral tint, and the endpoints.
 
 **Enforce accent scarcity.** Pick one accent, give it exactly one job (usually: "this is the primary action" or "this is live/changed"), and hold it under ~5% of pixels. Everything else does its work through weight, size, spacing, and neutral value. Write this into Do's and Don'ts, because it's the rule most likely to erode later.
 
@@ -104,19 +79,9 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 
 ### What to do instead
 
-**Use two typefaces that differ by classification.** A grotesque + a serif, a serif + a mono, a humanist sans + a condensed display. Two grotesques together (Inter + Helvetica) is not a pairing, it's an accident. The classic split: one face carries the *voice* (display and headings), the other carries the *apparatus* (labels, metadata, numerics).
+Load `typography.md` when the run does type work: it sets the inverse of every tell above — the pairing, the optical tracking, the inverse line-height, two far-apart weights, and the measure.
 
-**Pick faces with something specific about them.** A face with real optical sizes, a variable axis you actually use, unusual figures, distinctive italics, a genuine condensed cut. See `typography.md` for a library organized by classification, with open-source options throughout — this does not require licensing budget.
-
-**Build the scale with a ratio, then break it.** Generate with a modular ratio (≈1.2 for dense UI, ≈1.25–1.333 for editorial, ≈1.5 for dramatic), then hand-tune. Pure geometric scales are always too timid at the display end and too crowded at the small end. The jump from body to display should feel like a jump.
-
-**Set tracking optically.** Large display sizes need negative tracking (−0.02 to −0.04em) because the default spacing was drawn for text sizes. Small uppercase labels need positive tracking (+0.06 to +0.12em). Body text usually needs nothing. Tracking that changes with size is one of the clearest markers of a considered system.
-
-**Move line-height inversely to size.** Roughly 1.0–1.15 for display, 1.2–1.35 for subheads, 1.5–1.7 for body, ~1.4 for small text. A single line-height across the scale is a tell.
-
-**Two or three weights, far apart.** 400 and 700 reads as intentional contrast. 400/500/600 reads as indecision. If you need a third, make it a genuine extreme (300 or 900), not an intermediate.
-
-**Constrain the measure.** 60–75 characters for body. Wider is unreadable; the default full-width paragraph is a common failure.
+**Use two typefaces only when each has a distinct job.** A grotesque + a serif, a serif + a mono, a humanist sans + a condensed display. Two grotesques together (Inter + Helvetica) is not a pairing, it's an accident.
 
 ---
 
@@ -177,7 +142,7 @@ The reliable test for any token: **can you finish the sentence "this value is wh
 - **Emoji as feature icons** is an immediate tell.
 - **Icons in tinted rounded squares above feature headings** is the single most recognizable AI layout unit in existence.
 - **Generic 3D/isometric illustration** and abstract gradient blobs signal stock content.
-- Better: a set with actual character (see the direction's notes), or no icons at all — typographic hierarchy usually does the job — or a single strong image instead of many weak ones.
+- Better: no icons at all — typographic hierarchy usually does the job — or one strong image instead of many weak ones. Use a set with actual character only when the direction names one.
 
 ---
 
@@ -187,7 +152,7 @@ Copy is part of the design because it determines the shape of every block.
 
 Tells: "Supercharge," "Effortlessly," "10x," "Seamlessly," "Unlock," "Take your X to the next level"; ✨🚀🎯 in headings; three-word feature titles with a one-sentence subtitle in exactly parallel structure; em-dash-heavy rhythm.
 
-Better: say the specific thing the product does. Specific copy is shorter, which changes the layout, which changes the design. Vague copy forces the generic three-column grid because there's nothing to differentiate.
+Better: say the specific thing the product does.
 
 ---
 

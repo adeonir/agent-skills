@@ -18,7 +18,7 @@ How to build a palette that looks made rather than picked. Read alongside `anti-
 
 Do not pick a color. **Find** one.
 
-The difference is not mystical — it's that a sourced color has properties you would never arrive at by taste. Weathered copper is a desaturated blue-green with a slightly yellow cast that no color picker would suggest. Sodium street lighting is an orange so narrow-band it makes everything else look grey. A 1968 Braun panel is an off-white with a specific warm grey undertone. These are *specific*, and specificity is exactly what slop lacks.
+The difference is not mystical — it's that a sourced color has properties you would never arrive at by taste. That specificity is exactly what slop lacks.
 
 Productive sources:
 
@@ -108,7 +108,7 @@ A terracotta primary, sourced from unglazed pottery:
 | 700 | `oklch(0.36 0.095 25)` | `#693A26` |
 | 800 | `oklch(0.24 0.065 20)` | `#472619` |
 
-Lightness descends on a perceptual curve, chroma peaks at 500, hue bends 42°→20°. Nothing here is a framework default.
+Lightness descends on a perceptual curve, chroma peaks at 500, hue bends 42°→20°.
 
 ### How many ramps
 
@@ -142,7 +142,7 @@ oklch(0.28 0.009 50)  #3B372F
 oklch(0.18 0.008 48)  #23201B
 ```
 
-Compare `#736D63` against `#737373`. Individually the difference is nearly imperceptible. Across an entire interface it's the difference between a designed surface and a wireframe.
+Compare `#736D63` against `#737373`. Individually the difference is nearly imperceptible.
 
 **Also move off the endpoints.** `#FFFFFF` and `#000000` are both physically harsh and both signal an unmade decision. Use the top and bottom of your tinted ramp instead — unless pure black/white is genuinely the concept (Structural Brutalist, some Luxury Minimal).
 
@@ -150,7 +150,7 @@ Compare `#736D63` against `#737373`. Individually the difference is nearly imper
 
 ## 5. Semantic colors
 
-Error, success, warning, and info should look like members of your palette, not imports from someone else's.
+Make error, success, warning, and info members of your palette, not imports from someone else's.
 
 Take the conventional hue as a starting point, then pull it toward your system: match the chroma level of your other colors, apply the same lightness curve, and shift the hue slightly toward your primary. A palette with a warm terracotta primary should have a brick-toned error (`oklch(0.52 0.15 28)`), not `#EF4444`.
 

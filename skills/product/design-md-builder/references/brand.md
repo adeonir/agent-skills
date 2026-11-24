@@ -15,7 +15,7 @@ Restraint without purpose reads as generic, not refined. A move that is voice on
 
 ## The brand slop test
 
-If someone could look at it and say "AI made that" without hesitation, the identity failed. The bar is distinctiveness; a visitor should ask "how was this made?", not "which AI made this?". Before committing, name the aesthetic lane (the reference) — then describe what you're about to build the way a competitor would describe theirs. If that sentence fits the modal page in the category, restart.
+If someone could look at it and say "AI made that" without hesitation, the identity failed. The bar is distinctiveness. Before committing, name the aesthetic lane (the reference) — then describe what you're about to build the way a competitor would describe theirs. If that sentence fits the modal page in the category, restart.
 
 ## Token permissions
 
