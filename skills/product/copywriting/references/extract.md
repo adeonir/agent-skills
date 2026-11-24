@@ -23,13 +23,13 @@ If context was not established by discovery, ask about any content constraints (
 
 ### Step 2: Get Source
 
-Sources are accepted in five forms. The user provides whatever they have: URL, screenshot, raw HTML, brief, or codebase; the skill receives the input as-is. A description can scope a partial source, but a description without source content is intent for the `write` operation, not an extraction source.
+Sources are accepted in five forms. Accept whatever the user provides — URL, screenshot, raw HTML, brief, or codebase — as-is. A description can scope a partial source, but a description without source content is intent for the `write` operation, not an extraction source.
 
 **Full source.** Anything that covers the full surface: public URL, a page-wide screenshot, a complete brief, a codebase, or raw HTML pasted into the conversation. Extract across every section the source carries.
 
 **Partial source.** Anything that covers a specific region only: a hero shot, a pricing table, a single screen. The user may scope by selector, description, or by providing only that fragment. Extract within the scope provided; never invent the surrounding page.
 
-**Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections). Pull copy-relevant facts only; requirement IDs, milestones, sprint or release names, roadmap language, and sibling-artifact references stay out of `copy.yaml`.
+**Brief document.** A PDF or DOCX carrying content and intent. Read it, extract content plus any stated constraints (tone, audience, mandatory sections). Pull copy-relevant facts only; `discovery.md` lists what stays out of `copy.yaml`.
 
 **No source.** Nothing to extract: drafting fresh from intent is a different job.
 

@@ -86,7 +86,7 @@ Book a 20-minute call and see your pipeline in your own data.
 
 ## Dead Structures
 
-Dead words are vocabulary; these are *shapes*. A line can use only plain words and still read as machine-written, because its skeleton is a rhetorical template carrying no information.
+Dead words are vocabulary; these are *shapes*.
 
 ### empty-antithesis
 **Category:** Dead Structures
@@ -196,7 +196,7 @@ It sets up in under five minutes — no config file.
 **Category:** AI Copy Tells
 **Severity:** warning
 **Check:** A "whether you're A, B, or C" sweep that tries to address everyone and so addresses no one — "Whether you're a startup, an enterprise, or a solo founder…".
-**Fix:** Name the one reader this copy is for. Breadth that names no one persuades no one.
+**Fix:** Name the one reader this copy is for.
 **Example fail:**
 ```text
 Whether you're a startup, an agency, or a Fortune 500, we've got you covered.

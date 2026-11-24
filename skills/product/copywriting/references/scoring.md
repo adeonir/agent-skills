@@ -93,7 +93,7 @@ distinctive / trustworthy, or generic / AI-written? One honest paragraph.}
 
 ## Required shape
 
-The layout is flexible; these invariants are not. Whatever the format:
+Every report keeps these invariants:
 
 - the score table lists **every** axis (all seven sweeps for critique) or dimension (all five for audit): none dropped;
 - the printed total equals the sum of the rows;

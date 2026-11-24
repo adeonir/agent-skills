@@ -9,7 +9,7 @@ Pick a point on each axis and hold it across the copy.
 - **Formal / Casual:** "We architect distributed systems" vs "We build the big backend that doesn't fall over."
 - **Reserved / Bold:** "Comfortable at scale" vs "Handles ten million transactions a day."
 - **Earnest / Dry:** "We love helping teams ship" vs "We get paid to make slow teams less slow."
-- **Plain / Playful:** straight delivery vs well-placed wit. One good line beats five attempts.
+- **Plain / Playful:** straight delivery vs well-placed wit.
 
 ## Register sets the voice
 
@@ -43,8 +43,6 @@ Show credibility, do not assert it. Strongest to weakest:
 Use this hierarchy for claims about capability, quality, or outcomes. A factual description of a subject, role, process, or project needs accurate context, not an invented result. If the strongest proof for a claim is item 6-7, the copy needs better proof, not more adjectives.
 
 ### Outward vs Inward
-
-Confidence points outward (to the work or outcome); bragging points inward (to the person).
 
 | Inward (arrogant) | Outward (confident) |
 |---|---|

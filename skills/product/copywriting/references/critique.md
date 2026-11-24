@@ -33,7 +33,7 @@ Copy that fails either applicable altitude has a specific weakness: name it befo
 
 ### Step 3: Score the seven sweeps
 
-Score all seven sweeps 0–4 as judgment axes: Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](editing-sweeps.md), bands in [scoring.md](scoring.md)). Apply the function-specific meaning of each sweep and the intent constraints. Report a constraint violation as a finding even when the wording is otherwise strong. Present as a table with a per-row key issue and the total /28. Be honest: most real copy lands mid-scale.
+Score all seven sweeps 0–4 as judgment axes: Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](editing-sweeps.md), bands in [scoring.md](scoring.md)). Apply the function-specific meaning of each sweep and the intent constraints. Report a constraint violation as a finding even when the wording is otherwise strong. Present as a table with a per-row key issue and the total /28.
 
 ### Step 4: Proof check
 
@@ -49,7 +49,7 @@ Hand the refinements to refresh; re-edit and re-critique until the copy holds: t
 
 ### Step 6: Self-check
 
-Before presenting, verify the verdict against the required shape in [scoring.md](scoring.md): all seven sweep rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and the matching refresh sweep. A verdict that cannot be acted on is not done.
+Before presenting, verify the verdict against the required shape in [scoring.md](scoring.md): all seven sweep rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and the matching refresh sweep.
 
 ## Guidelines
 

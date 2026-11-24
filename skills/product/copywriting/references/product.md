@@ -13,11 +13,11 @@ When the words SERVE the task: app and dashboard UI, forms, settings, data table
 
 ## The product slop test
 
-Not "does it have a voice": clarity is the point here. The test: can a user fluent in the category act on this copy without pausing? Product copy's failure mode is not flatness; it is friction: jargon, vague labels, an error that never says how to fix it, or a button that does not name its action.
+Not "does it have a voice": clarity is the point here. The test: can a user fluent in the category act on this copy without pausing? Product copy's failure mode is friction, not flatness: jargon, vague labels, an error with no fix, a button that does not name its action.
 
 ## Clarity and tone
 
-- Be specific, active, human: "Save changes" over "OK"; tell the reader what to do, not only what happened.
+- Specific, active, human: tell the reader what to do, not only what happened (`ux-writing.md`).
 - One term per concept, held across the surface (Delete, not Delete / Remove / Trash).
 - Concise and calm; verbs first, no hype.
 - Tone shifts with the moment (success, error, loading) on top of a constant voice (`voice.md`).

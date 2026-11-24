@@ -4,7 +4,7 @@ The clarity discipline for copy: diagnose what makes a line unclear, then rewrit
 
 ## The Method
 
-Unclear copy creates friction: confusion, errors, abandonment; clear copy gets the reader through. Four moves on any line:
+Four moves on any line:
 
 1. **Assess**: name what makes it fail: jargon, ambiguity, passive voice, wrong length, assumed knowledge, missing context, tone mismatch.
 2. **Plan**: the primary message (the ONE thing to land), the action (what to do next), the tone (by moment, below), the constraints (length, space, locale).
@@ -87,8 +87,5 @@ Say it once. If the heading explains it, the intro is redundant; if the button i
 
 ## Guidelines
 
-- Run the method on any line that reads unclear: persuasive or functional.
-- Be specific, active, human; tell the reader what to do, not only what happened.
-- Match the tone to the moment; hold voice and register across all of them.
 - Author label, alt, and aria text as content; leave the requirement to the build.
 - Don't repeat `voice.md` or `editing-sweeps.md`: cross-link them for voice, proof, and prose tightening.

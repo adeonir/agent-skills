@@ -59,7 +59,6 @@ Before presenting, verify the report against the required shape in [scoring.md](
 - Lead with the anti-pattern verdict; be honest about slop
 - Every finding states reader impact: why it costs, not just what it is
 - Quality-only: do not flag requirement or implementation drift; that is reconcile
-- Report, never apply: the non-mutating invariant holds for audit too
 
 ## Error Handling
 

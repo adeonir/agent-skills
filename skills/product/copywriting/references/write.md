@@ -67,7 +67,6 @@ Report the path, what `copy.yaml` holds in one to three sentences, and any open 
 **DO:**
 
 - Write specific: a number, a name, or a concrete example over an adjective
-- Support a claim about capability, quality, or an outcome with proof; a factual description needs accurate context
 - Select the frameworks and quality criteria from the surface function before drafting
 - Follow the confirmed intent; name a next action only when the intent calls for one
 - Match the author's voice; read copy aloud before saving

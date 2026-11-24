@@ -13,7 +13,7 @@ When the words ARE the product: marketing sites, landing and campaign pages, lau
 
 ## The brand slop test
 
-If the copy could sit on any competitor's page unchanged, it has no point of view. Brand copy earns attention with specificity and a voice: a concrete fact, a first-person observation, or a line only this author could write. For an informational intent, apply this test to the surface as a whole, not every factual line. Stacked adjectives ("innovative", "seamless", "world-class") are the tell; replace them with the specific thing. (See dead words and structures in `anti-patterns.md`.)
+If the copy could sit on any competitor's page unchanged, it has no point of view. For an informational intent, apply this test to the surface as a whole, not every factual line. Stacked adjectives ("innovative", "seamless", "world-class") are the tell; replace them with the specific thing. (See dead words and structures in `anti-patterns.md`.)
 
 ## Voice and proof
 
