@@ -2,7 +2,6 @@
 name: session-retro
 description: 'Reviews a finished coding session and, from the evidence in it, proposes changes to the environment the agent works in so the same lost time and mistakes do not recur: `AGENTS.md` files, rules, automated checks, navigation, tool use, and information access. Use when the user asks for a retro or retrospective, to improve the agent setup after a session, or says "what should we change so this does not happen again". Not for writing or trimming an AGENTS.md or rule with no session behind it, reviewing an earlier session, a defect report on one skill, session handoffs, end-of-session notes, code review, or editing the files it proposes to change.'
 disable-model-invocation: true
-compatibility: Requires jq and Claude Code session logs.
 metadata:
   inspired-by:
     - "retro — https://github.com/mattpocock/skills/blob/main/skills/engineering/retro/SKILL.md"
@@ -24,7 +23,7 @@ Progress:
 - [ ] Step 4: Print the candidates
 ```
 
-**Step 1. Read the session.** Read the current conversation, then the logs of the subagents this session started: they hold the tool calls the conversation shows only as a summary. Find the session log with `ls -t ~/.claude/projects/$(pwd | sed 's/[^A-Za-z0-9]/-/g')/*.jsonl | head -1` and confirm it is this session's: its first user message matches the first message of this conversation. When it does not match, or no folder of the same name without `.jsonl` holds a `subagents/` folder, read the conversation alone. Run both commands on each subagent log in that folder: the first prints each failed tool result cut to 200 characters, the second counts the edits per file.
+**Step 1. Read the session.** Read the current conversation. When the host exposes logs of the subagents this session started, read them too: they hold the tool calls the conversation shows only as a summary. In Claude Code they are JSONL files under `~/.claude/projects/<project>/`, and `subagents/` holds the child runs; read the file whose first user message matches the first message of this conversation, and fall back to the conversation alone when it does not match:
 
 ```bash
 jq -r '.message.content? | arrays | .[] | select(.type=="tool_result" and .is_error==true) | (.content|tostring|.[0:200])' <subagent-log>
