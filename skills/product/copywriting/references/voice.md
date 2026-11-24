@@ -1,6 +1,6 @@
 # Voice and Proof
 
-Voice axes, register bias, and the proof hierarchy. This craft keeps written copy sounding like someone and earning trust. The cross-referenced slop catalog of dead words, dead structures, and machine tells lives in `anti-patterns.md`.
+Voice axes, register bias, and the proof hierarchy. The cross-referenced slop catalog of dead words, dead structures, and machine tells lives in `anti-patterns.md`.
 
 ## Voice Axes
 

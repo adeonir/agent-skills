@@ -46,8 +46,6 @@ Score Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pu
 | Poor | 8–13 | Major rewrite |
 | Critical | 0–7 | Start over from intent |
 
-Each weak axis maps straight to the matching refresh sweep: that is the loop.
-
 **Audit: five ship-readiness dimensions, total /20:**
 
 Score Readability, Claim integrity, Intent fit, Microcopy correctness, and Anti-pattern density 0–4 each. Intent fit checks the stated purpose, reader goal, constraints, and function.
