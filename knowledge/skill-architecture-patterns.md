@@ -111,7 +111,7 @@ Declare the input, the action, and the completion condition in every step. Numbe
 
 ### Material
 
-Use free sections. A procedure loads the material at the step that needs it; material never points to another file. Put a `## Contents` list at the top of any file above 100 lines, so a partial read still shows the full scope.
+Use free sections. A procedure loads the material at the step that needs it; material never links to another file. Put a `## Contents` list at the top of any file above 100 lines, so a partial read still shows the full scope.
 
 ### Naming
 

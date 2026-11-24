@@ -7,7 +7,7 @@ paths:
 
 **Impact: HIGH**
 
-`SKILL.md` selects the procedure; the procedure loads the material its steps need. A procedure never hands the job to another procedure, and material never points to another file.
+`SKILL.md` selects the procedure; the procedure loads the material its steps need. A procedure never hands the job to another procedure, and material never links to another file.
 
 A load is a step: the procedure says when to read the file and what it buys. A constraint two procedures need is one material file, loaded by each at the step that needs it, so a condition that only surfaces mid-procedure is still delivered.
 
