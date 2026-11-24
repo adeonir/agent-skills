@@ -18,7 +18,7 @@ resolve location → check feature artifact
 5. Run the checks in [quality.md](quality.md) before writing. Read `<this-skill>/assets/feature-design.template.md`, use its exact structure, remove every optional section or subsection that has no content, delete comments, and replace every remaining square-bracket slot.
 6. When the document lives on the issue, write it per [tracker-document.md](tracker-document.md) `## Edit on the Issue`, then reread it per [quality.md](quality.md) `## Reread`. Otherwise populate the `## Sources` section from supplied files or URLs, or write `- None` when none were supplied. Write `.artifacts/features/<feature-slug>/design-doc.md`, then reread it per [quality.md](quality.md) `## Reread`.
 7. Identify content that should become durable project knowledge. Recommend promoting stable product context to the project PRD or Design Doc, general codebase knowledge to `PROJECT.md`, and permanent architectural decisions to an ADR. Do not update those documents automatically.
-8. **Report.** Report the path or the document URL, what the document holds in one to three sentences — what changed, on an update — and any TBD it carries. Never paste the document. The paired-document order is controlled by the entrypoint.
+8. **Report.** Report the path or the document URL with the design it settles, in one to three sentences — on an update, what the edit moved — and any TBD left open. Do not paste the document. The paired-document order is controlled by the entrypoint.
 
 ## Boundaries
 

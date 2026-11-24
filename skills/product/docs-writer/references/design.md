@@ -120,7 +120,7 @@ Use the template below. Run the checks in [quality.md](quality.md) before writin
 
 ### Phase 3: Report
 
-Report the path, what the document holds in one to three sentences — the stack and architecture recorded, or what changed on an update — and any TBD it carries. Never paste the document.
+Report the path, then the stack and architecture the document now records, in one to three sentences; on an update, name what changed, and any TBD. The reply carries no part of the document.
 
 ## Design Doc Template
 

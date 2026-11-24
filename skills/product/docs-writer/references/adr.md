@@ -95,7 +95,7 @@ For a new ADR, set `Status:` to `proposed`. For an existing ADR, preserve its st
 
 ### Phase 4: Report
 
-Report the path, what the ADR holds in one to three sentences — its ID and the decision recorded, or what changed on an update — and any TBD it carries. Never paste the ADR.
+Report the ADR's path, its ID, and the decision it records in one to three sentences — on an update, what the record now says differently — plus any TBD it still carries. Nothing from the ADR is pasted into the reply.
 
 ## ADR Template
 

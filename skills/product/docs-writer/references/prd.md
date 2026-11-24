@@ -158,7 +158,7 @@ Challenge what was learned.
 2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence.
 3. Run [quality.md](quality.md).
 4. Write each document to its path, then reread each per [quality.md](quality.md) `## Reread`.
-5. **Report.** Report each path, what each document holds in one to three sentences — the expected outcome, the most important requirements, and the primary metric for the PRD — and any open question or TBD each carries. Never paste the documents.
+5. **Report.** Report each path and, for the PRD, its expected outcome, most important requirements, and primary metric in one to three sentences — on an update, what changed — with every open question or TBD still carried. The documents themselves stay out of the reply.
 
 **Drafting notes:**
 

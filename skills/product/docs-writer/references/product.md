@@ -90,4 +90,4 @@ Write to `PRODUCT.md` directly, and reread it per [quality.md](quality.md) `## R
 
 ## Report
 
-Report the path, what the document holds in one to three sentences — the register and the identity, or what changed on an update — and any open question it carries. Never paste the document.
+Report the path and, in one to three sentences, the register and identity `PRODUCT.md` now states — or the part an update moved — with any question left open. Never reproduce the document in the reply.

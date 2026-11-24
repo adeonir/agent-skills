@@ -12,7 +12,7 @@ read → scope → validate changes → write → report
 2. **Set the scope.** Identify what the user wants to change and what the change directly affects. If the request is unclear, ask for the missing detail.
 3. **Validate the changes.** Apply `discovery.md` `## Critical Review` only to the planned changes. Ask what evidence supports the change. Report conflicts with unchanged sections, such as a metric that conflicts with the scope or a requirement that contradicts an out-of-scope item.
 4. **Write.** Preserve every section outside the scope. Use the matching template only to check the existing structure; never copy a template over unchanged content. Write the document to its path.
-5. **Report.** Report the path, what changed in one to three sentences, and any open question or TBD it carries. Never paste the document.
+5. **Report.** Report the path and, in one to three sentences, which values the reconcile moved, with any open question or TBD left. The document stays out of the reply.
 
 ## Reading the Sibling Artifact
 
