@@ -2,10 +2,6 @@
 
 The brief and inputs a fresh implementer sub-agent receives for one task.
 
-## When to Use
-
-Load to dispatch a task and to resume it.
-
 ## Inputs
 
 Give the sub-agent pointers, not copies, and no conversation context:

@@ -2,10 +2,6 @@
 
 The brief and inputs a fresh merger sub-agent receives to bring a finished task up to the moved integration branch.
 
-## When to Use
-
-Load when a finished task's branch does not contain the integration branch tip, or when the fast-forward refused because the tip moved.
-
 ## Inputs
 
 Give the sub-agent pointers, not copies, and no conversation context:
