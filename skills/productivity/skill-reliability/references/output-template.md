@@ -12,14 +12,16 @@ Use this template as written:
 ### Trigger reliability: <Clean | Leaky | Narrow>
 <does it fire on the right requests; note any description rewrite and its held-out re-test result>
 
-### Workflow: <filename> — N steps
+### Workflow: <filename> — N steps, M decisions
 
-| Step | Nature | Baseline | Risk |
-|------|--------|----------|------|
-| 1. <name> | deterministic | ~99% | low |
-| 2. <name> | generation (free-form) | ~82% | high |
+| Decision | Nature | Baseline | Risk |
+|----------|--------|----------|------|
+| Step 2. <name> | generation (free-form) | ~82% | high |
+| Step 4. <name> | conditional | ~93% | medium |
 
-End-to-end: ~99% × … × ~82% ≈ X% (<tier>)
+Checkpoints: Step 1, Step 3 (no decision, no baseline).
+
+End-to-end: ~82% × ~93% ≈ 76% (moderate)
 
 ### Full chain (if chained): M total steps
 
