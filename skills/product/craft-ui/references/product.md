@@ -17,8 +17,6 @@ Familiarity is a feature here. The consistency that reads as timid on brand is a
 
 Not "would someone say AI made this" — familiarity is often the point. The test is: would a user fluent in the category's best tools (Linear, Figma, Notion, Raycast, Stripe) sit down and trust this interface, or pause at every subtly-off component?
 
-Product UI's failure mode isn't flatness, it's **strangeness without purpose**: over-decorated buttons, mismatched form controls, gratuitous motion, display fonts where labels should be, invented affordances for standard tasks. The bar is earned familiarity — the tool disappears into the task.
-
 ## What a direction may change
 
 On a product surface, a direction lends four things and only these: type, palette, density, and one signature move. It never supplies the layout, the navigation model, or the controls; those stay the standard ones the platform and the category already use. Name the signature move concretely — service health drawn as a transit map, a schedule set in a timetable's column rhythm — so the mockup can find it.
@@ -46,7 +44,7 @@ Responsive behavior is carried structurally, not by fluid typography.
 
 ## Components
 
-Every interactive component has default, hover, focus, active, disabled, loading, error. Don't ship with half of these.
+Every interactive component covers the eight states in `interaction.md`; don't ship with half of them.
 
 - Skeleton states for loading, not spinners in the middle of content.
 - Empty states that teach the interface, not "nothing here."

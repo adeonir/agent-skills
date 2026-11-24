@@ -34,7 +34,7 @@ If someone could look at this and say "AI made that" without hesitation, it fail
 
 AI-generated landing pages have flooded the internet; average is no longer findable. Brand surfaces need a POV, a specific audience, a willingness to risk strangeness.
 
-**Second altitude: aesthetic lane.** Before committing, name the reference. A Klim-style specimen page is one lane; Stripe-minimal another; acid-maximalism another. Don't drift into editorial-magazine aesthetics on a brief that isn't editorial. Then the inverse test: describe the page about to be built, phrased the way a competitor would describe their own page. If that sentence fits the modal landing page in the category, restart.
+**Second altitude: aesthetic lane.** Before committing, name the reference. A Klim-style specimen page is one lane; Stripe-minimal another; acid-maximalism another. Don't drift into editorial-magazine aesthetics on a brief that isn't editorial.
 
 ## Typography
 
@@ -63,7 +63,7 @@ The reflex-reject lists apply to **new design choices** and deliberate departure
 
 ### Pairing, voice, scale
 
-Distinctive + refined is the goal; the shape depends on the brand, not its category. Two families is the rule *only* when the voice needs it — a single well-chosen family with committed weight/size contrast beats a timid pair. Modular scale, fluid `clamp()` for headings, ≥1.25 ratio between steps; flat scales read as uncommitted. Light text on dark: add 0.05–0.1 to line-height.
+Distinctive + refined is the goal; the shape depends on the brand, not its category. Two families is the rule *only* when the voice needs it — a single well-chosen family with committed weight/size contrast beats a timid pair. Modular scale, fluid `clamp()` for headings, ≥1.25 ratio between steps; flat scales read as uncommitted.
 
 ## Color
 

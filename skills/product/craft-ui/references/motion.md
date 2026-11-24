@@ -38,9 +38,9 @@ Exit animations run ~75% of enter duration. Durations over 500ms for *feedback* 
 --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);   /* decisive */
 ```
 
-Never bounce (`0.34, 1.56, …`) or elastic — they read as dated and draw attention to the animation itself. Ease-out for entrances; on exits, ease-in makes a task feel shorter (peak-end weights the final moments).
+Never bounce (`0.34, 1.56, …`) or elastic — they read as dated and draw attention to the animation itself.
 
-Match the curve to the motion type: **ease-out** for entrances and anything the user watches arrive; **ease-in-out** for an element moving A→B already on screen; plain **ease** for hover and color; **linear** only for constant motion (spinners, marquees). Reserve **ease-in** for exits — an element the user watches *arrive* on ease-in feels sluggish, because it starts slow exactly when attention is on it. Beyond the exit-runs-faster rule above, time motion asymmetrically: slow it where the user is deciding, speed it where the system is only responding.
+Match the curve to the motion type: **ease-out** for entrances and anything the user watches arrive; **ease-in-out** for an element moving A→B already on screen; plain **ease** for hover and color; **linear** only for constant motion (spinners, marquees); **ease-in** for exits only. Beyond the exit-runs-faster rule above, time motion asymmetrically: slow it where the user is deciding, speed it where the system is only responding.
 
 ## Motion materials
 

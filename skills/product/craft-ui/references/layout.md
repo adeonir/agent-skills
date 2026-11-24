@@ -1,6 +1,6 @@
 # Layout
 
-Space is the most underused design tool. Recipes for spacing systems, rhythm, the right layout tool, hierarchy, depth, and optical adjustment — fix the structure, not the surface. Layout problems are often why an interface feels "off" even when color and type are fine.
+Fix the structure, not the surface — recipes for spacing systems, rhythm, the right layout tool, hierarchy, and depth, because layout is the usual reason an interface feels off while color and type are fine.
 
 ## Register sets the composition
 

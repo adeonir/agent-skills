@@ -24,7 +24,7 @@ These axes carry the *look*. The page arrangement is not one of them — it is s
 | **Atmosphere & Era** | Brutalist (raw, default fonts, hard edges, "ugly-cool"), Cyberpunk (neon on dark, glitch effects, tech-heavy), Y2K (late 90s/2000s optimism, chrome, pill shapes, bright), Retro-Futurism (80s synthwave, sunsets, wireframe grids, glow), Modern Minimal (timeless restraint, no era signals) |
 | **Color & Contrast** | Duotone (two contrasting colors and their shades only), Monochromatic (single hue across all surfaces), Pastel Goth (milky pastels with stark black type and borders), Dark Mode OLED (true `#000000` for OLED punch on hero surfaces; soften body surfaces to dark grey to avoid halation and improve legibility), Earth Tones (warm naturals, restrained saturation) |
 
-Executing a named axis well is not wearing its costume. A cell names the lane; the craft is in *how* the lane is built. Brutalist done right, for instance, is engineered extreme type-scale contrast (a heavy grotesque display against small wide-tracked mono, or a deliberate raw-default-font take), a single utilitarian accent held under strict restraint, grid-anchored compartmentalization with 90° rigidity, and bimodal density (dense data against vast negative space). The costume version copies the hard corners and stops, with no structure beneath. Test any named style: does each element reference a real function, or only imitate the look of one?
+Executing a named axis well is not wearing its costume. A cell names the lane; the craft is in *how* the lane is built — brutalist done right is engineered contrast and structure, where the costume version copies the hard corners and stops. Test any named style: does each element reference a real function, or only imitate the look of one?
 
 ## Density & Variance
 
@@ -59,7 +59,7 @@ The cheapest way to catch a generic result is to try to guess it from the outsid
 
 Then the inverse: describe the page about to be built in one sentence, phrased the way a competitor would describe their own page. If that sentence fits the modal page in the category, restart.
 
-Some categories carry a reflex palette the whole field defaults to — beige-and-cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer brands; dark-blue gradients for fintech. Reaching for the category's stock palette is the anti-reference reflex in color form: name the reflex palette for this category and treat it as a default to earn past, not the safe choice.
+Some categories carry a reflex palette the whole field defaults to — beige-and-cream with brass, clay, or oxblood for cookware, wellness, and premium-consumer brands. Reaching for the category's stock palette is the anti-reference reflex in color form: name the reflex palette for this category and treat it as a default to earn past, not the safe choice.
 
 ### The warm-neutral trap
 
@@ -84,10 +84,6 @@ Match implementation effort to the aesthetic vision:
 - **Minimal / luxury / neo-grotesque**: restraint is the skill. Fewer elements, each pixel-perfect. Spacing, weight, and color precision carry the result. The failure mode is empty, not busy: disciplined minimal still supplies depth — through near-invisible means (low-opacity imagery, a warm radial light, grain, hairline structure), not by adding elements — and lets contrast migrate to type-role (display serif vs sans vs mono) and whitespace rather than color. Motion stays quiet too.
 - **Middle-ground tones** (editorial, startup, organic): balance detail and restraint. One or two signature moments plus polished fundamentals.
 
-If the tone is bold, don't write timid code. If refined, don't overload with effects.
-
 ## Creative Mandate
 
 Every generation must feel like a different designer made it. Vary fonts, color temperature, layout geometry, motion style, and density between builds. Never converge on a "house style" across directions or successive generations.
-
-Interpret creatively. Make unexpected choices that feel genuinely designed for the context. Commit fully to the chosen direction.

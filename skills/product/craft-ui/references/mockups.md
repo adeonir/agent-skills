@@ -62,7 +62,7 @@ Required references:
 
 Without `structure.yaml`, decide the arrangement independently inside each direction.
 
-Compose each direction from [design-thinking.md](design-thinking.md). When the user names one ("Cyberpunk", "Editorial dark mode", "Grainy Duotone"), compose from that name. With none named, compose one that three conditions hold for: it is biased by the register the surface carries, it fits the surface, and no mockup in `.artifacts/design/mockups/` already spent it there. When `structure.yaml` is absent, the direction also includes its arrangement. Vary the direction per mockup; never converge on a house style.
+Compose each direction from [design-thinking.md](design-thinking.md). When the user names one ("Cyberpunk", "Editorial dark mode", "Grainy Duotone"), compose from that name. With none named, compose one that three conditions hold for: it is biased by the register the surface carries, it fits the surface, and no mockup in `.artifacts/design/mockups/` already spent it there. Vary the direction per mockup; never converge on a house style.
 
 Draw candidates from the audience's own world: the objects, places, rituals, publications, and interfaces it knows by heart, each with its ground and main colors, its type voice, and the one signature that makes it recognizable. Before rendering, draft five to seven candidate directions internally, without showing them to the user. Cut the look this category always ships and its predictable opposite, then render N from what remains. A direction the user names skips this step.
 
@@ -90,7 +90,7 @@ The YAML frontmatter at the top of `DESIGN.md` is the source of truth for tokens
 - **Components** — from `components.*`. Each entry becomes a class with properties resolved through the reference chain.
 - **Elevation / Motion / Borders / States** — from the prose, never the frontmatter. Read the exact value in parentheses in `## Elevation & Depth`, `## Shapes`, `## Components`, and `## Motion`, and emit it as a custom property (`--shadow-raised`, `--duration-fast`, `--ease-out`). A value the prose names without an exact figure is composed from the direction and flagged as an open item.
 
-When `DESIGN.md` is absent or ignored, compose seed tokens from [design-thinking.md](design-thinking.md) plus the craft dimensions in place of the frontmatter. No external parser, no token endpoint — read the YAML (or compose the seed), resolve references, map to CSS variables, ship the file.
+When `DESIGN.md` is absent or ignored, compose seed tokens from [design-thinking.md](design-thinking.md) plus the craft dimensions in place of the frontmatter. No external parser and no token endpoint: the frontmatter is the only source, plus what the direction composes.
 
 ## Brownfield scan
 
