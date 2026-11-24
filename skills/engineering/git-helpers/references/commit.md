@@ -40,7 +40,7 @@ Split only when the types fall on file boundaries. When one file carries both, t
 
 Done when the staged diff carries one type.
 
-**Step 4. Write the subject.** Load [message-sourcing.md](references/message-sourcing.md) · where the words come from and the diction bar, then write it.
+**Step 4. Write the subject.** Load [message-sourcing.md](message-sourcing.md) · where the words come from and the diction bar, then write it.
 
 1. **Imperative mood**: write the subject as a command — "add", "fix", "move", never "added" or "fixes".
 2. **Human readable**: write the subject so a teammate understands it without opening the diff:

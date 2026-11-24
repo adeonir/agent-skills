@@ -17,7 +17,7 @@ Progress:
 If the draft loses a hand-off, return to Step 3.
 ```
 
-**Step 1. Locate.** Load [flow-model.md](references/flow-model.md) · the structure rules and wireflow notation, and [discovery.md](references/discovery.md) · the intake. In `docs/product/FLOWS.md`, find the named flow's section and the role it plays on the connect map. When the artifact exists, the flow's shape (errors, dead ends) comes from what it says, not recalled.
+**Step 1. Locate.** Load [flow-model.md](flow-model.md) · the structure rules and wireflow notation, and [discovery.md](discovery.md) · the intake. In `docs/product/FLOWS.md`, find the named flow's section and the role it plays on the connect map. When the artifact exists, the flow's shape (errors, dead ends) comes from what it says, not recalled.
 
 **Step 2. Name the goal.** In one line, or one line per comment: shorter, fewer screens, a branch added, a dead end closed, two tasks unmerged, the diagram readable, the labels clear. When the user brings review comments, list the comments, state the change each asks for, and confirm the set as the goal. Have the user confirm the goal — or proceed as a declared assumption they can redirect. Rebuilding a flow for the wrong goal is the cost this confirm prevents.
 
