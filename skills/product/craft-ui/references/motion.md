@@ -15,7 +15,7 @@ Before timing or easing, decide whether it animates at all — most defaults ove
 
 - **Frequency gates the budget.** The more often a user sees a motion, the shorter and subtler it must be. Never animate a keyboard-initiated action or an element seen dozens of times a day — the animation becomes friction. Occasional transitions earn standard motion; rare or first-run moments can afford delight.
 - **Name the purpose.** Motion earns its place when it does a job: spatial consistency (where did this come from), state (what changed), explanation (how these relate), feedback (the system registered the input), or preventing a jarring cut. "Looks cool" on something seen often is not a purpose — cut it.
-- **Decoration animates, function does not.** Press feedback (a small `:active` scale, 0.95–0.98) and state transitions are fair game; a chart, a live number, or any data the user reads for meaning should not move on its own.
+- **Decoration animates, function does not.** Press feedback (a small `:active` scale, 0.95–0.98) and state transitions are fair game; never animate a chart, a live number, or any data the user reads for meaning.
 
 ## Timing: the 100/300/500 rule
 
@@ -54,7 +54,7 @@ Transform and opacity are reliable defaults, not the whole palette — premium s
 
 The rule isn't "transform and opacity only" — it's: avoid animating layout-driving properties casually (`width`, `height`, `top`, `left`, margins), keep expensive effects bounded to small/isolated areas, and verify smoothness in-browser.
 
-Two placement disciplines carry meaning: **origin-aware** — a popover or menu grows from its trigger, not from its own centre; a modal stays centred. **Direction-aware** — forward navigation slides one way and back the opposite, so movement encodes direction. Both serve **continuity**: connect before and after so the user stays oriented — the point of FLIP and shared-element transitions is that the element keeps its identity across the change instead of blinking to a new state.
+Two placement disciplines carry meaning: **origin-aware** — a popover or menu grows from its trigger, not from its own centre; a modal stays centred. **Direction-aware** — forward navigation slides one way and back the opposite, so movement encodes direction. Both serve **continuity**: connect before and after so the user stays oriented.
 
 ## List stagger
 

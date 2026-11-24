@@ -49,8 +49,6 @@ The cliché is the AI default; pick type from the actual voice, not the category
 
 ## Web font loading
 
-The layout-shift problem: fonts load late, text reflows, content jumps.
-
 - `font-display: swap` (show fallback, swap when ready) — or `optional` (use fallback if the web font misses a ~100ms budget; zero shift).
 - Metric-matched fallback via `size-adjust` / `ascent-override` / `descent-override` to minimize shift (Fontaine automates it).
 - Preload the **critical weight only** (regular body, above the fold).

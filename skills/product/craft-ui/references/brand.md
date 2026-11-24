@@ -30,9 +30,7 @@ Restraint without purpose reads as generic, not refined. A move that is voice on
 
 ## The brand slop test
 
-If someone could look at this and say "AI made that" without hesitation, it failed. The bar is distinctiveness; a visitor should ask "how was this made?", not "which AI made this?"
-
-AI-generated landing pages have flooded the internet; average is no longer findable. Brand surfaces need a POV, a specific audience, a willingness to risk strangeness.
+If someone could look at this and say "AI made that" without hesitation, it failed. The bar is distinctiveness.
 
 **Second altitude: aesthetic lane.** Before committing, name the reference. A Klim-style specimen page is one lane; Stripe-minimal another; acid-maximalism another. Don't drift into editorial-magazine aesthetics on a brief that isn't editorial.
 

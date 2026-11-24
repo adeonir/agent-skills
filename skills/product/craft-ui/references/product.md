@@ -52,7 +52,7 @@ Every interactive component covers the eight states in `interaction.md`; don't s
 
 ## Motion
 
-- 150–250 ms on most transitions. Users are in flow; don't make them wait.
+- 150–250 ms on most transitions.
 - Motion conveys state, not decoration — state change, feedback, loading, reveal.
 - No orchestrated page-load sequences. Product loads into a task.
 

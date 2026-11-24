@@ -25,7 +25,7 @@ How to apply color with purpose — OKLCH, palette structure, contrast, dark mod
 
 ## Color space: OKLCH
 
-Use **OKLCH**, not HSL. It is perceptually uniform — equal steps in lightness *look* equal (in HSL, 50% lightness in yellow looks bright, in blue looks dark).
+Use **OKLCH**, not HSL. It is perceptually uniform — equal steps in lightness *look* equal.
 
 `oklch(lightness chroma hue)` — lightness 0–100%, chroma ~0–0.4, hue 0–360. To build a color and its lighter/darker shades, hold chroma + hue roughly constant and vary lightness — but **reduce chroma near white and near black**, or high chroma at the extremes looks garish.
 

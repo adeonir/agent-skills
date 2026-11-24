@@ -31,7 +31,7 @@ Fix the structure, not the surface — recipes for spacing systems, rhythm, the 
 
 ## Hierarchy
 
-Use the fewest dimensions that work — space alone can carry it; generous whitespace around an element draws the eye. The best hierarchy combines 2–3 at once (larger + bolder + more space above = primary without trying).
+Use the fewest dimensions that work. The best hierarchy combines 2–3 at once (larger + bolder + more space above = primary without trying).
 
 Let spacing do the work — don't manufacture hierarchy with a gradient, a card wrapper, a badge, or hero drama when space and weight would carry it. Decoration reached for to signal importance usually means the spacing hierarchy is too flat.
 

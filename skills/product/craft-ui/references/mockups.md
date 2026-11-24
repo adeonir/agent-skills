@@ -119,8 +119,6 @@ Dependencies load via CDN — no build step. Resolve the canonical CDN entry fro
 
 A region the direction fills with an image — a hero, an illustration, a texture, a mood photograph — carries a real image, never a gray box. With an image generation tool available, generate it to the direction's palette, light, and subject. Without one, take a photograph from Unsplash whose subject and tone fit the direction, verify the URL resolves, and hotlink it with its credit in an HTML comment. A slot that would carry proof stays a visibly unresolved placeholder: no generated or stock image stands in for a customer logo, a product capture, or a person quoted in a testimonial.
 
-Mockup code works in the browser and is never production code.
-
 ## Workflow
 
 1. **Read the handoff.** If `structure.yaml` exists, load the arrangement, the surfaces, and the register each one carries. If it is absent, use the brief and other supplied inputs to let each direction choose its own arrangement.
