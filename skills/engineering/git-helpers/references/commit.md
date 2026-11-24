@@ -43,7 +43,7 @@ Done when the staged diff carries one type.
 **Step 4. Write the subject.** Load [message-sourcing.md](references/message-sourcing.md) · where the words come from and the diction bar, then write it.
 
 1. **Imperative mood**: write the subject as a command — "add", "fix", "move", never "added" or "fixes".
-2. **Human readable**: Write the subject so a teammate understands it without opening the diff. Prefer descriptions that tell the story of the change — what actually moved and why it matters — over abstract framing. The first reads like a story; the second like a release-note abstraction:
+2. **Human readable**: write the subject so a teammate understands it without opening the diff:
    - `refactor: make db and auth per-request for d1 binding`
    - `refactor: swap client and adapter for d1 pattern`
 
@@ -80,7 +80,7 @@ The order. Write the subject. Run both tests against the staged diff. Write the 
 
 What survives both tests is one of two facts:
 
-- **A problem in the surrounding code that the changed lines do not show.** Ask whether the changed lines already carry it; usually they do.
+- **A problem in the surrounding code that the changed lines do not show.** Drop it when the changed lines already show the problem.
 - **A constraint that binds the solution** — a compatibility requirement, a limitation worked around, a tradeoff forced on you.
 
 One sentence. Write the fact and stop. Never pair the two as the problem and then why this solution: that arc retells the session behind the change, which is the leak the body exists to keep out. Never bullets either: a list opens empty slots that ask to be filled, and filling them turns the message into a transcript of the diff. A commit doing so many separable things that you want to enumerate them is a commit to split.

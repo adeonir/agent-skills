@@ -20,7 +20,6 @@ Write the message as fact about the change, never as the session behind it: no d
 
 The bar for every message this skill writes. It governs word choice, never length or register; each instruction sets those for the message it owns.
 
-- Prefer short, familiar words over corporate ones (`use` not `utilize`, `fix` not `ensure`).
 - Keep one term for one concept in the same message — do not rotate synonyms for variety.
 - Use active voice: name what the change does, not what "was updated".
 - Put one main point in each sentence, and lead with the change or the problem — never `This commit…`, `This PR…`, `In order to…`.
@@ -30,7 +29,7 @@ The bar for every message this skill writes. It governs word choice, never lengt
 
 ## The two shapes of slop
 
-AI-slop has two opposite shapes, and "just be concrete" pushes you out of the first and straight into the second. Watch for both.
+AI-slop has two opposite shapes, and "just be concrete" pushes you out of the first and straight into the second.
 
 **Shape 1 — empty abstraction.** The text names a filler word instead of the thing that moved. The tells cluster in a small vocabulary:
 
