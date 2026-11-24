@@ -2,10 +2,6 @@
 
 Pick one documentation mode before writing a document, and keep the document in that mode.
 
-## When to Use
-
-Read before writing or rewriting documentation: a tutorial, a guide, a README section, a reference page, or a conceptual page. Skip for an answer in a conversation, an incident report, or a specification.
-
 ## Pick the mode
 
 Write one document in one mode. When the content needs a second mode, split it into a second document and link to it.

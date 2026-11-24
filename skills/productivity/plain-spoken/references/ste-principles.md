@@ -2,12 +2,6 @@
 
 Apply selected Simplified Technical English principles to agent output. Do not claim formal conformance.
 
-## When to Use
-
-Read before writing or rewriting technical prose. Use the official ASD-STE100 standard when the user requires formal conformance.
-
-These rules apply in every language. English word pairs are examples; use the equivalent pair in the language of the text.
-
 ## Word choice
 
 1. Prefer short, familiar words over formal or corporate alternatives: `use` instead of `utilize`, `help` instead of `facilitate`, and `start` instead of `commence`.
