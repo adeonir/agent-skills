@@ -2,10 +2,6 @@
 
 Add targeted debug logs at strategic points to capture runtime data.
 
-## When to Use
-
-As a technique during investigation, when static analysis alone cannot confirm the root cause and runtime data is needed. Not every debugging session requires log injection -- use it when reading the code cannot show the mechanism, and only observing the running system can.
-
 ## Log Format
 
 Always use the `[DEBUG]` prefix for grep and cleanup. Adapt the format to the project language:

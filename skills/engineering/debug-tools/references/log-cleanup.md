@@ -2,10 +2,6 @@
 
 Remove all debug logs after debugging is complete.
 
-## When to Use
-
-When the `[DEBUG]` logs added during a session have to come out of the code.
-
 ## Workflow
 
 Resolve `<this-skill>` to the directory the `SKILL.md` was read from; if the host does not expose that directory, stop and report an environment problem. Run every command from the project root.

@@ -2,10 +2,6 @@
 
 Investigate bugs, find root causes with confidence scoring, and propose minimal fixes.
 
-## When to Use
-
-When debugging unexpected behavior, silent errors, or intermittent failures.
-
 ## Contents
 
 - Understand the Bug

@@ -2,10 +2,6 @@
 
 Pattern comparison against working code, and regression tracing.
 
-## When to Use
-
-When investigation stalls and broken code has to be diffed against a working example, or when the user reports that something used to work.
-
 ## Pattern Comparison
 
 Compare the broken code against similar code in the project that works, to spot where it diverges.
