@@ -31,12 +31,13 @@ Progress:
 - `ambiguous`: the instruction reads two ways and the agent took the wrong one
 - `contradictory`: two instructions conflict
 - `wrong`: the instruction is clear and produces a bad result
+- `cost`: the instruction changes the work, not the result — extra steps, tokens, or reads
 - `not followed`: the instruction is clear and the agent ignored it
 - `trigger`: the description fired on the wrong request or failed to fire
 
 Mark a finding `observed` when a turn shows the failure and `inferred` when you reason from the instruction alone. Done when each finding has a cause, a basis, and either a quoted turn or the `inferred` mark.
 
-**Step 4. Print the report.** Write it in English and quote the evidence verbatim in its original language. Reply with the report alone, with no text before or after it, so the whole reply copies as one block. If the user corrects a finding, return to Step 3 and print the full report again.
+**Step 4. Print the report.** Order the findings by impact, most consequential first. Write it in English and quote the evidence verbatim in its original language. Reply with the report alone, with no text before or after it, so the whole reply copies as one block. If the user corrects a finding, return to Step 3 and print the full report again.
 
 Use this template as written:
 
@@ -53,9 +54,9 @@ Use this template as written:
 - **Expected:** [what the user needed from the skill at that point]
 - **Observed:** [what the agent did and what came of it]
 - **Evidence:** "[verbatim excerpt from the session, or the summary's words labeled (from summary)]"
-- **Cause:** [missing | ambiguous | contradictory | wrong | not followed | trigger]
+- **Cause:** [missing | ambiguous | contradictory | wrong | cost | not followed | trigger]
 - **Basis:** [observed | inferred]
-- **Direction:** [optional: the change the evidence supports, stated as a claim for the editing session to check]
+- **Direction:** [the change the evidence supports, stated as a claim for the editing session to check]
 ```
 
 MUST NOT contain: text before the H1 or after the last finding; a partial report after a correction; secrets, tokens, or personal data from the session; a rewritten skill file or a diff; a finding with no evidence and no `inferred` mark; a fix for a `not followed` finding that adds emphasis to the instruction instead of naming why it was missed.
