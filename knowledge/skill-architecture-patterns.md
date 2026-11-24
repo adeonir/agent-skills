@@ -69,7 +69,8 @@ Give every file under `references/` exactly one entry, in this shape:
 ## Triggers
 
 - **Commit** — the user asks to commit staged or unstaged changes → [references/commit.md](references/commit.md) · staging rules and the message bar
-- **Pull request** — a branch is ready for review → [references/create-pull-request.md](references/create-pull-request.md) · body structure and evidence
+- **Create pull request** — a branch is ready for review → [references/create-pull-request.md](references/create-pull-request.md) · body structure and evidence
+- **Merge pull request** — a pull request is ready to land → [references/merge-pull-request.md](references/merge-pull-request.md) · merge method, state checks, and cleanup
 - **Wording** — any branch above is about to write text → [references/message-sourcing.md](references/message-sourcing.md) · where the words come from
 ```
 
@@ -87,10 +88,7 @@ Keep the body at or below 150 lines. Move detail into the file that needs it.
 
 ### Header
 
-Open with the H1, using the same words as the index entry, then one sentence. Reusing the words is what makes the pair checkable by comparison.
-
-- A procedure states the result it produces.
-- Material states what it provides.
+Open with the H1. A procedure reuses the words of the index branch that selects it; a material file names its topic. Then one sentence: the result a procedure produces, or what the material provides.
 
 ### Procedure
 
