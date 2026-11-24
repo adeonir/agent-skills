@@ -8,7 +8,7 @@ Write skills and rules in clear, consistent English so agents can apply the repo
 
 - Write repository files in English.
 - Never use emoji.
-- Never write emphasis in capitals (`ALWAYS`, `NEVER`, `MUST`, `CRITICAL`). The only capitalized directives are the template markers `ALWAYS use this exact template structure:` and `MUST NOT contain:`.
+- Never write emphasis in capitals (`ALWAYS`, `NEVER`, `MUST`, `CRITICAL`). Template markers are the exception: a strictness marker such as `ALWAYS use this exact template structure:` and the `MUST NOT contain:` boundary.
 - Never hard wrap the body. One paragraph is one line, one bullet is one line.
 - Write the frontmatter `description` on one line. Quote the value that carries a colon.
 - Write the frontmatter `description` in third person.
@@ -16,8 +16,6 @@ Write skills and rules in clear, consistent English so agents can apply the repo
 - Write a slot inside a path or a command as `<what goes here>`: `src/skills/<group>/<name>/SKILL.md`.
 - Write a slot the reader fills inside a template as `[what goes here]`.
 - Write the name of a skill or a rule in backticks: `spec-memory`.
-- Write only what the agent does not already know. Cut the line it would follow without being told, such as what a pull request is.
-- State what to do. Never narrate how or why, in a skill or in a rule.
 - Write the body in the imperative: "Read the issue through the tracker's MCP server", never "The issue is read through the tracker's MCP server". The `description` is the one field in third person.
 - Keep a reason only when it decides something: a cost the agent has to weigh, or the condition that selects between two options.
 - Give exact instructions where a wrong move is expensive and the sequence matters. Name the goal where many routes work.

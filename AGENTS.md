@@ -8,18 +8,19 @@ This file is **repo-level guidance for skill authors**. It is never installed al
 
 Verifiable conventions live as rules in `.agents/rules/`, loaded automatically when editing skill files. Each rule is managed with the rule-creator skill and uses examples only when they clarify the constraint. This file keeps the structural and narrative guidance that is not a discrete rule.
 
+These are authoring rules: path-scoped to the skill files they govern and applied while a skill is written. In a repository that installs `rule-creator`, the same `.agents/rules/` path holds runtime rules for the agent, which are unconditional. Keep the two contexts apart.
+
 | Rule file | Scope | Covers |
 |-----------|-------|--------|
 | `.agents/rules/content-style` | global | English-only files, direct prose, placeholder syntax, authoring style |
 | `.agents/rules/markdown-conventions` | global | code fences carry a language, forward slashes |
 | `.agents/rules/naming-conventions` | global | file and directory casing, slash command equals name |
 | `.agents/rules/skill-md-structure` | `SKILL.md` | no constraint in a routing SKILL.md, instructions as the only routing target, required top, forbidden sections, routing over bulk reads, body length |
-| `.agents/rules/skill-timeless` | `skills/**/*.md` | no dates or version pins, consistent terminology |
-| `.agents/rules/skill-references` | `skills/**/*.md` | one instruction per job, shared constraint loaded as a step, one level deep, required header, no fan-forward |
+| `.agents/rules/skill-timeless` | `skills/**/*.md` | no dates or version pins |
+| `.agents/rules/skill-references` | `skills/**/*.md` | shared constraint loaded as a step, flat references, required header, no fan-forward |
 | `.agents/rules/skill-voice` | `skills/**/*.md` | no authoring-chat rationale, declarative not narrated |
-| `.agents/rules/scope-boundary` | `skills/**/*.md` | strip upstream scope from output, MUST-NOT in templates |
 | `.agents/rules/skill-templates` | `skills/**/*.md` | copyable templates in `assets/`, no `templates/` folder, marked strict or flexible |
-| `.agents/rules/skill-security` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary, safe shell |
+| `.agents/rules/skill-security` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary |
 | `.agents/rules/skill-scripts-mcp` | `skills/**` | bundled script paths, qualified MCP names, no voodoo constants, scripts handle own errors |
 | `.agents/rules/skill-frontmatter` | `SKILL.md` | description voice, inline triggers, name tokens, no `when_to_use`, no angle brackets, negative scope, argument-hint grammar |
 | `.agents/rules/skill-readme` | `README.md` | fixed sections, What It Does shape, self-explanatory Usage requests, title from `display_name`, one-line FAQ entries |
@@ -235,10 +236,7 @@ One-line tagline.
 
 ## What It Does
 
-```mermaid
-flowchart TD    # or LR — see direction rule below
-...
-```
+[mermaid diagram when the skill has more than one phase, operation, or branch]
 
 | Phase | Output |
 |-------|--------|
@@ -269,7 +267,7 @@ Other skills this skill names or loads.
 
 The first table column names the skill's own unit: `Phase`, `Mode`, `Operation`, or `Note Type`.
 
-Mermaid direction:
+When the skill has a diagram:
 - `flowchart TD` for branching, loops, decision trees
 - `flowchart LR` for linear sequential pipelines
 
@@ -320,6 +318,10 @@ Judge a structure by the path the consuming agent takes through it. Before shipp
 ### Audit on Merit, Not Authorship
 
 Judge the current state on its merits: fix a genuine defect regardless of which commit introduced it, and drop a non-finding regardless of how it got there. Scope may defer a fix — say so as scope, not as authorship. An audit driven down a checklist only grows the file, so judge each finding as you would judge a proposal: is the content already required somewhere, is the cost paid on every load against a rare failure, does it contradict a register the skill already chose.
+
+### One Term Per Concept
+
+Choose one term per concept and keep it across `SKILL.md`, references, and templates within a skill. Mixing synonyms ("field" / "box" / "element", or "extract" / "pull" / "get") forces the model to re-map them and weakens matching.
 
 ### Dynamic Context Injection
 

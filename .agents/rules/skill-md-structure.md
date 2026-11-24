@@ -83,7 +83,7 @@ Commits should tell a story...
 
 **Impact: MEDIUM**
 
-A routing SKILL.md never carries `## Anti-Pattern` or `## Guidelines` — both are constraints, and each belongs to the instruction it governs. No SKILL.md, routing or one-job, carries `## Compact Instructions` (skills are stateless), `## Output` (output lives where it is produced), or `## Error Handling` (errors are handled inline in the workflow). Drop these; their content belongs elsewhere or nowhere.
+A routing SKILL.md never carries `## Anti-Pattern`, `## Guidelines`, `## Output`, or `## Error Handling` — each is a constraint or a contract, and each belongs to the instruction it governs. No SKILL.md, routing or one-job, carries `## Compact Instructions` (skills are stateless). A one-job SKILL.md is the procedure, so an output contract or error cases are sections it may carry.
 
 **Incorrect:**
 

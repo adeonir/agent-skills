@@ -38,7 +38,7 @@ Inspired by ...
 
 **Impact: MEDIUM**
 
-`## What It Does` opens with the mermaid diagram, with no prose or list before it, and follows it with one table of two columns: the skill's own unit (`Phase`, `Mode`, `Operation`, `Note Type`) and `Output`. Fold a description or a third column into the `Output` cell instead of adding text around the table.
+`## What It Does` opens with the diagram when the skill has more than one operation, phase, or branch, with no prose or list before it; a linear skill opens with the table alone. Either way, it follows with one table of two columns: the skill's own unit (`Phase`, `Mode`, `Operation`, `Note Type`) and `Output`. Fold a description or a third column into the `Output` cell instead of adding text around the table.
 
 **Incorrect:**
 

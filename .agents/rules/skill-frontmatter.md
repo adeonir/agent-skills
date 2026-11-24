@@ -104,7 +104,7 @@ description: Renders HTML artifacts and SVG charts. Use when...
 
 **Impact: MEDIUM**
 
-Close every `description` with a negative-scope clause that names the adjacent jobs the skill does not cover, opened with `Not for`. Skills coexist, so without an explicit boundary a description overtriggers onto a neighbor's job. Name the neighboring work it should not claim, not a generic disclaimer.
+Close every `description` with a negative-scope clause that names the adjacent jobs the skill does not cover, opened with `Not for`. Skills coexist, so without an explicit boundary a description overtriggers onto a neighbor's job. Name the neighboring work it should not claim, not a generic disclaimer, and name only adjacent jobs that exist — never invent a boundary to fill the shape.
 
 **Incorrect:**
 

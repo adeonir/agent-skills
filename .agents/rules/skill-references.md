@@ -3,29 +3,6 @@ paths:
   - "skills/**/*.md"
 ---
 
-## One Instruction Per Job
-
-**Impact: HIGH**
-
-The unit is the job the skill does, never the number of triggers or the number of files on each side. Count the jobs: a job runs end to end and produces its own outcome. A skill that does one job has no `instructions/` — its SKILL.md is the procedure, and loads what it needs as a step. A skill that does several has one **instruction** per job, and SKILL.md routes to them.
-
-Several triggers entering the same job are one job, not several. A mode that changes only what the procedure returns, an entry state that changes only where the procedure starts, and a phase inside the procedure are all part of one job. A **reference** is what a procedure loads from inside a step: no trigger, never a routing target. `references/` is optional either way, and holds what a procedure loads rather than carries inline.
-
-**Incorrect:**
-
-```text
-references/commit.md              # routed by SKILL.md, holds the procedure
-references/create-pull-request.md # routed by SKILL.md, holds the procedure
-```
-
-**Correct:**
-
-```text
-instructions/commit.md            # routed by SKILL.md
-instructions/create-pull-request.md
-references/message-sourcing.md    # loaded by a step in both
-```
-
 ## Shared Constraint Loaded as a Step
 
 **Impact: HIGH**
@@ -49,11 +26,11 @@ The threshold is size. A constraint that fits in one sentence stays inline in ea
 5. **Write the summary** — 1-3 short sentences at that bar.
 ```
 
-## References One Level Deep
+## Flat References, One Grouping Level
 
 **Impact: MEDIUM**
 
-Reference and instruction files live one level deep, directly under `references/` or `instructions/`, with no nested subdirectories. A nested tree invites partial reads (e.g. `head -100`) that miss content carried in deeper files.
+Reference and instruction files live directly under `references/` or `instructions/`, with no nested tree. A skill with more than eight references may group them into one topic subdirectory (`references/<topic>/<file>.md`); that single grouping level keeps the list scannable without inviting the partial reads (e.g. `head -100`) that miss content in deeper files.
 
 **Incorrect:**
 
