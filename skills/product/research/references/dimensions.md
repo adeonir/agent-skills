@@ -2,10 +2,6 @@
 
 What to look for in each dimension, and where the primary source of each one lives.
 
-## When to Use
-
-Loaded to pick the dimensions a question touches and to know which source settles each one. Open only the dimensions the question needs; a dimension the question does not touch stays out of the report.
-
 ## Product
 
 | Dimension | Look for | Primary source |
