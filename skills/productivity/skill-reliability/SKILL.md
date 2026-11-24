@@ -35,7 +35,7 @@ Progress:
 - [ ] Step 8: Apply the confirmed fixes
 ```
 
-**Step 1. Locate the skill.** If the argument is empty or the request is broad ("all skills", "which skill to start with"), read [discovery.md](references/discovery.md) · how to set scope first. Otherwise resolve the named skill to a path, searching in order: `skills/` subdirectories of the current repo, then `.claude/skills/`, then `~/.claude/skills/`. If not found, inform the user and stop. Done when `<skill-dir>` is a path containing a `SKILL.md`.
+**Step 1. Locate the skill.** If the argument is empty or the request is broad ("all skills", "which skill to start with"), read [discovery.md](references/discovery.md) · how to set scope first. Otherwise resolve the named skill to a path, searching in order: `skills/` subdirectories of the current repo, then the skill directories the host exposes. If not found, inform the user and stop. Done when `<skill-dir>` is a path containing a `SKILL.md`.
 
 **Step 2. Read the skill files.** Read SKILL.md and all files under `references/` (and `instructions/` if present). Done when you can name every workflow the skill defines.
 

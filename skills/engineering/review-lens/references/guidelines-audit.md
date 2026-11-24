@@ -9,11 +9,12 @@ If the caller already supplies the guideline file paths (the deep review's Prepa
 ```bash
 find "$(git rev-parse --show-toplevel)" \
   \( -name "CLAUDE.md" -o -name "AGENTS.md" -o -name "CONTRIBUTING.md" \
-     -o -name ".editorconfig" -o -path "*/.claude/rules/*.md" \) \
+     -o -name ".editorconfig" -o -path "*/.claude/rules/*.md" \
+     -o -path "*/.agents/rules/*.md" \) \
   -type f 2>/dev/null
 ```
 
-Use only guideline files found inside the project repository. Never read files from the user home directory (e.g. `~/.claude/CLAUDE.md` or `~/.claude/rules/`) — those are personal global settings, not project guidelines.
+Use only guideline files found inside the project repository. Never read the agent's personal global configuration, such as a user-level memory file or rules directory: those are personal settings, not project guidelines.
 
 ## Read Guidelines
 
