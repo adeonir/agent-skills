@@ -75,7 +75,7 @@ Use this template as written:
 - **Cause:** [lacked a fact | unclear or contradictory instruction | instruction ignored | nothing checked the result]
 - **Change:** [the file or check to add, edit, or cut, and what goes in it]
 - **Placement:** [line 1 to 4 of the placement rule, the `AGENTS.md` path, and for line 2 or 3 the listing row or "none under this folder"; omit when no `AGENTS.md` is involved]
-- **Why this form:** [one line: check, rule, `AGENTS.md` entry, or cut, and why not the others]
+- **Why this form:** [one line: the form chosen — check, rule, `AGENTS.md` entry, cut, tool change, or access — and why not the others]
 ```
 
 MUST NOT contain: a candidate with no evidence; a rule where a deterministic check can do the job; a pointer to a file that does not exist; text before the H1 or after the last candidate; secrets, tokens, or personal data from the session.
