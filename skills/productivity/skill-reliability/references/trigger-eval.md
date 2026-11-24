@@ -2,10 +2,6 @@
 
 Probe a skill's name and description as a retrieval surface, then draft fixes — no execution, no eval runs.
 
-## When to Use
-
-Step 3 of the analysis: judging whether a skill fires on the right requests and stays quiet on the wrong ones.
-
 ## Deterministic Pass
 
 `trigger_lint.py` (run in Step 3) checks the frontmatter conventions: kebab-case `name`, a third-person description that states what the skill does before its inline "Use when" triggers, a closing `Not for` clause, the length envelope, a bracketed `argument-hint`, and the anti-patterns (filler openings, skill mechanics such as MCP/CLI transport or storage plumbing, a numbered `(1)…(2)` trigger list, first/second person, reserved name tokens). Treat its findings as the structural floor; reason about the rest below.

@@ -2,10 +2,6 @@
 
 Determine scope and focus before running the analysis.
 
-## When to Use
-
-When `$ARGUMENTS` is empty, ambiguous, or the user asks to analyze multiple skills or "all skills".
-
 ## Discovery Questions
 
 Ask only what you need — most invocations provide a skill name and skip this entirely.

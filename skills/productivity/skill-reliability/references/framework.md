@@ -2,10 +2,6 @@
 
 Step natures, baselines, tiers, and levers for the compound-reliability analysis.
 
-## When to Use
-
-Steps 4–6 of the analysis: classify each step, read the end-to-end product, and pick the lever for each variance point.
-
 ## Step Natures
 
 | Nature | Examples | Baseline |
