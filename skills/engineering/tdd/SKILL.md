@@ -1,11 +1,15 @@
 ---
 name: tdd
 description: "Test-first implementation of one change, with tests at public seams that encode the intended behavior and are never weakened to pass. Use when implementing a task, slice, or issue test-first, fixing a bug with a reproduction test, or when the user asks for TDD or red-green-refactor. Not for writing a spec, breaking work into tasks, finding a bug's root cause, refactoring, reviewing a diff against a spec or standards, or managing branches and merges."
+metadata:
+  inspired-by:
+    - "tdd — https://github.com/mattpocock/skills"
+    - "tdd — https://github.com/cursor/plugins/tree/main/pstack"
+    - "test-driven-development — https://github.com/addyosmani/agent-skills"
+    - "tlc-spec-driven — https://github.com/tech-leads-club/agent-skills"
 ---
 
 # TDD
-
-## Quick start
 
 Build one change test-first: a task, an issue, a bug fix, or a change the user requested. The source of truth is what describes the intended behavior of the change.
 

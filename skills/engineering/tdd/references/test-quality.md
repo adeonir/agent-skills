@@ -2,10 +2,6 @@
 
 The anti-patterns a test avoids while the loop writes it.
 
-## When to Use
-
-Load before writing the first test of the loop, and apply on every cycle.
-
 ## Anti-patterns
 
 - **Implementation-coupled:** mocks an internal collaborator, tests a private method, asserts on call counts or call order, or verifies through a side channel, such as querying the database instead of reading through the interface. It breaks on a refactor that keeps behavior. Mock only at system boundaries: external APIs, time, and randomness. For the database and the file system, use the repository's test instance when one exists.
