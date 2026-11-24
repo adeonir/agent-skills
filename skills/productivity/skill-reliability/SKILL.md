@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Skill Reliability Analysis
 
-Scores a skill's reliability as two factors and proposes verifiable fixes, because a skill is only useful when it fires and finishes.
+Score a skill's reliability as two factors and propose verifiable fixes.
 
 ## Model
 

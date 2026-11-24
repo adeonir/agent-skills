@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Rule Creator
 
-Creates rules at project or user level and manages the rule set at both.
+Create rules at project or user level and manage the rule set at both.
 
 ## Triggers
 

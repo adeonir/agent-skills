@@ -6,7 +6,7 @@ allowed-tools: Bash(git:*) Bash(gh:*) Bash(find:*) Bash(python3:*) Read Write Ed
 
 # Review Lens
 
-Code review with anti-hallucination diff annotation and confidence-scored findings, in quick and deep modes.
+Review code in quick or deep mode, annotating the diff against hallucination and scoring each finding by confidence.
 
 ## Workflow
 

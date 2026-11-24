@@ -6,7 +6,7 @@ allowed-tools: Read Write Edit
 
 # App Flow
 
-Plans the user paths of a website, a mobile app, or any other product surface as named flows — one flow per task — and keeps them in a committed artifact.
+Plan the user paths of a website, a mobile app, or any other product surface as named flows — one flow per task — and keep them in a committed artifact.
 
 ## Triggers
 

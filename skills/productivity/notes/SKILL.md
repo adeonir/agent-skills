@@ -6,7 +6,7 @@ compatibility: Requires python3.
 
 # Notes
 
-Creates and manages structured Obsidian notes — project, challenge, brag, transcription, and company.
+Create and manage structured Obsidian notes — project, challenge, brag, transcription, and company.
 
 ## Triggers
 

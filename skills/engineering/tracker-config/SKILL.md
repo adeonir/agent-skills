@@ -7,7 +7,7 @@ compatibility: Requires python3 and a Linear or GitHub tracker.
 
 # Tracker Config
 
-Configures the project's issue tracker and runs its operations.
+Configure the project's issue tracker and run its operations.
 
 ## Triggers
 

@@ -5,7 +5,7 @@ description: "Idea exploration from a blank problem space or from an existing pl
 
 # Brainstorm
 
-Structured idea exploration from vague to direction, in two entries — **greenfield** from a blank problem space, **plan** from an existing idea or plan.
+Explore an idea from vague to a direction, in two entries — **greenfield** from a blank problem space, **plan** from an existing idea or plan.
 
 ## Workflow
 

@@ -7,7 +7,7 @@ allowed-tools: Bash(bun:*) Bash(python3:*) Bash(git:*) Read Write Edit Grep Glob
 
 # Craft UI
 
-Three phases over the brief and the other supplied inputs: wireframes, mockups, and in-app experiments.
+Build wireframes, mockups, and in-app experiments in three phases over the brief and the other supplied inputs.
 
 ## Triggers
 

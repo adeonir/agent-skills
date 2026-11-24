@@ -7,7 +7,7 @@ allowed-tools: Bash(bun:*) Bash(npx:*) Bash(python3:*) Read Write Edit Grep Glob
 
 # DESIGN.md Builder
 
-Develops and validates the visual identity carried by the root `DESIGN.md`.
+Develop and validate the visual identity carried by the root `DESIGN.md`.
 
 ## Triggers
 

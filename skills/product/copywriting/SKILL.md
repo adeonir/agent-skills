@@ -6,7 +6,7 @@ allowed-tools: Read Write Edit Grep Glob WebFetch Bash(python3:*)
 
 # Copywriting
 
-Owns `copy.yaml`, the structured content payload that design consumes. The same payload must work with any visual identity, so this skill carries words, not design decisions. Authoring operations change copy; judging operations report on it.
+Own `copy.yaml`, the structured content payload that design consumes. The same payload must work with any visual identity, so this skill carries words, not design decisions.
 
 ## Triggers
 

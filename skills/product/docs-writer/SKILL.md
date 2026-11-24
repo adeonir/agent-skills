@@ -5,7 +5,7 @@ description: "Product and technical document creation through guided discovery, 
 
 # Docs Writer
 
-Writes the product and technical documents a project carries, from requirements to decisions.
+Write the product and technical documents a project carries, from requirements to decisions.
 
 ## Triggers
 

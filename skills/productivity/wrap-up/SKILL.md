@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Wrap Up Session
 
-End-of-session documentation to Obsidian: the session note per project and the daily note.
+Document the end of a session in Obsidian: the session note per project and the daily note.
 
 ## Workflow
 

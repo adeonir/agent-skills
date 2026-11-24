@@ -7,7 +7,7 @@ allowed-tools: Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:
 
 # Git Helpers
 
-Git workflow with conventional commits, pull requests, and pull request merges.
+Commit by convention, open a pull request, and merge it.
 
 ## Triggers
 

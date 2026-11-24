@@ -6,7 +6,7 @@ compatibility: Requires python3 and a Linear or GitHub tracker.
 
 # Epic Tracker
 
-Manages the delivery lifecycle in Linear or GitHub: plans epics, tracks tasks and spikes, and reports bugs.
+Manage the delivery lifecycle in Linear or GitHub: plan epics, track tasks and spikes, and report bugs.
 
 ## Triggers
 

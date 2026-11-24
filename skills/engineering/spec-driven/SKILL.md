@@ -7,7 +7,7 @@ allowed-tools: Bash(git:*) Bash(python3:*) Read Write Edit Grep Glob Task
 
 # Spec-Driven Development
 
-Feature development in phases, light by default and weighty only where the change pays for it.
+Develop a feature in phases, as light as the change allows.
 
 ## Triggers
 

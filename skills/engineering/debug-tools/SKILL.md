@@ -6,7 +6,7 @@ compatibility: Requires python3.
 
 # Debug Tools
 
-Iterative debugging workflow that gates a fix on evidence and escalates after repeated failures.
+Debug iteratively, gating a fix on evidence and escalating after repeated failures.
 
 ## Workflow
 
