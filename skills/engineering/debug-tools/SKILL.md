@@ -8,14 +8,12 @@ compatibility: Requires python3.
 
 Iterative debugging workflow that gates a fix on evidence and escalates after repeated failures.
 
-## Quick start
+## Workflow
 
 - **Debug a bug** ("debug this", "investigate", "trace issue", "fix bug", "why is X broken") → Step 1
 - **Regression or comparison** ("used to work", "broke after the update", "works there but not here") → Step 2
 - **Add debug logs** ("add debug logs", "inject logs", "trace with logs") → Step 3
 - **Cleanup logs** ("remove debug logs", "cleanup logs") → Step 5
-
-## Workflow
 
 Copy this checklist and tick it off:
 
