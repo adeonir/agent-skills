@@ -2,10 +2,6 @@
 
 Template and conventions for rule files. Every rule produced by the create, edit, or extract mode uses this format. Required and optional sections are marked.
 
-## When to Use
-
-Loaded to render a rule and to verify one: by create and extract after the gates pass, and by edit when applying a change.
-
 ## Contents
 
 - Template

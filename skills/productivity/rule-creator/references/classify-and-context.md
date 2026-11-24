@@ -2,10 +2,6 @@
 
 Gates that run before rendering a new rule. Classification decides whether the input deserves a rule at all, the context check whether the rule makes sense where it will land, and the destination decision picks the level, the home, and the scope.
 
-## When to Use
-
-Loaded to run the gates that precede a write: by create for the input, and by extract for each approved section. Edit reloads the context check when the scope or the stack reference changes. List and delete never load it.
-
 ## Contents
 
 - Classifier: decision table, refusal script

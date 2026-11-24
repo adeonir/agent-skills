@@ -10,13 +10,11 @@ Creates rules at project or user level and manages the rule set at both.
 
 ## Triggers
 
-| Signal in input | Load |
-|-----------------|------|
-| "create / add / new rule", "convention", "standard", or a declarative description with no verb | [create.md](instructions/create.md) |
-| "list / show rules", "what rules exist" | [list.md](instructions/list.md) |
-| "edit / update / change rule X" | [edit.md](instructions/edit.md) |
-| "extract / split / move from AGENTS.md / CLAUDE.md", "AGENTS.md / CLAUDE.md is too big" | [extract.md](instructions/extract.md) |
-| "delete / remove rule X" | [delete.md](instructions/delete.md) |
+- **Create** — a convention or standing preference should become a rule ("create rule", "add rule", "convention", or a declarative statement) → [create.md](references/create.md) · the new rule file
+- **List** — see what rules exist ("list rules", "what rules exist") → [list.md](references/list.md) · the rules in scope
+- **Edit** — change an existing rule ("edit rule X", "update rule X") → [edit.md](references/edit.md) · the updated rule
+- **Extract** — split an oversized `AGENTS.md` or `CLAUDE.md` ("extract", "split", "AGENTS.md is too big") → [extract.md](references/extract.md) · the rules split out of the memory file
+- **Delete** — remove a rule ("delete rule X", "remove rule X") → [delete.md](references/delete.md) · the removed rule
 
 ## Workflow
 
@@ -26,8 +24,3 @@ flowchart TD
     dispatch -.-> edit
     classify -.-> refuse
 ```
-
-## References
-
-- [classify-and-context.md](references/classify-and-context.md) - classifier, context check, and destination decision; loaded by create, edit, and extract
-- [rule-format.md](references/rule-format.md) - rule template and verifiability checklist; loaded by create, edit, and extract
