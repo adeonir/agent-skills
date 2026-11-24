@@ -24,7 +24,7 @@ If a draft reveals an unmapped task, return to Step 1.
 
 **Step 3. Happy path first per flow.** Entry → screens → success exit, in wireflow notation.
 
-**Step 4. Fill the dead-end register and rules.** Enumerate the five categories the template carries — error, cancel, timeout, empty state, denied — per flow. For each category that applies, draw the branch in wireflow notation and give it its exit into a known screen; for each that does not, mark `n/a` in the register. Enumerating from the category list turns drafting into checking: a state missing from the register is an unexamined category, not an oversight to smooth over. Record the business rules the flow enforces in its rules field, or `none`.
+**Step 4. Fill the dead-end register and rules.** Enumerate the five categories the template carries — error, cancel, timeout, empty state, denied — per flow. For each category that applies, draw the branch in wireflow notation and give it its exit into a known screen; for each that does not, mark `n/a` in the register. A state missing from the register is an unexamined category, not an oversight to smooth over. Record the business rules the flow enforces in its rules field, or `none`.
 
 **Step 5. Connect.** Name every hand-off: which flow ends where, which flow receives it. A flow that ends with no named receiver is a gap to flag, not to smooth over.
 

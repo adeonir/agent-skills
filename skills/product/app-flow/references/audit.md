@@ -1,6 +1,6 @@
 # Audit
 
-Examine a product's app flows for structural and notation defects — dead ends, unmerged steps, broken hand-offs, labels against the notation — and report findings in chat. The audit writes no artifact; it reports.
+Examine a product's app flows for structural and notation defects — dead ends, unmerged steps, broken hand-offs, labels against the notation — and report findings in chat, writing no artifact.
 
 ## Workflow
 
