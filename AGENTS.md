@@ -6,8 +6,6 @@ This file is **repo-level guidance for skill authors**. It is never installed al
 
 The canonical form of a skill — its files, `SKILL.md`, the reference layer, scripts, and assets — is defined in [`knowledge/skill-architecture-patterns.md`](knowledge/skill-architecture-patterns.md). Read it before writing or reshaping a skill.
 
-Skills written before the pattern still carry `instructions/`; give each one the canonical shape when you next edit it, rather than in a separate pass.
-
 ## Rules
 
 Verifiable conventions live as rules in `.agents/rules/`, loaded automatically when editing skill files. Each rule is managed with the rule-creator skill and uses examples only when they clarify the constraint.
