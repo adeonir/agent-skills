@@ -8,7 +8,8 @@ Level is a property of where the extraction starts, never a judgment about a sec
 
 | Source | Destination |
 |--------|-------------|
-| `./AGENTS.md`, `./CLAUDE.md`, `./.claude/CLAUDE.md` | `.claude/rules/` |
+| `./AGENTS.md` | `.agents/rules/` |
+| `./CLAUDE.md`, `./.claude/CLAUDE.md` | `.claude/rules/` |
 | `~/.claude/CLAUDE.md` | `~/.claude/rules/` |
 
 One run has one source, so one destination level. Never move a section across levels: when a project section reads like a personal preference that belongs at user level, report it as a finding and stop. The user re-runs extract against the other source if they agree.

@@ -22,7 +22,7 @@ def git(*args, allowed=(0,)):
 
 
 def instruction_path(root):
-    candidates = [root / "CLAUDE.md", root / ".claude" / "CLAUDE.md"]
+    candidates = [root / "AGENTS.md", root / "CLAUDE.md", root / ".claude" / "CLAUDE.md"]
     target = next((p for p in candidates if p.is_file()), root / "AGENTS.md")
     if target.name == "CLAUDE.md":
         imported = re.search(r"(?m)^[ \t]*@((?:\./|\.\./)?AGENTS\.md)[ \t]*$", target.read_text())
