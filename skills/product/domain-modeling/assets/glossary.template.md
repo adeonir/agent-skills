@@ -1,3 +1,4 @@
+Use this template as written:
 <!-- Project glossary. Delete every comment, ALWAYS use this exact template structure, and replace every square-bracket slot before writing the file. -->
 
 # [Context Name]
