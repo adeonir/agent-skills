@@ -31,7 +31,7 @@ Check whether `docs/product/PRD.md` exists; see [discovery.md](discovery.md) `##
 
 Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
-Run these three phases when no PRD exists. Never assume context. Each topic defines two or three opening questions, reasons to ask a follow-up, and completion criteria.
+Run these three phases when no PRD exists. Never assume context.
 
 #### Read an Earlier Direction
 
@@ -143,13 +143,13 @@ The earlier direction supplies product intent. Codebase inspection supplies fact
 
 ### Phase 2: Validation
 
-Challenge what was learned. This phase exists to prevent building the wrong thing.
+Challenge what was learned.
 
 1. **Challenge viability**: Point out risks and weak spots identified during discovery
 2. **Question scope**: Is the scope realistic? If not, push back
 3. **Suggest simplifications**: Propose cuts when scope is ambitious. "How much does the user need X?"
 4. **Flag a fragile direction**: If the direction itself seems fragile after discovery, say so and recommend reopening the direction decision before specifying — the PRD does not generate or choose alternatives
-5. **Define scope**: Give each requirement a priority (P0: the product does not ship without it; P1: it improves the product significantly, a workaround exists, and it can ship in a later release; P2: a low-impact improvement, the first cut when time runs short), order requirements within a priority from most to least important to the user, and record exclusions under Out of Scope
+5. **Define scope**: Give each requirement a priority, order requirements within a priority from most to least important to the user, and record exclusions under Out of Scope
 6. **Identify hypotheses**: What assumptions need evidence before or during implementation?
 
 ### Phase 3: Drafting
@@ -162,8 +162,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 
 **Drafting notes:**
 
-- Market & differentiation content goes to PRODUCT, not PRD
-- Value proposition content goes to PRODUCT, not PRD
+- Market & differentiation content, and any value proposition, go to PRODUCT, not PRD
 - Out of Scope lists what is left out, without FR IDs, each with the reason for exclusion
 - Reordering requirements never renumbers an FR ID
 - NFRs state the requirement without prescribing the mechanism ("search stays responsive on mobile networks", not "use Redis caching"). Add a number only when the user supplies one; otherwise keep the requirement in words
@@ -195,7 +194,6 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
 - Complete discovery before writing a new PRD. For an existing PRD, update only the requested parts.
 - Challenge weak claims during discovery, validation, and updates.
-- Write the PRD to its path directly, reread it per [quality.md](quality.md) `## Reread`, then report as Phase 3 step 5 states
 - Mark unknowns as TBD rather than inventing constraints or numbers
 - Discover PRODUCT if absent. Update only the requested parts if present.
 - Record a reason for exclusion on every Out of Scope item

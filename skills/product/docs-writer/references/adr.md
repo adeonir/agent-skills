@@ -20,7 +20,7 @@ Record one architecture decision with its status, context, decision, consequence
 
 Write one when a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR — status, context, decision, consequences, and references — and leave the system design in the Design Doc.
 
-**Key principle:** ADRs capture the decision and why it was made, not the full exploration that led to it. If multiple decisions are still in play, keep them in the Design Doc until each decision is clear enough to record.
+If multiple decisions are still in play, keep them in the Design Doc until each decision is clear enough to record.
 
 When this record captures a Design Doc Stack choice, add the ADR ID to that stack item and link the ADR back to the Design Doc Stack section.
 
@@ -53,7 +53,7 @@ Scan project documents for decisions that might need their own ADR:
 | `docs/product/design-doc.md` | `## Stack` items without an `ADR-NNN` (candidates for promotion) |
 | `docs/product/PRD.md` | Constraints, NFR rationale, research notes |
 
-Read `PROJECT.md` only when it exists. Keep an entry as a candidate only when it meets **When to Use** and none of **When NOT to Write an ADR**.
+Read `PROJECT.md` only when it exists. Keep an entry as a candidate only when it meets the conditions under `## Scope` and none of `## When NOT to Write an ADR`.
 
 List the unrecorded candidate decisions and ask the user which one this ADR records. Multiple decisions in a single source mean multiple ADRs — one per decision, not one ADR summarizing all of them.
 
@@ -122,7 +122,6 @@ The `Status:` item in the list below the title holds the current state of the de
 - Put each alternative not selected in Alternatives Considered with its reason, not in Context
 - Keep context value-neutral — facts that force the decision, not arguments for the outcome
 - Record the material consequences without forcing positive, negative, and neutral subsections
-- Number ADRs sequentially, zero-padded to three digits — filename `001-slug.md`, heading `ADR-001`
 - Link `ADR-NNN` to the replacement ADR when `Status:` marks a decision as superseded
 - When extracted from a Design Doc Stack item, the ADR's References section links back to the Design Doc Stack section anchor; the stack item is updated with this ADR's ID
 - Title and slug name the decision with the same words — the slug and the heading Title stay in sync, never divergent terms
@@ -159,4 +158,4 @@ The Decision states the choice — nothing else. It does not carry rationale, im
 
 Save to: `docs/adr/<NNN>-<slug>.md`
 
-Create a new numbered ADR for a new decision. Update an existing ADR when the user asks to correct or clarify its record.
+Create a new numbered ADR for a new decision.

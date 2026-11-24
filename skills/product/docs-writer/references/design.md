@@ -24,11 +24,11 @@ Read [discovery.md](discovery.md) at the start of discovery, and [quality.md](qu
 
 ## Boundaries
 
-The document records how the system is built and why the stack was chosen. Write one when the project has technical choices worth recording, and keep it as short as the design allows.
+Write a Design Doc when the project has technical choices worth recording, and keep it as short as the design allows.
 
 **Boundary with PRD:** the Design Doc never reframes the product. It cites the PRD and its NFR IDs and does not restate them. It is not visual or UI design, and not an exhaustive technical spec.
 
-**Boundary with ADR:** the Design Doc carries the foundation with one line of reasoning per stack choice. An ADR records a single decision and its trade-offs in full. When a stack choice has real trade-offs, create the ADR, add `ADR-NNN` to the stack item, and link the ADR back to the Stack section.
+**Boundary with ADR:** the Design Doc carries the foundation with one line of reasoning per stack choice. An ADR records a single decision and its trade-offs in full. When a stack choice has real trade-offs, see `## ADR Linkage`.
 
 ## When NOT to Write a Design Doc
 
@@ -59,8 +59,6 @@ Apply [discovery.md](discovery.md) `## Reading Project Files`, then look for `do
 | Non-Functional Requirements | Non-Functional Requirements (how each is met) |
 
 If no PRD exists, gather the required context during discovery.
-
-Each topic below uses two or three opening questions.
 
 #### Topic 1: Overview & Stack
 
@@ -155,7 +153,7 @@ Do not size the Design Doc by a fixed tier. Keep it as short as the design allow
 - Track ADR linkage by adding `ADR-NNN` to the stack item it records
 - Update the document when implementation reveals new structure or decisions
 
-**On diagrams:** Mermaid throughout; a system-context diagram in Overview is highly recommended; ER or sequence diagrams when relationships or flows are non-trivial.
+**On diagrams:** Mermaid throughout; put a system-context diagram in Overview; ER or sequence diagrams when relationships or flows are non-trivial.
 
 ## ADR Linkage
 

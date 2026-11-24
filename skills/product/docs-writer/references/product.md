@@ -12,7 +12,7 @@ If `PRODUCT.md` is absent, write it during discovery and use confirmed PRD facts
 
 `PRODUCT.md` is identity, not requirements. It carries the product's posture, audience relationship, personality, what it refuses to be, and the principles that drive design and copy — all as prose. The PRD remains the specification: it records what the product does, this records what it is.
 
-Keep three boundaries clear: audience relationship is not the user's job to be done, refused aesthetics are not excluded features, and differentiation is not the problem statement.
+Keep three boundaries clear.
 
 Distinction test: two products with an identical feature list must have different `PRODUCT.md` files. Content that survives the same feature list is positioning; content that does not is a requirement and belongs in the PRD.
 
@@ -34,8 +34,6 @@ Check `docs/product/brainstorm.md` for an earlier direction. PRODUCT does not de
 | Alternatives Considered + Decision | Anti-references — differentiation and rejected styles | confirm |
 
 Use the rejected directions and the reason for rejecting the strongest option to write Anti-references. Ask about register, brand personality, design principles, and audience relationship when the upstream document does not contain them. Do not copy the list of rejected options or Revision History. Write positioning prose, not requirements.
-
-Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 ### Topic: Positioning
 

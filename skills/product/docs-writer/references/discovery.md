@@ -46,14 +46,6 @@ For a new decision, create a new numbered ADR. When the user identifies an exist
 
 Adapt discovery to the user's answers. Each document type defines topics with opening questions. Ask follow-up questions until the topic is complete.
 
-### How It Works
-
-1. Start each topic with its opening questions (2-3 per topic)
-2. Evaluate answers against the topic's completion criteria
-3. If criteria are not met, ask a follow-up about the missing information
-4. If criteria are met, move to the next topic
-5. Summarize understanding before advancing
-
 ### Follow-up Questions
 
 Probe further when answers are:
@@ -84,7 +76,7 @@ Move on when:
 
 | Type | Structure | Focus |
 |------|-----------|-------|
-| PRD | 4 topics | Problem, users, market (PRODUCT only), scope & phases |
+| PRD | 4 topics | Problem, users, market (PRODUCT only), scope |
 | PRODUCT | 1 topic | Positioning: register, audience posture, personality, anti-references, principles (part of the product-doc pair; depth = full minus what an existing sibling already supplies) |
 | Design Doc | 3 topics | Overview & stack; architecture, data & integrations; infra, NFRs & conventions |
 | ADR | 1 topic | The decision: context forces, response, consequences (lightweight) |
