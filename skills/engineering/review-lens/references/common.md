@@ -4,7 +4,6 @@ Shared building blocks composed by both review modes: the line allowlist, the co
 
 ## Contents
 
-- When to Use
 - Data Trust Boundary
 - Line Allowlist
 - Confidence Scoring
@@ -37,12 +36,6 @@ Rate each finding 0-100 using the scale below: the score is how certain the find
 | 80-89 | Likely bug under realistic conditions; clear pattern violation with low ambiguity; a concrete simplification whose rewrite keeps the behavior | N+1 query in a request hot path; missing await on a Promise whose result is used later; auth check bypassed for a specific role; nested conditionals in the changed lines that collapse to one guard clause |
 | 60-79 | Possible issue depending on context not visible in the diff — do not report, ask for context if needed | "This loop might be slow at scale"; "Could leak memory if X"; "Maybe wrong if Y" |
 | <60 | Speculation, style preference, or aesthetic concern — do not report | "Prefer arrow function"; "Could be cleaner" with no concrete rewrite |
-
-Self-check before assigning a score:
-
-- "Is this true of the code as written — a bug that will happen, or a behavior-preserving rewrite I can write out?"
-- "Do I have enough context to understand why the code is written this way?"
-- "Is this a real problem or just a different coding style?"
 
 ## What NOT to Report
 
@@ -145,10 +138,7 @@ Every actionable finding may carry a suggested fix as a corrected code block (se
 - Never write to a code file without explicit confirmation in this turn.
 - The report itself, and `CODE_REVIEW.md`, are the only outputs written without a code-edit confirmation.
 
-After presenting the report, offer to apply the fixes. If the user agrees:
-
-1. **Apply.** Apply only the confirmed fixes.
-2. **Report.** Report what changed.
+After presenting the report, offer to apply the fixes. If the user agrees, apply only the confirmed fixes, then report what changed.
 
 ## Output Channel
 

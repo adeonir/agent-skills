@@ -56,7 +56,6 @@ Reload the prior findings (from `CODE_REVIEW.md` or chat) and run the fan-out an
 
 ## Guidelines
 
-- Each agent reads **different** material — never send the same source to two agents.
 - Skip a conditional agent cleanly and note it, rather than running it on empty material.
 
 ## Error Handling

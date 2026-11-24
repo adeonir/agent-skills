@@ -26,7 +26,7 @@ Check each change in `ANNOTATED_DIFF` against the extracted rules. Before scorin
 
 ## Second-Pass Coverage
 
-Re-read the diff top to bottom. For every file you did not flag, ask "does this file violate any extracted rule?" Skip a file only when you can state why it complies.
+Re-read the diff top to bottom. Skip a file only when you can state why it complies.
 
 ## What NOT to Report
 

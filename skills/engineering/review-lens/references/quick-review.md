@@ -21,7 +21,6 @@ Reload the prior findings (from `CODE_REVIEW.md` or chat) and run the fan-out co
 ## Guidelines
 
 - The findings agent covers every scope in one pass; do not silently drop one because the diff "looks" unrelated.
-- The agents are independent — the walkthrough never invents findings, the findings agent never narrates the change, and only the spec agent reads the spec.
 
 ## Error Handling
 
