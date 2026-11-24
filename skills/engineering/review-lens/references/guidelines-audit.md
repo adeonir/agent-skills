@@ -2,12 +2,6 @@
 
 The guideline-compliance check used by both review modes. Discovers the project's guideline files and audits the annotated diff against the explicit rules documented in them.
 
-## When to Use
-
-Followed by the deep review's **compliance** agent and by the quick review's **findings** pass for the guideline portion. Not a direct trigger.
-
-The check receives `ANNOTATED_DIFF` + `CHANGED_FILES` and obeys the shared rules in [common.md](common.md): the line allowlist, the confidence rubric, the data trust boundary, and never modifying files.
-
 ## Find Guideline Files
 
 If the caller already supplies the guideline file paths (the deep review's Prepare section does), use them and skip discovery. Otherwise, search from the git repository root, not the current directory:
