@@ -2,14 +2,10 @@
 
 Adapting a design across screen sizes, devices, and contexts. The trap is treating adaptation as scaling — the job is rethinking the experience for the new context (input method, screen, usage), not shrinking pixels.
 
-## When to Use
-
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
-
 ## Register
 
-- **Brand** — fluid spacing/type that breathes across viewports; the hero may be re-art-directed per breakpoint. See [brand.md](brand.md).
-- **Product** — responsive behavior is structural (collapse sidebar, responsive table, breakpoint-driven columns), not fluid typography; one information architecture across contexts. See [product.md](product.md).
+- **Brand** — fluid spacing/type that breathes across viewports; the hero may be re-art-directed per breakpoint. See `brand.md`.
+- **Product** — responsive behavior is structural (collapse sidebar, responsive table, breakpoint-driven columns), not fluid typography; one information architecture across contexts. See `product.md`.
 
 ## Mobile-first
 

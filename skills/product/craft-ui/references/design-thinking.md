@@ -2,10 +2,6 @@
 
 How to decide a visual direction before any pixels — the questions, axes, and reflex-checks that keep a result from collapsing into the generic default.
 
-## When to Use
-
-Composed by `mockups.md` to choose a direction before generating. Not a direct trigger.
-
 ## Four Questions
 
 Before any visual work, answer these to lock in a direction:
@@ -52,7 +48,7 @@ Color commitment is an axis, not a binary. Name the step before picking values:
 - **Full palette** — 3–4 named roles, each used deliberately.
 - **Drenched** — the surface *is* the color.
 
-Brand surfaces have permission for Committed, Full palette, and Drenched — unnamed ambition collapses into timid neutrals. Product surfaces default to Restrained, earning Committed only where one screen carries a category color. (The register sets which permissions apply — see [brand.md](brand.md) / [product.md](product.md).)
+Brand surfaces have permission for Committed, Full palette, and Drenched — unnamed ambition collapses into timid neutrals. Product surfaces default to Restrained, earning Committed only where one screen carries a category color. (The register sets which permissions apply — see `brand.md` / `product.md`.)
 
 ## The Slop Test
 
@@ -76,7 +72,7 @@ Four cheap reflexes catch a default before it ships. Run them on any mockup:
 - **Swap test** — swap the typeface for the category's usual one and the layout for a standard template. If nothing would feel different, that swap marks where the design defaulted.
 - **Token test** — read the CSS variable names and values aloud. Do they belong to *this* product's world, or would they sit in any project? A `--paper` / `--gray-200` / `--space-4` that fits any file signals no system.
 - **Signature test** — point to specific elements where the Signature (Question 4) actually appears. "The overall feel" does not count; name the elements.
-- **Squint test** — blur the view; hierarchy still readable, nothing jumping out harshly. (Defined in [visual-laws.md](visual-laws.md) and [layout.md](layout.md).)
+- **Squint test** — blur the view; hierarchy still readable, nothing jumping out harshly. (Defined in `visual-laws.md` and `layout.md`.)
 
 Name the defaults before avoiding them: list the 3 obvious visual choices for this interface type, so the reflexes above have something concrete to reject. A pattern that goes unnamed cannot be avoided.
 

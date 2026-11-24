@@ -1,10 +1,6 @@
 # Interaction
 
-The design of interactive behavior — states, focus, forms, overlays, keyboard paths, and destructive actions. (The *technical-correctness* rules — ARIA, semantic HTML — live in [web-standards.md](web-standards.md); this file is the interaction *design*.)
-
-## When to Use
-
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
+The design of interactive behavior — states, focus, forms, overlays, keyboard paths, and destructive actions. (The *technical-correctness* rules — ARIA, semantic HTML — live in `web-standards.md`; this file is the interaction *design*.)
 
 ## The eight interactive states
 

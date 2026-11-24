@@ -2,11 +2,20 @@
 
 When design IS the product: brand sites, landing pages, marketing surfaces, campaign pages, portfolios, long-form content, documentation, about pages. The deliverable is the design itself; a visitor's impression is the thing being made.
 
-## When to Use
+## Contents
 
-Read by `mockups.md` when the surface carries `register: brand`, to lean its look toward this register. Read only the matching file: brand here, or [product.md](product.md) when design serves a task. Not a direct trigger.
-
-The register spans every genre. A tech brand (Stripe, Linear, Vercel). A luxury brand (a hotel, a fashion house). A consumer product (a restaurant, a travel site, a CPG page). A studio portfolio, a band's album page. They share the stance — *communicate, not transact* — and diverge wildly in aesthetic. Don't collapse them into a single look.
+- The bar
+- The brand slop test
+- Typography
+- Color
+- Layout
+- The primary action
+- Reading surfaces
+- Imagery
+- Motion
+- Brand bans (on top of the shared `anti-patterns.md`)
+- Brand permissions
+- Register is not surface
 
 ## The bar
 
@@ -87,13 +96,13 @@ Brand surfaces lean on imagery. A restaurant, hotel, or product page without ima
 
 "Imagery" is broader than stock photos: product screenshots, data viz, generated SVG, and canvas/WebGL scenes count. On a brief that implies imagery, a text-only page where type carries the entire visual weight is the failure mode; a reading surface carries its imagery in the frame, never in the column.
 
-That breadth is not licence to assert. A photograph stands in for a shoot that has not happened; a product capture or a chart states a fact about something that exists. Render the second kind from something real, or render it as visibly sampled — see `fabricated-product-evidence` in [anti-patterns.md](anti-patterns.md).
+That breadth is not licence to assert. A photograph stands in for a shoot that has not happened; a product capture or a chart states a fact about something that exists. Render the second kind from something real, or render it as visibly sampled — see `fabricated-product-evidence` in `anti-patterns.md`.
 
 ## Motion
 
 One well-orchestrated page-load beats scattered micro-interactions, when the brand invites it. Some brands skip entrance motion entirely; the restraint is the voice.
 
-## Brand bans (on top of the shared [anti-patterns.md](anti-patterns.md))
+## Brand bans (on top of the shared `anti-patterns.md`)
 
 - Monospace as lazy shorthand for "technical / developer" when the brand isn't.
 - Large rounded-corner icons above every heading — screams template.
@@ -117,4 +126,4 @@ Brand can afford things product can't. Take them.
 
 **Register** (brand vs product) is the posture — two values. **Surface** is the granular type the work actually is (landing, campaign, portfolio, about, storefront-marketing…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
 
-**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, documentation, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see [product.md](product.md)).
+**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, documentation, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see `product.md`).

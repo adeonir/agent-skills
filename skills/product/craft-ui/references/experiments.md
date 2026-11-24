@@ -2,16 +2,12 @@
 
 Compare UI variants inside the running application to decide a structure or a visual direction. The output is the decision, never the variant code.
 
-## When to Use
-
-The project already has a codebase with UI and the request tests an idea against it: a new layout for an existing page, a new section inside a dashboard, a different look for a settled screen, or another take on one element (a card, a button, the hero block). The scope is the page, the section, or the element the request names. With no codebase, or no UI to host the idea, the work is a wireframe or a mockup instead.
-
 ## Load first
 
-- [brand.md](../references/brand.md) / [product.md](../references/product.md) — the register's permissions and bans; read the one the surface's register names, first.
-- [design-thinking.md](../references/design-thinking.md) — style axes, color strategy, the dials, the slop test.
-- [visual-laws.md](../references/visual-laws.md), [layout.md](../references/layout.md), [interaction.md](../references/interaction.md) — hierarchy, arrangement, states.
-- [anti-patterns.md](../references/anti-patterns.md) — failure modes plus fallback discipline.
+- [brand.md](brand.md) / [product.md](product.md) — the register's permissions and bans; read the one the surface's register names, first.
+- [design-thinking.md](design-thinking.md) — style axes, color strategy, the dials, the slop test.
+- [visual-laws.md](visual-laws.md), [layout.md](layout.md), [interaction.md](interaction.md) — hierarchy, arrangement, states.
+- [anti-patterns.md](anti-patterns.md) — failure modes plus fallback discipline.
 
 ## Boundaries
 

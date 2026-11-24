@@ -1,15 +1,27 @@
 # Color
 
-How to apply color with purpose — OKLCH, palette structure, contrast, dark mode, atmosphere. The color *strategy* (Restrained / Committed / Full palette / Drenched) is a direction decision in [design-thinking.md](design-thinking.md); this file is the *how*. Every color earns a purpose.
+How to apply color with purpose — OKLCH, palette structure, contrast, dark mode, atmosphere. The color *strategy* (Restrained / Committed / Full palette / Drenched) is a direction decision in `design-thinking.md`; this file is the *how*. Every color earns a purpose.
 
-## When to Use
+## Contents
 
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
+- Register sets the dose
+- Color space: OKLCH
+- Tinted neutrals
+- Palette structure
+- 60-30-10 (visual weight, not pixel count)
+- Semantic color
+- Accent application
+- Harmony & orphan accents
+- Backgrounds & atmosphere
+- Contrast & accessibility
+- Dark mode is not inverted light mode
+- Alpha is a design smell
+- Color anti-defaults
 
 ## Register sets the dose
 
-- **Brand** — palette IS voice. Pick a strategy first; Committed / Full palette / Drenched deliberately exceed the ≤10% accent rule (that rule is Restrained only). A dominant color can own the page. See [brand.md](brand.md).
-- **Product** — semantic-first, almost always Restrained. Accent is reserved for primary action, current selection, and state — never decoration. Every color has one consistent meaning across every screen. See [product.md](product.md).
+- **Brand** — palette IS voice. Pick a strategy first; Committed / Full palette / Drenched deliberately exceed the ≤10% accent rule (that rule is Restrained only). A dominant color can own the page. See `brand.md`.
+- **Product** — semantic-first, almost always Restrained. Accent is reserved for primary action, current selection, and state — never decoration. Every color has one consistent meaning across every screen. See `product.md`.
 
 ## Color space: OKLCH
 
@@ -77,7 +89,7 @@ Two failure modes:
 ## Backgrounds & atmosphere
 
 - **Create depth, not flatness** — gradient meshes, noise, grain, layered transparencies. Match texture to tone (organic → soft gradients, brutalist → noise, luxury → subtle grain).
-- **Tint surfaces toward the brand hue**, not "for warmth" by reflex. The default-warm tint (`oklch(97% 0.01 60)` and neighbors) is the AI cream/sand giveaway — be specific to the brand or stay neutral (see the warm-neutral trap in [design-thinking.md](design-thinking.md)).
+- **Tint surfaces toward the brand hue**, not "for warmth" by reflex. The default-warm tint (`oklch(97% 0.01 60)` and neighbors) is the AI cream/sand giveaway — be specific to the brand or stay neutral (see the warm-neutral trap in `design-thinking.md`).
 - **Dark sections earn their weight** — a dark hero or footer anchors the page.
 - **Never default to flat solid white** unless that IS the statement (minimal).
 - Gradients: intentional and brand-relevant, never the generic purple→blue.
@@ -112,6 +124,6 @@ Heavy `rgba`/`hsla` usually means an incomplete palette — it creates unpredict
 ## Color anti-defaults
 
 - Gray text on a colored/saturated background → use a darker shade of the background's own hue, or a transparency of the text color (never muted gray).
-- `border-left/right` > 1px as a colored accent stripe → full hairline border, a 4–8% background wash, a leading glyph, or a number (also in [anti-patterns.md](anti-patterns.md)).
+- `border-left/right` > 1px as a colored accent stripe → full hairline border, a 4–8% background wash, a leading glyph, or a number (also in `anti-patterns.md`).
 - Purple→blue gradient default; the warm-neutral cream/sand wash.
 - Color applied without semantic meaning. 2–4 colors beyond neutrals, max.

@@ -12,7 +12,7 @@ Decide how a surface is arranged — interview for what the inputs leave open, r
 
 This phase carries no visual direction and no memory. It reads no design tokens, no register file, and no log of what earlier sessions drew.
 
-Required reference: [structure.md](../references/structure.md) — region tree, shape vocabulary, reflow, volume, structural self-check.
+Required reference: [structure.md](structure.md) — region tree, shape vocabulary, reflow, volume, structural self-check.
 
 > Before writing wireframes, ensure `.artifacts` is excluded locally:
 > `grep -qxF '.artifacts' .git/info/exclude 2>/dev/null || echo '.artifacts' >> .git/info/exclude`
@@ -40,7 +40,7 @@ Where a surface stays ambiguous after the form, an anti-goal sharpens it: ask wh
 
 ## Rendering the arrangements
 
-Render N arrangements per surface, each a hypothesis about what the surface leads with and what follows from it. Vary the order of the parts and the shape of each part ([structure.md](../references/structure.md)); two arrangements that differ only in spacing are one arrangement rendered twice.
+Render N arrangements per surface, each a hypothesis about what the surface leads with and what follows from it. Vary the order of the parts and the shape of each part ([structure.md](structure.md)); two arrangements that differ only in spacing are one arrangement rendered twice.
 
 Before rendering, draft five to seven candidate arrangements internally, without showing them to the user. Cut the arrangement this category always ships and its predictable opposite, then render N from what remains.
 
@@ -71,7 +71,7 @@ The user comments on the served arrangements and sends the round in one dispatch
 
 ## Creating the mockup handoff
 
-When mockups will follow, write the chosen arrangement to `.artifacts/design/structure.yaml`, following the template in [structure.md](../references/structure.md). Run the structural self-check before writing it, and resolve every gap it flags. For a plan-only request, keep the chosen arrangement in the wireframe artifacts and do not create `structure.yaml`.
+When mockups will follow, write the chosen arrangement to `.artifacts/design/structure.yaml`, following the template in [structure.md](structure.md). Run the structural self-check before writing it, and resolve every gap it flags. For a plan-only request, keep the chosen arrangement in the wireframe artifacts and do not create `structure.yaml`.
 
 Then lint the written file:
 

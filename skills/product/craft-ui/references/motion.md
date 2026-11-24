@@ -2,14 +2,10 @@
 
 Motion that conveys state, gives feedback, and clarifies hierarchy — and the cut of motion that exists only for decoration. Animation fatigue is a real cost; spend the budget on the moments that need it.
 
-## When to Use
-
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
-
 ## Register sets the budget
 
-- **Brand** — motion is part of the voice; one well-rehearsed entrance beats scattered micro-interactions. The saturated AI default is fade-and-rise on every scrolled section — a tell, not choreography. See [brand.md](brand.md).
-- **Product** — 150–250ms on most transitions; motion conveys state (feedback, reveal, loading, view transitions). No page-load choreography; users are in a task. See [product.md](product.md).
+- **Brand** — motion is part of the voice; one well-rehearsed entrance beats scattered micro-interactions. The saturated AI default is fade-and-rise on every scrolled section — a tell, not choreography. See `brand.md`.
+- **Product** — 150–250ms on most transitions; motion conveys state (feedback, reveal, loading, view transitions). No page-load choreography; users are in a task. See `product.md`.
 
 Within the budget, match the motion's personality to the mood: a playful brand can be springier (still inside the no-bounce rule), a serious dashboard stays crisp and fast. Bouncy motion on a finance tool reads as borrowed.
 

@@ -1,15 +1,11 @@
 # Typography
 
-Type carries most of the information on a surface. Recipes for scale, pairing, loading, and detail — replacing generic defaults (Inter/Roboto at a flat scale) with type that reflects the brand and scales with intentional contrast. The brand font-selection procedure lives in [brand.md](brand.md); this is the *how*.
-
-## When to Use
-
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
+Type carries most of the information on a surface. Recipes for scale, pairing, loading, and detail — replacing generic defaults (Inter/Roboto at a flat scale) with type that reflects the brand and scales with intentional contrast. The brand font-selection procedure lives in `brand.md`; this is the *how*.
 
 ## Register sets the scale
 
-- **Brand** — run the font-selection procedure in [brand.md](brand.md). Fluid `clamp()` scale, ≥1.25 ratio between steps.
-- **Product** — system fonts and familiar sans stacks are legitimate; one well-tuned family usually carries the whole UI. Fixed `rem` scale, 1.125–1.2 ratio. See [product.md](product.md).
+- **Brand** — run the font-selection procedure in `brand.md`. Fluid `clamp()` scale, ≥1.25 ratio between steps.
+- **Product** — system fonts and familiar sans stacks are legitimate; one well-tuned family usually carries the whole UI. Fixed `rem` scale, 1.125–1.2 ratio. See `product.md`.
 
 ## Vertical rhythm
 

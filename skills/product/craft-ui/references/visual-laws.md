@@ -2,10 +2,6 @@
 
 Universal principles for how the eye reads a surface — *why* a composition works. The recipes that apply them live in the craft dimensions (color/typography/layout/motion/interaction/responsive).
 
-## When to Use
-
-Composed by `mockups.md` — apply the laws while generating. Not a direct trigger.
-
 ## Gestalt
 
 The mind groups visual elements by predictable rules — use them to compose hierarchy without explicit borders.

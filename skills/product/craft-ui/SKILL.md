@@ -1,18 +1,19 @@
 ---
 name: craft-ui
-allowed-tools: Bash(bun:*) Bash(python3:*) Bash(git:*) Read Write Edit Grep Glob WebFetch
 description: "Creates lo-fi wireframes for UI structure, hi-fi mockups for visual directions, and in-app experiments that compare variants inside an existing codebase. Use for landing pages, dashboards, product UI, and app screens, or to try a new UI idea in the running app. Not for visual identity, copywriting, single-component design, built-UI audits, or code review."
+compatibility: Requires bun and python3.
+allowed-tools: Bash(bun:*) Bash(python3:*) Bash(git:*) Read Write Edit Grep Glob WebFetch
 ---
 
 # Craft UI
 
-Three phases over the brief and the other supplied inputs. Wireframes and mockups each run on their own; when both run, `structure.yaml` carries the arrangement from one to the other, and without it each mockup direction chooses its own arrangement. Experiments test an idea inside the running app of a project that already has UI, comparing variants there.
+Three phases over the brief and the other supplied inputs: wireframes, mockups, and in-app experiments.
 
 ## Triggers
 
-- **Wireframes** ("plan the layout", "map the screen flow", "arrange the screens", "compare arrangements", "settle the structure first") → [wireframes.md](instructions/wireframes.md)
-- **Mockups** ("generate directions", "compare looks", "preview a direction", "try an editorial direction", "adjust the chosen look") → [mockups.md](instructions/mockups.md)
-- **Experiments** ("try this in the app", "compare variants in the running app", "test a new layout on the existing page", "try variants of this element in the app", "try an idea in the codebase") → [experiments.md](instructions/experiments.md)
+- **Wireframes** ("plan the layout", "map the screen flow", "arrange the screens", "compare arrangements", "settle the structure first") → [wireframes.md](references/wireframes.md) · the lo-fi arrangements, and the `structure.yaml` handoff when mockups follow
+- **Mockups** ("generate directions", "compare looks", "preview a direction", "try an editorial direction", "adjust the chosen look") → [mockups.md](references/mockups.md) · the rendered directions, and the chosen mockup
+- **Experiments** ("try this in the app", "compare variants in the running app", "test a new layout on the existing page", "try variants of this element in the app", "try an idea in the codebase") → [experiments.md](references/experiments.md) · variants compared in the running app
 
 A request to try an idea against the UI a codebase already has routes to experiments; with no codebase, or no UI yet, it routes to wireframes and mockups.
 

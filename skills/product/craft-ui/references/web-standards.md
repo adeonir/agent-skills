@@ -2,9 +2,23 @@
 
 Technical correctness rules for rendered UI. The craft dimension references carry the visual recipes; this file carries their implementation counterpart, and it holds for every mockup: accessibility, focus, forms, images, theming.
 
-## When to Use
+## Contents
 
-Composed by `mockups.md` as generation rules. Not a direct trigger.
+- Accessibility
+- Focus States
+- Forms
+- Animation (Technical)
+- Typography (Technical)
+- Content Handling
+- Images
+- Navigation and State
+- Touch and Interaction
+- Safe Areas
+- Browser Surfaces
+- Dark Mode (Technical)
+- Internationalization
+- Hover and Interactive States
+- Content and copy
 
 ## Accessibility
 
@@ -46,7 +60,7 @@ Composed by `mockups.md` as generation rules. Not a direct trigger.
 Rules for implementation — see motion.md for creative direction.
 
 - Honor `prefers-reduced-motion`: provide reduced variant or disable entirely.
-- Never animate layout-driving properties (`width`, `height`, `top`, `left`, margins) — they thrash layout. Transform and opacity are the safe defaults; the wider material palette is in [motion.md](motion.md).
+- Never animate layout-driving properties (`width`, `height`, `top`, `left`, margins) — they thrash layout. Transform and opacity are the safe defaults; the wider material palette is in `motion.md`.
 - Never `transition: all` — list properties explicitly.
 - Set correct `transform-origin` for scale and rotation.
 - SVG transforms go on `<g>` wrapper with `transform-box: fill-box; transform-origin: center`.
@@ -132,4 +146,4 @@ Rules for implementation — see color.md for color direction.
 
 Wording, voice, casing, and message content are outside this phase. Mockups use neutral placeholders with realistic lengths and do not author or edit final copy. The deterministic text rules — curly quotes, ellipsis, non-breaking spaces, tabular numerals — live in **Typography (Technical)** above.
 
-For failure-mode rules and HTML examples, see [anti-patterns.md](anti-patterns.md).
+For failure-mode rules and HTML examples, see `anti-patterns.md`.

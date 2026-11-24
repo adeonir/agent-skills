@@ -4,9 +4,22 @@ Anti-pattern catalog for rendered UI. Each rule documents a recognizable failure
 
 Every rule is a failure a viewer can see or a user can hit on the rendered surface. Framework and runtime correctness — hydration mismatch, reconciliation keys, server-only APIs — is source-code review and belongs elsewhere; a rule whose failure has no rendered consequence does not enter the catalog.
 
-## When to Use
+## Contents
 
-Composed by `mockups.md` to avoid known failure modes while generating. Not a direct trigger.
+- Categories
+- Rule Template
+- Two Kinds of Check
+- Typography
+- Color and Theme
+- Layout and Spacing
+- Decoration and Depth
+- Component States
+- Motion and Interaction
+- Accessibility
+- Performance
+- AI Scaffolding Tells
+- Fabricated Content
+- Drift
 
 ## Categories
 
@@ -62,7 +75,7 @@ Tell them apart from the Check itself: one expressible as a query or a measureme
 ## Typography
 
 ### inter-as-primary-font
-**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface. **Fix:** Run the font-selection procedure in [brand.md](brand.md) and carry its pick in the display role — its reflex-reject list names the families to look past, so a font drawn from memory here repeats the failure. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
+**Category:** Typography **Severity:** warning **Check:** Primary font-family of headings or body is `Inter`, `Roboto`, `Arial`, or `Helvetica` on a marketing, content, or storefront surface. **Fix:** Run the font-selection procedure in `brand.md` and carry its pick in the display role — its reflex-reject list names the families to look past, so a font drawn from memory here repeats the failure. System fonts are acceptable only on app and dashboard screens, not on marketing or editorial surfaces. **Example fail:**
 ```html
 font-family: Inter, system-ui, sans-serif
 ```

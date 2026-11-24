@@ -2,14 +2,10 @@
 
 Space is the most underused design tool. Recipes for spacing systems, rhythm, the right layout tool, hierarchy, depth, and optical adjustment — fix the structure, not the surface. Layout problems are often why an interface feels "off" even when color and type are fine.
 
-## When to Use
-
-Composed by `mockups.md` — apply while generating. Not a direct trigger.
-
 ## Register sets the composition
 
-- **Brand** — asymmetric compositions, fluid `clamp()` spacing, intentional grid-breaking for emphasis; rhythm through contrast (tight groupings + generous separations). See [brand.md](brand.md).
-- **Product** — predictable grids, consistent densities, familiar navigation; responsive behavior is structural (collapse sidebar, responsive table), not fluid type. Consistency IS an affordance. See [product.md](product.md).
+- **Brand** — asymmetric compositions, fluid `clamp()` spacing, intentional grid-breaking for emphasis; rhythm through contrast (tight groupings + generous separations). See `brand.md`.
+- **Product** — predictable grids, consistent densities, familiar navigation; responsive behavior is structural (collapse sidebar, responsive table), not fluid type. Consistency IS an affordance. See `product.md`.
 
 ## Spacing system
 

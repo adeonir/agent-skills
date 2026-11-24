@@ -2,10 +2,6 @@
 
 When design SERVES the product: app UIs, admin dashboards, settings panels, data tables, tools, authenticated surfaces — anything where the user is in a task.
 
-## When to Use
-
-Read by `mockups.md` when the surface carries `register: product`, to lean its look toward this register. Read only the matching file: product here, or [brand.md](brand.md) when design is the deliverable. Not a direct trigger.
-
 ## The bar
 
 | | Product |
@@ -62,7 +58,7 @@ Every interactive component has default, hover, focus, active, disabled, loading
 - Motion conveys state, not decoration — state change, feedback, loading, reveal.
 - No orchestrated page-load sequences. Product loads into a task.
 
-## Product bans (on top of the shared [anti-patterns.md](anti-patterns.md))
+## Product bans (on top of the shared `anti-patterns.md`)
 
 - Decorative motion that doesn't convey state.
 - Inconsistent component vocabulary across screens — if "save" looks different in two places, one is wrong.
@@ -84,4 +80,4 @@ Product can afford things brand can't.
 
 **Register** (brand vs product) is the posture — two values. **Surface** is the granular type the work actually is (dashboard, settings, data-table, onboarding, empty-state…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
 
-**Product surfaces** — dashboard, settings, form / wizard, data-table, onboarding, empty-state, checkout / account, authenticated tools. Storefronts straddle: the checkout / account flow is Product, the marketing / catalog shell is Brand (see [brand.md](brand.md)).
+**Product surfaces** — dashboard, settings, form / wizard, data-table, onboarding, empty-state, checkout / account, authenticated tools. Storefronts straddle: the checkout / account flow is Product, the marketing / catalog shell is Brand (see `brand.md`).

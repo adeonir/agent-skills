@@ -2,10 +2,6 @@
 
 The optional arrangement handoff — a region tree plus screen flow that orders the parts of every surface before a wireframe-backed mockup round. This plan carries structure only, never color, type, tokens, or copy.
 
-## When to Use
-
-Composed by `wireframes.md` when the user chooses the wireframe path — compose the region tree and the flow, then pass them to mockups through `structure.yaml`. Not a direct trigger.
-
 ## The region tree
 
 The arrangement is a region tree: surfaces, each an ordered list of blocks with a shape. Two levels describe it — the **region tree** lists a surface's blocks in order, and the **shape** fixes how each block is laid out.
