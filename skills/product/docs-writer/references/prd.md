@@ -2,6 +2,15 @@
 
 Capture product requirements: problem, audience, expected outcome, and scope.
 
+## Contents
+
+- Scope
+- Workflow
+- PRD Template
+- PRD Schema
+- Guidelines
+- Output
+
 ## Scope
 
 Product requirements only: problem, audience, expected outcome, scope. Never carries implementation content — no architecture, tech stack, UI components, API endpoints, or code-level decisions — nor strategic positioning (brand personality, anti-references). Architecture and implementation details belong to the Design Doc or ADR; positioning belongs to PRODUCT.
@@ -16,17 +25,17 @@ check disk
 └ PRD present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/product/PRD.md` exists; see [discovery.md](../references/discovery.md) `## Discovery or Update by Document State`. If absent, run the three phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Handle PRODUCT independently based on whether it exists.
+Check whether `docs/product/PRD.md` exists; see [discovery.md](discovery.md) `## Discovery or Update by Document State`. If absent, run the three phases below and use any confirmed earlier direction as input. If present, update only the requested parts by following [reconcile.md](reconcile.md). Handle PRODUCT independently based on whether it exists.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 Run these three phases when no PRD exists. Never assume context. Each topic defines two or three opening questions, reasons to ask a follow-up, and completion criteria.
 
 #### Read an Earlier Direction
 
-Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. If absent, run full discovery. If present, confirm its claims and ask only for missing PRD information.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then check `docs/product/brainstorm.md` before interviewing. If absent, run full discovery. If present, confirm its claims and ask only for missing PRD information.
 
 | Upstream section | Supplies | Behavior |
 |---|---|---|
@@ -146,9 +155,9 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 ### Phase 3: Drafting
 
 1. Use the PRD template below.
-2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](../references/reconcile.md). Do not replace supported positioning without new evidence.
-3. Run [quality.md](../references/quality.md).
-4. Write each document to its path, then reread each per [quality.md](../references/quality.md) `## Reread`.
+2. Handle PRODUCT by following [product.md](product.md). If `PRODUCT.md` is absent, write it from the confirmed discovery facts. If it exists, update it by following [reconcile.md](reconcile.md). Do not replace supported positioning without new evidence.
+3. Run [quality.md](quality.md).
+4. Write each document to its path, then reread each per [quality.md](quality.md) `## Reread`.
 5. **Report.** Report each path, what each document holds in one to three sentences — the expected outcome, the most important requirements, and the primary metric for the PRD — and any open question or TBD each carries. Never paste the documents.
 
 **Drafting notes:**
@@ -163,7 +172,7 @@ Challenge what was learned. This phase exists to prevent building the wrong thin
 
 ## PRD Template
 
-For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
+For a new document, read `<this-skill>/assets/prd.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
 ## PRD Schema
 
@@ -186,7 +195,7 @@ Topic 3 (Market & Differentiation) supplies PRODUCT, not the PRD.
 
 - Complete discovery before writing a new PRD. For an existing PRD, update only the requested parts.
 - Challenge weak claims during discovery, validation, and updates.
-- Write the PRD to its path directly, reread it per [quality.md](../references/quality.md) `## Reread`, then report as Phase 3 step 5 states
+- Write the PRD to its path directly, reread it per [quality.md](quality.md) `## Reread`, then report as Phase 3 step 5 states
 - Mark unknowns as TBD rather than inventing constraints or numbers
 - Discover PRODUCT if absent. Update only the requested parts if present.
 - Record a reason for exclusion on every Out of Scope item

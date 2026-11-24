@@ -2,10 +2,6 @@
 
 Location, format, edit, and upload rules for a feature PRD or feature design doc that lives as a document on a Linear issue.
 
-## When to Use
-
-Load when the repository's issue tracker is Linear, before resolving where a feature PRD or feature design doc lives, before writing it, and when the user asks to upload it to an issue.
-
 ## Resolve the Location
 
 The document lives on the issue only when both hold:

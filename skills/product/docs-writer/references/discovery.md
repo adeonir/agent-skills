@@ -2,9 +2,16 @@
 
 Common interview and discovery patterns used across document types.
 
-## When to Use
+## Contents
 
-Load this reference during project PRD, feature PRD, PRODUCT, feature design doc, Design Doc, and ADR discovery. It also defines how to update existing documents and how to challenge weak claims. Do not use it as a direct trigger.
+- Core Principle
+- Reading Project Files
+- Discovery or Update by Document State
+- Interview Strategy
+- Discovery Depth by Type
+- Gaps and Assumptions
+- Critical Review
+- Quality Gate
 
 ## Core Principle
 
@@ -31,7 +38,7 @@ Handle `docs/product/PRD.md` and `PRODUCT.md` independently. One run can discove
 
 Handle `docs/product/design-doc.md` the same way: discover it if absent or update the requested parts if present. No paired document changes this choice.
 
-For a new document, cover every required topic that another confirmed document does not already answer. For an existing document, update only missing information or the requested parts. Apply `## Reading Project Files` before reading any project file. Follow [reconcile.md](reconcile.md) when updating a document. If `docs/product/brainstorm.md` exists, use its confirmed direction as input to PRD discovery; see [prd.md](prd.md). Read the codebase separately when you need facts about current behavior.
+For a new document, cover every required topic that another confirmed document does not already answer. For an existing document, update only missing information or the requested parts. Apply `## Reading Project Files` before reading any project file. Follow `reconcile.md` when updating a document. If `docs/product/brainstorm.md` exists, use its confirmed direction as input to PRD discovery; see `prd.md`. Read the codebase separately when you need facts about current behavior.
 
 For a new decision, create a new numbered ADR. When the user identifies an existing ADR, update only the requested parts and bump `Updated:`.
 
@@ -82,7 +89,7 @@ Move on when:
 | Design Doc | 3 topics | Overview & stack; architecture, data & integrations; infra, NFRs & conventions |
 | ADR | 1 topic | The decision: context forces, response, consequences (lightweight) |
 
-Design Doc discovery stays lean. See [design.md](design.md) for the topic-by-topic workflow and the ADR linkage pattern that promotes stack choices into formal ADRs.
+Design Doc discovery stays lean. See `design.md` for the topic-by-topic workflow and the ADR linkage pattern that promotes stack choices into formal ADRs.
 
 ## Gaps and Assumptions
 
@@ -91,7 +98,7 @@ After discovery, before drafting:
 1. Identify gaps (mark as TBD)
 2. State the assumptions
 
-Apply this to a new document. When updating an existing document, follow [reconcile.md](reconcile.md) instead.
+Apply this to a new document. When updating an existing document, follow `reconcile.md` instead.
 
 ## Critical Review
 
@@ -116,7 +123,7 @@ Challenge weak claims with respect. Do not accept them only because the user sta
 
 ## Quality Gate
 
-Use these criteria for full discovery. When updating an existing document, follow [reconcile.md](reconcile.md) instead of reviewing every topic.
+Use these criteria for full discovery. When updating an existing document, follow `reconcile.md` instead of reviewing every topic.
 
 Before moving from discovery to drafting, verify:
 

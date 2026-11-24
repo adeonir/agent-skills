@@ -1,3 +1,4 @@
+Use this template as written:
 <!--
 ADR skeleton. Delete every comment and replace every square-bracket slot before writing the file.
 

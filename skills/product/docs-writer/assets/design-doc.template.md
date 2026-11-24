@@ -1,3 +1,4 @@
+Use this template as written:
 <!--
 Design Doc skeleton. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file.
 

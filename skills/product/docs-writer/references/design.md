@@ -2,9 +2,25 @@
 
 A lean project Design Doc: the technical foundation of the system and the reasons behind its stack.
 
+## Contents
+
+- Load first
+- Boundaries
+- When NOT to Write a Design Doc
+- Workflow
+- Design Doc Template
+- Design Doc Schema
+- Sizing
+- Guidelines
+- ADR Linkage
+- Updating an Existing Design Doc
+- Anti-Pattern: Product Prose in Technical Sections
+- Anti-Pattern: Exhaustive Coverage
+- Output
+
 ## Load first
 
-Read [discovery.md](../references/discovery.md) at the start of discovery, and [quality.md](../references/quality.md) before writing to disk. When `docs/product/design-doc.md` already exists, follow [reconcile.md](../references/reconcile.md) and update only the requested parts.
+Read [discovery.md](discovery.md) at the start of discovery, and [quality.md](quality.md) before writing to disk. When `docs/product/design-doc.md` already exists, follow [reconcile.md](reconcile.md) and update only the requested parts.
 
 ## Boundaries
 
@@ -27,15 +43,15 @@ document absent  → discovery → drafting → report
 document present → update requested parts (reconcile.md)
 ```
 
-Check whether `docs/product/design-doc.md` exists. If absent, run discovery and drafting. If present, update only the requested parts by following [reconcile.md](../references/reconcile.md). Run the quality checks before writing.
+Check whether `docs/product/design-doc.md` exists. If absent, run discovery and drafting. If present, update only the requested parts by following [reconcile.md](reconcile.md). Run the quality checks before writing.
 
 ### Phase 1: Discovery
 
-Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 **Check Existing Context:**
 
-Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then look for `docs/product/PRD.md` and ADRs under `docs/adr/`. Read them for context only. Cite the PRD in References instead of copying its prose, and add the ID of an existing ADR to the stack item it records.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then look for `docs/product/PRD.md` and ADRs under `docs/adr/`. Read them for context only. Cite the PRD in References instead of copying its prose, and add the ID of an existing ADR to the stack item it records.
 
 | PRD Section | Feeds Design Doc |
 |-------------|------------------|
@@ -93,7 +109,7 @@ Each topic below uses two or three opening questions.
 
 ### Phase 2: Drafting
 
-Use the template below. Run the checks in [quality.md](../references/quality.md) before writing, then write the Design Doc to its path, and reread it per [quality.md](../references/quality.md) `## Reread`.
+Use the template below. Run the checks in [quality.md](quality.md) before writing, then write the Design Doc to its path, and reread it per [quality.md](quality.md) `## Reread`.
 
 **Drafting notes:**
 
@@ -110,7 +126,7 @@ Report the path, what the document holds in one to three sentences — the stack
 
 ## Design Doc Template
 
-For a new document, read `<this-skill>/assets/design-doc.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](../references/reconcile.md); use the template only to check structure and never copy it over unchanged content.
+For a new document, read `<this-skill>/assets/design-doc.template.md`, copy its exact structure, remove every comment, and replace every square-bracket slot. For an existing document, follow [reconcile.md](reconcile.md); use the template only to check structure and never copy it over unchanged content.
 
 ## Design Doc Schema
 
@@ -155,7 +171,7 @@ Stack items without an ADR are recorded only here, with their one-line justifica
 
 ## Updating an Existing Design Doc
 
-If `docs/product/design-doc.md` exists, read it and update only what changed: a stack choice, component, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](../references/reconcile.md).
+If `docs/product/design-doc.md` exists, read it and update only what changed: a stack choice, component, or structure that no longer matches the implementation. Preserve unrelated sections and follow [reconcile.md](reconcile.md).
 
 Set `Updated:` to the current date and preserve `Created:`. Report any change that conflicts with a linked ADR or an unchanged section.
 

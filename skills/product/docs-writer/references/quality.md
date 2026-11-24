@@ -2,10 +2,6 @@
 
 Quality checks for requirements and document integrity before writing any document to disk.
 
-## When to Use
-
-Load during the Drafting phase, before writing any document to disk, and again after writing it.
-
 ## Requirements Quality
 
 Requirements must be concrete across all document types: state the observable behavior or quality, never a vague adjective. Put a number in only when the user supplied it or the project already has it; otherwise state the requirement in words, or mark it TBD when the decision is open. Never invent a figure to fill a field.

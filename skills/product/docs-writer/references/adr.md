@@ -2,6 +2,20 @@
 
 Record one architecture decision with its status, context, decision, consequences, and references.
 
+## Contents
+
+- Scope
+- When NOT to Write an ADR
+- Workflow
+- ADR Template
+- ADR Schema
+- Guidelines
+- Status Lifecycle
+- Anti-Pattern: Bundled Decisions
+- Anti-Pattern: Advocacy or Narrative as Context
+- Anti-Pattern: Planning or Scope in the Decision
+- Output
+
 ## Scope
 
 Write one when a meaningful architecture decision has been made or needs an update that future engineers will need to understand: technology choice, integration pattern, data model shape, deprecation, or migration strategy. Keep one decision per ADR — status, context, decision, consequences, and references — and leave the system design in the Design Doc.
@@ -25,11 +39,11 @@ context → validation → drafting → report
 
 ### Phase 1: Context
 
-Load [discovery.md](../references/discovery.md) for the shared interview method and critical review.
+Load [discovery.md](discovery.md) for the shared interview method and critical review.
 
 **Check Existing Context:**
 
-Apply [discovery.md](../references/discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
+Apply [discovery.md](discovery.md) `## Reading Project Files`, then read existing ADRs at `docs/adr/`. If the user identifies an existing ADR, read it and scope the requested update before discovery. Otherwise, use existing ADRs to exclude decisions already recorded. After the user selects a candidate, ask whether the new ADR supersedes an existing one.
 
 Scan project documents for decisions that might need their own ADR:
 
@@ -73,7 +87,7 @@ Before drafting, confirm that the ADR records exactly one decision, Context expl
 
 ### Phase 3: Drafting
 
-Use the template below. Follow the document-wide `## Sources` and References patterns. When the decision came from `PROJECT.md`, add its path to the References list only, never to `## Sources`. Run the checks in [quality.md](../references/quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](../references/quality.md) `## Reread`.
+Use the template below. Follow the document-wide `## Sources` and References patterns. When the decision came from `PROJECT.md`, add its path to the References list only, never to `## Sources`. Run the checks in [quality.md](quality.md) before writing, then write the ADR to `docs/adr/NNN-slug.md`, and reread it per [quality.md](quality.md) `## Reread`.
 
 For a new ADR, set `Status:` to `proposed`. For an existing ADR, preserve its status unless the requested change includes a status change, and set `Updated:` to the current date.
 

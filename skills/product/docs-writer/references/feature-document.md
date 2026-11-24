@@ -2,10 +2,6 @@
 
 Shared update and source rules for feature PRDs and feature design docs.
 
-## When to Use
-
-Load before creating or updating a feature PRD or feature design doc.
-
 ## Updates
 
 Preserve the `Created:` item and the `## Sources` section. Set `Updated:` when changing an existing document. Preserve sections outside the requested change.

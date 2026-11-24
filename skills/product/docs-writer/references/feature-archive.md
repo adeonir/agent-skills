@@ -2,10 +2,6 @@
 
 Move feature folders out of `.artifacts/features/` into dated cold storage, with no change to the documents inside.
 
-## When to Use
-
-Only when the user explicitly asks to archive a feature. Never archive automatically and never suggest it. Archiving changes the folder location only.
-
 ## Workflow
 
 ```text

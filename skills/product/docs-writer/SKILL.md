@@ -5,17 +5,17 @@ description: "Product and technical document creation through guided discovery, 
 
 # Docs Writer
 
+Writes the product and technical documents a project carries, from requirements to decisions.
+
 ## Triggers
 
-| Type | Load |
-|------|------|
-| PRD — product requirements | [prd.md](instructions/prd.md) |
-| Feature PRD — feature requirements | [feature-prd.md](instructions/feature-prd.md) |
-| Feature Design Doc — feature technical design | [feature-design.md](instructions/feature-design.md) |
-| PRODUCT — strategic positioning and identity | [product.md](instructions/product.md) |
-| Design Doc — lean technical design and trade-offs | [design.md](instructions/design.md) |
-| ADR — single architecture decision record | [adr.md](instructions/adr.md) |
-| Archive feature — move feature folders to cold storage | [feature-archive.md](instructions/feature-archive.md) |
+- **PRD** — product requirements for a new or changing product → [prd.md](references/prd.md) · the product requirements document
+- **Feature PRD** — requirements for one feature → [feature-prd.md](references/feature-prd.md) · the feature requirements document
+- **Feature Design Doc** — the technical design of one feature → [feature-design.md](references/feature-design.md) · the feature's technical design
+- **PRODUCT** — strategic positioning and identity → [product.md](references/product.md) · the `PRODUCT.md` document
+- **Design Doc** — lean technical design and trade-offs for the project → [design.md](references/design.md) · the project Design Doc
+- **ADR** — a single architecture decision record → [adr.md](references/adr.md) · the decision record
+- **Archive feature** — move feature folders to cold storage → [feature-archive.md](references/feature-archive.md) · the archived folder
 
 Detect the document type from the trigger. If ambiguous, ask the user.
 

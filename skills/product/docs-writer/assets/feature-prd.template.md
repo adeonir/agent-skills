@@ -1,3 +1,4 @@
+Use this template as written:
 <!-- Feature PRD. ALWAYS use this exact template structure. Remove an optional section that has no content. Delete every comment and replace every square-bracket slot before writing the file. -->
 
 # Feature PRD: [Feature Name]
