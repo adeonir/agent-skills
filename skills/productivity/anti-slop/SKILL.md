@@ -5,9 +5,27 @@ description: "Prose editing that removes AI-writing patterns while preserving fa
 
 # Anti-Slop
 
-## Quick start
-
 Edit a draft with the smallest useful changes, then report the changes.
+
+## Workflow
+
+Copy this checklist and tick it off:
+
+```text
+Progress:
+- [ ] Step 1: Read the draft
+- [ ] Step 2: Load the catalog
+- [ ] Step 3: Edit the draft
+- [ ] Step 4: Compare and report
+```
+
+**Step 1. Read the draft.** Read all of it before changing a sentence. Classify the register against Register below and name the core point; neither enters the reply. Done when the register and the core point are named.
+
+**Step 2. Load [slop-catalog.md](references/slop-catalog.md)** · the bans and cues the edit applies. Done when the catalog is in context.
+
+**Step 3. Edit the draft.** Load [editing-principles.md](references/editing-principles.md) · what stays and how far an edit may go, and [edit.md](references/edit.md) · the report format. Then apply the principles, every ban, and each cue the context supports. Done when the full draft is edited.
+
+**Step 4. Compare and report.** Reread the edited text against the original. Restore the original wording of a change that no principle, ban, or supported cue backs. Write the What changed report per edit.md. Done when the report accounts for every remaining change, and no line names a change the edit did not make.
 
 ## Register
 
@@ -27,23 +45,3 @@ Write in the draft's language. The word lists are English. For another language,
 
 - No draft — Ask the user for it.
 - Core point still unclear after a full read — Ask. Never guess.
-
-## Workflow
-
-Copy this checklist and tick it off:
-
-```text
-Progress:
-- [ ] Step 1: Read the draft
-- [ ] Step 2: Load the catalog
-- [ ] Step 3: Edit the draft
-- [ ] Step 4: Compare and report
-```
-
-**Step 1. Read the draft.** Read all of it before changing a sentence. Classify the register and name the core point; neither enters the reply. Done when the register and the core point are named.
-
-**Step 2. Load [slop-catalog.md](references/slop-catalog.md).** Done when the catalog is in context.
-
-**Step 3. Edit the draft.** Load [editing-principles.md](references/editing-principles.md) and [edit.md](references/edit.md), then apply the principles, every ban, and each cue the context supports. Done when the full draft is edited.
-
-**Step 4. Compare and report.** Reread the edited text against the original. Restore the original wording of a change that no principle, ban, or supported cue backs. Write the What changed report per edit.md. Done when the report accounts for every remaining change, and no line names a change the edit did not make.

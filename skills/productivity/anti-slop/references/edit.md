@@ -2,10 +2,6 @@
 
 The report that follows the edit.
 
-## When to Use
-
-Loaded before editing: the format of the What changed report.
-
 ## Report
 
 ALWAYS use this exact template structure:

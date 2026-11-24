@@ -2,10 +2,6 @@
 
 Bans and cues for the edit.
 
-## When to Use
-
-Loaded before editing. The edit applies every ban and each cue the context supports.
-
 ## Contents
 
 - Bans

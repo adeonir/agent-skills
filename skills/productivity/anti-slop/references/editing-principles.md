@@ -2,10 +2,6 @@
 
 Rules for deciding what stays, what changes, and how far an edit may go.
 
-## When to Use
-
-Loaded before editing a draft.
-
 ## Principles
 
 - **Preserve the writer's real voice.** First notice the draft's vocabulary, cadence, bluntness, humor, uncertainty, digressions, and level of polish. Keep the traits that feel personal to the writer. Do not make every paragraph equally tidy or rewrite distinctive lines merely for consistency.
