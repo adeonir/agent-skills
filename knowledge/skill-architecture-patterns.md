@@ -10,7 +10,7 @@ Treat the format as portable. Behavior that makes a skill work belongs in `SKILL
 
 Keep one level of guidance: every supporting file sits one hop from `SKILL.md`, and a file under `references/` refers by path to its scripts and assets.
 
-## Shape
+## The skill directory
 
 ```text
 skill-name/
@@ -26,9 +26,7 @@ skill-name/
 
 The skill directory holds these five entries. The human-facing page lives in `docs/`, described under [Documentation](#documentation).
 
-## Skill unit
-
-Scope a skill to one job: one request in, one outcome out. Add a mode, a phase, or a depth setting to that job when the outcome stays the same.
+Scope the skill to one job: one request in, one outcome out. Add a mode, a phase, or a depth setting to that job when the outcome stays the same.
 
 Make the skill a router when the requests it answers produce distinct end-to-end outcomes, or when its procedure would exceed the body limit. Route each job to one file under `references/`.
 
@@ -40,18 +38,19 @@ The frontmatter carries the fields the specification defines:
 
 | Field | Rule |
 |-------|------|
-| `name` | Same as the folder. See [Identity](#identity). |
-| `description` | See [Description](#description). |
-| `license` | When it differs from the repository `LICENSE`. |
+| `name` | Same as the folder: 1 to 64 characters, lowercase letters, digits, and single hyphens, beginning and ending with a letter or digit. Unique across the library and distinct from a host's built-in command. |
+| `description` | Third person, plain text, at or below 1024 characters. Primary use case first, then the skill's scope and its boundary against adjacent work, in the words a user types. |
+| `metadata` | Additional properties, such as `inspired-by`. See [Attribution](#attribution). |
 | `compatibility` | Environment requirements: runtime, packages, network. Required when the skill has any. |
-| `metadata` | Additional properties. See [Attribution](#attribution). |
 | `allowed-tools` | Optional. Every step runs when a host withholds these tools. |
 
-Claude Code reads its invocation flag, `disable-model-invocation`, from this same frontmatter, and that is the one field outside the specification. Every other host field lives in `agents/openai.yaml`.
+Treat the set of descriptions as one budget, because every host loads all of them at startup. Keep the total inside the smallest host budget the repository targets, which is 8000 characters by default in Codex. When the total exceeds it, shorten descriptions or remove skills.
 
-### Sections
+Keep `description` and `## Triggers` apart: the description states the skill's scope at the library level, the index chooses the branch inside the skill.
 
-Open with the H1, then one sentence stating what the skill covers, then either `## Triggers` for a router or `## Quick start` for a single job.
+### Opening
+
+Open with the H1, then one sentence stating what the skill covers, then either `## Triggers` for a router or `## Workflow` for a single job.
 
 Put the index directly after the opening: after compaction the host reattaches the top of the file, so keep the list near the top.
 
@@ -76,7 +75,7 @@ Give every file under `references/` exactly one entry, in this shape:
 
 Test each condition by asking whether the agent can choose from the entry itself, at the moment the request arrives, because the index is read once. A situation passes the test; a topic label sends the agent into the file to find out.
 
-A single-job skill carries its procedure in `## Quick start` and places each entry in the step that loads the file, in the same shape. The entry is what the step says to load before relying on it.
+A single-job skill carries its procedure in `## Workflow` and places each entry in the step that loads the file, in the same shape. The entry is what the step says to load before relying on it.
 
 Three completeness rules: every supporting file has one entry, every entry states a condition, and every procedure lives in the file a router points to.
 
@@ -88,7 +87,7 @@ Keep the body at or below 150 lines. Move detail into the file that needs it.
 
 ### Header
 
-Open with the H1. A procedure reuses the words of the index branch that selects it; a material file names its topic. Then one sentence: the result a procedure produces, or what the material provides.
+Open with the H1. A procedure reuses the words of the index branch that selects it, which makes the pair checkable by comparison; a material file names its topic, and its branch states when to load it. Then one sentence: the result a procedure produces, or what the material provides. A single-job skill has no branch label, so its H1 names the job and the sentence carries the payload.
 
 ### Procedure
 
@@ -144,7 +143,7 @@ Use prose for every other operation.
 State the exact command, the input, and what each exit code means, then anchor the step's completion condition to the exit code.
 
 ```markdown
-**3. Validate.** Run `python3 scripts/validate_fields.py fields.json`. Done when it exits `0`; a non-zero exit lists the offending field and returns to step 2.
+**Step 3. Validate.** Run `python3 scripts/validate_fields.py fields.json`. Done when it exits `0`; a non-zero exit lists the offending field and returns to Step 2.
 ```
 
 Run a script by default. Read it when the algorithm itself is what the agent must adapt, and say so: "See `scripts/<name>.py` for the extraction algorithm".
@@ -159,23 +158,11 @@ An asset is data a procedure reads or fills.
 - Keep the steps in the file that uses the asset.
 - Keep a short template that every run uses inline in the procedure. Move it to `assets/` when it is long or needed on some runs, and announce it in the index.
 
-## Identity
+## Host metadata
 
-`name` is the folder name and the slash command at once. Use 1 to 64 characters, lowercase letters, digits, and hyphens, beginning and ending with a letter or digit and using single hyphens between words.
+`agents/openai.yaml` holds what the host displays and enforces: `interface.display_name`, `interface.short_description`, `policy`, and `dependencies.tools`.
 
-Use a noun phrase consistently across the collection, which the specification lists as an accepted form alongside the gerund. Keep the name unique across the library and distinct from a host's built-in command.
-
-## Description
-
-Write one `description`, in third person, at or below 1024 characters, as plain text. Put the primary use case first: a host shortens descriptions first. State the skill's scope and its boundary against adjacent work, using the words a user types.
-
-Treat the set of descriptions as one budget, because every host loads all of them at startup. Keep the total inside the smallest host budget the repository targets, which is 8000 characters by default in Codex. When the total exceeds it, shorten descriptions or remove skills.
-
-Keep `description` and `## Triggers` apart: the description states the skill's scope at the library level, the index chooses the branch inside the skill.
-
-## Invocation
-
-Allow implicit invocation by default. Reserve explicit invocation for a skill with a side effect: a deploy, a send, a merge, a publication. Declare it in each host's own metadata: `disable-model-invocation: true` in the frontmatter for Claude Code, and `policy.allow_implicit_invocation: false` in `agents/openai.yaml` for Codex.
+Claude Code reads its invocation flag, `disable-model-invocation`, from the `SKILL.md` frontmatter; that is the one field outside the specification. Allow implicit invocation by default, and reserve explicit invocation for a skill with a side effect — a deploy, a send, a merge, a publication. Declare it per host: `disable-model-invocation: true` for Claude Code, `policy.allow_implicit_invocation: false` for Codex.
 
 Treat file-scoped activation, argument hints, and isolated context as convenience. A portable skill works when a host withholds them.
 
@@ -183,8 +170,7 @@ Treat file-scoped activation, argument hints, and isolated context as convenienc
 
 Documentation serves the human reader; the agent reads `SKILL.md` and `references/`. The page for a skill is generated from the skill and lives outside this pattern.
 
-- `agents/openai.yaml` holds what the host displays and enforces: `interface.display_name`, `interface.short_description`, `policy`, and `dependencies.tools`.
-- The repository index holds exactly the set of skills on disk.
+The repository index holds exactly the set of skills on disk.
 
 Keep one value per concept: `display_name` is the page H1 and the label in the index; `short_description` is the tagline and the index one-liner; prose uses `display_name`, and the folder name stays the machine identity.
 
@@ -201,6 +187,8 @@ metadata:
 ```
 
 Attribution is a courtesy and fits in the frontmatter.
+
+A copied passage creates a license obligation, recorded in `license` or in a `LICENSE` file when the notice must travel with the text.
 
 ## Conformance
 
