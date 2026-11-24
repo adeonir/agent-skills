@@ -1,13 +1,10 @@
 ---
 name: skill-feedback
-argument-hint: "[skill-name]"
 description: 'Writes a normalized improvement report about a skill used in the current session, built from evidence in the conversation and printed in chat for a later editing session. Use when a skill misbehaved, missed a case, or gave an unclear instruction during the session, or when the user says "report this skill issue", "skill feedback", or "write a report for the skill". Not for editing, auditing, or creating a skill, scoring trigger precision, or session handoffs.'
 disable-model-invocation: true
 ---
 
 # Skill Feedback
-
-## Quick start
 
 Turn what went wrong with a skill in this session into a report another session can act on without this conversation. Write nothing to disk and change no skill file; the report goes to chat only.
 
@@ -40,7 +37,7 @@ Mark a finding `observed` when a turn shows the failure and `inferred` when you 
 
 **Step 4. Print the report.** Write it in English and quote the evidence verbatim in its original language. Reply with the report alone, with no text before or after it, so the whole reply copies as one block. If the user corrects a finding, return to Step 3 and print the full report again.
 
-ALWAYS use this exact template structure:
+Use this template as written:
 
 ```markdown
 # Skill feedback: [skill name]
