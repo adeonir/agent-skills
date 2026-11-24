@@ -1,11 +1,12 @@
 ---
 name: to-tasks
 description: "Breaks the work in the conversation or in supplied material into implementation tasks, each cut as a vertical slice, and registers each task as a tracker issue with its blocking issues, as a sub-issue when an issue is supplied. Use when breaking work into tasks an agent can pick up, when the user asks to split work into tasks, or when a single task needs registering. Not for writing or changing a spec, decomposing an idea or PRD into top-level issues, step-by-step plans inside one task, or implementation."
+argument-hint: "[context]"
 disable-model-invocation: true
 compatibility: Requires a Linear or GitHub tracker.
 metadata:
   inspired-by:
-    - "to-tickets — https://github.com/mattpocock/skills"
+    - "to-tickets — https://github.com/mattpocock/skills/blob/main/skills/engineering/to-tickets/SKILL.md"
 ---
 
 # To Tasks

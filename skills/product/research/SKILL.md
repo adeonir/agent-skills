@@ -1,6 +1,7 @@
 ---
 name: research
 description: "Investigates an open question about a product or a codebase against sources and captures the findings as a research report in the repository. Covers the problem domain, the audience, competitors and similar products, visual and functional references, market patterns, technical, legal, or platform constraints, the materials the user supplies, and the code and documentation involved. Use when the user wants a topic researched, docs or API facts gathered, competitors compared, or reading delegated to a background agent before a brief, a document, or a solution is written. Not for writing a brief, requirements, a design, copy, or a plan, for choosing a solution, or for diagnosing a bug."
+argument-hint: "[question]"
 ---
 
 # Research

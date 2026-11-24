@@ -1,11 +1,12 @@
 ---
 name: write-spec
 description: "Turns already-agreed context from the conversation or supplied materials into a lightweight specification of behavior, technical decisions, and testing. Use when turning an agreed intent or discussion into a spec, or updating that spec with revised decisions. Not for feature specs or PRDs started from scratch, discovery interviews, traceable requirements or task plans, issue decomposition, or implementation."
+argument-hint: "[context]"
 disable-model-invocation: true
 compatibility: Requires a Linear or GitHub tracker.
 metadata:
   inspired-by:
-    - "to-spec — https://github.com/mattpocock/skills"
+    - "to-spec — https://github.com/mattpocock/skills/blob/main/skills/engineering/to-spec/SKILL.md"
 ---
 
 # Write Spec

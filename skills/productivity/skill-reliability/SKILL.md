@@ -1,6 +1,7 @@
 ---
 name: skill-reliability
 description: "Analyzes a skill's end-to-end reliability: trigger precision plus compound workflow risk, with verifiable fixes applied on confirmation. Use when evaluating a skill's hit rate, checking whether a description fires on the right requests, finding steps that drag reliability, or deciding where scripts, idempotence, or explicit inputs and outputs help most. Not for general skill authoring, structure audits, or running evals."
+argument-hint: "[skill-name]"
 disable-model-invocation: true
 ---
 

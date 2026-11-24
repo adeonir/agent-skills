@@ -2,15 +2,6 @@
 
 Consolidate current conversation state into `.artifacts/HANDOFF.md`, one block per topic.
 
-## Contents
-
-- Format
-- [topic]
-- Workflow
-- Examples
-- handoff skill audit
-- auth race fix
-
 ## Format
 
 ALWAYS use this exact template structure:

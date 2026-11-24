@@ -1,6 +1,7 @@
 ---
 name: write-intents
 description: "Turns an idea, problem, document, ticket, incident, or metric into concrete intents with the user, one per releasable deliverable. Use when capturing intent, turning input into an intent, cutting a PRD or another large input into deliverables, or clarifying the problem, proposed outcome, scope, and success criterion before specification. Not for open-ended ideation, exhaustive decision interviews, feature specifications, implementation slicing, or coding."
+argument-hint: "[input]"
 disable-model-invocation: true
 ---
 

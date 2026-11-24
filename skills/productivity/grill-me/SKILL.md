@@ -5,7 +5,7 @@ disable-model-invocation: true
 compatibility: Requires python3.
 metadata:
   inspired-by:
-    - "grilling — https://github.com/mattpocock/skills"
+    - "grilling — https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md"
 ---
 
 # Grill Me

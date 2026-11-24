@@ -1,6 +1,7 @@
 ---
 name: handoff
 description: "Conversation handoff scoped to the current project, for resuming work in a later session. Use when checkpointing mid-task, pausing work to pick up later, loading or resuming prior context, or clearing a handoff. Not for end-of-session notes, handoffs between projects, or repository-wide project context."
+argument-hint: "load | clear | [topic]"
 disable-model-invocation: true
 ---
 

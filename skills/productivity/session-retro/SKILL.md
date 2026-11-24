@@ -5,7 +5,7 @@ disable-model-invocation: true
 compatibility: Requires jq and Claude Code session logs.
 metadata:
   inspired-by:
-    - "retro — https://github.com/mattpocock/skills"
+    - "retro — https://github.com/mattpocock/skills/blob/main/skills/engineering/retro/SKILL.md"
 ---
 
 # Session Retro
