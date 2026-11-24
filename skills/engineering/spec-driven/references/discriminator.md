@@ -14,7 +14,7 @@ Design *staying out of* function bodies means it never authors one — not that 
 
 ## The observability test
 
-If the user or caller observes it → WHAT (enters the spec). If it is an internal choice → HOW (stays out, goes to design). Precise observable results — status, error semantics, a field present in the response, a state transition, limits, priorities — are WHAT. Tech, library, file path, component/function/class name, internal data structure, algorithm, and design-mechanism rationale are HOW.
+If the user or caller observes it → WHAT (enters the spec). If it is an internal choice → HOW (stays out, goes to design).
 
 ## Where WHY lives, without bloat
 

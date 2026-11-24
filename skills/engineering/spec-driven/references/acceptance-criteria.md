@@ -20,11 +20,11 @@ Scenario: User signs in with registered credentials
 - One criterion is one scenario. Two criteria never carry the same scenario.
 - `Scenario` states a single case and carries no `Examples`. `Scenario Outline` carries exactly one `Examples` table: one non-empty, unique-column header and at least one data row; every row matches the header width, every placeholder is a column, and every column binds a placeholder.
 - `Given`, `When` and `Then` each open a step group, and `And` or `But` continues the group open at that point.
-- A `Then` asserting two independent outcomes is two criteria — split it, however they were joined, in one step with `and` or across an `And` continuation. Two observables of one outcome stay one criterion. Each criterion maps to one test case, so a criterion carrying three observables has no single assertion.
+- A `Then` asserting two independent outcomes is two criteria — split it, however they were joined, in one step with `and` or across an `And` continuation. Two observables of one outcome stay one criterion.
 - A conjunctive precondition that names one state the criterion needs whole stays one `Given` group: "the user is signed in and has three items in the cart".
 - Measure the `Then` alone. `Given` and `When` narrow when the criterion applies, and narrowing what a criterion covers promises nothing extra.
 - Write the outcome as something observable: "the modal appears", never "the flow feels natural".
-- An invariant is written as the event that would violate it — `When a record is written / Then the audit log carries the actor` — since every scenario carries a trigger.
+- Write an invariant as the event that would violate it — `When a record is written / Then the audit log carries the actor` — since every scenario carries a trigger.
 - A non-obvious criterion carries its `(because …)` rationale on the heading, after the title.
 
 ## `AC-N.M` identity
@@ -71,11 +71,11 @@ Any performance, latency, throughput, capacity, or availability claim carries a 
 
 The actor of every `Then` is the system under specification. A clause whose obligation something else satisfies — a platform, a runtime, a service, or a library behaving as documented — is not a criterion this feature can meet or fail. Drop it, or replace it with the observable this system owns that rests on it.
 
-An inherited clause that fails this surfaces as a question during discovery, the same route a miscalibrated one takes; an authored one is caught at the self-check over the drafted spec. Neither is rewritten unilaterally, and the pendency it leaves on the seed is recorded exactly as Calibration's **Loosen** records one.
+Neither an inherited nor an authored clause is rewritten unilaterally, and the pendency an inherited one leaves on the seed is recorded as Calibration's **Loosen** records one.
 
 ## Calibration
 
-A criterion may assert less than its slice needs — that gap is a coverage hole, and every check looks for it. It may also assert *more*, and nothing looks for that. Ask of each one: **is there an implementation the slice's `so that [benefit]` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
+A criterion may assert less than its slice needs — that gap is a coverage hole, and every check looks for it. Ask of each one: **is there an implementation the slice's `so that [benefit]` would accept and this criterion forbids?** Where a criterion serves a Goal directly, the Goal is the anchor.
 
 The failure shape: a `Then` naming a **timing**, a **count**, a **threshold**, or a **mechanism** where the benefit names only an **outcome**. "On the next read", "in a single query", "without a cache" — each forbids an implementation the benefit permits.
 

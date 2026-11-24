@@ -13,7 +13,7 @@ The project's shared memory and the feature state.
 
 ## `PROJECT.md`
 
-Keep `PROJECT.md` at the project root, beside `AGENTS.md`, and commit it. It is useful to every developer and agent working in the project.
+Keep `PROJECT.md` at the project root, beside `AGENTS.md`, and commit it.
 
 Write only these sections:
 

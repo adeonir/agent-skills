@@ -10,4 +10,4 @@ Move a feature out of the active `specs/` tree into dated cold storage — house
 4. **Keep.** Move the folder whole; edit nothing inside it.
 5. **Report.** Report one line per feature: `<slug> → .artifacts/archive/specs/<created>-<slug>/`. Nothing else.
 
-The agent never reads `.artifacts/archive/specs/` when creating a new spec — archived features are cold storage, not discovery input.
+Never read `.artifacts/archive/specs/` when creating a new spec.

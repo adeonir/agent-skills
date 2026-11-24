@@ -28,4 +28,4 @@ flowchart TD
     specify -.->|mechanical change| implement
 ```
 
-Specify's triage decides the path: a mechanical change with zero load-bearing decisions becomes a one-liner straight to inline implement on its own branch, and a prompt carrying outcomes that ship separately becomes one feature per outcome. Everything else produces the artifacts and runs the phases in turn. Verify is mental, per task, inside implement — never a user phase. Validate is optional UAT on the running application. Archive is manual housekeeping for a feature in any state, never automatic or suggested.
+Specify's triage decides the path: a mechanical change with zero load-bearing decisions becomes a one-liner straight to inline implement on its own branch, and a prompt carrying outcomes that ship separately becomes one feature per outcome. Verify is mental, per task, inside implement — never a user phase. Validate is optional UAT on the running application. Archive is manual housekeeping for a feature in any state, never automatic or suggested.

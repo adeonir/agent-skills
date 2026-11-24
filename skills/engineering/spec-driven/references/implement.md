@@ -24,14 +24,14 @@ No `spec.md` exists — work from the one-liner:
 
 No approval gate — the inline verify is the check. A wrong triage becomes visible here: a new load-bearing decision appears, the inline steps run past ~5, or the change turns out to need formal visual validation. Any of those routes back to [specify.md](specify.md) for a `spec.md` and the full pipeline; never push through inline.
 
-Work already committed inline is kept, never reset or redone: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so its `Covers` field still maps the landed work to the contract.
+Keep inline commits; never reset or redo them: the new `spec.md` takes the existing branch in its `branch:` field, and `tasks.md` records the landed change as a completed task so its `Covers` field still maps the landed work to the contract.
 
 ### Per task — Before
 
 1. Read `STATE.md ## Progress` to see what is done and what remains, then read the task and confirm its `Depends on:` are complete.
 2. Read the task in `tasks.md`, the whole `design.md`, and the whole `spec.md`. `Builds` names the components the task creates or changes; the rest of the design — other components, their `Reuses`, the `Decisions` table — is existing vocabulary to consume, never to re-author. Run tests with the `Runner` line in `tasks.md ## Scope`. For a task with `Covers`, the complete scenario of every AC it names is the contract its `Test` case must prove.
 3. State the files to touch, the AC / `Done when` this task satisfies, and the main risks.
-4. If the task **modifies** existing code (not a pure add): before changing it, understand what it currently does — its responsibility, its callers, the edge cases it handles — and read `git blame` on the lines you will change for the original intent. Preserve behavior the spec does not mean to alter; a line whose purpose you cannot explain is a fence not to remove blindly. A task that only adds new code skips this.
+4. If the task **modifies** existing code (not a pure add): before changing it, read `git blame` on the lines you will change for the original intent. Preserve behavior the spec does not mean to alter; a line whose purpose you cannot explain is a fence not to remove blindly. A task that only adds new code skips this.
 
 ### Per task — During
 

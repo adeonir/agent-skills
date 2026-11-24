@@ -41,8 +41,6 @@ Turn a feature intent into a `spec.md` describing observable behavior and the in
     When `specify` is run for an existing feature, treat downstream artifacts as context only. Do not compare artifact versions or update downstream artifacts in this phase; `design` and `tasks` own their own artifacts.
 9. **Report.** At the approval gate, present the path of `spec.md`, one or two sentences of what the feature does — naming any decision that departs from a document in `sources` or `## References`, confirmed against the document's current text — and every `open` `ASM-N` and `OQ-N`. Never hide the surviving pendencies. When any is open, suggest reviewing it. Name anything the run wrote that the project does not ignore and suggest the commit — see [memory.md](memory.md).
 
-A new `spec.md` is written at `status: draft`, and the self-check turns it `ready`.
-
 ## Template: `spec.md`
 
 Location: `.artifacts/specs/<slug>/spec.md` — `<slug>` is the kebab-case feature name.
