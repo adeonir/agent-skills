@@ -1,3 +1,4 @@
+Use this template as written:
 # Spec Format
 
 Use `[Work title]` as the issue title and the block below as the issue body. Include `Reference` only when a related document exists, and `Current Behavior` only when the work changes existing behavior. For a repository file, link its URL on the repository host's default branch.
