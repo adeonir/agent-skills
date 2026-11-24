@@ -4,7 +4,7 @@ Validate the root `DESIGN.md` with the official CLI, component contrast checks, 
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](../references/cli.md) for the command surface.
+Read [discovery.md](discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](cli.md) for the command surface.
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
 
@@ -40,7 +40,7 @@ python3 <this-skill>/scripts/check-contrast.py DESIGN.md --json
 ```
 
 7. Check that every component that declares both `backgroundColor` and `textColor` reaches 4.5:1 after compositing a translucent text color over its background, and report a pair below it as a warning. Composite a translucent background over the opaque `backgroundColor` of `components.page`. When the component's `## Components` line places a scene, image, or video behind it, report its pair as a warning that contrast over that backdrop is unverified. Treat an unparseable color, or a translucent background without an opaque `components.page` background, as an error, never a skip. Never infer a pair from token names: a text color is checked only against the surfaces that components put it on.
-8. Load [anti-patterns.md](../references/anti-patterns.md) and run only rules whose Surface is `DESIGN.md` or `both`.
+8. Load [anti-patterns.md](anti-patterns.md) and run only rules whose Surface is `DESIGN.md` or `both`.
 9. Check the document structure:
    - Colors remain flat CSS strings.
    - Every frontmatter key is one the artifact contract allows.

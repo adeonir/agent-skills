@@ -2,10 +2,6 @@
 
 Command contracts and result handling for the official DESIGN.md tool.
 
-## When to Use
-
-Load for validate, export, diff, or when the installed command behavior is unclear.
-
 ## Invocation
 
 Use the registry-resolved package without installing it into the project:

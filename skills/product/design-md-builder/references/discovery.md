@@ -2,10 +2,6 @@
 
 Establish the available context, the field, and the register every design-md-builder operation works from.
 
-## When to Use
-
-Loaded at the start of every operation, before the work begins. It settles what already exists, whether the run is greenfield or brownfield, the brownfield intent, and the surfaces and register the operation must respect.
-
 ## Scan the available context
 
 1. Scan the project root for `DESIGN.md`, then scan `docs/design/moodboard.md`, `PRODUCT.md`, `docs/product/PRD.md`, and `docs/product/brainstorm.md`.

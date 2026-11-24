@@ -2,9 +2,14 @@
 
 Deterministic rules for document validation and rendered preview review.
 
-## When to Use
+## Contents
 
-Load from validate for rules whose inspection surface includes `DESIGN.md`. Load from preview for rules whose inspection surface includes `rendered-output`.
+- Rule Contract
+- Content and Scope
+- Components
+- Components
+- Drift
+- Document Consistency
 
 ## Rule Contract
 

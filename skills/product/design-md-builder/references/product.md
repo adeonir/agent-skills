@@ -2,10 +2,6 @@
 
 When design SERVES the product: app UIs, admin dashboards, settings panels, data tables, tools, authenticated surfaces — anything where the user is in a task.
 
-## When to Use
-
-Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read the matching file: product here, or [brand.md](brand.md) when design is the deliverable — or both, when the project's surfaces span the two registers (a storefront's checkout is product, its marketing shell brand). Not a direct trigger.
-
 ## Posture
 
 | | Product |
@@ -29,7 +25,7 @@ What product should author:
 - **Typography** — one well-tuned sans often carries headings, labels, body, and data; fixed rem scale (not fluid); tighter ratio (1.125–1.2). System stacks are acceptable. Typical roles: `heading`, `subheading`, `label`, `button` — functional UI roles — on top of the shared core `body` / `caption` / `code`; `label` names a form-field label, distinct from `button` (action text). The pool is open, not exclusive: a product surface may reach for `display` or `lead` (onboarding, empty-state), a functional variant is a suffixed entry (`-emphasis` / `-muted`), and a role with size variants may carry the size in its key (`button-sm`), additive to the vocabulary.
 - **Components** — every interactive state defined (default / hover / focus / active / disabled / loading / error); consistent affordances across the surface.
 
-## Product bans (on top of [anti-slop.md](anti-slop.md))
+## Product bans (on top of `anti-slop.md`)
 
 - Display fonts in UI labels, buttons, or data.
 - Reinventing standard affordances for flavor (custom scrollbars, weird form controls).
@@ -39,4 +35,4 @@ What product should author:
 
 **Register** (brand vs product) is the posture — two values. **Surface** is the granular type the work actually is (dashboard, settings, data-table, onboarding, empty-state…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
 
-**Product surfaces** — dashboard, settings, form / wizard, data-table, onboarding, empty-state, checkout / account, authenticated tools. Storefronts straddle: the checkout / account flow is Product, the marketing / catalog shell is Brand (see [brand.md](brand.md)).
+**Product surfaces** — dashboard, settings, form / wizard, data-table, onboarding, empty-state, checkout / account, authenticated tools. Storefronts straddle: the checkout / account flow is Product, the marketing / catalog shell is Brand (see `brand.md`).

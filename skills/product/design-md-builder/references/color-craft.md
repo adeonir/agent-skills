@@ -2,22 +2,17 @@
 
 How to build a palette that looks made rather than picked. Read alongside `anti-slop.md`.
 
-## When to Use
+## Contents
 
-Load only when authoring, assessing, refreshing, or reviewing color. Preserve exact source values for inherit and sync; use the active register to bias new choices.
-
-**Contents**
-- [Start from a referent](#1-start-from-a-referent)
-- [Work in OKLCH](#2-work-in-oklch)
-- [Build the ramp](#3-build-the-ramp)
-- [Tint the neutrals](#4-tint-the-neutrals)
-- [Semantic colors](#5-semantic-colors)
-- [Dark mode](#6-dark-mode)
-- [Contrast and accessibility](#7-contrast-and-accessibility)
-- [Naming and token structure](#8-naming-and-token-structure)
-- [Verifying without a browser](#9-verifying-without-a-browser)
-
----
+- 1. Start from a referent
+- 2. Work in OKLCH
+- 3. Build the ramp
+- 4. Tint the neutrals
+- 5. Semantic colors
+- 6. Dark mode
+- 7. Contrast and accessibility
+- 8. Naming and token structure
+- 9. Verifying without a browser
 
 ## 1. Start from a referent
 

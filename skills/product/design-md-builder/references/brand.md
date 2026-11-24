@@ -2,12 +2,6 @@
 
 When design IS the product: brand sites, landing and campaign pages, marketing surfaces, portfolios, long-form content, about pages. The deliverable is the design itself — a visitor's impression is the thing being made.
 
-## When to Use
-
-Read by `direction.md` to bias a mood toward this register, and by `design.md` to bias token choices when authoring DESIGN.md. Name the register first, then read the matching file: brand here, or [product.md](product.md) when design serves a task — or both, when the project's surfaces span the two registers (a storefront's marketing shell is brand, its checkout product). Not a direct trigger.
-
-The register spans every genre — a tech brand, a luxury brand, a consumer product, a studio portfolio. They share the stance — *communicate, not transact* — and diverge wildly in aesthetic. Don't collapse them into one look.
-
 ## Posture
 
 | | Brand |
@@ -31,7 +25,7 @@ What brand can author that product can't:
 - **Typography** — a characterful display paired with a refined body; real weight and size contrast (display ≥3× body); fluid `clamp()` headings. Reflex defaults (Inter, Roboto, system) are a tell on a brand surface. Typical roles: `display`, `title`, `subtitle`, `tagline`, `lead`, `eyebrow` — expressive voice — on top of the shared core `body` / `caption` / `code` / `label` / `button`. The pool is open, not exclusive: any role a surface needs is available (a brand form uses `label`), a functional variant is a suffixed entry (`-emphasis` / `-muted`), and a role that renders at several sizes may carry the size in its key (`display-sm`), additive to the vocabulary.
 - **Depth & shape** — expressive elevation and corner language as part of the voice.
 
-## Brand bans (on top of [anti-slop.md](anti-slop.md))
+## Brand bans (on top of `anti-slop.md`)
 
 - Timid palettes and average layouts — safe is invisible.
 - Reflex-default fonts picked for safety, not voice.
@@ -43,4 +37,4 @@ What brand can author that product can't:
 
 **Register** (brand vs product) is the posture — two values. **Surface** is the granular type the work actually is (landing, campaign, portfolio, about, the marketing shell of a storefront…). A surface sits under a register, but the register is not a finer surface list. Surfaces under this register:
 
-**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see [product.md](product.md)).
+**Brand surfaces** — landing, campaign, portfolio, long-form / editorial, about, the marketing shell of a storefront. Storefronts straddle: the marketing / catalog shell is Brand, the checkout / account flow is Product (see `product.md`).

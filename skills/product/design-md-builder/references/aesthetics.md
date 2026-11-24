@@ -2,10 +2,6 @@
 
 Condensed principles for explaining and composing visual identity decisions.
 
-## When to Use
-
-Load during direction, token authoring, identity assessment, and visual review. Load the detailed craft reference only for the dimension being changed.
-
 ## Four Questions
 
 1. **Purpose:** What job does the interface serve, for whom, and under what conditions?

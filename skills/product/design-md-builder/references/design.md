@@ -2,9 +2,22 @@
 
 Author or patch the root `DESIGN.md` from a confirmed direction or brownfield intent.
 
+## Contents
+
+- Load first
+- Prerequisites
+- Artifact Contract
+- Source Handling
+- Intent Behavior
+- Token Authoring
+- Prose Authoring
+- Workflow
+- Content Boundaries
+- Error Handling
+
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](../references/brand.md) or [product.md](../references/product.md) for the register the surfaces carry.
+Read [discovery.md](discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](brand.md) or [product.md](product.md) for the register the surfaces carry.
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
 
@@ -13,8 +26,8 @@ On brownfield, this runs only after the identity assessment confirms `inherit`, 
 ## Prerequisites
 
 - Run identity assessment before every brownfield write.
-- Load [aesthetics.md](../references/aesthetics.md) and [anti-slop.md](../references/anti-slop.md).
-- Load [color-craft.md](../references/color-craft.md) only for palette work and [typography.md](../references/typography.md) only for type work.
+- Load [aesthetics.md](aesthetics.md) and [anti-slop.md](anti-slop.md).
+- Load [color-craft.md](color-craft.md) only for palette work and [typography.md](typography.md) only for type work.
 - Read `assets/design.template.md` from this skill before creating a new file. The asset is the single copyable template; remove its comments and replace every slot.
 
 ## Artifact Contract

@@ -2,18 +2,24 @@
 
 Fifteen named aesthetic directions with real lineage, concrete values, and honest tradeoffs. Use these to convert "modern and clean" into a choice the user can actually make.
 
-## When to Use
+## Contents
 
-Load when shortlisting, picking, blending, refining, or explaining a named direction. Preserve each direction's thesis, lineage, rules, fit, failure conditions, and trade-off.
-
-**How to use this file:** pick 3–4 directions that genuinely suit the product and present them with their tradeoffs. Don't present a random sample — a payments product and a music app should get different shortlists. Hex values here are **starting anchors**, not final tokens: derive your ramps from them using `color-craft.md` rather than pasting them in.
-
-Blending two directions is usually stronger than a pure pick. Blending three cancels out the distinctions and lands you back in the middle.
-
-**Index**
-1. [Swiss Editorial](#1-swiss-editorial) · 2. [Editorial Print](#2-editorial-print) · 3. [Structural Brutalist](#3-structural-brutalist) · 4. [Neo-Brutalist Playful](#4-neo-brutalist-playful) · 5. [Terminal Precision](#5-terminal-precision) · 6. [Warm Analog](#6-warm-analog) · 7. [Archival Institutional](#7-archival-institutional) · 8. [Utility Dense](#8-utility-dense) · 9. [Luxury Minimal](#9-luxury-minimal) · 10. [Nordic Calm](#10-nordic-calm) · 11. [Clinical Precision](#11-clinical-precision) · 12. [Retro-Futurist HUD](#12-retro-futurist-hud) · 13. [Naturalist Field Guide](#13-naturalist-field-guide) · 14. [Bauhaus Constructivist](#14-bauhaus-constructivist) · 15. [Soft Technical](#15-soft-technical)
-
----
+- 1. Swiss Editorial
+- 2. Editorial Print
+- 3. Structural Brutalist
+- 4. Neo-Brutalist Playful
+- 5. Terminal Precision
+- 6. Warm Analog
+- 7. Archival Institutional
+- 8. Utility Dense
+- 9. Luxury Minimal
+- 10. Nordic Calm
+- 11. Clinical Precision
+- 12. Retro-Futurist HUD
+- 13. Naturalist Field Guide
+- 14. Bauhaus Constructivist
+- 15. Soft Technical
+- Choosing well
 
 ## 1. Swiss Editorial
 

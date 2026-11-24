@@ -4,13 +4,13 @@ Render document and styleguide views from one DESIGN.md, collect feedback in bat
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [anti-slop.md](../references/anti-slop.md) for the visual review.
+Read [discovery.md](discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [anti-slop.md](anti-slop.md) for the visual review.
 
 Resolve `<this-skill>` to the directory this skill's `SKILL.md` was read from before running any bundled script below.
 
 ## Prerequisites
 
-Load [validate.md](validate.md). Stop on `failed` or `not audited`; allow `passed with warnings` and keep its warnings visible. Load [anti-patterns.md](../references/anti-patterns.md) for rendered-output rules.
+Load [validate.md](validate.md). Stop on `failed` or `not audited`; allow `passed with warnings` and keep its warnings visible. Load [anti-patterns.md](anti-patterns.md) for rendered-output rules.
 
 Before writing transient files, ensure `.artifacts` is locally excluded:
 

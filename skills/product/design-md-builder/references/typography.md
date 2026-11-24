@@ -2,9 +2,11 @@
 
 Choosing faces, pairing them, and building a scale that reads as designed. Read alongside `anti-slop.md`.
 
-## When to Use
+## Contents
 
-Load only when authoring, assessing, refreshing, or reviewing typography. Preserve exact source values for inherit and sync; use the active register to bias new choices.
+- The typeface library
+- Verdicts
+- Writing typography tokens
 
 ## The typeface library
 

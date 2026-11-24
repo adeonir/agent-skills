@@ -2,15 +2,31 @@
 
 Explore and lock a named visual direction without authoring tokens.
 
+## Contents
+
+- Load first
+- Inputs
+- Workflow
+- Point of View
+- Reads As
+- Visual Rules
+- Signature
+- Fit and Failure
+- Touchstones
+- Constraints
+- Tiles
+- Tiles
+- Error Handling
+
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](../references/brand.md) or [product.md](../references/product.md) for the register the surfaces carry.
+Read [discovery.md](discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [brand.md](brand.md) or [product.md](product.md) for the register the surfaces carry.
 
 ## Inputs
 
 From product documents, use purpose, audience, usage conditions, stated register, taste, anti-references, and hard constraints. Strip document IDs, feature names, milestones, and roadmap language from the moodboard.
 
-Load [aesthetics.md](../references/aesthetics.md), the matching register file, [style-directions.md](../references/style-directions.md), and [anti-slop.md](../references/anti-slop.md). Keep the moodboard text-only: no token maps, color values, or rendered HTML. Image tiles are an optional companion to the moodboard, never its content.
+Load [aesthetics.md](aesthetics.md), the matching register file, [style-directions.md](style-directions.md), and [anti-slop.md](anti-slop.md). Keep the moodboard text-only: no token maps, color values, or rendered HTML. Image tiles are an optional companion to the moodboard, never its content.
 
 ## Workflow
 

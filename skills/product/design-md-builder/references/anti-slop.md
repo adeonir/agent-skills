@@ -2,9 +2,18 @@
 
 A field guide to the specific defaults that make a design read as machine-generated, why each one happens, and what to do instead.
 
-## When to Use
+## Contents
 
-Load during direction, token authoring, identity assessment, and visual review. Use the catalog as qualitative guidance, not deterministic lint.
+- Scope
+- The mechanism
+- Color
+- Typography
+- Shape, surface, and elevation
+- Layout
+- Iconography and imagery
+- Language
+- The three legitimate exceptions
+- Final checklist
 
 ## Scope
 

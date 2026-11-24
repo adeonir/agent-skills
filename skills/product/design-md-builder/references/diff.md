@@ -4,7 +4,7 @@ Compare two DESIGN.md files through the official CLI.
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](../references/cli.md) for the command surface.
+Read [discovery.md](discovery.md) before starting — it settles the available context, the field, the brownfield intent, and the surfaces and register this operation must respect. Load [cli.md](cli.md) for the command surface.
 
 ## Workflow
 
