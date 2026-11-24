@@ -1,10 +1,6 @@
 # UX Writing
 
-The clarity discipline for copy: diagnose what makes a line unclear, then rewrite it so the reader understands at once and knows what to do. The method and principles hold for every line; microcopy (errors, labels, states) is one area, where clarity is hardest. Craft, applied during write and refresh: alongside [voice.md](voice.md) and [editing-sweeps.md](editing-sweeps.md), not on top of them.
-
-## When to Use
-
-Loaded by the write and refresh workflows to keep copy clear and effective, and by audit for the microcopy, i18n, and terminology checks. Composes with [voice.md](voice.md) (voice, proof) and [editing-sweeps.md](editing-sweeps.md) (tightening passes for persuasive prose): this file does not repeat them. It owns the clarity method and the microcopy craft those two do not cover.
+The clarity discipline for copy: diagnose what makes a line unclear, then rewrite it so the reader understands at once and knows what to do. The method and principles hold for every line; microcopy (errors, labels, states) is one area, where clarity is hardest. Craft, applied during write and refresh: alongside `voice.md` and `editing-sweeps.md`, not on top of them.
 
 ## The Method
 
@@ -42,7 +38,7 @@ One area of clarity: the interface text that carries a task, where vague copy hu
 
 ## Tone by Moment
 
-Voice is the constant personality (set in [voice.md](voice.md)); **tone** shifts with the reader's state:
+Voice is the constant personality (set in `voice.md`); **tone** shifts with the reader's state:
 
 | Moment | Tone |
 |--------|------|
@@ -95,4 +91,4 @@ Say it once. If the heading explains it, the intro is redundant; if the button i
 - Be specific, active, human; tell the reader what to do, not only what happened.
 - Match the tone to the moment; hold voice and register across all of them.
 - Author label, alt, and aria text as content; leave the requirement to the build.
-- Don't repeat [voice.md](voice.md) or [editing-sweeps.md](editing-sweeps.md): cross-link them for voice, proof, and prose tightening.
+- Don't repeat `voice.md` or `editing-sweeps.md`: cross-link them for voice, proof, and prose tightening.

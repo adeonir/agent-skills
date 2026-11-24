@@ -4,9 +4,7 @@ Rewrite existing copy in `copy.yaml` into a new voice while keeping the message.
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
-
-Not for: tightening in the same voice (see [refresh.md](refresh.md)), writing net-new copy (see [write.md](write.md)), or syncing from code (see [reconcile.md](reconcile.md)).
+Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 ## Workflow
 
@@ -16,11 +14,11 @@ Parse `docs/product/copy.yaml`. Note the current intent and voice; revoice repla
 
 ### Step 2: Establish Target Voice
 
-Get the target from the user: a stated direction ("more playful", "luxury", "drier") or a sample to match. Hold the surface's **intent** and **register** (brand or product; [../references/brand.md](../references/brand.md) / [../references/product.md](../references/product.md)); they bound how far the voice can move. Then set the axes from [../references/voice.md](../references/voice.md). Confirm it back in one line before recasting.
+Get the target from the user: a stated direction ("more playful", "luxury", "drier") or a sample to match. Hold the surface's **intent** and **register** (brand or product; [../references/brand.md](brand.md) / [../references/product.md](product.md)); they bound how far the voice can move. Then set the axes from [../references/voice.md](voice.md). Confirm it back in one line before recasting.
 
 ### Step 3: Recast Each Part
 
-Rewrite each line into the target voice, preserving the message, every claim, and the structure. Change *how* it is said, never *what*. Do not introduce dead adjectives (see [../references/anti-patterns.md](../references/anti-patterns.md)) or drop proof (see [../references/voice.md](../references/voice.md)).
+Rewrite each line into the target voice, preserving the message, every claim, and the structure. Change *how* it is said, never *what*. Do not introduce dead adjectives (see [../references/anti-patterns.md](anti-patterns.md)) or drop proof (see [../references/voice.md](voice.md)).
 
 ### Step 4: Patch copy.yaml
 

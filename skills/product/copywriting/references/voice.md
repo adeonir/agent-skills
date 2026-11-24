@@ -1,10 +1,6 @@
 # Voice and Proof
 
-Voice axes, register bias, and the proof hierarchy. This craft keeps written copy sounding like someone and earning trust. The cross-referenced slop catalog of dead words, dead structures, and machine tells lives in [anti-patterns.md](anti-patterns.md).
-
-## When to Use
-
-Loaded by the write, refresh, and revoice workflows to set or hold a target voice that fits intent before copy lands in `copy.yaml`, and by critique and audit to judge voice and proof. Applies to any surface; calibrate intensity by context.
+Voice axes, register bias, and the proof hierarchy. This craft keeps written copy sounding like someone and earning trust. The cross-referenced slop catalog of dead words, dead structures, and machine tells lives in `anti-patterns.md`.
 
 ## Voice Axes
 
@@ -17,9 +13,9 @@ Pick a point on each axis and hold it across the copy.
 
 ## Register sets the voice
 
-Register sets the voice, never the shape. The surface function decides what the copy must do ([surface-functions.md](surface-functions.md)). A brand register on an informational surface still explains: it does not open with the reader's outcome or close with an ask.
+Register sets the voice, never the shape. The surface function decides what the copy must do (`surface-functions.md`). A brand register on an informational surface still explains: it does not open with the reader's outcome or close with an ask.
 
-Register is the posture: **brand** (the words are the product) or **product** (the words serve the task). Set or confirm it, and read the matching file ([brand.md](brand.md) / [product.md](product.md)) when establishing or changing it; it calibrates the axes above:
+Register is the posture: **brand** (the words are the product) or **product** (the words serve the task). Set or confirm it, and read the matching file (`brand.md` / `product.md`) when establishing or changing it; it calibrates the axes above:
 
 - **Brand:** distinctive and confident; bolder in headlines, scannable in body, and action-oriented in CTAs when the surface has one. A personal site leans first person, present tense ("I build", not "Builds").
 - **Product:** concise, calm, instructional; verbs first, no hype.
@@ -59,4 +55,4 @@ A testimonial that could apply to anyone is not proof. "Great to work with" → 
 
 ## Dead language
 
-The dead words, hollow structures, and machine tells to strip are catalogued as rules with fail/pass examples in [anti-patterns.md](anti-patterns.md). Hold the voice here; cut the slop there.
+The dead words, hollow structures, and machine tells to strip are catalogued as rules with fail/pass examples in `anti-patterns.md`. Hold the voice here; cut the slop there.

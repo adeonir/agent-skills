@@ -4,9 +4,7 @@ Sync `copy.yaml` back from a drifted implementation. Brownfield-only: when the r
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
-
-Not for: authoring `copy.yaml` from scratch (see [extract.md](extract.md)): this only syncs drifted values, it does not write or restyle content.
+Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 ## Prerequisites
 

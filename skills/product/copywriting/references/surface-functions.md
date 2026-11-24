@@ -2,10 +2,6 @@
 
 Classify `intent.function`, the reader's job, before selecting copy patterns or quality criteria.
 
-## When to Use
-
-Read before authoring or judging when the surface function is not explicit, when a surface has mixed jobs, or when conversion patterns may be mistaken for general copy rules.
-
 ## Choose the Function
 
 - **conversion:** persuade the reader to choose, buy, sign up, contact, or otherwise commit. Use a value proposition, benefits, proof, objection handling, risk reduction, and a CTA when the surface needs a commitment.

@@ -4,7 +4,7 @@ Judge shipping copy for quality defects before it goes live: a prioritized P0–
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
+Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the verdict and let the score support it rather than replace it. To apply a finding, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
 
@@ -16,17 +16,17 @@ Audit is **quality-only**. It checks whether the copy is readable, claim-backed,
 
 ### Step 1: Infer the surface function and register
 
-A standalone audit has no plan to read the surface from. Read the recorded intent when it exists; otherwise infer the intent and surface from the copy (conversion landing page, brand story, settings screen, checkout, help page), or ask. Read [surface-functions.md](../references/surface-functions.md), then set the register by reading the matching [brand.md](../references/brand.md) or [product.md](../references/product.md): the bar differs by intent and register.
+A standalone audit has no plan to read the surface from. Read the recorded intent when it exists; otherwise infer the intent and surface from the copy (conversion landing page, brand story, settings screen, checkout, help page), or ask. Read [surface-functions.md](surface-functions.md), then set the register by reading the matching [brand.md](brand.md) or [product.md](product.md): the bar differs by intent and register.
 
 ### Step 2: Score five dimensions
 
-Score each 0–4 (bands in [scoring.md](../references/scoring.md)); total /20.
+Score each 0–4 (bands in [scoring.md](scoring.md)); total /20.
 
-1. **Readability**: sentence length, plain English, no jargon, front-loaded; one idea per sentence (see [editing-sweeps.md](../references/editing-sweeps.md))
-2. **Claim integrity**: claims about capability, quality, or outcomes are backed or softened; factual descriptions have accurate context (proof hierarchy in [voice.md](../references/voice.md))
+1. **Readability**: sentence length, plain English, no jargon, front-loaded; one idea per sentence (see [editing-sweeps.md](editing-sweeps.md))
+2. **Claim integrity**: claims about capability, quality, or outcomes are backed or softened; factual descriptions have accurate context (proof hierarchy in [voice.md](voice.md))
 3. **Intent fit**: the copy serves the stated purpose and reader goal, follows every constraint, and applies the function appropriately: conversion supports a decision, brand/editorial earns attention, product/UX supports a task, and informational supports understanding
-4. **Microcopy correctness**: errors, labels, empty/loading/success states, navigation; i18n-safe and terminology-consistent (see [ux-writing.md](../references/ux-writing.md))
-5. **Anti-pattern density**: slop tells from [anti-patterns.md](../references/anti-patterns.md), deterministic and perceptual
+4. **Microcopy correctness**: errors, labels, empty/loading/success states, navigation; i18n-safe and terminology-consistent (see [ux-writing.md](ux-writing.md))
+5. **Anti-pattern density**: slop tells from [anti-patterns.md](anti-patterns.md), deterministic and perceptual
 
 ### Step 3: Anti-pattern verdict
 
@@ -38,19 +38,19 @@ python3 <this-skill>/scripts/slop_scan.py path/to/copy.yaml
 
 For pasted copy, provide the text on standard input instead of passing it as a file argument.
 
-It tallies the scannable tells (dead words, em-dash density, known openers) with line numbers: these feed dimension 5. Then add the perceptual tells (hollow structures, generic claims, robotic parallelism) by eye; cover both (see the two kinds of check in [anti-patterns.md](../references/anti-patterns.md)).
+It tallies the scannable tells (dead words, em-dash density, known openers) with line numbers: these feed dimension 5. Then add the perceptual tells (hollow structures, generic claims, robotic parallelism) by eye; cover both (see the two kinds of check in [anti-patterns.md](anti-patterns.md)).
 
 ### Step 4: Findings by severity
 
-Tag every defect P0–P3 (definitions in [scoring.md](../references/scoring.md)). For each: name, the `copy.yaml` path or line, the reader impact, and the fix. Group P2/P3 to keep the signal clean: too many P3s is noise.
+Tag every defect P0–P3 (definitions in [scoring.md](scoring.md)). For each: name, the `copy.yaml` path or line, the reader impact, and the fix. Group P2/P3 to keep the signal clean: too many P3s is noise.
 
 ### Step 5: Report
 
-Assemble using the template in [scoring.md](../references/scoring.md): verdict, the 5-dimension table and total /20, findings by severity, systemic patterns (a defect repeated across many parts), and what is working. The fix happens in a refresh, revoice, or write: audit reports it.
+Assemble using the template in [scoring.md](scoring.md): verdict, the 5-dimension table and total /20, findings by severity, systemic patterns (a defect repeated across many parts), and what is working. The fix happens in a refresh, revoice, or write: audit reports it.
 
 ### Step 6: Self-check
 
-Before presenting, verify the report against the required shape in [scoring.md](../references/scoring.md): all five dimension rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and fix. Group P2/P3 so the signal stays clean.
+Before presenting, verify the report against the required shape in [scoring.md](scoring.md): all five dimension rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and fix. Group P2/P3 so the signal stays clean.
 
 ## Guidelines
 

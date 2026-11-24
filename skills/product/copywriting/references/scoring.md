@@ -2,9 +2,17 @@
 
 The shared rubric for copywriting evaluation: severity, score bands, and the report shape that `critique.md` and `audit.md` both produce.
 
-## When to Use
+## Contents
 
-Composed by `critique.md` (quality verdict on a draft or direction) and `audit.md` (ship-readiness report on `copy.yaml`). It carries the numbers and the template; the modes supply the findings. Not a direct trigger.
+- Severity (P0–P3)
+- Score bands
+- Report template
+- Verdict
+- Score
+- Findings
+- Strengths
+- Required shape
+- Acting on findings
 
 ## Severity (P0–P3)
 
@@ -28,7 +36,7 @@ Score each dimension from **0–4**: 0 absent, 1 major gaps, 2 partial, 3 good w
 
 **Critique: the seven sweeps as judgment axes, total /28:**
 
-Score Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](editing-sweeps.md)) 0–4 each. Apply the function-specific meaning of each sweep.
+Score Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in `editing-sweeps.md`) 0–4 each. Apply the function-specific meaning of each sweep.
 
 | Band | Total | Reading |
 |---|---|---|

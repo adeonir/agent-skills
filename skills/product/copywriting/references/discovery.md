@@ -2,10 +2,6 @@
 
 Establishes the content context every copywriting operation works from.
 
-## When to Use
-
-Loaded at the start of every operation, before the work begins. It settles what already exists, the intent and voice the work must respect, and the gaps worth asking about.
-
 ## Check Existing Context
 
 Look for:
@@ -20,11 +16,11 @@ If found, read and extract purpose, audience, tone, surface function, register (
 
 Set the intent before choosing patterns or the register. Once confirmed, it is the first gate every pattern, edit, and verdict passes — including its constraints, such as a ban on sales language.
 
-`intent.function` is the reader's job for that surface; classify it with [surface-functions.md](surface-functions.md), and never infer conversion from a page name alone. Intent also records the purpose, reader goal, and functional constraints, such as a ban on sales language. Use one function per surface when possible; a mixed surface may override the root intent per surface or part.
+`intent.function` is the reader's job for that surface; classify it with `surface-functions.md`, and never infer conversion from a page name alone. Intent also records the purpose, reader goal, and functional constraints, such as a ban on sales language. Use one function per surface when possible; a mixed surface may override the root intent per surface or part.
 
-**Register** is the posture, either **brand** (the words are the product) or **product** (the words serve the task). It sets the voice: read the matching [brand.md](brand.md) or [product.md](product.md) first. **Surface** is the granular type the copy serves, named by context — landing, dashboard, form, empty-state. A surface sits under a register, and the content tree is named by context rather than forced into a fixed list. Storefronts straddle: catalog copy is brand, checkout and account copy is product.
+**Register** is the posture, either **brand** (the words are the product) or **product** (the words serve the task). It sets the voice: read the matching `brand.md` or `product.md` first. **Surface** is the granular type the copy serves, named by context — landing, dashboard, form, empty-state. A surface sits under a register, and the content tree is named by context rather than forced into a fixed list. Storefronts straddle: catalog copy is brand, checkout and account copy is product.
 
-`voice` carries tone and style; [voice.md](voice.md) owns how the register sets it.
+`voice` carries tone and style; `voice.md` owns how the register sets it.
 
 ## The Artifact
 

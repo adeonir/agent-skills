@@ -2,13 +2,9 @@
 
 Headline formulas, content-part types, page shapes, and CTA patterns for writing fresh copy across different surface functions.
 
-## When to Use
-
-Loaded by the write workflow after the surface function is set. Apply only the patterns that fit the surface; these are part patterns, not a project-type gate. Product-register surfaces (dashboards, forms, settings) usually carry microcopy instead: see [ux-writing.md](ux-writing.md).
-
 ## Select by Surface Function
 
-Read [surface-functions.md](surface-functions.md) first. Apply only the patterns that fit the selected function, and use different patterns for different parts of a mixed surface.
+Read `surface-functions.md` first. Apply only the patterns that fit the selected function, and use different patterns for different parts of a mixed surface.
 
 ## Conversion Headline Formulas
 

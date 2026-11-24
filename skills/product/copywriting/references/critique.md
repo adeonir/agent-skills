@@ -4,7 +4,7 @@ Judge existing copy for quality: a slop-and-voice verdict, not a rewrite. Critiq
 
 ## Load first
 
-Read [discovery.md](../references/discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
+Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
 This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the slop verdict and let the score support it rather than replace it. To apply a verdict, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
 
@@ -12,7 +12,7 @@ This operation reads and reports; it never patches `copy.yaml`. Name the intent 
 
 ### Step 1: Fix the function and register
 
-Name the intent, register, and surface, then read [surface-functions.md](../references/surface-functions.md) and the matching [brand.md](../references/brand.md) or [product.md](../references/product.md). The confirmed intent sets every bar below. If it is absent, state the inferred intent as an assumption; do not treat that inference as a defect.
+Name the intent, register, and surface, then read [surface-functions.md](surface-functions.md) and the matching [brand.md](brand.md) or [product.md](product.md). The confirmed intent sets every bar below. If it is absent, state the inferred intent as an assumption; do not treat that inference as a defect.
 
 ### Step 2: Slop verdict (two altitudes)
 
@@ -24,7 +24,7 @@ python3 <this-skill>/scripts/slop_scan.py path/to/copy.yaml
 
 For pasted copy, provide the text on standard input instead of passing it as a file argument.
 
-It tallies the scannable tells: listed dead words, em-dash density, known borrowed-frame openers: with line numbers. Take its hits as confirmed, then layer the two perceptual passes against [anti-patterns.md](../references/anti-patterns.md) on top:
+It tallies the scannable tells: listed dead words, em-dash density, known borrowed-frame openers: with line numbers. Take its hits as confirmed, then layer the two perceptual passes against [anti-patterns.md](anti-patterns.md) on top:
 
 1. **Fit reflex**: for conversion or brand/editorial copy, could this line sit on any competitor's page unchanged? For informational copy, does it answer the reader's question with the context the intent requires? A concise factual statement does not need to be distinctive to pass.
 2. **Tell reflex**: name the specific tells present: dead words, an empty antithesis, em-dash density, a borrowed-frame opener, a generic claim. Some are deterministic scans, others a perceptual read: cover both (see the two kinds of check in anti-patterns.md).
@@ -33,23 +33,23 @@ Copy that fails either applicable altitude has a specific weakness: name it befo
 
 ### Step 3: Score the seven sweeps
 
-Score all seven sweeps 0–4 as judgment axes: Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](../references/editing-sweeps.md), bands in [scoring.md](../references/scoring.md)). Apply the function-specific meaning of each sweep and the intent constraints. Report a constraint violation as a finding even when the wording is otherwise strong. Present as a table with a per-row key issue and the total /28. Be honest: most real copy lands mid-scale.
+Score all seven sweeps 0–4 as judgment axes: Clarity, Voice consistency, Reader value, Prove it, Specificity, Reader pull, and Reader confidence (defined in [editing-sweeps.md](editing-sweeps.md), bands in [scoring.md](scoring.md)). Apply the function-specific meaning of each sweep and the intent constraints. Report a constraint violation as a finding even when the wording is otherwise strong. Present as a table with a per-row key issue and the total /28. Be honest: most real copy lands mid-scale.
 
 ### Step 4: Proof check
 
-Walk claims about capability, quality, or outcomes against the proof hierarchy in [voice.md](../references/voice.md). Factual descriptions of the subject need accurate context, not an invented result. A claim no proof supports is the most expensive line on the page.
+Walk claims about capability, quality, or outcomes against the proof hierarchy in [voice.md](voice.md). Factual descriptions of the subject need accurate context, not an invented result. A claim no proof supports is the most expensive line on the page.
 
 ### Step 5: Verdict and refinements
 
-Write the verdict using the template in [scoring.md](../references/scoring.md): slop verdict, the sweep table and total, the priority findings (P0–P3), and 2–3 strengths. Then map each weak axis to its refresh sweep so the loop can continue: Clarity → clarity pass, Prove it → prove it pass, Voice consistency → a revoice if the register itself is wrong, and Reader confidence → the function-appropriate friction or trust pass.
+Write the verdict using the template in [scoring.md](scoring.md): slop verdict, the sweep table and total, the priority findings (P0–P3), and 2–3 strengths. Then map each weak axis to its refresh sweep so the loop can continue: Clarity → clarity pass, Prove it → prove it pass, Voice consistency → a revoice if the register itself is wrong, and Reader confidence → the function-appropriate friction or trust pass.
 
 Close with 2–3 questions that open the next pass instead of only grading this one. Make the questions fit the surface function: decision confidence for conversion, distinctiveness for brand/editorial, actionability for product/UX, and comprehension for informational copy. They aim refresh's next pass.
 
-Hand the refinements to refresh; re-edit and re-critique until the copy holds: the total reaches the Good band (see [scoring.md](../references/scoring.md)) with no P0 or P1 open, or the user accepts the current state. Critique never edits the copy itself.
+Hand the refinements to refresh; re-edit and re-critique until the copy holds: the total reaches the Good band (see [scoring.md](scoring.md)) with no P0 or P1 open, or the user accepts the current state. Critique never edits the copy itself.
 
 ### Step 6: Self-check
 
-Before presenting, verify the verdict against the required shape in [scoring.md](../references/scoring.md): all seven sweep rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and the matching refresh sweep. A verdict that cannot be acted on is not done.
+Before presenting, verify the verdict against the required shape in [scoring.md](scoring.md): all seven sweep rows are present, the total equals their sum, and every finding carries its `copy.yaml` path, severity, reader impact, and the matching refresh sweep. A verdict that cannot be acted on is not done.
 
 ## Guidelines
 

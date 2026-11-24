@@ -2,9 +2,16 @@
 
 Catalog of copy failure modes — the dead language, hollow structures, and machine tells that make writing read as generic or AI-generated. Each rule pairs a recognizable failure with the smallest fix and a fail/pass example.
 
-## When to Use
+## Contents
 
-Composed by the `write`, `refresh`, and `revoice` workflows to avoid known failure shapes while authoring, and by `critique` / `audit` as the failure-mode lens when judging existing copy. This file owns the slop catalog; voice and proof craft live in [voice.md](voice.md), prose tightening in [editing-sweeps.md](editing-sweeps.md), clarity craft in [ux-writing.md](ux-writing.md).
+- Categories
+- Rule Template
+- Two Kinds of Check
+- Dead Words
+- Dead Structures
+- Punctuation and Rhythm
+- AI Copy Tells
+- Proof and Claim Failures
 
 ## Categories
 
@@ -205,7 +212,7 @@ For Series A teams whose first data hire hasn't started yet.
 **Category:** Proof and Claim Failures
 **Severity:** error
 **Check:** A superlative or ranking claim with nothing behind it — "the best", "#1", "industry-leading", "world-class" — stated as fact the reader is asked to take on trust.
-**Fix:** Replace the claim with the proof that would earn it — a number, a named client, an award still current. See the proof hierarchy in [voice.md](voice.md). If no proof exists, drop the claim rather than assert it.
+**Fix:** Replace the claim with the proof that would earn it — a number, a named client, an award still current. See the proof hierarchy in `voice.md`. If no proof exists, drop the claim rather than assert it.
 **Example fail:**
 ```text
 The industry's #1 best-in-class analytics platform.
@@ -219,7 +226,7 @@ Analytics that 2,800 teams check before their Monday standup.
 **Category:** Proof and Claim Failures
 **Severity:** warning
 **Check:** Confidence pointed inward at the person or company ("we are world-class engineers") instead of outward at the work or outcome.
-**Fix:** Point the claim outward — to what was shipped, for whom, with what result. See outward vs inward in [voice.md](voice.md).
+**Fix:** Point the claim outward — to what was shipped, for whom, with what result. See outward vs inward in `voice.md`.
 **Example fail:**
 ```text
 We are world-class engineers who care deeply about quality.
