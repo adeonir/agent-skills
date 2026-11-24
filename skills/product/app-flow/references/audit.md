@@ -2,16 +2,6 @@
 
 Examine a product's app flows for structural and notation defects — dead ends, unmerged steps, broken hand-offs, labels against the notation — and report findings in chat. The audit writes no artifact; it reports.
 
-## Load first
-
-Read [flow-model.md](../references/flow-model.md) — the structure rules and the wireflow notation are the audit's rubric.
-
-Read [discovery.md](../references/discovery.md) and run its intake step — the flows may arrive as `docs/product/FLOWS.md`, as prose, or as a codebase that can be read for screens.
-
-## Contents
-
-- Workflow — take the flows in, check the rubric, rank, report
-
 ## Workflow
 
 Copy this checklist and tick it off:

@@ -2,10 +2,6 @@
 
 Vocabulary, wireflow notation, and structure rules for app flows. Loaded before flows are drafted, audited, or rewritten.
 
-## When to Use
-
-To name flows, draw or read wireflow diagrams, and judge whether a flow is well formed.
-
 ## Vocabulary
 
 | Term | Meaning |

@@ -2,23 +2,13 @@
 
 Plan the app flows for a product and write them into `docs/product/FLOWS.md`. Handle a from-scratch product, a prose description, or an upstream product doc.
 
-## Load first
-
-Read [flow-model.md](../references/flow-model.md) — vocabulary, wireflow notation, and structure rules before drafting anything.
-
-Read [discovery.md](../references/discovery.md) and run its steps — intake shape, hybrid interview, what must be settled before flows exist.
-
-## Contents
-
-- Workflow — discover, list the flows, draft per flow, connect, write
-
 ## Workflow
 
 Copy this checklist and tick it off:
 
 ```text
 Progress:
-- [ ] Step 1: Settle platform, tasks, priority flows, entry points — Load first refs
+- [ ] Step 1: Settle platform, tasks, priority flows, entry points — with flow-model and discovery
 - [ ] Step 2: List the flows, one per task, mark the priority ones
 - [ ] Step 3: Draft happy path per flow, in wireflow notation
 - [ ] Step 4: Fill the dead-end register and rules per flow — all template categories, exits included

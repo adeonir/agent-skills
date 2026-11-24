@@ -2,10 +2,6 @@
 
 Classify what the user brought and settle what flows need before drafting, auditing, or rewriting. Shared intake for all three jobs.
 
-## When to Use
-
-At the start of any `app-flow` job, before flow work begins, to know what the user brought and what is still unknown.
-
 ## Entry Detection
 
 Classify the intake from what the user brought:

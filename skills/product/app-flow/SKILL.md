@@ -1,7 +1,7 @@
 ---
 name: app-flow
-allowed-tools: Read Write Edit
 description: "Plan, audit, and refine app flows — the user paths through a website, a mobile app, or another product surface, one flow per task. Use when mapping flows for a new product, drawing checkout, onboarding, or task flows, auditing an existing app's flows for dead ends and drop-off, or restructuring, shortening, or revising an existing flow against review comments or feedback. Not for UI design or wireframes, information architecture, usability review, domain modeling, or implementation."
+allowed-tools: Read Write Edit
 ---
 
 # App Flow
@@ -10,17 +10,12 @@ Plans the user paths of a website, a mobile app, or any other product surface as
 
 ## Triggers
 
-- **Plan new app flows** ("plan the app flow", "map the flows", "design the flow for this checkout", "what flows does this app need") → [plan.md](instructions/plan.md)
-- **Audit** ("audit the flows", "check my app's flows", "find the dead ends") → [audit.md](instructions/audit.md)
-- **Refine** ("improve this flow", "shorten the signup flow", "restructure the onboarding", "update this flow from the review comments", "apply this feedback to the flow") → [refine.md](instructions/refine.md)
-
-## References
-
-- [discovery.md](references/discovery.md) — loaded by the plan, audit, and refine instructions
-- [flow-model.md](references/flow-model.md) — flow vocabulary and wireflow notation, loaded by the plan, audit, and refine instructions
-- [flows-template.md](assets/flows-template.md) — written by the plan instruction, read by the audit and refine instructions
-
-## Workflow
+- **Plan new app flows** ("plan the app flow", "map the flows", "design the flow for this checkout", "what flows does this app need") → [plan.md](references/plan.md) · intake, the flow list, the per-flow draft, the connect map, and the artifact
+- **Audit** ("audit the flows", "check my app's flows", "find the dead ends") → [audit.md](references/audit.md) · the rubric and the ranked finding format
+- **Refine** ("improve this flow", "shorten the signup flow", "restructure the onboarding", "update this flow from the review comments") → [refine.md](references/refine.md) · locate the flow, judge it, write it back
+- **Flow model** — any job above, before flows are named or drawn → [flow-model.md](references/flow-model.md) · vocabulary, wireflow notation, and structure rules
+- **Discovery** — any job above starts here → [discovery.md](references/discovery.md) · intake shape and what must be settled before flow work
+- **Flows template** — `docs/product/FLOWS.md` is about to be written or read → [flows-template.md](assets/flows-template.md) · the section layout and the dead-end register
 
 ```mermaid
 flowchart TD

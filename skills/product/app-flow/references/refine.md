@@ -2,16 +2,6 @@
 
 Restructure, shorten, extend, or revise one app flow the user names, including against review comments, and write the result back to `docs/product/FLOWS.md`.
 
-## Load first
-
-Read [flow-model.md](../references/flow-model.md) — the structure rules and the wireflow notation govern what counts as better.
-
-Read [discovery.md](../references/discovery.md) and run its intake step — the flow arrives from the artifact or the user describes it in chat.
-
-## Contents
-
-- Workflow — locate, name the goal, draft, judge and keep, write back
-
 ## Workflow
 
 Copy this checklist and tick it off:
