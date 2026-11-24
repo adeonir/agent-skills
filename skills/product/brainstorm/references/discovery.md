@@ -2,9 +2,11 @@
 
 Map the territory before exploring it. Understand what exists, what is missing, and what matters.
 
-## When to Use
+## Contents
 
-Loaded to map the problem space and pass the quality gate that opens diverge.
+- Entry Detection
+- Workflow
+- Guidelines
 
 ## Entry Detection
 

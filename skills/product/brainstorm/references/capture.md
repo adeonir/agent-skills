@@ -2,9 +2,10 @@
 
 Persist the chosen direction as a structured artifact. Single project-level file. Pivot or validate existing entries rather than spawning new files.
 
-## When to Use
+## Contents
 
-Loaded to write the artifact, once the direction survives the challenge.
+- Workflow
+- Template
 
 ## Workflow
 

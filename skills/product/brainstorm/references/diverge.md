@@ -2,9 +2,11 @@
 
 Explore the space broadly. Quantity over quality. Non-obvious options matter more than safe ones.
 
-## When to Use
+## Contents
 
-Loaded to generate the alternatives, once the discovery quality gate passes.
+- Workflow
+- Guidelines
+- Error Handling
 
 ## Workflow
 

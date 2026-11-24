@@ -2,9 +2,12 @@
 
 Narrow the field. Evaluate trade-offs systematically. Pick a direction with eyes open.
 
-## When to Use
+## Contents
 
-Loaded to evaluate trade-offs, pick a direction, and challenge it, once diverge produced at least 4 alternatives.
+- Core Principle
+- Workflow
+- Guidelines
+- Error Handling
 
 ## Core Principle
 
