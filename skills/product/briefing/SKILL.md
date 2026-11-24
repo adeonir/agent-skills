@@ -45,6 +45,6 @@ Progress:
 
 ## The brief
 
-The brief states where the work starts, where it must arrive, how arrival is measured, for whom, with what money and time, and within which limits. It never states the solution or the requirements.
+The brief never states the solution or the requirements.
 
 The brief is ready for the user's review when every remaining gap has an owner and a resolution stage.
