@@ -115,10 +115,10 @@ Edits that do not change a condition skip validation (see `edit-artifact.md`) â€
 - Run validation locally before any tracker round-trip so failures cost no dispatch latency
 
 **DON'T:**
-- Invent a condition for the user (contrasts: surface failures, let the user fix)
-- Validate on a `fetch_artifact` read (contrasts: validate only on create and condition-changing edits)
-- Judge a bound in a condition here (contrasts: its source is the requirement statement, which only the flow holding the epic can read)
-- Embed validation logic in an instruction (contrasts: this reference is the single home; each loads it on create and edit)
+- Invent a condition for the user; surface the failure and let the user fix it
+- Validate on a `fetch_artifact` read; validate only on create and condition-changing edits
+- Judge a bound in a condition here: its source is the requirement statement, which only the flow holding the epic can read
+- Embed validation logic in an instruction: this reference is the single home, and each flow loads it on create and edit
 
 ## Error Handling
 
