@@ -85,7 +85,7 @@ A consolidated handoff with two topics, one optional section, and one unverified
 - Constraint: every edit follows the rules in `.agents/rules/`
 
 **Current state:**
-- Format and workflow rewritten in `instructions/save.md` and `instructions/load.md`
+- Format and workflow rewritten in `references/save.md` and `references/load.md`
 - Validator not re-run since the edits
 
 **Open threads:**
