@@ -2,10 +2,6 @@
 
 Push the current branch and open a pull request shaped to the project's conventions.
 
-## Load first
-
-Read [message-sourcing.md](../references/message-sourcing.md) before writing the title or body — it carries where the words come from, the diction bar, and the two shapes of slop.
-
 ## Contents
 
 - Rules for every run

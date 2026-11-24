@@ -1,4 +1,4 @@
-Here is a sensible default format, but use your best judgment:
+Adapt this template to the case:
 
 ```markdown
 ## Summary

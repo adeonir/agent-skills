@@ -2,10 +2,6 @@
 
 Merge a GitHub pull request.
 
-## Load first
-
-Read [message-sourcing.md](../references/message-sourcing.md) before writing the merge subject — it carries where the words come from, the diction bar, and the two shapes of slop. Resolve bundled script paths from this skill's installed directory.
-
 ## Contents
 
 - Rules for every run
@@ -83,7 +79,7 @@ git config --local git-helpers.merge-method {method}
 | `squash` | Single commit on base |
 | `rebase` | Replays original commits (linear history) |
 
-Whatever path resolved `{method}`, record the rule:
+Whatever path resolved `{method}`, record the rule. Resolve `<this-skill>` to the directory this `SKILL.md` was read from before running the command:
 
 ```bash
 python3 <this-skill>/scripts/merge-method.py {method}

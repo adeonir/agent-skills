@@ -2,10 +2,6 @@
 
 Where the words of a git message come from, and the diction bar they meet.
 
-## When to Use
-
-Loaded by a step in every instruction that writes a message: a commit subject and body, a pull request title and body, a merge subject and body.
-
 ## Sourcing
 
 The diff and the commit log are the single source of *what* changed. Documented project conventions (AGENTS.md / CLAUDE.md) set *style*. The conversation supplies at most an explicit *why* the user stated, and nothing else.

@@ -2,10 +2,6 @@
 
 Create a conventional commit shaped to the project's conventions from the actual changes.
 
-## Load first
-
-Read [message-sourcing.md](../references/message-sourcing.md) before writing anything — it carries where the words come from, the diction bar, and the two shapes of slop this subject must avoid.
-
 ## Contents
 
 - Rules for every run
