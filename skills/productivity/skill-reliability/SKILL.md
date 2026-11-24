@@ -15,7 +15,7 @@ Score a skill's reliability as two factors and propose verifiable fixes.
 P(useful) = P(triggers correctly) × P(workflow completes | triggered)
 ```
 
-Step 3 audits the prose; Step 4 scores the first factor (trigger reliability); Steps 5–6 score the second (compound workflow reliability). See [framework.md](references/framework.md) · step natures, baselines, tiers, and the three reliability levers.
+See [framework.md](references/framework.md) · step natures, baselines, tiers, and the three reliability levers.
 
 ## Workflow
 
