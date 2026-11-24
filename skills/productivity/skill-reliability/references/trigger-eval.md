@@ -4,7 +4,7 @@ Probe a skill's name and description as a retrieval surface, then draft fixes �
 
 ## Deterministic Pass
 
-`trigger_lint.py` (run in Step 3) checks the frontmatter conventions: kebab-case `name`, a third-person description that states what the skill does before its inline "Use when" triggers, a closing `Not for` clause, the length envelope and the anti-patterns (filler openings, skill mechanics such as MCP/CLI transport or storage plumbing, a numbered `(1)…(2)` trigger list, first/second person, reserved name tokens). Treat its findings as the structural floor; reason about the rest below.
+`trigger_lint.py` (run in Step 4) checks the frontmatter conventions: kebab-case `name`, a third-person description that states what the skill does before its inline "Use when" triggers, a closing `Not for` clause, the length envelope and the anti-patterns (filler openings, skill mechanics such as MCP/CLI transport or storage plumbing, a numbered `(1)…(2)` trigger list, first/second person, reserved name tokens). Treat its findings as the structural floor; reason about the rest below.
 
 ## Probe Set
 

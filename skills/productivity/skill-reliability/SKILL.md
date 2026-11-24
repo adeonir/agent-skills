@@ -15,7 +15,7 @@ Scores a skill's reliability as two factors and proposes verifiable fixes, becau
 P(useful) = P(triggers correctly) × P(workflow completes | triggered)
 ```
 
-Step 3 scores the first factor (trigger reliability); Steps 4–5 score the second (compound workflow reliability). See [framework.md](references/framework.md) · step natures, baselines, tiers, and the three reliability levers.
+Step 3 audits the prose; Step 4 scores the first factor (trigger reliability); Steps 5–6 score the second (compound workflow reliability). See [framework.md](references/framework.md) · step natures, baselines, tiers, and the three reliability levers.
 
 ## Workflow
 
@@ -27,19 +27,22 @@ Copy this checklist and tick it off:
 Progress:
 - [ ] Step 1: Locate the skill
 - [ ] Step 2: Read the skill files
-- [ ] Step 3: Score trigger reliability
-- [ ] Step 4: Map the steps
-- [ ] Step 5: Assess compound reliability
-- [ ] Step 6: Identify the top variance points
-- [ ] Step 7: Output the analysis
-- [ ] Step 8: Apply the confirmed fixes
+- [ ] Step 3: Audit the prose
+- [ ] Step 4: Score trigger reliability
+- [ ] Step 5: Map the steps
+- [ ] Step 6: Assess compound reliability
+- [ ] Step 7: Identify the top variance points
+- [ ] Step 8: Output the analysis
+- [ ] Step 9: Apply the confirmed fixes
 ```
 
 **Step 1. Locate the skill.** If the argument is empty or the request is broad ("all skills", "which skill to start with"), read [discovery.md](references/discovery.md) · how to set scope first. Otherwise resolve the named skill to a path, searching in order: `skills/` subdirectories of the current repo, then the skill directories the host exposes. If not found, inform the user and stop. Done when `<skill-dir>` is a path containing a `SKILL.md`.
 
 **Step 2. Read the skill files.** Read SKILL.md and all files under `references/` (and `instructions/` if present). Done when you can name every workflow the skill defines.
 
-**Step 3. Score trigger reliability.** Run the deterministic linter first:
+**Step 3. Audit the prose.** Load [prose.md](references/prose.md) · the five checks and the rewrite bar. Run them over every instruction the analysis reads, including `SKILL.md` and each reference. Report a no-op even when it changes no decision. Done when every finding quotes the line, names the check, and carries a rewrite.
+
+**Step 4. Score trigger reliability.** Run the deterministic linter first:
 
 ```bash
 python3 <this-skill>/scripts/trigger_lint.py <skill-dir>
@@ -47,7 +50,7 @@ python3 <this-skill>/scripts/trigger_lint.py <skill-dir>
 
 Then follow [trigger-eval.md](references/trigger-eval.md) · the probe design: probe the name + description with explicit, implicit, negative, and ambiguous requests, reason fire-vs-should-fire, and draft a description fix when a probe misses. If the held-out re-test fails, return to the rewrite. Done when you hold a verdict (Clean / Leaky / Narrow) and any rewrite with its held-out re-test result.
 
-**Step 4. Map the steps.** Enumerate the workflows and their numbered steps deterministically:
+**Step 5. Map the steps.** Enumerate the workflows and their numbered steps deterministically:
 
 ```bash
 python3 <this-skill>/scripts/inventory.py <skill-dir>
@@ -55,9 +58,9 @@ python3 <this-skill>/scripts/inventory.py <skill-dir>
 
 Mark each step as a checkpoint or a decision. For a decision, assign Nature, Baseline, and Risk from `framework.md`; a checkpoint runs a command, reads a file, or verifies a named condition and carries none. If the inventory misses a workflow you read in Step 2, add its steps by hand and say so. Done when every step is marked and every decision has a Nature, Baseline, and Risk.
 
-**Step 5. Assess compound reliability.** Multiply the decision baselines into the end-to-end product and tier; feed the values to `inventory.py --product "<b1> <b2> …"` for the deterministic arithmetic. Keep the per-decision baselines visible so the number stays auditable. For a chained skill (commit → PR → finish), compute the full-chain product too. Done when each workflow has a product and tier.
+**Step 6. Assess compound reliability.** Multiply the decision baselines into the end-to-end product and tier; feed the values to `inventory.py --product "<b1> <b2> …"` for the deterministic arithmetic. Keep the per-decision baselines visible so the number stays auditable. For a chained skill (commit → PR → finish), compute the full-chain product too. Done when each workflow has a product and tier.
 
-**Step 6. Identify the top variance points.** Rank the three highest-variance steps. Write each as a labelled block:
+**Step 7. Identify the top variance points.** Rank the three highest-variance steps. Write each as a labelled block:
 
 - **Failure mode** — what concretely goes wrong (an observed bad output, not "it varies")
 - **Why it varies** — the nature plus its internal complexity
@@ -65,11 +68,11 @@ Mark each step as a checkpoint or a decision. For a decision, assign Nature, Bas
 - **Suggestion** — the concrete fix; for a trigger fix, a ready-to-paste description rewrite
 - **Expected gain** — the baseline shift and its effect on the workflow product
 
-If a Suggestion has no verification, return to Step 5 and rework it. Done when each block carries all five labels.
+If a Suggestion has no verification, return to Step 6 and rework it. Done when each block carries all five labels.
 
-**Step 7. Output the analysis.** Produce the report with the strict template in [output-template.md](references/output-template.md) · the report shape. Done when the report matches the template.
+**Step 8. Output the analysis.** Produce the report with the strict template in [output-template.md](references/output-template.md) · the report shape. Done when the report matches the template.
 
-**Step 8. Apply the confirmed fixes.** Apply a change only after the user confirms it. Write a description rewrite directly to the target's SKILL.md. Implement a workflow or script change on request, one at a time, re-running its verification check after each. Do not apply a change whose verification step from Step 7 you cannot state. Done when each confirmed change is applied and its verification check passed.
+**Step 9. Apply the confirmed fixes.** Apply a change only after the user confirms it. Write a description rewrite directly to the target's SKILL.md. Implement a workflow or script change on request, one at a time, re-running its verification check after each. Do not apply a change whose verification step from Step 8 you cannot state. Done when each confirmed change is applied and its verification check passed.
 
 ## Guidelines
 

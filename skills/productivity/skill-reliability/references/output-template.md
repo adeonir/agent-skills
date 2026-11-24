@@ -12,6 +12,12 @@ Use this template as written:
 ### Trigger reliability: <Clean | Leaky | Narrow>
 <does it fire on the right requests; note any description rewrite and its held-out re-test result>
 
+### Prose
+<clean, or the findings below>
+
+- **<check>** · Step N — "<quoted line>"
+  - Rewrite: "<replacement>"
+
 ### Workflow: <filename> — N steps, M decisions
 
 | Decision | Nature | Baseline | Risk |
@@ -48,4 +54,4 @@ For each change above, how to confirm it worked:
 <2–3 sentences on where to focus for the highest reliability gain>
 ```
 
-Exclude the apply step (Step 8) from this printed template.
+Exclude the apply step (Step 9) from this printed template.
