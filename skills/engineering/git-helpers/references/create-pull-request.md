@@ -2,11 +2,6 @@
 
 Push the current branch and open a pull request shaped to the project's conventions.
 
-## Contents
-
-- Rules for every run
-- Workflow
-
 ## Rules for every run
 
 1. Use the GitHub channel the project's AGENTS.md or CLAUDE.md records as primary, the GitHub MCP server or `gh`, and the other channel when the primary fails; when the project records none, use whichever is available. The MCP tools are `GitHub:list_pull_requests` and `GitHub:create_pull_request`; the `gh` equivalents are `gh pr list --head {branch} --state open` and `gh pr create`. Use Git commands for local repository operations. `{branch}` is the current branch.

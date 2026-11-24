@@ -2,13 +2,6 @@
 
 Narrow the field. Evaluate trade-offs systematically. Pick a direction with eyes open.
 
-## Contents
-
-- Core Principle
-- Workflow
-- Guidelines
-- Error Handling
-
 ## Core Principle
 
 Every alternative gets a fair hearing before elimination. Trade-offs are explicit, not hidden. The user decides, the agent informs.

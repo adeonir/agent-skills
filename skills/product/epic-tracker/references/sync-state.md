@@ -6,11 +6,6 @@ Change status, read delivery state, reparent an artifact, or edit its dependenci
 
 Read [tracker.md](tracker.md) and run its Resolve the Tracker step — the existing destination, content guards, and generic operations used below. If the required tracker access is not configured, report the prerequisite without configuring it.
 
-## Contents
-
-- Rules for every run
-- Workflow
-
 ## Rules for every run
 
 1. Apply these delivery-state rules even when no artifact body is being drafted.

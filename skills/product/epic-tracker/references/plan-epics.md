@@ -8,13 +8,6 @@ Read [artifact-content.md](artifact-content.md) before drafting or editing a bod
 
 Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
-## Contents
-
-- When to Use
-- Rules for every run
-- Roadmap as memory
-- Workflow
-
 ## Rules for every run
 
 1. Decide derivation, ICE, ordering, partition, and dependencies here. The roadmap template and the create instructions never re-decide them.

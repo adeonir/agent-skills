@@ -8,12 +8,6 @@ Read [artifact-content.md](artifact-content.md) before drafting or editing a bod
 
 Read [tracker.md](tracker.md) and run its Resolve the Tracker step before drafting — read the existing destination without changing its configuration.
 
-## Contents
-
-- When to Use
-- Rules for every run
-- Workflow
-
 ## Rules for every run
 
 1. State the question and what counts as an answer, and leave the answer open: the conditions say when the question is answered, never what the answer is.

@@ -8,12 +8,6 @@ Read [artifact-content.md](artifact-content.md) before editing a body — what t
 
 Read [tracker.md](tracker.md) and run its Resolve the Tracker step before editing — read the existing destination without changing its configuration.
 
-## Contents
-
-- When to Use
-- What each type changes
-- Workflow
-
 ## What each type changes
 
 Create and edit hold the artifact to the same canonical contract: the template structure and its MUST-NOT boundaries, plus the condition contract and requirement linkage on a task. An edit conforms the result, never a free-form rewrite.
