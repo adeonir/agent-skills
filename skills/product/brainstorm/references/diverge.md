@@ -5,7 +5,6 @@ Explore the space broadly. Quantity over quality. Non-obvious options matter mor
 ## Contents
 
 - Workflow
-- Guidelines
 - Error Handling
 
 ## Workflow
@@ -34,19 +33,15 @@ Select 3-4 techniques relevant to the problem. Not every technique applies to ev
 
 Remove one constraint at a time and ask: "What would we do if X was not a limitation?"
 
-Generates options that might be partially achievable even with the constraint back in place. Reveals where constraints are artificially narrowing the space.
-
 #### Analogy Exploration
 
 Look at how other industries, domains, or products solve similar problems.
 
-Ask: "How does [industry Y] handle [problem X]?" Transfer patterns from one domain to another. Works best when the user is stuck in familiar territory.
+Ask: "How does [industry Y] handle [problem X]?" Transfer patterns from one domain to another.
 
 #### Inversion
 
 Ask: "What is the opposite approach? What if we did the exact reverse?"
-
-Often reveals hidden assumptions about the "right" way. Generates alternatives that challenge the default direction.
 
 #### Decomposition
 
@@ -58,13 +53,11 @@ Ask: "Can we solve a smaller version first? What is the minimum viable experimen
 
 Push to extremes: "What if we went all-in on X? What if we completely ignored Y?"
 
-Reveals the spectrum and helps identify where the sweet spot might be. Works best for trade-off-heavy problems.
-
 #### Status Quo Plus
 
 Ask: "What if we just improved what exists? What is the least disruptive change?"
 
-Important to include as a baseline alternative. Often underrated because it lacks novelty, but sometimes the right answer is incremental improvement.
+Include it as a baseline alternative.
 
 ### Alternative Capture Format
 
@@ -93,24 +86,8 @@ On plan entry, the existing plan is the baseline row. If fewer than 4 alternativ
 
 Reach the minimum bar before advancing to converge.
 
-## Guidelines
-
-**DO:**
-- Separate generation from evaluation completely
-- Include the status quo or do-nothing option
-- Push past the first 2-3 obvious ideas
-- Name each alternative for easy reference in converge
-- Select techniques based on problem type, not mechanically
-
-**DON'T:**
-- Evaluate or dismiss during diverge
-- Settle for only 2-3 alternatives
-- Only generate safe or obvious options
-- Combine alternatives prematurely (that happens in converge)
-- Apply all 6 techniques every time (select the relevant ones)
-
 ## Error Handling
 
-- User wants to skip to a specific solution: warn that brainstorming value comes from exploring alternatives; suggest formalizing as a document if they already have a direction
+- User wants to skip to a specific solution: warn once that brainstorming value comes from exploring alternatives; suggest formalizing as a document if they already have a direction
 - Alternatives feel too similar: apply inversion or constraint removal to generate genuinely different options
-- Problem is too narrow for 4 alternatives: check if the problem is too specific -- consider broadening scope or decomposing differently
+- Problem is too narrow for 4 alternatives: check if the problem is too specific -- broaden the scope or decompose differently

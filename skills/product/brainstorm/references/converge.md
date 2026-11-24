@@ -78,23 +78,6 @@ Outcome:
 - Survives: see [capture.md](capture.md) for review checklist, save format, and pivot, validation, and replace handling
 - Hole found: name the hole explicitly, then loop back -- to diverge if new alternatives could close it, to discovery if the hole is in motivation or constraints
 
-## Guidelines
-
-**DO:**
-- Give every alternative a fair screening before elimination
-- Make trade-offs explicit and visible
-- Present a recommendation but let the user decide
-- Challenge every chosen direction -- standard by default, deep on `/brainstorm deep`
-- Allow looping back if no direction feels right
-- Present the comparison table for structured evaluation
-
-**DON'T:**
-- Dismiss alternatives without stating why
-- Hide trade-offs to make a recommendation look stronger
-- Force a decision when the user needs more exploration
-- Skip the comparison table
-- Combine all alternatives into one "best of everything" hybrid
-
 ## Error Handling
 
 - All alternatives eliminated by constraints: loop back to discovery -- constraints may be too tight, or the problem needs reframing

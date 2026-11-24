@@ -1,12 +1,9 @@
 # Discovery -- Understand the Problem Space
 
-Map the territory before exploring it. Understand what exists, what is missing, and what matters.
-
 ## Contents
 
 - Entry Detection
 - Workflow
-- Guidelines
 
 ## Entry Detection
 
@@ -57,21 +54,9 @@ A rubber-stamp streak — the user answering only "yes, agreed" turn after turn 
 
 **Summarize before advancing:** Before moving to the next topic, summarize what was learned and confirm with the user.
 
-### Adaptive Deepening
-
-Probe further when answers are:
-
-| Signal | Response |
-|--------|----------|
-| Vague | Propose an interpretation: "It sounds like X — is that right?" |
-| Assumed | Ask for evidence: "How do you know? What data supports this?" |
-| Conflated | Separate: "Those sound like two different things. Which one matters more?" |
-| Solution-first | Redirect: "Before the solution — what problem or opportunity do you see?" |
-| Overly broad | Narrow: "Who specifically? Which case matters most?" |
-
 ### Entry Differences
 
-**Greenfield entry:** Adaptive deepening applies. When the user genuinely doesn't know, mark as TBD and move on. Not all unknowns block advancement.
+**Greenfield entry:** When the user genuinely doesn't know, mark as TBD and move on. Not all unknowns block advancement.
 
 **Plan entry:** Push once more before accepting any TBD on Topics 1 and 2. "You said you're not sure — what's your best guess, even if uncertain?" Only mark TBD after a genuine second attempt. This second push is guaranteed on plan entry regardless of the `deep` argument. Topic 3 (success criteria) follows greenfield rules — genuine uncertainty there is acceptable.
 
@@ -164,24 +149,3 @@ Before advancing to diverge, confirm:
 - [ ] User has confirmed the summary
 
 Present a summary and confirm before advancing to diverge. Only proceed after confirmation.
-
-## Guidelines
-
-**DO:**
-- Detect entry state and reflect it in how you open — not as a label, but as framing
-- Propose your interpretation, let the user confirm or redirect
-- Explore the codebase when current-state questions can be answered that way
-- Walk the decision tree within each topic — let answers drive the next branch
-- Shift to declared assumptions on a rubber-stamp streak — spend questions where the answer could change the branch
-- Push once more on Topics 1 and 2 TBDs before accepting on plan entry
-- Log open TBDs with their topic weight before advancing
-
-**DON'T:**
-- Follow scripted question lists regardless of answers
-- Ask any question without attaching your recommended answer — every turn carries a POV, whether an interpretation or a question-with-recommendation
-- Ask about current state when the codebase can answer it
-- Accept motivation or constraint TBDs without a second push on plan entry
-- Move past the quality gate without user confirmation
-- Batch dependent questions, or batch anything on Topics 1 and 2
-- Add a second question after the opening interpretation invite
-- Repeat the entry name as a label throughout the response
