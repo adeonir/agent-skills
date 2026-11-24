@@ -25,7 +25,7 @@ MECHANICS_TOKEN_RE = re.compile(r"\b(mcp|cli)\b")  # naming the transport is mec
 
 
 def parse_frontmatter(text):
-    """Return (name, description, argument_hint) from SKILL.md frontmatter, or (None, None, None)."""
+    """Return (name, description) from SKILL.md frontmatter, or (None, None)."""
     if not text.startswith("---"):
         return None, None, None
     end = text.find("\n---", 3)
@@ -35,16 +35,12 @@ def parse_frontmatter(text):
 
     name = None
     description = None
-    hint = None
     index = 0
     while index < len(lines):
         line = lines[index]
         name_match = re.match(r"^name:\s*(.*)$", line)
         if name_match:
             name = name_match.group(1).strip().strip("\"'")
-        hint_match = re.match(r"^argument-hint:\s*(.*)$", line)
-        if hint_match:
-            hint = hint_match.group(1).strip().strip("\"'")
         desc_match = re.match(r"^description:\s*(.*)$", line)
         if desc_match:
             head = desc_match.group(1).strip()
@@ -61,7 +57,7 @@ def parse_frontmatter(text):
                 continue
             description = head.strip("\"'")
         index += 1
-    return name, description, hint
+    return name, description
 
 
 def lint_name(name, findings):
@@ -78,15 +74,6 @@ def lint_name(name, findings):
             findings.append(("MAJOR", "name", f"name must not contain '{token}'"))
     if name in BUILTIN_COLLISIONS:
         findings.append(("MAJOR", "name", f"name collides with a built-in command: {name}"))
-
-
-def lint_hint(hint, findings):
-    if hint is None:
-        return
-    if "<" in hint or ">" in hint:
-        findings.append(("MINOR", "argument-hint", "argument-hint wraps a placeholder in angle brackets — use square brackets: [skill-name]"))
-    elif re.match(r"^\[[^\]]*\|[^\]]*\]$", hint):
-        findings.append(("MINOR", "argument-hint", "argument-hint wraps the whole hint in one outer bracket — bracket each placeholder only"))
 
 
 def lint_description(description, findings):
@@ -146,11 +133,10 @@ def main():
         print(f"cannot read {skill_md}: {error}", file=sys.stderr)
         return 1
 
-    name, description, hint = parse_frontmatter(text)
+    name, description = parse_frontmatter(text)
     findings = []
     lint_name(name, findings)
     lint_description(description, findings)
-    lint_hint(hint, findings)
 
     if not findings:
         print(f"PASS trigger_lint — name={name}, description ok ({len(description.split())} words)")
