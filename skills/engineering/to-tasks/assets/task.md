@@ -1,3 +1,4 @@
+Use this template as written:
 # Task Format
 
 Use `[Task title]` as the issue title and the block below as the issue body. The parent issue, when there is one, and the blocking issues are set in the tracker.
