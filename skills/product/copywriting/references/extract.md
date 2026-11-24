@@ -39,7 +39,7 @@ If any fetch or read fails, ask the user for an alternative shape (often a scree
 
 Identify the surfaces the source carries and how they are organized: do not force the project into a type or a fixed set of buckets. Name surfaces and their parts by what they are in context (a `home` page with a `hero`; a `dashboard` screen; a `checkout` flow). A source may carry a single page, a set of pages, application screens, a product catalog with a purchase flow, or any mix.
 
-Mirror the source: the `copy.yaml` content tree (Step 5) follows the source's own structure and naming, not a predefined schema. Confirm with the user when the organization is unclear.
+Confirm with the user when the organization is unclear.
 
 ### Step 4: Extract Content
 
@@ -70,8 +70,6 @@ Report the path, what `copy.yaml` holds in one to three sentences, and any open 
 ## Guidelines
 
 **DO:**
-- Preserve original tone: structure content, do not rewrite it
-- Capture image descriptions per surface or part: URL and alt only when the source provides them
 - Capture the inferred purpose, reader goal, function, and constraints under `intent`; preserve the source's voice under `voice`
 - Extract every surface and part thoroughly: do not skip content
 - Scope extracted output to what was actually captured: a region input produces region output, not a full-surface tree

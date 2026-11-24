@@ -16,7 +16,7 @@ If found, read and extract purpose, audience, tone, surface function, register (
 
 Set the intent before choosing patterns or the register. Once confirmed, it is the first gate every pattern, edit, and verdict passes.
 
-`intent.function` is the reader's job for that surface; classify it with `surface-functions.md`, and never infer conversion from a page name alone. Intent also records the purpose, reader goal, and functional constraints, such as a ban on sales language. Use one function per surface when possible; a mixed surface may override the root intent per surface or part.
+`intent.function` is the reader's job for that surface; classify it with `surface-functions.md`, and never infer conversion from a page name alone. Use one function per surface when possible; a mixed surface may override the root intent per surface or part.
 
 **Register** is the posture, either **brand** (the words are the product) or **product** (the words serve the task). It sets the voice: read the matching `brand.md` or `product.md` first. **Surface** is the granular type the copy serves, named by context — landing, dashboard, form, empty-state. A surface sits under a register, and the content tree is named by context rather than forced into a fixed list. Storefronts straddle: catalog copy is brand, checkout and account copy is product.
 
@@ -26,7 +26,7 @@ Set the intent before choosing patterns or the register. Once confirmed, it is t
 
 The skill owns `docs/product/copy.yaml`: a context-named content tree whose surfaces and parts mirror the source. It carries `intent` (purpose, reader goal, function, and functional constraints) and `voice` (the stylistic direction). Every later operation reads both before drafting or judging.
 
-An authoring operation changes intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions — no colors, fonts, or layout. Write every field, `notes` included, as the current fact in present tense: never the value it replaced, the change, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed"). The content stays swappable: any `copy.yaml` must work independent of visual styling.
+An authoring operation changes intent or voice only after the user confirms a new intent or voice. Before saving, self-check that the tree is well-formed and carries no design decisions — no colors, fonts, or layout. Write every field, `notes` included, as the current fact in present tense: never the value it replaced, the change, or the exchange that settled it ("as discussed", "the user confirmed", "we agreed").
 
 ## Fill Gaps
 

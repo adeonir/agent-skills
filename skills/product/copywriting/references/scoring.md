@@ -7,10 +7,6 @@ The shared rubric for copywriting evaluation: severity, score bands, and the rep
 - Severity (P0–P3)
 - Score bands
 - Report template
-- Verdict
-- Score
-- Findings
-- Strengths
 - Required shape
 - Acting on findings
 
@@ -60,7 +56,7 @@ Score Readability, Claim integrity, Intent fit, Microcopy correctness, and Anti-
 
 ## Report template
 
-Use this format: the verdict leads, the score supports it, and the findings are ordered by severity:
+Use this format:
 
 ```markdown
 ## Verdict
@@ -97,14 +93,12 @@ Every report keeps these invariants:
 - the printed total equals the sum of the rows;
 - every finding carries its `copy.yaml` path or the quoted line, a severity (P0–P3), the reader impact, and a fix.
 
-critique and audit self-check these before presenting the verdict.
-
 ## Acting on findings
 
-copywriting owns the fix, so the loop closes inside the skill: but critique and audit themselves never write. Map each finding to a concrete next step, in priority order (P0 first):
+Map each finding to a concrete next step, in priority order (P0 first):
 
 - A weak critique axis → the matching `refresh` sweep (Clarity → clarity pass, Prove it → prove it pass, Reader confidence → the function-appropriate friction or trust pass, and so on); re-critique after.
 - An off-register voice that needs more than tightening → `revoice`.
-- An audit defect on shipping copy → `refresh` for wording, `write` for a missing part. Apply it as that operation; the judgment modes report, they do not patch.
+- An audit defect on shipping copy → `refresh` for wording, `write` for a missing part.
 
 Never present a fix as applied: critique and audit produce the verdict; a permanent change is the relevant authoring operation.

@@ -6,7 +6,7 @@ Judge shipping copy for quality defects before it goes live: a prioritized P0–
 
 Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
-This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the verdict and let the score support it rather than replace it. To apply a finding, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
+Name the intent and register first, then lead with the verdict and let the score support it rather than replace it. To apply a finding, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
 
 ## Scope
 
@@ -42,11 +42,11 @@ It tallies the scannable tells (dead words, em-dash density, known openers) with
 
 ### Step 4: Findings by severity
 
-Tag every defect P0–P3 (definitions in [scoring.md](scoring.md)). For each: name, the `copy.yaml` path or line, the reader impact, and the fix. Group P2/P3 to keep the signal clean: too many P3s is noise.
+Tag every defect P0–P3 (definitions in [scoring.md](scoring.md)). For each: name, the `copy.yaml` path or line, the reader impact, and the fix.
 
 ### Step 5: Report
 
-Assemble using the template in [scoring.md](scoring.md): verdict, the 5-dimension table and total /20, findings by severity, systemic patterns (a defect repeated across many parts), and what is working. The fix happens in a refresh, revoice, or write: audit reports it.
+Assemble using the template in [scoring.md](scoring.md): verdict, the 5-dimension table and total /20, findings by severity, systemic patterns (a defect repeated across many parts), and what is working.
 
 ### Step 6: Self-check
 
@@ -56,7 +56,6 @@ Before presenting, verify the report against the required shape in [scoring.md](
 
 - Only the copy is required: never hard-gate on missing context
 - Name the intent before judging intent fit
-- Lead with the anti-pattern verdict; be honest about slop
 - Every finding states reader impact: why it costs, not just what it is
 - Quality-only: do not flag requirement or implementation drift; that is reconcile
 

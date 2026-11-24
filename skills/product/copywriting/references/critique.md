@@ -1,12 +1,12 @@
 # Critique
 
-Judge existing copy for quality: a slop-and-voice verdict, not a rewrite. Critique is coupled to refresh: it scores a draft against its surface function and feeds the weak dimensions back into the refresh sweeps. Perceptual judgment; non-mutating.
+Judge existing copy for quality: a slop-and-voice verdict, not a rewrite. Perceptual judgment; non-mutating.
 
 ## Load first
 
 Read [discovery.md](discovery.md) before starting — it settles the existing context, the confirmed intent and voice, and the register this operation must respect.
 
-This operation reads and reports; it never patches `copy.yaml`. Name the intent and register first, then lead with the slop verdict and let the score support it rather than replace it. To apply a verdict, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
+Name the intent and register first, then lead with the slop verdict and let the score support it rather than replace it. To apply a verdict, run the matching authoring operation: a weak axis loops to `refresh.md`, an off-register voice to `revoice.md`, a missing part to `write.md`.
 
 ## Workflow
 
@@ -37,13 +37,13 @@ Score all seven sweeps 0–4 as judgment axes: Clarity, Voice consistency, Reade
 
 ### Step 4: Proof check
 
-Walk claims about capability, quality, or outcomes against the proof hierarchy in [voice.md](voice.md). Factual descriptions of the subject need accurate context, not an invented result. A claim no proof supports is the most expensive line on the page.
+Walk claims about capability, quality, or outcomes against the proof hierarchy in [voice.md](voice.md). Factual descriptions of the subject need accurate context, not an invented result.
 
 ### Step 5: Verdict and refinements
 
 Write the verdict using the template in [scoring.md](scoring.md): slop verdict, the sweep table and total, the priority findings (P0–P3), and 2–3 strengths. Then map each weak axis to its refresh sweep so the loop can continue: Clarity → clarity pass, Prove it → prove it pass, Voice consistency → a revoice if the register itself is wrong, and Reader confidence → the function-appropriate friction or trust pass.
 
-Close with 2–3 questions that open the next pass instead of only grading this one. Make the questions fit the surface function: decision confidence for conversion, distinctiveness for brand/editorial, actionability for product/UX, and comprehension for informational copy. They aim refresh's next pass.
+Close with 2–3 questions that open the next pass instead of only grading this one. Make the questions fit the surface function: decision confidence for conversion, distinctiveness for brand/editorial, actionability for product/UX, and comprehension for informational copy.
 
 Hand the refinements to refresh; re-edit and re-critique until the copy holds: the total reaches the Good band (see [scoring.md](scoring.md)) with no P0 or P1 open, or the user accepts the current state. Critique never edits the copy itself.
 
@@ -53,11 +53,8 @@ Before presenting, verify the verdict against the required shape in [scoring.md]
 
 ## Guidelines
 
-- Name the intent and register before scoring: the bar is meaningless without them
-- Lead with the slop verdict; let the score support it, not replace it
 - Be specific: quote the line and its `copy.yaml` path, not "some copy"
 - Prioritise ruthlessly: if every line is P0, nothing is
-- Loop through refresh's sweeps; critique judges, refresh applies
 
 ## Error Handling
 

@@ -53,4 +53,4 @@ A testimonial that could apply to anyone is not proof. "Great to work with" → 
 
 ## Dead language
 
-The dead words, hollow structures, and machine tells to strip are catalogued as rules with fail/pass examples in `anti-patterns.md`. Hold the voice here; cut the slop there.
+The dead words, hollow structures, and machine tells to strip are catalogued as rules with fail/pass examples in `anti-patterns.md`.

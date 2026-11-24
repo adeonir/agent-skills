@@ -10,7 +10,7 @@ Read [discovery.md](discovery.md) before starting — it settles the existing co
 
 ### Step 1: Read Current Copy
 
-Parse `docs/product/copy.yaml`. Note the current intent and voice; revoice replaces the voice only.
+Parse `docs/product/copy.yaml`. Note the current intent and voice.
 
 ### Step 2: Establish Target Voice
 
@@ -18,7 +18,7 @@ Get the target from the user: a stated direction ("more playful", "luxury", "dri
 
 ### Step 3: Recast Each Part
 
-Rewrite each line into the target voice, preserving the message, every claim, and the structure. Change *how* it is said, never *what*. Do not introduce dead adjectives (see [../references/anti-patterns.md](anti-patterns.md)) or drop proof (see [../references/voice.md](voice.md)).
+Rewrite each line into the target voice, preserving the message, every claim, and the structure. Do not introduce dead adjectives (see [../references/anti-patterns.md](anti-patterns.md)) or drop proof (see [../references/voice.md](voice.md)).
 
 ### Step 4: Patch copy.yaml
 
@@ -42,8 +42,6 @@ Report the path, what changed in one to three sentences, and any open item `copy
 
 **DO:**
 
-- Change the voice, keep the message and surface function: same claims, same structure
-- Set and confirm the target voice before recasting
 - Hold the new voice consistently across every part
 
 **DON'T:**

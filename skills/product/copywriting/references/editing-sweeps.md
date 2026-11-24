@@ -4,10 +4,10 @@ Focused passes that tighten existing copy without changing its voice. They suppo
 
 ## The Seven Sweeps
 
-Run per `copy.yaml` part, one dimension at a time. Hold the confirmed intent throughout: its constraints are gates, not suggestions. Do not improve a sweep by violating a required tone or using a forbidden technique.
+Run per `copy.yaml` part, one dimension at a time. Hold the confirmed intent throughout: its constraints are gates, not suggestions.
 
 1. **Clarity:** can the reader understand it at once? Kill confusing structures, unclear pronouns, jargon, sentences doing too much.
-2. **Voice consistency:** does it sound the same throughout? Smooth shifts between formal and casual; keep the established voice. *Refresh never changes the voice; that is a different job.*
+2. **Voice consistency:** does it sound the same throughout? Smooth shifts between formal and casual; keep the established voice.
 3. **Reader value:** does each part serve the reader's goal? For persuasive copy, bridge features to benefits ("…which means…"); for product/UX copy, make the next step clear; for informational copy, connect facts to the reader's question; for brand/editorial copy, make the point of view earn attention.
 4. **Prove it:** are claims about capability, quality, or outcomes backed? Attach numbers, named proof, or soften the claim. Factual descriptions need accurate context. See proof hierarchy in `voice.md`.
 5. **Specificity:** concrete over vague. "Save time" → "Save 4 hours a week"; "many customers" → "2,847 teams". Cut what cannot be made specific.

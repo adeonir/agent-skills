@@ -10,11 +10,11 @@ Read [discovery.md](discovery.md) before starting — it settles the existing co
 
 ### Step 1: Read Current Copy
 
-Parse `docs/product/copy.yaml`. Note the established intent and voice; refresh preserves both. If either block is missing or inferred, use discovery before editing.
+Parse `docs/product/copy.yaml`. If either block is missing or inferred, use discovery before editing.
 
 ### Step 2: Run the Sweeps
 
-Apply [../references/editing-sweeps.md](editing-sweeps.md) per content part: clarity → voice consistency → reader value → prove it → specificity → reader pull → reader confidence, then the quick-pass word/sentence/paragraph checks. Check the intent constraints before each sweep; do not introduce a forbidden technique to improve another dimension. Apply the function-specific meaning of each sweep. Pull proof guidance from [../references/voice.md](voice.md); the dead-word and dead-structure catalogue is in [../references/anti-patterns.md](anti-patterns.md). The voice pass checks *consistency* only; never change the voice. For microcopy (labels, errors, states, navigation), also run the clarity method in [../references/ux-writing.md](ux-writing.md).
+Apply [../references/editing-sweeps.md](editing-sweeps.md) per content part: clarity → voice consistency → reader value → prove it → specificity → reader pull → reader confidence, then the quick-pass word/sentence/paragraph checks. Apply the function-specific meaning of each sweep. Pull proof guidance from [../references/voice.md](voice.md); the dead-word and dead-structure catalogue is in [../references/anti-patterns.md](anti-patterns.md). The voice pass checks *consistency* only; never change the voice. For microcopy (labels, errors, states, navigation), also run the clarity method in [../references/ux-writing.md](ux-writing.md).
 
 ### Step 3: Patch copy.yaml
 
@@ -44,7 +44,6 @@ Report the path, what changed in one to three sentences, and any open item `copy
 
 **DON'T:**
 
-- Change the voice
 - Change the surface function or add function-specific parts that were not requested
 - Restructure the content tree
 - Embed visual decisions in `copy.yaml`

@@ -19,8 +19,7 @@ If the copy could sit on any competitor's page unchanged, it has no point of vie
 
 - Lead with the reader's outcome or problem when the surface supports a decision, never with company history; an informational surface leads with the subject.
 - Support capability, quality, and outcome claims with proof. A factual description may stand on its context (proof hierarchy in `voice.md`).
-- Commit to a voice and hold it; one distinctive line beats five hedged ones. Use an action-oriented CTA when the surface has an action to support.
-- Personality is permission here: wit, rhythm, and a strong opener when the brand invites it.
+- Commit to a voice and hold it. Use an action-oriented CTA when the surface has an action to support.
 
 ## Brand bans (on top of the dead language in `anti-patterns.md`)
 
