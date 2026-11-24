@@ -73,7 +73,7 @@ Give every supporting file exactly one entry, in this shape:
 - **Wording** — any branch above is about to write text → [references/message-sourcing.md](references/message-sourcing.md) · where the words come from
 ```
 
-Test each condition by asking whether the agent can choose from the entry itself. A situation passes the test; a topic label sends the agent into the file to find out.
+Test each condition by asking whether the agent can choose from the entry itself, at the moment the request arrives, because the index is read once. A situation passes the test; a topic label sends the agent into the file to find out.
 
 A single-job skill carries its procedure in `## Quick start` and places each entry in the step that loads the file, in the same shape. The entry is what the step says to load before relying on it.
 

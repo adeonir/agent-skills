@@ -9,7 +9,7 @@ paths:
 
 Every supporting file sits one hop from `SKILL.md`, and the index is the only selector: a reference never links to another reference.
 
-A constraint two procedures need is its own reference, announced in the index with a condition that covers both jobs.
+A constraint two procedures need is its own reference, announced in the index with a condition that covers both jobs. The condition has to be decidable when the request arrives, because the index is read once: a constraint that only surfaces in the middle of a procedure stays inline in the job that needs it.
 
 **Incorrect:**
 
