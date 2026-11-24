@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Skill Feedback
 
-Turn what went wrong with a skill in this session into a report another session can act on without this conversation. Write nothing to disk and change no skill file; the report goes to chat only.
+Turn what went wrong with a skill in this session into a report another session can evaluate without this conversation. Write nothing to disk and change no skill file; the report goes to chat only.
 
 ## Workflow
 
@@ -56,7 +56,7 @@ Use this template as written:
 - **Evidence:** "[verbatim excerpt from the session, or the summary's words labeled (from summary)]"
 - **Cause:** [missing | ambiguous | contradictory | wrong | cost | not followed | trigger]
 - **Basis:** [observed | inferred]
-- **Direction:** [the change the evidence supports, stated as a claim for the editing session to check]
+- **Direction:** [the change the evidence supports, stated as a claim the editing session evaluates — never steps or a plan]
 ```
 
-MUST NOT contain: text before the H1 or after the last finding; a partial report after a correction; secrets, tokens, or personal data from the session; a rewritten skill file or a diff; a finding with no evidence and no `inferred` mark; a fix for a `not followed` finding that adds emphasis to the instruction instead of naming why it was missed.
+MUST NOT contain: an execution plan, ordered steps, or an instruction to apply the change; text before the H1 or after the last finding; a partial report after a correction; secrets, tokens, or personal data from the session; a rewritten skill file or a diff; a finding with no evidence and no `inferred` mark; a fix for a `not followed` finding that adds emphasis to the instruction instead of naming why it was missed.
