@@ -1,6 +1,6 @@
 ---
 name: session-retro
-description: 'Reviews a finished coding session and, from the evidence in it, proposes changes to the environment the agent works in so the same lost time and mistakes do not recur: `AGENTS.md` files, rules, automated checks, navigation, tool use, and information access. Use when the user asks for a retro or retrospective, to improve the agent setup after a session, or says "what should we change so this does not happen again". Not for writing or trimming an AGENTS.md or rule with no session behind it, reviewing an earlier session, a defect report on one skill, session handoffs, end-of-session notes, code review, or editing the files it proposes to change.'
+description: 'Reviews a finished coding session and, from the evidence in it, proposes changes to the environment the agent works in so the same lost time and mistakes do not recur: `AGENTS.md` files, rules, automated checks, navigation, tool use, and information access. Use when the user asks for a retro or retrospective, to improve the agent setup after a session, or says "what should we change so this does not happen again". Not for writing or trimming an AGENTS.md or rule with no session behind it, reviewing an earlier session, a standalone defect report on one skill, session handoffs, end-of-session notes, code review, or editing the files it proposes to change.'
 disable-model-invocation: true
 metadata:
   inspired-by:
@@ -60,9 +60,9 @@ An `AGENTS.md` below the root loads when the agent opens a file in its folder, s
 
 Name the cause of each point: the agent lacked a fact, an instruction was unclear or contradicted another, an instruction was clear and the agent ignored it, or nothing checked the result. The change must act on that cause.
 
-A point with no evidence in the session is not a candidate. Done when every point has a category and a cause, or is dropped.
+A point whose instruction lives in a skill file is not an environment candidate: hold it for Step 4. A point with no evidence in the session is not a candidate. Done when every point has a category and a cause, is held for Step 4, or is dropped.
 
-**Step 4. Print the candidates.** Score each candidate: cost 1 to 3 (1 up to 3 turns spent on the point, 2 from 4 to 10 turns, 3 more than 10 turns or wrong output shipped) times recurrence 1 to 3 by how often the point appeared in this session (1 once, 2 two or three times, 3 four or more). Quote each occurrence when recurrence is above 1, so the second factor is auditable. Rank by the product and show it in the heading. Reply with the candidates alone and stop; the user picks which to apply.
+**Step 4. Print the candidates.** Score each candidate: cost 1 to 3 (1 up to 3 turns spent on the point, 2 from 4 to 10 turns, 3 more than 10 turns or wrong output shipped) times recurrence 1 to 3 by how often the point appeared in this session (1 once, 2 two or three times, 3 four or more). Quote each occurrence when recurrence is above 1, so the second factor is auditable. Rank by the product and show it in the heading. Reply with the candidates, then one `skill-feedback` block per skill behind the held points, appended verbatim after the last candidate. Run that skill's procedure for each held point; when it is not installed, list the points it would have covered. Stop after the last block; the user picks which candidates to apply.
 
 Use this template as written:
 
@@ -78,4 +78,4 @@ Use this template as written:
 - **Why this form:** [one line: the form chosen — check, rule, `AGENTS.md` entry, cut, tool change, or access — and why not the others]
 ```
 
-MUST NOT contain: a candidate with no evidence; a rule where a deterministic check can do the job; a pointer to a file that does not exist; text before the H1 or after the last candidate; secrets, tokens, or personal data from the session.
+MUST NOT contain: a candidate with no evidence; a rule where a deterministic check can do the job; a pointer to a file that does not exist; text before the H1, between the last candidate and an appended block, or after the last block; secrets, tokens, or personal data from the session.

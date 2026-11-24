@@ -2,7 +2,6 @@
 name: skill-feedback
 description: 'Writes a normalized improvement report about a skill used in the current session, built from evidence in the conversation and printed in chat for a later editing session. Use when a skill misbehaved, missed a case, or gave an unclear instruction during the session, or when the user says "report this skill issue", "skill feedback", or "write a report for the skill". Not for editing, auditing, or creating a skill, scoring trigger precision, or session handoffs.'
 argument-hint: "[skill-name]"
-disable-model-invocation: true
 ---
 
 # Skill Feedback
@@ -37,7 +36,7 @@ Progress:
 
 Mark a finding `observed` when a turn shows the failure and `inferred` when you reason from the instruction alone. Done when each finding has a cause, a basis, and either a quoted turn or the `inferred` mark.
 
-**Step 4. Print the report.** Order the findings by impact, most consequential first. Write it in English and quote the evidence verbatim in its original language. Reply with the report alone, with no text before or after it, so the whole reply copies as one block. If the user corrects a finding, return to Step 3 and print the full report again.
+**Step 4. Print the report.** Order the findings by impact, most consequential first. Write it in English and quote the evidence verbatim in its original language. Reply with the report block alone: no sentence before it and none after it, so the block copies as one piece. A block that another skill appends keeps that shape — nothing introduces it and nothing follows it. If the user corrects a finding, return to Step 3 and print the full block again.
 
 Use this template as written:
 
