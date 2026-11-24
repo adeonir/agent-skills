@@ -4,14 +4,7 @@ Universal principles for how the eye reads a surface — *why* a composition wor
 
 ## Gestalt
 
-The mind groups visual elements by predictable rules — use them to compose hierarchy without explicit borders.
-
-- **Proximity** — close elements read as a group; separate groups with larger gaps.
-- **Similarity** — shared color/shape/size reads as related; vary to signal difference.
-- **Continuity** — the eye follows lines/curves; align to guide reading order.
-- **Closure** — incomplete shapes are mentally completed; partial borders suggest containment.
-- **Figure-ground** — separate foreground from background by contrast.
-- **Common region** — a shared container groups; use sparingly to avoid card-noise.
+The eye groups by proximity, similarity, continuity, closure, figure-ground, and common region. Separate groups with larger gaps, vary a shared trait to signal difference, align to guide reading order, and use a shared container sparingly to avoid card-noise.
 
 ## Hierarchy
 
