@@ -62,7 +62,7 @@ Name the cause of each point: the agent lacked a fact, an instruction was unclea
 
 A point with no evidence in the session is not a candidate. Done when every point has a category and a cause, or is dropped.
 
-**Step 4. Print the candidates.** Score each candidate: cost 1 to 3 (1 up to 3 turns spent on the point, 2 from 4 to 10 turns, 3 more than 10 turns or wrong output shipped) times recurrence 1 to 3 (1 once, 2 likely again, 3 every session of this kind). Rank by the product and show it in the heading. Reply with the candidates alone and stop; the user picks which to apply.
+**Step 4. Print the candidates.** Score each candidate: cost 1 to 3 (1 up to 3 turns spent on the point, 2 from 4 to 10 turns, 3 more than 10 turns or wrong output shipped) times recurrence 1 to 3 by how often the point appeared in this session (1 once, 2 two or three times, 3 four or more). Quote each occurrence when recurrence is above 1, so the second factor is auditable. Rank by the product and show it in the heading. Reply with the candidates alone and stop; the user picks which to apply.
 
 Use this template as written:
 
