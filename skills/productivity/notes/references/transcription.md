@@ -84,4 +84,4 @@ tags:
 
 ## Anti-Pattern: Editorial Polish
 
-Reformatting, summarizing, or rewriting the transcription destroys its value as a verbatim record. The body is a primary source — observations and tags are derived data layered on top, not replacements.
+The body is a primary source; observations and tags are derived data layered on top, never replacements.

@@ -81,4 +81,4 @@ tags:
 
 ## Anti-Pattern: Status-Only Updates
 
-Updating only the frontmatter `status` field strips the narrative — why the status changed, what happened in the conversation, what shifted. Pair every status change with a Timeline row and an observation.
+Pair every status change with a Timeline row and an observation.

@@ -88,4 +88,4 @@ An entry in its final form:
 
 ## Anti-Pattern: Vague Impact Claims
 
-"Improved performance" is invisible at review time. "Reduced p99 latency from 800ms to 220ms" is concrete and defensible. Quantify with a metric, a percentage, or a time saved. When data is unavailable, state the proxy ("estimated 30% fewer support tickets in the affected flow").
+Quantify with a metric, a percentage, or a time saved: "reduced p99 latency from 800ms to 220ms", never "improved performance". When data is unavailable, state the proxy ("estimated 30% fewer support tickets in the affected flow").

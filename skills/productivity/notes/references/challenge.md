@@ -85,4 +85,4 @@ tags:
 
 ## Anti-Pattern: Skipping Failed Attempts
 
-Failed challenges contain the most useful learnings — they reveal which assumptions broke and what would be tried differently. Documenting only successes turns the challenge log into a vanity record. Capture both.
+Documenting only successes turns the challenge log into a vanity record. Capture both.
