@@ -1,3 +1,4 @@
+Use this template as written:
 ALWAYS use this exact template structure:
 
 ```markdown
