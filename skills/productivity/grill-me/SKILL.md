@@ -2,11 +2,13 @@
 name: grill-me
 description: 'Interviews the user round by round to settle every open decision in a plan, design, or idea, asking questions with a recommended answer until nothing is left assumed. Use when stress-testing a plan, resolving open decisions before a document or spec is written, or when the user says "grill me", "grill this plan", or "ask me questions until we agree". Not for generating or comparing alternatives, writing documents, or reviewing code.'
 disable-model-invocation: true
+compatibility: Requires python3.
+metadata:
+  inspired-by:
+    - "grilling — https://github.com/mattpocock/skills"
 ---
 
 # Grill Me
-
-## Quick start
 
 Take a plan, a design, or an idea as given and interview the user round by round until every decision in it is settled and nothing is left silently assumed.
 
