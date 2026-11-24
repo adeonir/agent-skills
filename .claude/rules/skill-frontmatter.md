@@ -1,1 +1,0 @@
-../../.agents/rules/skill-frontmatter.md

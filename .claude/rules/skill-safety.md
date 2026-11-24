@@ -1,0 +1,1 @@
+../../.agents/rules/skill-safety.md

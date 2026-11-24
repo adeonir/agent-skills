@@ -1,1 +1,0 @@
-../../.agents/rules/naming-conventions.md

@@ -1,1 +1,0 @@
-../../.agents/rules/skill-templates.md
