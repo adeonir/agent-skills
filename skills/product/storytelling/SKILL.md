@@ -5,9 +5,9 @@ description: "Creates or revises the story and experience direction of a site. U
 
 # Storytelling
 
-## Quick start
+Create or revise the story and experience direction of a site in one document, `docs/design/storytelling.md`, from whatever materials the project already holds.
 
-Create or revise the story and experience direction of a site in one document, `docs/design/storytelling.md`, from whatever materials the project already holds. The document states intent: what the visitor should feel and understand at each moment and the order the moments arrive in. The skill builds nothing.
+## Workflow
 
 ```text
 materials → state → assess → concept → arc → experience → recommend → document
@@ -28,7 +28,7 @@ Progress:
 - [ ] Step 8: Report
 ```
 
-**Step 1. Load the context.** Load [context.md](references/context.md). Find the materials, settle the role of each site, and detect the state the work starts from. Done when each material found has a kind, each site has a role, the state is known, and, with a project site, the work is marked evolve or new vision from the request or the user's answer.
+**Step 1. Load the context.** Load [context.md](references/context.md) · the materials, the site roles, and the starting state. Find the materials, settle the role of each site, and detect the state the work starts from. Done when each material found has a kind, each site has a role, the state is known, and, with a project site, the work is marked evolve or new vision from the request or the user's answer.
 
 **Step 2. Assess the current experience.** When a project site exists, describe what it delivers today: read the code in the repository, and when the user supplied an address for the site, also render that address. Page by page, and within each page from top to bottom, record for each section what it communicates and whether it connects to the previous section on the same page or stands apart. Observations only; no concept exists yet to judge against. Without a project site, skip this step. Done when every section has an observation, or the step was skipped.
 
@@ -44,13 +44,9 @@ Progress:
 
 **Step 6. Recommend.** When a project site was assessed or a visual identity exists, record what to preserve, what to reinterpret, and any conflict between the visual identity and the concept or the current experience. Recommendations stay in the document; the skill edits no existing artifact, code, or identity. Done when each recommendation names its subject, or the section is None because neither exists.
 
-**Step 7. Write the document.** Read [storytelling.md](assets/storytelling.md) and follow its structure; its MUST NOT list names what never appears in the document. State each entry as it stands, in present tense. When a prior document exists, revise it in place: keep every section the new materials do not touch. Set `Created:` on the first write and `Updated:` on every write, in the list under the title. Then run `python3 <this-skill>/scripts/check_storytelling.py docs/design/storytelling.md`, with `<this-skill>` resolved to the directory this `SKILL.md` was read from. Fix every ERROR; for each WARN on neighbors that share a pace, make the intent of the second say why or alternate the pace. Re-run until it reports no ERROR. Then re-read the document against the MUST NOT entries the script cannot check: a layout, grid, or wireframe described in words, a named typeface or palette, final copy, requirements or features, sibling artifact names outside References, the same fact in two sections, and the history of a decision. When a fix changes the content of an entry, return to the step that produced it. Done when the script reports no ERROR and the re-read finds no MUST NOT entry violated.
+**Step 7. Write the document.** Read [storytelling.md](assets/storytelling.md) · the document structure and its MUST NOT list, and follow it; its MUST NOT list names what never appears in the document. State each entry as it stands, in present tense. When a prior document exists, revise it in place: keep every section the new materials do not touch. Set `Created:` on the first write and `Updated:` on every write, in the list under the title. Then run `python3 <this-skill>/scripts/check_storytelling.py docs/design/storytelling.md`, with `<this-skill>` resolved to the directory this `SKILL.md` was read from. Fix every ERROR; for each WARN on neighbors that share a pace, make the intent of the second say why or alternate the pace. Re-run until it reports no ERROR. Then re-read the document against the MUST NOT entries the script cannot check: a layout, grid, or wireframe described in words, a named typeface or palette, final copy, requirements or features, sibling artifact names outside References, the same fact in two sections, and the history of a decision. When a fix changes the content of an entry, return to the step that produced it. Done when the script reports no ERROR and the re-read finds no MUST NOT entry violated.
 
 **Step 8. Report.** Report the path, what the document holds in one to three sentences — what changed, on a revision — and the open questions it carries. Never paste the document. Done when the report is sent.
-
-## Host metadata
-
-`agents/openai.yaml` carries the display name and short description for hosts that show skills; no step loads it.
 
 ## Guidelines
 

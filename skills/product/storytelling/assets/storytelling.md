@@ -1,3 +1,4 @@
+Use this template as written:
 <!--
 Storytelling document skeleton. Delete every comment and replace every square-bracket slot before writing the file.
 

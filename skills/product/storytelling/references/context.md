@@ -2,10 +2,6 @@
 
 Find the materials, settle the role of each site, and detect the state the work starts from.
 
-## When to Use
-
-Settles which materials the work draws on, whether each site is the project site or a reference, and which state the work starts from: context only, evolve, new vision, or prior document.
-
 ## Materials
 
 Work from whatever kinds exist; none is required.
