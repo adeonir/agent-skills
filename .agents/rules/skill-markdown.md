@@ -24,7 +24,7 @@ Write the message from the diff, never from chat context.
 
 ```markdown
 <!-- references/commit.md -->
-3. **Write the message** — from the staged diff, never from chat context. Trace every line back to a hunk before returning it.
+**Step 3. Write the message.** — from the staged diff, never from chat context. Trace every line back to a hunk before returning it.
 ```
 
 ## Index Every Reference

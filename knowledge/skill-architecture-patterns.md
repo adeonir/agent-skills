@@ -102,16 +102,16 @@ Creates a conventional commit from the actual changes.
 ## Workflow
 
 Progress:
-- [ ] 1 Stage the files
-- [ ] 2 Write the message from the diff
-- [ ] 3 Verify
+- [ ] Step 1: Stage the files
+- [ ] Step 2: Write the message from the diff
+- [ ] Step 3: Verify
 
-**1. Stage.** Stage by name the files that belong to this change. Done when `git diff --cached` shows exactly the intended set; when an unrelated file slipped in, return to this step.
+**Step 1. Stage.** Stage by name the files that belong to this change. Done when `git diff --cached` shows exactly the intended set; when an unrelated file slipped in, return to this step.
 
-**2. Write the message.** Write from the staged diff, taking the words from the hunks. Done when every line traces back to a hunk.
+**Step 2. Write the message.** Write from the staged diff, taking the words from the hunks. Done when every line traces back to a hunk.
 ```
 
-Declare the input, the action, and the completion condition in every step. Give a check that can fail a line that says where to go back. End where the job ends.
+Declare the input, the action, and the completion condition in every step. Number each step as `Step N` in the checklist and `**Step N. Name.**` in the body. Give a check that can fail a line that says where to go back. End where the job ends.
 
 ### Material
 

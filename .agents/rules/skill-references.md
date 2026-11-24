@@ -66,7 +66,7 @@ After generating the spec, run the design phase.
 **Correct:**
 
 ```markdown
-2. **Fill** the template at `assets/spec.md`; done when every placeholder carries a value.
+**Step 2. Fill** the template at `assets/spec.md`; done when every placeholder carries a value.
 ```
 
 ## Scripts and Tool Calls
