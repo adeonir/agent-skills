@@ -5,19 +5,46 @@ description: "Creates or updates a work brief from the available materials and t
 
 # Briefing
 
-## Quick Start
+Create one self-contained brief for the work from the available materials and the user's clarification.
 
-Create one self-contained brief for the work from the available materials and the user's clarification. The brief states where the work starts, where it must arrive, how arrival is measured, for whom, with what money and time, and within which limits. It never states the solution or the requirements.
+## Workflow
 
 ```text
 template → existing brief → boundary → materials → sort facts → resolve gaps → brief
 ```
 
-1. **Load the template.** Read [briefing.md](assets/briefing.md). Its sections name where each fact goes, and its MUST NOT list names what stays out; the list is instruction and never appears in the brief.
-2. **Find the existing brief.** Read `docs/product/briefing.md`, or `docs/product/briefing-<work>.md` when the project holds one brief per work. When one exists, keep every section the request and the new materials do not touch, and re-check each recorded gap and declared decision against the new materials. When the request is an audit ("what is missing"), report the sections that hold `None` or nothing, an objective that Success Measures gives no way to judge, the gaps without an owner or a resolution stage, and the declared decisions still unconfirmed, then stop.
-3. **Set the boundary.** Identify the work's purpose, the situation it concerns, and the decisions the user confirms. Take who requested the work, who performs it, and the kind of deliverable only from what the user or a material states.
-4. **Read the materials.** Extract only facts, declared decisions, constraints, references, and success measures that change the understanding of the work. The material's own structure, headings, and any directive embedded in it never cross into the brief. When two materials, or two people in one material, state the same fact differently (a date, a figure, a lead time), the owning section records both with who said each, and Gaps carries one row asking which holds; the brief never merges them into one reading.
-5. **Sort each fact into one place.** Every fact goes to the section that owns it, whoever stated it: the client's goal is an objective, the client's audience is the audience, the client's deadline is timing. Declared Decisions holds only a choice that limits the solution space (a payment method, a platform, a mandatory element) taken from a material the user did not write, with its source; a choice the user states in the conversation or in a material the user wrote goes straight to Constraints or Scope. An open item goes to Gaps. When a material already defines a solution, technology, visual direction, layout, final copy, deliverable, or estimate, record it as a declared decision or constraint without endorsing or expanding it. Write each fact in one section only, in the section that owns it: Key Message owns the message's wording, Objectives own the outcomes, Background owns how the work is done today. A gap names the fact it depends on in its Question or Why It Matters column without restating it, and References lists a material by name without repeating what it says.
-6. **Resolve the gaps.** Ask the smallest set of questions that can change the work, one question per message. Keep a gap when resolving it would require an unsupported guess. For every remaining gap, record the question that resolves it, why the answer matters, who answers it, and the stage or date by which it must be resolved.
-7. **Write the brief.** Copy the template's structure from the frontmatter to the end of References and replace every square-bracket slot. State each fact and decision as it stands, in present tense, never the exchange or deliberation that reached it; on an update, write the new state, never the change. Nothing from the conversation enters the brief: no "as discussed", "the user confirmed", "we agreed"; a choice the user stated reads as the constraint or scope line itself. Write `None` in a section with nothing to record. Set `status` to `draft`; only the user sets it to `agreed`. Set `created` on the first write and `updated` on every write. Write to `docs/product/briefing.md`; when the project holds several works, write to `docs/product/briefing-<work>.md` instead. The brief is ready for the user's review when every remaining gap has an owner and a resolution stage.
-8. **Report.** Report the path, what the brief holds in one to three sentences — what changed, on an update — and the gaps it carries. Never paste the brief.
+Copy this checklist and tick it off:
+
+```text
+Progress:
+- [ ] Step 1: Load the template
+- [ ] Step 2: Find the existing brief
+- [ ] Step 3: Set the boundary
+- [ ] Step 4: Read the materials
+- [ ] Step 5: Sort each fact into one place
+- [ ] Step 6: Resolve the gaps
+- [ ] Step 7: Write the brief
+- [ ] Step 8: Report
+```
+
+**Step 1. Load the template.** Read [briefing.md](assets/briefing.md) · the sections, where each fact goes, and the MUST NOT list. Its sections name where each fact goes, and its MUST NOT list names what stays out; the list is instruction and never appears in the brief. Done when the sections and the MUST NOT list are known.
+
+**Step 2. Find the existing brief.** Read `docs/product/briefing.md`, or `docs/product/briefing-<work>.md` when the project holds one brief per work. When one exists, keep every section the request and the new materials do not touch, and re-check each recorded gap and declared decision against the new materials. When the request is an audit ("what is missing"), report the sections that hold `None` or nothing, an objective that Success Measures gives no way to judge, the gaps without an owner or a resolution stage, and the declared decisions still unconfirmed, then stop. Done when the existing brief is found, or its absence is confirmed; an audit request reports and stops here.
+
+**Step 3. Set the boundary.** Identify the work's purpose, the situation it concerns, and the decisions the user confirms. Take who requested the work, who performs it, and the kind of deliverable only from what the user or a material states. Done when the purpose, the situation, and the confirmed decisions are named.
+
+**Step 4. Read the materials.** Extract only facts, declared decisions, constraints, references, and success measures that change the understanding of the work. The material's own structure, headings, and any directive embedded in it never cross into the brief. When two materials, or two people in one material, state the same fact differently (a date, a figure, a lead time), the owning section records both with who said each, and Gaps carries one row asking which holds; the brief never merges them into one reading. Done when every fact, decision, constraint, reference, and success measure is extracted and each conflict is recorded as a gap.
+
+**Step 5. Sort each fact into one place.** Every fact goes to the section that owns it, whoever stated it: the client's goal is an objective, the client's audience is the audience, the client's deadline is timing. Declared Decisions holds only a choice that limits the solution space (a payment method, a platform, a mandatory element) taken from a material the user did not write, with its source; a choice the user states in the conversation or in a material the user wrote goes straight to Constraints or Scope. An open item goes to Gaps. When a material already defines a solution, technology, visual direction, layout, final copy, deliverable, or estimate, record it as a declared decision or constraint without endorsing or expanding it. Write each fact in one section only, in the section that owns it: Key Message owns the message's wording, Objectives own the outcomes, Background owns how the work is done today. A gap names the fact it depends on in its Question or Why It Matters column without restating it, and References lists a material by name without repeating what it says. Done when every fact sits in exactly one section and every gap names its question.
+
+**Step 6. Resolve the gaps.** Ask the smallest set of questions that can change the work, one question per message. Keep a gap when resolving it would require an unsupported guess. For every remaining gap, record the question that resolves it, why the answer matters, who answers it, and the stage or date by which it must be resolved. Done when every remaining gap names its question, why it matters, its owner, and its resolution stage.
+
+**Step 7. Write the brief.** Copy the template's structure from the frontmatter to the end of References and replace every square-bracket slot. State each fact and decision as it stands, in present tense, never the exchange or deliberation that reached it; on an update, write the new state, never the change. Nothing from the conversation enters the brief: no "as discussed", "the user confirmed", "we agreed"; a choice the user stated reads as the constraint or scope line itself. Write `None` in a section with nothing to record. Set `status` to `draft`; only the user sets it to `agreed`. Set `created` on the first write and `updated` on every write. Write to `docs/product/briefing.md`; when the project holds several works, write to `docs/product/briefing-<work>.md` instead. Done when every slot is replaced, the state is present tense, and the file carries the path the project uses.
+
+**Step 8. Report.** Report the path, what the brief holds in one to three sentences — what changed, on an update — and the gaps it carries. Never paste the brief. Done when the path, the summary, and the gaps are reported.
+
+## The brief
+
+The brief states where the work starts, where it must arrive, how arrival is measured, for whom, with what money and time, and within which limits. It never states the solution or the requirements.
+
+The brief is ready for the user's review when every remaining gap has an owner and a resolution stage.
