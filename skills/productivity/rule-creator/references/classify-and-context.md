@@ -37,12 +37,12 @@ Do not write a partial rule file when refusing, and do not invoke the recommende
 
 Rules live at two levels in two homes, and a rule in any of the four directories may already cover the input. Validate against all four, whichever directory the new rule targets.
 
-| Level | Claude home | Agents home | Reaches |
+| Level | Agents home | Claude home | Reaches |
 |-------|-------------|-------------|---------|
-| user | `~/.claude/rules/` | `~/.agents/rules/` | every project on the machine |
-| project | `.claude/rules/` | `.agents/rules/` | this repository |
+| user | `~/.agents/rules/` | `~/.claude/rules/` | every project on the machine |
+| project | `.agents/rules/` | `.claude/rules/` | this repository |
 
-Claude Code loads the Claude home on its own, and project rules load after user rules and take priority. It does not load the Agents home: an agents rule applies only where a memory file points to it.
+Project rules load after user rules and take priority. Claude Code loads only the Claude home; it reaches the Agents home through a linked file or directory, or through an import in a memory file.
 
 ### Resolving a memory file
 
@@ -63,16 +63,16 @@ Three independent axes.
 | Axis | Values | Materializes as |
 |------|--------|-----------------|
 | Level | user / project | the directory written to |
-| Home | claude / agents | `.claude/rules/` or `.agents/rules/` |
+| Home | agents / claude | `.agents/rules/`, the neutral home, or `.claude/rules/`, the Claude mirror |
 | Scope | unconditional / path-scoped | absence or presence of `paths:` frontmatter |
 
 **user + path-scoped is unavailable.** Path-scoped user rules are not documented as supported and are reported to be ignored, so a path signal resolves the level to project. A user-level rule is always unconditional.
 
 ### Home
 
-**Agents signals:** ".agents", "agents rules", "agent-agnostic", "for every agent". **No signal → claude home**, the only home Claude Code loads on its own.
+**Claude signals:** the rule is Claude-specific, or the user names `.claude`. **No signal → agents home**, the neutral home every agent reads; link it into the Claude mirror when Claude Code must load it too.
 
-An agents rule is always unconditional and carries no `paths:` block; a path signal still resolves the level to project, and the pointer line states the scope. Claude Code reads an agents rule only when a memory file points to it, so the create report names the pointer line to add. Never edit the memory file unasked.
+An agents rule is always unconditional and carries no `paths:` block; a path signal still resolves the level to project. Claude Code reaches it through a link in the Claude mirror, so the create report names the link to add: `ln -s ../../.agents/rules/<topic>.md .claude/rules/<topic>.md`, never `ln -sf`. Never create the link unasked.
 
 ### Level
 
