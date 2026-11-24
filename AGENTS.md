@@ -120,7 +120,7 @@ Skills write to `docs/` (committed, human-readable, audience-first) or `.artifac
 
 `epic-tracker` writes no artifacts — its output lives in the tracker.
 
-`wrap-up` is the only skill that mutates another skill's artifact: it reads `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it writes to Obsidian, then clears it — only after persisting, and within the empty-file-equals-cleared contract `handoff` defines. Reading a sibling's artifact is ordinary composition (`craft-ui`'s mockup phase integrates the arrangement, tokens, and content); a mutating integrator is the exception, and `wrap-up` is its single instance — no other skill may write to or clear a sibling's artifact.
+`wrap-up` is the only skill that mutates another skill's artifact: it reads `.artifacts/HANDOFF.md` (owned by `handoff`) to enrich the session notes it writes to Obsidian, then removes the blocks it read — only after every note write succeeds, and never a block another session wrote. Reading a sibling's artifact is ordinary composition (`craft-ui`'s mockup phase integrates the arrangement, tokens, and content); a mutating integrator is the exception, and `wrap-up` is its single instance — no other skill may write to or clear a sibling's artifact.
 
 `.artifacts/` is excluded locally via `.git/info/exclude` on first write — it stays out of `git status` without touching `.gitignore`. Commit specific files only when explicitly requested.
 
