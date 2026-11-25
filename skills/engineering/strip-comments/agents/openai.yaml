@@ -1,0 +1,3 @@
+interface:
+  display_name: "Strip Comments"
+  short_description: "Delete comments and fix the code behind them"
