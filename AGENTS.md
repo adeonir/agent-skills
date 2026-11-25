@@ -19,8 +19,6 @@ These are authoring rules: path-scoped to the skill files they govern and applie
 | `.agents/rules/skill-writing` | `skills/**/*.md` | English and imperative, a reason that changes behavior, one default, no dates |
 | `.agents/rules/skill-safety` | `skills/**/*.md` | no secrets, no piped download-execute, trust boundary, read-only injected commands |
 
-Validation is manual, with no build, tests, or linter: after editing a skill, read its files against the rules above.
-
 ## Repository
 
 Repository of skills for AI coding agents. Markdown-first, following the [Agent Skills](https://agentskills.io) open standard.
