@@ -1,6 +1,6 @@
 # Load Handoff
 
-Read the consolidated `.artifacts/HANDOFF.md` so the current session resumes with prior context.
+Read the consolidated `.artifacts/HANDOFF.md` so the current session resumes with prior context. Never write `.artifacts/HANDOFF.md`.
 
 ## Workflow
 
@@ -18,6 +18,6 @@ Progress:
 
 **Step 2. Read.** Read the whole file into working context. Flag a topic block missing `Context` or `Current state`, then continue with the available context. Done when the whole file is read and every missing required section is flagged.
 
-**Step 3. Check claims.** Check load-bearing claims against current evidence before acting, starting with those marked `unverified`. Treat a claim you could not check as unverified. Done when each load-bearing claim is confirmed, corrected, or treated as unverified.
+**Step 3. Check claims.** Check load-bearing claims against current evidence before acting, starting with those marked `unverified`. Treat a claim you could not check as unverified. Done when each load-bearing claim is confirmed, corrected in the report, or treated as unverified.
 
 **Step 4. Report.** Report under four labels: `Topics`, one line per topic block naming its heading and goal; `Changed since save`, the claims Step 3 corrected or could not confirm, or `nothing`; `Open threads`, with the constraints that bear on them; and `Next`, the next action per topic inferred from its context and current state — never require a prescribed next step. Never print the handoff in full unless asked — reading it already puts it in context. Done when the report carries all four labels.
