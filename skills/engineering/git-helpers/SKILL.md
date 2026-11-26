@@ -1,8 +1,8 @@
 ---
 name: git-helpers
 description: "Git workflow for conventional commits, pull request creation, and pull request merging. Use when committing, opening or pushing a pull request, or merging one. Not for code review, acceptance-criteria checks, general branch management, or session wrap-up."
-compatibility: Requires git, gh, and python3.
-allowed-tools: Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git push:*) Bash(git switch:*) Bash(git fetch:*) Bash(git merge:*) Bash(git rebase:*) Bash(git branch:*) Bash(git config:*) Bash(gh pr:*) Bash(python3:*) Read
+compatibility: Requires git, python3, and the GitHub MCP server or gh.
+allowed-tools: Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git push:*) Bash(git switch:*) Bash(git fetch:*) Bash(git merge:*) Bash(git rebase:*) Bash(git branch:*) Bash(git config:*) Bash(git remote:*) Bash(git ls-remote:*) Bash(gh pr:*) Bash(python3:*) Read
 ---
 
 # Git Helpers

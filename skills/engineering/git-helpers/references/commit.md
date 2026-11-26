@@ -106,14 +106,14 @@ fix: resolve token refresh race condition
 ```
 
 ```text
-refactor: extract validation logic into shared utilities
+refactor: move request validators into a shared module
 ```
 
 ```text
 chore(auth): rotate signing key
 ```
 
-A body when the previous behavior was a problem the diff does not show:
+A body when the problem sits in surrounding code the diff does not show:
 
 ```text
 fix: read the config once at startup
@@ -127,8 +127,7 @@ A body when a constraint binds the solution:
 ```text
 refactor: pin the tokenizer to the sync API
 
-The async path drops surrogate pairs on flush, so the sync call stays until
-that lands upstream.
+The async path drops surrogate pairs on flush.
 ```
 
 **Bad — a body that restates what the diff shows.** The diff adds the expired-session check, so it already answers the problem; and the sentence stays true of every fix that replaces a crash with a handled response.

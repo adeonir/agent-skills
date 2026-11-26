@@ -29,7 +29,7 @@ npx skills add adeonir/agent-skills/<skill-name>
 | Skill | Description |
 | ----- | ----------- |
 | **[debug-tools](skills/engineering/debug-tools)** | Iterative investigate–fix–verify debugging with confidence scoring |
-| **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull requests, and branch lifecycle |
+| **[git-helpers](skills/engineering/git-helpers)** | Conventional commits, pull request creation, and pull request merging |
 | **[implement](skills/engineering/implement)** | Implement a spec with each task in a fresh sub-agent integrated on one branch, or one task or request on the current branch |
 | **[review-lens](skills/engineering/review-lens)** | Confidence-scored pre-PR code review in quick and deep modes |
 | **[spec-driven](skills/engineering/spec-driven)** | Spec-driven feature development from spec to delivery, with acceptance-criteria traceability |
