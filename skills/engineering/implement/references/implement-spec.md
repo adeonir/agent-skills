@@ -33,7 +33,7 @@ Progress:
 
 5. **Dispatch the ready tasks.** A task is ready when every blocker in scope is integrated and every blocker outside the scope has the tracker's done status. Load [implementer-brief.md](implementer-brief.md) and dispatch every ready task at once, with no fixed limit, except that ready tasks whose issues name the same file are dispatched one at a time, the next after the previous is integrated: create its worktree and branch from the integration branch tip with `git worktree add`, or reuse the existing ones. Set each task to the tracker's in-progress status as it is dispatched. With the first task set to in progress, set the spec to the tracker's in-progress status when it is not there yet; report a failed status update. Spawn one fresh implementer sub-agent per task on a mid-tier model at low effort, with the brief and its inputs. Done when every ready task is dispatched.
 
-6. **Integrate each finished task.** A report with blockers makes the task blocked. Integrate the other tasks one at a time:
+6. **Integrate each finished task.** A report with blockers makes the task blocked; its notes never block and carry into Step 8. Integrate the other tasks one at a time:
    - Read the integration branch tip. When the tip is contained in the task branch (`git merge-base --is-ancestor [integration branch] [task branch]`), fast-forward the integration branch with `git update-ref refs/heads/[integration branch] [task branch tip] [integration tip read]`. Tick its checklist line with the task branch tip sha, then set the task to the tracker's done status; report a failed status update. Then run `git worktree remove` on the task worktree and delete the task branch with `git branch -D [task branch]`.
    - When the tip is not contained, or `git update-ref` refuses because the tip moved, load [merger-brief.md](merger-brief.md) and spawn a fresh merger sub-agent in the same worktree on a model lighter than the implementer's mid-tier one, at low effort, with the brief. Its report returns to this step.
    - A blocked task keeps its worktree and its branch.
@@ -57,6 +57,7 @@ Progress:
    |------|--------|---------|--------------|
 
    Blockers: [each blocked task with its reason, or none]
+   Notes: [each observation from the task reports, or none]
    Not started: [each task still waiting on a blocker, or none]
    Review: [mode, each fix commit, the verification, and each finding left unapplied; or skipped or blocked, with the reason]
    Spec compliance: [each finding for the user to decide, or none; or not reviewed]
