@@ -18,7 +18,7 @@ Progress:
 - [ ] Step 3: Push the branch
 - [ ] Step 4: Read the branch against the base
 - [ ] Step 5: Write the title and body from what Step 4 read
-- [ ] Step 6: Open the pull request. If the remote lacks the branch, return to Step 3
+- [ ] Step 6: Open the pull request, then confirm the saved body is not empty. If the remote lacks the branch, return to Step 3
 - [ ] Step 7: Report the title, URL, and base
 ```
 
@@ -67,6 +67,6 @@ Keep sections proportional to the change. Always include Summary. Add Changes on
 
 Leave session narrative, rejected alternatives, future work, roadmap references, unrelated metrics, ceremonial gates, and attribution lines out of the body. Keep implementation detail out of outcome prose; include identifiers, paths, and literal results only where the visual or evidence needs them. The conversation is not a source for what changed: drop any claim recalled from the session that no hunk read in Step 4 shows. Done when each claim about the change maps to a hunk read in Step 4, verification claims map to captured evidence, optional sections are omitted when unearned, and missing verification is explicit.
 
-**Step 6. Open the pull request.** Call `GitHub:create_pull_request` with `head: "{branch}"` and the base, title, and body above; omit unused optional sections (`## Changes`, `## Evidence`, `## Merge risk`, `Closes [issue-id]`). Pass a multiline body as a structured tool argument or a body file. If the call fails because the remote lacks `{branch}`, return to Step 3. Done when the call returns the pull request URL.
+**Step 6. Open the pull request.** Call `GitHub:create_pull_request` with `head: "{branch}"` and the base, title, and body above; omit unused optional sections (`## Changes`, `## Evidence`, `## Merge risk`, `Closes [issue-id]`). Pass a multiline body as a structured tool argument, or write it to a file and pass the path; never pass it through stdin, which saves an empty body when nothing reaches it. If the call fails because the remote lacks `{branch}`, return to Step 3. Read the pull request back and check its body. An empty body means the description did not arrive: set it with `GitHub:update_pull_request`, or `gh pr edit {number} --body-file <path>`, and read it back again. Done when the call returns the pull request URL and the read-back body is not empty.
 
 **Step 7. Report.** Report the pull request title and URL in chat — not the full body. Name the base in the report so a wrong base is visible right away. Done when the report carries the title, the URL, and the base.
